@@ -42,7 +42,7 @@ public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
 		else if (serviceHelper.isWSDLResource(selectedObject)) {
 			Resource wsdl = (Resource) selectedObject;
 			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
-			if (wsdlFile == null && !wsdlFile.exists()) {
+			if (wsdlFile == null || !wsdlFile.exists()) {
 				openExternalWSDLAction.selectionChanged(selection);
 				openExternalWSDLAction.run();
 				return;
