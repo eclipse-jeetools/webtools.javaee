@@ -31,7 +31,7 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 																				    * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
 																				    */
 	public IModule[] getModules() {
-		return null;
+		return super.getModules();
 	}
 
 	protected static final String ID = "com.ibm.wtp.server.j2ee.application"; //$NON-NLS-1$

@@ -15,7 +15,7 @@ public class EnterpriseDeployableArtifactAdapterFactory implements IAdapterFacto
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
-		if (adapterType == IModuleArtifact.class)
+		if (adapterType == EnterpriseModuleArtifact.class)
 			moduleArtifact = EnterpriseApplicationDeployableAdapterUtil.getModuleObject(adaptableObject);
 		else if (adapterType == ILaunchable.class) {
 			if (adaptableObject instanceof EObject) {

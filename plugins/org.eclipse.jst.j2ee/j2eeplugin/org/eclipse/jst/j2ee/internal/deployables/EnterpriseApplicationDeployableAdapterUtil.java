@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
@@ -18,7 +21,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
+import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.util.NullModuleArtifact;
+
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -106,14 +111,14 @@ public class EnterpriseApplicationDeployableAdapterUtil {
      *            refObject - The current refObject.
      * @return IModule
      */
-    protected static IModule getModule(IProject project) {
+/*    protected static IModule getModule(IProject project) {
         EARNatureRuntime nature = getNature(project);
         if (nature != null) {
             return nature.getModule();
         }// if
         return null;
     }// getModule
-
+*/
     /**
      * Gets the ear nature.
      * 
@@ -127,6 +132,26 @@ public class EnterpriseApplicationDeployableAdapterUtil {
         }// if
         return null;
     }// getNature
+    
+    
+    protected static IModule getModule( IProject project) {
+    	EARNatureRuntime nature = getNature(project);
+    	if (nature == null)
+    		return null;
+		IModule deployable = nature.getModule();
+		if (deployable != null)
+			return deployable;
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ear")).iterator(); //$NON-NLS-1$
+		while (iterator.hasNext()) {
+			Object next = iterator.next();
+			if (next instanceof IModule) {
+				deployable = (IModule) next;
+				if (deployable.getProject().equals(project))
+					return deployable;
+			}
+		}
+		return null;
+	}
 
     /**
      * Creates the deployable object.
