@@ -17,7 +17,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
@@ -25,9 +24,6 @@ import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IProjectProperties;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.internal.ProjectProperties;
-import org.eclipse.wst.server.core.util.ServerAdapter;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -134,9 +130,11 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
         super.doSetProperty(propertyName, propertyValue);
         if (PROJECT_NAME.equals(propertyName)) {
             IProject project = ProjectUtilities.getProject(propertyValue);
-            IProjectProperties projProperties = ServerCore.getProjectProperties(project);
-            String[] validModuleVersions = getServerVersions(getModuleID(), projProperties.getRuntimeTarget().getRuntimeType());
-            setProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
+			if (project != null) {
+	            IProjectProperties projProperties = ServerCore.getProjectProperties(project);
+	            String[] validModuleVersions = getServerVersions(getModuleID(), projProperties.getRuntimeTarget().getRuntimeType());
+	            setProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
+			}
         } else if (IS_ENABLED.equals(propertyName)) {
             notifyEnablementChange(PROJECT_NAME);
         } else if (propertyName.equals(J2EE_VERSION)) {
@@ -166,6 +164,9 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
                 if (moduleName.indexOf("#") != -1) { //$NON-NLS-1$
                     String errorMessage = J2EECreationResourceHandler.getString("InvalidCharsError"); //$NON-NLS-1$
                     return WTPCommonPlugin.createErrorStatus(errorMessage);
+                } else if (moduleName==null || moduleName.equals("")) { //$NON-NLS-1$
+					String errorMessage = "Module name cannot be empty.";
+					return WTPCommonPlugin.createErrorStatus(errorMessage); 
                 }
             } else
                 return status;

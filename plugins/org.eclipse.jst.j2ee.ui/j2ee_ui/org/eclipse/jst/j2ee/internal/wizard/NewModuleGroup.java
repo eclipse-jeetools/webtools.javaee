@@ -16,9 +16,16 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard;
 import org.eclipse.swt.SWT;
@@ -32,7 +39,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -49,6 +56,7 @@ public class NewModuleGroup {
 	protected Button newButton = null;
 	protected Text serverTargetText;
 	private WTPDataModelSynchHelper synchHelper;
+	private Composite parentComposite;
 	
 	private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 	private static final String PROJECT_NAME = J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT)+ ":"; //$NON-NLS-1$
@@ -61,6 +69,7 @@ public class NewModuleGroup {
 	 */
 	public NewModuleGroup(Composite parent, int style, J2EEComponentCreationDataModel model) {
 		this.model = model;
+		this.parentComposite = parent;
 		synchHelper = new WTPDataModelSynchHelper(model);
 		buildComposites(parent);
 	}
@@ -79,10 +88,22 @@ public class NewModuleGroup {
 	
 	private void initializeProjectList() {
 		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
-		String[] items = new String[workspaceProjects.length];
-		for (int i=0; i<workspaceProjects.length; i++)
-			items[i]=workspaceProjects[i].getName();
-		projectNameCombo.setItems(items);
+		List items = new ArrayList();
+		for (int i=0; i<workspaceProjects.length; i++) {
+			IProject project = workspaceProjects[i];
+			try {
+				if (project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+					items.add(project.getName());
+				}
+			} catch (CoreException ce) {
+				//Ignore
+			}
+		}
+		String[] names = new String[items.size()];
+		for (int i=0; i<items.size(); i++) {
+			names[i]= (String) items.get(i);
+		}
+		projectNameCombo.setItems(names);
 	}
 
 	/**
@@ -112,11 +133,21 @@ public class NewModuleGroup {
 		newButton.setText(NEW_LABEL);
 		newButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				//TODO Launch new default project wizard
-				//FlexibleProjectCreationWizard();
+				handleNewProjectSelected();
 			}
 		});
-		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
+		synchHelper.synchCombo(projectNameCombo, J2EECreationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
+	}
+	
+	private void handleNewProjectSelected() {
+		J2EEProjectCreationDataModel projModel = new J2EEProjectCreationDataModel();
+		FlexibleProjectCreationWizard newProjectWizard = new FlexibleProjectCreationWizard(projModel);
+		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), newProjectWizard);
+		if (Window.OK == dialog.open()) {
+			String newProjectName = projModel.getStringProperty(J2EEProjectCreationDataModel.PROJECT_NAME);
+			projectNameCombo.add(newProjectName);
+			projectNameCombo.setText(newProjectName);
+		}
 	}
 	
 	private void createModuleGroup(Composite parent) {

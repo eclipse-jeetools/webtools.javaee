@@ -99,6 +99,31 @@
        </commonWizard>
       </extension> 
       
+   <!-- Web Module Wizard -->
+    <extension
+         id="J2EEUIProjectWizards"
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="%web.category_ui_"
+            id="org.eclipse.jst.servlet.ui">
+      </category>
+      <wizard
+            name="%web.project_ui_"
+            icon="icons/full/ctool16/newwar_wiz.gif"
+            category="org.eclipse.wst.web.ui"
+            class="org.eclipse.jst.servlet.ui.WebModuleCreationWizard"
+            project="true"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            id="org.eclipse.jst.servlet.ui.WebModuleCreationWizard">
+         <description>
+            %new.web.project.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+    </extension>
+      
    <extension
          point="org.eclipse.ui.importWizards">
     <wizard
