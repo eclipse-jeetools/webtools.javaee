@@ -16,7 +16,7 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	
@@ -57,11 +57,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
-	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
+	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
 
-	public ConnectorArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
+	public ConnectorArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 	
@@ -138,11 +138,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of ConnectorArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of ConnectorArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an ConnectorArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that will not
+	 * Use to acquire an ConnectorArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
 	 * be used for editing. Invocations of any save*() API on an instance returned from this method
 	 * will throw exceptions.
 	 * </p>
@@ -151,14 +151,14 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of ConnectorArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(WorkbenchModule aModule) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -173,11 +173,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of ConnectorArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of ConnectorArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an ConnectorArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that
+	 * Use to acquire an ConnectorArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
 	 * will be used for editing.
 	 * </p>
 	 * <p>
@@ -185,12 +185,12 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of ConnectorArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(WorkbenchModule aModule) {
+	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -204,12 +204,12 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	
 	/**
 	 * @param module
-	 *            A {@see WorkbenchModule}
+	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchModule)}and the moduleTypeId is a
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
 	 *         JST module
 	 */
-	public static boolean isValidConnectorModule(WorkbenchModule aModule) throws UnresolveableURIException {
+	public static boolean isValidConnectorModule(WorkbenchComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_Connector_MODULE type */

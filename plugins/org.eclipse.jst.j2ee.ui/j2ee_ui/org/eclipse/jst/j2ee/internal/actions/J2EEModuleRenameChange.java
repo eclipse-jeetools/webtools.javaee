@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 
 /**
@@ -43,10 +43,10 @@ import org.eclipse.wst.common.modulecore.WorkbenchModule;
 public class J2EEModuleRenameChange extends Change {
 
 	private String newName;
-	private WorkbenchModule target;
+	private WorkbenchComponent target;
 	private boolean renameDependencies;
 
-	public J2EEModuleRenameChange(WorkbenchModule target, String newName, boolean renameDependencies) {
+	public J2EEModuleRenameChange(WorkbenchComponent target, String newName, boolean renameDependencies) {
 		this.target = target;
 		this.newName = newName;
 		this.renameDependencies = renameDependencies;

@@ -51,8 +51,8 @@ import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -160,11 +160,11 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 			modules = new ArrayList();
 			IStructuredSelection sel = (StructuredSelection) getSelection();
 			Iterator iterator = sel.iterator();
-			WorkbenchModule module = null;
+			WorkbenchComponent module = null;
 			Object o = null;
 			while (iterator.hasNext()) {
 				o = iterator.next();
-				if (o instanceof WorkbenchModule) {
+				if (o instanceof WorkbenchComponent) {
 					modules.add(o);
 				} else if (o instanceof EObject) {
 					EObject obj = (EObject) o;
@@ -173,7 +173,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 					try {
 						moduleCore = ModuleCore.getModuleCoreForRead(project);
 						URI uri = obj.eResource().getURI();
-						WorkbenchModuleResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
+						ComponentResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
 						for (int i=0; i<resources.length; i++) {
 							module = resources[i].getModule();
 							if (module !=null)
@@ -204,7 +204,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 			List localModules = getModules();
 			if (localModules.size() != 1)
 				return;
-			WorkbenchModule module = (WorkbenchModule) localModules.get(0);
+			WorkbenchComponent module = (WorkbenchComponent) localModules.get(0);
 			J2EERenameDialog dlg = null;
 
 			// if all we are doing is renaming an EAR, let the base platform do it
@@ -251,7 +251,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 		getModules();
 		referencedProjects = new HashSet();
 		for (int i = 0; i < modules.size(); i++) {
-			//WorkbenchModule module = (WorkbenchModule) modules.get(i);
+			//WorkbenchComponent module = (WorkbenchComponent) modules.get(i);
 			//TODO fix up code here for modules instead of projects
 //			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
 //			if (runtime == null)
@@ -316,7 +316,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 		// only web projects should have a context root
 		String newContextRoot = options.getNewContextRoot();
 		if (newContextRoot != null && options.shouldRenameProjects()) {
-			//WorkbenchModule module = (WorkbenchModule) getModules().get(0);
+			//WorkbenchComponent module = (WorkbenchComponent) getModules().get(0);
 			try {
 				// TODO add server context root to the module model
 				//module.setServerContextRoot(newContextRoot);		               		

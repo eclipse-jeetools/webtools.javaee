@@ -18,7 +18,7 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 /**
  * @author Admin
@@ -104,9 +104,9 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 		synchronized (artifactEdits) {
 			if (artifactEdits.size() ==0 && project.isAccessible()) {
 				ModuleCore moduleCore = getModuleCore();
-				WorkbenchModule[] workBenchModules = moduleCore.getWorkbenchModules(); 
+				WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
 			    for (int i = 0; i < workBenchModules.length; i++) {
-	                 WorkbenchModule module = workBenchModules[i];
+	                 WorkbenchComponent module = workBenchModules[i];
 	                 ArtifactEdit artifactEdit = null;
 	                 try{
 	                  	   artifactEdit = ArtifactEdit.getArtifactEditForRead(module );

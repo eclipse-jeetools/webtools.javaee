@@ -28,11 +28,11 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.DependentModule;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 /**
  * <p>
@@ -66,11 +66,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that will not
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
 	 * be used for editing. Invocations of any save*() API on an instance returned from this method
 	 * will throw exceptions.
 	 * </p>
@@ -79,14 +79,14 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of WebArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static WebArtifactEdit getWebArtifactEditForRead(WorkbenchModule aModule) {
+	public static WebArtifactEdit getWebArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidWebModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -103,11 +103,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of WebArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
 	 * will be used for editing.
 	 * </p>
 	 * <p>
@@ -115,12 +115,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of WebArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static WebArtifactEdit getWebArtifactEditForWrite(WorkbenchModule aModule) {
+	public static WebArtifactEdit getWebArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidWebModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -135,12 +135,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	/**
 	 * @param module
-	 *            A {@see WorkbenchModule}
+	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchModule)}and the moduleTypeId is a
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
 	 *         JST module
 	 */
-	public static boolean isValidWebModule(WorkbenchModule aModule) throws UnresolveableURIException {
+	public static boolean isValidWebModule(WorkbenchComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_WEB_MODULE type */
@@ -169,10 +169,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
-	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
+	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
-	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
+	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -337,21 +337,21 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @return array of the web library dependent modules
 	 */
-	public DependentModule[] getLibModules() {
+	public ReferencedComponent[] getLibModules() {
 		List result = new ArrayList();
 		List dependentModules = module.getModules();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
 		for (int i=0; i<dependentModules.size(); i++) {
-			DependentModule child = (DependentModule) dependentModules.get(i);
+			ReferencedComponent child = (ReferencedComponent) dependentModules.get(i);
 			URI parentFolderURI = child.getDeployedPath().trimSegments(1);
 			URI webLib = getDeploymentDescriptorResource().getURI().trimSegments(1).appendSegment(LIB);
 			if (parentFolderURI.equals(webLib))
 				result.add(child);
 		}
 		// add results to an array for return
-		DependentModule[] libModules = new DependentModule[result.size()];
+		ReferencedComponent[] libModules = new ReferencedComponent[result.size()];
 		for (int i=0; i<result.size(); i++) {
-			DependentModule child = (DependentModule) result.get(i);
+			ReferencedComponent child = (ReferencedComponent) result.get(i);
 			libModules[i] = child;
 		}
 		return libModules;
@@ -364,7 +364,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @param libModules array of dependent modules to add as web libraries 
 	 */
-	public void addLibModules(DependentModule[] libModules) {
+	public void addLibModules(ReferencedComponent[] libModules) {
 		if (libModules==null)
 			return;
 		for (int i=0; i<libModules.length; i++) {

@@ -19,7 +19,7 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	
@@ -45,7 +45,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AppClientArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
+	public AppClientArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 		// TODO Auto-generated constructor stub
 	}
@@ -155,11 +155,11 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of AppClientArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of AppClientArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an AppClientArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that will not
+	 * Use to acquire an AppClientArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
 	 * be used for editing. Invocations of any save*() API on an instance returned from this method
 	 * will throw exceptions.
 	 * </p>
@@ -168,14 +168,14 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of AppClientArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static AppClientArtifactEdit getAppClientArtifactEditForRead(WorkbenchModule aModule) {
+	public static AppClientArtifactEdit getAppClientArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidApplicationClientModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -190,11 +190,11 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of AppClientArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of AppClientArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an AppClientArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that
+	 * Use to acquire an AppClientArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
 	 * will be used for editing.
 	 * </p>
 	 * <p>
@@ -202,12 +202,12 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of AppClientArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(WorkbenchModule aModule) {
+	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidApplicationClientModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -221,12 +221,12 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	
 	/**
 	 * @param module
-	 *            A {@see WorkbenchModule}
+	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchModule)}and the moduleTypeId is a
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
 	 *         JST module
 	 */
-	public static boolean isValidApplicationClientModule(WorkbenchModule aModule) throws UnresolveableURIException {
+	public static boolean isValidApplicationClientModule(WorkbenchComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_ApplicationClient_MODULE type */

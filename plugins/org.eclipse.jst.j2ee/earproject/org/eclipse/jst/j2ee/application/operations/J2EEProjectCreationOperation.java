@@ -22,7 +22,7 @@ import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ProjectModules;
+import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class J2EEProjectCreationOperation extends WTPOperation {
@@ -57,7 +57,7 @@ public class J2EEProjectCreationOperation extends WTPOperation {
 			IProject containingProject = getProject();
 			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
 			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectModules projectModules = moduleCore.getModuleModelRoot();
+			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
 			moduleCore.saveIfNecessary(null); 
 		} finally {
 			if(moduleCore != null)

@@ -28,8 +28,8 @@ import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilder;
 import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderDataModel;
 
@@ -54,7 +54,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 
 		// preparation
 		JavaDeployableModuleBuilderDataModel dataModel = (JavaDeployableModuleBuilderDataModel) operationDataModel;
-		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(DeployableModuleBuilderDataModel.WORKBENCH_MODULE);
+		WorkbenchComponent workbenchModule = (WorkbenchComponent)dataModel.getProperty(DeployableModuleBuilderDataModel.WORKBENCH_MODULE);
 		
 		IProject project = (IProject)dataModel.getProperty(DeployableModuleBuilderDataModel.PROJECT);
 		IPath projectPath = project.getFullPath();
@@ -72,7 +72,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		List resourceList = workbenchModule.getResources();
 		List javaOutputPathList = new ArrayList();
 		for (int i = 0; i < resourceList.size(); i++) {
-			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
+			ComponentResource wmr = (ComponentResource)resourceList.get(i);
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
 			IResource sourceResource =  ModuleCore.getEclipseResource(wmr);
@@ -110,7 +110,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		IClasspathEntry[] cpe = javaProj.getRawClasspath();
 		boolean classpathModified = false;
 		for (int i = 0; i < resourceList.size(); i++) {
-			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
+			ComponentResource wmr = (ComponentResource)resourceList.get(i);
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
 			IResource sourceResource = ModuleCore.getEclipseResource(wmr);

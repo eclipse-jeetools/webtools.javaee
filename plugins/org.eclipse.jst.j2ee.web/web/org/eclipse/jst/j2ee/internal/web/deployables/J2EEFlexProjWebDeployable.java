@@ -24,7 +24,7 @@ import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
@@ -48,7 +48,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
      * @param aNature
      * @param aFactoryId
      */
-    public J2EEFlexProjWebDeployable(IProject project, String aFactoryId, WorkbenchModule aWorkbenchModule) {
+    public J2EEFlexProjWebDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
         super(project, aFactoryId, aWorkbenchModule);
         this.contextRoot = getUncachedContextRoot();
     }

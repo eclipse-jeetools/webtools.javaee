@@ -61,8 +61,8 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 
 import sun.misc.Service;
 
@@ -294,8 +294,8 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			WebApp webApp = null;
 			try{
 				moduleCore = ModuleCore.getModuleCoreForRead(p);
-				WorkbenchModuleResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
-				WorkbenchModule module = null;
+				ComponentResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
+				WorkbenchComponent module = null;
 				for (int i=0; i<resources.length; i++) {
 					module = resources[i].getModule();
 					if (module != null)

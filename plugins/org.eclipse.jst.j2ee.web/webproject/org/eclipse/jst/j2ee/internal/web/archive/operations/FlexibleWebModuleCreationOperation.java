@@ -36,10 +36,10 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ModuleType;
-import org.eclipse.wst.common.modulecore.ProjectModules;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.ComponentType;
+import org.eclipse.wst.common.modulecore.ProjectComponents;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
@@ -96,7 +96,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 		}
 		
         ModuleCore moduleCore = null;
-        WorkbenchModule wbmodule = null;
+        WorkbenchComponent wbmodule = null;
         try {
             moduleCore = ModuleCore.getModuleCoreForRead(operationDataModel.getTargetProject());
             wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(ArtifactEditOperationDataModel.MODULE_DEPLOY_NAME));
@@ -139,9 +139,9 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	/**
 	 * @param projectModules
 	 */
-	private void addContent(ProjectModules projectModules) {
+	private void addContent(ProjectComponents projectModules) {
 		
-	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleDeployName(), createModuleURI()); //$NON-NLS-1$
+	    WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleDeployName(), createModuleURI()); //$NON-NLS-1$
 		
 		addResource(webModule, getModuleRelativeFile(getWebContentSourcePath( getModuleName() ), getProject()), getWebContentDeployPath());
 		addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());
@@ -159,17 +159,17 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 		return URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+ getModuleDeployName()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
-		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
+	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
+		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
-	public WorkbenchModule addWorkbenchModule(ProjectModules theModules, String aDeployedName, URI aHandle) {
-		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
+		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
 		module.setHandle(aHandle);  
 		module.setDeployedName(aDeployedName);  
-		ModuleType type = ModuleCoreFactory.eINSTANCE.createModuleType();
+		ComponentType type = ModuleCoreFactory.eINSTANCE.createModuleType();
 		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
 		module.setModuleType(type);
 		theModules.getWorkbenchModules().add(module);
@@ -228,7 +228,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 			IProject containingProject = getProject();
 			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
 			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectModules projectModules = moduleCore.getModuleModelRoot();
+			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
 			addContent(projectModules);
 			moduleCore.saveIfNecessary(null); 
 		} finally {

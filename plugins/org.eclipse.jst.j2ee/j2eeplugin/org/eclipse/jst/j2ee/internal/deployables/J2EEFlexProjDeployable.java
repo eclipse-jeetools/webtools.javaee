@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
@@ -25,7 +25,7 @@ import org.eclipse.wst.server.core.util.ProjectModule;
  */
 public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ2EEModule {
 	private String factoryId;
-    protected WorkbenchModule wbModule = null;
+    protected WorkbenchComponent wbModule = null;
 
 
 	/**
@@ -33,7 +33,7 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	 * 
 	 * @param project
 	 */
-	public J2EEFlexProjDeployable(IProject project, String aFactoryId, WorkbenchModule aWorkbenchModule) {
+	public J2EEFlexProjDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
 		super(project);
 		factoryId = aFactoryId;
 		wbModule = aWorkbenchModule;

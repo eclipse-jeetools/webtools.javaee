@@ -22,8 +22,8 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
-import org.eclipse.wst.common.modulecore.ProjectModules;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.ProjectComponents;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -57,7 +57,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
         try {
         	ModuleCoreNature moduleCoreNature = ModuleCoreNature.getModuleCoreNature(project);
         	moduleStructureModel = moduleCoreNature.getModuleStructuralModelForRead(this);
-            ProjectModules module = (ProjectModules) moduleStructureModel.getPrimaryRootObject();
+            ProjectComponents module = (ProjectComponents) moduleStructureModel.getPrimaryRootObject();
             EList workBenchModules = module.getWorkbenchModules();
             modules = createModuleDelegates(workBenchModules, project);
 
@@ -77,13 +77,13 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 
         for (int i = 0; i < workBenchModules.size(); i++) {
             try {
-                WorkbenchModule wbModule = (WorkbenchModule) workBenchModules.get(i);
+                WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
                 moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
                 module = createModule(wbModule.getDeployedName(), wbModule.getDeployedName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
                         moduleDelegate.getProject());
                 moduleList.add(module);
                 moduleDelegate.initialize(module);
-                adapt(moduleDelegate, (WorkbenchModule) workBenchModules.get(i));
+                adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
             } catch (Exception e) {
                 Logger.getLogger().write(e);
             } finally {
@@ -94,7 +94,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 
     }
 
-    private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchModule wbModule) {
+    private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
 
         ModuleAdapter moduleAdapter = new ModuleAdapter() {
             public void notifyChanged(Notification msg) {

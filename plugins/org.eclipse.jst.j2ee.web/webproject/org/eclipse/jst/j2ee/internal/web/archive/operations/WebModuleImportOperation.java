@@ -38,7 +38,7 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 //import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.DependentModule;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
@@ -156,7 +156,7 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		try {
 			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit!=null)
-				webArtifactEdit.addLibModules((DependentModule[])modules);
+				webArtifactEdit.addLibModules((ReferencedComponent[])modules);
 		} finally  {
 			if (webArtifactEdit!=null)
 				webArtifactEdit.dispose();

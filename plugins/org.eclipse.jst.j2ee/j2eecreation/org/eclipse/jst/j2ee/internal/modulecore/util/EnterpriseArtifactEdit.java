@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 /**
  * <p>
@@ -49,7 +49,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 
 	/**
 	 * <p>
-	 * Creates an instance facade for the given {@see WorkbenchModule}.
+	 * Creates an instance facade for the given {@see WorkbenchComponent}.
 	 * </p>
 	 * <p>
 	 * Instances of EnterpriseArtifactEdit that are returned through this method must be
@@ -59,11 +59,11 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}&nbsp;for an accessible project
 	 * @param aModule
-	 *            A non-null {@see WorkbenchModule}&nbsp;pointing to a module from the given
+	 *            A non-null {@see WorkbenchComponent}&nbsp;pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
 
-	public EnterpriseArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
+	public EnterpriseArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
@@ -72,7 +72,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * Retrieves J2EE version information from deployment descriptor resource.
 	 * </p>
 	 * 
-	 * @return An the J2EE Specification version of the underlying {@see WorkbenchModule}
+	 * @return An the J2EE Specification version of the underlying {@see WorkbenchComponent}
 	 *  
 	 */
 	public abstract int getJ2EEVersion();
@@ -82,7 +82,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * Retrieves a deployment descriptor resource from {@see ArtifactEditModel}using a defined URI.
 	 * </p>
 	 * 
-	 * @return The correct deployment descriptor resource for the underlying {@see WorkbenchModule}
+	 * @return The correct deployment descriptor resource for the underlying {@see WorkbenchComponent}
 	 *  
 	 */
 	public abstract Resource getDeploymentDescriptorResource();
