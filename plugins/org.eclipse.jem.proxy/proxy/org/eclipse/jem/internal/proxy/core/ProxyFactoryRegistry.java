@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.5 $  $Date: 2004/11/22 22:23:05 $ 
+ *  $Revision: 1.6 $  $Date: 2004/12/01 17:09:06 $ 
  */
 
 
@@ -296,36 +296,24 @@ public abstract class ProxyFactoryRegistry {
 			fCurrentStandardBeanTypeProxyFactory = null;
 		}
 		if (fCurrentStandardBeanProxyFactory != null) {
-			VETimerTests.basicTest.startStep("Terminate Bean Factory");
 			fCurrentStandardBeanProxyFactory.terminateFactory(wait);
-			VETimerTests.basicTest.stopStep("Terminate Bean Factory");
 			fCurrentStandardBeanProxyFactory = null;
 		}
 		if (fMethodProxyFactory != null) {
-//			VETimerTests.basicTest.startStep("Terminate Method Factory");
 			fMethodProxyFactory.terminateFactory(wait);
-//			VETimerTests.basicTest.stopStep("Terminate Method Factory");
 			fMethodProxyFactory = null;
 		}
 		
 		Iterator itr = fRegisteredExtensionBeanTypeProxyFactories.values().iterator();
-		VETimerTests.basicTest.startAccumulating("Terminate Aux. Bean Factory");
 		while (itr.hasNext()) {
-			VETimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory");
 			((IBeanProxyFactory) itr.next()).terminateFactory(wait);
-			VETimerTests.basicTest.stopCumulativeStep("Terminate Aux. Bean Factory");
 		}
-		VETimerTests.basicTest.stopAccumulating("Terminate Aux. Bean Factory");
 		fRegisteredExtensionBeanTypeProxyFactories.clear();
 		
 		itr = fRegisteredExtensionBeanProxyFactories.values().iterator();
-		VETimerTests.basicTest.startAccumulating("Terminate Aux. BeanType Factory");		
 		while (itr.hasNext()) {
-			VETimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory");
 			((IBeanProxyFactory) itr.next()).terminateFactory(wait);
-			VETimerTests.basicTest.stopCumulativeStep("Terminate Aux. BeanType Factory");
 		}
-		VETimerTests.basicTest.stopAccumulating("Terminate Aux. BeanType Factory");
 		fRegisteredExtensionBeanProxyFactories.clear();
 		
 		fRegisteredConstants.clear();

@@ -10,10 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: VETimerTests.java,v $
- *  $Revision: 1.1 $  $Date: 2004/11/22 22:21:38 $ 
+ *  $Revision: 1.2 $  $Date: 2004/12/01 17:09:07 $ 
  */
 package org.eclipse.jem.internal.temp;
 
+import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -152,7 +153,12 @@ public class VETimerTests {
 		Map cumSteps;
 		TimerStep prevStep = null;
 		TimerStep startStep;
+		NumberFormat percentFormatter = NumberFormat.getPercentInstance();
+		double totalTime = 0;
 		StringBuffer strb = new StringBuffer(150);
+		if (steps.size() > 2){
+			totalTime = ((TimerStep)steps.get(steps.size()-1)).currentTime - ((TimerStep)steps.get(0)).currentTime;
+		}
 		for (int i = 0; i < steps.size(); i++) {
 			TimerStep step = (TimerStep) steps.get(i);
 			Integer threadId = new Integer(step.threadId);
@@ -215,7 +221,10 @@ public class VETimerTests {
 								for (int j = 0; j < addchars; j++) {
 									strb.append(" ");
 								}
-								strb.append("    Total = " + (step.currentTime - startStep.currentTime) + " ms");
+								long delta = step.currentTime - startStep.currentTime;
+								strb.append("    Total = " + delta + " ms");
+								if (totalTime > 0)
+									strb.append("   " + percentFormatter.format(delta/totalTime));
 							}
 						} else
 							strb.append("    ---> Couldn't find Starting point for \"" + step.id + "\"");
@@ -231,11 +240,10 @@ public class VETimerTests {
 					if (cumSteps == null)
 						stepInfoByThreadId.put(threadId, cumSteps = new HashMap());
 					cumSteps.put(step.id, new CumulativeInformation());
-					indent = 0;
 					threadIndent = (Integer) indentsByThreadId.get(threadId);
+					indent = 0;
 					if (threadIndent != null)
-						indent = threadIndent.intValue() + 1;
-					indentsByThreadId.put(threadId, new Integer(indent));
+						indent = threadIndent.intValue();
 					strb.setLength(0);
 					strb.append(step.currentTime);
 					strb.append("\t");
@@ -283,16 +291,10 @@ public class VETimerTests {
 					break;
 					
 				case TimerStep.STOP_ACCUMULATING:
-					indent = 0;
 					threadIndent = (Integer) indentsByThreadId.get(threadId);
+					indent = 0;
 					if (threadIndent != null)
 						indent = threadIndent.intValue();
-					if (indent > 0)
-						indentsByThreadId.put(threadId, new Integer(indent - 1));
-					else {
-						indentsByThreadId.remove(threadId);
-						indent = 0;
-					}
 					strb.setLength(0);
 					strb.append(step.currentTime);
 					strb.append("\t");
@@ -319,6 +321,10 @@ public class VETimerTests {
 								strb.append(cumInfo.maxTime);
 								strb.append("   min time=");
 								strb.append(cumInfo.minTime);
+								strb.append("   avg time=");
+								Double cumT = new Double(cumInfo.cumTime);
+								Double cumC = new Double(cumInfo.cumCount);
+								strb.append(cumT.doubleValue()/cumC.doubleValue());
 							}
 						}
 					}
