@@ -1,11 +1,15 @@
-/*****************************************************************************************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the
- * terms of the Common Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
+/*******************************************************************************
+ * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: IBM Corporation - initial API and implementation
- ****************************************************************************************************************************************************/
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 /*
- * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.9 $ $Date: 2005/02/15 22:57:26 $
+ * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.10 $ $Date: 2005/02/16 00:59:27 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
