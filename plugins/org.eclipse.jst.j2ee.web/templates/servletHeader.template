@@ -1,0 +1,37 @@
+<% CreateServletTemplateModel model = (CreateServletTemplateModel) argument; 
+if (model.getJavaPackageName()!=null && model.getJavaPackageName()!="") { %>package <%=model.getJavaPackageName()%>;<%}%>
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class for Servlet: <%=model.getServletClassName()%>
+ *
+ * @web.servlet
+ *   name="<%=model.getServletName()%>"
+ *   display-name="<%=model.getServletName()%>" <%
+ if (model.getServletDescription() !=null && model.getServletDescription() != "") { %>
+ *   description="<%=model.getServletDescription()%>" <% } %>
+ *
+ <% List mappings = model.getServletMappings();
+ if (mappings!=null && mappings.size()>0) {
+      for (int i=0; i<mappings.size(); i++) {
+      	 String map = model.getServletMapping(i); %>
+ * @web.servlet-mapping
+ *   url-pattern="<%=map%>"
+ *  <% } } 
+ List initParams = model.getInitParams();
+ if (initParams!=null && initParams.size()>0) {
+    for (int i=0; i<initParams.size(); i++) {
+      String name = model.getInitParam(i,CreateServletTemplateModel.NAME);
+      String value = model.getInitParam(i,CreateServletTemplateModel.VALUE);
+      String description = model.getInitParam(i,CreateServletTemplateModel.DESCRIPTION); %>
+ * @web.servlet-init-param
+ *    name="<%=name%>"
+ *    value="<%=value%>" <% if (description !=null && description!="") { %>
+ *    description="<%=description%>" <%} %>
+ * <% } } %>
+ */
+ 
