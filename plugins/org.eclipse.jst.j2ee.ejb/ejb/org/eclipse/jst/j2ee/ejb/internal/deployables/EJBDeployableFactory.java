@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.ejb.internal.deployables;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
@@ -84,6 +85,11 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	public IModule[] getModules() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected boolean isValidModule(IProject project) {
+
+		return false;
 	}
 
 
