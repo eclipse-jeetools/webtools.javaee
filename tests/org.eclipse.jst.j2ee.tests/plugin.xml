@@ -31,8 +31,6 @@
       <import plugin="org.eclipse.wst.web"/>
       <import plugin="org.eclipse.wst.common.tests"/>
       <import plugin="org.eclipse.wst.server.core"/>
-      
-      
    </requires>
 
 </plugin>
