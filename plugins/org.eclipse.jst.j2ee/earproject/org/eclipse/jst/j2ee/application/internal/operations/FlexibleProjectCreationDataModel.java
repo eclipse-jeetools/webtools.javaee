@@ -46,8 +46,8 @@ public class FlexibleProjectCreationDataModel extends WTPOperationDataModel {
 	private static final String NESTED_MODEL_SERVER_TARGET = "FlexibleProjectCreationDataModel.NESTED_MODEL_SERVER_TARGET"; //$NON-NLS-1$
 
 	private ProjectCreationDataModel projectDataModel;
-	public static final String PROJECT_NAME = "FlexibleProjectCreationDataModel.PROJECT_NAME";
-	public static final String PROJECT_LOCATION = "FlexibleProjectCreationDataModel.PROJECT_LOCATION";
+	public static final String PROJECT_NAME = "FlexibleProjectCreationDataModel.PROJECT_NAME"; //$NON-NLS-1$
+	public static final String PROJECT_LOCATION = "FlexibleProjectCreationDataModel.PROJECT_LOCATION"; //$NON-NLS-1$
 	private static final String NESTED_MODEL_PROJECT_CREATION = "FlexibleProjectCreationDataModel.NESTED_MODEL_PROJECT_CREATION"; //$NON-NLS-1$
 	
 	protected void initValidBaseProperties() {
