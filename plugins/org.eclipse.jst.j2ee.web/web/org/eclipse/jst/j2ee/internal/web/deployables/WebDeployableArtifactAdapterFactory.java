@@ -15,8 +15,8 @@ public class WebDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDe
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
-		if (adapterType == WebModuleArtifact.class || adapterType == IModuleArtifact.class)
-			moduleArtifact = WebDeployableArtifactUtil.getModuleObject(adaptableObject);
+		if (adapterType == WebModuleArtifact.class )
+			return getModuleArtifact(adaptableObject);
 		return moduleArtifact;
 	}
 

@@ -16,20 +16,16 @@ public class EnterpriseDeployableArtifactAdapterFactory extends ModuleArtifactAd
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
-		if (adapterType == EnterpriseModuleArtifact.class || adapterType == IModuleArtifact.class)
-			moduleArtifact = EnterpriseApplicationDeployableAdapterUtil.getModuleObject(adaptableObject);
+		if (adapterType == EnterpriseModuleArtifact.class)
+			return getModuleArtifact(adaptableObject);
 		return moduleArtifact;
 	}
 
 	public Class[] getAdapterList() {
-		return new Class[] { IModuleArtifact.class, ILaunchable.class };
+		return new Class[] {ILaunchable.class };
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate#getModuleArtifact(java.lang.Object)
-	 */
 	public IModuleArtifact getModuleArtifact(Object obj) {
-		// TODO Auto-generated method stub
 		return EnterpriseApplicationDeployableAdapterUtil.getModuleObject(obj);
 	}
 
