@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
@@ -85,6 +86,10 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	public IModule[] getModules() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected boolean isValidModule(IProject project) {
+		return false;
 	}
 
 }

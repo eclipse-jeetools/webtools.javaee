@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
@@ -103,6 +104,10 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	public IModule[] getModules() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected boolean isValidModule(IProject project) {
+		return false;
 	}
 
 

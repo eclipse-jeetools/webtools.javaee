@@ -35,11 +35,7 @@ public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate 
 	 * @return boolean
 	 */
 	protected boolean isValidModule(IProject project) {
-		try {
-			// Removed the EJB nature - Defect 228981
-			return project.hasNature(JavaCore.NATURE_ID) && !project.hasNature(IWebNatureConstants.J2EE_NATURE_ID);
-		} catch (Exception e) {
-		}
+
 		return false;
 	}
 

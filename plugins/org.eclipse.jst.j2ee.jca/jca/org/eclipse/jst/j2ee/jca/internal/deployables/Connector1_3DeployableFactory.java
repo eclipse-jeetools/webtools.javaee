@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.jca.internal.deployables;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
@@ -79,6 +80,10 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	public IModule[] getModules() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected boolean isValidModule(IProject project) {
+		return false;
 	}
 
 }

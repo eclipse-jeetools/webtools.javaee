@@ -29,104 +29,111 @@ import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.internal.Module;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
 public class WebDeployableFactory extends J2EEDeployableFactory {
-    private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$
+	private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$
 
-    protected static final IPath[] PATHS = new IPath[] { new Path(".j2ee") //$NON-NLS-1$
-    };
+	protected static final IPath[] PATHS = new IPath[]{new Path(".j2ee") //$NON-NLS-1$
+	};
 
-    public String getFactoryId() {
-        return ID;
-    }
+	public String getFactoryId() {
+		return ID;
+	}
 
-    public String getNatureID() {
-        return IWebNatureConstants.J2EE_NATURE_ID;
-    }
+	public String getNatureID() {
+		return IWebNatureConstants.J2EE_NATURE_ID;
+	}
 
-    public IModule createModule(J2EENature nature) {
-          return null;
-    }
+	public IModule createModule(J2EENature nature) {
+		return null;
+	}
 
-    protected IPath[] getListenerPaths() {
-        return PATHS;
-    }
+	protected IPath[] getListenerPaths() {
+		return PATHS;
+	}
 
-    protected List createModules(ModuleCoreNature nature) {
-        IProject project = nature.getProject();
-        List modules = new ArrayList(1);
-        ModuleStructuralModel moduleStructureModel = null;
-        try {
-        	ModuleCoreNature moduleCoreNature = ModuleCoreNature.getModuleCoreNature(project);
-        	moduleStructureModel = moduleCoreNature.getModuleStructuralModelForRead(this);
-            ProjectComponents components = (ProjectComponents) moduleStructureModel.getPrimaryRootObject();
-            EList workBenchModules = components.getComponents();
-            modules = createModuleDelegates(workBenchModules, project);
+	protected List createModules(ModuleCoreNature nature) {
+		IProject project = nature.getProject();
+		List modules = new ArrayList(1);
+		ModuleStructuralModel moduleStructureModel = null;
+		try {
+			ModuleCoreNature moduleCoreNature = ModuleCoreNature.getModuleCoreNature(project);
+			moduleStructureModel = moduleCoreNature.getModuleStructuralModelForRead(this);
+			ProjectComponents components = (ProjectComponents) moduleStructureModel.getPrimaryRootObject();
+			EList workBenchModules = components.getComponents();
+			if (workBenchModules.isEmpty())
+				return modules;
+			modules = createModuleDelegates(workBenchModules, project);
 
-        } catch (Exception e) {
-           e.printStackTrace();
-        } finally {
-            moduleStructureModel.releaseAccess(this);
-        }
-        return modules;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			moduleStructureModel.releaseAccess(this);
+		}
+		return modules;
+	}
 
-    private List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
-        J2EEFlexProjWebDeployable moduleDelegate = null;
-        IModule module;
-        List moduleList = new ArrayList(workBenchModules.size());
-        //  J2EENature nature = (J2EENature)project.getNature(getNatureID());
+	private List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+		J2EEFlexProjWebDeployable moduleDelegate = null;
+		IModule module = null;
+		List moduleList = new ArrayList(workBenchModules.size());
+		//  J2EENature nature = (J2EENature)project.getNature(getNatureID());
 
-        for (int i = 0; i < workBenchModules.size(); i++) {
-            try {
-                WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-                moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
-                module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
-                        moduleDelegate.getProject());
-                moduleList.add(module);
-                moduleDelegate.initialize(module);
-                adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
-            } catch (Exception e) {
-                Logger.getLogger().write(e);
-            } finally {
-                moduleDelegates.add(moduleDelegate);
-            }
-        }
-        return moduleList;
+		for (int i = 0; i < workBenchModules.size(); i++) {
+			try {
+				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
+				moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
+				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+				moduleList.add(module);
+				moduleDelegate.initialize(module);
+				//adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
+			} catch (Exception e) {
+				Logger.getLogger().write(e);
+			} finally {
+				if (module != null) {
+					if (getModuleDelegate(module) == null)
+						moduleDelegates.add(moduleDelegate);
+				}
+			}
+		}
+		return moduleList;
 
-    }
+	}
 
-    private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
+	private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
 
-        ModuleAdapter moduleAdapter = new ModuleAdapter() {
-            public void notifyChanged(Notification msg) {
-                super.notifyChanged(msg);
-            }
-        };
-        moduleAdapter.setTarget(wbModule);
-        moduleAdapter.setModuleDelegate(moduleDelegate);
-        wbModule.eAdapters().add(moduleAdapter);
-    }
+		ModuleAdapter moduleAdapter = new ModuleAdapter() {
+			public void notifyChanged(Notification msg) {
+				super.notifyChanged(msg);
+			}
+		};
+		moduleAdapter.setTarget(wbModule);
+		moduleAdapter.setModuleDelegate(moduleDelegate);
+		wbModule.eAdapters().add(moduleAdapter);
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
 	 */
 	public IModule[] getModules() {
 		int i = 0;
+		cacheModules();
 		ArrayList moduleList = new ArrayList();
-		cacheModules();		
-		 for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
+		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
 			IModule[] element = (IModule[]) iter.next();
 			for (int j = 0; j < element.length; j++) {
-				moduleList.add((IModule)element[j]);
+				moduleList.add((IModule) element[j]);
 			}
-			
+
 		}
-		 IModule[] modules = new IModule[moduleList.size()];
-		 moduleList.toArray(modules);
+		IModule[] modules = new IModule[moduleList.size()];
+		moduleList.toArray(modules);
 		return modules;
-		
+
 	}
 }
