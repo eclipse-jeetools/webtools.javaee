@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
 
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/09 19:04:04 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/10 22:38:26 $ 
  */
 import java.util.Collection;
 
@@ -173,8 +173,10 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 			boolean setReflected = ((IJavaMethodAdapter) readAdaptor).reflectParamNamesIfNecessary();
 			synchronized (this) {
 				// Don't want to set it false. That is job of reflection adapter. Otherwise we could have a race.
+				// Normally we wouldn't need to set this because it would be set during the reflectParamNamesIfNecessary, but
+				// in case there was a problem we mark it still reflected so we don't try again.
 				if (setReflected)
-					reflectionStatus |= (REFLECTED_PARAM_NAME); // We can be certain base will be done by reflect generated if not already
+					reflectionStatus |= (REFLECTED_BASE | REFLECTED_PARAM_NAME); // We can be certain base will be done by reflect generated if not already
 																			  // done.
 			}
 		}

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.13 $  $Date: 2005/01/10 19:26:48 $ 
+ *  $Revision: 1.14 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
@@ -185,6 +185,17 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 				// Don't care it didn't work
 			}
 	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMConnection#getArrayContents(int, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
+	 */
+	public void getArrayContents(int arrayID, Commands.ValueObject returnValue) throws CommandException {
+		if (isConnected()) {
+			// It's simple, just pass onto Commands.
+			Commands.sendGetArrayContentsCommand(out, in, arrayID, returnValue);
+		}			
+	}
 	
 	/**
 	 * Invoke the method call
@@ -294,6 +305,12 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	public void sync(int expressionID, ValueObject returnValue) throws CommandException {
 		if (isConnected())
 			ExpressionCommands.sendSyncCommand(expressionID, out, in, returnValue);
+	}
+	
+	
+	public void readProxyArrayValues(Commands.ValueObject returnValue, Commands.ValueSender valueSender) throws CommandException {
+		if (isConnected())
+			Commands.readArray(in, returnValue.anInt, valueSender, returnValue);
 	}
 
 }

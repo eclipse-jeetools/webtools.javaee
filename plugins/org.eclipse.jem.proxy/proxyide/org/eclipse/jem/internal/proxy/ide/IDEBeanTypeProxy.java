@@ -1,18 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+/*****************************************************************************************************************************************************
+ * Copyright (c) 2001, 2004 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the
+ * terms of the Common Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/cpl-v10.html
  * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ ****************************************************************************************************************************************************/
 /*
- * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.7 $ $Date: 2004/08/27 15:35:20 $
+ * $RCSfile: IDEBeanTypeProxy.java,v $ $Revision: 1.8 $ $Date: 2005/02/10 22:38:30 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
 import org.eclipse.jem.internal.proxy.core.*;
 
 import java.lang.reflect.*;
@@ -71,6 +68,24 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 		return fClass.isArray();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IMethodProxy[] getMethods() {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getMethods(fClass);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IMethodProxy[] getDeclaredMethods() {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getDeclaredMethods(fClass);
+	}
+
 	/**
 	 * We can use reflection on our class to find the java.reflect.Method instance and create the IDEMethodProxy directly
 	 */
@@ -100,6 +115,21 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			argClasses[i] = ((IDEBeanTypeProxy) args[i]).fClass;
 		}
 		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getMethodProxy(fClass, methodName, argClasses);
+	}
+
+	public IMethodProxy getDeclaredMethodProxy(String methodName, String[] argumentClassNames) {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getDeclaredMethodProxy(fClass, methodName, argumentClassNames);
+	}
+
+	public IMethodProxy getDeclaredMethodProxy(String methodName, IBeanTypeProxy[] args) {
+		Class[] argClasses = null;
+		if (args != null) {
+			argClasses = new Class[args.length];
+			for (int i = 0; i < args.length; i++) {
+				argClasses[i] = ((IDEBeanTypeProxy) args[i]).fClass;
+			}
+		}
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getDeclaredMethodProxy(fClass, methodName, argClasses);
 	}
 
 	/*
@@ -139,18 +169,18 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 	}
 
 	public IConstructorProxy getConstructorProxy(String[] argTypeNames) {
-		Class[] argClasses = new Class[argTypeNames.length];
-		try {
-			for (int i = 0; i < argTypeNames.length; i++) {
-				argClasses[i] = Class.forName(argTypeNames[i]);
+		IBeanTypeProxy[] argClasses = new IBeanTypeProxy[argTypeNames.length];
+		IStandardBeanTypeProxyFactory btFactory = fProxyFactoryRegistry.getBeanTypeProxyFactory();
+		for (int i = 0; i < argTypeNames.length; i++) {
+			argClasses[i] = btFactory.getBeanTypeProxy(argTypeNames[i]);
+			if (argClasses[i] == null) {
+				ProxyPlugin.getPlugin().getLogger().log(
+						new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - "
+								+ fClass.getName() + " args=" + argTypeNames, null));
+				return null;
 			}
-		} catch (ClassNotFoundException exc) {
-			ProxyPlugin.getPlugin().getLogger().log(
-					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - "
-							+ fClass.getName() + " args=" + argTypeNames, exc));
-			return null;
 		}
-		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getConstructorProxy(fClass, argClasses);
+		return getConstructorProxy(argClasses);
 	}
 
 	public IConstructorProxy getConstructorProxy(IBeanTypeProxy[] args) {
@@ -159,6 +189,47 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 			argClasses[i] = ((IDEBeanTypeProxy) args[i]).fClass;
 		}
 		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getConstructorProxy(fClass, argClasses);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IConstructorProxy[] getConstructors() {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getConstructors(fClass);
+	}
+
+	public IConstructorProxy getDeclaredConstructorProxy(String[] argTypeNames) {
+		IBeanTypeProxy[] argClasses = new IBeanTypeProxy[argTypeNames.length];
+		IStandardBeanTypeProxyFactory btFactory = fProxyFactoryRegistry.getBeanTypeProxyFactory();
+		for (int i = 0; i < argTypeNames.length; i++) {
+			argClasses[i] = btFactory.getBeanTypeProxy(argTypeNames[i]);
+			if (argClasses[i] == null) {
+				ProxyPlugin.getPlugin().getLogger().log(
+						new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - "
+								+ fClass.getName() + " args=" + argTypeNames, null));
+				return null;
+			}
+		}
+		return getDeclaredConstructorProxy(argClasses);
+	}
+
+	public IConstructorProxy getDeclaredConstructorProxy(IBeanTypeProxy[] args) {
+		Class[] argClasses = new Class[args.length];
+		for (int i = 0; i < args.length; i++) {
+			argClasses[i] = ((IDEBeanTypeProxy) args[i]).fClass;
+		}
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getDeclaredConstructorProxy(fClass, argClasses);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IConstructorProxy[] getDeclaredConstructors() {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getDeclaredConstructors(fClass);
 	}
 
 	/**
@@ -172,6 +243,24 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 		else
 			return fProxyFactoryRegistry.getBeanTypeProxyFactory().getBeanTypeProxy(fClass.getSuperclass().getName());
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IFieldProxy[] getFields() {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFields(fClass);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IFieldProxy[] getDeclaredFields() {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getDeclaredFields(fClass);
 	}
 
 	public IFieldProxy getFieldProxy(String fieldName) {
@@ -291,4 +380,31 @@ public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 		return null; // By default none have an initialization error. There is a special instance for init errors.
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleConstructor(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws AmbiguousMethodException, NoSuchMethodException {
+
+		Class[] argClasses = new Class[argumentTypes.length];
+		for (int i = 0; i < argumentTypes.length; i++) {
+			argClasses[i] = ((IDEBeanTypeProxy) argumentTypes[i]).fClass;
+		}
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getCompatibleConstructor(fClass, argClasses);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleMethod(java.lang.String,
+	 *      org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IMethodProxy getCompatibleMethod(String methodName, IBeanTypeProxy[] argumentTypes) throws NoSuchMethodException, AmbiguousMethodException {
+		Class[] argClasses = new Class[argumentTypes.length];
+		for (int i = 0; i < argumentTypes.length; i++) {
+			argClasses[i] = ((IDEBeanTypeProxy) argumentTypes[i]).fClass;
+		}
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getCompatibleMethod(fClass, methodName, argClasses);
+	}
 }

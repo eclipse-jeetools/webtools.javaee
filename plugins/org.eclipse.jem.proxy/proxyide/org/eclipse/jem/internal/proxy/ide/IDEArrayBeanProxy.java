@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEArrayBeanProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -226,6 +226,54 @@ public int getLength() {
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));			
 			return null;
 		}
+	}
+
+	
+	public IBeanProxy[] getSnapshot() throws ThrowableProxy {
+		// If the component type is primitive, we need to use the correct getter so that a valid value is returned,
+		// if we just used the standard get, if the type was "int" the value returned would be an java.lang.Integer.
+		IBeanTypeProxy compType = ((IArrayBeanTypeProxy) getTypeProxy()).getComponentType();
+		int id = compType.isPrimitive() ? ((IDEPrimitiveBeanTypeProxy)compType).getPrimitiveType() : -1;
+		IBeanProxy[] result = new IBeanProxy[Array.getLength(fBean)];
+		for (int i = 0; i < result.length; i++) {
+			if (id == -1) {
+				// Use standard getter.
+				Object val = Array.get(fBean,i);
+				if ( val != null )
+					result[i] = ((IDEBeanTypeProxy)fBeanTypeProxyFactory.getBeanTypeProxy(val.getClass())).newBeanProxy(val);
+			} else {
+				// Use the correct primitive getter.
+				switch (id) {
+					case IDEPrimitiveBeanTypeProxy.BYTE:
+						result[i] = fBeanTypeProxyFactory.byteType.createByteBeanProxy(Array.getByte(fBean,i));
+						break;
+					case IDEPrimitiveBeanTypeProxy.BOOLEAN:
+						result[i] = fBeanTypeProxyFactory.booleanType.createBooleanBeanProxy(Array.getBoolean(fBean,i));
+						break;
+					case IDEPrimitiveBeanTypeProxy.CHAR:
+						result[i] = fBeanTypeProxyFactory.charType.createCharBeanProxy(Array.getChar(fBean,i));
+						break;
+					case IDEPrimitiveBeanTypeProxy.DOUBLE:
+						result[i] = fBeanTypeProxyFactory.doubleType.createDoubleBeanProxy(Array.getDouble(fBean,i));
+						break;
+					case IDEPrimitiveBeanTypeProxy.FLOAT:
+						result[i] = fBeanTypeProxyFactory.floatType.createFloatBeanProxy(Array.getFloat(fBean,i));
+						break;
+					case IDEPrimitiveBeanTypeProxy.INTEGER:
+						result[i] = fBeanTypeProxyFactory.intType.createIntegerBeanProxy(Array.getInt(fBean,i));
+						break;
+					case IDEPrimitiveBeanTypeProxy.LONG:
+						result[i] = fBeanTypeProxyFactory.longType.createLongBeanProxy(Array.getLong(fBean,i));
+						break;
+					case IDEPrimitiveBeanTypeProxy.SHORT:
+						result[i] = fBeanTypeProxyFactory.shortType.createShortBeanProxy(Array.getShort(fBean,i));
+						break;
+					default :
+						break; // Shouldn't get here, said it was primitive, but not one we understand				
+				}
+			}		
+		}
+		return result;
 	}
 
 }

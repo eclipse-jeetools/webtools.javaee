@@ -11,21 +11,18 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.8 $  $Date: 2004/10/28 21:24:57 $ 
+ *  $Revision: 1.9 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.*;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
-import org.eclipse.jem.internal.proxy.common.remote.Commands;
-import org.eclipse.jem.internal.proxy.common.remote.UnexpectedExceptionCommandException;
 import org.eclipse.jem.internal.proxy.initParser.*;
 
 /**
@@ -431,6 +428,21 @@ public class ConnectionHandler {
 						}
 						break;
 						
+					case Commands.GET_ARRAY_CONTENTS:
+						try {
+							target = server.getObject(in.readInt());	// Array to get the ids for.
+							valueObject.setArrayIDS(new ArrayContentsRetriever(target), Array.getLength(target), Commands.OBJECT_CLASS);
+							Commands.writeValue(out, valueObject, true);	// Write it back as a value command.
+						} catch (CommandException e) {
+							throw e;	// Throw it again. These we don't want to come up as an exception proxy. These should end the thread.
+						} catch (Throwable e) {
+							sendException(e, valueObject, out);	// Turn it into a exception proxy on the client.
+						} finally {
+							target = null;
+							valueObject.set();
+						}
+						break;
+						
 					case Commands.CALLBACK_DONE:
 						try {
 							if (connectionThread != null) {
@@ -531,6 +543,34 @@ public class ConnectionHandler {
 			
 		return result;
 	}
+	
+	// A retriever is what handles the array get contents.
+	private class ArrayContentsRetriever implements Commands.ValueRetrieve {
+		int index=0;
+		Object array;
+		int length;
+		int componentType;
+		Commands.ValueObject worker = new Commands.ValueObject();
+		
+		
+		public ArrayContentsRetriever(Object anArray) {
+			array = anArray;
+			length = Array.getLength(anArray);
+			if (anArray.getClass().getComponentType().isPrimitive()) {
+				componentType = server.getIdentityID(anArray.getClass().getComponentType());
+			} else
+				componentType = NOT_A_PRIMITIVE;
+		}
+		
+		public Commands.ValueObject nextValue() {
+			if (index < length) {
+				fillInValue(Array.get(array, index++), componentType, worker);
+				return worker;
+			} else
+				return null;
+		}
+	};
+
 	
 	private void processExpressionCommand(Commands.ValueObject valueObject) throws IOException, CommandException {
 		Integer expressionID = new Integer(in.readInt());

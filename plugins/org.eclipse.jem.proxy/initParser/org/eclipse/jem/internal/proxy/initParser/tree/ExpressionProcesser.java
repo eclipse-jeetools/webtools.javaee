@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.4 $  $Date: 2004/06/04 23:26:02 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/10 22:38:30 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -20,8 +20,9 @@ import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
+import org.eclipse.jem.internal.proxy.common.MethodHelper;
 import org.eclipse.jem.internal.proxy.initParser.EvaluationException;
-import org.eclipse.jem.internal.proxy.initParser.MethodHelper;
 import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants.NoExpressionValueException;
  
 /**
@@ -1459,7 +1460,14 @@ public class ExpressionProcesser {
 			}
 			
 			// Now we need to find the appropriate constructor.
-			Constructor ctor = MethodHelper.findCompatibleConstructor(type, argTypes);
+			Constructor ctor;
+			try {
+				ctor = MethodHelper.findCompatibleConstructor(type, argTypes);
+			} catch (NoSuchMethodException e) {
+				throw new EvaluationException(e);
+			} catch (AmbiguousMethodException e) {
+				throw new EvaluationException(e);
+			}
 			value = ctor.newInstance(args);
 		} else {
 			// No args, just do default ctor.
@@ -1527,7 +1535,14 @@ public class ExpressionProcesser {
 		Class receiverType = popExpressionType(false);
 		
 		// Now we need to find the appropriate method.
-		Method method = MethodHelper.findCompatibleMethod(receiverType, methodName, argTypes);
+		Method method;
+		try {
+			method = MethodHelper.findCompatibleMethod(receiverType, methodName, argTypes);
+		} catch (NoSuchMethodException e) {
+			throw new EvaluationException(e);
+		} catch (AmbiguousMethodException e) {
+			throw new EvaluationException(e);
+		}
 		Object value = method.invoke(receiver, args);
 		
 		pushExpressionValue(value, method.getReturnType());

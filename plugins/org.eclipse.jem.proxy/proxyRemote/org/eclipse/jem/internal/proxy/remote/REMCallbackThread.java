@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.10 $  $Date: 2004/10/28 21:24:57 $ 
+ *  $Revision: 1.11 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 import java.io.*;
@@ -21,7 +21,6 @@ import java.util.logging.Level;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.TransmitableArray;
 import org.eclipse.jem.internal.proxy.core.*;
@@ -85,7 +84,7 @@ class REMCallbackThread extends Thread {
 		InputStream ins = null;	
 		boolean shutdown = false;
 		Commands.ValueObject valueObject = new Commands.ValueObject();	// Working value object so not continually recreated.
-		BeanProxyValueSender valueSender = new BeanProxyValueSender();	// Working valuesender so not continually recreated. 
+		BeanProxyValueSender valueSender = new BeanProxyValueSender(this.fFactory);	// Working valuesender so not continually recreated. 
 		try {
 			boolean doLoop = true;
 
@@ -137,6 +136,9 @@ class REMCallbackThread extends Thread {
 									// they must be proxies over here.
 									valueSender.initialize(valueObject);
 									Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+									if (valueSender.getException() != null) {
+										close();	// Something wrong, close the thread so next time we get a new one.
+									}
 									parm = valueSender.getArray();
 								} else {
 									// It is object or null. It could be an array of objects, or one object.
@@ -297,61 +299,5 @@ class REMCallbackThread extends Thread {
 		fServer.removeCallbackThread(this);
 		if (shutdown)
 			fServer.requestShutdown();
-	}
-	
-	// Helper class for getting an array. All of the values in the array will either
-	// be an array or an IBeanProxy.
-	private class BeanProxyValueSender implements Commands.ValueSender {
-		int index = 0;
-		Object[] array;
-
-		public BeanProxyValueSender() {
-		}
-				
-		public BeanProxyValueSender(Commands.ValueObject arrayHeader) {
-			initialize(arrayHeader);
-		}
-		
-		public void initialize(Commands.ValueObject arrayHeader) {
-			index = 0;
-			// The array type doesn't matter, it will be an array of objects.
-			// The values will either be IBeanProxies or an array, or constants.
-			array = new Object[arrayHeader.anInt];
-		}
-		
-		public void clear() {
-			array = null;
-			index = 0;
-		}
-		
-		public Object getArray() {
-			return array;
-		}
-					
-		// A new value is being sent to the array
-		// NOTE: It is important that this has been called within a transaction.
-		public void sendValue(Commands.ValueObject value) {
-			try {
-				array[index++] = fFactory.getBeanProxy(value);	// Add it to the array
-			} catch (ThrowableProxy e) {
-				// We can't stop it right away because we can't send exception on, however,
-				// we can log it and close the socket so next request to the socket will fail.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
-				close();				
-			} catch (CommandException e) {
-				// We can't stop it right away because we can't send exception on, however,
-				// we can log it and close the socket so next request to the socket will fail.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
-				close();
-			}
-		}
-					
-		// The next entry is an array too!
-		public Commands.ValueSender nestedArray(Commands.ValueObject arrayHeader) {
-			BeanProxyValueSender sender = new BeanProxyValueSender(arrayHeader);
-			// Take the newly created array and put it into the current array.
-			array[index++] = sender.getArray();
-			return sender;
-		}
 	}	
 }

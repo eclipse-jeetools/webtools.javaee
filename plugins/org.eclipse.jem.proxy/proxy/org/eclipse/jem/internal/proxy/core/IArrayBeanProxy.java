@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IArrayBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
@@ -35,6 +35,26 @@ public interface IArrayBeanProxy extends IBeanProxy {
 	 */
 	IBeanProxy get(int [] indexes) throws ThrowableProxy; 
 	
+	/**
+	 * Get a snapshot of the array. It will return an array of proxies of the
+	 * complete first dimension of the array. This is useful if you need
+	 * to be working with more than one entry of the array. You can save
+	 * accesses to the vm by doing this. 
+	 * <p>
+	 * NOTE: This is a snapshot. It will not see changes to the array.
+	 * If an entry is set into the returned array of proxies, this will
+	 * not be reflected into the real array. Also any changes in the
+	 * contents of the first dimension of the real array will not
+	 * be reflected into this returned array of proxies. The proxies
+	 * returned are real proxies, so any changes to them will be reflected
+	 * back and forth. Treat this as an array copy to a new array.
+	 * 
+	 * @return array of proxies of the first dimension of the array.
+	 * @throws ThrowableProxy
+	 * 
+	 * @since 1.1.0
+	 */
+	IBeanProxy[] getSnapshot() throws ThrowableProxy;
 	
 	/**
 	 * Set the object at the specified index.

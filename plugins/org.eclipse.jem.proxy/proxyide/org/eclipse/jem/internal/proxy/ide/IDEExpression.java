@@ -9,15 +9,15 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEExpression.java,v $ $Revision: 1.1 $ $Date: 2004/02/03 23:18:36 $
+ * $RCSfile: IDEExpression.java,v $ $Revision: 1.2 $ $Date: 2005/02/10 22:38:30 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.jem.internal.proxy.common.MethodHelper;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.initParser.EvaluationException;
-import org.eclipse.jem.internal.proxy.initParser.MethodHelper;
 import org.eclipse.jem.internal.proxy.initParser.tree.ExpressionProcesser;
 
 /**

@@ -11,11 +11,12 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyConstants.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
-import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.IMethodProxy;
+import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 /**
  * REM Standard Proxy constants.
  *
@@ -39,8 +40,20 @@ public final class REMStandardBeanProxyConstants {
 	
 	private IMethodProxy fClassNewInstance;
 	private IMethodProxy fClassGetField;
-	private IMethodProxy fClassGetDeclaredField;	
+	private IMethodProxy fClassGetDeclaredField;
+	private IMethodProxy fClassGetDeclaredFields;	
+	private IMethodProxy fClassGetFields;	
 	private IMethodProxy fClassGetConstructor;
+	private IMethodProxy fClassGetConstructors;
+	private IMethodProxy fClassGetDeclaredConstructor;
+	private IMethodProxy fClassGetDeclaredConstructors;
+	private IMethodProxy fClassGetMethods;
+	private IMethodProxy fClassGetDeclaredMethods;
+	private IMethodProxy fClassGetDeclaredMethod;
+	
+	private IMethodProxy fMethodHelperFindCompatibleConstructor;
+	private IMethodProxy fMethodHelperFindCompatibleMethod;
+	
 	private IMethodProxy fClassIsAssignableFrom;
 	
 	private IMethodProxy fObjectToString;
@@ -129,6 +142,24 @@ public IMethodProxy getClassConstructor() {
 	if (fClassGetConstructor == null)
 		fClassGetConstructor = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getConstructor", new String[] {"[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	return fClassGetConstructor;
+}
+
+public IMethodProxy getClassConstructors() {
+	if (fClassGetConstructors == null)
+		fClassGetConstructors = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getConstructors", null); //$NON-NLS-1$ //$NON-NLS-2$
+	return fClassGetConstructors;
+}
+
+public IMethodProxy getDeclaredClassConstructor() {
+	if (fClassGetDeclaredConstructor == null)
+		fClassGetDeclaredConstructor = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredConstructor", new String[] {"[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	return fClassGetDeclaredConstructor;
+}
+
+public IMethodProxy getDeclaredClassConstructors() {
+	if (fClassGetDeclaredConstructors == null)
+		fClassGetDeclaredConstructors = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredConstructors", null); //$NON-NLS-1$ //$NON-NLS-2$
+	return fClassGetDeclaredConstructors;
 }
 
 public IMethodProxy getClassIsAssignableFrom() {
@@ -411,7 +442,60 @@ public IMethodProxy getClassGetDeclaredField() {
 
 	if (fClassGetDeclaredField == null)
 			fClassGetDeclaredField = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredField", new String[] {"java.lang.String"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		return fClassGetDeclaredField;
-	}
+	return fClassGetDeclaredField;
+}
 
+public IMethodProxy getClassGetDeclaredFields() {
+
+	if (fClassGetDeclaredFields == null)
+			fClassGetDeclaredFields = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredFields", null); //$NON-NLS-1$
+	return fClassGetDeclaredFields;
+}
+public IMethodProxy getClassGetFields() {
+
+	if (fClassGetFields == null)
+			fClassGetFields = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getFields", null); //$NON-NLS-1$
+	return fClassGetFields;
+}
+
+
+/**
+ * @return
+ * 
+ * @since 1.1.0
+ */
+public IMethodProxy getClassMethods() {
+	if (fClassGetMethods == null)
+		fClassGetMethods = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getMethods", null); //$NON-NLS-1$
+	return fClassGetMethods;
+}
+
+/**
+ * @return
+ * 
+ * @since 1.1.0
+ */
+public IMethodProxy getClassDeclaredMethods() {
+	if (fClassGetDeclaredMethods == null)
+		fClassGetDeclaredMethods = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredMethods", null); //$NON-NLS-1$
+	return fClassGetDeclaredMethods;
+}
+
+public IMethodProxy getClassDeclaredMethod() {
+	if (fClassGetDeclaredMethod == null)
+		fClassGetDeclaredMethod = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredMethod", new String[] {"java.lang.String", "[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	return fClassGetDeclaredMethod;
+}
+
+public IMethodProxy getFindCompatibleConstructorMethod() {
+	if (fMethodHelperFindCompatibleConstructor == null)
+		fMethodHelperFindCompatibleConstructor = fRegistry.getMethodProxyFactory().getMethodProxy("org.eclipse.jem.internal.proxy.common.MethodHelper", "findCompatibleConstructor", new String[] {"java.lang.Class", "[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	return fMethodHelperFindCompatibleConstructor;
+}
+
+public IMethodProxy getFindCompatibleMethodMethod() {
+	if (fMethodHelperFindCompatibleMethod == null)
+		fMethodHelperFindCompatibleMethod = fRegistry.getMethodProxyFactory().getMethodProxy("org.eclipse.jem.internal.proxy.common.MethodHelper", "findCompatibleMethod", new String[] {"java.lang.Class", "java.lang.String", "[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	return fMethodHelperFindCompatibleMethod;
+}
 }

@@ -11,11 +11,14 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: Constructor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
 import java.util.*;
+
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
+import org.eclipse.jem.internal.proxy.common.MethodHelper;
 /**
  * Insert the type's description here.
  * Creation date: (11/01/00 8:52:36 PM)
@@ -104,7 +107,13 @@ private void cacheCtor() throws Exception {
 		for (int i=0; i<argTypes.length; i++)
 			argTypes[i] = getEvaluationTypeClass((Expression) itr.next());
 			
-		ctor = MethodHelper.findCompatibleConstructor(getEvaluationTypeClass(this), argTypes);
+		try {
+			ctor = MethodHelper.findCompatibleConstructor(getEvaluationTypeClass(this), argTypes);
+		} catch (NoSuchMethodException e) {
+			throw new EvaluationException(e);
+		} catch (AmbiguousMethodException e) {
+			throw new EvaluationException(e);
+		}
 	}
 }
 protected boolean isDelimiterOpened(char token){

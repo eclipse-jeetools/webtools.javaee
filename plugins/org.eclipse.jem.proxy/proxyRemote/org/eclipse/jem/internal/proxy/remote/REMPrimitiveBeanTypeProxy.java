@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMPrimitiveBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
@@ -56,6 +56,60 @@ public abstract class REMPrimitiveBeanTypeProxy extends REMAbstractBeanTypeProxy
 		throw new UnsupportedOperationException();
 	}	
 	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the primitive types, this is an invalid operation.
+	 */
+	public IConstructorProxy[] getConstructors() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * Return a proxy to the constructor for the target VM being the same as the REM
+	 * For all of the primitive types, this is an invalid operation.
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(String[] argumentClassNames) {	
+		throw new UnsupportedOperationException();
+	}
+	
+	/**
+	 * Return a proxy to the constructor for the target VM being the same as the REM
+	 * For all of the primitive types, this is an invalid operation.
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(IBeanTypeProxy[] argumentTypes) {	
+		throw new UnsupportedOperationException();
+	}	
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the primitive types, this is an invalid operation.
+	 */
+	public IConstructorProxy[] getDeclaredConstructors() {
+		throw new UnsupportedOperationException();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the primitive types, this is an invalid operation.
+	 */
+	public IFieldProxy[] getFields() {
+		throw new UnsupportedOperationException();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the primitive types, this is an invalid operation.
+	 */
+	public IFieldProxy[] getDeclaredFields() {
+		throw new UnsupportedOperationException();
+	}
+
 	/**
 	 * Return a proxy to the field for the target VM being the same as the REM
 	 * For all of the primitive types, this is an invalid operation.
@@ -164,5 +218,17 @@ public abstract class REMPrimitiveBeanTypeProxy extends REMAbstractBeanTypeProxy
 				return null;
 			}
 		}
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleConstructor(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) {
+		throw new UnsupportedOperationException();
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleMethod(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IMethodProxy getCompatibleMethod(String methodName, IBeanTypeProxy[] argumentTypes) {
+		throw new UnsupportedOperationException();
 	}
 }

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common.remote;
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.10 $  $Date: 2004/10/28 21:24:57 $ 
+ *  $Revision: 1.11 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 import java.io.*;
@@ -56,7 +56,8 @@ public class Commands {
 		// These are more regular commands. They were historically added after the master server thread commands, so
 		// they are shown here after them and with numbers greater than them.
 		EXPRESSION_TREE_COMMAND = 19,	// An expression tree subcommand has come in.
-		INVOKE_WITH_METHOD_PASSED = 20;	// Invoke where the description of the method is passed in with the command.
+		INVOKE_WITH_METHOD_PASSED = 20,	// Invoke where the description of the method is passed in with the command.
+		GET_ARRAY_CONTENTS = 21;	// Get the first dimension contents as an array of ids and send them back.
 	
 		
 	// Callback commands
@@ -285,6 +286,9 @@ public class Commands {
 	//		there is no return type (i.e. the method was void). So null can be returned either if the value
 	//		was null or if the return type was void.
 	//
+	// GET_ARRAY_CONTENTS: 21b, arrayId
+	//		Where arrayID is the id of the array to get the contents of. What is returned is a value command
+	//		containing an array of ids of the first dimension contents.
 	//
 	// Callback commands:
 	//
@@ -1322,6 +1326,21 @@ public class Commands {
 			writeValue(os, parmTypes, false);
 			writeValue(os, invokeOn, false);
 			writeValue(os, parms, false);
+			os.flush();
+			readBackValue(is, valueReturn, NO_TYPE_CHECK);
+		} catch (CommandException e) {
+			// rethrow this exception since we want these to go on out.
+			throw e;
+		} catch (Exception e) {
+			// Wrapper this one.
+			throw new UnexpectedExceptionCommandException(false, e);
+		}		
+	}
+	
+	public static void sendGetArrayContentsCommand(DataOutputStream os, DataInputStream is, int arrayID, ValueObject valueReturn) throws CommandException {
+		try {
+			os.writeByte(GET_ARRAY_CONTENTS);
+			os.writeInt(arrayID);
 			os.flush();
 			readBackValue(is, valueReturn, NO_TYPE_CHECK);
 		} catch (CommandException e) {

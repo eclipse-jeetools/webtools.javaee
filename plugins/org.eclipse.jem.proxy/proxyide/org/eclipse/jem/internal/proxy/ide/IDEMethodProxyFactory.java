@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.7 $ $Date: 2004/10/12 20:20:14 $
+ * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.8 $ $Date: 2005/02/10 22:38:30 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -20,6 +20,8 @@ import java.util.Map;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
+import org.eclipse.jem.internal.proxy.common.MethodHelper;
 import org.eclipse.jem.internal.proxy.core.*;
 
 public class IDEMethodProxyFactory implements IMethodProxyFactory {
@@ -65,6 +67,24 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 		return (IConstructorProxy) constructorType.newBeanProxy(aConstructor);
 
 	}
+	
+	IConstructorProxy[] getConstructors(Class aClass) {
+		Constructor[] ctors = aClass.getConstructors();
+		IConstructorProxy[] ctorProxies = new IConstructorProxy[ctors.length];
+		for (int i = 0; i < ctors.length; i++) {
+			ctorProxies[i] = getConstructorProxy(ctors[i]);
+		}
+		return ctorProxies;
+	}
+
+	IConstructorProxy[] getDeclaredConstructors(Class aClass) {
+		Constructor[] ctors = aClass.getDeclaredConstructors();
+		IConstructorProxy[] ctorProxies = new IConstructorProxy[ctors.length];
+		for (int i = 0; i < ctors.length; i++) {
+			ctorProxies[i] = getConstructorProxy(ctors[i]);
+		}
+		return ctorProxies;
+	}
 
 	IConstructorProxy getConstructorProxy(Class aClass, Class[] args) {
 
@@ -74,6 +94,34 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 		} catch (NoSuchMethodException exc) {
 			return null;
 		}
+	}
+
+	IConstructorProxy getDeclaredConstructorProxy(Class aClass, Class[] args) {
+
+		try {
+			Constructor ctor = aClass.getDeclaredConstructor(args);
+			return getConstructorProxy(ctor);
+		} catch (NoSuchMethodException exc) {
+			return null;
+		}
+	}
+
+	IFieldProxy[] getFields(Class aClass) {
+		Field[] fields = aClass.getFields();
+		IFieldProxy[] fieldProxies = new IFieldProxy[fields.length];
+		for (int i = 0; i < fields.length; i++) {
+			fieldProxies[i] = getFieldProxy(fields[i]);
+		}
+		return fieldProxies;
+	}
+
+	IFieldProxy[] getDeclaredFields(Class aClass) {
+		Field[] fields = aClass.getDeclaredFields();
+		IFieldProxy[] fieldProxies = new IFieldProxy[fields.length];
+		for (int i = 0; i < fields.length; i++) {
+			fieldProxies[i] = getFieldProxy(fields[i]);
+		}
+		return fieldProxies;
 	}
 
 	/**
@@ -129,6 +177,27 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 		}
 		return null;
 	}
+	
+	IMethodProxy getDeclaredMethodProxy(Class cls, String methodName, String[] parameterTypes) {
+		try {
+			Class[] parmClasses = null;
+			if (parameterTypes != null) {
+				parmClasses = new Class[parameterTypes.length];
+				for (int i = 0; i < parmClasses.length; i++) {
+					Class temp = (Class) primLookup.get(parameterTypes[i]);
+					if (temp == null)
+						temp = fProxyFactoryRegistry.loadClass(parameterTypes[i]);
+					parmClasses[i] = temp;
+				}
+			}
+			return getMethodProxy(cls.getDeclaredMethod(methodName, parmClasses));
+		} catch (ClassNotFoundException e) {
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+		} catch (NoSuchMethodException e) {
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
+		}
+		return null;
+	}	
 
 	IMethodProxy getMethodProxy(Class aClass, String methodName, Class[] args) {
 		try {
@@ -141,11 +210,51 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			return null;
 		}
 	}
+	
+	IMethodProxy getDeclaredMethodProxy(Class aClass, String methodName, Class[] args) {
+		try {
+			Method method = aClass.getDeclaredMethod(methodName, args);
+			return getMethodProxy(method);
+		} catch (NoSuchMethodException exc) {
+			ProxyPlugin.getPlugin().getLogger().log(
+					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Unable to find method " + aClass.getName()
+							+ ":" + methodName + " args=" + args, exc));
+			return null;
+		}
+	}	
 
 	IMethodProxy getMethodProxy(IDEBeanTypeProxy aTypeProxy, String methodName, String[] parameterTypes) {
 		return getMethodProxy(aTypeProxy.fClass, methodName, parameterTypes);
 	}
+	
+	IMethodProxy[] getMethods(Class aClass) {
+		Method[] methods = aClass.getMethods();
+		IMethodProxy[] methodProxies = new IMethodProxy[methods.length];
+		for (int i = 0; i < methods.length; i++) {
+			methodProxies[i] = getMethodProxy(methods[i]);
+		}
+		return methodProxies;
+	}
+	
+	IMethodProxy getCompatibleMethod(Class aClass, String methodName, Class[] parmTypes) throws NoSuchMethodException, AmbiguousMethodException {
+		Method method = MethodHelper.findCompatibleMethod(aClass, methodName, parmTypes);
+		return getMethodProxy(method);
+	}
+	
+	IConstructorProxy getCompatibleConstructor(Class aClass, Class[] parmTypes) throws AmbiguousMethodException, NoSuchMethodException {
+		Constructor method = MethodHelper.findCompatibleConstructor(aClass, parmTypes);
+		return getConstructorProxy(method);
+	}
+	
 
+	IMethodProxy[] getDeclaredMethods(Class aClass) {
+		Method[] methods = aClass.getDeclaredMethods();
+		IMethodProxy[] methodProxies = new IMethodProxy[methods.length];
+		for (int i = 0; i < methods.length; i++) {
+			methodProxies[i] = getMethodProxy(methods[i]);
+		}
+		return methodProxies;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 

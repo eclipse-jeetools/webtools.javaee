@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMArrayBeanTypeProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
@@ -125,6 +125,40 @@ public final class REMArrayBeanTypeProxy extends REMAbstractBeanTypeProxy implem
 	 */
 	public IConstructorProxy getConstructorProxy(IBeanTypeProxy[] argumentTypes) {	
 		throw new UnsupportedOperationException();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the array types, this is an invalid operation.
+	 */
+	public IConstructorProxy[] getConstructors() {
+		throw new UnsupportedOperationException();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the array types, this is an invalid operation.
+	 */
+	public IConstructorProxy[] getDeclaredConstructors() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * Return a proxy to the constructor for the target VM being the same as the REM
+	 * For all of the array types, this is an invalid operation.	 
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(String[] argumentClassNames) {	
+		throw new UnsupportedOperationException();
+	}
+	
+	/**
+	 * Return a proxy to the constructor for the target VM being the same as the REM
+	 * For all of the array types, this is an invalid operation.	 
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(IBeanTypeProxy[] argumentTypes) {	
+		throw new UnsupportedOperationException();
 	}	
 	
 	/**
@@ -134,6 +168,43 @@ public final class REMArrayBeanTypeProxy extends REMAbstractBeanTypeProxy implem
 	public IFieldProxy getFieldProxy(String fieldName) {	
 		throw new UnsupportedOperationException();
 	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the array types, this is an invalid operation.
+	 */
+	public IFieldProxy[] getFields() {
+		throw new UnsupportedOperationException();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the array types, this is an invalid operation.
+	 */
+	public IFieldProxy[] getDeclaredFields() {
+		throw new UnsupportedOperationException();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the array types, this is an invalid operation.
+	 */
+	public IMethodProxy[] getMethods() {
+		throw new UnsupportedOperationException();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 * 
+	 * For all of the array types, this is an invalid operation.
+	 */
+	public IMethodProxy[] getDeclaredMethods() {
+		throw new UnsupportedOperationException();
+	}
+
 	
 	/**
 	 * Return the method proxy for this method with these arguments.
@@ -150,6 +221,22 @@ public final class REMArrayBeanTypeProxy extends REMAbstractBeanTypeProxy implem
 	public IMethodProxy getMethodProxy(String methodName, String[] argumentClassNames) {
 		throw new UnsupportedOperationException();
 	}
+	
+	/**
+	 * Return the method proxy for this method with these arguments.
+	 * For all of the array types, this is an invalid operation.	 
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes) {
+		throw new UnsupportedOperationException();
+	}
+		
+	/**
+	 * Return the method proxy for this method with these arguments.
+	 * For all of the array types, this is an invalid operation.	 
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, String[] argumentClassNames) {
+		throw new UnsupportedOperationException();
+	}	
 	
 	/**
 	 * Return the method proxy for this method with these arguments.
@@ -236,6 +323,18 @@ public final class REMArrayBeanTypeProxy extends REMAbstractBeanTypeProxy implem
 		return formalType.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleConstructor(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) {
+		throw new UnsupportedOperationException();
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleMethod(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IMethodProxy getCompatibleMethod(String methodName, IBeanTypeProxy[] argumentTypes) {
+		throw new UnsupportedOperationException();
+	}
 }
 
 

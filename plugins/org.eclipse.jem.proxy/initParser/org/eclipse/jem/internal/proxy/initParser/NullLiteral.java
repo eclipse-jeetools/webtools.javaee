@@ -10,9 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.initParser;
 
+import org.eclipse.jem.internal.proxy.common.MethodHelper;
+
 /*
  *  $RCSfile: NullLiteral.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 

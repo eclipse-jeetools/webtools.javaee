@@ -11,13 +11,19 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMArrayBeanProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/10 22:38:30 $ 
  */
+
+import java.lang.reflect.Array;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jem.internal.proxy.core.*;
+
+import org.eclipse.jem.internal.proxy.common.CommandException;
+import org.eclipse.jem.internal.proxy.common.remote.CommandErrorException;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
+import org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject;
+import org.eclipse.jem.internal.proxy.core.*;
 /**
  * IDE VM version of the Array proxy
  */
@@ -167,6 +173,79 @@ public final class REMArrayBeanProxy extends REMBeanProxy implements IArrayBeanP
 			fFactory.releaseProxy(e);	// Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}		
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IArrayBeanProxy#getSnapshot()
+	 */
+	public IBeanProxy[] getSnapshot() throws ThrowableProxy {
+		IREMConnection connect = fFactory.getFreeConnection();
+		REMStandardBeanProxyFactory proxyFactory = (REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory();
+		proxyFactory.startTransaction(); // This is definately a transaction, so start it.
+		try {
+			Commands.ValueObject returnValue = new Commands.ValueObject();
+			try {
+				try {
+					connect.getArrayContents(getID().intValue(), returnValue);
+					return processReturnValue(connect, returnValue);
+				} catch (CommandErrorException e) {
+					proxyFactory.processErrorReturn(e);
+				}
+			} catch (CommandException e) {
+				if (!e.isRecoverable()) {
+					// Close the connection and try again.
+					fFactory.closeConnection(connect);
+					connect = null;
+					connect = fFactory.getFreeConnection();
+					try {
+						connect.getArrayContents(getID().intValue(), returnValue);
+						return processReturnValue(connect, returnValue);
+					} catch (CommandException eAgain) {
+						// Failed again. Just close and print trace.
+						fFactory.closeConnection(connect);
+						connect = null;
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", eAgain)); //$NON-NLS-1$
+						return null;
+					}
+				} else {
+					// A recoverable error, print trace and return
+					ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
+					return null;
+				}
+			}
+		} finally {
+			proxyFactory.stopTransaction();
+			if (connect != null)
+				fFactory.returnConnection(connect);
+		}
+		return null;
+	}
+
+
+	/*
+	 * @param returnValue
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	private IBeanProxy[] processReturnValue(IREMConnection connection, ValueObject returnValue) throws CommandException, ThrowableProxy {
+		// It is an array containing IDs, as it normally would be.
+		// However it will become IBeanProxy[]. That is because if ID's
+		// they must be proxies over here.
+		BeanProxyValueSender valueSender = new BeanProxyValueSender((REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory(), returnValue);
+		connection.readProxyArrayValues(returnValue, valueSender);
+		Exception e = valueSender.getException();
+		if (e != null) {
+			if (e instanceof ThrowableProxy)
+				throw (ThrowableProxy) e;
+			else
+				throw (CommandException) e;
+		}
+		Object vals = valueSender.getArray();
+		IBeanProxy[] proxyArray = new IBeanProxy[Array.getLength(vals)];
+		System.arraycopy(vals, 0, proxyArray, 0, proxyArray.length);
+		return proxyArray;
 	}
 	
 }

@@ -11,13 +11,16 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: Message.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
+import org.eclipse.jem.internal.proxy.common.MethodHelper;
 
 public class Message extends Expression {
 	protected boolean trailingPeriod = false;
@@ -72,7 +75,13 @@ protected void cacheMethod() throws Exception {
 		for (int i=0; i<argTypes.length; i++)
 			argTypes[i] = getEvaluationTypeClass((Expression) itr.next());
 			
-		fMethod = MethodHelper.findCompatibleMethod(getEvaluationTypeClass(receiver), message, argTypes);
+		try {
+			fMethod = MethodHelper.findCompatibleMethod(getEvaluationTypeClass(receiver), message, argTypes);
+		} catch (NoSuchMethodException e) {
+			throw new EvaluationException(e);
+		} catch (AmbiguousMethodException e) {
+			throw new EvaluationException(e);
+		}
 	}
 }
 

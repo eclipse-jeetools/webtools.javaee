@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.3 $  $Date: 2004/10/28 22:28:53 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/10 22:38:30 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -20,12 +20,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.jem.internal.proxy.common.*;
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.MapTypes;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.ExpressionCommands;
 import org.eclipse.jem.internal.proxy.initParser.EvaluationException;
-import org.eclipse.jem.internal.proxy.initParser.MethodHelper;
 import org.eclipse.jem.internal.proxy.initParser.tree.ExpressionProcesser;
 import org.eclipse.jem.internal.proxy.initParser.tree.IInternalExpressionConstants;
 import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants.NoExpressionValueException;

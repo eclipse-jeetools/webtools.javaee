@@ -10,9 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanTypeProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/10 22:38:30 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
+
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
 
 /**
  * A proxy for a BeanType (i.e. Java type/class). Creation date: (12/3/99 11:38:06 AM)
@@ -20,6 +22,31 @@ package org.eclipse.jem.internal.proxy.core;
  * @author: Joe Winchester
  */
 public interface IBeanTypeProxy extends IBeanProxy {
+	
+	/**
+	 * Find the most compatible constructor (out of the declared constructors). This means it will
+	 * find either an exact match or an override that is compatible, e.g. X(Object j) is returned when looking with arg type of "java.lang.String".
+	 * @param argumentTypes array of arg types or <code>null</code> if none. (In case of null, this is the default ctor, so just use that).
+	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws AmbiguousMethodException
+	 * 
+	 * @since 1.1.0
+	 */
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws AmbiguousMethodException, NoSuchMethodException;
+	
+	/**
+	 * Find the most compatible public method, including inheritied. This means it will
+	 * find either an exact match or an override that is compatible, e.g. xyz(Object j) is returned when looking with arg type of "java.lang.String".
+	 * @param methodName
+	 * @param argumentTypes array of arg types or <code>null</code> if none. (In case of null, just use getMethod(String methodName) since only one is compatible then.
+	 * @return
+	 * @throws AmbiguousMethodException
+	 * @throws NoSuchMethodException
+	 * 
+	 * @since 1.1.0
+	 */
+	public IMethodProxy getCompatibleMethod(String methodName, IBeanTypeProxy[] argumentTypes)  throws AmbiguousMethodException, NoSuchMethodException;
 
 	/**
 	 * Return the constructor proxy on the receiver with the specified arguments Creation date: (12/3/99 2:25:07 PM)
@@ -30,6 +57,50 @@ public interface IBeanTypeProxy extends IBeanProxy {
 	 * Return the constructor proxy on the receiver with the specified types Creation date: (12/3/99 2:25:07 PM)
 	 */
 	public IConstructorProxy getConstructorProxy(IBeanTypeProxy[] argumentTypes);
+	
+	/**
+	 * Return an array of public constructors for this class. 
+	 * 
+	 * @return an array of constructor proxies or <code>null</code> if an error.
+	 * 
+	 * @since 1.1.0
+	 */
+	public IConstructorProxy[] getConstructors();
+
+	/**
+	 * Return the declared constructor proxy on the receiver with the specified arguments Creation date: (12/3/99 2:25:07 PM)
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(String[] argumentClassNames);
+
+	/**
+	 * Return the declared constructor proxy on the receiver with the specified types Creation date: (12/3/99 2:25:07 PM)
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(IBeanTypeProxy[] argumentTypes);
+
+	/**
+	 * Return an array of declared constructors for this class. 
+	 * 
+	 * @return an array of constructor proxies or <code>null</code> if an error.
+	 * 
+	 * @since 1.1.0
+	 */
+	public IConstructorProxy[] getDeclaredConstructors();
+
+	/**
+	 * Return the array of field proxies.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public IFieldProxy[] getFields();
+
+	/**
+	 * Return the array of declared field proxies.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public IFieldProxy[] getDeclaredFields();
 
 	/**
 	 * Return the fieldproxy on the receiver with the specified name Creation date: (12/3/99 2:25:07 PM)
@@ -79,6 +150,34 @@ public interface IBeanTypeProxy extends IBeanProxy {
 	 * @since 1.0.0
 	 */
 	public IMethodProxy getMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes);
+
+	/**
+	 * Return an array of public methods for this class. 
+	 * 
+	 * @return an array of method proxies or <code>null</code> if an error.
+	 * 
+	 * @since 1.1.0
+	 */
+	public IMethodProxy[] getMethods();
+
+	/**
+	 * Return the declared method proxy on the receiver with the specified arguments Creation date: (12/3/99 2:25:07 PM)
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, String[] argumentClassNames);
+
+	/**
+	 * Return the declared method proxy on the receiver with the specified types Creation date: (12/3/99 2:25:07 PM)
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes);
+
+	/**
+	 * Return an array of declared methods for this class. 
+	 * 
+	 * @return an array of method proxies or <code>null</code> if an error.
+	 * 
+	 * @since 1.1.0
+	 */
+	public IMethodProxy[] getDeclaredMethods();
 
 	/**
 	 * Return the invokable on the receiver with the specified name and no arguments.
@@ -159,14 +258,6 @@ public interface IBeanTypeProxy extends IBeanProxy {
 	 * Return the constructor proxy on the receiver with no arguments Creation date: (12/3/99 2:25:07 PM)
 	 */
 	public IConstructorProxy getNullConstructorProxy();
-
-	/**
-	 * Return the Proxy Factory Registry so that users of this instance can get to the correct factories for this type. Creation date: (3/13/00
-	 * 4:53:25 PM)
-	 * 
-	 * @return org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry
-	 */
-	public ProxyFactoryRegistry getProxyFactoryRegistry();
 
 	/**
 	 * Answer the type proxy for the superclass Creation date: (12/3/99 2:25:07 PM)

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: IREMConnection.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:35:19 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/10 22:38:30 $ 
  */
 
 
@@ -65,6 +65,16 @@ public interface IREMConnection {
 	public void getNewInstance(int classID, String initString, Commands.ValueObject newInstance) throws CommandException;
 		
 	/**
+	 * Invoke the get array contents command.
+	 * @param arrayID
+	 * @param returnValue
+	 * @throws CommandException
+	 * 
+	 * @since 1.1.0
+	 */
+	public void getArrayContents(int arrayID, Commands.ValueObject returnValue) throws CommandException;
+	
+	/**
 	 * Invoke the method call.
 	 * The parms valueObject must represent an Object[] (either through ARRAY_IDS or OBJECT)
 	 */	
@@ -80,5 +90,16 @@ public interface IREMConnection {
 	 * Release the id. It is no longer needed on the client.
 	 */
 	public void releaseID(int id);
+	
+	/**
+	 * Read array values as BeanProxies into valueSender.
+	 * 
+	 * @param returnValue
+	 * @param valueSender
+	 * @throws CommandException
+	 * 
+	 * @since 1.1.0
+	 */
+	public void readProxyArrayValues(Commands.ValueObject returnValue, Commands.ValueSender valueSender) throws CommandException;
 	
 }

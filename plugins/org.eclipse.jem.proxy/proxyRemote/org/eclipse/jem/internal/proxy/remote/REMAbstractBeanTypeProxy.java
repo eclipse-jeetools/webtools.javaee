@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/09 17:21:45 $ 
+ *  $Revision: 1.10 $  $Date: 2005/02/10 22:38:30 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.TransmitableArray;
@@ -147,6 +148,140 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 			return null;
 		}
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IConstructorProxy[] getConstructors() {
+
+		if (isInterface())
+			return null; // Interfaces don't have ctor's.
+
+		IREMMethodProxy getCtorMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassConstructors();
+
+		try {
+			IArrayBeanProxy ctors = (IArrayBeanProxy) getCtorMethod.invokeWithParms(this, null);
+			IBeanProxy[] proxies = ctors.getSnapshot();
+			IConstructorProxy[] ctorproxies = new IConstructorProxy[proxies.length];
+			System.arraycopy(proxies, 0, ctorproxies, 0, proxies.length);
+			return ctorproxies;
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(java.lang.String[])
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(String[] argumentClassNames) {
+		if (isInterface())
+			return null; // Interfaces don't have ctor's.
+
+		// Turn class names into array of BeanTypes.
+		IBeanTypeProxy[] argTypes = null;
+		if (argumentClassNames != null) {
+			IStandardBeanTypeProxyFactory typeFactory = fRegistry.getBeanTypeProxyFactory();
+			argTypes = new IBeanTypeProxy[argumentClassNames.length];
+			for (int i = 0; i < argumentClassNames.length; i++) {
+				IBeanTypeProxy type = argTypes[i] = typeFactory.getBeanTypeProxy(argumentClassNames[i]);
+				if (type == null)
+					return null; // Couldn't find the type.
+			}
+		}
+
+		return getDeclaredConstructorProxy(argTypes);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(IBeanTypeProxy[] argumentTypes) {
+		if (isInterface())
+			return null; // Interfaces don't have ctor's.
+
+		IREMMethodProxy getCtorMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getDeclaredClassConstructor();
+
+		// Create the argument array
+		Object[] getParms = (argumentTypes != null) ? new Object[] { new TransmitableArray(Commands.CLASS_CLASS, argumentTypes)} : // Get Ctor has
+																																   // only one parm,
+																																   // the array of
+																																   // parm types.
+				null;
+
+		try {
+			return (IConstructorProxy) getCtorMethod.invokeWithParms(this, getParms);
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IConstructorProxy[] getDeclaredConstructors() {
+
+		if (isInterface())
+			return null; // Interfaces don't have ctor's.
+
+		IREMMethodProxy getCtorMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getDeclaredClassConstructors();
+
+		try {
+			IArrayBeanProxy ctors = (IArrayBeanProxy) getCtorMethod.invokeWithParms(this, null);
+			IBeanProxy[] proxies = ctors.getSnapshot();
+			IConstructorProxy[] ctorproxies = new IConstructorProxy[proxies.length];
+			System.arraycopy(proxies, 0, ctorproxies, 0, proxies.length);
+			return ctorproxies;
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IFieldProxy[] getFields() {
+
+		IREMMethodProxy getFieldsMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetFields();
+
+		try {
+			IArrayBeanProxy fields = (IArrayBeanProxy) getFieldsMethod.invokeWithParms(this, null);
+			IBeanProxy[] proxies = fields.getSnapshot();
+			IFieldProxy[] fieldProxies = new IFieldProxy[proxies.length];
+			System.arraycopy(proxies, 0, fieldProxies, 0, proxies.length);
+			return fieldProxies;
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IFieldProxy[] getDeclaredFields() {
+
+		IREMMethodProxy getDeclaredFieldsMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetDeclaredFields();
+
+		try {
+			IArrayBeanProxy fields = (IArrayBeanProxy) getDeclaredFieldsMethod.invokeWithParms(this, null);
+			IBeanProxy[] proxies = fields.getSnapshot();
+			IFieldProxy[] fieldProxies = new IFieldProxy[proxies.length];
+			System.arraycopy(proxies, 0, fieldProxies, 0, proxies.length);
+			return fieldProxies;
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -165,6 +300,44 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 */
 	public IFieldProxy getFieldProxy(String fieldName) {
 		return ((REMStandardBeanTypeProxyFactory) fRegistry.getBeanTypeProxyFactory()).proxyConstants.getFieldProxy(this,fieldName);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IMethodProxy[] getMethods() {
+
+		IREMMethodProxy getMethodsMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassMethods();
+
+		try {
+			IArrayBeanProxy methods = (IArrayBeanProxy) getMethodsMethod.invokeWithParms(this, null);
+			IBeanProxy[] proxies = methods.getSnapshot();
+			IMethodProxy[] methodProxies = new IMethodProxy[proxies.length];
+			System.arraycopy(proxies, 0, methodProxies, 0, proxies.length);
+			return methodProxies;
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IMethodProxy[] getDeclaredMethods() {
+
+		IREMMethodProxy getDeclaredMethodsMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassDeclaredMethods();
+
+		try {
+			IArrayBeanProxy methods = (IArrayBeanProxy) getDeclaredMethodsMethod.invokeWithParms(this, null);
+			IBeanProxy[] proxies = methods.getSnapshot();
+			IMethodProxy[] methodProxies = new IMethodProxy[proxies.length];
+			System.arraycopy(proxies, 0, methodProxies, 0, proxies.length);
+			return methodProxies;
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
 	}
 
 	/*
@@ -203,6 +376,47 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 		return ((REMStandardBeanTypeProxyFactory) fRegistry.getBeanTypeProxyFactory()).proxyConstants.getMethodProxy(this,methodName,argumentTypes);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(java.lang.String[])
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, String[] argumentClassNames) {
+
+		// Turn class names into array of BeanTypes.
+		IBeanTypeProxy[] argTypes = null;
+		if (argumentClassNames != null) {
+			IStandardBeanTypeProxyFactory typeFactory = fRegistry.getBeanTypeProxyFactory();
+			argTypes = new IBeanTypeProxy[argumentClassNames.length];
+			for (int i = 0; i < argumentClassNames.length; i++) {
+				IBeanTypeProxy type = argTypes[i] = typeFactory.getBeanTypeProxy(argumentClassNames[i]);
+				if (type == null)
+					return null; // Couldn't find the type.
+			}
+		}
+
+		return getDeclaredMethodProxy(methodName, argTypes);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes) {
+		IREMMethodProxy getDeclaredMethodMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassDeclaredMethod();
+		IBeanProxy nameProxy = fRegistry.getBeanProxyFactory().createBeanProxyWith(methodName);
+		// Create the argument array
+		Object[] getParms = (argumentTypes != null) ? new Object[] { nameProxy, new TransmitableArray(Commands.CLASS_CLASS, argumentTypes)} : new Object[] {nameProxy, null};
+
+		try {
+			return (IMethodProxy) getDeclaredMethodMethod.invokeWithParms(this, getParms);
+		} catch (ThrowableProxy e) {
+			fRegistry.releaseProxy(e);
+			return null;
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -389,4 +603,57 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 		return null; // By default none have an initialization error. There is a special instance for init errors.
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleConstructor(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) throws NoSuchMethodException, AmbiguousMethodException {
+		if (isInterface())
+			return null; // Interfaces don't have ctor's.
+
+		IREMMethodProxy findCompatibleMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getFindCompatibleConstructorMethod();
+
+		// Create the argument array
+		Object[] getParms = (argumentTypes != null) ? new Object[] { this, new TransmitableArray(Commands.CLASS_CLASS, argumentTypes)} : new Object[] {this, null};
+
+		try {
+			return (IConstructorProxy) findCompatibleMethod.invokeWithParms(this, getParms);
+		} catch (ThrowableProxy e) {
+			try {
+				if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("java.lang.NoSuchMethodException")))
+					throw new NoSuchMethodException(e.getProxyLocalizedMessage());
+				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.common.AmbiguousMethodException")))
+					throw new AmbiguousMethodException(e.getProxyLocalizedMessage());
+				ProxyPlugin.getPlugin().getLogger().log(e);
+				return null;
+			} finally {
+				fRegistry.releaseProxy(e);
+			}
+		}
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleMethod(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IMethodProxy getCompatibleMethod(String methodName, IBeanTypeProxy[] argumentTypes) throws NoSuchMethodException, AmbiguousMethodException {
+
+		IREMMethodProxy findCompatibleMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getFindCompatibleMethodMethod();
+		IBeanProxy methodNameProxy = fRegistry.getBeanProxyFactory().createBeanProxyWith(methodName);
+
+		// Create the argument array
+		Object[] getParms = (argumentTypes != null) ? new Object[] { this, methodNameProxy, new TransmitableArray(Commands.CLASS_CLASS, argumentTypes)} : new Object[] {this, methodNameProxy, null};
+
+		try {
+			return (IMethodProxy) findCompatibleMethod.invokeWithParms(this, getParms);
+		} catch (ThrowableProxy e) {
+			try {
+				if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("java.lang.NoSuchMethodException")))
+					throw new NoSuchMethodException(e.getProxyLocalizedMessage());
+				else if (e.getTypeProxy().equals(fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy("org.eclipse.jem.internal.proxy.common.AmbiguousMethodException")))
+					throw new AmbiguousMethodException(e.getProxyLocalizedMessage());
+				ProxyPlugin.getPlugin().getLogger().log(e);
+				return null;
+			} finally {
+				fRegistry.releaseProxy(e);
+			}
+		}
+	}
 }

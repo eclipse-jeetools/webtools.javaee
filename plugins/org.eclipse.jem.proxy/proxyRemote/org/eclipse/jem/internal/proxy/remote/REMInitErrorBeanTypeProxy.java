@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/10 22:38:30 $ 
  */package org.eclipse.jem.internal.proxy.remote;
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -75,6 +75,54 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 	public IConstructorProxy getConstructorProxy(IBeanTypeProxy[] argumentTypes) {
 		return null;
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IConstructorProxy[] getConstructors() {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(java.lang.String[])
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(String[] argumentClassNames) {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IConstructorProxy getDeclaredConstructorProxy(IBeanTypeProxy[] argumentTypes) {
+		return null;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IConstructorProxy[] getDeclaredConstructors() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IFieldProxy[] getFields() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IFieldProxy[] getDeclaredFields() {
+		return null;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -94,6 +142,21 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IMethodProxy[] getMethods() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructors()
+	 */
+	public IMethodProxy[] getDeclaredMethods() {
+		return null;
+	}
+
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -127,6 +190,24 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
 	public IMethodProxy getMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes) {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes) {
+		return null;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, java.lang.String[])
+	 */
+	public IMethodProxy getDeclaredMethodProxy(String methodName, String[] argumentClassNames) {
 		return null;
 	}
 
@@ -332,6 +413,18 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String)
 	 */
 	public IInvokable getInvokable(String methodName) {
+		return null;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleConstructor(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IConstructorProxy getCompatibleConstructor(IBeanTypeProxy[] argumentTypes) {
+		return null;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getCompatibleMethod(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IMethodProxy getCompatibleMethod(String methodName, IBeanTypeProxy[] argumentTypes) {
 		return null;
 	}
 }
