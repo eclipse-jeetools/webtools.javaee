@@ -36,6 +36,7 @@
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.debug.ui"/>
    </requires>
 
 
@@ -252,14 +253,14 @@
        <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean">
-            <adapter type="org.eclipse.jst.j2ee.ejb.internal.deployables.IEJBModuleArtifact"/>
-             <!-- <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> -->
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.internal.ejb.EJBJar">
-            <adapter type="org.eclipse.jst.j2ee.ejb.internal.deployables.IEJBModuleArtifact"/>
-           <!-- <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> -->
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>    
    </extension>
    

@@ -15,18 +15,14 @@ public class EJBDeployableArtifactAdapterFactory implements IAdapterFactory {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
-		if (adapterType == IEJBModuleArtifact.class)
+		if (adapterType == IEJBModuleArtifact.class || adapterType == IModuleArtifact.class) {
 			moduleArtifact = EJBDeployableArtifactAdapterUtil.getModuleObject(adaptableObject);
-		else if (adapterType == ILaunchable.class) {
-			if (adaptableObject instanceof EObject) {
-				return adaptableObject;
-			}
 		}
 		return moduleArtifact;
 	}
 
 	public Class[] getAdapterList() {
-		return new Class[] { IEJBModuleArtifact.class, ILaunchable.class };
+		return new Class[]{IEJBModuleArtifact.class, ILaunchable.class, IModuleArtifact.class};
 	}
 
 }
