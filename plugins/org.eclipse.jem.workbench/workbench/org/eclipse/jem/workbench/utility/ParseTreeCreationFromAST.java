@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.5 $  $Date: 2004/05/18 18:15:21 $ 
+ *  $Revision: 1.6 $  $Date: 2004/05/26 14:41:32 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -271,7 +271,10 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		}
 		PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
 		PTExpression type = perform(node.getName());
-		cic.setType(((PTName) type).getName());
+		if (type instanceof PTName)
+		    cic.setType(((PTName) type).getName());
+	    else if (type instanceof PTInstanceReference)
+	    	cic.setType(((PTInstanceReference)type).getObject().getJavaType().getQualifiedName());
 		List args = cic.getArguments();
 		List nargs = node.arguments();
 		int nsize = nargs.size();
