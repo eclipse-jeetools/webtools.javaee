@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
@@ -25,8 +26,6 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class EARComponentCreationDataModel extends J2EEComponentCreationDataModel {
 	/**
@@ -74,16 +73,6 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	}
 
 	private Object updateAddToEar() {
-		//IRuntime type = getServerTargetDataModel().getRuntimeTarget();
-//		Boolean ret = Boolean.FALSE;
-//		IRuntime type = getProjectDataModel().getServerTargetDataModel().getRuntimeTarget();
-//		if (type == null)
-//			return Boolean.TRUE;
-//		IRuntimeType rType = type.getRuntimeType();
-//		if (rType == null)
-//			return Boolean.TRUE;
-//		return ret;
-		//return new Boolean(!rType.getVendor().equals(APACHE_VENDER_NAME));
 		return null;
 	}
 
