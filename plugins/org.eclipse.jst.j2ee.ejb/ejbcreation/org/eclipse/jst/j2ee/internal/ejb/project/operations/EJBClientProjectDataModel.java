@@ -299,8 +299,9 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#notifyListeners(org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModelEvent)
 	 */
 	protected void notifyListeners(WTPOperationDataModelEvent event) {
-		if (event.getDataModel() == nestedProjModel)
+		if (event.getDataModel() == nestedProjModel && !event.getPropertyName().equals(JavaProjectCreationDataModel.PROJECT_LOCATION)) {
 			return;
+		}
 		super.notifyListeners(event);
 	}
 }

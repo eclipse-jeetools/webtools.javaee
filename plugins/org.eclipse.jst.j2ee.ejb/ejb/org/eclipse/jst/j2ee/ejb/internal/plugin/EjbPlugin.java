@@ -72,87 +72,6 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 		return getDescriptor().getInstallURL();
 	}
 
-	public IEJBArchiveTransformationOperation getExtendedArchiveOperation() {
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(J2EEPlugin.PLUGIN_ID, "PreAndPostArchiveOperation");//$NON-NLS-1$
-		IExtension[] extension = pct.getExtensions();
-		for (int l = 0; l < extension.length; ++l) {
-			IExtension config = extension[l];
-			IConfigurationElement[] cElems = config.getConfigurationElements();
-			for (int i = 0; i < cElems.length; i++) {
-				IConfigurationElement d = cElems[i];
-				if (d.getName().equals("operation")) //$NON-NLS-1$
-				{
-					// operation class
-					try {
-						return (IEJBArchiveTransformationOperation) d.createExecutableExtension("run");//$NON-NLS-1$
-						/*
-						 * Class aClass = null;
-						 * 
-						 * aClass = Class.forName(className);
-						 *  
-						 */
-					} catch (Exception ex) {
-						return null;
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	public IBackendManager getExtendedBackendManager(EJBNatureRuntime runtime) {
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(getDescriptor().getUniqueIdentifier(), "BackendManagerExtension");//$NON-NLS-1$
-		// TODO Fix this to return a default manager
-		if (pct == null)
-			return null;
-		IExtension[] extension = pct.getExtensions();
-		for (int l = 0; l < extension.length; ++l) {
-			IExtension config = extension[l];
-			IConfigurationElement[] cElems = config.getConfigurationElements();
-			for (int i = 0; i < cElems.length; i++) {
-				IConfigurationElement d = cElems[i];
-				if (d.getName().equals("manager")) //$NON-NLS-1$
-				{
-					// backend manager class
-					try {
-						IBackendManager bm = (IBackendManager) d.createExecutableExtension("run");//$NON-NLS-1$
-						bm.setNature(runtime);
-						return bm;
-					} catch (Exception ex) {
-						return null;
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	public IExtendedEJBCommand getExtendedEJBCommand(String commandKey) {
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(getDescriptor().getUniqueIdentifier(), "EJBCommandExtension");//$NON-NLS-1$
-		if (pct != null) {
-			IExtension[] extension = pct.getExtensions();
-			for (int l = 0; l < extension.length; ++l) {
-				IExtension config = extension[l];
-				IConfigurationElement[] cElems = config.getConfigurationElements();
-				for (int i = 0; i < cElems.length; i++) {
-					IConfigurationElement d = cElems[i];
-					if (d.getName().equals("command") && commandKey.equals(d.getAttribute("key"))) { //$NON-NLS-2$//$NON-NLS-1$
-						// command class
-						try {
-							return (IExtendedEJBCommand) d.createExecutableExtension("run"); //$NON-NLS-1$
-						} catch (Exception ex) {
-							return null;
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * This gets a .gif from the icons folder.
 	 */
@@ -257,5 +176,34 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 */
 	public static IStatus createErrorStatus(int aCode, String aMessage, Throwable exception) {
 		return createStatus(IStatus.ERROR, aCode, aMessage, exception);
+	}
+
+	public IEJBArchiveTransformationOperation getExtendedArchiveOperation() {
+		IPluginRegistry registry = Platform.getPluginRegistry();
+		IExtensionPoint pct = registry.getExtensionPoint(J2EEPlugin.PLUGIN_ID, "PreAndPostArchiveOperation");//$NON-NLS-1$
+		IExtension[] extension = pct.getExtensions();
+		for (int l = 0; l < extension.length; ++l) {
+			IExtension config = extension[l];
+			IConfigurationElement[] cElems = config.getConfigurationElements();
+			for (int i = 0; i < cElems.length; i++) {
+				IConfigurationElement d = cElems[i];
+				if (d.getName().equals("operation")) //$NON-NLS-1$
+				{
+					// operation class
+					try {
+						return (IEJBArchiveTransformationOperation) d.createExecutableExtension("run");//$NON-NLS-1$
+						/*
+						 * Class aClass = null;
+						 * 
+						 * aClass = Class.forName(className);
+						 *  
+						 */
+					} catch (Exception ex) {
+						return null;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

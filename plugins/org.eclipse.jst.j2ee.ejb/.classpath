@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="ejb/"/>
 	<classpathentry kind="src" path="ejbedit/"/>
-	<classpathentry kind="src" path="ejbcreationgen/"/>
 	<classpathentry kind="src" path="ejbcreation/"/>
 	<classpathentry kind="src" path="ejbarchive/"/>
 	<classpathentry kind="src" path="ejbvalidator/"/>

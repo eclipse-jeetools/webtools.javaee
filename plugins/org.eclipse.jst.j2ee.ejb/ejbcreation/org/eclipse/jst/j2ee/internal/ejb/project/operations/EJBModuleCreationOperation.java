@@ -25,11 +25,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.operations.CreateSessionBeanDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 	public static final String DEFAULT_SESSION_BEAN_NAME = "DefaultSession"; //$NON-NLS-1$
@@ -45,16 +42,19 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.execute(monitor);
-		createDefaultSessionBean(monitor);
+		//createDefaultSessionBean(monitor);
 		if (((EJBModuleCreationDataModel) operationDataModel).getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT))
 			createClientJar(monitor);
 
 	}
-
+	
+	//Removed by NSS
+	//Disabled Bean Creation for WTP
+	//Also removed Line 45.
 	/**
 	 * @param monitor
 	 */
-	private void createDefaultSessionBean(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+	/*private void createDefaultSessionBean(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		EJBModuleCreationDataModel dataModel = (EJBModuleCreationDataModel) operationDataModel;
 		if (dataModel.getBooleanProperty(EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN)) {
 			CreateSessionBeanDataModel ejbCreationDataModel = new CreateSessionBeanDataModel();
@@ -63,7 +63,7 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 			ejbCreationDataModel.getDefaultOperation().run(monitor);
 		}
 
-	}
+	}*/
 
 	/**
 	 *  

@@ -38,13 +38,6 @@
    </requires>
 
 
-<!--============================-->
-<!-- EJB Codegen Ext Handler    -->
-<!--============================-->
-   <extension-point id="EJBCodegenHandler" name="EJB Codegen Extension Handler" schema="schema/EJBCodegenHandler.exsd"/>
-   <extension-point id="DeleteDeployCode" name="DeleteDeployCode" schema="schema/DeleteDeployCode.exsd"/>
-   <extension-point id="BackendMigration" name="BackendMigration" schema="schema/BackendMigration.exsd"/>
-   <extension-point id="Delete11Relationships" name="Delete11Relationships" schema="schema/Delete11Relationships.exsd"/>
 
 <!--============================-->
 <!-- EJB 1.1 Nature             -->
