@@ -1,9 +1,0 @@
-com.ibm.etools.j2ee.core_5.1.1/runtime/commonArchive.jar
-com.ibm.etools.j2ee.core_5.1.1/runtime/j2ee-validation.jar
-com.ibm.etools.j2ee.core_5.1.1/runtime/mofj2ee.jar
-com.ibm.etools.validation.core_1.0.0/runtime/common.jar
-com.ibm.wtp.annotations.core_1.0.0/annotations-core.jar
-com.ibm.wtp.common.util_1.0.0/util.jar
-com.ibm.wtp.common_1.0.0/common_core.jar
-com.ibm.wtp.emf_0.5.0/runtime/wtpemf.jar
-org.eclipse.jem_1.0.0/mofjava.jar
