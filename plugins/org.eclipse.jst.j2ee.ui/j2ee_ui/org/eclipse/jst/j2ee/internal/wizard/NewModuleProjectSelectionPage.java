@@ -36,8 +36,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.activities.WorkbenchActivityHelper;
-import org.eclipse.ui.internal.dialogs.WorkbenchWizardElement;
-import org.eclipse.ui.internal.registry.NewWizardsRegistryReader;
+import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.wizards.IWizardDescriptor;
+import org.eclipse.ui.wizards.IWizardRegistry;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
@@ -355,9 +356,11 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				 */
 				protected IWizard createWizard() {
 					IWizard result = null;
-					WorkbenchWizardElement connWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.internal.internal.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
+
+					IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+					IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
 					try {
-						result = (IWizard) connWizElement.createExecutableExtension();
+						result = descriptor.createWizard();
 					} catch (CoreException ce) {
 						Logger.getLogger().log(ce);
 					}
@@ -381,9 +384,11 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				 */
 				protected IWizard createWizard() {
 					IWizard result = null;
-					WorkbenchWizardElement ejbWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.internal.internal.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
+
+					IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+					IWizardDescriptor descriptor = newWizardRegistry.findWizard("org.eclipse.jst.j2ee.internal.internal.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
 					try {
-						result = (IWizard) ejbWizElement.createExecutableExtension();
+						result = descriptor.createWizard();
 					} catch (CoreException ce) {
 						Logger.getLogger().log(ce);
 					}
@@ -407,9 +412,10 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				 */
 				protected IWizard createWizard() {
 					IWizard result = null;
-					WorkbenchWizardElement servletWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"); //$NON-NLS-1$
+					IWizardRegistry newWizardRegistry = WorkbenchPlugin.getDefault().getNewWizardRegistry();
+					IWizardDescriptor servletWizardDescriptor = newWizardRegistry.findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"); //$NON-NLS-1$
 					try {
-						result = (IWizard) servletWizElement.createExecutableExtension();
+						result = servletWizardDescriptor.createWizard();
 					} catch (CoreException ce) {
 						Logger.getLogger().log(ce);
 					}

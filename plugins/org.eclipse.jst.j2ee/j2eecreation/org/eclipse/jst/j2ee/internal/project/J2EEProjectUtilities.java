@@ -527,6 +527,9 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		IProject project = (IProject) parent;
 		try {
+			if(!project.isAccessible())
+				return false;
+			
 			IProjectDescription desc = project.getDescription();
 			if (desc.hasNature(IEJBNatureConstants.NATURE_ID)) {
 				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
