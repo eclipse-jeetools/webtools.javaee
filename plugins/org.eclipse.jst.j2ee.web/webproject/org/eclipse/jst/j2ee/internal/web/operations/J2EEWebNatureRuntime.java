@@ -1,10 +1,5 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-/*
- * Licensed Material - Property of IBM (C) Copyright IBM Corp. 2001, 2002 - All Rights Reserved. US
- * Government Users Restricted Rights - Use, duplication or disclosure restricted by GSA ADP
- * Schedule Contract with IBM Corp.
- */
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Map;
@@ -62,9 +57,10 @@ import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
-/*
- * Licensed Materials - Property of IBM, WebSphere Studio Workbench (c) Copyright IBM Corp 2000
+/**
+ * @deprecated - This class is deprecated. Use WebArtifactEdit instead
  */
+
 public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWebNature, IWebNatureConstants {
 	static protected String PROJECTTYPE_J2EE_VALUE = "J2EE"; //$NON-NLS-1$
 	private static final String WEB_PROJECT_12_OVERLAY = "1_2_ovr"; //$NON-NLS-1$

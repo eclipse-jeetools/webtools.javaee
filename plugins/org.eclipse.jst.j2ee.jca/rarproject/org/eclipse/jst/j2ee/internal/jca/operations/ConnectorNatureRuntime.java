@@ -34,6 +34,9 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
+/**
+ * @deprecated - This class is deprecated. Use ConnectorArtifactEdit instead
+ */
 public class ConnectorNatureRuntime extends J2EEModuleNature {
 
 	private static final String CONNECTOR_PROJECT_10_OVERLAY = "1_0_ovr"; //$NON-NLS-1$

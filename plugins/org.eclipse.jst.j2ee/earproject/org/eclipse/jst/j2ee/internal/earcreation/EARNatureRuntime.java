@@ -44,6 +44,14 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
+/**
+ * @deprecated - This class is deprecated. 
+ * Use 
+ * <pre>
+ * 		EARArtifactEdit instead.
+ * </pre>
+ *
+ */
 
 public class EARNatureRuntime extends J2EENature {
 
@@ -141,21 +149,7 @@ public class EARNatureRuntime extends J2EENature {
 	public Module createNewModule() {
 		return null;
 	}
-
-	/**
-	 * Create a new nature runtime from the project info
-	 */
-	//	public static EARNatureRuntime createRuntime(EARProjectInfo info) throws CoreException {
-	//		IProject project = info.getProject();
-	//		String natureId = IEARNatureConstants.NATURE_ID;
-	//		if (!hasRuntime(project)) {
-	//			addNatureToProject(project, natureId);
-	//			EARNatureRuntime runtime = getRuntime(project);
-	//			runtime.initializeFromInfo(info);
-	//			return runtime;
-	//		}
-	//		return getRuntime(project);
-	//	}
+	
 	/**
 	 * Return a list of all projects that have an ear nature
 	 */
@@ -171,10 +165,28 @@ public class EARNatureRuntime extends J2EENature {
 		}
 		return earProjects;
 	}
+	
+	/**
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EARArtifactEdit.getApplication()
+	 * </pre>
+	 * 
+	 */
 
 	public Application getApplication() {
 		return ((EAREditModel) getCacheEditModel()).getApplication();
 	}
+	
+	/**
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EARArtifactEdit.getApplicationXmiResource() 	
+	 * </pre>
+	 * @return
+	 */
 
 	public Resource getApplicationXmiResource() {
 		return getResource(URI.createURI(ArchiveConstants.APPLICATION_DD_URI));
@@ -198,6 +210,8 @@ public class EARNatureRuntime extends J2EENature {
 	 * Returns an application xml model that consists of the MOF model and the DOM model.
 	 * Important!!! Calling this method increments the use count of this model. When you are done
 	 * accessing the model, call releaseAccess()!
+	 * 
+	 * @deprecated - use EARArtifactEdit.getArtifactEditForRead(WorkbenchComponent aModule) instead.
 	 */
 	public EAREditModel getEarEditModelForRead(Object accessorKey) {
 		return (EAREditModel) getEditModelForRead(IEARNatureConstants.EDIT_MODEL_ID, accessorKey);
@@ -207,6 +221,9 @@ public class EARNatureRuntime extends J2EENature {
 	 * Returns an application xml model that consists of the MOF model and the DOM model.
 	 * Important!!! Calling this method increments the use count of this model. When you are done
 	 * accessing the model, call releaseAccess()!
+	 * 
+	 * @deprecated - use EARArtifactEdit.getArtifactEditForWrite(WorkbenchComponent aModule) instead.
+	 * 
 	 */
 	public EAREditModel getEarEditModelForWrite(Object accessorKey) {
 		return (EAREditModel) getEditModelForWrite(IEARNatureConstants.EDIT_MODEL_ID, accessorKey);
