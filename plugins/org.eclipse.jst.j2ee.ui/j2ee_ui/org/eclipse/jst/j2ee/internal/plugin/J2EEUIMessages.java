@@ -170,8 +170,11 @@ public class J2EEUIMessages extends Messages {
 	public final static String ADD_BUTTON_LABEL = getResourceString("ADD_BUTTON_LABEL"); //$NON-NLS-1$
 	public static final String REMOVE_BUTTON = getResourceString("REMOVE_BUTTON"); //$NON-NLS-1$
 	public final static String INTERFACE_SELECTION_DIALOG_TITLE = getResourceString("INTERFACE_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
-	
-	
+
+	public static final String JAVAUTIL_COMPONENT_WIZ_TITLE="JAVAUTIL_COMPONENT_WIZ_TITLE"; //$NON-NLS-1$
+	public static final String JAVAUTILITY_MAIN_PG_TITLE = "JAVAUTILITY_MAIN_PG_TITLE";//$NON-NLS-1$
+	public final static String JAVAUTILITY_MAIN_PG_DESC = "JAVAUTILITY_MAIN_PG_DESC";//$NON-NLS-1$
+
 	
 
 	/**

@@ -144,6 +144,21 @@
          </selection>
       </wizard>
 
+      <wizard
+            name="%Java_Component"
+            icon="icons/full/ctool16/newear_wiz.gif"
+            category="org.eclipse.jdt.ui.java"
+            class="org.eclipse.jst.j2ee.internal.wizard.JavaUtilityComponentCreationWizard"
+            project="true"
+            id="org.eclipse.jst.j2ee.internal.wizard.JavaUtilityComponentCreationWizard">
+         <description>
+            %Java_Component.description
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      
    </extension>
   
 <!--================================-->
@@ -895,4 +910,6 @@
          </enablement>
        </commonWizard>
    </extension>
+    
+
 </plugin>
