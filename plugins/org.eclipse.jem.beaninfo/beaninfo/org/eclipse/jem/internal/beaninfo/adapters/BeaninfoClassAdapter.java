@@ -11,11 +11,10 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.10 $  $Date: 2004/04/27 15:25:23 $ 
+ *  $Revision: 1.11 $  $Date: 2004/04/27 15:26:03 $ 
  */
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.util.*;
