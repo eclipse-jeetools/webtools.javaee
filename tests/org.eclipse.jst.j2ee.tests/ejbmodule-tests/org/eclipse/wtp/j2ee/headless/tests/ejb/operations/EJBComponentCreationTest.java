@@ -13,7 +13,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractProjectCreationTest;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractJ2EEComponentCreationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator;
 
 /**
@@ -22,40 +22,40 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class EJBProjectCreationTest extends AbstractProjectCreationTest {
+public class EJBComponentCreationTest extends AbstractJ2EEComponentCreationTest {
 	
 	
 	public void testVaild11EJBProjectNameCreationWithAlphabeticChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_1_1_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_1_1_ID, false);
 	}
 	
 	public void testVaildEJB11ProjectNameCreationWithMixedChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_1_1_ID, true);
+			createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_1_1_ID, true);
 	}
 	
 	public void testVaild20EJBProjectNameCreationAllChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_2_0_ID, true);
+			createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_2_0_ID, true);
 	}
 	
 	public void testVaild20EJBProjectNameCreationWithAlphabetic() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_2_0_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_2_0_ID, false);
 	}
 	
 	public void testVaildRandomVersionsEJBProjectNameCreationAllChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_1_1_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_1_1_ID, true);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_2_0_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_2_0_ID, true);
 		}
 	}
 	
@@ -63,9 +63,9 @@ public class EJBProjectCreationTest extends AbstractProjectCreationTest {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_1_1_ID, false);
+				createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_1_1_ID, false);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(EJB_PROJECT, J2EEVersionConstants.EJB_2_0_ID, false);
+				createValidComponentNameCreationWithAlphabetChars(EJB_MODULE, J2EEVersionConstants.EJB_2_0_ID, false);
 		}
 	}
 	
@@ -74,7 +74,7 @@ public class EJBProjectCreationTest extends AbstractProjectCreationTest {
 		LogUtility.getInstance().resetLogging();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
-				J2EEComponentCreationDataModel model = setupEJBProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.EJB_1_1_ID);
+				J2EEComponentCreationDataModel model = setupEJBComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.EJB_1_1_ID);
 				checkValidDataModel(model);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {
@@ -89,7 +89,7 @@ public class EJBProjectCreationTest extends AbstractProjectCreationTest {
 	}
 
     public static Test suite() {
-        return new SimpleTestSuite(EJBProjectCreationTest.class);
+        return new SimpleTestSuite(EJBComponentCreationTest.class);
     }
 
 }

@@ -25,6 +25,6 @@ public class AllTests extends TestSuite {
      //   addTest(AppClientExportOperationTest.suite());
      //   addTest(AppClientImportOperationTest.suite());
         addTest(AppClientProjectCreationOperationTest.suite());
-        addTest(AppClientProjectTest.suite());
+        addTest(AppClientComponentTest.suite());
     }
 }

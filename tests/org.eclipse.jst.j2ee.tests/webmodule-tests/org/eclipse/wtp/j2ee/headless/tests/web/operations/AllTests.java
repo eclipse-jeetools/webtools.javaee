@@ -36,7 +36,7 @@ public class AllTests extends TestSuite {
        // addTest(WebExportOperationTest.suite());
        // addTest(WebImportOperationTest.suite());
         addTest(WebProjectCreationOperationTest.suite());
-        addTest(WebProjectCreationTest.suite());
+        addTest(WebComponentCreationTest.suite());
     }
     
     public static IRuntime createRuntime()  {

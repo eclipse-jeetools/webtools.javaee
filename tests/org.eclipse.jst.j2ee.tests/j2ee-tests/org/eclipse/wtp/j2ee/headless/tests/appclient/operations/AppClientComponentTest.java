@@ -14,7 +14,7 @@ import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientCompone
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractProjectCreationTest;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractJ2EEComponentCreationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator;
 
 /**
@@ -23,12 +23,12 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator
  * To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Generation - Code and Comments
  */
-public class AppClientProjectTest extends AbstractProjectCreationTest {
+public class AppClientComponentTest extends AbstractJ2EEComponentCreationTest {
 
 	public void testVaild12ApplicationClientProjectNameCreationWithAlphabetChars() throws Exception {
 		org.eclipse.wst.common.tests.ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
-			createVaildProjectNameCreationWithAlphabetChars(APPLICATION_CLIENT_PROJECT, J2EEVersionConstants.J2EE_1_2_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(APPLICATION_CLIENT_MODULE, J2EEVersionConstants.J2EE_1_2_ID, false);
 			addJavaMainClassToApplicationModel(ProjectUtility.getProject(projectName));
 		}
 	}
@@ -36,25 +36,25 @@ public class AppClientProjectTest extends AbstractProjectCreationTest {
 	public void testVaild12ApplicationClientCreationWithMixedChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(APPLICATION_CLIENT_PROJECT, J2EEVersionConstants.J2EE_1_2_ID, true);
+			createValidComponentNameCreationWithAlphabetChars(APPLICATION_CLIENT_MODULE, J2EEVersionConstants.J2EE_1_2_ID, true);
 	}
 
 	public void testVaild13ApplicationClientNameCreationWithAlphabetChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(APPLICATION_CLIENT_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(APPLICATION_CLIENT_MODULE, J2EEVersionConstants.J2EE_1_3_ID, false);
 	}
 
 	public void testVaild13ApplicationClientNameCreationAllChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
-		setupEARProject("test", J2EEVersionConstants.J2EE_1_3_ID);
+		setupEARComponent("test", J2EEVersionConstants.J2EE_1_3_ID);
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			IProject javaProject = ProjectUtility.getProject("testapp");
 			AppClientComponentCreationDataModel model = new AppClientComponentCreationDataModel();
 			model.setProperty(AppClientComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
 			//model.setProperty(AppClientProjectCreationDataModel.PROJECT_LOCATION, javaProject.getLocation().toOSString());
 			model.setIntProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
-			createAppClientProject(model, ProjectUtility.getProject("test"));
+			createAppClientComponent(model, ProjectUtility.getProject("test"));
 		}
 	}
 
@@ -62,9 +62,9 @@ public class AppClientProjectTest extends AbstractProjectCreationTest {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(APPLICATION_CLIENT_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(APPLICATION_CLIENT_MODULE, J2EEVersionConstants.J2EE_1_3_ID, true);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(APPLICATION_CLIENT_PROJECT, J2EEVersionConstants.J2EE_1_2_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(APPLICATION_CLIENT_MODULE, J2EEVersionConstants.J2EE_1_2_ID, true);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class AppClientProjectTest extends AbstractProjectCreationTest {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
-				J2EEComponentCreationDataModel model = setupApplicationClientProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.J2EE_1_2_ID);
+				J2EEComponentCreationDataModel model = setupApplicationClientComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.J2EE_1_2_ID);
 				ProjectUtility.verifyProject(model.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME), true);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {
@@ -86,7 +86,7 @@ public class AppClientProjectTest extends AbstractProjectCreationTest {
 	}
 
     public static Test suite() {
-        return new SimpleTestSuite(AppClientProjectTest.class);
+        return new SimpleTestSuite(AppClientComponentTest.class);
     }
 
 }

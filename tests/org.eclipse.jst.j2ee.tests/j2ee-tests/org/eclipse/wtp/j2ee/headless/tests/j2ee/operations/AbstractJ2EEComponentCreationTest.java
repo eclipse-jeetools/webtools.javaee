@@ -34,7 +34,7 @@ import org.eclipse.wst.common.tests.TaskViewUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierFactory;
 
-public abstract class AbstractProjectCreationTest extends TestCase {
+public abstract class AbstractJ2EEComponentCreationTest extends TestCase {
 	protected static final String ILLEGAL_PROJECT_NAME_MESSAGE = "Illegal project name: ";
 	protected static final String UNEXPECTED_ERROR_MESSAGE = "Unexpected exception";
 	protected static final String TEST_FAILED_MESSAGE = "Test fails Exception should of been trown";
@@ -43,69 +43,69 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 	protected static final String MANIFEST_LOCK_ERROR = "Manifest IO error - File could be locked";
 	protected static final String MANIFEST_CORE_ERROR = "Java core error";
 	protected String projectName = null;
-	public static final int APPLICATION_CLIENT_PROJECT = 0;
-	public static final int WEB_PROJECT = 1;
-	public static final int EJB_PROJECT = 2;
-	public static final int EAR_PROJECT = 3;
+	public static final int APPLICATION_CLIENT_MODULE = 0;
+	public static final int WEB_MODULE = 1;
+	public static final int EJB_MODULE = 2;
+	public static final int EAR_MODULE = 3;
 	public IProject ejbproject;
 	public IProject earproject;
 
-	public AbstractProjectCreationTest(String name) {
+	public AbstractJ2EEComponentCreationTest(String name) {
 		super(name);
 	}
 
-	public void createVaildProjectNameCreationWithAlphabetChars(
-		int PROJECT_TYPE,
+	public void createValidComponentNameCreationWithAlphabetChars(
+		int MODULE_TYPE,
 		int j2eeVersion,
 		boolean isMixedChars)
 		throws Exception {
 
 		LogUtility.getInstance().resetLogging();
 		J2EEComponentCreationDataModel model = null;
-		switch (PROJECT_TYPE) {
-			case WEB_PROJECT :
+		switch (MODULE_TYPE) {
+			case WEB_MODULE :
 				{
 					if (!isMixedChars)
-						model = setupWebProject(RandomObjectGenerator.createCorrectRandomProjectNames(), j2eeVersion);
+						model = setupWebComponent(RandomObjectGenerator.createCorrectRandomProjectNames(), j2eeVersion);
 					else
 						model =
-							setupWebProject(
+							setupWebComponent(
 								RandomObjectGenerator.createCorrectRandomProjectNamesAllChars(),
 								j2eeVersion);
 					break;
 				}
-			case EJB_PROJECT :
+			case EJB_MODULE :
 				{
 					if (!isMixedChars)
-						model = setupEJBProject(RandomObjectGenerator.createCorrectRandomProjectNames(), j2eeVersion);
+						model = setupEJBComponent(RandomObjectGenerator.createCorrectRandomProjectNames(), j2eeVersion);
 					else
 						model =
-							setupEJBProject(
+							setupEJBComponent(
 								RandomObjectGenerator.createCorrectRandomProjectNamesAllChars(),
 								j2eeVersion);
 					break;
 				}
-			case APPLICATION_CLIENT_PROJECT :
+			case APPLICATION_CLIENT_MODULE :
 				{
 					if (!isMixedChars)
 						model =
-							setupApplicationClientProject(
+							setupApplicationClientComponent(
 								RandomObjectGenerator.createCorrectRandomProjectNames(),
 								j2eeVersion);
 					else
 						model =
-							setupApplicationClientProject(
+							setupApplicationClientComponent(
 								RandomObjectGenerator.createCorrectRandomProjectNamesAllChars(),
 								j2eeVersion);
 					break;
 				}
-			case EAR_PROJECT :
+			case EAR_MODULE :
 				{
 					if (!isMixedChars)
-						model = setupEARProject(RandomObjectGenerator.createCorrectRandomProjectNames(), j2eeVersion);
+						model = setupEARComponent(RandomObjectGenerator.createCorrectRandomProjectNames(), j2eeVersion);
 					else
 						model =
-							setupEARProject(
+							setupEARComponent(
 								RandomObjectGenerator.createCorrectRandomProjectNamesAllChars(),
 								j2eeVersion);
 					break;
@@ -135,18 +135,18 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		//To do verify
 	}
 
-	public J2EEComponentCreationDataModel setupEJBProject(String aProjectName, int j2eeVersion) throws Exception {
+	public J2EEComponentCreationDataModel setupEJBComponent(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
 		EjbComponentCreationDataModel model = new EjbComponentCreationDataModel();
 		model.setProperty(EjbComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
 		//model.setProperty(EjbComponentCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
 		model.setIntProperty(EjbComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
-		createEJBProject(model, null);
+		createEJBComponent(model, null);
 		return model;
 	}
 
-	public EARComponentCreationDataModel setupEARProject(String aProjectName, int j2eeVersion) throws Exception {
+	public EARComponentCreationDataModel setupEARComponent(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject earProject = ProjectUtility.getProject(aProjectName);
 		EARComponentCreationDataModel earDataModel = new EARComponentCreationDataModel();
@@ -157,18 +157,18 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		return earDataModel;
 	}
 
-	public J2EEComponentCreationDataModel setupWebProject(String aProjectName, int j2eeVersion) throws Exception {
+	public J2EEComponentCreationDataModel setupWebComponent(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
 		WebComponentCreationDataModel model = new WebComponentCreationDataModel();
 		model.setProperty(WebComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
 		//model.setProperty(WebComponentCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
 		model.setIntProperty(WebComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
-		createWebProject(model, null);
+		createWebComponent(model, null);
 		return model;
 	}
 
-	public J2EEComponentCreationDataModel setupApplicationClientProject(String aProjectName, int j2eeVersion)
+	public J2EEComponentCreationDataModel setupApplicationClientComponent(String aProjectName, int j2eeVersion)
 		throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
@@ -176,12 +176,12 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		model.setProperty(AppClientComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
 		//model.setProperty(AppClientComponentCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
 		model.setIntProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
-		createAppClientProject(model, null);
+		createAppClientComponent(model, null);
 		return model;
 	}
 
 	public void testJavaCreation() throws Exception {
-		createEJBProject("testEAR", "testEJB", J2EEVersionConstants.J2EE_1_2_ID, J2EEVersionConstants.EJB_1_1_ID);
+		createEJBComponent("testEAR", "testEJB", J2EEVersionConstants.J2EE_1_2_ID, J2EEVersionConstants.EJB_1_1_ID);
 	}
 
 	/**
@@ -192,7 +192,7 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 	 * @return
 	 * @throws Exception
 	 */
-	public static IProject createProject(int projectType, String earProject, boolean createEAR, String projectName) throws Exception {
+	public static IProject createComponent(int projectType, String earProject, boolean createEAR, String projectName) throws Exception {
 		if (createEAR)
 			ProjectUtility.deleteProjectIfExists(earProject);
 		ProjectUtility.deleteProjectIfExists(projectName);
@@ -206,13 +206,13 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 
 		WTPOperationDataModel projectCreationDataModel = null;
 		switch (projectType) {
-			case EJB_PROJECT :
+			case EJB_MODULE :
 				projectCreationDataModel = new EARComponentCreationDataModel();
 				break;
-			case WEB_PROJECT :
+			case WEB_MODULE :
 				projectCreationDataModel = new EARComponentCreationDataModel();
 				break;
-			case APPLICATION_CLIENT_PROJECT :
+			case APPLICATION_CLIENT_MODULE :
 				projectCreationDataModel = new EARComponentCreationDataModel();
 				break;
 		}
@@ -228,20 +228,20 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 	}
 
 
-	public static IProject createEARProject(String earProject) throws Exception {
+	public static IProject createEARComponent(String earProject) throws Exception {
 		EARComponentCreationDataModel projectCreationModel = new EARComponentCreationDataModel();
 		projectCreationModel.setProperty(ProjectCreationDataModel.PROJECT_NAME, earProject);
-		return createEARProject(projectCreationModel);
+		return createEARComponent(projectCreationModel);
 	}
 
-	public static IProject createEARProject(EARComponentCreationDataModel model) throws Exception {
+	public static IProject createEARComponent(EARComponentCreationDataModel model) throws Exception {
 		EARComponentCreationOperation op = new EARComponentCreationOperation(model);
 		op.run(null);
 		ProjectUtility.verifyProject(model.getStringProperty(EARComponentCreationDataModel.PROJECT_NAME), true);
 		return model.getTargetProject();
 	}
 
-	public static IProject createEJBProject(EjbComponentCreationDataModel model, IProject earProject) throws Exception {
+	public static IProject createEJBComponent(EjbComponentCreationDataModel model, IProject earProject) throws Exception {
 		if (earProject != null) {
 			model.setBooleanProperty(EjbComponentCreationDataModel.ADD_TO_EAR, true);
 			model.setProperty(EjbComponentCreationDataModel.EAR_MODULE_NAME, earProject.getName());
@@ -252,14 +252,14 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		return model.getTargetProject();
 	}
 
-	public static void createEARProject(EARComponentCreationDataModel model, boolean notImport) throws Exception {
+	public static void createEARComponent(EARComponentCreationDataModel model, boolean notImport) throws Exception {
 		model.setBooleanProperty(EARComponentCreationDataModel.CREATE_DEFAULT_FILES, notImport);
 		EARComponentCreationOperation op = new EARComponentCreationOperation(model);
 		op.run(null);
 		ProjectUtility.verifyProject(model.getStringProperty(EARComponentCreationDataModel.PROJECT_NAME), true);
 	}
 
-	public static void createWebProject(WebComponentCreationDataModel model, IProject earProject) throws Exception {
+	public static void createWebComponent(WebComponentCreationDataModel model, IProject earProject) throws Exception {
 		if (earProject != null) {
 			model.setBooleanProperty(WebComponentCreationDataModel.ADD_TO_EAR, true);
 			model.setProperty(WebComponentCreationDataModel.EAR_MODULE_NAME, earProject.getName());
@@ -270,7 +270,7 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		TaskViewUtility.verifyNoErrors();
 	}
 
-	public static void createAppClientProject(AppClientComponentCreationDataModel model, IProject earProject)
+	public static void createAppClientComponent(AppClientComponentCreationDataModel model, IProject earProject)
 		throws Exception {
 		if (earProject != null) {
 			model.setBooleanProperty(AppClientComponentCreationDataModel.ADD_TO_EAR, true);
@@ -281,7 +281,7 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		ProjectUtility.verifyProject(model.getTargetProject().getName(), true);
 	}
 
-	public static void createRarProject(ConnectorComponentCreationDataModel model, IProject earProject)
+	public static void createRarComponent(ConnectorComponentCreationDataModel model, IProject earProject)
 		throws Exception {
 		if (earProject != null) {
 			model.setBooleanProperty(ConnectorComponentCreationDataModel.ADD_TO_EAR, true);
@@ -292,7 +292,7 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		ProjectUtility.verifyProject(model.getTargetProject().getName(), true);
 	}
 
-	public static IProject createEJBProject(String earName, String ejbName, int j2eeEARVersion, int j2eeEJBVersion)
+	public static IProject createEJBComponent(String earName, String ejbName, int j2eeEARVersion, int j2eeEJBVersion)
 		throws Exception {
 		ProjectUtility.deleteAllProjects();
 		EARComponentCreationDataModel model = null;
@@ -310,7 +310,7 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 			ejbDataModel.setProperty(EjbComponentCreationDataModel.PROJECT_NAME, ejbName);
 			//ejbDataModel.setProperty(EjbComponentCreationDataModel.PROJECT_LOCATION, ejbProject.getLocation());
 			ejbDataModel.setIntProperty(EjbComponentCreationDataModel.COMPONENT_VERSION, j2eeEJBVersion);
-			IProject ejbp = createEJBProject(ejbDataModel, model.getTargetProject());
+			IProject ejbp = createEJBComponent(ejbDataModel, model.getTargetProject());
 
 		}
 		return ejbDataModel.getTargetProject();
@@ -367,7 +367,7 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		return (earDataModel.getStringProperty(EARComponentCreationDataModel.PROJECT_NAME));
 	}
 
-	public AbstractProjectCreationTest() {
+	public AbstractJ2EEComponentCreationTest() {
 		super();
 	}
 

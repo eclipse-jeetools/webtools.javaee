@@ -11,7 +11,7 @@ import junit.framework.Test;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractProjectCreationTest;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractJ2EEComponentCreationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator;
 
 /**
@@ -20,39 +20,39 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class EARProjectCreationTest extends AbstractProjectCreationTest{
+public class EARComponentCreationTest extends AbstractJ2EEComponentCreationTest{
 	
 	public void testVaild12EARProjectNameCreationWithAlphabetChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_2_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_2_ID, false);
 	}
 	
 	public void testVaild12EARProjectNameCreationWithMixedChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, true);
+			createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_3_ID, true);
 	}
 	
 	public void testVaild13EARProjectNameCreationWithAlphabetChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_3_ID, false);
 	}
 	
 	public void testVaild13EARProjectNameCreationAllChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, true);
+			createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_3_ID, true);
 	}
 	
 	public void testVaildRandomVersionsEARProjectNameCreationAllChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_3_ID, true);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_2_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_2_ID, true);
 		}
 	}
 	
@@ -60,9 +60,9 @@ public class EARProjectCreationTest extends AbstractProjectCreationTest{
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, false);
+				createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_3_ID, false);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_2_ID, false);
+				createValidComponentNameCreationWithAlphabetChars(EAR_MODULE, J2EEVersionConstants.J2EE_1_2_ID, false);
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class EARProjectCreationTest extends AbstractProjectCreationTest{
 	}
 
     public static Test suite() {
-        return new SimpleTestSuite(EARProjectCreationTest.class);
+        return new SimpleTestSuite(EARComponentCreationTest.class);
     }
 	
 	

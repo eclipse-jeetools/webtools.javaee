@@ -26,7 +26,7 @@ public class AllTests extends TestSuite {
      //   addTest(EARExportOperationTest.suite());
      //   addTest(EARImportOperationTest.suite());
         addTest(EARProjectCreationOperationTest.suite());
-        addTest(EARProjectCreationTest.suite());
+        addTest(EARComponentCreationTest.suite());
     }
     
 }

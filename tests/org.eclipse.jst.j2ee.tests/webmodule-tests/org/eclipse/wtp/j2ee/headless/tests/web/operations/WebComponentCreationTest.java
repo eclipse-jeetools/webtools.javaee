@@ -12,7 +12,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractProjectCreationTest;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.AbstractJ2EEComponentCreationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator;
 
 /**
@@ -21,40 +21,40 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.RandomObjectGenerator
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class WebProjectCreationTest extends AbstractProjectCreationTest {
+public class WebComponentCreationTest extends AbstractJ2EEComponentCreationTest {
 	
 	
 	public void testVaild12WebProjectNameCreationWithAlphabetChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_2_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_2_ID, false);
 	}
 	
 	public void testVaild12WebProjectNameCreationWithMixedChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_2_ID, true);
+			createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_2_ID, true);
 	}
 	
 	public void testVaild13WebProjectNameCreationWithAlphabetChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_3_ID, false);
+			createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_3_ID, false);
 	}
 	
 	public void testVaild13WebProjectNameCreationAllChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++)
-			createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_3_ID, true);
+			createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_3_ID, true);
 	}
 	
 	public void testVaildRandomVersionsWebProjectNameCreationAllChars() throws Exception {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_3_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_3_ID, true);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_2_ID, true);
+				createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_2_ID, true);
 		}
 	}
 	
@@ -62,9 +62,9 @@ public class WebProjectCreationTest extends AbstractProjectCreationTest {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_3_ID, false);
+				createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_3_ID, false);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(WEB_PROJECT, J2EEVersionConstants.WEB_2_2_ID, false);
+				createValidComponentNameCreationWithAlphabetChars(WEB_MODULE, J2EEVersionConstants.WEB_2_2_ID, false);
 		}
 	}
 	
@@ -72,8 +72,8 @@ public class WebProjectCreationTest extends AbstractProjectCreationTest {
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
-				 setupWebProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
-				 J2EEComponentCreationDataModel model = setupWebProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
+				 setupWebComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
+				 J2EEComponentCreationDataModel model = setupWebComponent(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
 				 checkValidDataModel(model);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {
@@ -87,7 +87,7 @@ public class WebProjectCreationTest extends AbstractProjectCreationTest {
 	}
 
     public static Test suite() {
-        return new SimpleTestSuite(WebProjectCreationTest.class);
+        return new SimpleTestSuite(WebComponentCreationTest.class);
     }
     
     public void testJavaCreation() throws Exception {
