@@ -86,6 +86,30 @@
    <extension-point id="WSDLServiceHelper" name="WSDLServiceHelper" schema="schema/WSDLServiceHelper.exsd"/>
 
 <!--============================-->
+<!-- Module Core Nature         -->
+<!--============================-->
+
+  <extension
+         id="ModuleCoreNature"
+         name="Module Core Properties"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.eclipse.wst.common.modulecore.ModuleCore">
+         </run>
+      </runtime>
+   </extension> -->
+   <!-- Register the nature id with the EMFNature -->
+   <extension
+         point="com.ibm.wtp.emf.workbench.nature_registration">
+      <nature
+            id="org.eclipse.jst.j2ee.ModuleCore">
+      </nature>
+   </extension>
+
+
+
+<!--============================-->
 <!-- Application Client J2EE 1.2 Nature             -->
 <!--============================-->
 <!--============================-->

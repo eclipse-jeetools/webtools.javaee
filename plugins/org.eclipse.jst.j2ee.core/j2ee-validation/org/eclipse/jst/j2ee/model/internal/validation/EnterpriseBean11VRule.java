@@ -38,8 +38,8 @@ import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
-import org.eclispe.wst.validation.internal.core.MessageLimitException;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;
