@@ -65,7 +65,6 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//

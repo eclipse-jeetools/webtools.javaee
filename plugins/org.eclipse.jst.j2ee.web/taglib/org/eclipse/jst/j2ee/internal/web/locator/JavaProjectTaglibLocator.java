@@ -87,6 +87,7 @@ public class JavaProjectTaglibLocator extends AbstractTaglibLocator {
 		try {
 			return getJavaProject().getOutputLocation();
 		} catch (JavaModelException e) {
+			//Do nothing
 		}
 		return new Path("/"); //$NON-NLS-1$
 	}

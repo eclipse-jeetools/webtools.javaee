@@ -252,7 +252,7 @@ public class TaglibInfo implements ITaglibInfo, Cloneable {
 		return null;
 	}
 
-	protected InputStream bufferInputStream(InputStream is) throws IOException {
+	protected InputStream bufferInputStream(InputStream is) {
 		try {
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			if (is != null) {
@@ -268,11 +268,13 @@ public class TaglibInfo implements ITaglibInfo, Cloneable {
 			output.close();
 			return new ByteArrayInputStream(output.toByteArray());
 		} catch (IOException e) {
+			//Do nothing
 		} finally {
 			if (is != null) {
 				try {
 					is.close();
 				} catch (IOException e) {
+					//Do nothing
 				}
 			}
 		}
@@ -293,13 +295,17 @@ public class TaglibInfo implements ITaglibInfo, Cloneable {
 			output.close();
 			return output.toString();
 		} catch (ZipException e) {
+			//Do nothing
 		} catch (IOException e) {
+			//Do nothing
 		} catch (CoreException e) {
+			//Do nothing
 		} finally {
 			if (is != null) {
 				try {
 					is.close();
 				} catch (IOException e) {
+					//Do nothing
 				}
 			}
 		}

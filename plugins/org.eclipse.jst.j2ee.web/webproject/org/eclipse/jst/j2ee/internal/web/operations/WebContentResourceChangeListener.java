@@ -80,6 +80,7 @@ public class WebContentResourceChangeListener implements IResourceChangeListener
 		try {
 			WebPropertiesUtil.updateWebContentNamePropertiesOnly(project, newName, new NullProgressMonitor());
 		} catch (CoreException e) {
+			//Ignore
 		}
 	}
 

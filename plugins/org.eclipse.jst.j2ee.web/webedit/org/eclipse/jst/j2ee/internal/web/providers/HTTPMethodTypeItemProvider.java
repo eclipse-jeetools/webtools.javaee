@@ -65,7 +65,6 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the httpMethod feature.
 			//

@@ -42,7 +42,6 @@ import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.modulecore.IModuleConstants;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactory;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
 
 
@@ -176,6 +175,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {
+				//Do nothing
 			}
 		}
 		return null;

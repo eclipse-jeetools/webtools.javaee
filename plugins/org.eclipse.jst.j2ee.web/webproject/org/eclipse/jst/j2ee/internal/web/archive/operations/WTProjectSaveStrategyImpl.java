@@ -530,6 +530,7 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 			File aFile = anArchive.getFile(uri);
 			saveFile(aFile, p);
 		} catch (FileNotFoundException ignore) {
+			//Ignore
 		}
 	}
 

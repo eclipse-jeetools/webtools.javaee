@@ -57,7 +57,6 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the errorCode feature.
 			//

@@ -13,4 +13,5 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 
 public interface WTProjectSaveStrategy extends SaveStrategy {
+	//Default
 }

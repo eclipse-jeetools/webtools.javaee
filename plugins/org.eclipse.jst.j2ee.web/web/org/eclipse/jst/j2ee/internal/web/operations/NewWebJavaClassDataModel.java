@@ -77,6 +77,7 @@ public class NewWebJavaClassDataModel extends NewJavaClassDataModel {
 				}
 			}
 		} catch (CoreException ex) {
+			//Do nothing
 		}
 		return null;
 	}

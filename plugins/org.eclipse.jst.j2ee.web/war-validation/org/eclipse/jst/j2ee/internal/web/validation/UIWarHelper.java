@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
  */
 public class UIWarHelper extends WarHelper {
 
-	Hashtable warFileMap = new Hashtable();
+	Hashtable aWarFileMap = new Hashtable();
 
 	/**
 	 * UIWarHelper constructor comment.
@@ -47,24 +47,22 @@ public class UIWarHelper extends WarHelper {
 		IFile warFile;
 		IProject project = getProject();
 
-		warFile = (IFile) warFileMap.get(project.toString());
+		warFile = (IFile) aWarFileMap.get(project.toString());
 		if (warFile != null)
 			return warFile;
 		try {
-			if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) { // dhaaa, do not expect
-																		 // this to be false
+			if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) { // dhaaa, do not expect this to be false
 				J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
 				if (webNature != null) {
 					IPath path = webNature.getWebXMLPath(); // this is an absolute path.
 					IPath projectPath = project.getFullPath();
-					path = path.removeFirstSegments(path.matchingFirstSegments(projectPath)); // make
-																							  // it
-																							  // relative
+					path = path.removeFirstSegments(path.matchingFirstSegments(projectPath)); // make it relative
 					warFile = project.getFile(path);
-					warFileMap.put(project.toString(), warFile);
+					aWarFileMap.put(project.toString(), warFile);
 				}
 			}
 		} catch (Exception e) {
+			//Do nothing
 		}
 		return warFile;
 	}

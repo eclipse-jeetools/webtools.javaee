@@ -29,7 +29,6 @@ import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
-
 /**
  * @version 1.0
  * @author
@@ -69,8 +68,7 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 			if (registry != null) { // CMVC defect 221661, Web library project being closed
 				ITaglibInfo[] javaTaglibs = registry.getTaglibs();
 
-				// Need to go through the java taglibs and change them to the
-				// appropriate
+				// Need to go through the java taglibs and change them to the appropriate
 				for (int j = 0; j < javaTaglibs.length; j++) {
 					ITaglibInfo iTaglibInfo = javaTaglibs[j];
 					if (iTaglibInfo.isInJar())
@@ -98,116 +96,58 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 						// defect 212671
 						newTaglib.setIsURIFromTLD(false);
 						boolean canAddTaglibTLD = true;
-						if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1)) { // this
-																									  // clause
-																									  // is
-																									  // for
-																									  // performance,
-																									  // get
-																									  // digester
-																									  // only
-																									  // for
-																									  // jsp
-																									  // 1.1
+						if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1)) { // this clause is for performance, get digester only for jsp 1.1
 							try {
 								TLDDigester digester = new TLDDigester(newTaglib.getTLDStream());
-								if (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))// If
-																																		// JSP1.1
-																																		// then
-																																		// tld
-																																		// better
-																																		// be
-																																		// 1.1
-																																		// defect
-																																		// CMVC
-																																		// 217548
+								if (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))
+									// If JSP1.1 then tld better be 1.1 defect CMVC 217548
 									canAddTaglibTLD = false;
 							} catch (ZipException e) {
+								// Do nothing
 							} catch (IOException e) {
+								// Do nothing
 							} catch (CoreException e) {
+								// Do nothing
 							}
-						} else if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2)) { // this
-																											 // clause
-																											 // is
-																											 // for
-																											 // performance,
-																											 // get
-																											 // digester
-																											 // only
-																											 // for
-																											 // jsp
-																											 // 1.1
+						} else if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2)) { // this clause is for performance, get digester only for jsp 1.1
 							try {
 								TLDDigester digester = new TLDDigester(newTaglib.getTLDStream());
 								String digesterJSPLevel = digester.getJSPLevel();
 
-								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))// If
-																																														   // JSP2.0
-																																														   // then
-																																														   // tld
-																																														   // better
-																																														   // be
-																																														   // 1.1
-																																														   // or
-																																														   // 1.2
-																																														   // and
-																																														   // not
-																																														   // 2.0
-																																														   // defect
-																																														   // CMVC
-																																														   // 217548
+								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))// If JSP2.0 then tld better be 1.1 or 1.2 and not 2.0 defect CMVC 217548
 									canAddTaglibTLD = false;
 							} catch (ZipException e) {
+								//do nothing
 							} catch (IOException e) {
+								//Do nothing
 							} catch (CoreException e) {
+								//Do nothing
 							}
-						} else if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) { // this
-																											 // clause
-																											 // is
-																											 // for
-																											 // performance,
-																											 // get
-																											 // digester
-																											 // only
-																											 // for
-																											 // jsp
-																											 // 1.1
+						} else if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) { // this clause is for performance, get digester only for jsp 1.1
 							try {
 								TLDDigester digester = new TLDDigester(newTaglib.getTLDStream());
 								String digesterJSPLevel = digester.getJSPLevel();
 
-								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_2_0) || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))// If
-																																																														  // JSP2.0
-																																																														  // then
-																																																														  // tld
-																																																														  // better
-																																																														  // be
-																																																														  // 1.1
-																																																														  // or
-																																																														  // 1.2
-																																																														  // and
-																																																														  // not
-																																																														  // 2.0
-																																																														  // defect
-																																																														  // CMVC
-																																																														  // 217548
+								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_2_0) || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_2)
+										|| !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))// If JSP2.0 then tld better be 1.1 or 1.2 and not 2.0 defect CMVC 217548
 									canAddTaglibTLD = false;
 							} catch (ZipException e) {
+								//Do nothing
 							} catch (IOException e) {
+								//Do nothing
 							} catch (CoreException e) {
+								//Do nothing
 							}
 						}
 						if (canAddTaglibTLD)
 							results.add(newTaglib);
-						addedJar = true; // no matter whether we added the entry or not we cannot
-										 // add any other entry either.
+						addedJar = true; // no matter whether we added the entry or not we cannot add any other entry either.
 					}
 				}
 			}
 		}
 		return results;
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -222,6 +162,5 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 	protected boolean isTaglibTLD(IPath tldPath) {
 		return tldPath.lastSegment().equalsIgnoreCase("taglib.tld"); //$NON-NLS-1$
 	}
-
 
 }

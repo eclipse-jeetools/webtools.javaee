@@ -1,5 +1,5 @@
-<%@ jet package="com.ibm.wtp.web" 
-	imports="com.ibm.wtp.web.operations.* java.util.* " 
+<%@ jet package="org.eclipse.jst.j2ee.web" 
+	imports="org.eclipse.jst.j2ee.internal.web.operations.* java.util.* " 
 	class="ServletTemplate" 
 %><%@ include file="servletHeader.template" %>
 

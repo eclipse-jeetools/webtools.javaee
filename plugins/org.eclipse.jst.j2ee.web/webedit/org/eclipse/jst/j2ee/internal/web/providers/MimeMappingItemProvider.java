@@ -64,7 +64,6 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the extension feature.
 			//

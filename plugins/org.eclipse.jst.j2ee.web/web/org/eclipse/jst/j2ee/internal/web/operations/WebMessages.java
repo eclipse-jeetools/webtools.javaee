@@ -154,6 +154,7 @@ public class WebMessages extends J2EECommonMessages {
 		try {
 			this.resourceBundle = ResourceBundle.getBundle("web"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
+			//Do nothing
 		}
 	}
 }

@@ -111,7 +111,9 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 						try {
 							webContentName = WebSettings.getWebContentDirectory(warFile.getInputStream(".j2ee")); //$NON-NLS-1$
 						} catch (FileNotFoundException e) {
+							//Do nothing
 						} catch (IOException e) {
+							//Do nothing
 						}
 					}
 				}

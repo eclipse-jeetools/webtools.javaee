@@ -85,12 +85,15 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 				results[i] = new Path(entry.getName());
 			}
 		} catch (ZipException e) {
+			//Do nothing
 		} catch (IOException e) {
+			//Do nothing
 		} finally {
 			if (zFile != null) {
 				try {
 					zFile.close();
 				} catch (IOException e) {
+					//Do nothing
 				}
 			}
 		}
@@ -257,6 +260,7 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 						if (searchResource != null)
 							return searchResource;
 					} catch (JavaModelException e) {
+						//Do nothing
 					}
 				}
 			}

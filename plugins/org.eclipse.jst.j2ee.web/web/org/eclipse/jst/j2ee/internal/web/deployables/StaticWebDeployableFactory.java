@@ -36,6 +36,7 @@ public class StaticWebDeployableFactory extends ProjectModuleFactoryDelegate {
 		try {
 			return project.hasNature(IWebNatureConstants.STATIC_NATURE_ID);
 		} catch (Exception e) {
+			//Do nothing
 		}
 		return false;
 	}
@@ -52,13 +53,14 @@ public class StaticWebDeployableFactory extends ProjectModuleFactoryDelegate {
 			IModule deployable = null;
 			StaticWebDeployable projectModule;
 			IBaseWebNature nature = (IBaseWebNature) project.getNature(IWebNatureConstants.STATIC_NATURE_ID);
-			deployable = (IModule) nature.getModule();
+			deployable = nature.getModule();
 			if (deployable == null) {
 				projectModule = new StaticWebDeployable(nature.getProject());
 				deployable = projectModule.getModule();
 			}
 			return deployable;
 		} catch (Exception e) {
+			//Do nothing
 		}
 		return null;
 	}

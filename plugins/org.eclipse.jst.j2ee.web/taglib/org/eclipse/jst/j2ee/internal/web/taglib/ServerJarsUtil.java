@@ -65,6 +65,7 @@ public class ServerJarsUtil {
 
 			ret = (IPath[]) list.toArray(new IPath[list.size()]);
 		} catch (Exception e) {
+			//Do nothing
 		}
 
 		return ret;

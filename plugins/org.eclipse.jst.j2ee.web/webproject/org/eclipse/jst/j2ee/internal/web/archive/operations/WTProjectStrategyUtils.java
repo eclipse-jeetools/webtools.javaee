@@ -28,6 +28,7 @@ public class WTProjectStrategyUtils {
 			if (!isOutputFile(file))
 				return archive.getFile(file);
 		} catch (java.io.FileNotFoundException ex) {
+			//Do nothing
 		}
 		return null;
 	}
@@ -41,6 +42,7 @@ public class WTProjectStrategyUtils {
 			if (file != null)
 				return file;
 		} catch (java.io.FileNotFoundException ex) {
+			//Do nothing
 		}
 
 		// Look in the LIB directory
@@ -50,6 +52,7 @@ public class WTProjectStrategyUtils {
 			if (file != null)
 				return file;
 		} catch (java.io.FileNotFoundException ex) {
+			//Do nothing
 		}
 		return null;
 

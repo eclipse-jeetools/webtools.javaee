@@ -133,7 +133,6 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the webApp feature.
 			//

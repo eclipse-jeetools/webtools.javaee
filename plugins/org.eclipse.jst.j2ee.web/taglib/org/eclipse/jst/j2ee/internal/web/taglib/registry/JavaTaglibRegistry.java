@@ -54,6 +54,7 @@ public class JavaTaglibRegistry extends AbstractTaglibRegistry {
 		try {
 			return getProject().getWorkspace().getRoot().findMember(getJavaProject().getOutputLocation());
 		} catch (JavaModelException e) {
+			//Do nothing
 		}
 		return getProject();
 	}

@@ -517,6 +517,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 */
 	public void setEARProjectName(java.lang.String newProjectName) {
 		if ((newProjectName != null && !newProjectName.equals(wtEarProjectName)) || (newProjectName == null && wtEarProjectName != null)) {
+			//do nothing for now
 		}
 		wtEarProjectName = newProjectName;
 	}

@@ -56,7 +56,6 @@ public class JSPTypeItemProvider extends WebTypeItemProvider implements IEditing
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the jspFile feature.
 			//

@@ -160,6 +160,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * Do nothing with a cvs ignore file for web projects,
 	 */
 	public void addCVSIgnoreFile() {
+		//Default nothing
 	}
 
 	public void addLibDirBuilder() throws CoreException {
@@ -605,6 +606,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 				if (versionString != null)
 					fVersion = Integer.parseInt(versionString);
 			} catch (NumberFormatException e) {
+				//Do nothing
 			}
 		}
 		return fVersion;
@@ -873,7 +875,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	/*
 	 * @see IJ2EEWebNature#setServletLevel(String)
 	 */
-	public void setServletLevel(String servletLevel) throws CoreException {
+	public void setServletLevel(String servletLevel) {
 		WebEditModel editModel = null;
 		try {
 			editModel = getWebAppEditModelForWrite(this);

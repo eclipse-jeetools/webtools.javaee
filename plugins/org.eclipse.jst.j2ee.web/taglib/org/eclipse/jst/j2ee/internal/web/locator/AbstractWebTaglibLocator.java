@@ -244,6 +244,7 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 				try {
 					zFile.close();
 				} catch (IOException e) {
+					//Do nothing
 				}
 			}
 		}

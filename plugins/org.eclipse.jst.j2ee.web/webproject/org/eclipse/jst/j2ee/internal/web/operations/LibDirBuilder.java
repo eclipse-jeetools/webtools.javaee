@@ -39,8 +39,6 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
-;
-
 public class LibDirBuilder extends IncrementalProjectBuilder implements IResourceDeltaVisitor {
 
 	//$NON-NLS-1$
@@ -51,6 +49,7 @@ public class LibDirBuilder extends IncrementalProjectBuilder implements IResourc
 	 * LibDirChangeListener constructor comment.
 	 */
 	public LibDirBuilder() {
+		//Default constructor
 	}
 
 	/**

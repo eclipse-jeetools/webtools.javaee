@@ -65,7 +65,6 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the urlPattern feature.
 			//

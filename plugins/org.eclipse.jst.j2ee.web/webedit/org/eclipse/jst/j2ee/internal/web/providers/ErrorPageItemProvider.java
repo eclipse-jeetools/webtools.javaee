@@ -63,7 +63,6 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the location feature.
 			//

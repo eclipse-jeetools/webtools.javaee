@@ -12,4 +12,5 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 
 
 public interface WTProjectLoadStrategy extends LoadStrategy {
+	//Default
 }

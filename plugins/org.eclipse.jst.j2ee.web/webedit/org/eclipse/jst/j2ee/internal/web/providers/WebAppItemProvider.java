@@ -68,7 +68,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
 	 */
 	public Collection getChildren(Object object) {
-		WebApp webApp = (WebApp) object;
+		//WebApp webApp = (WebApp) object;
 		Collection myChildren = super.getChildren(object);
 		// TODO WebServices for M3
 		//if (webApp.getVersionID() <= J2EEVersionConstants.WEB_2_3_ID)
@@ -171,7 +171,6 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the distributable feature.
 			//

@@ -71,7 +71,6 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 			// This is for the description feature.
 			//
 			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), WebAppEditResourceHandler.getString("Description_UI__UI_"), //$NON-NLS-1$ = "Description"

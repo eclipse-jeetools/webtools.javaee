@@ -63,7 +63,6 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the taglibURI feature.
 			//

@@ -61,6 +61,7 @@ public class TLDDigester {
 			try {
 				this.istream.close();
 			} catch (IOException exc) {
+				//Do nothing
 			}
 		}
 	}

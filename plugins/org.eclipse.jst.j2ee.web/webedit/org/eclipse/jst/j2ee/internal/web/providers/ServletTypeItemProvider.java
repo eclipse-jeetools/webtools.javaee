@@ -56,7 +56,6 @@ public class ServletTypeItemProvider extends WebTypeItemProvider implements IEdi
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the className feature.
 			//

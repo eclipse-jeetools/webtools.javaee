@@ -58,7 +58,6 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the roleName feature.
 			//

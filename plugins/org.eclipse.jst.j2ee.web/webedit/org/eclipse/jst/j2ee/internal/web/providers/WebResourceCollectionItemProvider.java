@@ -137,7 +137,6 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the webResourceName feature.
 			//

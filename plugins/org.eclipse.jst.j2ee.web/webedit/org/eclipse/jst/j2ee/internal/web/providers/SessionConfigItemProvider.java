@@ -64,7 +64,6 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the sessionTimeout feature.
 			//

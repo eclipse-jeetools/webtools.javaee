@@ -439,6 +439,7 @@ abstract public class AbstractTaglibRegistry implements ITaglibRegistry {
 				}
 			});
 		} catch (CoreException e) {
+			//Do nothing
 		}
 	}
 

@@ -63,7 +63,6 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 			super.getPropertyDescriptors(object);
 
 			WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
-			;
 
 			// This is for the welcomeFile feature.
 			//

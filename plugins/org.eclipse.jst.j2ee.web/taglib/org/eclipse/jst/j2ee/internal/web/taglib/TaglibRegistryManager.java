@@ -51,6 +51,7 @@ public class TaglibRegistryManager implements ITaglibRegistryManager {
 							try {
 								delta.accept(this);
 							} catch (CoreException e) {
+								//Do nothing
 							}
 						}
 						break;
@@ -94,6 +95,7 @@ public class TaglibRegistryManager implements ITaglibRegistryManager {
 				}
 			}
 		} catch (CoreException e) {
+			//Do nothing
 		}
 		if (registry != null) {
 			this.registries.put(project, registry);
