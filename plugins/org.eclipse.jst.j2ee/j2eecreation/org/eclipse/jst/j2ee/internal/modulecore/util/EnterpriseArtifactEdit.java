@@ -7,6 +7,8 @@
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.util.ArtifactEdit;
 
 /**
@@ -16,6 +18,16 @@ import org.eclipse.wst.common.modulecore.util.ArtifactEdit;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
+	/**
+	 * @param model
+	 */
+	public EnterpriseArtifactEdit(ArtifactEditModel model) {
+		super(model);
+	}
 	public abstract int getJ2EEVersion();
-	public abstract EObject getDeploymentDescriptorRoot();
+	public abstract Resource getDeploymentDescriptorResource();
+	public EObject getDeploymentDescriptorRoot() {
+		Resource res = getDeploymentDescriptorResource();
+		return (EObject)res.getContents().get(0);
+	}
 }

@@ -6,7 +6,12 @@
  */
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.application.ApplicationResource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 
 /**
  * @author cbridgha
@@ -16,20 +21,29 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class EARArtifactEdit extends EnterpriseArtifactEdit {
 
+	public static String TYPE_ID = "EAR_TYPE";
+	/**
+	 * @param model
+	 */
+	public EARArtifactEdit(ArtifactEditModel model) {
+		super(model);
+	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#getJ2EEVersion()
 	 */
 	public int getJ2EEVersion() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return getApplicationXmiResource().getJ2EEVersionID();
+	}
+	public ApplicationResource getApplicationXmiResource() {
+		return (ApplicationResource)getDeploymentDescriptorResource();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#getDeploymentDescriptorRoot()
-	 */
-	public EObject getDeploymentDescriptorRoot() {
-		// TODO Auto-generated method stub
-		return null;
+	public Application getApplication() {
+		return (Application)getDeploymentDescriptorRoot();
 	}
 
+	public Resource getDeploymentDescriptorResource() {
+		return getArtifactEditModel().getResource(URI.createURI(ArchiveConstants.APPLICATION_DD_URI));
+	}
 }

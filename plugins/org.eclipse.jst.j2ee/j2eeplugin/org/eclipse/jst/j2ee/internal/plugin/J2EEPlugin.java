@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -48,11 +49,13 @@ import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
@@ -477,6 +480,8 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapInit.init(false);
 		ensureFactoryRegistration();
 		ValidatorManager.setResourceUtilClass(ResourceUtil.class);
+		IAdapterManager manager = Platform.getAdapterManager();
+		manager.registerAdapters(new EarEditAdapterFactory(), ArtifactEditModel.class);
 	}
 
 	/*

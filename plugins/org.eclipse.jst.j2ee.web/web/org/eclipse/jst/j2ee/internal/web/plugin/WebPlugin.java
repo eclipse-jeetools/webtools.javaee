@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -39,12 +40,15 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.web.deployables.WebAppDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.web.operations.WebContentResourceChangeListener;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
+import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
 import org.eclipse.jst.j2ee.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.IModuleConstants;
 import org.eclipse.wst.common.modulecore.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
+import org.eclipse.wst.common.modulecore.util.ArtifactEditAdapterFactory;
 
 
 /**
@@ -314,6 +318,8 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		addWebContentListener();
 		registerDeployableModuleFactory();
 		WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
+		IAdapterManager manager = Platform.getAdapterManager();
+		manager.registerAdapters(new WebEditAdapterFactory(), ArtifactEditModel.class);
 	}
 
 
