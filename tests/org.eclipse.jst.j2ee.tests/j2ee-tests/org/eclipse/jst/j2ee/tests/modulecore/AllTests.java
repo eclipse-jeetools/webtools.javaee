@@ -7,6 +7,13 @@
 package org.eclipse.jst.j2ee.tests.modulecore;
 
 
+import org.eclipse.core.runtime.Path;
+import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.IRuntimeType;
+import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
+import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.J2EEFlexibleProjectCreationOperationTest;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -15,6 +22,8 @@ import junit.framework.TestSuite;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class AllTests extends TestSuite {
+	
+	public static IRuntime JONAS_TOMCAT_RUNTIME = createJONASRuntime();
 
     public static Test suite(){
         return new AllTests();
@@ -22,6 +31,21 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("ModuleCore Tests");
-        addTest(ModuleStructuralModelTest.suite());
+        addTest(J2EEFlexibleProjectCreationOperationTest.suite());
     }
+	public static IRuntime createJONASRuntime() { 
+	       String s = "D:/JOnAS-4.3.2/lib";
+	       if (s == null || s.length() == 0)
+	          return null;
+	       try {
+	          IRuntimeType rt = ServerCore.findRuntimeType("org.eclipse.jst.server.core.runtimeType");
+	          IRuntimeWorkingCopy wc = rt.createRuntime(null, null);
+	          wc.setLocation(new Path(s));
+	          return wc.save(true, null);
+	       } catch (Exception e) {
+	          e.printStackTrace();
+	          return null;
+	       }
+	    }
+
 }

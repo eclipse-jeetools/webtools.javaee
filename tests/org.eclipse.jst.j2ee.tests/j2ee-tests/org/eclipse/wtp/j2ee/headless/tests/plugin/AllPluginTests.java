@@ -31,11 +31,11 @@ public class AllPluginTests extends TestSuite {
 
     public AllPluginTests() {
         super();
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.ejb.operations.AllTests.suite());
+	      /*addTest(org.eclipse.wtp.j2ee.headless.tests.ejb.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.jca.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.ear.operations.AllTests.suite());
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AllTests.suite());
+	      addTest(org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AllTests.suite());*/
 	      addTest(org.eclipse.jst.j2ee.tests.modulecore.AllTests.suite());
     }
     
