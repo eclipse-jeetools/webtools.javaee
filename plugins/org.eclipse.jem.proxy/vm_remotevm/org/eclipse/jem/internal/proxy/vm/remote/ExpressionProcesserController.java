@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.2 $  $Date: 2004/05/26 22:02:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/10/28 22:28:53 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -317,6 +317,8 @@ public class ExpressionProcesserController {
 						processException(e);
 					} catch (InvocationTargetException e) {
 						processException(e);
+					} catch (LinkageError e) {
+						processError(e);
 					}
 					break;
 
@@ -425,6 +427,20 @@ public class ExpressionProcesserController {
 		// Process all other exceptions.
 		errorOccurred = true;
 		exception = e;
+	}
+	
+	/**
+	 * Process certain errors. Should not be called for general errors. Should be called for specific java.lang.Errors that
+	 * are not related to the input stream and shouldn't cause the input stream to be closed.
+	 *  
+	 * @param e
+	 * 
+	 * @since 1.0.2
+	 */
+	protected final void processError(Error e) {
+		// Process specific errors
+		errorOccurred = true;
+		exception = e;		
 	}
 	
 	/**
