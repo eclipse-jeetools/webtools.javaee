@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -37,19 +36,19 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.DependentModule;
-import org.eclipse.wst.common.modulecore.IModuleConstants;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ModuleEditModelFactory;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
-import org.eclipse.wst.common.modulecore.impl.PlatformURLModuleConnection;
-import org.eclipse.wst.common.modulecore.impl.ResourceTreeRoot;
-import org.eclipse.wst.common.modulecore.util.ModuleCore;
-import org.eclipse.wst.common.modulecore.util.SourcePathProvider;
+import org.eclipse.wst.common.modulecore.internal.impl.ModuleEditModelFactory;
+import org.eclipse.wst.common.modulecore.internal.impl.PlatformURLModuleConnection;
+import org.eclipse.wst.common.modulecore.internal.impl.ResourceTreeRoot;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.modulecore.internal.util.SourcePathProvider;
 
 /**
  * <p>
@@ -139,7 +138,7 @@ public class ModuleStructuralModelTest extends TestCase {
 		ArtifactEditModel artifactModel = null;
 		try {
 			URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + getWebModuleAndLocalWebLibModuleProjectName() + "/" + getWebModuleAndLocalWebLibModuleProjectName() + ".war");
-			artifactModel = getNature(getProjectForWebModuleAndLocalWebLib()).getModuleEditModelForRead(moduleURI, this);
+			artifactModel = getNature(getProjectForWebModuleAndLocalWebLib()).getArtifactEditModelForRead(moduleURI, this);
 			WebEdit editUtility = (WebEdit) artifactModel.getAdapter(WebEdit.ADAPTER_TYPE);
 
 			WebApp webApp = editUtility.getWebApplication();
