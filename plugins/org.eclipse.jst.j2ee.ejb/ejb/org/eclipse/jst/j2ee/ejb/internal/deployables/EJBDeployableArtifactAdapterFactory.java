@@ -7,18 +7,14 @@
 package org.eclipse.jst.j2ee.ejb.internal.deployables;
 
 import org.eclipse.core.runtime.IAdapterFactory;
-import org.eclipse.debug.ui.actions.ILaunchable; 
+import org.eclipse.debug.ui.actions.ILaunchable;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 
 public class EJBDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDelegate implements IAdapterFactory {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		IModuleArtifact moduleArtifact = null;
-		if (adapterType == ILaunchable.class ) {
-			getModuleArtifact(adaptableObject);
-		}
-		return moduleArtifact;
+		return null;
 	}
 
 	public Class[] getAdapterList() {
