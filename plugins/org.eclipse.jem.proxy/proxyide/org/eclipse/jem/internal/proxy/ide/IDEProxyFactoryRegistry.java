@@ -11,14 +11,14 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/02 15:57:12 $ 
  */
 
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.proxy.core.*;
 /**
@@ -33,6 +33,42 @@ public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core
 	protected String fName;
 	protected ClassLoader fClassLoader;
 	protected IDECallbackRegistry fCallbackRegistry;
+	
+	/*
+	 * Special classloader that firsts tries to load from bundle then tries from url paths so
+	 * that bundle is treated as being at the head of the url paths.
+	 * 
+	 * @since 1.0.0
+	 */
+	private static class IDESpecialClassLoader extends URLClassLoader {
+		
+		private Bundle bundle;
+		/**
+		 * @param urls
+		 * 
+		 * @since 1.0.0
+		 */
+		public IDESpecialClassLoader(URL[] urls, Bundle bundle) {
+			super(urls);
+			this.bundle = bundle;
+		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.ClassLoader#findClass(java.lang.String)
+		 */
+		protected Class findClass(String name) throws ClassNotFoundException {
+			Class c = bundle.loadClass(name);
+			return c != null ? c : super.findClass(name);
+		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.ClassLoader#findResource(java.lang.String)
+		 */
+		public URL findResource(String name) {
+			URL r = bundle.getResource(name); 
+			return r != null ? r : super.findResource(name);
+		}
+}
 
 /**
  * Create a special loader that has the plugin classloader of the passed in plugin
@@ -40,15 +76,9 @@ public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core
  * needed by IDE Proxy to work.
  */	
 public static ClassLoader createSpecialLoader(String pluginName, URL[] otherURLs) {
-	IPluginRegistry registry = Platform.getPluginRegistry();
-	// Get the class loader from the plugin.  This is because Class.forName
-	// does not work in Eclipse
-	ClassLoader loader = null;
-	if (pluginName != null && registry.getPluginDescriptor(pluginName) != null ) {
-		loader = registry.getPluginDescriptor(pluginName).getPluginClassLoader();
-	}
+	Bundle bundle = Platform.getBundle(pluginName);
 	
-	URL[] mustHaveUrls = ProxyPlugin.getPlugin().urlLocalizeFromPluginDescriptorAndFragments(ProxyPlugin.getPlugin().getDescriptor(), "vm/remotevm.jar"); //$NON-NLS-1$
+	URL[] mustHaveUrls = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(ProxyPlugin.getPlugin().getBundle(), "vm/remotevm.jar"); //$NON-NLS-1$
 	
 	URL[] urls = null;
 	if (otherURLs != null) {
@@ -58,10 +88,7 @@ public static ClassLoader createSpecialLoader(String pluginName, URL[] otherURLs
 	} else 
 		urls = mustHaveUrls;
 		
-	loader = loader != null ? 
-		new URLClassLoader(urls, loader) : new URLClassLoader(urls);
-	
-	return loader;
+	return bundle != null ? new IDESpecialClassLoader(urls, bundle) : new URLClassLoader(urls);
 }
 
 public IDEProxyFactoryRegistry(String aName, ClassLoader loader) {

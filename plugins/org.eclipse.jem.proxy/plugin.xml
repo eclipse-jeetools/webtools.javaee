@@ -53,7 +53,9 @@
             delegate="org.eclipse.jem.internal.proxy.remote.LocalProxyLaunchDelegate"
             category="org.eclipse.jem.proxy"
             modes="run"
-            id="org.eclipse.jem.proxy.LocalProxyLaunchConfigurationType">
+            id="org.eclipse.jem.proxy.LocalProxyLaunchConfigurationType"
+            sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
+            sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
       </launchConfigurationType>
    </extension>
 

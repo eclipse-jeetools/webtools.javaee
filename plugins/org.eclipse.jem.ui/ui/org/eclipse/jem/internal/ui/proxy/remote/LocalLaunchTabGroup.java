@@ -9,11 +9,12 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalLaunchTabGroup.java,v $ $Revision: 1.2 $ $Date: 2004/05/24 23:23:43 $
+ * $RCSfile: LocalLaunchTabGroup.java,v $ $Revision: 1.3 $ $Date: 2004/06/02 15:57:18 $
  */
 package org.eclipse.jem.internal.ui.proxy.remote;
 
 import org.eclipse.debug.ui.*;
+import org.eclipse.debug.ui.sourcelookup.SourceLookupTab;
 import org.eclipse.jdt.debug.ui.launchConfigurations.*;
 
 /**
@@ -39,7 +40,7 @@ public class LocalLaunchTabGroup extends AbstractLaunchConfigurationTabGroup {
 				new JavaArgumentsTab(),
 				new JavaJRETab(),
 				new JavaClasspathTab(),
-				new JavaSourceLookupTab(),	// TODO Need to see why SourceLookupTab didn't work. Until then use this.
+				new SourceLookupTab(),	// TODO Need to see why SourceLookupTab didn't work. Until then use this.
 				new EnvironmentTab(),
 				new CommonTab()};
 		setTabs(tabs);

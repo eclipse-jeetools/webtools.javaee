@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.21 $  $Date: 2004/06/01 23:51:45 $ 
+ *  $Revision: 1.22 $  $Date: 2004/06/02 15:57:12 $ 
  */
 
 
@@ -90,20 +90,6 @@ public class ProxyPlugin extends Plugin {
 			logger = EclipseLogger.getEclipseLogger(this);
 		return logger;
 	}	
-
-
-	/**
-	 * This is just helper for when have a Plugin. Use one bundle when have a bundle.
-	 * 
-	 * @param plugin
-	 * @param fileNameWithinPlugin
-	 * @return
-	 * @see ProxyPlugin#localizeFromBundle(Bundle, String)
-	 * @since 1.0.0
-	 */
-	public String localizeFromPlugin(Plugin plugin, String fileNameWithinPlugin) {
-		return localizeFromBundle(plugin.getBundle(), fileNameWithinPlugin);
-	}
 
 	/**
 	 * 
@@ -198,18 +184,6 @@ public class ProxyPlugin extends Plugin {
 
 
 	/**
-	 * 
-	 * @param pluginDescriptor
-	 * @param filenameWithinPlugin
-	 * @return
-	 * @deprecated see urlLocalizeFromPluginDescriptorAndFragments(Bundle, String) instead.
-	 * @since 1.0.0
-	 */
-	public URL[] urlLocalizeFromPluginDescriptorAndFragments(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-		return urlLocalizeFromBundleAndFragments(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
-	}
-	
-	/**
 	 * Like <code>localizeFromBundleAndFragments</code> except it returns URL's instead.
 	 * @param bundle
 	 * @param filenameWithinBundle
@@ -274,21 +248,6 @@ public class ProxyPlugin extends Plugin {
 	private static final IPath PROXYJARS_PATH = new Path("proxy.jars");
 	
 	/**
-	 * @see ProxyPlugin#localizeFromPluginDescriptor(IPluginDescriptor, String)
-	 * 
-	 * This is just a helper to return a url instead.
-	 * 
-	 * @param pluginDescriptor
-	 * @param filenameWithinPlugin
-	 * @return
-	 * @deprecated use urlLocalizeFromPluginDescriptor(Bundle, String) instead.
-	 * @since 1.0.0
-	 */
-	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-		return urlLocalizeFromBundle(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
-	}
-
-	/**
 	 * @see ProxyPlugin#localizeFromBundle(Bundle, String)
 	 * 
 	 * This is just a helper to return a url instead.
@@ -303,21 +262,6 @@ public class ProxyPlugin extends Plugin {
 		return urlLocalizeFromBundle(bundle, new Path(filenameWithinBundle));
 	}
 	
-	/**
-	 * @see ProxyPlugin#localizeFromPluginDescriptor(IPluginDescriptor, String)
-	 * 
-	 * This is just a helper to return a url instead.
-	 * 
-	 * @param pluginDescriptor
-	 * @param filenameWithinPlugin
-	 * @return
-	 * @deprecated use urlLocalizeFromPluginDescriptor(Bundle, IPath) instead.
-	 * @since 1.0.0
-	 */
-	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, IPath filenameWithinPlugin) {
-		return urlLocalizeFromBundle(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
-	}
-
 	/**
 	 * @see ProxyPlugin#localizeFromBundle(bundle, String)
 	 * 
@@ -429,16 +373,51 @@ public class ProxyPlugin extends Plugin {
 		return result;
 	}
 	
-	private static List getPrereqs(Bundle bundle, Map prereqsMap) {
-		List dependents = (List) prereqsMap.get(bundle);
-		if (dependents == null) {
-			dependents = getPrereqs(bundle);
-			prereqsMap.put(bundle, dependents);
-		}
-		return dependents;
+	/**
+	 * Get all of the prereqs for this bundle, all of the way down to the root.
+	 * They will be in top-down depth-first order. There won't be duplicates. They will show up
+	 * only once the first time they are found.
+	 * 
+	 * @param bundle
+	 * @return list of all pre-reqs.
+	 * 
+	 * @since 1.0.0
+	 */
+	public static List getAllPrereqs(Bundle bundle) {
+		List prereqs = new ArrayList();
+		getAllPrereqs(bundle, prereqs, new HashMap());
+		return prereqs;
 	}
 	
-	private static List getPrereqs(Bundle bundle) {
+	private static void getAllPrereqs(Bundle bundle, List prereqs, Map prereqsMap) {
+		List prs = getPrereqs(bundle, prereqsMap);
+		for (int i = 0; i < prs.size(); i++) {
+			Bundle pre = (Bundle) prs.get(i);
+			if (prereqsMap.containsKey(pre))
+				continue;	// Already processed this one once.
+			prereqs.add(pre);	// Add to the list of pre-reqs accumulated so far.
+			getAllPrereqs(pre, prereqs, prereqsMap);
+		}
+	}
+	
+	private static List getPrereqs(Bundle bundle, Map prereqsMap) {
+		List prereqs = (List) prereqsMap.get(bundle);
+		if (prereqs == null) {
+			prereqs = getPrereqs(bundle);
+			prereqsMap.put(bundle, prereqs);
+		}
+		return prereqs;
+	}
+	
+	/**
+	 * Get the immediate pre-req'ed bundles for this bundle. 
+	 * 
+	 * @param bundle
+	 * @return the prereq'ed bundles.
+	 * 
+	 * @since 1.0.0
+	 */
+	public static List getPrereqs(Bundle bundle) {
 		List requires = null; 
 		try {
 			String requiresList = (String) bundle.getHeaders().get(Constants.REQUIRE_BUNDLE);

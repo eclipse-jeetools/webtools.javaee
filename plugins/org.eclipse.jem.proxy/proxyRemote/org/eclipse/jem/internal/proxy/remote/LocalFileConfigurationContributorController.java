@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.4 $  $Date: 2004/05/24 15:57:24 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/02 15:57:12 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -18,7 +18,6 @@ import java.util.*;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -205,14 +204,6 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 			contributeClasspath(ProxyPlugin.getPlugin().localizeFromBundle(bundle, relativePath), typeFlag);
 		else
 			contributeClasspath(ProxyPlugin.getPlugin().localizeFromBundleAndFragments(bundle, relativePath), typeFlag);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(org.eclipse.core.runtime.Plugin, java.lang.String, int, boolean)
-	 * 
-	 */
-	public void contributeClasspath(org.eclipse.core.runtime.IPluginDescriptor pluginDescriptor, String relativePath, int typeFlag, boolean nlsLocalize) {
-		contributeClasspath(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), relativePath, typeFlag, nlsLocalize);
 	}
 
 	/* (non-Javadoc)
