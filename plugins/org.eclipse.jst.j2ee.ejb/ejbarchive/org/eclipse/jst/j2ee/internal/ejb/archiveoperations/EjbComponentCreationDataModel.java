@@ -71,7 +71,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 				return new Integer(J2EEVersionConstants.EJB_2_1_ID);
 		}
 	}
-	public EJBClientComponentDataModel getNestEJBClientComponentDM() {
+	public EJBClientComponentDataModel getNestedEJBClientComponentDataModel() {
 		return ejbClientComponentDataModel;
 	}
 
@@ -99,9 +99,9 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CREATE_CLIENT)) {
 			if (getBooleanProperty(CREATE_CLIENT)) {
-				getNestEJBClientComponentDM().enableValidation();
+				getNestedEJBClientComponentDataModel().enableValidation();
 			} else {
-				getNestEJBClientComponentDM().disableValidation();
+				getNestedEJBClientComponentDataModel().disableValidation();
 			}
 		}else if (propertyName.equals(COMPONENT_NAME)) {
 			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_NAME, propertyValue);
