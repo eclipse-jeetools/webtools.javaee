@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 public class AppClientEMFTest extends GeneralEMFPopulationTest {
     EARFile earFile;
-    ApplicationClientFile appClientFile;
+    protected ApplicationClientFile appClientFile;
 	EARFile earFile14;
 	ApplicationClientFile appClientFile14;
 

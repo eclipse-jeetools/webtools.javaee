@@ -51,7 +51,7 @@ public class EjbEMFTest extends GeneralEMFPopulationTest {
 	}
 	protected static final EjbPackage EJB_PKG = EjbPackage.eINSTANCE;
 	EARFile earFile;
-	EJBJarFile ejbFile;
+	protected EJBJarFile ejbFile;
 	EObject mesBean, entityBean;
 	SecurityIdentity secID;
 	RoleSource roleSource;

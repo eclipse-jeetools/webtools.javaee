@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 public class RarEMFTest extends GeneralEMFPopulationTest {
 	EARFile earFile;
-	RARFile rarFile;
+	protected RARFile rarFile;
 
 	public RarEMFTest(String name) {
 		super(name);
