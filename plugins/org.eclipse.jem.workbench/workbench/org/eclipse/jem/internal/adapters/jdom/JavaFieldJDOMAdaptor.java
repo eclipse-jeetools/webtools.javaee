@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:35:09 $ 
+ *  $Revision: 1.6 $  $Date: 2004/09/08 18:44:08 $ 
  */
 import java.util.Map;
 
@@ -229,6 +229,7 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 	 * 	- set type
 	 */
 	public boolean reflectValues() {
+		super.reflectValues();
 		if (getSourceProject() != null && getSourceField() != null) {
 			setModifiers();
 			//	setNaming();

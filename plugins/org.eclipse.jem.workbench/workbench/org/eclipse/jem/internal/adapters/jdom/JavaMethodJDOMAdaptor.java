@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:35:09 $ 
+ *  $Revision: 1.6 $  $Date: 2004/09/08 18:44:08 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -218,6 +218,7 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor {
 	 * and document must be set. Method adaptor: - set modifiers - set name - set return type - add parameters - add exceptions
 	 */
 	public boolean reflectValues() {
+		super.reflectValues();
 		if (getSourceProject() != null && getSourceMethod() != null && sourceMethod.exists()) {
 			setGeneratedFlag();
 			setModifiers();
