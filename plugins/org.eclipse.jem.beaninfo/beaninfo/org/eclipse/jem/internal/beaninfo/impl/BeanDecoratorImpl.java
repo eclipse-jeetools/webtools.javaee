@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2004/03/09 20:26:29 $ 
+ *  $Revision: 1.10 $  $Date: 2004/03/10 00:39:58 $ 
  */
 
 
@@ -19,6 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.logging.Level;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -43,6 +44,7 @@ import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
 import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
 import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 
+import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Bean Decorator</b></em>'.
@@ -978,59 +980,5 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 			}			
 		}
 		return iconURL;
-	}
-	private Map styleDetails;
-	public class SweetStyleBits{
-		public String fPropertyName;
-		public String fDisplayName;
-		public boolean fIsExpert;
-		public String[] fNames;
-		public String[] fInitStrings;
-		public Integer[] fValues;
-		public SweetStyleBits(String propertyName, String displayName, boolean isExpert, String[] names, String[] initStrings, Integer[] values){
-			fPropertyName = propertyName;
-			fDisplayName = displayName;
-			fIsExpert = isExpert;
-			fNames = names;
-			fInitStrings = initStrings;
-			fValues = values;
-		}
-	}
-	public Map getStyleDetails(){
-		if(styleDetails == null){
-			styleDetails = new HashMap();
-			try{
-				FeatureAttributeValue value = (FeatureAttributeValue) getAttributes().get("SWEET_STYLEBITS");				
-				if(value != null && value.isSetValueJava() && value.isSetValueProxy()){
-					IArrayBeanProxy outerArray  = (IArrayBeanProxy) value.getValueProxy();
-					for (int i = 0; i < outerArray.getLength(); i++) {
-						IArrayBeanProxy innerArray = (IArrayBeanProxy) outerArray.get(i);
-						// The first element is a String for the internal canonnical name
-						String propertyName = ((IStringBeanProxy)innerArray.get(0)).stringValue();
-						// The second element is the user visible name
-						String displayName = ((IStringBeanProxy)innerArray.get(1)).stringValue();
-						// The third element is a Boolean value for whether the property is expert or not
-						boolean expert = ((IBooleanBeanProxy)innerArray.get(2)).booleanValue();
-						// The next is a three element array of name, initString, and actual value * n for the number of allowble values
-						// Iterate over it to extract the names and strings and turn these into two separate String arrays
-						IArrayBeanProxy triplicateArray = (IArrayBeanProxy)innerArray.get(3);
-						int numberOfValues = triplicateArray.getLength()/3;
-						String[] names = new String[numberOfValues];
-						String[] initStrings = new String[numberOfValues];
-						Integer[] values = new Integer[numberOfValues]; 
-						for (int j = 0; j < triplicateArray.getLength(); j = j+3) {
-							int index = j/3;
-							names[index] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
-							initStrings[index] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
-							values[index] = new Integer(((IIntegerBeanProxy)triplicateArray.get(j+2)).intValue());
-						}							
-						styleDetails.put(propertyName, new SweetStyleBits(propertyName,displayName,expert,names,initStrings,values));
-					}
-				}
-			} catch (ThrowableProxy exc) {
-				BeaninfoPlugin.getPlugin().getLogger().log(exc, Level.WARNING);
-			}
-		}
-		return styleDetails;
 	}
 }
