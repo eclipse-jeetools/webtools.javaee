@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployable;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.server.j2ee.IConnectorModule;
+import org.eclipse.jst.server.core.IConnectorModule;
 
 public class ConnectorDeployable extends J2EEDeployable implements IConnectorModule {
     protected static final String SERVER_CONTAINER = "org.eclipse.jst.server.core.container"; //$NON-NLS-1$
@@ -109,6 +109,7 @@ public class ConnectorDeployable extends J2EEDeployable implements IConnectorMod
         try {
             outputLoc = javaProject.getOutputLocation();
         } catch (JavaModelException e) {
+        		// ignore
         }
         if (outputLoc != null) {
             IFolder outputFolder = getWorkspaceRoot().getFolder(outputLoc);
@@ -126,6 +127,7 @@ public class ConnectorDeployable extends J2EEDeployable implements IConnectorMod
         try {
             entries = javaProject.getRawClasspath();
         } catch (JavaModelException e) {
+        		// ignore
         }
         if (entries == null)
             return;

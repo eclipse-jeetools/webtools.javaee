@@ -39,7 +39,7 @@ import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
-import org.eclipse.jst.server.j2ee.WebResource;
+import org.eclipse.jst.server.core.WebResource;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -348,6 +348,7 @@ public class WebDeployableArtifactUtil  {
 				if (model != null)
 					model.releaseAccess(key);
 			} catch (Exception ex) {
+				// ignore
 			}
 		}
 	}

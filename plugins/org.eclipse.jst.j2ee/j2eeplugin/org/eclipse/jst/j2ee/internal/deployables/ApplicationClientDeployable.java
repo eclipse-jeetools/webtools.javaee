@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.server.j2ee.IApplicationClientModule;
+import org.eclipse.jst.server.core.IApplicationClientModule;
 
 public class ApplicationClientDeployable extends J2EEDeployable implements IApplicationClientModule {/*
 																									  * (non-Javadoc)

@@ -23,9 +23,9 @@ import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
-import org.eclipse.jst.server.j2ee.ILooseArchive;
-import org.eclipse.jst.server.j2ee.ILooseArchiveSupport;
-import org.eclipse.jst.server.j2ee.IWebModule;
+import org.eclipse.jst.server.core.ILooseArchive;
+import org.eclipse.jst.server.core.ILooseArchiveSupport;
+import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
@@ -172,6 +172,7 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
         try {
             return (String) this.uris.get(jar);
         } catch (Exception e) {
+        		// ignore
         }
         return null;
     }

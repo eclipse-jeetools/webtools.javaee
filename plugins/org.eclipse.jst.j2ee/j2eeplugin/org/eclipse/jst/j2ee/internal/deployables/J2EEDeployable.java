@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.server.j2ee.IJ2EEModule;
+import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
@@ -95,7 +95,7 @@ public abstract class J2EEDeployable extends ProjectModule implements IJ2EEModul
 
 	public String getVersion() {
 		return "1.2"; //$NON-NLS-1$
-	};
+	}
 
 	public String getType() {
 		return "j2ee.ear"; //$NON-NLS-1$

@@ -25,10 +25,10 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.server.j2ee.IEnterpriseApplication;
-import org.eclipse.jst.server.j2ee.IJ2EEModule;
-import org.eclipse.jst.server.j2ee.ILooseArchive;
-import org.eclipse.jst.server.j2ee.ILooseArchiveSupport;
+import org.eclipse.jst.server.core.IEnterpriseApplication;
+import org.eclipse.jst.server.core.IJ2EEModule;
+import org.eclipse.jst.server.core.ILooseArchive;
+import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.model.ModuleFactoryDelegate;
@@ -137,6 +137,7 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 		try {
 			return (String) containedModuleURIs.get(module);
 		} catch (Exception e) {
+			// ignore
 		}
 		return null;
 	}
@@ -145,6 +146,7 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 		try {
 			return (String) containedArchiveURIs.get(archive);
 		} catch (Exception e) {
+			// ignore
 		}
 		return null;
 	}
