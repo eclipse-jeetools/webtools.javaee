@@ -172,7 +172,7 @@ public class NewJavaClassDataModel extends J2EEModelModifierOperationDataModel {
 		if (propertyName.equals(JAVA_PACKAGE))
 			return validateJavaPackage(getStringProperty(propertyName));
 		if (propertyName.equals(CLASS_NAME))
-			return validateClassName(getStringProperty(propertyName));
+			return validateJavaClassName(getStringProperty(propertyName));
 		if (propertyName.equals(SUPERCLASS))
 			return validateSuperclass(getStringProperty(propertyName));
 		if (propertyName.equals(MODIFIER_ABSTRACT))

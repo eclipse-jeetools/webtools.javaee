@@ -20,9 +20,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jst.j2ee.internal.web.operations.AddServletDataModel;
-import org.eclipse.jst.j2ee.internal.web.operations.AddServletFilterListenerCommonDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.swt.SWT;
@@ -62,7 +62,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 	
 	private AnnotationsStandaloneGroup annotationsGroup = null;
 
-	public AddServletWizardPage(AddServletDataModel model, String pageName) {
+	public AddServletWizardPage(NewServletClassDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_DESC);
 		this.setTitle(IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE);
@@ -74,8 +74,8 @@ public class AddServletWizardPage extends WTPWizardPage {
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{AddServletFilterListenerCommonDataModel.DISPLAY_NAME, AddServletFilterListenerCommonDataModel.USE_EXISTING_CLASS, AddServletFilterListenerCommonDataModel.CLASS_NAME,
-				AddServletDataModel.INIT_PARAM, AddServletDataModel.URL_MAPPINGS};
+		return new String[]{NewServletClassDataModel.DISPLAY_NAME, NewServletClassDataModel.USE_EXISTING_CLASS, //NewJavaClassDataModel.CLASS_NAME,
+				NewServletClassDataModel.INIT_PARAM, NewServletClassDataModel.URL_MAPPINGS};
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -88,10 +88,10 @@ public class AddServletWizardPage extends WTPWizardPage {
 		createNameDescription(composite);
 		new StringArrayTableWizardSection(composite, IWebWizardConstants.INIT_PARAM_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL,
 				IWebWizardConstants.REMOVE_BUTTON_LABEL, new String[]{IWebWizardConstants.NAME_LABEL, IWebWizardConstants.VALUE_LABEL, IWebWizardConstants.DESCRIPTION_LABEL}, null,// WebPlugin.getDefault().getImage("initializ_parameter"),
-				model, AddServletDataModel.INIT_PARAM);
+				model, NewServletClassDataModel.INIT_PARAM);
 		urlSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.URL_MAPPINGS_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.REMOVE_BUTTON_LABEL,
 				new String[]{IWebWizardConstants.URL_PATTERN_LABEL}, null,// WebPlugin.getDefault().getImage("url_type"),
-				model, AddServletDataModel.URL_MAPPINGS);
+				model, NewServletClassDataModel.URL_MAPPINGS);
 		createClassGroup(composite);
 		displayNameText.setFocus();
 
@@ -129,27 +129,10 @@ public class AddServletWizardPage extends WTPWizardPage {
 				List input = new ArrayList();
 				input.add(new String[]{"/" + text}); //$NON-NLS-1$
 				urlSection.setInput(input);
-				// // Set default class name
-				// WTPOperationDataModel nestedModel =
-				// model.getNestedModel("NewServletClassDataModel");
-				// //$NON-NLS-1$
-				// if (nestedModel != null) {
-				// if (text.trim().length() == 0)
-				// return;
-				// String className =
-				// nestedModel.getStringProperty(NewServletClassDataModel.CLASS_NAME);
-				// if (className != null && className.trim().length() > 0)
-				// return;
-				// char[] textChar = text.toCharArray();
-				// textChar[0] = Character.toUpperCase(textChar[0]);
-				// className = String.valueOf(textChar);
-				// nestedModel.setProperty(NewServletClassDataModel.CLASS_NAME,
-				// className);
-				// }
 			}
 
 		});
-		synchHelper.synchText(displayNameText, AddServletFilterListenerCommonDataModel.DISPLAY_NAME, null);
+		synchHelper.synchText(displayNameText, NewServletClassDataModel.DISPLAY_NAME, null);
 
 		// description
 		Label descLabel = new Label(composite, SWT.LEFT);
@@ -157,7 +140,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 		descLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(descText, AddServletFilterListenerCommonDataModel.DESCRIPTION, null);
+		synchHelper.synchText(descText, NewServletClassDataModel.DESCRIPTION, null);
 	}
 
 	protected void createClassGroup(Composite parent) {
@@ -170,7 +153,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		data.horizontalSpan = 3;
 		existingButton.setLayoutData(data);
-		synchHelper.synchCheckbox(existingButton, AddServletFilterListenerCommonDataModel.USE_EXISTING_CLASS, null);
+		synchHelper.synchCheckbox(existingButton, NewServletClassDataModel.USE_EXISTING_CLASS, null);
 		existingButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				handleExistingButtonSelected();
@@ -185,7 +168,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 		classText = new Text(composite, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
 		classText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		classText.setEnabled(false);
-		synchHelper.synchText(classText, AddServletFilterListenerCommonDataModel.CLASS_NAME, null);
+		synchHelper.synchText(classText, NewJavaClassDataModel.CLASS_NAME, null);
 
 		classButton = new Button(composite, SWT.PUSH);
 		classButton.setText(IWebWizardConstants.BROWSE_BUTTON_LABEL);
@@ -228,14 +211,14 @@ public class AddServletWizardPage extends WTPWizardPage {
 						IPath pBase = root.getFullPath();
 						IPath path = pFull.removeFirstSegments(pBase.segmentCount());
 						qualifiedClassName = path.makeAbsolute().toString();
-						model.setProperty(AddServletDataModel.IS_SERVLET_TYPE, new Boolean(false));
+						model.setProperty(NewServletClassDataModel.IS_SERVLET_TYPE, new Boolean(false));
 					}
 				}
 			} else {
 				IType type = (IType) ms.getFirstResult();
 				if (type != null) {
 					qualifiedClassName = type.getFullyQualifiedName();
-					model.setProperty(AddServletDataModel.IS_SERVLET_TYPE, new Boolean(true));
+					model.setProperty(NewServletClassDataModel.IS_SERVLET_TYPE, new Boolean(true));
 				}
 			}
 			classText.setText(qualifiedClassName);

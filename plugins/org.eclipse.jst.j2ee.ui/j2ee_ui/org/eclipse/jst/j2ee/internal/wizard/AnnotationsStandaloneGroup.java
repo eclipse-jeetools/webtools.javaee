@@ -166,7 +166,9 @@ public class AnnotationsStandaloneGroup {
 	}
 	
 	public void setUseAnnotations(boolean aBoolean) {
-		if (useAnnotations != null)
+		if (useAnnotations != null) {
 			useAnnotations.setSelection(aBoolean);
+			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, new Boolean(aBoolean));
+		}
 	}
 }

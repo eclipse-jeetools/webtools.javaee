@@ -13,7 +13,6 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.web.operations.AddServletDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
@@ -31,7 +30,7 @@ public class AddServletWizard extends NewWebWizard {
 	/**
 	 * @param model
 	 */
-	public AddServletWizard(AddServletDataModel model) {
+	public AddServletWizard(NewServletClassDataModel model) {
 		super(model);
 		setWindowTitle(IWebWizardConstants.ADD_SERVLET_WIZARD_WINDOW_TITLE);
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor("newservlet_wiz")); //$NON-NLS-1$
@@ -47,46 +46,39 @@ public class AddServletWizard extends NewWebWizard {
 	protected WTPOperationDataModel createDefaultModel() {
 	    if (model != null)
 	        return model;
-	    model = new AddServletDataModel();
-		//model.setProperty(AddServletDataModel.EDITING_DOMAIN, domain);
-		NewServletClassDataModel nestedModel = new NewServletClassDataModel();
-		model.addNestedModel("NewServletClassDataModel", nestedModel); //$NON-NLS-1$
-		//nestedModel.setProperty(NewServletClassDataModel.EDITING_DOMAIN, domain);
-		nestedModel.setProperty(NewJavaClassDataModel.SUPERCLASS, ((AddServletDataModel)model).getServletSuperclassName());
-		nestedModel.setProperty(NewJavaClassDataModel.INTERFACES, ((AddServletDataModel)model).getServletInterfaces());
-		nestedModel.setParentDataModel(model);
+	    model = new NewServletClassDataModel();
+		model.setProperty(NewJavaClassDataModel.SUPERCLASS, ((NewServletClassDataModel)model).getServletSuperclassName());
+		model.setProperty(NewJavaClassDataModel.INTERFACES, ((NewServletClassDataModel)model).getServletInterfaces());
 		
 		IProject project = getDefaultWebProject();
-		if (project != null) {
+		if (project != null)
 		    model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
-		    nestedModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
-		}
 		return model;
 	}
+	
 	/* (non-Javadoc)
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createOperation() {
-		return new AddServletOperation((AddServletDataModel)model) ;
+		return new AddServletOperation((NewServletClassDataModel)model) ;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void addPages() {
-		AddServletWizardPage page1 = new AddServletWizardPage((AddServletDataModel) model, PAGE_ONE);
+		AddServletWizardPage page1 = new AddServletWizardPage((NewServletClassDataModel) model, PAGE_ONE);
 		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1);
 		addPage(page1);
-		NewServletClassDataModel nestedModel = (NewServletClassDataModel)model.getNestedModel("NewServletClassDataModel"); //$NON-NLS-1$
 		NewWebJavaClassDestinationWizardPage page2 = new NewWebJavaClassDestinationWizardPage(
-				nestedModel, 
+				model, 
 				PAGE_TWO,
 				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE);
 		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
 		addPage(page2);
 		NewServletClassOptionsWizardPage page3 = new NewServletClassOptionsWizardPage(
-				nestedModel, 
+				model, 
 				PAGE_THREE,
 				IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE);

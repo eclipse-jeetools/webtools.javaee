@@ -114,7 +114,7 @@ public class CreateServletTemplateModel {
 	}
 
 	public List getInitParams() {
-		return (List) this.dataModel.getParentEditModel().getProperty(AddServletDataModel.INIT_PARAM);
+		return (List) dataModel.getProperty(NewServletClassDataModel.INIT_PARAM);
 	}
 
 	public String getInitParam(int index, int type) {
@@ -127,7 +127,7 @@ public class CreateServletTemplateModel {
 	}
 
 	public List getServletMappings() {
-		return (List) this.dataModel.getParentEditModel().getProperty(AddServletDataModel.URL_MAPPINGS);
+		return (List) dataModel.getProperty(NewServletClassDataModel.URL_MAPPINGS);
 	}
 
 	public String getServletMapping(int index) {
@@ -140,7 +140,7 @@ public class CreateServletTemplateModel {
 	}
 
 	public String getServletDescription() {
-		return this.dataModel.getParentEditModel().getStringProperty(AddServletFilterListenerCommonDataModel.DESCRIPTION);
+		return dataModel.getStringProperty(NewServletClassDataModel.DESCRIPTION);
 	}
 
 	public List getInterfaces() {
@@ -149,21 +149,21 @@ public class CreateServletTemplateModel {
 
 	protected boolean implementImplementedMethod(String methodName) {
 		if (methodName.equals(INIT))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.INIT);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.INIT);
 		else if (methodName.equals(TO_STRING))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.TO_STRING);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.TO_STRING);
 		else if (methodName.equals(GET_SERVLET_INFO))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.GET_SERVLET_INFO);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.GET_SERVLET_INFO);
 		else if (methodName.equals(DO_POST))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.DO_POST);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_POST);
 		else if (methodName.equals(DO_PUT))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.DO_PUT);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_PUT);
 		else if (methodName.equals(DO_DELETE))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.DO_DELETE);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_DELETE);
 		else if (methodName.equals(DESTROY))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.DESTROY);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.DESTROY);
 		else if (methodName.equals(DO_GET))
-			return this.dataModel.getBooleanProperty(NewServletClassDataModel.DO_GET);
+			return dataModel.getBooleanProperty(NewServletClassDataModel.DO_GET);
 		else
 			return false;
 	}

@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.ParamValue;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
@@ -48,7 +49,7 @@ public class AddServletOperation extends ModelModifierOperation {
 	/**
 	 * @param dataModel
 	 */
-	public AddServletOperation(AddServletDataModel dataModel) {
+	public AddServletOperation(NewServletClassDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -58,14 +59,14 @@ public class AddServletOperation extends ModelModifierOperation {
 	 * @see org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation#addHelpers()
 	 */
 	protected void addHelpers() {
-		AddServletDataModel model = (AddServletDataModel) this.operationDataModel;
+		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
 		createHelper(this.modifier, model);
 	}
 
-	private void generateHelpers(ModelModifier amodifier, AddServletDataModel model, String qualifiedClassName, boolean isServletType) {
+	private void generateHelpers(ModelModifier amodifier, NewServletClassDataModel model, String qualifiedClassName, boolean isServletType) {
 		// Get values from data model
-		String displayName = model.getStringProperty(AddServletFilterListenerCommonDataModel.DISPLAY_NAME);
-		String description = model.getStringProperty(AddServletFilterListenerCommonDataModel.DESCRIPTION);
+		String displayName = model.getStringProperty(NewServletClassDataModel.DISPLAY_NAME);
+		String description = model.getStringProperty(NewServletClassDataModel.DESCRIPTION);
 		// Set up Servlet
 		Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
 		servlet.setDisplayName(displayName);
@@ -89,7 +90,7 @@ public class AddServletOperation extends ModelModifierOperation {
 		amodifier.addHelper(helper);
 
 		// set up helpers for InitParam
-		List initParamList = (List) model.getProperty(AddServletDataModel.INIT_PARAM);
+		List initParamList = (List) model.getProperty(NewServletClassDataModel.INIT_PARAM);
 		if (initParamList != null) {
 			int nP = initParamList.size();
 			if (webApp.getJ2EEVersionID() >= J2EEVersionConstants.J2EE_1_4_ID) {
@@ -127,7 +128,7 @@ public class AddServletOperation extends ModelModifierOperation {
 		}
 
 		// set up helper for URL mappings
-		List urlMappingList = (List) model.getProperty(AddServletDataModel.URL_MAPPINGS);
+		List urlMappingList = (List) model.getProperty(NewServletClassDataModel.URL_MAPPINGS);
 		if (urlMappingList != null) {
 			int nM = urlMappingList.size();
 			for (int iM = 0; iM < nM; iM++) {
@@ -145,17 +146,13 @@ public class AddServletOperation extends ModelModifierOperation {
 		}
 	}
 
-	private void createHelper(ModelModifier amodifier, AddServletDataModel model) {
-		boolean useExisting = model.getBooleanProperty(AddServletFilterListenerCommonDataModel.USE_EXISTING_CLASS);
-		boolean isServletType = model.getBooleanProperty(AddServletDataModel.IS_SERVLET_TYPE);
-		String qualifiedClassName = model.getStringProperty(AddServletFilterListenerCommonDataModel.CLASS_NAME);
+	private void createHelper(ModelModifier amodifier, NewServletClassDataModel model) {
+		boolean useExisting = model.getBooleanProperty(NewServletClassDataModel.USE_EXISTING_CLASS);
+		boolean isServletType = model.getBooleanProperty(NewServletClassDataModel.IS_SERVLET_TYPE);
+		String qualifiedClassName = model.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
 		if (!useExisting && isServletType) {
 			// Create servlet java file
-			NewServletClassDataModel nestedModel = (NewServletClassDataModel) model.getNestedModel("NewServletClassDataModel"); //$NON-NLS-1$
-			nestedModel.setAnnotations(model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS));
-			nestedModel.setServletName(model.getStringProperty(AddServletFilterListenerCommonDataModel.DISPLAY_NAME));
-			nestedModel.setParentEditModel(model);
-			NewServletClassOperation op = new NewServletClassOperation(nestedModel);
+			NewServletClassOperation op = new NewServletClassOperation(model);
 			try {
 				op.setEditModel(this.editModel);
 				op.run(null);
@@ -164,7 +161,7 @@ public class AddServletOperation extends ModelModifierOperation {
 			} catch (InterruptedException e) {
 				Logger.getLogger().log(e);
 			}
-			qualifiedClassName = nestedModel.getQualifiedClassName();
+			qualifiedClassName = model.getQualifiedClassName();
 		}
 
 		if (!model.getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
