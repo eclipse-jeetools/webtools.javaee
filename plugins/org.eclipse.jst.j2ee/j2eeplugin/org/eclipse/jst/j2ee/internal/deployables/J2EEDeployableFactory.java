@@ -123,6 +123,8 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	public abstract IModule createModule(J2EENature nature);
 
 	public ModuleDelegate getModuleDelegate(IModule module) {
+		if (moduleDelegates == null)
+			moduleDelegates = new ArrayList(1);
 		for (Iterator iter = moduleDelegates.iterator(); iter.hasNext();) {
 			ModuleDelegate element = (ModuleDelegate) iter.next();
 			if (module == element.getModule())

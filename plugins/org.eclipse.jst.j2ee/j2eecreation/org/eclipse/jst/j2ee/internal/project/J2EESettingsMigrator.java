@@ -60,6 +60,8 @@ public class J2EESettingsMigrator implements IMigrator {
 	private void migrateProjectFile(IProject project) {
 		try {
 			J2EENature nature = J2EENature.getRegisteredRuntime(project);
+			if (nature == null)
+				return;
 			int j2eeVersion = nature.getJ2EEVersion();
 
 			if (j2eeVersion == J2EEVersionConstants.J2EE_1_3_ID) {
@@ -106,6 +108,7 @@ public class J2EESettingsMigrator implements IMigrator {
 	private boolean migrateJ2EESettingsFile(IProject project) {
 		try {
 			J2EENature nature = J2EENature.getRegisteredRuntime(project);
+			if (nature == null) return false;
 			int j2eeVersion = nature.getJ2EEVersion();
 			J2EESettings j2eeSettings = null;
 			IFile j2eeSettingsFile = project.getFile(J2EESettings.J2EE_SETTINGS_FILE_NAME);
