@@ -18,11 +18,7 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 public class EARComponentCreationPage extends J2EEModuleCreationPage {
 
-	public Text contextRootNameField = null;
-	public Label contextRootLabel = null;
-
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
-	private AnnotationsStandaloneGroup annotationsGroup;
 	
 	/**
 	 * @param model
