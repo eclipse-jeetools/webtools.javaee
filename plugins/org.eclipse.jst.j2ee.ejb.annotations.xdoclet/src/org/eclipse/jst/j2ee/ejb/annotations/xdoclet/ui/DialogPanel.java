@@ -160,7 +160,7 @@ public class DialogPanel extends Composite {
 		fText.setText(value);
 		final String fpath = value;
 		Button fButton = new Button(defPanel, SWT.PUSH);
-		fButton.setText("...");
+		fButton.setText("Browse...");
 		fButton.setLayoutData(new GridData());
 		fButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {

@@ -23,8 +23,8 @@ import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 
 public abstract class EjbEmitter {
 	public static final String CLASSPATHPROVIDER = "classpathProvider";
-	public static final String JAVACLASSPATHVARIABLEPREFIX = "LOMBOZEMITTER";
-	public static final String EJBEMITTERPROJECT = ".LombozEjbEmitter";
+	public static final String JAVACLASSPATHVARIABLEPREFIX = "WTPEJBEMITTER";
+	public static final String EJBEMITTERPROJECT = ".WtpEjbEmitter";
 	protected IConfigurationElement emitterConfig;
 	protected IEmitterClasspathProvider classpathProvider;
 	protected String base;

@@ -21,6 +21,8 @@ import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -79,9 +81,13 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		data.widthHint = 300;
 		composite.setLayoutData(data);
 
-		createNameDescription(composite);
-		createDestinationGroup(composite);
-		createTransactionGroup(composite);
+		Composite group = new Composite(composite, SWT.NULL);
+		group.setLayout(new GridLayout(2, false));
+		group.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		createNameDescription(group);
+		createDestinationGroup(group);
+		createTransactionGroup(group);
 		displayNameText.setFocus();
 
 		IStatus projectStatus = validateProjectName();
@@ -101,10 +107,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
-	protected void createNameDescription(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NULL);
-		composite.setLayout(new GridLayout(2, false));
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+	protected void createNameDescription(Composite composite) {
 		// ejb name
 		Label ejbNameLabel = new Label(composite, SWT.LEFT);
 		ejbNameLabel.setText(IEJBAnnotationConstants.EJB_NAME_LABEL);
@@ -133,15 +136,24 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		Label descLabel = new Label(composite, SWT.LEFT);
 		descLabel.setText(IEJBAnnotationConstants.DESCRIPTION_LABEL);
 		descLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+		final Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(descText, EjbCommonDataModel.DESCRIPTION, null);
+		
+		ejbNameText.addModifyListener(new ModifyListener()
+				{
+
+					public void modifyText(ModifyEvent e) {
+						jndiNameText.setText(ejbNameText.getText());
+						displayNameText.setText(ejbNameText.getText());
+						descText.setText("A MessageDriven bean named "+ejbNameText.getText());
+						
+					}
+					
+				});		
 	}
 
-	protected void createDestinationGroup(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NULL);
-		composite.setLayout(new GridLayout(3, false));
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+	protected void createDestinationGroup(Composite composite) {
 
 		// description
 		Label statelessLabel = new Label(composite, SWT.LEFT);
@@ -156,11 +168,8 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 
 	}
 
-	protected void createTransactionGroup(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NULL);
-		composite.setLayout(new GridLayout(3, false));
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-
+	protected void createTransactionGroup(Composite composite) {
+	
 		// description
 		Label txLabel = new Label(composite, SWT.LEFT);
 		txLabel.setText(IEJBAnnotationConstants.TRANSACTION_LABEL);

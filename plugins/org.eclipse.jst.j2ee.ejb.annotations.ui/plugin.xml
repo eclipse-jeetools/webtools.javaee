@@ -70,7 +70,7 @@
             class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard"
             id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard">
          <description>
-            %new.ejb.description_ui_
+            %new.sejb.description_ui_
          </description>
       </wizard>
    </extension>
@@ -88,7 +88,7 @@
             class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard"
             id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard">
          <description>
-            %new.ejb.description_ui_
+            %new.mejb.description_ui_
          </description>
       </wizard>
    </extension>

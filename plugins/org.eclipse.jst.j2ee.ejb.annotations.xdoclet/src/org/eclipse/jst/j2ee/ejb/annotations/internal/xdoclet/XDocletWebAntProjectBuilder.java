@@ -51,6 +51,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			J2EEWebNatureRuntime runtime = WebNatureRuntimeUtilities
 					.getJ2EERuntime(javaProject.getProject());
 
+			properties.put("web.module.webinf", runtime.getWEBINFPath().toString());
 			properties.put("web", runtime.getContextRoot());
 			properties.put("web.project.dir", resource.getProject()
 					.getLocation().toString());

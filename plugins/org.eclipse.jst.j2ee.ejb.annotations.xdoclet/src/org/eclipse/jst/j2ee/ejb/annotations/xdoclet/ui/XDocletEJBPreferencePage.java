@@ -112,7 +112,7 @@ public class XDocletEJBPreferencePage extends PreferencePage implements
 		gridData = new GridData();
 		gridData.horizontalSpan = 4;
 		label.setLayoutData(gridData);
-		label.setText("Set EJB Doclet Preferences");
+		label.setText("Set EJB Doclet Preferences (choose the servers to generate specific deployment descriptors)");
 	
 		panel.preferences = new Control[ejboptions.length];
 		panel.fActive = new Button[ejboptions.length];
