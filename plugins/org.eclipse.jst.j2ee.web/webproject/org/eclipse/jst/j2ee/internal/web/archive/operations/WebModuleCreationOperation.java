@@ -33,9 +33,11 @@ import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -59,19 +61,23 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 
 	protected void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.createProject(monitor);
-		J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(((WebModuleCreationDataModel)operationDataModel).getTargetProject());
-		nature.getWebSettings().setWebContentName(operationDataModel.getStringProperty(WebModuleCreationDataModel.WEB_CONTENT));
-		nature.getWebSettings().setContextRoot(operationDataModel.getStringProperty(WebModuleCreationDataModel.CONTEXT_ROOT));
-		URIConverter uriConverter = ((ProjectResourceSet) nature.getResourceSet()).getURIConverter();
-		if (uriConverter instanceof J2EEModuleWorkbenchURIConverterImpl)
-			((J2EEModuleWorkbenchURIConverterImpl) uriConverter).recomputeContainersIfNecessary();
+		//TODO add contextRoot and contentName to workbechModule
+		//J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(((WebModuleCreationDataModel)operationDataModel).getTargetProject());
+		//WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(((WebModuleCreationDataModel)operationDataModel).getTargetProject());
+		//nature.getWebSettings().setWebContentName(operationDataModel.getStringProperty(WebModuleCreationDataModel.WEB_CONTENT));
+		//nature.getWebSettings().setContextRoot(operationDataModel.getStringProperty(webArtifactEdit.getContextRoot()));
+		//URIConverter uriConverter = ((ProjectResourceSet) nature.getResourceSet()).getURIConverter();
+		//dont need this, keeps nature in synch with websetting file
+		//if (uriConverter instanceof J2EEModuleWorkbenchURIConverterImpl)
+		//	((J2EEModuleWorkbenchURIConverterImpl) uriConverter).recomputeContainersIfNecessary();
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
 			protected void execute(IProgressMonitor amonitor) throws CoreException, InvocationTargetException, InterruptedException {
 				WebEditModel model = (WebEditModel) editModel;
-				IFolder metainf = model.getWebNature().getEMFRoot().getFolder(new Path(J2EEConstants.META_INF));
+				WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(model.getProject());
+				IFolder metainf = webArtifactEdit.getMetaInfFolder();
 				if (!metainf.exists()) {
 					IFolder parent = metainf.getParent().getFolder(null);
 					if (!parent.exists()) {
@@ -79,7 +85,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 					}
 					metainf.create(true, true, null);
 				}
-				IFolder webinf = model.getWebNature().getEMFRoot().getFolder(new Path(J2EEConstants.WEB_INF));
+				IFolder webinf = (IFolder)webArtifactEdit.getWebInfFolder();
 				if (!webinf.exists()) {
 					webinf.create(true, true, null);
 				}
@@ -97,12 +103,11 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		super.execute(monitor);
 		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
 		if (dataModel.getBooleanProperty(WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS)) {
-			IProject project = dataModel.getProjectDataModel().getProject();
-			J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
-			webNature.getWebSettings().write();
-			project.getFile(webNature.getWebSettingsPath()).refreshLocal(0, monitor);
-			WebSettingsMigrator migrator = new WebSettingsMigrator();
-			migrator.migrate(project);
+			IProject project = dataModel.getProjectDataModel().getProject();	
+			//webNature.getWebSettings().write();
+			//project.getFile(webNature.getWebSettingsPath()).refreshLocal(0, monitor);
+			//WebSettingsMigrator migrator = new WebSettingsMigrator();
+			//migrator.migrate(project);
 		}
 		//By default we do not create a flexible project
 		if(dataModel.getBooleanProperty(J2EEModuleCreationDataModel.IS_FLEXIBLE_PROJECT)) {

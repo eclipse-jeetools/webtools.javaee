@@ -11,6 +11,7 @@ package org.eclipse.jst.j2ee.internal.web.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
@@ -312,6 +313,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	
 	public IContainer getWebContentFolder(){
 		//TODO return the valid context root for the module
+		return null;
+		
+	}
+	
+	//push down to J2EE
+	public IFolder getMetaInfFolder(){
 		return null;
 		
 	}
