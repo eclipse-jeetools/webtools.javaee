@@ -1,7 +1,7 @@
 
 (object Petal
-    version    	47
-    _written   	"Rose 8.0.0303.1400"
+    version    	50
+    _written   	"Rose 8.3.0407.2800"
     charSet    	0)
 
 (object Class_Category "application"
@@ -42,7 +42,11 @@
 		(object Attribute
 		    tool       	"IDL"
 		    name       	"uuid"
-		    value      	(value Text "DCE:d87f3e00-8826-11e1-0002-005d9e6adec4:1")))
+		    value      	(value Text "DCE:d87f3e00-8826-11e1-0002-005d9e6adec4:1"))
+		(object Attribute
+		    tool       	"Java"
+		    name       	"cg_style"
+		    value      	"Default_EJB"))
 	    quid       	"38C030A803B1"
 	    documentation 	
 |The applicationType defines the structure of the
@@ -68,7 +72,11 @@
 		(object Attribute
 		    tool       	"IDL"
 		    name       	"uuid"
-		    value      	(value Text "DCE:d880c4a0-8826-11e1-0000-005d9e6adec4:1")))
+		    value      	(value Text "DCE:d880c4a0-8826-11e1-0000-005d9e6adec4:1"))
+		(object Attribute
+		    tool       	"Java"
+		    name       	"cg_style"
+		    value      	"Default_EJB"))
 	    quid       	"38C0322C0006"
 	    documentation 	
 |The module element represents a single J2EE module and contains an ejb, java, or web element, which indicates the module type and contains a path to the module file, and an optional alt-dd element, which specifies an optional URI to the post-assembly version of the deployment descriptor. The application deployment descriptor must have one module element for each J2EE module in the application package.
@@ -290,18 +298,35 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@1
-			location   	(86, 1502)
+			location   	(142, 1505)
 			fill_color 	13434879
 			nlines     	2
-			max_width  	488
+			max_width  	376
 			justify    	0
 			label      	"WebModule")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"3904860D027B"
-		    width      	506
-		    height     	236
+		    compartment 	(object Compartment
+			Parent_View 	@1
+			location   	(142, 1566)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	2
+			max_width  	413)
+		    width      	394
+		    height     	230
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::application::JavaClientModule" @2
@@ -469,17 +494,34 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@7
-			location   	(68, 947)
+			location   	(122, 947)
 			fill_color 	16777215
 			nlines     	2
-			max_width  	464
+			max_width  	356
 			justify    	0
 			label      	"SecurityRole")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	12632256
 		    quidu      	"38C031FE012D"
-		    width      	482
+		    compartment 	(object Compartment
+			Parent_View 	@7
+			location   	(122, 1062)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	3
+			max_width  	391)
+		    width      	374
 		    height     	332
 		    annotation 	8
 		    autoResize 	TRUE)
@@ -525,7 +567,7 @@
 			fill_color 	16777215
 			anchor     	2
 			nlines     	2
-			max_width  	0)
+			max_width  	328)
 		    width      	524
 		    height     	436
 		    annotation 	8
@@ -575,6 +617,9 @@
 			    quidu      	"38C033F9017C"
 			    client     	@9
 			    supplier   	@8
+			    vertices   	(list Points
+				(356, 795)
+				(356, 657))
 			    line_style 	3
 			    origin_attachment 	(356, 795)
 			    terminal_attachment 	(356, 657)
@@ -637,6 +682,9 @@
 			    quidu      	"38C033F9017D"
 			    client     	@9
 			    supplier   	@7
+			    vertices   	(list Points
+				(356, 795)
+				(356, 934))
 			    line_style 	3
 			    origin_attachment 	(356, 795)
 			    terminal_attachment 	(356, 934)
@@ -677,18 +725,35 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@16
-			location   	(658, 966)
+			location   	(702, 970)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	350
+			max_width  	262
 			justify    	0
 			label      	"Module")
 		    icon_style 	"Icon"
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"38C0322C0006"
-		    width      	368
-		    height     	236
+		    compartment 	(object Compartment
+			Parent_View 	@16
+			location   	(702, 1031)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	3
+			max_width  	294)
+		    width      	280
+		    height     	228
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object AssociationViewNew "$UNNAMED$2" @17
@@ -777,7 +842,7 @@
 				default_color 	TRUE)
 			    label      	(object SegLabel @22
 				Parent_View 	@21
-				location   	(753, 910)
+				location   	(753, 914)
 				font       	(object Font
 				    size       	10
 				    face       	"Arial"
@@ -801,12 +866,15 @@
 			    quidu      	"38C0340102E7"
 			    client     	@17
 			    supplier   	@16
+			    vertices   	(list Points
+				(878, 661)
+				(878, 958))
 			    line_style 	3
 			    origin_attachment 	(878, 661)
-			    terminal_attachment 	(878, 953)
+			    terminal_attachment 	(878, 958)
 			    label      	(object SegLabel @23
 				Parent_View 	@21
-				location   	(948, 913)
+				location   	(948, 916)
 				font       	(object Font
 				    size       	10
 				    face       	"Arial"
@@ -832,13 +900,16 @@
 		    supplier   	@16
 		    vertices   	(list Points
 			(833, 1325)
-			(833, 1190)))
+			(833, 1186)))
 		(object InheritView "" @25
 		    stereotype 	TRUE
 		    line_color 	3342489
 		    quidu      	"390486B60379"
 		    client     	@3
 		    supplier   	@16
+		    vertices   	(list Points
+			(922, 1487)
+			(922, 1325))
 		    line_style 	3
 		    origin_attachment 	(922, 1487)
 		    terminal_attachment 	(922, 1325)
@@ -849,8 +920,11 @@
 		    quidu      	"390486AE01C9"
 		    client     	@1
 		    supplier   	@16
+		    vertices   	(list Points
+			(419, 1492)
+			(419, 1325))
 		    line_style 	3
-		    origin_attachment 	(419, 1490)
+		    origin_attachment 	(419, 1492)
 		    terminal_attachment 	(419, 1325)
 		    drawSupplier 	@24)
 		(object InheritView "" @27
@@ -859,6 +933,9 @@
 		    quidu      	"390486B201F6"
 		    client     	@2
 		    supplier   	@16
+		    vertices   	(list Points
+			(678, 1489)
+			(678, 1325))
 		    line_style 	3
 		    origin_attachment 	(678, 1489)
 		    terminal_attachment 	(678, 1325)
@@ -873,7 +950,7 @@
 			(1141, 1487)
 			(1141, 1306)
 			(894, 1306)
-			(894, 1190))
+			(894, 1186))
 		    line_style 	3
 		    origin_attachment 	(1141, 1487)
-		    terminal_attachment 	(894, 1190))))))
+		    terminal_attachment 	(894, 1186))))))
