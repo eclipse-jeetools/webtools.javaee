@@ -118,7 +118,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		ModuleStructuralModel structuralModel = null;
 		try {
 			IProject containingProject = getProject();
-			ModuleCoreNature moduleCoreNature = (ModuleCoreNature) containingProject.getNature(IModuleConstants.MODULE_NATURE_ID);
+			ModuleCoreNature moduleCoreNature = (ModuleCoreNature) containingProject.getNature(ModuleCoreNature.MODULE_NATURE_ID);
 			structuralModel = moduleCoreNature.getModuleStructuralModelForWrite(this);
 			structuralModel.prepareProjectModulesIfNecessary();
 			ProjectModules projectModules = (ProjectModules) structuralModel.getPrimaryResource().getContents().get(0);
@@ -135,8 +135,9 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	 * @param projectModules
 	 */
 	private void addContent(ProjectModules projectModules) {
-	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModulesFolder()+".war", URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName())); //$NON-NLS-1$ //$NON-NLS-2$	
-		addResource(webModule, getModuleRelativeFile(getTestResourcePath(), getProject()), getTestResourcePath());
+	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleName()+".war", URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName()));		
+		addResource(webModule, getModuleRelativeFile(getWebContentResourcePath(), getProject()), getWebContentResourcePath());
+		addResource(webModule, getModuleRelativeFile(getJavaSourcePath(), getProject()), getJavaSourcePath());
 	}
 	
 	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
@@ -156,28 +157,28 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		return module;
 	}
 	public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
-		return getProject().getFile(new Path(getModulesFolder() + IPath.SEPARATOR + aModuleRelativePath));
+		return getProject().getFile(new Path(getWebContentResourcePath() + IPath.SEPARATOR + aModuleRelativePath));
 	}
 	
 	public IProject getProject() {
 	    J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
 	    return dataModel.getProjectDataModel().getProject();
 	}
-	/**
-	 * @return
-	 */
-	public String getModulesFolder() {
-		return "WebContent"; //$NON-NLS-1$
-	}
 
 	/**
 	 * @return
 	 */
-	public String getTestResourcePath() {
-		return "WEB-INF/web.xml"; //$NON-NLS-1$
+	public String getJavaSourcePath() {
+		return "/JavaSource"; //$NON-NLS-1$
+	}
+	/**
+	 * @return
+	 */
+	public String getWebContentResourcePath() {
+		return "/WebContent"; //$NON-NLS-1$
 	}
 	
 	public String getModuleName() {
-		return "MyWebModule"; //$NON-NLS-1$
+		return "WebModule";
 	}
 }
