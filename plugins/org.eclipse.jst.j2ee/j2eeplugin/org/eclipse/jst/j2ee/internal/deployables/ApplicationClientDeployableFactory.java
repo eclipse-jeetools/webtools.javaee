@@ -10,8 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.util.List;
+
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.server.core.IModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -67,5 +70,13 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 		}
 		return module;
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
+     */
+    protected List createModules(ModuleCoreNature nature) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

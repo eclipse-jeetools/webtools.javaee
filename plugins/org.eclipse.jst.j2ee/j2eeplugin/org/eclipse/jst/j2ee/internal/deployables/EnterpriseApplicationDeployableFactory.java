@@ -10,10 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.server.core.IModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -85,6 +88,14 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	protected IPath[] getListenerPaths() {
 		return PATHS;
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
+     */
+    protected List createModules(ModuleCoreNature nature) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 
 

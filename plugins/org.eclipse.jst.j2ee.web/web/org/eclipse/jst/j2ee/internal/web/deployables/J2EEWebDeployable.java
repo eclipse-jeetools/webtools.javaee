@@ -143,7 +143,7 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
     public IPath getRootFolder() {
         J2EEWebNatureRuntime webNature = getWebNature();
         if (webNature != null)
-            return getWebNature().getRootPublishableFolder().getProjectRelativePath();
+            return getWebNature().getRootPublishableFolder().getProjectRelativePath().append("/WebContent");
         return null;
     }
 
