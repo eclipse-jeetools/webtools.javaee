@@ -96,10 +96,15 @@ public class EARNatureRuntime extends J2EENature {
 		return CommonarchiveFactory.eINSTANCE.openEARFile(options, proj.getName());
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEVersion()
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		EARArtifactEdit.getJ2EEVersion()
+	 * </p>
 	 */
 	public int getJ2EEVersion() {
 
@@ -257,9 +262,13 @@ public class EARNatureRuntime extends J2EENature {
 	 * Return a Project for the given <code>uri</code>. This will return a Project for a utility
 	 * JAR mapping or a module mapping. A project will be returned if the mapping has a project name
 	 * even if the project does not exist or is not accessible.
-	 * 
 	 * @param uri
 	 * @return
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		Get the enterprise application module workbench component and call getReferencedComponents()
+	 * </p>
 	 */
 	public IProject getMappedProject(String uri) {
 		EAREditModel model = (EAREditModel) getCacheEditModel();
@@ -269,6 +278,11 @@ public class EARNatureRuntime extends J2EENature {
 	/**
 	 * @return J2EENature - the nature for the project that represents
 	 * @aModule in the ear; null if no such project exists
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 	  ModuleCore.findWorkbenchModuleByModuleURI(URI aModuleURI)
+	 * </p>
 	 */
 	public J2EENature getModuleProject(Module aModule) {
 
@@ -282,6 +296,11 @@ public class EARNatureRuntime extends J2EENature {
 	 * @return J2EENature - the nature for the project that represents the module having
 	 * @moduleURI in the ear; null if the application does not contain a module with
 	 * @moduleURI or if no such project exists
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 	  ModuleCore.findWorkbenchModuleByModuleURI(URI aModuleURI)
+	 * </p>
 	 */
 	public J2EENature getModuleProject(String moduleURI) {
 		Application dd = getApplication();
@@ -338,7 +357,11 @@ public class EARNatureRuntime extends J2EENature {
 	 * 
 	 * @return java.util.Map where the keys are the uris of all the modules and JARs (String), and
 	 *         the values are the projects represented by the uris.
-	 * @deprecated - Use ModuleCore
+	 * @deprecated - 
+	 * Use
+	 * <p>
+	 * 	WorkbenchComponent.getReferencedComponents()
+	 * </p>
 	 */
 	public Map getAllMappedProjects() {
 		EAREditModel model = (EAREditModel) getCacheEditModel();
@@ -352,6 +375,11 @@ public class EARNatureRuntime extends J2EENature {
 
 	/**
 	 * Return the nature's ID.
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		ModuleCoreNature.getNatureID()
+	 * </p>
 	 */
 	public java.lang.String getNatureID() {
 		return IEARNatureConstants.NATURE_ID;
@@ -359,6 +387,11 @@ public class EARNatureRuntime extends J2EENature {
 
 	/**
 	 * Return the ID of the plugin that this nature is contained within.
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		ModuleCoreNature.getPluginID()
+	 * </p>
 	 */
 	protected java.lang.String getPluginID() {
 		return J2EEPlugin.PLUGIN_ID;
@@ -384,6 +417,11 @@ public class EARNatureRuntime extends J2EENature {
 	 * @return com.ibm.itp.wt.IWebNature
 	 * @param project
 	 *            com.ibm.itp.core.api.resources.IProject
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		EARArtifactEdit.getEARArtifactEditForRead(WorkbenchComponent)
+	 * </p>
 	 */
 	public static EARNatureRuntime getRuntime(IProject project) {
 		return (EARNatureRuntime) getRuntime(project, IEARNatureConstants.NATURE_IDS);
@@ -402,6 +440,11 @@ public class EARNatureRuntime extends J2EENature {
 	 * @return boolean
 	 * @param project
 	 *            com.ibm.itp.core.api.resources.IProject
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		
+	 * </p>
 	 */
 	public static boolean hasRuntime(IProject project) {
 		return hasRuntime(project, IEARNatureConstants.NATURE_IDS);
@@ -421,6 +464,14 @@ public class EARNatureRuntime extends J2EENature {
 	//		j2eeSettings.setModuleVersion(info.getModuleVersion());
 	//		j2eeSettings.write();
 	//	}
+	
+	/**
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		EARArtifactEdit.createModuleRoot
+	 * </p>
+	 */
 	public Resource makeApplicationXmiResource() {
 		return createResource(URI.createURI(ArchiveConstants.APPLICATION_DD_URI));
 	}
@@ -502,6 +553,14 @@ public class EARNatureRuntime extends J2EENature {
 				return EAR_PROJECT_14_OVERLAY;
 		}
 	}
+	
+	/**
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		EARArtifactEdit.getDeploymentDescriptorResource()
+	 * </p>
+	 */
 
 	public int getDeploymentDescriptorType() {
 		return XMLResource.APPLICATION_TYPE;
@@ -514,10 +573,15 @@ public class EARNatureRuntime extends J2EENature {
 		//do nothing since this is not a Java project
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
+	 * @deprecated
+	 * Use
+	 * <a>
+	 * 		EARArtifactEdit.getDeploymentDescriptorResource()
+	 * </a>
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		return getApplication();
@@ -536,19 +600,27 @@ public class EARNatureRuntime extends J2EENature {
 		return J2EEVersionConstants.J2EE_1_4_ID;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		EARArtifactEdit.getEARArtifactEditForRead(WorkbenchComponent)
+	 * </p>
 	 */
 	public J2EEEditModel getJ2EEEditModelForRead(Object accessorKey) {
 		return getEarEditModelForRead(accessorKey);
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 		EARArtifactEdit.getEARArtifactEditForWrite(WorkbenchComponent)
+	 * </p>
 	 */
 	public J2EEEditModel getJ2EEEditModelForWrite(Object accessorKey) {
 		return getEarEditModelForWrite(accessorKey);
