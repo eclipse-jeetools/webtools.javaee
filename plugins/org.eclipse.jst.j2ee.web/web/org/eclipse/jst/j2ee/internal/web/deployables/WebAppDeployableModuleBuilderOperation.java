@@ -103,8 +103,11 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 						break;
 					}
 				}
-				IPath classFilesPath = absoluteOCP.append("/WebContent/WEB-INF/classes");
+				URI deployURI = wmr.getDeployedPath();
+				IPath classFilesPath = absoluteOCP.append(deployURI.toString());
 				createFolder(classFilesPath);
+				// check if the classpath is modified. Use relative path to avoid 
+				// the problem that drive letter could be upper or lower case
 				IPath relativeClassFilesPath = classFilesPath.makeRelative();
 				IPath oldClassFilesPath = ((ClasspathEntry)cpe[index]).specificOutputLocation;
 				IPath oldRelativeClassFilesPath = null;
@@ -116,6 +119,7 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 				}
 			}
 		}
+		// update classpath only when it is modified
 		if (classpathModified)
 			javaProj.setRawClasspath(cpe, new NullProgressMonitor());
 	}
