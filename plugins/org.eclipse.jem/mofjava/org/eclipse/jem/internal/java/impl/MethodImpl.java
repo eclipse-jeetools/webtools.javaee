@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/10 21:38:14 $ 
  */
 
 import java.util.Collection;
@@ -570,7 +570,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * This is usually determined by the "generated" tag in the comment.
 	 */
   public boolean isGenerated() {
-	   return false;
+	   return isGenerated;
   }
 
 	/**
