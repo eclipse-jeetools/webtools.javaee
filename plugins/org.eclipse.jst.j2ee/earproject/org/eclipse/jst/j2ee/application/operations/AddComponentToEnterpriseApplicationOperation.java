@@ -8,7 +8,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ReferencedComponent;
@@ -47,7 +46,7 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 		 }  finally {
 		       if (null != moduleCore) {
 		            moduleCore.dispose();
-		        }
+		       }
 		 }		
 	}
 

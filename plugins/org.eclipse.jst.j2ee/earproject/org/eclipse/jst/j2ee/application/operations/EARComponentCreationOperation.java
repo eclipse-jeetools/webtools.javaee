@@ -62,7 +62,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
             if (null != moduleCore) {
                 moduleCore.dispose();
             }
-       		if(edit != null)
+       		if (edit != null)
        			edit.dispose();
         }		
 	}
@@ -80,15 +80,18 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	private void addModulesToEAR(IProgressMonitor monitor) {
 		try{
 			AddComponentToEnterpriseApplicationDataModel dm = new AddComponentToEnterpriseApplicationDataModel();
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,getProject().getName());
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, getOperationDataModel().getProperty(EARComponentCreationDataModel.MODULE_DEPLOY_NAME));
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,getOperationDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST));
-			AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
+					getProject().getName());
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, 
+					getOperationDataModel().getProperty(EARComponentCreationDataModel.MODULE_DEPLOY_NAME));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,
+					getOperationDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST));
+			AddComponentToEnterpriseApplicationOperation addModuleOp = (AddComponentToEnterpriseApplicationOperation)dm.getDefaultOperation();
 			addModuleOp.execute(monitor);
 		 } catch(Exception e) {
 			 Logger.getLogger().log(e);
 		 }
-		}
+	}
     
 	protected  void addResources(WorkbenchComponent component ){
 	}
@@ -97,8 +100,6 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
 	 */
 	protected void createProjectStructure() throws CoreException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/* (non-Javadoc)
