@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
@@ -31,20 +30,20 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
-import org.eclipse.jst.server.core.WebResource;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.util.WebResource;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -81,58 +80,48 @@ public class WebDeployableArtifactUtil  {
 			if (obj instanceof Servlet) {
 				String mapping = null;
 				java.util.List mappings = ((Servlet) obj).getMappings();
-				//IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
+				IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
 
 				if (mappings != null && !mappings.isEmpty()) {
 					ServletMapping map = (ServletMapping) mappings.get(0);
 					mapping = map.getUrlPattern();
 				}
 				if (mapping != null) {
-					//return new WebResource(getModule(webNature), new Path(mapping));
-					return new WebResource(getModule(resource.getProject()), new Path(mapping));
+					return new WebResource(getModule(webNature), new Path(mapping));
 				}
-				//WebType webType = ((Servlet) obj).getWebType();
-				
-				//To do:Need to rework based on Module
-				/*
+				WebType webType = ((Servlet) obj).getWebType();
 				if (webType.isJspType()) {
 					resource = ((IProject) resource).getFile(webNature.getModuleServerRootName() + "/" + ((JSPType) webType).getJspFile()); //$NON-NLS-1$
 				} else if (webType.isServletType()) {
 					return new WebResource(getModule(webNature), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
 				}
-				*/
 			}
 		}
 		if (resource == null)
 			return null;
 
 		// find deployable
-		//IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
-		//if (webNature == null)
-		//	return null;
+		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
+		if (webNature == null)
+			return null;
 
 		if (resource instanceof IProject)
-			//return new WebResource(getModule(webNature), new Path("")); //$NON-NLS-1$
-			return new WebResource(getModule(resource.getProject()), new Path("")); //$NON-NLS-1$
+			return new WebResource(getModule(webNature), new Path("")); //$NON-NLS-1$
 
 		String className = getServletClassName(resource);
 		if (className != null) {
 			String mapping = getServletMapping(resource.getProject(), true, className);
 			if (mapping != null) {
-				//return new WebResource(getModule(webNature), new Path(mapping));
-				return new WebResource(getModule(resource.getProject()), new Path(mapping));
+				return new WebResource(getModule(webNature), new Path(mapping));
 			}
 			// if there is no servlet mapping, provide direct access to the servlet
 			// through the fully qualified class name
-			//return new WebResource(getModule(webNature), new Path("servlet/" + className)); //$NON-NLS-1$
-			return new WebResource(getModule(resource.getProject()), new Path("servlet/" + className)); //$NON-NLS-1$
+			return new WebResource(getModule(webNature), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
 
 		// determine path
-		//To do : work based on module
-		//IPath rootPath = webNature.getRootPublishableFolder().getProjectRelativePath();
-		IPath rootPath =  null;
+		IPath rootPath = webNature.getRootPublishableFolder().getProjectRelativePath();
 		IPath resourcePath = resource.getProjectRelativePath();
 
 		// Check to make sure the resource is under the webApplication directory
@@ -153,12 +142,10 @@ public class WebDeployableArtifactUtil  {
 		if (jspURL != null) {
 			IPath correctJSPPath = jspURL.getFileURL(resource, resourcePath);
 			if (correctJSPPath != null && correctJSPPath.toString().length() > 0)
-				//return new WebResource(getModule(webNature), correctJSPPath);
-				return new WebResource(getModule(resource.getProject()), correctJSPPath);
+				return new WebResource(getModule(webNature), correctJSPPath);
 		}
 		// return Web resource type
-		//return new WebResource(getModule(webNature), resourcePath);
-		return new WebResource(getModule(resource.getProject()), resourcePath);
+		return new WebResource(getModule(webNature), resourcePath);
 	}
 
 	/**
@@ -179,29 +166,12 @@ public class WebDeployableArtifactUtil  {
 		return false;
 	}
 
-	protected static IModule getModule(IProjectNature nature) {
-		return getModule(nature.getProject());
-//		IModule deployable = nature.getModule();
-//		if (deployable != null)
-//			return deployable;
-//
-//		IProject project = nature.getProject();
-//		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
-//		
-//		while (iterator.hasNext()) {
-//			Object next = iterator.next();
-//			if (next instanceof IModule) {
-//				deployable = (IModule) next;
-//				if (deployable.getProject().equals(project))
-//					return deployable;
-//			}
-//		}
-//		return null;
-	}
-	
-	protected static IModule getModule(IProject project) {
-		IModule deployable = null;
+	protected static IModule getModule(IBaseWebNature nature) {
+		IModule deployable = nature.getModule();
+		if (deployable != null)
+			return deployable;
 
+		IProject project = nature.getProject();
 		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
 		
 		while (iterator.hasNext()) {
@@ -213,7 +183,7 @@ public class WebDeployableArtifactUtil  {
 			}
 		}
 		return null;
-	}	
+	}
 
 	/**
 	 * If this resource is a servlet, return the class name. If not, return null.
@@ -328,12 +298,23 @@ public class WebDeployableArtifactUtil  {
 	public static String getServletMapping(IProject project, boolean isServlet, String typeName) {
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
-		WebArtifactEdit webEdit = null;
-		WebApp webApp = null;	               		
+
+		J2EEWebNatureRuntime webNature = null;
+		WebEditModel model = null;
+		Object key = new Object();
+
 		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			if (webEdit != null)
-				webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
+			webNature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
+			if (webNature == null)
+				return null;
+
+			model = webNature.getWebAppEditModelForRead(key);
+			if (model == null)
+				return null;
+			WebApp webApp = model.getWebApp();
+			if (webApp == null)
+				return null;
+
 			// find servlet
 			Iterator iterator = webApp.getServlets().iterator();
 			while (iterator.hasNext()) {
@@ -364,8 +345,22 @@ public class WebDeployableArtifactUtil  {
 		} catch (Exception e) {
 			return null;
 		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
+			try {
+				if (model != null)
+					model.releaseAccess(key);
+			} catch (Exception ex) {
+				// ignore
+			}
 		}
 	}
+
+	public static String getJSPSpecificationVersion(IBaseWebNature baseWebNature) {
+
+		if (baseWebNature.isJ2EE()) {
+			return ((J2EEWebNatureRuntime) baseWebNature).isJSP1_2() ? "1.2" : "1.1"; //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		return "1.2"; //$NON-NLS-1$
+
+	}
+
 }
