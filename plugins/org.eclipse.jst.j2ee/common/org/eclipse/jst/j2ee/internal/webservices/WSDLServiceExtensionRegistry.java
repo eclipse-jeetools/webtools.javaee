@@ -56,10 +56,10 @@ public class WSDLServiceExtensionRegistry extends RegistryReader {
 		WSDLServiceHelper extension = null;
 		try {
 			extension = (WSDLServiceHelper) element.createExecutableExtension(WSDL_HELPER_CLASS);
-		} catch (CoreException e) {
+		} catch (Throwable e) {
 			//Register default do nothing helper......
 			addModuleExtension(new DefaultWSDLServiceHelper());
-		}
+		}  
 		if (extension != null)
 			addModuleExtension(extension);
 		return true;
