@@ -92,7 +92,7 @@ public class NewModuleGroup {
 	 * 
 	 *
 	 */
-	private void initializeProjectList() {
+	public void initializeProjectList() {
 		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
 		List items = new ArrayList();
 		for (int i=0; i<workspaceProjects.length; i++) {
@@ -109,17 +109,24 @@ public class NewModuleGroup {
 		for (int i=0; i<items.size(); i++) {
 			names[i]= (String) items.get(i);
 		}
+		model.setIgnorePropertyChanges(true);
 		projectNameCombo.setItems(names);
+		model.setIgnorePropertyChanges(false);
 		
-		IProject selectedProject = getSelectedProject();
-		if (selectedProject!=null) {
-			projectNameCombo.setText(selectedProject.getName());
-			model.setProperty(ComponentCreationDataModel.PROJECT_NAME,selectedProject.getName());
+		if (!model.isSet(ComponentCreationDataModel.PROJECT_NAME) || model.getStringProperty(ComponentCreationDataModel.PROJECT_NAME).length()==0) {
+			IProject selectedProject = getSelectedProject();
+			if (selectedProject!=null) {
+				projectNameCombo.setText(selectedProject.getName());
+				model.setProperty(ComponentCreationDataModel.PROJECT_NAME,selectedProject.getName());
+			}
+			else if (names.length>0) {
+				projectNameCombo.setText(names[0]);
+				model.setProperty(ComponentCreationDataModel.PROJECT_NAME,names[0]);
+			}
+		} else {
+			projectNameCombo.add(model.getStringProperty(ComponentCreationDataModel.PROJECT_NAME));
+			projectNameCombo.setText(model.getStringProperty(ComponentCreationDataModel.PROJECT_NAME));
 		}
-		else if (names.length>0) {
-			projectNameCombo.setText(names[0]);
-			model.setProperty(ComponentCreationDataModel.PROJECT_NAME,names[0]);
-		}	
 	}
 
 	/**
