@@ -273,7 +273,7 @@
       <migrator
             className="org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator"
             id="org.eclipse.jst.common.migration.WebSettingsMigrator.id"
-            filter="org.eclipse.jst.j2ee.internal.settings.J2EEMigrationFilter">
+            filter="org.eclipse.jst.j2ee.internal.project.J2EEMigrationFilter">
          <enablement>          
 			<projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
          </enablement>
