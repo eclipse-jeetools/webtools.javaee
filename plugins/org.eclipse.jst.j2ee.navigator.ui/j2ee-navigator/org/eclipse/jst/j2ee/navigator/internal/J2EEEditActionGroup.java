@@ -48,11 +48,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.framework.AdaptabilityUtility;
+import org.eclipse.wst.common.frameworks.ui.WTPGenericActionIds;
+import org.eclipse.wst.common.frameworks.ui.WTPOptionalOperationAction;
 import org.eclipse.wst.common.navigator.actions.NewWizardActionGroup;
 import org.eclipse.wst.common.navigator.actions.WizardActionGroup;
 import org.eclipse.wst.common.navigator.views.actions.CommonEditActionGroup;
-import org.eclipse.wst.common.ui.WTPGenericActionIds;
-import org.eclipse.wst.common.ui.WTPOptionalOperationAction;
 
 /**
  * @author mdelder

@@ -31,12 +31,15 @@
       <import plugin="org.eclipse.jst.j2ee"/>
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.jst.j2ee.ejb"/>
-      <import plugin="org.eclipse.wst.common.ui"/>
+      <import plugin="org.eclipse.wst.common.frameworks.ui"/>
       <import plugin="org.eclipse.jst.j2ee.web"/>
       <import plugin="org.eclipse.jst.j2ee.jca"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.emf"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.ui"/>
+      <import plugin="org.eclipse.jst.servlet.ui"/>
+      <import plugin="org.eclipse.jst.j2ee.jca.ui"/>
    </requires>
 
 

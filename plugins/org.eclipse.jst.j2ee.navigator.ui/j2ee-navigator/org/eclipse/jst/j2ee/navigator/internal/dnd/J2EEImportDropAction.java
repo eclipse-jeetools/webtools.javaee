@@ -29,27 +29,27 @@ import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.ejb.ui.internal.wizard.EJBJarImportWizard;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBJarImportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.wizard.EJBJarImportWizard;
 import org.eclipse.jst.j2ee.internal.jca.operations.RARImportDataModel;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.rar.wizard.RARImportWizard;
-import org.eclipse.jst.j2ee.internal.war.wizard.WARImportWizard;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EARImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.RARImportWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.WARImportWizard;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.wst.common.framework.AdaptabilityUtility;
 import org.eclipse.wst.common.navigator.views.IDropValidator;
 import org.eclipse.wst.common.navigator.views.NavigatorDropActionDelegate;
 import org.eclipse.wst.common.navigator.views.NavigatorDropAdapter;
-import org.eclipse.wst.internal.common.ui.WTPWizard;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
 
 /**
  * @author jsholl
