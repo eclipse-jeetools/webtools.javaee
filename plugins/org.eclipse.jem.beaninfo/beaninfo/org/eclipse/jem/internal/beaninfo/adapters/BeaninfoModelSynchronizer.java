@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoModelSynchronizer.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/06 20:43:00 $ 
  */
 
 import java.util.*;
@@ -179,7 +179,7 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 	 */
 	protected void processJavaElementChanged(ICompilationUnit element, IJavaElementDelta delta) {
 		if (!element.isWorkingCopy()) {
-			if ((delta.getKind() == IJavaElementDelta.CHANGED || delta.getKind() == IJavaElementDelta.ADDED)) {
+			if (((delta.getKind() == IJavaElementDelta.CHANGED && (delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) == 0) || delta.getKind() == IJavaElementDelta.ADDED)) {
 				try {
 					IType[] flushTypes = element.getAllTypes();
 					for (int i = 0; i < flushTypes.length; i++) {

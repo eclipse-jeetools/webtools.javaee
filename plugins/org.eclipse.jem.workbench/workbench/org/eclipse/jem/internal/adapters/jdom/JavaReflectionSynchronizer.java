@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:33:53 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/06 20:45:28 $ 
  */
 
 import java.util.*;
@@ -86,12 +86,16 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	protected void processJavaElementChanged(ICompilationUnit element, IJavaElementDelta delta) {
 		if (!element.isWorkingCopy()) {
 			switch (delta.getKind()) {
-				case IJavaElementDelta.CHANGED : {
-					try {
-						IType[] flushTypes = element.getAllTypes();
-						for (int i = 0; i < flushTypes.length; i++)
-							flush(flushTypes[i]);
-					} catch (JavaModelException e) {}
+				case IJavaElementDelta.CHANGED : {						
+					if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) != 0) {
+						try {
+							IType[] flushTypes = element.getAllTypes();
+							for (int i = 0; i < flushTypes.length; i++)
+								flush(flushTypes[i]);
+						} catch (JavaModelException e) {
+						}
+						
+					}
 					
 					break;
 				}
