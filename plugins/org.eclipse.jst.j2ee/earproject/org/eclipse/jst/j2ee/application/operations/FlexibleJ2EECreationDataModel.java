@@ -161,9 +161,9 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
     protected IStatus doValidateProperty(String propertyName) {
         if (propertyName.equals(MODULE_NAME)) {
             IStatus status = OK_STATUS;
-            String projectName = getStringProperty(PROJECT_NAME);
+            String moduleName = getStringProperty(MODULE_NAME);
             if (status.isOK()) {
-                if (projectName.indexOf("#") != -1) { //$NON-NLS-1$
+                if (moduleName.indexOf("#") != -1) { //$NON-NLS-1$
                     String errorMessage = J2EECreationResourceHandler.getString("InvalidCharsError"); //$NON-NLS-1$
                     return WTPCommonPlugin.createErrorStatus(errorMessage);
                 }

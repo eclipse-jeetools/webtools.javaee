@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.internal.web.util;
 
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 public class WebArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {
@@ -18,5 +20,8 @@ public class WebArtifactEditOperationDataModel extends ArtifactEditOperationData
     public WTPOperation getDefaultOperation() {
         return new WebArtifactEditOperation(this);
     }
-
+    
+    private ArtifactEdit getArtifactEditForRead(WorkbenchComponent module) {
+        return WebArtifactEdit.getWebArtifactEditForRead(module);
+    }
 }
