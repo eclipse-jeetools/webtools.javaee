@@ -35,6 +35,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.IModuleConstants;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -124,7 +125,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 		setJ2EENatureID(IWebNatureConstants.J2EE_NATURE_ID);
 		setProperty(EDIT_MODEL_ID, IWebNatureConstants.EDIT_MODEL_ID);
 		getServerTargetDataModel().setIntProperty(ServerTargetDataModel.DEPLOYMENT_TYPE_ID, XMLResource.WEB_APP_TYPE);
-		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IWebNatureConstants.J2EE_NATURE_ID});
+		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IWebNatureConstants.J2EE_NATURE_ID,IModuleConstants.MODULE_NATURE_ID});
 		getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.SOURCE_FOLDERS, new String[]{getDefaultJavaSourceFolderName()});
 		updateOutputLocation();
 		super.init();

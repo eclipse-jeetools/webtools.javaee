@@ -29,6 +29,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.modulecore.IModuleConstants;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -105,7 +106,7 @@ public final class EnterpriseApplicationCreationDataModel extends J2EEArtifactCr
 		super.init();
 		setProperty(EDIT_MODEL_ID, IEARNatureConstants.EDIT_MODEL_ID);
 		getServerTargetDataModel().setIntProperty(ServerTargetDataModel.DEPLOYMENT_TYPE_ID, XMLResource.APPLICATION_TYPE);
-		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IEARNatureConstants.NATURE_ID});
+		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IEARNatureConstants.NATURE_ID,IModuleConstants.MODULE_NATURE_ID});
 		setProperty(APPLICATION_VERSION, getDefaultProperty(APPLICATION_VERSION));
 		//set it so it pushes it down to ServerTargeting
 	}
