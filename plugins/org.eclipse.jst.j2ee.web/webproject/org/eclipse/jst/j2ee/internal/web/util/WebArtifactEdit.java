@@ -310,6 +310,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
+	public void setContextRoot(String aContextRoot) {
+		//TODO set the context root for the module
+
+	}
+	
 	public IContainer getWebContentFolder(){
 		//TODO return the valid context root for the module
 		return null;
