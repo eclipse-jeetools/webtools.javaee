@@ -26,7 +26,7 @@ import org.eclipse.jst.validation.sample.parser.MessageMetaData;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
-import org.eclipse.wst.validation.core.Message;
+import org.eclispe.wst.validation.internal.core.Message;
 
 /**
  * This class represents an APropertyFile that is instantiated by a validator.
@@ -86,15 +86,15 @@ public class ValidatorPropertyFile extends APropertyFile {
 	private static int getSeverity(int mmdSeverity) {
 		switch(mmdSeverity) {
 			case(MessageMetaData.ERROR): {
-				return IReporter.HIGH_SEVERITY;
+				return IMessage.HIGH_SEVERITY;
 			}
 			
 			case(MessageMetaData.INFO): {
-				return IReporter.LOW_SEVERITY;
+				return IMessage.LOW_SEVERITY;
 			}
 			
 			default: {
-				return IReporter.NORMAL_SEVERITY;
+				return IMessage.NORMAL_SEVERITY;
 			}
 		}
 	}

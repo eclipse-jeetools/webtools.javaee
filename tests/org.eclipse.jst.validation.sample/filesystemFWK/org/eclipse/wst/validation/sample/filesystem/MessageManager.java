@@ -26,7 +26,6 @@ import java.util.Map;
 
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IValidator;
-import org.eclipse.wst.validation.core.SeverityEnum;
 
 /**
  * This class manages the validation messages for each validator. Each validator's
@@ -146,19 +145,19 @@ public class MessageManager {
 		Object object = message.getTargetObject();
 		StringBuffer formattedMessage = new StringBuffer();
 		switch (severity) {
-			case (SeverityEnum.HIGH_SEVERITY) :
+			case (IMessage.HIGH_SEVERITY) :
 				{
 					formattedMessage.append("Error: "); //$NON-NLS-1$
 					break;
 				}
 
-			case (SeverityEnum.LOW_SEVERITY) :
+			case (IMessage.LOW_SEVERITY) :
 				{
 					formattedMessage.append("Information: "); //$NON-NLS-1$
 					break;
 				}
 
-			case (SeverityEnum.NORMAL_SEVERITY) :
+			case (IMessage.NORMAL_SEVERITY) :
 			default :
 				{
 					formattedMessage.append("Warning: "); //$NON-NLS-1$
@@ -170,7 +169,7 @@ public class MessageManager {
 
 		if (object != null) {
 			String fileName = FilesystemManager.getManager().getHelper(validator).getFileName(message);
-			int lineNumber = message.getLineNo();
+			int lineNumber = message.getLineNumber();
 
 			if((fileName != null) || (lineNumber != IMessage.LINENO_UNSET)) {
 				formattedMessage.append("["); //$NON-NLS-1$
@@ -244,8 +243,8 @@ public class MessageManager {
 						return result;
 					}
 					
-					int aLineNumber = aMssg.getLineNo();
-					int bLineNumber = bMssg.getLineNo();
+					int aLineNumber = aMssg.getLineNumber();
+					int bLineNumber = bMssg.getLineNumber();
 					return compare(aLineNumber, bLineNumber);
 				}
 			};

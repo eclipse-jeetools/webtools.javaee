@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.internal.registry.MessageUtility;
-import org.eclipse.wst.validation.core.SeverityEnum;
+import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.internal.TaskListUtility;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
 
@@ -82,7 +82,7 @@ public final class TestCaseGeneratorOperation implements IWorkspaceRunnable {
 		// and group them by the validator.
 		for(int i=0; i<projects.length; i++) {
 			IProject project = projects[i];
-			IMarker[] markers = TaskListUtility.getValidationTasks(project, SeverityEnum.ALL_MESSAGES);
+			IMarker[] markers = TaskListUtility.getValidationTasks(project, IMessage.ALL_MESSAGES);
 			if((markers == null) || (markers.length == 0)){
 				getBuffer().write("Cannot generate a test case for project " + project.getName() + " until \"Run Validation\" has been run. Enable only the validator whose test case is to be generated, right-click, and \"Run Validation\". Once the validation messages have been reported, a test case can be generated from those messages."); //$NON-NLS-1$ //$NON-NLS-2$
 				continue;

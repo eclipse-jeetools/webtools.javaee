@@ -11,7 +11,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.internal.util.BVTValidationUtility;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
-import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
+import org.eclipse.wst.validation.plugin.ValidationPlugin;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;

@@ -194,7 +194,7 @@ public class PluginPropertyFile extends APropertyFile {
 	}
 	
 	public void report(IMessage message) {
-		MessageMetaData mmd = new MessageMetaData(message.getBundleName(), message.getSeverity(), message.getId(), message.getParams(), message.getTargetObject(), message.getLineNo(), message.getOffset(), message.getLength());
+		MessageMetaData mmd = new MessageMetaData(message.getBundleName(), message.getSeverity(), message.getId(), message.getParams(), message.getTargetObject(), message.getLineNumber(), message.getOffset(), message.getLength());
 		addParseWarning(mmd);
 	}
 	
@@ -203,7 +203,7 @@ public class PluginPropertyFile extends APropertyFile {
 	}
 	
 	public void addParseWarning(IMessage message) {
-		MessageMetaData mmd = new MessageMetaData(message.getBundleName(), message.getSeverity(), message.getId(), message.getParams(), message.getTargetObject(), message.getLineNo(), message.getOffset(), message.getLength());
+		MessageMetaData mmd = new MessageMetaData(message.getBundleName(), message.getSeverity(), message.getId(), message.getParams(), message.getTargetObject(), message.getLineNumber(), message.getOffset(), message.getLength());
 		addParseWarning(mmd);
 	}
 	

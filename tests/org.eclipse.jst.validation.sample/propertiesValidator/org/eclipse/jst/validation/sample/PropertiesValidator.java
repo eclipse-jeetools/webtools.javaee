@@ -28,9 +28,8 @@ import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
-import org.eclipse.wst.validation.core.Message;
-import org.eclipse.wst.validation.core.SeverityEnum;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.Message;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -78,7 +77,7 @@ public class PropertiesValidator implements IValidator {
 					// 1. The file doesn't exist or
 					// 2. The file isn't a .properties file or
 					// 3. The file can't be read
-					IMessage message = new Message(IValidationConstants.BUNDLENAME, SeverityEnum.NORMAL_SEVERITY, IValidationConstants.ABCD0090, new String[]{changedFiles[i].getFileName()});
+					IMessage message = new Message(IValidationConstants.BUNDLENAME, IMessage.NORMAL_SEVERITY, IValidationConstants.ABCD0090, new String[]{changedFiles[i].getFileName()});
 					reporter.addMessage(this, message);
 					continue;
 				}

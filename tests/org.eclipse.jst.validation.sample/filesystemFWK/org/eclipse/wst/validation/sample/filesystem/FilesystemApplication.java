@@ -21,11 +21,11 @@ package org.eclipse.wst.validation.sample.filesystem;
 
 
 import org.eclipse.wst.validation.core.IFileDelta;
+import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.Message;
-import org.eclipse.wst.validation.core.SeverityEnum;
 import org.eclipse.wst.validation.core.ValidationException;
-import org.eclipse.wst.validation.core.ValidatorLauncher;
+import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidatorLauncher;
 
 /**
  * This class is the representation of a file system based application
@@ -58,7 +58,7 @@ public class FilesystemApplication {
 				}
 			}
 			catch (ValidationException exc) {
-				Message message = new Message("filesystem", SeverityEnum.HIGH_SEVERITY, "VFFS0000", new String[]{loader.getValidator().getClass().getName()}); //$NON-NLS-1$  //$NON-NLS-2$
+				Message message = new Message("filesystem", IMessage.HIGH_SEVERITY, "VFFS0000", new String[]{loader.getValidator().getClass().getName()}); //$NON-NLS-1$  //$NON-NLS-2$
 				reporter.displaySubtask(loader.getValidator(), message);
 				
 				if(exc.getAssociatedMessage() != null) {
@@ -72,7 +72,7 @@ public class FilesystemApplication {
 				// continue with the next validation
 			}
 			catch (Exception exc) {
-				Message message = new Message("filesystem", SeverityEnum.HIGH_SEVERITY, "VFFS0000", new String[]{loader.getValidator().getClass().getName()}); //$NON-NLS-1$ //$NON-NLS-2$
+				Message message = new Message("filesystem", IMessage.HIGH_SEVERITY, "VFFS0000", new String[]{loader.getValidator().getClass().getName()}); //$NON-NLS-1$ //$NON-NLS-2$
 				reporter.displaySubtask(loader.getValidator(), message);
 				// continue with the next validation
 				exc.printStackTrace();

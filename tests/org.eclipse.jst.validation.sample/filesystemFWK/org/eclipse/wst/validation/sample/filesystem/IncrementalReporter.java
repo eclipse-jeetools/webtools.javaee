@@ -28,7 +28,6 @@ import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IMessageAccess;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
-import org.eclipse.wst.validation.core.SeverityEnum;
 
 /**
  * This class is the file system specific implementation of an incremental IReporter.
@@ -127,17 +126,17 @@ public class IncrementalReporter implements IReporter {
 	public void report() {
 		System.out.println();
 		System.out.println("Error messages"); //$NON-NLS-1$
-		Map messages = getMessages(SeverityEnum.HIGH_SEVERITY);
+		Map messages = getMessages(IMessage.HIGH_SEVERITY);
 		report(messages);
 
 		System.out.println();
 		System.out.println("Warning messages"); //$NON-NLS-1$
-		messages = getMessages(SeverityEnum.NORMAL_SEVERITY);
+		messages = getMessages(IMessage.NORMAL_SEVERITY);
 		report(messages);
 
 		System.out.println();
 		System.out.println("Information messages"); //$NON-NLS-1$
-		messages = getMessages(SeverityEnum.LOW_SEVERITY);
+		messages = getMessages(IMessage.LOW_SEVERITY);
 		report(messages);
 	}
 	

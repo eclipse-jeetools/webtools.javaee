@@ -49,7 +49,6 @@ import org.eclipse.wst.common.modulecore.internal.impl.PlatformURLModuleConnecti
 import org.eclipse.wst.common.modulecore.internal.impl.ResourceTreeRoot;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.modulecore.internal.util.SourcePathProvider;
-import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
 /**
  * <p>
@@ -152,7 +151,7 @@ public class ModuleStructuralModelTest extends TestCase {
 			artifactModel = getNature(getProjectForWebModuleAndLocalWebLib()).getArtifactEditModelForRead(moduleURI, this);
 			WebArtifactEdit editUtility = (WebArtifactEdit) artifactModel.getAdapter(WebArtifactEdit.ADAPTER_TYPE);
 
-			WebApp webApp = editUtility.getWebApplication();
+			WebApp webApp = (WebApp) editUtility.getDeploymentDescriptorRoot();
 			if (webApp == null)
 				System.out.println("Read failed.");
 			else
