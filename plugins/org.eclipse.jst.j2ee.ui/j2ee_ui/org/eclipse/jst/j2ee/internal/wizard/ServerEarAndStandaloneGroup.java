@@ -97,7 +97,6 @@ public class ServerEarAndStandaloneGroup {
 					//do nothing
 				}
 			});
-			addToEAR.setEnabled(false);
 			// Create EAR Group
 			earLabel = new Label(parent, SWT.NONE);
 			earLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION));
