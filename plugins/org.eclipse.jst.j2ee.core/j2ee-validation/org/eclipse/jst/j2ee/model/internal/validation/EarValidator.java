@@ -42,7 +42,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveWrappedException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.NoModuleFileException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
