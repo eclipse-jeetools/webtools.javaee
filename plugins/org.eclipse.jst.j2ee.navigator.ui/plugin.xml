@@ -41,6 +41,7 @@
       <import plugin="org.eclipse.jst.j2ee.jca.ui"/>
       <import plugin="org.eclipse.jst.common.navigator.java"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
    	
 <!--============================-->

@@ -28,7 +28,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
 import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.MethodsProviderDelegate;
-import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectManager.IRefreshHandlerListener;
+import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHandlerListener;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
@@ -45,7 +45,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 
 	private static final Class IPROJECT_CLASS = IProject.class;
 
-	private final EMFRootObjectManager rootObjectManager;
+	private final EMFRootObjectProvider rootObjectProvider;
 
 	private AdapterFactoryContentProvider delegateContentProvider;
 	private MethodsProviderDelegate delegateMethodsProvider;
@@ -57,17 +57,17 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 *  
 	 */
 	public J2EEContentProvider() {
-		rootObjectManager = new EMFRootObjectManager();
-		rootObjectManager.addRefreshHandlerListener(this);
+		rootObjectProvider = new EMFRootObjectProvider();
+		rootObjectProvider.addRefreshHandlerListener(this);
 	}
 
 	/**
 	 *  
 	 */
 	public J2EEContentProvider(String aViewerId) {
-		rootObjectManager = new EMFRootObjectManager();
+		rootObjectProvider = new EMFRootObjectProvider();
 		updateContentProviders(aViewerId);
-		rootObjectManager.addRefreshHandlerListener(this);
+		rootObjectProvider.addRefreshHandlerListener(this);
 	}
 
 
@@ -91,9 +91,13 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 		if (aParentElement instanceof IProject || aParentElement instanceof IJavaProject) {
 			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
 			if (project != null) {
-				Object rootObject = (rootObjectManager != null) ? rootObjectManager.getRootObject(project) : null;
-				if (rootObject != null)
-					children.add(rootObject);
+				Object[] rootObjects = (rootObjectProvider != null) ? rootObjectProvider.getModels(project) : null;
+				if (rootObjects != null) {
+					for (int x=0; x< rootObjects.length ; ++x) {
+						children.add(rootObjects[x]);
+					}
+					
+				}
 			}
 		} else if (MethodsProviderDelegate.providesContentFor(aParentElement))
 			return delegateMethodsProvider.getChildren(aParentElement);
@@ -120,9 +124,9 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
 	public void dispose() {
-		rootObjectManager.removeRefreshHandlerListener(this);
+		rootObjectProvider.removeRefreshHandlerListener(this);
 		delegateContentProvider.dispose();
-		rootObjectManager.dispose();
+		rootObjectProvider.dispose();
 		delegateMethodsProvider.dispose();
 
 	}
