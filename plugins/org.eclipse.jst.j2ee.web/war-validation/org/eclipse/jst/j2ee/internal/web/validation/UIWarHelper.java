@@ -16,7 +16,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 /**
@@ -52,9 +53,12 @@ public class UIWarHelper extends WarHelper {
 			return warFile;
 		try {
 			if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) { // dhaaa, do not expect this to be false
-				J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
-				if (webNature != null) {
-					IPath path = webNature.getWebXMLPath(); // this is an absolute path.
+//				J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
+				WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+				
+				if (webArtifactEdit != null) {
+//					IPath path = webNature.getWebXMLPath(); // this is an absolute path.
+					IPath path = webArtifactEdit.getWebInfFolder().getFullPath().append(IWebNatureConstants.DEPLOYMENT_DESCRIPTOR_FILE_NAME);
 					IPath projectPath = project.getFullPath();
 					path = path.removeFirstSegments(path.matchingFirstSegments(projectPath)); // make it relative
 					warFile = project.getFile(path);
