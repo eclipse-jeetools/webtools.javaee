@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.12 $  $Date: 2004/03/22 23:49:02 $ 
+ *  $Revision: 1.13 $  $Date: 2004/03/23 19:21:30 $ 
  */
 
 
@@ -553,7 +553,7 @@ public class ProxyPlugin extends Plugin {
 		super.shutdown();
 	}
 	
-	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributor";
+	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributors";
 	public static final String PI_CONTAINER = "container";
 	public static final String PI_PLUGIN = "plugin";
 	public static final String PI_CLASS = "class";
