@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.common.internal.provider.JNDIEnvRefsGroupItemProvide
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -72,9 +73,8 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	public Collection getChildren(Object object) {
 		WebApp webApp = (WebApp) object;
 		Collection myChildren = super.getChildren(object);
-		// TODO WebServices for M3
-		//if (webApp.getVersionID() <= J2EEVersionConstants.WEB_2_3_ID)
-		//	myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(webApp));
+		if (webApp.getVersionID() <= J2EEVersionConstants.WEB_2_3_ID)
+			myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(webApp));
 		return myChildren;
 	}
 

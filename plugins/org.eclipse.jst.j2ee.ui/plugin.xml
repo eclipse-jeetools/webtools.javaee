@@ -47,6 +47,7 @@
       <import plugin="org.eclipse.jst.common.navigator.java"/>
       <import plugin="org.eclipse.wst.web"/>
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
+      <import plugin="org.eclipse.wst.wsdl"/>
       
    </requires>
 
@@ -336,8 +337,7 @@
          </view>
       </adapterFactory>
    </extension>
-   
-<!--  TODO WebServices for M3 
+    
    <extension
          point="org.eclipse.wst.common.navigator.views.navigatorContent">
       <navigatorContent
@@ -359,18 +359,16 @@
          </enables>
       </navigatorContent>
    </extension>
- -->  
    
    <!-- J2EE View Web Services contribution -->
-   <!-- TODO WebServices for M3 -->
-<!--   <extension
+   <extension
          point="org.eclipse.wst.common.navigator.views.navigatorViewer">
       <navigatorViewer
-            rootContentExtensionId="org.eclipse.wst.common.frameworks.navigator.webservice"
-            viewerId="com.ibm.wtp.ui.ProjectNavigator">
+            rootContentExtensionId="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
+            viewerId="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
       </navigatorViewer>
    </extension>
- -->  
+ 
 <!-- Navigator Object Contributions -->
 <!-- EAR Group Contributions -->
    <extension

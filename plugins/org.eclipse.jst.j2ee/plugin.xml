@@ -42,6 +42,8 @@
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
+      <import plugin="org.eclipse.wst.wsdl"/>
+      <import plugin="org.eclipse.wst.ws.parser"/>
    </requires>
 
 

@@ -37,13 +37,11 @@ import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandle
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
 
 public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl {
 	private final static String SOURCE_DIR = "source"; //$NON-NLS-1$
-	private final static String CLASSES_DIR = "classes"; //$NON-NLS-1$
 
 	public static final String WEBSETTINGS_FILE_URI = ".j2ee"; //$NON-NLS-1$
 
@@ -92,70 +90,93 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
 	public java.util.List getFiles() {
+
 		filesList.clear();
+
 		try {
 			// Determine if loose libs exist and set flag for meta files
-			if (areLooseLibJarsIncluded()) {
+			if (areLooseLibJarsIncluded())
 				setIncludeProjectMetaFiles(true);
-			}
+
 			// First go through all of the files under the webApplication
 			// directory, omitting the ones that are imported classes jars.
-			List webAppFiles = new ArrayList(Arrays.asList(getModuleContainer().members()));
-			if (shouldIncludeProjectMetaFiles()) {
-				webAppFiles.add(getProject().getFile(PROJECT_FILE_URI));
-				webAppFiles.add(getProject().getFile(CLASSPATH_FILE_URI));
-				webAppFiles.add(getProject().getFile(WEBSETTINGS_FILE_URI));
-			}
-			IContainer outputContainer = ProjectUtilities.getJavaProjectOutputContainer(getProject());
-			webAppFiles.addAll(Arrays.asList(outputContainer.members()));
+			List webAppFiles = null;
 
 			// if the user has chosen not to export compiled JSP files, then we need to make sure
 			// that
 			// the compiled class files are excluded from the /WEB-INF/classes directory
 			if (isExcludeCompiledJspFiles()) {
+				webAppFiles = new ArrayList(Arrays.asList(getModuleContainer().members()));
+
 				try {
-					//					IBaseWebNature wnr = J2EEWebNatureRuntimeUtilities.getRuntime(project);
-					IPath outputPath = outputContainer.getProjectRelativePath();
-					//					if (wnr != null) {
-					//						IPath modulePath = wnr.getWebModulePath();
-					//						IPath outputPath =
-					// J2EEWebNatureRuntimeUtilities.getWebOutputFolderPath(modulePath.toString());
-					// remove the WEB-INF folder from the list... we will get files from that
-					// directory
-					// after all others, in order to calculate which output files may exist,
-					// according
-					// to the JSPs in all other directories
-					//						IPath webInf = modulePath.append(IWebNatureConstants.INFO_DIRECTORY);
-					//					IResource outputDirResource = null;
-					//					int len = webAppFiles.size();
-					//					boolean found = false;
-					//					for (int i = 0; !found && i < len; i++) {
-					//						IResource res = (IResource) webAppFiles.get(i);
-					//						if (res.getFullPath().equals(outputPath)) {
-					//							outputDirResource = (IResource) webAppFiles.remove(i);
-					//							found = true;
-					//						}
-					//					}
-					// collect all the files (excluding those in /WEB-INF) and mark all of the
-					// JSPs' compiled files (.class,.java) to be excluded from the
-					webAppFiles = getFilesExcludeCompiledJsps(webAppFiles, outputPath);
-					// now collect the files from the /WEB-INF directory. All of the compiled
-					// JSP
-					// output files should not be picked up now, as they were placed into the
-					// visitedURIs
-					// list
-					ArrayList webInfList = new ArrayList(1);
-					webInfList.add(outputContainer);
-					webInfList = getFiles(webInfList);
-					webAppFiles.addAll(webInfList);
-					//					} else {
-					//						webAppFiles = getFiles(webAppFiles);
-					//					}
+					IBaseWebNature wnr = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+					if (wnr != null) {
+
+						IPath modulePath = wnr.getWebModulePath();
+						IPath outputPath = J2EEWebNatureRuntimeUtilities.getWebOutputFolderPath(modulePath.toString());
+
+						// remove the WEB-INF folder from the list... we will get files from that
+						// directory
+						// after all others, in order to calculate which output files may exist,
+						// according
+						// to the JSPs in all other directories
+						IPath webInf = modulePath.append(IWebNatureConstants.INFO_DIRECTORY);
+						IResource outputDirResource = null;
+						int len = webAppFiles.size();
+						boolean found = false;
+						for (int i = 0; !found && i < len; i++) {
+							IResource res = (IResource) webAppFiles.get(i);
+							if (res.getFullPath().equals(webInf)) {
+								outputDirResource = (IResource) webAppFiles.remove(i);
+								found = true;
+							}
+						}
+
+						if (shouldIncludeProjectMetaFiles()) {
+							webAppFiles.add(getProject().getFile(PROJECT_FILE_URI));
+							webAppFiles.add(getProject().getFile(CLASSPATH_FILE_URI));
+							webAppFiles.add(getProject().getFile(WEBSETTINGS_FILE_URI));
+						}
+
+						// collect all the files (excluding those in /WEB-INF) and mark all of the
+						// JSPs' compiled files (.class,.java) to be excluded from the
+						webAppFiles = getFilesExcludeCompiledJsps(webAppFiles, outputPath);
+
+						// now collect the files from the /WEB-INF directory. All of the compiled
+						// JSP
+						// output files should not be picked up now, as they were placed into the
+						// visitedURIs
+						// list
+						ArrayList webInfList = new ArrayList(1);
+						webInfList.add(outputDirResource);
+						webInfList = getFiles(webInfList);
+						webAppFiles.addAll(webInfList);
+					} else {
+						webAppFiles = new ArrayList(Arrays.asList(getModuleContainer().members()));
+
+						if (shouldIncludeProjectMetaFiles()) {
+							webAppFiles.add(getProject().getFile(PROJECT_FILE_URI));
+							webAppFiles.add(getProject().getFile(CLASSPATH_FILE_URI));
+							webAppFiles.add(getProject().getFile(WEBSETTINGS_FILE_URI));
+						}
+						webAppFiles = getFiles(webAppFiles);
+					}
+
 				} catch (Exception e) {
 					throw new ArchiveRuntimeException(e.getMessage(), e);
 				}
+
 			} else {
+				webAppFiles = new ArrayList(Arrays.asList(getModuleContainer().members()));
+
+				if (shouldIncludeProjectMetaFiles()) {
+					webAppFiles.add(getProject().getFile(PROJECT_FILE_URI));
+					webAppFiles.add(getProject().getFile(CLASSPATH_FILE_URI));
+					webAppFiles.add(getProject().getFile(WEBSETTINGS_FILE_URI));
+				}
+				//HashSet addedURIs = new HashSet();
 				webAppFiles = getFiles(webAppFiles);
+
 			}
 
 			HashSet addedURIs = new HashSet();
@@ -447,14 +468,6 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 				retPath = retPath.append(SOURCE_DIR);
 				return retPath.append(relPath);
 			}
-		}
-
-		// If this is in an output folder, stick it in 'WEB-INF/classes
-		IPath outputPath = ProjectUtilities.getJavaProjectOutputContainer(getProject()).getProjectRelativePath();
-		if (aPath.segmentCount() > outputPath.segmentCount() && aPath.removeLastSegments(aPath.segmentCount() - outputPath.segmentCount()).equals(outputPath)) {
-			IPath retPath = new Path(J2EEConstants.WEB_INF);
-			retPath = retPath.append(CLASSES_DIR);
-			return retPath.append(aPath.removeFirstSegments(outputPath.segmentCount()));
 		}
 
 		return aPath;

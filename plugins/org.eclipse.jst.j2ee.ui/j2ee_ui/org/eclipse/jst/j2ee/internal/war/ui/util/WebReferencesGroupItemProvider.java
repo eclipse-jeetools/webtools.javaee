@@ -18,11 +18,13 @@ package org.eclipse.jst.j2ee.internal.war.ui.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 /**
@@ -67,16 +69,15 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 		if (!webApp.getMessageDestinationRefs().isEmpty())
 			result.addAll(webApp.getMessageDestinationRefs());
 
-		// TODO WebServices for M3
-//		Collection serviceRefs = null;
-//		try {
-//			serviceRefs = WebServicesManager.getInstance().getServiceRefs(webApp);
-//		} catch (RuntimeException re) {
-//			serviceRefs = Collections.EMPTY_LIST;
-//		}
-//
-//		if (!serviceRefs.isEmpty())
-//			result.addAll(serviceRefs);
+		Collection serviceRefs = null;
+		try {
+			serviceRefs = WebServicesManager.getInstance().getServiceRefs(webApp);
+		} catch (RuntimeException re) {
+			serviceRefs = Collections.EMPTY_LIST;
+		}
+
+		if (!serviceRefs.isEmpty())
+			result.addAll(serviceRefs);
 		return result;
 	}
 
