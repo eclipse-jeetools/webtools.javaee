@@ -16,7 +16,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDat
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class EJBClientComponentDataModel extends JavaComponentCreationDataModel {
 	

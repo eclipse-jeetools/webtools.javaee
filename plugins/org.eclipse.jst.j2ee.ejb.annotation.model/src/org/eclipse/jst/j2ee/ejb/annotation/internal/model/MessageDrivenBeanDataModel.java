@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConst
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
 public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IAnnotationsDataModel {

@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * This dataModel is used to export EJB Modules to EJB JAR files.

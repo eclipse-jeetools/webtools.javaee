@@ -31,8 +31,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
 public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWizardPage{

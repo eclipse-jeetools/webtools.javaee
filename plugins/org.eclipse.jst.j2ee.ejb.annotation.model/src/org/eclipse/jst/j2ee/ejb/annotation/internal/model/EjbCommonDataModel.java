@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConst
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public abstract class EjbCommonDataModel extends
 		J2EEModelModifierOperationDataModel {
