@@ -25,7 +25,11 @@ import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 /**
  * Insert the type's description here. Creation date: (7/8/2001 6:31:56 PM)
  * 
- * @author: Administrator
+ * @deprecated
+ * Use
+ * <p>
+ * 		AppClientArtifactEdit
+ * </p>
  */
 public class AppClientEditModel extends J2EEEditModel {
 	/**

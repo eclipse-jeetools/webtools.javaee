@@ -228,6 +228,10 @@ public class EARNatureRuntime extends J2EENature {
 	public EAREditModel getEarEditModelForWrite(Object accessorKey) {
 		return (EAREditModel) getEditModelForWrite(IEARNatureConstants.EDIT_MODEL_ID, accessorKey);
 	}
+	
+	/**
+	 * @deprecated - Use EJBArtifactEdit.getApplicationXmiResource()
+	 */
 
 	public Resource getEjbXmiResource() {
 		return getResource(URI.createURI(ArchiveConstants.EJBJAR_DD_URI));
@@ -334,6 +338,7 @@ public class EARNatureRuntime extends J2EENature {
 	 * 
 	 * @return java.util.Map where the keys are the uris of all the modules and JARs (String), and
 	 *         the values are the projects represented by the uris.
+	 * @deprecated - Use ModuleCore
 	 */
 	public Map getAllMappedProjects() {
 		EAREditModel model = (EAREditModel) getCacheEditModel();

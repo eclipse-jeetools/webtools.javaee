@@ -36,6 +36,12 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
  * The WebProjectInfo is used to set up the Java project info like the J2EE specification level,java
  * class path,project nature project location, associated EAR project location, for a new Web
  * project creation
+ * 
+ * @deprecated
+ * Use
+ * <p>
+ * 		WebArtifactEdit
+ * </p>
  */
 
 public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo implements IWebProjectWizardInfo {

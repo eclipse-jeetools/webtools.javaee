@@ -19,8 +19,11 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory
 
 
 /**
- * @author Administrator
- * 
+ * @deprecated
+ * Use
+ * <p>
+ * 		EARArtifactEdit
+ * </p>
  *  
  */
 public class EAREditModelFactory extends EditModelFactory {

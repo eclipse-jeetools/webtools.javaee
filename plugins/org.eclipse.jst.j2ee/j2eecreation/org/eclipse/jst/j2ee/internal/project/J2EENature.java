@@ -39,6 +39,14 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.ResourceSetWorkbenchSynchronizer;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
+/**
+ * @deprecated
+ * Use
+ * <p>
+ * 		ArtifactEdit
+ * </p>
+ * 
+ */
 
 public abstract class J2EENature extends EditModelNature implements ISynchronizerExtender {
 

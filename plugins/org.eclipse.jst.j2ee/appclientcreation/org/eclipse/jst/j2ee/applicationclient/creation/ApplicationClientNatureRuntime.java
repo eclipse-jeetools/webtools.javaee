@@ -39,7 +39,11 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
- * @deprecated - This class is deprecated. Use ConnectorArtifactEdit instead.
+ * @deprecated
+ * Use
+ * <p>
+ * 		AppClientArtifactEdit
+ * </p>
  */
 public class ApplicationClientNatureRuntime extends J2EEModuleNature implements IApplicationClientNatureConstants {
 

@@ -51,6 +51,12 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
  * no other references to this edit model.
  * 
  * When disposing the client, <code>releaseAccess</code> should be called.
+ * 
+ * @deprecated
+ * Use
+ * <p>
+ * 		ArtifactEdit
+ * </p>
  */
 public class J2EEEditModel extends EditModel {
 

@@ -26,6 +26,14 @@ import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 
+/**
+ * @deprecated
+ * Use
+ * <p>
+ * 		WebArtifactEdit
+ * </p>
+ *
+ */
 
 public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	/**

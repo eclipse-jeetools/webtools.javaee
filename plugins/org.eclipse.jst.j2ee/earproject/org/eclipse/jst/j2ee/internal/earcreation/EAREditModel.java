@@ -48,6 +48,15 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
+/**
+ * 
+ * @deprecated
+ * Use
+ * <p>
+ * 	EARArtifactEdit
+ * </p>
+ *
+ */
 public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	private boolean stopListenerNotifications = false;
 	//TODO this is a hack until the DOM adaptors are working

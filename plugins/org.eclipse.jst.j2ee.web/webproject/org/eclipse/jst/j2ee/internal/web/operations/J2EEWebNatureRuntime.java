@@ -58,7 +58,11 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
 /**
- * @deprecated - This class is deprecated. Use WebArtifactEdit instead
+ * @deprecated - 
+ * Use 
+ * <p>
+ * 		WebArtifactEdit
+ * </p>
  */
 
 public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWebNature, IWebNatureConstants {

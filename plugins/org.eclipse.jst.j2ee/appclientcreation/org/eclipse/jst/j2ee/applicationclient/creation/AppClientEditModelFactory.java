@@ -19,7 +19,11 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory
 
 
 /**
- * @author mdelder
+ * @deprecated
+ * Use
+ * <p>
+ * 		AppClientAritfactEdit
+ * </p>
  */
 public class AppClientEditModelFactory extends EditModelFactory {
 

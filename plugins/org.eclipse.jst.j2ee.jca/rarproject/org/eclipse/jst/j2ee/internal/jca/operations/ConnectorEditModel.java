@@ -23,6 +23,11 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 /**
  * Creates an edit model for the Connector project.
+ * @deprecated
+ * Use
+ * <p>
+ * 	ConnectorArtifactEdit
+ * </p>
  */
 public class ConnectorEditModel extends J2EEEditModel {
 	/**
