@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.39 $  $Date: 2005/01/25 21:14:52 $ 
+ *  $Revision: 1.40 $  $Date: 2005/01/28 19:48:29 $ 
  */
 
 
@@ -38,6 +38,153 @@ import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
  */
 
 public class ProxyPlugin extends Plugin {
+	
+	/**
+	 * This is a utility class which deal with caching Proxy Pluin's 
+	 * cache needs... it this thime it is solely for plugin preReqs...
+	 * Plugin preReqs is quite expensive to get from the manifests.
+	 * 
+	 * @since 1.1.0
+	 */
+	public static class ProxyCache {
+		public static  String PRE_REQ_FILE_NAME = "preReqCache.txt"; //$NON-NLS-1$
+		public static  IPath  preReqFilePath = null;
+		static HashMap bundlePreReq = null;
+		static int    updateCount = 0;
+		
+		// Ensure that the directory structure is there
+		private static IPath getPreReqCachePath() {
+			if (preReqFilePath==null) {
+			   File dir = PROXY_CACHE_DESTINATION.toFile();
+			   if (!dir.exists())
+			   	 dir.mkdirs();
+			   preReqFilePath=PROXY_CACHE_DESTINATION.append(PRE_REQ_FILE_NAME);
+			}
+			return preReqFilePath;			
+		}
+		/*
+		 * Read the pre req list from disk
+		 * The Cache format is as following:
+		 * first line is the registray time stamp that is associated with the cache,
+		 * 
+		 * A preReq is a Bundle id (first line), and a list of Bundle id's it preReq
+		 * each on a seperate line.
+		 * 
+		 * Each preReq block is seperated by an empty line.
+		 */
+		private static void loadPreReqFromCache() {
+			bundlePreReq = new HashMap();
+			File f = getPreReqCachePath().toFile();
+			if (f.canRead()) {			
+				BufferedReader in=null ;
+				try {
+					in = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+					long cacheTimeStamp=Long.decode(in.readLine()).longValue();
+					long registryTimeStamp= Platform.getPlatformAdmin().getState(false).getTimeStamp();
+					if (registryTimeStamp==cacheTimeStamp) {
+						// Valid Cache
+						while (in.ready()) {
+							String bundleId = in.readLine();
+							if (bundleId==null || bundleId.length()==0)
+								throw new IllegalArgumentException();
+							List preReqs = new ArrayList();
+							String bundle = in.readLine();
+							while (bundle!=null && bundle.length()>0) {
+								Bundle b = Platform.getBundle(bundle);
+								if (b==null) throw new IllegalStateException("Invalid bundle: "+bundle);								
+								preReqs.add(b);
+								bundle = in.readLine();
+							}							
+							bundlePreReq.put(bundleId,preReqs);
+						}
+					}
+				} 
+				catch (Exception e) {
+					// invalid cache.
+					bundlePreReq.clear();
+					// No point to spend time to clean up the cache file, we are going
+					// to update the cache as we build the data from scratch again
+				}
+				finally{
+					if (in!=null)
+						try {
+							in.close();
+						} catch (IOException e1) {}
+				}				
+			}
+		}
+		public static List getBundlePreReq(String id) {
+			if (bundlePreReq==null) 
+				loadPreReqFromCache();
+			return (List) bundlePreReq.get(id);
+		}
+		
+		public static void setBundlePreReq(String id,List preReqList) {
+			bundlePreReq.put(id,preReqList);
+			if (updateCount==0)
+			   savePreReqtoCache();
+		}
+		
+		// Persist the preReq map to disk
+		private static void savePreReqtoCache() {
+			if (bundlePreReq==null) return;
+			
+			File f = getPreReqCachePath().toFile();
+						
+			BufferedWriter out=null ;
+			try {
+				out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
+				long registryTimeStamp= Platform.getPlatformAdmin().getState(false).getTimeStamp();
+				out.write(Long.toString(registryTimeStamp));
+				out.newLine();
+				Iterator itr = bundlePreReq.keySet().iterator();			
+				while (itr.hasNext()) {
+					String bundleId = (String)itr.next();
+					out.write(bundleId);
+					out.newLine();
+					List preReqs = (List)bundlePreReq.get(bundleId);					
+					for(int i=0; i<preReqs.size(); i++) {
+						Bundle b = (Bundle) preReqs.get(i); 
+						out.write(b.getSymbolicName());
+						out.newLine();
+					}
+					out.newLine();
+				}
+			} 
+			catch (Exception e) {
+				try {
+				  out.close();
+				  f.delete();
+				  out=null;
+				}
+				catch (Exception e1){}
+			}
+			finally{
+				if (out!=null)
+					try {
+						out.flush();
+						out.close();
+					} catch (IOException e1) {}
+			}							
+		}
+
+		/*
+		 * When the cache instance is updated, it is possible that it will
+		 * be updated a few times (many bundles)... a call to aboutToUpdate and 
+		 * the updateComplete() will ensure that the cached file will only be generated
+		 * once.
+		 */
+		public static void aboutToUpdate() {
+			updateCount++;
+		}
+		public static void updateComplete() {
+			updateCount--;
+			if (updateCount<=0) {
+				savePreReqtoCache();
+				updateCount=0;
+			}
+		}
+	}
 	
 	/**
 	 * This interface is for a listener that needs to know if this plugin (ProxyPlugin) is being shutdown. 
@@ -462,8 +609,9 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public static List getPrereqs(Bundle bundle) {
+	private static List primGetPrereqs(Bundle bundle) {
 		List requires = null; 
+		ProxyCache.aboutToUpdate();
 		try {
 			String requiresList = (String) bundle.getHeaders().get(Constants.REQUIRE_BUNDLE);
 			ManifestElement[] requiresElements = ManifestElement.parseHeader(Constants.REQUIRE_BUNDLE, requiresList);
@@ -489,7 +637,17 @@ public class ProxyPlugin extends Plugin {
 		} catch (BundleException e) {
 			ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
 		}
-		return requires == null ? Collections.EMPTY_LIST : requires;
+		requires = requires == null ? Collections.EMPTY_LIST : requires;
+		ProxyCache.setBundlePreReq(bundle.getSymbolicName(),requires);
+		ProxyCache.updateComplete();
+		return requires;
+	}
+	
+	public static List getPrereqs(Bundle bundle) {
+		  List l = ProxyCache.getBundlePreReq(bundle.getSymbolicName());
+		  if (l==null)
+	        l=  primGetPrereqs(bundle);
+		  return l;
 	}
 	
 	private static Map getDependentCounts(boolean activeOnly, Set startingSet, Map prereqsMap) {
@@ -705,6 +863,7 @@ public class ProxyPlugin extends Plugin {
 	public static final String PI_CONTAINER = "container"; //$NON-NLS-1$
 	public static final String PI_PLUGIN = "plugin"; //$NON-NLS-1$
 	public static final String PI_CLASS = "class"; //$NON-NLS-1$
+	public static final IPath  PROXY_CACHE_DESTINATION = Platform.getStateLocation(Platform.getBundle("org.eclipse.jem.proxy")).append("ProxyCache"); //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/*
 	 * Map of container id's to their ordered array of contribution config elements.
@@ -753,6 +912,7 @@ public class ProxyPlugin extends Plugin {
 		containerToContributions = info.containerToContributions;
 		pluginToContributions = info.pluginToContributions;
 	}
+	
 	
 	/**
 	 * Result form processContributionExtensionPoint.
