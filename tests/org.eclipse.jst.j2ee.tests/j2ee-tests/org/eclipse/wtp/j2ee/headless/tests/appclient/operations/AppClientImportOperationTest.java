@@ -9,7 +9,7 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 import junit.framework.Test;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
 
