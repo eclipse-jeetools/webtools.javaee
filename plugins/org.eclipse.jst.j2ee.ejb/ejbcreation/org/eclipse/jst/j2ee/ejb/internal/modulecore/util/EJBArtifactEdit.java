@@ -372,4 +372,8 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 		addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource());
 	}
 			
+	public EObject createModelRoot(int version) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
