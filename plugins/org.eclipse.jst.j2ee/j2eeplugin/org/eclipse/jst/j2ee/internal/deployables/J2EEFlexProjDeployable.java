@@ -10,22 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.server.core.IJ2EEModule;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ModuleUtil;
-import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleProjectBuilderDataModel;
 import org.eclipse.wst.common.modulecore.util.ModuleCore;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
