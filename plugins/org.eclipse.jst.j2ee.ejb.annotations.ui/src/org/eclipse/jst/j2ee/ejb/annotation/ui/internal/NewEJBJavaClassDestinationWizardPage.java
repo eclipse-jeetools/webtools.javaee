@@ -53,12 +53,12 @@ public class NewEJBJavaClassDestinationWizardPage extends NewJavaClassDestinatio
 	 */
 	protected void enter() {
 		String className = classText.getText();
-		// Synch class name with display name only when it is not set
+		// Synch class name with ejb name only when it is not set
 		if (className == null || className.trim().length() == 0) {
 			IWizardPage firstPage = getWizard().getStartingPage();
-			if (firstPage != null && firstPage instanceof AddSessionBeanWizardPage) {
-				String displayName = ((AddSessionBeanWizardPage)firstPage).getDisplayName();
-				setClassNameToDisplayName(displayName);
+			if (firstPage != null && firstPage instanceof IBeanWizardPage) {
+				String ejbName = ((IBeanWizardPage)firstPage).getEjbName();
+				setClassNameToDisplayName(ejbName+"Bean");
 			}
 		}
 		super.enter();

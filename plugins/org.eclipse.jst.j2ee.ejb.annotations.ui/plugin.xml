@@ -66,9 +66,9 @@
       <wizard
             name="%ejb.createbean_ui_"
             icon="icons/full/ctool16/newejb_wiz.gif"
-            category="%ejb.category_ui_"
-            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard"
-            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard"
+            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard">
          <description>
             %new.ejb.description_ui_
          </description>
@@ -79,7 +79,7 @@
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
           <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
+            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AAddSessionEjbWizard">
          <enablement>
          <or>
             <and>

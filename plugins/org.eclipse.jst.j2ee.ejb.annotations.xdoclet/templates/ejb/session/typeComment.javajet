@@ -7,7 +7,7 @@
  * <!-- end-user-doc -->
  * *
  * <!-- begin-xdoclet-definition --> 
- * @ejb.bean name="<%=session.getSimpleClassName() %>"	
+ * @ejb.bean name="<%=session.getEjbName() %>"	
  *           description="<%=session.getDescription()%>"
  *           display-name="<%=session.getDisplayName()%>"
  *           jndi-name="<%=session.getJndiName()%>"

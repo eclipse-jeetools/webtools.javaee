@@ -24,6 +24,7 @@ public interface IEnterpriseBeanDelegate {
 	public WTPOperationDataModel getDataModel();
 
 	public String getTransactionType();
+	public String getEjbName();
 	public String getDisplayName();
 	public String getDescription();
 	public String getJndiName();

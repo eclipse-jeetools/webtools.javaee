@@ -66,12 +66,10 @@
             force="${xdoclet.force}"
             verbose="true" >
 
-<!-- PLEASE KEEP THE BEAN MARKER COMMENTS IF YOU MODIFY THE FILE. 
-     CONTENTS BETWEEN THE MARKERS ARE AUTO INSERTED WITH EACH 
-     BUILD. -->
+
 <!-- BEANS START -->
  	   <fileset dir="${ejb.project.dir}/${ejb.module.src}" defaultexcludes="yes"> 
-   	       <include name="zoo/LionBean.java"/>
+   	    @beans@
  	   </fileset>
 <!-- BEANS END -->
 
@@ -97,27 +95,11 @@
             mergedir="${ejb.dd.dir}" 
             />
 
- 
-	      <weblogic
-	         version="6.1"
-	         xmlencoding="UTF-8"
-	         destdir="${ejb.dd.dir}"
-	         validatexml="false"
-	         datasource="${data.source.name}"
-	         mergedir="${ejb.dd.dir}"
-	         persistence="weblogic"
-	      />
-		  <jboss
-            version="3.0"
-            unauthenticatedPrincipal="nobody"
-            xmlencoding="UTF-8"
-            destdir="${ejb.dd.dir}"
-            validatexml="false"
-	        datasource="${data.source.name}"
-            datasourcemapping="PLEASE_MODIFY_THIS"
-            preferredrelationmapping="PLEASE_MODIFY_THIS"
-          />
-          
+    	  @jboss@
+    	  @jonas@
+		  @weblogic@
+    	  @websphere@
+              
          
       </ejbdoclet>
    </target>

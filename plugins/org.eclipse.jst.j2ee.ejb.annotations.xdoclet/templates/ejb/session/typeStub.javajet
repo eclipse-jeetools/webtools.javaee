@@ -2,6 +2,6 @@
 <%  ISessionBeanDelegate session  = (ISessionBeanDelegate)argument; %>
  
  
-public abstract class <%= session.getSimpleClassName()+"Bean" %> implements <%= session.getInterfaces() %>
+public abstract class <%= session.getSimpleClassName()%> implements <%= session.getInterfaces() %>
 {
 }

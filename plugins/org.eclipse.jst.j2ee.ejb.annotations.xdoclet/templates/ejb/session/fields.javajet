@@ -1,3 +1,9 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.session" class="FieldGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.*"%>
 <%  ISessionBeanDelegate session  = (ISessionBeanDelegate)argument;
 %>
+/** 
+ * <!-- begin-xdoclet-definition --> 
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ */
+

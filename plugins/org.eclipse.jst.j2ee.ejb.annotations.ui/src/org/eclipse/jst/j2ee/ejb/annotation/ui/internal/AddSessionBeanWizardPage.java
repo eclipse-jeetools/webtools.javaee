@@ -30,7 +30,7 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
-public class AddSessionBeanWizardPage extends WTPWizardPage {
+public class AddSessionBeanWizardPage extends WTPWizardPage implements IBeanWizardPage{
 
 
 	private Text ejbNameText;
@@ -51,8 +51,8 @@ public class AddSessionBeanWizardPage extends WTPWizardPage {
 
 	public AddSessionBeanWizardPage(SessionBeanDataModel model, String pageName) {
 		super(model, pageName);
-		setDescription(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_DESC);
-		this.setTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
+		setDescription(IEJBAnnotationConstants.ADD_SESSION_EJB_WIZARD_PAGE_DESC);
+		this.setTitle(IEJBAnnotationConstants.ADD_SESSION_EJB_WIZARD_PAGE_TITLE);
 	}
 
 	/*
@@ -173,5 +173,12 @@ public class AddSessionBeanWizardPage extends WTPWizardPage {
 
 	public String getDisplayName() {
 		return displayNameText.getText();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.ejb.annotation.ui.internal.IBeanWizardPage#getEjbName()
+	 */
+	public String getEjbName() {
+		return model.getStringProperty(SessionBeanDataModel.EJB_NAME);
 	}
 }

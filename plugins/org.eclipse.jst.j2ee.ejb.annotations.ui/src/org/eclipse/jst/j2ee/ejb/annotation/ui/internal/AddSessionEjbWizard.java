@@ -12,29 +12,29 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.annotation.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.operations.AddSessionBeanOperation;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.ejb.annotations.ui.EjbAnnotationsUiPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 
-public class AddEjbWizard extends NewEjbWizard {
+public class AddSessionEjbWizard extends NewEjbWizard {
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
 	private static final String PAGE_TWO = "pageTwo"; //$NON-NLS-1$
 	private static final String PAGE_THREE = "pageThree"; //$NON-NLS-1$
 	/**
 	 * @param model
 	 */
-	public AddEjbWizard(EjbCommonDataModel model) {
+	public AddSessionEjbWizard(EjbCommonDataModel model) {
 		super(model);
-		setWindowTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_WINDOW_TITLE);
-		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor("newservlet_wiz")); //$NON-NLS-1$
+		setWindowTitle(IEJBAnnotationConstants.ADD_SESSION_EJB_WIZARD_WINDOW_TITLE);
+		setDefaultPageImageDescriptor(EjbAnnotationsUiPlugin.getDefault().getImageDescriptor("icons/full/wizban/newejb_wiz_ban.gif")); //$NON-NLS-1$
 	}
 	
-	public AddEjbWizard() {
+	public AddSessionEjbWizard() {
 	    this(null);
 	}
 	
@@ -79,14 +79,14 @@ public class AddEjbWizard extends NewEjbWizard {
 				nestedModel, 
 				PAGE_TWO,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
+				IEJBAnnotationConstants.ADD_SESSION_EJB_WIZARD_PAGE_TITLE);
 		page2.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
 		addPage(page2);
 		NewEjbClassOptionsWizardPage page3 = new NewEjbClassOptionsWizardPage(
 				nestedModel, 
 				PAGE_THREE,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
-				IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
+				IEJBAnnotationConstants.ADD_SESSION_EJB_WIZARD_PAGE_TITLE);
 		page3.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3);
 		addPage(page3);
 	}

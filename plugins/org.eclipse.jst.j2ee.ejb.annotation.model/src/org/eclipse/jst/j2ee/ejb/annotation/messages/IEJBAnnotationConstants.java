@@ -23,11 +23,18 @@ public interface IEJBAnnotationConstants {
 	public static final String ERR_JNDI_NAME_VALUE = EJBAnnotationMessages.getResourceString("ERR_JNDI_NAME_VALUE"); //$NON-NLS-1$
 
 	// AddEjbWizard
-	public final static String ADD_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
-	public final static String ADD_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
-
-	public static final String ADD_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
+	public final static String ADD_SESSION_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_SESSION_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
+	public final static String ADD_SESSION_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_SESSION_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
+	public static final String ADD_SESSION_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_SESSION_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
 	
+	public final static String ADD_MESSAGE_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_MESSAGE_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
+	public final static String ADD_MESSAGE_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_MESSAGE_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
+	public static final String ADD_MESSAGE_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_MESSAGE_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
+
+	public final static String ADD_ENTITY_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_ENTITY_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
+	public final static String ADD_ENTITY_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_ENTITY_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
+	public static final String ADD_ENTITY_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_ENTITY_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
+
 	public final static String DEFAULT_PACKAGE = EJBAnnotationMessages.getResourceString("DEFAULT_PACKAGE"); //$NON-NLS-1$
 	public final static String SELECT_CLASS_TITLE = EJBAnnotationMessages.getResourceString("SELECT_CLASS_TITLE"); //$NON-NLS-1$
 	

@@ -64,6 +64,10 @@ public class SessionBeanDelegate implements ISessionBeanDelegate {
 	public String getJndiName() {
 		return sessionBeanDataModel.getStringProperty(SessionBeanDataModel.JNDI_NAME);
 	}
+	
+	public String getEjbName() {
+		return sessionBeanDataModel.getStringProperty(SessionBeanDataModel.EJB_NAME);
+	}
 
 	public String getInterfaces() {
 		NewEJBJavaClassDataModel classDataModel = (NewEJBJavaClassDataModel)sessionBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");

@@ -23,6 +23,7 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jst.common.launcher.ant"/>
+      <import plugin="org.eclipse.ui"/>
    </requires>
 
    <extension point="org.eclipse.core.resources.builders"
@@ -33,6 +34,21 @@
          	class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuilder" >
          </run>
       </builder>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+     <page
+            name="XDoclet"
+             class="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ui.XDocletPreferencePage"
+            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference">
+      </page>
+     <page
+            name="ejbdoclet"
+            category="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference"
+            class="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ui.XDocletEJBPreferencePage"
+            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejb.preference">
+     </page>
    </extension>
 
    <extension

@@ -9,19 +9,22 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.xdoclet;
 
-import org.eclipse.core.runtime.Plugin;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import java.util.*;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class XDocletAnnotationPlugin extends Plugin {
+public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 	//The shared instance.
 	private static XDocletAnnotationPlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+	public static final String PLUGINID = "org.eclipse.jst.j2ee.ejb.annotations.xdoclet";
 	/**
 	 * The constructor.
 	 */
@@ -78,4 +81,12 @@ public class XDocletAnnotationPlugin extends Plugin {
 		}
 		return resourceBundle;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#initializeDefaultPreferences(org.eclipse.jface.preference.IPreferenceStore)
+	 */
+	protected void initializeDefaultPreferences(IPreferenceStore store) {
+		XDocletPreferenceStore.initializeDefaultPreferences(store);
+	}
+	
 }

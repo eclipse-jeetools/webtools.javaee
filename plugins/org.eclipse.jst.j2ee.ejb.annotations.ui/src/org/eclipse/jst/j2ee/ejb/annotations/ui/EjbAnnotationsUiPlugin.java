@@ -9,14 +9,19 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.ui;
 
-import org.eclipse.ui.plugin.*;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import java.util.*;
 
 /**
  * The main plugin class to be used in the desktop.
  */
 public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
+	
+	public static final String PLUGINID= "org.eclipse.jst.j2ee.ejb.annotations.ui";
 	//The shared instance.
 	private static EjbAnnotationsUiPlugin plugin;
 	//Resource bundle.
@@ -64,6 +69,14 @@ public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
 		} catch (MissingResourceException e) {
 			return key;
 		}
+	}
+
+	/**
+	 * This gets a .gif from the icons folder.
+	 */
+	public ImageDescriptor getImageDescriptor(String path) {
+		ImageDescriptor imageDescriptor = EjbAnnotationsUiPlugin.imageDescriptorFromPlugin(PLUGINID,path);
+		return imageDescriptor;
 	}
 
 	/**
