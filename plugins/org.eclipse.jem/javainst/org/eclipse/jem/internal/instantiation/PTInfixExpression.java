@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: PTInfixExpression.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/11 01:48:01 $ 
  */
 import org.eclipse.emf.common.util.EList;
 
@@ -132,5 +132,17 @@ public interface PTInfixExpression extends PTExpression{
 	 * @generated
 	 */
 	EList getExtendedOperands();
+	
+	/**
+	 * Compress the expression
+	 * If there is no left operand and a right operand, or vice versa, and no extended operands
+	 * return the remaining single operand
+	 * If there is no left operand and a right and some extended ones shuffle everything along
+	 * so that the right becomes the left and the first extended moves into the right
+	 * or if no right and a left then just move the first extended into the right
+	 * 
+	 * @since 1.0.0
+	 */
+	PTExpression asCompressedExpression();
 
 } // InfixExpression
