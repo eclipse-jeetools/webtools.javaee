@@ -173,7 +173,8 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 
 
 	public void dispose() {
-		newProjectGroup.dispose();
+		if (newProjectGroup != null)
+			newProjectGroup.dispose();
 		super.dispose();
 	}
 }
