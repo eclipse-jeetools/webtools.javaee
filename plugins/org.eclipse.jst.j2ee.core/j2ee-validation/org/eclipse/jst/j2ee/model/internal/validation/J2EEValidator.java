@@ -206,7 +206,7 @@ public void addInfo(String bundleName, String msgId, String[] msgArgs, Object ta
   _reporter.addMessage( this,
 	  new Message(
 		  	bundleName, 
-	  		IReporter.LOW_SEVERITY,
+	  		IMessage.LOW_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target));
@@ -278,7 +278,7 @@ public void addWarning(String bundleName, String msgId, String[] msgArgs, Object
   _reporter.addMessage( this,
 	  new Message(
 		  	bundleName, 
-	  		IReporter.NORMAL_SEVERITY,
+	  		IMessage.NORMAL_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target));
@@ -287,7 +287,7 @@ public void addWarning(String bundleName, String msgId, String[] msgArgs, Object
 {
 	IMessage message = new Message(
 		  	bundleName, 
-	  		IReporter.NORMAL_SEVERITY,
+	  		IMessage.NORMAL_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target);
