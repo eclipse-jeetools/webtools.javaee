@@ -45,6 +45,10 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 
 	public static final String CREATE_CLIENT = "EJBModuleCreationDataModel.IS_CLIENT"; //$NON-NLS-1$
 	public static final String CREATE_DEFAULT_SESSION_BEAN = "EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN"; //$NON-NLS-1$
+	/**
+	 * type boolean
+	 */		
+	public static final String CREATE_CLIENT_PROJ = "EJBModuleCreationDataModel.CREATE_CLIENT_PROJ";
 
 	private static final String NESTED_MODEL_EJB_CLIENT_CREATION = "EJBModuleCreationDataModel.NESTED_MODEL_EJB_CLIENT_CREATION"; //$NON-NLS-1$
 	private EJBClientComponentDataModel ejbClientComponentDataModel;
@@ -103,11 +107,23 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 				ejbClientComponentDataModel.notifyDefaultChange(ComponentCreationDataModel.COMPONENT_NAME);
 			if (!ejbClientComponentDataModel.isSet(EJBClientComponentDataModel.CLIENT_COMPONENT_URI))
 				ejbClientComponentDataModel.notifyDefaultChange(EJBClientComponentDataModel.CLIENT_COMPONENT_URI);
+
+			if( getBooleanProperty(CREATE_CLIENT_PROJ)){
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.CREATE_PROJECT, getProperty(CREATE_CLIENT_PROJ));
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
+			}	
+			
+		}else if(propertyName.equals(CREATE_CLIENT_PROJ)){
+			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.CREATE_PROJECT, propertyValue);
+			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
+			
 		}else if (getBooleanProperty(CREATE_CLIENT)) {
 			
 			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)
 						|| propertyName.equals(EAR_MODULE_DEPLOY_NAME) || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
-				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
+				if( !getBooleanProperty(CREATE_CLIENT_PROJ)){
+					ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
+				}
 				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
 				ejbClientComponentDataModel.setProperty( EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME, getProperty(EAR_MODULE_DEPLOY_NAME));
 				ejbClientComponentDataModel.setProperty( EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
@@ -140,12 +156,14 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		addValidBaseProperty(CREATE_CLIENT);
 		super.initValidBaseProperties();
 		addValidBaseProperty(CREATE_DEFAULT_SESSION_BEAN);
+		addValidBaseProperty(CREATE_CLIENT_PROJ);
 	}
 
 	protected void initNestedModels() {
 		super.initNestedModels();
 		ejbClientComponentDataModel = new EJBClientComponentDataModel();
 		addNestedModel(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
+		ejbClientComponentDataModel.setEarComponentHandle(getEarComponentHandle());
 	}
 
 	private Object updateAddToEar() {
@@ -173,6 +191,9 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule";
 		} else if (propertyName.equals(MANIFEST_FOLDER)) {
 			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+		} else if (propertyName.equals(CREATE_CLIENT_PROJ)) {
+			return Boolean.TRUE;
+			//return Boolean.FALSE;
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}	

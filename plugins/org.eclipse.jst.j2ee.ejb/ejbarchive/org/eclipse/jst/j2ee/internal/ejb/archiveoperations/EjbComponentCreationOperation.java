@@ -90,6 +90,8 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.execute( IModuleConstants.JST_EJB_MODULE, monitor );
+		EJBClientComponentDataModel dm = ((EjbComponentCreationDataModel)operationDataModel).getNestedEJBClientComponentDataModel();
+		dm.setEarComponentHandle( ((EjbComponentCreationDataModel)operationDataModel).getEarComponentHandle());
 		runNestedDefaultOperation(((EjbComponentCreationDataModel)operationDataModel).getNestedEJBClientComponentDataModel() ,monitor);
 	}
 

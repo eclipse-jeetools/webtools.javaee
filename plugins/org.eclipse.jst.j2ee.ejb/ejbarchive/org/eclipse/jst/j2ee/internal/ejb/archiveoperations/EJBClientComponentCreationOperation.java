@@ -22,14 +22,18 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ReferencedComponent;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
@@ -38,6 +42,9 @@ import org.eclipse.wst.common.modulecore.resources.IVirtualFile;
 public class EJBClientComponentCreationOperation extends JavaUtilityComponentCreationOperation {
 
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
+	
+
+	
 	/**
 	 * @param dataModel
 	 */
@@ -46,7 +53,12 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 	}
 	
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		
+		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
+		createProjectIfNecessary(dm.getComponentName());
+		
 		super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
+		
 		runAddToEAROperation(monitor);
 		runAddToEJBOperation(monitor);
 		modifyEJBModuleJarDependency(monitor);
@@ -54,17 +66,27 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 	}	
 	 
 	protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		ModuleCore core = null;
+
 		
 		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
+		URI uri = dm.getEarComponentHandle();
+		IProject proj = null;
+		try {
+			proj = ModuleCore.getContainingProject(uri);
+		}
+		catch (UnresolveableURIException e) {
+			Logger.getLogger().log(e);
+		}
+		
+		ModuleCore core = null;
 		try {
 			core = ModuleCore.getModuleCoreForRead(dm.getProject());
 			WorkbenchComponent wc = core.findWorkbenchModuleByDeployName(dm.getComponentDeployName());
-			
 
 			
 			AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel = new AddComponentToEnterpriseApplicationDataModel();;
 			
+			addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
 			addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, dm.getProject().getName());				
 			addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, dm.getComponentDeployName());
 			addComponentToEARDataModel.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, dm.getEARDeployName());
@@ -87,32 +109,47 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
 		
 		ModuleCore moduleCore = null;
+		List list = new ArrayList();
 		try{
-			moduleCore = ModuleCore.getModuleCoreForWrite(dm.getProject());
+			moduleCore = ModuleCore.getModuleCoreForRead(dm.getProject());
 			WorkbenchComponent wc = moduleCore.findWorkbenchModuleByDeployName(dm.getComponentDeployName());
-			WorkbenchComponent ejbComp = moduleCore.findWorkbenchModuleByDeployName(dm.getEJBDeployName());
 			
-			List list = new ArrayList();
-			list.add(wc);
+			list.add(wc);			
+		} finally {
+	       if (null != moduleCore) {
+            moduleCore.dispose();
+	       }
+		}       
+	 		
 			
+		String ejbProjString = dm.getEJBProjectName();
+		IProject ejbProj = ProjectUtilities.getProject( ejbProjString );
+			
+		ModuleCore ejbModuleCore = null;
+		WorkbenchComponent ejbComp = null;
+		try{
+			ejbModuleCore = ModuleCore.getModuleCoreForWrite(ejbProj);
+			ejbComp = ejbModuleCore.findWorkbenchModuleByDeployName(dm.getEJBDeployName());
 			URI runtimeURI = URI.createURI(metaInfFolderDeployPath);
 		
 			if (list != null && list.size() > 0) {
 				for (int i = 0; i < list.size(); i++) {
 					ReferencedComponent rc = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
 					WorkbenchComponent workbenchComp= (WorkbenchComponent)list.get(i);
-					rc.setHandle(wc.getHandle());
+					rc.setHandle(workbenchComp.getHandle());
 					rc.setRuntimePath(runtimeURI);
 					ejbComp.getReferencedComponents().add(rc);
 				}
 			}
-			moduleCore.saveIfNecessary(monitor); 
-		 }  finally {
-		       if (null != moduleCore) {
-		            moduleCore.dispose();
-		       }
-		 }				
+			ejbModuleCore.saveIfNecessary(monitor); 
+		 } finally{
+			 if (null != ejbModuleCore) {
+			 	ejbModuleCore.dispose();
+			 }
+		 }
+			
 	}
+	
 	private void modifyEJBModuleJarDependency(IProgressMonitor aMonitor) throws InvocationTargetException, InterruptedException {
 		
 		
@@ -121,10 +158,8 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		String ejbprojectName = dm.getEJBProjectName();		
 		String ejbComponentName = dm.getEJBComponentName();
 		String ejbComponentDeployName = dm.getEJBDeployName();
-
 		String clientProjectName = dm.getProject().getName();
 		String clientDeployName  = dm.getComponentDeployName();
-
 
 		IProject ejbProject = ProjectUtilities.getProject( ejbprojectName );
 		
@@ -143,27 +178,24 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 	       }
 		}	
 	
-		if( clientProjectName.equals( ejbprojectName )){
-			UpdateManifestDataModel updateManifestDataModel = new UpdateManifestDataModel();
-			updateManifestDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, ejbprojectName);
-			updateManifestDataModel.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
-			updateManifestDataModel.setProperty(UpdateManifestDataModel.MANIFEST_FILE, manifestmf);
-			updateManifestDataModel.setProperty(UpdateManifestDataModel.JAR_LIST, UpdateManifestDataModel.convertClasspathStringToList(clientDeployName) );
-			
-			UpdateManifestOperation op = new UpdateManifestOperation(updateManifestDataModel);		
-			op.run(aMonitor);
-		}else{
-	        //JARDependencyDataModel dataModel = new JARDependencyDataModel();
-	        //dataModel.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbprojectName);
-//	        dataModel.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, clientprojectName);
-//	        if (earNatures !=null && earNatures.length>0)
-//	        	dataModel.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[0].getProject().getName());
-//	        dataModel.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_ADD);
-//	        JARDependencyOperation op = new JARDependencyOperation(dataModel);
-//	        op.run(createSubProgressMonitor(1));			
-		}	
-		
 
+		UpdateManifestDataModel updateManifestDataModel = new UpdateManifestDataModel();
+		updateManifestDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, ejbprojectName);
+		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
+		updateManifestDataModel.setProperty(UpdateManifestDataModel.MANIFEST_FILE, manifestmf);
+		updateManifestDataModel.setProperty(UpdateManifestDataModel.JAR_LIST, UpdateManifestDataModel.convertClasspathStringToList(clientDeployName) );
+		
+		UpdateManifestOperation mop = new UpdateManifestOperation(updateManifestDataModel);		
+		mop.run(aMonitor);
+		
+		if( !clientProjectName.equals( ejbprojectName )){
+	        JARDependencyDataModel dataModel = new JARDependencyDataModel();
+	        dataModel.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbprojectName);
+	        dataModel.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, clientProjectName);
+	        dataModel.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_ADD);
+	        JARDependencyOperation op = new JARDependencyOperation(dataModel);
+	        op.run( aMonitor );
+		}	
 	}
 	/**
 	 * Update the deployment descriptor for the ejb project
@@ -206,4 +238,15 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 	       }
 		}	
 	}	
+	
+	private void createProjectIfNecessary(String name) throws CoreException, InvocationTargetException, InterruptedException {
+        
+		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
+		if( dm.getBooleanProperty(EJBClientComponentDataModel.CREATE_PROJECT)){
+			FlexibleJavaProjectCreationDataModel dataModel = new FlexibleJavaProjectCreationDataModel();
+		    dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, name);
+			dataModel.getDefaultOperation().run(null);
+		}
+	}
+		
 }

@@ -11,6 +11,7 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
@@ -57,7 +58,18 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 	
 	public static final String EAR_MODULE_DEPLOY_NAME = "EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME"; //$NON-NLS-1$
 	
-
+	/**
+	 * type boolean
+	 */
+	
+	public static final String CREATE_PROJECT = "EJBClientComponentDataModel.CREATE_PROJECT"; //$NON-NLS-1$
+	
+	
+	/**
+	 * This  needs to be set up to ensure that other j2ee component is properly added as dependent component of ear 
+	 */
+	private URI earComponentHandle;
+	
 	/**
 	 *  
 	 */
@@ -77,6 +89,7 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 		addValidBaseProperty(JAVASOURCE_FOLDER);
 		addValidBaseProperty(ADD_TO_EAR);
 		addValidBaseProperty(EAR_MODULE_DEPLOY_NAME);
+		addValidBaseProperty(CREATE_PROJECT);
 		super.initValidBaseProperties();
 	}
 
@@ -209,5 +222,11 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 	}	
 	public String getEJBProjectName(){
 		return getStringProperty(EJB_PROJECT_NAME);
+	}
+	public URI getEarComponentHandle() {
+		return earComponentHandle;
+	}
+	public void setEarComponentHandle(URI earComponentHandle) {
+		this.earComponentHandle = earComponentHandle;
 	}
 }
