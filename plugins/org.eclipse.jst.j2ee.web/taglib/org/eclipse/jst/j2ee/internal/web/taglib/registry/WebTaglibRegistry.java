@@ -70,7 +70,7 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.registry.AbstractTaglibRegistry#getRefreshRoot()
 	 */
 	protected IResource getRefreshRoot() {
-		return getWebInfFolder();
+		return project;
 	}
 
 	/*
@@ -167,18 +167,7 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 		WebArtifactEdit webEdit = null;
 		try {
 			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getWTPModuleFile(); 
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-	}
-	
-	protected IContainer getWebInfFolder() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getWebInfFolder();
+			return webEdit.getWTPModuleFile().getProjectRelativePath(); 
 		} finally {
 			if (webEdit != null)
 				webEdit.dispose();

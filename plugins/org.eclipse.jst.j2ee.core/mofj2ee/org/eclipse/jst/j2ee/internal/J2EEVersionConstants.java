@@ -36,6 +36,7 @@ public interface J2EEVersionConstants {
 	public int JSP_2_0_ID = 20;
 	public int SERVLET_2_2 = 22;
 	public int SERVLET_2_3 = 23;
+	public int SERVLET_2_4 = 24;
 	public int JCA_1_0_ID = 10;
 	public int JCA_1_5_ID = 15;
 	public int WEBSERVICES_1_0_ID = 10;

@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 
 
 public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
@@ -90,12 +91,23 @@ public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 
 	public Resource makeDeploymentDescriptorWithRoot() {
 		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) createResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
-		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(getProject());
-		//getWebNature().getModuleVersion()
 		//TODO need to verify moduleVersion()
-		res.setModuleVersionID(webModuleArtifact.getJ2EEVersion());
+		res.setModuleVersionID(getJ2EEVersion());
 		addWebAppIfNecessary(res);
 		return res;
+	}
+	
+	protected int getJ2EEVersion() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				return webEdit.getJ2EEVersion();
+		} finally {
+			if (webEdit != null)
+			webEdit.dispose();
+		}
+		return 0;
 	}
 
 	/**

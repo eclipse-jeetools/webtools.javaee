@@ -30,8 +30,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -68,8 +69,8 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
 			protected void execute(IProgressMonitor amonitor) throws CoreException, InvocationTargetException, InterruptedException {
 				WebEditModel model = (WebEditModel) editModel;
-				WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(model.getProject());
-				IFolder metainf = webArtifactEdit.getMetaInfFolder();
+				IFolder moduleRoot = WebPropertiesUtil.getModuleServerRoot(model.getProject());
+				IFolder metainf = moduleRoot.getFolder(J2EEConstants.META_INF);
 				if (!metainf.exists()) {
 					IFolder parent = metainf.getParent().getFolder(null);
 					if (!parent.exists()) {
@@ -77,7 +78,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 					}
 					metainf.create(true, true, null);
 				}
-				IFolder webinf = (IFolder)webArtifactEdit.getWebInfFolder();
+				IFolder webinf = moduleRoot.getFolder(J2EEConstants.WEB_INF);
 				if (!webinf.exists()) {
 					webinf.create(true, true, null);
 				}
@@ -95,7 +96,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		super.execute(monitor);
 		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
 		if (dataModel.getBooleanProperty(WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS)) {
-			IProject project = dataModel.getProjectDataModel().getProject();	
+			//IProject project = dataModel.getProjectDataModel().getProject();	
 			//webNature.getWebSettings().write();
 			//project.getFile(webNature.getWebSettingsPath()).refreshLocal(0, monitor);
 			//WebSettingsMigrator migrator = new WebSettingsMigrator();

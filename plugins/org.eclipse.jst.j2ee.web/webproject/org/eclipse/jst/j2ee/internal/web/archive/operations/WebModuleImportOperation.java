@@ -34,13 +34,13 @@ import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarImportDataModel
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.BinaryProjectHelper;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 	/**
@@ -82,10 +82,8 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 	protected void doExecute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.doExecute(monitor);
 		WebModuleImportDataModel model = (WebModuleImportDataModel) operationDataModel;
-//		J2EEWebNatureRuntime nature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(model.getProject());
-		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(model.getProject());
 		if (!model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA)) {
-			IFolder folder = webArtifactEdit.getLibraryFolder();
+			IFolder folder = WebPropertiesUtil.getWebLibFolder(model.getProject());
 			if (!folder.exists()) {
 				folder.create(true, true, new NullProgressMonitor());
 			}
@@ -114,9 +112,7 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		importWebLibraryProjects(monitor, extraEntries, javaProject);
 
 		if (!preserveMetadata) {
-//			IResource[] libs = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(model.getProject()).getLibraryFolder().members();
-			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(model.getProject());
-			IResource[] libs = webArtifactEdit.getLibraryFolder().members();
+			IResource[] libs = WebPropertiesUtil.getWebLibFolder(model.getProject()).members();
 			for (int i = 0; i < libs.length; i++) {
 				if (!javaProject.isOnClasspath(libs[i]))
 					extraEntries.add(JavaCore.newLibraryEntry(libs[i].getFullPath(), libs[i].getFullPath(), null));
@@ -150,13 +146,18 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		for (int i = 0; i < libModules.size(); i++) {
 			libModulesArray[i] = (LibModule) libModules.get(i);
 		}
-//		J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) J2EENature.getRegisteredRuntime(((WebModuleImportDataModel) operationDataModel).getProject());
-//		try {
-//			webNature.setLibModules(libModulesArray);
-//		} catch (CoreException e) {
-//			Logger.getLogger().logError(e);
-//		}
-		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(((WebModuleImportDataModel)operationDataModel).getProject());
-		webArtifactEdit.setLibModules(libModulesArray);
+		setLibModules(javaProject.getProject(),libModulesArray);
+	}
+	
+	protected void setLibModules(IProject project, ILibModule[] modules) {
+		WebArtifactEdit webArtifactEdit = null;
+		try {
+			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			if (webArtifactEdit!=null)
+				webArtifactEdit.setLibModules(modules);
+		} finally  {
+			if (webArtifactEdit!=null)
+				webArtifactEdit.dispose();
+		}
 	}
 }

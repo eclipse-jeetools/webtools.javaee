@@ -52,8 +52,7 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 	 */
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		IRuntime target = ServerTargetUtil.getServerTarget(prj.getName());
-		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(prj);
-		ILibModule[] wlps = webModuleArtifact.getLibModules();
+		ILibModule[] wlps = getLibModules();
 		monitor.beginTask(ProjectSupportResourceHandler.getString("Sync_WLP_Op"), wlps.length); //$NON-NLS-1$
 		for (int i = 0; i < wlps.length; i++) {
 			IProject module = wlps[i].getProject();
@@ -68,5 +67,18 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 			monitor.worked(1);
 		}
 		monitor.done();
+	}
+	
+	protected ILibModule[] getLibModules() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(prj);
+			if (webEdit != null)
+				return webEdit.getLibModules();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+		return new ILibModule[] {};
 	}
 }

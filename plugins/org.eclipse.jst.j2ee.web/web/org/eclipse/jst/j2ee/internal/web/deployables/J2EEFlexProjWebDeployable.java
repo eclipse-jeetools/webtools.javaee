@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
@@ -25,9 +24,8 @@ import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -85,16 +83,16 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
                		int nVersion = webEdit.getJ2EEVersion();	
                		switch( nVersion ){
 	    	    		case 12:
-	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_2;	    			
+	    	    			Version = IModuleConstants.J2EE_VERSION_1_2;	    			
 	    	    			break;
 	    	    		case 13:
-	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_3;
+	    	    			Version = IModuleConstants.J2EE_VERSION_1_3;
 	    	    			break;
 	    	    		case 14:	
-	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_4;
+	    	    			Version = IModuleConstants.J2EE_VERSION_1_4;
 	    	    			break;
 	    	    		default:
-	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_2;
+	    	    			Version = IModuleConstants.J2EE_VERSION_1_2;
 	    	    			break;               			
                		}
            		}
@@ -138,16 +136,16 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
        	switch( nVersion ){
     	
     		case 22:
-    			ret = ModuleCoreNature.JSP_VERSION_1_1;
+    			ret = IModuleConstants.JSP_VERSION_1_1;
     			break;
     		case 23:
-    			ret = ModuleCoreNature.JSP_VERSION_1_2;
+    			ret = IModuleConstants.JSP_VERSION_1_2;
     			break;
     		case 24:	
-    			ret = ModuleCoreNature.JSP_VERSION_2_0;
+    			ret = IModuleConstants.JSP_VERSION_2_0;
     			break;
       		default:
-    			ret = ModuleCoreNature.JSP_VERSION_1_1;
+    			ret = IModuleConstants.JSP_VERSION_1_1;
     			break;    			
     	}
     	return ret; 
@@ -160,16 +158,16 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     	switch( nVersion ){
     	
     		case 22:
-    			ret = ModuleCoreNature.SERVLET_VERSION_2_2;
+    			ret = IModuleConstants.SERVLET_VERSION_2_2;
     			break;
     		case 23:
-    			ret = ModuleCoreNature.SERVLET_VERSION_2_3;
+    			ret = IModuleConstants.SERVLET_VERSION_2_3;
     			break;
     		case 24:	
-    			ret = ModuleCoreNature.SERVLET_VERSION_2_4;
+    			ret = IModuleConstants.SERVLET_VERSION_2_4;
     			break;
     		default:
-    			ret = ModuleCoreNature.SERVLET_VERSION_2_3;
+    			ret = IModuleConstants.SERVLET_VERSION_2_3;
     			break;
     	}
     	return ret;    	
@@ -404,16 +402,14 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
         return getVersion();
     }
 
-
 	public IPath getRootfolder() {
-		IPath path = null;
-	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
-     	if( wbModule != null ) {   		
-     		IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);
-     		path = outputContainer.getProjectRelativePath();
-     	}
-     }    
-	return rootfolder;
+//	    if (ModuleCoreNature.getModuleCoreNature(project) != null ) {  
+//			if (wbModule != null ) {   		
+//				IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);
+//				IPath path = outputContainer.getProjectRelativePath();
+//			}
+//		}    
+		return rootfolder;
 	}
 
 }

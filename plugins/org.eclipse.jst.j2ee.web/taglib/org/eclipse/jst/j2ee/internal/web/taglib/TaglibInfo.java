@@ -17,16 +17,13 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandler;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
-import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 public class TaglibInfo implements ITaglibInfo, Cloneable {
@@ -211,19 +208,11 @@ public class TaglibInfo implements ITaglibInfo, Cloneable {
 			if (javaIOFile == null || !javaIOFile.exists()) {
 				if (isWebXMLEntry()) {
 					IPath taglibPath = getLocation();
-					WebArtifactEdit webEdit = null;
 					if (!taglibPath.isAbsolute()) {
-						try {
-							webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-							IContainer webInfContainer = webEdit.getWebInfFolder();
-							IResource resolvedResource = webInfContainer.findMember(taglibPath);
-							if (resolvedResource instanceof IFile) {
-								file = (IFile) resolvedResource;
-								javaIOFile = file.getLocation().toFile();
-							}
-						} finally {
-							if (webEdit !=null) 
-								webEdit.dispose();
+						IResource resolvedResource = project.findMember(taglibPath);
+						if (resolvedResource instanceof IFile) {
+							file = (IFile) resolvedResource;
+							javaIOFile = file.getLocation().toFile();
 						}
 					}
 				}

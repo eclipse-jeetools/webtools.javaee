@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -33,7 +33,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation;
 import org.eclipse.jst.j2ee.internal.delete.DeleteOptions;
@@ -44,16 +43,17 @@ import org.eclipse.jst.j2ee.internal.dialogs.J2EEDeleteUIConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
+import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -377,18 +377,14 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 		}
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
+			ArtifactEdit edit = null;
 			try {
-				if (EJBNatureRuntime.hasRuntime(project)) {
+				edit = ModuleCore.getFirstArtifactEditForRead(project);
+				if (edit!= null)
 					retVal = true;
-				} else if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-					retVal = true;
-				} else if (ApplicationClientNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				} else if (ConnectorNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				}
-			} catch (CoreException ex) {
-				retVal = false;
+			} finally {
+				if (edit!=null)
+					edit.dispose();
 			}
 		}
 		return retVal;

@@ -178,13 +178,8 @@ public final class WebModuleExportOperation extends J2EEArtifactExportOperation 
 		}
 		SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 1);
 		try {
-//			J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(project);
-//			if (nature == null)
-//				return;
-			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
-
 			Set projectsToBuild = new HashSet();
-			ILibModule[] libModules = webArtifactEdit.getLibModules();
+			ILibModule[] libModules = getLibModules();
 			for (int i = 0; i < libModules.length; i++) {
 				projectsToBuild.add(libModules[i].getProject());
 			}
@@ -205,6 +200,19 @@ public final class WebModuleExportOperation extends J2EEArtifactExportOperation 
 		} finally {
 			subMonitor.done();
 		}
+	}
+	
+	protected ILibModule[] getLibModules() {
+		WebArtifactEdit webArtifactEdit = null;
+		try {
+			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			if (webArtifactEdit!=null)
+				return webArtifactEdit.getLibModules();
+		} finally {
+			if (webArtifactEdit!=null)
+				webArtifactEdit.dispose();
+		}
+		return new ILibModule[] {};
 	}
 
 	private List getProjectsInOrder(Set projectsToBuild) {

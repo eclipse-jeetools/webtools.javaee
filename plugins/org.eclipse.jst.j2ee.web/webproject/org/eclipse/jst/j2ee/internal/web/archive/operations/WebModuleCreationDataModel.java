@@ -50,7 +50,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * @since WTP 1.0
  */
 public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
-	public static final String APACHE_VENDER_NAME = "Apache";
+	public static final String APACHE_VENDER_NAME = "Apache"; //$NON-NLS-1$
 	/**
 	 * Type Integer
 	 */
@@ -123,10 +123,10 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 
 
 	protected void init() {
-		setJ2EENatureID(IWebNatureConstants.J2EE_NATURE_ID);
+		//setJ2EENatureID(IWebNatureConstants.J2EE_NATURE_ID);
 		setProperty(EDIT_MODEL_ID, IWebNatureConstants.EDIT_MODEL_ID);
 		getServerTargetDataModel().setIntProperty(ServerTargetDataModel.DEPLOYMENT_TYPE_ID, XMLResource.WEB_APP_TYPE);
-		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IWebNatureConstants.J2EE_NATURE_ID, IModuleConstants.MODULE_NATURE_ID});
+		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IModuleConstants.MODULE_NATURE_ID});
 		getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.SOURCE_FOLDERS, new String[]{getDefaultJavaSourceFolderName()});
 		updateOutputLocation();
 		super.init();

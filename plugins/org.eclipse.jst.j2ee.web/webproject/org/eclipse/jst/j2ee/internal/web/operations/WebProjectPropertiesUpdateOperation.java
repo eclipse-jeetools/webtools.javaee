@@ -63,12 +63,11 @@ public class WebProjectPropertiesUpdateOperation implements IHeadlessRunnableWit
 		}
 
 		// Update the Servlet and JSP Levels
-		String servletLevel = webProjectInfo.getServletLevel();
-		String jspLevel = webProjectInfo.getJSPLevel();
+		int servletLevel = webProjectInfo.getServletLevel();
+		int jspLevel = webProjectInfo.getJSPLevel();
 
 		try {
-			if (servletLevel != null && jspLevel != null)
-				updateClassPathEntries(monitor);
+			updateClassPathEntries(monitor);
        //TODO setOn Module forwrite
 		/*	if (servletLevel != null)
 				nature.setServletLevel(servletLevel);

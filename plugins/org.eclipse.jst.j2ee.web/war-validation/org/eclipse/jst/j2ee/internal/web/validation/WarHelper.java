@@ -16,17 +16,17 @@ import java.util.Hashtable;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
@@ -106,28 +106,28 @@ public class WarHelper extends J2EEValidationHelper {
 			return null;
 		//      openFilesCache = new ArrayList();
 		WARFile warFile = null; // Default return value.
-
 		try {
-			if (proj.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-//				J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(getProject());
-				WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(getProject());
-				if (webArtifactEdit != null) {
-					try {
-						WTProjectLoadStrategyImpl loader = new WTProjectLoadStrategyImpl(proj);
-						loader.setResourceSet(webArtifactEdit.getDeploymentDescriptorResource().getResourceSet());
-						warFile = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory().openWARFile(loader, proj.getName());
-						//                      openFilesCache.add(warFile);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		} catch (CoreException exc) {
-			// Either the project is not open, or it doesn't exist.
-			// Don't rethrow the exception; it's just that there's
-			// nothing to validate.
-		}
-
+			WTProjectLoadStrategyImpl loader = new WTProjectLoadStrategyImpl(proj);
+			loader.setResourceSet(getWebApplicationResource(proj).getResourceSet());
+			warFile = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory().openWARFile(loader, proj.getName());
+			//openFilesCache.add(warFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  
 		return warFile;
+	}
+	
+	protected Resource getWebApplicationResource(IProject project) {
+		WebArtifactEdit webEdit = null;
+		try{
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead( project);
+       		if(webEdit != null) {
+       			return webEdit.getDeploymentDescriptorResource();
+       		}			
+		} finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}
+		return null;
 	}
 }

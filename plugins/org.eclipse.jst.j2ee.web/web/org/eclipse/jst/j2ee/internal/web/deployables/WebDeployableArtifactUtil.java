@@ -41,6 +41,7 @@ import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.server.core.WebResource;
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -327,26 +328,8 @@ public class WebDeployableArtifactUtil  {
 	public static String getServletMapping(IProject project, boolean isServlet, String typeName) {
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
-		
-		ArtifactEdit artifact = null;
-		WebArtifactEdit webEdit = null;
-		WebApp webApp = null;
-		try{
-			artifact = ModuleCore.getFirstArtifactEditForRead( project );
-			webEdit = ( WebArtifactEdit )artifact;
-       		if(webEdit != null) {
-           		webApp = webEdit.getWebApplication();		               		
-
-       		}			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally{
-			if( webEdit != null )
-				webEdit.dispose();
-		}
-
+		WebApp webApp = getWebApplication(project);		               		
 		try {
-	
 			// find servlet
 			Iterator iterator = webApp.getServlets().iterator();
 			while (iterator.hasNext()) {
@@ -379,6 +362,19 @@ public class WebDeployableArtifactUtil  {
 		} finally {
 			//Do nothing
 		}
+	}
+	
+	protected static WebApp getWebApplication(IProject project) {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				return (WebApp) webEdit.getDeploymentDescriptorRoot();
+		} finally {
+			if (webEdit != null)
+			webEdit.dispose();
+		}
+		return null;
 	}
 
 }

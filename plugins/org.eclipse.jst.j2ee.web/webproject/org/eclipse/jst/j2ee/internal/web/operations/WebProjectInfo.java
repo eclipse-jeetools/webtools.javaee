@@ -24,11 +24,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 
 /**
@@ -38,7 +39,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
  */
 
 public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo implements IWebProjectWizardInfo {
-	public WebArtifactEdit webArtifactEdit; 
+
 	private String fContextRoot = null;
 
 	public boolean fJ2EEWebProject = true;
@@ -53,8 +54,8 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	public static final String PROPERTY_PROJECT_NAME = "Project name"; //$NON-NLS-1$
 	public static final String PROPERTY_SERVER_TARGET = "Server Target"; //$NON-NLS-1$
 
-	protected String fJSPLevel;
-	protected String fServletLevel;
+	protected int fJSPLevel;
+	protected int fServletLevel;
 	protected IProject wtWebProject;
 	protected String wtProjectName;
 	protected IPath wtProjectLocation;
@@ -229,17 +230,11 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	}
 
 	public boolean isJSP11() {
-		if (fJSPLevel.equals(webArtifactEdit.JSPLEVEL_1_1))
-			return true;
-
-		return false;
+		return fJSPLevel == J2EEVersionConstants.JSP_1_1_ID;
 	}
 
 	public boolean isServlet22() {
-		if (fServletLevel.equals(webArtifactEdit.SERVLETLEVEL_2_2))
-			return true;
-
-		return false;
+		return fServletLevel == J2EEVersionConstants.SERVLET_2_2;
 	}
 
 	/**
@@ -250,14 +245,14 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 */
 	public void setJ2EEVersion(String newLevel) {
 		if (newLevel.equals(J2EE_VERSION_1_2)) {
-			fJSPLevel = webArtifactEdit.JSPLEVEL_1_1;
-			fServletLevel = webArtifactEdit.SERVLETLEVEL_2_2;
+			fJSPLevel = J2EEVersionConstants.JSP_1_1_ID;
+			fServletLevel = J2EEVersionConstants.SERVLET_2_2;
 		} else if (newLevel.equals(J2EE_VERSION_1_3)) {
-			fJSPLevel = webArtifactEdit.JSPLEVEL_1_2;
-			fServletLevel = webArtifactEdit.SERVLETLEVEL_2_3;
+			fJSPLevel = J2EEVersionConstants.JSP_1_2_ID;
+			fServletLevel = J2EEVersionConstants.SERVLET_2_3;
 		} else {
-			fJSPLevel = webArtifactEdit.JSPLEVEL_2_0;
-			fServletLevel = webArtifactEdit.SERVLETLEVEL_2_4;
+			fJSPLevel = J2EEVersionConstants.JSP_2_0_ID;
+			fServletLevel = J2EEVersionConstants.SERVLET_2_4;
 		}
 	}
 
@@ -309,7 +304,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 * 
 	 * @return java.lang.String
 	 */
-	public String getJSPLevel() {
+	public int getJSPLevel() {
 		return fJSPLevel;
 
 	}
@@ -319,7 +314,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 * 
 	 * @return java.lang.String
 	 */
-	public java.lang.String getServletLevel() {
+	public int getServletLevel() {
 		return fServletLevel;
 	}
 
@@ -330,14 +325,14 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 */
 	protected void updateJ2EELevel(String newLevel) {
 		if (newLevel.equals(J2EE_VERSION_1_2)) {
-			fJSPLevel = webArtifactEdit.JSPLEVEL_1_1;
-			fServletLevel = webArtifactEdit.SERVLETLEVEL_2_2;
+			fJSPLevel = J2EEVersionConstants.JSP_1_1_ID;
+			fServletLevel = J2EEVersionConstants.SERVLET_2_2;
 		} else if (newLevel.equals(J2EE_VERSION_1_3)) {
-			fJSPLevel = webArtifactEdit.JSPLEVEL_1_2;
-			fServletLevel = webArtifactEdit.SERVLETLEVEL_2_3;
+			fJSPLevel = J2EEVersionConstants.JSP_1_2_ID;
+			fServletLevel = J2EEVersionConstants.SERVLET_2_3;
 		} else {
-			fJSPLevel = webArtifactEdit.JSPLEVEL_2_0;
-			fServletLevel = webArtifactEdit.SERVLETLEVEL_2_4;
+			fJSPLevel = J2EEVersionConstants.JSP_2_0_ID;
+			fServletLevel = J2EEVersionConstants.SERVLET_2_4;
 		}
 
 		String oldValue = isJ2EE13() ? J2EE_VERSION_1_2 : J2EE_VERSION_1_3;
@@ -369,7 +364,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 * 
 	 * @return java.lang.String
 	 */
-	public void setJSPLevel(String newLevel) {
+	public void setJSPLevel(int newLevel) {
 		fJSPLevel = newLevel;
 
 	}
@@ -379,7 +374,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 * 
 	 * @return java.lang.String
 	 */
-	public void setServletLevel(String newLevel) {
+	public void setServletLevel(int newLevel) {
 		fServletLevel = newLevel;
 	}
 
@@ -473,11 +468,36 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	}
 
 	public void setProject(IProject aProject) {
-		webArtifactEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(aProject);
-		fJSPLevel = IModuleConstants.JSP_VERSION_1_2;
-		fServletLevel = IModuleConstants.SERVLET_VERSION_2_3;
+		fJSPLevel = getJSPVersion();
+		fServletLevel = getServletVersion();
 		wtWebProject = aProject;
 		super.setProject(aProject);
+	}
+	
+	protected int getJSPVersion() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				return webEdit.getJSPVersion();
+		} finally {
+			if (webEdit != null)
+			webEdit.dispose();
+		}
+		return 0;
+	}
+	
+	protected int getServletVersion() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				return webEdit.getServletVersion();
+		} finally {
+			if (webEdit != null)
+			webEdit.dispose();
+		}
+		return 0;
 	}
 
 	/**

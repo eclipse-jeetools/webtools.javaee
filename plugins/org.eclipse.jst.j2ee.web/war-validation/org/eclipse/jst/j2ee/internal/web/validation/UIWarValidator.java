@@ -124,7 +124,7 @@ public class UIWarValidator extends WarValidator {
 		               	try{
 		               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule );
 		               		if(webEdit != null) {
-			               		WebApp webApp = webEdit.getWebApplication();		               		
+			               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
 			               		super.validate(inHelper, inReporter, inChangedFiles, webApp);
 		               		}
 		               	}
@@ -145,20 +145,25 @@ public class UIWarValidator extends WarValidator {
 			}
 		}
 		else{
-			WebArtifactEdit webEdit = null;
-			try {
-				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(proj.getProject());
-			} finally {
-				if (webEdit != null)
-					webEdit.dispose();
-			}
 			// if this is a static project, it has no WAR, so do not validate.
-			if (webEdit != null && webEdit.getWebApplication()!= null) {
+			if (getWebApplication(proj)!= null) 
 				super.validate(inHelper, inReporter, inChangedFiles);
 			//validateLibModules((J2EEWebNatureRuntime) webNature);
-			}
 		}	
+	}
 	
+	protected WebApp getWebApplication(IProject project) {
+		WebArtifactEdit webEdit = null;
+		try{
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead( project);
+       		if(webEdit != null) {
+       			return (WebApp) webEdit.getDeploymentDescriptorRoot();
+       		}			
+		} finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}
+		return null;
 	}
 
 	/**

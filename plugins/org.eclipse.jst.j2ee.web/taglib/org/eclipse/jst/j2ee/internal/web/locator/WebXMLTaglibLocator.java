@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.WebXMLTaglibInfo;
@@ -270,7 +271,7 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 		if (location != null && !location.trim().equals("")) { //$NON-NLS-1$
 			IPath preResolvePath = new Path(location);
 			IContainer webModuleFolder = getModuleServerRoot();
-			IContainer webLibraryFolder = getWebLibFolder();
+			IContainer webLibraryFolder = WebPropertiesUtil.getWebLibFolder(project);
 			IContainer webInfFolder = webLibraryFolder.getParent();
 			if (preResolvePath.getDevice() == null && !preResolvePath.isEmpty()) {
 				IContainer searchContainer = webModuleFolder;

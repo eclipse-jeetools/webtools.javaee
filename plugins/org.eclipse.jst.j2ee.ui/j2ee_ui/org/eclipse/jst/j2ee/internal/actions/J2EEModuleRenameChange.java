@@ -37,7 +37,6 @@ import org.eclipse.jst.j2ee.internal.rename.UpdateWebContextRootMetadataOperatio
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
@@ -101,27 +100,10 @@ public class J2EEModuleRenameChange extends Change {
 
 			IProject newTarget = ResourcesPlugin.getWorkspace().getRoot().getProject(this.newName);
 			if (newTarget.isAccessible()) {
-				//IBaseWebNature webNature = WebNatureRuntimeUtilities.getRuntime(newTarget);
-				String contextRoot = "";//$NON-NLS-1$
-				ArtifactEdit artifact = null;
-				WebArtifactEdit webEdit = null;
-				try{
-					artifact = ModuleCore.getFirstArtifactEditForRead( newTarget );
-					webEdit = ( WebArtifactEdit )artifact;
-		       		if(webEdit != null) {
-		       			contextRoot = webEdit.getContextRoot();		               		
-
-		       		}			
-				}catch (Exception e) {
-					e.printStackTrace();
-				}finally{
-					if( webEdit != null )
-						webEdit.dispose();
-				}	
-				
+				String contextRoot = getServerContextRoot(newTarget);
 				//if (webNature != null) {
 					//new UpdateWebContextRootMetadataOperation(newTarget, webNature.getContextRoot()).run(pm);
-				if(contextRoot.equals("") == false){
+				if(contextRoot.equals("") == false){ //$NON-NLS-1$
 					new UpdateWebContextRootMetadataOperation(newTarget, contextRoot).run(pm);
 				} else if (J2EENature.getRegisteredRuntime(newTarget) == null)
 					new RenameUtilityJarMetadataOperation(this.target, newTarget).run(pm);
@@ -133,6 +115,19 @@ public class J2EEModuleRenameChange extends Change {
 			//Ignore
 		}
 		return null;
+	}
+	
+	protected String getServerContextRoot(IProject project) {
+		WebArtifactEdit webEdit = null;
+		try{
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+       		if (webEdit != null)
+       			return webEdit.getServerContextRoot();			
+		} finally {
+			if (webEdit != null )
+				webEdit.dispose();
+		}	
+		return ""; //$NON-NLS-1$
 	}
 
 	/**

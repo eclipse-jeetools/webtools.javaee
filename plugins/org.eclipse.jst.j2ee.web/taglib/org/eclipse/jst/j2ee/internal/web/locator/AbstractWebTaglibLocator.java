@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
@@ -45,7 +46,7 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	}
 
 	protected boolean isInLibFolder(IFile file) {
-		IContainer libFolder = getWebLibFolder();
+		IContainer libFolder = WebPropertiesUtil.getWebLibFolder(project);
 		IPath libPath = libFolder.getProjectRelativePath();
 		int numOfLibPathSegs = libPath.segmentCount();
 		if (file.getProjectRelativePath().matchingFirstSegments(libPath) == numOfLibPathSegs) {
@@ -61,7 +62,7 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	}
 
 	protected boolean isInWebInfFolder(IFile file) {
-		IPath webInfPath = getWebInfFolder().getProjectRelativePath();
+		IPath webInfPath = getWebDeploymentDescriptorPath();
 		int numOfWebInfPathSegs = webInfPath.segmentCount();
 		if (file.getProjectRelativePath().matchingFirstSegments(webInfPath) == numOfWebInfPathSegs)
 			return true;
@@ -249,62 +250,28 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 		return JSPVersion;
 	}
 	
-	protected IContainer getWebLibFolder() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getWebLibFolder();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-	}
-	
-	protected IContainer getWebInfFolder() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getWebInfFolder();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-	}
-	
 	protected ILibModule[] getLibModules() {
 		WebArtifactEdit webEdit = null;
 		try {
 			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getLibModules();
+			if (webEdit != null)
+				return webEdit.getLibModules();
 		} finally {
 			if (webEdit != null)
 				webEdit.dispose();
 		}
+		return new ILibModule[] {};
 	}
 	
 	/**
 	 * @see AbstractTaglibLocator#getServerRoot()
 	 */
 	protected IPath getServerRoot() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getModuleServerRoot().getProjectRelativePath();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+		return getModuleServerRoot().getProjectRelativePath();
 	}
 	
 	protected IContainer getModuleServerRoot() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getModuleServerRoot();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+		return WebPropertiesUtil.getModuleServerRoot(project);
 	}
 	
 	protected IPath getWebDeploymentDescriptorPath() {

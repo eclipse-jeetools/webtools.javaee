@@ -154,6 +154,8 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 		}
 		return super.doValidateProperty(propertyName);
 	}
+	
+	protected abstract String getNatureID();
 
 	protected abstract String getWrongProjectTypeString(String projectName);
 
@@ -233,5 +235,4 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 
 	protected abstract String getModuleExtension();
 
-	protected abstract String getNatureID();
 }

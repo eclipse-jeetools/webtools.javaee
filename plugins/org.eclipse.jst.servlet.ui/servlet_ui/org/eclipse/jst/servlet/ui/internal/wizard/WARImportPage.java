@@ -16,13 +16,12 @@
  */
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.jst.servlet.ui.WebModuleCreationWizard;
@@ -64,10 +63,6 @@ public class WARImportPage extends J2EEModuleImportPage {
 
 	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
 		return new WebModuleCreationWizard((WebModuleCreationDataModel) aModel);
-	}
-
-	protected String getFileNamesStoreID() {
-		return IWebNatureConstants.J2EE_NATURE_ID;
 	}
 
 	private WebModuleImportDataModel getWebDataModel() {

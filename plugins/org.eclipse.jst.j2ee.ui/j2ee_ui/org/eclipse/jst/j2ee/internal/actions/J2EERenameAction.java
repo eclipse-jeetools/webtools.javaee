@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -30,21 +31,17 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
 import org.eclipse.jst.j2ee.internal.dialogs.RenameModuleDialog;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
@@ -52,6 +49,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
+import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -201,30 +199,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 				action.selectionChanged(new StructuredSelection(project));
 				action.run();
 			} else {
-				String contextRoot = null;
-				try {
-					if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-						//contextRoot = J2EEWebNatureRuntime.getRuntime(project).getContextRoot();
-						ArtifactEdit artifact = null;
-						WebArtifactEdit webEdit = null;
-						try{
-							artifact = ModuleCore.getFirstArtifactEditForRead( project );
-							webEdit = ( WebArtifactEdit )artifact;
-				       		if(webEdit != null) {
-				       			contextRoot = webEdit.getContextRoot();		               		
-
-				       		}			
-						}catch (Exception e) {
-							e.printStackTrace();
-						}finally{
-							if( webEdit != null )
-								webEdit.dispose();
-						}							
-						
-					}
-				} catch (Throwable t) {
-					contextRoot = null;
-				}
+				String contextRoot = getServerContextRoot(project);
 				dlg = new RenameModuleDialog(shell, project.getName(), contextRoot);
 				dlg.open();
 				if (dlg.getReturnCode() == Window.CANCEL)
@@ -327,26 +302,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 			IProject project = (IProject) getProjects().get(0);
 			try {
 				IProject newProject = project.getWorkspace().getRoot().getProject(options.getNewName());
-				
-				//J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(newProject);
-				//if (runtime != null)
-					//runtime.setContextRoot(newContextRoot);
-				ArtifactEdit artifact = null;
-				WebArtifactEdit webEdit = null;
-				try{
-					artifact = ModuleCore.getFirstArtifactEditForRead( project );
-					webEdit = ( WebArtifactEdit )artifact;
-		       		if(webEdit != null) {
-		       			//To do :Needs rework here
-		           		 //webEdit.setContextRoot(newContextRoot);		               		
-
-		       		}			
-				}catch (Exception e) {
-					e.printStackTrace();
-				}finally{
-					if( webEdit != null )
-						webEdit.dispose();
-				}					
+		       	setServerContextRoot(newProject, newContextRoot);		               		
 			} catch (Throwable t) {
 				//Ignore
 			}
@@ -387,18 +343,14 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 		}
 		if (o instanceof IProject) {
 			IProject project = (IProject) o;
+			ArtifactEdit edit = null;
 			try {
-				if (EJBNatureRuntime.hasRuntime(project)) {
+				edit = ModuleCore.getFirstArtifactEditForRead(project);
+				if (edit!= null)
 					retVal = true;
-				} else if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-					retVal = true;
-				} else if (ApplicationClientNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				} else if (ConnectorNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				}
-			} catch (Throwable t) {
-				retVal = false;
+			} finally {
+				if (edit!=null)
+					edit.dispose();
 			}
 		}
 		return retVal;
@@ -450,5 +402,31 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 			return;
 
 		ErrorDialog.openError(shell, null, null, status, IStatus.ERROR);
+	}
+	
+	protected String getServerContextRoot(IProject project) {
+		WebArtifactEdit webEdit = null;
+		try{
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+       		if(webEdit != null) {
+       			return webEdit.getServerContextRoot();		               		
+       		}			
+		} finally {
+			if( webEdit != null )
+				webEdit.dispose();
+		}
+		return ""; //$NON-NLS-1$
+	}
+	
+	protected void setServerContextRoot(IProject project, String contextRoot) {
+		WebArtifactEdit webEdit = null;
+		try{
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+       		if(webEdit != null)
+       			webEdit.setServerContextRoot(contextRoot);		               		
+		} finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}				
 	}
 }

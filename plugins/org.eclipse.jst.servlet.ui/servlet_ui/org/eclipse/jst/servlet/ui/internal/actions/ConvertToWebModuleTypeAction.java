@@ -83,23 +83,6 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	}
 
 	/**
-	 * Is this a web project?
-	 */
-	boolean isAWebProject(IProject aProject)
-	{
-		if( aProject == null ) return false;
-		try
-		{
-			aProject.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-		}
-		catch( CoreException coe )
-		{
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * make sure a web project is selected.
 	 */
 	public boolean isValidProject(IProject aProject)

@@ -72,14 +72,4 @@ public class WARExportPage extends J2EEModuleExportPage {
 		return o instanceof org.eclipse.jst.j2ee.webapplication.WebApp;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#getNatureID()
-	 */
-	protected String getNatureID() {
-
-		return IWebNatureConstants.J2EE_NATURE_ID;
-	}
-
 }

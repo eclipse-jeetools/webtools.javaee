@@ -35,8 +35,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 
@@ -215,9 +213,7 @@ public class LibDirBuilder extends IncrementalProjectBuilder implements IResourc
 			monitor.beginTask(ProjectSupportResourceHandler.getString("Sychronize_Class_Path_UI_"), 4); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Sychronize Class Path"
             
-			WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
-			//J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-			IContainer lib_folder = webModuleArtifact.getLibraryFolder();
+			IContainer lib_folder = WebPropertiesUtil.getWebLibFolder(project);
 			//Nothing to do if the lib folder does not exist.
 			if (lib_folder == null || !lib_folder.isAccessible())
 				return;
@@ -334,11 +330,8 @@ public class LibDirBuilder extends IncrementalProjectBuilder implements IResourc
 				if (filePath.toLowerCase().endsWith(".jar") //$NON-NLS-1$
 							|| filePath.toLowerCase().endsWith(".zip")) { //$NON-NLS-1$
 					IProject project = resource.getProject();
-				//	J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
 					IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
-					WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
-					IPath lib_path = project.getFullPath().append(webModuleArtifact.getLibraryFolder().getProjectRelativePath());
-
+					IPath lib_path = lib_path = project.getFullPath().append(WebPropertiesUtil.getWebLibFolder(project).getProjectRelativePath());
 					int file_seg_count = subdelta.getFullPath().segmentCount();
 					int lib_path_seg_count = lib_path.segmentCount();
 

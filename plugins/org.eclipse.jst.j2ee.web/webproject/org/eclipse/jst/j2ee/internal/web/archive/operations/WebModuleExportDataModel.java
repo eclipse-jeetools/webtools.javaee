@@ -97,17 +97,12 @@ public final class WebModuleExportDataModel extends J2EEModuleExportDataModel {
 		return ".war"; //$NON-NLS-1$
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEExportDataModel#getNatureID()
-	 */
-	protected String getNatureID() {
-		return IWebNatureConstants.J2EE_NATURE_ID;
-	}
-
 	protected String getWrongProjectTypeString(String projectName) {
 		return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_A_WAR, new Object[]{projectName});
+	}
+
+	protected String getNatureID() {
+		return IWebNatureConstants.J2EE_NATURE_ID;
 	}
 
 }

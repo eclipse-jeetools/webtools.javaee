@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -34,8 +35,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 
 import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
@@ -67,8 +67,7 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	 * Return the container that represents the root of this war file
 	 */
 	public IContainer getModuleServerRoot() {
-		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
-		return webArtifactEdit.getModuleServerRoot();
+		return WebPropertiesUtil.getModuleServerRoot(project);
 	}
 
 	/**
@@ -161,8 +160,8 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	}
 
 	protected String convertToSourceURI(String uri) {
-		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
-		IPath path = webArtifactEdit.getSourceFolder().getProjectRelativePath();
+		IFolder javaSource = (IFolder) WebPropertiesUtil.getJavaSourceFolder(project);
+		IPath path = javaSource.getProjectRelativePath();
 		path = path.append(uri);
 		return path.toString();
 	}
@@ -170,8 +169,7 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	protected String convertToContentURI(String uri) {
 		if (isProjectMetaFile(uri))
 			return uri;
-		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
-		IPath path = webArtifactEdit.getModuleServerRoot().getProjectRelativePath();
+		IPath path = WebPropertiesUtil.getModuleServerRoot(project).getProjectRelativePath();
 		path = path.append(uri);
 		return path.toString();
 	}

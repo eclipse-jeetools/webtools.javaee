@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
@@ -73,7 +74,7 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 					if (iTaglibInfo.isInJar())
 						break;
 					// defect 212671
-					IPath webProjectRelativePath = getWebLibFolder().getProjectRelativePath();
+					IPath webProjectRelativePath = WebPropertiesUtil.getWebLibFolder(project).getProjectRelativePath();
 					IPath jarLocationPath = webProjectRelativePath.append(iLibModule.getJarName());
 					IPath jarName = jarLocationPath.removeFirstSegments(getServerRoot().segmentCount());
 					// defect 212671 This is important because jarName may not have a leading /
