@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.7 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.8 $  $Date: 2004/03/05 22:06:34 $ 
  */
 
 
@@ -24,14 +24,16 @@ import java.util.logging.Level;
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.internal.plugins.PluginRegistry;
 import org.eclipse.core.resources.*;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.osgi.util.ManifestElement;
+import org.eclipse.pde.core.IModel;
+import org.eclipse.pde.core.IWorkspaceModelManager;
+import org.eclipse.pde.core.plugin.*;
+import org.eclipse.pde.internal.core.PDECore;
 import org.osgi.framework.*;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -506,7 +508,7 @@ public class ProxyPlugin extends Plugin {
 		super.shutdown();
 	}
 	
-	public static final String PI_CONFIGURATION_CONTRIBUTION = "org.eclipse.jem.proxy.contributor";
+	public static final String PI_CONFIGURATION_CONTRIBUTION = "contributor";
 	public static final String PI_CONTAINER = "container";
 	public static final String PI_PLUGIN = "plugin";
 	public static final String PI_CLASS = "class";
@@ -630,14 +632,15 @@ public class ProxyPlugin extends Plugin {
 	 * @param jproject
 	 * @param containerIds This set will be filled in with container ids (type is <code>java.lang.String</code>) that are found in the projects build path.
 	 * @param containers This set will be filled in with classpath containers found that implement <code>org.eclipse.jem.internal.proxy.core.IConfigurationContributor</code> that are found in the projects build path.
+	 * @param pluginIds This set will be filled in with plugin ids (type is <code>java.lang.String</code>) that are found in the projects build path.
 	 * 
 	 * @since 1.0.0
 	 */
-	public void getContainersFound(IJavaProject jproject, Set containerIds, Set containers) throws JavaModelException {
-		expandProject(JavaCore.newProjectEntry(jproject.getProject().getFullPath()), containerIds, containers, new HashSet(1));
+	public void getIDsFound(IJavaProject jproject, Set containerIds, Set containers, Set pluginIds) throws JavaModelException {
+		expandProject(JavaCore.newProjectEntry(jproject.getProject().getFullPath()), containerIds, containers, pluginIds, new HashSet(1));
 	}
 	
-	private void expandProject(IClasspathEntry projectEntry, Set containerIds, Set containers, Set expandedProjects) throws JavaModelException {
+	private void expandProject(IClasspathEntry projectEntry, Set containerIds, Set containers, Set plugindiIds, Set expandedProjects) throws JavaModelException {
 		expandedProjects.add(projectEntry);
 		IPath projectPath = projectEntry.getPath();
 		IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath.lastSegment());
@@ -653,7 +656,7 @@ public class ProxyPlugin extends Plugin {
 			switch (entry.getEntryKind()) {
 				case IClasspathEntry.CPE_PROJECT:
 					if (!expandedProjects.contains(entry))
-						expandProject(entry, containerIds, containers, expandedProjects);
+						expandProject(entry, containerIds, containers, plugindiIds, expandedProjects);
 					break;
 				case IClasspathEntry.CPE_CONTAINER:
 					IClasspathContainer container = JavaCore.getClasspathContainer(entry.getPath(), project);
@@ -665,5 +668,34 @@ public class ProxyPlugin extends Plugin {
 					break;
 			}
 		}		
+		
+		processPlugin(project, plugindiIds);	// expand the plugins for this project, if any.
+	}
+	
+	private void processPlugin(IJavaProject project, Set pluginIds) {
+		IWorkspaceModelManager wm = PDECore.getDefault().getWorkspaceModelManager();
+		IModel m = wm.getWorkspaceModel(project.getProject());
+		if (m instanceof IPluginModel) {
+			// it is a plugin, process it.
+			expandPlugin(((IPluginModel) m).getPlugin(), pluginIds);
+		}
+		return;
+	}
+	
+	private void expandPlugin(IPlugin plugin, Set pluginIds) {
+		if (pluginIds.contains(plugin.getId()))
+			return;	// already processed it
+		pluginIds.add(plugin.getId());
+		IPluginImport[] imports = plugin.getImports();
+		for (int i = 0; i < imports.length; i++) {
+			IPluginImport pi = imports[i];
+			if (pluginIds.contains(pi.getId()))
+				continue;	// save time actually going for it. we already processed it.
+			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
+				pi.getVersion(),
+				pi.getMatch());
+			if (pb != null)
+				expandPlugin(pb, pluginIds);
+		}
 	}
 }

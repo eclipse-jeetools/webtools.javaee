@@ -9,6 +9,7 @@
 		<project>org.eclipse.debug.core</project>
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jdt.launching</project>
+		<project>org.eclipse.pde.core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

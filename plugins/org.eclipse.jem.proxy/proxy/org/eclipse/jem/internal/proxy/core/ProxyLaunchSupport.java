@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/04 16:53:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/05 22:06:34 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -158,13 +158,17 @@ public class ProxyLaunchSupport {
 				if (javaProject != null && javaProject.exists()) {
 					Set containerIds = new HashSet(5);
 					Set containers = new HashSet(5);
-					ProxyPlugin.getPlugin().getContainersFound(javaProject, containerIds, containers);					
-					if (!containerIds.isEmpty() || !containers.isEmpty()) {
-						List computedContributors = new ArrayList(containerIds.size()+containers.size());
+					Set pluginIds = new HashSet(5);
+					ProxyPlugin.getPlugin().getIDsFound(javaProject, containerIds, containers, pluginIds);					
+					if (!containerIds.isEmpty() || !containers.isEmpty() || !pluginIds.isEmpty()) {
+						List computedContributors = new ArrayList(containerIds.size()+containers.size()+pluginIds.size());
+						// First handle explicit classpath containers that implement IConfigurationContributor
 						for (Iterator iter = containers.iterator(); iter.hasNext();) {
 							IConfigurationContributor containerContributor = (IConfigurationContributor) iter.next();
 							computedContributors.add(containerContributor);
 						}
+						
+						// Second add in contributors that exist for a container id.
 						for (Iterator iter = containerIds.iterator(); iter.hasNext();) {
 							String containerid = (String) iter.next();
 							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerConfigurations(containerid);
@@ -173,6 +177,18 @@ public class ProxyLaunchSupport {
 									computedContributors.add(contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS));
 								}
 						}
+						
+						// Finally add in contributors that exist for a plugin id.
+						for (Iterator iter = pluginIds.iterator(); iter.hasNext();) {
+							String pluginId = (String) iter.next();
+							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getPluginConfigurations(pluginId);
+							if (contributors != null)
+								for (int i = 0; i < contributors.length; i++) {
+									computedContributors.add(contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS));
+								}
+						}
+						
+						// Now turn into array
 						if (!computedContributors.isEmpty()) {
 							IConfigurationContributor[] newContribs = new IConfigurationContributor[aContribs.length+computedContributors.size()];
 							System.arraycopy(aContribs, 0, newContribs, 0, aContribs.length);
