@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.19 $  $Date: 2004/05/21 19:30:27 $ 
+ *  $Revision: 1.20 $  $Date: 2004/05/24 15:57:24 $ 
  */
 
 
@@ -21,8 +21,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 
-import org.eclipse.core.boot.BootLoader;
-import org.eclipse.core.internal.plugins.PluginRegistry;
+import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.Job;
@@ -68,15 +67,18 @@ public class ProxyPlugin extends Plugin {
 	
 	private ListenerList shutdownListeners;
 
-	public ProxyPlugin(IPluginDescriptor pluginDescriptor) {
-		super(pluginDescriptor);
+	public ProxyPlugin() {
+		super();
 		PROXY_PLUGIN = this;
-		devMode = BootLoader.inDevelopmentMode();	// TODO need to get rid of this, they use system properties. Not sure if set though.
+		devMode = InternalPlatform.getDefault().getEnvironmentInfoService().inDevelopmentMode();	// TODO need to get rid of this, When on 5/17 Eclipse, can use Platform.isDeve... 
 		
 	}
 
 	/**
-	 * Accessor method to get the singleton plugin.
+	 * Access the singleton
+	 * @return the singleton plugin
+	 * 
+	 * @since 1.0.0
 	 */
 	public static ProxyPlugin getPlugin() {
 		return PROXY_PLUGIN;
@@ -89,67 +91,104 @@ public class ProxyPlugin extends Plugin {
 		return logger;
 	}	
 
+
 	/**
-	 * See localizeFromPluginDescriptor...
-	 * This is just a helper to pass in a Plugin where the plugin is handy instead of the IPluginDescriptor.
+	 * This is just helper for when have a Plugin. Use one bundle when have a bundle.
+	 * 
+	 * @param plugin
+	 * @param fileNameWithinPlugin
+	 * @return
+	 * @see ProxyPlugin#localizeFromBundle(Bundle, String)
+	 * @since 1.0.0
 	 */
 	public String localizeFromPlugin(Plugin plugin, String fileNameWithinPlugin) {
-		return localizeFromPluginDescriptor(plugin.getDescriptor(), fileNameWithinPlugin);
+		return localizeFromBundle(plugin.getBundle(), fileNameWithinPlugin);
 	}
-	
+
 	/**
-	 * This will take the plugin and file name and make it local and return that
-	 * fully qualified. It will not take fragments into account.
 	 * 
-	 * If we are in development and it will pick it up from the path
-	 * that is listed in the proxy.jars file located in the plugin passed in. This allows development code to be
-	 * used in place of the actual runtime jars. If the runtime jars are found,
-	 * they will be used.
-	 * 
-	 * For example if looking for file runtime/xyz.jar in plugin abc, then in plugin directory for abc,
-	 * there should be a file called proxy.jars. This should only be in development, this file should not
-	 * be distributed for production. It would be distributed in the SDK environment when testing is desired.
-	 * 
-	 * The format of the file is:
-	 * 	runtimefile=/projectname/builddirectory
-	 *
-	 * For this to work when the actual jar is not found, the Eclipse must of been started in 
-	 * dev mode (i.e. the plugin location will be a project within the developer Eclipse. That way
-	 * we can go up one level for the current install location and assume the above projectname
-	 * will be found relative to the directory.
-	 * 
-	 * For the above example:
-	 * 	runtime/xyz.jar=/xyzproject/bin
-	 * 
-	 * It will return "." if file can't be found. It means nothing but it won't cause jvm to crash.
+	 * @param pluginDescriptor
+	 * @param filenameWithinPlugin
+	 * @return
+	 * @deprecated see localizeFromPluginDescriptor(Bundle, String) instead.
 	 */
 	public String localizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-		URL url = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
+		return localizeFromBundle(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
+	}
+
+	/**
+	 * This will take the bundle and file name and make it local and return that
+	 * fully qualified. It will look in fragments, but only returns first found. If there can be multiples use
+	 * the one for bundles and it fragments.
+	 * <p>
+	 * If we are in development and it will pick it up from the path
+	 * that is listed in the proxy.jars file located in the bundle passed in. This allows development code to be
+	 * used in place of the actual runtime jars. If the runtime jars are found,
+	 * they will be used.
+	 * <p>
+	 * For example if looking for file runtime/xyz.jar in bundle abc, then in bundle directory for abc,
+	 * there should be a file called proxy.jars. This should only be in development, this file should not
+	 * be distributed for production. It would be distributed in the SDK environment when testing is desired.
+	 * <p>
+	 * The format of the file is:
+	 * 	runtimefile=/projectname/builddirectory
+	 * <p>
+	 * For this to work when the actual jar is not found, the Eclipse must of been started in 
+	 * dev mode (i.e. the bundle location will be a project within the developer Eclipse. That way
+	 * we can go up one level for the current install location and assume the above projectname
+	 * will be found relative to the directory.
+	 * <p>
+	 * For the above example:
+	 * 	runtime/xyz.jar=/xyzproject/bin
+	 * <p>
+	 * It will return "." if file can't be found. It means nothing but it won't cause jvm to crash.
+	 * 
+	 * @param bundle
+	 * @param filenameWithinBundle
+	 * @return the path to the file or <code>"."</code> if not found.
+	 * 
+	 * @since 1.0.0
+	 */
+	public String localizeFromBundle(Bundle bundle, String filenameWithinBundle) {
+		URL url = urlLocalizeFromBundle(bundle, filenameWithinBundle);
 		return url != null ? url.getFile() : "."; //$NON-NLS-1$
 	}
 	
 	/**
-	 * localizeFromPluginDescriptorAndFragments.
-	 * Just like localizeFromPluginDescriptor except it will return an array of Strings. It will look for the filename
-	 * within the plugin and any fragments of the plugin. If none are found, an empty array will be returned.
-	 * 
+	 * @deprecated see localizeFromPluginDescriptorAndFragments(Bundle, String) instead.
+	 */
+	public String[] localizeFromPluginDescriptorAndFragments(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
+		return localizeFromBundleAndFragments(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
+	}
+	
+
+	/**
+	 * Just like localizeFromBundle except it will return an array of Strings. It will look for the filename
+	 * within the bundle and any fragments of the bundle. If none are found, an empty array will be returned.
+	 * <p>
 	 * To find the files in the fragments that are in the runtime path (i.e. libraries), it will need to use a suffix,
 	 * This is because the JDT will get confused if a runtime jar in a fragment has the same name
-	 * as a runtime jar in the main plugin. So we will use the following search pattern:
-	 * 
-	 * 1) Find in all of the fragments those that match the name exactly
-	 * 2) Find in all of the fragments, in their runtime path (library stmt), those that match the name 
+	 * as a runtime jar in the main bundle. So we will use the following search pattern:
+	 * <ol>
+	 * <li>Find in all of the fragments those that match the name exactly</li>
+	 * <li>Find in all of the fragments, in their runtime path (library stmt), those that match the name 
 	 *    but have a suffix the same as the uniqueid of the fragment (preceeded by a period). This is so that it can be easily
 	 *    found but yet be unique in the entire list of fragments. For example if looking for "runtime/xyz.jar"
 	 *    and we have fragment "a.b.c.d.frag", then in the runtime path we will look for the file
-	 *    "runtime/xyz.a.b.c.d.frag.jar".
-	 * 
+	 *    "runtime/xyz.a.b.c.d.frag.jar".</li>
+	 * <p>
 	 * If the files in the fragments are not in the fragments library path then it can have the same name.
-	 * 
+	 * <p>
 	 * This is useful for nls where the nls for the filename will be in one or more of the fragments of the plugin.
+	 * 
+	 * @param bundle
+	 * @param filenameWithinBundle
+	 * @return
+	 * 
+	 * @since 1.0.0
 	 */
-	public String[] localizeFromPluginDescriptorAndFragments(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-		URL[] urls = urlLocalizeFromPluginDescriptorAndFragments(pluginDescriptor, filenameWithinPlugin);
+	public String[] localizeFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
+		URL[] urls = urlLocalizeFromBundleAndFragments(bundle, filenameWithinBundle);
 		String[] result = new String[urls.length];
 		for (int i = 0; i < urls.length; i++) {
 			result[i] = urls[i].getFile();
@@ -159,66 +198,76 @@ public class ProxyPlugin extends Plugin {
 
 
 	/**
-	 * See localizeFromPluginDescriptorAndFragments...
-	 * This is a helper to return a list of URLs instead.
+	 * 
+	 * @param pluginDescriptor
+	 * @param filenameWithinPlugin
+	 * @return
+	 * @deprecated see urlLocalizeFromPluginDescriptorAndFragments(Bundle, String) instead.
+	 * @since 1.0.0
 	 */
 	public URL[] urlLocalizeFromPluginDescriptorAndFragments(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-
-		// TODO Need to switch to OSGi API when stable. This will not pick up non-legacy Bundles.
-		try {
-			Bundle[] fragments = Platform.getFragments(pluginDescriptor.getPlugin().getBundle()); // See if there are any fragments
-			if (fragments == null || fragments.length == 0) {
-				URL result = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
-				return result != null ? new URL[] { result } : new URL[0];
-			} else {
-				ArrayList urls = new ArrayList(fragments.length + 1);
-				URL url = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
+		return urlLocalizeFromBundleAndFragments(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
+	}
+	
+	/**
+	 * Like <code>localizeFromBundleAndFragments</code> except it returns URL's instead.
+	 * @param bundle
+	 * @param filenameWithinBundle
+	 * @return
+	 * 
+	 * @see ProxyPlugin#localizeFromBundleAndFragments(Bundle, String)
+	 * @since 1.0.0
+	 */
+	public URL[] urlLocalizeFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
+		Bundle[] fragments = Platform.getFragments(bundle); // See if there are any fragments
+		if (fragments == null || fragments.length == 0) {
+			URL result = urlLocalizeFromBundle(bundle, filenameWithinBundle);
+			return result != null ? new URL[] { result } : new URL[0];
+		} else {
+			ArrayList urls = new ArrayList(fragments.length + 1);
+			URL url = urlLocalizeFromBundle(bundle, filenameWithinBundle);
+			if (url != null)
+				urls.add(url);
+			for (int i = 0; i < fragments.length; i++) {
+				Bundle fragment = fragments[i];
+				url = fragment.getEntry(filenameWithinBundle);
 				if (url != null)
 					urls.add(url);
-				for (int i = 0; i < fragments.length; i++) {
-					Bundle fragment = fragments[i];
-					url = fragment.getEntry(filenameWithinPlugin);
-					if (url != null)
-						urls.add(url);
-					// Also, look through the libraries of the fragment to see if one matches the special path.				
-					// This is where one of the runtime libraries has the fragment id in it. 
-					// TODO This needs to be completely relooked at when we have a stable OSGi API. Not sure how
-					// this will work with that. (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments
-					String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
-					try {
-						ManifestElement[] classpaths = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, classpath);
-						if (classpaths != null && classpaths.length > 0) {
-							int extndx = filenameWithinPlugin.lastIndexOf('.');
-							String libFile = null;
-							if (extndx != -1)
-								libFile =
-									filenameWithinPlugin.substring(0, extndx)
-										+ '.'
-										+ fragment.getBundleId()
-										+ filenameWithinPlugin.substring(extndx);
-							else
-								libFile = filenameWithinPlugin + '.' + fragment.getBundleId();
-							for (int j = 0; j < classpaths.length; j++) {
-								IPath cp = new Path(classpaths[j].getValue());
-								// The last segment should be the file name. That is the name we are looking for.
-								if (libFile.equals(cp.lastSegment())) {
-									url = fragment.getEntry(classpaths[j].getValue());
-									// Though the actual classpath entry is the file we are looking for.
-									if (url != null)
-										urls.add(url);
-									break;
-								}
+				// Also, look through the libraries of the fragment to see if one matches the special path.				
+				// This is where one of the runtime libraries has the fragment id in it. 
+				// TODO This needs to be completely relooked at when we have a stable OSGi API. Not sure how
+				// this will work with that. (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments
+				String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
+				try {
+					ManifestElement[] classpaths = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, classpath);
+					if (classpaths != null && classpaths.length > 0) {
+						int extndx = filenameWithinBundle.lastIndexOf('.');
+						String libFile = null;
+						if (extndx != -1)
+							libFile =
+								filenameWithinBundle.substring(0, extndx)
+									+ '.'
+									+ fragment.getBundleId()
+									+ filenameWithinBundle.substring(extndx);
+						else
+							libFile = filenameWithinBundle + '.' + fragment.getBundleId();
+						for (int j = 0; j < classpaths.length; j++) {
+							IPath cp = new Path(classpaths[j].getValue());
+							// The last segment should be the file name. That is the name we are looking for.
+							if (libFile.equals(cp.lastSegment())) {
+								url = fragment.getEntry(classpaths[j].getValue());
+								// Though the actual classpath entry is the file we are looking for.
+								if (url != null)
+									urls.add(url);
+								break;
 							}
 						}
-					} catch (BundleException e) {
-						ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
 					}
+				} catch (BundleException e) {
+					getLogger().log(e, Level.INFO);
 				}
-				return (URL[]) urls.toArray(new URL[urls.size()]);
 			}
-		} catch (CoreException e) {
-			ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
-			return new URL[0];
+			return (URL[]) urls.toArray(new URL[urls.size()]);
 		}
 	}
 	
@@ -232,11 +281,26 @@ public class ProxyPlugin extends Plugin {
 	 * @param pluginDescriptor
 	 * @param filenameWithinPlugin
 	 * @return
-	 * 
+	 * @deprecated use urlLocalizeFromPluginDescriptor(Bundle, String) instead.
 	 * @since 1.0.0
 	 */
 	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-		return urlLocalizeFromPluginDescriptor(pluginDescriptor, new Path(filenameWithinPlugin));
+		return urlLocalizeFromBundle(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
+	}
+
+	/**
+	 * @see ProxyPlugin#localizeFromBundle(Bundle, String)
+	 * 
+	 * This is just a helper to return a url instead.
+	 * 
+	 * @param bundle
+	 * @param filenameWithinBundle
+	 * @return
+	 * 
+	 * @since 1.0.0
+	 */
+	public URL urlLocalizeFromBundle(Bundle bundle, String filenameWithinBundle) {
+		return urlLocalizeFromBundle(bundle, new Path(filenameWithinBundle));
 	}
 	
 	/**
@@ -247,12 +311,27 @@ public class ProxyPlugin extends Plugin {
 	 * @param pluginDescriptor
 	 * @param filenameWithinPlugin
 	 * @return
+	 * @deprecated use urlLocalizeFromPluginDescriptor(Bundle, IPath) instead.
+	 * @since 1.0.0
+	 */
+	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, IPath filenameWithinPlugin) {
+		return urlLocalizeFromBundle(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
+	}
+
+	/**
+	 * @see ProxyPlugin#localizeFromBundle(bundle, String)
+	 * 
+	 * This is just a helper to return a url instead.
+	 * 
+	 * @param bundle
+	 * @param filenameWithinBundle
+	 * @return
 	 * 
 	 * @since 1.0.0
 	 */
-	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, IPath filenameWithinPlugin) {					
+	public URL urlLocalizeFromBundle(Bundle bundle, IPath filenameWithinBundle) {					
 		try {
-			URL pvm = pluginDescriptor.find(filenameWithinPlugin);
+			URL pvm = Platform.find(bundle, filenameWithinBundle);
 			if (pvm != null)
 				pvm = Platform.asLocalURL(pvm);
 			if (devMode) {
@@ -280,16 +359,16 @@ public class ProxyPlugin extends Plugin {
 			// from Platform.resolve(). We won't be running in dev mode with our entireplugin being in a jar,
 			// or on a separate system.
 			try {
-				URL pvm = pluginDescriptor.find(PROXYJARS_PATH);
+				URL pvm = Platform.find(bundle, PROXYJARS_PATH);
 				if (pvm != null) {
 					InputStream ios = null;
 					try {
 						ios = pvm.openStream();
 						Properties props = new Properties();
 						props.load(ios);
-						String pathString = props.getProperty(filenameWithinPlugin.toString());
+						String pathString = props.getProperty(filenameWithinBundle.toString());
 						if (pathString != null) {
-							IPath path = new Path(Platform.resolve(pluginDescriptor.getInstallURL()).getFile());
+							IPath path = new Path(Platform.resolve(bundle.getEntry("/")).getFile());
 							path = path.removeLastSegments(1); // Move up one level to workspace root of development workspace.
 							path = path.append(pathString);
 							return new URL("file", null, path.toString()); //$NON-NLS-1$
@@ -307,41 +386,39 @@ public class ProxyPlugin extends Plugin {
 	}
 
 	/**
-	 * A helper to order the plugin descriptors into pre-req order. 
+	 * A helper to order the plugins into pre-req order. 
 	 * If A eventually depends on B, then B will be ahead of A in the
 	 * list of plugins. (I.e. B is a pre-req somewhere of A).
 	 *  
-	 * @param pluginDescriptorsToOrder - IPluginDescriptors of interest. The results will have these in thiee correct order.
-	 * @return An array of the IPluginDescriptors in there order from no prereqs in set to the leaves.
+	 * @param bundlesToOrder - Bundles of interest. The results will have these in thiee correct order.
+	 * @return An array of the Bundlers in there order from no prereqs in set to the leaves.
 	 * 
 	 * @since 1.0.0
 	 */
-	public static IPluginDescriptor[] orderPlugins(final Set pluginDescriptorsToOrder) {	
-		PluginRegistry registry = (PluginRegistry) Platform.getPluginRegistry();
-		int ndx = pluginDescriptorsToOrder.size();
-		IPluginDescriptor[] result = new IPluginDescriptor[ndx];
-		Map dependents = getDependentCounts(false, pluginDescriptorsToOrder);	// We want the inactive ones too. That way have complete order. They can be ignored later if necessary.
+	public static Bundle[] orderPlugins(final Set bundlesToOrder) {
+		Map prereqsMap = new HashMap(bundlesToOrder.size()*3);
+		int ndx = bundlesToOrder.size();
+		Bundle[] result = new Bundle[ndx];
+		Map dependents = getDependentCounts(false, bundlesToOrder, prereqsMap);	// We want the inactive ones too. That way have complete order. They can be ignored later if necessary.
 		// keep iterating until all have been visited. This will actually find them in reverse order from what we
 		// want, i.e. it will find the leaves first. So we will build result array in reverse order.
 		while (!dependents.isEmpty()) {
 			// loop over the dependents list.  For each entry, if there are no dependents, visit
-			// the plugin and remove it from the list.  Make a copy of the keys so we don't end up
+			// the bundle and remove it from the list.  Make a copy of the keys so we don't end up
 			// with concurrent accesses (since we are deleting the values as we go)
-			Iterator pds = dependents.entrySet().iterator();
-			while (pds.hasNext()) {
-				Map.Entry entry = (Map.Entry) pds.next();
-				IPluginDescriptor descriptor = (IPluginDescriptor) entry.getKey() ;
+			Iterator ib = dependents.entrySet().iterator();
+			while (ib.hasNext()) {
+				Map.Entry entry = (Map.Entry) ib.next();
+				Bundle bundle = (Bundle) entry.getKey() ;
 				int[] count = (int[]) entry.getValue();
 				if (count != null && count[0] <= 0) {
-					if (pluginDescriptorsToOrder.contains(descriptor))
-						result[--ndx] = descriptor;
-					pds.remove();
+					if (bundlesToOrder.contains(bundle))
+						result[--ndx] = bundle;
+					ib.remove();
 					// decrement the dependent count for all of the prerequisites.
-					IPluginPrerequisite[] requires = descriptor.getPluginPrerequisites();
-					int reqSize = (requires == null) ? 0 : requires.length;
-					for (int j = 0; j < reqSize; j++) {
-						String id = requires[j].getUniqueIdentifier();
-						IPluginDescriptor prereq = registry.getPluginDescriptor(id);
+					List requires = getPrereqs(bundle, prereqsMap);
+					for (int j = 0; j < requires.size(); j++) {
+						Bundle prereq = (Bundle) requires.get(j);
 						int[] countPrereq = (int[]) dependents.get(prereq);
 						if (countPrereq != null)
 							--countPrereq[0];
@@ -352,11 +429,46 @@ public class ProxyPlugin extends Plugin {
 		return result;
 	}
 	
+	private static List getPrereqs(Bundle bundle, Map prereqsMap) {
+		List dependents = (List) prereqsMap.get(bundle);
+		if (dependents == null) {
+			dependents = getPrereqs(bundle);
+			prereqsMap.put(bundle, dependents);
+		}
+		return dependents;
+	}
 	
-	private static Map getDependentCounts(boolean activeOnly, Set startingSet) {
-		// TODO This needs to move to OSGi format when that API becomes stable. Currently this cannot handle
-		// plugins that are totally OSGi and not legacy.
-		IPluginRegistry registry = Platform.getPluginRegistry();
+	private static List getPrereqs(Bundle bundle) {
+		List requires = null; 
+		try {
+			String requiresList = (String) bundle.getHeaders().get(Constants.REQUIRE_BUNDLE);
+			ManifestElement[] requiresElements = ManifestElement.parseHeader(Constants.REQUIRE_BUNDLE, requiresList);
+			if (requiresElements != null) {
+				for (int i = 0; i < requiresElements.length; i++) {
+					Bundle b = Platform.getBundle(requiresElements[i].getValue());
+					if (b != null) {
+						if (requires == null)
+							requires = new ArrayList(2);
+						requires.add(b);
+					}
+				}
+			}
+			// Now for each fragment, get the dependents of the fragment.
+			Bundle[] fragments = Platform.getFragments(bundle);
+			if (fragments != null) {
+				if (requires == null)
+					requires = new ArrayList(fragments.length);				
+				for (int i = 0; i < fragments.length; i++) {
+					requires.addAll(getPrereqs(fragments[i]));
+				}
+			}
+		} catch (BundleException e) {
+			ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
+		}
+		return requires == null ? Collections.EMPTY_LIST : requires;
+	}
+	
+	private static Map getDependentCounts(boolean activeOnly, Set startingSet, Map prereqsMap) {
 		Map dependents = new HashMap(startingSet.size());
 		// build a table of all dependent counts.  The table is keyed by descriptor and
 		// the value the integer number of dependent plugins.
@@ -368,13 +480,13 @@ public class ProxyPlugin extends Plugin {
 			// are added to processNext in the following loop.
 			int pnSize = processNow.size();
 			for (int i = 0; i < pnSize; i++) {
-				IPluginDescriptor pd = (IPluginDescriptor) processNow.get(i);
-				if (activeOnly && !pd.isPluginActivated())
+				Bundle bundle = (Bundle) processNow.get(i);
+				if (activeOnly && bundle.getState() != Bundle.ACTIVE)
 					continue;
 				// ensure there is an entry for this descriptor (otherwise it will not be visited)
-				int[] entry = (int[]) dependents.get(pd);
+				int[] entry = (int[]) dependents.get(bundle);
 				if (entry == null)
-					dependents.put(pd, new int[1]);
+					dependents.put(bundle, new int[1]);
 			}
 		}
 		
@@ -383,20 +495,19 @@ public class ProxyPlugin extends Plugin {
 			processNext.clear();
 			int pnSize = processNow.size();
 			for (int i = 0; i < pnSize; i++) {
-				IPluginDescriptor pd = (IPluginDescriptor) processNow.get(i);
-				if (activeOnly && !pd.isPluginActivated())
+				Bundle bundle = (Bundle) processNow.get(i);
+				if (activeOnly && bundle.getState() != Bundle.ACTIVE)
 					continue;			
-				IPluginPrerequisite[] requires = pd.getPluginPrerequisites();
-				int reqSize = (requires == null ? 0 : requires.length);
-				for (int j = 0; j < reqSize; j++) {
-					String id = requires[j].getUniqueIdentifier();
-					IPluginDescriptor prereq = registry.getPluginDescriptor(id);
-					if (prereq == null || activeOnly && !prereq.isPluginActivated())
+				List requires = getPrereqs(bundle, prereqsMap);
+				for (int j = 0; j < requires.size(); j++) {
+					Bundle prereq = (Bundle) requires.get(j);
+					if (prereq == null || activeOnly
+							&& bundle.getState() != Bundle.ACTIVE)
 						continue;
 					int[] entry = (int[]) dependents.get(prereq);
 					if (entry == null) {
-						dependents.put(prereq, new int[] {1});
-						processNext.add(prereq);	// Never processed before, so we add it to the next process loop.
+						dependents.put(prereq, new int[]{1});
+						processNext.add(prereq); // Never processed before, so we add it to the next process loop.
 					} else
 						++entry[0];
 				}
@@ -520,20 +631,36 @@ public class ProxyPlugin extends Plugin {
 		cleanupJob.cancel();	// Stop what we are doing.
 		cleanupJob.schedule(1000l);	// Schedule to start in one second.
 	}
+
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.Plugin#startup()
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
-	public void startup() throws CoreException {
-		super.startup();
+	public void start(final BundleContext context) throws Exception {
+		super.start(context);
 		DebugPlugin.getDefault().getLaunchManager().addLaunchConfigurationListener(launchListener);
-		startCleanupJob();
+		context.addBundleListener(new BundleListener() {
+			public void bundleChanged(BundleEvent event) {
+				switch (event.getType()) {
+					case BundleEvent.STARTED:
+						context.removeBundleListener(this);	// Since we don't care anymore
+						startCleanupJob();
+						break;
+					case BundleEvent.STOPPED:
+					case BundleEvent.UNINSTALLED:
+					case BundleEvent.UNRESOLVED:
+						context.removeBundleListener(this);	// We stopped before we started, so remove ourselves.
+						break;
+				}
+			}
+		});
 	}
+	
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.Plugin#shutdown()
+	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 */
-	public void shutdown() throws CoreException {
+	public void stop(BundleContext context) throws Exception {
 		// Handle case where debug plugin shuts down before we do since order not guarenteed.
 		if (DebugPlugin.getDefault() != null)
 			DebugPlugin.getDefault().getLaunchManager().removeLaunchConfigurationListener(launchListener);
@@ -543,8 +670,8 @@ public class ProxyPlugin extends Plugin {
 			for (int i = 0; i < listeners.length; i++) {
 				((IProxyPluginShutdownListener) listeners[i]).shutdown();
 			}
-		}
-		super.shutdown();
+		}		
+		super.stop(context);
 	}
 	
 	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributors";
@@ -637,27 +764,27 @@ public class ProxyPlugin extends Plugin {
 		
 		IExtension[] extensions = extp.getExtensions();
 		// Need to be in plugin order so that first ones processed have no dependencies on others.
-		HashMap pluginDescriptorsToExtensions = new HashMap(extensions.length);
+		HashMap bundlesToExtensions = new HashMap(extensions.length);
 		for (int i = 0; i < extensions.length; i++) {
-			IPluginDescriptor desc = extensions[i].getDeclaringPluginDescriptor();
-			IExtension[] ext = (IExtension[]) pluginDescriptorsToExtensions.get(desc);
+			Bundle bundle = Platform.getBundle(extensions[i].getNamespace());
+			IExtension[] ext = (IExtension[]) bundlesToExtensions.get(bundle);
 			if (ext == null)
-				pluginDescriptorsToExtensions.put(desc, new IExtension[] {extensions[i]});
+				bundlesToExtensions.put(bundle, new IExtension[] {extensions[i]});
 			else {
 				// More than one extension defined in this plugin.
 				IExtension[] newExt = new IExtension[ext.length + 1];
 				System.arraycopy(ext, 0, newExt, 0, ext.length);
 				newExt[newExt.length-1] = extensions[i];
-				pluginDescriptorsToExtensions.put(desc, newExt);
+				bundlesToExtensions.put(bundle, newExt);
 			}
 		}
 		
 		// Now order them so we process in required order.
-		IPluginDescriptor[] ordered = ProxyPlugin.orderPlugins(pluginDescriptorsToExtensions.keySet());
+		Bundle[] ordered = ProxyPlugin.orderPlugins(bundlesToExtensions.keySet());
 		result.containerToContributions = new HashMap(ordered.length);
 		result.pluginToContributions = new HashMap(ordered.length);
 		for (int i = 0; i < ordered.length; i++) {
-			IExtension[] exts = (IExtension[]) pluginDescriptorsToExtensions.get(ordered[i]);
+			IExtension[] exts = (IExtension[]) bundlesToExtensions.get(ordered[i]);
 			for (int j = 0; j < exts.length; j++) {
 				IConfigurationElement[] configs = exts[j].getConfigurationElements();
 				// Technically we expect the config elements to have a name of "contributor", but since that

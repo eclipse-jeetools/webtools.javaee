@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
 <plugin
    id="org.eclipse.jem"
    name="%pluginName"
@@ -18,9 +19,9 @@
    </runtime>
    <requires>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.osgi"/>
       <import plugin="com.ibm.wtp.common.util"/>
       <import plugin="org.eclipse.jem.proxy" optional="true"/>
+      <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
 

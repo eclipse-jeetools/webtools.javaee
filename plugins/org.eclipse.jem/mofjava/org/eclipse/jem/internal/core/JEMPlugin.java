@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.core;
 /*******************************************************************************
  * Copyright (c) 2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,11 +10,12 @@ package org.eclipse.jem.internal.core;
  *******************************************************************************/
 /*
  *  $RCSfile: JEMPlugin.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/24 19:33:42 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/24 15:57:23 $ 
  */
-import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.IPluginDescriptor;
+package org.eclipse.jem.internal.core;
+
 import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.BundleContext;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.logger.proxyrender.EclipseLogger;
@@ -28,8 +28,7 @@ public class JEMPlugin extends Plugin {
 	private static JEMPlugin PLUGIN;
 	private Logger logger;
 	
-	public JEMPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public JEMPlugin() {
 		PLUGIN = this;
 	}
 	
@@ -37,12 +36,13 @@ public class JEMPlugin extends Plugin {
 		return PLUGIN;
 	}
 
+	
 	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.Plugin#startup()
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
-	public void startup() throws CoreException {
-		super.startup();
-		logger = EclipseLogger.getEclipseLogger(this);
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		logger = EclipseLogger.getEclipseLogger(this);		
 	}
 	
 	public Logger getLogger() {

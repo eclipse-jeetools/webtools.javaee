@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:02 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/24 15:57:24 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -18,10 +18,11 @@ import java.util.*;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.proxy.core.*;
  
@@ -196,14 +197,22 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(org.eclipse.core.runtime.Plugin, java.lang.String, int, boolean)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(org.osgi.framework.Bundle, java.lang.String, int, boolean)
 	 */
-	public void contributeClasspath(IPluginDescriptor pluginDescriptor, String relativePath, int typeFlag, boolean nlsLocalize) {
+	public void contributeClasspath(Bundle bundle, String relativePath, int typeFlag, boolean nlsLocalize) {
 		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
 		if (!nlsLocalize || typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
-			contributeClasspath(ProxyPlugin.getPlugin().localizeFromPluginDescriptor(pluginDescriptor, relativePath), typeFlag);
+			contributeClasspath(ProxyPlugin.getPlugin().localizeFromBundle(bundle, relativePath), typeFlag);
 		else
-			contributeClasspath(ProxyPlugin.getPlugin().localizeFromPluginDescriptorAndFragments(pluginDescriptor, relativePath), typeFlag);
+			contributeClasspath(ProxyPlugin.getPlugin().localizeFromBundleAndFragments(bundle, relativePath), typeFlag);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(org.eclipse.core.runtime.Plugin, java.lang.String, int, boolean)
+	 * 
+	 */
+	public void contributeClasspath(org.eclipse.core.runtime.IPluginDescriptor pluginDescriptor, String relativePath, int typeFlag, boolean nlsLocalize) {
+		contributeClasspath(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), relativePath, typeFlag, nlsLocalize);
 	}
 
 	/* (non-Javadoc)
