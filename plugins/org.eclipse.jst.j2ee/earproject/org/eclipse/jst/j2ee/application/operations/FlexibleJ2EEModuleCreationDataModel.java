@@ -66,6 +66,10 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 	 */		
 	private static final String NESTED_MODEL_JAR_DEPENDENCY = "FlexibleJ2EEModuleCreationDataModel.NESTED_MODEL_JAR_DEPENDENCY"; //$NON-NLS-1$
 	
+	/**
+	 * type Boolean; default true, UI only
+	 */
+	public static final String UI_SHOW_EAR_SECTION = "J2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION"; //$NON-NLS-1$
 
 	private AddModuleToEARDataModel addModuleToEARDataModel;
 
@@ -87,6 +91,7 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 		addValidBaseProperty(EAR_MODULE_NAME);
 		addValidBaseProperty(ADD_TO_EAR);
 		addValidBaseProperty(USE_ANNOTATIONS);
+		addValidBaseProperty(UI_SHOW_EAR_SECTION);
 
 	}
 
@@ -111,6 +116,8 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 			return Boolean.FALSE;
 		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
 			return getDefaultJ2EEModuleVersion();
+		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
+			return Boolean.TRUE;
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}
