@@ -49,7 +49,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		try {
 			moduleCore = ModuleCore.getModuleCoreForRead(javaProject.getProject());
 			WorkbenchComponent wbModule = null;
-			URI sourcePath = URI.createURI(resource.getFullPath().toString());
+			URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
 			ComponentResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
@@ -63,7 +63,9 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			String contextRoot = ""; //$NON-NLS-1$
 			if (webEdit != null) {
 				j2eeVersion = webEdit.getJ2EEVersion();
-				contextRoot = webEdit.getServerContextRoot();
+				//TODO
+				//contextRoot = webEdit.getServerContextRoot();
+				contextRoot = wbModule.getName();
 			}
 
 			properties.put("web.module.webinf", getWebInfFolder(javaProject).getProjectRelativePath().toString()); //$NON-NLS-1$
