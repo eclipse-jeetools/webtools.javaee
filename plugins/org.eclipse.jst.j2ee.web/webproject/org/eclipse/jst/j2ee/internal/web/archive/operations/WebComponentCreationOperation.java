@@ -20,7 +20,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -29,7 +28,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
@@ -167,7 +165,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	private void addSrcFolderToProject() {
 		IJavaProject javaProject = JavaCore.create( this.getProject());
 		try {
-			//javaProject.setOutputLocation(model.getOutputPath(), monitor);
+
 			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
 			
 			IClasspathEntry[] newEntries = getClasspathEntries();
