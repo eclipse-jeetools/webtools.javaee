@@ -10,7 +10,7 @@
    <runtime>
       <library name="proxy.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.proxy.core,org.eclipse.jem.internal.proxy.awt"/>
+         <packages prefixes="org.eclipse.jem.internal.proxy.core,org.eclipse.jem.internal.proxy.awt,org.eclipse.jem.internal.temp"/>
       </library>
       <library name="proxycommon.jar">
          <export name="*"/>
