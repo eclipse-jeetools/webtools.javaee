@@ -2,6 +2,8 @@ package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
 import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
@@ -53,6 +55,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		try {
 			createSimpleProject(DEFAULT_PROJECT_NAME);
 			setupWebModule();
+			setupEJBModule();
 		}
 		catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -61,13 +64,39 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 
 	}
 	
+	public void setupEJBModule() throws Exception {
+		createEJBModule(11, "FirstEJBModule", "FirstEJBModule.war", DEFAULT_PROJECT_NAME);
+		createEJBModule(20, "SecondEJBModule", "SecondEJBModule.jar", DEFAULT_PROJECT_NAME);
+		createEJBModule(21, "ThirdEJBModule", "ThirdEJBModule.jar", DEFAULT_PROJECT_NAME);
+	}
+	
+	private void createEJBModule(int j2eeVersion, String aModuleName, String aModuleDeployName,String projectName){
+		
+		EjbComponentCreationDataModel model = new EjbComponentCreationDataModel();
+		model.setProperty( EjbComponentCreationDataModel.PROJECT_NAME, projectName);
+		model.setIntProperty(EjbComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model.setProperty(EjbComponentCreationDataModel.MODULE_NAME, aModuleName);		
+		model.setProperty(EjbComponentCreationDataModel.MODULE_DEPLOY_NAME, aModuleDeployName);
+		try {
+			runEJBComponenteCreationOperation(model);
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
+	private  void runEJBComponenteCreationOperation(EjbComponentCreationDataModel model) throws Exception {
+		
+		EjbComponentCreationOperation webOp = new EjbComponentCreationOperation(model);
+		webOp.run(null);
+	}
+	
+	
 	public void setupWebModule() throws Exception {
-
-
 		createWebModule(22, "FirstWebModule", "FirstWebModule.war", DEFAULT_PROJECT_NAME);
 		createWebModule(23, "SecondWebModule", "SecondWebModule.war", DEFAULT_PROJECT_NAME);
 		createWebModule(24, "ThirdWebModule", "ThirdWebModule.war", DEFAULT_PROJECT_NAME);
-	
 	}
 
 	private void createWebModule(int j2eeVersion, String aModuleName, String aModuleDeployName,String projectName){
