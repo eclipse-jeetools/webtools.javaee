@@ -16,7 +16,6 @@ import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataMode
 import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.ui.EARComponentCreationWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
