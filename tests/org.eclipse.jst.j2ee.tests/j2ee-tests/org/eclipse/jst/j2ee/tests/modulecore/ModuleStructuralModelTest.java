@@ -47,8 +47,9 @@ import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 import org.eclipse.wst.common.modulecore.impl.PlatformURLModuleConnection;
+import org.eclipse.wst.common.modulecore.impl.ResourceTreeRoot;
 import org.eclipse.wst.common.modulecore.util.ModuleCore;
-import org.eclipse.wst.common.modulecore.util.ResourceTreeRoot;
+import org.eclipse.wst.common.modulecore.util.SourcePathProvider;
 
 /**
  * <p>
@@ -99,8 +100,8 @@ public class ModuleStructuralModelTest extends TestCase {
 			moduleCore = ModuleCore.getModuleCoreForRead(ModuleCore.getContainingProject(getWebModuleURI()));
 			
 			WorkbenchModule module = moduleCore.getWorkbenchModules()[0];
-			ResourceTreeRoot root = ModuleCore.getSourceResourceTreeRoot(module);
-			WorkbenchModuleResource[] resources = root.findModuleResources(URI.createURI("/"+getWebModuleAndLocalWebLibModuleProjectName()+"/WebContent/WEB-INF/web.xml"));
+			ResourceTreeRoot sourceRoot = new ResourceTreeRoot(module, SourcePathProvider.INSTANCE); 
+			WorkbenchModuleResource[] resources = sourceRoot.findModuleResources(URI.createURI("/"+getWebModuleAndLocalWebLibModuleProjectName()+"/WebContent/WEB-INF/web.xml"));
 			System.out.println(resources[0] != null ? resources[0].getSourcePath().toString() : "NOT FOUND");
 
 		} finally {
