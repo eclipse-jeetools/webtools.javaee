@@ -360,6 +360,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			
 			
 			p.println( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
+			if( moduleVersion == 22 ){
+				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN\" \"http://java.sun.com/dtd/web-app_2_2.dtd\">");				
+			}			
 			if( moduleVersion == 23 ){
 				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN\" \"http://java.sun.com/dtd/web-app_2_3.dtd\">");				
 			}
