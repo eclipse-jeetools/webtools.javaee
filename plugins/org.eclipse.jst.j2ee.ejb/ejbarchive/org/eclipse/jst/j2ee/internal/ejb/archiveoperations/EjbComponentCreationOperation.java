@@ -54,23 +54,19 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
             }
         }		
 
-
         EJBArtifactEdit ejbEdit = null;
        	try{
 
        		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite( wbmodule );
-
        		String projPath = getProject().getLocation().toOSString();
-       		
+   		
        		projPath += operationDataModel.getProperty( EjbComponentCreationDataModel.DD_FOLDER );
        		projPath +=IPath.SEPARATOR + J2EEConstants.EJBJAR_DD_SHORT_NAME;
-
        		
        		IPath ejbxmlPath = new Path(projPath);
        		boolean b = ejbxmlPath.isValidPath(ejbxmlPath.toString());
        		if(ejbEdit != null) {
        			int moduleVersion = operationDataModel.getIntProperty(EjbComponentCreationDataModel.J2EE_MODULE_VERSION);
-  			
        			ejbEdit.createModelRoot( getProject(), ejbxmlPath, moduleVersion );
        		}
        	}
@@ -90,15 +86,14 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected  void addResources( WorkbenchComponent component ){
-		//addResource(component, getModuleRelativeFile(getMetaInfPath( getModuleName() ), getProject()), getMetaInfPathDeployPath());
-		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());		
+		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());		
 	}
 	
 	/**
 	 * @return
 	 */
-	public String getJavaSourceSourcePath(String moduleName) {
-		return "/" + moduleName +"/ejbModule"; //$NON-NLS-1$
+	public String getJavaSourceSourcePath() {
+		return "/" + getModuleName() +"/ejbModule"; //$NON-NLS-1$
 	}
 	
 	/**
@@ -107,20 +102,8 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	public String getJavaSourceDeployPath() {
 		return "/"; //$NON-NLS-1$
 	}
-	
-	/**
-	 * @return
-	 */
-	public String getMetaInfPath(String moduleName) {
-		return "/" + moduleName; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getMetaInfPathDeployPath() {
-		return "/"; //$NON-NLS-1$
-	}
+
+
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
