@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationPackage.java,v $
- *  $Revision: 1.5 $  $Date: 2004/01/23 22:53:21 $ 
+ *  $Revision: 1.6 $  $Date: 2004/01/28 17:37:58 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -985,6 +985,34 @@ public interface InstantiationPackage extends EPackage{
 	int PT_INVALID_EXPRESSION_FEATURE_COUNT = PT_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jem.internal.instantiation.impl.PTInstanceReferenceImpl <em>PT Instance Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jem.internal.instantiation.impl.PTInstanceReferenceImpl
+	 * @see org.eclipse.jem.internal.instantiation.impl.InstantiationPackageImpl#getPTInstanceReference()
+	 * @generated
+	 */
+	int PT_INSTANCE_REFERENCE = 29;
+
+	/**
+	 * The feature id for the '<em><b>Object</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PT_INSTANCE_REFERENCE__OBJECT = PT_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the the '<em>PT Instance Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PT_INSTANCE_REFERENCE_FEATURE_COUNT = PT_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.instantiation.PTInfixOperator <em>PT Infix Operator</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -992,7 +1020,7 @@ public interface InstantiationPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.instantiation.impl.InstantiationPackageImpl#getPTInfixOperator()
 	 * @generated
 	 */
-	int PT_INFIX_OPERATOR = 29;
+	int PT_INFIX_OPERATOR = 30;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.instantiation.PTPrefixOperator <em>PT Prefix Operator</em>}' enum.
@@ -1002,7 +1030,7 @@ public interface InstantiationPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.instantiation.impl.InstantiationPackageImpl#getPTPrefixOperator()
 	 * @generated
 	 */
-	int PT_PREFIX_OPERATOR = 30;
+	int PT_PREFIX_OPERATOR = 31;
 
 
 	/**
@@ -1715,6 +1743,27 @@ public interface InstantiationPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getPTInvalidExpression_Message();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jem.internal.instantiation.PTInstanceReference <em>PT Instance Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>PT Instance Reference</em>'.
+	 * @see org.eclipse.jem.internal.instantiation.PTInstanceReference
+	 * @generated
+	 */
+	EClass getPTInstanceReference();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.instantiation.PTInstanceReference#getObject <em>Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Object</em>'.
+	 * @see org.eclipse.jem.internal.instantiation.PTInstanceReference#getObject()
+	 * @see #getPTInstanceReference()
+	 * @generated
+	 */
+	EReference getPTInstanceReference_Object();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jem.internal.instantiation.PTInfixOperator <em>PT Infix Operator</em>}'.

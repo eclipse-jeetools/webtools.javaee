@@ -129,5 +129,8 @@
     <genClasses ecoreClass="instance.ecore#//PTInvalidExpression">
       <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTInvalidExpression/message"/>
     </genClasses>
+    <genClasses ecoreClass="instance.ecore#//PTInstanceReference">
+      <genFeatures notify="false" ecoreFeature="ecore:EReference instance.ecore#//PTInstanceReference/object"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

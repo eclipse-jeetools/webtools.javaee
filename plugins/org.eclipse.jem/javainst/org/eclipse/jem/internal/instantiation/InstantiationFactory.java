@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationFactory.java,v $
- *  $Revision: 1.4 $  $Date: 2004/01/23 22:53:21 $ 
+ *  $Revision: 1.5 $  $Date: 2004/01/28 17:37:58 $ 
  */
 
 import java.util.List;
@@ -447,6 +447,15 @@ public interface InstantiationFactory extends EFactory{
 	 * @generated
 	 */
 	PTInvalidExpression createPTInvalidExpression();
+
+	/**
+	 * Returns a new object of class '<em>PT Instance Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Instance Reference</em>'.
+	 * @generated
+	 */
+	PTInstanceReference createPTInstanceReference();
 
 	/**
 	 * Utility to create a new invalid expression with a message.

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2004/01/23 22:53:22 $ 
+ *  $Revision: 1.6 $  $Date: 2004/01/28 17:37:58 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -38,6 +38,7 @@ import org.eclipse.jem.internal.instantiation.PTFieldAccess;
 import org.eclipse.jem.internal.instantiation.ImplicitAllocation;
 import org.eclipse.jem.internal.instantiation.PTInfixExpression;
 import org.eclipse.jem.internal.instantiation.PTInfixOperator;
+import org.eclipse.jem.internal.instantiation.PTInstanceReference;
 import org.eclipse.jem.internal.instantiation.InitStringAllocation;
 import org.eclipse.jem.internal.instantiation.PTInstanceof;
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
@@ -264,6 +265,13 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * @generated
 	 */
 	private EClass ptInvalidExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass ptInstanceReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -964,6 +972,24 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPTInstanceReference() {
+		return ptInstanceReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPTInstanceReference_Object() {
+		return (EReference)ptInstanceReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getPTInfixOperator() {
 		return ptInfixOperatorEEnum;
 	}
@@ -1121,6 +1147,9 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		ptInvalidExpressionEClass = createEClass(PT_INVALID_EXPRESSION);
 		createEAttribute(ptInvalidExpressionEClass, PT_INVALID_EXPRESSION__MESSAGE);
 
+		ptInstanceReferenceEClass = createEClass(PT_INSTANCE_REFERENCE);
+		createEReference(ptInstanceReferenceEClass, PT_INSTANCE_REFERENCE__OBJECT);
+
 		// Create enums
 		ptInfixOperatorEEnum = createEEnum(PT_INFIX_OPERATOR);
 		ptPrefixOperatorEEnum = createEEnum(PT_PREFIX_OPERATOR);
@@ -1179,6 +1208,7 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		ptThisLiteralEClass.getESuperTypes().add(this.getPTExpression());
 		ptTypeLiteralEClass.getESuperTypes().add(this.getPTExpression());
 		ptInvalidExpressionEClass.getESuperTypes().add(this.getPTExpression());
+		ptInstanceReferenceEClass.getESuperTypes().add(this.getPTExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(iJavaDataTypeInstanceEClass, IJavaDataTypeInstance.class, "IJavaDataTypeInstance", IS_ABSTRACT, IS_INTERFACE);
@@ -1278,6 +1308,9 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 
 		initEClass(ptInvalidExpressionEClass, PTInvalidExpression.class, "PTInvalidExpression", !IS_ABSTRACT, !IS_INTERFACE);
 		initEAttribute(getPTInvalidExpression_Message(), ecorePackage.getEString(), "message", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+
+		initEClass(ptInstanceReferenceEClass, PTInstanceReference.class, "PTInstanceReference", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTInstanceReference_Object(), this.getIJavaObjectInstance(), null, "object", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		// Initialize enums and add enum literals
 		initEEnum(ptInfixOperatorEEnum, PTInfixOperator.class, "PTInfixOperator");

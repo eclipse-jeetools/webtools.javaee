@@ -475,4 +475,8 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PTInstanceReference" eSuperTypes="#//PTExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="object" lowerBound="1"
+        eType="#//IJavaObjectInstance"/>
+  </eClassifiers>
 </ecore:EPackage>
