@@ -5,7 +5,7 @@
     editDirectory="/org.eclipse.jem.beaninfo.edit/src" editorDirectory="/org.eclipse.jem.beaninfo.editor/src"
     modelPluginID="" modelName="Beaninfo" editPluginClass="org.eclipse.jem.internal.beaninfo.provider.BeaninfoEditPlugin"
     editorPluginClass="org.eclipse.jem.internal.beaninfo.presentation.BeaninfoEditorPlugin"
-    updateClasspath="false" usedGenPackages="../../org.eclipse.jem/model/javaModel.genmodel#//java ../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore">
+    updateClasspath="false" usedGenPackages="../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore ../../org.eclipse.jem/model/javaModel.genmodel#//java">
   <foreignModel>..\rose\introspect.mdl</foreignModel>
   <foreignModel>WorkspaceRoot</foreignModel>
   <foreignModel>../..</foreignModel>
@@ -70,9 +70,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/designTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/alwaysIncompatible"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/filterFlags"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/fieldReadOnly"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/propertyEditorClass"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/readMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/writeMethod"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/field"/>
       <genOperations ecoreOperation="beaninfo.ecore#//PropertyDecorator/getPropertyType"/>
     </genClasses>
     <genClasses ecoreClass="beaninfo.ecore#//IndexedPropertyDecorator">

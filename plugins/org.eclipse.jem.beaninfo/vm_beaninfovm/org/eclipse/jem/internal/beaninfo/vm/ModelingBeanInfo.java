@@ -12,12 +12,14 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.3 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 import java.beans.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.*;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -128,14 +130,16 @@ public abstract class ModelingBeanInfo implements ICallback {
 	protected String[] fNotInheritedMethods;
 
 	protected String[] fNotInheritedProperties;
+	
+	protected int doFlags;
 
 	/**
 	 * Method used to do introspection and create the appropriate ModelingBeanInfo
 	 * 
 	 * This will always introspect.
 	 */
-	public static ModelingBeanInfo introspect(Class introspectClass) throws IntrospectionException {
-		return introspect(introspectClass, true);
+	public static ModelingBeanInfo introspect(Class introspectClass, int doFlags) throws IntrospectionException {
+		return introspect(introspectClass, true, doFlags);
 	}
 
 	/**
@@ -145,7 +149,7 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * Introspector will use reflection for local methods/events/properties of this class and then add in the results of the superclass introspection.
 	 * If this parameter is false, then if the explicit beaninfo is not found, then no introspection will be done and null will be returned.
 	 */
-	public static ModelingBeanInfo introspect(Class introspectClass, boolean introspectIfNoBeanInfo) throws IntrospectionException {
+	public static ModelingBeanInfo introspect(Class introspectClass, boolean introspectIfNoBeanInfo, int doFlags) throws IntrospectionException {
 		if (!introspectIfNoBeanInfo) {
 			// Need to check if the beaninfo is explicitly supplied.
 			// If not, then we return null.
@@ -179,10 +183,10 @@ public abstract class ModelingBeanInfo implements ICallback {
 		Class superClass = introspectClass.getSuperclass();
 
 		if (superClass == null)
-			return PRE15 ? (ModelingBeanInfo) new ModelingBeanInfoPre15(bInfo) : new ModelingBeanInfo15(bInfo);
+			return PRE15 ? (ModelingBeanInfo) new ModelingBeanInfoPre15(bInfo, doFlags) : new ModelingBeanInfo15(bInfo, doFlags);
 		else
-			return PRE15 ? (ModelingBeanInfo) new ModelingBeanInfoPre15(bInfo, Introspector.getBeanInfo(superClass)) : new ModelingBeanInfo15(bInfo,
-					Introspector.getBeanInfo(superClass));
+			return PRE15 ? (ModelingBeanInfo) new ModelingBeanInfoPre15(bInfo, Introspector.getBeanInfo(superClass), doFlags) : new ModelingBeanInfo15(bInfo,
+					Introspector.getBeanInfo(superClass), doFlags);
 	}
 
 	/**
@@ -224,49 +228,55 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * Used only for Object since that is the only bean that doesn't have a superclass. Superclass beaninfo required for all other classes. If this is
 	 * constructed then this means no merge and the list is definitive.
 	 */
-	protected ModelingBeanInfo(BeanInfo beanInfo) {
+	protected ModelingBeanInfo(BeanInfo beanInfo, int doFlags) {
 		fTargetBeanInfo = beanInfo;
+		this.doFlags = doFlags;
 	}
 
-	protected ModelingBeanInfo(BeanInfo beanInfo, BeanInfo superBeanInfo) {
-		this(beanInfo);
+	protected ModelingBeanInfo(BeanInfo beanInfo, BeanInfo superBeanInfo, int doFlags) {
+		this(beanInfo, doFlags);
 
 		// Now go through the beaninfo to determine the merge state.
 		// The default is no merge.
 
-		List full = addAll(beanInfo.getEventSetDescriptors());
-		List inherited = addAll(superBeanInfo.getEventSetDescriptors());
+		if ((doFlags & IBeanInfoIntrospectionConstants.DO_EVENTS) != 0) {
+			List full = addAll(beanInfo.getEventSetDescriptors());
+			List inherited = addAll(superBeanInfo.getEventSetDescriptors());
 
-		fMergeInheritedEvents = stripList(full, inherited);
-		if (fMergeInheritedEvents) {
-			if (!full.isEmpty())
-				fEventSets = (EventSetDescriptor[]) full.toArray(new EventSetDescriptor[full.size()]);
-			if (!inherited.isEmpty())
-				createEventArray(inherited);	// This is actually a list of those NOT inherited.
+			fMergeInheritedEvents = stripList(full, inherited);
+			if (fMergeInheritedEvents) {
+				if (!full.isEmpty())
+					fEventSets = (EventSetDescriptor[]) full.toArray(new EventSetDescriptor[full.size()]);
+				if (!inherited.isEmpty())
+					createEventArray(inherited); // This is actually a list of those NOT inherited.
+			}
 		}
 
-		full = addAll(beanInfo.getMethodDescriptors());
-		inherited = addAll(superBeanInfo.getMethodDescriptors());
+		if ((doFlags & IBeanInfoIntrospectionConstants.DO_METHODS) != 0) {
+			List full = addAll(beanInfo.getMethodDescriptors());
+			List inherited = addAll(superBeanInfo.getMethodDescriptors());
 
-		fMergeInheritedMethods = stripList(full, inherited);
-		if (fMergeInheritedMethods) {
-			if (!full.isEmpty())
-				fMethods = (MethodDescriptor[]) full.toArray(new MethodDescriptor[full.size()]);
-			if (!inherited.isEmpty())
-				createMethodEntries(inherited);	// This is actually a list of those NOT inherited.
+			fMergeInheritedMethods = stripList(full, inherited);
+			if (fMergeInheritedMethods) {
+				if (!full.isEmpty())
+					fMethods = (MethodDescriptor[]) full.toArray(new MethodDescriptor[full.size()]);
+				if (!inherited.isEmpty())
+					createMethodEntries(inherited); // This is actually a list of those NOT inherited.
+			}
 		}
 
-		full = addAll(beanInfo.getPropertyDescriptors());
-		inherited = addAll(superBeanInfo.getPropertyDescriptors());
+		if ((doFlags & IBeanInfoIntrospectionConstants.DO_PROPERTIES) != 0) {
+			List full = addAll(beanInfo.getPropertyDescriptors());
+			List inherited = addAll(superBeanInfo.getPropertyDescriptors());
 
-		fMergeInheritedProperties = stripList(full, inherited);
-		if (fMergeInheritedProperties) {
-			if (!full.isEmpty())
-				fProperties = (PropertyDescriptor[]) full.toArray(new PropertyDescriptor[full.size()]);
-			if (!inherited.isEmpty())
-				createPropertyArray(inherited);	// This is actually a list of those NOT inherited.
+			fMergeInheritedProperties = stripList(full, inherited);
+			if (fMergeInheritedProperties) {
+				if (!full.isEmpty())
+					fProperties = (PropertyDescriptor[]) full.toArray(new PropertyDescriptor[full.size()]);
+				if (!inherited.isEmpty())
+					createPropertyArray(inherited); // This is actually a list of those NOT inherited.
+			}
 		}
-
 	}
 
 	protected void createEventArray(List features) {
@@ -523,6 +533,22 @@ public abstract class ModelingBeanInfo implements ICallback {
 		this.vmServer = vmServer;
 		this.callbackID = callbackID;
 	}
+	
+	public void send() throws IOException, CommandException {
+		if (doFlags != 0) {
+			ObjectOutputStream stream = new ObjectOutputStream(vmServer.requestStream(callbackID, 0));
+			if ((doFlags & IBeanInfoIntrospectionConstants.DO_BEAN_DECOR) != 0)
+				sendBeanDecorator(stream);
+			if ((doFlags & IBeanInfoIntrospectionConstants.DO_PROPERTIES) != 0)
+				sendPropertyDecorators(stream);
+			if ((doFlags & IBeanInfoIntrospectionConstants.DO_METHODS) != 0)
+				sendMethodDecorators(stream);
+			if ((doFlags & IBeanInfoIntrospectionConstants.DO_EVENTS) != 0)
+				sendEventDecorators(stream);
+			stream.writeInt(IBeanInfoIntrospectionConstants.DONE);
+			stream.close();
+		}
+	}
 
 	/**
 	 * Called by IDE to send the bean decorator information back through the callback.
@@ -531,7 +557,7 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * 
 	 * @since 1.1.0
 	 */
-	public Object sendBeanDecorator() throws IOException, CommandException {
+	public void sendBeanDecorator(ObjectOutputStream stream) throws IOException, CommandException {
 		BeanRecord br = new BeanRecord();
 		BeanDescriptor bd = getBeanDescriptor();
 
@@ -545,11 +571,8 @@ public abstract class ModelingBeanInfo implements ICallback {
 			br.notInheritedEventNames = getNotInheritedEventSetDescriptors();
 			fill(bd, br, BEAN_RECORD_TYPE);
 		}
-		ObjectOutputStream stream = new ObjectOutputStream(vmServer.requestStream(callbackID,
-				IBeanInfoIntrospectionConstants.BEAN_DECORATOR_SENT));
+		stream.writeInt(IBeanInfoIntrospectionConstants.BEAN_DECORATOR_SENT);
 		stream.writeObject(br);
-		stream.close();
-		return null;
 	}
 
 	/**
@@ -559,12 +582,11 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * @throws IOException
 	 * @since 1.1.0
 	 */
-	public void sendPropertyDecorators() throws IOException, CommandException {
+	public void sendPropertyDecorators(ObjectOutputStream stream) throws IOException, CommandException {
 		PropertyDescriptor[] properties = getPropertyDescriptors();
 		if (properties != null && properties.length > 0) {
-			ObjectOutputStream stream = new ObjectOutputStream(vmServer.requestStream(callbackID,
-					IBeanInfoIntrospectionConstants.PROPERTY_DECORATORS_SENT));
 			// Now start writing the records.
+			stream.writeInt(IBeanInfoIntrospectionConstants.PROPERTY_DECORATORS_SENT);
 			stream.writeInt(properties.length);
 			for (int i = 0; i < properties.length; i++) {
 				PropertyDescriptor pd = properties[i];
@@ -590,10 +612,10 @@ public abstract class ModelingBeanInfo implements ICallback {
 				usepr.bound = pd.isBound();
 				usepr.constrained = pd.isConstrained();
 				usepr.designTime = null;
+				usepr.field = null;
 				fill(pd, usepr, useType);
 				stream.writeObject(usepr);
 			}
-			stream.close(); // We're done.
 		}
 	}
 
@@ -604,19 +626,17 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * @throws IOException
 	 * @since 1.1.0
 	 */
-	public void sendMethodDecorators() throws IOException, CommandException {
+	public void sendMethodDecorators(ObjectOutputStream stream) throws IOException, CommandException {
 		MethodDescriptor[] methods = getMethodDescriptors();
 		if (methods != null && methods.length > 0) {
-			ObjectOutputStream stream = new ObjectOutputStream(vmServer.requestStream(callbackID,
-					IBeanInfoIntrospectionConstants.METHOD_DECORATORS_SENT));
 			// Now start writing the records.
+			stream.writeInt(IBeanInfoIntrospectionConstants.DO_METHODS);
 			stream.writeInt(methods.length);
 			for (int i = 0; i < methods.length; i++) {
 				MethodRecord mr = new MethodRecord();
 				fill(mr, methods[i]);
 				stream.writeObject(mr);
 			}
-			stream.close(); // We're done.
 		}
 	}
 
@@ -650,12 +670,11 @@ public abstract class ModelingBeanInfo implements ICallback {
 	 * @throws IOException
 	 * @since 1.1.0
 	 */
-	public void sendEventDecorators() throws IOException, CommandException {
+	public void sendEventDecorators(ObjectOutputStream stream ) throws IOException, CommandException {
 		EventSetDescriptor[] events = getEventSetDescriptors();
 		if (events != null && events.length > 0) {
-			ObjectOutputStream stream = new ObjectOutputStream(vmServer.requestStream(callbackID,
-					IBeanInfoIntrospectionConstants.EVENT_DECORATORS_SENT));
 			// Now start writing the records.
+			stream.writeInt(IBeanInfoIntrospectionConstants.DO_EVENTS);
 			stream.writeInt(events.length);
 			for (int i = 0; i < events.length; i++) {
 				EventSetDescriptor ed = events[i];
@@ -678,7 +697,6 @@ public abstract class ModelingBeanInfo implements ICallback {
 				fill(ed, er, EVENTSET_RECORD_TYPE);
 				stream.writeObject(er);
 			}
-			stream.close(); // We're done.
 		}
 	}
 
@@ -714,6 +732,15 @@ public abstract class ModelingBeanInfo implements ICallback {
 			case PROPERTY_RECORD_TYPE:
 				if (BaseBeanInfo.DESIGNTIMEPROPERTY.equals(attributeName)) {
 					((PropertyRecord) record).designTime = (Boolean) descr.getValue(attributeName);
+					return true;
+				} else if (BaseBeanInfo.FIELDPROPERTY.equals(attributeName)) {
+					Field f = (Field) descr.getValue(attributeName);
+					// We have a field, set the property type to this since we couldn't correctly create this otherwise.
+					PropertyRecord pr = (PropertyRecord) record;
+					pr.propertyTypeName = getClassName(f.getType());
+					pr.field = getReflectedFieldRecord(f);
+					pr.readMethod = null;	// Need to wipe out our dummy.
+					pr.writeMethod = null;	// Or if it set, not valid for a field.
 					return true;
 				}
 				break;
@@ -812,6 +839,17 @@ public abstract class ModelingBeanInfo implements ICallback {
 				}
 			}
 			return rmr;
+		} else
+			return null;
+	}
+	
+	private ReflectFieldRecord getReflectedFieldRecord(Field field) {
+		if (field != null) {
+			ReflectFieldRecord rf = new ReflectFieldRecord();
+			rf.className = getClassName(field.getDeclaringClass());
+			rf.fieldName = field.getName();
+			rf.readOnly = Modifier.isFinal(field.getModifiers());
+			return rf;
 		} else
 			return null;
 	}

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.28 $  $Date: 2005/02/07 21:01:23 $ 
+ *  $Revision: 1.29 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -82,7 +82,6 @@ import com.ibm.etools.emf.event.EventUtil;
 public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionAdapter {
 	
 	public static final String REFLECT_PROPERTIES = "Reflect properties";	// Reflect properties in IDE
-	public static final String INTROSPECT_PROPERTIES = "Introspect properties";	// Introspect on remote for properties
 	public static final String APPLY_EXTENSIONS = "Apply Overrides";	// Apply override files
 	public static final String REMOTE_INTROSPECT = "Remote Introspect";	// Introspect on remote
 	public static final String INTROSPECT = "Introspect";	// Straight introspection, whether load from cache or introspect.
@@ -719,57 +718,130 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					
 					if (doIntrospection) {
 						// Finally we can get to handling ourselves.
+						TimerTests.basicTest.startCumulativeStep(REMOTE_INTROSPECT);
 						BeanDecorator decor = Utilities.getBeanDecorator(getJavaClass());
-						if (decor == null || decor.isDoBeaninfo()) {
-							IBeanTypeProxy targetType = null;
-							TimerTests.basicTest.startCumulativeStep(REMOTE_INTROSPECT);
-							ProxyFactoryRegistry registry = getRegistry();
-							if (registry != null && registry.isValid())
-								targetType = registry.getBeanTypeProxyFactory().getBeanTypeProxy(getJavaClass().getQualifiedNameForReflection());
-							if (targetType != null) {
-								if (targetType.getInitializationError() == null) {
-									// If an exception is thrown, treat this as no proxy, however log it because we
-									// shouldn't have exceptions during introspection, but if we do it should be logged
-									// so it can be corrected.
-									try {
-										beaninfo = getProxyConstants().getIntrospectProxy().invoke(null,
-												new IBeanProxy[] { targetType, getRegistry().getBeanProxyFactory().createBeanProxyWith(false)});
-									} catch (ThrowableProxy e) {
-										BeaninfoPlugin.getPlugin().getLogger().log(
-												new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,
-														MessageFormat.format(BeanInfoAdapterMessages
-																.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
-																getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
-														e));
-									}
-								} else {
-									// The class itself couldn't be initialized. Just log it, but treat as no proxy.
-									BeaninfoPlugin.getPlugin().getLogger()
-											.log(
+						if (decor == null) {
+							decor = BeaninfoFactory.eINSTANCE.createBeanDecorator();
+							decor.setImplicitDecoratorFlag(ImplicitItem.IMPLICIT_DECORATOR_LITERAL);
+							getJavaClass().getEAnnotations().add(decor);
+						} else
+							BeanInfoDecoratorUtility.clear(decor);	// Clear out previous results.
+						
+						boolean doReflection = true;
+						if (doOperations)
+							newoperations = new HashSet(50);
+						if (decor.isDoBeaninfo()) {
+							int doFlags = 0;
+							if (decor == null || decor.isMergeIntrospection())
+								doFlags |= IBeanInfoIntrospectionConstants.DO_BEAN_DECOR;
+							if (decor == null || decor.isIntrospectEvents())
+								doFlags |= IBeanInfoIntrospectionConstants.DO_EVENTS;
+							if (decor == null || decor.isIntrospectProperties())
+								doFlags |= IBeanInfoIntrospectionConstants.DO_PROPERTIES;
+							if (doOperations && (decor == null || decor.isIntrospectMethods()))
+								doFlags |= IBeanInfoIntrospectionConstants.DO_METHODS;
+							
+							if (doFlags != 0) {
+								// There was something remote to do.
+								IBeanTypeProxy targetType = null;
+								ProxyFactoryRegistry registry = getRegistry();
+								if (registry != null && registry.isValid())
+									targetType = registry.getBeanTypeProxyFactory().getBeanTypeProxy(getJavaClass().getQualifiedNameForReflection());
+								if (targetType != null) {
+									if (targetType.getInitializationError() == null) {
+										// If an exception is thrown, treat this as no proxy, however log it because we
+										// shouldn't have exceptions during introspection, but if we do it should be logged
+										// so it can be corrected.
+										try {
+											beaninfo = getProxyConstants().getIntrospectProxy().invoke(null,
+													new IBeanProxy[] { targetType, getRegistry().getBeanProxyFactory().createBeanProxyWith(false), getRegistry().getBeanProxyFactory().createBeanProxyWith(doFlags)});
+										} catch (ThrowableProxy e) {
+											BeaninfoPlugin.getPlugin().getLogger().log(
 													new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,
 															MessageFormat.format(BeanInfoAdapterMessages
 																	.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
-																	getJavaClass().getJavaName(), targetType.getInitializationError()}), null));
+																	getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
+																	e));
+										}
+									} else {
+										// The class itself couldn't be initialized. Just log it, but treat as no proxy.
+										BeaninfoPlugin.getPlugin().getLogger()
+										.log(
+												new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,
+														MessageFormat.format(BeanInfoAdapterMessages
+																.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
+																getJavaClass().getJavaName(), targetType.getInitializationError()}), null));
+									}
+								} else {
+									// The class itself could not be found. Just log it, but treat as no proxy.
+									BeaninfoPlugin.getPlugin().getLogger().log(
+											new Status(IStatus.INFO, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0, MessageFormat.format(
+													BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
+															getJavaClass().getJavaName(),
+															BeanInfoAdapterMessages.getString("BeaninfoClassAdapter.ClassNotFound")}), //$NON-NLS-1$
+															null));
 								}
-							} else {
-								// The class itself could not be found. Just log it, but treat as no proxy.
-								BeaninfoPlugin.getPlugin().getLogger().log(
-										new Status(IStatus.INFO, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0, MessageFormat.format(
-												BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
-														getJavaClass().getJavaName(),
-														BeanInfoAdapterMessages.getString("BeaninfoClassAdapter.ClassNotFound")}), //$NON-NLS-1$
-												null));
+								
+								if (beaninfo != null) {
+									doReflection = false;	// We have a beaninfo, so we are doing introspection.
+									final BeanDecorator bdecor = decor;
+									// We have a beaninfo to process.
+									BeanInfoDecoratorUtility.introspect(beaninfo, new BeanInfoDecoratorUtility.IntrospectCallBack() {
+
+										/*; (non-Javadoc)
+										 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.IntrospectCallBack#process(org.eclipse.jem.internal.beaninfo.common.BeanRecord)
+										 */
+										public BeanDecorator process(BeanRecord record) {
+											return bdecor;
+										}
+
+										/* (non-Javadoc)
+										 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.IntrospectCallBack#process(org.eclipse.jem.internal.beaninfo.common.PropertyRecord)
+										 */
+										public PropertyDecorator process(PropertyRecord record) {
+											return calculateProperty(record, false);
+										}
+
+										/* (non-Javadoc)
+										 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.IntrospectCallBack#process(org.eclipse.jem.internal.beaninfo.common.IndexedPropertyRecord)
+										 */
+										public PropertyDecorator process(IndexedPropertyRecord record) {
+											return calculateProperty(record, true);
+										}
+
+										/* (non-Javadoc)
+										 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.IntrospectCallBack#process(org.eclipse.jem.internal.beaninfo.common.MethodRecord)
+										 */
+										public MethodDecorator process(MethodRecord record) {
+											return calculateOperation(record);
+										}
+
+										/* (non-Javadoc)
+										 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.IntrospectCallBack#process(org.eclipse.jem.internal.beaninfo.common.EventSetRecord)
+										 */
+										public EventSetDecorator process(EventSetRecord record) {
+											return calculateEvent(record);
+										}
+									});
+								} 
 							}
 						}
-						ChangeDescription cd = ChangeFactory.eINSTANCE.createChangeDescription();
-						calculateBeanDescriptor(decor, beaninfo, cd);
-
-						// We can now build the change cache.
-						// First force complete introspection so we get everything loaded. Then we can build the cache.
-						introspectProperties(beaninfo, cd);
+						
+						if (doReflection) {
+							// Need to do reflection stuff.
+							if (decor.isIntrospectProperties())
+								reflectProperties();
+							if (doOperations && decor.isIntrospectMethods())
+								reflectOperations();
+							if (decor.isIntrospectEvents())
+								reflectEvents();
+						}
+						ChangeDescription cd = ChangeFactory.eINSTANCE.createChangeDescription();						
+						BeanInfoDecoratorUtility.buildChange(cd, decor);
+						finalizeProperties(cd);
 						if (doOperations)
-							introspectOperations(beaninfo, cd);
-						introspectEvents(beaninfo, cd);
+							finalizeOperations(cd);
+						finalizeEvents(cd);
 
 						classEntry = BeanInfoCacheController.INSTANCE.newCache(getJavaClass(), cd, doOperations ? BeanInfoCacheController.REFLECTION_OPERATIONS_CACHE : BeanInfoCacheController.REFLECTION_CACHE);
 						TimerTests.basicTest.stopCumulativeStep(REMOTE_INTROSPECT); 
@@ -782,7 +854,13 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			if (beaninfo != null) {
 				beaninfo.getProxyFactoryRegistry().releaseProxy(beaninfo); // Dispose of the beaninfo since we now have everything.
 			}
-
+			eventsMap = null; // Clear out the temp lists.
+			eventsRealList = null;
+			operationsMap = null; // Clear out the temp lists.
+			operationsRealList = null;
+			newoperations = null;
+			propertiesMap = null; // Get rid of accumulated map.
+			featuresRealList = null; // Release the real list.
 		}
 	}
 
@@ -1037,114 +1115,48 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		return allEvents();
 	}					
 
-	/**
-	 * Fill in the BeanDescriptorDecorator.
-	 * @param beaninfo 
-	 * @param cd TODO
-	 */
-	protected void calculateBeanDescriptor(BeanDecorator decor, IBeanProxy beaninfo, ChangeDescription cd) {
-		// If there already is one, then we
-		// will use it. This allows merging with beanfinfo.
-		// If this was an implicit one left over from a previous introspection before going stale,
-		// this is OK because we always want a bean decorator from introspection. We will reuse it.
-
-		if (decor == null) {
-			decor = BeaninfoFactory.eINSTANCE.createBeanDecorator();
-			decor.setImplicitDecoratorFlag(ImplicitItem.IMPLICIT_DECORATOR_LITERAL);
-			getJavaClass().getEAnnotations().add(decor);
-		} else
-			BeanInfoDecoratorUtility.clear(decor);	// Clear out previous results.
-
-		if (decor.isMergeIntrospection())
-			if (beaninfo != null)
-				BeanInfoDecoratorUtility.introspect(decor, beaninfo);
-			else
-				BeanInfoDecoratorUtility.clear(decor);	// For reflection, just clear it. Nothing else is set.
-		
-		if (cd != null) {
-			// We have a ChangeDescription, which means we need to build the cache.
-			BeanInfoDecoratorUtility.buildChange(cd, decor);
-		}
-	}
-
-	/*
-	 * Should only be called from introspect so that flags are correct.
-	 */
-	private void introspectProperties(IBeanProxy beaninfo, ChangeDescription cd) {
-		try {
-			if (isResourceConnected()) {
-				BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-				if (bd == null || bd.isIntrospectProperties()) {
-					// bd wants properties to be introspected/reflected
-					if (beaninfo != null) {
-						TimerTests.basicTest.startCumulativeStep(INTROSPECT_PROPERTIES);
-						BeanInfoDecoratorUtility.introspect(new BeanInfoDecoratorUtility.PropertyCallBack() {
-
-							/* (non-Javadoc)
-							 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.PropertyCallBack#process(org.eclipse.jem.internal.beaninfo.common.PropertyRecord)
-							 */
-							public PropertyDecorator process(PropertyRecord record) {
-								return calculateProperty(record, false);
-							}
-
-							/* (non-Javadoc)
-							 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.PropertyCallBack#process(org.eclipse.jem.internal.beaninfo.common.IndexedPropertyRecord)
-							 */
-							public PropertyDecorator process(IndexedPropertyRecord record) {
-								return calculateProperty(record, true);
-							}
-						}, beaninfo);
-						TimerTests.basicTest.stopCumulativeStep(INTROSPECT_PROPERTIES);							
-					} else
-						reflectProperties(); // No beaninfo, so use reflection to create properties
-				}
-
-				// Now go through the list and remove those that should be removed, and set the etype for those that don't have it set.
-				Map oldLocals = getPropertiesMap();
-				Iterator itr = getFeaturesList().iterator();
-				while (itr.hasNext()) {
-					EStructuralFeature a = (EStructuralFeature) itr.next();
-					PropertyDecorator p = Utilities.getPropertyDecorator(a);
-					Object aOld = oldLocals.get(a.getName());
-					if (aOld != null && aOld != Boolean.FALSE) {
-						// A candidate for removal. It was in the old list and it was not processed.
-						if (p != null) {
-							ImplicitItem implicit = p.getImplicitDecoratorFlag();
-							if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
-								p.setEModelElement(null); // Remove from the feature;
-								((InternalEObject) p).eSetProxyURI(BAD_URI);
-								// Mark it as bad proxy so we know it is no longer any use.
-								p = null;
-								if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
-									itr.remove(); // Remove it, this was implicitly created and not processed this time.
-									((InternalEObject) a).eSetProxyURI(BAD_URI);	// Mark it as bad proxy so we know it is no longer any use.
-									continue;
-								}
-								// Need to go on because we need to check the eType to make sure it is set. At this point we have no decorator but we still have a feature.
-							}
+	private void finalizeProperties(ChangeDescription cd) {
+		// Now go through the list and remove those that should be removed, and set the etype for those that don't have it set.
+		Map oldLocals = getPropertiesMap();
+		Iterator itr = getFeaturesList().iterator();
+		while (itr.hasNext()) {
+			EStructuralFeature a = (EStructuralFeature) itr.next();
+			PropertyDecorator p = Utilities.getPropertyDecorator(a);
+			Object aOld = oldLocals.get(a.getName());
+			if (aOld != null && aOld != Boolean.FALSE) {
+				// A candidate for removal. It was in the old list and it was not processed.
+				if (p != null) {
+					ImplicitItem implicit = p.getImplicitDecoratorFlag();
+					if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
+						p.setEModelElement(null); // Remove from the feature;
+						((InternalEObject) p).eSetProxyURI(BAD_URI);
+						// Mark it as bad proxy so we know it is no longer any use.
+						p = null;
+						if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
+							itr.remove(); // Remove it, this was implicitly created and not processed this time.
+							((InternalEObject) a).eSetProxyURI(BAD_URI);	// Mark it as bad proxy so we know it is no longer any use.
+							continue;
 						}
-					}
-					
-					// [79083] Also check for eType not set, and if it is, set it to EObject type. That way it will be valid, but not valid as 
-					// a bean setting.
-					if (a.getEType() == null) {
-						// Set it to EObject type. If it becomes valid later (through the class being changed), then the introspect/reflect
-						// will set it to the correct type.
-						a.setEType(EcorePackage.eINSTANCE.getEObject());
-						Logger logger = BeaninfoPlugin.getPlugin().getLogger();
-						if (logger.isLoggingLevel(Level.WARNING))
-							logger.logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
-					}
-					
-					if (p != null && cd != null) {
-						// Now create the appropriate cache entry for this property.
-						BeanInfoDecoratorUtility.buildChange(cd, p);
+						// Need to go on because we need to check the eType to make sure it is set. At this point we have no decorator but we still have a feature.
 					}
 				}
 			}
-		} finally {
-			propertiesMap = null; // Get rid of accumulated map.
-			featuresRealList = null; // Release the real list.
+			
+			// [79083] Also check for eType not set, and if it is, set it to EObject type. That way it will be valid, but not valid as 
+			// a bean setting.
+			if (a.getEType() == null) {
+				// Set it to EObject type. If it becomes valid later (through the class being changed), then the introspect/reflect
+				// will set it to the correct type.
+				a.setEType(EcorePackage.eINSTANCE.getEObject());
+				Logger logger = BeaninfoPlugin.getPlugin().getLogger();
+				if (logger.isLoggingLevel(Level.WARNING))
+					logger.logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
+			}
+			
+			if (p != null && cd != null) {
+				// Now create the appropriate cache entry for this property.
+				BeanInfoDecoratorUtility.buildChange(cd, p);
+			}
 		}
 	}
 
@@ -1272,7 +1284,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	protected PropertyDecorator calculateProperty(PropertyRecord pr, boolean indexed) {
 		// If this is an indexed property, then a few fields will not be set in here, but
 		// will instead be set by the calculateIndexedProperty, which will be called.
-		boolean changeable = pr.writeMethod != null;
+		boolean changeable = pr.writeMethod != null || (pr.field != null && !pr.field.readOnly);
 		JavaHelpers type = pr.propertyTypeName != null ? Utilities.getJavaType(MapJNITypes.getFormalTypeName(pr.propertyTypeName), getJavaClass().eResource().getResourceSet()) : null;
 
 		if (indexed) {
@@ -1628,7 +1640,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			indexed = prop instanceof IndexedPropertyDecorator; // It could of been forced back to not indexed if explicitly set.
 
 			// At this point in time all implicit settings have been cleared. This is done back in createProperty() method above.
-			// So now apply reflected settings on the property decorator.
+			// So now apply reflected settings on the property decorator. 
 			BeanInfoDecoratorUtility.setProperties(prop, isBound, constrained, getter, setter);
 			if (indexed)
 				BeanInfoDecoratorUtility.setProperties((IndexedPropertyDecorator) prop, indexedGetter, indexedSetter);
@@ -1639,59 +1651,35 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	/*
 	 * Should only be called from introspect so that flags are correct.
 	 */
-	private EList introspectOperations(IBeanProxy beaninfo, ChangeDescription cd) {
-		try {
-			if (isResourceConnected()) {
-				newoperations = new HashSet(50);
-				BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-				if (bd == null || bd.isIntrospectMethods()) {
-					// bd wants behaviors to be introspected/reflected
-					if (beaninfo != null) {
-						BeanInfoDecoratorUtility.introspect(new BeanInfoDecoratorUtility.OperationCallBack() {
-							public MethodDecorator process(MethodRecord record) {
-								return calculateOperation(record);
-							}
-
-						}, beaninfo);
-					} else
-						reflectOperations(); // No beaninfo, so use reflection to create behaviors
-				}
-
-				// Now go through the list and remove those that should be removed.
-				Iterator itr = getOperationsList().iterator();
-				while (itr.hasNext()) {
-					EOperation a = (EOperation) itr.next();
-					MethodDecorator m = Utilities.getMethodDecorator(a);
-					if (!newoperations.contains(a)) {
-						// A candidate for removal. It is in the list but we didn't add it. Check to see if it one we had created in the past.
-						// If no methoddecorator, then keep it, not one ours.
-						if (m != null) {
-							ImplicitItem implicit = m.getImplicitDecoratorFlag();
-							if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
-								m.setEModelElement(null); // Remove it because it was implicit.
-								 ((InternalEObject) m).eSetProxyURI(BAD_URI);
-								if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
-									itr.remove(); // The operation was implicit too.
-									 ((InternalEObject) a).eSetProxyURI(BAD_URI);
-								}
-								continue;	// At this point we no longer have a method decorator, so go to next.
-							}
+	private void finalizeOperations(ChangeDescription cd) {
+		// Now go through the list and remove those that should be removed.
+		newoperations = new HashSet(50);
+		Iterator itr = getOperationsList().iterator();
+		while (itr.hasNext()) {
+			EOperation a = (EOperation) itr.next();
+			MethodDecorator m = Utilities.getMethodDecorator(a);
+			if (!newoperations.contains(a)) {
+				// A candidate for removal. It is in the list but we didn't add it. Check to see if it one we had created in the past.
+				// If no methoddecorator, then keep it, not one ours.
+				if (m != null) {
+					ImplicitItem implicit = m.getImplicitDecoratorFlag();
+					if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
+						m.setEModelElement(null); // Remove it because it was implicit.
+						 ((InternalEObject) m).eSetProxyURI(BAD_URI);
+						if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
+							itr.remove(); // The operation was implicit too.
+							 ((InternalEObject) a).eSetProxyURI(BAD_URI);
 						}
-					}
-					
-					if (m != null && cd != null) {
-						// Now create the appropriate cache entry for this method.
-						BeanInfoDecoratorUtility.buildChange(cd, m);
+						continue;	// At this point we no longer have a method decorator, so go to next.
 					}
 				}
 			}
-		} finally {
-			operationsMap = null; // Clear out the temp lists.
-			operationsRealList = null;
-			newoperations = null;
-
+			
+			if (m != null && cd != null) {
+				// Now create the appropriate cache entry for this method.
+				BeanInfoDecoratorUtility.buildChange(cd, m);
+			}
 		}
-		return getJavaClass().getEOperationsInternal();
 	}
 
 	/**
@@ -1933,58 +1921,35 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	/*
 	 * Should only be called from introspect so that flags are correct.
 	 */
-	private EList introspectEvents(IBeanProxy beaninfo, ChangeDescription cd) {
-		try {
-			if (isResourceConnected()) {
-				BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-				if (bd == null || bd.isIntrospectEvents()) {
-					// bd wants events to be introspected/reflected
-					if (beaninfo != null) {
-						BeanInfoDecoratorUtility.introspect(new BeanInfoDecoratorUtility.EventCallBack() {
-							public EventSetDecorator process(EventSetRecord record) {
-								return calculateEvent(record);
-							}
-						}, beaninfo);
-					} else
-						reflectEvents(); // No beaninfo, so use reflection to create events
-				}
-
-				// Now go through the list and remove those that should be removed.
-				Map oldLocals = getEventsMap();
-				Iterator itr = getEventsList().iterator();
-				while (itr.hasNext()) {
-					JavaEvent a = (JavaEvent) itr.next();
-					EventSetDecorator e = Utilities.getEventSetDecorator(a);
-					Object aOld = oldLocals.get(a.getName());
-					if (aOld != null && aOld != Boolean.FALSE) {
-						// A candidate for removal. It was in the old list and it was not processed.
-						if (e != null) {
-							ImplicitItem implicit = e.getImplicitDecoratorFlag();
-							if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
-								e.setEModelElement(null); // Remove it because it was implicit.
-								((InternalEObject) e).eSetProxyURI(BAD_URI);
-								if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
-									itr.remove(); // The feature was implicit too.
-									((InternalEObject) a).eSetProxyURI(BAD_URI);
-								}
-								continue;	// At this point we don't have a decorator any more, so don't bother going on.
-							}
+	private void finalizeEvents(ChangeDescription cd) {
+		// Now go through the list and remove those that should be removed.
+		Map oldLocals = getEventsMap();
+		Iterator itr = getEventsList().iterator();
+		while (itr.hasNext()) {
+			JavaEvent a = (JavaEvent) itr.next();
+			EventSetDecorator e = Utilities.getEventSetDecorator(a);
+			Object aOld = oldLocals.get(a.getName());
+			if (aOld != null && aOld != Boolean.FALSE) {
+				// A candidate for removal. It was in the old list and it was not processed.
+				if (e != null) {
+					ImplicitItem implicit = e.getImplicitDecoratorFlag();
+					if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
+						e.setEModelElement(null); // Remove it because it was implicit.
+						((InternalEObject) e).eSetProxyURI(BAD_URI);
+						if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
+							itr.remove(); // The feature was implicit too.
+							((InternalEObject) a).eSetProxyURI(BAD_URI);
 						}
+						continue;	// At this point we don't have a decorator any more, so don't bother going on.
 					}
-					
-					if (e != null && cd != null) {
-						// Now create the appropriate cache entry for this event.
-						BeanInfoDecoratorUtility.buildChange(cd, e);
-					}
-					
 				}
 			}
-		} finally {
-			eventsMap = null; // Clear out the temp lists.
-			eventsRealList = null;
+			
+			if (e != null && cd != null) {
+				// Now create the appropriate cache entry for this event.
+				BeanInfoDecoratorUtility.buildChange(cd, e);
+			}
 		}
-
-		return getJavaClass().getEventsGen();
 	}
 
 	/**

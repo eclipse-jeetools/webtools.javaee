@@ -9,29 +9,27 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: PropertyRecord.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/08 21:54:02 $ 
+ *  $RCSfile: ReflectFieldRecord.java,v $
+ *  $Revision: 1.1 $  $Date: 2005/02/08 21:54:02 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
+
+import java.io.Serializable;
  
 
 /**
- * This is the data structure for sending the PropertyDescriptor info from
+ * This is the data structure for sending the java.lang.reflect.Field info from
  * the BeanInfo vm to the IDE vm. It is serializable so that it can
  * be serialized for transmission.
  * <p>
- * It contains the properties of the PropertyDescriptor. 
+ * It contains the properties of the java.lang.reflect.Field. 
  * @since 1.1.0
  */
-public class PropertyRecord extends FeatureRecord {
-	private static final long serialVersionUID = 1105979276648L;
+public class ReflectFieldRecord implements Serializable {
 	
-	public String propertyEditorClassName;
-	public String propertyTypeName;
-	public ReflectMethodRecord readMethod;
-	public ReflectMethodRecord writeMethod;
-	public ReflectFieldRecord field;
-	public boolean bound;
-	public boolean constrained;
-	public Boolean designTime;
+	private static final long serialVersionUID = 1105981512453L;
+	
+	public String className;
+	public String fieldName;
+	public boolean readOnly;
 }

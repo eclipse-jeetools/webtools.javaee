@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: IndexedPropertyDecoratorImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 
@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator;
+import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
 /**
@@ -335,6 +336,8 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				return isAlwaysIncompatible() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FILTER_FLAGS:
 				return getFilterFlags();
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				return isFieldReadOnly() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				if (resolve) return getPropertyEditorClass();
 				return basicGetPropertyEditorClass();
@@ -344,6 +347,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__WRITE_METHOD:
 				if (resolve) return getWriteMethod();
 				return basicGetWriteMethod();
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD:
+				if (resolve) return getField();
+				return basicGetField();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD:
 				if (resolve) return getIndexedReadMethod();
 				return basicGetIndexedReadMethod();
@@ -433,6 +439,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				getFilterFlags().clear();
 				getFilterFlags().addAll((Collection)newValue);
 				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				setFieldReadOnly(((Boolean)newValue).booleanValue());
+				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				setPropertyEditorClass((JavaClass)newValue);
 				return;
@@ -441,6 +450,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__WRITE_METHOD:
 				setWriteMethod((Method)newValue);
+				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD:
+				setField((Field)newValue);
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD:
 				setIndexedReadMethod((Method)newValue);
@@ -525,6 +537,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FILTER_FLAGS:
 				getFilterFlags().clear();
 				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				setFieldReadOnly(FIELD_READ_ONLY_EDEFAULT);
+				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				setPropertyEditorClass((JavaClass)null);
 				return;
@@ -533,6 +548,9 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__WRITE_METHOD:
 				unsetWriteMethod();
+				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD:
+				unsetField();
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD:
 				unsetIndexedReadMethod();
@@ -607,12 +625,16 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				return alwaysIncompatible != ALWAYS_INCOMPATIBLE_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FILTER_FLAGS:
 				return filterFlags != null && !filterFlags.isEmpty();
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				return fieldReadOnly != FIELD_READ_ONLY_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				return propertyEditorClass != null;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__READ_METHOD:
 				return isSetReadMethod();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__WRITE_METHOD:
 				return isSetWriteMethod();
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__FIELD:
+				return isSetField();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD:
 				return isSetIndexedReadMethod();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD:

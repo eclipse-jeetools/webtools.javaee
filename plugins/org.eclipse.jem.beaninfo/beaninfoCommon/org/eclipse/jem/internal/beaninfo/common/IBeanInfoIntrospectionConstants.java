@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanInfoIntrospectionConstants.java,v $
- *  $Revision: 1.1 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/08 21:54:02 $ 
  */
 package org.eclipse.jem.internal.beaninfo.common;
  
@@ -20,16 +20,43 @@ package org.eclipse.jem.internal.beaninfo.common;
  * @since 1.1.0
  */
 public interface IBeanInfoIntrospectionConstants {
+	
+	/**
+	 * Introspection bit flag indicating do the BeanDecorator. Sent to ModelingBeanInfo.introspect method.
+	 * @since 1.1.0
+	 */
+	public static final int DO_BEAN_DECOR = 0x1;
+	
+	/**
+	 * Introspection bit flag indicating do the Properties. Sent to ModelingBeanInfo.introspect method.
+	 * @since 1.1.0
+	 */
+	public static final int DO_PROPERTIES = 0x2;
+
+	/**
+	 * Introspection bit flag indicating do the Methods. Sent to ModelingBeanInfo.introspect method.
+	 * @since 1.1.0
+	 */
+	public static final int DO_METHODS = 0x4;
+
+	/**
+	 * Introspection bit flag indicating do the Events. Sent to ModelingBeanInfo.introspect method.
+	 * @since 1.1.0
+	 */
+	public static final int DO_EVENTS = 0x8;
+
 	/**
 	 * BeanDecorator was sent command id. 
 	 * <p>
-	 * This will be sent to callBack(int id, Object parm) as the id. 
-	 * The parm will be a BeanRecord.
-	 * We are using this callback instead of a stream because the
-	 * size is not that big and is only one object that is serialized.
+	 * This will be sent to callBack(int id, InputStream is). The InputStream will be Objects (use ObjectInputStream). 
+	 * The stream will be broken into sections.
+	 * Each section will be headed by the command id of that section (e.g. BEAN_DECORATOR_SENT or PROPERTY_DECORATORS_SENT).
+	 * Following the command id will be the type of input specific data. 
+	 * <p>
+	 * The data following the command id will be a BeanRecord from the ObjectInputStream.
 	 * 
-	 * @see org.eclipse.jem.internal.proxy.core.ICallback#calledBack(int, Object)
 	 * @see BeanRecord
+	 * @see org.eclipse.jem.internal.proxy.core.ICallback#calledBackStream(int, InputStream)
 	 * @since 1.1.0
 	 */
 	public static final int BEAN_DECORATOR_SENT = 1;
@@ -37,8 +64,11 @@ public interface IBeanInfoIntrospectionConstants {
 	/**
 	 * PropertyDecorators send command id.
 	 * <p>
-	 * This will be sent to the callBack(int id, InputStream is) as the id.
-	 * The InputStream will be Objects (use ObjectInputStream).
+	 * This will be sent to callBack(int id, InputStream is). The InputStream will be Objects (use ObjectInputStream). 
+	 * The stream will be broken into sections.
+	 * Each section will be headed by the command id of that section (e.g. BEAN_DECORATOR_SENT or PROPERTY_DECORATORS_SENT).
+	 * Following the command id will be the type of input specific data. 
+	 * <p>
 	 * The first object will be  an int and will be the number of properties and each object after that
 	 * will be a PropertyRecord/IndexedPropertyRecord. 
 	 * 
@@ -51,7 +81,11 @@ public interface IBeanInfoIntrospectionConstants {
 	/**
 	 * MethodDecorators send command id.
 	 * <p>
-	 * This will be sent to the callBack(int id, InputStream is) as the id.
+	 * This will be sent to callBack(int id, InputStream is). The InputStream will be Objects (use ObjectInputStream). 
+	 * The stream will be broken into sections.
+	 * Each section will be headed by the command id of that section (e.g. BEAN_DECORATOR_SENT or PROPERTY_DECORATORS_SENT).
+	 * Following the command id will be the type of input specific data. 
+	 * <p>
 	 * The InputStream will be Objects (use ObjectInputStream).
 	 * The first object will be  an int and will be the number of methods and each object after that
 	 * will be a MethodRecord. 
@@ -64,8 +98,11 @@ public interface IBeanInfoIntrospectionConstants {
 	/**
 	 * EventSetDecorators send command id.
 	 * <p>
-	 * This will be sent to the callBack(int id, InputStream is) as the id.
-	 * The InputStream will be Objects (use ObjectInputStream).
+	 * This will be sent to callBack(int id, InputStream is). The InputStream will be Objects (use ObjectInputStream). 
+	 * The stream will be broken into sections.
+	 * Each section will be headed by the command id of that section (e.g. BEAN_DECORATOR_SENT or PROPERTY_DECORATORS_SENT).
+	 * Following the command id will be the type of input specific data. 
+	 * <p>
 	 * The first object will be  an int and will be the number of events and each object after that
 	 * will be a EventSetRecord. 
 	 * 
@@ -73,5 +110,20 @@ public interface IBeanInfoIntrospectionConstants {
 	 * @see MethodRecord
 	 */
 	public static final int EVENT_DECORATORS_SENT = 4;
+
+	/**
+	 * Done send command id.
+	 * <p>
+	 * This will be sent to callBack(int id, InputStream is). The InputStream will be Objects (use ObjectInputStream). 
+	 * The stream will be broken into sections.
+	 * Each section will be headed by the command id of that section (e.g. BEAN_DECORATOR_SENT or PROPERTY_DECORATORS_SENT).
+	 * Following the command id will be the type of input specific data. 
+	 * <p>
+	 * This command id means there is no more data and it should return.
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.ICallback#calledBackStream(int, InputStream)
+	 * @see MethodRecord
+	 */
+	public static final int DONE = 5;
 	
 }

@@ -210,11 +210,22 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filterFlags" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fieldReadOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Is this field read-only (i.e. is a &quot;final&quot; field). This is only referenced if the field reference is set."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyEditorClass" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//JavaClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="readMethod" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//Method"
         unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writeMethod" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//Method"
         unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="field" eType="ecore:EClass ../../org.eclipse.jem/model/java.ecore#//Field"
+        unsettable="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If this is set, then this property is a field and not a getter/setter property. This is an extension that the Visual Editor uses to the BeanInfo model."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IndexedPropertyDecorator" eSuperTypes="#//PropertyDecorator">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

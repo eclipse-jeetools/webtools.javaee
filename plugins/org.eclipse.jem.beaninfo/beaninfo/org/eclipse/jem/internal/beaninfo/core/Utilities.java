@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: Utilities.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/08 21:54:02 $ 
  */
 import java.util.Iterator;
 
@@ -120,6 +120,30 @@ public final class Utilities {
 		return url.toString();
 	}
 	
+	protected static String computeFieldURL(String fullyQualifiedClassName, String fieldName) {
+		int classStart = fullyQualifiedClassName.lastIndexOf('.');
+		StringBuffer url = new StringBuffer(50);
+		url.append("java:/"); //$NON-NLS-1$
+		if (classStart > -1)
+			url.append(fullyQualifiedClassName.substring(0, classStart));
+		url.append('#');
+		url.append(fullyQualifiedClassName.substring(classStart + 1));
+		url.append(ReflectionAdaptor.C_CLASS_MEMBER_DELIMITER);
+		url.append(fieldName);
+		return url.toString();
+	}
+	
+	/**
+	 * Return the field uri for the given classname, fieldname.
+	 * @param fullyQualifiedClassName
+	 * @param fieldName
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public static URI getFieldURI(String fullyQualifiedClassName, String fieldName) {
+		return URI.createURI(computeFieldURL(fullyQualifiedClassName, fieldName));
+	}
 	/**
 	 * Return the method uri for the given classname, methodname, parm types.
 	 * @param fullyQualifiedClassName

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: ModelingBeanInfo15.java,v $
- *  $Revision: 1.1 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 import java.beans.BeanInfo;
@@ -28,8 +28,8 @@ public class ModelingBeanInfo15 extends ModelingBeanInfo {
 	 * Constructor for ModelingBeanInfo15.
 	 * @param beanInfo
 	 */
-	public ModelingBeanInfo15(BeanInfo beanInfo) {
-		super(beanInfo);
+	public ModelingBeanInfo15(BeanInfo beanInfo, int doFlags) {
+		super(beanInfo, doFlags);
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class ModelingBeanInfo15 extends ModelingBeanInfo {
 	 * @param beanInfo
 	 * @param superBeanInfo
 	 */
-	public ModelingBeanInfo15(BeanInfo beanInfo, BeanInfo superBeanInfo) {
-		super(beanInfo, superBeanInfo);
+	public ModelingBeanInfo15(BeanInfo beanInfo, BeanInfo superBeanInfo, int doFlags) {
+		super(beanInfo, superBeanInfo, doFlags);
 	}
 }

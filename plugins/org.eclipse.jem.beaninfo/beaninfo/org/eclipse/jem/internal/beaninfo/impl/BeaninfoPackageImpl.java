@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 import java.util.Map;
@@ -190,8 +190,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		isInited = true;
 
 		// Initialize simple dependencies
-		JavaRefPackageImpl.init();
 		EcorePackageImpl.init();
+		JavaRefPackageImpl.init();
 
 		// Create package meta-data objects
 		theBeaninfoPackage.createPackageContents();
@@ -480,8 +480,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropertyDecorator_PropertyEditorClass() {
-		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(5);
+	public EAttribute getPropertyDecorator_FieldReadOnly() {
+		return (EAttribute)propertyDecoratorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -489,7 +489,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropertyDecorator_ReadMethod() {
+	public EReference getPropertyDecorator_PropertyEditorClass() {
 		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -498,8 +498,26 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropertyDecorator_WriteMethod() {
+	public EReference getPropertyDecorator_ReadMethod() {
 		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyDecorator_WriteMethod() {
+		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyDecorator_Field() {
+		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -744,9 +762,11 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		createEAttribute(propertyDecoratorEClass, PROPERTY_DECORATOR__DESIGN_TIME);
 		createEAttribute(propertyDecoratorEClass, PROPERTY_DECORATOR__ALWAYS_INCOMPATIBLE);
 		createEAttribute(propertyDecoratorEClass, PROPERTY_DECORATOR__FILTER_FLAGS);
+		createEAttribute(propertyDecoratorEClass, PROPERTY_DECORATOR__FIELD_READ_ONLY);
 		createEReference(propertyDecoratorEClass, PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS);
 		createEReference(propertyDecoratorEClass, PROPERTY_DECORATOR__READ_METHOD);
 		createEReference(propertyDecoratorEClass, PROPERTY_DECORATOR__WRITE_METHOD);
+		createEReference(propertyDecoratorEClass, PROPERTY_DECORATOR__FIELD);
 
 		indexedPropertyDecoratorEClass = createEClass(INDEXED_PROPERTY_DECORATOR);
 		createEReference(indexedPropertyDecoratorEClass, INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD);
@@ -861,9 +881,11 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		initEAttribute(getPropertyDecorator_DesignTime(), ecorePackage.getEBoolean(), "designTime", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPropertyDecorator_AlwaysIncompatible(), ecorePackage.getEBoolean(), "alwaysIncompatible", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPropertyDecorator_FilterFlags(), ecorePackage.getEString(), "filterFlags", null, 0, -1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPropertyDecorator_FieldReadOnly(), ecorePackage.getEBoolean(), "fieldReadOnly", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropertyDecorator_PropertyEditorClass(), theJavaRefPackage.getJavaClass(), null, "propertyEditorClass", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropertyDecorator_ReadMethod(), theJavaRefPackage.getMethod(), null, "readMethod", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropertyDecorator_WriteMethod(), theJavaRefPackage.getMethod(), null, "writeMethod", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyDecorator_Field(), theJavaRefPackage.getField(), null, "field", null, 0, 1, PropertyDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(propertyDecoratorEClass, theEcorePackage.getEClassifier(), "getPropertyType");
 

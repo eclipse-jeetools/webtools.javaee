@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoProxyConstants.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.3 $  $Date: 2005/02/08 21:54:02 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -34,13 +34,7 @@ public final class BeaninfoProxyConstants {
 
 	private final IMethodProxy setBeanInfoSearchPathProxy;
 
-	private final IMethodProxy sendBeanDecoratorProxy;
-
-	private final IMethodProxy sendPropertyDecoratorsProxy;
-
-	private final IMethodProxy sendMethodDecoratorsProxy;
-
-	private final IMethodProxy sendEventDecoratorsProxy;
+	private final IMethodProxy sendBeanInfoProxy;
 
 	/**
 	 * Get the constants instance for the specified registry.
@@ -61,12 +55,9 @@ public final class BeaninfoProxyConstants {
 		setBeanInfoSearchPathProxy = introspector.getMethodProxy("setBeanInfoSearchPath", "[Ljava.lang.String;"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		IBeanTypeProxy modelingBeaninfo = typeFactory.getBeanTypeProxy("org.eclipse.jem.internal.beaninfo.vm.ModelingBeanInfo");//$NON-NLS-1$
-		introspectProxy = modelingBeaninfo.getMethodProxy("introspect", new String[] { "java.lang.Class", "boolean"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		introspectProxy = modelingBeaninfo.getMethodProxy("introspect", new String[] { "java.lang.Class", "boolean", "int"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-		sendBeanDecoratorProxy = modelingBeaninfo.getMethodProxy("sendBeanDecorator"); //$NON-NLS-1$
-		sendPropertyDecoratorsProxy = modelingBeaninfo.getMethodProxy("sendPropertyDecorators"); //$NON-NLS-1$
-		sendMethodDecoratorsProxy = modelingBeaninfo.getMethodProxy("sendMethodDecorators"); //$NON-NLS-1$
-		sendEventDecoratorsProxy = modelingBeaninfo.getMethodProxy("sendEventDecorators"); //$NON-NLS-1$	
+		sendBeanInfoProxy = modelingBeaninfo.getMethodProxy("send"); //$NON-NLS-1$
 
 	}
 
@@ -76,40 +67,10 @@ public final class BeaninfoProxyConstants {
 	 * 
 	 * @since 1.1.0
 	 */
-	public IMethodProxy getSendBeanDecoratorProxy() {
-		return sendBeanDecoratorProxy;
+	public IMethodProxy getSendBeanInfoProxy() {
+		return sendBeanInfoProxy;
 	}
 	
-	/**
-	 * Get the sendPropertyDecorators method proxy from ModelingBeanInfo.
-	 * @return
-	 * 
-	 * @since 1.1.0
-	 */
-	public IMethodProxy getSendPropertyDecoratorsProxy() {
-		return sendPropertyDecoratorsProxy;
-	}
-
-	/**
-	 * Get the sendMethodDecorators method proxy from ModelingBeanInfo.
-	 * @return
-	 * 
-	 * @since 1.1.0
-	 */
-	public IMethodProxy getSendMethodDecoratorsProxy() {
-		return sendMethodDecoratorsProxy;
-	}
-
-	/**
-	 * Get the sendEventDecorators method proxy from ModelingBeanInfo.
-	 * @return
-	 * 
-	 * @since 1.1.0
-	 */
-	public IMethodProxy getSendEventDecoratorsProxy() {
-		return sendEventDecoratorsProxy;
-	}
-
 	/**
 	 * Get the getBeanInfoSearchPath method proxy from Introspector.
 	 * @return

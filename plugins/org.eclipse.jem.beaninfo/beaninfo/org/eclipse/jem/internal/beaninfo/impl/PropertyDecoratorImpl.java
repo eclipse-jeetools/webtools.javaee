@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 
@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
+import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
 /**
@@ -47,9 +48,11 @@ import org.eclipse.jem.java.Method;
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#isDesignTime <em>Design Time</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#isAlwaysIncompatible <em>Always Incompatible</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#getFilterFlags <em>Filter Flags</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#isFieldReadOnly <em>Field Read Only</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#getPropertyEditorClass <em>Property Editor Class</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#getReadMethod <em>Read Method</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#getWriteMethod <em>Write Method</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl#getField <em>Field</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,7 +71,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public static final long PROPERTY_WRITEMETHOD_IMPLICIT = 0x8L;
 	public static final long PROPERTY_BOUND_IMPLICIT = 0x10L;
 	public static final long PROPERTY_CONSTRAINED_IMPLICIT = 0x20L;
-	public static final long PROPERTY_DESIGNTIME_IMPLICIT = 0x4L;
+	public static final long PROPERTY_DESIGNTIME_IMPLICIT = 0x40L;
+	public static final long PROPERTY_FIELD_IMPLICIT = 0x80L;
 	
 	
 	/**
@@ -188,6 +192,26 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 */
 	protected EList filterFlags = null;
 	/**
+	 * The default value of the '{@link #isFieldReadOnly() <em>Field Read Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isFieldReadOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean FIELD_READ_ONLY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isFieldReadOnly() <em>Field Read Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isFieldReadOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean fieldReadOnly = FIELD_READ_ONLY_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getPropertyEditorClass() <em>Property Editor Class</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -232,6 +256,25 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @ordered
 	 */
 	protected boolean writeMethodESet = false;
+
+	/**
+	 * The cached value of the '{@link #getField() <em>Field</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getField()
+	 * @generated
+	 * @ordered
+	 */
+	protected Field field = null;
+
+	/**
+	 * This is true if the Field reference has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean fieldESet = false;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -432,6 +475,27 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isFieldReadOnly() {
+		return fieldReadOnly;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFieldReadOnly(boolean newFieldReadOnly) {
+		boolean oldFieldReadOnly = fieldReadOnly;
+		fieldReadOnly = newFieldReadOnly;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY, oldFieldReadOnly, fieldReadOnly));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public JavaClass getPropertyEditorClass() {
 		if (propertyEditorClass != null && propertyEditorClass.eIsProxy()) {
 			JavaClass oldPropertyEditorClass = propertyEditorClass;
@@ -569,6 +633,69 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Field getField() {
+		if (field != null && field.eIsProxy()) {
+			Field oldField = field;
+			field = (Field)eResolveProxy((InternalEObject)field);
+			if (field != oldField) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__FIELD, oldField, field));
+			}
+		}
+		return field;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Field basicGetField() {
+		return field;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setField(Field newField) {
+		Field oldField = field;
+		field = newField;
+		boolean oldFieldESet = fieldESet;
+		fieldESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__FIELD, oldField, field, !oldFieldESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetField() {
+		Field oldField = field;
+		boolean oldFieldESet = fieldESet;
+		field = null;
+		fieldESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__FIELD, oldField, null, oldFieldESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetField() {
+		return fieldESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -583,6 +710,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 		result.append(alwaysIncompatible);
 		result.append(", filterFlags: ");
 		result.append(filterFlags);
+		result.append(", fieldReadOnly: ");
+		result.append(fieldReadOnly);
 		result.append(')');
 		return result.toString();
 	}
@@ -730,6 +859,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				return isAlwaysIncompatible() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.PROPERTY_DECORATOR__FILTER_FLAGS:
 				return getFilterFlags();
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				return isFieldReadOnly() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				if (resolve) return getPropertyEditorClass();
 				return basicGetPropertyEditorClass();
@@ -739,6 +870,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			case BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD:
 				if (resolve) return getWriteMethod();
 				return basicGetWriteMethod();
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD:
+				if (resolve) return getField();
+				return basicGetField();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -822,6 +956,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				getFilterFlags().clear();
 				getFilterFlags().addAll((Collection)newValue);
 				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				setFieldReadOnly(((Boolean)newValue).booleanValue());
+				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				setPropertyEditorClass((JavaClass)newValue);
 				return;
@@ -830,6 +967,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD:
 				setWriteMethod((Method)newValue);
+				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD:
+				setField((Field)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -908,6 +1048,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			case BeaninfoPackage.PROPERTY_DECORATOR__FILTER_FLAGS:
 				getFilterFlags().clear();
 				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				setFieldReadOnly(FIELD_READ_ONLY_EDEFAULT);
+				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				setPropertyEditorClass((JavaClass)null);
 				return;
@@ -916,6 +1059,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD:
 				unsetWriteMethod();
+				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD:
+				unsetField();
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -984,12 +1130,16 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				return alwaysIncompatible != ALWAYS_INCOMPATIBLE_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__FILTER_FLAGS:
 				return filterFlags != null && !filterFlags.isEmpty();
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD_READ_ONLY:
+				return fieldReadOnly != FIELD_READ_ONLY_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				return propertyEditorClass != null;
 			case BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD:
 				return isSetReadMethod();
 			case BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD:
 				return isSetWriteMethod();
+			case BeaninfoPackage.PROPERTY_DECORATOR__FIELD:
+				return isSetField();
 		}
 		return eDynamicIsSet(eFeature);
 	}

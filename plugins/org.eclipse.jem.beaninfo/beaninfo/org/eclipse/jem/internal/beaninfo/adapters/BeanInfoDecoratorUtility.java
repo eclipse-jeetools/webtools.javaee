@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoDecoratorUtility.java,v $
- *  $Revision: 1.1 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/08 21:54:02 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -121,6 +121,10 @@ public class BeanInfoDecoratorUtility {
 			decor.unsetReadMethod();
 		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_WRITEMETHOD_IMPLICIT) != 0)
 			decor.unsetWriteMethod();
+		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_FIELD_IMPLICIT) != 0) {
+			decor.unsetField();		
+			decor.eUnset(BeaninfoPackage.eINSTANCE.getPropertyDecorator_Field());
+		}
 		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_BOUND_IMPLICIT) != 0)
 			decor.unsetBound();
 		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_CONSTRAINED_IMPLICIT) != 0)
@@ -203,22 +207,11 @@ public class BeanInfoDecoratorUtility {
 
 	}
 
-	/**
-	 * Introspect (actually get the introspection results) into the BeanDecorator from the ModelingBeanInfo proxy.
-	 * 
-	 * @param decor
-	 *            BeanDecorator to introspect into.
-	 * @param modelBeaninfoProxy
-	 *            proxy of ModelingBeanInfo for this class.
-	 * 
-	 * @see org.eclipse.jem.internal.beaninfo.vm.ModelingBeanInfo
-	 * @since 1.1.0
-	 */
-	public static void introspect(BeanDecorator decor, IBeanProxy modelBeaninfoProxy) {
-		IntrospectCallBack cb = new IntrospectCallBack(decor);
+	public static void introspect(IBeanProxy modelBeaninfoProxy, IntrospectCallBack callback) {
+		ProxyIntrospectCallBack cb = new ProxyIntrospectCallBack(callback);
 		modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().registerCallback(modelBeaninfoProxy, cb);
 		try {
-			BeaninfoProxyConstants.getConstants(modelBeaninfoProxy.getProxyFactoryRegistry()).getSendBeanDecoratorProxy()
+			BeaninfoProxyConstants.getConstants(modelBeaninfoProxy.getProxyFactoryRegistry()).getSendBeanInfoProxy()
 					.invokeCatchThrowableExceptions(modelBeaninfoProxy);
 		} finally {
 			modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().deregisterCallback(modelBeaninfoProxy);
@@ -227,82 +220,25 @@ public class BeanInfoDecoratorUtility {
 	}
 
 	/**
-	 * Introspect (actually get introspection results) for the properties from the ModelingBeanInfoProxy. The callback will be called once for each
-	 * property in the BeanInfo. The callee has the chance to decide whether to accept the property and to create anything else needed for it to work.
-	 * 
-	 * @param callback
-	 *            callback to process the properties.
-	 * @param modelBeaninfoProxy
-	 *            proxy of ModelingBeanInfo for this class
-	 * 
-	 * @see org.eclipse.jem.internal.beaninfo.vm.ModelingBeanInfo
-	 * @since 1.1.0
-	 */
-	public static void introspect(PropertyCallBack callback, IBeanProxy modelBeaninfoProxy) {
-		IntrospectCallBack cb = new IntrospectCallBack(callback);
-		modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().registerCallback(modelBeaninfoProxy, cb);
-		try {
-			BeaninfoProxyConstants.getConstants(modelBeaninfoProxy.getProxyFactoryRegistry()).getSendPropertyDecoratorsProxy()
-					.invokeCatchThrowableExceptions(modelBeaninfoProxy);
-		} finally {
-			modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().deregisterCallback(modelBeaninfoProxy);
-		}
-	}
-
-	/**
-	 * Introspect (actually get introspection results) for the methods from the ModelingBeanInfoProxy. The callback will be called once for each
-	 * method in the BeanInfo. The callee has the chance to decide whether to accept the method and to create anything else needed for it to work.
-	 * 
-	 * @param callback
-	 *            callback to process the properties
-	 * @param beaninfo
-	 *            proxy of ModelingBeanInfo for this class
-	 * 
-	 * @see org.eclipse.jem.internal.beaninfo.vm.ModelingBeanInfo
-	 * @since 1.1.0
-	 */
-	public static void introspect(OperationCallBack callback, IBeanProxy modelBeaninfoProxy) {
-
-		IntrospectCallBack cb = new IntrospectCallBack(callback);
-		modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().registerCallback(modelBeaninfoProxy, cb);
-		try {
-			BeaninfoProxyConstants.getConstants(modelBeaninfoProxy.getProxyFactoryRegistry()).getSendMethodDecoratorsProxy()
-					.invokeCatchThrowableExceptions(modelBeaninfoProxy);
-		} finally {
-			modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().deregisterCallback(modelBeaninfoProxy);
-		}
-	}
-
-	/**
-	 * Introspect (actually get introspection results) for the methods from the ModelingBeanInfoProxy. The callback will be called once for each
-	 * method in the BeanInfo. The callee has the chance to decide whether to accept the method and to create anything else needed for it to work.
-	 * 
-	 * @param callback
-	 *            callback to process the properties
-	 * @param beaninfo
-	 *            proxy of ModelingBeanInfo for this class
-	 * 
-	 * @see org.eclipse.jem.internal.beaninfo.vm.ModelingBeanInfo
-	 * @since 1.1.0
-	 */
-	public static void introspect(EventCallBack callback, IBeanProxy modelBeaninfoProxy) {
-
-		IntrospectCallBack cb = new IntrospectCallBack(callback);
-		modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().registerCallback(modelBeaninfoProxy, cb);
-		try {
-			BeaninfoProxyConstants.getConstants(modelBeaninfoProxy.getProxyFactoryRegistry()).getSendEventDecoratorsProxy()
-					.invokeCatchThrowableExceptions(modelBeaninfoProxy);
-		} finally {
-			modelBeaninfoProxy.getProxyFactoryRegistry().getCallbackRegistry().deregisterCallback(modelBeaninfoProxy);
-		}
-	}
-
-	/**
-	 * This call back is called once for each PropertyRecord from introspection. It allows the callee to process this record.
+	 * This call back is for each requested type of record. It allows the callee to process this record.
 	 * 
 	 * @since 1.1.0
 	 */
-	public interface PropertyCallBack {
+	public interface IntrospectCallBack {
+
+		/**
+		 * Process the BeanDecoratorRecord. The callee can decide what needs to be done with this record. It would return the BeandDecorator that needs
+		 * to have the record applied to. If it returns <code>null</code> then the record will be ignored.
+		 * <p>
+		 * Note: This will be called on a separate thread from that which initiated the request. Therefor be careful with any locks because you may
+		 * have them on a separate thread.
+		 * 
+		 * @param record
+		 * @return BeanDecorator to be applied to, or <code>null</code> if record is to be ignored.
+		 * 
+		 * @since 1.1.0
+		 */
+		public BeanDecorator process(BeanRecord record);
 
 		/**
 		 * Process the PropertyRecord. The callee can decide what needs to be done with this record. It would return the PropertyDecorator that needs
@@ -335,14 +271,6 @@ public class BeanInfoDecoratorUtility {
 		 * @since 1.1.0
 		 */
 		public PropertyDecorator process(IndexedPropertyRecord record);
-	}
-
-	/**
-	 * This call back is called once for each MethodRecord from introspection. It allows the callee to process this record.
-	 * 
-	 * @since 1.1.0
-	 */
-	public interface OperationCallBack {
 
 		/**
 		 * Process the MethodRecord. The callee can decide what needs to be done with this record. It would return the MethodDecorator that needs to
@@ -359,14 +287,6 @@ public class BeanInfoDecoratorUtility {
 		 */
 
 		public MethodDecorator process(MethodRecord record);
-	}
-
-	/**
-	 * This call back is called once for each EventSetRecord from introspection. It allows the callee to process this record.
-	 * 
-	 * @since 1.1.0
-	 */
-	public interface EventCallBack {
 
 		/**
 		 * Process the EventRecord. The callee can decide what needs to be done with this record. It would return the EventSetDecorator that needs to
@@ -385,12 +305,12 @@ public class BeanInfoDecoratorUtility {
 		public EventSetDecorator process(EventSetRecord record);
 	}
 
-	private static class IntrospectCallBack implements ICallback {
+	private static class ProxyIntrospectCallBack implements ICallback {
 
-		private Object workObject; // This is an object because it could be a BeanDecor, it could be a list, it depends.
+		private IntrospectCallBack introspectCallback;
 
-		public IntrospectCallBack(Object workObject) {
-			this.workObject = workObject;
+		public ProxyIntrospectCallBack(IntrospectCallBack introspectCallback) {
+			this.introspectCallback = introspectCallback;
 		}
 
 		/*
@@ -426,108 +346,118 @@ public class BeanInfoDecoratorUtility {
 		 * @see org.eclipse.jem.internal.proxy.core.ICallback#calledBackStream(int, java.io.InputStream)
 		 */
 		public void calledBackStream(int msgID, InputStream is) {
-			switch (msgID) {
-				case IBeanInfoIntrospectionConstants.BEAN_DECORATOR_SENT:
-					try {
-						ObjectInputStream ois = new ObjectInputStream(is);
-						BeanDecorator bd = (BeanDecorator) workObject;
-						clear(bd);
-						applyRecord(bd, (BeanRecord) ois.readObject());
-					} catch (IOException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassCastException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassNotFoundException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					}
-					break;
-				case IBeanInfoIntrospectionConstants.PROPERTY_DECORATORS_SENT:
-					PropertyCallBack pcb = (PropertyCallBack) workObject;
-					try {
-						ObjectInputStream ois = new ObjectInputStream(is);
-						int propCount = ois.readInt();
-						for (int i = 0; i < propCount; i++) {
-							PropertyRecord pr = (PropertyRecord) ois.readObject();
-							if (pr.getClass() == IndexedPropertyRecord.class) {
-								IndexedPropertyRecord ipr = (IndexedPropertyRecord) pr;
-								PropertyDecorator ip = pcb.process(ipr);
-								if (ip != null) {
-									// It actually could be either a property decorator or an indexed property decorator. This could happen
-									// because the overrides file has explicitly declared a PropertyDecorator, so we can't change it to an Indexed.
-									// So in that case we can only fill the property part.
-									if (ip.eClass().getClassifierID() == BeaninfoPackage.INDEXED_PROPERTY_DECORATOR)
-										applyRecord((IndexedPropertyDecorator) ip, ipr);
-									else
-										applyRecord(ip, pr); // It was forced to be a property and not indexed.
+			ObjectInputStream ois;
+			try {
+				ois = new ObjectInputStream(is);
+				while (true) {
+					int cmdId = ois.readInt();
+					switch (cmdId) {
+						case IBeanInfoIntrospectionConstants.BEAN_DECORATOR_SENT:
+							try {
+								BeanRecord br = (BeanRecord) ois.readObject();
+								BeanDecorator bd = introspectCallback.process(br);
+								if (bd != null) {
+									clear(bd);
+									applyRecord(bd, br);
 								}
-							} else {
-								PropertyDecorator p = pcb.process(pr);
-								if (p != null) {
-									// It actually could be either a property decorator or an indexed property decorator. This could happen
-									// because the overrides file has explicitly declared an IndexedPropertyDecorator, so we can't change it to an
-									// Property.
-									// So in that case we can only fill the property part.
-									applyRecord(p, pr);
-								}
+							} catch (IOException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassCastException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassNotFoundException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
 							}
-						}
-					} catch (IOException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassNotFoundException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassCastException e) {
-						// In case we got bad data sent in.
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					}
-					break;
+							break;
+						case IBeanInfoIntrospectionConstants.PROPERTY_DECORATORS_SENT:
+							try {
+								int propCount = ois.readInt();
+								for (int i = 0; i < propCount; i++) {
+									PropertyRecord pr = (PropertyRecord) ois.readObject();
+									if (pr.getClass() == IndexedPropertyRecord.class) {
+										IndexedPropertyRecord ipr = (IndexedPropertyRecord) pr;
+										PropertyDecorator ip = introspectCallback.process(ipr);
+										if (ip != null) {
+											// It actually could be either a property decorator or an indexed property decorator. This could happen
+											// because the overrides file has explicitly declared a PropertyDecorator, so we can't change it to an
+											// Indexed.
+											// So in that case we can only fill the property part.
+											if (ip.eClass().getClassifierID() == BeaninfoPackage.INDEXED_PROPERTY_DECORATOR)
+												applyRecord((IndexedPropertyDecorator) ip, ipr);
+											else
+												applyRecord(ip, pr); // It was forced to be a property and not indexed.
+										}
+									} else {
+										PropertyDecorator p = introspectCallback.process(pr);
+										if (p != null) {
+											// It actually could be either a property decorator or an indexed property decorator. This could happen
+											// because the overrides file has explicitly declared an IndexedPropertyDecorator, so we can't change it
+											// to an
+											// Property.
+											// So in that case we can only fill the property part.
+											applyRecord(p, pr);
+										}
+									}
+								}
+							} catch (IOException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassNotFoundException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassCastException e) {
+								// In case we got bad data sent in.
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} finally {
+							}
+							break;
 
-				case IBeanInfoIntrospectionConstants.METHOD_DECORATORS_SENT:
-					OperationCallBack ocb = (OperationCallBack) workObject;
-					try {
-						ObjectInputStream ois = new ObjectInputStream(is);
-						int opCount = ois.readInt();
-						for (int i = 0; i < opCount; i++) {
-							MethodRecord mr = (MethodRecord) ois.readObject();
-							MethodDecorator m = ocb.process(mr);
-							if (m != null)
-								applyRecord(m, mr);
-						}
-					} catch (IOException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassNotFoundException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassCastException e) {
-						// In case we got bad data sent in.
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					}
-					break;
+						case IBeanInfoIntrospectionConstants.METHOD_DECORATORS_SENT:
+							try {
+								int opCount = ois.readInt();
+								for (int i = 0; i < opCount; i++) {
+									MethodRecord mr = (MethodRecord) ois.readObject();
+									MethodDecorator m = introspectCallback.process(mr);
+									if (m != null)
+										applyRecord(m, mr);
+								}
+							} catch (IOException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassNotFoundException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassCastException e) {
+								// In case we got bad data sent in.
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							}
+							break;
 
-				case IBeanInfoIntrospectionConstants.EVENT_DECORATORS_SENT:
-					EventCallBack ecb = (EventCallBack) workObject;
-					try {
-						ObjectInputStream ois = new ObjectInputStream(is);
-						int opCount = ois.readInt();
-						for (int i = 0; i < opCount; i++) {
-							EventSetRecord evr = (EventSetRecord) ois.readObject();
-							EventSetDecorator e = ecb.process(evr);
-							if (e != null)
-								applyRecord(e, evr);
-						}
-					} catch (IOException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassNotFoundException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					} catch (ClassCastException e) {
-						// In case we got bad data sent in.
-						BeaninfoPlugin.getPlugin().getLogger().log(e);
-					}
-					break;
+						case IBeanInfoIntrospectionConstants.EVENT_DECORATORS_SENT:
+							try {
+								int opCount = ois.readInt();
+								for (int i = 0; i < opCount; i++) {
+									EventSetRecord evr = (EventSetRecord) ois.readObject();
+									EventSetDecorator e = introspectCallback.process(evr);
+									if (e != null)
+										applyRecord(e, evr);
+								}
+							} catch (IOException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassNotFoundException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							} catch (ClassCastException e) {
+								// In case we got bad data sent in.
+								BeaninfoPlugin.getPlugin().getLogger().log(e);
+							}
+							break;
 
-				default:
-					break;
+						case IBeanInfoIntrospectionConstants.DONE:
+							return;	// Good. This is a good stop.
+							
+						default:
+							return;	// This is invalid. Should of gotton something.
+					}
+				}
+			} catch (IOException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e);
 			}
 		}
-
 	}
 
 	/**
@@ -665,6 +595,12 @@ public class BeanInfoDecoratorUtility {
 			decor.setWriteMethod(createJavaMethodProxy(record.writeMethod));
 			implicitSettings |= PropertyDecoratorImpl.PROPERTY_WRITEMETHOD_IMPLICIT;
 		}
+		if (record.field != null && !decor.isSetField()) {
+			decor.setField(createJavaFieldProxy(record.field));
+			if (decor.isFieldReadOnly() != record.field.readOnly)
+				decor.setFieldReadOnly(record.field.readOnly);
+			implicitSettings |= PropertyDecoratorImpl.PROPERTY_FIELD_IMPLICIT;
+		}		
 		if (!decor.isSetBound()) {
 			if (decor.isBound() != record.bound)
 				decor.setBound(record.bound);
@@ -853,6 +789,13 @@ public class BeanInfoDecoratorUtility {
 		((InternalEObject) methodEMF).eSetProxyURI(uri);
 		return methodEMF;
 	}
+	
+	public static Field createJavaFieldProxy(ReflectFieldRecord field) {
+		URI uri = Utilities.getFieldURI(MapJNITypes.getFormalTypeName(field.className), field.fieldName);
+		Field fieldEMF = JavaRefFactory.eINSTANCE.createField();
+		((InternalEObject) fieldEMF).eSetProxyURI(uri);
+		return fieldEMF;
+	}	
 
 	/**
 	 * Set the properties on the PropertyDecorator. These come from reflection. Since this is a private interface between BeaninfoClassAdapter and
@@ -1238,6 +1181,11 @@ public class BeanInfoDecoratorUtility {
 		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_WRITEMETHOD_IMPLICIT) != 0) {
 			doSet(cd, fcs, BeaninfoPackage.eINSTANCE.getPropertyDecorator_WriteMethod(), decor.getWriteMethod(), false); 
 		}
+		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_FIELD_IMPLICIT) != 0) {
+			doSet(cd, fcs, BeaninfoPackage.eINSTANCE.getPropertyDecorator_Field(), decor.getField(), false); 
+			if (decor.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_FieldReadOnly()))
+				doSet(cd, fcs, BeaninfoPackage.eINSTANCE.getPropertyDecorator_FieldReadOnly(), Boolean.valueOf(decor.isFieldReadOnly()), false);
+		}		
 		if ((implicitSettings & PropertyDecoratorImpl.PROPERTY_BOUND_IMPLICIT) != 0 && decor.isSetBound()) {
 			doSet(cd, fcs, BeaninfoPackage.eINSTANCE.getPropertyDecorator_Bound(), Boolean.valueOf(decor.isBound()), false);
 		}

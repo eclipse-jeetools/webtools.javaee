@@ -12,7 +12,7 @@ package org.eclipse.jem.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: BaseBeanInfo.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.3 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 import java.awt.Image;
@@ -120,6 +120,16 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 * @since 1.1.0
 	 */
 	public static final String INDEFAULTEVENTSET = "inDefaultEventSet";//$NON-NLS-1$
+	
+	/**
+	 * This is a Feature Attribute Key. When this key exists, the value is a java.lang.reflect.Field. It means this property
+	 * is a field and not a getter/setter. The getter/setter will be ignored and the property type will be the type of the field.
+	 * <p>
+	 * At this time, do not use field on an indexed property. This is currently an indefined situation.
+	 * 
+	 * @since 1.1.0
+	 */
+	public static final String FIELDPROPERTY = "field";
 
 	/**
 	 * Enumeration values indicator for apply property arguments. Enumeration values is a pre-defined attribute name too. That is where the
@@ -178,6 +188,12 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	public static final String ICONMONO32X32URL = "ICON_MONO_32x32_URL"; //$NON-NLS-1$			// Not used
 
 	public static final boolean JVM_1_3 = System.getProperty("java.version", "").startsWith("1.3"); //$NON-NLS-1$ //$NON-NLS-2$  //$NON-NLS-3$
+	
+	/**
+	 * Empty args list for those descriptors that don't have arguments.
+	 * @since 1.1.0
+	 */
+	public static final Object[] EMPTY_ARGS = new Object[0];
 
 	/**
 	 * Capitalize the string. This uppercases only the first character. So if you have property name of "abc" it will become "Abc".
@@ -413,6 +429,43 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 
 		return pd;
 	}
+	
+	private static Method GETCLASS; 
+	
+	static {
+		try {
+			GETCLASS = Object.class.getMethod("getClass", null);
+		} catch (SecurityException e) {
+		} catch (NoSuchMethodException e) {
+		}
+	}
+	/**
+	 * Create a property descriptor describing a field property.
+	 * <p>
+	 * Note: This is non-standard. The VE knows how to handle this, but any one else using BeanInfo will see this as a property with
+	 * no getter or setter.
+	 * @param name
+	 * @param field
+	 * @param args
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public static PropertyDescriptor createFieldPropertyDescriptor(String name, Field field, Object[] args) {
+		try {
+			PropertyDescriptor pd = new PropertyDescriptor(name, null, null);
+			pd.setValue(FIELDPROPERTY, field);	// Set the field property so we know it is a field.
+			applyFieldArguments(pd, args);
+			// Need to set in a phony read method because Introspector will throw it away otherwise. We just use Object.getClass for this.
+			// We will ignore the property type for fields. If used outside of VE then it will look like a class property.
+			pd.setReadMethod(GETCLASS);
+			return pd;
+		} catch (IntrospectionException e) {
+			throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("Cannot_create_the_P1_EXC_"), //$NON-NLS-1$
+					new Object[] { name}));
+			return null;
+		}
+	}
 
 	/**
 	 * Create a bean's property descriptor.
@@ -514,45 +567,77 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 		}
 	}
 
+	/*
+	 * The common property arguments between field and standard properties.
+	 */
+	private static boolean applyCommonPropertyArguments(PropertyDescriptor pd, String key, Object value) {
+		if (BOUND.equals(key)) {
+			pd.setBound(((Boolean) value).booleanValue());
+		} else if (CONSTRAINED.equals(key)) {
+			pd.setConstrained(((Boolean) value).booleanValue());
+		} else if (PROPERTYEDITORCLASS.equals(key)) {
+			pd.setPropertyEditorClass((Class) value);
+		} else if (FIELDPROPERTY.equals(key))
+			return true;	// This should not be applied except through createFieldProperty.
+		else
+			return false;
+		return true;
+	
+	}
+	
 	private static void applyPropertyArguments(PropertyDescriptor pd, Object[] args, Class cls) {
 		for (int i = 0; i < args.length; i += 2) {
 			String key = (String) args[i];
 			Object value = args[i + 1];
 
-			if (BOUND.equals(key)) {
-				pd.setBound(((Boolean) value).booleanValue());
-			} else if (CONSTRAINED.equals(key)) {
-				pd.setConstrained(((Boolean) value).booleanValue());
-			} else if (PROPERTYEDITORCLASS.equals(key)) {
-				pd.setPropertyEditorClass((Class) value);
-			} else if (READMETHOD.equals(key)) {
-				String methodName = (String) value;
-				Method method;
-				try {
-					method = cls.getMethod(methodName, new Class[0]);
-					pd.setReadMethod(method);
-				} catch (Exception e) {
-					throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_read_method_EXC_"), //$NON-NLS-1$
-							new Object[] { cls, methodName}));
-				}
-			} else if (WRITEMETHOD.equals(key)) {
-				String methodName = (String) value;
-				try {
-					if (methodName == null) {
-						pd.setWriteMethod(null);
-					} else {
-						Method method;
-						Class type = pd.getPropertyType();
-						method = cls.getMethod(methodName, new Class[] { type});
-						pd.setWriteMethod(method);
+			if (!applyCommonPropertyArguments(pd, key, value)) {
+				if (READMETHOD.equals(key)) {
+					String methodName = (String) value;
+					Method method;
+					try {
+						method = cls.getMethod(methodName, new Class[0]);
+						pd.setReadMethod(method);
+					} catch (Exception e) {
+						throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_read_method_EXC_"), //$NON-NLS-1$
+								new Object[] { cls, methodName}));
 					}
-				} catch (Exception e) {
-					throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_write_method_EXC_"), //$NON-NLS-1$
-							new Object[] { cls, methodName}));
+				} else if (WRITEMETHOD.equals(key)) {
+					String methodName = (String) value;
+					try {
+						if (methodName == null) {
+							pd.setWriteMethod(null);
+						} else {
+							Method method;
+							Class type = pd.getPropertyType();
+							method = cls.getMethod(methodName, new Class[] { type});
+							pd.setWriteMethod(method);
+						}
+					} catch (Exception e) {
+						throwError(e, java.text.MessageFormat.format(RESBUNDLE.getString("{0}_no_write_method_EXC_"), //$NON-NLS-1$
+								new Object[] { cls, methodName}));
+					}
+				} else {
+					// arbitrary value
+					setFeatureDescriptorValue(pd, key, value);
 				}
-			} else {
-				// arbitrary value
-				setFeatureDescriptorValue(pd, key, value);
+			}
+		}
+	}
+
+	private static void applyFieldArguments(PropertyDescriptor pd, Object[] args) {
+		for (int i = 0; i < args.length; i += 2) {
+			String key = (String) args[i];
+			Object value = args[i + 1];
+
+			if (!applyCommonPropertyArguments(pd, key, value)) {
+				if (READMETHOD.equals(key)) {
+					// ignored for field.
+				} else if (WRITEMETHOD.equals(key)) {
+					// ignored for field.
+				} else {
+					// arbitrary value
+					setFeatureDescriptorValue(pd, key, value);
+				}
 			}
 		}
 	}
@@ -596,9 +681,9 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 *            The array of property descriptors to search, may be null.
 	 * @param name
 	 *            The name to search for.
-	 * @return The found property descriptor, or null if not found.
+	 * @return The found property descriptor index, or -1 if not found.
 	 */
-	private static int findPropertyDescriptor(PropertyDescriptor[] pds, String name) {
+	public static int findPropertyDescriptor(PropertyDescriptor[] pds, String name) {
 		for (int i = 0; i < pds.length; i++) {
 			if (name.equals(pds[i].getName()))
 				return i;
@@ -622,6 +707,15 @@ public abstract class BaseBeanInfo extends SimpleBeanInfo {
 	 */
 	public int getDefaultPropertyIndex() {
 		return -1;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see java.beans.SimpleBeanInfo#getBeanDescriptor()
+	 */
+	public BeanDescriptor getBeanDescriptor() {
+		// Default is to create an empty one.
+		return createBeanDescriptor(getBeanClass(), EMPTY_ARGS);
 	}
 
 	/**

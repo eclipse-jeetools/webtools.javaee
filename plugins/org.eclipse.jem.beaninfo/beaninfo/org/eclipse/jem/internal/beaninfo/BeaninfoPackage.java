@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeaninfoPackage.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -1352,13 +1352,22 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int PROPERTY_DECORATOR__FILTER_FLAGS = FEATURE_DECORATOR_FEATURE_COUNT + 4;
 	/**
+	 * The feature id for the '<em><b>Field Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_DECORATOR__FIELD_READ_ONLY = FEATURE_DECORATOR_FEATURE_COUNT + 5;
+
+	/**
 	 * The feature id for the '<em><b>Property Editor Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS = FEATURE_DECORATOR_FEATURE_COUNT + 5;
+	int PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS = FEATURE_DECORATOR_FEATURE_COUNT + 6;
 	/**
 	 * The feature id for the '<em><b>Read Method</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -1366,7 +1375,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_DECORATOR__READ_METHOD = FEATURE_DECORATOR_FEATURE_COUNT + 6;
+	int PROPERTY_DECORATOR__READ_METHOD = FEATURE_DECORATOR_FEATURE_COUNT + 7;
 	/**
 	 * The feature id for the '<em><b>Write Method</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -1374,7 +1383,16 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_DECORATOR__WRITE_METHOD = FEATURE_DECORATOR_FEATURE_COUNT + 7;
+	int PROPERTY_DECORATOR__WRITE_METHOD = FEATURE_DECORATOR_FEATURE_COUNT + 8;
+	/**
+	 * The feature id for the '<em><b>Field</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_DECORATOR__FIELD = FEATURE_DECORATOR_FEATURE_COUNT + 9;
+
 	/**
 	 * The number of structural features of the the '<em>Property Decorator</em>' class.
 	 * <!-- begin-user-doc -->
@@ -1382,7 +1400,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 8;
+	int PROPERTY_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1577,6 +1595,15 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int INDEXED_PROPERTY_DECORATOR__FILTER_FLAGS = PROPERTY_DECORATOR__FILTER_FLAGS;
 	/**
+	 * The feature id for the '<em><b>Field Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEXED_PROPERTY_DECORATOR__FIELD_READ_ONLY = PROPERTY_DECORATOR__FIELD_READ_ONLY;
+
+	/**
 	 * The feature id for the '<em><b>Property Editor Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1600,6 +1627,15 @@ public interface BeaninfoPackage extends EPackage{
 	 * @ordered
 	 */
 	int INDEXED_PROPERTY_DECORATOR__WRITE_METHOD = PROPERTY_DECORATOR__WRITE_METHOD;
+	/**
+	 * The feature id for the '<em><b>Field</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEXED_PROPERTY_DECORATOR__FIELD = PROPERTY_DECORATOR__FIELD;
+
 	/**
 	 * The feature id for the '<em><b>Indexed Read Method</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -2286,6 +2322,17 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getPropertyDecorator_FilterFlags();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#isFieldReadOnly <em>Field Read Only</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Field Read Only</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.PropertyDecorator#isFieldReadOnly()
+	 * @see #getPropertyDecorator()
+	 * @generated
+	 */
+	EAttribute getPropertyDecorator_FieldReadOnly();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getPropertyEditorClass <em>Property Editor Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2317,6 +2364,17 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getPropertyDecorator_WriteMethod();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getField <em>Field</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Field</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.PropertyDecorator#getField()
+	 * @see #getPropertyDecorator()
+	 * @generated
+	 */
+	EReference getPropertyDecorator_Field();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator <em>Indexed Property Decorator</em>}'.

@@ -11,13 +11,14 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: PropertyDecorator.java,v $
- *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/08 21:54:02 $ 
  */
 
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 
+import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
 /**
@@ -37,9 +38,11 @@ import org.eclipse.jem.java.Method;
  *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#isDesignTime <em>Design Time</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#isAlwaysIncompatible <em>Always Incompatible</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getFilterFlags <em>Filter Flags</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#isFieldReadOnly <em>Field Read Only</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getPropertyEditorClass <em>Property Editor Class</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getReadMethod <em>Read Method</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getWriteMethod <em>Write Method</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getField <em>Field</em>}</li>
  * </ul>
  * </p>
  *
@@ -262,6 +265,31 @@ public interface PropertyDecorator extends FeatureDecorator{
 	EList getFilterFlags();
 
 	/**
+	 * Returns the value of the '<em><b>Field Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Is this field read-only (i.e. is a "final" field). This is only referenced if the field reference is set.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Field Read Only</em>' attribute.
+	 * @see #setFieldReadOnly(boolean)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_FieldReadOnly()
+	 * @model 
+	 * @generated
+	 */
+	boolean isFieldReadOnly();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#isFieldReadOnly <em>Field Read Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field Read Only</em>' attribute.
+	 * @see #isFieldReadOnly()
+	 * @generated
+	 */
+	void setFieldReadOnly(boolean value);
+
+	/**
 	 * Returns the value of the '<em><b>Property Editor Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -392,6 +420,58 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * @generated
 	 */
 	boolean isSetWriteMethod();
+
+	/**
+	 * Returns the value of the '<em><b>Field</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If this is set, then this property is a field and not a getter/setter property. This is an extension that the Visual Editor uses to the BeanInfo model.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Field</em>' reference.
+	 * @see #isSetField()
+	 * @see #unsetField()
+	 * @see #setField(Field)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_Field()
+	 * @model unsettable="true"
+	 * @generated
+	 */
+	Field getField();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getField <em>Field</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field</em>' reference.
+	 * @see #isSetField()
+	 * @see #unsetField()
+	 * @see #getField()
+	 * @generated
+	 */
+	void setField(Field value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getField <em>Field</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetField()
+	 * @see #getField()
+	 * @see #setField(Field)
+	 * @generated
+	 */
+	void unsetField();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getField <em>Field</em>}' reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Field</em>' reference is set.
+	 * @see #unsetField()
+	 * @see #getField()
+	 * @see #setField(Field)
+	 * @generated
+	 */
+	boolean isSetField();
 
 	/**
 	 * <!-- begin-user-doc -->
