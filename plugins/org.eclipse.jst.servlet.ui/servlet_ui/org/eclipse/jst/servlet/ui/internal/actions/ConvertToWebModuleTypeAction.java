@@ -18,11 +18,12 @@ import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -103,23 +104,14 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	 */
 	public boolean isValidProject(IProject aProject)
 	{
-		if( isAWebProject(aProject) )
-		{
-			try
-			{
-				IBaseWebNature nature = (IBaseWebNature) aProject
-						.getNature(IWebNatureConstants.STATIC_NATURE_ID);
-				if( nature == null )
-					return false;
-				return true;
-			}
-			catch( CoreException e )
-			{
-				return false;
-			}
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(aProject);
+			return webEdit!=null;
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
 		}
-
-		return false;
 	}
 
 	/**

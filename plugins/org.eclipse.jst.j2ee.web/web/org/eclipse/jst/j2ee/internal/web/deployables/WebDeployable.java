@@ -13,7 +13,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.util.ProjectModule;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 public abstract class WebDeployable extends ProjectModule implements IModule, IWebNatureConstants {
 
@@ -36,9 +35,9 @@ public abstract class WebDeployable extends ProjectModule implements IModule, IW
 	 * @param nature
 	 *            The nature to set
 	 */
-	protected void setWebNature(IBaseWebNature nature) {
-		nature.setModule(this);
-	}
+//	protected void setWebNature(IBaseWebNature nature) {
+//		nature.setModule(this);
+//	}
 
 	/**
 	 * Returns true if this deployable currently exists, and false if it has been deleted or moved

@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
@@ -30,7 +31,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
-import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
@@ -44,7 +44,6 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -91,7 +90,7 @@ public class WebDeployableArtifactUtil  {
 					//return new WebResource(getModule(webNature), new Path(mapping));
 					return new WebResource(getModule(resource.getProject()), new Path(mapping));
 				}
-				WebType webType = ((Servlet) obj).getWebType();
+				//WebType webType = ((Servlet) obj).getWebType();
 				
 				//To do:Need to rework based on Module
 				/*
@@ -179,23 +178,24 @@ public class WebDeployableArtifactUtil  {
 		return false;
 	}
 
-	protected static IModule getModule(IBaseWebNature nature) {
-		IModule deployable = nature.getModule();
-		if (deployable != null)
-			return deployable;
-
-		IProject project = nature.getProject();
-		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
-		
-		while (iterator.hasNext()) {
-			Object next = iterator.next();
-			if (next instanceof IModule) {
-				deployable = (IModule) next;
-				if (deployable.getProject().equals(project))
-					return deployable;
-			}
-		}
-		return null;
+	protected static IModule getModule(IProjectNature nature) {
+		return getModule(nature.getProject());
+//		IModule deployable = nature.getModule();
+//		if (deployable != null)
+//			return deployable;
+//
+//		IProject project = nature.getProject();
+//		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
+//		
+//		while (iterator.hasNext()) {
+//			Object next = iterator.next();
+//			if (next instanceof IModule) {
+//				deployable = (IModule) next;
+//				if (deployable.getProject().equals(project))
+//					return deployable;
+//			}
+//		}
+//		return null;
 	}
 	
 	protected static IModule getModule(IProject project) {
@@ -377,11 +377,7 @@ public class WebDeployableArtifactUtil  {
 		} catch (Exception e) {
 			return null;
 		} finally {
-			try {
-
-			} catch (Exception ex) {
-				// ignore
-			}
+			//Do nothing
 		}
 	}
 
