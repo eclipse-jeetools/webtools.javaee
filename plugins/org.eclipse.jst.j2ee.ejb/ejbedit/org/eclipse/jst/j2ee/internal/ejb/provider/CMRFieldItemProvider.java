@@ -27,7 +27,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.ejb.CMRField;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
