@@ -3,7 +3,6 @@
 	<name>org.eclipse.jem.tests</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.wtp.common</project>
 		<project>org.eclipse.ant.core</project>
 		<project>org.eclipse.core.boot</project>
 		<project>org.eclipse.core.resources</project>

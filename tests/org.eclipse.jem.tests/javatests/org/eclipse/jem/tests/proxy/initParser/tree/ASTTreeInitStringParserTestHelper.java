@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTTreeInitStringParserTestHelper.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/04 16:13:39 $ 
+ *  $Revision: 1.6 $  $Date: 2004/03/06 18:39:13 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
@@ -19,8 +19,8 @@ import java.text.MessageFormat;
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.*;
 
@@ -28,8 +28,6 @@ import org.eclipse.jem.internal.instantiation.PTExpression;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.tests.proxy.initParser.AbstractInitStringParserTestHelper;
 import org.eclipse.jem.workbench.utility.*;
-import org.eclipse.jem.workbench.utility.ASTBoundResolver;
-import org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST;
  
 /**
  * Init String parser helper for working with AST trees.
@@ -66,7 +64,15 @@ public class ASTTreeInitStringParserTestHelper extends AbstractInitStringParserT
 	 */
 	public void testInitString(String aString, Object expectedResult, boolean throwsException, boolean equalsOnly) throws Throwable {
 		String testClass = MessageFormat.format(TEMPLATE_CLASS, new Object[] {aString});
-		CompilationUnit cu = project != null ? AST.parseCompilationUnit(testClass.toCharArray(), "TEMPLATE.java", project, null, null) : AST.parseCompilationUnit(testClass.toCharArray());
+		ASTParser parser = ASTParser.newParser(AST.LEVEL_2_0);
+		parser.setSource(testClass.toCharArray());
+		parser.setUnitName("TEMPLATE.java");
+		if (project != null) {
+			parser.setProject(project);
+			parser.setResolveBindings(true);
+		}
+		CompilationUnit cu  = (CompilationUnit) parser.createAST(new NullProgressMonitor());
+
 		// This is the only method that is called from both init string and parse allocation. So we can be assume that
 		// it is a straight init string. In that case we can go ahead and do regular proxy init string parsing to
 		// get a proxy to pass into the parse testing.
@@ -91,7 +97,14 @@ public class ASTTreeInitStringParserTestHelper extends AbstractInitStringParserT
 			importLines.append(";\n");
 		}
 		String testClass = MessageFormat.format(TEMPLATE_CLASS_IMPORTS, new Object[] {importLines, aString});
-		CompilationUnit cu = project != null ? AST.parseCompilationUnit(testClass.toCharArray(), "TEMPLATE.java", project, null, null) : AST.parseCompilationUnit(testClass.toCharArray());
+		ASTParser parser = ASTParser.newParser(AST.LEVEL_2_0);
+		parser.setSource(testClass.toCharArray());
+		parser.setUnitName("TEMPLATE.java");
+		if (project != null) {
+			parser.setProject(project);
+			parser.setResolveBindings(true);
+		}
+		CompilationUnit cu  = (CompilationUnit) parser.createAST(null);
 		testInitString(aString, cu, expectedResult, throwsException, equalsOnly);
 	}
 	
