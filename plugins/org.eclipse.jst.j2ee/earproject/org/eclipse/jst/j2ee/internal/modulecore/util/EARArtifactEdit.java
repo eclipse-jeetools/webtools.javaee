@@ -66,7 +66,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static EARArtifactEdit getWebArtifactEditForRead(WorkbenchModule aModule) {
+	public static EARArtifactEdit getEARArtifactEditForRead(WorkbenchModule aModule) {
 		try {
 			if (isValidEARModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -99,7 +99,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of EARArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static EARArtifactEdit getWebArtifactEditForWrite(WorkbenchModule aModule) {
+	public static EARArtifactEdit getEARArtifactEditForWrite(WorkbenchModule aModule) {
 		try {
 			if (isValidEARModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
