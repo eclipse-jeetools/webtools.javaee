@@ -26,6 +26,7 @@ import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilder;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderDataModel;
 import org.eclipse.wst.common.modulecore.util.ModuleCore;
 
@@ -79,11 +80,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 			IPath deployPath = absoluteOCP.append(deployURI.toString());
 			IPath parentPath = deployPath.removeLastSegments(1);
 			createFolder(parentPath);
-			// check if the deployPath exists, if so, delete it
-			IResource deployResource = getResource(deployPath);
-			if (deployResource != null && deployResource.exists())
-				deployResource.delete(true, new NullProgressMonitor());
-			sourceResource.copy(deployPath, true, new NullProgressMonitor());
+			DeployableModuleBuilder.smartCopy(sourceResource, deployPath, new NullProgressMonitor());
 		}
 
 		// set Java specific output path, do it after resource copy
