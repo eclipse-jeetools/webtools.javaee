@@ -16,8 +16,7 @@ public class WebAppDeployableModuleBuilderDataModel extends DeployableModuleBuil
      * @see org.eclipse.wst.common.modulecore.builder.DeployableModuleDataModel#getDefaultOperation()
      */
     public WTPOperation getDefaultOperation() {
-        // TODO Auto-generated method stub
-        return null;
+        return new WebAppDeployableModuleBuilderOperation(this);
     }
 
 }
