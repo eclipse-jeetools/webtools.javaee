@@ -6,7 +6,7 @@
    class="org.eclipse.jst.validation.test.BVTValidationPlugin">
 
    <runtime>
-      <library name="runtime/test.jar">
+      <library name="test.jar">
          <export name="*"/>
       </library>
    </runtime>
