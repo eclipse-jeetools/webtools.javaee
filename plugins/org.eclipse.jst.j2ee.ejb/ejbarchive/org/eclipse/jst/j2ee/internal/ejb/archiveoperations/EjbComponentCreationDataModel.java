@@ -142,10 +142,6 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		addNestedModel(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
 	}
 
-	protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
-		return new AddWebModuleToEARDataModel();
-	}
-
 	private Object updateAddToEar() {
 		//IRuntime type = getServerTargetDataModel().getRuntimeTarget();
 //		Boolean ret = Boolean.FALSE;
