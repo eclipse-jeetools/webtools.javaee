@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
-import org.eclipse.wst.common.emf.utilities.ICommandContext;
+import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
 
 
 /**

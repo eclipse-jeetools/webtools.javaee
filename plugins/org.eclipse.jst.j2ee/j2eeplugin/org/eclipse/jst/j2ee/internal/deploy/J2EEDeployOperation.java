@@ -29,10 +29,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.wst.common.emf.utilities.CommandContext;
-import org.eclipse.wst.common.emf.utilities.ICommand;
-import org.eclipse.wst.common.emf.utilities.ICommandContext;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.internal.emf.utilities.CommandContext;
+import org.eclipse.wst.common.internal.emf.utilities.ICommand;
+import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 

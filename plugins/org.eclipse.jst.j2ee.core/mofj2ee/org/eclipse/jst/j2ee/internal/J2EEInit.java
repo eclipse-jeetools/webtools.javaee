@@ -41,11 +41,11 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResourceFactory;
-import org.eclipse.wst.common.emf.utilities.AdapterFactoryDescriptor;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
+import org.eclipse.wst.common.internal.emf.utilities.AdapterFactoryDescriptor;
 import org.eclipse.wst.common.internal.emf.utilities.DOMUtilities;
 import org.eclipse.wst.common.internal.emf.utilities.EncoderDecoderRegistry;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emf.utilities.PasswordEncoderDecoder;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
 

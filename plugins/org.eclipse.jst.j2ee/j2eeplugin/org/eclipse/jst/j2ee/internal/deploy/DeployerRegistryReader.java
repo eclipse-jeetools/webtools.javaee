@@ -22,7 +22,7 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.emf.utilities.ICommand;
+import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 
 import com.ibm.wtp.common.RegistryReader;
 

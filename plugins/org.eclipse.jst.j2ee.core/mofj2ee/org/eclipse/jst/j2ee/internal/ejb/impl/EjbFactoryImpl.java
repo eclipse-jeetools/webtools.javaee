@@ -56,9 +56,9 @@ import org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind;
 import org.eclipse.jst.j2ee.ejb.TransactionAttributeType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.internal.ejb.util.CMPKeySynchronizationAdapter;
-import org.eclipse.wst.common.emf.utilities.AdapterFactoryDescriptor;
-import org.eclipse.wst.common.emf.utilities.AdapterFactoryUtil;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emf.utilities.AdapterFactoryDescriptor;
+import org.eclipse.wst.common.internal.emf.utilities.AdapterFactoryUtil;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 
 

@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.ejb.util;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 
 public class EJBAttributeMaintenanceFactoryImpl extends EjbAdapterFactory {

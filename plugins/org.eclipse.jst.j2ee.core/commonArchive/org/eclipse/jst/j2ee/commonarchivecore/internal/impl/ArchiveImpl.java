@@ -65,8 +65,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipStreamSaveStr
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveFileDynamicClassLoader;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ClasspathUtil;
-import org.eclipse.wst.common.emf.utilities.EtoolsCopyUtility;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 
 /**
