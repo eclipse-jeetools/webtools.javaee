@@ -10,20 +10,27 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.util.ProjectModule;
-import org.eclipse.wst.server.core.model.ModuleDelegate;
+
+import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * @version 1.0
  * @author
  */
-public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactory {
+public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactory {/*
+																				    * (non-Javadoc)
+																				    * 
+																				    * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+																				    */
+	public IModule[] getModules() {
+		return null;
+	}
+
 	protected static final String ID = "com.ibm.wtp.server.j2ee.application"; //$NON-NLS-1$
 
 	protected static final IPath[] PATHS = new IPath[]{new Path("META-INF/application.xml"), //$NON-NLS-1$
@@ -51,11 +58,25 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 		return IEARNatureConstants.NATURE_ID;
 	}
 
-	/*
-	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
-	 */
+
 	public IModule createModule(J2EENature nature) {
-		return new EnterpriseApplicationDeployable(nature, ID);
+		if (nature == null)
+			return null;
+		EnterpriseApplicationDeployable moduleDelegate = null;
+		IModule module = nature.getModule();
+		if (module == null) {
+			try {
+				moduleDelegate = new EnterpriseApplicationDeployable(nature, ID);
+				module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+				nature.setModule(module);
+				moduleDelegate.initialize(module);
+			} catch (Exception e) {
+				Logger.getLogger().write(e);
+			} finally {
+				moduleDelegates.add(moduleDelegate);
+			}
+		}
+		return module;
 	}
 
 	/*
@@ -65,27 +86,6 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 		return PATHS;
 	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#createModule(org.eclipse.core.resources.IProject)
-     */
-    protected IModule createModule(IProject project) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
-     */
-    public ModuleDelegate getModuleDelegate(IModule module) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
-     */
-    public IModule[] getModules() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }
