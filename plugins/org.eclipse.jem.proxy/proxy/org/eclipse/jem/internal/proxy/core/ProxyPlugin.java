@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.25 $  $Date: 2004/06/09 22:46:57 $ 
+ *  $Revision: 1.26 $  $Date: 2004/06/09 23:08:07 $ 
  */
 
 
@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 
-import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.Job;
@@ -69,8 +68,7 @@ public class ProxyPlugin extends Plugin {
 	public ProxyPlugin() {
 		super();
 		PROXY_PLUGIN = this;
-		devMode = InternalPlatform.getDefault().getEnvironmentInfoService().inDevelopmentMode();	// TODO need to get rid of this, When on 5/17 Eclipse, can use Platform.isDeve... 
-		
+		devMode = Platform.inDevelopmentMode();  	
 	}
 
 	/**
