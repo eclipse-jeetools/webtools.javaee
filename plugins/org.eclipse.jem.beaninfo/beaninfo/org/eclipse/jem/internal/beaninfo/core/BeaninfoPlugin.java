@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/24 15:07:44 $ 
  */
 
 
@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IClasspathContainer;
 
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin.ContributorExtensionPointInfo;

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoEntry.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/24 15:07:44 $ 
  */
 
 import java.util.ArrayList;
@@ -24,6 +24,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
 import org.w3c.dom.*;
+
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 
 /**
  * Beaninfo entry. Location of the beaninfos. Much like a standard classpath entry.

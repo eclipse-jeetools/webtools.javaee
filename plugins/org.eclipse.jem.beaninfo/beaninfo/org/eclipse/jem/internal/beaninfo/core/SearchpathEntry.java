@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: SearchpathEntry.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/24 15:07:44 $ 
  */
 
 import org.eclipse.core.resources.IProject;
@@ -19,6 +19,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.w3c.dom.*;
+
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 
 /**
  * Searchpath entry. Beaninfo searchpath entry (i.e. package name). Can include

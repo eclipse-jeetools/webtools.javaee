@@ -37,7 +37,7 @@
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="org.eclipse.jem.internal.beaninfo.core.BeaninfoNature">
+               class="org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature">
          </run>
       </runtime>
    </extension>

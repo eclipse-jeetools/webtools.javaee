@@ -11,12 +11,14 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ConfigurationElementReader.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/24 15:07:44 $ 
  */
 
 import java.lang.reflect.Array;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 
 
 /**

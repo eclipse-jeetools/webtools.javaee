@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.core;
+package org.eclipse.jem.internal.beaninfo.adapters;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,12 +11,13 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: DOMReader.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/24 15:07:44 $ 
  */
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 
 
 /**

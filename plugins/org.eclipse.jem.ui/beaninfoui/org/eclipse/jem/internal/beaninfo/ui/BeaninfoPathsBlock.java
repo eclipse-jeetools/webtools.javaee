@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/22 23:48:57 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/24 15:07:52 $ 
  */
 
 import java.io.File;
@@ -42,6 +42,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 

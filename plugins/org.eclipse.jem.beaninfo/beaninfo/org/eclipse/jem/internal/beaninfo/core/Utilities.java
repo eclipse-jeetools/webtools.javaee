@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: Utilities.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/24 15:07:44 $ 
  */
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.jem.internal.beaninfo.*;
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.java.adapters.ReflectionAdaptor;
 import org.eclipse.jem.internal.proxy.core.*;

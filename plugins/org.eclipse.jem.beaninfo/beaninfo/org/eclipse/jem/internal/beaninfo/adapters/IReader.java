@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.core;
+package org.eclipse.jem.internal.beaninfo.adapters;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,16 +11,16 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IReader.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/24 15:07:44 $ 
  */
 /**
  * This is internal interface for reading beaninfoConfig either through IConfigurationElements or
  * w3.dom.Nodes. This is because when reading the .beaninfoConfig we will be using Nodes, but
  * when reading configs from registered extensions they will be IConfigurationElements.
  * @version 	1.0
- * @author
+ * TODO Need to move to core when we make things API.
  */
-interface IReader {
+public interface IReader {
 	
 	public Object getChildren(Object node);
 	public int getLength(Object nodeList);

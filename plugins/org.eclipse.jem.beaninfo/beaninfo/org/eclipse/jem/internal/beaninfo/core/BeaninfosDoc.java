@@ -11,13 +11,15 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosDoc.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/24 15:07:44 $ 
  */
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.w3c.dom.*;
+
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 /**
  * Beaninfos document in-memory format.
  */

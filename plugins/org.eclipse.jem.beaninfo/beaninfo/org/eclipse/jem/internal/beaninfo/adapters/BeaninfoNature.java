@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.core;
+package org.eclipse.jem.internal.beaninfo.adapters;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.11 $  $Date: 2004/03/24 15:07:44 $ 
  */
 
 import java.io.*;
@@ -34,7 +34,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
-import org.eclipse.jem.internal.beaninfo.adapters.*;
+import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
