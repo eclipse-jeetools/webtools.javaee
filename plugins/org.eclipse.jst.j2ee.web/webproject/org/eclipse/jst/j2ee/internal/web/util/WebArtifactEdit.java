@@ -10,12 +10,16 @@ package org.eclipse.jst.j2ee.internal.web.util;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
@@ -27,6 +31,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.web.internal.operation.WebSettings;
 
 /**
  * <p>
@@ -297,6 +302,36 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			file.setWelcomeFile("default.jsp"); //$NON-NLS-1$
 			files.add(file);
 		}
+	}
+	
+	public String getContextRoot() {
+		//TODO return the valid context root for the module
+		return null;
+	}
+	
+	public IContainer getWebInfFolder() {
+		//TODO return the valid web info folder for the module
+		return null;
+	}
+	
+	public IPath getWTPModuleFile() {
+		//TODO return the WTPModuleFile path
+		return null;
+	}
+	
+	public IContainer getWebLibFolder() {
+		//TODO return the appropriate web library folder
+		return null;
+	}
+	
+	public int getJSPVersion() {
+		int servletVersion = getServletVersion();
+		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
+			return J2EEVersionConstants.JSP_1_1_ID;
+		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
+			return J2EEVersionConstants.JSP_1_2_ID;
+		else
+			return J2EEVersionConstants.JSP_2_0_ID;
 	}
 
 }
