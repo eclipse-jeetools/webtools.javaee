@@ -13,7 +13,6 @@ import java.util.List;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -22,6 +21,7 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -33,7 +33,6 @@ import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.web.internal.operation.ILibModule;
-import org.eclipse.wst.web.internal.operation.WebSettings;
 
 /**
  * <p>
@@ -361,5 +360,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public IContainer getModuleServerRoot() {
 		//TODO return the module server root
 		return null;
+	}
+
+	public IFolder getLibraryFolder() {
+		IFolder webInfFolder = (IFolder)getWebInfFolder();
+		IPath libFolderPath = webInfFolder.getFullPath().append(IWebNatureConstants.LIBRARY_DIRECTORY);
+		IFolder libFolder = (IFolder)webInfFolder.findMember(IWebNatureConstants.LIBRARY_DIRECTORY);
+		return libFolder;
 	}
 }
