@@ -21,6 +21,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.modulecore.DependentModule;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleEditModel;
@@ -41,6 +43,7 @@ import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 import org.eclipse.wst.common.modulecore.impl.PlatformURLModuleConnection;
+import org.eclipse.wst.common.modulecore.util.ModuleCore;
 
 /**
  * <p>
@@ -64,7 +67,7 @@ public class ModuleEditModelTest extends TestCase {
 	public static Test suite() {
 		// return new TestSuite(ModuleEditModelTest.class);
 		TestSuite suite = new TestSuite();
-		suite.addTest(new ModuleEditModelTest("testCreateWTPModulesResource"));
+		suite.addTest(new ModuleEditModelTest("testURIAPI"));
 		return suite;
 	}
 
@@ -79,37 +82,21 @@ public class ModuleEditModelTest extends TestCase {
 	}
 
 	public void testURIAPI() throws Exception {
-		URI uri = URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModuleName() + IPath.SEPARATOR + getTestResourcePath());
+		URI uri = URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModuleName() +".war" + IPath.SEPARATOR + getTestResourcePath());
 		System.out.println("URI : \"" + uri.toString() + "\"" + " with scheme \"" + uri.scheme() + "\" has " + uri.segmentCount() + " segments. They are ...");
 		String[] segments = uri.segments();
 		for (int i = 0; i < segments.length; i++)
 			System.out.println("[" + i + "]: " + segments[i]);
-
-		// check for at least 3 segments
-
-		URI moduleURI = uri.trimSegments(uri.segmentCount() - 3);
+ 
+ 
 		/* Determine if the URI is for a resource or binary module */
 
 		if (PlatformURLModuleConnection.RESOURCE_MODULE.equals(segments[0])) {
 			ModuleStructuralModel structuralModel = null;
 			try {
-				URI deployedPath = uri.deresolve(moduleURI);
 				/* We need to find the project */
-				IProject containingProject = getProject(segments[1]);
-				// ModuleCoreNature moduleCoreNature = getNature(containingProject);
-				// structuralModel = moduleCoreNature.getModuleStructuralModelForRead(this);
-				// ProjectModules modules = (ProjectModules) structuralModel.getPrimaryRootObject();
-				ProjectModules modules = getProjectModules();
-				WorkbenchModule module = modules.findWorkbenchModule(moduleURI);
-				WorkbenchModuleResource resource = null;
-				if (module != null) {
-					EList resources = module.getResources();
-					for (Iterator iter = resources.iterator(); iter.hasNext();) {
-						resource = (WorkbenchModuleResource) iter.next();
-						if (deployedPath.equals(resource.getDeployedPath()))
-							break;
-					}
-				}
+				structuralModel = ModuleCore.INSTANCE.getModuleStructuralModelForRead(uri, this);
+				WorkbenchModuleResource resource = ModuleCore.INSTANCE.findWorkbenchModuleResourceByDeployPath(structuralModel, uri);
 				System.out.println(resource != null ? resource.getSourcePath().toString() : "NOT FOUND");
 			} finally {
 				if (structuralModel != null)
@@ -151,26 +138,43 @@ public class ModuleEditModelTest extends TestCase {
 	 */
 	private void addContent(ProjectModules projectModules) {
 
+		WorkbenchModule webModule = addWorkbenchModule(projectModules, getModulesFolder()+".war", URI.createURI("module:/resource/"+getProjectName()+IPath.SEPARATOR+getModuleName()));		
+		addResource(webModule, getModuleRelativeFile(getTestResourcePath()), getTestResourcePath());
+		addResource(webModule, getModuleRelativeFile("jsps/login.jsp"), "deployed-jsps/login.jsp");
+		
+		WorkbenchModule webLibModule = addWorkbenchModule(projectModules, getModulesFolder()+"Lib.jar", URI.createURI("module:/resource/"+getProjectName()+IPath.SEPARATOR+getModulesFolder()+"Lib"));		
+		addResource(webLibModule, getProject().getFolder("lib-src"), "/");
+		
+		addDependentModule(webModule, URI.createURI("WEB-INF/lib"), URI.createURI(webLibModule.getDeployedName()));
+		addDependentModule(webModule, URI.createURI("WEB-INF/lib"), URI.createURI("module:/resource/AnotherProject/"+webLibModule.getDeployedName()));
+		addDependentModule(webModule, URI.createURI("WEB-INF/lib"), URI.createURI("module:/classpath/AnotherTeamsUtilities.jar"));
+
+	}
+	
+	public IFile getModuleRelativeFile(String aModuleRelativePath) {
+		return getProject().getFile(new Path(getModulesFolder() + IPath.SEPARATOR + aModuleRelativePath));
+	}
+	
+	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
+		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
+		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
+		resource.setDeployedPath(URI.createURI(aDeployPath));
+		aModule.getResources().add(resource);
+	}
+	
+	public WorkbenchModule addWorkbenchModule(ProjectModules theModules, String aDeployedName, URI aHandle) {
 		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
-		module.setDeployedName(getModulesFolder() + ".war"); //$NON-NLS-1$
-		module.setHandle(URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder())); //$NON-NLS-1$
-
-		projectModules.getWorkbenchModules().add(module);
-		
-		WorkbenchModule dependentLib = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
-		dependentLib.setDeployedName(getModulesFolder() + "Lib.jar"); //$NON-NLS-1$
-		dependentLib.setHandle(URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder()+"Lib")); //$NON-NLS-1$
-		
-		module.getModules().add(dependentLib);
-		projectModules.getWorkbenchModules().add(dependentLib);
-
-		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
-		IFile sourceFile = getProject().getFile(new Path(getModulesFolder() + IPath.SEPARATOR + "BLAH" + IPath.SEPARATOR + getTestResourcePath()));
-		resource.setSourcePath(URI.createURI(sourceFile.getFullPath().toString()));
-		resource.setDeployedPath(URI.createURI(getTestResourcePath()));
-		
-		module.getResources().add(resource);
-
+		module.setDeployedName(aDeployedName);  
+		module.setHandle(aHandle);  
+		theModules.getWorkbenchModules().add(module);
+		return module;
+	}
+	
+	public void addDependentModule(WorkbenchModule aModule, URI aDeployedPath, URI aHandle) {
+		DependentModule aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createDependentModule();
+		aClasspathDependentModule.setDeployedPath(aDeployedPath);
+		aClasspathDependentModule.setHandle(aHandle);	
+		aModule.getModules().add(aClasspathDependentModule);
 	}
 
 	/**
