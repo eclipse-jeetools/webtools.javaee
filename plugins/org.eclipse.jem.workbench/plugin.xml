@@ -10,7 +10,6 @@
    <runtime>
       <library name="workbench.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.adapters.jdom,org.eclipse.jem.internal.plugin,org.eclipse.jem.workbench.utility"/>
       </library>
    </runtime>
    <requires>

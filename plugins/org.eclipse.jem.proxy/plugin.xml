@@ -10,27 +10,21 @@
    <runtime>
       <library name="proxy.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.proxy.core,org.eclipse.jem.internal.proxy.awt,org.eclipse.jem.internal.temp"/>
       </library>
       <library name="proxycommon.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.proxy.common"/>
       </library>
       <library name="initparser.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.proxy.initParser"/>
       </library>
       <library name="proxyremote.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.proxy.remote"/>
       </library>
       <library name="remotecommon.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.proxy.common.remote"/>
       </library>
       <library name="proxyide.jar">
          <export name="*"/>
-         <packages prefixes="org.eclipse.jem.internal.proxy.ide"/>
       </library>
    </runtime>
    <requires>

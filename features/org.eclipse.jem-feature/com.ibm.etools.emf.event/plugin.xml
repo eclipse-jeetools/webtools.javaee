@@ -7,7 +7,6 @@
    <runtime>
       <library name="runtime/event.jar">
          <export name="*"/>
-         <packages prefixes="com.ibm.etools.emf.event"/>
       </library>
    </runtime>
 <!-- build-level = "20030806_1713SL" *** With fix 10028 merged in. -->
