@@ -168,7 +168,9 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
 		}else if (propertyName.equals(JAVASOURCE_FOLDER)) {
 			return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule";
-		}else {
+		} else if (propertyName.equals(MANIFEST_FOLDER)) {
+			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+		} else {
 			return super.getDefaultProperty(propertyName);
 		}	
 	}
