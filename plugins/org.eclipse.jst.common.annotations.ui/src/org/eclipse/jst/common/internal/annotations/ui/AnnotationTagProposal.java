@@ -75,7 +75,7 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 	 * @param viewer
 	 */
 	public AnnotationTagProposal(String replacementString, int replacementOffset, int replacementLength, Image image, String displayString, int relevance, ITextViewer viewer) {
-		super(replacementString, replacementOffset, replacementLength, image, displayString, relevance, viewer);
+		super(replacementString, replacementOffset, replacementLength, image, displayString, relevance);
 		this.localString = replacementString;
 	}
 
