@@ -3,7 +3,6 @@
 	<name>org.eclipse.jst.common.annotations.ui</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.wtp.annotations.core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

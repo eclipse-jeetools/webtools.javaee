@@ -3,11 +3,6 @@
 	<name>org.eclipse.jst.common.annotations.controller</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.wtp.annotations.controller</project>
-		<project>com.ibm.wtp.annotations.core</project>
-		<project>com.ibm.wtp.common</project>
-		<project>com.ibm.wtp.emf</project>
-		<project>com.ibm.wtp.emf.workbench</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -3,10 +3,6 @@
 	<name>org.eclipse.jst.j2ee.core</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.etools.validation.core</project>
-		<project>com.ibm.wtp.common</project>
-		<project>com.ibm.wtp.emf</project>
-		<project>org.eclipse.jem</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -14,8 +10,19 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.ManifestBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.SchemaBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
 </projectDescription>
