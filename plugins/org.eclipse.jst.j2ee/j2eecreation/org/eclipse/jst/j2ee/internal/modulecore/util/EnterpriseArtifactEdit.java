@@ -7,7 +7,6 @@
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.modulecore.util.ArtifactEdit;
 
 /**
