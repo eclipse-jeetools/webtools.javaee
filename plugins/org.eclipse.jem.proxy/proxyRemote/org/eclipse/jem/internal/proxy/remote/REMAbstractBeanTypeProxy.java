@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/08 11:29:09 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -164,8 +164,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getFieldProxy(java.lang.String)
 	 */
 	public IFieldProxy getFieldProxy(String fieldName) {
-		return (IFieldProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetField().invokeCatchThrowableExceptions(this,
-				fRegistry.getBeanProxyFactory().createBeanProxyWith(fieldName));
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getFieldProxy(this,fieldName);
 	}
 
 	/*
@@ -174,7 +173,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String)
 	 */
 	public IMethodProxy getMethodProxy(String methodName) {
-		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getMethodProxy(this, methodName, (IBeanTypeProxy[]) null);
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getMethodProxy(this,methodName,(String[])null);
 	}
 
 	/*
@@ -183,7 +182,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, java.lang.String[])
 	 */
 	public IMethodProxy getMethodProxy(String methodName, String[] argumentClassNames) {
-		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getMethodProxy(this, methodName, argumentClassNames);
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getMethodProxy(this,methodName,argumentClassNames);
 	}
 
 	/*
@@ -192,7 +191,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, java.lang.String)
 	 */
 	public IMethodProxy getMethodProxy(String methodName, String argumentQualifiedTypeName) {
-		return getMethodProxy(methodName, new String[] { argumentQualifiedTypeName});
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getMethodProxy(this,methodName,new String[] {argumentQualifiedTypeName});
 	}
 
 	/*
@@ -201,16 +200,16 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
 	public IMethodProxy getMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes) {
-		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getMethodProxy(this, methodName, argumentTypes);
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getMethodProxy(this,methodName,argumentTypes);
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String)
 	 */
 	public IInvokable getInvokable(String methodName) {
-		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getInvokable(this, methodName, (IREMBeanTypeProxy[]) null);
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getInvokable(this,methodName,(String[])null);
 	}
 
 	/*
@@ -219,7 +218,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, java.lang.String[])
 	 */
 	public IInvokable getInvokable(String methodName, String[] argumentClassNames) {
-		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getInvokable(this, methodName, argumentClassNames);
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getInvokable(this,methodName,argumentClassNames);
 	}
 
 	/*
@@ -237,7 +236,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
 	public IInvokable getInvokable(String methodName, IBeanTypeProxy[] argumentTypes) {
-		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getInvokable(this, methodName, argumentTypes);
+		return REMProxyConstants.getConstants(getProxyFactoryRegistry()).getInvokable(this,methodName,argumentTypes);
 	}
 
 	/*

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: EnumerationBeanProxyWrapper.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/08 11:26:36 $ 
  */
 
 
@@ -31,10 +31,8 @@ public class EnumerationBeanProxyWrapper {
 	 * Construct with the collection.
 	 */
 	public EnumerationBeanProxyWrapper(IBeanProxy anEnumerationProxy) {
-		if (!anEnumerationProxy.getTypeProxy().isKindOf(anEnumerationProxy.getProxyFactoryRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.util.Enumeration"))) //$NON-NLS-1$
-			throw new ClassCastException(MessageFormat.format(ProxyMessages.getString(ProxyMessages.CLASSCAST_INCORRECTTYPE), new Object[] {anEnumerationProxy.getTypeProxy().getTypeName(), "java.util.Enumeration"})); //$NON-NLS-1$
-		else
-			fEnumeration = anEnumerationProxy;
+		
+		fEnumeration = anEnumerationProxy;
 			
 		fConstants = JavaStandardBeanProxyConstants.getConstants(anEnumerationProxy.getProxyFactoryRegistry());
 	}
