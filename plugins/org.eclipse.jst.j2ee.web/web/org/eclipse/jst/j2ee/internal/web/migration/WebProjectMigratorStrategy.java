@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.operations.OldWebSettingsForMigration;
 import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
+import org.eclipse.wst.common.modulecore.DependencyType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.Property;
@@ -148,7 +149,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public String getComponetTypeVersion(String componentName) {
-        return J2EEVersionUtil.getJ2EETextVersion(getJ2EEVersion());
+		return J2EEVersionUtil.getJ2EETextVersion(getJ2EEVersion());
 	}
 
 	public Property[] getProperties(String componentName) {
@@ -171,8 +172,8 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 		property.setValue(value);
 		return property;
 	}
-	
-	
+
+
 	public int getJ2EEVersion() {
 		int j2eeVersion;
 		switch (getModuleVersion()) {
@@ -196,5 +197,24 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public void postMigrateStrategy() {
+	}
+
+
+	public boolean isReferencedComponent(String componentName) {
+		return false;
+	}
+
+	public String getReferencedComponentName(String componentName) {
+
+		return null;
+	}
+
+
+	public String getReferencedComponentURI(String componentName) {
+		return null;
+	}
+
+	public DependencyType getDependancyType(String componentName) {
+		return null;
 	}
 }

@@ -49,28 +49,8 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 		return PATHS;
 	}
 
-	protected List createModules(ModuleCoreNature nature) {
-		IProject project = nature.getProject();
-		List modules = new ArrayList(1); 
-		ModuleCore moduleCore = null;
-		try {
-			
-			moduleCore = ModuleCore.getModuleCoreForRead(project);
-			EList workBenchModules = moduleCore.getModuleModelRoot().getComponents();						 
-			if (workBenchModules.isEmpty())
-				return modules;
-			modules = createModuleDelegates(workBenchModules, project);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(moduleCore != null) 
-				moduleCore.dispose();
-		}
-		return modules;
-	}
-
-	private List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
 		J2EEFlexProjWebDeployable moduleDelegate = null;
 		IModule module = null;
 		List moduleList = new ArrayList(workBenchModules.size());

@@ -13,6 +13,8 @@ package org.eclipse.jst.j2ee.jca.internal.deployables;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
@@ -84,6 +86,14 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	
 	protected boolean isValidModule(IProject project) {
 		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModuleDelegates(org.eclipse.emf.common.util.EList, org.eclipse.core.resources.IProject)
+	 */
+	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
