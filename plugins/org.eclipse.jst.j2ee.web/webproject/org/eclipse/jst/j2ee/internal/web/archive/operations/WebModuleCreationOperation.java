@@ -27,16 +27,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
-import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
@@ -47,8 +41,6 @@ import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-
-import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 
 public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	public WebModuleCreationOperation(WebModuleCreationDataModel dataModel) {
