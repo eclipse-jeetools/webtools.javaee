@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployable;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.server.j2ee.IEJBModule;
+import org.eclipse.jst.server.core.IEJBModule;
 
 public class EJBDeployable extends J2EEDeployable implements IEJBModule {
 	/**

@@ -17,11 +17,11 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.server.j2ee.EJBBean;
+import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 
@@ -88,7 +88,7 @@ public class EJBDeployableObjectAdapter  {
 		String ext = file.getFileExtension();
 		if ("java".equals(ext) || "class".equals(ext)) //$NON-NLS-1$ //$NON-NLS-2$
 			return getModuleJavaObject(file);
-		if (file.getProjectRelativePath().toString().endsWith(ArchiveConstants.EJBJAR_DD_URI))
+		if (file.getProjectRelativePath().toString().endsWith(J2EEConstants.EJBJAR_DD_URI))
 			return createModuleObject(getModule(file.getProject()), null, false, false);
 		return null;
 	}
