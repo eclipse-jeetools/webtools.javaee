@@ -106,6 +106,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		}else if (getBooleanProperty(CREATE_CLIENT)) {
 			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)) {
 				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
 			}
 		}
 		return doSet;

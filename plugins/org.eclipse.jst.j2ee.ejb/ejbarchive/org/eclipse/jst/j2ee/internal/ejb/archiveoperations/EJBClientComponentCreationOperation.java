@@ -43,9 +43,14 @@ import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.application.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBGenHelpers;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
@@ -182,7 +187,7 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 			addSrcFolderToProject();
 			addClientModuleToEARs();
 			moveOutgoingJARDependencies();
-			modifyEJBModuleJarDependency();
+			modifyEJBModuleJarDependency(aMonitor);
 			moveIncomingJARDependencies();
 			
 		}
@@ -530,15 +535,35 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 		files.add(file);
 	}
 
-	private void modifyEJBModuleJarDependency() throws InvocationTargetException, InterruptedException {
-//		JARDependencyDataModel dataModel = new JARDependencyDataModel();
-//		dataModel.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbProject.getName());
-//		dataModel.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, clientProject.getName());
-//		if (earNatures != null && earNatures.length > 0)
-//			dataModel.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[0].getProject().getName());
-//		dataModel.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_ADD);
-//		JARDependencyOperation op = new JARDependencyOperation(dataModel);
-//		op.run(createSubProgressMonitor(1));
+	private void modifyEJBModuleJarDependency(IProgressMonitor aMonitor) throws InvocationTargetException, InterruptedException {
+		
+		String clientDeployName = getOperationDataModel().getStringProperty(ComponentCreationDataModel.COMPONENT_DEPLOY_NAME );
+		String ejbComponentName = getOperationDataModel().getStringProperty( EJBClientComponentDataModel.EJB_COMPONENT_NAME);
+		String ejbprojectName = getOperationDataModel().getStringProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME);
+		String clientprojectName = getOperationDataModel().getStringProperty(ComponentCreationDataModel.PROJECT_NAME);
+		String manifestFolder = ejbComponentName + IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+		
+		if( clientprojectName.equals( ejbprojectName )){
+			UpdateManifestDataModel updateManifestDataModel = new UpdateManifestDataModel();
+			updateManifestDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, ejbprojectName);
+			updateManifestDataModel.setBooleanProperty(UpdateManifestDataModel.MERGE, false);
+			updateManifestDataModel.setProperty(UpdateManifestDataModel.MANIFEST_FOLDER, manifestFolder);
+			updateManifestDataModel.setProperty(UpdateManifestDataModel.JAR_LIST, UpdateManifestDataModel.convertClasspathStringToList(clientDeployName) );
+			
+			UpdateManifestOperation op = new UpdateManifestOperation(updateManifestDataModel);		
+			op.run(aMonitor);
+		}else{
+	        JARDependencyDataModel dataModel = new JARDependencyDataModel();
+	        dataModel.setProperty(JARDependencyDataModel.PROJECT_NAME, ejbprojectName);
+//	        dataModel.setProperty(JARDependencyDataModel.REFERENCED_PROJECT_NAME, clientprojectName);
+//	        if (earNatures !=null && earNatures.length>0)
+//	        	dataModel.setProperty(JARDependencyDataModel.EAR_PROJECT_NAME, earNatures[0].getProject().getName());
+//	        dataModel.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_ADD);
+//	        JARDependencyOperation op = new JARDependencyOperation(dataModel);
+//	        op.run(createSubProgressMonitor(1));			
+		}
+			
+		
 	}
 
 	private void moveOutgoingJARDependencies() throws InvocationTargetException, InterruptedException {

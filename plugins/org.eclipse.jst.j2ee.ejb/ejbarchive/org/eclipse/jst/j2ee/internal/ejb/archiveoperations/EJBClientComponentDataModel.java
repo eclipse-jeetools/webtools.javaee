@@ -24,6 +24,11 @@ public class EJBClientComponentDataModel extends ComponentCreationDataModel {
 	 * Required, type String
 	 */		
 	public static final String EJB_COMPONENT_NAME = "EJBClientComponentDataModel.EJB_MODULE_NAME"; //$NON-NLS-1$
+	
+	/**
+	 * Required, type String
+	 */		
+	public static final String EJB_PROJECT_NAME = "EJBClientComponentDataModel.EJB_PROJECT_NAME"; //$NON-NLS-1$	
 
 	/**
 	 * Required, type String
@@ -52,6 +57,7 @@ public class EJBClientComponentDataModel extends ComponentCreationDataModel {
 	 */
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(EJB_COMPONENT_NAME);
+		addValidBaseProperty(EJB_PROJECT_NAME);
 		addValidBaseProperty(CLIENT_COMPONENT_URI);
 		addValidBaseProperty(DELETE_WHEN_FINISHED);
 		addValidBaseProperty(JAVASOURCE_FOLDER);
