@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.4 $ $Date: 2004/03/26 23:07:45 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.5 $ $Date: 2004/04/05 22:55:39 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -105,7 +105,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		
 		// Now let's get the classpaths created through the contributors.
 		String[] classpath = getClasspath(configuration);
-		String[][] bootpathInfo = getBootpathExt(configuration);
+		String[][] bootpathInfo = getBootpathExt(vmAttributesMap);
 		ProxyLaunchSupport.LaunchInfo launchInfo = ProxyLaunchSupport.getInfo(launchKey);
 		final IConfigurationContributor[] contributors = launchInfo.contributors;
 		final LocalFileConfigurationContributorController controller =
@@ -131,8 +131,16 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		ProxyRemoteUtil.updateClassPaths(controller);
 
 		classpath = controller.getFinalClasspath();
-		bootpathInfo[0] = controller.getFinalPrependBootpath();
-		bootpathInfo[2] = controller.getFinalAppendBootpath();
+		if (bootpathInfo[0] != controller.getFinalPrependBootpath()) {
+		    if (vmAttributesMap == null)
+		        vmAttributesMap = new HashMap(2);
+		    vmAttributesMap.put(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_PREPEND, bootpathInfo[0]);
+		}
+		if (bootpathInfo[2] != controller.getFinalAppendBootpath()) {
+		    if (vmAttributesMap == null)
+		        vmAttributesMap = new HashMap(2);
+		    vmAttributesMap.put(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_APPEND, bootpathInfo[2]);
+		}
 
 		// check for cancellation
 		if (pm.isCanceled())
@@ -219,10 +227,6 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 
 		// Bootpath
 		runConfig.setBootClassPath(getBootpath(configuration));
-		// new bootpath info
-		runConfig.setPrependBootClassPath(bootpathInfo[0]);
-		runConfig.setMainBootClassPath(bootpathInfo[1]);
-		runConfig.setAppendBootClassPath(bootpathInfo[2]);
 
 		// check for cancellation
 		if (pm.isCanceled())
@@ -351,6 +355,16 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 
 	private static int getRandomPort(int low, int high) {
 		return (int) (fgRandom.nextFloat() * (high - low)) + low;
+	}
+	
+	private String[][] getBootpathExt(Map vmMap) {
+	    String[][] ext = new String[3][];
+	    if (vmMap != null) {
+		    ext[0] = (String[]) vmMap.get(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_PREPEND);
+		    ext[1] = (String[]) vmMap.get(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH);
+		    ext[2] = (String[]) vmMap.get(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_APPEND);
+	    }
+	    return ext;
 	}
 
 }

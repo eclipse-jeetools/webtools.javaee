@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.14 $  $Date: 2004/03/26 23:07:45 $ 
+ *  $Revision: 1.15 $  $Date: 2004/04/05 22:55:39 $ 
  */
 
 
@@ -177,20 +177,16 @@ public class ProxyPlugin extends Plugin {
 					urls.add(url);
 				for (int i = 0; i < fragments.length; i++) {
 					Bundle fragment = fragments[i];
-					try {
-						url = fragment.getEntry(filenameWithinPlugin);
-						if (url != null)
-							urls.add(url);
-					} catch (IOException e) {
-						// skip it.
-					}
+					url = fragment.getEntry(filenameWithinPlugin);
+					if (url != null)
+						urls.add(url);
 					// Also, look through the libraries of the fragment to see if one matches the special path.				
 					// This is where one of the runtime libraries has the fragment id in it. 
 					// TODO This needs to be completely relooked at when we have a stable OSGi API. Not sure how
 					// this will work with that. (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments
 					String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
 					try {
-						ManifestElement[] classpaths = ManifestElement.parseClassPath(classpath);
+						ManifestElement[] classpaths = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, classpath);
 						if (classpaths != null && classpaths.length > 0) {
 							int extndx = filenameWithinPlugin.lastIndexOf('.');
 							String libFile = null;
@@ -206,15 +202,11 @@ public class ProxyPlugin extends Plugin {
 								IPath cp = new Path(classpaths[j].getValue());
 								// The last segment should be the file name. That is the name we are looking for.
 								if (libFile.equals(cp.lastSegment())) {
-									try {
-										url = fragment.getEntry(classpaths[j].getValue());
-										// Though the actual classpath entry is the file we are looking for.
-										if (url != null)
-											urls.add(url);
-										break;
-									} catch (IOException e) {
-										// Ignore it if i/o error.
-									}
+									url = fragment.getEntry(classpaths[j].getValue());
+									// Though the actual classpath entry is the file we are looking for.
+									if (url != null)
+										urls.add(url);
+									break;
 								}
 							}
 						}
