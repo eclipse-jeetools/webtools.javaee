@@ -1,12 +1,10 @@
 package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
-import org.eclipse.wst.common.tests.ProjectUtility;
+import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 
 public abstract class AbstractModuleCreationTest extends TestCase {
 	protected static final String ILLEGAL_PROJECT_NAME_MESSAGE = "Illegal project name: ";
@@ -24,7 +22,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	public static final int EAR_MODULE = 3;
 //	public IProject ejbproject;
 //	public IProject earproject;
-	protected String projectName = null;
+	public static String DEFAULT_PROJECT_NAME = "Flexible";	
 	
 	public AbstractModuleCreationTest(String name) {
 		super(name);
@@ -34,46 +32,64 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		super();
 	}	
 
+   public void createSimpleProject(String projectName) throws Exception {
+		FlexibleJavaProjectCreationDataModel dataModel = getProjectCreationDataModel();
+	    dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, projectName);
+		setServerTargetProperty(dataModel);
+		dataModel.getDefaultOperation().run(null);
+   }
+    
+    public FlexibleJavaProjectCreationDataModel getProjectCreationDataModel(){
+		return new FlexibleJavaProjectCreationDataModel();
+    }
+	/**
+	 * @param dataModel
+	 */
+	public void setServerTargetProperty(FlexibleJavaProjectCreationDataModel dataModel) {
+		dataModel.setProperty(FlexibleJavaProjectCreationDataModel.SERVER_TARGET_ID, AllTests.JONAS_TOMCAT_RUNTIME.getId());
+	}
+    
+	public void runAll(){
+		try {
+			createSimpleProject(DEFAULT_PROJECT_NAME);
+			setupWebModule();
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	public   J2EEComponentCreationDataModel setupWebModule(int j2eeVersion) throws Exception {
-		projectName = getWebModuleProjectName();
-		IProject javaProject = ProjectUtility.getProject(projectName);
-		
-		WebComponentCreationDataModel model = new WebComponentCreationDataModel();
-		
-		model.setProperty( WebComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
-		model.setIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
-		model.setProperty(WebComponentCreationDataModel.MODULE_NAME, "FirstWebModule");		
-		model.setProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME, "FirstWebModule.war");
-		
-		createWebModule(model, null);
-		
-		
-		WebComponentCreationDataModel model2 = new WebComponentCreationDataModel();
-		
-		model2.setProperty( WebComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
-		model2.setIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
-		model2.setProperty(WebComponentCreationDataModel.MODULE_NAME, "SecondWebModule");		
-		model2.setProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME, "SecondWebModule.war");
-		createWebModule(model2, null);
-		
-		return model;
+	}
+	
+	public void setupWebModule() throws Exception {
+
+
+		createWebModule(22, "FirstWebModule", "FirstWebModule.war", DEFAULT_PROJECT_NAME);
+		createWebModule(23, "SecondWebModule", "SecondWebModule.war", DEFAULT_PROJECT_NAME);
+		createWebModule(24, "ThirdWebModule", "ThirdWebModule.war", DEFAULT_PROJECT_NAME);
+	
 	}
 
-	public static void createWebModule(WebComponentCreationDataModel model, IProject earProject) throws Exception {
-//		if (earProject != null) {
-//			model.setBooleanProperty(WebModuleCreationDataModel.ADD_TO_EAR, true);
-//			model.setProperty(WebModuleCreationDataModel.EAR_PROJECT_NAME, earProject.getName());
-//		}
+	private void createWebModule(int j2eeVersion, String aModuleName, String aModuleDeployName,String projectName){
+		
+		WebComponentCreationDataModel model = new WebComponentCreationDataModel();
+		model.setProperty( WebComponentCreationDataModel.PROJECT_NAME, projectName);
+		model.setIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model.setProperty(WebComponentCreationDataModel.MODULE_NAME, aModuleName);		
+		model.setProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME, aModuleDeployName);
+		try {
+			runWebModuleCreationOperation(model);
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
+	private  void runWebModuleCreationOperation(WebComponentCreationDataModel model) throws Exception {
 		
 		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
 		webOp.run(null);
-		
-		//ProjectUtility.verifyProject(model.getTargetProject().getName(), true);
-		//TaskViewUtility.verifyNoErrors();
 	}
 
-	public String getWebModuleProjectName() {
-		return "Flexibile"; //$NON-NLS-1$
-	}
 }
