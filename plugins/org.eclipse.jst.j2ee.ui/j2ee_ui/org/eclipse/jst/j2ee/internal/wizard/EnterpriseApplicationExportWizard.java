@@ -8,13 +8,13 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.ui;
+package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationExportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.EARExportPage;
+import org.eclipse.jst.j2ee.ui.J2EEArtifactExportWizard;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
