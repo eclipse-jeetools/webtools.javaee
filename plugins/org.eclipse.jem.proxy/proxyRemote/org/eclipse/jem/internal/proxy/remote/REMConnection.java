@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.8 $  $Date: 2004/08/16 17:53:52 $ 
+ *  $Revision: 1.9 $  $Date: 2004/08/17 15:29:04 $ 
  */
 
 
@@ -193,7 +193,7 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	public void invokeMethod(int methodID, Commands.ValueObject invokeOn, Commands.ValueObject parms, Commands.ValueObject returnValue) throws CommandException {
 		if (isConnected()) {
 			// It's simple, just pass onto Commands.
-			TimerTests.basicTest.startCumlativeStep(INVOKE_METHOD_STEP);
+			TimerTests.basicTest.startCumulativeStep(INVOKE_METHOD_STEP);
 			Commands.sendInvokeMethodCommand(out, in, methodID, invokeOn, parms, returnValue);
 			TimerTests.basicTest.stopCumulativeStep(INVOKE_METHOD_STEP);
 		}			
@@ -206,7 +206,7 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 			ValueObject returnValue) throws CommandException {
 		if (isConnected()) {
 			// It's simple, just pass onto Commands.
-			TimerTests.basicTest.startCumlativeStep(INVOKE_STEP);
+			TimerTests.basicTest.startCumulativeStep(INVOKE_STEP);
 			Commands.sendInvokeMethodCommand(out, in, classType, methodName, parmTypes, invokeOn, parms, returnValue);
 			TimerTests.basicTest.stopCumulativeStep(INVOKE_STEP);
 		}			
