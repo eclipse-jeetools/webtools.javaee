@@ -10,6 +10,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.wst.server.core.IModule;
@@ -74,6 +75,11 @@ public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate 
     public IModule[] getModules() {
         // TODO Auto-generated method stub
         return null;
+    }
+    protected void handleProjectChange(IProject project, IResourceDelta delta) {
+        if (projects == null)
+            cacheModules();
+        super.handleProjectChange(project, delta);
     }
 
 }

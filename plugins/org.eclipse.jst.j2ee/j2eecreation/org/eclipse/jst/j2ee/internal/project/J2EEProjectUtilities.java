@@ -37,6 +37,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
+import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
@@ -49,6 +50,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactory
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
@@ -481,7 +483,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 				// check if it contains /META-INF/MANIFEST.MF
 				IPath sourceFolderPath = cp[i].getPath().removeFirstSegments(1);
 				IFolder sourceFolder = p.getFolder(sourceFolderPath);
-				if (sourceFolder.findMember("/META-INF/MANIFEST.MF") != null) { //$NON-NLS-1$
+				if (isSourceFolderAnInputContainer(sourceFolder)) {
 					found = true;
 					if (firstSource == null) {
 						firstSource = cp[i];
@@ -511,6 +513,36 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		if (firstSource.getPath().segment(0).equals(p.getName()))
 			return firstSource.getPath().removeFirstSegments(1);
 		return null;
+	}
+	
+	public static boolean isSourceFolderAnInputContainer(IFolder sourceFolder) {
+		IContainer parent = sourceFolder;
+		while (true) {
+			parent = parent.getParent();
+			if (parent == null)
+				return false;
+			if (parent instanceof IProject)
+				break;
+		}
+		IProject project = (IProject)parent;
+		try {
+			IProjectDescription desc = project.getDescription();
+			if (desc.hasNature(IEJBNatureConstants.NATURE_ID)) {
+				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
+			}
+			else if (desc.hasNature(IApplicationClientNatureConstants.NATURE_ID)) {
+				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;
+			}
+			else if (desc.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
+				return sourceFolder.findMember(J2EEConstants.WEBAPP_DD_URI) != null;
+			}
+			else if (desc.hasNature(IConnectorNatureConstants.NATURE_ID)) {
+				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

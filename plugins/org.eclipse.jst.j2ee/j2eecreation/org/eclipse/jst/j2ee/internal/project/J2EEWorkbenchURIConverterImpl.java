@@ -174,7 +174,7 @@ public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConv
 				IContainer container = (IContainer)list.get(i);
 				if (container instanceof IFolder) {
 					IFolder sourceFolder = (IFolder)container;
-					if (sourceFolder.findMember("/META-INF/MANIFEST.MF") != null) { //$NON-NLS-1$
+					if (J2EEProjectUtilities.isSourceFolderAnInputContainer(sourceFolder)) {
 						return sourceFolder;
 					}
 				}

@@ -49,17 +49,16 @@ public final class ConnectorModuleCreationDataModel extends J2EEModuleCreationDa
 	 * Creates an Connector project with the specified name and version in the specified location.
 	 * 
 	 * @param projectName
-	 *            The name of the Enterprise Application project to create.
+	 *            The name of the Connector project to create.
 	 * @param projectLocation
 	 *            Sets the local file system location for the described project. The path must be
 	 *            either an absolute file system path, or a relative path whose first segment is the
 	 *            name of a defined workspace path variable. If <code>null</code> is specified,
 	 *            the default location is used.
 	 * @param connectorModuleVersion
-	 *            Sets the J2EE Version for the descibed project. The version must be one of
-	 *            <code>J2EEVersionConstants.J2EE_1_2_ID</code>,
-	 *            <code>J2EEVersionConstants.J2EE_1_3_ID</code>, or
-	 *            <code>J2EEVersionConstants.J2EE_1_4_ID</code>.
+	 *            Sets the JCA Version for the descibed project. The version must be either
+	 *            <code>J2EEVersionConstants.JCA_1_0_ID</code> or
+	 *            <code>J2EEVersionConstants.JCA_1_5_ID</code>.
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int connectorModuleVersion) {

@@ -11,8 +11,10 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModule;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
@@ -71,4 +73,16 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	 * @return com.ibm.etools.server.core.model.IProjectModule
 	 */
 	public abstract IModule createModule(J2EENature nature);
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#handleProjectChange(org.eclipse.core.resources.IProject, org.eclipse.core.resources.IResourceDelta)
+     */
+    protected void handleProjectChange(IProject project, IResourceDelta delta) {
+        if (projects == null)
+            cacheModules();
+        super.handleProjectChange(project, delta);
+    }
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
+     */
+
 }
