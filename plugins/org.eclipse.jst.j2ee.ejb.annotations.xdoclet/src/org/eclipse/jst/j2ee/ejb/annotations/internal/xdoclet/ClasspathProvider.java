@@ -7,26 +7,26 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-
 package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
 import java.util.List;
 
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.DefaultClasspathProvider;
 
-
 /**
  * @author naci
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
+ * 
+ * TODO To change the template for this generated type comment go to Window -
+ * Preferences - Java - Code Generation - Code and Comments
  */
-public class ClasspathProvider extends DefaultClasspathProvider{
-	public ClasspathProvider()
-	{
+public class ClasspathProvider extends DefaultClasspathProvider {
+	public ClasspathProvider() {
+		// Default constructor
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.DefaultClasspathProvider#getClasspathItems()
 	 */
 	public List getClasspathItems() {

@@ -11,6 +11,7 @@ import java.util.Properties;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -21,75 +22,90 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Logger;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletAnnotationPlugin;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletPreferenceStore;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.WebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 
 public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 
 	public XDocletWebAntProjectBuilder() {
 		super();
-		templateUrl = Platform.getBundle(XDocletAnnotationPlugin.PLUGINID)
-				.getEntry("/templates/builder/xdocletweb.xml");
+		templateUrl = Platform.getBundle(XDocletAnnotationPlugin.PLUGINID).getEntry("/templates/builder/xdocletweb.xml"); //$NON-NLS-1$
 	}
 
 	protected String getTaskName() {
-		return "webdoclet";
+		return "webdoclet"; //$NON-NLS-1$
 	}
 
 	protected HashMap createTemplates(String beanPath) {
 		HashMap templates = new HashMap();
-		templates.put("@servlets@", beanPath);
+		templates.put("@servlets@", beanPath); //$NON-NLS-1$
 		return templates;
 	}
 
-	protected Properties createAntBuildProperties(IResource resource,
-			IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot,
-			String beanPath) {
+	protected Properties createAntBuildProperties(IResource resource, IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot, String beanPath) {
 		Properties properties = new Properties();
+		ModuleCore moduleCore = null;
+		WebArtifactEdit webEdit = null;
 		try {
-			J2EEWebNatureRuntime runtime = WebNatureRuntimeUtilities
-					.getJ2EERuntime(javaProject.getProject());
+			moduleCore = ModuleCore.getModuleCoreForRead(javaProject.getProject());
+			WorkbenchModule wbModule = null;
+			URI sourcePath = URI.createURI(resource.getFullPath().toString());
+			WorkbenchModuleResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+			for (int i = 0; i < moduleResources.length; i++) {
+				WorkbenchModuleResource moduleResource = moduleResources[i];
+				if (moduleResource != null)
+					wbModule = moduleResource.getModule();
+				if (wbModule != null)
+					break;
+			}
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule);
+			int j2eeVersion = 0;
+			String contextRoot = ""; //$NON-NLS-1$
+			if (webEdit != null) {
+				j2eeVersion = webEdit.getJ2EEVersion();
+				contextRoot = webEdit.getServerContextRoot();
+			}
 
-			properties.put("web.module.webinf", runtime.getWEBINFPath().toString());
-			properties.put("web", runtime.getContextRoot());
-			properties.put("web.project.dir", resource.getProject()
-					.getLocation().toString());
-			properties.put("web.project.classpath", asClassPath(javaProject));
-			properties.put("web.module.src", packageFragmentRoot.getResource()
-					.getProjectRelativePath().toString());
-			properties.put("web.module.gen", packageFragmentRoot.getResource()
-					.getProjectRelativePath().toString());
-			properties.put("web.bin.dir", this.getJavaProjectOutputContainer(
-					javaProject).toString());
-			properties.put("xdoclet.home", XDocletPreferenceStore
-					.getProperty(XDocletPreferenceStore.XDOCLETHOME));
-			URL url = Platform.getBundle("org.apache.ant").getEntry("/");
+			properties.put("web.module.webinf", getWebInfFolder(javaProject).getProjectRelativePath().toString()); //$NON-NLS-1$
+			properties.put("web", contextRoot); //$NON-NLS-1$
+			properties.put("web.project.dir", resource.getProject().getLocation().toString()); //$NON-NLS-1$
+			properties.put("web.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
+			properties.put("web.module.src", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
+			properties.put("web.module.gen", packageFragmentRoot.getResource().getProjectRelativePath().toString()); //$NON-NLS-1$
+			properties.put("web.bin.dir", this.getJavaProjectOutputContainer(javaProject).toString()); //$NON-NLS-1$
+			properties.put("xdoclet.home", XDocletPreferenceStore.getProperty(XDocletPreferenceStore.XDOCLETHOME)); //$NON-NLS-1$
+			URL url = Platform.getBundle("org.apache.ant").getEntry("/"); //$NON-NLS-1$ //$NON-NLS-2$
 			url = Platform.asLocalURL(url);
 			File file = new File(url.getFile());
-			properties.put("ant.home", file.getAbsolutePath());
-			String servletLevel = J2EEConstants.VERSION_2_2_TEXT;
-			if (J2EEWebNatureRuntime.SERVLETLEVEL_2_3.equals(runtime
-					.getServletLevel()))
-				servletLevel = J2EEConstants.VERSION_2_3_TEXT;
-			else if (J2EEWebNatureRuntime.SERVLETLEVEL_2_4.equals(runtime
-					.getServletLevel()))
-				servletLevel = J2EEConstants.VERSION_2_4_TEXT;
+			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
 
-			properties.put("servlet.spec.version", servletLevel);
-			properties.put("java.class.path", "");
+			String servletLevel = J2EEVersionConstants.VERSION_2_2_TEXT;
+			if (j2eeVersion == J2EEVersionConstants.J2EE_1_3_ID)
+				servletLevel = J2EEVersionConstants.VERSION_2_3_TEXT;
+			else if (j2eeVersion == J2EEVersionConstants.J2EE_1_4_ID)
+				servletLevel = J2EEVersionConstants.VERSION_2_4_TEXT;
+
+			properties.put("servlet.spec.version", servletLevel); //$NON-NLS-1$
+			properties.put("java.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (Exception e) {
 			Logger.logException(e);
+		} finally {
+			if (moduleCore != null)
+				moduleCore.dispose();
+			if (webEdit != null)
+				webEdit.dispose();
 		}
 		return properties;
 	}
 
-	protected String constructAnnotatedClassList(IPackageFragmentRoot root,
-			IResource changedBean) {
+	protected String constructAnnotatedClassList(IPackageFragmentRoot root, IResource changedBean) {
 
 		List webClasses = new ArrayList();
 		getAllAnnotatedWebClasses(root, webClasses);
-		String beans = "";
+		String beans = ""; //$NON-NLS-1$
 		try {
 			Iterator iterator = webClasses.iterator();
 			while (iterator.hasNext()) {
@@ -98,7 +114,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 				bean = cu.getCorrespondingResource();
 				IPath path = bean.getProjectRelativePath();
 				path = makeRelativeTo(path, root);
-				beans += "\t<include name=\"" + path.toString() + "\" />\n";
+				beans += "\t<include name=\"" + path.toString() + "\" />\n"; //$NON-NLS-1$ //$NON-NLS-2$
 
 			}
 		} catch (JavaModelException e) {
@@ -130,5 +146,4 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			Logger.logException(e);
 		}
 	}
-
 }

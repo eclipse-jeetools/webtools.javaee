@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.wst.common.emf.utilities.CopyGroup;
+import org.eclipse.wst.common.internal.emf.utilities.CopyGroup;
 
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;

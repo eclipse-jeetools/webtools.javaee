@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 

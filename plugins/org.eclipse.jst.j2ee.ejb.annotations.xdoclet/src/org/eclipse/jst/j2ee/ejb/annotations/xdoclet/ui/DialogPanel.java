@@ -158,7 +158,6 @@ public class DialogPanel extends Composite {
 		gridData.horizontalSpan = 1;
 		fText.setLayoutData(gridData);
 		fText.setText(value);
-		final String fpath = value;
 		Button fButton = new Button(defPanel, SWT.PUSH);
 		fButton.setText("Browse...");
 		fButton.setLayoutData(new GridData());

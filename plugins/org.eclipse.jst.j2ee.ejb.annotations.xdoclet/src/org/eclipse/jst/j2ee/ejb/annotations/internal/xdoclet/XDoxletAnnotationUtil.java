@@ -25,8 +25,8 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 
 public class XDoxletAnnotationUtil {
-	private static final String XDOCLET_EJB_BEAN_TAG = "@ejb.bean";
-	private static final String XDOCLET_WEB_TAG = "@web";
+	private static final String XDOCLET_EJB_BEAN_TAG = "@ejb.bean"; //$NON-NLS-1$
+	private static final String XDOCLET_WEB_TAG = "@web"; //$NON-NLS-1$
 	public static class XDocletFinder extends ASTVisitor {
 		boolean isXDocletBean = false;
 		boolean isXDocletWebBean = false;

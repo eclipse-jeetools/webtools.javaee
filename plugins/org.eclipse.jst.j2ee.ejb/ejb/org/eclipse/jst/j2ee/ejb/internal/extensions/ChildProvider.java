@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.ejb.internal.extensions;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
+import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
 
 
 /**
@@ -25,7 +25,6 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
  */
 public interface ChildProvider {
 	Collection getChildren(Object object, AdapterFactory factory);
-
-	Collection getBackends(EJBNatureRuntime runtime);
+	Collection getBackends(EJBArtifactEdit artifactEdit);
 
 }

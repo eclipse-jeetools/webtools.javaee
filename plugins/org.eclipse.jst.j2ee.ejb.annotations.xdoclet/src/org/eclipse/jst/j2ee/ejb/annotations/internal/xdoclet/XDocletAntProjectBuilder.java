@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -28,9 +29,14 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.common.launcher.ant.AntLauncher;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Logger;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.WebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+
 
 public abstract class XDocletAntProjectBuilder {
 
@@ -39,12 +45,33 @@ public abstract class XDocletAntProjectBuilder {
 	public static class Factory {
 
 		public static XDocletAntProjectBuilder newInstance(IResource resource) {
-			EJBNatureRuntime ejbRuntime = EJBNatureRuntime.getRuntime(resource.getProject());
-			J2EEWebNatureRuntime webRuntime = WebNatureRuntimeUtilities.getJ2EERuntime(resource.getProject());
-			if( ejbRuntime != null)
-				return new XDocletEjbAntProjectBuilder();
-			else if( webRuntime != null)
-				return new XDocletWebAntProjectBuilder();
+			WebArtifactEdit webEdit = null;
+			ModuleCore moduleCore = null;
+			WorkbenchModule wbModule = null;
+			try {
+				moduleCore = ModuleCore.getModuleCoreForRead(resource.getProject());
+				URI sourcePath = URI.createURI(resource.getFullPath().toString());
+				WorkbenchModuleResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+				for (int i=0; i<moduleResources.length; i++) {
+					WorkbenchModuleResource moduleResource = moduleResources[i];
+					if (moduleResource!=null)
+						wbModule = moduleResource.getModule();
+					if (wbModule!=null)
+						break;
+				}
+				String moduleType = wbModule.getModuleType().getModuleTypeId();
+				if(moduleType.equals(IModuleConstants.JST_EJB_MODULE))
+					return new XDocletEjbAntProjectBuilder();
+				else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))
+					return new XDocletWebAntProjectBuilder();
+			} catch (UnresolveableURIException e) {
+				e.printStackTrace();
+			} finally {
+				if (moduleCore!=null)
+					moduleCore.dispose();
+				if (webEdit != null)
+					webEdit.dispose();
+			}
 			return null;
 		}
 		
@@ -148,4 +175,7 @@ public abstract class XDocletAntProjectBuilder {
 				path.removeFirstSegments(1)).getProjectRelativePath();
 	}
 
+	protected IContainer getWebInfFolder(IJavaProject proj) {
+		return WebPropertiesUtil.getJavaSourceFolder(proj.getProject());
+	}
 }

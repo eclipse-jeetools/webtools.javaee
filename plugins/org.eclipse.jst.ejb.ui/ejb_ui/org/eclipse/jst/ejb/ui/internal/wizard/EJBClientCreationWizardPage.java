@@ -8,12 +8,11 @@
  **************************************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.NewProjectGroup;
 import org.eclipse.swt.SWT;
@@ -26,6 +25,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+
+import com.ibm.wtp.common.logger.proxy.Logger;
 
 public class EJBClientCreationWizardPage extends WTPWizardPage {
 	public NewProjectGroup newProjectGroup = null;
@@ -34,7 +38,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 	private Text selectedProjectName;
 	private Label clientJarURILabel;
 	private Text clientJarURI;
-	private IProject project;
+	private WorkbenchModule module;
 	protected int indent = 0;
 
 	/**
@@ -125,15 +129,23 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 	}
 
 	private void handleHasClientJar() {
-		if (project != null) {
-			EJBNatureRuntime nature = EJBNatureRuntime.getRuntime(project);
-			if (nature != null && nature.hasEJBClientJARProject()) {
-				enableAllSections(false);
-			} else
-				enableAllSections(true);
-		}
+		EJBArtifactEdit edit = null;
+		try {
+			if (module != null) {
+				edit = EJBArtifactEdit.getEJBArtifactEditForRead(module);
+				if (edit != null && edit.hasEJBClientJARProject(ModuleCore.getContainingProject(module.getHandle())));
+					enableAllSections(false);
+				} else
+					enableAllSections(true);
+		} catch(UnresolveableURIException e) {
+				Logger.getLogger().logError(e);
+		  } finally {
+			  if(edit != null)
+				  edit.dispose();
+				  
+		  }
 	}
-
+	
 	private void enableAllSections(boolean state) {
 		selectedProjectLabel.setEnabled(state);
 		selectedProjectName.setEnabled(state);
