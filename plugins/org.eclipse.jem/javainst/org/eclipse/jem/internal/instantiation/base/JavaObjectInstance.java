@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.4 $  $Date: 2004/01/19 22:50:15 $ 
+ *  $Revision: 1.5 $  $Date: 2004/02/11 15:02:19 $ 
  */
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -64,7 +64,13 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 		  result.append(" (eProxyURI: "); //$NON-NLS-1$
 		  result.append(eProxyURI());
 		  result.append(')');
-		}		
+		}
+		if(getJavaType() != null){
+			result.append('{');
+			result.append(getJavaType().getQualifiedName());
+			result.append('}');
+		}
+		
 		try {
 			JavaAllocation allocation = getAllocation();
 			if (allocation != null) {
