@@ -7,10 +7,10 @@
  * <!-- begin-xdoclet-definition -->
  * @ejb.bean name="<%=mdb.getEjbName()%>" 
  *     acknowledge-mode="Auto-acknowledge"
- *     destination-type="<%= mdb.getDestinationType() %>"
+ *     destination-type="javax.jms.<%= mdb.getDestinationType() %>"
  *     <%= "Queue".equals(mdb.getDestinationType()) ? "" : "subscription-durability=\"NonDurable\""%>
  *     transaction-type="<%= mdb.getTransactionType() %>"
- *     destination-jndi-name="<%= mdb.getDestinationName() %>"
+ *     destination-jndi-name="<%= mdb.getDestinationJndiName() %>"
 
  * <!-- end-xdoclet-definition -->
  * @generated

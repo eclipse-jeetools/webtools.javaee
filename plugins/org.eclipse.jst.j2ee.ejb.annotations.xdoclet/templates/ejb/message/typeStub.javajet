@@ -1,6 +1,6 @@
 <%@ jet package="org.eclipse.gmf.templates.messageDriven" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.*"%>
 <% IMessageDrivenBeanDelegate mdb  = (IMessageDrivenBeanDelegate)argument; %>
 
-public abstract class <%= mdb.getSimpleClassName()%> implements <%= session.getInterfaces() %>
+public abstract class <%= mdb.getSimpleClassName()%> implements <%= mdb.getInterfaces() %>
 {
 }
