@@ -160,6 +160,16 @@
                URI="META-INF/application.xml"/>
       </editModel>
    </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="jst.appclient"
+            factoryClass="org.eclipse.wst.common.modulecore.internal.impl.ArtifactEditModelFactory">
+         <editModelResource
+               autoload="false"
+               URI="META-INF/application-client.xml"/>
+      </editModel>
+   </extension>
 <!-- Register the nature id with the EMFNature -->
    <!-- <extension
          point="org.eclipse.jem.workbench.nature_registration">
