@@ -119,7 +119,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 			IProject containingProject = getProject();
 			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
 			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectModules projectModules = moduleCore.getProjectModules();
+			ProjectModules projectModules = moduleCore.getModuleModelRoot();
 			addContent(projectModules);
 			moduleCore.saveIfNecessary(null); 
 		} finally {

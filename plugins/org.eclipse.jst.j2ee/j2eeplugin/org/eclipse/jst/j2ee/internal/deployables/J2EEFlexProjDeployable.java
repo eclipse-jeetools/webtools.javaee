@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.common.modulecore.ModuleUtil;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
@@ -53,12 +52,8 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	       if ( ModuleUtil.isFlexibleProject(project)) {  
         	if( wbModule != null ){
         		
-        		IPath pathProject = project.getLocation();
-        		String sPath = pathProject.toString();
-        		URI uri = ModuleCore.getOutputContainerRoot(wbModule);
-        		String sURI = uri.toString();
-        		String absolutePath = sPath + IPath.SEPARATOR + sURI;
-        		path = new Path( absolutePath );
+        		IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);
+        		path = outputContainer.getFullPath();
         	}
         }    
 	

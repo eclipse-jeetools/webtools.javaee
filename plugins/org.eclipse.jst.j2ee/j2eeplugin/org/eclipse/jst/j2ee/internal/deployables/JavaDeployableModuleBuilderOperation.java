@@ -59,9 +59,11 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		List javaSourceFolderList = ProjectUtilities.getSourceContainers(project);
 		
 		// create output container folder if it does not exist
-		URI outputContainerURI = (URI)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
-		IPath absoluteOCP = projectPath.append(outputContainerURI.toString());
-		createFolder(absoluteOCP);
+		IFolder outputContainer = (IFolder)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
+		if(!outputContainer.exists())
+			outputContainer.create(true, true, null);
+		//createFolder(absoluteOCP);
+		IPath outputContainerPath = outputContainer.getFullPath();
 
 		// copy resources except the java source folder
 		List resourceList = workbenchModule.getResources();
@@ -69,7 +71,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
-			IResource sourceResource =  ModuleCore.getResource(wmr);
+			IResource sourceResource =  ModuleCore.getEclipseResource(wmr);
 			if (sourceResource == null)
 				continue;
 			// check if it is a java source folder
@@ -77,7 +79,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 				continue;
 			// create parent folders for deploy folder if not exist
 			URI deployURI = wmr.getDeployedPath();
-			IPath deployPath = absoluteOCP.append(deployURI.toString());
+			IPath deployPath = outputContainerPath.append(deployURI.toString());
 			IPath parentPath = deployPath.removeLastSegments(1);
 			createFolder(parentPath);
 			DeployableModuleBuilder.smartCopy(sourceResource, deployPath, new NullProgressMonitor());
@@ -90,7 +92,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
-			IResource sourceResource = ModuleCore.getResource(wmr);
+			IResource sourceResource = ModuleCore.getEclipseResource(wmr);
 			// check if it is a java source folder
 			if (javaSourceFolderList.contains(sourceResource)) {
 				// get the classpath entry
@@ -102,7 +104,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 					}
 				}
 				URI deployURI = wmr.getDeployedPath();
-				IPath classFilesPath = absoluteOCP.append(deployURI.toString());
+				IPath classFilesPath = outputContainerPath.append(deployURI.toString());
 				// check if the classpath is modified. Use relative path to avoid 
 				// the problem that drive letter could be upper or lower case
 				IPath relativeClassFilesPath = classFilesPath.makeRelative();

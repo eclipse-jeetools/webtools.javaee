@@ -15,10 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
@@ -351,12 +350,9 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 		
 		IPath path = null;
 	       if ( ModuleUtil.isFlexibleProject(project)) {  
-     	if( wbModule != null ){
-     		
-
-     		URI uri = ModuleCore.getOutputContainerRoot(wbModule);
-     		String sURI = uri.toString();
-     		path = new Path( sURI );
+     	if( wbModule != null ) {   		
+     		IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);
+     		path = outputContainer.getProjectRelativePath();
      	}
      }    
 
