@@ -72,7 +72,6 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P2);
 		createNewJ2EEModuleGroup(composite);
-		createEJBComponentSection(composite);
 		createClientGroup(composite);
 		handleHasClientJar();
 		return composite;
@@ -83,6 +82,7 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		newComposite.setLayout(layout);
+		createEJBComponentSection(newComposite);
 		clientJarURILabel = new Label(newComposite, SWT.NULL);
 		clientJarURILabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.Client_JAR_URI) + " "); //$NON-NLS-1$ 
 
@@ -95,18 +95,14 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 	}
 
 	private void createEJBComponentSection(Composite parent) {
-		Composite newComposite = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		newComposite.setLayout(layout);
 
 		GridData data = new GridData();
-		setSpacer(newComposite);
-		selectedProjectLabel = new Label(newComposite, SWT.NULL);
+		setSpacer(parent);
+		selectedProjectLabel = new Label(parent, SWT.NULL);
 		selectedProjectLabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Project)); //$NON-NLS-1$ 
 
 		data.widthHint = 305;
-		selectedProjectName = new Text(newComposite, SWT.NULL);
+		selectedProjectName = new Text(parent, SWT.NULL);
 		selectedProjectName.setLayoutData(data);
 		selectedProjectName.setEditable(false);
 		synchHelper.synchText(selectedProjectName, EJBClientComponentDataModel.EJB_COMPONENT_NAME, new Control[]{selectedProjectLabel});
