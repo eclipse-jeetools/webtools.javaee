@@ -200,7 +200,14 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 	public String getEARDeployName(){
 		return getStringProperty(EAR_MODULE_DEPLOY_NAME);
 	}
+	public String getEJBComponentName(){
+		return getStringProperty(EJB_COMPONENT_NAME);
+	}
+	
 	public String getEJBDeployName(){
 		return getStringProperty(EJB_COMPONENT_DEPLOY_NAME);
 	}	
+	public String getEJBProjectName(){
+		return getStringProperty(EJB_PROJECT_NAME);
+	}
 }
