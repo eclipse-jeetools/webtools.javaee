@@ -20,9 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.ICommand;
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -30,26 +28,21 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
-import org.eclipse.wst.common.modulecore.Property;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.impl.PropertyImpl;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 public abstract class J2EEComponentCreationOperation extends J2EECreationOperation {
 	/**
@@ -144,8 +137,7 @@ public abstract class J2EEComponentCreationOperation extends J2EECreationOperati
 		
 		protected abstract void addResources( WorkbenchComponent component );
 		
-		public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, 
-					String moduletype, URI aHandle) {
+		public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, String moduletype, URI aHandle) {
 			WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
 			module.setHandle(aHandle);  
 			module.setName(aDeployedName);  

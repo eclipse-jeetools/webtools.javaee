@@ -7,21 +7,18 @@
 package org.eclipse.jst.j2ee.application.operations;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreFactoryImpl;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class EARComponentCreationOperation extends J2EEComponentCreationOperation {
@@ -59,18 +56,6 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 		    IFolder metaInfFolder = moduleFolder.getFolder(metaInfPath); //$NON-NLS-1$
 		    String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
 		    addResource(earComp, metaInfFolder, metaInfFolderDeployPath);
-			// add components it contains to reference component list
-			URI runtimeURI = URI.createURI(metaInfFolderDeployPath);
-			List list = (List)dm.getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST);
-			if (list != null && list.size() > 0) {
-				for (int i = 0; i < list.size(); i++) {
-					ReferencedComponent rc = ModuleCoreFactoryImpl.eINSTANCE.createReferencedComponent();
-					WorkbenchComponent wc = (WorkbenchComponent)list.get(i);
-					rc.setHandle(wc.getHandle());
-					rc.setRuntimePath(runtimeURI);
-					earComp.getReferencedComponents().add(rc);
-				}
-			}
 			// save
 			moduleCore.saveIfNecessary(null); 
         } finally {
@@ -89,7 +74,21 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 		if (dataModel.getBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
 		}
+		addModulesToEAR(monitor);
 	}
+	
+	private void addModulesToEAR(IProgressMonitor monitor) {
+		try{
+			AddComponentToEnterpriseApplicationDataModel dm = new AddComponentToEnterpriseApplicationDataModel();
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,getProject().getName());
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, getOperationDataModel().getProperty(EARComponentCreationDataModel.MODULE_DEPLOY_NAME));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,getOperationDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST));
+			AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
+			addModuleOp.execute(monitor);
+		 } catch(Exception e) {
+			 Logger.getLogger().log(e);
+		 }
+		}
     
 	protected  void addResources(WorkbenchComponent component ){
 	}
