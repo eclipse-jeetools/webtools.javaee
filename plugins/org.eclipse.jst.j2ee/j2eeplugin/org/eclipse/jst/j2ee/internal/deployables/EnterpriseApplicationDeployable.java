@@ -169,8 +169,10 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 		IJ2EEModule[] oldModules = containedModules;
 		containedModules = getContainedModules();
 		ILooseArchive[] oldArchives = containedArchives;
-		containedArchives = getContainedArchives();
 
+		////////////TODO add back looselib support///////////////////////////
+		//containedArchives = getContainedArchives();
+		containedArchives = new ILooseArchive[0];
 		// get add events
 		List add = new ArrayList(2);
 		addAddedObjects(add, oldModules, containedModules);
