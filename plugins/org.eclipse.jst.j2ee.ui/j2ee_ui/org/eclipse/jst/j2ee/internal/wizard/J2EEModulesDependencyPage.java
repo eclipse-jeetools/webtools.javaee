@@ -203,15 +203,16 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		Table aTable = availableJarsViewer.getTable();
 		aTable.addControlListener(new ControlAdapter() {
 			boolean fResized = false;
-
 			public void controlResized(ControlEvent e) {
 				if (e.widget instanceof Table && !fResized) {
 					final Table table = (Table) e.widget;
 					Display.getDefault().asyncExec(new Runnable() {
 						public void run() {
+							if (table.isDisposed() || fResized)
+								return;
 							Point size = table.getSize();
 							if (size.x > 4) {
-								setResized();
+								setResized(table);
 								int newSize = size.x / 2 - 2;
 								TableColumn column = table.getColumn(0);
 								if (column != null && !column.isDisposed())
@@ -225,8 +226,9 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 				}
 			}
 
-			public void setResized() {
+			public void setResized(Table table) {
 				fResized = true;
+				table.removeControlListener(this);
 			}
 		});
 	}

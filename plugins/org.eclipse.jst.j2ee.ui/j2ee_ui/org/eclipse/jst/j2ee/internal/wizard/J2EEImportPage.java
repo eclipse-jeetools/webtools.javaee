@@ -119,7 +119,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		});
 		newProjectButton.setEnabled(true);
 
-		synchHelper.synchCombo(projectCombo, J2EEArtifactImportDataModel.PROJECT_NAME, J2EEArtifactImportDataModel.PROJECT_NAME, new Control[]{projectLabel, newProjectButton});
+		synchHelper.synchCombo(projectCombo, J2EEArtifactImportDataModel.PROJECT_NAME, new Control[]{projectLabel, newProjectButton});
 	}
 
 	/**
@@ -185,7 +185,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		});
 		browseButton.setEnabled(true);
 
-		synchHelper.synchCombo(fileNameCombo, J2EEArtifactImportDataModel.FILE_NAME, J2EEArtifactImportDataModel.FILE_NAME, new Control[]{fileLabel, browseButton});
+		synchHelper.synchCombo(fileNameCombo, J2EEArtifactImportDataModel.FILE_NAME, new Control[]{fileLabel, browseButton});
 	}
 
 	/**

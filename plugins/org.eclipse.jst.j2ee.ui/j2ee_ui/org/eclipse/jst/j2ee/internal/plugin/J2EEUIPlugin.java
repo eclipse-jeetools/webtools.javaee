@@ -18,17 +18,23 @@ import org.eclipse.core.internal.boot.PlatformURLConnection;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
+import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
+import org.eclipse.jst.j2ee.webapplication.Servlet;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -265,4 +271,18 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 		}
 		return null;
 	}
+	
+	public void startup() throws CoreException {
+        super.startup();
+        
+        // register adapter factory for web services navigator actions
+        IAdapterManager manager = Platform.getAdapterManager();
+        manager.registerAdapters(new J2EEUIAdapterFactory(), EnterpriseBean.class);
+        manager.registerAdapters(new J2EEUIAdapterFactory(), Application.class);
+        manager.registerAdapters(new J2EEUIAdapterFactory(), WebApp.class);
+        manager.registerAdapters(new J2EEUIAdapterFactory(), EJBJar.class);
+        manager.registerAdapters(new J2EEUIAdapterFactory(), Servlet.class);
+        
+    }
+	
 }

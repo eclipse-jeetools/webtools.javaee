@@ -47,6 +47,9 @@
       <import plugin="org.eclipse.jst.common.navigator.java"/>
       <import plugin="org.eclipse.wst.web"/>
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.wst.sse.core"/>
+      <import plugin="org.eclipse.wst.xml.core"/>
       
    </requires>
 
@@ -659,4 +662,14 @@
             id="org.eclipse.jst.j2ee.J2EEPerspective">
       </perspective>
    </extension>	
+   <!--
+   <extension
+         point="com.ibm.wtp.common.util.uiContextSensitiveClass">
+      <uiContextSensitiveClass
+            context="UI"
+            key="rendererFactory"
+            className="org.eclipse.jst.j2ee.emf2xml.sed.EMF2DOMSedRendererFactory">
+      </uiContextSensitiveClass>
+   </extension>
+   -->
 </plugin>

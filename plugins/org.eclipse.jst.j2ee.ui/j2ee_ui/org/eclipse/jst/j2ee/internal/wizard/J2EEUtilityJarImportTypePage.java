@@ -262,7 +262,7 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		resourceNameCombo.setLayoutData(data);
-		synchHelper.synchCombo(resourceNameCombo, J2EEUtilityJarListImportDataModel.EAR_PROJECT, J2EEUtilityJarListImportDataModel.EAR_PROJECT, null);
+		synchHelper.synchCombo(resourceNameCombo, J2EEUtilityJarListImportDataModel.EAR_PROJECT, null);
 
 	}
 
@@ -346,7 +346,7 @@ public class J2EEUtilityJarImportTypePage extends WTPWizardPage {
 	 */
 	protected void setupBasedOnInitialSelections() {
 
-		if (currentResourceSelection.isEmpty() || setupBasedOnRefObjectSelection())
+		if (null == currentResourceSelection || currentResourceSelection.isEmpty() || setupBasedOnRefObjectSelection())
 			return; // no
 		// setup
 		// needed

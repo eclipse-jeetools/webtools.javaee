@@ -130,7 +130,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 		});
 		browseButton.setEnabled(true);
 
-		synchHelper.synchCombo(availableJarsCombo, J2EEUtilityJarListImportDataModel.AVAILABLE_JARS_DIRECTORY, J2EEUtilityJarListImportDataModel.UTILITY_JAR_LIST, new Control[]{fileLabel, browseButton});
+		synchHelper.synchCombo(availableJarsCombo, J2EEUtilityJarListImportDataModel.AVAILABLE_JARS_DIRECTORY, new Control[]{fileLabel, browseButton});
 	}
 
 	protected void createLinkedPathVariable(Composite parent) {
@@ -162,7 +162,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 		Combo availableLinkedPathsCombo = new Combo(linkedPathGroup, SWT.SINGLE | SWT.BORDER);
 		availableLinkedPathsCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 
-		synchHelper.synchCombo(availableLinkedPathsCombo, J2EEUtilityJarListImportDataModel.LINKED_PATH_VARIABLE, J2EEUtilityJarListImportDataModel.LINKED_PATH_VARIABLE, new Control[]{availableLinkedPathsCombo});
+		synchHelper.synchCombo(availableLinkedPathsCombo, J2EEUtilityJarListImportDataModel.LINKED_PATH_VARIABLE, new Control[]{availableLinkedPathsCombo});
 
 		synchHelper.synchCheckbox(linkedPathCheckbox, J2EEUtilityJarListImportDataModel.CREATE_LINKED_PATH_VARIABLE, new Control[]{availableLinkedPathsCombo});
 

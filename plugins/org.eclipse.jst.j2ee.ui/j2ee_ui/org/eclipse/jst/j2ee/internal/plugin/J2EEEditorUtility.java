@@ -10,6 +10,7 @@ package org.eclipse.jst.j2ee.internal.plugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
@@ -17,9 +18,10 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.ui.javaeditor.EditorUtility;
+import org.eclipse.jem.internal.adapters.jdom.JavaClassJDOMAdaptor;
+import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaPackage;
-import org.eclipse.jst.j2ee.internal.ejb.codegen.EJBGenHelpers;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -65,9 +67,21 @@ public class J2EEEditorUtility {
 	public static ICompilationUnit getCompilationUnit(JavaClass javaClass, IJavaProject javaProject) {
 		if (javaClass == null)
 			return null;
-		return EJBGenHelpers.getCompilationUnit(javaClass);
+		IType type = getType(javaClass);
+		if (type != null)
+			return type.getCompilationUnit();
+		return null;
 	}
-
+	
+	public static IType getType(JavaClass javaClass) {
+		if (javaClass != null) {
+			JavaClassJDOMAdaptor adaptor = (JavaClassJDOMAdaptor) EcoreUtil.getRegisteredAdapter(javaClass, ReadAdaptor.TYPE_KEY);
+			if (adaptor != null)
+				return adaptor.getSourceType();
+		}
+		return null;
+	}
+	
 	public static IEditorInput getEditorInput(Object input) {
 		if (input instanceof EObject)
 			return new FileEditorInput(WorkbenchResourceHelper.getFile((EObject) input));
@@ -145,12 +159,6 @@ public class J2EEEditorUtility {
 		return EditorUtility.openInEditor(type);
 	}
 
-	/**
-	 *  
-	 */
-	private static IType getType(JavaClass javaClass) {
-		return EJBGenHelpers.getType(javaClass);
-	}
 
 	/**
 	 * Opens a Java editor for the given element if the element is a Java compilation unit or a Java

@@ -299,7 +299,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		resourceNameCombo.setLayoutData(data);
-		synchHelper.synchCombo(resourceNameCombo, J2EEArtifactExportDataModel.PROJECT_NAME, J2EEArtifactExportDataModel.PROJECT_NAME, null);
+		synchHelper.synchCombo(resourceNameCombo, J2EEArtifactExportDataModel.PROJECT_NAME, null);
 		new Label(parent, SWT.NONE);//Pad label
 	}
 
@@ -316,7 +316,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 		// destination name combo field
 		destinationNameCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
 		destinationNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchCombo(destinationNameCombo, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, null);
+		synchHelper.synchCombo(destinationNameCombo, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, null);
 
 		// destination browse button
 		destinationBrowseButton = new Button(parent, SWT.PUSH);
