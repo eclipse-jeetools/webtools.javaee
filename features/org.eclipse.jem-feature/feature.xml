@@ -21,7 +21,7 @@
 
    <requires>
       <import feature="org.eclipse.jdt" version="3.0.0" match="compatible"/>
-      <import feature="org.eclipse.emf" version="2.0.0" match="compatible"/>
+      <import feature="org.eclipse.emf" version="2.0.1" match="compatible"/>
    </requires>
 
    <plugin
