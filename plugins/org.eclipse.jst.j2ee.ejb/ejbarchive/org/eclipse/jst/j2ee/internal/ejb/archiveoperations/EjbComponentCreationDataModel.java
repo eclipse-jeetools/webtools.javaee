@@ -44,16 +44,12 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 public class EjbComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
 	public static final String CREATE_CLIENT = "EJBModuleCreationDataModel.CREATE_CLIENT"; //$NON-NLS-1$
+	
 	public static final String CREATE_DEFAULT_SESSION_BEAN = "EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN"; //$NON-NLS-1$
-	/**
-	 * type boolean
-	 */		
-	public static final String CREATE_CLIENT_PROJ = "EJBModuleCreationDataModel.CREATE_CLIENT_PROJ";
 
 	private static final String NESTED_MODEL_EJB_CLIENT_CREATION = "EJBModuleCreationDataModel.NESTED_MODEL_EJB_CLIENT_CREATION"; //$NON-NLS-1$
+	
 	private EJBClientComponentDataModel ejbClientComponentDataModel;
-
-
 
 	public WTPOperation getDefaultOperation() {
 		return new EjbComponentCreationOperation(this);
@@ -87,16 +83,12 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			}
 			notifyEnablementChange(CREATE_CLIENT);
 		} else if (propertyName.equals(USE_ANNOTATIONS)) {
-			if (((Boolean) propertyValue).booleanValue()) {
-				notifyEnablementChange(COMPONENT_VERSION);
-			} else
-				notifyEnablementChange(COMPONENT_VERSION);
+			notifyEnablementChange(COMPONENT_VERSION);
 		} else if (propertyName.equals(COMPONENT_VERSION)) {
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				setProperty(USE_ANNOTATIONS, Boolean.FALSE);
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CREATE_CLIENT)) {
-			setProperty(CREATE_CLIENT_PROJ, propertyValue);
 			//getNestedEJBClientComponentDataModel().setProperty(EJBClientComponentDataModel.CREATE_PROJECT, propertyValue);
 
 			if (getBooleanProperty(CREATE_CLIENT)) {
@@ -104,55 +96,31 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			} else {
 				getNestedEJBClientComponentDataModel().disableValidation();
 			}
-		}else if (propertyName.equals(COMPONENT_NAME)) {
+		} else if (propertyName.equals(COMPONENT_NAME)) {
 			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_NAME, propertyValue);
 			if (!ejbClientComponentDataModel.isSet(ComponentCreationDataModel.COMPONENT_NAME))
 				ejbClientComponentDataModel.notifyDefaultChange(ComponentCreationDataModel.COMPONENT_NAME);
 			if (!ejbClientComponentDataModel.isSet(EJBClientComponentDataModel.CLIENT_COMPONENT_URI))
 				ejbClientComponentDataModel.notifyDefaultChange(EJBClientComponentDataModel.CLIENT_COMPONENT_URI);
 
-			if( getBooleanProperty(CREATE_CLIENT_PROJ)){
-				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.CREATE_PROJECT, getProperty(CREATE_CLIENT_PROJ));
-				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
+			if( getBooleanProperty(CREATE_CLIENT)){
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.CREATE_PROJECT, getProperty(CREATE_CLIENT));
+				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
 			}	
-			
-		}else if(propertyName.equals(CREATE_CLIENT_PROJ)){
-			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.CREATE_PROJECT, propertyValue);
-			if(propertyValue.equals(Boolean.TRUE)){
-				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
-			}else{
-				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
-			}
-			
-		}else if (getBooleanProperty(CREATE_CLIENT)) {
-			
+		}
+		
+		if (getBooleanProperty(CREATE_CLIENT)) {
 			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)
 						|| propertyName.equals(EAR_MODULE_DEPLOY_NAME) || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
-				if( !getBooleanProperty(CREATE_CLIENT_PROJ)){
-					ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
-				}
 				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
-				ejbClientComponentDataModel.setProperty( EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME, getProperty(EAR_MODULE_DEPLOY_NAME));
-				ejbClientComponentDataModel.setProperty( EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME, getProperty(EAR_MODULE_DEPLOY_NAME));
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
 			}
 		}
 		
 
 		return doSet;
 	}
-
-	private void updateOutputLocation() {
-//		getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.OUTPUT_LOCATION, getOutputLocation());
-	}
-
-//	private Object getOutputLocation() {
-//		StringBuffer buf = new StringBuffer(getStringProperty(WEB_CONTENT));
-//		buf.append(IPath.SEPARATOR);
-//		buf.append(IWebNatureConstants.INFO_DIRECTORY);
-//		buf.append(IPath.SEPARATOR);
-//		buf.append(IWebNatureConstants.CLASSES_DIRECTORY);
-//		return buf.toString();
-//	}
 
 	/*
 	 * (non-Javadoc)
@@ -163,7 +131,6 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		addValidBaseProperty(CREATE_CLIENT);
 		super.initValidBaseProperties();
 		addValidBaseProperty(CREATE_DEFAULT_SESSION_BEAN);
-		addValidBaseProperty(CREATE_CLIENT_PROJ);
 	}
 
 	protected void initNestedModels() {
@@ -198,9 +165,6 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule";
 		} else if (propertyName.equals(MANIFEST_FOLDER)) {
 			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
-		} else if (propertyName.equals(CREATE_CLIENT_PROJ)) {
-			return Boolean.TRUE;
-			//return Boolean.FALSE;
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}	

@@ -179,4 +179,10 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 			newModuleGroup.dispose();
 		super.dispose();
 	}
+
+	protected void enter() {
+		super.enter();
+		if (newModuleGroup!=null)
+			newModuleGroup.initializeProjectList();
+	}
 }
