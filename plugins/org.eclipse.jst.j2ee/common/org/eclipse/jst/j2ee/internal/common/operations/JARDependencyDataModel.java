@@ -96,7 +96,7 @@ public class JARDependencyDataModel extends WTPOperationDataModel {
 	}
 
 	public IProject getEARProject() {
-		return  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(EAR_PROJECT_NAME));
+		return  ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(EAR_PROJECT_NAME));
 	}
 
 	/**
@@ -111,11 +111,11 @@ public class JARDependencyDataModel extends WTPOperationDataModel {
 	}
 
 	public IProject getReferencedProject() {
-		return  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(REFERENCED_PROJECT_NAME));
+		return  ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(REFERENCED_PROJECT_NAME));
 	}
 
 	public IProject getOppositeProject() {
-		return  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(OPPOSITE_PROJECT_NAME));
+		return  ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(OPPOSITE_PROJECT_NAME));
 	}
 
 }

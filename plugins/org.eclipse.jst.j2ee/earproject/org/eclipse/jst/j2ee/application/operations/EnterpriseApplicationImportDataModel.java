@@ -285,7 +285,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 				nestedModel = (J2EEUtilityJarImportDataModel) nestedModels.get(i);
 				nestedModel.setProperty(J2EEUtilityJarImportDataModel.EAR_PROJECT, propertyValue);
 			}
-			IProject project =  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(PROJECT_NAME));
+			IProject project =  ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(PROJECT_NAME));
 			if (null != project && project.exists()) {
 				IRuntime target = ServerCore.getProjectProperties(project).getRuntimeTarget();
 				if (null != target) {
@@ -746,7 +746,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 		if (null != enabled && !enabled.booleanValue()) {
 			return enabled;
 		} else if (propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
-			IProject project = ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(PROJECT_NAME));
+			IProject project = ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(PROJECT_NAME));
 			if (null == project || !project.exists()) {
 				return Boolean.TRUE;
 			}

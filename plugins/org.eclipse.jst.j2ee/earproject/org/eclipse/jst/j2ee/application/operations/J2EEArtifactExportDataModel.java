@@ -73,7 +73,7 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getTargetProject()
 	 */
 	public IProject getTargetProject() {
-		return ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(PROJECT_NAME));
+		return ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(PROJECT_NAME));
 	}
 
 	/*

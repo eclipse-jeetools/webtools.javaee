@@ -165,7 +165,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	 * @see J2EEModuleCreationDataModel#getClassPathSelection() is non-empty.
 	 */
 	protected final boolean shouldShowModulesPageForEAR() {
-		IProject earProject = ProjectCreationDataModel.getProjectHandleFromName(model.getStringProperty((J2EEModuleCreationDataModel.EAR_PROJECT_NAME)));
+		IProject earProject = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty((J2EEModuleCreationDataModel.EAR_PROJECT_NAME)));
 		if (null != earProject && earProject.exists() && earProject.isAccessible())
 			return !((J2EEModuleCreationDataModel) model).getClassPathSelection().getClasspathElements().isEmpty();
 		return false;

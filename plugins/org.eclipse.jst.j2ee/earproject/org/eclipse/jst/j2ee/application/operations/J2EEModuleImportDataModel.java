@@ -49,7 +49,7 @@ public abstract class J2EEModuleImportDataModel extends J2EEArtifactImportDataMo
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		if (propertyName.equals(PROJECT_NAME)) {
-			IProject project = ProjectCreationDataModel.getProjectHandleFromName((String) propertyValue);
+			IProject project = ProjectCreationDataModel.getProjectHandleFromProjectName((String) propertyValue);
 			getJ2EEModuleCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModel.IS_ENABLED, null == project || !project.exists());
 		}
 		boolean doSet = super.doSetProperty(propertyName, propertyValue);

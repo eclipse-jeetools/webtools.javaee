@@ -189,7 +189,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 			boolean shouldModifyServerTarget = true;
 			if (getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
 				String earProjectName = getStringProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME);
-				IProject earProject = ProjectCreationDataModel.getProjectHandleFromName(earProjectName);
+				IProject earProject = ProjectCreationDataModel.getProjectHandleFromProjectName(earProjectName);
 				if (null != earProject && earProject.exists()) {
 					shouldModifyServerTarget = false;
 				}
@@ -247,7 +247,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	}
 
 	private boolean checkForNewEARProjectName(String projectName) {
-		IProject project = ProjectCreationDataModel.getProjectHandleFromName(projectName);
+		IProject project = ProjectCreationDataModel.getProjectHandleFromProjectName(projectName);
 		if (project != null && project.exists())
 			return false;
 		return true;
@@ -256,7 +256,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	private void synchUPServerTargetWithEAR() {
 		if (getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
 			String earProjectName = getStringProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME);
-			IProject earProject = ProjectCreationDataModel.getProjectHandleFromName(earProjectName);
+			IProject earProject = ProjectCreationDataModel.getProjectHandleFromProjectName(earProjectName);
 			if (null != earProject && earProject.exists() && earProject.isAccessible()) {
 				EARNatureRuntime earNature = EARNatureRuntime.getRuntime(earProject);
 				if (earNature != null) {
@@ -295,7 +295,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 					return Boolean.TRUE;
 				}
 				String earProjectName = getStringProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME);
-				IProject earProject = ProjectCreationDataModel.getProjectHandleFromName(earProjectName);
+				IProject earProject = ProjectCreationDataModel.getProjectHandleFromProjectName(earProjectName);
 				enabled = new Boolean(null == earProject || !earProject.exists());
 			} else if (propertyName.equals(ADD_TO_EAR)){
 			    if(getBooleanProperty(IS_FLEXIBLE_PROJECT))
