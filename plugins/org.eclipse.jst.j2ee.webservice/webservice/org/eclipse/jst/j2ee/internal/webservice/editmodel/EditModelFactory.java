@@ -20,6 +20,7 @@ public class EditModelFactory {
 	private Hashtable fWebServicesClientEditModels = new Hashtable();
 
 	private EditModelFactory() {
+		//Default constructor
 	}
 
 	public static EditModelFactory getEditModelFactory() {

@@ -93,7 +93,6 @@ public class AdapterHandlerClassText extends AdapterImpl implements ModifyListen
 	protected boolean syncTextAndModel() {
 		if (eObject_ != null) {
 			String modelValue = eObject_.getHandlerClass().getQualifiedNameForReflection();
-			;
 			String textValue = text_.getText();
 			if (modelValue == null || modelValue.length() <= 0)
 				return !(textValue == null || textValue.length() <= 0);

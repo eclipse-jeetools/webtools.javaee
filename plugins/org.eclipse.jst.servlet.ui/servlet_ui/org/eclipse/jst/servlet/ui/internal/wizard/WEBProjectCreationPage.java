@@ -50,7 +50,6 @@ public class WEBProjectCreationPage extends J2EEModuleCreationPage {
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 	private AnnotationsStandaloneGroup annotationsGroup;
-	private FlexibleModuleStandaloneGroup flexibleGroup;
 	
 	/**
 	 * @param model
@@ -102,7 +101,7 @@ public class WEBProjectCreationPage extends J2EEModuleCreationPage {
 	}
 	
 	private void createFlexibleProjectGroup(Composite parent) {
-	    flexibleGroup = new FlexibleModuleStandaloneGroup(parent, getJ2EEModuleCreationDataModel());
+	    new FlexibleModuleStandaloneGroup(parent, getJ2EEModuleCreationDataModel());
 	}
 	
 	WebModuleCreationDataModel getWebProjectCreationDataModel() {

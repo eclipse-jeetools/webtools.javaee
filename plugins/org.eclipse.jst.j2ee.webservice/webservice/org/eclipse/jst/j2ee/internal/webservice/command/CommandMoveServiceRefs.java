@@ -249,6 +249,7 @@ public class CommandMoveServiceRefs extends AbstractCommand {
 	 * this one has undefined results.
 	 */
 	public void dispose() {
+		//Do nothing
 	}
 
 	/**

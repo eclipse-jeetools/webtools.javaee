@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderDataModel;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderOperation;
 
 /**
@@ -39,17 +40,17 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		WebAppDeployableModuleBuilderDataModel dataModel = (WebAppDeployableModuleBuilderDataModel) operationDataModel;
-		ModuleStructuralModel moduleModel = (ModuleStructuralModel)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.MODULE_STRUCTURAL_MODEL);
-		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.WORKBENCH_MODULE);
+		ModuleStructuralModel moduleModel = (ModuleStructuralModel)dataModel.getProperty(DeployableModuleBuilderDataModel.MODULE_STRUCTURAL_MODEL);
+		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(DeployableModuleBuilderDataModel.WORKBENCH_MODULE);
 		String deployedName = workbenchModule.getDeployedName();
 
 		// create output container folder if it does not exist
-		Path absoluteOCP = (Path)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
-		IFolder outputContainerFolder = createFolder(absoluteOCP);
+		Path absoluteOCP = (Path)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
+		createFolder(absoluteOCP);
 
 		// create deployed module folder
 		IPath absoluteDMP = absoluteOCP.append(deployedName);
-		IFolder deployedModuleFolder = createFolder(absoluteDMP);
+		createFolder(absoluteDMP);
 
 		// copy resources
 		IPath projectPath = moduleModel.getProject().getFullPath();

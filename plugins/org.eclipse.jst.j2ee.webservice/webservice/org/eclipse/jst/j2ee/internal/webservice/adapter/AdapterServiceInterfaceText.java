@@ -93,7 +93,7 @@ public class AdapterServiceInterfaceText extends AdapterImpl implements ModifyLi
 		if (eObject_ != null) {
 			String modelValue = null;
 			if (eObject_.getServiceInterface() != null)
-				modelValue = eObject_.getServiceInterface().getQualifiedNameForReflection();;
+				modelValue = eObject_.getServiceInterface().getQualifiedNameForReflection();
 			String textValue = text_.getText();
 			if (modelValue == null || modelValue.length() <= 0)
 				return !(textValue == null || textValue.length() <= 0);

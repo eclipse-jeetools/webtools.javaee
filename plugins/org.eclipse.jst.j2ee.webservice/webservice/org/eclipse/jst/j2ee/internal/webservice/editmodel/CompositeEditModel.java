@@ -255,6 +255,7 @@ public abstract class CompositeEditModel extends EditModel implements CommandSta
 					resource.save(Collections.EMPTY_MAP);
 					resource.setModified(false);
 				} catch (Exception e) {
+					//Ignore
 				}
 			}
 		}

@@ -135,6 +135,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 				sb.append("plugin.properties"); //$NON-NLS-1$
 				return new URL(sb.toString());
 			} catch (MalformedURLException e) {
+				//Ignore
 			}
 		}
 		return null;

@@ -63,6 +63,7 @@ public class WebServiceMessages extends Messages {
 		try {
 			resourceBundle = ResourceBundle.getBundle("webservice"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
+			//Ignore
 		}
 	}
 }

@@ -94,9 +94,11 @@ public class AdapterCCombo extends AdapterImpl implements SelectionListener {
 	}
 
 	public void widgetDefaultSelected(SelectionEvent e) {
+		//Do nothing
 	}
 
 	public void widgetSelected(SelectionEvent e) {
+		//Do nothing
 	}
 
 	public void adapt(EObject eObject) {

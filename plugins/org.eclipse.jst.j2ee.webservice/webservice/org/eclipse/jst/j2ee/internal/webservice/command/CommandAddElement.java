@@ -161,6 +161,7 @@ public class CommandAddElement extends AbstractCommand {
 	 * this one has undefined results.
 	 */
 	public void dispose() {
+		//Do nothing
 	}
 
 	/**

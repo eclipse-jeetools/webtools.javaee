@@ -120,6 +120,7 @@ public class WsddEditModel extends EditModel {
 			else if (getProject().hasNature(IWebNatureConstants.J2EE_NATURE_ID))
 				result = WEB_PROJECT_WEBSERVICE;
 		} catch (Exception e) {
+			//Ignore
 		}
 
 		return result;

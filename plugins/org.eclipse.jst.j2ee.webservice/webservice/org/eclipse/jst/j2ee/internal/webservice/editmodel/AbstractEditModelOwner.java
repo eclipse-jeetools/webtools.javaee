@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -21,11 +20,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;
 import com.ibm.wtp.emf.workbench.IEMFContextContributor;
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
+import com.ibm.wtp.emf.workbench.WorkbenchResourceHelperBase;
 
 public abstract class AbstractEditModelOwner implements IEMFContextContributor {
 	protected IFile fInputFile;
@@ -52,17 +51,13 @@ public abstract class AbstractEditModelOwner implements IEMFContextContributor {
 
 	protected EMFWorkbenchContext getEmfNature() {
 		if (fEmfNature == null) {
-			try {
-				createEmfNature();
-			} catch (CoreException ex) {
-				// Log anything...?
-			}
+			createEmfNature();
 		}
 		return fEmfNature;
 	}
 
-	protected void createEmfNature() throws CoreException {
-		WorkbenchResourceHelper.createEMFContext(getProject(), this);
+	protected void createEmfNature() {
+		WorkbenchResourceHelperBase.createEMFContext(getProject(), this);
 	}
 
 	public void primaryContributeToContext(EMFWorkbenchContextBase aNature) {
@@ -75,7 +70,7 @@ public abstract class AbstractEditModelOwner implements IEMFContextContributor {
 	}
 
 	public void secondaryContributeToContext(EMFWorkbenchContextBase aNature) {
-
+		//Do nothing
 	}
 
 

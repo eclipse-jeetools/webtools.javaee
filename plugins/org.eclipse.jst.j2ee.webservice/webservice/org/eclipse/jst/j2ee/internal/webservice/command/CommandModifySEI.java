@@ -149,6 +149,7 @@ public class CommandModifySEI extends AbstractCommand {
 	 * this one has undefined results.
 	 */
 	public void dispose() {
+		//Do nothing
 	}
 
 	/**
