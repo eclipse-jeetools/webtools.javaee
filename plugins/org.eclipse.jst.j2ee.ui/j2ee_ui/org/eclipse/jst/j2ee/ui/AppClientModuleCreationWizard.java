@@ -117,7 +117,7 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#getWizardID()
+	 * @see org.eclipse.wst.common.frameworks.ui.ExtendableWizard#getWizardID()
 	 */
 	public String getWizardID() {
 		return WIZARD_ID;

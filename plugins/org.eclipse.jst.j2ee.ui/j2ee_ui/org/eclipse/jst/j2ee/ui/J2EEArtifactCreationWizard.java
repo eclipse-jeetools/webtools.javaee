@@ -28,8 +28,8 @@ import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
-import org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.ui.ExtendableWizard;
 
 /**
  * <p>
@@ -38,15 +38,15 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
  * </p>
  * <p>
  * Creation wizards must define the abstract methods from
- * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard}which
+ * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard}which
  * include the following:
  * <ul>
  * <li>
- * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#doAddPages()}
+ * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#doAddPages()}
  * <li>
- * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#canFinish()}
+ * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#canFinish()}
  * <li>
- * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#createBaseOperation()}
+ * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#createBaseOperation()}
  * <li>{@link org.eclipse.wst.common.frameworks.ui.WTPWizard#createDefaultModel()}
  * </ul>
  * </p>
@@ -58,7 +58,7 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
  * <li>{@link #doDispose()()}
  * </ul>
  * 
- * @see org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard
+ * @see org.eclipse.wst.common.frameworks.ui.ExtendableWizard
  */
 public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implements INewWizard, IExecutableExtension, IPluginContribution {
 
