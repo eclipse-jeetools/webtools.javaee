@@ -48,6 +48,7 @@ import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientEditAdapterFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceFactory;
@@ -497,6 +498,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ValidatorManager.setResourceUtilClass(ResourceUtil.class);
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new EarEditAdapterFactory(), ArtifactEditModel.class);
+		manager.registerAdapters(new AppClientEditAdapterFactory(), ArtifactEditModel.class);
 		ApplicationResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		ApplicationClientResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		registerDeployableModuleFactory(IModuleConstants.JST_UTILITY_MODULE);
