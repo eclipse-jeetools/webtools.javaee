@@ -11,7 +11,7 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.5 $  $Date: 2004/06/14 16:07:28 $ 
+ *  $Revision: 1.6 $  $Date: 2004/06/14 22:04:50 $ 
  */
 
 
@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.jdt.core.*;
 import org.osgi.framework.Bundle;
 
-import org.eclipse.jem.internal.proxy.core.ProxyMessages;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 
 /**
