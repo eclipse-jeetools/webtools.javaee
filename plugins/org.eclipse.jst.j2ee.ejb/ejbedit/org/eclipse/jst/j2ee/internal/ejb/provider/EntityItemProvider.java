@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.ejb.provider;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -160,7 +161,8 @@ public class EntityItemProvider extends EnterpriseBeanItemProvider implements IE
 	 */
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
-			super.getChildrenReferences(object);
+			childrenReferences = new ArrayList();
+			childrenReferences.addAll(super.getChildrenReferences(object));
 			childrenReferences.add(EjbPackage.eINSTANCE.getEntity_Reentrant());
 		}
 		return childrenReferences;
