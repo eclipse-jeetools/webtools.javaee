@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/22 23:49:30 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/05 21:03:10 $ 
  */
 
 import java.util.Iterator;
@@ -46,6 +46,107 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 		super(name);
 	}
 		
+	public void testArrayClassType() {
+		// Test one dimension array type for a class as final component
+		JavaClass at = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("org.eclipse.jem.tests.beaninfo.Test1Class[]", rset);
+		
+		assertTrue(at.isArray());
+		assertSame(TypeKind.CLASS_LITERAL, at.getKind());
+		assertEquals(1, ((ArrayType) at).getArrayDimensions());
+		assertTrue(at.isPublic());
+		assertTrue("java.lang.Object".equals(at.getSupertype().getQualifiedName()));
+		assertTrue(at.getImplementsInterfaces().size() == 2);
+		assertTrue(at.getMethods().isEmpty());
+		assertTrue(at.getFields().isEmpty());
+		assertTrue(at.getProperties().isEmpty());
+		assertTrue(at.getEvents().isEmpty());
+		assertTrue(at.getEOperations().isEmpty());
+	}
+
+	public void testArrayPrimitiveType() {
+		// Test one dimension array type for a class as final component
+		JavaClass at = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("int[]", rset);
+		
+		assertTrue(at.isArray());
+		assertSame(TypeKind.CLASS_LITERAL, at.getKind());
+		assertEquals(1, ((ArrayType) at).getArrayDimensions());		
+		assertTrue(at.isPublic());
+		assertTrue("java.lang.Object".equals(at.getSupertype().getQualifiedName()));
+		assertTrue(at.getImplementsInterfaces().size() == 2);
+		assertTrue(at.getMethods().isEmpty());
+		assertTrue(at.getFields().isEmpty());
+		assertTrue(at.getProperties().isEmpty());
+		assertTrue(at.getEvents().isEmpty());
+		assertTrue(at.getEOperations().isEmpty());
+	}
+
+	public void testArrayUndefined() {
+		// Test one dimension array type for a class as final component that is undefined.
+		JavaClass at = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("XYZ[]", rset);
+		
+		assertTrue(at.isArray());
+		assertSame(TypeKind.UNDEFINED_LITERAL, at.getKind());
+	}
+
+	public void testArrayClassType2Dim() {
+		// Test one dimension array type for a class as final component
+		JavaClass at = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("org.eclipse.jem.tests.beaninfo.Test1Class[][]", rset);
+		
+		assertTrue(at.isArray());
+		assertSame(TypeKind.CLASS_LITERAL, at.getKind());
+		assertEquals(2, ((ArrayType) at).getArrayDimensions());
+		assertTrue(at.isPublic());
+		assertTrue("java.lang.Object".equals(at.getSupertype().getQualifiedName()));
+		assertTrue(at.getImplementsInterfaces().size() == 2);
+		assertTrue(at.getMethods().isEmpty());
+		assertTrue(at.getFields().isEmpty());
+		assertTrue(at.getProperties().isEmpty());
+		assertTrue(at.getEvents().isEmpty());
+		assertTrue(at.getEOperations().isEmpty());
+	}
+
+	public void testArrayPrimitiveType2Dim() {
+		// Test one dimension array type for a class as final component
+		JavaClass at = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("int[][]", rset);
+		
+		assertTrue(at.isArray());
+		assertSame(TypeKind.CLASS_LITERAL, at.getKind());
+		assertEquals(2, ((ArrayType) at).getArrayDimensions());		
+		assertTrue(at.isPublic());
+		assertTrue("java.lang.Object".equals(at.getSupertype().getQualifiedName()));
+		assertTrue(at.getImplementsInterfaces().size() == 2);
+		assertTrue(at.getMethods().isEmpty());
+		assertTrue(at.getFields().isEmpty());
+		assertTrue(at.getProperties().isEmpty());
+		assertTrue(at.getEvents().isEmpty());
+		assertTrue(at.getEOperations().isEmpty());
+	}
+
+	public void testArrayUndefined2Dim() {
+		// Test one dimension array type for a class as final component that is undefined.
+		JavaClass at = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("XYZ[][]", rset);
+		
+		assertTrue(at.isArray());
+		assertSame(TypeKind.UNDEFINED_LITERAL, at.getKind());
+	}
+
+	public void testArrayInnerClassType() {
+		// Test one dimension array type for a class as final component
+		JavaClass at = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("org.eclipse.jem.tests.beaninfo.Customer$Account[]", rset);
+		
+		assertTrue(at.isArray());
+		assertSame(TypeKind.CLASS_LITERAL, at.getKind());
+		assertEquals(1, ((ArrayType) at).getArrayDimensions());
+		assertTrue(at.isPublic());
+		assertTrue("java.lang.Object".equals(at.getSupertype().getQualifiedName()));
+		assertTrue(at.getImplementsInterfaces().size() == 2);
+		assertTrue(at.getMethods().isEmpty());
+		assertTrue(at.getFields().isEmpty());
+		assertTrue(at.getProperties().isEmpty());
+		assertTrue(at.getEvents().isEmpty());
+		assertTrue(at.getEOperations().isEmpty());
+	}
+	
 	public void testBeanDecoratorReflected() {
 		JavaClass test1Class = getTest1Class();
 
