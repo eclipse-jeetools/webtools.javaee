@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ModuleCore;

@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
+package org.eclipse.jst.j2ee.ejb.modulecore.util;
 
 import java.util.List;
 

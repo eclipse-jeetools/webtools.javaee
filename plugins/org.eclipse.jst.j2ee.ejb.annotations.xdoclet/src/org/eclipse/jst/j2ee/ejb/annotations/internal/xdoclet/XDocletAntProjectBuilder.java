@@ -29,7 +29,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.common.internal.launcher.ant.AntLauncher;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;

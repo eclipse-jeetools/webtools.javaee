@@ -12,7 +12,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.NewModuleGroup;

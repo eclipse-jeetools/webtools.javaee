@@ -10,7 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 

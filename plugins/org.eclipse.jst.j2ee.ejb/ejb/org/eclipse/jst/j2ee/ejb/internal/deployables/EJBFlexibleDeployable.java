@@ -11,7 +11,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;

@@ -13,7 +13,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;

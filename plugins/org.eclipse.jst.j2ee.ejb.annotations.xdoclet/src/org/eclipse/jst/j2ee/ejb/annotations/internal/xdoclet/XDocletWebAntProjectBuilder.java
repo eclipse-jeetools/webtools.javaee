@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
