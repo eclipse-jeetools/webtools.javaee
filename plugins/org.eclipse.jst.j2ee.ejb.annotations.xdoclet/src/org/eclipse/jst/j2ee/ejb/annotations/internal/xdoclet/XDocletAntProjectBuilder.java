@@ -30,11 +30,11 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.common.internal.launcher.ant.AntLauncher;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 
 public abstract class XDocletAntProjectBuilder {
@@ -45,12 +45,12 @@ public abstract class XDocletAntProjectBuilder {
 
 		public static XDocletAntProjectBuilder newInstance(IResource resource) {
 			WebArtifactEdit webEdit = null;
-			ModuleCore moduleCore = null;
+			StructureEdit moduleCore = null;
 			WorkbenchComponent wbModule = null;
 			try {
-				moduleCore = ModuleCore.getModuleCoreForRead(resource.getProject());
+				moduleCore = StructureEdit.getStructureEditForRead(resource.getProject());
 				URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
-				ComponentResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+				ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(sourcePath);
 				for (int i=0; i<moduleResources.length; i++) {
 					ComponentResource moduleResource = moduleResources[i];
 					if (moduleResource!=null)
@@ -58,7 +58,7 @@ public abstract class XDocletAntProjectBuilder {
 					if (wbModule!=null)
 						break;
 				}
-				String moduleType = wbModule.getComponentType().getModuleTypeId();
+				String moduleType = wbModule.getComponentType().getComponentTypeId();
 				if(moduleType.equals(IModuleConstants.JST_EJB_MODULE))
 					return new XDocletEjbAntProjectBuilder();
 				else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))

@@ -21,9 +21,9 @@ import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 
@@ -63,10 +63,10 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	 */
 	public Properties createAntBuildProperties(IResource resource, IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot, String beanPath) {
 		Properties properties = new Properties();
-		ModuleCore  core= null;
+		StructureEdit  core= null;
 		EJBArtifactEdit ejbEdit = null;
 		try {
-			core = ModuleCore.getModuleCoreForRead(javaProject.getProject());
+			core = StructureEdit.getStructureEditForRead(javaProject.getProject());
 			properties.put("ejb", resource.getProject().getName()); //$NON-NLS-1$
 			properties.put("ejb.project.dir", resource.getProject().getLocation().toString()); //$NON-NLS-1$
 			properties.put("ejb.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
@@ -80,7 +80,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
 			WorkbenchComponent ejbModule = null;
 			URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
-			ComponentResource[] moduleResources = core.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+			ComponentResource[] moduleResources = core.findResourcesBySourcePath(sourcePath);
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
 				if (moduleResource != null)

@@ -21,9 +21,9 @@ import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 
@@ -44,13 +44,13 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 
 	protected Properties createAntBuildProperties(IResource resource, IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot, String beanPath) {
 		Properties properties = new Properties();
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		WebArtifactEdit webEdit = null;
 		try {
-			moduleCore = ModuleCore.getModuleCoreForRead(javaProject.getProject());
+			moduleCore = StructureEdit.getStructureEditForRead(javaProject.getProject());
 			WorkbenchComponent wbModule = null;
 			URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
-			ComponentResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+			ComponentResource[] moduleResources = moduleCore.findResourcesBySourcePath(sourcePath);
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
 				if (moduleResource != null)
