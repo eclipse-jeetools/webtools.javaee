@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -18,10 +17,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderOperation;
 
 /**
  * @author jialin
@@ -29,7 +28,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class WebAppDeployableModuleBuilderOperation extends WTPOperation {
+public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuilderOperation {
 	
 	public WebAppDeployableModuleBuilderOperation(WebAppDeployableModuleBuilderDataModel dataModel) {
 		super(dataModel);
@@ -45,16 +44,15 @@ public class WebAppDeployableModuleBuilderOperation extends WTPOperation {
 		String deployedName = workbenchModule.getDeployedName();
 
 		// create output container folder if it does not exist
-		Path outputContainerPath = (Path)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
-		IProject parentProject = moduleModel.getProject();
-		IPath projectPath = parentProject.getFullPath();
-		IPath absoluteOCP = projectPath.append(outputContainerPath);
+		Path absoluteOCP = (Path)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
 		IFolder outputContainerFolder = createFolder(absoluteOCP);
 
 		// create deployed module folder
 		IPath absoluteDMP = absoluteOCP.append(deployedName);
 		IFolder deployedModuleFolder = createFolder(absoluteDMP);
 
+		// copy resources
+		IPath projectPath = moduleModel.getProject().getFullPath();
 		List resourceList = workbenchModule.getResources();
 		for (int i = 0; i < resourceList.size(); i++) {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
