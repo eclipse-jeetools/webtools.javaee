@@ -17,7 +17,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
@@ -104,4 +106,13 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
     public String getContentDeployPath() {
         return "/connectorModule/META-INF"; //$NON-NLS-1$
     }
+
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
+	 */
+	protected String getVersion() {
+		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.J2EE_MODULE_VERSION);
+		return J2EEVersionUtil.getJCATextVersion(version);
+	}
 }

@@ -123,11 +123,14 @@ public abstract class J2EEComponentCreationOperation extends J2EECreationOperati
 			return ProjectUtilities.getProject( projName );
 		}
 		
+		protected abstract String getVersion();
 		private void addContent(ProjectComponents projectModules, String moduletype) {
 
-		    WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleDeployName(), 
+		    WorkbenchComponent module = addWorkbenchModule(projectModules, getModuleDeployName(), 
 		    			moduletype, createModuleURI()); //$NON-NLS-1$
-		    addResources( webModule );
+	
+		    module.getComponentType().setVersion(getVersion());
+		    addResources( module );
 		}		
 		
 		protected abstract void addResources( WorkbenchComponent component );

@@ -18,10 +18,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
@@ -132,6 +134,14 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
 	protected  void addResources( WorkbenchComponent component ){
 		addResource(component, getModuleRelativeFile(getContentSourcePath(), getProject()), getContentDeployPath());
 		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
+	 */
+	protected String getVersion() {
+		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.J2EE_MODULE_VERSION);
+		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
 	
   
