@@ -151,7 +151,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * <p>
-	 * Note: this is typically used for JUNIT testing
+	 * 
+	 * @param aModule
+	 *            A non-null pointing to a XMLResource (@see XMLResource) 
+	 *            
+	 * Note: This method is typically used for JUNIT.  
 	 * </p>
 	 */
 
