@@ -130,7 +130,6 @@ public class EJBRelationItemProvider extends EjbItemProviderAdapter implements I
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//

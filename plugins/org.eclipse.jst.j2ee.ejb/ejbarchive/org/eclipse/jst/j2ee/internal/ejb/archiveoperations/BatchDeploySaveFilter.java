@@ -46,6 +46,7 @@ public class BatchDeploySaveFilter implements SaveFilter {
 		try {
 			aFile = anArchive.getFile(uri);
 		} catch (java.io.FileNotFoundException mustBeAResource) {
+			//Ignore
 		}
 		if (aFile == null)
 			return targetShouldSave(uri, anArchive);

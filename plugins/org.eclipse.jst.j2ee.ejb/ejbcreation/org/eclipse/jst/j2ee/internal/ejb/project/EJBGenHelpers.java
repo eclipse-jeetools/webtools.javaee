@@ -23,7 +23,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -38,13 +37,9 @@ import org.eclipse.jem.internal.adapters.jdom.JavaClassJDOMAdaptor;
 import org.eclipse.jem.internal.adapters.jdom.JavaMethodJDOMAdaptor;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
-import org.eclipse.jst.j2ee.ejb.CMPAttribute;
-import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.QueryMethod;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
@@ -61,20 +56,20 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  */
 public final class EJBGenHelpers {
 	// Navigator keys
-	private static final String ENTITY_KEY_ATTRIBUTE_FIELDS_AS_PARMS = "EntityKeyAttributeFieldsAsParms"; //$NON-NLS-1$
-	private static final String ENTITY_KEY_ROLE_FIELDS_AS_ROUND_PARMS = "EntityKeyRoleFieldsAsRoundParms"; //$NON-NLS-1$
-	private static final String ENTITY_KEY_ROLE_FIELDS_AS_BEAN_PARMS = "EntityKeyRoleFieldsAsBeanParms"; //$NON-NLS-1$
-	private static final String ENTITY_NONKEY_REQUIRED_ATTRIBUTE_FIELDS_AS_PARMS = "EntityNonKeyRequiredAttributeFieldsAsParms"; //$NON-NLS-1$
-	private static final String ENTITY_NON_KEY_REQ_ROLE_FIELDS_AS_BEAN_PARMS = "EntityNonKeyRequiredRoleFieldsAsBeanParms"; //$NON-NLS-1$
-	private static final String ENTITY_KEY_FIELDS_AS_FLAT_PARMS = "EntityKeyFieldsAsFlatParms"; //$NON-NLS-1$
-	private static final String ENTITY_KEY_FIELDS_AS_ROUND_PARMS = "EntityKeyFieldsAsRoundParms"; //$NON-NLS-1$
-	private static final String ENTITY_KEY_FIELDS_AS_BEAN_PARMS = "EntityKeyFieldsAsBeanParms"; //$NON-NLS-1$
-	private static final String ENTITY_REQ_ROLE_FIELDS_AS_FLAT_PARMS = "EntityRequiredRoleFieldsAsFlatParms"; //$NON-NLS-1$
-	private static final String ENTITY_REQ_ROLE_FIELDS_AS_ROUND_PARMS = "EntityRequiredRoleFieldsAsRoundParms"; //$NON-NLS-1$
-	private static final String ENTITY_REQ_ROLE_FIELDS_AS_BEAN_PARMS = "EntityRequiredRoleFieldsAsBeanParms"; //$NON-NLS-1$
-	private static final String ENTITY_REQ_FIELDS_AS_FLAT_PARMS = "EntityRequiredFieldsAsFlatParms"; //$NON-NLS-1$
-	private static final String ENTITY_REQ_FIELDS_AS_ROUND_PARMS = "EntityRequiredFieldsAsRoundParms"; //$NON-NLS-1$
-	private static final String ENTITY_REQ_FIELDS_AS_BEAN_PARMS = "EntityRequiredFieldsAsBeanParms"; //$NON-NLS-1$
+//	private static final String ENTITY_KEY_ATTRIBUTE_FIELDS_AS_PARMS = "EntityKeyAttributeFieldsAsParms"; //$NON-NLS-1$
+//	private static final String ENTITY_KEY_ROLE_FIELDS_AS_ROUND_PARMS = "EntityKeyRoleFieldsAsRoundParms"; //$NON-NLS-1$
+//	private static final String ENTITY_KEY_ROLE_FIELDS_AS_BEAN_PARMS = "EntityKeyRoleFieldsAsBeanParms"; //$NON-NLS-1$
+//	private static final String ENTITY_NONKEY_REQUIRED_ATTRIBUTE_FIELDS_AS_PARMS = "EntityNonKeyRequiredAttributeFieldsAsParms"; //$NON-NLS-1$
+//	private static final String ENTITY_NON_KEY_REQ_ROLE_FIELDS_AS_BEAN_PARMS = "EntityNonKeyRequiredRoleFieldsAsBeanParms"; //$NON-NLS-1$
+//	private static final String ENTITY_KEY_FIELDS_AS_FLAT_PARMS = "EntityKeyFieldsAsFlatParms"; //$NON-NLS-1$
+//	private static final String ENTITY_KEY_FIELDS_AS_ROUND_PARMS = "EntityKeyFieldsAsRoundParms"; //$NON-NLS-1$
+//	private static final String ENTITY_KEY_FIELDS_AS_BEAN_PARMS = "EntityKeyFieldsAsBeanParms"; //$NON-NLS-1$
+//	private static final String ENTITY_REQ_ROLE_FIELDS_AS_FLAT_PARMS = "EntityRequiredRoleFieldsAsFlatParms"; //$NON-NLS-1$
+//	private static final String ENTITY_REQ_ROLE_FIELDS_AS_ROUND_PARMS = "EntityRequiredRoleFieldsAsRoundParms"; //$NON-NLS-1$
+//	private static final String ENTITY_REQ_ROLE_FIELDS_AS_BEAN_PARMS = "EntityRequiredRoleFieldsAsBeanParms"; //$NON-NLS-1$
+//	private static final String ENTITY_REQ_FIELDS_AS_FLAT_PARMS = "EntityRequiredFieldsAsFlatParms"; //$NON-NLS-1$
+//	private static final String ENTITY_REQ_FIELDS_AS_ROUND_PARMS = "EntityRequiredFieldsAsRoundParms"; //$NON-NLS-1$
+//	private static final String ENTITY_REQ_FIELDS_AS_BEAN_PARMS = "EntityRequiredFieldsAsBeanParms"; //$NON-NLS-1$
 
 	private static final String A = "a"; //$NON-NLS-1$
 	private static final String AN = "an"; //$NON-NLS-1$
@@ -98,12 +93,6 @@ public final class EJBGenHelpers {
 		return name;
 	}
 
-	private final static String computeCookieKey(String baseKey, EObject anObject) {
-		if (anObject == null)
-			return baseKey;
-		return baseKey + anObject.hashCode();
-	}
-
 	/**
 	 * Return aString where the first character is uppercased.
 	 */
@@ -114,15 +103,6 @@ public final class EJBGenHelpers {
 			return String.valueOf(chars);
 		}
 		return aString;
-	}
-
-
-	private static ContainerManagedEntity getRootEnterpriseBean(ContainerManagedEntity entity) {
-		EjbModuleExtensionHelper handler = getEJBModuleExtension();
-		if (handler == null)
-			return null;
-		EnterpriseBean bean = handler.getSuperType(entity);
-		return (ContainerManagedEntity) bean;
 	}
 
 	protected static EjbModuleExtensionHelper getEJBModuleExtension() {

@@ -128,7 +128,6 @@ public class MethodTransactionItemProvider extends EjbItemProviderAdapter implem
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the transactionAttribute feature.
 			//

@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
@@ -95,14 +96,14 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 				setProperty(CLIENT_PROJECT_NAME, getDefaultProperty(CLIENT_PROJECT_NAME));
 			}
 		} else if (CLIENT_PROJECT_NAME.equals(propertyName)) {
-			nestedProjModel.setProperty(JavaProjectCreationDataModel.PROJECT_NAME, propertyValue);
+			nestedProjModel.setProperty(ProjectCreationDataModel.PROJECT_NAME, propertyValue);
 			notifyDefaultChange(CLIENT_PROJECT_URI);
 		}
 		return retVal;
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getDataModel() == nestedProjModel && event.getPropertyName().equals(JavaProjectCreationDataModel.PROJECT_NAME)) {
+		if (event.getDataModel() == nestedProjModel && event.getPropertyName().equals(ProjectCreationDataModel.PROJECT_NAME)) {
 			setProperty(CLIENT_PROJECT_NAME, event.getNewValue());
 		}
 		super.propertyChanged(event);
@@ -299,7 +300,7 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#notifyListeners(org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModelEvent)
 	 */
 	protected void notifyListeners(WTPOperationDataModelEvent event) {
-		if (event.getDataModel() == nestedProjModel && !event.getPropertyName().equals(JavaProjectCreationDataModel.PROJECT_LOCATION)) {
+		if (event.getDataModel() == nestedProjModel && !event.getPropertyName().equals(ProjectCreationDataModel.PROJECT_LOCATION)) {
 			return;
 		}
 		super.notifyListeners(event);

@@ -29,15 +29,17 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
+import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.moduleextension.EjbModuleExtension;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements EjbModuleExtension {
 
@@ -127,7 +129,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 
 	public WTPOperation createEJBClientJARProject(IProject anEJBProject) {
 		EJBClientProjectDataModel dataModel = new EJBClientProjectDataModel();
-		dataModel.setProperty(EJBClientProjectDataModel.PROJECT_NAME, anEJBProject.getName());
+		dataModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, anEJBProject.getName());
 		EJBClientJarCreationOperation op = new EJBClientJarCreationOperation(dataModel);
 		return op;
 	}
@@ -183,7 +185,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
 	 */
 	public J2EEModuleCreationOperation createProjectCreationOperation(ImportOption option) {
-		if (option.getArchiveType() == ImportOption.EJB_CLIENT) {
+		if (option.getArchiveType() == IJ2EEProjectTypes.EJB_CLIENT) {
 			J2EEModuleCreationDataModel model = (J2EEModuleCreationDataModel) option.getModel();
 			model.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.TRUE);
 			return createProjectCreationOperation(model);

@@ -92,7 +92,6 @@ public class QueryItemProvider extends EjbItemProviderAdapter implements IEditin
 		if (super.itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 			super.itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) super.adapterFactory).getRootAdapterFactory(), "Description_7", "The_description_property_of_the_query_8", pkg.getQuery_Description(), true, ItemPropertyDescriptor.TEXT_VALUE_IMAGE)); //$NON-NLS-1$ //$NON-NLS-2$
 			super.itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) super.adapterFactory).getRootAdapterFactory(), "Ejb_QL_9", "The_ejb_ql_property_of_the_query_10", pkg.getQuery_EjbQL(), true, ItemPropertyDescriptor.TEXT_VALUE_IMAGE)); //$NON-NLS-1$ //$NON-NLS-2$
 			super.itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) super.adapterFactory).getRootAdapterFactory(), "Return_Type_Mapping_11", "The_return_type_mapping_property_of_the_query_12", pkg.getQuery_ReturnTypeMapping(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE)); //$NON-NLS-1$ //$NON-NLS-2$

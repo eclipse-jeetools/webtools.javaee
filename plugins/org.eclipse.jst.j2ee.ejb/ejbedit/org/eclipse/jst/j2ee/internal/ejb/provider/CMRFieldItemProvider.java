@@ -65,7 +65,6 @@ public class CMRFieldItemProvider extends CMPAttributeItemProvider implements IE
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the role feature.
 			//

@@ -321,6 +321,7 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements 
 		try {
 			return super.getChildren(object);
 		} catch (Exception e) {
+			//Ignore
 		}
 		return Collections.EMPTY_LIST;
 	}

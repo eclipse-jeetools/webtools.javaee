@@ -128,7 +128,6 @@ public class MethodPermissionItemProvider extends EjbItemProviderAdapter impleme
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//

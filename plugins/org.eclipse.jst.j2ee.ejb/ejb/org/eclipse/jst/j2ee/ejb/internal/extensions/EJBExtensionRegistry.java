@@ -18,7 +18,6 @@ package org.eclipse.jst.j2ee.ejb.internal.extensions;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 import com.ibm.wtp.common.RegistryReader;
@@ -35,7 +34,7 @@ public class EJBExtensionRegistry extends RegistryReader {
 	private static EJBExtensionRegistry INSTANCE = null;
 
 	public EJBExtensionRegistry() {
-		super(Platform.getPluginRegistry(), J2EEPlugin.PLUGIN_ID, EXTENSION_NAME);
+		super(J2EEPlugin.PLUGIN_ID, EXTENSION_NAME);
 	}
 
 	public static EJBExtensionRegistry getInstance() {

@@ -91,7 +91,7 @@ public final class EJBModuleImportDataModel extends J2EEModuleImportDataModel {
 			for (int i = 0; null == getArchiveFile() && i < extendedFactories.size(); i++) {
 				ExtendedImportFactory factory = (ExtendedImportFactory) extendedFactories.get(i);
 				setArchiveFile(factory.openArchive(getArchiveOptions(), uri));
-				setProperty(EJBModuleImportDataModel.EXTENDED_IMPORT_FACTORY, factory);
+				setProperty(J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY, factory);
 			}
 		}
 		if (getArchiveFile() == null) {

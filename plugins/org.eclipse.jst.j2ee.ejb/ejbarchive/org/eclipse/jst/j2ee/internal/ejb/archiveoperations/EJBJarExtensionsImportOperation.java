@@ -23,5 +23,5 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
  * Generation>Code and Comments
  */
 public interface EJBJarExtensionsImportOperation {
-
+	//Default
 }

@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
 import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.reference.ReferenceDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
@@ -62,14 +63,14 @@ public class SecurityRoleReferenceCreationOperation extends ModelModifierOperati
 		if (dataModel != null) {
 
 			SecurityRoleRef ref = ((CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI)).getCommonFactory().createSecurityRoleRef();
-			ref.setName(dataModel.getStringProperty(SecurityRoleReferenceDataModel.REF_NAME).trim());
+			ref.setName(dataModel.getStringProperty(ReferenceDataModel.REF_NAME).trim());
 
-			Integer version = (Integer) dataModel.getProperty(SecurityRoleReferenceDataModel.J2EE_VERSION);
+			Integer version = (Integer) dataModel.getProperty(ReferenceDataModel.J2EE_VERSION);
 			if (version != null && version.intValue() <= J2EEVersionConstants.J2EE_1_3_ID) {
-				ref.setDescription(dataModel.getStringProperty(SecurityRoleReferenceDataModel.DESCRIPTION).trim());
+				ref.setDescription(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
 			} else {
 				Description descriptionObj = CommonFactory.eINSTANCE.createDescription();
-				descriptionObj.setValue(dataModel.getStringProperty(SecurityRoleReferenceDataModel.DESCRIPTION).trim());
+				descriptionObj.setValue(dataModel.getStringProperty(ReferenceDataModel.DESCRIPTION).trim());
 				ref.getDescriptions().add(descriptionObj);
 			}
 
@@ -77,7 +78,7 @@ public class SecurityRoleReferenceCreationOperation extends ModelModifierOperati
 				ref.setLink(dataModel.getStringProperty(SecurityRoleReferenceDataModel.LINK).trim());
 			} else
 				ref.setLink(null);
-			helper.setOwner((EObject) dataModel.getProperty(SecurityRoleReferenceDataModel.OWNER));
+			helper.setOwner((EObject) dataModel.getProperty(ReferenceDataModel.OWNER));
 			helper.setFeature(EjbFactoryImpl.getPackage().getEnterpriseBean_SecurityRoleRefs());
 			helper.setValue(ref);
 		}

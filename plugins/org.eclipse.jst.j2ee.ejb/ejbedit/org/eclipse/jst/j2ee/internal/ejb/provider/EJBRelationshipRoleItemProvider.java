@@ -164,7 +164,6 @@ public class EJBRelationshipRoleItemProvider extends EjbItemProviderAdapter impl
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//

@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
@@ -81,7 +81,7 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 			protected void execute(IProgressMonitor pm) throws CoreException, InvocationTargetException, InterruptedException {
 				EJBEditModel model = (EJBEditModel) editModel;
 
-				IFolder metainf = model.getEJBNature().getEMFRoot().getFolder(new Path(ArchiveConstants.META_INF));
+				IFolder metainf = model.getEJBNature().getEMFRoot().getFolder(new Path(J2EEConstants.META_INF));
 				if (!metainf.exists()) {
 					metainf.create(true, true, null);
 				}

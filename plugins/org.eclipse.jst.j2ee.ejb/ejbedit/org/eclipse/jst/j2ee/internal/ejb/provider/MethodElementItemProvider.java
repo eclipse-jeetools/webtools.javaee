@@ -74,19 +74,19 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 
 		if (gen.isHome()) { //$NON-NLS-1$ = "Home Methods"
 			overlayString = "home_interf_ov"; //$NON-NLS-1$
-		};
+		}
 		if (gen.isRemote()) { //$NON-NLS-1$ = "Remote Methods"
 			overlayString = "remote_interf_ov"; //$NON-NLS-1$
-		};
+		}
 		if (gen.isLocal()) {
 			overlayString = "local_ovr"; //$NON-NLS-1$
-		};
+		}
 		if (gen.isLocalHome()) {
 			overlayString = "local_home_ovr"; //$NON-NLS-1$
-		};
+		}
 		if (gen.isUnspecified()) { //$NON-NLS-1$ = "Common Methods"
 			return base;
-		};
+		}
 		overlayImage = J2EEPlugin.getPlugin().getImage(overlayString);
 		ArrayList imageObjects = new ArrayList();
 		imageObjects.add(base);
@@ -118,7 +118,6 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the name feature.
 			//

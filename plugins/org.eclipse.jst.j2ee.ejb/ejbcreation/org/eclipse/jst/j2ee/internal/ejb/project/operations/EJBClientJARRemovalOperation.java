@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
@@ -87,6 +87,7 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 		try {
 			outputPath = proj.getOutputLocation().removeFirstSegments(1);
 		} catch (JavaModelException e) {
+			//Ignore
 		}
 
 		ejbSourceContainer = ejbNature.getSourceFolder();
@@ -378,7 +379,7 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 
 			private boolean isManifest(IPath new_sourceRoot, IPath path) {
 				String relativeURI = path.removeFirstSegments(new_sourceRoot.segmentCount()).toString();
-				return ArchiveConstants.MANIFEST_URI.equals(relativeURI);
+				return J2EEConstants.MANIFEST_URI.equals(relativeURI);
 			}
 		};
 	}

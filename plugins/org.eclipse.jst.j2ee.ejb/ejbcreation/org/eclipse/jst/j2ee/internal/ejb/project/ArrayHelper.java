@@ -28,6 +28,7 @@ public class ArrayHelper {
 	 * Insert the method's description here. Creation date: (09/07/00 9:06:53 AM)
 	 */
 	void newMethod() {
+		//do nothing
 	}
 
 	/**

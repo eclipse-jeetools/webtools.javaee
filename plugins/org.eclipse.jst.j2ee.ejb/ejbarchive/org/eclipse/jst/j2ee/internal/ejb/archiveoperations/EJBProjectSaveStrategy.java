@@ -22,4 +22,5 @@ import org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategy;
  * @author: Administrator
  */
 public interface EJBProjectSaveStrategy extends J2EESaveStrategy {
+	//Default
 }

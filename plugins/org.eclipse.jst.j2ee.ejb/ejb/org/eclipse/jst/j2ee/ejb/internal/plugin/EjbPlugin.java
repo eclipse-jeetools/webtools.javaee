@@ -27,10 +27,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.jst.j2ee.ejb.internal.operations.IExtendedEJBCommand;
-import org.eclipse.jst.j2ee.internal.IBackendManager;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEJBArchiveTransformationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
@@ -113,7 +110,8 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {
-			};
+				//Ignore
+			}
 		}
 		return null;
 	}

@@ -45,7 +45,6 @@ import org.eclipse.jst.j2ee.common.SecurityRoleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -57,6 +56,7 @@ import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBProjectResources;
@@ -702,7 +702,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			}
 			return ArchiveUtil.classNameToUri(clazz.getQualifiedName());
 		} else if (resource.getName().equals("ejb-jar.xml")) //$NON-NLS-1$
-			return ArchiveConstants.EJBJAR_DD_URI;
+			return J2EEConstants.EJBJAR_DD_URI;
 		return null;
 	}
 

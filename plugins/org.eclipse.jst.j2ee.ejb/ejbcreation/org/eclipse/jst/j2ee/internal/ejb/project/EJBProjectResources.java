@@ -19,9 +19,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.UncontainedModuleFileException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
@@ -195,20 +194,20 @@ public class EJBProjectResources {
 					LogEntry entry = getDefaultMessage();
 					entry.setSourceIdentifier("EJBProjectResources.getEJBFile(EJBEditModel)"); //$NON-NLS-1$
 					entry.setMessageTypeIdentifier(J2EEPluginResourceHandler.getString("WARNING_METAFOLDER_MISSING_UI_")); //$NON-NLS-1$
-					String metaFolderName = metaFolder == null ? ArchiveConstants.META_INF : metaFolder.getName();
+					String metaFolderName = metaFolder == null ? J2EEConstants.META_INF : metaFolder.getName();
 					entry.setTokens(new String[]{metaFolderName, ejbNature.getProject().getName(), ejbNature.getProject().getName()});
 					logger.write(Level.SEVERE, entry);
 				}
 				return null;
 			}
 
-			IResource ejb_jar_xml = metaFolder.findMember(ArchiveConstants.EJBJAR_DD_SHORT_NAME);
+			IResource ejb_jar_xml = metaFolder.findMember(J2EEConstants.EJBJAR_DD_SHORT_NAME);
 			if ((ejb_jar_xml == null) || (!ejb_jar_xml.exists())) {
 				if (logger.isLoggingLevel(Level.SEVERE)) {
 					LogEntry entry = getDefaultMessage();
 					entry.setSourceIdentifier("EJBProjectResources.getEJBFile(EJBEditModel)"); //$NON-NLS-1$
 					entry.setMessageTypeIdentifier(J2EEPluginResourceHandler.getString("WARNING_FILE_MISSING_UI_")); //$NON-NLS-1$
-					String ejbJarID = ejb_jar_xml == null ? ArchiveConstants.EJBJAR_DD_SHORT_NAME : ejb_jar_xml.getName();
+					String ejbJarID = ejb_jar_xml == null ? J2EEConstants.EJBJAR_DD_SHORT_NAME : ejb_jar_xml.getName();
 					entry.setTokens(new String[]{ejbJarID, ejbNature.getProject().getName()});
 					logger.write(Level.SEVERE, entry);
 				}
@@ -254,7 +253,7 @@ public class EJBProjectResources {
 				if (earFile != null) { // do I need to check for this?
 					ejbJarFile.close();
 				}
-			} catch (UncontainedModuleFileException exc) {
+			} catch (Exception exc) {
 				// ejb not contained in an EAR file. Return the ejbJarFile instead.
 			}
 		} catch (Throwable exc) {
@@ -364,13 +363,13 @@ public class EJBProjectResources {
 					return null;
 				}
 
-				IResource ejb_jar_xml = metaFolder.findMember(ArchiveConstants.EJBJAR_DD_SHORT_NAME);
+				IResource ejb_jar_xml = metaFolder.findMember(J2EEConstants.EJBJAR_DD_SHORT_NAME);
 				if ((ejb_jar_xml == null) || (!ejb_jar_xml.exists())) {
 					if (logger.isLoggingLevel(Level.WARNING)) {
 						LogEntry entry = getDefaultMessage();
 						entry.setSourceIdentifier("EJBProjectResources.getEJBJar(EJBEditModel)"); //$NON-NLS-1$
 						entry.setMessageTypeIdentifier(J2EEPluginResourceHandler.getString("WARNING_FILE_MISSING_UI_")); //$NON-NLS-1$
-						entry.setTokens(new String[]{ArchiveConstants.EJBJAR_DD_SHORT_NAME, ejbNature.getProject().getName()});
+						entry.setTokens(new String[]{J2EEConstants.EJBJAR_DD_SHORT_NAME, ejbNature.getProject().getName()});
 						logger.write(Level.WARNING, entry);
 					}
 					return null;

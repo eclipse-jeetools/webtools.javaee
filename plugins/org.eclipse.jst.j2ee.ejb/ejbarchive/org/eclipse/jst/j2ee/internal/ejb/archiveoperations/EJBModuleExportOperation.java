@@ -67,7 +67,7 @@ public final class EJBModuleExportOperation extends J2EEArtifactExportOperation 
 		exportEJBProject();
 	}
 
-	public void exportEJBProject() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+	public void exportEJBProject() throws SaveFailureException {
 
 		try {
 			createModuleFile();

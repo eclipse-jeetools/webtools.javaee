@@ -45,7 +45,7 @@ public class EJBModuleImportOperation extends J2EEArtifactImportOperation {
 	}
 
 	protected void importModuleFile(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		if (null == operationDataModel.getProperty(EJBModuleImportDataModel.EXTENDED_IMPORT_FACTORY)) {
+		if (null == operationDataModel.getProperty(J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY)) {
 			super.importModuleFile(monitor);
 			EJBModuleImportDataModel dm = (EJBModuleImportDataModel) getOperationDataModel();
 			IProject project = dm.getProject();
@@ -55,7 +55,7 @@ public class EJBModuleImportOperation extends J2EEArtifactImportOperation {
 				helper.setUpUnknowPrimaryKey();
 			}
 		} else {
-			ExtendedImportFactory factory = (ExtendedImportFactory) operationDataModel.getProperty(EJBModuleImportDataModel.EXTENDED_IMPORT_FACTORY);
+			ExtendedImportFactory factory = (ExtendedImportFactory) operationDataModel.getProperty(J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY);
 			factory.importModuleFile((J2EEModuleImportDataModel) operationDataModel, monitor);
 		}
 	}

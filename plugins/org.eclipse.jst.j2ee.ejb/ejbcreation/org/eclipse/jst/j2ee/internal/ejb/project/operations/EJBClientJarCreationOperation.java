@@ -40,8 +40,8 @@ import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerHelper;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddUtilityProjectToEARDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
@@ -54,7 +54,10 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBGenHelpers;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
+import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -118,13 +121,13 @@ public class EJBClientJarCreationOperation extends AbstractEJBClientJAROperation
 
 	protected void initialize() {
 		ejbProject = getEJBProject(ejbClientDataModel.getStringProperty(EJBClientProjectDataModel.EJB_PROJECT_NAME));
-		clientProjectName = ejbClientDataModel.getNestedJavaProjectCreationDM().getStringProperty(JavaProjectCreationDataModel.PROJECT_NAME);
+		clientProjectName = ejbClientDataModel.getNestedJavaProjectCreationDM().getStringProperty(ProjectCreationDataModel.PROJECT_NAME);
 		clientJARRelativeURI = ejbClientDataModel.getStringProperty(EJBClientProjectDataModel.CLIENT_PROJECT_URI);
-		clientProjectPath = ejbClientDataModel.getNestedJavaProjectCreationDM().getStringProperty(JavaProjectCreationDataModel.PROJECT_LOCATION);
+		clientProjectPath = ejbClientDataModel.getNestedJavaProjectCreationDM().getStringProperty(ProjectCreationDataModel.PROJECT_LOCATION);
 		if (ejbProject == null)
 			return;
 		workspace = ejbProject.getWorkspace();
-		ejbNature = (EJBNatureRuntime) EJBNatureRuntime.getRegisteredRuntime(ejbProject);
+		ejbNature = (EJBNatureRuntime) J2EENature.getRegisteredRuntime(ejbProject);
 		if (clientJARRelativeURI == null)
 			clientJARRelativeURI = clientProjectName + ClientJARCreationConstants.DOT_JAR; //$NON-NLS-1$
 		clientProject = workspace.getRoot().getProject(clientProjectName);
@@ -251,7 +254,7 @@ public class EJBClientJarCreationOperation extends AbstractEJBClientJAROperation
 		addServerTarget(new NullProgressMonitor());
 	}
 
-	protected void addServerTarget(IProgressMonitor progress_monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	protected void addServerTarget(IProgressMonitor progress_monitor) throws CoreException {
 		IRuntime runtime = ServerCore.getProjectProperties(ejbProject).getRuntimeTarget();
 		ServerCore.getProjectProperties(clientProject).setRuntimeTarget(runtime, progress_monitor);
 	}
@@ -266,9 +269,9 @@ public class EJBClientJarCreationOperation extends AbstractEJBClientJAROperation
 		String ejbURI = runtime.getJARUri(ejbProject);
 		String earRelativeClientURI = ArchiveUtil.deriveEARRelativeURI(clientJARRelativeURI, ejbURI);
 		AddUtilityProjectToEARDataModel utilModel = new AddUtilityProjectToEARDataModel();
-		utilModel.setProperty(AddUtilityProjectToEARDataModel.ARCHIVE_PROJECT, ejbClientDataModel.getNestedJavaProjectCreationDM().getProjectHandle(JavaProjectCreationDataModel.PROJECT_NAME));
-		utilModel.setProperty(AddUtilityProjectToEARDataModel.ARCHIVE_URI, earRelativeClientURI);
-		utilModel.setProperty(AddUtilityProjectToEARDataModel.PROJECT_NAME, runtime.getProject().getName());
+		utilModel.setProperty(AddArchiveProjectToEARDataModel.ARCHIVE_PROJECT, ejbClientDataModel.getNestedJavaProjectCreationDM().getProjectHandle(ProjectCreationDataModel.PROJECT_NAME));
+		utilModel.setProperty(AddArchiveProjectToEARDataModel.ARCHIVE_URI, earRelativeClientURI);
+		utilModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, runtime.getProject().getName());
 		try {
 			runNestedDefaultOperation(utilModel, monitor);
 		} catch (Exception e) {

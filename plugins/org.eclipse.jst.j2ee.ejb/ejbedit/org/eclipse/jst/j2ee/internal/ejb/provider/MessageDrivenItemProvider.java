@@ -125,7 +125,6 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the transactionType feature.
 			//

@@ -208,6 +208,7 @@ public class EJBJarItemProvider extends CompatibilityDescriptionGroupItemProvide
 				IProject project = ProjectUtilities.getProject(ejbJar);
 				return project.getDescription().getName();
 			} catch (Exception e) {
+				//Ignore
 			}
 
 			Resource resource = ejbJar.eResource();

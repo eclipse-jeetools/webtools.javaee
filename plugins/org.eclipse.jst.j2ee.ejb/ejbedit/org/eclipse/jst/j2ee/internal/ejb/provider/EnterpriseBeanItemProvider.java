@@ -275,7 +275,7 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 	 */
 	public Collection getChildren(Object object) {
 		Collection myChildren = super.getChildren(object);
-		EnterpriseBean bean = (EnterpriseBean) object;
+		//EnterpriseBean bean = (EnterpriseBean) object;
 		try {
 			// TODO WebServices for M3
 //			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)

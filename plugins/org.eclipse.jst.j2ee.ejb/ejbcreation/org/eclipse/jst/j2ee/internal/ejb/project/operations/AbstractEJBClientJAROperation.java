@@ -32,8 +32,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
+import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
+import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -60,21 +62,21 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 
 	public AbstractEJBClientJAROperation(EJBClientProjectDataModel dataModel, IOperationHandler opHandler) {
 		super(dataModel);
-		ejbProject = getEJBProject(dataModel.getStringProperty(EJBClientProjectDataModel.PROJECT_NAME));
+		ejbProject = getEJBProject(dataModel.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		operationHandler = opHandler;
 		validateEditContext = opHandler.getContext();
 	}
 
 	public AbstractEJBClientJAROperation(EJBClientProjectDataModel dataModel) {
 		super(dataModel);
-		ejbProject = getEJBProject(dataModel.getStringProperty(EJBClientProjectDataModel.PROJECT_NAME));
+		ejbProject = getEJBProject(dataModel.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		operationHandler = null;
 	}
 
 
 	protected void initialize() {
 		workspace = ejbProject.getWorkspace();
-		ejbNature = (EJBNatureRuntime) EJBNatureRuntime.getRegisteredRuntime(ejbProject);
+		ejbNature = (EJBNatureRuntime) J2EENature.getRegisteredRuntime(ejbProject);
 		earNatures = ejbNature.getReferencingEARProjects();
 	}
 

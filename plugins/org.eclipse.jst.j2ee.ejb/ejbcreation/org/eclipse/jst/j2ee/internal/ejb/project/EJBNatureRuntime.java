@@ -26,13 +26,13 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.internal.extensions.EJBExtManager;
 import org.eclipse.jst.j2ee.ejb.internal.extensions.EJBExtension;
 import org.eclipse.jst.j2ee.ejb.util.EJBAttributeMaintenanceFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
@@ -44,7 +44,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ComposedEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
@@ -139,13 +138,13 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	public void deconfigure() throws CoreException {
 		super.deconfigure();
 		// remove Validation Builder to EJB Projects' builder list
-		J2EEProjectUtilities.removeFromBuildSpec(J2EEPlugin.VALIDATION_BUILDER_ID, project);
+		ProjectUtilities.removeFromBuildSpec(J2EEPlugin.VALIDATION_BUILDER_ID, project);
 		// remove LibCopy Builder to EJB Projects' builder list
-		J2EEProjectUtilities.removeFromBuildSpec(J2EEPlugin.LIBCOPY_BUILDER_ID, project);
+		ProjectUtilities.removeFromBuildSpec(J2EEPlugin.LIBCOPY_BUILDER_ID, project);
 	}
 
 	public boolean ejbXmiResourceExists() {
-		return fileExists(ArchiveConstants.EJBJAR_DD_URI);
+		return fileExists(J2EEConstants.EJBJAR_DD_URI);
 	}
 
 	protected String getDefaultSourcePathString() {
@@ -239,7 +238,7 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * accessing the model, call releaseFromRead() casting to a ReferencedResource first!
 	 */
 	public Resource getEjbXmiResource() {
-		return getResource(URI.createURI(ArchiveConstants.EJBJAR_DD_URI));
+		return getResource(URI.createURI(J2EEConstants.EJBJAR_DD_URI));
 	}
 
 	public IContainer getModuleRoot() {
@@ -301,7 +300,7 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * @deprecated - use the EJBEditModel#makeEjbXmiResource
 	 */
 	public Resource makeEjbXmiResource() {
-		return createResource(ArchiveConstants.EJBJAR_DD_URI_OBJ);
+		return createResource(J2EEConstants.EJBJAR_DD_URI_OBJ);
 	}
 
 	/*

@@ -22,4 +22,5 @@ import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategy;
  * @author: Administrator
  */
 public interface EJBProjectLoadStrategy extends J2EELoadStrategy {
+	//Default
 }

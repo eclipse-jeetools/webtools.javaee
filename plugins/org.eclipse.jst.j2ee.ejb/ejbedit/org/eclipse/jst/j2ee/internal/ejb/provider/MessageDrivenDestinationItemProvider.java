@@ -73,7 +73,6 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the type feature.
 			//

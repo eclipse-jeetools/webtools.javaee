@@ -64,7 +64,6 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the query feature.
 			//

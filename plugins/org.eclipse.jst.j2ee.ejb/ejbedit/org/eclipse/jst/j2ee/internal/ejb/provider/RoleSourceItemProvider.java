@@ -66,7 +66,6 @@ public class RoleSourceItemProvider extends EjbItemProviderAdapter implements IE
 			super.getPropertyDescriptors(object);
 
 			EjbPackage pkg = EjbPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//

@@ -14,7 +14,6 @@ package org.eclipse.jst.j2ee.internal.ejb.project;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -51,7 +50,7 @@ public abstract class AbstractEJBEditModel extends J2EEEditModel {
 	}
 
 	public boolean ejbXmiResourceExists() {
-		return getEJBNature().fileExists(ArchiveConstants.EJBJAR_DD_URI);
+		return getEJBNature().fileExists(J2EEConstants.EJBJAR_DD_URI);
 	}
 
 	/**
@@ -81,11 +80,11 @@ public abstract class AbstractEJBEditModel extends J2EEEditModel {
 	 * @aResource is the EJBResource.
 	 */
 	protected boolean isEJBResource(Resource aResource) {
-		return ExtendedEcoreUtil.endsWith(aResource.getURI(), ArchiveConstants.EJBJAR_DD_URI_OBJ);
+		return ExtendedEcoreUtil.endsWith(aResource.getURI(), J2EEConstants.EJBJAR_DD_URI_OBJ);
 	}
 
 	public EJBResource makeEjbXmiResource() {
-		return (EJBResource) createResource(ArchiveConstants.EJBJAR_DD_URI_OBJ);
+		return (EJBResource) createResource(J2EEConstants.EJBJAR_DD_URI_OBJ);
 	}
 
 	public Resource makeDeploymentDescriptorWithRoot() {
@@ -105,7 +104,7 @@ public abstract class AbstractEJBEditModel extends J2EEEditModel {
 			EJBJar ejbJar = EjbPackage.eINSTANCE.getEjbFactory().createEJBJar();
 			res.getContents().add(ejbJar);
 			ejbJar.setDisplayName(getProject().getName());
-			((XMIResource) res).setID(ejbJar, ArchiveConstants.EJBJAR_ID);
+			((XMIResource) res).setID(ejbJar, J2EEConstants.EJBJAR_ID);
 		}
 	}
 }
