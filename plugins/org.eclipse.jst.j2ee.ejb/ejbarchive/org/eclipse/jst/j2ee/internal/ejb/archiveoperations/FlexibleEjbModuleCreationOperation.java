@@ -65,11 +65,7 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		
-		ArtifactEditOperation op = new ArtifactEditOperation( (FlexibleJ2EEModuleCreationDataModel) operationDataModel){
-			
-		};
-		
+
 //		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
 //			protected void execute(IProgressMonitor amonitor) throws CoreException, InvocationTargetException, InterruptedException {
 //				WebEditModel model = (WebEditModel) editModel;
@@ -93,7 +89,6 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 //				model.makeDeploymentDescriptorWithRoot();
 //			}
 //		};
-		op.doRun(monitor);
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
