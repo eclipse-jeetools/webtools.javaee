@@ -320,7 +320,7 @@ public class EMFAttributeFeatureGenerator {
 	}
 
 	protected static Object createEnum(EAttributeDescriptor att) {
-		EEnum enum = (EEnum) att.getFeature().getEType();
+		EEnum anEnum = (EEnum) att.getFeature().getEType();
 		if (!enumMap.containsKey(att)){
 			if (att.getFeature().getName().equals("authMethod"))
 				enumMap.put(att,new Integer(1));
@@ -328,11 +328,11 @@ public class EMFAttributeFeatureGenerator {
 				enumMap.put(att,new Integer(0));
 		}
 		int pos = ((Integer)enumMap.get(att)).intValue();
-		EList literals = enum.getELiterals();
+		EList literals = anEnum.getELiterals();
 		int size = literals.size();
 		if (pos == size)
 			pos = 0;
-		Object holder = enum.getEEnumLiteral(pos).getInstance();
+		Object holder = anEnum.getEEnumLiteral(pos).getInstance();
 		pos++;
 		enumMap.put(att,new Integer(pos));
 		return holder;
