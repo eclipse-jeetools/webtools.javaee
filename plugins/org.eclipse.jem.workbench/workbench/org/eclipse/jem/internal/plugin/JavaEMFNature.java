@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.8 $ $Date: 2005/01/07 20:51:49 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.9 $ $Date: 2005/01/12 17:40:56 $
  */
 
 import java.util.List;
@@ -169,7 +169,7 @@ protected void addJavaReflectionAdapterFactories(ResourceSet aSet) {
 			factories.remove(factory);
 	}
 	// This should maybe be considered a logic error, but we can recover easily
-	factories.add(new JavaJDOMAdapterFactory(ProjectUtilities.getJavaProject(project)));
+	factories.add(new JavaJDOMAdapterFactory(JavaProjectUtilities.getJavaProject(project)));
 }
 
 }
