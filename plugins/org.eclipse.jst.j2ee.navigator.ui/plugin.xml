@@ -464,6 +464,23 @@
          </emfEnablement>
       </navigatorContent>
    </extension>
+   
+      <extension
+         point="org.eclipse.wst.common.navigator.views.actionProvider">
+      <actionProvider
+            class="org.eclipse.jst.common.navigator.internal.actions.OpenActionsExtension" >
+         <enablement>
+         	<or>
+	         	<objectClass
+	         		adaptable="true"
+	                  name="org.eclipse.emf.ecore.EObject" />
+	         	<objectClass
+	         		adaptable="true"
+	                  name="org.eclipse.emf.edit.provider.ItemProvider" />	    
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension> 
 </plugin>
 
 
