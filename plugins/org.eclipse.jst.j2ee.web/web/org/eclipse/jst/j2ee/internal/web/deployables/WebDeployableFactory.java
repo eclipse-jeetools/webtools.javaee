@@ -56,7 +56,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 
     protected List createModules(ModuleCoreNature nature) {
         IProject project = nature.getProject();
-        List modules = null;
+        List modules = new ArrayList(1);
         ModuleStructuralModel moduleStructureModel = null;
         try {
         	ModuleCoreNature moduleCoreNature = ModuleCoreNature.getModuleCoreNature(project);

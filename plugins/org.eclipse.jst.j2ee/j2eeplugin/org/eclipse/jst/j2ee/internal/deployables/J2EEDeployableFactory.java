@@ -31,122 +31,106 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  */
 public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 
-    protected HashMap projectModules;
+	protected HashMap projectModules;
 
-    protected ArrayList moduleDelegates = new ArrayList();
+	protected ArrayList moduleDelegates = new ArrayList();
 
-    protected static boolean isFlexableProject(IProject project) {
-        return ModuleCoreNature.getModuleCoreNature(project) != null;
-    }
+	protected static boolean isFlexableProject(IProject project) {
+		return ModuleCoreNature.getModuleCoreNature(project) != null;
+	}
 
-    public J2EEDeployableFactory() {
-        super();
-    }
+	public J2EEDeployableFactory() {
+		super();
+	}
 
-/*    protected void addModuleProject(IProject project) {
-        if (!isFlexableProject(project)) {
-            super.addModuleProject(project);
-            return;
-        }
-        ModuleCoreNature nature = null;
-        try {
-            nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
-        } catch (CoreException e) {
-            Logger.getLogger().write(e);
-        }
-        List modules = createModules(nature);
-        List oldModules = (List) getProjectModules().get(project);
-        if (oldModules != null && !oldModules.isEmpty())
-            addNewModules(modules, oldModules);
-        else
-            getProjectModules().put(project, modules);
-        if (added == null)
-            added = new ArrayList(2);
-        added.addAll(modules);
-    }*/
+	/*
+	 * protected void addModuleProject(IProject project) { if (!isFlexableProject(project)) {
+	 * super.addModuleProject(project); return; } ModuleCoreNature nature = null; try { nature =
+	 * (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID); } catch
+	 * (CoreException e) { Logger.getLogger().write(e); } List modules = createModules(nature); List
+	 * oldModules = (List) getProjectModules().get(project); if (oldModules != null &&
+	 * !oldModules.isEmpty()) addNewModules(modules, oldModules); else
+	 * getProjectModules().put(project, modules); if (added == null) added = new ArrayList(2);
+	 * added.addAll(modules); }
+	 */
 
-/*    *//**
-     * @param newModules
-     *//*
-    private void addNewModules(List newModules, List oldModules) {
-        for (int i = 0; i < newModules.size(); i++) {
-            if (!oldModules.contains(newModules.get(i)))
-                oldModules.add(newModules.get(i));
-        }
-
-    }*/
+	/*    *//**
+			 * @param newModules
+			 */
+	/*
+	 * private void addNewModules(List newModules, List oldModules) { for (int i = 0; i <
+	 * newModules.size(); i++) { if (!oldModules.contains(newModules.get(i)))
+	 * oldModules.add(newModules.get(i)); }
+	 *  }
+	 */
 
 
 
-    protected IModule[] createModules(IProject project) {
-    	
-    	// List modules = createModules(nature);
-        ModuleCoreNature nature = null;
-    	 try {
-            nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
-        } catch (CoreException e) {
-            Logger.getLogger().write(e);
-        }
-        List modules = createModules(nature);
-        IModule[] moduleArray = new IModule[modules.size()]; 
-        modules.toArray(moduleArray);
-        
-        // TODO Auto-generated method stub
-        return moduleArray;
-    }
+	protected IModule[] createModules(IProject project) {
 
-    /**
-     * Returns true if the project represents a deployable project of this type.
-     * 
-     * @param project
-     *            org.eclipse.core.resources.IProject
-     * @return boolean
-     */
-    protected boolean isValidModule(IProject project) {
-        try {
-            // need to create module specific ids - after M3
-            /*
-             * if (isFlexableProject(project)) return true;
-             */
-            return project.hasNature(getNatureID());
-        } catch (Exception e) {
-        }
-        return false;
-    }
-	
+		// List modules = createModules(nature);
+		ModuleCoreNature nature = null;
+		try {
+			nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
+		} catch (CoreException e) {
+			Logger.getLogger().write(e);
+		}
+		List modules = createModules(nature);
+		IModule[] moduleArray = new IModule[modules.size()];
+		modules.toArray(moduleArray);
+
+		// TODO Auto-generated method stub
+		return moduleArray;
+	}
+
+	/**
+	 * Returns true if the project represents a deployable project of this type.
+	 * 
+	 * @param project
+	 *            org.eclipse.core.resources.IProject
+	 * @return boolean
+	 */
+	protected boolean isValidModule(IProject project) {
+		try {
+			return isFlexableProject(project);
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
 	protected abstract String getNatureID();
 
-    /**
-     * Creates the module project for the given project.
-     * 
-     * @param project
-     *            org.eclipse.core.resources.IProject
-     * @return com.ibm.etools.server.core.model.IProjectModule
-     */
-    protected IModule createModule(IProject project) {
-        try {
-            J2EENature nature = (J2EENature) project.getNature(getNatureID());
-            return createModule(nature);
-        } catch (Exception e) {
-        }
-        return null;
-    }
+	/**
+	 * Creates the module project for the given project.
+	 * 
+	 * @param project
+	 *            org.eclipse.core.resources.IProject
+	 * @return com.ibm.etools.server.core.model.IProjectModule
+	 */
+	protected IModule createModule(IProject project) {
+		try {
+			J2EENature nature = (J2EENature) project.getNature(getNatureID());
+			return createModule(nature);
+		} catch (Exception e) {
+		}
+		return null;
+	}
 
-    protected abstract List createModules(ModuleCoreNature nature);
+	protected abstract List createModules(ModuleCoreNature nature);
 
-    //public abstract String getNatureID();
+	//public abstract String getNatureID();
 
-    public abstract IModule createModule(J2EENature nature);
+	public abstract IModule createModule(J2EENature nature);
 
-    public ModuleDelegate getModuleDelegate(IModule module) {
-        for (Iterator iter = moduleDelegates.iterator(); iter.hasNext();) {
-            ModuleDelegate element = (ModuleDelegate) iter.next();
-            if (module == element.getModule())
-                return element;
-        }
-        return null;
-    }
+	public ModuleDelegate getModuleDelegate(IModule module) {
+		for (Iterator iter = moduleDelegates.iterator(); iter.hasNext();) {
+			ModuleDelegate element = (ModuleDelegate) iter.next();
+			if (module == element.getModule())
+				return element;
+		}
+		return null;
+	}
 
-  
+
 
 }
