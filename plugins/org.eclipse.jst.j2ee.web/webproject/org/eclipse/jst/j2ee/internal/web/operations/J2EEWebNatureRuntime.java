@@ -1088,19 +1088,29 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 		return J2EEVersionConstants.WEB_2_4_ID;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
+	 * deprecated
+	 * Use
+	 * <p>
+	 * 		WebArtifactEdit.getWebArtifactEditForRead(WorkbenchComponent)
+	 * </p>
 	 */
 	public J2EEEditModel getJ2EEEditModelForRead(Object accessorKey) {
 		return getWebAppEditModelForRead(accessorKey);
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
+	 * @deprecated
+	 * Use
+	 * <p>
+	 * 	  WebArtifactEdit.getWebArtifactEditForWrite(WorkbenchComponent)
+	 * </p>
 	 */
 	public J2EEEditModel getJ2EEEditModelForWrite(Object accessorKey) {
 		return getWebAppEditModelForWrite(accessorKey);
