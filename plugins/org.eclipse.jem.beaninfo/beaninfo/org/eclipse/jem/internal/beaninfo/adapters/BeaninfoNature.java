@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.12 $  $Date: 2004/03/26 23:08:09 $ 
+ *  $Revision: 1.13 $  $Date: 2004/04/15 16:33:19 $ 
  */
 
 import java.io.*;
@@ -19,8 +19,15 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.logging.Level;
 
-import org.apache.xerces.jaxp.DocumentBuilderFactoryImpl;
-import org.apache.xml.serialize.*;
+import javax.xml.parsers.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.*;
+import javax.xml.transform.Result;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.apache.xalan.templates.OutputProperties;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -391,8 +398,7 @@ public class BeaninfoNature implements IProjectNature {
 			if (property != null) {
 				try {
 					// Need to reconstruct from the XML format.
-					DocumentBuilderFactoryImpl bldrFactory = new DocumentBuilderFactoryImpl();
-					Document doc = bldrFactory.newDocumentBuilder().parse(new InputSource(new InputStreamReader(property, ENCODING)));
+					Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new InputStreamReader(property, ENCODING)));
 					Element root = doc.getDocumentElement();
 					if (root != null && root.getNodeName().equalsIgnoreCase(sBeaninfos)) {
 						bdoc = BeaninfosDoc.readEntry(new DOMReader(), root, getProject());
@@ -426,20 +432,30 @@ public class BeaninfoNature implements IProjectNature {
 		String property = null;
 		if (searchPath != null && searchPath.getSearchpath().length > 0) {
 			try {
-				DocumentBuilderFactoryImpl bldrFactory = new DocumentBuilderFactoryImpl();
-				Document doc = bldrFactory.newDocumentBuilder().newDocument();
+				Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 				Element root = doc.createElement(sBeaninfos); // Create Root Element
 				IBeaninfosDocEntry[] entries = searchPath.getSearchpath();
 				for (int i = 0; i < entries.length; i++)
 					root.appendChild(entries[i].writeEntry(doc, getProject())); // Add to the search path
 				doc.appendChild(root); // Add Root to Document
-				OutputFormat format = new OutputFormat(doc); //Serialize DOM
-				format.setIndenting(true);
 				StringWriter strWriter = new StringWriter();
-				Serializer serial = SerializerFactory.getSerializerFactory(format.getMethod()).makeSerializer(strWriter, format);
-				serial.asDOMSerializer().serialize(doc.getDocumentElement());
+
+				Result result = new StreamResult(strWriter);
+				Source source = new DOMSource(doc);
+				Transformer transformer = TransformerFactory.newInstance().newTransformer();
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); //$NON-NLS-1$
+				transformer.setOutputProperty(OutputKeys.METHOD, "xml"); //$NON-NLS-1$
+				transformer.setOutputProperty(OutputProperties.S_KEY_INDENT_AMOUNT, "3"); //$NON-NLS-1$
+				transformer.transform(source, result);
 				property = strWriter.toString();
-			} catch (Exception e) {
+			} catch (TransformerConfigurationException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+			} catch (TransformerException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+			} catch (ParserConfigurationException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+			} catch (FactoryConfigurationError e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
 			}
 		}
 
