@@ -108,4 +108,15 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 		Resource res = getDeploymentDescriptorResource();
 		return (EObject) res.getContents().get(0);
 	}
+	
+	/**
+	 * <p>
+	 * Create an deployment descriptor resource if one does not get and return it.
+	 * Subclasses should overwrite this method to create their own type of deployment descriptor
+	 * </p>
+	 * 
+	 * @return an EObject
+	 */
+	
+	public abstract EObject createModelRoot();
 }

@@ -235,4 +235,10 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 		return true;
 	}
 
+	public EObject createModelRoot() {
+		if(getApplicationClientXmiResource() == null) {
+			 addAppClientIfNecessary(getApplicationClientXmiResource());
+		}
+		return getApplicationClientXmiResource().getRootObject();
+	}
 }

@@ -240,4 +240,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		return (Connector) getDeploymentDescriptorRoot();
 	}
 
+	public EObject createModelRoot() {
+		if(getConnectorXmiResource() == null) {
+			 addConnectorIfNecessary(getConnectorXmiResource());
+		}
+		return getConnectorXmiResource().getRootObject();
+	}
+
 }

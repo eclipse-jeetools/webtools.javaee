@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -327,5 +328,23 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	
 	public void setLibModules(ILibModule[] libModules) {
 		//TODO we need an edit model for write to do it.
+	}
+
+
+	public EObject createModelRoot() {
+		if(getWebAppXmiResource() == null) {
+			 addWebAppIfNecessary(getWebAppXmiResource());
+		}
+		return getWebAppXmiResource().getRootObject();
+	}
+	
+	/**
+	 * 
+	 * @return WebAppResource from (@link getDeploymentDescriptorResource())
+	 *  
+	 */
+
+	public WebAppResource getWebAppXmiResource() {
+		return (WebAppResource) getDeploymentDescriptorResource();
 	}
 }
