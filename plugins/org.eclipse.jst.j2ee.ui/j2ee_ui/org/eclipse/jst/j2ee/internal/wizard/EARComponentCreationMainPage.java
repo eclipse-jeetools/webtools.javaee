@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
-public class EARComponentCreationPage extends J2EEModuleCreationPage {
+public class EARComponentCreationMainPage extends J2EEModuleCreationPage {
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 	
@@ -24,7 +24,7 @@ public class EARComponentCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EARComponentCreationPage(EARComponentCreationDataModel  model, String pageName) {
+	public EARComponentCreationMainPage(EARComponentCreationDataModel  model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_MAIN_PG_DESC));

@@ -13,7 +13,8 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationPage;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationMainPage;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationSecondPage;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
@@ -26,6 +27,7 @@ public class EARComponentCreationWizard extends J2EEModuleCreationWizard impleme
 	 * </p>
 	 */
 	public static final String WIZARD_ID =  EARComponentCreationWizard.class.getName();
+	protected static final String SECOND_PG = "second"; //$NON-NLS-1$
 	 
 	
 	/**
@@ -100,9 +102,11 @@ public class EARComponentCreationWizard extends J2EEModuleCreationWizard impleme
 	 * </p>
 	 */
 	protected void doAddPages() {
-		EARComponentCreationPage page = new EARComponentCreationPage(getSpecificDataModel(), MAIN_PG);
+		EARComponentCreationMainPage page1 = new EARComponentCreationMainPage(getSpecificDataModel(), MAIN_PG);
 //		page.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
-		addPage(page);
+		addPage(page1);
+		EARComponentCreationSecondPage page2 = new EARComponentCreationSecondPage(getSpecificDataModel(), SECOND_PG);
+		addPage(page2);
 		super.doAddPages();
 	} 
 	
