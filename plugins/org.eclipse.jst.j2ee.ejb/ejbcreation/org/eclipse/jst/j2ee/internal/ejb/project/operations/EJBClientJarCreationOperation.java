@@ -269,7 +269,8 @@ public class EJBClientJarCreationOperation extends AbstractEJBClientJAROperation
 		String ejbURI = runtime.getJARUri(ejbProject);
 		String earRelativeClientURI = ArchiveUtil.deriveEARRelativeURI(clientJARRelativeURI, ejbURI);
 		AddUtilityProjectToEARDataModel utilModel = new AddUtilityProjectToEARDataModel();
-		utilModel.setProperty(AddArchiveToEARDataModel.ARCHIVE_PROJECT,  ProjectCreationDataModel.getProjectHandleFromProjectName(ejbClientDataModel.getNestedJavaProjectCreationDM().getStringProperty(ProjectCreationDataModel.PROJECT_NAME)));
+		//TODO: In the flexible world Clients are just JST_UTILITYs so we need to instead set ARCHIVE_MODULE to the name of the client
+		//utilModel.setProperty(AddArchiveToEARDataModel.ARCHIVE_PROJECT,  ProjectCreationDataModel.getProjectHandleFromProjectName(ejbClientDataModel.getNestedJavaProjectCreationDM().getStringProperty(ProjectCreationDataModel.PROJECT_NAME)));
 		utilModel.setProperty(AddArchiveToEARDataModel.ARCHIVE_URI, earRelativeClientURI);
 		utilModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, runtime.getProject().getName());
 		try {
