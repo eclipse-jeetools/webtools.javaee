@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.21 $  $Date: 2004/06/16 20:58:31 $ 
+ *  $Revision: 1.22 $  $Date: 2004/08/04 22:24:52 $ 
  */
 
 import java.io.*;
@@ -73,7 +73,7 @@ public class BeaninfoNature implements IProjectNature {
 			// then the entire resource could not be equal.
 			IResource eventResource = e.getResource();
 			if (eventResource.getName().equals(getProject().getName()) && eventResource.equals(getProject())) {
-				cleanup(false);
+				cleanup(false, true);	// No need to clean up resources (false parm) because in this case Java EMF Model will always be going away.
 				return;
 			}
 			// Note: the BeaninfoModelSynchronizer takes care of both .classpath and .beaninfoconfig changes
@@ -183,7 +183,19 @@ public class BeaninfoNature implements IProjectNature {
 	 */
 	public void deconfigure() throws CoreException {
 		removeSharedProperty(P_BEANINFO_SEARCH_PATH, null);
-		cleanup(true);
+		cleanup(true, true);
+	}
+	
+	/**
+	 * Shutdown the nature. Called by BeanInfoPlugin to tell the nature that the plugin is being shutdown.
+	 * It needs to cleanup.
+	 * TODO <package-protected> because only BeanInfoPlugin should call it. (public for now but when we make
+	 * BeanInfoNature an API it will be moved into the same package as BeanInfoPlugin).
+	 * 
+	 * @since 1.0.0
+	 */
+	public void shutdown() {
+		cleanup(true, false);
 	}
 
 	/**
@@ -236,8 +248,20 @@ public class BeaninfoNature implements IProjectNature {
 	 * Clean up, this means either the project is being closed, deleted, or it means that
 	 * the nature is being removed from the project. Either way that means to
 	 * terminate the VM and remove what we added to the context if the flag says clear it.
+	 * <p>
+	 * This should be called ONLY when this instance of the nature is no longer needed. It
+	 * will be recreated for any new uses. That is because we will be removing ourselves
+	 * from the list of active natures in the BeanInfoPlugin.
+	 * 
+	 * @param clearResults clear the results such that any JEM model objects have no BeanInfo
+	 * adapters attached to them. This allows BeanInfo to be GC'd without being hung onto.
+	 *  
+	 * @param deregister Deregister from the BeanInfoPlugin. Normally this will always be true, but it
+	 * will be called with false when BeanInfoPlugin is calling back to shutdown.
 	 */
-	protected void cleanup(boolean clearResults) {
+	protected void cleanup(boolean clearResults, boolean deregister) {
+		if (deregister)
+			BeaninfoPlugin.getPlugin().removeBeanInfoNature(this);
 		getProject().getWorkspace().removeResourceChangeListener(resourceTracker);
 		resourceTracker = null;
 		fSynchronizer.stopSynchronizer(clearResults);
@@ -270,6 +294,7 @@ public class BeaninfoNature implements IProjectNature {
 	 */
 	public void setProject(IProject project) {
 		fProject = project;
+		BeaninfoPlugin.getPlugin().addBeanInfoNature(this);
 
 		try {
 			// The nature has been started for this project, need to setup the introspection process now.

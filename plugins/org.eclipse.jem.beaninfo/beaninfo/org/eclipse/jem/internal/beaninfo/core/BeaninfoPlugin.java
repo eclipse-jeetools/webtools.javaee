@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/04 12:58:28 $ 
+ *  $Revision: 1.8 $  $Date: 2004/08/04 22:24:52 $ 
  */
 
 
@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
@@ -69,6 +70,15 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	public static final String OVERRIDE_EXTENSION = ".override";	//$NON-NLS-1$
 		
+	
+	/*
+	 * List of open natures. This list is needed because on shutdown of beaninfo plugin we need
+	 * to shutdown the natures. If we don't do that there is a slight possibility of an error
+	 * because proxy plugin will shutdown and this can cause a callback into beaninfo which has
+	 * already been shutdown. It calls back through the registry listener that BeaninfoNature
+	 * added to the registry to notify that the registry is being shutdown.
+	 */
+	private List openNatures;
 	
 	private Map containerIdsToBeaninfoEntryContributions;
 	private Map pluginToBeaninfoEntryContributions;
@@ -575,6 +585,50 @@ public class BeaninfoPlugin extends Plugin {
 		if (logger == null)
 			logger = EclipseLogger.getEclipseLogger(this);
 		return logger;
+	}
+	
+	/**
+	 * Add that a BeanInfo nature is active. This is used to tell it to shutdown when beaninfo shuts down.
+	 * TODO <package-protected> because only BeanInfoNature should call it. (public for now but when we make
+	 * BeanInfoNature an API it will be moved into the same package as BeanInfoPlugin).
+	 * 
+	 * @param nature
+	 * 
+	 * @since 1.0.0
+	 */
+	public void addBeanInfoNature(BeaninfoNature nature) {
+		if (openNatures == null)
+			openNatures = new ArrayList();
+		openNatures.add(nature);
+	}
+	
+	/**
+	 * Mark that a BeanInfo nature is not active. This is used to tell it to shutdown when beaninfo shuts down.
+	 * TODO <package-protected> because only BeanInfoNature should call it. (public for now but when we make
+	 * BeanInfoNature an API it will be moved into the same package as BeanInfoPlugin).
+	 * 
+	 * @param nature
+	 * 
+	 * @since 1.0.0
+	 */
+	public void removeBeanInfoNature(BeaninfoNature nature) {
+		if (openNatures != null)
+			openNatures.remove(nature);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(BundleContext context) throws Exception {
+		if (openNatures != null) {
+			for (int i = 0; i < openNatures.size(); i++) {
+				BeaninfoNature nature = (BeaninfoNature) openNatures.get(i);
+				nature.shutdown();
+			}
+		}
+			
+		super.stop(context);
 	}
 }
 
