@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: TestCallback.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:25:46 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:31 $ 
  */
 
 import org.eclipse.jem.internal.proxy.common.*;
@@ -31,6 +31,20 @@ public class TestCallback implements ICallback {
 	public void start() {
 		new Thread(new Runnable() {
 			public void run() {
+				// First send back test for IDE calling back on same thread. We do this by sending the thread id
+				// as a constant and the other side will then call back to remote, ask for the thread id, and
+				// see if it matches.
+				try {
+					vmServer.doCallback(new ICallbackRunnable() {
+						public Object run(ICallbackHandler handler) throws CommandException {
+							return handler.callbackAsConstants(callbackID, 1, new Integer(Thread.currentThread().hashCode()));
+						}
+					});
+					
+				} catch (CommandException e) {
+				}
+				
+				// Now do the regular testing.
 				final Integer[] p = new Integer[] {new Integer(0)};
 				while(!stop) {
 					try {

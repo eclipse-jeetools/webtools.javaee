@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: TestCallbackStream.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:25:46 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:31 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -42,7 +42,12 @@ public class TestCallbackStream implements ICallback {
 			throw exp;
 		TestCase.assertTrue(testSuccesful);
 	}
-	
+
+	public Object calledBack(int msgID, Object  parm){
+		badMsg = "Failed Callback Test. Shouldn't have gotton to object parm"; //$NON-NLS-1$
+		stopTest();
+		return null;
+	}
 	public Object calledBack(int msgID, IBeanProxy parm){
 		badMsg = "Failed Callback Test. Shouldn't have gotton to parm"; //$NON-NLS-1$
 		stopTest();

@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/04 21:25:31 $ 
  */
 import java.io.IOException;
 
@@ -391,7 +391,7 @@ public class TestStandard extends AbstractTestProxy {
 		assertNotNull(callbackType);
 		Object testObject = new Object();
 		IBeanProxy callbackProxy = callbackType.newInstance();
-		TestCallback cb = new TestCallback(testObject);
+		TestCallback cb = new TestCallback(testObject, registry);
 		registry.getCallbackRegistry().registerCallback(callbackProxy, cb);
 		IMethodProxy start = callbackType.getMethodProxy("start");	//$NON-NLS-1$
 		IMethodProxy stop = callbackType.getMethodProxy("stop");	//$NON-NLS-1$
