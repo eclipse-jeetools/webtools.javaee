@@ -25,7 +25,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EESettings;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
 import org.w3c.dom.Document;
@@ -153,8 +152,7 @@ public class OldWebSettingsForMigration extends OldJ2EESettingsForMigration {
 		if (webinfFolder.exists()) {
 			return VERSION_V4;
 		}
-		else		
-			return CURRENT_VERSION;
+		return CURRENT_VERSION;
 	}
 	
 	protected String getValue(String settingName) {		
@@ -307,17 +305,24 @@ public class OldWebSettingsForMigration extends OldJ2EESettingsForMigration {
 					}
 				}
 			}
-		} catch (UnsupportedEncodingException e) {
+		} catch (UnsupportedEncodingException e) { 
+			//Ignore
 		} catch (ParserConfigurationException e) {
+			//Ignore
 		} catch (FactoryConfigurationError e) {
+			//Ignore
 		} catch (SAXException e) {
+			//Ignore
 		} catch (IOException e) {
+			//Ignore
 		} catch(Exception e){
+			//Ignore
 		}finally {
 			if (fileStream != null)
 				try {
 					fileStream.close();
 				} catch (IOException e1) {
+					//Ignore
 				}
 		} 
 		return null;

@@ -3,7 +3,6 @@ package org.eclipse.jst.j2ee.internal.web.migration;
 import java.util.ArrayList;
 
 import org.eclipse.core.internal.resources.Container;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
@@ -18,7 +17,6 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.operations.OldWebSettingsForMigration;
 import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
 import org.eclipse.wst.common.modulecore.DependencyType;
-import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.Property;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
@@ -79,11 +77,10 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 				resources = new Container[1];
 				Container webContent = (Container) project.getFolder(getBasicWebModulePath());
 				if (webContent != null)
-					resources[0] = (Container) webContent;
+					resources[0] = webContent;
 				break;
 			}
-		};
-
+		}
 		return resources;
 	}
 
@@ -121,8 +118,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 			// If created in V5 or beyond
 			if (version != -1 && version >= 500)
 				return IWebNatureConstants.WEB_MODULE_PATH_;
-			else
-				return IWebNatureConstants.WEB_MODULE_PATH_V4;
+			return IWebNatureConstants.WEB_MODULE_PATH_V4;
 		}
 		return new Path(name);
 	}
@@ -134,6 +130,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 				if (versionString != null)
 					fVersion = Integer.parseInt(versionString);
 			} catch (NumberFormatException e) {
+				//Ignore
 			}
 		}
 		return fVersion;
@@ -197,6 +194,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public void postMigrateStrategy() {
+		//Default
 	}
 
 

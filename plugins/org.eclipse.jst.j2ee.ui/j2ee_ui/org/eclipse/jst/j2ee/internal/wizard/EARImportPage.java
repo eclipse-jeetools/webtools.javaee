@@ -27,8 +27,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -38,6 +36,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 /**
  * @author cbridgha
@@ -82,7 +81,7 @@ public class EARImportPage extends J2EEImportPage {
 	protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
 		EnterpriseApplicationImportDataModel importModel = (EnterpriseApplicationImportDataModel) model;
 		EARComponentCreationDataModel earModel = new EARComponentCreationDataModel();
-		earModel.setIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION, importModel.getJ2EEVersion());
+		earModel.setIntProperty(ComponentCreationDataModel.COMPONENT_VERSION, importModel.getJ2EEVersion());
 		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, importModel.getProperty(J2EEArtifactImportDataModel.PROJECT_NAME));
 //		earModel.setProperty(J2EEComponentCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID));
 //		earModel.setBooleanProperty(EARComponentCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
@@ -109,13 +108,6 @@ public class EARImportPage extends J2EEImportPage {
 		gd.horizontalSpan = 3;
 		importEARButton.setLayoutData(gd);
 		synchHelper.synchCheckbox(importEARButton, EnterpriseApplicationImportDataModel.IMPORT_EAR_PROJECT, null);
-	}
-
-	/**
-	 *  
-	 */
-	private J2EEComponentCreationDataModel getJ2EEProjectCreationDataModel() {
-		return ((J2EEArtifactImportDataModel) model).getJ2eeArtifactCreationDataModel();
 	}
 
 	/*

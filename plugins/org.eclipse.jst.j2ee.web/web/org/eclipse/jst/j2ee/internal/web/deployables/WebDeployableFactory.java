@@ -22,8 +22,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
 
@@ -95,15 +93,13 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
 	 */
 	public IModule[] getModules() {
-		int i = 0;
 		cacheModules();
 		ArrayList moduleList = new ArrayList();
 		for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
 			IModule[] element = (IModule[]) iter.next();
 			for (int j = 0; j < element.length; j++) {
-				moduleList.add((IModule) element[j]);
+				moduleList.add(element[j]);
 			}
-
 		}
 		IModule[] modules = new IModule[moduleList.size()];
 		moduleList.toArray(modules);

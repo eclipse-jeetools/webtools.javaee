@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -64,7 +63,9 @@ public class OldJ2EESettingsForMigration {
 			try {
 				createNewDocument();
 			} catch (CoreException e) {
+				//Ignore
 			} catch (IOException e) {
+				//Ignore
 			}
 		}
 	}
@@ -100,7 +101,9 @@ public class OldJ2EESettingsForMigration {
 			try {
 				createNewDocument();
 			} catch (CoreException e) {
+				//Ignore
 			} catch (IOException e) {
+				//Ignore
 			}
 		}
 	}
@@ -110,6 +113,7 @@ public class OldJ2EESettingsForMigration {
 			try {
 				read();
 			} catch (IOException e) {
+				//Ignore
 			}
 		}
 		return fDomDocument;
@@ -121,6 +125,7 @@ public class OldJ2EESettingsForMigration {
 			try {
 				read(webSettings);
 			} catch (IOException e) {
+				//Ignore
 			}
 		}
 		return fDomDocument;
@@ -318,8 +323,10 @@ public class OldJ2EESettingsForMigration {
 			try {
 				createNewDocument();
 				doc = getDOMDocument();
-			} catch (CoreException e) {
+			} catch (CoreException e) { 
+				//Ignore
 			} catch (IOException e) {
+				//Ignore
 			}
 		}
 		return doc;

@@ -20,7 +20,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -70,7 +69,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 */
 	public static ImageDescriptor getImageDescriptor(String name) {
 		try {
-			URL installURL = getInstance().getBundle().getEntry("/");;
+			URL installURL = getInstance().getBundle().getEntry("/"); //$NON-NLS-1$
 			URL imageURL = new URL(installURL, name);
 			return ImageDescriptor.createFromURL(imageURL);
 		} catch (MalformedURLException e) {
@@ -164,7 +163,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 
 	public String getPluginInstallLocation() {
 		try {
-			return Platform.resolve(getInstance().getBundle().getEntry("/")).getFile();
+			return Platform.resolve(getInstance().getBundle().getEntry("/")).getFile(); //$NON-NLS-1$
 		} catch (Throwable t) {
 			return null;
 		}
