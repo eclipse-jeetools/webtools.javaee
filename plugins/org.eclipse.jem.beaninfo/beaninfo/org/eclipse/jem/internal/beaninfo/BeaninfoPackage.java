@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPackage.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 
-import org.eclipse.jem.internal.java.JavaRefPackage;
+import org.eclipse.jem.java.JavaRefPackage;
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -298,22 +298,22 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int FEATURE_ATTRIBUTE_VALUE__NAME = 0;
 	/**
-	 * The feature id for the '<em><b>Value Proxy</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY = 1;
-	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_ATTRIBUTE_VALUE__VALUE = 2;
+	int FEATURE_ATTRIBUTE_VALUE__VALUE = 1;
 
+	/**
+	 * The feature id for the '<em><b>Value Proxy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY = 2;
 	/**
 	 * The number of structural features of the the '<em>Feature Attribute Value</em>' class.
 	 * <!-- begin-user-doc -->
@@ -1484,6 +1484,60 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int METHOD_PROXY__NAME = EcorePackage.EOPERATION__NAME;
 	/**
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_PROXY__ORDERED = EcorePackage.EOPERATION__ORDERED;
+
+	/**
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_PROXY__UNIQUE = EcorePackage.EOPERATION__UNIQUE;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_PROXY__LOWER_BOUND = EcorePackage.EOPERATION__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_PROXY__UPPER_BOUND = EcorePackage.EOPERATION__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Many</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_PROXY__MANY = EcorePackage.EOPERATION__MANY;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_PROXY__REQUIRED = EcorePackage.EOPERATION__REQUIRED;
+
+	/**
 	 * The feature id for the '<em><b>EType</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1554,40 +1608,13 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int BEAN_EVENT__NAME = JavaRefPackage.JAVA_EVENT__NAME;
 	/**
-	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEAN_EVENT__ETYPE = JavaRefPackage.JAVA_EVENT__ETYPE;
-
-	/**
-	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEAN_EVENT__CHANGEABLE = JavaRefPackage.JAVA_EVENT__CHANGEABLE;
-
-	/**
-	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEAN_EVENT__VOLATILE = JavaRefPackage.JAVA_EVENT__VOLATILE;
-
-	/**
-	 * The feature id for the '<em><b>Transient</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEAN_EVENT__TRANSIENT = JavaRefPackage.JAVA_EVENT__TRANSIENT;
+	int BEAN_EVENT__ORDERED = JavaRefPackage.JAVA_EVENT__ORDERED;
 
 	/**
 	 * The feature id for the '<em><b>Unique</b></em>' attribute.
@@ -1597,24 +1624,6 @@ public interface BeaninfoPackage extends EPackage{
 	 * @ordered
 	 */
 	int BEAN_EVENT__UNIQUE = JavaRefPackage.JAVA_EVENT__UNIQUE;
-
-	/**
-	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEAN_EVENT__DEFAULT_VALUE_LITERAL = JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEAN_EVENT__DEFAULT_VALUE = JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
@@ -1653,6 +1662,60 @@ public interface BeaninfoPackage extends EPackage{
 	int BEAN_EVENT__REQUIRED = JavaRefPackage.JAVA_EVENT__REQUIRED;
 
 	/**
+	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_EVENT__ETYPE = JavaRefPackage.JAVA_EVENT__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_EVENT__CHANGEABLE = JavaRefPackage.JAVA_EVENT__CHANGEABLE;
+
+	/**
+	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_EVENT__VOLATILE = JavaRefPackage.JAVA_EVENT__VOLATILE;
+
+	/**
+	 * The feature id for the '<em><b>Transient</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_EVENT__TRANSIENT = JavaRefPackage.JAVA_EVENT__TRANSIENT;
+
+	/**
+	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_EVENT__DEFAULT_VALUE_LITERAL = JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_EVENT__DEFAULT_VALUE = JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE;
+
+	/**
 	 * The feature id for the '<em><b>Unsettable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1662,7 +1725,16 @@ public interface BeaninfoPackage extends EPackage{
 	int BEAN_EVENT__UNSETTABLE = JavaRefPackage.JAVA_EVENT__UNSETTABLE;
 
 	/**
-	 * The feature id for the '<em><b>EContaining Class</b></em>' reference.
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_EVENT__DERIVED = JavaRefPackage.JAVA_EVENT__DERIVED;
+
+	/**
+	 * The feature id for the '<em><b>EContaining Class</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

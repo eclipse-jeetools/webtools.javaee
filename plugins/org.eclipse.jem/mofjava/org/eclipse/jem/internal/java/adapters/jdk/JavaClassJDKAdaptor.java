@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import java.util.List;
 
@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.internal.core.MsgLogger;
-import org.eclipse.jem.internal.java.InheritanceCycleException;
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.TypeKind;
+import org.eclipse.jem.java.InheritanceCycleException;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.TypeKind;
 import org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
-import org.eclipse.jem.internal.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.impl.JavaClassImpl;
 
 /**
  * Insert the type's description here.
@@ -121,7 +121,7 @@ protected boolean flushModifiers() {
 }
 
 /**
- * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#flushReflectedValues(boolean)
+ * @see org.eclipse.jem.java.adapters.JavaReflectionAdaptor#flushReflectedValues(boolean)
  */
 protected boolean flushReflectedValues(boolean clearCachedModelObject) {
 	boolean result = flushModifiers();
@@ -134,7 +134,7 @@ protected boolean flushReflectedValues(boolean clearCachedModelObject) {
 }
 
 /**
- * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#postFlushReflectedValuesIfNecessary()
+ * @see org.eclipse.jem.java.adapters.JavaReflectionAdaptor#postFlushReflectedValuesIfNecessary()
  */
 protected void postFlushReflectedValuesIfNecessary(boolean isExisting) {
 	getJavaClassTarget().setReflected(false);

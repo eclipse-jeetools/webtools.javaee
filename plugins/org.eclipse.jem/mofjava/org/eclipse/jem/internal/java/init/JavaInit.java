@@ -11,13 +11,13 @@ package org.eclipse.jem.internal.java.init;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaInit.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.jem.internal.java.JavaRefPackage;
+import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 
 /**

@@ -11,10 +11,10 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanEvent.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
-import org.eclipse.jem.internal.java.JavaEvent;
+import org.eclipse.jem.java.JavaEvent;
 
 
 /**
@@ -22,8 +22,10 @@ import org.eclipse.jem.internal.java.JavaEvent;
  * A representation of the model object '<em><b>Bean Event</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
+ * <!-- begin-model-doc -->
+ * Event from Introspection/Reflection.
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanEvent()
  * @model 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JDOMAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:33:53 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:42 $ 
  */
 
 import java.io.File;
@@ -23,10 +23,10 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jem.internal.java.*;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
-import org.eclipse.jem.internal.java.impl.JavaRefFactoryImpl;
+import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 /**
  * Insert the type's description here.
  * Creation date: (6/6/2000 4:42:50 PM)

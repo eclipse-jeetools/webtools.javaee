@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionKey.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import java.util.*;
 
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
-import org.eclipse.jem.internal.java.*;
+import org.eclipse.jem.java.*;
 
 /**
  * This key handles Java Reflection. It creates the appropriate type of entries if

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodDecorator.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -44,6 +44,9 @@ public interface MethodDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If the parameterDescriptors feature is explicitly set, ie. not through the method descriptor proxy, then this flag must be set true. If it is true, then the parameterDescriptors will not be brought over from the descriptor proxy, nor will default ones be created if there aren't any specified.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Parms Explicit</em>' attribute.
 	 * @see #setParmsExplicit(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getMethodDecorator_ParmsExplicit()

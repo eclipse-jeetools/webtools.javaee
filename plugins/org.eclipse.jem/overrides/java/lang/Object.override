@@ -8,28 +8,28 @@
       will be done at the same time. And since Object needs to be introspected before anything else
       can be done, these will be done before anything needs them. -->
           
-  <event:Add notifierURI="java:/#boolean" featureName="eReferences">
+  <event:Add notifierURI="java:/#boolean" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
-  <event:Add notifierURI="java:/#char" featureName="eReferences">
+  <event:Add notifierURI="java:/#char" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
-  <event:Add notifierURI="java:/#int" featureName="eReferences">
+  <event:Add notifierURI="java:/#int" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
-  <event:Add notifierURI="java:/#float" featureName="eReferences">
+  <event:Add notifierURI="java:/#float" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
-  <event:Add notifierURI="java:/#short" featureName="eReferences">
+  <event:Add notifierURI="java:/#short" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
-  <event:Add notifierURI="java:/#long" featureName="eReferences">
+  <event:Add notifierURI="java:/#long" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
-  <event:Add notifierURI="java:/#double" featureName="eReferences">
+  <event:Add notifierURI="java:/#double" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
-  <event:Add notifierURI="java:/#byte" featureName="eReferences">
+  <event:Add notifierURI="java:/#byte" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EReference" name="allocation" containment="true" eType="ecore:EClass http:///org/eclipse/jem/internal/instantiation.ecore#//JavaAllocation"/>
   </event:Add>
 </xmi:XMI>

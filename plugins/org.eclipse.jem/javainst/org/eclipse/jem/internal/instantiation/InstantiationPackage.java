@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationPackage.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:16:21 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -31,6 +31,9 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * Java Instantiation Package
+ * <!-- end-model-doc -->
  * @see org.eclipse.jem.internal.instantiation.InstantiationFactory
  * @generated
  */

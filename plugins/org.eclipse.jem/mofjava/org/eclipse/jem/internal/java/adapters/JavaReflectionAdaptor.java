@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import java.util.List;
 
@@ -20,7 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.jem.internal.core.MsgLogger;
-import org.eclipse.jem.internal.java.*;
+import org.eclipse.jem.java.*;
 
 /**
  * 
@@ -63,7 +63,7 @@ public Block createBlock(String name, String sourceString) {
  * setSuper - set our supertype here, implemented interface are handled separately
  */
 public JavaClass createJavaClassRef(String targetName) {
-	JavaClass ref = org.eclipse.jem.internal.java.impl.JavaRefFactoryImpl.getActiveFactory().createJavaClass();
+	JavaClass ref = org.eclipse.jem.java.impl.JavaRefFactoryImpl.getActiveFactory().createJavaClass();
    JavaURL javaurl = new JavaURL(targetName);
   ((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
    return ref;
@@ -108,7 +108,7 @@ public List getArrayDimensions(String typeName) {
 /* Get the Java Factory
  */
 protected static JavaRefFactory getJavaFactory() {
-	return ((org.eclipse.jem.internal.java.JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jem.internal.java.JavaRefPackage.eNS_URI)).getJavaRefFactory();
+	return ((org.eclipse.jem.java.JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jem.java.JavaRefPackage.eNS_URI)).getJavaRefFactory();
 }
 public abstract Object getReflectionSource();
 /**

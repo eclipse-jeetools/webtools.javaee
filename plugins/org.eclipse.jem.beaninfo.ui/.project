@@ -8,8 +8,10 @@
 		<project>org.eclipse.core.runtime</project>
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jdt.ui</project>
+		<project>org.eclipse.jem</project>
 		<project>org.eclipse.jem.beaninfo</project>
 		<project>org.eclipse.ui</project>
+		<project>org.eclipse.ui.ide</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

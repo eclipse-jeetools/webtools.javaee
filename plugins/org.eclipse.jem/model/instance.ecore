@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="ASCII"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instantiation"
+<ecore:EPackage xmi:version="2.0"
+  xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instantiation"
     nsURI="http:///org/eclipse/jem/internal/instantiation.ecore" nsPrefix="org.eclipse.jem.internal.instantiation">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="documentation" value="Java Instantiation Package"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="IJavaDataTypeInstance" instanceClassName="org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance"
       abstract="true" interface="true" eSuperTypes="#//IJavaInstance"/>
   <eClassifiers xsi:type="ecore:EClass" name="IJavaInstance" instanceClassName="org.eclipse.jem.internal.instantiation.base.IJavaInstance"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IJavaObjectInstance" instanceClassName="org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance"
-      abstract="true" interface="true" eSuperTypes="#//IJavaInstance"/>
+      abstract="true" interface="true" eSuperTypes="#//IJavaInstance">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This interface is the instance of an java object in the java model."/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JavaAllocation" abstract="true">
-    <eAttributes name="allocString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        volatile="true"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This class is the abstract base class of the allocation class. It is the value of the &quot;allocation&quot; property on a Java Object so that the actual allocation can be controlled. For example, there could be one for just init string, or one for serialized."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allocString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        volatile="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This is the allocation string in readable format. It is derived in that subclasses will need to implement the getComputedAllocationString method to return the actual string. This string will be used directly in the code generation so it must be accurate. The set method is there, but it is ignored. This is just so that the string shows up in XMI serialization. (I.e. it is really read-only, but XMI doesn't understand this on serialization)."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InitStringAllocation" eSuperTypes="#//JavaAllocation">
-    <eAttributes name="initString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This is used when the allocation string can be parsed by the remote vm. It uses the allocString."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="initString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This is the initialization string for this object."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ImplicitAllocation" eSuperTypes="#//JavaAllocation">
-    <eReferences name="parent" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EObject"
-        lowerBound="1"/>
-    <eReferences name="feature" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EStructuralFeature"
-        lowerBound="1"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This class is for an implicit allocation where the object comes from the feature of another object. It is the live Java value from the remote vm."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EStructuralFeature"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -11,9 +11,9 @@ package org.eclipse.jem.internal.java.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: IInstantiationInstance.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
-import org.eclipse.jem.internal.java.JavaHelpers;
+import org.eclipse.jem.java.JavaHelpers;
 
 /**
  * The interface for an instance. The actual implementation

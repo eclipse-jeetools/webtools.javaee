@@ -11,11 +11,11 @@ package org.eclipse.jem.internal.java.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: IInstantiationHandler.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import org.eclipse.emf.ecore.*;
 
-import org.eclipse.jem.internal.java.JavaDataType;
+import org.eclipse.jem.java.JavaDataType;
 
 /**
  * The interface for the Instantiation handler. The actual implementation

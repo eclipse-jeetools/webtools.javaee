@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ParameterDecoratorImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -26,13 +26,12 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.ParameterDecorator;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.java.JavaParameter;
+import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
 import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
@@ -184,7 +183,7 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 	public JavaParameter getParameterGen() {
 		if (parameter != null && parameter.eIsProxy()) {
 			JavaParameter oldParameter = parameter;
-			parameter = (JavaParameter)EcoreUtil.resolve(parameter, this);
+			parameter = (JavaParameter)eResolveProxy((InternalEObject)parameter);
 			if (parameter != oldParameter) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PARAMETER_DECORATOR__PARAMETER, oldParameter, parameter));

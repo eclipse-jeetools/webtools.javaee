@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.util;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationSwitch.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
  
 import org.eclipse.emf.ecore.EClass;
@@ -51,8 +51,7 @@ public class InstantiationSwitch {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstantiationSwitch()
-	{
+	public InstantiationSwitch() {
 		if (modelPackage == null) {
 			modelPackage = InstantiationPackage.eINSTANCE;
 		}
@@ -65,8 +64,7 @@ public class InstantiationSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject)
-	{
+	public Object doSwitch(EObject theEObject) {
 		EClass theEClass = theEObject.eClass();
 		if (theEClass.eContainer() == modelPackage) {
 			switch (theEClass.getClassifierID()) {
@@ -101,8 +99,7 @@ public class InstantiationSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseIJavaDataTypeInstance(IJavaDataTypeInstance object)
-	{
+	public Object caseIJavaDataTypeInstance(IJavaDataTypeInstance object) {
 		return null;
 	}
 
@@ -117,8 +114,7 @@ public class InstantiationSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseIJavaInstance(IJavaInstance object)
-	{
+	public Object caseIJavaInstance(IJavaInstance object) {
 		return null;
 	}
 
@@ -133,8 +129,7 @@ public class InstantiationSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseIJavaObjectInstance(IJavaObjectInstance object)
-	{
+	public Object caseIJavaObjectInstance(IJavaObjectInstance object) {
 		return null;
 	}
 
@@ -149,8 +144,7 @@ public class InstantiationSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJavaAllocation(JavaAllocation object)
-	{
+	public Object caseJavaAllocation(JavaAllocation object) {
 		return null;
 	}
 
@@ -165,8 +159,7 @@ public class InstantiationSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInitStringAllocation(InitStringAllocation object)
-	{
+	public Object caseInitStringAllocation(InitStringAllocation object) {
 		return null;
 	}
 
@@ -181,8 +174,7 @@ public class InstantiationSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseImplicitAllocation(ImplicitAllocation object)
-	{
+	public Object caseImplicitAllocation(ImplicitAllocation object) {
 		return null;
 	}
 
@@ -197,8 +189,7 @@ public class InstantiationSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object)
-	{
+	public Object defaultCase(EObject object) {
 		return null;
 	}
 

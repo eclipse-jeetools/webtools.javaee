@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodProxyImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -26,12 +26,11 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EOperationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.MethodProxy;
-import org.eclipse.jem.internal.java.Method;
+import org.eclipse.jem.java.Method;
 
 
 /**
@@ -86,7 +85,7 @@ public class MethodProxyImpl extends EOperationImpl implements MethodProxy {
 	public Method getMethod() {
 		if (method != null && method.eIsProxy()) {
 			Method oldMethod = method;
-			method = (Method)EcoreUtil.resolve(method, this);
+			method = (Method)eResolveProxy((InternalEObject)method);
 			if (method != oldMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.METHOD_PROXY__METHOD, oldMethod, method));
@@ -190,6 +189,18 @@ public class MethodProxyImpl extends EOperationImpl implements MethodProxy {
 				return getEAnnotations();
 			case BeaninfoPackage.METHOD_PROXY__NAME:
 				return getName();
+			case BeaninfoPackage.METHOD_PROXY__ORDERED:
+				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.METHOD_PROXY__UNIQUE:
+				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.METHOD_PROXY__LOWER_BOUND:
+				return new Integer(getLowerBound());
+			case BeaninfoPackage.METHOD_PROXY__UPPER_BOUND:
+				return new Integer(getUpperBound());
+			case BeaninfoPackage.METHOD_PROXY__MANY:
+				return isMany() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.METHOD_PROXY__REQUIRED:
+				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.METHOD_PROXY__ETYPE:
 				if (resolve) return getEType();
 				return basicGetEType();
@@ -219,6 +230,18 @@ public class MethodProxyImpl extends EOperationImpl implements MethodProxy {
 				return;
 			case BeaninfoPackage.METHOD_PROXY__NAME:
 				setName((String)newValue);
+				return;
+			case BeaninfoPackage.METHOD_PROXY__ORDERED:
+				setOrdered(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.METHOD_PROXY__UNIQUE:
+				setUnique(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.METHOD_PROXY__LOWER_BOUND:
+				setLowerBound(((Integer)newValue).intValue());
+				return;
+			case BeaninfoPackage.METHOD_PROXY__UPPER_BOUND:
+				setUpperBound(((Integer)newValue).intValue());
 				return;
 			case BeaninfoPackage.METHOD_PROXY__ETYPE:
 				setEType((EClassifier)newValue);
@@ -251,6 +274,18 @@ public class MethodProxyImpl extends EOperationImpl implements MethodProxy {
 			case BeaninfoPackage.METHOD_PROXY__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case BeaninfoPackage.METHOD_PROXY__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
+				return;
+			case BeaninfoPackage.METHOD_PROXY__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
+				return;
+			case BeaninfoPackage.METHOD_PROXY__LOWER_BOUND:
+				setLowerBound(LOWER_BOUND_EDEFAULT);
+				return;
+			case BeaninfoPackage.METHOD_PROXY__UPPER_BOUND:
+				setUpperBound(UPPER_BOUND_EDEFAULT);
+				return;
 			case BeaninfoPackage.METHOD_PROXY__ETYPE:
 				setEType((EClassifier)null);
 				return;
@@ -278,6 +313,18 @@ public class MethodProxyImpl extends EOperationImpl implements MethodProxy {
 				return eAnnotations != null && !eAnnotations.isEmpty();
 			case BeaninfoPackage.METHOD_PROXY__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case BeaninfoPackage.METHOD_PROXY__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
+			case BeaninfoPackage.METHOD_PROXY__UNIQUE:
+				return unique != UNIQUE_EDEFAULT;
+			case BeaninfoPackage.METHOD_PROXY__LOWER_BOUND:
+				return lowerBound != LOWER_BOUND_EDEFAULT;
+			case BeaninfoPackage.METHOD_PROXY__UPPER_BOUND:
+				return upperBound != UPPER_BOUND_EDEFAULT;
+			case BeaninfoPackage.METHOD_PROXY__MANY:
+				return isMany() != false;
+			case BeaninfoPackage.METHOD_PROXY__REQUIRED:
+				return isRequired() != false;
 			case BeaninfoPackage.METHOD_PROXY__ETYPE:
 				return eType != null;
 			case BeaninfoPackage.METHOD_PROXY__ECONTAINING_CLASS:

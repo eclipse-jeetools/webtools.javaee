@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaAllocationImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
  
 
@@ -42,8 +42,7 @@ public abstract class JavaAllocationImpl extends EObjectImpl implements JavaAllo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JavaAllocationImpl()
-	{
+	protected JavaAllocationImpl() {
 		super();
 	}
 
@@ -52,8 +51,7 @@ public abstract class JavaAllocationImpl extends EObjectImpl implements JavaAllo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return InstantiationPackage.eINSTANCE.getJavaAllocation();
 	}
 
@@ -88,8 +86,7 @@ public abstract class JavaAllocationImpl extends EObjectImpl implements JavaAllo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.JAVA_ALLOCATION__ALLOC_STRING:
 				return getAllocString();
@@ -102,8 +99,7 @@ public abstract class JavaAllocationImpl extends EObjectImpl implements JavaAllo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.JAVA_ALLOCATION__ALLOC_STRING:
 				setAllocString((String)newValue);
@@ -117,8 +113,7 @@ public abstract class JavaAllocationImpl extends EObjectImpl implements JavaAllo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.JAVA_ALLOCATION__ALLOC_STRING:
 				setAllocString((String)null);
@@ -132,8 +127,7 @@ public abstract class JavaAllocationImpl extends EObjectImpl implements JavaAllo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.JAVA_ALLOCATION__ALLOC_STRING:
 				return getAllocString() != null;

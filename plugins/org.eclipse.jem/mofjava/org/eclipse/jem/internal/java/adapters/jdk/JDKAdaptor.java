@@ -11,14 +11,14 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JDKAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 
 import java.lang.reflect.Array;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.jem.internal.java.*;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor;
 /**
  * Insert the type's description here.
@@ -139,7 +139,7 @@ public abstract class JDKAdaptor extends JavaReflectionAdaptor {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (11/07/00 3:43:55 PM)
-	 * @return org.eclipse.jem.internal.java.adapters.JavaJDKAdapterFactory
+	 * @return org.eclipse.jem.java.adapters.JavaJDKAdapterFactory
 	 */
 	public JavaJDKAdapterFactory getAdapterFactory() {
 		return adapterFactory;
@@ -304,7 +304,7 @@ public abstract class JDKAdaptor extends JavaReflectionAdaptor {
 	/**
 	 * Insert the method's description here.
 	 * Creation date: (11/07/00 3:43:55 PM)
-	 * @param newAdapterFactory org.eclipse.jem.internal.java.adapters.JavaJDKAdapterFactory
+	 * @param newAdapterFactory org.eclipse.jem.java.adapters.JavaJDKAdapterFactory
 	 */
 	public void setAdapterFactory(JavaJDKAdapterFactory newAdapterFactory) {
 		adapterFactory = newAdapterFactory;

@@ -11,11 +11,11 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: SpecialResourceSet.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
-import com.ibm.etools.emf.workbench.ProjectResourceSetImpl;
-import com.ibm.etools.emf.workbench.plugin.EMFWorkbenchPlugin;
+import org.eclipse.wtp.internal.emf.workbench.ProjectResourceSetImpl;
+import org.eclipse.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
 
 /**
  * A Special resource set that is used to link together to the beaninfo

@@ -11,11 +11,11 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecorator.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
-import org.eclipse.jem.internal.java.JavaClass;
+import org.eclipse.jem.java.JavaClass;
 import java.net.URL;
 /**
  * <!-- begin-user-doc -->
@@ -72,6 +72,9 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Should the properties of super types be merged when asking for eAllAttributes/eAllReferences.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Merge Super Properties</em>' attribute.
 	 * @see #isSetMergeSuperProperties()
 	 * @see #unsetMergeSuperProperties()
@@ -126,6 +129,9 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Should the behaviors of super types be merged when asking for eAllBehaviors.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Merge Super Behaviors</em>' attribute.
 	 * @see #isSetMergeSuperBehaviors()
 	 * @see #unsetMergeSuperBehaviors()
@@ -180,6 +186,9 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Should the events of super types be merged when asking for eAllEvents.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Merge Super Events</em>' attribute.
 	 * @see #isSetMergeSuperEvents()
 	 * @see #unsetMergeSuperEvents()
@@ -234,6 +243,9 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Should the properties from the introspection be added to the class. This allows properties to not be introspected and to use only what is defined explicitly in the JavaClass xmi file.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Introspect Properties</em>' attribute.
 	 * @see #setIntrospectProperties(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_IntrospectProperties()
@@ -261,6 +273,9 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Should the behaviors from the introspection be added to the class. This allows behaviors to not be introspected and to use only what is defined explicitly in the JavaClass xmi file.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Introspect Behaviors</em>' attribute.
 	 * @see #setIntrospectBehaviors(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_IntrospectBehaviors()
@@ -288,6 +303,9 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Should the events from the introspection be added to the class. This allows events to not be introspected and to use only what is defined explicitly in the JavaClass xmi file.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Introspect Events</em>' attribute.
 	 * @see #setIntrospectEvents(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_IntrospectEvents()
@@ -341,6 +359,9 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This means do we go and get the beaninfo from the remote vm. If false, then it will not try to get the beaninfo. This doesn't prevent introspection through reflection. That is controled by the separate introspect... attributes.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Do Beaninfo</em>' attribute.
 	 * @see #setDoBeaninfo(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_DoBeaninfo()

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 import java.io.*;
@@ -27,18 +27,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
-import com.ibm.etools.emf.workbench.ResourceHandler;
+import org.eclipse.wtp.emf.workbench.ResourceHandler;
+
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
-import org.eclipse.jem.internal.plugin.*;
+import org.eclipse.jem.internal.plugin.JavaEMFNature;
+import org.eclipse.jem.internal.proxy.core.*;
+
 /**
  * The beaninfo nature. It is created for a project and holds the
  * necessary info for beaninfo to be performed on a project.
@@ -248,7 +250,7 @@ public class BeaninfoNature implements IProjectNature {
 
 		try {
 			// The nature has been started for this project, need to setup the introspection process now.
-			IJavaMOFNature javaNature = JavaMOFNatureRuntime.createRuntime(fProject);
+			JavaEMFNature javaNature = JavaEMFNature.createRuntime(fProject);
 			JavaInit.init();
 			if (fReflectionKeyExtension == null) {
 				// Register the reflection key extension.
@@ -256,7 +258,7 @@ public class BeaninfoNature implements IProjectNature {
 				JavaXMIFactoryImpl.INSTANCE.registerReflectionKeyExtension(fReflectionKeyExtension);
 			}
 
-			javaRSet = javaNature.getContext();
+			javaRSet = javaNature.getResourceSet();
 			Init.initialize(javaRSet, new IBeaninfoSupplier() {
 				public ProxyFactoryRegistry getRegistry() {
 					return BeaninfoNature.this.getRegistry();
@@ -273,7 +275,7 @@ public class BeaninfoNature implements IProjectNature {
 			fSynchronizer =
 				new BeaninfoModelSynchronizer(
 					(BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(javaRSet.getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY),
-					((AbstractJavaMOFNatureRuntime) javaNature).getJavaProject());
+					JavaCore.create(javaNature.getProject()));
 			resourceTracker = new ResourceTracker();
 			project.getWorkspace().addResourceChangeListener(resourceTracker);
 		} catch (CoreException e) {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: IndexedPropertyDecoratorImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -25,15 +25,14 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.Method;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.Method;
 import org.eclipse.jem.internal.proxy.core.IMethodProxy;
 import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 /**
@@ -520,7 +519,7 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	public Method getIndexedReadMethodGen() {
 		if (indexedReadMethod != null && indexedReadMethod.eIsProxy()) {
 			Method oldIndexedReadMethod = indexedReadMethod;
-			indexedReadMethod = (Method)EcoreUtil.resolve(indexedReadMethod, this);
+			indexedReadMethod = (Method)eResolveProxy((InternalEObject)indexedReadMethod);
 			if (indexedReadMethod != oldIndexedReadMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, indexedReadMethod));
@@ -546,7 +545,7 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	public Method getIndexedWriteMethodGen() {
 		if (indexedWriteMethod != null && indexedWriteMethod.eIsProxy()) {
 			Method oldIndexedWriteMethod = indexedWriteMethod;
-			indexedWriteMethod = (Method)EcoreUtil.resolve(indexedWriteMethod, this);
+			indexedWriteMethod = (Method)eResolveProxy((InternalEObject)indexedWriteMethod);
 			if (indexedWriteMethod != oldIndexedWriteMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, indexedWriteMethod));

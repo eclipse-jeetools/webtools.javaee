@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaAllocation.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
  
 import org.eclipse.emf.ecore.EObject;
@@ -24,6 +24,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * @since 1.0.0
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * This class is the abstract base class of the allocation class. It is the value of the "allocation" property on a Java Object so that the actual allocation can be controlled. For example, there could be one for just init string, or one for serialized.
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -44,6 +48,9 @@ public interface JavaAllocation extends EObject{
 	 * This is the allocation string in readable format. It is usually a comment string to make viewing the XMI easier. It is typically not used otherwise. A specific subclass may use it, and that subclass will indicate that it does.
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This is the allocation string in readable format. It is derived in that subclasses will need to implement the getComputedAllocationString method to return the actual string. This string will be used directly in the code generation so it must be accurate. The set method is there, but it is ignored. This is just so that the string shows up in XMI serialization. (I.e. it is really read-only, but XMI doesn't understand this on serialization).
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Alloc String</em>' attribute.
 	 * @see #setAllocString(String)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getJavaAllocation_AllocString()

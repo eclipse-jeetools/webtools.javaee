@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoSuperAdapter.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 import java.util.Collection;
@@ -23,9 +23,9 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.impl.ESuperAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.JavaRefPackage;
-import org.eclipse.jem.internal.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.JavaRefPackage;
+import org.eclipse.jem.java.impl.JavaClassImpl;
 
 /**
  * Used to know when events or any of the super classes change so
@@ -86,8 +86,7 @@ public class BeaninfoSuperAdapter extends AdapterImpl {
 				setAllPropertiesCollectionModified(true);
 				break;				
 				
-			case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-			case JavaRefPackage.JAVA_CLASS__EREFERENCES:							
+			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
 				setAllPropertiesCollectionModified(true);
 				break;
 				

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:20:50 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:48 $ 
  */
 
 import java.io.File;
@@ -58,8 +58,6 @@ public class BeaninfoPathsBlock {
 	private IJavaProject fCurrJProject;
 
 	private IStatusChangeListener fContext;
-	private Control fSWTWidget;
-
 	private PackagesWorkbookPage fPackagesPage;
 	private BeaninfosWorkbookPage fBeaninfosPage;
 
@@ -128,8 +126,6 @@ public class BeaninfoPathsBlock {
 	// -------- UI creation ---------
 
 	public Control createControl(Composite parent) {
-		fSWTWidget = parent;
-
 		Composite composite = new Composite(parent, SWT.NONE);
 
 		GridLayout layout = new GridLayout();

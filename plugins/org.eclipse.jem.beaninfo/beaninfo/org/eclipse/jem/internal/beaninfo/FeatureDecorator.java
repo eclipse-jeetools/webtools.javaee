@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureDecorator.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -24,6 +24,10 @@ import org.eclipse.jem.internal.proxy.core.IBeanProxy;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Feature Decorator</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * Equivalent to FeatureDescriptor in java.
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -409,6 +413,9 @@ public interface FeatureDecorator extends EAnnotation{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Should the introspection results be merged into this decorator. If this is set to false, then the introspection results are ignored for this particular decorator. This is an internal feature simply to allow desired override capabilities.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Merge Introspection</em>' attribute.
 	 * @see #setMergeIntrospection(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_MergeIntrospection()
@@ -459,6 +466,9 @@ public interface FeatureDecorator extends EAnnotation{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The attributes are explicitly set and not retrieved from the beaninfo.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Attributes Explicit</em>' attribute.
 	 * @see #setAttributesExplicit(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_AttributesExplicit()

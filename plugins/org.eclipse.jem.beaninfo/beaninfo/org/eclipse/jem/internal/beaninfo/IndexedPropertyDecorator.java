@@ -11,11 +11,11 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: IndexedPropertyDecorator.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
-import org.eclipse.jem.internal.java.Method;
+import org.eclipse.jem.java.Method;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Indexed Property Decorator</b></em>'.

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InitStringAllocation.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 
 /**
@@ -40,6 +40,9 @@ public interface InitStringAllocation extends JavaAllocation{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This is the initialization string for this object.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Init String</em>' attribute.
 	 * @see #setInitString(String)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getInitStringAllocation_InitString()

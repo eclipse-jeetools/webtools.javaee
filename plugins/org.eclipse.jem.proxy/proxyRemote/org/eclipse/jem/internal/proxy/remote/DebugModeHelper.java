@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: DebugModeHelper.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:24 $ 
  */
 
 import java.lang.reflect.*;
@@ -70,6 +70,12 @@ class DebugModeHelper {
 	
 	 		// Setup Eclipse
 		 	Class cPlatformUI = uiPlugin.getDescriptor().getPluginClassLoader().loadClass("org.eclipse.ui.PlatformUI"); //$NON-NLS-1$
+		 	Method isWBRunning = cPlatformUI.getMethod("isWorkbenchRunning", null);
+		 	if (!((Boolean) isWBRunning.invoke(null, null)).booleanValue()) {
+		 		setupAWT();	// UI not available, try through AWT.
+		 		return;
+		 	}
+		 	
 		 	fGetWorkbench = cPlatformUI.getMethod("getWorkbench", null); //$NON-NLS-1$
 		 	Object w = fGetWorkbench.invoke(null, null);
 
@@ -312,35 +318,34 @@ class DebugModeHelper {
 			displayErrorMessageConsole(title, msg);
 		else if (awt)
 			displayErrorMessageAWT(title, msg);
-			
- 		try {
- 			// This needs to be done in display thread.	
-			Field fOK = cSWT.getField("OK"); //$NON-NLS-1$
-			Field fIcon = cSWT.getField("ICON_ERROR"); //$NON-NLS-1$
-	 			
-			final int style = fOK.getInt(null) | fIcon.getInt(null) | fAppModel.getInt(null);
-			fasync.invoke(display, new Object[] { new Runnable() {	
-				/**
-				 * @see java.lang.Runnable#run()
-				 */
-				public void run() {			
-					try {
-						Object shell = getActiveShell();
-						Object mb = cMB.newInstance(new Object[] {shell, new Integer(style)});
-						
-						fSetText.invoke(mb, new Object[] {title});
-						fSetMessage.invoke(mb, new Object[] {msg});
-						fOpen.invoke(mb, null);
-					} catch (InstantiationException e) {
-					} catch (IllegalAccessException e) {
-					} catch (InvocationTargetException e) {
+		else {
+			try { // This needs to be done in display thread.
+				Field fOK = cSWT.getField("OK"); //$NON-NLS-1$
+				Field fIcon = cSWT.getField("ICON_ERROR"); //$NON-NLS-1$
+
+				final int style = fOK.getInt(null) | fIcon.getInt(null) | fAppModel.getInt(null);
+				fasync.invoke(display, new Object[] { new Runnable() {
+						/**
+						 * @see java.lang.Runnable#run()
+						 */
+						public void run() { try { Object shell = getActiveShell();
+								Object mb = cMB.newInstance(new Object[] { shell, new Integer(style)});
+
+								fSetText.invoke(mb, new Object[] { title });
+								fSetMessage.invoke(mb, new Object[] { msg });
+								fOpen.invoke(mb, null);
+							} catch (InstantiationException e) {
+							} catch (IllegalAccessException e) {
+							} catch (InvocationTargetException e) {
+							}
+						}
 					}
-				}
-			}});
- 		} catch (NoSuchFieldException e) {
- 		} catch (InvocationTargetException e) {
- 		} catch (IllegalAccessException e) {
- 		}		
+				});
+			} catch (NoSuchFieldException e) {
+			} catch (InvocationTargetException e) {
+			} catch (IllegalAccessException e) {
+			}
+		}
 	}	
 	
  	protected void displayErrorMessageConsole(String title, String msg) {

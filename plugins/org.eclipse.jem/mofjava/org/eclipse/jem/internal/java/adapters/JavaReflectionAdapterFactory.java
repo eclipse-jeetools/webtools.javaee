@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionAdapterFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
-import org.eclipse.jem.internal.java.JavaRefPackage;
+import org.eclipse.jem.java.JavaRefPackage;
 public abstract class JavaReflectionAdapterFactory extends AdapterFactoryImpl {
 	// Maintain a mapping of the source objects to the adaptors which have
 	// relfected from them.  This allows a flush operation to force those

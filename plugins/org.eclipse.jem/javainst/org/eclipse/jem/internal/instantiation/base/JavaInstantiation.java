@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaInstantiation.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:16:21 $ 
  */
 
 import org.eclipse.emf.common.util.URI;
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import org.eclipse.jem.internal.java.JavaClass;
+import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationHandlerFactoryAdapter;
 
 /**

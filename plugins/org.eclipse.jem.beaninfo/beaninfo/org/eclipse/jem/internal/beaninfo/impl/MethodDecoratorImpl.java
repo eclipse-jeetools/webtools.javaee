@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodDecoratorImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -36,8 +36,8 @@ import org.eclipse.jem.internal.beaninfo.MethodDecorator;
 import org.eclipse.jem.internal.beaninfo.MethodProxy;
 import org.eclipse.jem.internal.beaninfo.ParameterDecorator;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.java.JavaParameter;
-import org.eclipse.jem.internal.java.Method;
+import org.eclipse.jem.java.JavaParameter;
+import org.eclipse.jem.java.Method;
 import org.eclipse.jem.internal.proxy.core.IArrayBeanProxy;
 import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 import org.eclipse.jem.internal.proxy.core.ThrowableProxy;

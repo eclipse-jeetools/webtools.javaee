@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.util;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationAdapterFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
  
 import org.eclipse.emf.common.notify.Adapter;
@@ -50,8 +50,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstantiationAdapterFactory()
-	{
+	public InstantiationAdapterFactory() {
 		if (modelPackage == null) {
 			modelPackage = InstantiationPackage.eINSTANCE;
 		}
@@ -65,8 +64,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-	public boolean isFactoryForType(Object object)
-	{
+	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
 		}
@@ -115,8 +113,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-	public Adapter createAdapter(Notifier target)
-	{
+	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
 
@@ -131,8 +128,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance
 	 * @generated
 	 */
-	public Adapter createIJavaDataTypeInstanceAdapter()
-	{
+	public Adapter createIJavaDataTypeInstanceAdapter() {
 		return null;
 	}
 
@@ -146,8 +142,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipse.jem.internal.instantiation.base.IJavaInstance
 	 * @generated
 	 */
-	public Adapter createIJavaInstanceAdapter()
-	{
+	public Adapter createIJavaInstanceAdapter() {
 		return null;
 	}
 
@@ -161,8 +156,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance
 	 * @generated
 	 */
-	public Adapter createIJavaObjectInstanceAdapter()
-	{
+	public Adapter createIJavaObjectInstanceAdapter() {
 		return null;
 	}
 
@@ -176,8 +170,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipse.jem.internal.instantiation.JavaAllocation
 	 * @generated
 	 */
-	public Adapter createJavaAllocationAdapter()
-	{
+	public Adapter createJavaAllocationAdapter() {
 		return null;
 	}
 
@@ -191,8 +184,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipse.jem.internal.instantiation.InitStringAllocation
 	 * @generated
 	 */
-	public Adapter createInitStringAllocationAdapter()
-	{
+	public Adapter createInitStringAllocationAdapter() {
 		return null;
 	}
 
@@ -206,8 +198,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipse.jem.internal.instantiation.ImplicitAllocation
 	 * @generated
 	 */
-	public Adapter createImplicitAllocationAdapter()
-	{
+	public Adapter createImplicitAllocationAdapter() {
 		return null;
 	}
 
@@ -219,8 +210,7 @@ public class InstantiationAdapterFactory extends AdapterFactoryImpl {
 	 * @return the new adapter.
 	 * @generated
 	 */
-	public Adapter createEObjectAdapter()
-	{
+	public Adapter createEObjectAdapter() {
 		return null;
 	}
 

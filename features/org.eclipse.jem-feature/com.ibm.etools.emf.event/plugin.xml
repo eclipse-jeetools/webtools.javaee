@@ -1,38 +1,28 @@
-<?xml version="1.0"?>
-
-<!--
-/**
- * <copyright>
- * </copyright>
- *
- * plugins/com.ibm.etools.emf.event/plugin.xml, emf.ecore, org.eclipse.dev, 20030806_1713SL
- * @version 1.10 8/6/03
- */
--->
-
+<?xml version="1.0" encoding="UTF-8"?>
 <plugin
-    name = "Event Model"
-    id = "com.ibm.etools.emf.event"
-    version = "2.0.0.1" 
-    vendor-name = "IBM"> <!-- build-level = "20030806_1713SL" *** With fix 10028 merged in. --> 
+   id="com.ibm.etools.emf.event"
+   name="Event Model"
+   version="3.0.0.1">
 
-  <requires>
-    <import plugin="org.eclipse.emf.ecore"/>
-  </requires>
+   <runtime>
+      <library name="runtime/event.jar">
+         <export name="*"/>
+         <packages prefixes="com.ibm.etools.emf.event"/>
+      </library>
+   </runtime>
+<!-- build-level = "20030806_1713SL" *** With fix 10028 merged in. -->
+   <requires>
+      <import plugin="org.eclipse.emf.ecore" version="2.0.0" match="compatible"/>
+   </requires>
 
-  <runtime>
-    <library name="runtime/event.jar">
-      <export name="*"/>
-      <packages prefixes="com.ibm.etools.emf.event"/>
-    </library>
-  </runtime>
 
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "event.xmi" 
-       class = "com.ibm.etools.emf.event.impl.EventPackageImpl" 
-       factory = "com.ibm.etools.emf.event.impl.EventFactoryImpl"/>
-  </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            factory="com.ibm.etools.emf.event.impl.EventFactoryImpl"
+            uri="event.xmi"
+            class="com.ibm.etools.emf.event.impl.EventPackageImpl">
+      </package>
+   </extension>
 
 </plugin>
-

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationFactoryImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:16:21 $ 
  */
 
 import org.eclipse.jem.internal.instantiation.*;
@@ -34,8 +34,7 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstantiationFactoryImpl()
-	{
+	public InstantiationFactoryImpl() {
 		super();
 	}
 
@@ -44,8 +43,7 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject create(EClass eClass)
-	{
+	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case InstantiationPackage.INIT_STRING_ALLOCATION: return createInitStringAllocation();
 			case InstantiationPackage.IMPLICIT_ALLOCATION: return createImplicitAllocation();
@@ -59,8 +57,7 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InitStringAllocation createInitStringAllocation()
-	{
+	public InitStringAllocation createInitStringAllocation() {
 		InitStringAllocationImpl initStringAllocation = new InitStringAllocationImpl();
 		return initStringAllocation;
 	}
@@ -70,8 +67,7 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ImplicitAllocation createImplicitAllocation()
-	{
+	public ImplicitAllocation createImplicitAllocation() {
 		ImplicitAllocationImpl implicitAllocation = new ImplicitAllocationImpl();
 		return implicitAllocation;
 	}
@@ -81,21 +77,19 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstantiationPackage getInstantiationPackage()
-	{
+	public InstantiationPackage getInstantiationPackage() {
 		return (InstantiationPackage)getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @deprecated
 	 * @generated
 	 */
-	public static InstantiationPackage getPackage()
-	{
+	public static InstantiationPackage getPackage() {
 		return InstantiationPackage.eINSTANCE;
 	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createImplicitAllocation(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature)
 	 */

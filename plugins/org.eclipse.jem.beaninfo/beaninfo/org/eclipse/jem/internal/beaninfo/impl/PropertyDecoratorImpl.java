@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -28,15 +28,14 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.Method;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.Method;
 import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
 import org.eclipse.jem.internal.proxy.core.IBooleanBeanProxy;
@@ -565,7 +564,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public JavaClass getPropertyEditorClassGen() {
 		if (propertyEditorClass != null && propertyEditorClass.eIsProxy()) {
 			JavaClass oldPropertyEditorClass = propertyEditorClass;
-			propertyEditorClass = (JavaClass)EcoreUtil.resolve(propertyEditorClass, this);
+			propertyEditorClass = (JavaClass)eResolveProxy((InternalEObject)propertyEditorClass);
 			if (propertyEditorClass != oldPropertyEditorClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS, oldPropertyEditorClass, propertyEditorClass));
@@ -591,7 +590,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public Method getReadMethodGen() {
 		if (readMethod != null && readMethod.eIsProxy()) {
 			Method oldReadMethod = readMethod;
-			readMethod = (Method)EcoreUtil.resolve(readMethod, this);
+			readMethod = (Method)eResolveProxy((InternalEObject)readMethod);
 			if (readMethod != oldReadMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, readMethod));
@@ -617,7 +616,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public Method getWriteMethodGen() {
 		if (writeMethod != null && writeMethod.eIsProxy()) {
 			Method oldWriteMethod = writeMethod;
-			writeMethod = (Method)EcoreUtil.resolve(writeMethod, this);
+			writeMethod = (Method)eResolveProxy((InternalEObject)writeMethod);
 			if (writeMethod != oldWriteMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, writeMethod));

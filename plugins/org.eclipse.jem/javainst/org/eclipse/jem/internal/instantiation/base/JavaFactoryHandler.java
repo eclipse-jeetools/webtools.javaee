@@ -11,13 +11,13 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaFactoryHandler.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:16:21 $ 
  */
 
 import org.eclipse.emf.ecore.*;
 
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.JavaDataType;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.JavaDataType;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationHandler;
 
 /**
@@ -35,7 +35,7 @@ public class JavaFactoryHandler implements IInstantiationHandler {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.java.instantiation.IInstantiationHandler#handlesClass(org.eclipse.emf.ecore.EClass)
+	 * @see org.eclipse.jem.java.instantiation.IInstantiationHandler#handlesClass(org.eclipse.emf.ecore.EClass)
 	 */
 	public boolean handlesClass(EClass type) {
 		return type instanceof JavaClass || type instanceof JavaDataType;
@@ -43,14 +43,14 @@ public class JavaFactoryHandler implements IInstantiationHandler {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.java.instantiation.IInstantiationHandler#handlesDataType(org.eclipse.jem.internal.java.JavaDataType)
+	 * @see org.eclipse.jem.java.instantiation.IInstantiationHandler#handlesDataType(org.eclipse.jem.java.JavaDataType)
 	 */
 	public boolean handlesDataType(JavaDataType type) {
 		return true;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.java.instantiation.IInstantiationHandler#create(org.eclipse.emf.ecore.EClass)
+	 * @see org.eclipse.jem.java.instantiation.IInstantiationHandler#create(org.eclipse.emf.ecore.EClass)
 	 */
 	public EObject create(EClass javaClass) {
 		EObject result = javaClass instanceof JavaClass ? (EObject) new JavaObjectInstance() : new JavaDataTypeInstance();

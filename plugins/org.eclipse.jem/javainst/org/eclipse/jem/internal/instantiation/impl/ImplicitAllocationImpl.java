@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ImplicitAllocationImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
  
 import org.eclipse.emf.common.notify.Notification;
@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.jem.internal.instantiation.ImplicitAllocation;
 import org.eclipse.jem.internal.instantiation.InstantiationPackage;
@@ -67,8 +67,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ImplicitAllocationImpl()
-	{
+	protected ImplicitAllocationImpl() {
 		super();
 	}
 
@@ -77,8 +76,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return InstantiationPackage.eINSTANCE.getImplicitAllocation();
 	}
 
@@ -87,11 +85,10 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject getParent()
-	{
+	public EObject getParent() {
 		if (parent != null && parent.eIsProxy()) {
 			EObject oldParent = parent;
-			parent = (EObject)EcoreUtil.resolve(parent, this);
+			parent = (EObject)eResolveProxy((InternalEObject)parent);
 			if (parent != oldParent) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstantiationPackage.IMPLICIT_ALLOCATION__PARENT, oldParent, parent));
@@ -105,8 +102,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject basicGetParent()
-	{
+	public EObject basicGetParent() {
 		return parent;
 	}
 
@@ -115,8 +111,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParent(EObject newParent)
-	{
+	public void setParent(EObject newParent) {
 		EObject oldParent = parent;
 		parent = newParent;
 		if (eNotificationRequired())
@@ -128,11 +123,10 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EStructuralFeature getFeature()
-	{
+	public EStructuralFeature getFeature() {
 		if (feature != null && feature.eIsProxy()) {
 			EStructuralFeature oldFeature = feature;
-			feature = (EStructuralFeature)EcoreUtil.resolve(feature, this);
+			feature = (EStructuralFeature)eResolveProxy((InternalEObject)feature);
 			if (feature != oldFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstantiationPackage.IMPLICIT_ALLOCATION__FEATURE, oldFeature, feature));
@@ -146,8 +140,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EStructuralFeature basicGetFeature()
-	{
+	public EStructuralFeature basicGetFeature() {
 		return feature;
 	}
 
@@ -156,8 +149,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFeature(EStructuralFeature newFeature)
-	{
+	public void setFeature(EStructuralFeature newFeature) {
 		EStructuralFeature oldFeature = feature;
 		feature = newFeature;
 		if (eNotificationRequired())
@@ -169,8 +161,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
 				return getAllocString();
@@ -189,8 +180,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
 				setAllocString((String)newValue);
@@ -210,8 +200,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
 				setAllocString((String)null);
@@ -231,8 +220,7 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
 				return getAllocString() != null;

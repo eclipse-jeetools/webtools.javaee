@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValue.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -25,8 +25,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueProxy <em>Value Proxy</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueProxy <em>Value Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 
 
-public interface FeatureAttributeValue extends EObject {
+public interface FeatureAttributeValue extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

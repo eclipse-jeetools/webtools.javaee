@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaModelListener.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:33:53 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:42 $ 
  */
 
 import org.eclipse.jdt.core.*;
@@ -28,7 +28,7 @@ public class JavaModelListener implements IElementChangedListener {
  */
 public JavaModelListener() {
 	super();
-	JavaCore.addElementChangedListener(this, ElementChangedEvent.PRE_AUTO_BUILD | ElementChangedEvent.POST_CHANGE | ElementChangedEvent.POST_RECONCILE);
+	JavaCore.addElementChangedListener(this, ElementChangedEvent.POST_CHANGE | ElementChangedEvent.POST_RECONCILE);
 }
 /**
  * One or more attributes of one or more elements maintained by

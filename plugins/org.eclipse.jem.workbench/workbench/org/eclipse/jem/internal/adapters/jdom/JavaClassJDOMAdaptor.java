@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:33:53 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:42 $ 
  */
 
 import java.util.*;
@@ -23,20 +23,16 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
+import org.eclipse.wtp.common.UIContextDetermination;
+
 import org.eclipse.jem.internal.core.MsgLogger;
-import org.eclipse.jem.internal.java.*;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
-import org.eclipse.jem.internal.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.impl.JavaClassImpl;
 import org.eclipse.jem.internal.plugin.JavaPlugin;
 
-import com.ibm.etools.emf.workbench.WorkbenchResourceHelper;
 
-/**
- * Insert the type's description here.
- * Creation date: (6/6/2000 4:42:50 PM)
- * @author: Administrator
- */
 public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdaptor {
 	private static final String OBJECT_TYPE_NAME = "java.lang.Object"; //$NON-NLS-1$
 
@@ -254,7 +250,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	public boolean reflectValues() {
 		super.reflectValues();
 		primFlushReflectedValues();
-		boolean isHeadless = WorkbenchResourceHelper.isHeadless();
+		boolean isHeadless = UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT;
 		if (getSourceProject() != null && getSourceType() != null && getSourceType().exists()) {
 			setModifiers();
 			setNaming();

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: ImplicitAllocation.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -25,6 +25,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @since 1.0.0
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * This class is for an implicit allocation where the object comes from the feature of another object. It is the live Java value from the remote vm.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,7 +41,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @model 
  * @generated
  */
-public interface ImplicitAllocation extends JavaAllocation {
+public interface ImplicitAllocation extends JavaAllocation{
 	/**
 	 * Returns the value of the '<em><b>Parent</b></em>' reference.
 	 * <!-- begin-user-doc -->

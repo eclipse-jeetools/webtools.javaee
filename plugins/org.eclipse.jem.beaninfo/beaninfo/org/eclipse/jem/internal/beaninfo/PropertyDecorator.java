@@ -11,15 +11,15 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: PropertyDecorator.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.Method;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.Method;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Property Decorator</b></em>'.
@@ -160,6 +160,13 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If not set, then normal default processing.
+	 * 
+	 * If set true, then this property is a design time property. This means it will show up in the property sheet, but it won't be able to be connected to at runtime. It may not even be a true bean property but instead the builder will know how to handle it.
+	 * 
+	 * If set false, then this property will not show up on the property sheet, but will be able to be connected to for runtime.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Design Time</em>' attribute.
 	 * @see #isSetDesignTime()
 	 * @see #unsetDesignTime()
@@ -213,6 +220,9 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set true, then when multiple objects are selected, this property is always incompatible with each other. So in this case the property will not show up on the property sheet if more than one object has been selected.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Always Incompatible</em>' attribute.
 	 * @see #setAlwaysIncompatible(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_AlwaysIncompatible()

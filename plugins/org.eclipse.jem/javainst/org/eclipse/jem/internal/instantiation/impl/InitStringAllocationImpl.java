@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InitStringAllocationImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
  
 import org.eclipse.emf.common.notify.Notification;
@@ -63,8 +63,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected InitStringAllocationImpl()
-	{
+	protected InitStringAllocationImpl() {
 		super();
 	}
 
@@ -73,8 +72,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return InstantiationPackage.eINSTANCE.getInitStringAllocation();
 	}
 
@@ -83,8 +81,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getInitString()
-	{
+	public String getInitString() {
 		return initString;
 	}
 
@@ -93,8 +90,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInitString(String newInitString)
-	{
+	public void setInitString(String newInitString) {
 		String oldInitString = initString;
 		initString = newInitString;
 		if (eNotificationRequired())
@@ -106,8 +102,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.INIT_STRING_ALLOCATION__ALLOC_STRING:
 				return getAllocString();
@@ -122,8 +117,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.INIT_STRING_ALLOCATION__ALLOC_STRING:
 				setAllocString((String)newValue);
@@ -140,8 +134,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.INIT_STRING_ALLOCATION__ALLOC_STRING:
 				setAllocString((String)null);
@@ -158,8 +151,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case InstantiationPackage.INIT_STRING_ALLOCATION__ALLOC_STRING:
 				return getAllocString() != null;
@@ -174,8 +166,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String toString()
-	{
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

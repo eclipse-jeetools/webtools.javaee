@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaXMIFactoryImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
  */
 import java.io.IOException;
 import java.util.*;
@@ -22,9 +22,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
-import org.eclipse.jem.internal.java.JavaPackage;
-import org.eclipse.jem.internal.java.JavaRefFactory;
-import org.eclipse.jem.internal.java.impl.JavaFactoryImpl;
+import org.eclipse.jem.java.JavaPackage;
+import org.eclipse.jem.java.JavaRefFactory;
+import org.eclipse.jem.java.impl.JavaFactoryImpl;
 
 /**
  * Factory to create the Resource for the Java protocol.

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
  */
 
 
@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoFactory;
@@ -42,10 +41,10 @@ import org.eclipse.jem.internal.beaninfo.MethodDecorator;
 import org.eclipse.jem.internal.beaninfo.MethodProxy;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.JavaParameter;
-import org.eclipse.jem.internal.java.Method;
-import org.eclipse.jem.internal.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.JavaParameter;
+import org.eclipse.jem.java.Method;
+import org.eclipse.jem.java.impl.JavaClassImpl;
 import org.eclipse.jem.internal.proxy.core.IArrayBeanProxy;
 import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
@@ -344,7 +343,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	public Method getAddListenerMethodGen() {
 		if (addListenerMethod != null && addListenerMethod.eIsProxy()) {
 			Method oldAddListenerMethod = addListenerMethod;
-			addListenerMethod = (Method)EcoreUtil.resolve(addListenerMethod, this);
+			addListenerMethod = (Method)eResolveProxy((InternalEObject)addListenerMethod);
 			if (addListenerMethod != oldAddListenerMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD, oldAddListenerMethod, addListenerMethod));
@@ -494,7 +493,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	public JavaClass getListenerTypeGen() {
 		if (listenerType != null && listenerType.eIsProxy()) {
 			JavaClass oldListenerType = listenerType;
-			listenerType = (JavaClass)EcoreUtil.resolve(listenerType, this);
+			listenerType = (JavaClass)eResolveProxy((InternalEObject)listenerType);
 			if (listenerType != oldListenerType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_TYPE, oldListenerType, listenerType));
@@ -544,7 +543,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	public Method getRemoveListenerMethodGen() {
 		if (removeListenerMethod != null && removeListenerMethod.eIsProxy()) {
 			Method oldRemoveListenerMethod = removeListenerMethod;
-			removeListenerMethod = (Method)EcoreUtil.resolve(removeListenerMethod, this);
+			removeListenerMethod = (Method)eResolveProxy((InternalEObject)removeListenerMethod);
 			if (removeListenerMethod != oldRemoveListenerMethod) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD, oldRemoveListenerMethod, removeListenerMethod));
