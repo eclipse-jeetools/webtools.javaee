@@ -17,15 +17,14 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.locator.WebLibModuleTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.locator.WebProjectServerTargetTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.locator.WebProjectTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.locator.WebXMLTaglibLocator;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibLocator;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 public class WebTaglibRegistry extends AbstractTaglibRegistry {
@@ -52,23 +51,16 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 		this.locators = new ITaglibLocator[]{this.webProjectTaglibLocator, new WebXMLTaglibLocator(this.project)};
 	}
 
-	protected J2EEWebNatureRuntime getWebNature() {
-		return (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(this.project);
-	}
-
 	protected boolean isWebXMLFile(IPath filePath) {
-		return getWebNature().getWebXMLPath().removeFirstSegments(1).equals(filePath);
-	}
+		IPath webAppDDPath = getWebDeploymentDescriptorPath();
+		return webAppDDPath.removeFirstSegments(1).equals(filePath);
+	} 
 
 	protected boolean requiresFullUpdate(IResourceDelta delta) {
-		// If the websettings are updated, a full refresh is required.
-		boolean ret = false;
-		if (delta != null) { // added for RATLC00963945 - JB
-			J2EEWebNatureRuntime webNature = getWebNature();
-			if (webNature != null) // added for RATLC00963945 - RAJ
-				ret = delta.getResource().getFullPath().equals(webNature.getWebSettingsPath());
-		}
-		return ret;
+		// If the context root is updated, a full refresh is required.
+		if (delta != null)
+			return delta.getResource().getFullPath().equals(getWTPModuleFile());
+		return false;
 	}
 
 	/*
@@ -78,12 +70,7 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.registry.AbstractTaglibRegistry#getRefreshRoot()
 	 */
 	protected IResource getRefreshRoot() {
-		IResource ret = null;
-		J2EEWebNatureRuntime webNature = getWebNature();
-		if (webNature != null) // added for RATLC00963945 - RAJ
-			ret = webNature.getModuleServerRoot().findMember(IWebNatureConstants.INFO_DIRECTORY);
-
-		return ret;
+		return getWebInfFolder();
 	}
 
 	/*
@@ -174,5 +161,38 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 		results.addAll(Arrays.asList(this.libModuleLocator.search(this.project)));
 		results.addAll(Arrays.asList(this.serverTargetLocator.search(this.project)));
 		return results;
+	}
+	
+	protected IPath getWTPModuleFile() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			return webEdit.getWTPModuleFile(); 
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+	}
+	
+	protected IContainer getWebInfFolder() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			return webEdit.getWebInfFolder();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+	}
+	
+	protected IPath getWebDeploymentDescriptorPath() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			return webEdit.getDeploymentDescriptorPath();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
 	}
 }

@@ -21,7 +21,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
@@ -53,8 +53,7 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 		// Check to see if there are any lib modules, if so, we must check to see
 		// if there are any taglibs in these and concat the results.
 
-		J2EEWebNatureRuntime nature = getWebNature();
-		ILibModule[] libModules = nature.getLibModules();
+		ILibModule[] libModules = getLibModules();
 		Vector results = new Vector();
 
 		// Go through all of the library modules and add any taglibs
@@ -74,14 +73,15 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 					if (iTaglibInfo.isInJar())
 						break;
 					// defect 212671
-					IPath webProjectRelativePath = nature.getLibraryFolder().getProjectRelativePath();
+					IPath webProjectRelativePath = getWebLibFolder().getProjectRelativePath();
 					IPath jarLocationPath = webProjectRelativePath.append(iLibModule.getJarName());
-					IPath jarName = jarLocationPath.removeFirstSegments(nature.getModuleServerRoot().getProjectRelativePath().segmentCount());
+					IPath jarName = jarLocationPath.removeFirstSegments(getServerRoot().segmentCount());
 					// defect 212671 This is important because jarName may not have a leading /
 					IPath jarURI = new Path("/"); //$NON-NLS-1$
 					jarURI = jarURI.append(jarName);
+					int JSPVersion = getJSPVersion();
 					if (iTaglibInfo.isURIFromTLD()) {
-						if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) {
+						if (JSPVersion==J2EEVersionConstants.JSP_1_2_ID || JSPVersion==J2EEVersionConstants.JSP_2_0_ID) {
 							TaglibInfo newTaglib = new TaglibInfo(prj, iTaglibInfo.getURI(), jarLocationPath, iTaglibInfo.getTLDLocation());
 							newTaglib.setIsLibModule(true);
 							newTaglib.setIsURIFromTLD(true);
@@ -96,10 +96,10 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 						// defect 212671
 						newTaglib.setIsURIFromTLD(false);
 						boolean canAddTaglibTLD = true;
-						if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1)) { // this clause is for performance, get digester only for jsp 1.1
+						if (JSPVersion==J2EEVersionConstants.JSP_1_1_ID) { // this clause is for performance, get digester only for jsp 1.1
 							try {
 								TLDDigester digester = new TLDDigester(newTaglib.getTLDStream());
-								if (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))
+								if (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEVersionConstants.VERSION_1_1_TEXT))
 									// If JSP1.1 then tld better be 1.1 defect CMVC 217548
 									canAddTaglibTLD = false;
 							} catch (ZipException e) {
@@ -109,12 +109,12 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 							} catch (CoreException e) {
 								// Do nothing
 							}
-						} else if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2)) { // this clause is for performance, get digester only for jsp 1.1
+						} else if (JSPVersion==J2EEVersionConstants.JSP_1_2_ID) { // this clause is for performance, get digester only for jsp 1.1
 							try {
 								TLDDigester digester = new TLDDigester(newTaglib.getTLDStream());
 								String digesterJSPLevel = digester.getJSPLevel();
 
-								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))// If JSP2.0 then tld better be 1.1 or 1.2 and not 2.0 defect CMVC 217548
+								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEVersionConstants.VERSION_1_2_TEXT) || !digesterJSPLevel.equals(J2EEVersionConstants.VERSION_1_1_TEXT))// If JSP2.0 then tld better be 1.1 or 1.2 and not 2.0 defect CMVC 217548
 									canAddTaglibTLD = false;
 							} catch (ZipException e) {
 								//do nothing
@@ -123,13 +123,12 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 							} catch (CoreException e) {
 								//Do nothing
 							}
-						} else if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) { // this clause is for performance, get digester only for jsp 1.1
+						} else if (JSPVersion==J2EEVersionConstants.JSP_2_0_ID) { // this clause is for performance, get digester only for jsp 1.1
 							try {
 								TLDDigester digester = new TLDDigester(newTaglib.getTLDStream());
 								String digesterJSPLevel = digester.getJSPLevel();
-
-								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_2_0) || !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_2)
-										|| !digesterJSPLevel.equals(J2EEWebNatureRuntime.JSPLEVEL_1_1))// If JSP2.0 then tld better be 1.1 or 1.2 and not 2.0 defect CMVC 217548
+								if (digesterJSPLevel == null || !digesterJSPLevel.equals(J2EEVersionConstants.VERSION_2_0_TEXT) || !digesterJSPLevel.equals(J2EEVersionConstants.VERSION_1_2_TEXT)
+										|| !digesterJSPLevel.equals(J2EEVersionConstants.VERSION_1_1_TEXT))// If JSP2.0 then tld better be 1.1 or 1.2 and not 2.0 defect CMVC 217548
 									canAddTaglibTLD = false;
 							} catch (ZipException e) {
 								//Do nothing

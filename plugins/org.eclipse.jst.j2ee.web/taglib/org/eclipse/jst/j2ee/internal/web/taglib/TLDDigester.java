@@ -18,7 +18,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
@@ -82,15 +82,15 @@ public class TLDDigester {
 			Element docElement = getDocument().getDocumentElement();
 			if (docElement != null && "2.0".equals(docElement.getAttribute("version")) //$NON-NLS-1$ //$NON-NLS-2$
 						&& PUBLICID_20.equals(docElement.getAttribute("xsi:schemaLocation"))) //$NON-NLS-1$
-				return J2EEWebNatureRuntime.JSPLEVEL_2_0;
+				return J2EEVersionConstants.VERSION_2_0_TEXT;
 
 			DocumentType docType = getDocument().getDoctype();
 
 			if (docType != null && PUBLICID_12.equals(docType.getPublicId()))
-				return J2EEWebNatureRuntime.JSPLEVEL_1_2;
+				return J2EEVersionConstants.VERSION_1_2_TEXT;
 
 			if (docType != null && PUBLICID_11.equals(docType.getPublicId()))
-				return J2EEWebNatureRuntime.JSPLEVEL_1_1;
+				return J2EEVersionConstants.VERSION_1_1_TEXT;
 
 		}
 		return null;
