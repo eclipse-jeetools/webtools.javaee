@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.ICommand;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -28,6 +30,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
@@ -264,5 +267,22 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 			//Ignore
 		}
 	}
+    /**
+     * Create a folder for given absolute path
+     * 
+     * @exception com.ibm.itp.core.api.resources.CoreException
+     */
+    protected IFolder createFolder(IPath absolutePath) throws CoreException {
+        if (absolutePath == null || absolutePath.isEmpty())
+            return null;
+        IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
+        // check if the parent is there
+        IContainer parent = folder.getParent();
+        if (parent != null && !parent.exists() && (parent instanceof IFolder))
+            createFolder(parent.getFullPath());
+        if (!folder.exists())
+            folder.create(true, true, new NullProgressMonitor());
+        return folder;
+    }
 
 }

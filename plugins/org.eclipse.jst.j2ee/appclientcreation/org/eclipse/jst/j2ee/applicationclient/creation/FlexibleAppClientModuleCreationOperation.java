@@ -76,29 +76,12 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
      * 
      */
     protected void createProjectStructure() throws CoreException {
-        IProject rootProject = getDataModel().getTargetProject();
+        IProject rootProject = getProject();
         URI metainfURI = URI.createURI(IPath.SEPARATOR + getModuleName() + ".jar" + IPath.SEPARATOR + "appClientModule" + IPath.SEPARATOR + "META-INF");
         IPath absMetaRoot = rootProject.getLocation().append(metainfURI.toString());
         createFolder(absMetaRoot);
     }
 
-    /**
-     * Create a folder for given absolute path
-     * 
-     * @exception com.ibm.itp.core.api.resources.CoreException
-     */
-    private IFolder createFolder(IPath absolutePath) throws CoreException {
-        if (absolutePath == null || absolutePath.isEmpty())
-            return null;
-        IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
-        // check if the parent is there
-        IContainer parent = folder.getParent();
-        if (parent != null && !parent.exists() && (parent instanceof IFolder))
-            createFolder(parent.getFullPath());
-        if (!folder.exists())
-            folder.create(true, true, new NullProgressMonitor());
-        return folder;
-    }
 
     /**
      * @return
