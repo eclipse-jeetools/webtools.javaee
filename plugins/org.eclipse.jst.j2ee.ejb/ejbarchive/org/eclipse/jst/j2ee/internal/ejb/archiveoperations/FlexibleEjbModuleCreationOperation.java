@@ -18,29 +18,11 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WorkbenchUtil;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ComponentType;
-import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
 	public FlexibleEjbModuleCreationOperation(FlexibleEjbModuleCreationDataModel dataModel) {
@@ -51,137 +33,27 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 		super();
 	}
 
-	protected void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		super.createModule(monitor);
-		//TODO add contextRoot and contentName to workbechModule
-		//J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(((WebModuleCreationDataModel)operationDataModel).getTargetProject());
-		//WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(((WebModuleCreationDataModel)operationDataModel).getTargetProject());
-		//nature.getWebSettings().setWebContentName(operationDataModel.getStringProperty(WebModuleCreationDataModel.WEB_CONTENT));
-		//nature.getWebSettings().setContextRoot(operationDataModel.getStringProperty(webArtifactEdit.getContextRoot()));
-		//URIConverter uriConverter = ((ProjectResourceSet) nature.getResourceSet()).getURIConverter();
-		//dont need this, keeps nature in synch with websetting file
-		//if (uriConverter instanceof J2EEModuleWorkbenchURIConverterImpl)
-		//	((J2EEModuleWorkbenchURIConverterImpl) uriConverter).recomputeContainersIfNecessary();
-	}
-
+	
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
-//		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
-//			protected void execute(IProgressMonitor amonitor) throws CoreException, InvocationTargetException, InterruptedException {
-//				WebEditModel model = (WebEditModel) editModel;
-//				IFolder moduleRoot = WebPropertiesUtil.getModuleServerRoot(model.getProject());
-//				IFolder metainf = moduleRoot.getFolder(J2EEConstants.META_INF);
-//				if (!metainf.exists()) {
-//					IFolder parent = metainf.getParent().getFolder(null);
-//					if (!parent.exists()) {
-//						parent.create(true, true, null);
-//					}
-//					metainf.create(true, true, null);
-//				}
-//				IFolder webinf = moduleRoot.getFolder(J2EEConstants.WEB_INF);
-//				if (!webinf.exists()) {
-//					webinf.create(true, true, null);
-//				}
-//				IFolder lib = webinf.getFolder("lib"); //$NON-NLS-1$
-//				if (!lib.exists()) {
-//					lib.create(true, true, null);
-//				}
-//				model.makeDeploymentDescriptorWithRoot();
-//			}
-//		};
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		super.execute(monitor);
-		FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
+		
+		super.execute( IModuleConstants.JST_EJB_MODULE, monitor );
 
-		//.wtpmodule should be created when creating a project
-		//createInitialWTPModulesFile(); 
-		createModule();
-
-		if (((FlexibleEjbModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
-			addAnnotationsBuilder();
 	}
 
-    /**
-     * 
-     */
-//    private void createInitialWTPModulesFile() {
-//    	ModuleCore moduleCore = null;
-//		try {
-//			IProject containingProject = getProject();
-//			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
-//			moduleCore.prepareProjectModulesIfNecessary(); 
-//			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
-//			addContent(projectModules);
-//			moduleCore.saveIfNecessary(null); 
-//		} finally {
-//			if(moduleCore != null)
-//				moduleCore.dispose();
-//		}     
-//   }
-	
-    private void createModule() {
-    	ModuleCore moduleCore = null;
-		try {
-			IProject containingProject = getDataModel().getTargetProject();
-			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
-			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
-			addContent(projectModules);
-			moduleCore.saveIfNecessary(null); 
-		} finally {
-			if(moduleCore != null)
-				moduleCore.dispose();
-		}     
-   }
-    
-	/**
-	 * @param projectModules
-	 */
-	private void addContent(ProjectComponents projectModules) {
-	    WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleName()+".war", createModuleURI()); //$NON-NLS-1$
-		IProject aProject = getDataModel().getTargetProject();
-		addResource(webModule, getModuleRelativeFile(getWebContentSourcePath(), aProject), getWebContentDeployPath());
-		addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath(), aProject), getJavaSourceDeployPath());
+	protected  void addResources( WorkbenchComponent component ){
+		addResource(component, getModuleRelativeFile(getWebContentSourcePath( getModuleName() ), getProject()), getWebContentDeployPath());
+		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());		
 	}
 	
 	/**
 	 * @return
 	 */
-	private URI createModuleURI() {
-		return URI.createURI("module:/resource/"+getDataModel().getTargetProject().getName()+IPath.SEPARATOR+getModuleName()+".war"); //$NON-NLS-1$ //$NON-NLS-2$
-	}
-
-	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();		
-		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setRuntimePath(URI.createURI(aDeployPath));
-		aModule.getResources().add(resource);
-	}
-	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setHandle(aHandle);  
-		module.setName(aDeployedName);  
-		ComponentType type = ModuleCoreFactory.eINSTANCE.createComponentType();
-		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
-		module.setComponentType(type);
-		theModules.getComponents().add(module);
-		return module;
-	}
-	public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
-		return getDataModel().getTargetProject().getFile(new Path(IPath.SEPARATOR + aModuleRelativePath));
-	}
-	public FlexibleEjbModuleCreationDataModel getDataModel() {
-		return (FlexibleEjbModuleCreationDataModel)operationDataModel;
-	}
-	
-
-	/**
-	 * @return
-	 */
-	public String getJavaSourceSourcePath() {
-		return "/JavaSource"; //$NON-NLS-1$
+	public String getJavaSourceSourcePath(String moduleName) {
+		return "/" + moduleName +"/JavaSource"; //$NON-NLS-1$
 	}
 	
 	/**
@@ -194,8 +66,8 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	/**
 	 * @return
 	 */
-	public String getWebContentSourcePath() {
-		return "/WebContent"; //$NON-NLS-1$
+	public String getWebContentSourcePath(String moduleName) {
+		return "/" + moduleName + "/WebContent"; //$NON-NLS-1$
 	}
 	
 	/**
@@ -204,16 +76,13 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	public String getWebContentDeployPath() {
 		return "/"; //$NON-NLS-1$
 	}
-	
-	public String getModuleName() {
-		return getDataModel().getModuleName();
-	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibileJ2EECreationOperation#createModule(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
 	 */
-	protected void createModule(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	protected void createProjectStructure() throws CoreException {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
+	
 }
