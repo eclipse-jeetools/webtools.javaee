@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.tests.modulecore;
 
-import org.eclipse.wst.common.modulecore.internal.builder.BasicComponentStructuralProjectBuilderDataModel;
+import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralProjectBuilderDataModel;
 
-public class ComponentStructuralDMExtensionTest extends BasicComponentStructuralProjectBuilderDataModel {
+public class ComponentStructuralDMExtensionTest extends ComponentStructuralProjectBuilderDataModel {
 
     /**
      * 
