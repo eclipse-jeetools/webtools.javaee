@@ -8,9 +8,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.DependentModule;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 /**
  * The WebArtifactEditTest is an API test class for the WebArtifactEdit class.
@@ -24,7 +24,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchModule;
 public class WebArtifactEditTest extends TestCase {
 	
 	//TODO initialize the workbenchmodule using web module creation test case
-	WorkbenchModule aModule = null;//AbstractProjectCreationTest.setUpWebModule(PROJECT_NAME, J2EE_VERSION);
+	WorkbenchComponent aModule = null;//AbstractProjectCreationTest.setUpWebModule(PROJECT_NAME, J2EE_VERSION);
 	
 	public static final int J2EE_VERSION = J2EEVersionConstants.J2EE_1_4_ID;
 	public static final String PROJECT_NAME = "TestWeb"; //$NON-NLS-1$
@@ -145,7 +145,7 @@ public class WebArtifactEditTest extends TestCase {
 		WebArtifactEdit objWebArtifactEdit = null;
 		try {
 			objWebArtifactEdit = WebArtifactEdit.getWebArtifactEditForRead(aModule);
-			DependentModule[] retValue = objWebArtifactEdit.getLibModules();
+			ReferencedComponent[] retValue = objWebArtifactEdit.getLibModules();
 			Assert.assertNotNull(retValue);
 		} finally {
 			if (objWebArtifactEdit!=null) {
@@ -158,7 +158,7 @@ public class WebArtifactEditTest extends TestCase {
 		WebArtifactEdit objWebArtifactEdit = null;
 		try {
 			objWebArtifactEdit = WebArtifactEdit.getWebArtifactEditForWrite(aModule);
-			DependentModule[] libModules = new DependentModule[0];
+			ReferencedComponent[] libModules = new ReferencedComponent[0];
 			objWebArtifactEdit.addLibModules(libModules);
 			Assert.assertNotNull(objWebArtifactEdit.getLibModules());
 		} finally {

@@ -15,12 +15,12 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class EARArtifactEditTest extends TestCase {
 	public static final String MODULE__RESOURCE_URI_PROTOCOL = "module:/resource/";
 	private IProject project;
-	private WorkbenchModule earWorkbenchModule;
+	private WorkbenchComponent earWorkbenchModule;
 	private ModuleCoreNature moduleCoreNature;
 	private ArtifactEditModel artifactEditModel;
 	private EARArtifactEdit earArtifactEdit;
@@ -115,7 +115,7 @@ public class EARArtifactEditTest extends TestCase {
 	}
 
 	/*
-	 * Class under test for void EARArtifactEdit(ModuleCoreNature, WorkbenchModule, boolean)
+	 * Class under test for void EARArtifactEdit(ModuleCoreNature, WorkbenchComponent, boolean)
 	 */
 	public void test_EARArtifactEdit2() {
 		EARArtifactEdit edit = new EARArtifactEdit(moduleCoreNature, earWorkbenchModule, true);

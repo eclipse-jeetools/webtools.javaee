@@ -26,15 +26,15 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.modulecore.DependentModule;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
-import org.eclipse.wst.common.modulecore.ModuleType;
-import org.eclipse.wst.common.modulecore.ProjectModules;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.ComponentType;
+import org.eclipse.wst.common.modulecore.ProjectComponents;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class FlexibleProjectBuilderTest extends TestCase {
@@ -174,7 +174,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
 			// will setup and handle creating the modules model
 			getProjectForRemoteWebLib();
 
-			WorkbenchModule webModule = localModuleCore.findWorkbenchModuleByDeployName(getWebModuleDeployedName());
+			WorkbenchComponent webModule = localModuleCore.findWorkbenchModuleByDeployName(getWebModuleDeployedName());
 
 			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getLocalWebLibraryModuleURI());
 			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
@@ -244,11 +244,11 @@ public class FlexibleProjectBuilderTest extends TestCase {
 				ModuleCore moduleCore = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
 				String deployedName = aProjectName + ".jar";
 				URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + aProjectName + IPath.SEPARATOR + deployedName);
-				WorkbenchModule utilityModule = addWorkbenchModule(moduleCore.getModuleModelRoot(), deployedName, moduleURI);
+				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getModuleModelRoot(), deployedName, moduleURI);
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
 
-				ModuleType utilityModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
+				ComponentType utilityModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
 				utilityModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
 				utilityModule.setModuleType(utilityModuleType);
 
@@ -261,23 +261,23 @@ public class FlexibleProjectBuilderTest extends TestCase {
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 	}
 	
-	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
-		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
+	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
+		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 
-	public WorkbenchModule addWorkbenchModule(ProjectModules theModules, String aDeployedName, URI aHandle) {
-		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
+		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
 		module.setDeployedName(aDeployedName);
 		module.setHandle(aHandle);
 		theModules.getWorkbenchModules().add(module);
 		return module;
 	}
 
-	public void addDependentModule(WorkbenchModule aModule, URI aDeployedPath, URI aHandle) {
-		DependentModule aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createDependentModule();
+	public void addDependentModule(WorkbenchComponent aModule, URI aDeployedPath, URI aHandle) {
+		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createDependentModule();
 		aClasspathDependentModule.setDeployedPath(aDeployedPath);
 		aClasspathDependentModule.setHandle(aHandle);
 		aModule.getModules().add(aClasspathDependentModule);
@@ -285,15 +285,15 @@ public class FlexibleProjectBuilderTest extends TestCase {
 	
 	public void createLocalModules(ModuleCore moduleCore) throws Exception {
 
-		ProjectModules projectModules = moduleCore.getModuleModelRoot();
+		ProjectComponents projectModules = moduleCore.getModuleModelRoot();
 
-		WorkbenchModule webLibraryModule = addWorkbenchModule(projectModules, getLocalWebLibraryDeployedName(), getLocalWebLibraryModuleURI());
+		WorkbenchComponent webLibraryModule = addWorkbenchModule(projectModules, getLocalWebLibraryDeployedName(), getLocalWebLibraryModuleURI());
 		IFolder localWebLibrary = getProjectForWebModuleAndLocalWebLib().getFolder(getLocalWebLibraryFolderName());
 		if (!localWebLibrary.exists())
 			localWebLibrary.create(true, true, null);
 		addResource(webLibraryModule, localWebLibrary, "/");
 
-		ModuleType webModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
+		ComponentType webModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
 		webModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
 		webLibraryModule.setModuleType(webModuleType);
 	}
