@@ -30,7 +30,7 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 
 public class EARArtifactEdit extends EnterpriseArtifactEdit {
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Identifier used to group and query common artifact edits.
 	 * </p>
@@ -39,7 +39,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 
 	public static String TYPE_ID = "EAR_TYPE";
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}.
 	 * </p>
@@ -50,7 +50,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		super(model);
 	}
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Retrieves J2EE version information from ApplicationResource.
 	 * </p>
@@ -62,7 +62,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		return getApplicationXmiResource().getJ2EEVersionID();
 	}
 
-	/***********************************************************************************************
+	/**
 	 * 
 	 * @return ApplicationResource from (@link getDeploymentDescriptorResource())
 	 *  
@@ -72,7 +72,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		return (ApplicationResource) getDeploymentDescriptorResource();
 	}
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Obtains the Application (@see Application) root object from the ApplicationResource, the root
 	 * object contains all other resource defined objects.
@@ -86,7 +86,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		return (Application) getDeploymentDescriptorRoot();
 	}
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Retrieves the resource from the ArtifactEditModel using defined URI.
 	 * </p>

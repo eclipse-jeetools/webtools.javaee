@@ -43,7 +43,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
  */
 public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Identifier used to link WebArtifactEdit to a WebEditAdapterFactory (@see
 	 * WebEditAdapterFactory) stored in an AdapterManger (@see AdapterManager)
@@ -52,7 +52,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	public static final Class ADAPTER_TYPE = WebArtifactEdit.class;
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Identifier used to group and query common artifact edits.
 	 * </p>
@@ -60,7 +60,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}.
 	 * </p>
@@ -72,7 +72,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		super(model);
 
 	}
-	
+
 	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
@@ -84,14 +84,13 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
-	
-	
-	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule,
-			boolean toAccessAsReadOnly) {
-		super(aNature, aModule, toAccessAsReadOnly);
-	}	
 
-	/***********************************************************************************************
+
+	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
+		super(aNature, aModule, toAccessAsReadOnly);
+	}
+
+	/**
 	 * <p>
 	 * Retrieves J2EE version information from WebAppResource.
 	 * </p>
@@ -103,7 +102,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return getWebApplicationXmiResource().getJ2EEVersionID();
 	}
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Obtains the WebApp (@see WebApp) root object from the WebAppResource. If the root object does
 	 * not exist, then one is created (@link addWebAppIfNecessary(getWebApplicationXmiResource())).
@@ -121,7 +120,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return (EObject) contents.get(0);
 	}
 
-	/***********************************************************************************************
+	/**
 	 * 
 	 * @return WebAppResource from (@link getDeploymentDescriptorResource())
 	 *  
@@ -131,7 +130,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return (WebAppResource) getDeploymentDescriptorResource();
 	}
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Retrieves the underlying resource from the ArtifactEditModel using defined URI.
 	 * </p>
@@ -144,7 +143,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return getArtifactEditModel().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 	}
 
-	/***********************************************************************************************
+	/**
 	 * 
 	 * @return WebApp from (@link getDeploymentDescriptorRoot())
 	 *  
@@ -153,7 +152,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return (WebApp) getDeploymentDescriptorRoot();
 	}
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Retrieves Servlet version information derived from the WebAppResource.
 	 * </p>
@@ -168,7 +167,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Creates a deployment descriptor root object (WebApp) and populates with data. Adds the root
 	 * object to the deployment descriptor resource.
@@ -177,8 +176,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * 
 	 * @param aModule
-	 *            A non-null pointing to a XMLResource (@see XMLResource) 
-	 *            
+	 *            A non-null pointing to a XMLResource (@see XMLResource)
+	 * 
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
@@ -218,16 +217,16 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			files.add(file);
 		}
 	}
-	
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method must be 
-	 * {@see #dispose()}ed of when no longer in use.
+	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}that will not be
-	 * used for editing. Invocations of any save*() API on an instance returned from this method
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}that will not
+	 * be used for editing. Invocations of any save*() API on an instance returned from this method
 	 * will throw exceptions.
 	 * </p>
 	 * <p>
@@ -237,25 +236,27 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aModule
 	 *            A valid {@see WorkbenchModule}with a handle that resolves to an accessible
 	 *            project in the workspace
-	 * @return An instance of WebArtifactEdit that may only be used to read the underlying content model
-	 * @throws UnresolveableURIException could not resolve uri.
+	 * @return An instance of WebArtifactEdit that may only be used to read the underlying content
+	 *         model
+	 * @throws UnresolveableURIException
+	 *             could not resolve uri.
 	 */
-	
+
 
 	public static WebArtifactEdit getWebEditForRead(WorkbenchModule aModule) {
 		try {
 			ModuleType moduleType = aModule.getModuleType();
-			if(moduleType == null)
+			if (moduleType == null)
 				return null;
-			if(IModuleConstants.JST_WEB_MODULE.equals(moduleType.getModuleTypeId())) { 
+			if (IModuleConstants.JST_WEB_MODULE.equals(moduleType.getModuleTypeId())) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
 				if (project.isAccessible()) {
-					ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);					
+					ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 					return new WebArtifactEdit(nature, aModule, true);
 				}
 			}
 		} catch (UnresolveableURIException uue) {
 		}
-		return null;	
+		return null;
 	}
 }

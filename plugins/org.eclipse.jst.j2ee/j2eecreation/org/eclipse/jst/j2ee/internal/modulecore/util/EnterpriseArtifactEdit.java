@@ -60,7 +60,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Retrieves J2EE version information from deployment descriptor resource.
 	 * </p>
@@ -70,7 +70,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 */
 	public abstract int getJ2EEVersion();
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Retrieves a deployment descriptor resource from ArtifactEditModel (@see ArtifactEditModel)
 	 * using a defined URI.
@@ -81,7 +81,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 */
 	public abstract Resource getDeploymentDescriptorResource();
 
-	/***********************************************************************************************
+	/**
 	 * <p>
 	 * Obtains the root object from a deployment descriptor resource, the root object contains all
 	 * other resource defined objects. Examples of a deployment descriptor root include: WebAPP
