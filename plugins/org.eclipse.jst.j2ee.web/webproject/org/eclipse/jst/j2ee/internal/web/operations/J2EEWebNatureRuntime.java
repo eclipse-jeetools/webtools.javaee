@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
@@ -44,10 +45,13 @@ import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.WebSettings;
 
 import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;
+import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
@@ -736,15 +740,46 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 		contextRoot = newContextRoot;
 	}
 
-	public void primaryContributeToContext(EMFWorkbenchContextBase aNature) {
-		if (emfContext == aNature)
+	public void primaryContributeToContext(EMFWorkbenchContextBase aNewEMFContext) {
+		if (emfContext == aNewEMFContext)
 			return;
-		super.primaryContributeToContext(aNature);
-		WorkbenchURIConverter converter = (WorkbenchURIConverter) aNature.getResourceSet().getURIConverter();
-		converter.addInputContainer(getProject());
+		ModuleCoreNature moduleCoreNature = ModuleCoreNature.getModuleCoreNature(getProject());
+		if(moduleCoreNature == null)
+		    setupNonFlexibleProject(aNewEMFContext);
+		else
+		    setupFlexibleProject(aNewEMFContext);
 	}
 
-	protected String convertNatureTypeToString(int type) {
+	/**
+     * @param aNewEMFContext
+     */
+    private void setupFlexibleProject(EMFWorkbenchContextBase aNewEMFContext) {
+		emfContext = aNewEMFContext;
+		getEmfContext().setDefaultToMOF5Compatibility(true);
+		//Overriding superclass to use our own URI converter, which knows about binary projects
+		ProjectResourceSet projectResourceSet = aNewEMFContext.getResourceSet();
+		/* Flexible projects have their own ResourceFactories and their URI Converters */
+//		set.setResourceFactoryRegistry(new J2EEResourceFactoryRegistry());
+//		WorkbenchURIConverter conv = initializeWorbenchURIConverter(set);
+//		set.setURIConverter(conv);
+		initializeCacheEditModel();
+		addAdapterFactories(projectResourceSet);
+		projectResourceSet.getSynchronizer().addExtender(this); //added so we can be informed of closes to the
+		// project.
+		//new J2EEResourceDependencyRegister(set); //This must be done after the URIConverter is
+		// created.
+    }
+    
+	/**
+     * @param aNewEMFContext
+     */
+    private void setupNonFlexibleProject(EMFWorkbenchContextBase aNewEMFContext) {
+        super.primaryContributeToContext(aNewEMFContext);
+		WorkbenchURIConverter converter = (WorkbenchURIConverter) aNewEMFContext.getResourceSet().getURIConverter();
+		converter.addInputContainer(getProject());
+    }
+
+    protected String convertNatureTypeToString(int type) {
 		return PROJECTTYPE_J2EE_VALUE;
 	}
 
