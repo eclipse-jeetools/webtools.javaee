@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2003/11/11 16:26:34 $ 
  */
 
 
@@ -73,11 +73,13 @@ public class ConnectionHandler {
 	 * Request the thread to close down.
 	 */
 	public void close() {
-		try {
-			Socket s = socket;
-			socket = null;
-			s.close();
-		} catch (Exception e) {
+		if (socket != null) {
+			try {
+				Socket s = socket;
+				socket = null;
+				s.close();
+			} catch (Exception e) {
+			}
 		}
 	}
 	
