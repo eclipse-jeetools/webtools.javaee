@@ -24,13 +24,13 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
-public abstract class FlexibileJ2EECreationOperation extends WTPOperation {
+public abstract class FlexibleJ2EECreationOperation extends WTPOperation {
 
-	public FlexibileJ2EECreationOperation(FlexibleJ2EECreationDataModel dataModel) {
+	public FlexibleJ2EECreationOperation(FlexibleJ2EECreationDataModel dataModel) {
 		super(dataModel);
 	}
 
-	public FlexibileJ2EECreationOperation() {
+	public FlexibleJ2EECreationOperation() {
 		super();
 	}
 

@@ -31,7 +31,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 
-public abstract class FlexibileJ2EEModuleCreationOperation extends FlexibileJ2EECreationOperation {
+public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECreationOperation {
 	/**
 	 * name of the template emitter to be used to generate the deployment descriptor from the tags
 	 */
@@ -41,11 +41,11 @@ public abstract class FlexibileJ2EEModuleCreationOperation extends FlexibileJ2EE
 	 */
 	protected static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
 	
-	public FlexibileJ2EEModuleCreationOperation(FlexibleJ2EEModuleCreationDataModel dataModel) {
+	public FlexibleJ2EEModuleCreationOperation(FlexibleJ2EEModuleCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
-	public FlexibileJ2EEModuleCreationOperation() {
+	public FlexibleJ2EEModuleCreationOperation() {
 		super();
 	}
 

@@ -50,7 +50,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * 
  * @since WTP 1.0
  */
-public class FlexibileWebModuleCreationDataModel extends FlexibleJ2EEModuleCreationDataModel {
+public class FlexibleWebModuleCreationDataModel extends FlexibleJ2EEModuleCreationDataModel {
 
 	/**
 	 * Type Integer
@@ -69,7 +69,7 @@ public class FlexibileWebModuleCreationDataModel extends FlexibleJ2EEModuleCreat
 
 
 	public WTPOperation getDefaultOperation() {
-		return new FlexibileWebModuleCreationOperation(this);
+		return new FlexibleWebModuleCreationOperation(this);
 	}
 
 	/**
