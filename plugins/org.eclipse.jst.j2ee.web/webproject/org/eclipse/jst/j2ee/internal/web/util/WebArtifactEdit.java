@@ -28,16 +28,15 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleType;
-import org.eclipse.wst.common.modulecore.ModuleURIUtil;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * <p>
- * WebArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}to obtain Web
+ * WebArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}&nbsp;to obtain Web
  * specifec data from a WebAppResource (@see WebAppResource). The WebAppResource is retrieved from
- * the ArtifactEditModel {@see ArtifactEditModel}using a cached constant (@see
+ * the ArtifactEditModel {@see ArtifactEditModel}&nbsp;using a cached constant (@see
  * J2EEConstants.WEBAPP_DD_URI_OBJ). Defined methods extract data from the resource.
  * </p>
  */
@@ -189,7 +188,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			aResource.getContents().add(webApp);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				webApp.setDisplayName(ModuleURIUtil.getDeployedName(moduleURI));
+				webApp.setDisplayName(ModuleCore.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(webApp, J2EEConstants.WEBAPP_ID);
