@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: TestReflection.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:17:20 $ 
  */
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.TypeKind;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.TypeKind;
 
 /**
  * @author richkulp

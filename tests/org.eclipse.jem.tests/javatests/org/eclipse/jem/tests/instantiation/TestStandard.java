@@ -34,9 +34,9 @@ import org.eclipse.jem.internal.instantiation.InitStringAllocation;
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
 import org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance;
 import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
-import org.eclipse.jem.internal.java.JavaClass;
-import org.eclipse.jem.internal.java.JavaHelpers;
-import org.eclipse.jem.internal.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jem.java.impl.JavaClassImpl;
 import org.eclipse.jem.tests.JavaProjectUtil;
 import org.eclipse.jem.tests.beaninfo.AbstractBeanInfoTestCase;
 

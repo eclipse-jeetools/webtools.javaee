@@ -2,16 +2,12 @@
 <feature
       id="org.eclipse.jem.tests"
       label="%featureName"
-      version="0.5.0"
+      version="1.0.0"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
-   <description>
-      %description
-   </description>
-
    <license url="%licenseURL">
-      %license
+      
    </license>
 
    <requires>
@@ -22,17 +18,25 @@
          id="org.eclipse.jem.tests"
          download-size="0"
          install-size="0"
-         version="0.5.0"/>
+         version="1.0.0"/>
 
    <plugin
-         id="org.eclipse.test" version="0.0.0"/>
-         
-   <plugin id="org.eclipse.ant.optional.junit" version="0.0.0" fragment="true"/>         
-         
+         id="org.eclipse.test"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ant.optional.junit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
    <plugin
          id="org.eclipse.jem.tests.source"
          download-size="0"
          install-size="0"
-         version="0.5.0"/>         
+         version="1.0.0"/>
 
 </feature>

@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:17:20 $ 
  */
 
 import java.util.Iterator;
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
 
-import org.eclipse.jem.internal.java.*;
+import org.eclipse.jem.java.*;
 
 /**
  * @author richkulp
@@ -386,7 +386,7 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 		assertEquals(2+objFeatures, test1Class.getAllProperties().size());
 		assertEquals(3+objFeatures, test1ClassA.getAllProperties().size());
 		try {
-			test1Class.getEReferences().remove(0); // Remove the first one. They should both now rebuild.
+			test1Class.getEStructuralFeatures().remove(0); // Remove the first one. They should both now rebuild.
 			assertEquals(1+objFeatures, test1Class.getAllProperties().size());
 			assertEquals(2+objFeatures, test1ClassA.getAllProperties().size());
 		} finally {

@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: AbstractBeanInfoTestCase.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 16:17:20 $ 
  */
 import java.util.Iterator;
 
@@ -27,7 +27,7 @@ import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
 import org.eclipse.jem.tests.JavaProjectUtil;
 
-import org.eclipse.jem.internal.java.JavaClass;
+import org.eclipse.jem.java.JavaClass;
 
 /**
  * @author richkulp

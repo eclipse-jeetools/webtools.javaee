@@ -2,7 +2,7 @@
 <plugin
    id="org.eclipse.jem.tests"
    name="%pluginName"
-   version="0.5.0"
+   version="1.0.0"
    provider-name="%providerName"
    class="org.eclipse.jem.tests.JavaTestsPlugin">
 
@@ -19,6 +19,10 @@
       <import plugin="org.eclipse.jem.beaninfo"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.jem"/>
    </requires>
 
 
