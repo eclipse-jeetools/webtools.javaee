@@ -17,7 +17,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
-;
 
 public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 	private static final String ID = "com.ibm.wtp.server.j2ee.connector13"; //$NON-NLS-1$

@@ -110,6 +110,7 @@ public class ConnectorModuleImportOperation extends J2EEArtifactImportOperation 
 			try {
 				ProjectUtilities.appendJavaClassPath(((ConnectorModuleImportDataModel) getOperationDataModel()).getProject(), classPathEntries);
 			} catch (JavaModelException jme) {
+				//Ignore
 			}
 		}
 	}

@@ -24,7 +24,6 @@ import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataMo
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
@@ -105,7 +104,7 @@ public final class ConnectorModuleCreationDataModel extends J2EEModuleCreationDa
 			case (J2EEVersionConstants.J2EE_1_4_ID) :
 				return new Integer(J2EEVersionConstants.JCA_1_5_ID);
 			case (J2EEVersionConstants.J2EE_1_3_ID) :
-				return new Integer(J2EEConstants.JCA_1_0_ID);
+				return new Integer(J2EEVersionConstants.JCA_1_0_ID);
 			case (J2EEVersionConstants.J2EE_1_2_ID) :
 				return null;
 			default :

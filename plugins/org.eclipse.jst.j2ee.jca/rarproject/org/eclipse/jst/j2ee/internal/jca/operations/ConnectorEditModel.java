@@ -11,20 +11,15 @@
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
 
-import java.io.IOException;
-
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 /**
  * Creates an edit model for the Connector project.
@@ -60,24 +55,15 @@ public class ConnectorEditModel extends J2EEEditModel {
 	 * @return Connector
 	 */
 	public Connector getConnector() {
-
-		try {
-			Resource dd = this.getConnectorXmiResource();
-			if (dd != null) {
-				Object rootObject = J2EEEditModel.getRoot(dd);
-				if (rootObject instanceof Connector) {
-					return (Connector) rootObject;
-				} // if
-			} // if
-		} catch (CoreException e) {
-			Logger.getLogger().logError(IConnectorNatureConstants.ERROR_OCCURED_GETTING_CONN_ERROR_);
-		} catch (IOException e2) {
-			Logger.getLogger().logError(IConnectorNatureConstants.ERROR_OCCURED_GETTING_CONN_ERROR_);
-		} // try
-
+		Resource dd = this.getConnectorXmiResource();
+		if (dd != null) {
+			Object rootObject = EditModel.getRoot(dd);
+			if (rootObject instanceof Connector) {
+				return (Connector) rootObject;
+			}
+		}
 		return null;
-
-	} // getConnector
+	}
 
 	/**
 	 * Returns the respected resource based on an archive constant.
@@ -85,8 +71,8 @@ public class ConnectorEditModel extends J2EEEditModel {
 	 * @return Resource
 	 * @throws Exception
 	 */
-	public Resource getConnectorXmiResource() throws CoreException, IOException {
-		return getResource(ArchiveConstants.RAR_DD_URI_OBJ);
+	public Resource getConnectorXmiResource() {
+		return getResource(J2EEConstants.RAR_DD_URI_OBJ);
 	} // getConnectorXmiResource
 
 	/**
@@ -95,7 +81,7 @@ public class ConnectorEditModel extends J2EEEditModel {
 	 * @return Resource
 	 */
 	public Resource makeConnectorXmiResource() {
-		return createResource(ArchiveConstants.RAR_DD_URI_OBJ);
+		return createResource(J2EEConstants.RAR_DD_URI_OBJ);
 	} // makeConnectorXmiResource
 
 	/**
@@ -107,20 +93,14 @@ public class ConnectorEditModel extends J2EEEditModel {
 		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) makeConnectorXmiResource();
 		Connector connector = JcaPackage.eINSTANCE.getJcaFactory().createConnector();
 		res.getContents().add(connector);
-		res.setID(connector, ArchiveConstants.CONNECTOR_ID);
+		res.setID(connector, J2EEConstants.CONNECTOR_ID);
 		res.setModuleVersionID(getConnectorNature().getModuleVersion());
 		connector.setDisplayName(getProject().getName());
 		return res;
 	} // makeDeploymentDescriptorWithRoot
 
 	public XMLResource getDeploymentDescriptorResource() {
-		try {
-			return (XMLResource) getConnectorXmiResource();
-		} catch (CoreException e) {
-			return null;
-		} catch (IOException e2) {
-			return null;
-		}
+		return (XMLResource) getConnectorXmiResource();
 	}
 
 	/*

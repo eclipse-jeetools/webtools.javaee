@@ -230,7 +230,6 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 */
 	public void notifyChanged(Notifier notifier, int eventType, EObject feature, Object oldValue, Object newValue, int index) {
 		JcaPackage pkg = JcaPackage.eINSTANCE;
-		;
 		Notification msg = new ENotificationImpl((InternalEObject) notifier, eventType, feature.eContainmentFeature(), oldValue, newValue, index);
 		if (feature == pkg.getLicense_Description() || feature == pkg.getLicense_Required()) {
 			fireNotifyChanged(msg);

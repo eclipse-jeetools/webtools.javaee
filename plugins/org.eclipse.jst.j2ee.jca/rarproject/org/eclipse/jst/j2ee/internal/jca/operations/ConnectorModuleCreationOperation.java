@@ -31,8 +31,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.jca.Connector;
@@ -50,11 +50,11 @@ public class ConnectorModuleCreationOperation extends J2EEModuleCreationOperatio
 		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
 			protected void execute(IProgressMonitor aMonitor) throws CoreException, InvocationTargetException, InterruptedException {
 				ConnectorEditModel model = (ConnectorEditModel) editModel;
-				IFolder metainf = model.getConnectorNature().getEMFRoot().getFolder(new Path(ArchiveConstants.META_INF));
+				IFolder metainf = model.getConnectorNature().getEMFRoot().getFolder(new Path(J2EEConstants.META_INF));
 				if (!metainf.exists()) {
 					metainf.create(true, true, null);
 				}
-				IFile aFile = model.getConnectorNature().getEMFRoot().getFile(new Path(ArchiveConstants.RAR_DD_URI));
+				IFile aFile = model.getConnectorNature().getEMFRoot().getFile(new Path(J2EEConstants.RAR_DD_URI));
 				OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
 				String template = model.getJ2EENature().getModuleVersion() == J2EEVersionConstants.JCA_1_0_ID ? IConnectorNatureConstants.CONNECTOR_XML_TEMPLATE_10 : IConnectorNatureConstants.CONNECTOR_XML_TEMPLATE_15;
 				InputStream in = getClass().getResourceAsStream(template);
@@ -75,7 +75,7 @@ public class ConnectorModuleCreationOperation extends J2EEModuleCreationOperatio
 							Logger.getLogger().logError(ioe);
 						}
 					}
-					Resource resource = model.getResource(URI.createURI(ArchiveConstants.RAR_DD_URI));
+					Resource resource = model.getResource(URI.createURI(J2EEConstants.RAR_DD_URI));
 					if (null != resource) {
 						resource.unload();
 					}

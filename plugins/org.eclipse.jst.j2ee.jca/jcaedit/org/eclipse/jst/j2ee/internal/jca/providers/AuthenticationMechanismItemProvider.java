@@ -274,7 +274,6 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 */
 	public void notifyChanged(Notifier notifier, int eventType, EObject feature, Object oldValue, Object newValue, int index) {
 		JcaPackage pkg = JcaPackage.eINSTANCE;
-		;
 		Notification msg = new ENotificationImpl((InternalEObject) notifier, eventType, feature.eContainmentFeature(), oldValue, newValue, index);
 		if (feature == pkg.getAuthenticationMechanism_Description() || feature == pkg.getAuthenticationMechanism_AuthenticationMechanismType() || feature == pkg.getAuthenticationMechanism_CredentialInterface()) {
 			fireNotifyChanged(msg);

@@ -34,7 +34,7 @@ public class JCAUIPlugin extends AbstractUIPlugin {
 	}
 	
 	public JCAUIPlugin() {
-		
+		//Default constructor
 	}
 
 	/**

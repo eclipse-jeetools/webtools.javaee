@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
-import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
+import org.eclipse.jst.j2ee.model.internal.validation.ConnectorMessageConstants;
 
 
 /**
@@ -40,7 +40,7 @@ public class ConnectorHelper extends J2EEValidationHelper {
 	 */
 	public ConnectorHelper() {
 		super();
-		registerModel(ConnectorValidator.CONNECTOR_MODEL_NAME, "loadRarFile"); //$NON-NLS-1$
+		registerModel(ConnectorMessageConstants.CONNECTOR_MODEL_NAME, "loadRarFile"); //$NON-NLS-1$
 	}
 
 	/**

@@ -21,8 +21,8 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.RARProjectLoadStrategyImpl;
@@ -123,7 +123,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	 * @throws Exception
 	 */
 	public Resource getConnectorXmiResource() {
-		return getResource(URI.createURI(ArchiveConstants.RAR_DD_URI));
+		return getResource(URI.createURI(J2EEConstants.RAR_DD_URI));
 	} // getConnectorXmiResource
 
 
@@ -308,7 +308,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	 * @return boolean
 	 */
 	public boolean matchXmlUri(String uri) {
-		if (uri != null && uri.equals(ArchiveConstants.RAR_DD_URI)) {
+		if (uri != null && uri.equals(J2EEConstants.RAR_DD_URI)) {
 			return true;
 		}// if
 		return false;

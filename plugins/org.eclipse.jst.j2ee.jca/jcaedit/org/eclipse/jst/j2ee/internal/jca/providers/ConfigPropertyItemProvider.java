@@ -263,7 +263,6 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 */
 	public void notifyChanged(Notifier notifier, int eventType, EObject feature, Object oldValue, Object newValue, int index) {
 		JcaPackage pkg = JcaPackage.eINSTANCE;
-		;
 		Notification msg = new ENotificationImpl((InternalEObject) notifier, eventType, feature.eContainmentFeature(), oldValue, newValue, index);
 		if (feature == pkg.getConfigProperty_Description() || feature == pkg.getConfigProperty_Name() || feature == pkg.getConfigProperty_Type() || feature == pkg.getConfigProperty_Value()) {
 

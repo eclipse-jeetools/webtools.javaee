@@ -29,9 +29,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 
@@ -240,7 +240,7 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 
 	private boolean isDeploymentDescriptor(IFile iFile, IFolder root) {
 		IPath path = iFile.getProjectRelativePath().removeFirstSegments(moduleRootSegmentCount);
-		return ArchiveConstants.RAR_DD_URI.equals(path.toString());
+		return J2EEConstants.RAR_DD_URI.equals(path.toString());
 	}
 
 	public IContainer getModuleContainer() {

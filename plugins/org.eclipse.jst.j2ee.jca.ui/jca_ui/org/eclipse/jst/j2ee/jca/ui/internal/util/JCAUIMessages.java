@@ -55,6 +55,7 @@ public class JCAUIMessages extends Messages {
 		try {
 			resourceBundle = ResourceBundle.getBundle("jca_ui"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
+			//Ignore
 		}
 	}
 }
