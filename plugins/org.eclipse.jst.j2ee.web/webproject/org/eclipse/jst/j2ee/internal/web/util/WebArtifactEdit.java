@@ -309,7 +309,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
-	public String getContentName(){
+	public String setContextRoot(String contextRoot) {
+		//TODO return the valid context root for the module
+		return null;
+	}
+	
+	public IContainer getWebContentFolder(){
 		//TODO return the valid context root for the module
 		return null;
 		
