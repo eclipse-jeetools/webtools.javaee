@@ -19,11 +19,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -83,7 +82,7 @@ public class NewEJBJavaClassDataModel extends NewJavaClassDataModel {
 				projectName = projectName.substring(0, index);
 				setProperty(PROJECT_NAME, projectName);
 				if (this.parentDataModel != null)
-					this.parentDataModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, projectName);
+					this.parentDataModel.setProperty(PROJECT_NAME, projectName);
 			}
 		}
 		return super.doSetProperty(propertyName, propertyValue);

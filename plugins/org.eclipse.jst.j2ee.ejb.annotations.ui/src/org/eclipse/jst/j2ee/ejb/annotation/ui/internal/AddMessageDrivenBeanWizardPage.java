@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.messages.IEJBAnnotationConstants;
@@ -29,7 +30,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
@@ -95,7 +95,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 
 	protected IStatus validateProjectName() {
 		// check for empty
-		if (model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME) == null || model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME).trim().length() == 0) {
+		if (model.getStringProperty(NewJavaClassDataModel.PROJECT_NAME) == null || model.getStringProperty(NewJavaClassDataModel.PROJECT_NAME).trim().length() == 0) {
 			return WTPCommonPlugin.createErrorStatus(IEJBAnnotationConstants.NO_EJB_PROJECTS);
 		}
 		return WTPCommonPlugin.OK_STATUS;
@@ -190,7 +190,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
 		IProject project = null;
-		project = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
+		project = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty(NewJavaClassDataModel.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
 		annotationsGroup.setUseAnnotations(true);
 	}

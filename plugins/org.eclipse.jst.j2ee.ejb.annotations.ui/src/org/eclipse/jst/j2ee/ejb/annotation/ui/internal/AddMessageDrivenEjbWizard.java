@@ -10,6 +10,7 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
@@ -18,7 +19,6 @@ import org.eclipse.jst.j2ee.ejb.annotation.operations.AddMessageDrivenBeanOperat
 import org.eclipse.jst.j2ee.ejb.annotations.ui.EjbAnnotationsUiPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 
 public class AddMessageDrivenEjbWizard extends NewEjbWizard {
@@ -55,8 +55,8 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 		
 		IProject project = getDefaultEjbProject();
 		if (project != null) {
-		    model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
-		    nestedModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
+		    model.setProperty(NewJavaClassDataModel.PROJECT_NAME, project.getName());
+		    nestedModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, project.getName());
 		}
 		return model;
 	}
