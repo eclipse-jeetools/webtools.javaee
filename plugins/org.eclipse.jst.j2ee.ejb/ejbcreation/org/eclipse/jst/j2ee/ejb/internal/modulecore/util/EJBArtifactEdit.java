@@ -216,10 +216,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	protected void addEJBJarIfNecessary(XMLResource aResource) {
 
-		//if (aResource != null && aResource.getContents().isEmpty()) {
-		if (aResource != null ) {		
-			//EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
-			//aResource.getContents().add(ejbJar);
+		if (aResource != null && aResource.getContents().isEmpty()) {
+			EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
+			aResource.getContents().add(ejbJar);
+		}
+		if (aResource != null ) {
 			EJBJar ejbJar = (EJBJar)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
@@ -369,7 +370,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 			e.printStackTrace();
 		}
 
-		addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource());
+		getDeploymentDescriptorRoot();
 	}
 			
 	public EObject createModelRoot(int version) {
