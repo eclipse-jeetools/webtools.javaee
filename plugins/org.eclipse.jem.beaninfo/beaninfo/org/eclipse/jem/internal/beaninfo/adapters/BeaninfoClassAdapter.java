@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/14 18:36:32 $ 
+ *  $Revision: 1.5 $  $Date: 2004/02/18 16:40:05 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -479,7 +479,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							// The class itself could not be found. Just log it, but treat as no proxy.
 							BeaninfoPlugin.getPlugin().getMsgLogger().log(
 								new Status(
-									IStatus.WARNING,
+									IStatus.INFO,
 									BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
 									0,
 									MessageFormat.format(
