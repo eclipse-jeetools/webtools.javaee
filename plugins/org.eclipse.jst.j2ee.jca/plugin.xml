@@ -123,11 +123,13 @@
       </editModel>
    </extension>
    
-   <!-- Component Structural builders -->      
-   <extension point="org.eclipse.wst.common.modulecore.ComponentStructuralBuilder">
-   		<componentStructuralBuilder 
-    	serverTargetID="default"
-    	componentTypeID="jst.connector"
-    	componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+   <!--============================-->
+   <!-- Builder Provider registrations-->
+   <!--============================-->
+   <extension
+         point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+     	<ProviderDefinesType
+      		providerType="ConnectorComponentBuilder"
+      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>

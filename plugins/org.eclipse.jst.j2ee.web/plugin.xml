@@ -623,11 +623,13 @@
 		</natureMapping>
 	</extension>
 	
-    <!-- Component Structural builders -->
-	<extension point="org.eclipse.wst.common.modulecore.ComponentStructuralBuilder">
-   		<componentStructuralBuilder 
-    	serverTargetID="default"
-    	componentTypeID="jst.web"
-    	componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+   <!--============================-->
+   <!-- Builder Provider registrations-->
+   <!--============================-->
+	<extension
+         point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+     	<ProviderDefinesType
+      		providerType="WebComponentBuilder"
+      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>

@@ -724,22 +724,23 @@
          content-type="org.eclipse.core.runtime.xml"
          file-extensions="j2ee,websettings"/>
    </extension>
-   
-    <!-- Component Structural builders -->
-    <extension point="org.eclipse.wst.common.modulecore.ComponentStructuralBuilder">
-   		<componentStructuralBuilder 
-    	 serverTargetID="default"
-     	 componentTypeID="jst.ear"
-    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
-   		
-   		<componentStructuralBuilder 
-    	 serverTargetID="default"
-    	 componentTypeID="jst.appclient"
-    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
-   		
-   		<componentStructuralBuilder 
-    	 serverTargetID="default"
-    	 componentTypeID="jst.utility"
-    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+
+   <!--============================-->
+   <!-- Builder Provider registrations-->
+   <!--============================-->
+   <extension
+         point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+     	<DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+     	<ProviderDefinesType
+      		providerType="EARComponentBuilder"
+      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+		<ProviderDefinesType
+      		providerType="AppClientComponentBuilder"
+      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
+		<ProviderDefinesType
+      		providerType="JavaUtilityComponentBuilder"
+      		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>
