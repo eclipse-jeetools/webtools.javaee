@@ -21,6 +21,8 @@
       <import plugin="org.eclipse.osgi"/>
       <import plugin="com.ibm.wtp.common.util"/>
       <import plugin="org.eclipse.jem.proxy" optional="true"/>
+      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
 
@@ -37,15 +39,16 @@
    </extension>
    <extension
          point="org.eclipse.jem.beaninfo.registrations">
-      <registration container="org.eclipse.jdt.launching.JRE_CONTAINER">
-        <override
-            package="java.lang"
-            path="overrides/java/lang">
-        </override>
-        <override
-            package="..ROOT.."
-            path="overrides">
-        </override>
+      <registration
+            container="org.eclipse.jdt.launching.JRE_CONTAINER">
+         <override
+               package="java.lang"
+               path="overrides/java/lang">
+         </override>
+         <override
+               package="..ROOT.."
+               path="overrides">
+         </override>
       </registration>
    </extension>
 

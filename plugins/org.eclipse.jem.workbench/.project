@@ -6,11 +6,13 @@
 		<project>com.ibm.wtp.common.util</project>
 		<project>com.ibm.wtp.emf.workbench</project>
 		<project>org.eclipse.core.resources</project>
+		<project>org.eclipse.core.runtime</project>
 		<project>org.eclipse.core.runtime.compatibility</project>
 		<project>org.eclipse.emf.ecore.xmi</project>
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jem</project>
 		<project>org.eclipse.jem.proxy</project>
+		<project>org.eclipse.osgi</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -5,10 +5,12 @@
 	<projects>
 		<project>com.ibm.wtp.common.util</project>
 		<project>org.eclipse.core.resources</project>
+		<project>org.eclipse.core.runtime</project>
 		<project>org.eclipse.core.runtime.compatibility</project>
 		<project>org.eclipse.debug.core</project>
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jdt.launching</project>
+		<project>org.eclipse.osgi</project>
 		<project>org.eclipse.pde.core</project>
 	</projects>
 	<buildSpec>

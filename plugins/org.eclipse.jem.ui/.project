@@ -5,6 +5,7 @@
 	<projects>
 		<project>com.ibm.wtp.common.util</project>
 		<project>org.eclipse.core.resources</project>
+		<project>org.eclipse.core.runtime</project>
 		<project>org.eclipse.core.runtime.compatibility</project>
 		<project>org.eclipse.debug.core</project>
 		<project>org.eclipse.debug.ui</project>
@@ -15,6 +16,7 @@
 		<project>org.eclipse.jem.beaninfo</project>
 		<project>org.eclipse.jem.proxy</project>
 		<project>org.eclipse.jem.workbench</project>
+		<project>org.eclipse.osgi</project>
 		<project>org.eclipse.ui</project>
 		<project>org.eclipse.ui.ide</project>
 	</projects>
