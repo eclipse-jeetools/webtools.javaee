@@ -42,7 +42,6 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -524,7 +523,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
 		IProject project = null;
-		project = ((NewServletClassDataModel)model).getTargetProject();
+		project = ((NewJavaClassDataModel)model).getTargetProject();
 		annotationsGroup.setEnablement(project);
 		//annotationsGroup.setUseAnnotations(true);
 	}
