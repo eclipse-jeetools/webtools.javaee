@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.etools.common.test.apitools.ProjectUnzipUtil;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -28,7 +29,6 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.FlexibleJ2EEWebSaveS
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IFlexibleProject;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.frameworks.artifactedit.tests.ProjectUnzipUtil;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
@@ -44,8 +44,8 @@ public class WebSaveStrategyTests extends TestCase {
 
 	public boolean createProject() {
 		IPath localZipPath = getLocalPath();
-		ProjectUnzipUtil util = new ProjectUnzipUtil(localZipPath, projectName);
-		return util.createProject();
+		ProjectUnzipUtil util = new ProjectUnzipUtil(localZipPath, new String[]{projectName});
+		return util.createProjects();
 	}
 
 	private IPath getLocalPath() {
