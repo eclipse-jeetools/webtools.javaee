@@ -204,6 +204,9 @@
             wizardId="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
          <enablement>
          <or>
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
@@ -242,6 +245,9 @@
             wizardId="org.eclipse.jst.ejb.ui.EJBModuleImportWizard">
          <enablement>
          <or>
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
