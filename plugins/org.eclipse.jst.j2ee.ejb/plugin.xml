@@ -146,7 +146,7 @@
 <!-- Extension point: com.ibm.etools.server.core.moduleObjectAdapters -->
 <!-- ==================================================================== -->
    <extension
-         point="org.eclipse.wst.server.core.moduleObjectAdapters">
+         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
       <moduleObjectAdapter
             objectClass="org.eclipse.jst.j2ee.internal.ejb.EJBJar"
             class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"

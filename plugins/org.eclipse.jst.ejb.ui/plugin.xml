@@ -37,6 +37,7 @@
       <import plugin="com.ibm.wtp.emf.workbench"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
+      <import plugin="org.eclipse.wst.common.navigator.workbench"/>
    </requires>
 
 
@@ -119,7 +120,7 @@
          <action
                label="%ejb.jar.file_ui_"
                icon="icons/full/ctool16/import_ejbjar.gif"
-               class=" org.eclipse.jst.ejb.ui.internal.actions.ImportEJBAction"
+               class="org.eclipse.jst.ejb.ui.internal.actions.ImportEJBAction"
                menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.ejb.ui.internal.actions.ImportEJBAction">
@@ -153,7 +154,7 @@
                objectClass="org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper"
                adaptable="true"
                label="%beanClassAnnotationDecorator"
-               class="org.eclipse.jst.j2ee.internal.ejb.ui.internal.util.EJBAnnotationBeanDecorator"
+               class="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator"
                state="true"
                location="TOP_LEFT"
                id="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator_beanClass">
@@ -163,7 +164,7 @@
       </decorator>
       <decorator
                lightweight="true"
-               objectClass="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean"
+               objectClass="org.eclipse.jst.j2ee.ejb.EnterpriseBean"
                adaptable="true"
                label="%ejbAnnotationDecorator"
                class="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator"
