@@ -118,7 +118,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		ModuleStructuralModel structuralModel = null;
 		try {
 			IProject containingProject = getProject();
-			ModuleCoreNature moduleCoreNature = (ModuleCoreNature) containingProject.getNature(ModuleCoreNature.MODULE_NATURE_ID);
+			ModuleCoreNature moduleCoreNature = (ModuleCoreNature) containingProject.getNature(IModuleConstants.MODULE_NATURE_ID);
 			structuralModel = moduleCoreNature.getModuleStructuralModelForWrite(this);
 			structuralModel.prepareProjectModulesIfNecessary();
 			ProjectModules projectModules = (ProjectModules) structuralModel.getPrimaryResource().getContents().get(0);
@@ -135,7 +135,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	 * @param projectModules
 	 */
 	private void addContent(ProjectModules projectModules) {
-	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModulesFolder()+".war", URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName()));		
+	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModulesFolder()+".war", URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName())); //$NON-NLS-1$ //$NON-NLS-2$	
 		addResource(webModule, getModuleRelativeFile(getTestResourcePath(), getProject()), getTestResourcePath());
 	}
 	
@@ -178,6 +178,6 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	}
 	
 	public String getModuleName() {
-		return "MyWebModule";
+		return "MyWebModule"; //$NON-NLS-1$
 	}
 }
