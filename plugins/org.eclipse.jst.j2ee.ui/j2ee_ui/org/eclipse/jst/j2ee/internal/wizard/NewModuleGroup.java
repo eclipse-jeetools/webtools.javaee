@@ -27,7 +27,6 @@ import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDa
 import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard;
 import org.eclipse.swt.SWT;
