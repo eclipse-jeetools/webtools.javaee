@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.30 $  $Date: 2004/07/24 20:45:53 $ 
+ *  $Revision: 1.31 $  $Date: 2004/08/06 14:29:06 $ 
  */
 
 
@@ -393,8 +393,11 @@ public class ProxyPlugin extends Plugin {
 				Bundle bundle = (Bundle) entry.getKey() ;
 				int[] count = (int[]) entry.getValue();
 				if (count != null && count[0] <= 0) {
-					if (bundlesToOrder.contains(bundle))
+					if (bundlesToOrder.contains(bundle)) {
 						result[--ndx] = bundle;
+						if (ndx == 0)
+							return result;	// We've ordered all that we care about. Anything left over is unimportant.
+					}
 					ib.remove();
 					// decrement the dependent count for all of the prerequisites.
 					List requires = getPrereqs(bundle, prereqsMap);
