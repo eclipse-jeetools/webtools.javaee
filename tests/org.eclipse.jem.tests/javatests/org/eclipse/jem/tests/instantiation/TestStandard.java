@@ -172,10 +172,10 @@ public class TestStandard extends TestCase {
 		pw.println(
 			"<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:_-javaprim=\"java:/\" xmlns:org.eclipse.jem.internal.instantiation=\"http:///org/eclipse/jem/internal/instantiation.ecore\" xmlns:org.eclipse.jem.tests.beaninfo=\"java:/org.eclipse.jem.tests.beaninfo\">");
 		pw.println("  <org.eclipse.jem.tests.beaninfo:Test1Class set=\"/1\">");
-		pw.println("    <allocation xsi:type=\"org.eclipse.jem.internal.instantiation:InitStringAllocation\" allocString=\"new Test1Class()\" initString=\"new Test1Class()\"/>");
+		pw.println("    <allocation xsi:type=\"org.eclipse.jem.internal.instantiation:InitStringAllocation\" initString=\"new Test1Class()\"/>");
 		pw.println("  </org.eclipse.jem.tests.beaninfo:Test1Class>");
 		pw.println("  <_-javaprim:boolean>");
-		pw.println("    <allocation xsi:type=\"org.eclipse.jem.internal.instantiation:InitStringAllocation\" allocString=\"true\" initString=\"true\"/>");
+		pw.println("    <allocation xsi:type=\"org.eclipse.jem.internal.instantiation:InitStringAllocation\" initString=\"true\"/>");
 		pw.println("  </_-javaprim:boolean>");
 		pw.println("</xmi:XMI>");
 		pw.close();

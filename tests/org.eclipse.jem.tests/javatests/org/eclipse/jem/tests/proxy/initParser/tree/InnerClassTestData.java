@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: InnerClassTestData.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:13 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
@@ -42,7 +42,35 @@ public class InnerClassTestData {
 			 */
 			public class InnerInnerInnerInnerClass {
 
+				/* (non-Javadoc)
+				 * @see java.lang.Object#equals(java.lang.Object)
+				 */
+				public boolean equals(Object obj) {
+					return super.equals(obj) || obj instanceof InnerInnerInnerInnerClass;
+				}
+			}
+			
+			/* (non-Javadoc)
+			 * @see java.lang.Object#equals(java.lang.Object)
+			 */
+			public boolean equals(Object obj) {
+				return super.equals(obj) || obj instanceof InnerInnerInnerClass;
 			}
 		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		public boolean equals(Object obj) {
+			return super.equals(obj) || obj instanceof InnerInnerClass;
+		}
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object obj) {
+		return super.equals(obj) || obj instanceof InnerClassTestData;
+	}
+	
 }

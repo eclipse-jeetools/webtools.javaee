@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: OverloadingTest.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/23 22:53:36 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/03 23:18:13 $ 
  */
 
 /**
@@ -32,9 +32,9 @@ public class OverloadingTest extends AbstractInitParserTestCase {
 	}
 
 	public void testOverloadString() throws Throwable {
-		testHelper.testInitString("new String(\"Frog\")", "Frog");
+		testHelper.testInitString("new Integer(\"3\")", new Integer(3));
 	}
 	public void testOverloadShort() throws Throwable {
-		testHelper.testInitString("new String((short)3)", "3");
+		testHelper.testInitString("new Integer(5)", new Integer(5));
 	}
 }

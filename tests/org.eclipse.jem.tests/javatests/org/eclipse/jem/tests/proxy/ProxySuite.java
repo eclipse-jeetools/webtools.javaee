@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxySuite.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:13 $ 
  */
 import java.util.List;
 
@@ -39,6 +39,7 @@ public class ProxySuite extends TestSuite {
 	private static Class testsList[] = {
 		TestStandard.class,
 		TestAWTProxy.class,
+		ExpressionTest.class,
 									   } ;
 									   
 	public static String pkgName = "org.eclipse.jem.tests.proxy" ;

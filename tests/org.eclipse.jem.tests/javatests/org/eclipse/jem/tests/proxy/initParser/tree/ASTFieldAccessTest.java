@@ -10,12 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTFieldAccessTest.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:13 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
-import java.awt.Color;
-
+import org.eclipse.jem.internal.proxy.core.IExpression;
 import org.eclipse.jem.tests.proxy.initParser.AbstractInitParserTestCase;
  
 /**
@@ -39,27 +38,34 @@ public class ASTFieldAccessTest extends AbstractInitParserTestCase {
 	}
 	
 	public void testNonQualifiedFieldAccess() throws Throwable {
-		getTreeParser().testInitString("Color.red", new String[] {"java.awt.*"}, Color.red);
+		getTreeParser().testInitString("Color.red", new String[] {"java.awt.*"}, getTreeParser().getRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.awt.Color").newInstance("java.awt.Color.red") );
 	}
 	
 	public void testExpressionFieldAccess() throws Throwable {
-		getTreeParser().testInitString("(Color.red).red", new String[] {"java.awt.*"}, Color.red);	// Should not use this form, but it is valid, use valid form for expected results so no warnings.
+		getTreeParser().testInitString("(Color.red).red", new String[] {"java.awt.*"}, getTreeParser().getRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.awt.Color").newInstance("java.awt.Color.red") );	// Should not use this form, but it is valid, use valid form for expected results so no warnings.
 	}
 	
 	public void testNestedFieldAccess() throws Throwable {
-		getTreeParser().testInitString("ASTNestFieldAccessTestData.acolor.red", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  Color.red);	// Should not use this form, but it is valid, use valid form for expected results so no warnings.
+		getTreeParser().testInitString("ASTNestFieldAccessTestData.acolor.red", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  getTreeParser().getRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.awt.Color").newInstance("java.awt.Color.red"));	// Should not use this form, but it is valid, use valid form for expected results so no warnings.
 	}
 
 	public void testNestedFieldExpressionAccess() throws Throwable {
-		getTreeParser().testInitString("new ASTNestFieldAccessTestData().acolor.red", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  Color.red);	// Should not use this form, but it is valid, use valid form for expected results so no warnings.
+		getTreeParser().testInitString("new ASTNestFieldAccessTestData().acolor.red", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  getTreeParser().getRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.awt.Color").newInstance("java.awt.Color.red"));	// Should not use this form, but it is valid, use valid form for expected results so no warnings.
 	}
 	
 	public void testNonstaticFieldAccess() throws Throwable {
-		getTreeParser().testInitString("new ASTNestFieldAccessTestData().arect", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  new ASTNestFieldAccessTestData().arect);
+		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
+		exp.createFieldAccess(IExpression.ROOTEXPRESSION, "arect", true);
+		exp.createClassInstanceCreation(IExpression.FIELD_RECEIVER, "org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData", 0);
+		getTreeParser().testInitString("new ASTNestFieldAccessTestData().arect", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  exp.getExpressionValue());
 	}
 	
 	public void testNonstaticNestedFieldAccess() throws Throwable {
-		getTreeParser().testInitString("new ASTNestFieldAccessTestData().arect.x", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  new Integer(new ASTNestFieldAccessTestData().arect.x));
+		IExpression exp = getTreeParser().getRegistry().getBeanProxyFactory().createExpression();
+		exp.createFieldAccess(IExpression.ROOTEXPRESSION, "x", true);
+		exp.createFieldAccess(IExpression.FIELD_RECEIVER, "arect", true);
+		exp.createClassInstanceCreation(IExpression.FIELD_RECEIVER, "org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData", 0);
+		getTreeParser().testInitString("new ASTNestFieldAccessTestData().arect.x", new String[] {"org.eclipse.jem.tests.proxy.initParser.tree.ASTNestFieldAccessTestData"},  exp.getExpressionValue());
 	}
 	
 }
