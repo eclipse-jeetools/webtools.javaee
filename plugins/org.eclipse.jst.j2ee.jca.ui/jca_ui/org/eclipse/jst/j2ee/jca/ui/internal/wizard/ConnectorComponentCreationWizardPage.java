@@ -17,8 +17,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 public class ConnectorComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 

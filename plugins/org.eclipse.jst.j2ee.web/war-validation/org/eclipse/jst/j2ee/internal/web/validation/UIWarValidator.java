@@ -16,8 +16,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IReporter;
@@ -106,9 +106,9 @@ public class UIWarValidator extends WarValidator {
 		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
         WorkbenchComponent[] workBenchModules = null; 
-		ModuleCore moduleCore = null;	
+		StructureEdit moduleCore = null;	
 		try{ 
-			moduleCore = ModuleCore.getModuleCoreForRead(proj);
+			moduleCore = StructureEdit.getStructureEditForRead(proj);
 			workBenchModules = moduleCore.getWorkbenchModules(); 
 			for (int i = 0; i < workBenchModules.length; i++) {
                 WorkbenchComponent wbModule = workBenchModules[i];

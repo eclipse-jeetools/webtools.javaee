@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 
 /**

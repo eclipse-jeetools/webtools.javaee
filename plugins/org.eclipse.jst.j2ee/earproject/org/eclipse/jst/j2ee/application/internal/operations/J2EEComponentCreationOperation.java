@@ -39,14 +39,15 @@ import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDat
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
-import org.eclipse.wst.common.modulecore.ComponentType;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperation;
-import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ComponentType;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public abstract class J2EEComponentCreationOperation extends ComponentCreationOperation {
 	/**
@@ -111,17 +112,17 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 			URI uri = moduleModel.getEarComponentHandle();
 			IProject proj = null;
 			try {
-				proj = ModuleCore.getContainingProject(uri);
+				proj = StructureEdit.getContainingProject(uri);
 			}
 			catch (UnresolveableURIException e) {
 				Logger.getLogger().log(e);
 			}
 			
 			
-			ModuleCore core = null;
+			StructureEdit core = null;
 			try {
-				core = ModuleCore.getModuleCoreForRead(getProject());
-				WorkbenchComponent wc = core.findWorkbenchModuleByDeployName((String)moduleModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+				core = StructureEdit.getStructureEditForRead(getProject());
+				WorkbenchComponent wc = core.findComponentByName((String)moduleModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
 				AddComponentToEnterpriseApplicationDataModel dm = moduleModel.getAddComponentToEARDataModel();
 				
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
@@ -174,12 +175,12 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 			if( isValidURI ){
 				IProject proj = null;
 				try {
-					proj = ModuleCore.getContainingProject(uri);
+					proj = StructureEdit.getContainingProject(uri);
 					
-					ModuleCore moduleCore = null;
+					StructureEdit moduleCore = null;
 					try{
-						moduleCore = ModuleCore.getModuleCoreForRead(proj);
-						if((moduleCore.findWorkbenchModuleByModuleURI(uri)) != null ){
+						moduleCore = StructureEdit.getStructureEditForRead(proj);
+						if((moduleCore.findComponentByURI(uri)) != null ){
 							return true;
 						}
 					} finally {
@@ -210,9 +211,9 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
     protected abstract String getVersion();
 
     protected void setupComponentType(String typeID) {
-        IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
-        ComponentType componentType = ModuleCoreFactory.eINSTANCE.createComponentType();
-        componentType.setModuleTypeId(typeID);
+		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
+        ComponentType componentType = ComponentcoreFactory.eINSTANCE.createComponentType();
+        componentType.setComponentTypeId(typeID);
         componentType.setVersion(getVersion());
         List newProps = getProperties();
         if (newProps != null && !newProps.isEmpty()) {
@@ -221,7 +222,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
                 existingProps.add(newProps.get(i));
 		}
 		}
-        ModuleCore.setComponentType(component, componentType);
+        StructureEdit.setComponentType(component, componentType);
     }
 
     // Should return null if no additional properties needed

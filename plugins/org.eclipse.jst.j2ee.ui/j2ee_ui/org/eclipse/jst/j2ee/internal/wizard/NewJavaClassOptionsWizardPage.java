@@ -47,8 +47,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.Workbench;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
  * @author jialin

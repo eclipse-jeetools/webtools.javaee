@@ -27,11 +27,11 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperation;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
-import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationOperation;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 public class JavaUtilityComponentCreationOperation extends ComponentCreationOperation {
 	/**
@@ -56,7 +56,7 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	protected void createComponent() {
 			   	
 		JavaComponentCreationDataModel dm = (JavaComponentCreationDataModel)operationDataModel;	   	
-		IVirtualContainer component = ModuleCore.createContainer(dm.getProject(), dm.getComponentDeployName());
+		IVirtualComponent component = ComponentCore.createComponent(dm.getProject(), dm.getComponentDeployName());
 		try {
 			component.create(0, null);
 			//create and link javaSource Source Folder

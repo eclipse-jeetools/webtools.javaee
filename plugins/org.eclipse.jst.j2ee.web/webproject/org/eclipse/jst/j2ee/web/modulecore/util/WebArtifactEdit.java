@@ -26,13 +26,13 @@ import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 
 
@@ -91,7 +91,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public static WebArtifactEdit getWebArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidWebModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new WebArtifactEdit(nature, aModule, true);
 			}
@@ -125,7 +125,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public static WebArtifactEdit getWebArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidWebModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new WebArtifactEdit(nature, aModule, false);
 			}
@@ -146,7 +146,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_WEB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
 			return false;
 		return true;
 	}
@@ -258,7 +258,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		    WebApp webApp = (WebApp)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				webApp.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				webApp.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 				//Ignore
 			}
@@ -368,7 +368,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
 		for (int i=0; i<dependentModules.size(); i++) {
 			ReferencedComponent child = (ReferencedComponent) dependentModules.get(i);
-			URI parentFolderURI = child.getRuntimePath().trimSegments(1);
+			URI parentFolderURI = URI.createURI(child.getRuntimePath().removeLastSegments(1).toString());
 			URI webLib = getDeploymentDescriptorResource().getURI().trimSegments(1).appendSegment(LIB);
 			if (parentFolderURI.equals(webLib))
 				result.add(child);

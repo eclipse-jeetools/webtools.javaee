@@ -15,11 +15,11 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.operations.OldWebSettingsForMigration;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.DependencyType;
+import org.eclipse.wst.common.componentcore.internal.Property;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
-import org.eclipse.wst.common.modulecore.DependencyType;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.Property;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 
 
@@ -164,7 +164,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public Property createProperty(String name, String value) {
-		Property property = ModuleCoreFactory.eINSTANCE.createProperty();
+		Property property = ComponentcoreFactory.eINSTANCE.createProperty();
 		property.setName(name);
 		property.setValue(value);
 		return property;

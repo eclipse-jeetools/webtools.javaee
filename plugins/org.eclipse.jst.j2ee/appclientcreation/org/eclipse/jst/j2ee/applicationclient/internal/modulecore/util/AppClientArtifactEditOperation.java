@@ -11,9 +11,9 @@
 package org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util;
 
 import org.eclipse.jst.j2ee.applicationclient.modulecore.util.AppClientArtifactEdit;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
 
 public class AppClientArtifactEditOperation extends ArtifactEditOperation {
 

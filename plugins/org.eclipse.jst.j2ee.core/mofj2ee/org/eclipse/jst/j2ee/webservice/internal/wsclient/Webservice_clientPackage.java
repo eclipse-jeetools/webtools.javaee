@@ -701,7 +701,7 @@ public interface Webservice_clientPackage extends EPackage{
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Component Name</em>'.
-	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.ComponentScopedRefs#getComponentName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.ComponentScopedRefs#getComponent()
 	 * @see #getComponentScopedRefs()
 	 * @generated
 	 */

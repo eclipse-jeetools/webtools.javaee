@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
@@ -21,12 +22,12 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
-import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 public class EARComponentCreationOperation extends J2EEComponentCreationOperation {
 	public EARComponentCreationOperation(EARComponentCreationDataModel dataModel) {
@@ -40,7 +41,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
      * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
      */
     protected void createAndLinkJ2EEComponents() throws CoreException {
-        IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
 		//create and link META-INF folder
 		IVirtualFolder root = component.getFolder(new Path("/")); //$NON-NLS-1$		
@@ -56,12 +57,12 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        ModuleCore moduleCore = null;
+        StructureEdit moduleCore = null;
         EARArtifactEdit earEdit = null;
         try {
         	EARComponentCreationDataModel dm = (EARComponentCreationDataModel)getOperationDataModel();
-            moduleCore = ModuleCore.getModuleCoreForWrite(getProject());
-            WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            moduleCore = StructureEdit.getStructureEditForWrite(getProject());
+            WorkbenchComponent earComp = moduleCore.findComponentByName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
             earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
             Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
        	 	earEdit.createModelRoot(version.intValue());
@@ -116,12 +117,12 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
 	public URI getComponentHandle(){
-        ModuleCore moduleCore = null;
+        StructureEdit moduleCore = null;
 
         try {
         	EARComponentCreationDataModel dm = (EARComponentCreationDataModel)getOperationDataModel();
-            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
-            WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            moduleCore = StructureEdit.getStructureEditForRead(getProject());
+            WorkbenchComponent earComp = moduleCore.findComponentByName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
             return earComp.getHandle();
 
         } finally {

@@ -16,7 +16,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 
 
 /**
@@ -63,7 +63,7 @@ public class UIWarHelper extends WarHelper {
 	protected IPath getDeploymentDescriptorPath(IProject project) {
 		WebArtifactEdit webArtifactEdit = null; 
 		try {
-			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit != null)
 				return webArtifactEdit.getDeploymentDescriptorPath();
 		} finally {

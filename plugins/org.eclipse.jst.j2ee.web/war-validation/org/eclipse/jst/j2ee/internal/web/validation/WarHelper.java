@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 
 
 public class WarHelper extends J2EEValidationHelper {
@@ -109,7 +109,7 @@ public class WarHelper extends J2EEValidationHelper {
 		Resource webDD = null;
 		try {
 			WTProjectLoadStrategyImpl loader = new WTProjectLoadStrategyImpl(proj);
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(proj);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(proj);
        		if (webEdit != null)
        			webDD = webEdit.getDeploymentDescriptorResource();
 			loader.setResourceSet(webDD.getResourceSet());

@@ -22,13 +22,13 @@ import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 /**
  * <p>
@@ -78,7 +78,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	public static EARArtifactEdit getEARArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidEARModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new EARArtifactEdit(nature, aModule, true);
 			}
@@ -111,7 +111,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	public static EARArtifactEdit getEARArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidEARModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new EARArtifactEdit(nature, aModule, false);
 			}
@@ -131,7 +131,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_WEB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
 			return false;
 		return true;
 	}
@@ -239,7 +239,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		    Application application = (Application)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				application.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				application.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(application, J2EEConstants.APPL_ID);
@@ -288,12 +288,12 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return - a list of util modules referred by a given j2ee module
 	 */
 	public  List getWorkbenchUtilModules(WorkbenchComponent module) {
-		if(module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+		if(module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
 		List utilComponents = new ArrayList();
 		List refComponents = module.getReferencedComponents();
 		for(int i = 0; i < refComponents.size(); i++) {
 			WorkbenchComponent component = (WorkbenchComponent)refComponents.get(i);
-			if(component.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_UTILITY_MODULE));
+			if(component.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE));
 				utilComponents.add(component);
 		 }
 		 return utilComponents;
@@ -302,12 +302,12 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	
 	public List getWorkbenchJ2EEModules(WorkbenchComponent module) {
-		if(module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+		if(module.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
 		List j2eeComponents = new ArrayList();
 		List refComponents = module.getReferencedComponents();
 		for(int i = 0; i < refComponents.size(); i++) {
 			WorkbenchComponent component = (WorkbenchComponent)refComponents.get(i);
-			String typeId = component.getComponentType().getModuleTypeId();
+			String typeId = component.getComponentType().getComponentTypeId();
 			if(typeId.equals(IModuleConstants.JST_EJB_MODULE) || typeId.equals(IModuleConstants.JST_WEB_MODULE) || typeId.equals(IModuleConstants.JST_APPCLIENT_MODULE) || typeId.equals(IModuleConstants.JST_CONNECTOR_MODULE))
 				j2eeComponents.add(component);
 		 }

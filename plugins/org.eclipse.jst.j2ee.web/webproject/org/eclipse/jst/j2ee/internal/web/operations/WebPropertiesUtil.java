@@ -34,7 +34,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 
 public class WebPropertiesUtil {
 	//private static final char[] BAD_CHARS = {'/', '\\', ':'};
@@ -304,7 +304,7 @@ public class WebPropertiesUtil {
 		if (project.exists() && project.isOpen()) {
 			WebArtifactEdit webEdit = null;
 			try {
-				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+				webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 				if (webEdit != null)
 					webEdit.setServerContextRoot(contextRoot);
 			} finally {

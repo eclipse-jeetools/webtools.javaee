@@ -16,12 +16,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
+import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.FileNameResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceFactory;
-import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
 
 
 public class ApplicationClientResourceFactory extends TranslatorResourceFactory {

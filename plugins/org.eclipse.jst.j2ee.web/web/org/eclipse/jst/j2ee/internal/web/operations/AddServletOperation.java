@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
 
 /**
  * This class, AddServlet Operation is a WTPOperation following the WTP wizard data model and

@@ -36,9 +36,9 @@ import org.eclipse.jst.j2ee.internal.archive.operations.BinaryProjectHelper;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
 
@@ -153,7 +153,7 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		//TODO this will throw class cast exception, do we still use ILibModule?
 		WebArtifactEdit webArtifactEdit = null;
 		try {
-			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit!=null)
 				webArtifactEdit.addLibModules((ReferencedComponent[])modules);
 		} finally  {

@@ -12,12 +12,12 @@ import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	/**
@@ -127,7 +127,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 			aResource.getContents().add(connector);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				connector.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				connector.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(connector, J2EEConstants.CONNECTOR_ID);
@@ -161,7 +161,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new ConnectorArtifactEdit(nature, aModule, true);
 			}
@@ -193,7 +193,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidConnectorModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new ConnectorArtifactEdit(nature, aModule, false);
 			}
@@ -213,7 +213,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_Connector_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
 			return false;
 		return true;
 	}

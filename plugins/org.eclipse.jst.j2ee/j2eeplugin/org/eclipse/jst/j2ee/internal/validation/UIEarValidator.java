@@ -57,11 +57,11 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
 import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
@@ -201,9 +201,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		earHelper = (UIEarHelper) inHelper;
 		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
 		WorkbenchComponent[] workBenchModules = null; 
-		ModuleCore moduleCore = null;	
+		StructureEdit moduleCore = null;	
 		try{ 
-			moduleCore = ModuleCore.getModuleCoreForRead(proj);
+			moduleCore = StructureEdit.getStructureEditForRead(proj);
 			workBenchModules = moduleCore.getWorkbenchModules(); 
 			for (int i = 0; i < workBenchModules.length; i++) {
 	           
@@ -548,8 +548,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 						String[] params = new String[]{amodule.getName(), earHelper.getProject().getName()};
 						addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
 					} else {
-						ModuleCore mc = ModuleCore.getModuleCoreForRead(earHelper.getProject());
-						WorkbenchComponent deployModule = mc.findWorkbenchModuleByDeployName(projectName);
+						StructureEdit mc = StructureEdit.getStructureEditForRead(earHelper.getProject());
+						WorkbenchComponent deployModule = mc.findComponentByName(projectName);
 						if (deployModule == null) {
 							String[] params = new String[]{deployModule.getName(),amodule.getName(), earHelper.getProject().getName()};
 							addWarning(getBaseName(), PROJECT_DOES_NOT_EXIST_WARN_, params);
@@ -672,12 +672,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	protected void validateModuleURIExtension(WorkbenchComponent module) {
 		String fileExt = module.getHandle().fileExtension();
 		if (fileExt != null && fileExt.length() > 0) {
-			if (module.getComponentType().getModuleTypeId().endsWith(IModuleConstants.JST_EJB_MODULE) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
+			if (module.getComponentType().getComponentTypeId().endsWith(IModuleConstants.JST_EJB_MODULE) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getName();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
 				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
-			} else if (module.getComponentType().getModuleTypeId().endsWith(IModuleConstants.JST_WEB_MODULE) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
+			} else if (module.getComponentType().getComponentTypeId().endsWith(IModuleConstants.JST_WEB_MODULE) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
 				String[] params = new String[1];
 				params[0] = module.getName();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);

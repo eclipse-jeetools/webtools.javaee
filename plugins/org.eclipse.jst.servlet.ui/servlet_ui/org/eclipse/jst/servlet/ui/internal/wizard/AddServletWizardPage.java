@@ -24,9 +24,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
  * Servlet Wizard Setting Page

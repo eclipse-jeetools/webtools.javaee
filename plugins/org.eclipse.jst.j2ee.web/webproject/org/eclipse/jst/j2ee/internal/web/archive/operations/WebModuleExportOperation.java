@@ -40,7 +40,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 
@@ -206,7 +206,7 @@ public final class WebModuleExportOperation extends J2EEArtifactExportOperation 
 		//TODO this will throw class cast exception, do we still use ILibModule?
 		WebArtifactEdit webArtifactEdit = null;
 		try {
-			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			webArtifactEdit = (WebArtifactEdit)StructureEdit.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit!=null)
 				return (ILibModule[]) webArtifactEdit.getLibModules();
 		} finally {

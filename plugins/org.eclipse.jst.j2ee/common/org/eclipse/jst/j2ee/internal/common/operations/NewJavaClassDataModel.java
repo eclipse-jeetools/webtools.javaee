@@ -29,9 +29,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
  * This data model is a subclass of WTPOperationDataModel and follows the WTP Operation and WTP Wizard frameworks.

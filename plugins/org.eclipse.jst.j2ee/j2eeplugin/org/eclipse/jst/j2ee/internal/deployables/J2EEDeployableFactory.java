@@ -19,9 +19,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
@@ -84,11 +84,11 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	protected List createModules(ModuleCoreNature nature) {
 		IProject project = nature.getProject();
 		List modules = new ArrayList(1); 
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		try {
 			
-			moduleCore = ModuleCore.getModuleCoreForRead(project);
-			EList workBenchModules = moduleCore.getModuleModelRoot().getComponents();						 
+			moduleCore = StructureEdit.getStructureEditForRead(project);
+			EList workBenchModules = moduleCore.getComponentModelRoot().getComponents();						 
 			if (workBenchModules.isEmpty())
 				return modules;
 			modules = createModuleDelegates(workBenchModules, project);

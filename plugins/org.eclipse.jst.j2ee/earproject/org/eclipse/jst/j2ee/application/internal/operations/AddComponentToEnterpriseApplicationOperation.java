@@ -5,14 +5,15 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperation;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEditOperation {
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
@@ -26,23 +27,22 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 	}
 
 	private void addComponentToEnterpriseApplication(IProgressMonitor monitor) {
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		try{
 			String earProj = operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME);
 			IProject proj = ProjectUtilities.getProject(earProj);
 			
-			moduleCore = ModuleCore.getModuleCoreForWrite(proj);
-			WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME));
+			moduleCore = StructureEdit.getStructureEditForWrite(proj);
+			WorkbenchComponent earComp = moduleCore.findComponentByName(operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME));
 			
 			AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel)getOperationDataModel();
-			URI runtimeURI = URI.createURI(metaInfFolderDeployPath);
+			IPath runtimePath = new Path(metaInfFolderDeployPath);
 			List list = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
 			if (list != null && list.size() > 0) {
 				for (int i = 0; i < list.size(); i++) {
-					ReferencedComponent rc = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
+					ReferencedComponent rc = ComponentcoreFactory.eINSTANCE.createReferencedComponent();
 					WorkbenchComponent wc = (WorkbenchComponent)list.get(i);
-					rc.setHandle(wc.getHandle());
-					rc.setRuntimePath(runtimeURI);
+					rc.setRuntimePath(runtimePath);
 					earComp.getReferencedComponents().add(rc);
 				}
 			}

@@ -47,11 +47,11 @@ import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.impl.ComponentCoreURIConverter;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreURIConverter;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
@@ -368,7 +368,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 			WebArtifactEdit webEdit = null;
 
 			try{
-				artifact = ModuleCore.getFirstArtifactEditForRead( project );
+				artifact = StructureEdit.getFirstArtifactEditForRead( project );
 				webEdit = ( WebArtifactEdit )artifact;
 	       		if(webEdit != null) {
 	       			contextRoot = webEdit.getServerContextRoot();
@@ -811,7 +811,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * @return
 	 */
 	private URIConverter createURIConverter(IProject aProject, ProjectResourceSet aResourceSet ) {
-		return new ModuleCoreURIConverter(aProject, aResourceSet.getSynchronizer()); 
+		return new ComponentCoreURIConverter(aProject, aResourceSet.getSynchronizer()); 
 	}
 
 	/**

@@ -23,8 +23,8 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.modulecore.ModuleCore;
 
 /**
  * @deprecated
@@ -107,7 +107,7 @@ public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	protected int getJ2EEVersion() {
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			if (webEdit != null)
 				return webEdit.getJ2EEVersion();
 		} finally {

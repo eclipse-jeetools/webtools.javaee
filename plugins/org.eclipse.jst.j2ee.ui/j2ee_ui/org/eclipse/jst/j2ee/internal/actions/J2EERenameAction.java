@@ -48,11 +48,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class J2EERenameAction extends SelectionDispatchAction implements J2EERenameUIConstants {
 
@@ -166,11 +166,11 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 				} else if (o instanceof EObject) {
 					EObject obj = (EObject) o;
 					IProject project = ProjectUtilities.getProject(obj);
-					ModuleCore moduleCore = null;
+					StructureEdit moduleCore = null;
 					try {
-						moduleCore = ModuleCore.getModuleCoreForRead(project);
+						moduleCore = StructureEdit.getStructureEditForRead(project);
 						URI uri = obj.eResource().getURI();
-						ComponentResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
+						ComponentResource[] resources = moduleCore.findResourcesBySourcePath(uri);
 						for (int i=0; i<resources.length; i++) {
 							module = resources[i].getComponent();
 							if (module !=null)

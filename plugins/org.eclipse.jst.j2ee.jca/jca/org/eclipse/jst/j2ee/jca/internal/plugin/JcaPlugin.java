@@ -23,8 +23,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.jca.impl.ConnectorResourceFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
-import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 

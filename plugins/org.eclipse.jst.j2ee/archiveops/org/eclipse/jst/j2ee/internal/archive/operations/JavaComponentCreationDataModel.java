@@ -6,10 +6,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public  class JavaComponentCreationDataModel extends ComponentCreationDataModel {
 

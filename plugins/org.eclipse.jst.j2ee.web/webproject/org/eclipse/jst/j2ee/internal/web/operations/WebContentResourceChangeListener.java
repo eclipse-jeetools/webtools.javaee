@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 
 
 /*
@@ -88,7 +88,7 @@ public class WebContentResourceChangeListener implements IResourceChangeListener
 	protected IResource getModuleServerRoot(IProject project) {
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			return (IResource) webEdit.getDeploymentDescriptorResource();
 		} finally {
 			if (webEdit != null)

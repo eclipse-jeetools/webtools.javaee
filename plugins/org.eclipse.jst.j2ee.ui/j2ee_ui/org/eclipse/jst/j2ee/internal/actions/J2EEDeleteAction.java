@@ -49,9 +49,9 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -157,7 +157,7 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	protected boolean isJ2EEModule(Object o) {
 		if (o instanceof WorkbenchComponent) {
 			WorkbenchComponent module = (WorkbenchComponent) o;
-			String moduleType = module.getComponentType().getModuleTypeId();
+			String moduleType = module.getComponentType().getComponentTypeId();
 			//TODO need to add connector, app client, ear, ejb client
 			return moduleType.equals(IModuleConstants.JST_WEB_MODULE) || moduleType.equals(IModuleConstants.JST_EJB_MODULE);
 		}

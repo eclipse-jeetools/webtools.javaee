@@ -18,12 +18,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetOperation;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ProjectComponents;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class FlexibleProjectCreationOperation extends WTPOperation {
 
@@ -52,12 +52,12 @@ public class FlexibleProjectCreationOperation extends WTPOperation {
     }
     
     private void createInitialWTPModulesFile() {
-    	ModuleCore moduleCore = null;
+    	StructureEdit moduleCore = null;
 		try {
 			IProject containingProject = getProject();
-			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
-			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
+			moduleCore = StructureEdit.getStructureEditForWrite(containingProject);
+			moduleCore.prepareProjectComponentsIfNecessary(); 
+			ProjectComponents projectModules = moduleCore.getComponentModelRoot();
 			moduleCore.saveIfNecessary(null); 
 		} finally {
 			if(moduleCore != null)

@@ -9,7 +9,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 /**
  * @author jialin

@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.server.core.IModule;
 
 /**

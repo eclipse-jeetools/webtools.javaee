@@ -34,8 +34,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
-import org.eclipse.wst.common.modulecore.ModuleCore;
 
 /**
  * @author jsholl
@@ -459,7 +459,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	protected String getModuleContextRoot() {
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
        		if (webEdit != null) {
        			return webEdit.getServerContextRoot();
        		}			
@@ -477,7 +477,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	protected int getModuleServletVersion() {
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
        		if (webEdit != null) {
        			return webEdit.getServletVersion();
        		}			
@@ -491,7 +491,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	protected int getModuleJSPVersion() {
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
        		if (webEdit != null) {
        			return webEdit.getJSPVersion();
        		}			

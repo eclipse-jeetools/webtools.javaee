@@ -11,10 +11,10 @@
 
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  *
@@ -54,7 +54,7 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 	public AddModuleToEARDataModel getAppropriateDataModel() {
 		AddModuleToEARDataModel model = this;
 		WorkbenchComponent wbComp = (WorkbenchComponent) getProperty(AddArchiveToEARDataModel.ARCHIVE_MODULE);
-		if (wbComp != null && wbComp.getComponentType().getModuleTypeId() == IModuleConstants.JST_WEB_MODULE) {
+		if (wbComp != null && wbComp.getComponentType().getComponentTypeId() == IModuleConstants.JST_WEB_MODULE) {
 			//model = AddWebModuleToEARDataModel.createAddWebModuleToEARDataModel(getStringProperty(MODULE_NAME), wbComp);
 			model.setProperty(AddArchiveToEARDataModel.ARCHIVE_URI, getProperty(ARCHIVE_URI));
 		}
@@ -90,9 +90,9 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 	 */
 	protected String getDefaultURIExtension() {
 	    WorkbenchComponent wbComp = (WorkbenchComponent) getProperty(AddArchiveToEARDataModel.ARCHIVE_MODULE);
-		if (wbComp != null && wbComp.getComponentType().getModuleTypeId() == IModuleConstants.JST_WEB_MODULE) 
+		if (wbComp != null && wbComp.getComponentType().getComponentTypeId() == IModuleConstants.JST_WEB_MODULE) 
 			return "war"; //$NON-NLS-1$
-		if (wbComp != null && wbComp.getComponentType().getModuleTypeId() == IModuleConstants.JST_CONNECTOR_MODULE) 
+		if (wbComp != null && wbComp.getComponentType().getComponentTypeId() == IModuleConstants.JST_CONNECTOR_MODULE) 
 			return "rar"; //$NON-NLS-1$
 		return super.getDefaultURIExtension();
 	}

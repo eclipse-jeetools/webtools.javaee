@@ -7,7 +7,7 @@
 package org.eclipse.jst.j2ee.navigator.internal;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 
 /**
  * @author Admin

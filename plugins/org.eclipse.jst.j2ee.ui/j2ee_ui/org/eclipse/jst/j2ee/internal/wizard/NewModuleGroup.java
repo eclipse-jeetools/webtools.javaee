@@ -41,9 +41,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.internal.Workbench;
+import org.eclipse.wst.common.componentcore.internal.operation.ComponentCreationDataModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 

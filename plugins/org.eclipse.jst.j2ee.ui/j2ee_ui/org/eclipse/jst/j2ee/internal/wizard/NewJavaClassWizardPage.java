@@ -63,13 +63,13 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  *
@@ -160,13 +160,13 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	
 	private void initializeComponentList() {
 		List componentList = new ArrayList();
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		if (projectNameCombo.getText().length()==0)
 			return;
 		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
 		try {
-			moduleCore = ModuleCore.getModuleCoreForRead(project);
-			WorkbenchComponent[] components = moduleCore.findWorkbenchModuleByType(moduleType);
+			moduleCore = StructureEdit.getStructureEditForRead(project);
+			WorkbenchComponent[] components = moduleCore.findComponentsByType(moduleType);
 			for (int j=0; j<components.length; j++) {
 				if (!componentList.contains(components[j].getName()))
 					componentList.add(components[j].getName());
@@ -496,9 +496,9 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 					IFolder folder = (IFolder) element;
 					// only show source folders
 					ArtifactEditOperationDataModel dataModel = ((ArtifactEditOperationDataModel)model);
-					ModuleCore moduleCore = null;
+					StructureEdit moduleCore = null;
 					try {
-						moduleCore = ModuleCore.getModuleCoreForRead(dataModel.getTargetProject());
+						moduleCore = StructureEdit.getStructureEditForRead(dataModel.getTargetProject());
 						ComponentResource[] sourceContainers = moduleCore.getSourceContainers(dataModel.getWorkbenchModule());
 						//TODO this api does not work yet
 						if (sourceContainers==null)

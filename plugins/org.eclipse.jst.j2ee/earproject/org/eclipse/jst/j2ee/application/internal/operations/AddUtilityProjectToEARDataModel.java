@@ -24,10 +24,10 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -199,11 +199,11 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveToEARDataModel {
 	}
 
 	private boolean isJavaModule(WorkbenchComponent wbComp) {
-		return wbComp.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_UTILITY_MODULE);
+		return wbComp.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_UTILITY_MODULE);
 	}
 
 	private boolean isWebOrClientModule(WorkbenchComponent wbComp) {
-	    String typeID = wbComp.getComponentType().getModuleTypeId();
+	    String typeID = wbComp.getComponentType().getComponentTypeId();
 	    return typeID.equals(IModuleConstants.JST_WEB_MODULE) || typeID.equals(IModuleConstants.JST_APPCLIENT_MODULE);
 	}
 

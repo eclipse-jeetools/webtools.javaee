@@ -57,12 +57,12 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 /**
  * Action for opening a J2EE resource from the J2EE navigator.
@@ -285,12 +285,12 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		else {
 			linkName = ((ServletLink) link).getServletLink();
 			URI uri = link.eResource().getURI();
-			ModuleCore moduleCore = null;
+			StructureEdit moduleCore = null;
 			WebArtifactEdit webEdit = null;
 			WebApp webApp = null;
 			try{
-				moduleCore = ModuleCore.getModuleCoreForRead(p);
-				ComponentResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
+				moduleCore = StructureEdit.getStructureEditForRead(p);
+				ComponentResource[] resources = moduleCore.findResourcesBySourcePath(uri);
 				WorkbenchComponent module = null;
 				for (int i=0; i<resources.length; i++) {
 					module = resources[i].getComponent();

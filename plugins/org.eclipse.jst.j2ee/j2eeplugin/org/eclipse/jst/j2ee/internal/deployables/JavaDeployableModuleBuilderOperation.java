@@ -27,12 +27,12 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.builder.ComponentStructuralBuilder;
+import org.eclipse.wst.common.componentcore.internal.builder.ComponentStructuralBuilderDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilder;
-import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderDataModel;
 
 /**
  * @author jialin
@@ -73,14 +73,12 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		List resourceList = workbenchModule.getResources();
 		List javaOutputPathList = new ArrayList();
 		for (int i = 0; i < resourceList.size(); i++) {
-			ComponentResource wmr = (ComponentResource)resourceList.get(i);
-			URI sourceURI = wmr.getSourcePath();
-			IPath sourcePath = new Path(sourceURI.toString());
-			IResource sourceResource =  ModuleCore.getEclipseResource(wmr);
+			ComponentResource wmr = (ComponentResource)resourceList.get(i); 
+			IPath sourcePath = wmr.getSourcePath();
+			IResource sourceResource =  StructureEdit.getEclipseResource(wmr);
 			if (sourceResource == null)
-				continue;
-			URI deployURI = wmr.getRuntimePath();
-			IPath deployPath = outputContainerPath.append(deployURI.toString());
+				continue; 
+			IPath deployPath = outputContainerPath.append(wmr.getRuntimePath());
 			// check if it is a java source folder
 			if (javaSourceFolderList.contains(sourceResource)) {
 				// check if there are nested java output paths. if so, abort.
@@ -111,10 +109,9 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		IClasspathEntry[] cpe = javaProj.getRawClasspath();
 		boolean classpathModified = false;
 		for (int i = 0; i < resourceList.size(); i++) {
-			ComponentResource wmr = (ComponentResource)resourceList.get(i);
-			URI sourceURI = wmr.getSourcePath();
-			IPath sourcePath = new Path(sourceURI.toString());
-			IResource sourceResource = ModuleCore.getEclipseResource(wmr);
+			ComponentResource wmr = (ComponentResource)resourceList.get(i); 
+			IPath sourcePath = wmr.getSourcePath();
+			IResource sourceResource = StructureEdit.getEclipseResource(wmr);
 			// check if it is a java source folder
 			if (javaSourceFolderList.contains(sourceResource)) {
 				// get the classpath entry
@@ -124,9 +121,8 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 						index = j;
 						break;
 					}
-				}
-				URI deployURI = wmr.getRuntimePath();
-				IPath classFilesPath = outputContainerPath.append(deployURI.toString());
+				} 
+				IPath classFilesPath = outputContainerPath.append(wmr.getRuntimePath());
 				// check if the classpath is modified. Use relative path to avoid 
 				// the problem that drive letter could be upper or lower case
 				IPath relativeClassFilesPath = classFilesPath.makeRelative();

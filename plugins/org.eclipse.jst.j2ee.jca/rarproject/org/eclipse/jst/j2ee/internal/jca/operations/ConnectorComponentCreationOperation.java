@@ -23,11 +23,12 @@ import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientCompone
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
-import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 
 public class ConnectorComponentCreationOperation extends J2EEComponentCreationOperation {
@@ -40,7 +41,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
      * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
      */
     protected void createAndLinkJ2EEComponents() throws CoreException {
-		IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
         component.create(0, null);
 		//create and link connectorModule Source Folder
 		IVirtualFolder connectorModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
@@ -54,11 +55,11 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         ConnectorArtifactEdit artifactEdit = null;
         // should cache wbmodule when created instead of searching ?
-        ModuleCore moduleCore = null;
+        StructureEdit moduleCore = null;
         WorkbenchComponent wbmodule = null;
         try {
-            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
-            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(ConnectorComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            moduleCore = StructureEdit.getStructureEditForRead(getProject());
+            wbmodule = moduleCore.findComponentByName(operationDataModel.getStringProperty(ConnectorComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();

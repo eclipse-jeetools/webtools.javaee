@@ -18,15 +18,15 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * This dataModel is a common super class used for to create Flexibile J2EE Components.
@@ -230,7 +230,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	
 	 private WTPPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion){
 	 	
-		 ModuleCore mc = null;
+		 StructureEdit mc = null;
 		 ArrayList earDescriptorList = new ArrayList();
 		 
 		 IProject[] projs = ProjectUtilities.getAllProjects();
@@ -239,7 +239,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		 	IProject  flexProject = projs[index];
 			 try {
 				if(flexProject != null) { 
-					mc = ModuleCore.getModuleCoreForRead(flexProject);
+					mc = StructureEdit.getStructureEditForRead(flexProject);
 					if( mc != null ){
 						WorkbenchComponent[] components = mc.getWorkbenchModules();
 		
@@ -248,7 +248,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 							EARArtifactEdit earArtifactEdit = null;
 							try {
 								WorkbenchComponent wc = (WorkbenchComponent)components[i];
-								if(wc.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {  
+								if(wc.getComponentType() != null && wc.getComponentType().getComponentTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {  
 									earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(wc);
 								    if(j2eeVersion <= earArtifactEdit.getJ2EEVersion()){
 								    	WTPPropertyDescriptor desc = new WTPPropertyDescriptor(wc.getHandle().toString(), wc.getName());
@@ -288,14 +288,15 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	}
 	
 	public WorkbenchComponent getTargetWorkbenchComponent() {
-		ModuleCore core = null;
+		StructureEdit core = null;
 		try {
 			IProject flexProject = getProject();
 			if(flexProject != null) {
-				core = ModuleCore.getModuleCoreForRead(getProject());
+				core = StructureEdit.getStructureEditForRead(getProject());
 				if(core != null) {
-					WorkbenchComponent component = core.findWorkbenchModuleByDeployName(COMPONENT_NAME);
-					return component;
+					String componentName = getProperty(COMPONENT_NAME) != null ? getProperty(COMPONENT_NAME).toString() : null;
+					if(componentName!=null)
+						return core.findComponentByName(componentName); 
 				}
 			}
 		} finally {

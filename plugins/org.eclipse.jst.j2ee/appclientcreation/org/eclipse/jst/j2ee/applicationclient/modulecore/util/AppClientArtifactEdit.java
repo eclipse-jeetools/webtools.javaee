@@ -15,12 +15,12 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	
@@ -113,7 +113,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 			aResource.getContents().add(appClient);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				appClient.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				appClient.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(appClient, J2EEConstants.APP_CLIENT_ID);
@@ -179,7 +179,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	public static AppClientArtifactEdit getAppClientArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidApplicationClientModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new AppClientArtifactEdit(nature, aModule, true);
 			}
@@ -211,7 +211,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	public static AppClientArtifactEdit getAppClientArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidApplicationClientModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new AppClientArtifactEdit(nature, aModule, false);
 			}
@@ -231,7 +231,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_ApplicationClient_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
 			return false;
 		return true;
 	}

@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
@@ -239,7 +239,7 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 		WebArtifactEdit webEdit = null;
 		int JSPVersion = 0;
 		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			JSPVersion = webEdit.getJSPVersion();
 		} finally {
 			if (webEdit != null)
@@ -252,7 +252,7 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 		//TODO this will throw classcastexception, do we use ILibModule anymore?
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			if (webEdit != null)
 				return (ILibModule[])webEdit.getLibModules();
 		} finally {
@@ -276,7 +276,7 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	protected IPath getWebDeploymentDescriptorPath() {
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
 			return webEdit.getDeploymentDescriptorPath();
 		} finally {
 			if (webEdit != null)

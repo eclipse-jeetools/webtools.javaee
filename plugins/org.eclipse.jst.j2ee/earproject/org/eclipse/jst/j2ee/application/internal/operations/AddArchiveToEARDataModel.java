@@ -24,10 +24,10 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperationDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -166,12 +166,8 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 	}
 
 	public IProject getProjectForGivenComponent(WorkbenchComponent wbComp) {
-	    IProject modProject = null;
-	    try {
-		    modProject = ModuleCore.getContainingProject(wbComp.getHandle());
-	    } catch (UnresolveableURIException ex) {
-			Logger.getLogger().logError(ex);
-	    }
+	    IProject modProject = null; 
+		modProject = StructureEdit.getContainingProject(wbComp); 
 	    return modProject;
 	}
 	

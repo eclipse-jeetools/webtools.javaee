@@ -20,8 +20,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
-import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -73,7 +73,7 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 		//TODO this will throw class cast exception, do we use ILibModule anymore?
 		WebArtifactEdit webEdit = null;
 		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(prj);
+			webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(prj);
 			if (webEdit != null)
 				return (ILibModule[]) webEdit.getLibModules();
 		} finally {

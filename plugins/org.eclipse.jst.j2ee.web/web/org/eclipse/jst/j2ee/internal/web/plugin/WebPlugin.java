@@ -40,9 +40,9 @@ import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibRegistryManager;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
 import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 

@@ -36,9 +36,9 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataMode
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
  * The NewServletClassOperation is a WTPOperation following the WTP wizard data model and

@@ -13,12 +13,12 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 /**
  * @author Admin
@@ -31,7 +31,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	private List rootObjects = new ArrayList();
 	private static final Object[] EMPTY_OBJECT = new Object[0];
 	private final List artifactEdits = new ArrayList();
-	private ModuleCore moduleCore;
+	private StructureEdit moduleCore;
 	private final Map artifactEditToRootObject = new HashMap();
 	
 	/**
@@ -103,7 +103,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 			return null;
 		synchronized (artifactEdits) {
 			if (artifactEdits.size() ==0 && project.isAccessible()) {
-				ModuleCore moduleCore = getModuleCore();
+				StructureEdit moduleCore = getModuleCore();
 				WorkbenchComponent[] workBenchModules = moduleCore.getWorkbenchModules(); 
 			    for (int i = 0; i < workBenchModules.length; i++) {
 	                 WorkbenchComponent module = workBenchModules[i];
@@ -124,9 +124,9 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 		return artifactEdits;
 	}
 	
-	private ModuleCore getModuleCore() {
+	private StructureEdit getModuleCore() {
 		if (moduleCore == null) {
-			moduleCore = ModuleCore.getModuleCoreForRead(getProject());
+			moduleCore = StructureEdit.getStructureEditForRead(getProject());
 		}
 		return moduleCore;
 	}

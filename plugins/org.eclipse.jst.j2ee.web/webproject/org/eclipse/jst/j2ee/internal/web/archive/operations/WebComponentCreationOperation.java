@@ -31,13 +31,14 @@ import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientCompone
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.Property;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
-import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.Property;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 public class WebComponentCreationOperation extends J2EEComponentCreationOperation {
 	public WebComponentCreationOperation(WebComponentCreationDataModel dataModel) {
@@ -50,7 +51,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
      * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
      */
     protected void createAndLinkJ2EEComponents() throws CoreException {
-    	IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+		IVirtualComponent component = ComponentCore.createComponent(getProject(), getModuleDeployName());
     	component.create(0, null);
     	//create and link javaSource Source Folder
     	IVirtualFolder javaSourceFolder = component.getFolder(new Path("/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$		
@@ -74,11 +75,11 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 	
 		//should cache wbmodule when created instead of  searching ?
-        ModuleCore moduleCore = null;
+        StructureEdit moduleCore = null;
         WorkbenchComponent wbmodule = null;
         try {
-            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
-            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            moduleCore = StructureEdit.getStructureEditForRead(getProject());
+            wbmodule = moduleCore.findComponentByName(operationDataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
@@ -115,7 +116,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 	protected List getProperties() {
 	    List newProps = new ArrayList();
-	    Property prop = ModuleCoreFactory.eINSTANCE.createProperty();
+	    Property prop = ComponentcoreFactory.eINSTANCE.createProperty();
 	    prop.setName(J2EEConstants.CONTEXTROOT);
 	    prop.setValue(operationDataModel.getStringProperty(WebComponentCreationDataModel.CONTEXT_ROOT));
 	    newProps.add(prop);

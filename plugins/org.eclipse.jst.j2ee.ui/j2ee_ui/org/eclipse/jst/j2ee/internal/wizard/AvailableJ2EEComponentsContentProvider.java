@@ -18,9 +18,9 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 public class AvailableJ2EEComponentsContentProvider implements IStructuredContentProvider, ITableLabelProvider {
 	private int j2eeVersion;
@@ -46,35 +46,35 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 		for (int i = 0; i < projects.length; i++) {
 			// get flexible project
 			IProject project = projects[i];
-			ModuleCore moduleCore = null;
+			StructureEdit moduleCore = null;
 			try {
 				if (!project.hasNature(IModuleConstants.MODULE_NATURE_ID)) 
 					continue;
 				// get all J2EE module in the project
-				moduleCore = ModuleCore.getModuleCoreForRead(project);
-				moduleCore.prepareProjectModulesIfNecessary(); 
-				WorkbenchComponent[] appClientComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_APPCLIENT_MODULE);
+				moduleCore = StructureEdit.getStructureEditForRead(project);
+				moduleCore.prepareProjectComponentsIfNecessary(); 
+				WorkbenchComponent[] appClientComps = moduleCore.findComponentsByType(IModuleConstants.JST_APPCLIENT_MODULE);
 				for (int j = 0; j < appClientComps.length; j++) {
 					String version = appClientComps[j].getComponentType().getVersion();
 					int versionID = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(version);
 					if (versionID <= j2eeVersion)
 						validCompList.add(appClientComps[j]);
 				}
-				WorkbenchComponent[] ejbComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_EJB_MODULE);
+				WorkbenchComponent[] ejbComps = moduleCore.findComponentsByType(IModuleConstants.JST_EJB_MODULE);
 				for (int j = 0; j < ejbComps.length; j++) {
 					String version = ejbComps[j].getComponentType().getVersion();
 					int versionID = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(version);
 					if (versionID <= j2eeVersion)
 						validCompList.add(ejbComps[j]);
 				}
-				WorkbenchComponent[] webComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_WEB_MODULE);
+				WorkbenchComponent[] webComps = moduleCore.findComponentsByType(IModuleConstants.JST_WEB_MODULE);
 				for (int j = 0; j < webComps.length; j++) {
 					String version = webComps[j].getComponentType().getVersion();
 					int versionID = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(version);
 					if (versionID <= j2eeVersion)
 						validCompList.add(webComps[j]);
 				}
-				WorkbenchComponent[] connComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_CONNECTOR_MODULE);
+				WorkbenchComponent[] connComps = moduleCore.findComponentsByType(IModuleConstants.JST_CONNECTOR_MODULE);
 				for (int j = 0; j < connComps.length; j++) {
 					String version = connComps[j].getComponentType().getVersion();
 					int versionID = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(version);

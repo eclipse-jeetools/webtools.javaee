@@ -14,7 +14,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 /**
  * <p>
