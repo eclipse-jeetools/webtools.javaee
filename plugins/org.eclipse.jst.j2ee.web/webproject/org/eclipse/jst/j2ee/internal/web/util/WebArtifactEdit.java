@@ -207,6 +207,28 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		}
 	}
 	
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method must be 
+	 * {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}that will not be
+	 * used for editing. Invocations of any save*() API on an instance returned from this method
+	 * will throw exceptions.
+	 * </p>
+	 * <p>
+	 * <b>The following method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchModule}with a handle that resolves to an accessible
+	 *            project in the workspace
+	 * @return An instance of WebArtifactEdit that may only be used to read the underlying content model
+	 * @throws UnresolveableURIException could not resolve uri.
+	 */
+	
 
 	public static WebArtifactEdit getWebEditForRead(WorkbenchModule aModule) {
 		try {
@@ -216,8 +238,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			if(IModuleConstants.JST_WEB_MODULE.equals(moduleType.getModuleTypeId())) { 
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
 				if (project.isAccessible()) {
-					ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-					
+					ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);					
 					return new WebArtifactEdit(nature, aModule, true);
 				}
 			}

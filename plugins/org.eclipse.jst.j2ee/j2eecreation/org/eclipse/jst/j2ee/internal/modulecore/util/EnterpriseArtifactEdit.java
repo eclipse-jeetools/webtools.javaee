@@ -43,10 +43,22 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	public EnterpriseArtifactEdit(ArtifactEditModel model) {
 		super(model);
 	}
-	
-	public EnterpriseArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly){
-		super( aNature, aModule, toAccessAsReadOnly );
-	}	
+
+	/**
+	 * <p>
+	 * Creates an instance facade for the given {@see ArtifactEditModel}
+	 * </p>
+	 * 
+	 * @param aNature
+	 *            A non-null {@see ModuleCoreNature}for an accessible project
+	 * @param aModule
+	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
+	 *            {@see ModuleCoreNature}
+	 */
+
+	public EnterpriseArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
+		super(aNature, aModule, toAccessAsReadOnly);
+	}
 
 	/***********************************************************************************************
 	 * <p>
