@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.11 $  $Date: 2005/01/07 20:51:34 $ 
+ *  $Revision: 1.12 $  $Date: 2005/01/07 21:09:41 $ 
  */
 
 
@@ -499,7 +499,7 @@ public class BeaninfoPlugin extends Plugin {
 						Boolean visible = (Boolean) info.getContainerIds().get(contribution.id);
 						if (visible != null && visible.booleanValue()) {
 							for (int cindex = 0; cindex < contribution.pluginIds.length; cindex++) {
-								// Because of URIConverters and normalization in com.ibm.wtp stuff, we
+								// Because of URIConverters and normalization in org.eclipse.jem.util stuff, we
 								// need to have plugin uri's in the form "platform:/plugin/pluginname".
 								// Bundle's don't return this format. They return bundle:/stuff
 								// So we will simple create it of the platform:/plugin format.
