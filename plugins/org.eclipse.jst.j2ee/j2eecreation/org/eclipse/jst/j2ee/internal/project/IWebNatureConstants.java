@@ -25,7 +25,7 @@ public interface IWebNatureConstants {
 	public static final String WEB_XML_TEMPLATE_SERVLET_2_3 = "web23.xml"; //$NON-NLS-1$
 	public static final String JAVA_SOURCE = "JavaSource"; //$NON-NLS-1$
 
-	//String J2EE_NATURE_ID = "org.eclipse.jst.j2ee.web.WebNature"; //$NON-NLS-1$
+	String J2EE_NATURE_ID = "org.eclipse.jst.j2ee.web.WebNature"; //$NON-NLS-1$
 	String PORTLET_NATURE_ID = "com.ibm.etools.portal.tools.PortletProjectNature"; //$NON-NLS-1$
 	String STRUTS_NATURE_ID = "com.ibm.etools.struts.StrutsNature";//$NON-NLS-1$
 	String JSF_NATURE_ID = "com.ibm.etools.jsf.JSFNature";//$NON-NLS-1$
