@@ -11,11 +11,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 public class EARArtifactEditTest extends TestCase {
 	public static final String MODULE__RESOURCE_URI_PROTOCOL = "module:/resource/";
@@ -30,13 +30,13 @@ public class EARArtifactEditTest extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		String projectName = "FlexibleEarModuleProject";
 		try {
 			// setup instance variables: project
 			createProjectWithEARModule(projectName);
 			// ear workbenchModule
-			moduleCore = ModuleCore.getModuleCoreForWrite(project); 
+			moduleCore = StructureEdit.getStructureEditForWrite(project); 
 			earWorkbenchModule = moduleCore.getWorkbenchModules()[0];
 			// nature
 			moduleCoreNature = (ModuleCoreNature) project.getNature(ModuleCoreNature.MODULE_NATURE_ID);

@@ -33,22 +33,22 @@ import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataMo
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.ModuleStructuralModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.ComponentType;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ArtifactEditModelFactory;
+import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
+import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRoot;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.internal.util.SourcePathProvider;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ComponentType;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
-import org.eclipse.wst.common.modulecore.ProjectComponents;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.impl.ArtifactEditModelFactory;
-import org.eclipse.wst.common.modulecore.internal.impl.PlatformURLModuleConnection;
-import org.eclipse.wst.common.modulecore.internal.impl.ResourceTreeRoot;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.modulecore.internal.util.SourcePathProvider;
 
 /**
  * <p>
@@ -93,10 +93,10 @@ public class ModuleStructuralModelTest extends TestCase {
 	 * 
 	 */
 	public void testResourceTree() throws Exception {
-		ModuleCore moduleCore = null; 
+		StructureEdit moduleCore = null; 
 		try {
 			/* We need to find the project */
-			moduleCore = ModuleCore.getModuleCoreForRead(ModuleCore.getContainingProject(getWebModuleURI()));
+			moduleCore = StructureEdit.getStructureEditForRead(StructureEdit.getContainingProject(getWebModuleURI()));
 			
 			WorkbenchComponent module = moduleCore.getWorkbenchModules()[0];
 			ResourceTreeRoot sourceRoot = new ResourceTreeRoot(module, SourcePathProvider.INSTANCE); 
@@ -112,27 +112,27 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	public void testResolveDependentModule() throws Exception {
 
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		try {
-			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI()); 
-			moduleCore = ModuleCore.getModuleCoreForRead(containingProject);
+			IProject containingProject = StructureEdit.getContainingProject(getWebModuleURI()); 
+			moduleCore = StructureEdit.getStructureEditForRead(containingProject);
 			WorkbenchComponent[] modules = moduleCore.getWorkbenchModules();
-			ProjectComponents pm = moduleCore.getModuleModelRoot();
+			ProjectComponents pm = moduleCore.getComponentModelRoot();
 			Class clazz = moduleCore.getClass();
-			String name = ModuleCore.getDeployedName(getWebModuleURI());
+			String name = StructureEdit.getDeployedName(getWebModuleURI());
 			List dependentModules = null;
 			for(int i=0; i<modules.length; i++) {
 				System.out.println("Module: "+modules[i].getName());
 				List list = modules[i].getResources();
 				for (int j = 0; j < list.size(); j++) {
 					ComponentResource wmr = (ComponentResource)list.get(j);
-					IResource er = ModuleCore.getEclipseResource(wmr);
+					IResource er = StructureEdit.getEclipseResource(wmr);
 				}
 				// test modulecore API
 				dependentModules = modules[i].getReferencedComponents(); 			
 				for(int dependentIndex=0; dependentIndex<dependentModules.size(); dependentIndex++) {
 					ReferencedComponent dependentModule = (ReferencedComponent)dependentModules.get(dependentIndex);
-					WorkbenchComponent resolvedModule = moduleCore.findWorkbenchModuleByModuleURI(dependentModule.getHandle());
+					WorkbenchComponent resolvedModule = moduleCore.findComponentByURI(dependentModule.getHandle());
 					System.out.println("\tDependentModule: "+resolvedModule.getName()+ " in " + resolvedModule.getHandle());
 					boolean b = moduleCore.isLocalDependency(dependentModule);
 				}
@@ -173,10 +173,10 @@ public class ModuleStructuralModelTest extends TestCase {
 		/* Determine if the URI is for a resource or binary module */
 
 		if (PlatformURLModuleConnection.RESOURCE_MODULE.equals(segments[0])) {
-			ModuleCore moduleCore = null;
+			StructureEdit moduleCore = null;
 			try {
-				moduleCore = ModuleCore.getModuleCoreForRead(ModuleCore.getContainingProject(uri)); 
-				ComponentResource[] resource = moduleCore.findWorkbenchModuleResourceByDeployPath(uri);
+				moduleCore = StructureEdit.getStructureEditForRead(StructureEdit.getContainingProject(uri)); 
+				ComponentResource[] resource = moduleCore.findResourcesByRuntimePath(uri);
 				System.out.println(resource != null ? resource[0].getSourcePath().toString() : "NOT FOUND");
 			} finally {
 				if (moduleCore != null)
@@ -207,22 +207,22 @@ public class ModuleStructuralModelTest extends TestCase {
 	}
 
 	public void setupContent() throws Exception {
-		ModuleCore localModuleCore = null;
+		StructureEdit localModuleCore = null;
 		try {
 			getProjectForWebModuleAndLocalWebLib();
 			
-			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI());
-			localModuleCore = ModuleCore.getModuleCoreForWrite(containingProject); 
+			IProject containingProject = StructureEdit.getContainingProject(getWebModuleURI());
+			localModuleCore = StructureEdit.getStructureEditForWrite(containingProject); 
 
 			createLocalModules(localModuleCore);
 
 			// will setup and handle creating the modules model
 			getProjectForRemoteWebLib();
 
-			WorkbenchComponent webModule = localModuleCore.findWorkbenchModuleByDeployName(getWebModuleDeployedName());
+			WorkbenchComponent webModule = localModuleCore.findComponentByName(getWebModuleDeployedName());
 
-			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getLocalWebLibraryModuleURI());
-			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
+			addDependentModule(webModule, new Path("WEB-INF/lib"), getLocalWebLibraryModuleURI());
+			addDependentModule(webModule, new Path("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
 
 			localModuleCore.saveIfNecessary(null);
 
@@ -233,9 +233,9 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	}
 
-	public void createLocalModules(ModuleCore moduleCore) throws Exception {
+	public void createLocalModules(StructureEdit moduleCore) throws Exception {
 
-		ProjectComponents projectModules = moduleCore.getModuleModelRoot();
+		ProjectComponents projectModules = moduleCore.getComponentModelRoot();
 
 		WorkbenchComponent webLibraryModule = addWorkbenchModule(projectModules, getLocalWebLibraryDeployedName(), getLocalWebLibraryModuleURI());
 		IFolder localWebLibrary = getProjectForWebModuleAndLocalWebLib().getFolder(getLocalWebLibraryFolderName());
@@ -243,8 +243,8 @@ public class ModuleStructuralModelTest extends TestCase {
 			localWebLibrary.create(true, true, null);
 		addResource(webLibraryModule, localWebLibrary, "/");
 
-		ComponentType webModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
-		webModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
+		ComponentType webModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
+		webModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
 		webLibraryModule.setComponentType(webModuleType);
 	}
 
@@ -253,22 +253,21 @@ public class ModuleStructuralModelTest extends TestCase {
 	}
 
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();
-		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setRuntimePath(URI.createURI(aDeployPath));
+		ComponentResource resource = ComponentcoreFactory.eINSTANCE.createComponentResource();
+		resource.setSourcePath(aSourceFile.getFullPath());
+		resource.setRuntimePath(new Path(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setName(aDeployedName);
-		module.setHandle(aHandle);
+		WorkbenchComponent module = ComponentcoreFactory.eINSTANCE.createWorkbenchComponent();
+		module.setName(aDeployedName); 
 		theModules.getComponents().add(module);
 		return module;
 	}
 
-	public void addDependentModule(WorkbenchComponent aModule, URI aDeployedPath, URI aHandle) {
-		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
+	public void addDependentModule(WorkbenchComponent aModule, IPath aDeployedPath, URI aHandle) {
+		ReferencedComponent aClasspathDependentModule = ComponentcoreFactory.eINSTANCE.createReferencedComponent();
 		aClasspathDependentModule.setRuntimePath(aDeployedPath);
 		aClasspathDependentModule.setHandle(aHandle);
 		aModule.getReferencedComponents().add(aClasspathDependentModule);
@@ -332,15 +331,15 @@ public class ModuleStructuralModelTest extends TestCase {
 			try {
 				structuralModel = ModuleCoreNature.getModuleCoreNature(project).getModuleStructuralModelForWrite(this);
 				structuralModel.prepareProjectModulesIfNecessary();
-				ModuleCore moduleCore = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
+				StructureEdit moduleCore = (StructureEdit) structuralModel.getAdapter(StructureEdit.ADAPTER_TYPE);
 				String deployedName = aProjectName + ".jar";
 				URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + aProjectName + IPath.SEPARATOR + deployedName);
-				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getModuleModelRoot(), deployedName, moduleURI);
+				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getComponentModelRoot(), deployedName, moduleURI);
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
 
-				ComponentType utilityModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
-				utilityModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
+				ComponentType utilityModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
+				utilityModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
 				utilityModule.setComponentType(utilityModuleType);
 
 				structuralModel.saveIfNecessary(this);

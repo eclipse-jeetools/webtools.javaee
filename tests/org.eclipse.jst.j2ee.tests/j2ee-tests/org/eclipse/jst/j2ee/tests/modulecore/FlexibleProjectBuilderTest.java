@@ -22,20 +22,21 @@ import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.ModuleStructuralModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.ComponentResource;
+import org.eclipse.wst.common.componentcore.internal.ComponentType;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.ProjectComponents;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ComponentType;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
-import org.eclipse.wst.common.modulecore.ProjectComponents;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class FlexibleProjectBuilderTest extends TestCase {
 	public static final String MODULE__RESOURCE_URI_PROTOCOL = "module:/resource/";
@@ -88,7 +89,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
         try {
             //check web project
             IProject remoteWeb = getProjectForRemoteWebLib();
-            IFolder[] remoteOutputFolders = ModuleCore.getOutputContainersForProject(remoteWeb);
+            IFolder[] remoteOutputFolders = StructureEdit.getOutputContainersForProject(remoteWeb);
             IFolder tempFolder = remoteWeb.getFolder(remoteOutputFolders[0].getName());
             if(!tempFolder.exists())
                 assertFalse(".deployables should exist, a build has been run", true);
@@ -97,7 +98,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
                 assertFalse(".deployables/RemoteWebLibProject.jar should exist, a build has been run", true);
             //check the remote java util project
             IProject localWeb = getProjectForWebModuleAndLocalWebLib();
-            IFolder[] localOutputFolders = ModuleCore.getOutputContainersForProject(localWeb);
+            IFolder[] localOutputFolders = StructureEdit.getOutputContainersForProject(localWeb);
             tempFolder = localWeb.getFolder(localOutputFolders[0].getName());
             if(!tempFolder.exists())
                 assertFalse(".deployables should exist, a build has been run", true);
@@ -146,12 +147,12 @@ public class FlexibleProjectBuilderTest extends TestCase {
     private void checkForEmptyDeployables() {
         try {
             IProject remoteWeb = getProjectForRemoteWebLib();
-            IFolder[] remoteOutputFolders = ModuleCore.getOutputContainersForProject(remoteWeb);
+            IFolder[] remoteOutputFolders = StructureEdit.getOutputContainersForProject(remoteWeb);
             IFolder folder = remoteWeb.getFolder(remoteOutputFolders[0].getName());
             if(folder.exists())
                 assertFalse(".deployables should only exist if a build has been run", true);
             IProject localWeb = getProjectForWebModuleAndLocalWebLib();
-            IFolder[] localOutputFolders = ModuleCore.getOutputContainersForProject(localWeb);
+            IFolder[] localOutputFolders = StructureEdit.getOutputContainersForProject(localWeb);
             folder = remoteWeb.getFolder(localOutputFolders[0].getName());
             if(folder.exists())
                 assertFalse(".deployables should only exist if a build has been run", true);
@@ -162,22 +163,22 @@ public class FlexibleProjectBuilderTest extends TestCase {
     }
 
 	public void setupContent() throws Exception {
-		ModuleCore localModuleCore = null;
+		StructureEdit localModuleCore = null;
 		try {
 			getProjectForWebModuleAndLocalWebLib();
 			
-			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI());
-			localModuleCore = ModuleCore.getModuleCoreForWrite(containingProject); 
+			IProject containingProject = StructureEdit.getContainingProject(getWebModuleURI());
+			localModuleCore = StructureEdit.getStructureEditForWrite(containingProject); 
 
 			createLocalModules(localModuleCore);
 
 			// will setup and handle creating the modules model
 			getProjectForRemoteWebLib();
 
-			WorkbenchComponent webModule = localModuleCore.findWorkbenchModuleByDeployName(getWebModuleDeployedName());
+			WorkbenchComponent webModule = localModuleCore.findComponentByName(getWebModuleDeployedName());
 
-			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getLocalWebLibraryModuleURI());
-			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
+			addDependentModule(webModule, new Path("WEB-INF/lib"), getLocalWebLibraryModuleURI());
+			addDependentModule(webModule, new Path("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
 
 			localModuleCore.saveIfNecessary(null);
 
@@ -241,15 +242,15 @@ public class FlexibleProjectBuilderTest extends TestCase {
 			try {
 				structuralModel = ModuleCoreNature.getModuleCoreNature(project).getModuleStructuralModelForWrite(this);
 				structuralModel.prepareProjectModulesIfNecessary();
-				ModuleCore moduleCore = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
+				StructureEdit moduleCore = (StructureEdit) structuralModel.getAdapter(StructureEdit.ADAPTER_TYPE);
 				String deployedName = aProjectName + ".jar";
 				URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + aProjectName + IPath.SEPARATOR + deployedName);
-				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getModuleModelRoot(), deployedName, moduleURI);
+				WorkbenchComponent utilityModule = addWorkbenchModule(moduleCore.getComponentModelRoot(), deployedName, moduleURI);
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
 
-				ComponentType utilityModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
-				utilityModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
+				ComponentType utilityModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
+				utilityModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
 				utilityModule.setComponentType(utilityModuleType);
 
 				structuralModel.saveIfNecessary(this);
@@ -262,30 +263,29 @@ public class FlexibleProjectBuilderTest extends TestCase {
 	}
 	
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();
-		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setRuntimePath(URI.createURI(aDeployPath));
+		ComponentResource resource = ComponentcoreFactory.eINSTANCE.createComponentResource();
+		resource.setSourcePath(aSourceFile.getFullPath());
+		resource.setRuntimePath(new Path(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setName(aDeployedName);
-		module.setHandle(aHandle);
+		WorkbenchComponent module = ComponentcoreFactory.eINSTANCE.createWorkbenchComponent();
+		module.setName(aDeployedName); 
 		theModules.getComponents().add(module);
 		return module;
 	}
 
-	public void addDependentModule(WorkbenchComponent aModule, URI aDeployedPath, URI aHandle) {
-		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
+	public void addDependentModule(WorkbenchComponent aModule, IPath aDeployedPath, URI aHandle) {
+		ReferencedComponent aClasspathDependentModule = ComponentcoreFactory.eINSTANCE.createReferencedComponent();
 		aClasspathDependentModule.setRuntimePath(aDeployedPath);
 		aClasspathDependentModule.setHandle(aHandle);
 		aModule.getReferencedComponents().add(aClasspathDependentModule);
 	}
 	
-	public void createLocalModules(ModuleCore moduleCore) throws Exception {
+	public void createLocalModules(StructureEdit moduleCore) throws Exception {
 
-		ProjectComponents projectModules = moduleCore.getModuleModelRoot();
+		ProjectComponents projectModules = moduleCore.getComponentModelRoot();
 
 		WorkbenchComponent webLibraryModule = addWorkbenchModule(projectModules, getLocalWebLibraryDeployedName(), getLocalWebLibraryModuleURI());
 		IFolder localWebLibrary = getProjectForWebModuleAndLocalWebLib().getFolder(getLocalWebLibraryFolderName());
@@ -293,8 +293,8 @@ public class FlexibleProjectBuilderTest extends TestCase {
 			localWebLibrary.create(true, true, null);
 		addResource(webLibraryModule, localWebLibrary, "/");
 
-		ComponentType webModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
-		webModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
+		ComponentType webModuleType = ComponentcoreFactory.eINSTANCE.createComponentType();
+		webModuleType.setComponentTypeId(IModuleConstants.JST_UTILITY_MODULE);
 		webLibraryModule.setComponentType(webModuleType);
 	}
 
