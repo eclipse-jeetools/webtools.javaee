@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.13 $  $Date: 2004/10/12 20:20:14 $ 
+ *  $Revision: 1.14 $  $Date: 2004/10/28 21:24:57 $ 
  */
 
 
@@ -286,7 +286,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		
 		if (wait && tjob != null) {
 			try {
-				tjob.wait(30000L);
+				tjob.join();
 			} catch (InterruptedException e) {
 				// It timed out, so we'll just go on.
 			}
@@ -326,13 +326,17 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		Thread thread = Thread.currentThread();
 		if (thread instanceof REMCallbackThread) {
 			// The current thread is a call back thread, so just reuse the connection.
-			// This way any calls out to the remote vm will be on same thread as callback caller
-			// on remote vm because that thread is waiting on this connection for commands.
-			IREMConnection c = ((REMCallbackThread) thread).getConnection();
-			if (c.isConnected())
-				return c;
-			else
-				throw new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.CallbackConnectionNotWorking_EXC_")); //$NON-NLS-1$
+			// But this thread could actually be trying to access another registry.
+			// So if this thread is for this registry, use it, if not for this registry, create a new connection.
+			if (((REMCallbackThread) thread).registry == this) {
+				// This way any calls out to the remote vm will be on same thread as callback caller
+				// on remote vm because that thread is waiting on this connection for commands.
+				IREMConnection c = ((REMCallbackThread) thread).getConnection();
+				if (c.isConnected())
+					return c;
+				else
+					throw new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.CallbackConnectionNotWorking_EXC_")); //$NON-NLS-1$
+			}
 		}
 		synchronized(fConnectionPool) {
 			if (!fConnectionPool.isEmpty())

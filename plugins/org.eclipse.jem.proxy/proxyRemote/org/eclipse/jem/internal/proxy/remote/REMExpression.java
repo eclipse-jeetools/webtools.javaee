@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.5 $  $Date: 2004/06/04 23:26:02 $ 
+ *  $Revision: 1.6 $  $Date: 2004/10/28 21:24:57 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -42,7 +42,7 @@ public class REMExpression extends Expression {
 		super(registry);
 		connection = (IREMExpressionConnection) registry.getFreeConnection();
 		try {
-			connection.startExpressionProcessing();
+			connection.startExpressionProcessing(this.hashCode());
 		} catch (IOException e) {
 			connection.close();
 			ProxyPlugin.getPlugin().getLogger().log(e);
@@ -98,7 +98,7 @@ public class REMExpression extends Expression {
 			// Format of push proxy command is:
 			//	PushExpressionCommand(push to proxy) followed by:
 			//		ValueObject containing the rendered proxy.
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.PUSH_TO_PROXY_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.PUSH_TO_PROXY_EXPRESSION);
 			if (proxy == null)
 				workerValue.set();
 			else
@@ -125,7 +125,7 @@ public class REMExpression extends Expression {
 	protected void closeProxy() {
 		try {
 			try {
-				connection.stopExpressionProcessing();
+				connection.stopExpressionProcessing(this.hashCode());
 			} catch (IOException e) {
 				connection.close();
 				ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
@@ -142,7 +142,7 @@ public class REMExpression extends Expression {
 	 */
 	protected IBeanProxy pullProxyValue() throws ThrowableProxy, NoExpressionValueException {
 		try {
-			connection.pullValue(workerValue);
+			connection.pullValue(this.hashCode(), workerValue);
 			return getREMBeanProxyFactory().getBeanProxy(workerValue);
 		} catch (CommandErrorException e) {
 			if (e.getErrorCode() == ExpressionCommands.ExpressionNoExpressionValueException) {
@@ -175,7 +175,7 @@ public class REMExpression extends Expression {
 			// Format of push cast to proxy command is:
 			//	PushExpressionCommand(push cast to proxy) followed by:
 			//		ValueObject containing the rendered bean type proxy or the String representing the name of class.
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.CAST_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.CAST_EXPRESSION);
 			if (type instanceof String)
 				workerValue.set((String) type);
 			else
@@ -204,7 +204,7 @@ public class REMExpression extends Expression {
 			// Format of push instanceof to proxy command is:
 			//	PushExpressionCommand(push instanceof to proxy) followed by:
 			//		ValueObject containing the rendered bean type proxy or the String representing the name of class.
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.INSTANCEOF_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.INSTANCEOF_EXPRESSION);
 			if (type instanceof String)
 				workerValue.set((String) type);
 			else
@@ -234,7 +234,7 @@ public class REMExpression extends Expression {
 			//	PushExpressionCommand(push infix to proxy) followed by:
 			//		byte: operator
 			//		byte: operandType
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.INFIX_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.INFIX_EXPRESSION);
 			connection.pushByte((byte) operator);
 			connection.pushByte((byte) operandType);
 		} catch (IOException e) {
@@ -253,7 +253,7 @@ public class REMExpression extends Expression {
 			// Format of push prefix to proxy command is:
 			//	PushExpressionCommand(push prefix to proxy) followed by:
 			//		byte: operator
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.PREFIX_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.PREFIX_EXPRESSION);
 			connection.pushByte((byte) operator);
 		} catch (IOException e) {
 			connection.close();
@@ -271,7 +271,7 @@ public class REMExpression extends Expression {
 			// Format of push type literal to proxy command is:
 			//	PushExpressionCommand(push typeliteral to proxy) followed by:
 			//		ValueObject containing the String representing the name of class.
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.TYPELITERAL_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.TYPELITERAL_EXPRESSION);
 			workerValue.set((String) type);
 			connection.pushValueObject(workerValue);
 		} catch (IOException e) {
@@ -297,7 +297,7 @@ public class REMExpression extends Expression {
 			// Format of push array access to proxy command is:
 			//	PushExpressionCommand(push array acces to proxy) followed by:
 			//		int: indexCount
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.ARRAY_ACCESS_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.ARRAY_ACCESS_EXPRESSION);
 			connection.pushInt(indexCount);
 		} catch (IOException e) {
 			connection.close();
@@ -316,7 +316,7 @@ public class REMExpression extends Expression {
 			//	PushExpressionCommand(push array creation to proxy) followed by:
 			//		ValueObject containing the rendered bean type proxy or the String representing the name of class.
 			//		int: dimension count
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.ARRAY_CREATION_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.ARRAY_CREATION_EXPRESSION);
 			if (type instanceof String)
 				workerValue.set((String) type);
 			else
@@ -347,7 +347,7 @@ public class REMExpression extends Expression {
 			//	PushExpressionCommand(push array initializer to proxy) followed by:
 			//		ValueObject containing the rendered bean type proxy or the String representing the name of class.
 			//		int: expression count
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.ARRAY_INITIALIZER_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.ARRAY_INITIALIZER_EXPRESSION);
 			if (type instanceof String)
 				workerValue.set((String) type);
 			else
@@ -378,7 +378,7 @@ public class REMExpression extends Expression {
 			//	PushExpressionCommand(push class instance creation to proxy) followed by:
 			//		ValueObject containing the rendered bean type proxy or the String representing the name of class.
 			//		int: argument count
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.CLASS_INSTANCE_CREATION_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.CLASS_INSTANCE_CREATION_EXPRESSION);
 			if (type instanceof String)
 				workerValue.set((String) type);
 			else
@@ -408,7 +408,7 @@ public class REMExpression extends Expression {
 			// Format of push type receiver to proxy command is:
 			//	PushExpressionCommand(push type receiver to proxy) followed by:
 			//		ValueObject containing the rendered bean type proxy or the String representing the name of class.
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.TYPERECEIVER_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.TYPERECEIVER_EXPRESSION);
 			if (type instanceof String)
 				workerValue.set((String) type);
 			else
@@ -438,7 +438,7 @@ public class REMExpression extends Expression {
 			//	PushExpressionCommand(push field access to proxy) followed by:
 			//		String: fieldName
 			//		boolean: hasReceiver
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.FIELD_ACCESS_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.FIELD_ACCESS_EXPRESSION);
 			connection.pushString(fieldName);
 			connection.pushBoolean(hasReceiver);
 		} catch (IOException e) {
@@ -460,7 +460,7 @@ public class REMExpression extends Expression {
 			//		String: methodName
 			//		boolean: hasReceiver
 			//		int: argCount
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.METHOD_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.METHOD_EXPRESSION);
 			connection.pushString(methodName);
 			connection.pushBoolean(hasReceiver);
 			connection.pushInt(argCount);
@@ -480,7 +480,7 @@ public class REMExpression extends Expression {
 			// Format of push conditional to proxy command is:
 			//	PushExpressionCommand(push conditional to proxy) followed by:
 			//		byte: expression type
-			connection.pushExpressionCommand((byte)IInternalExpressionConstants.CONDITIONAL_EXPRESSION);
+			connection.pushExpressionCommand(this.hashCode(), (byte)IInternalExpressionConstants.CONDITIONAL_EXPRESSION);
 			connection.pushByte((byte) expressionType);
 		} catch (IOException e) {
 			connection.close();
@@ -495,7 +495,7 @@ public class REMExpression extends Expression {
 	 */
 	protected void pushInvoke() throws ThrowableProxy, NoExpressionValueException {
 		try {
-			connection.sync(workerValue);
+			connection.sync(this.hashCode(), workerValue);
 			getREMBeanProxyFactory().getBeanProxy(workerValue);	// This processes the return. It will be either true or an error. If true we don't care and if error the catch will handle it.
 		} catch (CommandErrorException e) {
 			if (e.getErrorCode() == ExpressionCommands.ExpressionNoExpressionValueException) {

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.9 $  $Date: 2004/10/28 15:47:59 $ 
+ *  $Revision: 1.10 $  $Date: 2004/10/28 21:24:57 $ 
  */
 
 import java.io.*;
@@ -35,6 +35,7 @@ class REMCallbackThread extends Thread {
 	final REMCallbackRegistry fServer;
 	final REMStandardBeanProxyFactory fFactory;
 	final REMStandardBeanTypeProxyFactory fTypeFactory;
+	final REMProxyFactoryRegistry registry;
 	protected boolean shuttingDown;
 	
 
@@ -48,6 +49,7 @@ class REMCallbackThread extends Thread {
 		super(name);
 		
 		fConnection = new REMConnection(socket, true);	// No timeouts since this is a server thread.
+		this.registry = registry;
 		fServer = server;
 		fFactory = (REMStandardBeanProxyFactory) registry.getBeanProxyFactory();
 		fTypeFactory = (REMStandardBeanTypeProxyFactory) registry.getBeanTypeProxyFactory();		

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionCommands.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/10/28 21:24:57 $ 
  */
 package org.eclipse.jem.internal.proxy.common.remote;
 
@@ -80,42 +80,48 @@ public class ExpressionCommands {
 	
 	/**
 	 * Send the start expression processing command.
-	 * 
+	 * @param expressionID TODO
 	 * @param os
+	 * 
 	 * @throws IOException
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendStartExpressionProcessingCommand(DataOutputStream os) throws IOException {
+	public static void sendStartExpressionProcessingCommand(int expressionID, DataOutputStream os) throws IOException {
 		os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
+		os.writeInt(expressionID);
 		os.writeByte(START_EXPRESSION_TREE_PROCESSING);
 	}
 	
 	/**
 	 * Send the end expression processing command.
-	 * 
+	 * @param expressionID TODO
 	 * @param os
+	 * 
 	 * @throws IOException
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendEndExpressionProcessingCommand(DataOutputStream os) throws IOException {
+	public static void sendEndExpressionProcessingCommand(int expressionID, DataOutputStream os) throws IOException {
 		os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
+		os.writeInt(expressionID);
 		os.writeByte(END_EXPRESSION_TREE_PROCESSING);
 		os.flush();	// Flushing because we are done and want to make sure everything goes out.
 	}
 	
 	/**
 	 * Send an expression subcommand.
-	 * 
+	 * @param expressionID TODO
 	 * @param os
 	 * @param subcommand
+	 * 
 	 * @throws IOException
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendExpressionCommand(DataOutputStream os, byte subcommand) throws IOException {
+	public static void sendExpressionCommand(int expressionID, DataOutputStream os, byte subcommand) throws IOException {
 		os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
+		os.writeInt(expressionID);
 		os.writeByte(PUSH_EXPRESSION);
 		os.writeByte(subcommand);
 	}
@@ -174,6 +180,7 @@ public class ExpressionCommands {
 	
 	/**
 	 * Send the pull value command. Return either the value or an error (NoValueExpressionException or a Throwable)>
+	 * @param expressionID TODO
 	 * @param os
 	 * @param is
 	 * @param valueReturn
@@ -181,9 +188,10 @@ public class ExpressionCommands {
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendPullValueCommand(DataOutputStream os, DataInputStream is, Commands.ValueObject valueReturn) throws CommandException {
+	public static void sendPullValueCommand(int expressionID, DataOutputStream os, DataInputStream is, Commands.ValueObject valueReturn) throws CommandException {
 		try {
 			os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
+			os.writeInt(expressionID);
 			os.writeByte(PULL_VALUE_REQUEST);
 			os.flush();
 			Commands.readBackValue(is, valueReturn, Commands.NO_TYPE_CHECK);
@@ -200,17 +208,19 @@ public class ExpressionCommands {
 	 * Send a sync command. This does a synchronize with the remote expression processor. It makes sure that the
 	 * stream is caught and doesn't return until everything on the stream has been processed. It will then return a
 	 * value. The value should <code>true</code> if everything is OK, it could be an error return,
-	 * 
+	 * @param expressionID TODO
 	 * @param os
 	 * @param is
 	 * @param returnValue
+	 * 
 	 * @throws CommandException
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void sendSyncCommand(DataOutputStream os, DataInputStream is, Commands.ValueObject returnValue) throws CommandException {
+	public static void sendSyncCommand(int expressionID, DataOutputStream os, DataInputStream is, Commands.ValueObject returnValue) throws CommandException {
 		try {
 			os.writeByte(Commands.EXPRESSION_TREE_COMMAND);
+			os.writeInt(expressionID);
 			os.writeByte(SYNC_REQUEST);
 			os.flush();
 			Commands.readBackValue(is, returnValue, Commands.NO_TYPE_CHECK);

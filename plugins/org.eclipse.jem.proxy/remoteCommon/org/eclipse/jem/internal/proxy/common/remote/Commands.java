@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.common.remote;
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.9 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.10 $  $Date: 2004/10/28 21:24:57 $ 
  */
 
 import java.io.*;
@@ -263,11 +263,17 @@ public class Commands {
 	//		there is no return type (i.e. the method was void). So null can be returned either if the value
 	//		was null or if the return type was void.
 	//
-	// EXPRESSION_TREE_COMMAND: 20b, b
-	//		Receiving an expression tree subcommand. Where "b" is byte code, defined in ExpressionCommands, that
+	// EXPRESSION_TREE_COMMAND: 20b, n, b
+	//		Receiving an expression tree subcommand. Where "n" is a unique id number of the
+	//		expression being processed. Where "b" is byte code, defined in ExpressionCommands, that
 	//		determines the type of expression tree commands.
 	//		There can be more data following, but it is read by the 
 	//		ExpressionProcesserController, not by the connection. See the controller for the subcommands.
+	//
+	//		The id number is the id of the expression being processed. This allows more than one expression
+	//		to be processed at a time from this connection.
+	//
+	//		@see ExpressionCommands
 	//		@see ExpressionProcessController
 	//
 	// INVOKE_WITH_METHOD_PASSED: 20b,  classId, "methodName", value0, tb, value1, value2

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IREMExpressionConnection.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/10/28 21:24:57 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -35,24 +35,26 @@ public interface IREMExpressionConnection extends IREMConnection {
 	
 	/**
 	 * Start expression processing.
+	 * @param expressionID TODO
 	 * 
 	 * @throws IOException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void startExpressionProcessing() throws IOException;
+	public void startExpressionProcessing(int expressionID) throws IOException;
 	
 	/**
 	 * Push an expression command. This is the common portion of the
 	 * subcommand. The actual data of the command will be separately done.
-	 * 
+	 * @param expressionID TODO
 	 * @param subcommand The subcommand being sent. From IInternalExpressionConstants.
+	 * 
 	 * @throws IOException
 	 * 
 	 * @see org.eclipse.jem.internal.proxy.initParser.tree.IInternalExpressionConstants#PUSH_TO_PROXY_EXPRESSION
 	 * @since 1.0.0
 	 */
-	public void pushExpressionCommand(byte subcommand) throws IOException;
+	public void pushExpressionCommand(int expressionID, byte subcommand) throws IOException;
 	
 	/**
 	 * Push the value object to the remote side.
@@ -107,32 +109,35 @@ public interface IREMExpressionConnection extends IREMConnection {
 	 * Pull the return value and put into the parameter value object. If an error
 	 * occurs, command exception is thrown. The value codes are either <code>ExpressionNoExpressionValueException</code> or
 	 * <code>ThrowableSent</code>
-	 * 
+	 * @param expressionID TODO
 	 * @param returnValue
+	 * 
 	 * @throws CommandException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void pullValue(Commands.ValueObject returnValue) throws CommandException;
+	public void pullValue(int expressionID, Commands.ValueObject returnValue) throws CommandException;
 	
 	/**
 	 * Send the sync command and put the return value into the parameter value object. If an error
 	 * occurs, command exception is thrown. The value codes are either <code>ExpressionNoExpressionValueException</code> or
 	 * <code>ThrowableSent</code>
-	 * 
+	 * @param expressionID TODO
 	 * @param returnValue
+	 * 
 	 * @throws CommandException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void sync(Commands.ValueObject returnValue) throws CommandException;	
+	public void sync(int expressionID, Commands.ValueObject returnValue) throws CommandException;	
 	
 	/**
 	 * Stop expression processing.
+	 * @param expressionID TODO
 	 * 
 	 * @throws IOException
 	 * 
 	 * @since 1.0.0
 	 */
-	public void stopExpressionProcessing() throws IOException;
+	public void stopExpressionProcessing(int expressionID) throws IOException;
 }

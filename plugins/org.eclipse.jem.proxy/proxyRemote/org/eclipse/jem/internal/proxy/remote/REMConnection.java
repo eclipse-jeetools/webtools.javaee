@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.10 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.11 $  $Date: 2004/10/28 21:24:57 $ 
  */
 
 
@@ -220,25 +220,25 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#startExpressionProcessing()
 	 */
-	public void startExpressionProcessing() throws IOException {
+	public void startExpressionProcessing(int expressionID) throws IOException {
 		if (isConnected())
-			ExpressionCommands.sendStartExpressionProcessingCommand(out);
+			ExpressionCommands.sendStartExpressionProcessingCommand(expressionID, out);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#pushExpressionCommand(byte)
 	 */
-	public void pushExpressionCommand(byte subcommand) throws IOException {
+	public void pushExpressionCommand(int expressionID, byte subcommand) throws IOException {
 		if (isConnected())
-			ExpressionCommands.sendExpressionCommand(out, subcommand);
+			ExpressionCommands.sendExpressionCommand(expressionID, out, subcommand);
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#stopExpressionProcessing()
 	 */
-	public void stopExpressionProcessing() throws IOException {
+	public void stopExpressionProcessing(int expressionID) throws IOException {
 		if (isConnected())
-			ExpressionCommands.sendEndExpressionProcessingCommand(out);
+			ExpressionCommands.sendEndExpressionProcessingCommand(expressionID, out);
 	}
 
 	/* (non-Javadoc)
@@ -284,17 +284,17 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#pullValue(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
 	 */
-	public void pullValue(ValueObject returnValue) throws CommandException {
+	public void pullValue(int expressionID, ValueObject returnValue) throws CommandException {
 		if (isConnected())
-			ExpressionCommands.sendPullValueCommand(out, in, returnValue);
+			ExpressionCommands.sendPullValueCommand(expressionID, out, in, returnValue);
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMExpressionConnection#sync(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
 	 */
-	public void sync(ValueObject returnValue) throws CommandException {
+	public void sync(int expressionID, ValueObject returnValue) throws CommandException {
 		if (isConnected())
-			ExpressionCommands.sendSyncCommand(out, in, returnValue);
+			ExpressionCommands.sendSyncCommand(expressionID, out, in, returnValue);
 	}
 
 }

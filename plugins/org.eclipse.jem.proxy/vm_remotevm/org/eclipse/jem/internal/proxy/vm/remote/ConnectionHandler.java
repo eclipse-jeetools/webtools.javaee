@@ -11,13 +11,16 @@
 package org.eclipse.jem.internal.proxy.vm.remote;
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.8 $  $Date: 2004/10/28 21:24:57 $ 
  */
 
 
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
@@ -85,12 +88,8 @@ public class ConnectionHandler {
 		}
 	}
 	
-	/*
-	 * The current expression controller. Since the same connection will be kept live
-	 * for an expression tree, and any new expression trees that occur will use a different connection,
-	 * this is kept here so that it can be found on sub-expression commands. 
-	 */
-	private ExpressionProcesserController exp = null;
+	// Map of ID to expression processers that are currently being processed.
+	private Map expressionProcessors = new HashMap();
 	
 	/**
 	 * Process and loop until told to stop. A callback_done will stop
@@ -500,10 +499,15 @@ public class ConnectionHandler {
 			e.printStackTrace();
 		} finally {
 			if (closeWhenDone) {
-				if (exp != null) {
-					exp.close();
-					exp = null;
+				try {
+					for (Iterator itr = expressionProcessors.values().iterator(); itr.hasNext();) {
+						ExpressionProcesserController exp = (ExpressionProcesserController) itr.next();
+						exp.close();
+					}
+				} finally {
+					expressionProcessors.clear();
 				}
+
 				if (in != null)
 					try {
 						in.close();
@@ -529,15 +533,20 @@ public class ConnectionHandler {
 	}
 	
 	private void processExpressionCommand(Commands.ValueObject valueObject) throws IOException, CommandException {
+		Integer expressionID = new Integer(in.readInt());
 		byte cmdType = in.readByte();
+		ExpressionProcesserController exp = null;
 		switch (cmdType) {
 			case ExpressionCommands.START_EXPRESSION_TREE_PROCESSING:
 				exp = new ExpressionProcesserController(server, this);
+				expressionProcessors.put(expressionID, exp);
 				break;
 			case ExpressionCommands.PUSH_EXPRESSION:
+				exp = (ExpressionProcesserController) expressionProcessors.get(expressionID);
 				exp.process(in);
 				break;
 			case ExpressionCommands.SYNC_REQUEST:
+				exp = (ExpressionProcesserController) expressionProcessors.get(expressionID);
 				if (exp.noErrors()) {
 					valueObject.set(true); // Mark that all is good.
 					try {
@@ -546,10 +555,11 @@ public class ConnectionHandler {
 						valueObject.set();
 					}
 				} else {
-					processExpressionError(valueObject);
+					processExpressionError(exp, valueObject);
 				}
 				break;
 			case ExpressionCommands.PULL_VALUE_REQUEST:
+				exp = (ExpressionProcesserController) expressionProcessors.get(expressionID);
 				if (exp.noErrors()) {
 					Object[] pulledValue = exp.pullValue();
 					if (pulledValue != null) {
@@ -570,19 +580,16 @@ public class ConnectionHandler {
 						}
 					}
 				}
-				processExpressionError(valueObject);
+				processExpressionError(exp, valueObject);
 				break;
 			case ExpressionCommands.END_EXPRESSION_TREE_PROCESSING:
-				try {
-					exp.close();
-				} finally {
-					exp = null;
-				}
+				exp = (ExpressionProcesserController) expressionProcessors.remove(expressionID);
+				exp.close();
 				break;
 		}
 	}
 
-	private void processExpressionError(Commands.ValueObject valueObject) throws CommandException {
+	private void processExpressionError(ExpressionProcesserController exp, Commands.ValueObject valueObject) throws CommandException {
 		try {
 			int code = exp.getErrorCode();
 			if (code != 0) {
