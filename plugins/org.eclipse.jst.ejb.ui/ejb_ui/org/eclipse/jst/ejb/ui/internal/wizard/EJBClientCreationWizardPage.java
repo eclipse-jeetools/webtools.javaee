@@ -27,7 +27,7 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -38,7 +38,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 	private Text selectedProjectName;
 	private Label clientJarURILabel;
 	private Text clientJarURI;
-	private WorkbenchModule module;
+	private WorkbenchComponent module;
 	protected int indent = 0;
 
 	/**

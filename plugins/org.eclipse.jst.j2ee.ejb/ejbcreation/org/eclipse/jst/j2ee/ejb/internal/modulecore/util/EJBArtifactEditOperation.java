@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
 
 public class EJBArtifactEditOperation extends ArtifactEditOperation {
@@ -19,7 +19,7 @@ public class EJBArtifactEditOperation extends ArtifactEditOperation {
     public EJBArtifactEditOperation(EJBArtifactEditOperationDataModel operationDataModel) {
         super(operationDataModel);
     }
-    protected ArtifactEdit getArtifactEditForModule(WorkbenchModule module) {
+    protected ArtifactEdit getArtifactEditForModule(WorkbenchComponent module) {
         return EJBArtifactEdit.getEJBArtifactEditForWrite(module);
     }
     

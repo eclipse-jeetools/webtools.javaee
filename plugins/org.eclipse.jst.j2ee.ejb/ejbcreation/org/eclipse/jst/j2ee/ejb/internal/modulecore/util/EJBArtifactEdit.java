@@ -19,7 +19,7 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 /**
  * <p>
@@ -69,12 +69,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aNature
 	 *            A non-null {@see ModuleCoreNature}for an accessible project
 	 * @param aModule
-	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
+	 *            A non-null {@see WorkbenchComponent}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
 
 
-	public EJBArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
+	public EJBArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
 	
@@ -138,7 +138,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 			clientJAR = jar.getEjbClientJar();
 		if (clientJAR != null) {	
 			ModuleCore mc = ModuleCore.getModuleCoreForRead(project);
-			WorkbenchModule module = mc.findWorkbenchModuleByDeployName(clientJAR);
+			WorkbenchComponent module = mc.findWorkbenchModuleByDeployName(clientJAR);
 		}
 	}
 	
@@ -215,11 +215,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of EJBArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of EJBArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an EJBArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that will not
+	 * Use to acquire an EJBArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that will not
 	 * be used for editing. Invocations of any save*() API on an instance returned from this method
 	 * will throw exceptions.
 	 * </p>
@@ -228,14 +228,14 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of EJBArtifactEdit that may only be used to read the underlying content
 	 *         model
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static EJBArtifactEdit getEJBArtifactEditForRead(WorkbenchModule aModule) {
+	public static EJBArtifactEdit getEJBArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidEJBModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -250,11 +250,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of EJBArtifactEdit that are returned through this method
+	 * {@see WorkbenchComponent}. Instances of EJBArtifactEdit that are returned through this method
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an EJBArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that
+	 * Use to acquire an EJBArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
 	 * will be used for editing.
 	 * </p>
 	 * <p>
@@ -262,12 +262,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 * 
 	 * @param aModule
-	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an accessible
 	 *            project in the workspace
 	 * @return An instance of EJBArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static EJBArtifactEdit getEJBArtifactEditForWrite(WorkbenchModule aModule) {
+	public static EJBArtifactEdit getEJBArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidEJBModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -281,12 +281,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	
 	/**
 	 * @param module
-	 *            A {@see WorkbenchModule}
+	 *            A {@see WorkbenchComponent}
 	 * @return True if the supplied module
-	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchModule)}and the moduleTypeId is a
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchComponent)}and the moduleTypeId is a
 	 *         JST module
 	 */
-	public static boolean isValidEJBModule(WorkbenchModule aModule) throws UnresolveableURIException {
+	public static boolean isValidEJBModule(WorkbenchComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_EJB_MODULE type */

@@ -33,10 +33,10 @@ import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WorkbenchUtil;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ModuleType;
-import org.eclipse.wst.common.modulecore.ProjectModules;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.ComponentType;
+import org.eclipse.wst.common.modulecore.ProjectComponents;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
@@ -117,7 +117,7 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 //			IProject containingProject = getProject();
 //			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
 //			moduleCore.prepareProjectModulesIfNecessary(); 
-//			ProjectModules projectModules = moduleCore.getModuleModelRoot();
+//			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
 //			addContent(projectModules);
 //			moduleCore.saveIfNecessary(null); 
 //		} finally {
@@ -132,7 +132,7 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 			IProject containingProject = getDataModel().getTargetProject();
 			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
 			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectModules projectModules = moduleCore.getModuleModelRoot();
+			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
 			addContent(projectModules);
 			moduleCore.saveIfNecessary(null); 
 		} finally {
@@ -144,8 +144,8 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	/**
 	 * @param projectModules
 	 */
-	private void addContent(ProjectModules projectModules) {
-	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleName()+".war", createModuleURI()); //$NON-NLS-1$
+	private void addContent(ProjectComponents projectModules) {
+	    WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleName()+".war", createModuleURI()); //$NON-NLS-1$
 		IProject aProject = getDataModel().getTargetProject();
 		addResource(webModule, getModuleRelativeFile(getWebContentSourcePath(), aProject), getWebContentDeployPath());
 		addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath(), aProject), getJavaSourceDeployPath());
@@ -158,17 +158,17 @@ public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreati
 		return URI.createURI("module:/resource/"+getDataModel().getTargetProject().getName()+IPath.SEPARATOR+getModuleName()+".war"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
-		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
+	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
+		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
-	public WorkbenchModule addWorkbenchModule(ProjectModules theModules, String aDeployedName, URI aHandle) {
-		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
+		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
 		module.setHandle(aHandle);  
 		module.setDeployedName(aDeployedName);  
-		ModuleType type = ModuleCoreFactory.eINSTANCE.createModuleType();
+		ComponentType type = ModuleCoreFactory.eINSTANCE.createModuleType();
 		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
 		module.setModuleType(type);
 		theModules.getWorkbenchModules().add(module);
