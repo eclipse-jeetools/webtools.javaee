@@ -139,7 +139,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	private void addContent(ProjectModules projectModules) {
 	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleName()+".war", URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName()));		
 		addResource(webModule, getModuleRelativeFile(getWebContentSourcePath(), getProject()), getWebContentDeployPath());
-		addResource(webModule, getModuleRelativeFile(getJavaSourcePath(), getProject()), getJavaSourcePath());
+		addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());
 	}
 	
 	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
@@ -170,8 +170,15 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	/**
 	 * @return
 	 */
-	public String getJavaSourcePath() {
+	public String getJavaSourceSourcePath() {
 		return "/JavaSource"; //$NON-NLS-1$
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getJavaSourceDeployPath() {
+		return "/WEB-INF/classes"; //$NON-NLS-1$
 	}
 	
 	/**
