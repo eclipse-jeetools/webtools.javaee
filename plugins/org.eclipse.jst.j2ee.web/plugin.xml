@@ -583,7 +583,7 @@
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="wst.web"
+            editModelID="jst.web"
             factoryClass="org.eclipse.wst.common.modulecore.ModuleEditModelFactory">
          <editModelResource
                autoload="false"

@@ -13,30 +13,33 @@ import org.eclipse.wst.common.modulecore.util.ArtifactEdit;
 
 /**
  * @author cbridgha
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * 
+ * TODO To change the template for this generated type comment go to Window - Preferences - Java -
+ * Code Style - Code Templates
  */
 public class WebEditAdapterFactory implements IAdapterFactory {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		
-		ArtifactEditModel editModel = (ArtifactEditModel)adaptableObject;
-		if (editModel.getModuleType().equals(WebEdit.TYPE_ID))
-			return new WebEdit((ArtifactEditModel)adaptableObject);
-		else
-			return null;
+		if (adapterType == WebEdit.ADAPTER_TYPE || adapterType == ArtifactEdit.ADAPTER_TYPE) {
+			ArtifactEditModel editModel = (ArtifactEditModel) adaptableObject;
+			if (editModel.getModuleType().equals(WebEdit.TYPE_ID))
+				return new WebEdit((ArtifactEditModel) adaptableObject);
+		} 
+		return null;
 	}
 
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
 	 */
-	public Class[] getAdapterList() {
-		
-		return new Class[] { ArtifactEditModel.class };
+	public Class[] getAdapterList() { 
+		return new Class[]{ArtifactEdit.class, WebEdit.class};
 	}
 }

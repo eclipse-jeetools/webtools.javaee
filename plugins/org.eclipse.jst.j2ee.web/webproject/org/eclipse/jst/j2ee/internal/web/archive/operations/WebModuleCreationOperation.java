@@ -45,6 +45,7 @@ import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.util.ModuleCore;
 
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 
@@ -121,7 +122,8 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 			ModuleCoreNature moduleCoreNature = (ModuleCoreNature) containingProject.getNature(ModuleCoreNature.MODULE_NATURE_ID);
 			structuralModel = moduleCoreNature.getModuleStructuralModelForWrite(this);
 			structuralModel.prepareProjectModulesIfNecessary();
-			ProjectModules projectModules = (ProjectModules) structuralModel.getPrimaryResource().getContents().get(0);
+			ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_CLASS);
+			ProjectModules projectModules = editUtility.getProjectModules();
 			addContent(projectModules);
 			structuralModel.saveIfNecessary(this);
 		} catch(CoreException ex) {
@@ -136,7 +138,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	 */
 	private void addContent(ProjectModules projectModules) {
 	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleName()+".war", URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName()));		
-		addResource(webModule, getModuleRelativeFile(getWebContentResourcePath(), getProject()), getWebContentResourcePath());
+		addResource(webModule, getModuleRelativeFile(getWebContentSourcePath(), getProject()), getWebContentDeployPath());
 		addResource(webModule, getModuleRelativeFile(getJavaSourcePath(), getProject()), getJavaSourcePath());
 	}
 	
@@ -171,11 +173,19 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	public String getJavaSourcePath() {
 		return "/JavaSource"; //$NON-NLS-1$
 	}
+	
 	/**
 	 * @return
 	 */
-	public String getWebContentResourcePath() {
+	public String getWebContentSourcePath() {
 		return "/WebContent"; //$NON-NLS-1$
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getWebContentDeployPath() {
+		return "/"; //$NON-NLS-1$
 	}
 	
 	public String getModuleName() {
