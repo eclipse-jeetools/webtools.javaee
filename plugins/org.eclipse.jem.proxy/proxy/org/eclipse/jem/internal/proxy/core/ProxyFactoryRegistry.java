@@ -11,11 +11,13 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/08/17 19:31:33 $ 
  */
 
 
 import java.util.*;
+
+import com.ibm.wtp.common.util.TimerTests;
 
 /**
  * Registry of proxy factories on a per-VM basis.
@@ -270,35 +272,53 @@ public abstract class ProxyFactoryRegistry {
 			return;	// Already or are already terminating. Don't do it again and don't notify again.
 		fIsValid = false;
 		if (fCurrentStandardBeanTypeProxyFactory != null) {
+			TimerTests.basicTest.startStep("Terminate Bean Type Factory", TimerTests.CURRENT_PARENT_ID);
 			fCurrentStandardBeanTypeProxyFactory.terminateFactory();
+			TimerTests.basicTest.stopStep("Terminate Bean Type Factory");
 			fCurrentStandardBeanTypeProxyFactory = null;
 		}
 		if (fCurrentStandardBeanProxyFactory != null) {
+			TimerTests.basicTest.startStep("Terminate Bean Factory", TimerTests.CURRENT_PARENT_ID);
 			fCurrentStandardBeanProxyFactory.terminateFactory();
+			TimerTests.basicTest.stopStep("Terminate Bean Factory");
 			fCurrentStandardBeanProxyFactory = null;
 		}
 		if (fMethodProxyFactory != null) {
+			TimerTests.basicTest.startStep("Terminate Method Factory", TimerTests.CURRENT_PARENT_ID);
 			fMethodProxyFactory.terminateFactory();
+			TimerTests.basicTest.stopStep("Terminate Method Factory");
 			fMethodProxyFactory = null;
 		}
 		
 		Iterator itr = fRegisteredExtensionBeanTypeProxyFactories.values().iterator();
+		TimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory", TimerTests.CURRENT_PARENT_ID);
 		while (itr.hasNext()) {
+			TimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory");
 			((IBeanProxyFactory) itr.next()).terminateFactory();
+			TimerTests.basicTest.stopCumulativeStep("Terminate Aux. Bean Factory");
 		}
+		TimerTests.basicTest.stopStep("Terminate Aux. Bean Factory");
 		fRegisteredExtensionBeanTypeProxyFactories.clear();
 		
 		itr = fRegisteredExtensionBeanProxyFactories.values().iterator();
+		TimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory", TimerTests.CURRENT_PARENT_ID);		
 		while (itr.hasNext()) {
+			TimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory");
 			((IBeanProxyFactory) itr.next()).terminateFactory();
+			TimerTests.basicTest.stopCumulativeStep("Terminate Aux. BeanType Factory");
 		}
+		TimerTests.basicTest.stopStep("Terminate Aux. BeanType Factory");
 		fRegisteredExtensionBeanProxyFactories.clear();
 		
 		fRegisteredConstants.clear();
 		
+		TimerTests.basicTest.startStep("Registry Terminated", TimerTests.CURRENT_PARENT_ID);
 		registryTerminated();
+		TimerTests.basicTest.stopStep("Registry Terminated");
 		
+		TimerTests.basicTest.startStep("Registry Terminated Notification", TimerTests.CURRENT_PARENT_ID);
 		fireRegistryTerminated();	// Let everyone know that we are gone.
+		TimerTests.basicTest.stopStep("Registry Terminated Notification");
 	}
 	
 	/**

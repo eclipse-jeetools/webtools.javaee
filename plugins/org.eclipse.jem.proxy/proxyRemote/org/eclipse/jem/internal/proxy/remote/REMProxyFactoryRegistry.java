@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.9 $  $Date: 2004/06/04 23:26:02 $ 
+ *  $Revision: 1.10 $  $Date: 2004/08/17 19:31:33 $ 
  */
 
 
@@ -26,7 +26,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.*;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
+
 import org.eclipse.jem.internal.proxy.core.*;
+
+import com.ibm.wtp.common.util.TimerTests;
 /**
  * This is the factory registry to use for Remote VM.
  * It adds to the standard registry, connection specific information.
@@ -203,15 +206,18 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		
 		if (fServerPort != 0) {
 			if (waitRegistrationThread != null) {
+				TimerTests.basicTest.startStep("Wait Registration", TimerTests.CURRENT_PARENT_ID);
 				synchronized (waitRegistrationThread) {
 					// Still waiting. close it out.
 					WaitForRegistrationThread wThread = waitRegistrationThread;
 					waitRegistrationThread = null;
 					wThread.notifyAll();
 				}
+				TimerTests.basicTest.stopStep("Wait Registration");
 			}
 					
-			IREMConnection closeCon = null;	// The connection we will use to close the remote vm.			
+			IREMConnection closeCon = null;	// The connection we will use to close the remote vm.
+			TimerTests.basicTest.startCumulativeStep("Close Connections", TimerTests.CURRENT_PARENT_ID);
 			synchronized(fConnectionPool) {
 				// Now we walk through all of the free connections and close them properly.
 				Iterator itr = fConnectionPool.iterator();
@@ -219,9 +225,12 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 					closeCon = (IREMConnection) itr.next();
 				while (itr.hasNext()) {
 					IREMConnection con = (IREMConnection) itr.next();
+					TimerTests.basicTest.startCumulativeStep("Close Connections");
 					con.close();
+					TimerTests.basicTest.stopCumulativeStep("Close Connections");
 				}
 			}
+			TimerTests.basicTest.stopStep("Close Connections");
 				
 			// Now we terminate the server.
 			if (closeCon == null)
@@ -230,12 +239,16 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 				} catch (IllegalStateException e) {
 					// Do nothing, don't want to stop termination just because we can't get a connection.
 				}
-			if (closeCon != null)
+			if (closeCon != null) {
+				TimerTests.basicTest.startStep("Close Connection Server", TimerTests.CURRENT_PARENT_ID);
 				closeCon.terminateServer();	// We got a connection to terminate (process may of terminated early, so we would not have a conn then).
+				TimerTests.basicTest.stopStep("Close Connection Server");
+			}
 			fConnectionPool.clear();
 			fServerPort = 0;
 			if (fProcess != null) {
 				try {
+					TimerTests.basicTest.startStep("Wait for termination", TimerTests.CURRENT_PARENT_ID);
 					// There is no join on a process available, so we will have to
 					// busy wait. Give it 10 seconds in 1/10 second intervals.
 					for (int i=0; !fProcess.isTerminated() && i<100; i++) {
@@ -244,16 +257,22 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 						} catch (InterruptedException e) {
 						}
 					}
-					if (!fProcess.isTerminated())
+					TimerTests.basicTest.stopStep("Wait for termination");
+					if (!fProcess.isTerminated()) {
+						TimerTests.basicTest.startStep("Force termination", TimerTests.CURRENT_PARENT_ID);
 						fProcess.terminate();
+						TimerTests.basicTest.stopStep("Force termination");
+					}
 				} catch (DebugException e) {
 				}
 				fProcess = null;
 			}
 		}
 	
-		if (fCallbackServer != null) {	
+		if (fCallbackServer != null) {
+			TimerTests.basicTest.startStep("Callback shutdown", TimerTests.CURRENT_PARENT_ID);
 			fCallbackServer.requestShutdown();
+			TimerTests.basicTest.stopStep("Callback shutdown");
 			fCallbackServer = null;				
 		}
 		
