@@ -3,7 +3,6 @@
 	<name>org.eclipse.jst.validation.test</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.etools.commontests.testcollector</project>
 		<project>com.ibm.etools.validation</project>
 		<project>com.ibm.etools.validation.prop</project>
 		<project>com.ibm.wtp.common</project>

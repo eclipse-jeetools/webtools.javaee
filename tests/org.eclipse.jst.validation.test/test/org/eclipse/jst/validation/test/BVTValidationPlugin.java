@@ -1,14 +1,18 @@
 package org.eclipse.jst.validation.test;
 
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+
 
 /**
  * Plugin for TVT testing.
  */
-public class BVTValidationPlugin extends org.eclipse.wst.common.frameworks.internal.WTPPlugin {
-	private static BVTValidationPlugin _inst = null;
+public class BVTValidationPlugin extends WTPPlugin {
+	private static BVTValidationPlugin inst = null;
 	public static final String PLUGIN_ID = "org.eclipse.jst.validation.test"; //$NON-NLS-1$
-//	private boolean _debug = false;
-//	private static final String LOG_FILE_NAME = "fvtlog.xml";
+	private ResourceBundle resourceBundle;
 
 	/**
 	 * ValidationTVTPlugin constructor comment.
@@ -16,68 +20,37 @@ public class BVTValidationPlugin extends org.eclipse.wst.common.frameworks.inter
 	 */
 	public BVTValidationPlugin() {
 		super();
-		if(_inst == null) {
-			_inst = this;
+		inst = this;
+		try {
+			resourceBundle= ResourceBundle.getBundle("org.eclipse.jst.validation.test.ValidationTestResource");
+		} catch (MissingResourceException x) {
+			resourceBundle = null;
 		}
 	}
-	
 	public static BVTValidationPlugin getPlugin() {
-		return _inst;
+		return inst;
 	}
-/*	
-	private void initializeLog(int logLevel) {
-		IPath pluginStateLocation = getPlugin().getStateLocation();
-		IPath logFilePath = pluginStateLocation.append(LOG_FILE_NAME);
-		String logName = logFilePath.toOSString();
-		BVTValidationPlugin.getPlugin().getMsgLogger().setFileName(logName);
-		ValidationPlugin.getPlugin().getMsgLogger().setFileName(logName);
-	}
-*/	
-/*	public MsgLogger getMsgLogger() {
-		if (_logger == null) {
-			_logger = (MsgLogger) MsgLogger.getFactory().getLogger(PluginHelperImpl.getMsgLoggerName(this), this);
-			
-			if(!_logger.isLoggingLevel(Level.SEVERE)) {
-				// Turn logging on
-				_logger.setLevel(Level.SEVERE);
-				_logger.setFileName(org.eclipse.core.runtime.Platform.getLocation().addTrailingSeparator().append(".metadata").addTrailingSeparator().toOSString().concat("LoggingUtil.log"));
-			}
-			
-		}
-		return _logger;
-	}
-	*/
-	/**
-	 * Retrieves a hashtable of a logger's preferences initially from the com.ibm.etools.logging.util.loggingDefaults  
-	 * extension point if specified in the com.ibm.etools.logging.util plugin.xml file.  If specified, the 
-	 * com.ibm.etools.logging.util.loggingOptions extension point preferences in the parameter plugin's
-	 * plugin.xml file are returned.  
-	 * 
-	 * The logger's preferences are stored in the return hashtable using the static instance variables 
-	 * in LoggerStateHashKeys as keys.
-	 * 
-	 * @param plugin the Plugin polled for their logger's preferences in the plugin.xml file
-	 * @return hashtable of a logger's preferences
-	 */
-	/*public Hashtable getMsgLoggerConfig(Plugin plugin) {
-		return (new PluginHelperImpl().getMsgLoggerConfig(plugin));
-	}*/
-	
-	/**
-	 * Sets the logger's preferences based on values in the parameter hashtable.
-	 *
-	 * The logger's preferences are stored in the parameter hashtable using the static 
-	 * instance variables in LoggerStateHashKeys as keys.
-	 * 
-	 * @param msgLoggerConfig hashtable of the logger's preferences
-	 */
-/*	public void setMsgLoggerConfig(Hashtable msgLoggerConfig) {
-		getMsgLogger().setMsgLoggerConfig(msgLoggerConfig);
-	}*/
-	/* (non-Javadoc)
-	 * @see org.eclipse.wtp.common.WTPPlugin#getPluginID()
-	 */
 	public String getPluginID() {
 	    return PLUGIN_ID;
+	}
+	
+	/**
+	 * Returns the string from the plugin's resource bundle,
+	 * or 'key' if not found.
+	 */
+	public static String getResourceString(String key) {
+		ResourceBundle bundle= getPlugin().getResourceBundle();
+		try {
+			return (bundle!=null ? bundle.getString(key) : key);
+		} catch (MissingResourceException e) {
+			return key;
+		}
+	}
+	
+	/**
+	 * Returns the plugin's resource bundle,
+	 */
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
 	}
 }

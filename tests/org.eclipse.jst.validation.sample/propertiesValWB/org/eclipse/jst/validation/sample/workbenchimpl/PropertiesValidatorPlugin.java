@@ -14,6 +14,7 @@ package org.eclipse.jst.validation.sample.workbenchimpl;
  * possibility of such damages.
  *  
  */
+
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 /**
@@ -23,7 +24,7 @@ import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
  */
 public class PropertiesValidatorPlugin extends WTPPlugin {
 	private static PropertiesValidatorPlugin _inst = null;
-	public static final String PLUGIN_ID = "com.ibm.etools.validation.prop"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.jst.validation.sample"; //$NON-NLS-1$
 	private static Logger _logger;
 	public PropertiesValidatorPlugin() {
 		super();

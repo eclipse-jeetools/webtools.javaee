@@ -11,14 +11,13 @@
       </library>
    </runtime>
    <requires>
-      <import plugin="org.eclipse.core.boot" export="true"/>
-      <import plugin="org.eclipse.core.resources" export="true"/>
-      <import plugin="org.eclipse.core.runtime" export="true"/>
-      <import plugin="org.eclipse.wst.validation" export="true"/>
+      <import plugin="org.eclipse.core.boot"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.wst.validation"/>
       <import plugin="org.eclipse.jst.validation.sample"/>
-      <import plugin="org.junit" export="true" optional="true"/>
+      <import plugin="org.junit"/>
       <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
    </requires>
@@ -35,15 +34,15 @@
 <!-- ====================================================== -->
 <!--           JUnit BVT Test Suite                         -->
 <!-- ====================================================== -->
-<!--   <extension
+   <!--<extension
          point="org.eclipse.wst.common.tests.collector.suites">
       <suite
-            suiteName="Validation BVT Suite"
-            suiteClass="org.eclipse.jst.validation.test.junit.BVTSuite">
+            name="Validation BVT Suite"
+            class="org.eclipse.jst.validation.test.junit.BVTSuite">
       </suite>
    </extension> -->
 <!-- batch BVT -->
-   <extension
+  <!-- <extension
          id="bvt_batch"
          point="org.eclipse.core.runtime.applications">
       <application>
@@ -51,6 +50,6 @@
                class="org.eclipse.jst.validation.test.BVTValidationBatch">
          </run>
       </application>
-   </extension>
+   </extension> -->
 
 </plugin>
