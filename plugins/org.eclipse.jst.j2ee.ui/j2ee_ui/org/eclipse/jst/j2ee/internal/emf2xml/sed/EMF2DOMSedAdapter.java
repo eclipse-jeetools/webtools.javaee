@@ -13,8 +13,8 @@ import org.eclipse.wst.common.internal.emf.utilities.FeatureValueConversionExcep
 import org.eclipse.wst.sse.core.INodeAdapter;
 import org.eclipse.wst.sse.core.INodeNotifier;
 import org.eclipse.wst.sse.core.text.IStructuredDocument;
-import org.eclipse.wst.xml.core.document.DOMModel;
-import org.eclipse.wst.xml.core.document.DOMNode;
+import org.eclipse.wst.xml.core.document.IDOMModel;
+import org.eclipse.wst.xml.core.document.IDOMNode;
 import org.eclipse.wst.xml.core.internal.document.ElementImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -116,8 +116,8 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 		// and consquently a valid "preferred" line delimiter,
 		// but just to be safe, we'll assign something
 		// by default.
-		if (node instanceof DOMNode) {
-			DOMNode xmlNode = (DOMNode) node;
+		if (node instanceof IDOMNode) {
+			IDOMNode xmlNode = (IDOMNode) node;
 			IStructuredDocument document = xmlNode.getStructuredDocument();
 			if (document != null) {
 				return document.getLineDelimiter();
@@ -127,8 +127,8 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 	}
 
 	protected String primGetIndentString(Node node) {
-		IStructuredDocument flatModel = ((DOMNode) node).getStructuredDocument();
-		int nodeStartOff = ((DOMNode) node).getStartOffset();
+		IStructuredDocument flatModel = ((IDOMNode) node).getStructuredDocument();
+		int nodeStartOff = ((IDOMNode) node).getStartOffset();
 
 		int startOff = Math.max(0, nodeStartOff - 100);
 		int endOff = nodeStartOff;
@@ -155,24 +155,24 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 		return ""; //$NON-NLS-1$
 	}
 
-	protected DOMNode getXMLNode() {
-		return (DOMNode) getNode();
+	protected IDOMNode getXMLNode() {
+		return (IDOMNode) getNode();
 	}
 
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.EMF2DOMAdapterImpl#primAddDOMAdapter(Node, EMF2DOMAdapter)
 	 */
 	protected void primAddDOMAdapter(Node aNode, EMF2DOMAdapter anAdapter) {
-		((DOMNode) aNode).addAdapter((EMF2DOMSedAdapter) anAdapter);
+		((IDOMNode) aNode).addAdapter((EMF2DOMSedAdapter) anAdapter);
 	}
 
 	protected EMF2DOMAdapter primGetExistingAdapter(Node aNode) {
-		return (EMF2DOMAdapter) ((DOMNode) aNode).getExistingAdapter(EMF2DOMAdapter.ADAPTER_CLASS);
+		return (EMF2DOMAdapter) ((IDOMNode) aNode).getExistingAdapter(EMF2DOMAdapter.ADAPTER_CLASS);
 
 	}
 
 	protected void removeDOMAdapter(Node aNode, EMF2DOMAdapter anAdapter) {
-		((DOMNode) aNode).removeAdapter((EMF2DOMSedAdapter) anAdapter);
+		((IDOMNode) aNode).removeAdapter((EMF2DOMSedAdapter) anAdapter);
 	}
 
 	protected void setEmptyTag(Element element) {
@@ -183,9 +183,9 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 		return ((ElementImpl) parent).isEmptyTag();
 	}
 
-	protected DOMModel getXMLModel() {
+	protected IDOMModel getXMLModel() {
 		if (getNode() != null)
-			return ((DOMNode) getNode()).getModel();
+			return ((IDOMNode) getNode()).getModel();
 		return null;
 	}
 
@@ -206,7 +206,7 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 	}
 
 	protected void disableUndoManagementIfNecessary() {
-		DOMModel model = getXMLModel();
+		IDOMModel model = getXMLModel();
 		if (model != null && model.getUndoManager() != null)
 			model.disableUndoManagement();
 	}
@@ -216,7 +216,7 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 	}
 
 	protected void enableUndoManagement() {
-		DOMModel model = getXMLModel();
+		IDOMModel model = getXMLModel();
 		if (model != null && model.getUndoManager() != null)
 			model.enableUndoManagement();
 	}
