@@ -26,11 +26,11 @@ public class J2EEXmlDtDEntityResolver implements org.xml.sax.EntityResolver {
 	/** All the dtds that this resolver knows about; import strategies register these
 	 * at startup */ 
 	protected static Map supportedDtDs;
-	static {
-		registerDtD("http://www.w3.org/2001/xml.xsd", "xml.xsd");  //$NON-NLS-1$ //$NON-NLS-2$
-		registerDtD("XMLSchema.dtd", "XMLSchema.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
-		registerDtD("datatypes.dtd", "datatypes.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
-	}
+//	static {
+//		registerDtD("http://www.w3.org/2001/xml.xsd", "xml.xsd");  //$NON-NLS-1$ //$NON-NLS-2$
+//		registerDtD("XMLSchema.dtd", "XMLSchema.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
+//		registerDtD("datatypes.dtd", "datatypes.dtd"); //$NON-NLS-1$ //$NON-NLS-2$
+//	}
 	public static J2EEXmlDtDEntityResolver INSTANCE = new J2EEXmlDtDEntityResolver();
 /**
  * EjbXmlEntityResolver constructor comment.
@@ -47,9 +47,9 @@ public static Map getSupportedDtDs() {
  * Maps the system id for the dtd to a local id to be retrieved loaded from the class path
  */
 public static void registerDtD(String systemID, String localID) { 
-    
-	getSupportedDtDs().put(systemID, localID);
-	getSupportedDtDs().put(getShortName(systemID), localID);
+    //TODO Removing Registration mechanism until final location is found
+	/*getSupportedDtDs().put(systemID, localID);
+	getSupportedDtDs().put(getShortName(systemID), localID);*/
 }
 /**
  * for a system id with a URL that begins with "http://java.sun.com/", check to see if that is a recognized dtd;
@@ -102,9 +102,11 @@ public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) t
 	return result;
 }
 protected boolean shouldBeRegistered(String systemId) {
-	return systemId.startsWith(J2EEConstants.JAVA_SUN_COM_URL) 
+	//TODO  Removed Resolver function until file location is known...
+	return false;
+	/*return systemId.startsWith(J2EEConstants.JAVA_SUN_COM_URL) 
 		|| systemId.startsWith(J2EEConstants.WWW_W3_ORG_URL)
-		|| systemId.startsWith(J2EEConstants.WWW_IBM_COM_URL);
+		|| systemId.startsWith(J2EEConstants.WWW_IBM_COM_URL);*/
 }
 
 /**
