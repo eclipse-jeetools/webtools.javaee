@@ -35,12 +35,12 @@ import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRu
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;

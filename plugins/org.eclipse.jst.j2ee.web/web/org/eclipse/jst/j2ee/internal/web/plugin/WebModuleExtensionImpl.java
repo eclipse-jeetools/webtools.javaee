@@ -26,6 +26,8 @@ import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOl
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
+import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
@@ -34,8 +36,6 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOpe
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
-import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 

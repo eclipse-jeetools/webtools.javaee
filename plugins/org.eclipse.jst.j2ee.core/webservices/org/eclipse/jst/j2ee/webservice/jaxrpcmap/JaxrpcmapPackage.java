@@ -61,7 +61,7 @@ public interface JaxrpcmapPackage extends EPackage{
    * <!-- end-user-doc -->
    * @generated
    */
-  JaxrpcmapPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.jaxrpcmap.impl.JaxrpcmapPackageImpl.init();
+  JaxrpcmapPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.impl.JaxrpcmapPackageImpl.init();
 
   /**
    * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaWSDLMappingImpl <em>Java WSDL Mapping</em>}' class.

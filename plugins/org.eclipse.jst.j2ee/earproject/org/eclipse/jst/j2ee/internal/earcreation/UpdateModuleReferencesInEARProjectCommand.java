@@ -21,11 +21,11 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
+import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
+import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.moduleextension.EjbModuleExtension;
-import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
-import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 
 
 public class UpdateModuleReferencesInEARProjectCommand extends ModuleInEARProjectCommand {

@@ -56,7 +56,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;

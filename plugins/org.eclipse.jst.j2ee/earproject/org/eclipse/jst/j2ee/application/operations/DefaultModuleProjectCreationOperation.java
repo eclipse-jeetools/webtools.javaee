@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleExtension;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtension;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.wst.common.frameworks.internal.activities.WTPActivityBridge;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 

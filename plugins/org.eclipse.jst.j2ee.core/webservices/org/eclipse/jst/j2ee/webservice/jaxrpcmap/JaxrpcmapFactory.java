@@ -27,7 +27,7 @@ public interface JaxrpcmapFactory extends EFactory{
    * <!-- end-user-doc -->
    * @generated
    */
-  JaxrpcmapFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.jaxrpcmap.impl.JaxrpcmapFactoryImpl();
+  JaxrpcmapFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.impl.JaxrpcmapFactoryImpl();
 
   /**
    * Returns a new object of class '<em>Java WSDL Mapping</em>'.

@@ -37,11 +37,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
+import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
