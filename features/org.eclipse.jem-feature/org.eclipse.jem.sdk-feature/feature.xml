@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.jem.sdk"
+      label="%featureName"
+      version="1.0.0"
+      image= "eclipse_update_120.jpg"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+   
+   <license url="%licenseURL">
+     %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
+      <discovery label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
+   </url>
+
+  <includes id="org.eclipse.jem" version="1.0.0" /> 
+  <includes id="org.eclipse.jem.source" version="1.0.0" />  
+ 
+  <plugin
+      id="org.eclipse.jem.sdk"
+      download-size="0"
+      install-size="0"
+      version="1.0.0"/>
+</feature>
