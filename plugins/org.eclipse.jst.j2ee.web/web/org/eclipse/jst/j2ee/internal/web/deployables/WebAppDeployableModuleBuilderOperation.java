@@ -105,7 +105,6 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 				}
 				URI deployURI = wmr.getDeployedPath();
 				IPath classFilesPath = absoluteOCP.append(deployURI.toString());
-				createFolder(classFilesPath);
 				// check if the classpath is modified. Use relative path to avoid 
 				// the problem that drive letter could be upper or lower case
 				IPath relativeClassFilesPath = classFilesPath.makeRelative();
@@ -114,6 +113,7 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 				if (oldClassFilesPath != null)
 					oldRelativeClassFilesPath = oldClassFilesPath.makeRelative();
 				if (!relativeClassFilesPath.equals(oldRelativeClassFilesPath)) {
+					createFolder(classFilesPath);
 					((ClasspathEntry)cpe[index]).specificOutputLocation = classFilesPath;
 					classpathModified = true;
 				}
