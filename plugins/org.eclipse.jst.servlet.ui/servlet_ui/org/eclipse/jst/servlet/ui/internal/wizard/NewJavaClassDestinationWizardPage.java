@@ -30,7 +30,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
@@ -48,7 +48,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
-import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
@@ -188,7 +187,7 @@ public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 		});
 
 		folderText.setFocus();
-		WorkbenchHelp.setHelp(composite, getInfopopID());
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 		return composite;
 	}
 

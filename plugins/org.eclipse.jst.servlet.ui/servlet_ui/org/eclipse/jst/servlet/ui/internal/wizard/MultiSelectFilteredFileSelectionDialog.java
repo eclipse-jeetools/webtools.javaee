@@ -53,9 +53,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
-import org.eclipse.ui.help.WorkbenchHelp;
 import org.eclipse.ui.part.PageBook;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -271,7 +271,7 @@ public class MultiSelectFilteredFileSelectionDialog extends FilteredFileSelectio
 		GridData gd = new GridData();
 
 		fChild = new Composite(parent, SWT.NONE);
-		WorkbenchHelp.setHelp(fChild, "com.ibm.etools.webapplicationedit.webx2010"); //$NON-NLS-1$
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(fChild, "com.ibm.etools.webapplicationedit.webx2010"); //$NON-NLS-1$
 		GridLayout gl = new GridLayout();
 		gl.numColumns = 2;
 		gl.marginHeight = 0;

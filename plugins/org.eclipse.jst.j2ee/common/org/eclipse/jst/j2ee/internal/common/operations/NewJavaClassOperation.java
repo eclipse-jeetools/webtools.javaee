@@ -6,12 +6,6 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-/*
- * Created on Mar 22, 2004
- * 
- * To change the template for this generated file go to Window - Preferences - Java - Code
- * Generation - Code and Comments
- */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
 import java.io.ByteArrayInputStream;
@@ -38,14 +32,32 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
+/**
+ * NewJavaClassOperation is a WTP operation that is used to create a default instance of a new java class
+ * based on the input and properties set in the NewJavaClassDataModel.  
+ * @see org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel
+ * 
+ * It is a subclass of WTPOperation and clients can invoke this operation as is or it may be subclassed to
+ * add additional or modify behaviour.  The execute() method can be extended to drive this behaviour.
+ * @see org.eclipse.wst.common.frameworks.operations.WTPOperation
+ * 
+ * The new java class is generated through the use of adding a series of static tokens defined within to
+ * an ongoing string buffer.
+ * 
+ * The use of this class is EXPERIMENTAL and is subject to substantial changes.
+ * 
+ * @deprecated This needs to be removed as it is legacy inherited from another team
+ */
 public class NewJavaClassOperation extends WTPOperation {
 
+	// Tokens for string buffer creation of default java class
 	protected static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	protected static final String TAB = "\t"; //$NON-NLS-1$
 	protected static final String SPACE = " "; //$NON-NLS-1$
@@ -82,33 +94,60 @@ public class NewJavaClassOperation extends WTPOperation {
 	protected static final String RETURN_0 = "\t\treturn 0;"; //$NON-NLS-1$
 	protected static final String RETURN_FALSE = "\t\treturn false;"; //$NON-NLS-1$
 
+	/**
+	 * This is a list of all the calculated import statements that will need to be added
+	 */
 	private List importStatements;
 
 	/**
+	 * This is a NewJavaClassOperation constructor.  Data models passed in should be instances
+	 * of NewJavaClassDataModel.  This method does not accept null.  It will not return null.
+	 * @see NewJavaClassDataModel
+	 * 
 	 * @param dataModel
+	 * @return NewJavaClassOperation
 	 */
 	public NewJavaClassOperation(WTPOperationDataModel dataModel) {
 		super(dataModel);
 		importStatements = new ArrayList();
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Subclasses may extend this method to add their own actions during execution.
+	 * The implementation of the execute method drives the running of the operation.  This
+	 * method will create the source folder, the java package, and then create the java file.
+	 * This method will accept null.
+	 * @see WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @param monitor ProgressMonitor
+	 * @throws CoreException
+	 * @throws InterruptedException
+	 * @throws InvocationTargetException
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		// Ensure source folder exists
 		IFolder sourceFolder = createJavaSourceFolder();
+		// Ensure java package exists
 		IPackageFragment pack = createJavaPackage();
+		// Create java class
 		createJavaFile(sourceFolder, pack);
 	}
 
-	protected IFolder createJavaSourceFolder() {
+	/**
+	 * This method will return the java source folder as specified in the java class data model. 
+	 * It will create the java source folder if it does not exist.  This method may return null.
+	 * @see NewJavaClassDataModel#SOURCE_FOLDER
+	 * @see IFolder#create(boolean, boolean, org.eclipse.core.runtime.IProgressMonitor)
+	 * 
+	 * @return IFolder the java source folder
+	 */
+	protected final IFolder createJavaSourceFolder() {
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
-		//IProject project = model.getTargetProject();
+		// Get the source folder name from the data model
 		String folderFullPath = model.getStringProperty(NewJavaClassDataModel.SOURCE_FOLDER);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFolder folder = root.getFolder(new Path(folderFullPath));
+		// If folder does not exist, create the folder with the specified path
 		if (!folder.exists()) {
 			try {
 				folder.create(true, true, null);
@@ -116,18 +155,30 @@ public class NewJavaClassOperation extends WTPOperation {
 				Logger.getLogger().log(e);
 			}
 		}
+		// Return the source folder
 		return folder;
 	}
 
-	protected IPackageFragment createJavaPackage() {
+	/**
+	 * This method will return the java package as specified by the new java class data model.
+	 * If the package does not exist, it will create the package.  This method should not return
+	 * null.
+	 * @see NewJavaClassDataModel#JAVA_PACKAGE
+	 * @see IPackageFragmentRoot#createPackageFragment(java.lang.String, boolean, org.eclipse.core.runtime.IProgressMonitor)
+	 * 
+	 * @return IPackageFragment the java package
+	 */
+	protected final IPackageFragment createJavaPackage() {
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
+		// Retrieve the package name from the java class data model
 		String packageName = model.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE);
 		IPackageFragmentRoot packRoot = model.getJavaPackageFragmentRoot();
 		IPackageFragment pack = packRoot.getPackageFragment(packageName);
+		// Handle default package
 		if (pack == null) {
 			pack = packRoot.getPackageFragment(""); //$NON-NLS-1$
 		}
-		// create package fragment if not exists
+		// Create the package fragment if it does not exist
 		if (!pack.exists()) {
 			String packName = pack.getElementName();
 			try {
@@ -136,90 +187,157 @@ public class NewJavaClassOperation extends WTPOperation {
 				Logger.getLogger().log(e);
 			}
 		}
+		// Return the package
 		return pack;
 	}
 
+	/**
+	 * Subclasses may extend this method to provide their own java file creation path.
+	 * This implementation will use the properties specified in the data model to create
+	 * a default java class.  The class will be built using pre-defined tokens and will be
+	 * built up using a string buffer.  The method getJavaFileContent will handle the building
+	 * of the string buffer while this method will write those contents to the file.
+	 * This method does not accept null parameters.
+	 * @see NewJavaClassDataModel#CLASS_NAME
+	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
+	 * 
+	 * @param sourceFolder
+	 * @param pack
+	 */
 	protected void createJavaFile(IFolder sourceFolder, IPackageFragment pack) {
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
+		// Retrieve properties from the java class data model
 		String packageName = model.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE);
 		String className = model.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
-		// create java file
 		String fileName = className + ".java"; //$NON-NLS-1$
 		//ICompilationUnit cu = null;
 		try {
+			// Get the java file content from the string buffer
 			String content = getJavaFileContent(pack, className);
+			// Create the compilation unit
 			pack.createCompilationUnit(fileName, content, true, null);
 			byte[] contentBytes = content.getBytes();
 			IPath packageFullPath = new Path(packageName.replace('.', IPath.SEPARATOR));
 			IPath javaFileFullPath = packageFullPath.append(fileName);
 			IFile file = sourceFolder.getFile(javaFileFullPath);
+			// Set the contents in the file if it already exists
 			if (file != null && file.exists()) {
 				file.setContents(new ByteArrayInputStream(contentBytes), false, true, null);
-			} else if (file != null) {
+			} // If the file does not exist, create it with the contents
+			else if (file != null) {
 				file.create(new ByteArrayInputStream(contentBytes), false, null);
 			}
-			//			editModel.getWorkingCopy(cu, true); //Track CU.
+			// editModel.getWorkingCopy(cu, true); //Track CU.
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	protected String getJavaFileContent(IPackageFragment pack, String className) {
+	/**
+	 * This is intended for internal use only.  This is where the string buffer for the contents
+	 * of the java file is built up using the properties in the data model and the predefined tokens.
+	 * This method will not accept null parameters. It will not return null.
+	 * @see NewJavaClassDataModel
+	 * @see NewJavaClassOperation#createJavaFile(IFolder, IPackageFragment)
+	 * 
+	 * @param pack
+	 * @param className
+	 * @return String java file contents
+	 */
+	private String getJavaFileContent(IPackageFragment pack, String className) {
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
+		// Create the superclass name
 		String superclassName = model.getStringProperty(NewJavaClassDataModel.SUPERCLASS);
 		List interfaces = (List) model.getProperty(NewJavaClassDataModel.INTERFACES);
 		String packageStatement = getPackageStatement(pack);
+		// Create the import statements
 		setupImportStatements(pack, superclassName, interfaces);
+		// Create the class declaration
 		String classDeclaration = getClassDeclaration(superclassName, className, interfaces);
+		// Create the fields
 		String fields = getFields();
+		// Create the methods
 		String methods = getMethodStubs(superclassName, className);
 
 		StringBuffer contents = new StringBuffer();
+		// Add the package statement to the buffer
 		contents.append(packageStatement);
-		String[] importStatementArray = quickSort(importStatements);
-		for (int i = 0; i < importStatementArray.length; i++) {
-			contents.append(IMPORT + importStatementArray[i] + SEMICOLON);
+		// Add all the import statements to the buffer
+		for (int i = 0; i < importStatements.size(); i++) {
+			contents.append(IMPORT + importStatements.get(i) + SEMICOLON);
 			contents.append(lineSeparator);
 		}
 		contents.append(lineSeparator);
+		// Add the class declaration to the buffer
 		contents.append(classDeclaration);
+		// Add the fields to the buffer
 		contents.append(fields);
+		// Add the method bodies to the buffer
 		contents.append(methods);
 		contents.append(CLOSE_BRA);
+		// Return the contents of the buffer
 		return contents.toString();
 	}
 
+	/**
+	 * This is intended for internal use only.  This method will return a package string for
+	 * the class.  It will not accept a null parameter.  It will not return null.
+	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
+	 * 
+	 * @param pack
+	 * @return String package statement
+	 */
 	private String getPackageStatement(IPackageFragment pack) {
 		StringBuffer sb = new StringBuffer();
+		// If it is not default package, add package statement
 		if (!pack.isDefaultPackage()) {
 			sb.append(PACKAGE + pack.getElementName() + SEMICOLON);
 			sb.append(lineSeparator);
 			sb.append(lineSeparator);
 		}
+		// Return contents of buffer
 		return sb.toString();
 	}
 
+	/**
+	 * This method is intended for internal use.  It checks to see if the qualified class name
+	 * belongs to the specified package. This method will not accept nulls.  It will not return null.
+	 * @see NewJavaClassOperation#setupImportStatements(IPackageFragment, String, List)
+	 *
+	 * @param packageFragment
+	 * @param className
+	 * @return boolean is class in this package?
+	 */
 	private boolean isSamePackage(IPackageFragment packageFragment, String className) {
 		if (className != null && className.length() > 0) {
 			String sPackageName = packageFragment.getElementName();
 			String classPackageName = Signature.getQualifier(className);
-			/*
-			 * int index = className.lastIndexOf(DOT); EMPTY_STRING; if (index != -1)
-			 * classPackageName = className.substring(0,index);
-			 */
+			// Does the qualified class's package name match the passed in package's name?
 			if (classPackageName.equals(sPackageName))
 				return true;
 		}
 		return false;
 	}
 
+	/**
+	 * This method is intended for internal use only.  This method will set up the required import
+	 * statements and cache to the importStatements list.
+	 * This method does not accept null parameters.
+	 * @see NewJavaClassOperation#importStatements
+	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
+	 * 
+	 * @param pack
+	 * @param superclassName
+	 * @param interfaces
+	 */
 	private void setupImportStatements(IPackageFragment pack, String superclassName, List interfaces) {
-		//NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
+		// If there is a superclass and it is not in the same package, add an import for it
 		if (superclassName != null && superclassName.length() > 0) {
 			if (!superclassName.equals(JAVA_LANG_OBJECT) && !isSamePackage(pack, superclassName)) {
 				importStatements.add(superclassName);
 			}
 		}
+		// Add an import the list of implemented interfaces
 		if (interfaces != null && interfaces.size() > 0) {
 			int size = interfaces.size();
 			for (int i = 0; i < size; i++) {
@@ -229,24 +347,39 @@ public class NewJavaClassOperation extends WTPOperation {
 		}
 	}
 
-	protected String getClassDeclaration(String superclassName, String className, List interfaces) {
+	/**
+	 * This class is intended for internal use only.  This will build up the class declartion
+	 * statement based off the properties set in the java class data model.
+	 * This method does not accept null parameters.  It will not return null.
+	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
+	 * 
+	 * @param superclassName
+	 * @param className
+	 * @param interfaces
+	 * @return String class declaration string
+	 */
+	private String getClassDeclaration(String superclassName, String className, List interfaces) {
 		StringBuffer sb = new StringBuffer();
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
+		// Append appropriate modifiers
 		if (model.getBooleanProperty(NewJavaClassDataModel.MODIFIER_PUBLIC))
 			sb.append(PUBLIC);
 		if (model.getBooleanProperty(NewJavaClassDataModel.MODIFIER_ABSTRACT))
 			sb.append(ABSTRACT);
 		if (model.getBooleanProperty(NewJavaClassDataModel.MODIFIER_FINAL))
 			sb.append(FINAL);
+		// Add the class token 
 		sb.append(CLASS);
+		// Add the class name
 		sb.append(className + SPACE);
+		// If there is a superclass, add the extends and super class name
 		if (superclassName != null && superclassName.length() > 0 && !superclassName.equals(JAVA_LANG_OBJECT)) {
 			int index = superclassName.lastIndexOf(DOT);
 			if (index != -1)
 				superclassName = superclassName.substring(index + 1);
 			sb.append(EXTENDS + superclassName + SPACE);
 		}
-		// interfaces
+		// If there are interfaces, add the implements and then interate over the interface list
 		if (interfaces != null && interfaces.size() > 0) {
 			sb.append(IMPLEMENTS);
 			int size = interfaces.size();
@@ -263,13 +396,32 @@ public class NewJavaClassOperation extends WTPOperation {
 		}
 		sb.append(OPEN_BRA);
 		sb.append(lineSeparator);
+		// Return the finished class declaration string
 		return sb.toString();
 	}
 
+	/**
+	 * Subclasses may extend this method to add their own fields.  The default implementation
+	 * is not to have any fields.  This method will not return null.
+	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
+	 * 
+	 * @return String fields string
+	 */
 	protected String getFields() {
 		return EMPTY_STRING;
 	}
 
+	/**
+	 * This method is intended for internal use only.  This will build up a string with the
+	 * contents of all the method stubs for the unimplemented methods defined in the interfaces.
+	 * It will also add inherited constructors from the superclass as appropriate.
+	 * This method does not accept null parameters.  It will not return null.
+	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
+	 * 
+	 * @param superclassName
+	 * @param className
+	 * @return String method stubs string
+	 */
 	private String getMethodStubs(String superclassName, String className) {
 		StringBuffer sb = new StringBuffer();
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
@@ -288,7 +440,7 @@ public class NewJavaClassOperation extends WTPOperation {
 
 		IType superClassType = null;
 		if (model.getBooleanProperty(NewJavaClassDataModel.CONSTRUCTOR) || model.getBooleanProperty(NewJavaClassDataModel.ABSTRACT_METHODS)) {
-			// find super class type
+			// Find super class type
 			try {
 				superClassType = javaProj.findType(superclassName);
 			} catch (JavaModelException e) {
@@ -296,7 +448,7 @@ public class NewJavaClassOperation extends WTPOperation {
 			}
 		}
 		if (model.getBooleanProperty(NewJavaClassDataModel.CONSTRUCTOR)) {
-			// implement constructor from superclass
+			// Implement constructors from superclass
 			try {
 				IMethod[] methods = superClassType.getMethods();
 				for (int j = 0; j < methods.length; j++) {
@@ -309,6 +461,7 @@ public class NewJavaClassOperation extends WTPOperation {
 				Logger.getLogger().log(e);
 			}
 		}
+		// Add unimplemented methods defined in the interfaces list
 		if (model.getBooleanProperty(NewJavaClassDataModel.ABSTRACT_METHODS)) {
 			String methodStub = getUnimplementedMethodsFromSuperclass(superClassType, className);
 			if (methodStub != null && methodStub.trim().length() > 0)
@@ -317,12 +470,24 @@ public class NewJavaClassOperation extends WTPOperation {
 			if (methodStub != null && methodStub.trim().length() > 0)
 				sb.append(methodStub);
 		}
+		// Add any user defined method stubs
 		String userDefined = getUserDefinedMethodStubs(superClassType);
 		if (userDefined != null && userDefined.trim().length() > 0)
 			sb.append(userDefined);
+		// Return the methods string
 		return sb.toString();
 	}
 
+	/**
+	 * This method is intended for internal use only.  This will retrieve method stubs for
+	 * unimplemented methods in the superclass that will need to be created in the new class.
+	 * This method does not accept null parameters. It will not return null.
+	 * @see NewJavaClassOperation#getMethodStubs(String, String)
+	 * 
+	 * @param superClassType
+	 * @param className
+	 * @return String unimplemented methods defined in superclass
+	 */
 	private String getUnimplementedMethodsFromSuperclass(IType superClassType, String className) {
 		StringBuffer sb = new StringBuffer();
 		try {
@@ -331,6 +496,7 @@ public class NewJavaClassOperation extends WTPOperation {
 			for (int j = 0; j < methods.length; j++) {
 				IMethod method = methods[j];
 				int flags = method.getFlags();
+				// Add if the method is abstract, not private or static, and the option is selected in data model
 				if ((Flags.isAbstract(flags) && !Flags.isStatic(flags) && !Flags.isPrivate(flags)) || implementImplementedMethod(methods[j])) {
 					String methodStub = getMethodStub(methods[j], superClassType.getFullyQualifiedName(), className);
 					sb.append(methodStub);
@@ -339,20 +505,33 @@ public class NewJavaClassOperation extends WTPOperation {
 		} catch (JavaModelException e) {
 			Logger.getLogger().log(e);
 		}
+		// Return method stubs string
 		return sb.toString();
 	}
 
+	/**
+	 * This method is intended for internal use only.  This will retrieve method stubs for
+	 * unimplemented methods defined in the interfaces that will need to be created in the new class.
+	 * This method does not accept null parameters. It will not return null.
+	 * @see NewJavaClassOperation#getMethodStubs(String, String)
+	 * 
+	 * @param superClassType
+	 * @param className
+	 * @param javaProj
+	 * @return String unimplemented methods defined in interfaces
+	 */
 	private String getUnimplementedMethodsFromInterfaces(IType superClassType, String className, IJavaProject javaProj) {
 		StringBuffer sb = new StringBuffer();
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		try {
-			// Implement abstract methods from superclass
+			// Implement defined methods from interfaces
 			List interfaces = (List) model.getProperty(NewJavaClassDataModel.INTERFACES);
 			if (interfaces != null) {
 				for (int i = 0; i < interfaces.size(); i++) {
 					String qualifiedClassName = (String) interfaces.get(i);
 					IType interfaceType = javaProj.findType(qualifiedClassName);
 					IMethod[] methodArray = interfaceType.getMethods();
+					// Make sure the method isn't already defined in the heirarchy
 					for (int j = 0; j < methodArray.length; j++) {
 						if (isMethodImplementedInHierarchy(methodArray[j], superClassType))
 							continue;
@@ -364,65 +543,51 @@ public class NewJavaClassOperation extends WTPOperation {
 		} catch (JavaModelException e) {
 			Logger.getLogger().log(e);
 		}
+		// Return method stubs string
 		return sb.toString();
 	}
 
-	//	private List setupAllMethodsFromInheritance(IType superClassType, IJavaProject javaProject) {
-	//		List methodList = new ArrayList();
-	//		try {
-	//			IMethod[] methods = superClassType.getMethods();
-	//			addMethodArrayToList(methodList, methods);
-	//			String superClassName = superClassType.getSuperclassName();
-	//			superClassName = processTypeString(superClassName);
-	//			while (!superClassName.equals(JAVA_LANG_OBJECT)) {
-	//				IType type = javaProject.findType(superClassName);
-	//				if (type != null) {
-	//					IMethod[] methodArray = type.getMethods();
-	//					addMethodArrayToList(methodList, methodArray);
-	//				}
-	//			}
-	//		} catch (JavaModelException e) {
-	//			Logger.getLogger().log(e);
-	//		}
-	//		return methodList;
-	//	}
-
-	//	private void addMethodArrayToList(List list, IMethod[] methods) {
-	//		// No duplicate
-	//		int size = list.size();
-	//		int len = methods.length;
-	//		for (int m = 0; m < len; m++) {
-	//			for (int i = 0; i < size; i++) {
-	//				IMethod existMethod = (IMethod) list.get(i);
-	//				if (existMethod.equals(methods[m]))
-	//					continue;
-	//				list.add(methods[m]);
-	//			}
-	//		}
-	//	}
-
-	//	private void addImport(ICompilationUnit cu, String type) {
-	//		String simpleName = Signature.getSimpleName(type);
-	//		try {
-	//			IImportDeclaration importDeclaration = JavaModelUtil.findImport(cu, type);
-	//		} catch (JavaModelException ex) {
-	//		}
-	//	}
-
-	private static boolean isPrimitiveType(String typeName) {
+	/**
+	 * This method is intended for internal use only.  Checks to see if the passed type name
+	 * is of a primitive type.  This method does not accept null.  It will not return null.
+	 * @see Signature#getElementType(java.lang.String)
+	 * 
+	 * @param typeName
+	 * @return boolean is type Primitive?
+	 */
+	private boolean isPrimitiveType(String typeName) {
 		char first = Signature.getElementType(typeName).charAt(0);
 		return (first != Signature.C_RESOLVED && first != Signature.C_UNRESOLVED);
 	}
 
+	/**
+	 * This method is intended for internal use only.  This will add import statements for the specified
+	 * type if it is determined to be necessary. This does accept null parameters.  It will not return null.
+	 * @see NewJavaClassOperation#getMethodStub(IMethod, String, String)
+	 * 
+	 * @param refTypeSig
+	 * @param declaringType
+	 * @return String type signature
+	 * @throws JavaModelException
+	 */
 	private String resolveAndAdd(String refTypeSig, IType declaringType) throws JavaModelException {
 		String resolvedTypeName = JavaModelUtil.getResolvedTypeName(refTypeSig, declaringType);
+		// Could type not be resolved and is import statement missing?
 		if (resolvedTypeName != null && !importStatements.contains(resolvedTypeName) && !resolvedTypeName.startsWith("java.lang")) { //$NON-NLS-1$
 			importStatements.add(resolvedTypeName);
 		}
 		return Signature.toString(refTypeSig);
 	}
 
-
+	/**
+	 * This method is intended for internal use only.  This will use the predefined tokens to generate the
+	 * actual method stubs.  This method does not accept null parameters.  It will not return null.
+	 * 
+	 * @param method
+	 * @param superClassName
+	 * @param className
+	 * @return String method stub
+	 */
 	private String getMethodStub(IMethod method, String superClassName, String className) {
 		StringBuffer sb = new StringBuffer();
 		try {
@@ -534,30 +699,35 @@ public class NewJavaClassOperation extends WTPOperation {
 		return sb.toString();
 	}
 
-	protected String processTypeString(String typeString) {
-		return Signature.toString(typeString);
-	}
-
-
-	//	private String getModifiersString(int modifiers) {
-	//		String ret = EMPTY_STRING;
-	//		if (Modifier.isPublic(modifiers)) {
-	//			ret += PUBLIC;
-	//		}
-	//		if (Modifier.isFinal(modifiers)) {
-	//			ret += FINAL;
-	//		}
-	//		return ret;
-	//	}
-
+	/**
+	 * This method is intended for internal use only.  It checks to see whether or not the
+	 * method is already implemented in the class heirarchy.
+	 * It does not accept null parameters.  It will not return null.
+	 * @see NewJavaClassOperation#getUnimplementedMethodsFromInterfaces(IType, String, IJavaProject)
+	 * 
+	 * @param method
+	 * @param superClass
+	 * @return boolean is method already in heirarchy?
+	 */
 	private boolean isMethodImplementedInHierarchy(IMethod method, IType superClass) {
 		boolean ret = false;
 		IMethod foundMethod = findMethodImplementationInHierarchy(method, superClass);
+		// if the method exists and the property is set on the data model, then return true
 		if (foundMethod != null && foundMethod.exists() && !implementImplementedMethod(method))
 			ret = true;
 		return ret;
 	}
 
+	/**
+	 * This method is intended for internal use only.  This will recursively check the supertype heirarchy for
+	 * the passed in method.  This will not accept null parameters.  It will return null if the method does
+	 * not already exist in the heirarchy.
+	 * @see NewJavaClassOperation#isMethodImplementedInHierarchy(IMethod, IType)
+	 * 
+	 * @param method
+	 * @param superClass
+	 * @return IMethod the method from the heirarchy
+	 */
 	private IMethod findMethodImplementationInHierarchy(IMethod method, IType superClass) {
 		IMethod implementedMethod = null;
 		try {
@@ -566,64 +736,51 @@ public class NewJavaClassOperation extends WTPOperation {
 				implementedMethod = findMethodImplementationInHierarchy(tH, superClass, method.getElementName(), method.getParameterTypes(), method.isConstructor());
 			}
 		} catch (JavaModelException e) {
+			//Ignore
 		}
 		return implementedMethod;
 	}
 
+	/**
+	 * This method is intended for internal use only.  This will recursively check the supertype heirarchy for
+	 * the passed in method.  This will not accept null parameters.  It will return null if the method does
+	 * not already exist in the heirarchy.
+	 * @see NewJavaClassOperation#findMethodImplementationInHierarchy(IMethod, IType)
+	 * @see JavaModelUtil#findMethodImplementationInHierarchy(ITypeHierarchy, IType, String, String[], boolean)
+	 * 
+	 * @param tH
+	 * @param thisType
+	 * @param methodName
+	 * @param parameterTypes
+	 * @param isConstructor
+	 * @return IMethod
+	 * @throws JavaModelException
+	 */
 	private IMethod findMethodImplementationInHierarchy(ITypeHierarchy tH, IType thisType, String methodName, String parameterTypes[], boolean isConstructor) throws JavaModelException {
 		IMethod found = JavaModelUtil.findMethod(methodName, parameterTypes, isConstructor, thisType);
+		// If method exists make sure it is not abstract
 		if (found != null && !Flags.isAbstract(found.getFlags())) {
 			return found;
 		}
+		// Check recursively
 		return JavaModelUtil.findMethodImplementationInHierarchy(tH, thisType, methodName, parameterTypes, isConstructor);
 	}
 
-	private String[] quickSort(List list) {
-		int size = list.size();
-		if (size == 0)
-			return new String[0];
-		String[] array = new String[size];
-		for (int i = 0; i < size; i++) {
-			array[i] = (String) list.get(i);
-		}
-		quickSort(array, 0, size - 1);
-		return array;
-	}
-
 	/**
-	 * Sort the strings in the given collection.
+	 * Subclasses may extend this method to provide their own specific method body definitions.
+	 * The default implementation is to add a todo, and to return the appropriate type.
+	 * This method does not accept null parameters.  It will not return null.
+	 * @see NewJavaClassOperation#getMethodStub(IMethod, String, String)
+	 * 
+	 * @param method
+	 * @param returnType
+	 * @return String method body
 	 */
-	private void quickSort(String[] sortedCollection, int left, int right) {
-		int original_left = left;
-		int original_right = right;
-		String mid = sortedCollection[(left + right) / 2];
-		do {
-			while (sortedCollection[left].compareTo(mid) < 0) {
-				left++;
-			}
-			while (mid.compareTo(sortedCollection[right]) < 0) {
-				right--;
-			}
-			if (left <= right) {
-				String tmp = sortedCollection[left];
-				sortedCollection[left] = sortedCollection[right];
-				sortedCollection[right] = tmp;
-				left++;
-				right--;
-			}
-		} while (left <= right);
-		if (original_left < right) {
-			quickSort(sortedCollection, original_left, right);
-		}
-		if (left < original_right) {
-			quickSort(sortedCollection, left, original_right);
-		}
-	}
-
-	// Can be overrided
 	protected String getMethodBody(IMethod method, String returnType) {
+		// Add a todo comment
 		String body = TODO_COMMENT;
 		body += lineSeparator;
+		// Add the appropriate default return type
 		if (returnType == null || returnType.equals(VOID))
 			return body;
 		if (returnType.equals(INT))
@@ -633,15 +790,31 @@ public class NewJavaClassOperation extends WTPOperation {
 		else
 			body += RETURN_NULL;
 		body += lineSeparator;
+		// Return the method body
 		return body;
 	}
 
-	// Can be overrided
+	/**
+	 * Subclasses may extend this method to provide their own user defined method stubs.  The
+	 * default implementation to just return an empty string.  This method will not accept
+	 * null parameter.  It will not return null.
+	 * @see NewJavaClassOperation#getMethodStubs(String, String)
+	 * 
+	 * @param superClassType
+	 * @return String user defined methods
+	 */
 	protected String getUserDefinedMethodStubs(IType superClassType) {
 		return EMPTY_STRING;
 	}
 
-	// Can be overrided
+	/**
+	 * Subclasses may extend this method to provide their own specialized return on which nonimplemented
+	 * methods to implement.  This does not accept a null parameter.  This will not return null.
+	 * The default implementation is to always return false.
+	 * 
+	 * @param method
+	 * @return boolean should implement method?
+	 */
 	protected boolean implementImplementedMethod(IMethod method) {
 		return false;
 	}

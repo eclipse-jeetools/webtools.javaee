@@ -11,11 +11,11 @@
 /*
  * Created on Aug 6, 2004
  */
-package org.eclipse.jst.j2ee.internal.web.operations;
+package org.eclipse.jst.j2ee.web.operations;
 
 import java.util.List;
 
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 
 
 /**
@@ -62,7 +62,7 @@ public class CreateServletTemplateModel {
 	}
 
 	public String getServletName() {
-		return this.dataModel.getServletName();
+		return getProperty(NewJavaClassDataModel.CLASS_NAME);
 	}
 
 	public boolean isPublic() {

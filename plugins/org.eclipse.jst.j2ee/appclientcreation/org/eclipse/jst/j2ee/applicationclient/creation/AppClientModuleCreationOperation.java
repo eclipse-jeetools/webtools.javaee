@@ -25,8 +25,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
 public class AppClientModuleCreationOperation extends J2EEModuleCreationOperation {

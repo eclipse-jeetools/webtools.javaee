@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.jst.j2ee.web" 
 	imports="org.eclipse.jst.j2ee.web.operations.* java.util.* " 
 	class="ServletTemplate" 
-%><%@ include file="servletHeader.template" %>
+%><%@ include file="servletHeaderNonAnnotated.template" %>
 
 <%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
 %>class <%=model.getServletClassName()%> extends <%=model.getSuperclassName()%><%

@@ -11,10 +11,10 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.web.operations.AddServletOperation;
+import org.eclipse.jst.j2ee.web.operations.NewServletClassDataModel;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
@@ -47,7 +47,7 @@ public class AddServletWizard extends NewWebWizard {
 	    if (model != null)
 	        return model;
 	    model = new NewServletClassDataModel();
-		model.setProperty(NewJavaClassDataModel.SUPERCLASS, ((NewServletClassDataModel)model).getServletSuperclassName());
+		model.setProperty(NewJavaClassDataModel.SUPERCLASS, NewServletClassDataModel.SERVLET_SUPERCLASS);
 		model.setProperty(NewJavaClassDataModel.INTERFACES, ((NewServletClassDataModel)model).getServletInterfaces());
 		
 		IProject project = getDefaultWebProject();
