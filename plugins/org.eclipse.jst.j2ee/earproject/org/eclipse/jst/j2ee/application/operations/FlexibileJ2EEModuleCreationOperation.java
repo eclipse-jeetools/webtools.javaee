@@ -157,7 +157,7 @@ public abstract class FlexibileJ2EEModuleCreationOperation extends FlexibileJ2EE
 			// Find the xdoclet builder from the extension registry
 			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
 			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
-			IProject project = operationDataModel.getTargetProject(); 
+			IProject project = ((FlexibleJ2EEModuleCreationDataModel)operationDataModel).getTargetProject(); 
 			IProjectDescription description = project.getDescription();
 			ICommand[] commands = description.getBuildSpec();
 			boolean found = false;

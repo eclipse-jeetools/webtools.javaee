@@ -173,7 +173,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 			// Find the xdoclet builder from the extension registry
 			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
 			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
-			IProject project = operationDataModel.getTargetProject(); 
+			IProject project = ((J2EEModuleCreationDataModel)operationDataModel).getTargetProject(); 
 			IProjectDescription description = project.getDescription();
 			ICommand[] commands = description.getBuildSpec();
 			boolean found = false;

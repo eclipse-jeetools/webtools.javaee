@@ -127,7 +127,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 	private WTPOperationDataModelListener nestedListener = new WTPOperationDataModelListener() {
 		public void propertyChanged(WTPOperationDataModelEvent event) {
 			if (event.getPropertyName().equals(J2EEArtifactImportDataModel.PROJECT_NAME)) {
-				notifyListeners(NESTED_PROJECTS_VALIDATION, null, null);
+				notifyListeners(NESTED_PROJECTS_VALIDATION);
 			}
 		}
 	};
@@ -520,7 +520,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			trimSelection();
 		}
 		if (utilityJarsModified) {
-			notifyListeners(NESTED_PROJECTS_VALIDATION, null, null);
+			notifyListeners(NESTED_PROJECTS_VALIDATION);
 		}
 	}
 

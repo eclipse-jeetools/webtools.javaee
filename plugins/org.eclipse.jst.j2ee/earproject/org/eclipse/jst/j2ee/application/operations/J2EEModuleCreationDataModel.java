@@ -71,12 +71,12 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	 * type String
 	 */
 	public static final String EAR_PROJECT_NAME = "J2EEModuleCreationDataModel.EAR_PROJECT_NAME"; //$NON-NLS-1$
-	
+
 	/**
 	 * type boolean
 	 */
 	public static final String IS_FLEXIBLE_PROJECT = "J2EEModuleCreationDataModel.IS_FLEXIBLE_PROJECT"; //$NON-NLS-1$
-	
+
 	public static final String JAR_LIST = UpdateManifestDataModel.JAR_LIST;
 
 	public static String JAR_LIST_TEXT_UI = UpdateManifestDataModel.JAR_LIST_TEXT_UI;
@@ -102,7 +102,8 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 
 	protected void init() {
 		super.init();
-		//getJavaProjectCreationDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{J2EENatureID});
+		//getJavaProjectCreationDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES,
+		// new String[]{J2EENatureID});
 		//set it so it pushes it down to ServerTargeting
 		setProperty(J2EE_MODULE_VERSION, getDefaultProperty(J2EE_MODULE_VERSION));
 		applicationCreationDataModel.addListener(this);
@@ -146,9 +147,9 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 			return Boolean.FALSE;
 		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
 			return getDefaultJ2EEModuleVersion();
-		} else if (propertyName.equals(IS_FLEXIBLE_PROJECT)){
-		    return Boolean.FALSE;
-		}else {
+		} else if (propertyName.equals(IS_FLEXIBLE_PROJECT)) {
+			return Boolean.FALSE;
+		} else {
 			return super.getDefaultProperty(propertyName);
 		}
 	}
@@ -160,8 +161,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	}
 
 	public final void notifyUpdatedEARs() {
-		String earProjectName = getStringProperty(EAR_PROJECT_NAME);
-		notifyListeners(EAR_PROJECT_NAME, WTPOperationDataModelEvent.VALID_VALUES_CHG, earProjectName, earProjectName);
+		notifyListeners(EAR_PROJECT_NAME, WTPOperationDataModelEvent.VALID_VALUES_CHG);
 	}
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -221,8 +221,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 			IProject project = getTargetProject();
 			getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, project);
 			if (!isSet(EAR_PROJECT_NAME)) {
-				String earProjectName = getStringProperty(EAR_PROJECT_NAME);
-				notifyListeners(EAR_PROJECT_NAME, earProjectName, earProjectName);
+				notifyListeners(EAR_PROJECT_NAME);
 				synchUPServerTargetWithEAR();
 			}
 			jarDependencyDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
@@ -236,11 +235,11 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 			notifyEnablementChange(ADD_TO_EAR);
 		}
 		if (IS_FLEXIBLE_PROJECT.equals(propertyName)) {
-		    if(((Boolean)propertyValue).booleanValue()) 
-		    	setProperty(ADD_TO_EAR, Boolean.FALSE);
-		    else
-		        setProperty(ADD_TO_EAR, Boolean.TRUE);
-		    notifyEnablementChange(ADD_TO_EAR);
+			if (((Boolean) propertyValue).booleanValue())
+				setProperty(ADD_TO_EAR, Boolean.FALSE);
+			else
+				setProperty(ADD_TO_EAR, Boolean.TRUE);
+			notifyEnablementChange(ADD_TO_EAR);
 		}
 		return returnValue;
 	}
@@ -296,11 +295,11 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 				String earProjectName = getStringProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME);
 				IProject earProject = ProjectCreationDataModel.getProjectHandleFromProjectName(earProjectName);
 				enabled = new Boolean(null == earProject || !earProject.exists());
-			} else if (propertyName.equals(ADD_TO_EAR)){
-			    if(getBooleanProperty(IS_FLEXIBLE_PROJECT))
-			        return Boolean.FALSE;
-			    else
-			        return Boolean.TRUE;
+			} else if (propertyName.equals(ADD_TO_EAR)) {
+				if (getBooleanProperty(IS_FLEXIBLE_PROJECT))
+					return Boolean.FALSE;
+				else
+					return Boolean.TRUE;
 			}
 		}
 		return enabled;
@@ -492,7 +491,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 		super.propertyChanged(event);
 		if (event.getDataModel() == getServerTargetDataModel() && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
 			applicationCreationDataModel.setProperty(event.getPropertyName(), event.getProperty());
-			notifyListeners(NESTED_MODEL_VALIDATION_HOOK, null, null);
+			notifyListeners(NESTED_MODEL_VALIDATION_HOOK);
 		} else if (event.getDataModel() == applicationCreationDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(EnterpriseApplicationCreationDataModel.PROJECT_NAME)) {
 			synchUPServerTargetWithEAR();
 		} else if (event.getDataModel() == addModuleToEARDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(AddModuleToEARDataModel.PROJECT_NAME)) {
