@@ -27,15 +27,15 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.webapplication.LoginConfig;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webapplication.LoginConfig}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LoginConfig}object.
  */
 public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 
@@ -47,7 +47,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: create some child object.
@@ -67,7 +67,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 
 	//TODO Removing UI dependency by commenting out method
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	/*
 	 * public ImageDescriptor getCreateChildImageDescriptor(Object object) { EObject refObject =
@@ -76,7 +76,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	 * "Create#CHILD_CLASS_NAME#");//$NON-NLS-1$ }
 	 */
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return WebAppEditResourceHandler.getString("Create_#CHILD_CLASS_NAME#_UI_"); //$NON-NLS-1$ = "Create #CHILD_CLASS_NAME#"
@@ -84,7 +84,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 
 	/**
 	 * This returns the help text for
-	 * {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

@@ -12,10 +12,10 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 
 
 public class WTProjectStrategyUtils {

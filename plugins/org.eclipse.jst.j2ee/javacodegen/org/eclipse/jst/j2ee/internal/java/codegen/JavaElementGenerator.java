@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.IBaseGenerator;
 import org.eclipse.jst.j2ee.internal.codegen.IGenerationBuffer;
 import org.eclipse.jst.j2ee.internal.codegen.ITargetContext;
-import org.eclipse.wst.common.internal.jdt.integration.WorkingCopyProvider;
+import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyProvider;
 
 
 /**
@@ -101,7 +101,7 @@ public abstract class JavaElementGenerator extends BaseGenerator {
 	public abstract void prepare() throws GenerationException;
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void terminate() throws GenerationException {
 		super.terminate();

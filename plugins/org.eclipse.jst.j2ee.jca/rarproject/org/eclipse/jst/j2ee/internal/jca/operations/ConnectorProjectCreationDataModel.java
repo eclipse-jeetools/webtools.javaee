@@ -17,17 +17,18 @@
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
 /**
  * @author jsholl
@@ -78,38 +79,40 @@ public class ConnectorProjectCreationDataModel extends J2EEModuleCreationDataMod
 		}
 	}
 
-	protected String convertVersionIDtoLabel(int id) {
-		switch (id) {
-			case J2EEVersionConstants.JCA_1_0_ID :
-				return J2EEVersionConstants.VERSION_1_0_TEXT;
-			case J2EEVersionConstants.JCA_1_5_ID :
-				return J2EEVersionConstants.VERSION_1_5_TEXT;
+	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
+		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			Integer propertyValue = (Integer) getProperty(propertyName);
+			String description = null;
+			switch (propertyValue.intValue()) {
+				case J2EEVersionConstants.JCA_1_0_ID :
+					description = J2EEVersionConstants.VERSION_1_0_TEXT;
+					break;
+				case J2EEVersionConstants.JCA_1_5_ID :
+				default :
+					description = J2EEVersionConstants.VERSION_1_5_TEXT;
+					break;
+			}
+			return new WTPPropertyDescriptor(propertyValue, description);
 		}
-		return ""; //$NON-NLS-1$
+		return super.doGetPropertyDescriptor(propertyName);
 	}
 
-	protected Integer convertVersionLabeltoID(String label) {
-		int version = -1;
-		if (label.equals(J2EEVersionConstants.VERSION_1_0_TEXT)) {
-			version = J2EEVersionConstants.JCA_1_0_ID;
-		} else if (label.equals(J2EEVersionConstants.VERSION_1_5_TEXT)) {
-			version = J2EEVersionConstants.JCA_1_5_ID;
-		}
-		return new Integer(version);
-	}
-
-	protected Object[] getValidJ2EEVersionLabels() {
+	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
+		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
-			case (J2EEVersionConstants.J2EE_1_4_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_0_TEXT, J2EEVersionConstants.VERSION_1_5_TEXT};
-			case (J2EEVersionConstants.J2EE_1_3_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_0_TEXT};
-			case (J2EEVersionConstants.J2EE_1_2_ID) :
-				return new String[]{};
+			case J2EEVersionConstants.J2EE_1_3_ID :
+				descriptors = new WTPPropertyDescriptor[1];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.JCA_1_0_ID), J2EEVersionConstants.VERSION_1_0_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_4_ID :
 			default :
-				return new String[]{J2EEVersionConstants.VERSION_1_0_TEXT, J2EEVersionConstants.VERSION_1_5_TEXT};
+				descriptors = new WTPPropertyDescriptor[2];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.JCA_1_0_ID), J2EEVersionConstants.VERSION_1_0_TEXT);
+				descriptors[1] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.JCA_1_5_ID), J2EEVersionConstants.VERSION_1_5_TEXT);
+				break;
 		}
+		return descriptors;
 	}
 
 	protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
@@ -125,7 +128,7 @@ public class ConnectorProjectCreationDataModel extends J2EEModuleCreationDataMod
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#convertJ2EEVersionToModuleVersion(java.lang.Integer)
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#convertJ2EEVersionToModuleVersion(java.lang.Integer)
 	 */
 	protected Integer convertJ2EEVersionToModuleVersion(Integer j2eeVersion) {
 		switch (j2eeVersion.intValue()) {
@@ -140,7 +143,7 @@ public class ConnectorProjectCreationDataModel extends J2EEModuleCreationDataMod
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#getModuleType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
 	 */
 	protected EClass getModuleType() {
 		return CommonarchiveFactoryImpl.getPackage().getRARFile();
@@ -149,7 +152,7 @@ public class ConnectorProjectCreationDataModel extends J2EEModuleCreationDataMod
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#getModuleExtension()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleExtension()
 	 */
 	protected String getModuleExtension() {
 		return ".rar"; //$NON-NLS-1$

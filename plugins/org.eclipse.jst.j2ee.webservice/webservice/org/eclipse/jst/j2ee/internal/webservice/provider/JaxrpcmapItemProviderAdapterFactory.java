@@ -78,7 +78,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaWSDLMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -86,7 +86,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected JavaWSDLMappingItemProvider javaWSDLMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaWSDLMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -101,7 +101,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PackageMapping}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -109,7 +109,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected PackageMappingItemProvider packageMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PackageMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -124,7 +124,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaXMLTypeMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -132,7 +132,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected JavaXMLTypeMappingItemProvider javaXMLTypeMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaXMLTypeMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -147,7 +147,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ExceptionMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -155,7 +155,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected ExceptionMappingItemProvider exceptionMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ExceptionMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -170,7 +170,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceInterfaceMapping}instances. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ServiceInterfaceMapping}instances. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -179,7 +179,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This creates an adapter for a
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceInterfaceMapping}. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ServiceInterfaceMapping}. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -194,7 +194,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping}instances. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping}instances. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -203,7 +203,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This creates an adapter for a
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping}. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -218,7 +218,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageType}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PackageType}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -226,7 +226,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected PackageTypeItemProvider packageTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageType}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PackageType}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -241,7 +241,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ClassType}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ClassType}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -249,7 +249,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected ClassTypeItemProvider classTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ClassType}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ClassType}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -264,7 +264,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.RootTypeQname}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.RootTypeQname}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -272,7 +272,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected RootTypeQnameItemProvider rootTypeQnameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.RootTypeQname}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.RootTypeQname}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -287,7 +287,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.QnameScope}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.QnameScope}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -295,7 +295,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected QnameScopeItemProvider qnameScopeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.QnameScope}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.QnameScope}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -310,7 +310,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.VariableMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -318,7 +318,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected VariableMappingItemProvider variableMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.VariableMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -333,7 +333,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ExceptionType}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -341,7 +341,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected ExceptionTypeItemProvider exceptionTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ExceptionType}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -356,7 +356,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessage}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessage}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -364,7 +364,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected WSDLMessageItemProvider wsdlMessageItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessage}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessage}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -379,7 +379,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder}instances. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ConstructorParameterOrder}instances. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -388,7 +388,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This creates an adapter for a
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder}. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ConstructorParameterOrder}. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -403,7 +403,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaVariableName}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaVariableName}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -411,7 +411,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected JavaVariableNameItemProvider javaVariableNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaVariableName}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaVariableName}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -426,7 +426,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.XMLElementName}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.XMLElementName}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -434,7 +434,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected XMLElementNameItemProvider xmlElementNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.XMLElementName}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.XMLElementName}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -449,7 +449,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ElementName}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -457,7 +457,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected ElementNameItemProvider elementNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ElementName}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -472,7 +472,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLServiceName}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -480,7 +480,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected WSDLServiceNameItemProvider wsdlServiceNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLServiceName}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -495,7 +495,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PortMapping}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PortMapping}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -503,7 +503,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected PortMappingItemProvider portMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PortMapping}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PortMapping}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -518,7 +518,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaPortName}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaPortName}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -526,7 +526,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected JavaPortNameItemProvider javaPortNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaPortName}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaPortName}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -541,7 +541,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLPortType}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLPortType}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -549,7 +549,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected WSDLPortTypeItemProvider wsdlPortTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLPortType}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLPortType}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -564,7 +564,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLBinding}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLBinding}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -572,7 +572,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected WSDLBindingItemProvider wsdlBindingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLBinding}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLBinding}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -587,7 +587,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping}instances. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping}instances. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -596,7 +596,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This creates an adapter for a
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping}. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -611,7 +611,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaMethodName}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaMethodName}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -619,7 +619,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected JavaMethodNameItemProvider javaMethodNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaMethodName}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaMethodName}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -634,7 +634,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLOperation}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -642,7 +642,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected WSDLOperationItemProvider wsdlOperationItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLOperation}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -657,7 +657,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping}instances. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.MethodParamPartsMapping}instances. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -666,7 +666,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This creates an adapter for a
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping}. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.MethodParamPartsMapping}. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -681,7 +681,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping}instances. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLReturnValueMapping}instances. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -690,7 +690,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This creates an adapter for a
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping}. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLReturnValueMapping}. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -705,7 +705,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamPosition}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -713,7 +713,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected ParamPositionItemProvider paramPositionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamPosition}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -728,7 +728,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamType}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -736,7 +736,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected ParamTypeItemProvider paramTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParamType}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -751,7 +751,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessageMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -759,7 +759,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected WSDLMessageMappingItemProvider wsdlMessageMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessageMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -774,7 +774,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessagePartName}instances. <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessagePartName}instances. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -782,7 +782,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected WSDLMessagePartNameItemProvider wsdlMessagePartNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessagePartName}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessagePartName}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -797,7 +797,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParameterMode}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParameterMode}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -805,7 +805,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected ParameterModeItemProvider parameterModeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParameterMode}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ParameterMode}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -820,7 +820,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodReturnValue}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.MethodReturnValue}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -828,7 +828,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected MethodReturnValueItemProvider methodReturnValueItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodReturnValue}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.MethodReturnValue}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -843,7 +843,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.InterfaceMapping}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -851,7 +851,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	protected InterfaceMappingItemProvider interfaceMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.InterfaceMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated

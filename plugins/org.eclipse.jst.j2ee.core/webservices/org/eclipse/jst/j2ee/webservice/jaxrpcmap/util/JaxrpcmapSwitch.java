@@ -61,7 +61,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.XMLElementName;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage
  * @generated
  */
 public class JaxrpcmapSwitch

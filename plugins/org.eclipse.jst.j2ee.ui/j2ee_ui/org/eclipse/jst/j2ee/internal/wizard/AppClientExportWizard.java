@@ -24,8 +24,8 @@ import org.eclipse.jst.j2ee.internal.archive.operations.AppClientExportOperation
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IExportWizard;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author cbridgha
@@ -52,7 +52,7 @@ public class AppClientExportWizard extends J2EEExportWizard implements IExecutab
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		AppClientExportDataModel aModel = new AppClientExportDataModel();
@@ -62,7 +62,7 @@ public class AppClientExportWizard extends J2EEExportWizard implements IExecutab
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createOperation() {
 		return new AppClientExportOperation(getAppClientDataModel());

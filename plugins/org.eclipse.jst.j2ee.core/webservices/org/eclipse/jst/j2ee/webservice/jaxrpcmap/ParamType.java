@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType#getParamType <em>Param Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamType#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamType#getParamType <em>Param Type</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getParamType()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getParamType()
  * @model 
  * @generated
  */
@@ -40,14 +40,14 @@ public interface ParamType extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getParamType_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getParamType_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamType#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -66,14 +66,14 @@ public interface ParamType extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Param Type</em>' attribute.
    * @see #setParamType(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getParamType_ParamType()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getParamType_ParamType()
    * @model 
    * @generated
    */
   String getParamType();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType#getParamType <em>Param Type</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamType#getParamType <em>Param Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Param Type</em>' attribute.

@@ -35,7 +35,7 @@ public class SessionTranslator extends AbstractEJBTranslator {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
+	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
 	 */
 	protected Translator[] getSpecificMaps(int versionID) {
 		return new Translator[] {
@@ -46,7 +46,7 @@ public class SessionTranslator extends AbstractEJBTranslator {
 		
 		
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.model.translator.ejb.AbstractEJBTranslator#getEJBClassMap()
+	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getEJBClassMap()
 	 * 
 	 * Support 1.4 and 1.3
 	 */

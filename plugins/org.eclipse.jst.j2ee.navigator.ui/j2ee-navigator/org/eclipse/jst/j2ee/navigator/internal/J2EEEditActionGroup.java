@@ -47,12 +47,12 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.internal.WorkbenchMessages;
-import org.eclipse.wst.common.framework.AdaptabilityUtility;
-import org.eclipse.wst.common.frameworks.ui.WTPGenericActionIds;
-import org.eclipse.wst.common.frameworks.ui.WTPOptionalOperationAction;
-import org.eclipse.wst.common.navigator.actions.NewWizardActionGroup;
-import org.eclipse.wst.common.navigator.actions.WizardActionGroup;
-import org.eclipse.wst.common.navigator.views.actions.CommonEditActionGroup;
+import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPGenericActionIds;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPOptionalOperationAction;
+import org.eclipse.wst.common.navigator.internal.actions.NewWizardActionGroup;
+import org.eclipse.wst.common.navigator.internal.actions.WizardActionGroup;
+import org.eclipse.wst.common.navigator.internal.views.actions.CommonEditActionGroup;
 
 /**
  * @author mdelder
@@ -60,15 +60,15 @@ import org.eclipse.wst.common.navigator.views.actions.CommonEditActionGroup;
  */
 public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelectionChangedListener {
 
-	protected static final String NEW_EAR_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.earProjectWizard"; //$NON-NLS-1$
+	protected static final String NEW_EAR_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.earProjectWizard"; //$NON-NLS-1$
 
-	protected static final String NEW_APPCLIENT_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.appclientProjectWizard"; //$NON-NLS-1$
+	protected static final String NEW_APPCLIENT_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.appclientProjectWizard"; //$NON-NLS-1$
 
-	protected static final String NEW_JCA_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.jcaProjectWizard"; //$NON-NLS-1$
+	protected static final String NEW_JCA_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.jcaProjectWizard"; //$NON-NLS-1$
 
-	protected static final String NEW_EJB_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.ejb.ui.util.ejbProjectWizard"; //$NON-NLS-1$
+	protected static final String NEW_EJB_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.ejb.ui.util.ejbProjectWizard"; //$NON-NLS-1$
 
-	protected static final String NEW_WEB_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.webProjectWizard"; //$NON-NLS-1$
+	protected static final String NEW_WEB_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.webProjectWizard"; //$NON-NLS-1$
 
 	protected static final String NEW_EAR_WIZARD_ID = ""; //$NON-NLS-1$
 
@@ -76,7 +76,7 @@ public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelec
 
 	protected static final String NEW_CONNECTOR_WIZARD_ID = ""; //$NON-NLS-1$
 
-	protected static final String NEW_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.j2ee.internal.ejb.ui.util.createEJBWizard"; //$NON-NLS-1$
+	protected static final String NEW_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.ejb.ui.util.createEJBWizard"; //$NON-NLS-1$
 
 	protected static final String NEW_WEB_MODULE_WIZARD_ID = ""; //$NON-NLS-1$
 

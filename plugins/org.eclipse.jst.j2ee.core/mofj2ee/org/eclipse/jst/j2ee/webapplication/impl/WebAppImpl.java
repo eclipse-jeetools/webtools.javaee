@@ -25,8 +25,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.common.MessageDestination;
@@ -35,6 +33,8 @@ import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl;
 import org.eclipse.jst.j2ee.common.util.CommonUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
 import org.eclipse.jst.j2ee.webapplication.ErrorCodeErrorPage;
@@ -213,7 +213,7 @@ public class WebAppImpl extends JNDIEnvRefsGroupImpl implements WebApp {
 	}
 
 /**
- * @see org.eclipse.jst.j2ee.webapplication.WebApp
+ * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp
  */
 public boolean containsSecurityRole(java.lang.String name) {
 	return getSecurityRoleNamed(name) != null;
@@ -388,7 +388,7 @@ public boolean isVersion2_3Descriptor() {
 	return systemId == null ? false : systemId.equals(J2EEConstants.WEBAPP_SYSTEMID_2_3);
 }
 /**
- * @see org.eclipse.jst.j2ee.webapplication.WebApp
+ * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp
  */
 public void renameSecurityRole(java.lang.String existingRoleName, java.lang.String newRoleName) {
 	SecurityRole role = getSecurityRoleNamed(existingRoleName);

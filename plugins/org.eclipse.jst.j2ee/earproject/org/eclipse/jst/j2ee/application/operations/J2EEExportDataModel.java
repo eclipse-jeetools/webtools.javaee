@@ -21,9 +21,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclispe.wst.common.framework.plugin.WTPCommonMessages;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -61,7 +61,7 @@ public abstract class J2EEExportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getTargetProject()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getTargetProject()
 	 */
 	public IProject getTargetProject() {
 		return getProjectHandle(PROJECT_NAME);
@@ -97,7 +97,7 @@ public abstract class J2EEExportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
 	 */
 	protected Object[] doGetValidPropertyValues(String propertyName) {
 		if (propertyName.equals(PROJECT_NAME))
@@ -108,7 +108,7 @@ public abstract class J2EEExportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (PROJECT_NAME.equals(propertyName)) {

@@ -24,9 +24,10 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.web.internal.operation.ILibModule;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author jialin
@@ -130,7 +131,7 @@ public class AddWebLibraryProjectDataModel extends EditModelOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new AddWebLibraryProjectOperation(this);
@@ -139,7 +140,7 @@ public class AddWebLibraryProjectDataModel extends EditModelOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(JAR_NAME)) {

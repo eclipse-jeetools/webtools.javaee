@@ -31,7 +31,7 @@ public class StaticWebDeployable extends ProjectModule implements IStaticWeb {
 	}
 
 	public String getFactoryId() {
-		return "org.eclipse.jst.j2ee.internal.web.deployables.static"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.web.deployables.static"; //$NON-NLS-1$
 	}
 
 	/**

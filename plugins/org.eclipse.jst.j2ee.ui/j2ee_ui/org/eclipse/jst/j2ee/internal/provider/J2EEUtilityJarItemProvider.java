@@ -27,9 +27,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

@@ -30,13 +30,13 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.SaveFilter;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
-import org.eclipse.wst.common.framework.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -162,7 +162,7 @@ public abstract class J2EEImportOperation extends WTPOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#dispose(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#dispose(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void dispose(IProgressMonitor pm) {
 		try {

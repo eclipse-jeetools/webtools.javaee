@@ -22,11 +22,11 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jst.j2ee.J2EEEditModel;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.Identity;
 import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
@@ -34,9 +34,9 @@ import org.eclipse.jst.j2ee.webapplication.SecurityConstraint;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModelModifier;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModelModifier;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 
 
 /**
@@ -61,7 +61,7 @@ public class UpdateSecurityRoleNameChangeOperation extends WTPOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.operations.HeadlessJ2EEOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.jst.j2ee.internal.internal.operations.HeadlessJ2EEOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		J2EEEditModel editModel = null;

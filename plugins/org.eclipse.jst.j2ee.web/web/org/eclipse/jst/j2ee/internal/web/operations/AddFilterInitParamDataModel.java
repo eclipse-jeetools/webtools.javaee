@@ -20,11 +20,11 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.common.ParamValue;
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author cbridgha
@@ -63,7 +63,7 @@ public class AddFilterInitParamDataModel extends J2EEModelModifierOperationDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new AddFilterInitParamOperation(this);
@@ -85,7 +85,7 @@ public class AddFilterInitParamDataModel extends J2EEModelModifierOperationDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(PARAM_NAME)) {

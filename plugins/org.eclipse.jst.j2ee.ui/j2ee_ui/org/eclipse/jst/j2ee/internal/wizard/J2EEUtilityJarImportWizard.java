@@ -21,9 +21,9 @@ import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarListImportDataM
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 
 /**
@@ -56,7 +56,7 @@ public class J2EEUtilityJarImportWizard extends WTPWizard implements IImportWiza
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		return new J2EEUtilityJarListImportDataModel();
@@ -65,7 +65,7 @@ public class J2EEUtilityJarImportWizard extends WTPWizard implements IImportWiza
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createOperation() {
 		return getModel().getDefaultOperation();

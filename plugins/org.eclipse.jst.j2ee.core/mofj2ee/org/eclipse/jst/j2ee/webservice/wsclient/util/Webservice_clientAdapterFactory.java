@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage
  * @generated
  */
 public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
@@ -119,13 +119,13 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef <em>Service Ref</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef <em>Service Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef
 	 * @generated
 	 */
 	public Adapter createServiceRefAdapter() {
@@ -133,13 +133,13 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef <em>Port Component Ref</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef <em>Port Component Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.PortComponentRef
 	 * @generated
 	 */
 	public Adapter createPortComponentRefAdapter() {
@@ -147,13 +147,13 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsclient.Handler <em>Handler</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler <em>Handler</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Handler
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Handler
 	 * @generated
 	 */
 	public Adapter createHandlerAdapter() {
@@ -161,13 +161,13 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient <em>Web Services Client</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.WebServicesClient <em>Web Services Client</em>}'.
 	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.WebServicesClient
 	 * @generated
 	 */
     public Adapter createWebServicesClientAdapter() {
@@ -175,13 +175,13 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs <em>Component Scoped Refs</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ComponentScopedRefs <em>Component Scoped Refs</em>}'.
 	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.ComponentScopedRefs
 	 * @generated
 	 */
     public Adapter createComponentScopedRefsAdapter() {
@@ -189,13 +189,13 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DescriptionGroup <em>Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup <em>Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup
 	 * @generated
 	 */
 	public Adapter createDescriptionGroupAdapter() {
@@ -203,13 +203,13 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup
 	 * @generated
 	 */
 	public Adapter createCompatibilityDescriptionGroupAdapter() {

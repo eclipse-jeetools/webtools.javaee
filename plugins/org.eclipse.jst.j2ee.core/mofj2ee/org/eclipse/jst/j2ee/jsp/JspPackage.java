@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.jsp.JspFactory
+ * @see org.eclipse.jst.j2ee.internal.jsp.JspFactory
  * @generated
  */
 public interface JspPackage extends EPackage{
@@ -54,7 +54,7 @@ public interface JspPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.jsp";//$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.jsp";//$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -65,11 +65,11 @@ public interface JspPackage extends EPackage{
 	JspPackage eINSTANCE = org.eclipse.jst.j2ee.jsp.impl.JspPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jsp.impl.JSPConfigImpl <em>JSP Config</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPConfigImpl <em>JSP Config</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jsp.impl.JSPConfigImpl
-	 * @see org.eclipse.jst.j2ee.jsp.impl.JspPackageImpl#getJSPConfig()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.impl.JSPConfigImpl
+	 * @see org.eclipse.jst.j2ee.internal.jsp.impl.JspPackageImpl#getJSPConfig()
 	 * @generated
 	 */
 	int JSP_CONFIG = 0;
@@ -102,11 +102,11 @@ public interface JspPackage extends EPackage{
 	int JSP_CONFIG_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl <em>JSP Property Group</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl <em>JSP Property Group</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl
-	 * @see org.eclipse.jst.j2ee.jsp.impl.JspPackageImpl#getJSPPropertyGroup()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl
+	 * @see org.eclipse.jst.j2ee.internal.jsp.impl.JspPackageImpl#getJSPPropertyGroup()
 	 * @generated
 	 */
 	int JSP_PROPERTY_GROUP = 1;
@@ -247,11 +247,11 @@ public interface JspPackage extends EPackage{
 	int JSP_PROPERTY_GROUP_FEATURE_COUNT = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 7;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jsp.impl.TagLibRefTypeImpl <em>Tag Lib Ref Type</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jsp.impl.TagLibRefTypeImpl <em>Tag Lib Ref Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jsp.impl.TagLibRefTypeImpl
-	 * @see org.eclipse.jst.j2ee.jsp.impl.JspPackageImpl#getTagLibRefType()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.impl.TagLibRefTypeImpl
+	 * @see org.eclipse.jst.j2ee.internal.jsp.impl.JspPackageImpl#getTagLibRefType()
 	 * @generated
 	 */
 	int TAG_LIB_REF_TYPE = 2;
@@ -285,151 +285,151 @@ public interface JspPackage extends EPackage{
 
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jsp.JSPConfig <em>JSP Config</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jsp.JSPConfig <em>JSP Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>JSP Config</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPConfig
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPConfig
 	 * @generated
 	 */
 	EClass getJSPConfig();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jsp.JSPConfig#getTagLibs <em>Tag Libs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jsp.JSPConfig#getTagLibs <em>Tag Libs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Tag Libs</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPConfig#getTagLibs()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPConfig#getTagLibs()
 	 * @see #getJSPConfig()
 	 * @generated
 	 */
 	EReference getJSPConfig_TagLibs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jsp.JSPConfig#getPropertyGroups <em>Property Groups</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jsp.JSPConfig#getPropertyGroups <em>Property Groups</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Property Groups</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPConfig#getPropertyGroups()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPConfig#getPropertyGroups()
 	 * @see #getJSPConfig()
 	 * @generated
 	 */
 	EReference getJSPConfig_PropertyGroups();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup <em>JSP Property Group</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup <em>JSP Property Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>JSP Property Group</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup
 	 * @generated
 	 */
 	EClass getJSPPropertyGroup();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getUrlPattern <em>Url Pattern</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getUrlPattern <em>Url Pattern</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Url Pattern</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getUrlPattern()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getUrlPattern()
 	 * @see #getJSPPropertyGroup()
 	 * @generated
 	 */
 	EAttribute getJSPPropertyGroup_UrlPattern();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isElIgnored <em>El Ignored</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>El Ignored</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isElIgnored()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isElIgnored()
 	 * @see #getJSPPropertyGroup()
 	 * @generated
 	 */
 	EAttribute getJSPPropertyGroup_ElIgnored();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getPageEncoding <em>Page Encoding</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getPageEncoding <em>Page Encoding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Page Encoding</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getPageEncoding()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getPageEncoding()
 	 * @see #getJSPPropertyGroup()
 	 * @generated
 	 */
 	EAttribute getJSPPropertyGroup_PageEncoding();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isScriptingInvalid <em>Scripting Invalid</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Scripting Invalid</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isScriptingInvalid()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isScriptingInvalid()
 	 * @see #getJSPPropertyGroup()
 	 * @generated
 	 */
 	EAttribute getJSPPropertyGroup_ScriptingInvalid();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isIsXML <em>Is XML</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is XML</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#isIsXML()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#isIsXML()
 	 * @see #getJSPPropertyGroup()
 	 * @generated
 	 */
 	EAttribute getJSPPropertyGroup_IsXML();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getIncludePreludes <em>Include Preludes</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getIncludePreludes <em>Include Preludes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Include Preludes</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getIncludePreludes()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getIncludePreludes()
 	 * @see #getJSPPropertyGroup()
 	 * @generated
 	 */
 	EAttribute getJSPPropertyGroup_IncludePreludes();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getIncludeCodas <em>Include Codas</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getIncludeCodas <em>Include Codas</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Include Codas</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup#getIncludeCodas()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup#getIncludeCodas()
 	 * @see #getJSPPropertyGroup()
 	 * @generated
 	 */
 	EAttribute getJSPPropertyGroup_IncludeCodas();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jsp.TagLibRefType <em>Tag Lib Ref Type</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType <em>Tag Lib Ref Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Tag Lib Ref Type</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.TagLibRefType
+	 * @see org.eclipse.jst.j2ee.internal.jsp.TagLibRefType
 	 * @generated
 	 */
 	EClass getTagLibRefType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibURI <em>Taglib URI</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibURI <em>Taglib URI</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Taglib URI</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibURI()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibURI()
 	 * @see #getTagLibRefType()
 	 * @generated
 	 */
 	EAttribute getTagLibRefType_TaglibURI();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibLocation <em>Taglib Location</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibLocation <em>Taglib Location</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Taglib Location</em>'.
-	 * @see org.eclipse.jst.j2ee.jsp.TagLibRefType#getTaglibLocation()
+	 * @see org.eclipse.jst.j2ee.internal.jsp.TagLibRefType#getTaglibLocation()
 	 * @see #getTagLibRefType()
 	 * @generated
 	 */

@@ -38,7 +38,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage
  * @generated
  */
 public class WsddSwitch {

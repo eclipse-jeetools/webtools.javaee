@@ -26,8 +26,8 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.ejb.impl.ActivationConfigPropertyImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.ejb.impl.ActivationConfigPropertyImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigPropertyImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigPropertyImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *

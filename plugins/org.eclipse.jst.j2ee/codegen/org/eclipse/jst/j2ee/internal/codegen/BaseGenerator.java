@@ -41,7 +41,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void addChild(IBaseGenerator child) {
 		getChildren().add(child);
@@ -51,7 +51,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	 * This default implementation uses the existing result if it is set. It analyzes children and
 	 * sets the result if the child results are not empty.
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public AnalysisResult analyze() throws GenerationException {
 		return primAnalyze();
@@ -91,7 +91,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void discardDependents() throws GenerationException {
 		Iterator dependentChildGenIter = getDependentChildren().iterator();
@@ -103,14 +103,14 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	/**
 	 * Returns this generator's analysis result. It may return null.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.codegen.helpers.AnalysisResult
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.codegen.helpers.AnalysisResult
 	 */
 	protected AnalysisResult getAnalysisResult() {
 		return fAnalysisResult;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public List getChildren() {
 		if (fChildren == null)
@@ -119,7 +119,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public IDependentGenerator getDependentGenerator(String logicalName) throws GeneratorNotFoundException {
 		DependentGenerator genImplInstance;
@@ -135,7 +135,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public IBaseGenerator getGenerator(String logicalName) throws GeneratorNotFoundException {
 		BaseGenerator genImplInstance;
@@ -226,14 +226,14 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public IBaseGenerator getParent() {
 		return fParentGenerator;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public ITargetContext getTargetContext() {
 		if (fTargetContext == null)
@@ -242,7 +242,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public Object getTargetElement() {
 		return fTargetElement;
@@ -261,7 +261,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void run() throws GenerationException {
 		runChildren();
@@ -277,7 +277,7 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void runDependents(IGenerationBuffer buffer) throws GenerationException {
 		Iterator dependentChildGenIter = getDependentChildren().iterator();
@@ -289,21 +289,21 @@ public abstract class BaseGenerator extends Generator implements IBaseGenerator 
 	 * Sets this generator's analysis result.
 	 * 
 	 * @param newAnalysisResult
-	 *            org.eclipse.jst.j2ee.internal.codegen.helpers.AnalysisResult
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.codegen.helpers.AnalysisResult
 	 */
 	protected void setAnalysisResult(AnalysisResult newAnalysisResult) {
 		fAnalysisResult = newAnalysisResult;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void setTargetElement(Object targetElement) {
 		fTargetElement = targetElement;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public void terminate() throws GenerationException {
 		if (fChildren != null) {

@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.jst.j2ee.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 
 
 /**
@@ -148,7 +148,7 @@ public class WebMessages extends J2EECommonMessages {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.Messages#initializeBundle()
+	 * @see org.eclipse.wst.common.frameworks.internal.Messages#initializeBundle()
 	 */
 	protected void initializeBundle() {
 		try {

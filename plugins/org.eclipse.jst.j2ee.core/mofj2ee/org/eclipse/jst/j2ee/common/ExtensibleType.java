@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.ExtensibleType#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.ExtensibleType#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.common.CommonPackage#getExtensibleType()
+ * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getExtensibleType()
  * @model 
  * @generated
  */
@@ -39,14 +39,14 @@ public interface ExtensibleType extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
-	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getExtensibleType_Value()
+	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getExtensibleType_Value()
 	 * @model 
 	 * @generated
 	 */
 	String getValue();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.ExtensibleType#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.common.ExtensibleType#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Value</em>' attribute.

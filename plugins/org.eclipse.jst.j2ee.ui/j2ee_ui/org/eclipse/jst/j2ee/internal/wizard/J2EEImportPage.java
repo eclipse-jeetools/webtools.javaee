@@ -36,13 +36,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 /**
  * @author cbridgha
@@ -70,7 +70,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return null;
@@ -79,7 +79,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -304,7 +304,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#enter()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#enter()
 	 */
 	protected void enter() {
 		super.enter();

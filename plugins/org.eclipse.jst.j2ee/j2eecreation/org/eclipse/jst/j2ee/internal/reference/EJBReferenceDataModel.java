@@ -11,12 +11,12 @@ package org.eclipse.jst.j2ee.internal.reference;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.impl.ApplicationImpl;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -141,7 +141,7 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.reference.ReferenceDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.jst.j2ee.internal.internal.reference.ReferenceDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -456,7 +456,7 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.reference.ReferenceDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.reference.ReferenceDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		IStatus status = super.doValidateProperty(propertyName);
@@ -572,7 +572,7 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new EJBReferenceCreationOperation(this);
@@ -581,7 +581,7 @@ public class EJBReferenceDataModel extends ReferenceDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (propertyName.equals(LOCAL_REMOTE_TYPE)) {

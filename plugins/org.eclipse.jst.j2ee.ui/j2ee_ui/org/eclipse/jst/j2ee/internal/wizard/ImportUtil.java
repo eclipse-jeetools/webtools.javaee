@@ -15,17 +15,17 @@ import java.io.File;
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.commonarchivecore.ApplicationClientFile;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.EJBJarFile;
-import org.eclipse.jst.j2ee.commonarchivecore.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 

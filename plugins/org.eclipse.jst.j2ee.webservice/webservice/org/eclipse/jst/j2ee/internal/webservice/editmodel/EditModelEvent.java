@@ -71,7 +71,7 @@ public class EditModelEvent {
 	/**
 	 * Insert the method's description here. Creation date: (05/21/01 9:01:08 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.workbench.AbstractEditModel
+	 * @return org.eclipse.jst.j2ee.internal.internal.workbench.AbstractEditModel
 	 */
 	public EditModel getEditModel() {
 		return fEditModel;

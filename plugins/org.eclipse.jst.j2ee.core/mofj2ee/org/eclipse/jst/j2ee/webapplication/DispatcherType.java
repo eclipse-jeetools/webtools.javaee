@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * A representation of the literals of the enumeration '<em><b>Dispatcher Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getDispatcherType()
+ * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getDispatcherType()
  * @model
  * @generated
  */

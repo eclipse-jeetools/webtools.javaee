@@ -22,17 +22,17 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 
 
 /**
@@ -128,7 +128,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#initValidBaseProperties()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(BASE_NAME);
@@ -149,7 +149,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#initNestedModels()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initNestedModels()
 	 */
 	protected void initNestedModels() {
 		clientModel = new AppClientProjectCreationDataModel();
@@ -182,7 +182,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.startsWith(CREATE_BASE))
@@ -230,7 +230,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -358,7 +358,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.startsWith(PROJECT_BASE)) {
@@ -374,7 +374,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetProperty(java.lang.String)
 	 */
 	protected Object doGetProperty(String propertyName) {
 		if (propertyName.startsWith(PROJECT_BASE))
@@ -521,7 +521,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (propertyName.equals(CREATE_CONNECTOR) || propertyName.equals(CONNECTOR_PROJECT_NAME)) {

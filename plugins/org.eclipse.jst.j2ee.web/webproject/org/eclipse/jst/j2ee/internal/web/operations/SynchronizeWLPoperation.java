@@ -19,9 +19,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
-import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
  * Given a Web Project, this operation will sychronize all its Web Library Projects (WLPs), i.e., it
@@ -45,7 +46,7 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 	/**
 	 * Synchronizes all WLPs to have the same target server as the given Web project.
 	 * 
-	 * @see org.eclipse.jst.j2ee.operations.IHeadlessRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.jst.j2ee.internal.internal.operations.IHeadlessRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		IRuntime target = ServerTargetUtil.getServerTarget(prj.getName());

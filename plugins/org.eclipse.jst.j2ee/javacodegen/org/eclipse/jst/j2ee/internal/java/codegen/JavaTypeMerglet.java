@@ -70,7 +70,7 @@ public class JavaTypeMerglet extends JavaMemberMerglet {
 	 * @see IJavaMerglet
 	 * @return boolean
 	 * @param mr
-	 *            org.eclipse.jst.j2ee.internal.java.codegen.MergeResults
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeResults
 	 * @param newMember
 	 *            org.eclipse.jdt.core.jdom.IDOMMember
 	 */

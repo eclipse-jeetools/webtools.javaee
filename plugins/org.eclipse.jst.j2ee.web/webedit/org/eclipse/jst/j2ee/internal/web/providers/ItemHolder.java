@@ -58,7 +58,7 @@ public class ItemHolder extends ItemProvider {
 	/**
 	 * Insert the method's description here. Creation date: (6/18/2001 6:00:43 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.EJBJar
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar
 	 */
 	public WebApp getWebApp() {
 		return webApp;
@@ -68,7 +68,7 @@ public class ItemHolder extends ItemProvider {
 	 * Insert the method's description here. Creation date: (6/18/2001 6:00:43 PM)
 	 * 
 	 * @param newJar
-	 *            org.eclipse.jst.j2ee.ejb.EJBJar
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar
 	 */
 	public void setWebApp(WebApp aWebApp) {
 		webApp = aWebApp;

@@ -90,7 +90,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * Returns the value of the '<em><b>Message Destinations</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.MessageDestination}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.MessageDestination}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Message Destinations</em>' containment reference list isn't clear,
@@ -101,8 +101,8 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destinations</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getAssemblyDescriptor_MessageDestinations()
-	 * @model type="org.eclipse.jst.j2ee.common.MessageDestination" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getAssemblyDescriptor_MessageDestinations()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.MessageDestination" containment="true"
 	 * @generated
 	 */
 	EList getMessageDestinations();

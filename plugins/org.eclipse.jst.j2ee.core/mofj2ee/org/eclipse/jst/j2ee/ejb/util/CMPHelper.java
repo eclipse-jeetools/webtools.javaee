@@ -23,8 +23,8 @@ import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.JavaVisibilityKind;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 
 public class CMPHelper {

@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
@@ -32,6 +31,7 @@ import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl;
 import org.eclipse.jst.j2ee.common.util.CommonUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
 
 
@@ -82,7 +82,7 @@ public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implement
 	}
 
 /**
- * @see org.eclipse.jst.j2ee.application.Application
+ * @see org.eclipse.jst.j2ee.internal.application.Application
  */
 public boolean containsSecurityRole(java.lang.String name) {
 	return getSecurityRoleNamed(name) != null;
@@ -115,7 +115,7 @@ public Module getModule(String uri, String altDD) {
 		return null;
 	}
 /**
- * @see org.eclipse.jst.j2ee.application.Application
+ * @see org.eclipse.jst.j2ee.internal.application.Application
  */
 public Module getModuleHavingAltDD(java.lang.String uri) {
 	if (uri == null)

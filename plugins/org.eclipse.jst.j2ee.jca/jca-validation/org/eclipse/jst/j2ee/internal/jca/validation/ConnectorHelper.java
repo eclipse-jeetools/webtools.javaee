@@ -20,10 +20,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.commonarchivecore.RARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
-import org.eclipse.jst.j2ee.model.validation.ConnectorValidator;
+import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
 
 
 /**

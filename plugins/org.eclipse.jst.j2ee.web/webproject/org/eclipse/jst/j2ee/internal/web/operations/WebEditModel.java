@@ -13,19 +13,19 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
-import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 
-public class WebEditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
+public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	/**
 	 * @param editModelID
 	 * @param context
@@ -80,14 +80,14 @@ public class WebEditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#getRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#getRootObject()
 	 */
 	public Object getRootObject() {
 		return getWebApp();
 	}
 
 	public Resource makeDeploymentDescriptorWithRoot() {
-		XMLResource res = (XMLResource) createResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
+		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) createResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 		res.setModuleVersionID(getWebNature().getModuleVersion());
 		addWebAppIfNecessary(res);
 		return res;
@@ -131,7 +131,7 @@ public class WebEditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#get13WebServicesClientResource()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#get13WebServicesClientResource()
 	 */
 	public WebServicesResource get13WebServicesClientResource() {
 		return (WebServicesResource) getResource(J2EEConstants.WEB_SERVICES_CLIENT_WEB_INF_DD_URI_OBJ);

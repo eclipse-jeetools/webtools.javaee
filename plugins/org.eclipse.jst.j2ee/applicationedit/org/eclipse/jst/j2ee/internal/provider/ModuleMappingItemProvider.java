@@ -29,13 +29,13 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapPackage;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping}
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.ModuleMapping}
  * object.
  */
 public class ModuleMappingItemProvider extends ModulemapItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {

@@ -74,7 +74,7 @@ public class EntityTranslator extends AbstractEJBTranslator {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
+	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
 	 */
 	protected Translator[] getSpecificMaps(int versionID) {
 		Translator reentrantTranslator = null;

@@ -59,7 +59,7 @@ public void addURL(String urlPattern);
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Url Pattern</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebResourceCollection_UrlPattern()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebResourceCollection_UrlPattern()
 	 * @model type="java.lang.String" unique="false" required="true"
 	 * @generated
 	 */
@@ -67,8 +67,8 @@ public void addURL(String urlPattern);
 
 	/**
 	 * Returns the value of the '<em><b>Http Method</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum}.
-	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum}.
+	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Http Method</em>' attribute list isn't clear,
@@ -79,9 +79,9 @@ public void addURL(String urlPattern);
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Http Method</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebResourceCollection_HttpMethod()
-	 * @model type="org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum"
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebResourceCollection_HttpMethod()
+	 * @model type="org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum"
 	 * @generated
 	 */
 	EList getHttpMethod();
@@ -113,7 +113,7 @@ public void addURL(String urlPattern);
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -124,8 +124,8 @@ public void addURL(String urlPattern);
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebResourceCollection_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebResourceCollection_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

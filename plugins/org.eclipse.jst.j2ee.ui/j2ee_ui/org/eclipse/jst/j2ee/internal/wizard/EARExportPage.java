@@ -56,7 +56,7 @@ public class EARExportPage extends J2EEExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
 	protected String getProjectLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION);
@@ -82,7 +82,7 @@ public class EARExportPage extends J2EEExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFilterExpression()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
 	protected String[] getFilterExpression() {
 		return new String[]{"*.ear"}; //$NON-NLS-1$
@@ -98,7 +98,7 @@ public class EARExportPage extends J2EEExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof Application;
@@ -107,7 +107,7 @@ public class EARExportPage extends J2EEExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#getNatureID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#getNatureID()
 	 */
 	protected String getNatureID() {
 

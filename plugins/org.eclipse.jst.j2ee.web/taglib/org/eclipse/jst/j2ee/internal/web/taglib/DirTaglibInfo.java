@@ -56,7 +56,7 @@ public class DirTaglibInfo extends TaglibInfo implements IDirTaglibInfo {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.taglib.IDirTaglibInfo#getTagFiles()
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.IDirTaglibInfo#getTagFiles()
 	 */
 	public IFile[] getTagFiles() {
 		List iFiles = new ArrayList();
@@ -81,7 +81,7 @@ public class DirTaglibInfo extends TaglibInfo implements IDirTaglibInfo {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.taglib.IDirTaglibInfo#getDirectory()
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.IDirTaglibInfo#getDirectory()
 	 */
 	public IContainer getDirectory() {
 		return this.container;
@@ -91,7 +91,7 @@ public class DirTaglibInfo extends TaglibInfo implements IDirTaglibInfo {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.taglib.IDirTaglibInfo#getTags()
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.IDirTaglibInfo#getTags()
 	 */
 	public String[] getTags() {
 		IFile tagFiles[] = getTagFiles();

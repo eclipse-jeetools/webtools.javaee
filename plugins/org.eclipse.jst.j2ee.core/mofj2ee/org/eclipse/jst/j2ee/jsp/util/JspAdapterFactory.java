@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.jsp.JspPackage
+ * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage
  * @generated
  */
 public class JspAdapterFactory extends AdapterFactoryImpl
@@ -112,13 +112,13 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jsp.JSPConfig <em>JSP Config</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jsp.JSPConfig <em>JSP Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPConfig
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPConfig
 	 * @generated
 	 */
 	public Adapter createJSPConfigAdapter() {
@@ -126,13 +126,13 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jsp.JSPPropertyGroup <em>JSP Property Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup <em>JSP Property Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jsp.JSPPropertyGroup
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JSPPropertyGroup
 	 * @generated
 	 */
 	public Adapter createJSPPropertyGroupAdapter() {
@@ -140,13 +140,13 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jsp.TagLibRefType <em>Tag Lib Ref Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jsp.TagLibRefType <em>Tag Lib Ref Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jsp.TagLibRefType
+	 * @see org.eclipse.jst.j2ee.internal.jsp.TagLibRefType
 	 * @generated
 	 */
 	public Adapter createTagLibRefTypeAdapter() {
@@ -154,13 +154,13 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DescriptionGroup <em>Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup <em>Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup
 	 * @generated
 	 */
 	public Adapter createDescriptionGroupAdapter() {
@@ -168,13 +168,13 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup
 	 * @generated
 	 */
 	public Adapter createCompatibilityDescriptionGroupAdapter() {

@@ -28,7 +28,7 @@ public class JavaParameterListGenerator extends DependentGenerator {
 	 * <br>&nbsp;&nbsp;&nbsp;"(type name, type name)"
 	 * </code>
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IDependentGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IDependentGenerator
 	 */
 	public void run(IGenerationBuffer baseAncestorBuffer) throws GenerationException {
 		JavaParameterDescriptor[] parms = (JavaParameterDescriptor[]) getSourceElement();

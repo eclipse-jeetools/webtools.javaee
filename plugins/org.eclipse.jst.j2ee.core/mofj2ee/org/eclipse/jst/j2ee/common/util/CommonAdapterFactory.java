@@ -280,13 +280,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.Description <em>Description</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.Description <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.Description
+	 * @see org.eclipse.jst.j2ee.internal.common.Description
 	 * @generated
 	 */
 	public Adapter createDescriptionAdapter() {
@@ -294,13 +294,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.QName <em>QName</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.QName <em>QName</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.QName
+	 * @see org.eclipse.jst.j2ee.internal.common.QName
 	 * @generated
 	 */
 	public Adapter createQNameAdapter() {
@@ -308,13 +308,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.Listener <em>Listener</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.Listener <em>Listener</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.Listener
+	 * @see org.eclipse.jst.j2ee.internal.common.Listener
 	 * @generated
 	 */
 	public Adapter createListenerAdapter() {
@@ -322,13 +322,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup
 	 * @generated
 	 */
 	public Adapter createCompatibilityDescriptionGroupAdapter() {
@@ -355,13 +355,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.IconType <em>Icon Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.IconType <em>Icon Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.IconType
+	 * @see org.eclipse.jst.j2ee.internal.common.IconType
 	 * @generated
 	 */
 	public Adapter createIconTypeAdapter() {
@@ -369,13 +369,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DisplayName <em>Display Name</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.DisplayName <em>Display Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.DisplayName
+	 * @see org.eclipse.jst.j2ee.internal.common.DisplayName
 	 * @generated
 	 */
 	public Adapter createDisplayNameAdapter() {
@@ -383,13 +383,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef <em>Message Destination Ref</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef <em>Message Destination Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationRef
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationRef
 	 * @generated
 	 */
 	public Adapter createMessageDestinationRefAdapter() {
@@ -397,13 +397,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.MessageDestination <em>Message Destination</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.MessageDestination <em>Message Destination</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestination
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestination
 	 * @generated
 	 */
 	public Adapter createMessageDestinationAdapter() {
@@ -411,13 +411,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.ParamValue <em>Param Value</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.ParamValue <em>Param Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.ParamValue
+	 * @see org.eclipse.jst.j2ee.internal.common.ParamValue
 	 * @generated
 	 */
 	public Adapter createParamValueAdapter() {
@@ -425,13 +425,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DescriptionGroup <em>Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup <em>Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup
 	 * @generated
 	 */
 	public Adapter createDescriptionGroupAdapter() {
@@ -439,13 +439,13 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup <em>JNDI Env Refs Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup <em>JNDI Env Refs Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup
 	 * @generated
 	 */
 	public Adapter createJNDIEnvRefsGroupAdapter() {

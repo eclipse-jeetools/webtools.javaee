@@ -23,14 +23,15 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EESettings;
-import org.eclipse.wst.common.framework.WTPProjectUtilities;
-import org.eclipse.wst.common.migration.CompatibilityUtils;
-import org.eclipse.wst.common.migration.IDeprecatedConstants;
-import org.eclipse.wst.common.migration.IMigrator;
+import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
+import org.eclipse.wst.common.internal.migration.CompatibilityUtils;
+import org.eclipse.wst.common.internal.migration.IDeprecatedConstants;
+import org.eclipse.wst.common.internal.migration.IMigrator;
+import org.eclipse.wst.web.internal.operation.WebSettings;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

@@ -34,9 +34,9 @@ import org.eclipse.jst.j2ee.jca.JcaPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.AdminObjectImpl#getAdminObjectInterface <em>Admin Object Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.AdminObjectImpl#getAdminObjectClass <em>Admin Object Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.AdminObjectImpl#getConfigProperties <em>Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.AdminObjectImpl#getAdminObjectInterface <em>Admin Object Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.AdminObjectImpl#getAdminObjectClass <em>Admin Object Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.AdminObjectImpl#getConfigProperties <em>Config Properties</em>}</li>
  * </ul>
  * </p>
  *

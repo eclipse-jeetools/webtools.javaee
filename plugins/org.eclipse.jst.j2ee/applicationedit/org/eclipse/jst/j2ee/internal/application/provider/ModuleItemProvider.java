@@ -27,11 +27,11 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.application.Module}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.application.Module}object.
  */
 public class ModuleItemProvider extends ApplicationItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	/**
@@ -45,7 +45,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	 * This returns Module.gif.
 	 */
 	public Object getImage(Object object) {
-		return org.eclipse.jst.j2ee.plugin.J2EEPlugin.getPlugin().getImage("Module"); //$NON-NLS-1$
+		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getImage("Module"); //$NON-NLS-1$
 	}
 
 	/**

@@ -34,7 +34,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage
  * @generated
  */
 public class WsddAdapterFactory extends AdapterFactoryImpl
@@ -141,13 +141,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices <em>Web Services</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServices <em>Web Services</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServices
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServices
 	 * @generated
 	 */
   public Adapter createWebServicesAdapter() {
@@ -155,13 +155,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription <em>Web Service Description</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription <em>Web Service Description</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription
 	 * @generated
 	 */
   public Adapter createWebServiceDescriptionAdapter() {
@@ -169,13 +169,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent <em>Port Component</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent <em>Port Component</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent
 	 * @generated
 	 */
   public Adapter createPortComponentAdapter() {
@@ -183,13 +183,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort <em>WSDL Port</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WSDLPort <em>WSDL Port</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WSDLPort
 	 * @generated
 	 */
   public Adapter createWSDLPortAdapter() {
@@ -197,13 +197,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean <em>Service Impl Bean</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean <em>Service Impl Bean</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean
 	 * @generated
 	 */
   public Adapter createServiceImplBeanAdapter() {
@@ -211,13 +211,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServletLink <em>Servlet Link</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink <em>Servlet Link</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServletLink
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink
 	 * @generated
 	 */
   public Adapter createServletLinkAdapter() {
@@ -225,13 +225,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink <em>EJB Link</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink <em>EJB Link</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.EJBLink
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink
 	 * @generated
 	 */
   public Adapter createEJBLinkAdapter() {
@@ -239,13 +239,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler <em>Handler</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler <em>Handler</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.Handler
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler
 	 * @generated
 	 */
   public Adapter createHandlerAdapter() {
@@ -253,13 +253,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.BeanLink <em>Bean Link</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.BeanLink <em>Bean Link</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.BeanLink
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.BeanLink
 	 * @generated
 	 */
   public Adapter createBeanLinkAdapter() {
@@ -267,13 +267,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DescriptionGroup <em>Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup <em>Description Group</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup
 	 * @generated
 	 */
   public Adapter createDescriptionGroupAdapter() {
@@ -281,13 +281,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup
 	 * @generated
 	 */
 	public Adapter createCompatibilityDescriptionGroupAdapter() {
@@ -295,13 +295,13 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.QName <em>QName</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.QName <em>QName</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.QName
+	 * @see org.eclipse.jst.j2ee.internal.common.QName
 	 * @generated
 	 */
   public Adapter createQNameAdapter() {

@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.QnameScope;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.QnameScopeImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.QnameScopeImpl#getQnameScope <em>Qname Scope</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.QnameScopeImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.QnameScopeImpl#getQnameScope <em>Qname Scope</em>}</li>
  * </ul>
  * </p>
  *

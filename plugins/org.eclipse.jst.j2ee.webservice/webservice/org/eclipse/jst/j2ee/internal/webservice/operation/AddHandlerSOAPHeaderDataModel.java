@@ -20,11 +20,11 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.common.QName;
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author jialin
@@ -44,7 +44,7 @@ public class AddHandlerSOAPHeaderDataModel extends J2EEModelModifierOperationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new AddHandlerSOAPHeaderOperation(this);
@@ -65,7 +65,7 @@ public class AddHandlerSOAPHeaderDataModel extends J2EEModelModifierOperationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(NAMESPACE_URL)) {

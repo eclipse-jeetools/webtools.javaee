@@ -37,13 +37,13 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ServiceRefImpl#getServiceInterface <em>Service Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ServiceRefImpl#getServiceRefName <em>Service Ref Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ServiceRefImpl#getWsdlFile <em>Wsdl File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ServiceRefImpl#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ServiceRefImpl#getPortComponentRefs <em>Port Component Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ServiceRefImpl#getHandlers <em>Handlers</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ServiceRefImpl#getServiceQname <em>Service Qname</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl#getServiceInterface <em>Service Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl#getServiceRefName <em>Service Ref Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl#getWsdlFile <em>Wsdl File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl#getPortComponentRefs <em>Port Component Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl#getHandlers <em>Handlers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl#getServiceQname <em>Service Qname</em>}</li>
  * </ul>
  * </p>
  *

@@ -81,7 +81,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.InitParam}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -89,7 +89,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	protected InitParamItemProvider initParamItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.InitParam}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -104,7 +104,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.SOAPHeader}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -112,7 +112,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	protected SOAPHeaderItemProvider soapHeaderItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.SOAPHeader}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -127,7 +127,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.SOAPRole}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -135,7 +135,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	protected SOAPRoleItemProvider soapRoleItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.SOAPRole}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -150,7 +150,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wscommon.PortName}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.PortName}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -158,7 +158,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	protected PortNameItemProvider portNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wscommon.PortName}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.PortName}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -173,7 +173,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.DescriptionType}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -181,7 +181,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	protected DescriptionTypeItemProvider descriptionTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.DescriptionType}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -196,7 +196,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.DisplayNameType}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -204,7 +204,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	protected DisplayNameTypeItemProvider displayNameTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.DisplayNameType}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated

@@ -25,24 +25,24 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jst.j2ee.J2EEEditModel;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 
 public class EARNatureRuntime extends J2EENature {
@@ -91,7 +91,7 @@ public class EARNatureRuntime extends J2EENature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEVersion()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEVersion()
 	 */
 	public int getJ2EEVersion() {
 
@@ -188,7 +188,7 @@ public class EARNatureRuntime extends J2EENature {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getEditModelKey()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getEditModelKey()
 	 */
 	public String getEditModelKey() {
 		return IEARNatureConstants.EDIT_MODEL_ID;
@@ -495,7 +495,7 @@ public class EARNatureRuntime extends J2EENature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		return getApplication();
@@ -504,7 +504,7 @@ public class EARNatureRuntime extends J2EENature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getVersionFromModuleFile()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getVersionFromModuleFile()
 	 */
 	protected int getVersionFromModuleFile() {
 		Application ddRoot = getApplication();
@@ -517,7 +517,7 @@ public class EARNatureRuntime extends J2EENature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
 	 */
 	public J2EEEditModel getJ2EEEditModelForRead(Object accessorKey) {
 		return getEarEditModelForRead(accessorKey);
@@ -526,7 +526,7 @@ public class EARNatureRuntime extends J2EENature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
 	 */
 	public J2EEEditModel getJ2EEEditModelForWrite(Object accessorKey) {
 		return getEarEditModelForWrite(accessorKey);

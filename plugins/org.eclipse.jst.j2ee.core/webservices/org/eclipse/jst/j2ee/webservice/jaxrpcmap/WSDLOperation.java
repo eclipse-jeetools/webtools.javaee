@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation#getWsdlOperation <em>Wsdl Operation</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLOperation#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLOperation#getWsdlOperation <em>Wsdl Operation</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLOperation()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLOperation()
  * @model 
  * @generated
  */
@@ -40,14 +40,14 @@ public interface WSDLOperation extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLOperation_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLOperation_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLOperation#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -66,14 +66,14 @@ public interface WSDLOperation extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Operation</em>' attribute.
    * @see #setWsdlOperation(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLOperation_WsdlOperation()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLOperation_WsdlOperation()
    * @model 
    * @generated
    */
   String getWsdlOperation();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation#getWsdlOperation <em>Wsdl Operation</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLOperation#getWsdlOperation <em>Wsdl Operation</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Operation</em>' attribute.

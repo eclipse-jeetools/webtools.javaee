@@ -29,11 +29,11 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webservice.wsdd.BeanLink}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.BeanLink}object.
  * <!-- begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

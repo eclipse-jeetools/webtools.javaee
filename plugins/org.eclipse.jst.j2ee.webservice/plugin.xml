@@ -5,7 +5,7 @@
    name="Web Service Plug-in"
    version="1.0.0"
    provider-name="IBM"
-   class="org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin">
+   class="org.eclipse.jst.j2ee.internal.internal.webservice.plugin.WebServicePlugin">
 
    <runtime>
       <library name="webservice.jar">
@@ -33,52 +33,52 @@
 
 <!--  Dyanmic Content Provider extensions -->
    <extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactory"
             packageURI="webservice_client.xmi"
             id="com.ibm.wtp.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.webservice.wscommon.provider.WscommonItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.internal.internal.webservice.wscommon.provider.WscommonItemProviderAdapterFactory"
             packageURI="wscommon.xmi"
             id="com.ibm.wtp.j2ee.webservice.wscommon.provider.WscommonItemProviderAdapterFactory">
       </adapterFactory>
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
+            className="org.eclipse.jst.j2ee.internal.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="client.xmi"
-            id="org.eclipse.jst.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForClient">
+            id="org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForClient">
       </adapterFactory>
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
+            className="org.eclipse.jst.j2ee.internal.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="webservice_client.xmi"
-            id="org.eclipse.jst.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForWSClient">
+            id="org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForWSClient">
       </adapterFactory>
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
+            className="org.eclipse.jst.j2ee.internal.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="ejb.xmi"
-            id="org.eclipse.jst.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForEJB">
+            id="org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForEJB">
       </adapterFactory>
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
+            className="org.eclipse.jst.j2ee.internal.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="webapplication.xmi"
-            id="org.eclipse.jst.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForWEB">
+            id="org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForWEB">
       </adapterFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.webservice.wsdd.provider.WsddItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.provider.WsddItemProviderAdapterFactory"
             packageURI="wsdd.xmi"
             id="com.ibm.wtp.j2ee.webservice.wsdd.provider.WsddItemProviderAdapterFactory">
       </adapterFactory>
@@ -95,11 +95,11 @@
    </extension>
 
 <!-- ========================================================================== -->
-<!-- @deprecated: Extension point: org.eclipse.jst.j2ee.webservice.atk.ui.webserviceseditmodel -->
+<!-- @deprecated: Extension point: org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.webserviceseditmodel -->
 <!-- ========================================================================== -->
    <extension-point id="webserviceseditmodelcontainer" name="%EDITOR_EDITMODELS_WEB_SERVICES"/>
 <!-- ========================================================================== -->
-<!-- @deprecated: Extension point: org.eclipse.jst.j2ee.webservice.atk.ui.webservicesclienteditmodel -->
+<!-- @deprecated: Extension point: org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.webservicesclienteditmodel -->
 <!-- ========================================================================== -->
    <extension-point id="webservicesclienteditmodelcontainer" name="%EDITOR_EDITMODELS_WEB_SERVICES_CLIENT"/>
 
@@ -108,18 +108,18 @@
          point="com.ibm.wtp.webservice.webserviceseditmodelcontainer">
       <webserviceseditmodelcontainer
             name="%WSDD_EDIT_MODEL_NAME"
-            class="org.eclipse.jst.j2ee.webservice.atk.ui.model.ws.WsddEditModel"
+            class="org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.model.ws.WsddEditModel"
             descriptorName="webservices.xml"
-            id="org.eclipse.jst.j2ee.webservice.atk.ui.model.ws.WsddEditModel">
+            id="org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.model.ws.WsddEditModel">
       </webserviceseditmodelcontainer>
    </extension>
    <extension
          point="com.ibm.wtp.webservice.webservicesclienteditmodelcontainer">
       <webservicesclienteditmodelcontainer
             name="%WSCDD_EDIT_MODEL_NAME"
-            class="org.eclipse.jst.j2ee.webservice.atk.ui.model.wsc.WscddEditModel"
+            class="org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.model.wsc.WscddEditModel"
             descriptorName="webservicesclient.xml"
-            id="org.eclipse.jst.j2ee.webservice.atk.ui.model.wsc.WscddEditModel">
+            id="org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.model.wsc.WscddEditModel">
       </webservicesclienteditmodelcontainer>
    </extension>
 </plugin>

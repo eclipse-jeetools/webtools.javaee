@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.webapplication.FilterMapping;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.impl.WebapplicationFactoryImpl;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 import com.ibm.wtp.common.logger.proxy.Logger;

@@ -16,7 +16,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 

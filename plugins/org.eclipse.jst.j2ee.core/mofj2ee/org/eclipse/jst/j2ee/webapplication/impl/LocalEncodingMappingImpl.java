@@ -26,8 +26,8 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webapplication.impl.LocalEncodingMappingImpl#getLocale <em>Locale</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webapplication.impl.LocalEncodingMappingImpl#getEncoding <em>Encoding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.impl.LocalEncodingMappingImpl#getLocale <em>Locale</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.impl.LocalEncodingMappingImpl#getEncoding <em>Encoding</em>}</li>
  * </ul>
  * </p>
  *

@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.deployables.J2EEDeployableFactory;
+import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.model.IProjectModule;
@@ -43,7 +43,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclise.wtp.j2ee.servers.J2EEDeployableFactory#createDeployable(org.eclipse.jst.j2ee.j2eeproject.J2EENature)
+	 * @see org.eclise.wtp.j2ee.servers.J2EEDeployableFactory#createDeployable(org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature)
 	 */
 	public IProjectModule createModule(J2EENature nature) {
 		IProjectModule deployable = (IProjectModule) nature.getModule();

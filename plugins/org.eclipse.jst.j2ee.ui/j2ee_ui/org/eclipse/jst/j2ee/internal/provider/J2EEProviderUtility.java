@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.provider;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 public class J2EEProviderUtility {
 

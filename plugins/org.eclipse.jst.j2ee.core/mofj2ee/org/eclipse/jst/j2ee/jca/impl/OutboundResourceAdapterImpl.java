@@ -36,10 +36,10 @@ import org.eclipse.jst.j2ee.jca.TransactionSupportKind;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.OutboundResourceAdapterImpl#isReauthenticationSupport <em>Reauthentication Support</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.OutboundResourceAdapterImpl#getTransactionSupport <em>Transaction Support</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.OutboundResourceAdapterImpl#getConnectionDefinitions <em>Connection Definitions</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.OutboundResourceAdapterImpl#getAuthenticationMechanisms <em>Authentication Mechanisms</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.OutboundResourceAdapterImpl#isReauthenticationSupport <em>Reauthentication Support</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.OutboundResourceAdapterImpl#getTransactionSupport <em>Transaction Support</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.OutboundResourceAdapterImpl#getConnectionDefinitions <em>Connection Definitions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.OutboundResourceAdapterImpl#getAuthenticationMechanisms <em>Authentication Mechanisms</em>}</li>
  * </ul>
  * </p>
  *

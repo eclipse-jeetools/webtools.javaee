@@ -10,8 +10,8 @@ package org.eclipse.jst.j2ee.internal.reference;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
 public class ResourceReferenceDataModel extends ReferenceDataModel {
@@ -47,7 +47,7 @@ public class ResourceReferenceDataModel extends ReferenceDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.reference.ReferenceDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.reference.ReferenceDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		IStatus status = super.doValidateProperty(propertyName);
@@ -68,7 +68,7 @@ public class ResourceReferenceDataModel extends ReferenceDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new ResourceReferenceCreationOperation(this);

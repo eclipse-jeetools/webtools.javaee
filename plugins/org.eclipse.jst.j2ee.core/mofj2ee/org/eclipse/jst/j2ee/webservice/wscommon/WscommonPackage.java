@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory
+ * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonFactory
  * @generated
  */
 public interface WscommonPackage extends EPackage{
@@ -54,7 +54,7 @@ public interface WscommonPackage extends EPackage{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  String eNS_PREFIX = "org.eclipse.jst.j2ee.webservice.wscommon";//$NON-NLS-1$
+  String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.webservice.wscommon";//$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -65,11 +65,11 @@ public interface WscommonPackage extends EPackage{
   WscommonPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.InitParamImpl <em>Init Param</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.InitParamImpl <em>Init Param</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.InitParamImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl#getInitParam()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.InitParamImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.WscommonPackageImpl#getInitParam()
 	 * @generated
 	 */
   int INIT_PARAM = 0;
@@ -120,11 +120,11 @@ public interface WscommonPackage extends EPackage{
   int INIT_PARAM_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.SOAPHeaderImpl <em>SOAP Header</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.SOAPHeaderImpl <em>SOAP Header</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.SOAPHeaderImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl#getSOAPHeader()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.SOAPHeaderImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.WscommonPackageImpl#getSOAPHeader()
 	 * @generated
 	 */
   int SOAP_HEADER = 1;
@@ -175,11 +175,11 @@ public interface WscommonPackage extends EPackage{
   int SOAP_HEADER_FEATURE_COUNT = CommonPackage.QNAME_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.SOAPRoleImpl <em>SOAP Role</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.SOAPRoleImpl <em>SOAP Role</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.SOAPRoleImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl#getSOAPRole()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.SOAPRoleImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.WscommonPackageImpl#getSOAPRole()
 	 * @generated
 	 */
   int SOAP_ROLE = 2;
@@ -203,11 +203,11 @@ public interface WscommonPackage extends EPackage{
   int SOAP_ROLE_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.PortNameImpl <em>Port Name</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.PortNameImpl <em>Port Name</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.PortNameImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl#getPortName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.PortNameImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.WscommonPackageImpl#getPortName()
 	 * @generated
 	 */
   int PORT_NAME = 3;
@@ -231,11 +231,11 @@ public interface WscommonPackage extends EPackage{
   int PORT_NAME_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.DescriptionTypeImpl <em>Description Type</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.DescriptionTypeImpl <em>Description Type</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.DescriptionTypeImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl#getDescriptionType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.DescriptionTypeImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.WscommonPackageImpl#getDescriptionType()
 	 * @generated
 	 */
   int DESCRIPTION_TYPE = 4;
@@ -268,11 +268,11 @@ public interface WscommonPackage extends EPackage{
   int DESCRIPTION_TYPE_FEATURE_COUNT = CommonPackage.DESCRIPTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.DisplayNameTypeImpl <em>Display Name Type</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.DisplayNameTypeImpl <em>Display Name Type</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.DisplayNameTypeImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl#getDisplayNameType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.DisplayNameTypeImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.WscommonPackageImpl#getDisplayNameType()
 	 * @generated
 	 */
   int DISPLAY_NAME_TYPE = 5;
@@ -306,127 +306,127 @@ public interface WscommonPackage extends EPackage{
 
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam <em>Init Param</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam <em>Init Param</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Init Param</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.InitParam
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam
 	 * @generated
 	 */
   EClass getInitParam();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamName <em>Param Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamName <em>Param Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Param Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamName()
 	 * @see #getInitParam()
 	 * @generated
 	 */
   EAttribute getInitParam_ParamName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamValue <em>Param Value</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamValue <em>Param Value</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Param Value</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamValue()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamValue()
 	 * @see #getInitParam()
 	 * @generated
 	 */
   EAttribute getInitParam_ParamValue();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getDescription()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getDescription()
 	 * @see #getInitParam()
 	 * @generated
 	 */
   EAttribute getInitParam_Description();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getDescriptionTypes <em>Description Types</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getDescriptionTypes <em>Description Types</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Description Types</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getDescriptionTypes()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getDescriptionTypes()
 	 * @see #getInitParam()
 	 * @generated
 	 */
   EReference getInitParam_DescriptionTypes();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader <em>SOAP Header</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPHeader <em>SOAP Header</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>SOAP Header</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPHeader
 	 * @generated
 	 */
   EClass getSOAPHeader();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole <em>SOAP Role</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole <em>SOAP Role</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>SOAP Role</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole
 	 * @generated
 	 */
   EClass getSOAPRole();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole#getSoapRole <em>Soap Role</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole#getSoapRole <em>Soap Role</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Soap Role</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole#getSoapRole()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole#getSoapRole()
 	 * @see #getSOAPRole()
 	 * @generated
 	 */
   EAttribute getSOAPRole_SoapRole();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wscommon.PortName <em>Port Name</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName <em>Port Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Port Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.PortName
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName
 	 * @generated
 	 */
   EClass getPortName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wscommon.PortName#getPortName <em>Port Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName#getPortName <em>Port Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Port Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.PortName#getPortName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName#getPortName()
 	 * @see #getPortName()
 	 * @generated
 	 */
   EAttribute getPortName_PortName();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType <em>Description Type</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.DescriptionType <em>Description Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Description Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.DescriptionType
 	 * @generated
 	 */
   EClass getDescriptionType();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType <em>Display Name Type</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.DisplayNameType <em>Display Name Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Display Name Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.DisplayNameType
 	 * @generated
 	 */
   EClass getDisplayNameType();

@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.webservice.provider;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.jst.j2ee.common.QName;
-import org.eclipse.jst.j2ee.common.provider.QNameItemProvider;
+import org.eclipse.jst.j2ee.common.internal.provider.QNameItemProvider;
 
 
 public class ATKUIQNameItemProvider extends QNameItemProvider implements ITableItemLabelProvider {

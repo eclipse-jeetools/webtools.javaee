@@ -36,10 +36,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 /*
  * Created on Nov 13, 2003

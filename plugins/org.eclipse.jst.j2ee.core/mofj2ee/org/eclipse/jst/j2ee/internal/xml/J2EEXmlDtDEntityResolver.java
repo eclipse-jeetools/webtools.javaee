@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jst.j2ee.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

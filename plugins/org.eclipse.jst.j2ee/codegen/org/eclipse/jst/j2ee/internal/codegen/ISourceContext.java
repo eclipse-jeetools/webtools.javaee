@@ -18,7 +18,7 @@ public interface ISourceContext {
 	/**
 	 * Returns the navigator for the source model.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.codegen.Navigator
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.codegen.Navigator
 	 */
 	Navigator getNavigator();
 }

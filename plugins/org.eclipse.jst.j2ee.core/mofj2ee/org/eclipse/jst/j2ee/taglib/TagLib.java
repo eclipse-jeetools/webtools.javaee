@@ -112,7 +112,7 @@ public interface TagLib extends CompatibilityDescriptionGroup{
 
 	/**
 	 * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.taglib.Function}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.taglib.Function}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
@@ -123,15 +123,15 @@ public interface TagLib extends CompatibilityDescriptionGroup{
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Functions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagLib_Functions()
-	 * @model type="org.eclipse.jst.j2ee.taglib.Function" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getTagLib_Functions()
+	 * @model type="org.eclipse.jst.j2ee.internal.taglib.Function" containment="true"
 	 * @generated
 	 */
 	EList getFunctions();
 
 	/**
 	 * Returns the value of the '<em><b>Taglib Extensions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.taglib.TldExtension}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.taglib.TldExtension}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Taglib Extensions</em>' containment reference list isn't clear,
@@ -139,8 +139,8 @@ public interface TagLib extends CompatibilityDescriptionGroup{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Taglib Extensions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTagLib_TaglibExtensions()
-	 * @model type="org.eclipse.jst.j2ee.taglib.TldExtension" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getTagLib_TaglibExtensions()
+	 * @model type="org.eclipse.jst.j2ee.internal.taglib.TldExtension" containment="true"
 	 * @generated
 	 */
 	EList getTaglibExtensions();

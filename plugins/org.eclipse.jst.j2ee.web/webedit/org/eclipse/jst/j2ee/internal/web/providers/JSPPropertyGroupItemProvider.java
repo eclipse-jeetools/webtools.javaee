@@ -24,10 +24,10 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.common.provider.CompatibilityDescriptionGroupItemProvider;
+import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
 
 /**
  * This is the item provider adpater for a {@link com.ibm.etools.jsp.JSPPropertyGroup}object. <!--

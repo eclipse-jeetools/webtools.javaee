@@ -30,22 +30,22 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getPortComponentName <em>Port Component Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayName <em>Display Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlPort <em>Wsdl Port</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceImplBean <em>Service Impl Bean</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlers <em>Handlers</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescriptionType <em>Description Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayNameType <em>Display Name Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getIconType <em>Icon Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getPortComponentName <em>Port Component Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getWsdlPort <em>Wsdl Port</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceImplBean <em>Service Impl Bean</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getHandlers <em>Handlers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescriptionType <em>Description Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayNameType <em>Display Name Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getIconType <em>Icon Type</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent()
  * @model 
  * @generated
  */
@@ -65,14 +65,14 @@ public interface PortComponent extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Port Component Name</em>' attribute.
 	 * @see #setPortComponentName(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_PortComponentName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_PortComponentName()
 	 * @model 
 	 * @generated
 	 */
   String getPortComponentName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getPortComponentName <em>Port Component Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getPortComponentName <em>Port Component Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Port Component Name</em>' attribute.
@@ -95,14 +95,14 @@ public interface PortComponent extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Endpoint Interface</em>' attribute.
 	 * @see #setServiceEndpointInterface(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_ServiceEndpointInterface()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_ServiceEndpointInterface()
 	 * @model 
 	 * @generated
 	 */
   String getServiceEndpointInterface();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceEndpointInterface <em>Service Endpoint Interface</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceEndpointInterface <em>Service Endpoint Interface</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Service Endpoint Interface</em>' attribute.
@@ -121,14 +121,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Small Icon</em>' attribute.
 	 * @see #setSmallIcon(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_SmallIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_SmallIcon()
 	 * @model 
 	 * @generated
 	 */
   String getSmallIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getSmallIcon <em>Small Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getSmallIcon <em>Small Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Small Icon</em>' attribute.
@@ -147,14 +147,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Large Icon</em>' attribute.
 	 * @see #setLargeIcon(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_LargeIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_LargeIcon()
 	 * @model 
 	 * @generated
 	 */
   String getLargeIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getLargeIcon <em>Large Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getLargeIcon <em>Large Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Large Icon</em>' attribute.
@@ -173,14 +173,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_Description()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_Description()
 	 * @model 
 	 * @generated
 	 */
   String getDescription();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescription <em>Description</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescription <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Description</em>' attribute.
@@ -199,14 +199,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Display Name</em>' attribute.
 	 * @see #setDisplayName(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_DisplayName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_DisplayName()
 	 * @model 
 	 * @generated
 	 */
   String getDisplayName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayName <em>Display Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayName <em>Display Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Display Name</em>' attribute.
@@ -225,14 +225,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Wsdl Port</em>' containment reference.
 	 * @see #setWsdlPort(WSDLPort)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_WsdlPort()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_WsdlPort()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
   WSDLPort getWsdlPort();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlPort <em>Wsdl Port</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getWsdlPort <em>Wsdl Port</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Wsdl Port</em>' containment reference.
@@ -251,14 +251,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Impl Bean</em>' containment reference.
 	 * @see #setServiceImplBean(ServiceImplBean)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_ServiceImplBean()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_ServiceImplBean()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
   ServiceImplBean getServiceImplBean();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceImplBean <em>Service Impl Bean</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceImplBean <em>Service Impl Bean</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Service Impl Bean</em>' containment reference.
@@ -269,7 +269,7 @@ public interface PortComponent extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Handlers</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsdd.Handler}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler}.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Handlers</em>' containment reference list isn't clear,
@@ -277,8 +277,8 @@ public interface PortComponent extends EObject{
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Handlers</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_Handlers()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wsdd.Handler" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_Handlers()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler" containment="true"
 	 * @generated
 	 */
   EList getHandlers();
@@ -293,14 +293,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description Type</em>' containment reference.
 	 * @see #setDescriptionType(DescriptionType)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_DescriptionType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_DescriptionType()
 	 * @model containment="true"
 	 * @generated
 	 */
   DescriptionType getDescriptionType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescriptionType <em>Description Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescriptionType <em>Description Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Description Type</em>' containment reference.
@@ -319,14 +319,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Display Name Type</em>' containment reference.
 	 * @see #setDisplayNameType(DisplayNameType)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_DisplayNameType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_DisplayNameType()
 	 * @model containment="true"
 	 * @generated
 	 */
   DisplayNameType getDisplayNameType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayNameType <em>Display Name Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayNameType <em>Display Name Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Display Name Type</em>' containment reference.
@@ -345,14 +345,14 @@ public interface PortComponent extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icon Type</em>' containment reference.
 	 * @see #setIconType(IconType)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_IconType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getPortComponent_IconType()
 	 * @model containment="true"
 	 * @generated
 	 */
   IconType getIconType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getIconType <em>Icon Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getIconType <em>Icon Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Icon Type</em>' containment reference.

@@ -32,11 +32,11 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationOperation;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationOperation;
 
 
 /**
@@ -143,7 +143,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEProjectCreationOpe
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#dispose(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#dispose(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void dispose(IProgressMonitor pm) {
 		try {

@@ -39,7 +39,7 @@ public abstract class J2EEModuleExportPage extends J2EEExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{J2EEExportDataModel.PROJECT_NAME, J2EEExportDataModel.ARCHIVE_DESTINATION, J2EEExportDataModel.OVERWRITE_EXISTING};

@@ -22,10 +22,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.jst.j2ee.webservices.WebServicesManager;
 
 /**
  * @author jlanuti

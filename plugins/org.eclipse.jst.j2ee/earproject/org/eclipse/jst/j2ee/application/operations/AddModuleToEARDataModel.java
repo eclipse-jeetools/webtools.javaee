@@ -26,8 +26,8 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -70,7 +70,7 @@ public class AddModuleToEARDataModel extends AddArchiveProjectToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
 	 */
 	protected String getDefaultArchiveURI() {
 		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
@@ -123,7 +123,7 @@ public class AddModuleToEARDataModel extends AddArchiveProjectToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel#getDefaultURIExtension()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultURIExtension()
 	 */
 	protected String getDefaultURIExtension() {
 		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
@@ -138,7 +138,7 @@ public class AddModuleToEARDataModel extends AddArchiveProjectToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel#isModuleArchive()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#isModuleArchive()
 	 */
 	public boolean isModuleArchive() {
 		return true;

@@ -108,7 +108,7 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#eNS_URI
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */

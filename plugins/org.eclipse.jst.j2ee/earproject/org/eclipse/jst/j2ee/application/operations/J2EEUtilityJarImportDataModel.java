@@ -16,10 +16,10 @@
  */
 package org.eclipse.jst.j2ee.application.operations;
 
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
 
 /**

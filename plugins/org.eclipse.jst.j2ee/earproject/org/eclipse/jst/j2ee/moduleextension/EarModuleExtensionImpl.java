@@ -33,7 +33,7 @@ public abstract class EarModuleExtensionImpl implements EarModuleExtension {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.moduleextension.EarModuleExtension#getNature(org.eclipse.core.internal.resources.Project)
+	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getNature(org.eclipse.core.internal.resources.Project)
 	 */
 	public J2EENature getNature(Project proj) {
 		// TODO Auto-generated method stub
@@ -43,14 +43,14 @@ public abstract class EarModuleExtensionImpl implements EarModuleExtension {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.moduleextension.EarModuleExtension#getNatureID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#getNatureID()
 	 */
 	public abstract String getNatureID();
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
+	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
 	 */
 	public J2EEModuleCreationOperation createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == ImportOption.MODULE)

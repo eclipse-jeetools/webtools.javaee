@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 
 
 /**
@@ -94,7 +94,7 @@ public class ServerTargetGroup {
 		newTargetServerButton.setEnabled(true);
 
 		Control[] deps = new Control[]{serverTargetLabel, newTargetServerButton};
-		synchHelper.synchCombo(targetServerCombo, ServerTargetDataModel.RUNTIME_TARGET_NAME, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
+		synchHelper.synchCombo(targetServerCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
 
 	}
 

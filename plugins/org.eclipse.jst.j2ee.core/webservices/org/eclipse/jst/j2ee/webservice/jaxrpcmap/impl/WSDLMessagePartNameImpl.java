@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessagePartName;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.WSDLMessagePartNameImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.WSDLMessagePartNameImpl#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.WSDLMessagePartNameImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.WSDLMessagePartNameImpl#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
  * </ul>
  * </p>
  *

@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionType#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionType#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionType()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionType()
  * @model 
  * @generated
  */
@@ -40,14 +40,14 @@ public interface ExceptionType extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionType_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionType_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionType#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -66,14 +66,14 @@ public interface ExceptionType extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionType_Name()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionType_Name()
    * @model 
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionType#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.

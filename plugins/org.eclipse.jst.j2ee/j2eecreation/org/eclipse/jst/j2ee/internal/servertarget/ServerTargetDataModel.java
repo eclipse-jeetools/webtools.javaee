@@ -22,14 +22,14 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.common.CommonEditResourceHandler;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -50,11 +50,6 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 	 * required, not defaulted. If null, will not run.
 	 */
 	public static final String RUNTIME_TARGET_ID = "ServerTargetDataModel.RUNTIME_TARGET_ID"; //$NON-NLS-1$
-	/**
-	 * Used to provide a better display name for the server target ID. The model will translate this
-	 * property to the SERVER_TARGET_ID property.
-	 */
-	public static final String RUNTIME_TARGET_NAME = "ServerTargetDataModel.RUNTIME_TARGET_NAME"; //$NON-NLS-1$
 	/**
 	 * Optional - This needs to be set if the PROJECT_NAME does not exist.
 	 * 
@@ -79,10 +74,6 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 	 */
 	public static final String DEPLOYMENT_TYPE_ID = "ServerTargetDataModel.DD_TYPE_ID"; //$NON-NLS-1$
 
-	private static final String NONE_SERVER_TARGET_STRING = CommonEditResourceHandler.getString("NONE_SERVER_TARGET_STRING_UI_"); //$NON-NLS-1$
-
-	//private List validServerTargets;
-
 	public ServerTargetDataModel() {
 		super();
 		//TODO add listening mechanism to & fire change events when new server targets are
@@ -92,7 +83,7 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new ServerTargetOperation(this);
@@ -102,7 +93,6 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 		super.initValidBaseProperties();
 		addValidBaseProperty(PROJECT_NAME);
 		addValidBaseProperty(RUNTIME_TARGET_ID);
-		addValidBaseProperty(RUNTIME_TARGET_NAME);
 		addValidBaseProperty(J2EE_VERSION_ID);
 		addValidBaseProperty(DEPLOYMENT_TYPE_ID);
 		addValidBaseProperty(UPDATE_MODULES);
@@ -123,12 +113,10 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(RUNTIME_TARGET_NAME))
-			return convertIdToName(getStringProperty(RUNTIME_TARGET_ID));
-		else if (propertyName.equals(RUNTIME_TARGET_ID))
+		if (propertyName.equals(RUNTIME_TARGET_ID))
 			return getDefaultServerTargetID();
 		else if (propertyName.equals(J2EE_VERSION_ID))
 			return getDefaultVersionID();
@@ -158,20 +146,6 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 				return target.getId();
 		}
 		return null;
-	}
-
-	/**
-	 * @param string
-	 * @return
-	 */
-	private String convertIdToName(String id) {
-		IRuntime target = getServerTargetByID(id);
-		List validServerTargets = getValidServerTargets();
-		if (target == null && validServerTargets != null && !validServerTargets.isEmpty())
-			target = (IRuntime) validServerTargets.get(0);
-		if (target != null)
-			return target.getName();
-		return NONE_SERVER_TARGET_STRING;
 	}
 
 	/**
@@ -251,56 +225,47 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
 	 */
-	protected Object[] doGetValidPropertyValues(String propertyName) {
-		if (propertyName.equals(RUNTIME_TARGET_NAME))
-			return getValidServerTargetNames();
+	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(RUNTIME_TARGET_ID))
-			return getValidServerTargetIds();
-		return super.doGetValidPropertyValues(propertyName);
+			return getValidServerTargetDescriptors();
+		return super.doGetValidPropertyDescriptors(propertyName);
+	}
+
+	private WTPPropertyDescriptor[] getValidServerTargetDescriptors() {
+		List targets = getValidServerTargets();
+		WTPPropertyDescriptor[] descriptors = null;
+		if (!targets.isEmpty()) {
+			int serverTargetListSize = targets.size();
+			descriptors = new WTPPropertyDescriptor[serverTargetListSize];
+			for (int i = 0; i < targets.size(); i++) {
+				IRuntime runtime = (IRuntime) targets.get(i);
+				descriptors[i] = new WTPPropertyDescriptor(runtime.getId(), runtime.getName());
+			}
+		} else {
+			descriptors = new WTPPropertyDescriptor[0];
+		}
+		return descriptors;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		if (propertyName.equals(RUNTIME_TARGET_NAME)) {
-			String id = convertNameToID((String) propertyValue);
-			super.setProperty(RUNTIME_TARGET_ID, id);
-			return false;
-		}
 		super.doSetProperty(propertyName, propertyValue);
 		if (propertyName.equals(J2EE_VERSION_ID)) {
 			IRuntime target = getServerTargetByID(getStringProperty(RUNTIME_TARGET_ID));
 			if (target == null)
 				setProperty(RUNTIME_TARGET_ID, null);
-			notifyValidValuesChange(RUNTIME_TARGET_NAME);
+			notifyValidValuesChange(RUNTIME_TARGET_ID);
 		}
 		return true;
 	}
 
-	/**
-	 * @param serverTargetLabel
-	 */
-	private String convertNameToID(String serverTargetLabel) {
-		IRuntime target = getServerTargetByLabel(serverTargetLabel);
-		return target != null ? target.getId() : null;
-	}
-
-	private IRuntime getServerTargetByLabel(String serverTargetLabel) {
-		List targets = getValidServerTargets();
-		IRuntime target;
-		for (int i = 0; i < targets.size(); i++) {
-			target = (IRuntime) targets.get(i);
-			if (serverTargetLabel.equals(target.getName()))
-				return target;
-		}
-		return null;
-	}
 
 	private IRuntime getServerTargetByID(String id) {
 		List targets = getValidServerTargets();
@@ -311,40 +276,6 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 				return target;
 		}
 		return null;
-	}
-
-	/**
-	 * @return
-	 */
-	private String[] getValidServerTargetNames() {
-		List targets = getValidServerTargets();
-		String[] names = null;
-		if (!targets.isEmpty()) {
-			int serverTargetListSize = targets.size();
-			names = new String[serverTargetListSize];
-			for (int i = 0; i < targets.size(); i++) {
-				IRuntime runtime = (IRuntime) targets.get(i);
-				names[i] = runtime.getName();
-			}
-		} else {
-			names = new String[0];
-		}
-		return names;
-	}
-
-	private String[] getValidServerTargetIds() {
-		List targets = getValidServerTargets();
-		String[] names = null;
-		if (!targets.isEmpty()) {
-			int serverTargetListSize = targets.size();
-			names = new String[serverTargetListSize];
-			for (int i = 0; i < targets.size(); i++) {
-				names[i] = ((IRuntime) targets.get(i)).getId();
-			}
-		} else {
-			names = new String[0];
-		}
-		return names;
 	}
 
 	/**
@@ -369,7 +300,7 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(RUNTIME_TARGET_ID))
@@ -394,10 +325,4 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 		return OK_STATUS;
 	}
 
-	/**
-	 *  
-	 */
-	public void resetValidServerTargets() {
-		//validServerTargets = null;
-	}
 }

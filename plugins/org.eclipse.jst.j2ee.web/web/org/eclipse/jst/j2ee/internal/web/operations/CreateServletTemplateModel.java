@@ -15,7 +15,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.util.List;
 
-import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 
 
 /**

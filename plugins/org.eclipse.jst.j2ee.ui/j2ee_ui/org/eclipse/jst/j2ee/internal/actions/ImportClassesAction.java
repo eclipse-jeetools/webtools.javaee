@@ -44,7 +44,7 @@ public class ImportClassesAction extends WTPBaseAction {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
+	 * @see org.eclipse.jst.j2ee.internal.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
 	protected void primRun(Shell shell) {
 		IProject project = ProjectUtilities.getProject(getSelection().getFirstElement());

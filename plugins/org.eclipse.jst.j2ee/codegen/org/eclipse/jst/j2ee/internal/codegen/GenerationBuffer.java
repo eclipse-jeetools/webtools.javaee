@@ -36,7 +36,7 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void append(String[] strings) {
 		if ((strings != null) && (strings.length > 0)) {
@@ -49,7 +49,7 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void append(String aString) {
 		if ((aString != null) && (aString.length() > 0))
@@ -57,7 +57,7 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void append(List strings) {
 		if (strings != null) {
@@ -71,14 +71,14 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void appendWithMargin(String aString) {
 		appendWithMargin(aString, true);
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void appendWithMargin(String aString, boolean startMargin) {
 		if ((aString != null) && (aString.length() > 0)) {
@@ -108,14 +108,14 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void appendWithMarginAndPrefix(String aString, String prefix) {
 		appendWithMarginAndPrefix(aString, prefix, true);
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void appendWithMarginAndPrefix(String aString, String prefix, boolean startMargin) {
 		if ((aString != null) && (aString.length() > 0)) {
@@ -148,7 +148,7 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void format(String format, String[] parms) {
 		if ((format != null) && (format.length() > 0)) {
@@ -203,7 +203,7 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void format(String format, List parms) {
 		String[] stringParms = new String[parms.size()];
@@ -217,14 +217,14 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void formatWithMargin(String format, String[] parms) {
 		formatWithMargin(format, parms, true);
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void formatWithMargin(String format, String[] parms, boolean startMargin) {
 		if ((format != null) && (format.length() > 0)) {
@@ -296,14 +296,14 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void formatWithMargin(String format, List parms) {
 		formatWithMargin(format, parms, true);
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void formatWithMargin(String format, List parms, boolean startMargin) {
 		String[] stringParms = new String[parms.size()];
@@ -338,14 +338,14 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public char getFormatParmMarker() {
 		return fFormatParmMarker;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void indent() {
 		getCurrentMargin().append(fIndentString);
@@ -353,7 +353,7 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void margin() {
 		// The tests are not strictly needed, but using them will reduce String
@@ -367,14 +367,14 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void setFormatParmMarker(char newFormatParmMarker) {
 		fFormatParmMarker = newFormatParmMarker;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void setIndent(int indentCount) {
 		int setCount = (indentCount > 0) ? indentCount : 0;
@@ -392,7 +392,7 @@ public class GenerationBuffer implements IGenerationBuffer {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	public void unindent() {
 		if (fIndentCount > 0) {

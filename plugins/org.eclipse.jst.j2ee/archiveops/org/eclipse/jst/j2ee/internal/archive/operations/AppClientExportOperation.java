@@ -13,10 +13,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.application.operations.AppClientExportDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.ApplicationClientFile;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 
 
 public class AppClientExportOperation extends J2EEExportOperation {

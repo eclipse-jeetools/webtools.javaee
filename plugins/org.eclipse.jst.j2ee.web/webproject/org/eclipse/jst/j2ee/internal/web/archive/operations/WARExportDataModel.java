@@ -12,14 +12,14 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 public class WARExportDataModel extends J2EEModuleExportDataModel {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new WARExportOperation(this);
@@ -55,7 +55,7 @@ public class WARExportDataModel extends J2EEModuleExportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel#getModuleExtension()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEExportDataModel#getModuleExtension()
 	 */
 	protected String getModuleExtension() {
 		return ".war"; //$NON-NLS-1$
@@ -64,7 +64,7 @@ public class WARExportDataModel extends J2EEModuleExportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel#getNatureID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEExportDataModel#getNatureID()
 	 */
 	protected String getNatureID() {
 		return IWebNatureConstants.J2EE_NATURE_ID;

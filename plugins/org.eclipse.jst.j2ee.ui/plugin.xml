@@ -72,7 +72,7 @@
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.internal.wizard.ApplicationProjectWizard"
             project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
             id="org.eclipse.jst.j2ee.internal.earProjectWizard">
          <description>
             %new.ear.project.description_ui_
@@ -88,7 +88,7 @@
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.internal.wizard.AppClientProjectWizard"
             project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
             id="org.eclipse.jst.j2ee.internal.appclientProjectWizard">
          <description>
             %new.appclient.project.description_ui_
@@ -159,7 +159,7 @@
       <wizard
             name="%ear.file_ui_"
             icon="icons/full/ctool16/export_ear.gif"
-            class="org.eclipse.jst.j2ee.internal.ui.wizard.EARExportWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.EARExportWizard"
             id="EARExportWizard">
          <description>
             %ear.export.description_ui_
@@ -207,20 +207,20 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
+            objectClass="org.eclipse.wst.common.frameworks.internal.navigator.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.earNewProjectActions">
          <action
                label="%ear.project_ui_"
                icon="icons/full/ctool16/newear_wiz.gif"
                class="org.eclipse.jst.j2ee.internal.actions.NewEARProjectAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.new.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.internal.ui.navigator.newEARAction">
          </action>
          <visibility>
             <objectState
                   name="projectNature"
-                  value="org.eclipse.jst.j2ee.internal.EARNature">
+                  value="org.eclipse.jst.j2ee.EARNature">
             </objectState>
          </visibility>
       </objectContribution>
@@ -230,20 +230,20 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
+            objectClass="org.eclipse.wst.common.frameworks.internal.navigator.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.appClientNewProjectActions">
          <action
                label="%appclient.project_ui_"
                icon="icons/full/ctool16/newappclient_wiz.gif"
-               class="org.eclipse.jst.j2ee.internal.actions.NewApplClientProjectAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.new.menu/additions"
+               class="org.eclipse.jst.j2ee.internal..actions.NewApplClientProjectAction"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.internal.ui.navigator.newAppClientAction">
          </action>
          <visibility>
             <objectState
                   name="projectNature"
-                  value="org.eclipse.jst.j2ee.internal.ApplicationClientNature">
+                  value="org.eclipse.jst.j2ee.ApplicationClientNature">
             </objectState>
          </visibility>
       </objectContribution>
@@ -251,12 +251,12 @@
 <!-- Navigator Object Contributions -->
 
     <extension
-         point="org.eclipse.wst.common.frameworks.ui.wtpuiAction"> 
+         point="org.eclipse.wst.common.frameworks.internals.ui.wtpuiAction"> 
       <masterOperation
             description="Delete the dependent J2EE modules"
             extendedGenericId="com.ibm.wtp.generic.Delete"
             populatorClass="org.eclipse.jst.j2ee.internal.ui.actions.J2EEDeleteModuleActionPopulator"
-            operationClass="org.eclipse.wst.common.framework.operation.extension.ui.IActionWTPOperation"
+            operationClass="org.eclipse.wst.common.frameworks.internal.operation.extension.ui.IActionWTPOperation"
             name="Delete J2EE Dependent Modules" 
             alwaysExecute="true"
             overrideId="com.ibm.wtp.actions.Java.delete">
@@ -267,10 +267,10 @@
             					 adaptable="true" />
 					<or>
 			            <objectState
-			                  value="org.eclipse.jst.j2ee.internal.EARNature"
+			                  value="org.eclipse.jst.j2ee.EARNature"
 			                  name="projectNature" /> 
 			            <objectState
-			                  value="org.eclipse.jst.j2ee.internal.ApplicationClientNature"
+			                  value="org.eclipse.jst.j2ee.ApplicationClientNature"
 			                  name="projectNature" /> 
 			            <objectState
 			                  value="org.eclipse.jst.j2ee.jca.ConnectorNature"
@@ -284,19 +284,19 @@
 			            </or>            					 
             		</and> 
 	               <objectClass
-	                    name="org.eclipse.jst.j2ee.application.Application">
+	                    name="org.eclipse.jst.j2ee.internal.application.Application">
 	              </objectClass>
 	              <objectClass
-	                    name="org.eclipse.jst.j2ee.client.ApplicationClient">
+	                    name="org.eclipse.jst.j2ee.internal.client.ApplicationClient">
 	              </objectClass>
 	              <objectClass
-	                    name="org.eclipse.jst.j2ee.jca.Connector">
+	                    name="org.eclipse.jst.j2ee.internal.jca.Connector">
 	              </objectClass>
 	              <objectClass
-	                    name="org.eclipse.jst.j2ee.ejb.EJBJar">
+	                    name="org.eclipse.jst.j2ee.internal.ejb.EJBJar">
 	              </objectClass>
 	              <objectClass
-	                    name="org.eclipse.jst.j2ee.webapplication.WebApp">
+	                    name="org.eclipse.jst.j2ee.internal.webapplication.WebApp">
 	              </objectClass>            		       		
             	</or>
 			</selectionEnablement>
@@ -305,7 +305,7 @@
 	
 	
 	<extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
       <adapterFactory
             className="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEEjbItemProviderAdapterFactory"
             packageURI="ejb.xmi"
@@ -348,7 +348,7 @@
             priority="30"
             icon="icons/webgroup_obj.gif"
             class="org.eclipse.jst.internal.webservice.WebServiceGroupContentExtension"
-            id="org.eclipse.wst.common.framework.navigator.webservice"
+            id="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
             rootLabel="Web Services" >
          <enables>
             <or>
@@ -368,7 +368,7 @@
    <extension
          point="org.eclipse.wst.common.navigator.views.navigatorViewer">
       <navigatorViewer
-            rootContentExtensionId="org.eclipse.wst.common.framework.navigator.webservice"
+            rootContentExtensionId="org.eclipse.wst.common.frameworks.navigator.webservice"
             viewerId="com.ibm.wtp.ui.ProjectNavigator">
       </navigatorViewer>
    </extension>
@@ -378,13 +378,13 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
+            objectClass="org.eclipse.wst.common.frameworks.navigator.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.earProjectActions">
          <action
                label="%ear.file_ui_"
                icon="icons/full/ctool16/import_ear.gif"
                class="org.eclipse.jst.j2ee.internal.ear.actions.ImportEARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.import.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.internal.ui.navigator.importEARAction">
          </action>
@@ -392,14 +392,14 @@
                label="%ear.file_ui_"
                icon="icons/full/ctool16/export_ear.gif"
                class="org.eclipse.jst.j2ee.internal.ear.actions.ExportEARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.export.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.export.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.internal.ui.navigator.exportEARAction">
          </action>
          <visibility>
             <objectState
                   name="projectNature"
-                  value="org.eclipse.jst.j2ee.internal.EARNature">
+                  value="org.eclipse.jst.j2ee.EARNature">
             </objectState>
          </visibility>
       </objectContribution>
@@ -409,13 +409,13 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
+            objectClass="org.eclipse.wst.common.frameworks.internal.navigator.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.appClientProjectActions">
          <action
                label="%client.jar.file_ui_"
                icon="icons/full/ctool16/appclient_import_wiz.gif"
                class="org.eclipse.jst.j2ee.internal.client.actions.ImportApplicationClientAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.import.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.internal.ui.navigator.importAppClientAction">
          </action>
@@ -423,14 +423,14 @@
                label="%client.jar.file_ui_"
                icon="icons/full/ctool16/appclient_export.gif"
                class="org.eclipse.jst.j2ee.internal.client.actions.ExportApplicationClientAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.export.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.export.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.internal.ui.navigator.exportAppClientAction">
          </action>
          <visibility>
             <objectState
                   name="projectNature"
-                  value="org.eclipse.jst.j2ee.internal.ApplicationClientNature">
+                  value="org.eclipse.jst.j2ee.ApplicationClientNature">
             </objectState>
          </visibility>
       </objectContribution>
@@ -444,7 +444,7 @@
       <objectContribution
             objectClass="java.lang.Object"
             nameFilter="*"
-            id="org.eclipse.jst.j2ee.ui.deploy">
+            id="org.eclipse.jst.j2ee.internal.ui.deploy">
          <action
                label="%deploy_ui_"
                icon="icons/full/ctool16/re_execute.gif"
@@ -476,15 +476,15 @@
                   <or>
                      <objectState
                            name="projectNature"
-                           value="org.eclipse.jst.j2ee.internal.EARNature">
+                           value="org.eclipse.jst.j2ee.EARNature">
                      </objectState>
                      <objectState
                            name="projectNature"
-                           value="org.eclipse.jst.j2ee.internal.ApplicationNature">
+                           value="org.eclipse.jst.j2ee.ApplicationNature">
                      </objectState>
                      <objectState
                            name="projectNature"
-                           value="org.eclipse.jst.j2ee.internal.ApplicationClientNature">
+                           value="org.eclipse.jst.j2ee.ApplicationClientNature">
                      </objectState>
                      <objectState
                            name="projectNature"
@@ -523,7 +523,7 @@
             id="J2EEPropertiesPage">
          <filter
                name="nature"
-               value="org.eclipse.jst.j2ee.internal.EARNature">
+               value="org.eclipse.jst.j2ee.EARNature">
          </filter>
       </page>
       <page
@@ -534,10 +534,10 @@
             id="J2EEPropertiesPage">
          <filter
                name="nature"
-               value="org.eclipse.jst.j2ee.internal.EARNature">
+               value="org.eclipse.jst.j2ee.EARNature">
          </filter>
       </page>
-<!-- =========== org.eclipse.jst.j2ee.web.WebNature ============ -->
+<!-- =========== org.eclipse.jst.j2ee.internal.web.WebNature ============ -->
       <page
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
@@ -560,7 +560,7 @@
                value="org.eclipse.jst.j2ee.web.WebNature">
          </filter>
       </page>
-<!-- =========== org.eclipse.jst.j2ee.jca ============ -->
+<!-- =========== org.eclipse.jst.j2ee.internal.jca ============ -->
       <page
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
@@ -583,7 +583,7 @@
                value="org.eclipse.jst.j2ee.jca.ConnectorNature">
          </filter>
       </page>
-<!-- =========== org.eclipse.jst.j2ee.internal.ApplicationClientNature ============ -->
+<!-- =========== org.eclipse.jst.j2ee.ApplicationClientNature ============ -->
       <page
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
@@ -592,7 +592,7 @@
             id="J2EEPropertiesPage">
          <filter
                name="nature"
-               value="org.eclipse.jst.j2ee.internal.ApplicationClientNature">
+               value="org.eclipse.jst.j2ee.ApplicationClientNature">
          </filter>
       </page>
       <page
@@ -606,7 +606,7 @@
                value="org.eclipse.jst.j2ee.internal.ApplicationClientNature">
          </filter>
       </page>
-<!-- =========== org.eclipse.jst.j2ee.ejb.EJBNature ============ -->
+<!-- =========== org.eclipse.jst.j2ee.internal.ejb.EJBNature ============ -->
       <page
             objectClass="org.eclipsbe.core.resources.IProject"
             adaptable="true"

@@ -136,7 +136,7 @@ public SecurityRole getSecurityRoleNamed(String roleName) {
 }
 
 /**
- * @see org.eclipse.jst.j2ee.ejb.AssemblyDescriptor
+ * @see org.eclipse.jst.j2ee.internal.ejb.AssemblyDescriptor
  */
 public void renameSecurityRole(java.lang.String existingRoleName, java.lang.String newRoleName) {
 	SecurityRole role = getSecurityRoleNamed(existingRoleName);

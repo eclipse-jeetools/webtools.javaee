@@ -21,13 +21,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.internal.web.operations.ILibModule;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 
 
 /**
@@ -43,7 +43,7 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.AbstractTaglibLocator#search(org.eclipse.core.resources.IResource)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.AbstractTaglibLocator#search(org.eclipse.core.resources.IResource)
 	 */
 	public ITaglibInfo[] search(IResource resource) {
 		List libModuleTaglibs = calculateLibModuleTaglibs();
@@ -212,7 +212,7 @@ public class WebLibModuleTaglibLocator extends AbstractWebTaglibLocator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.AbstractTaglibLocator#searchFile(org.eclipse.core.resources.IFile)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.AbstractTaglibLocator#searchFile(org.eclipse.core.resources.IFile)
 	 */
 	protected ITaglibInfo[] searchFile(IFile file) {
 		// do nothing

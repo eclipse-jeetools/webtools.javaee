@@ -10,7 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.validation;
 
-import org.eclipse.jst.j2ee.model.validation.EARMessageConstants;
+import org.eclipse.jst.j2ee.model.internal.validation.EARMessageConstants;
+
 
 
 

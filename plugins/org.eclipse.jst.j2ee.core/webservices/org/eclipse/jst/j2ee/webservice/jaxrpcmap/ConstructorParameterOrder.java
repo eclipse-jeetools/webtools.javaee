@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder#getElementNames <em>Element Names</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ConstructorParameterOrder#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ConstructorParameterOrder#getElementNames <em>Element Names</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getConstructorParameterOrder()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getConstructorParameterOrder()
  * @model 
  * @generated
  */
@@ -41,14 +41,14 @@ public interface ConstructorParameterOrder extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getConstructorParameterOrder_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getConstructorParameterOrder_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ConstructorParameterOrder#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -59,7 +59,7 @@ public interface ConstructorParameterOrder extends EObject{
 
   /**
    * Returns the value of the '<em><b>Element Names</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName}.
+   * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Element Names</em>' containment reference list isn't clear,
@@ -67,8 +67,8 @@ public interface ConstructorParameterOrder extends EObject{
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Element Names</em>' containment reference list.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getConstructorParameterOrder_ElementNames()
-   * @model type="org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName" containment="true" required="true"
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getConstructorParameterOrder_ElementNames()
+   * @model type="org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName" containment="true" required="true"
    * @generated
    */
   EList getElementNames();

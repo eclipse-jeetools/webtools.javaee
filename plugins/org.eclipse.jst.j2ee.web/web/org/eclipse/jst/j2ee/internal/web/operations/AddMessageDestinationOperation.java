@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.MessageDestination;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperationDataModel;
 

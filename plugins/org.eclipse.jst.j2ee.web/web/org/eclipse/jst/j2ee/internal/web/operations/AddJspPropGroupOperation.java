@@ -27,8 +27,8 @@ import org.eclipse.jst.j2ee.jsp.JspFactory;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModelModifier;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModelModifier;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 

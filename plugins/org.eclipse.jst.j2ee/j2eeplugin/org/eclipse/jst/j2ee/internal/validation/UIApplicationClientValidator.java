@@ -15,16 +15,16 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientEditModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.commonarchivecore.ValidateXmlCommand;
-import org.eclipse.jst.j2ee.model.validation.ApplicationClientValidator;
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
+import org.eclipse.wst.validation.internal.core.IFileDelta;
+import org.eclipse.wst.validation.internal.core.IHelper;
+import org.eclipse.wst.validation.internal.core.IReporter;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 
 
 /**

@@ -10,9 +10,9 @@ package org.eclipse.jst.j2ee.application.operations;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
-import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 

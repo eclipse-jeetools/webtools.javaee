@@ -17,9 +17,9 @@ import java.util.List;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.operations.ClasspathElement;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.frameworks.ui.OverlayIcon;
+import org.eclipse.wst.common.frameworks.internal.ui.OverlayIcon;
 
 
 public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructuredContentProvider, org.eclipse.jface.viewers.ITableLabelProvider {

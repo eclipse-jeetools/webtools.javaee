@@ -27,8 +27,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.plugin.LibCopyBuilder;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

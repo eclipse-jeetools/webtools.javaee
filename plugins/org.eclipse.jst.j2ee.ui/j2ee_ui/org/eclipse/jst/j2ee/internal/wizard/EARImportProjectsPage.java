@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -208,7 +208,7 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.wizard.J2EEWizardPage#enter()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.wizard.J2EEWizardPage#enter()
 	 */
 	protected void enter() {
 		super.enter();

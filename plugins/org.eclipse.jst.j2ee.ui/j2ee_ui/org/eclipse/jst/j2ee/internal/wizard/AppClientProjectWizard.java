@@ -24,8 +24,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author jsholl
@@ -70,14 +70,14 @@ public class AppClientProjectWizard extends J2EEModuleProjectCreationWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.extensions.ExtendableWizard#getWizardID()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
 	 */
 	public String getWizardID() {
-		return "org.eclipse.jst.j2ee.internal.AppClientProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.AppClientProjectWizard"; //$NON-NLS-1$
 	}
 
 	public String getLocalId() {
-		return "org.eclipse.jst.j2ee.internal.appclientProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.appclientProjectWizard"; //$NON-NLS-1$
 	}
 
 }

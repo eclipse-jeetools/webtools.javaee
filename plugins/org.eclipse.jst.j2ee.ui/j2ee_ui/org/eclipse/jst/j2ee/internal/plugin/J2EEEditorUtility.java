@@ -25,7 +25,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -44,7 +44,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  */
 public class J2EEEditorUtility {
 	// //$NON-NLS-1$
-	public static final String EJB_JAVA_EDITOR_ID = "org.eclipse.jst.j2ee.ejb.ui.misc.EJBJavaEditor"; //$NON-NLS-1$
+	public static final String EJB_JAVA_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.ejb.ui.misc.EJBJavaEditor"; //$NON-NLS-1$
 
 	public static ICompilationUnit getCompilationUnit(JavaClass javaClass) {
 		IProject project = ProjectUtilities.getProject(javaClass);

@@ -22,13 +22,13 @@ import org.eclipse.jst.j2ee.common.Identity;
 import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
-import org.eclipse.jst.j2ee.common.operations.RemoveSecurityRoleDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.RemoveSecurityRoleDataModel;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.SecurityConstraint;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 
@@ -144,7 +144,7 @@ public class RemoveWebSecurityRoleOperation extends ModelModifierOperation {
 //
 //	/* (non-Javadoc)
 //	 * @see
-// org.eclipse.jst.j2ee.operations.HeadlessJ2EEOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+// org.eclipse.jst.j2ee.internal.internal.operations.HeadlessJ2EEOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 //	 */
 //	protected void execute(IProgressMonitor monitor)
 //	throws CoreException, InvocationTargetException, InterruptedException {

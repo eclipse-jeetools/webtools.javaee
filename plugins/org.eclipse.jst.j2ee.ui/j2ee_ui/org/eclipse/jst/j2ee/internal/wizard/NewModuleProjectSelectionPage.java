@@ -18,12 +18,12 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
@@ -37,8 +37,8 @@ import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.internal.dialogs.WorkbenchWizardElement;
 import org.eclipse.ui.internal.registry.NewWizardsRegistryReader;
-import org.eclipse.wst.internal.common.frameworks.ui.GenericWizardNode;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -77,7 +77,7 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{DefaultModuleProjectCreationDataModel.CREATE_APPCLIENT, DefaultModuleProjectCreationDataModel.APPCLIENT_PROJECT_NAME, DefaultModuleProjectCreationDataModel.CREATE_CONNECTOR, DefaultModuleProjectCreationDataModel.CONNECTOR_PROJECT_NAME, DefaultModuleProjectCreationDataModel.CREATE_EJB, DefaultModuleProjectCreationDataModel.EJB_PROJECT_NAME, DefaultModuleProjectCreationDataModel.CREATE_WEB, DefaultModuleProjectCreationDataModel.WEB_PROJECT_NAME, DefaultModuleProjectCreationDataModel.MODULE_NAME_COLLISIONS_VALIDATION, DefaultModuleProjectCreationDataModel.ENABLED};
@@ -86,7 +86,7 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.J2EEWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -331,7 +331,7 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				/*
 				 * (non-Javadoc)
 				 * 
-				 * @see org.eclipse.wst.common.framework.ui.wizard.GenericWizardNode#createWizard()
+				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
 					return new AppClientProjectWizard(getDefaultModel().getClientModel());
@@ -350,11 +350,11 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				/*
 				 * (non-Javadoc)
 				 * 
-				 * @see org.eclipse.wst.common.framework.ui.wizard.GenericWizardNode#createWizard()
+				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
 					IWizard result = null;
-					WorkbenchWizardElement connWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
+					WorkbenchWizardElement connWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.internal.internal.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
 					try {
 						result = (IWizard) connWizElement.createExecutableExtension();
 					} catch (CoreException ce) {
@@ -376,11 +376,11 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				/*
 				 * (non-Javadoc)
 				 * 
-				 * @see org.eclipse.wst.common.framework.ui.wizard.GenericWizardNode#createWizard()
+				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
 					IWizard result = null;
-					WorkbenchWizardElement ejbWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
+					WorkbenchWizardElement ejbWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.internal.internal.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
 					try {
 						result = (IWizard) ejbWizElement.createExecutableExtension();
 					} catch (CoreException ce) {
@@ -402,7 +402,7 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				/*
 				 * (non-Javadoc)
 				 * 
-				 * @see org.eclipse.wst.common.framework.ui.wizard.GenericWizardNode#createWizard()
+				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
 					IWizard result = null;
@@ -449,19 +449,19 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 			public String getLocalId() {
 				String id = null;
 				if (selectedNode == appClientNode) {
-					id = "org.eclipse.jst.j2ee.internal.appclientProjectWizard"; //$NON-NLS-1$
+					id = "org.eclipse.jst.j2ee.internal.internal.internal.appclientProjectWizard"; //$NON-NLS-1$
 				} else if (selectedNode == ejbNode) {
-					id = "org.eclipse.jst.j2ee.internal.ejb.ui.util.ejbProjectWizard"; //$NON-NLS-1$
+					id = "org.eclipse.jst.j2ee.internal.internal.internal.ejb.ui.util.ejbProjectWizard"; //$NON-NLS-1$
 				} else if (selectedNode == connectorNode) {
-					id = "org.eclipse.jst.j2ee.internal.jcaProjectWizard"; //$NON-NLS-1$
+					id = "org.eclipse.jst.j2ee.internal.internal.internal.jcaProjectWizard"; //$NON-NLS-1$
 				} else if (selectedNode == webNode) {
-					id = "org.eclipse.jst.j2ee.internal.webProjectWizard"; //$NON-NLS-1$
+					id = "org.eclipse.jst.j2ee.internal.internal.internal.webProjectWizard"; //$NON-NLS-1$
 				}
 				return id;
 			}
 
 			public String getPluginId() {
-				return "org.eclipse.jst.j2ee.internal.ui"; //$NON-NLS-1$
+				return "org.eclipse.jst.j2ee.internal.internal.internal.ui"; //$NON-NLS-1$
 			}
 		};
 
@@ -484,7 +484,7 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.J2EEWizardPage#validatePage()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#validatePage()
 	 */
 	protected void validatePage() {
 		if (!defaultModulesButton.getSelection()) {

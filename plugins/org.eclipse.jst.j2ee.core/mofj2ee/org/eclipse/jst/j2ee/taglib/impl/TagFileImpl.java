@@ -34,10 +34,10 @@ import org.eclipse.jst.j2ee.taglib.TldExtension;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.TagFileImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.TagFileImpl#getPath <em>Path</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.TagFileImpl#getExample <em>Example</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.TagFileImpl#getTagExtensions <em>Tag Extensions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.TagFileImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.TagFileImpl#getPath <em>Path</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.TagFileImpl#getExample <em>Example</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.TagFileImpl#getTagExtensions <em>Tag Extensions</em>}</li>
  * </ul>
  * </p>
  *

@@ -30,14 +30,14 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.ResourceAdapter;
-import org.eclipse.jst.j2ee.jca.plugin.JCAResourceHandler;
-import org.eclipse.jst.j2ee.jca.plugin.JcaPlugin;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.jca.internal.plugin.JCAResourceHandler;
+import org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin;
 
 /**
  * This is the item provider adpater for a ResourceAdapter object.

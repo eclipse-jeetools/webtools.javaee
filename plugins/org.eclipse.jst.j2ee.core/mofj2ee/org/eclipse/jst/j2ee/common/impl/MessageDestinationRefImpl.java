@@ -35,11 +35,11 @@ import org.eclipse.jst.j2ee.common.MessageDestinationUsageType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationRefImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationRefImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationRefImpl#getUsage <em>Usage</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationRefImpl#getLink <em>Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationRefImpl#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationRefImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationRefImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationRefImpl#getUsage <em>Usage</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationRefImpl#getLink <em>Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationRefImpl#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *

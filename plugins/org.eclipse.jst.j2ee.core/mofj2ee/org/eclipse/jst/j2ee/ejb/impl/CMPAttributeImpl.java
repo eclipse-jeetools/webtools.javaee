@@ -33,11 +33,11 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 /**
  * Describes a container-managed field. The field element includes an optional description of the field, and the name of the field.

@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.ejb.impl;
 
 import java.util.Collections;
 
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 
 
 /**

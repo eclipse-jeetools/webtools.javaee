@@ -21,12 +21,12 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveManifestImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.wst.common.framework.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 /**

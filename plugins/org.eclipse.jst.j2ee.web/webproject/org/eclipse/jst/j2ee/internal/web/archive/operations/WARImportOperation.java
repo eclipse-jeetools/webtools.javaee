@@ -31,15 +31,15 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarImportDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.BinaryProjectHelper;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.LibModule;
 import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.web.internal.operation.LibModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -60,7 +60,7 @@ public class WARImportOperation extends J2EEImportOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel,
+	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationDataModel,
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void createModuleProject(J2EEProjectCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {

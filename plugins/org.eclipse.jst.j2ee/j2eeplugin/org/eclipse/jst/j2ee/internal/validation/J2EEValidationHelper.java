@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.AWorkbenchHelper;
 
 

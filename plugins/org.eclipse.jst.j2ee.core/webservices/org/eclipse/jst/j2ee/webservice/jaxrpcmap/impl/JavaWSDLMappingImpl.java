@@ -36,11 +36,11 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getPackageMappings <em>Package Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getJavaXMLTypeMappings <em>Java XML Type Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getExceptionMappings <em>Exception Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getInterfaceMappings <em>Interface Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getPackageMappings <em>Package Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getJavaXMLTypeMappings <em>Java XML Type Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getExceptionMappings <em>Exception Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaWSDLMappingImpl#getInterfaceMappings <em>Interface Mappings</em>}</li>
  * </ul>
  * </p>
  *

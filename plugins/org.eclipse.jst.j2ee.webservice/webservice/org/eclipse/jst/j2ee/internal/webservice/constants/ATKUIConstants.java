@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.webservice.constants;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.webservice.util.QNameHelper;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;

@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition#getParamPosition <em>Param Position</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamPosition#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamPosition#getParamPosition <em>Param Position</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getParamPosition()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getParamPosition()
  * @model 
  * @generated
  */
@@ -40,14 +40,14 @@ public interface ParamPosition extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getParamPosition_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getParamPosition_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamPosition#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -66,14 +66,14 @@ public interface ParamPosition extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Param Position</em>' attribute.
    * @see #setParamPosition(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getParamPosition_ParamPosition()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getParamPosition_ParamPosition()
    * @model 
    * @generated
    */
   String getParamPosition();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition#getParamPosition <em>Param Position</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamPosition#getParamPosition <em>Param Position</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Param Position</em>' attribute.

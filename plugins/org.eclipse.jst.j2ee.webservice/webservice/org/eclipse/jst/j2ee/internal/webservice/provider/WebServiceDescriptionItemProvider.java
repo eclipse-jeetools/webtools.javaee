@@ -33,7 +33,7 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
@@ -41,7 +41,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription}object. <!-- begin-user-doc --> <!--
+ * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WebServiceDescription}object. <!-- begin-user-doc --> <!--
  * end-user-doc -->
  * 
  * @generated

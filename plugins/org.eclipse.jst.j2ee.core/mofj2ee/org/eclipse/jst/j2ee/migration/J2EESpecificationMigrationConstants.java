@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.migration;
 
-import org.eclipse.jst.j2ee.MOFJ2EEResourceHandler;
+import org.eclipse.jst.j2ee.internal.MOFJ2EEResourceHandler;
 
 
 public interface J2EESpecificationMigrationConstants {

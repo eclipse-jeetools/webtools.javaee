@@ -8,7 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 
 
 public interface WTProjectLoadStrategy extends LoadStrategy {

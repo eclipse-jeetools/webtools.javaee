@@ -25,12 +25,12 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.EJBJarFile;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.FileImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.swt.graphics.Image;
 

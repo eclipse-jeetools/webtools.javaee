@@ -31,9 +31,9 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.ServiceImplBeanImpl#getEEJBLink <em>EEJB Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.ServiceImplBeanImpl#getEServletLink <em>EServlet Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.ServiceImplBeanImpl#getBeanLink <em>Bean Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.ServiceImplBeanImpl#getEEJBLink <em>EEJB Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.ServiceImplBeanImpl#getEServletLink <em>EServlet Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.ServiceImplBeanImpl#getBeanLink <em>Bean Link</em>}</li>
  * </ul>
  * </p>
  *

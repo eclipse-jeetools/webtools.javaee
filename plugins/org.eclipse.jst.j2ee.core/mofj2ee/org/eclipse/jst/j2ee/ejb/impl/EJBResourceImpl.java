@@ -15,12 +15,12 @@
 package org.eclipse.jst.j2ee.ejb.impl;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.common.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.ejb.EJBJarTranslator;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
@@ -194,7 +194,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 		return EJB_2_1_ID;
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.impl.XMLResourceImpl#syncVersionOfRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
 	protected void syncVersionOfRootObject() {
 		EJBJar ejbJar = getEJBJar();

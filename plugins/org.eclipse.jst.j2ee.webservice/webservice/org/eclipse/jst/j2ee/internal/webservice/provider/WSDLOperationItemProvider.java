@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation}
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLOperation}
  * object. <!-- begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

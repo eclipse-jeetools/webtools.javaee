@@ -31,7 +31,7 @@ public class AddUtilityJARMapCommand extends UtilityJARInEARProjectCommand {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.earcreation.UtilityJARInEARProjectCommand#primExecute()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.earcreation.UtilityJARInEARProjectCommand#primExecute()
 	 */
 	protected void primExecute() {
 		addMapping();
@@ -40,7 +40,7 @@ public class AddUtilityJARMapCommand extends UtilityJARInEARProjectCommand {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.earcreation.UtilityJARInEARProjectCommand#primUndo()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.earcreation.UtilityJARInEARProjectCommand#primUndo()
 	 */
 	protected void primUndo() {
 		removeMapping();

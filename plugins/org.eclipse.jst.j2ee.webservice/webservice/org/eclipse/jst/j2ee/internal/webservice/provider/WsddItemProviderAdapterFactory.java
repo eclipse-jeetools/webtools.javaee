@@ -78,7 +78,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WebServices}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -86,7 +86,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected WebServicesItemProvider webServicesItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WebServices}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -101,7 +101,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WebServiceDescription}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -109,7 +109,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected WebServiceDescriptionItemProvider webServiceDescriptionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WebServiceDescription}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -124,7 +124,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.PortComponent}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -132,7 +132,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected PortComponentItemProvider portComponentItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.PortComponent}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -147,7 +147,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WSDLPort}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -155,7 +155,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected WSDLPortItemProvider wsdlPortItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WSDLPort}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -170,7 +170,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.ServiceImplBean}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -178,7 +178,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected ServiceImplBeanItemProvider serviceImplBeanItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.ServiceImplBean}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -193,7 +193,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.ServletLink}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.ServletLink}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -201,7 +201,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected ServletLinkItemProvider servletLinkItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.ServletLink}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.ServletLink}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -216,7 +216,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.EJBLink}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -224,7 +224,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected EJBLinkItemProvider ejbLinkItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.EJBLink}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -239,7 +239,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.Handler}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.Handler}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -247,7 +247,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected HandlerItemProvider handlerItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.Handler}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.Handler}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -262,7 +262,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webservice.wsdd.BeanLink}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.BeanLink}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -270,7 +270,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	protected BeanLinkItemProvider beanLinkItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webservice.wsdd.BeanLink}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.BeanLink}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated

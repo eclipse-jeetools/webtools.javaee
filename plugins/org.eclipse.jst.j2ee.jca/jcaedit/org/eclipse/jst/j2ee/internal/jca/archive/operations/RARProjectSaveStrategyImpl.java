@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;

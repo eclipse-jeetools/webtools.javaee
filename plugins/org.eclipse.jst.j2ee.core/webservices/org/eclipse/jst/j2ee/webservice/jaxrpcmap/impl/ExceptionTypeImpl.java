@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ExceptionTypeImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ExceptionTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ExceptionTypeImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ExceptionTypeImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *

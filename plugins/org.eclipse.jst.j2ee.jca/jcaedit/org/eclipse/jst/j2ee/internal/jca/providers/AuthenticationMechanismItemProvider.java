@@ -29,9 +29,9 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 

@@ -20,15 +20,15 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getParameterMode <em>Parameter Mode</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessage <em>Wsdl Message</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getParameterMode <em>Parameter Mode</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessage <em>Wsdl Message</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping()
  * @model 
  * @generated
  */
@@ -43,14 +43,14 @@ public interface WSDLMessageMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -69,14 +69,14 @@ public interface WSDLMessageMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Message Part Name</em>' attribute.
    * @see #setWsdlMessagePartName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_WsdlMessagePartName()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_WsdlMessagePartName()
    * @model 
    * @generated
    */
   String getWsdlMessagePartName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Message Part Name</em>' attribute.
@@ -95,14 +95,14 @@ public interface WSDLMessageMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameter Mode</em>' attribute.
    * @see #setParameterMode(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_ParameterMode()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_ParameterMode()
    * @model 
    * @generated
    */
   String getParameterMode();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getParameterMode <em>Parameter Mode</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getParameterMode <em>Parameter Mode</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Parameter Mode</em>' attribute.
@@ -123,14 +123,14 @@ public interface WSDLMessageMapping extends EObject{
    * @see #isSetSoapHeader()
    * @see #unsetSoapHeader()
    * @see #setSoapHeader(boolean)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_SoapHeader()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_SoapHeader()
    * @model unsettable="true"
    * @generated
    */
   boolean isSoapHeader();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Soap Header</em>' attribute.
@@ -142,7 +142,7 @@ public interface WSDLMessageMapping extends EObject{
   void setSoapHeader(boolean value);
 
   /**
-   * Unsets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}' attribute.
+   * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #isSetSoapHeader()
@@ -153,7 +153,7 @@ public interface WSDLMessageMapping extends EObject{
   void unsetSoapHeader();
 
   /**
-   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}' attribute is set.
+   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#isSoapHeader <em>Soap Header</em>}' attribute is set.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return whether the value of the '<em>Soap Header</em>' attribute is set.
@@ -174,14 +174,14 @@ public interface WSDLMessageMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Message</em>' containment reference.
    * @see #setWsdlMessage(WSDLMessage)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_WsdlMessage()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessageMapping_WsdlMessage()
    * @model containment="true" required="true"
    * @generated
    */
   WSDLMessage getWsdlMessage();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessage <em>Wsdl Message</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping#getWsdlMessage <em>Wsdl Message</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Message</em>' containment reference.

@@ -43,7 +43,7 @@ public interface License extends EObject{
 	void setRequired(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.jca.License#isRequired <em>Required</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.License#isRequired <em>Required</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetRequired()
@@ -54,7 +54,7 @@ public interface License extends EObject{
 	void unsetRequired();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.jca.License#isRequired <em>Required</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.jca.License#isRequired <em>Required</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Required</em>' attribute is set.
@@ -67,7 +67,7 @@ public interface License extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -75,8 +75,8 @@ public interface License extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getLicense_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getLicense_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

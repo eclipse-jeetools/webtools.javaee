@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping}object. <!-- begin-user-doc
+ * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.MethodParamPartsMapping}object. <!-- begin-user-doc
  * --> <!-- end-user-doc -->
  * 
  * @generated

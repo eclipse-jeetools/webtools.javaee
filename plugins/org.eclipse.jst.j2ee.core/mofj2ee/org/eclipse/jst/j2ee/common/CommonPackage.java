@@ -418,11 +418,11 @@ public interface CommonPackage extends EPackage{
 	int IDENTITY_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.IconTypeImpl <em>Icon Type</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.IconTypeImpl <em>Icon Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.IconTypeImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getIconType()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.IconTypeImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getIconType()
 	 * @generated
 	 */
 	int ICON_TYPE = 9;
@@ -464,11 +464,11 @@ public interface CommonPackage extends EPackage{
 	int ICON_TYPE_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.DisplayNameImpl <em>Display Name</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.DisplayNameImpl <em>Display Name</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.DisplayNameImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getDisplayName()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.DisplayNameImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getDisplayName()
 	 * @generated
 	 */
 	int DISPLAY_NAME = 10;
@@ -501,11 +501,11 @@ public interface CommonPackage extends EPackage{
 	int DISPLAY_NAME_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationRefImpl <em>Message Destination Ref</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationRefImpl <em>Message Destination Ref</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.MessageDestinationRefImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getMessageDestinationRef()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationRefImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getMessageDestinationRef()
 	 * @generated
 	 */
 	int MESSAGE_DESTINATION_REF = 11;
@@ -565,31 +565,31 @@ public interface CommonPackage extends EPackage{
 	int MESSAGE_DESTINATION_REF_FEATURE_COUNT = 5;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationImpl <em>Message Destination</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationImpl <em>Message Destination</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.MessageDestinationImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getMessageDestination()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getMessageDestination()
 	 * @generated
 	 */
 	int MESSAGE_DESTINATION = 12;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.ParamValueImpl <em>Param Value</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.ParamValueImpl <em>Param Value</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.ParamValueImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getParamValue()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.ParamValueImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getParamValue()
 	 * @generated
 	 */
 	int PARAM_VALUE = 13;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.DescriptionGroupImpl <em>Description Group</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.DescriptionGroupImpl <em>Description Group</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.DescriptionGroupImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getDescriptionGroup()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.DescriptionGroupImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getDescriptionGroup()
 	 * @generated
 	 */
 	int DESCRIPTION_GROUP = 14;
@@ -631,11 +631,11 @@ public interface CommonPackage extends EPackage{
 	int DESCRIPTION_GROUP_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl <em>Compatibility Description Group</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl <em>Compatibility Description Group</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getCompatibilityDescriptionGroup()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getCompatibilityDescriptionGroup()
 	 * @generated
 	 */
 	int COMPATIBILITY_DESCRIPTION_GROUP = 21;
@@ -839,11 +839,11 @@ public interface CommonPackage extends EPackage{
 	int PARAM_VALUE_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl <em>JNDI Env Refs Group</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl <em>JNDI Env Refs Group</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getJNDIEnvRefsGroup()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getJNDIEnvRefsGroup()
 	 * @generated
 	 */
 	int JNDI_ENV_REFS_GROUP = 15;
@@ -1007,11 +1007,11 @@ public interface CommonPackage extends EPackage{
 	int USE_CALLER_IDENTITY_FEATURE_COUNT = SECURITY_IDENTITY_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.DescriptionImpl <em>Description</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.DescriptionImpl <em>Description</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.DescriptionImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getDescription()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.DescriptionImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getDescription()
 	 * @generated
 	 */
 	int DESCRIPTION = 18;
@@ -1044,11 +1044,11 @@ public interface CommonPackage extends EPackage{
 	int DESCRIPTION_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.QNameImpl <em>QName</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.QNameImpl <em>QName</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.QNameImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getQName()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.QNameImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getQName()
 	 * @generated
 	 */
 	int QNAME = 19;
@@ -1099,11 +1099,11 @@ public interface CommonPackage extends EPackage{
 	int QNAME_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.impl.ListenerImpl <em>Listener</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.impl.ListenerImpl <em>Listener</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.impl.ListenerImpl
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getListener()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.ListenerImpl
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getListener()
 	 * @generated
 	 */
 	int LISTENER = 20;
@@ -1206,11 +1206,11 @@ public interface CommonPackage extends EPackage{
 	 */
 	int RES_SHARING_SCOPE_TYPE = 25;
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.common.MessageDestinationUsageType <em>Message Destination Usage Type</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationUsageType <em>Message Destination Usage Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationUsageType
-	 * @see org.eclipse.jst.j2ee.common.impl.CommonPackageImpl#getMessageDestinationUsageType()
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationUsageType
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl#getMessageDestinationUsageType()
 	 * @generated
 	 */
 	int MESSAGE_DESTINATION_USAGE_TYPE = 26;
@@ -1226,7 +1226,7 @@ public interface CommonPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.common"; //$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.common"; //$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -1253,11 +1253,11 @@ public interface CommonPackage extends EPackage{
 	EAttribute getSecurityRole_RoleName();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.SecurityRole#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.SecurityRole#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.SecurityRole#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.SecurityRole#getDescriptions()
 	 * @see #getSecurityRole()
 	 * @generated
 	 */
@@ -1300,11 +1300,11 @@ public interface CommonPackage extends EPackage{
 	EAttribute getResourceRef_ResSharingScope();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.ResourceRef#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.ResourceRef#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.ResourceRef#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.ResourceRef#getDescriptions()
 	 * @see #getResourceRef()
 	 * @generated
 	 */
@@ -1347,11 +1347,11 @@ public interface CommonPackage extends EPackage{
 	EAttribute getEjbRef_Description();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.EjbRef#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.EjbRef#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.EjbRef#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#getDescriptions()
 	 * @see #getEjbRef()
 	 * @generated
 	 */
@@ -1364,22 +1364,22 @@ public interface CommonPackage extends EPackage{
 	EClass getEJBLocalRef();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.EJBLocalRef#getLocalHome <em>Local Home</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.EJBLocalRef#getLocalHome <em>Local Home</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Local Home</em>'.
-	 * @see org.eclipse.jst.j2ee.common.EJBLocalRef#getLocalHome()
+	 * @see org.eclipse.jst.j2ee.internal.common.EJBLocalRef#getLocalHome()
 	 * @see #getEJBLocalRef()
 	 * @generated
 	 */
 	EAttribute getEJBLocalRef_LocalHome();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.EJBLocalRef#getLocal <em>Local</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.EJBLocalRef#getLocal <em>Local</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Local</em>'.
-	 * @see org.eclipse.jst.j2ee.common.EJBLocalRef#getLocal()
+	 * @see org.eclipse.jst.j2ee.internal.common.EJBLocalRef#getLocal()
 	 * @see #getEJBLocalRef()
 	 * @generated
 	 */
@@ -1412,11 +1412,11 @@ public interface CommonPackage extends EPackage{
 	EAttribute getEnvEntry_Type();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.EnvEntry#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.EnvEntry#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.EnvEntry#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.EnvEntry#getDescriptions()
 	 * @see #getEnvEntry()
 	 * @generated
 	 */
@@ -1444,11 +1444,11 @@ public interface CommonPackage extends EPackage{
 	EAttribute getSecurityRoleRef_Link();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.SecurityRoleRef#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.SecurityRoleRef#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.SecurityRoleRef#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.SecurityRoleRef#getDescriptions()
 	 * @see #getSecurityRoleRef()
 	 * @generated
 	 */
@@ -1477,11 +1477,11 @@ public interface CommonPackage extends EPackage{
 	EAttribute getSecurityIdentity_Description();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.SecurityIdentity#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.SecurityIdentity#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.SecurityIdentity#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#getDescriptions()
 	 * @see #getSecurityIdentity()
 	 * @generated
 	 */
@@ -1494,161 +1494,161 @@ public interface CommonPackage extends EPackage{
 	EClass getUseCallerIdentity();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.Description <em>Description</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.Description <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Description</em>'.
-	 * @see org.eclipse.jst.j2ee.common.Description
+	 * @see org.eclipse.jst.j2ee.internal.common.Description
 	 * @generated
 	 */
 	EClass getDescription();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.Description#getLang <em>Lang</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.Description#getLang <em>Lang</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Lang</em>'.
-	 * @see org.eclipse.jst.j2ee.common.Description#getLang()
+	 * @see org.eclipse.jst.j2ee.internal.common.Description#getLang()
 	 * @see #getDescription()
 	 * @generated
 	 */
 	EAttribute getDescription_Lang();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.Description#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.Description#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.eclipse.jst.j2ee.common.Description#getValue()
+	 * @see org.eclipse.jst.j2ee.internal.common.Description#getValue()
 	 * @see #getDescription()
 	 * @generated
 	 */
 	EAttribute getDescription_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.QName <em>QName</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.QName <em>QName</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>QName</em>'.
-	 * @see org.eclipse.jst.j2ee.common.QName
+	 * @see org.eclipse.jst.j2ee.internal.common.QName
 	 * @generated
 	 */
 	EClass getQName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.QName#getNamespaceURI <em>Namespace URI</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.QName#getNamespaceURI <em>Namespace URI</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Namespace URI</em>'.
-	 * @see org.eclipse.jst.j2ee.common.QName#getNamespaceURI()
+	 * @see org.eclipse.jst.j2ee.internal.common.QName#getNamespaceURI()
 	 * @see #getQName()
 	 * @generated
 	 */
 	EAttribute getQName_NamespaceURI();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.QName#getLocalPart <em>Local Part</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.QName#getLocalPart <em>Local Part</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Local Part</em>'.
-	 * @see org.eclipse.jst.j2ee.common.QName#getLocalPart()
+	 * @see org.eclipse.jst.j2ee.internal.common.QName#getLocalPart()
 	 * @see #getQName()
 	 * @generated
 	 */
 	EAttribute getQName_LocalPart();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.QName#getCombinedQName <em>Combined QName</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.QName#getCombinedQName <em>Combined QName</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Combined QName</em>'.
-	 * @see org.eclipse.jst.j2ee.common.QName#getCombinedQName()
+	 * @see org.eclipse.jst.j2ee.internal.common.QName#getCombinedQName()
 	 * @see #getQName()
 	 * @generated
 	 */
 	EAttribute getQName_CombinedQName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.QName#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.QName#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Internal Prefix Or Ns URI</em>'.
-	 * @see org.eclipse.jst.j2ee.common.QName#getInternalPrefixOrNsURI()
+	 * @see org.eclipse.jst.j2ee.internal.common.QName#getInternalPrefixOrNsURI()
 	 * @see #getQName()
 	 * @generated
 	 */
 	EAttribute getQName_InternalPrefixOrNsURI();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.Listener <em>Listener</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.Listener <em>Listener</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Listener</em>'.
-	 * @see org.eclipse.jst.j2ee.common.Listener
+	 * @see org.eclipse.jst.j2ee.internal.common.Listener
 	 * @generated
 	 */
 	EClass getListener();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.common.Listener#getListenerClass <em>Listener Class</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.internal.common.Listener#getListenerClass <em>Listener Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Listener Class</em>'.
-	 * @see org.eclipse.jst.j2ee.common.Listener#getListenerClass()
+	 * @see org.eclipse.jst.j2ee.internal.common.Listener#getListenerClass()
 	 * @see #getListener()
 	 * @generated
 	 */
 	EReference getListener_ListenerClass();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Compatibility Description Group</em>'.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup
 	 * @generated
 	 */
 	EClass getCompatibilityDescriptionGroup();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getSmallIcon <em>Small Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getSmallIcon <em>Small Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Small Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getSmallIcon()
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getSmallIcon()
 	 * @see #getCompatibilityDescriptionGroup()
 	 * @generated
 	 */
 	EAttribute getCompatibilityDescriptionGroup_SmallIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getLargeIcon <em>Large Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getLargeIcon <em>Large Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Large Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getLargeIcon()
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getLargeIcon()
 	 * @see #getCompatibilityDescriptionGroup()
 	 * @generated
 	 */
 	EAttribute getCompatibilityDescriptionGroup_LargeIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDescription()
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDescription()
 	 * @see #getCompatibilityDescriptionGroup()
 	 * @generated
 	 */
 	EAttribute getCompatibilityDescriptionGroup_Description();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDisplayName <em>Display Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDisplayName <em>Display Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Display Name</em>'.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup#getDisplayName()
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup#getDisplayName()
 	 * @see #getCompatibilityDescriptionGroup()
 	 * @generated
 	 */
@@ -1671,356 +1671,356 @@ public interface CommonPackage extends EPackage{
 	EAttribute getIdentity_RoleName();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.Identity#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.Identity#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.Identity#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.Identity#getDescriptions()
 	 * @see #getIdentity()
 	 * @generated
 	 */
 	EReference getIdentity_Descriptions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.IconType <em>Icon Type</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.IconType <em>Icon Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Icon Type</em>'.
-	 * @see org.eclipse.jst.j2ee.common.IconType
+	 * @see org.eclipse.jst.j2ee.internal.common.IconType
 	 * @generated
 	 */
 	EClass getIconType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.IconType#getSmallIcon <em>Small Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.IconType#getSmallIcon <em>Small Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Small Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.common.IconType#getSmallIcon()
+	 * @see org.eclipse.jst.j2ee.internal.common.IconType#getSmallIcon()
 	 * @see #getIconType()
 	 * @generated
 	 */
 	EAttribute getIconType_SmallIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.IconType#getLargeIcon <em>Large Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.IconType#getLargeIcon <em>Large Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Large Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.common.IconType#getLargeIcon()
+	 * @see org.eclipse.jst.j2ee.internal.common.IconType#getLargeIcon()
 	 * @see #getIconType()
 	 * @generated
 	 */
 	EAttribute getIconType_LargeIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.IconType#getLang <em>Lang</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.IconType#getLang <em>Lang</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Lang</em>'.
-	 * @see org.eclipse.jst.j2ee.common.IconType#getLang()
+	 * @see org.eclipse.jst.j2ee.internal.common.IconType#getLang()
 	 * @see #getIconType()
 	 * @generated
 	 */
 	EAttribute getIconType_Lang();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.DisplayName <em>Display Name</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.DisplayName <em>Display Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Display Name</em>'.
-	 * @see org.eclipse.jst.j2ee.common.DisplayName
+	 * @see org.eclipse.jst.j2ee.internal.common.DisplayName
 	 * @generated
 	 */
 	EClass getDisplayName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.DisplayName#getLang <em>Lang</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.DisplayName#getLang <em>Lang</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Lang</em>'.
-	 * @see org.eclipse.jst.j2ee.common.DisplayName#getLang()
+	 * @see org.eclipse.jst.j2ee.internal.common.DisplayName#getLang()
 	 * @see #getDisplayName()
 	 * @generated
 	 */
 	EAttribute getDisplayName_Lang();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.DisplayName#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.DisplayName#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.eclipse.jst.j2ee.common.DisplayName#getValue()
+	 * @see org.eclipse.jst.j2ee.internal.common.DisplayName#getValue()
 	 * @see #getDisplayName()
 	 * @generated
 	 */
 	EAttribute getDisplayName_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef <em>Message Destination Ref</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef <em>Message Destination Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Message Destination Ref</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationRef
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationRef
 	 * @generated
 	 */
 	EClass getMessageDestinationRef();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationRef#getName()
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getName()
 	 * @see #getMessageDestinationRef()
 	 * @generated
 	 */
 	EAttribute getMessageDestinationRef_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getType <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationRef#getType()
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getType()
 	 * @see #getMessageDestinationRef()
 	 * @generated
 	 */
 	EAttribute getMessageDestinationRef_Type();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getUsage <em>Usage</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getUsage <em>Usage</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Usage</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationRef#getUsage()
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getUsage()
 	 * @see #getMessageDestinationRef()
 	 * @generated
 	 */
 	EAttribute getMessageDestinationRef_Usage();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getLink <em>Link</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getLink <em>Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Link</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationRef#getLink()
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getLink()
 	 * @see #getMessageDestinationRef()
 	 * @generated
 	 */
 	EAttribute getMessageDestinationRef_Link();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.MessageDestinationRef#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationRef#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationRef#getDescriptions()
 	 * @see #getMessageDestinationRef()
 	 * @generated
 	 */
 	EReference getMessageDestinationRef_Descriptions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.MessageDestination <em>Message Destination</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.MessageDestination <em>Message Destination</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Message Destination</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestination
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestination
 	 * @generated
 	 */
 	EClass getMessageDestination();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.MessageDestination#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.MessageDestination#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestination#getName()
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestination#getName()
 	 * @see #getMessageDestination()
 	 * @generated
 	 */
 	EAttribute getMessageDestination_Name();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.ParamValue <em>Param Value</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.ParamValue <em>Param Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Param Value</em>'.
-	 * @see org.eclipse.jst.j2ee.common.ParamValue
+	 * @see org.eclipse.jst.j2ee.internal.common.ParamValue
 	 * @generated
 	 */
 	EClass getParamValue();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.ParamValue#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.ParamValue#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.common.ParamValue#getName()
+	 * @see org.eclipse.jst.j2ee.internal.common.ParamValue#getName()
 	 * @see #getParamValue()
 	 * @generated
 	 */
 	EAttribute getParamValue_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.ParamValue#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.ParamValue#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.eclipse.jst.j2ee.common.ParamValue#getValue()
+	 * @see org.eclipse.jst.j2ee.internal.common.ParamValue#getValue()
 	 * @see #getParamValue()
 	 * @generated
 	 */
 	EAttribute getParamValue_Value();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.common.ParamValue#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.common.ParamValue#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.eclipse.jst.j2ee.common.ParamValue#getDescription()
+	 * @see org.eclipse.jst.j2ee.internal.common.ParamValue#getDescription()
 	 * @see #getParamValue()
 	 * @generated
 	 */
 	EAttribute getParamValue_Description();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.ParamValue#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.ParamValue#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.ParamValue#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.ParamValue#getDescriptions()
 	 * @see #getParamValue()
 	 * @generated
 	 */
 	EReference getParamValue_Descriptions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.DescriptionGroup <em>Description Group</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup <em>Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Description Group</em>'.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup
 	 * @generated
 	 */
 	EClass getDescriptionGroup();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.DescriptionGroup#getIcons <em>Icons</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getIcons <em>Icons</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Icons</em>'.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup#getIcons()
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getIcons()
 	 * @see #getDescriptionGroup()
 	 * @generated
 	 */
 	EReference getDescriptionGroup_Icons();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.DescriptionGroup#getDisplayNames <em>Display Names</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getDisplayNames <em>Display Names</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Display Names</em>'.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup#getDisplayNames()
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getDisplayNames()
 	 * @see #getDescriptionGroup()
 	 * @generated
 	 */
 	EReference getDescriptionGroup_DisplayNames();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.DescriptionGroup#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getDescriptions()
 	 * @see #getDescriptionGroup()
 	 * @generated
 	 */
 	EReference getDescriptionGroup_Descriptions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup <em>JNDI Env Refs Group</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup <em>JNDI Env Refs Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>JNDI Env Refs Group</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup
 	 * @generated
 	 */
 	EClass getJNDIEnvRefsGroup();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getEnvironmentProperties <em>Environment Properties</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getEnvironmentProperties <em>Environment Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Environment Properties</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getEnvironmentProperties()
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getEnvironmentProperties()
 	 * @see #getJNDIEnvRefsGroup()
 	 * @generated
 	 */
 	EReference getJNDIEnvRefsGroup_EnvironmentProperties();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getResourceRefs <em>Resource Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getResourceRefs <em>Resource Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Resource Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getResourceRefs()
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getResourceRefs()
 	 * @see #getJNDIEnvRefsGroup()
 	 * @generated
 	 */
 	EReference getJNDIEnvRefsGroup_ResourceRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getEjbRefs <em>Ejb Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getEjbRefs <em>Ejb Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Ejb Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getEjbRefs()
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getEjbRefs()
 	 * @see #getJNDIEnvRefsGroup()
 	 * @generated
 	 */
 	EReference getJNDIEnvRefsGroup_EjbRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getResourceEnvRefs <em>Resource Env Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getResourceEnvRefs <em>Resource Env Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Resource Env Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getResourceEnvRefs()
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getResourceEnvRefs()
 	 * @see #getJNDIEnvRefsGroup()
 	 * @generated
 	 */
 	EReference getJNDIEnvRefsGroup_ResourceEnvRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getEjbLocalRefs <em>Ejb Local Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getEjbLocalRefs <em>Ejb Local Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Ejb Local Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getEjbLocalRefs()
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getEjbLocalRefs()
 	 * @see #getJNDIEnvRefsGroup()
 	 * @generated
 	 */
 	EReference getJNDIEnvRefsGroup_EjbLocalRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getMessageDestinationRefs <em>Message Destination Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getMessageDestinationRefs <em>Message Destination Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Message Destination Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getMessageDestinationRefs()
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getMessageDestinationRefs()
 	 * @see #getJNDIEnvRefsGroup()
 	 * @generated
 	 */
 	EReference getJNDIEnvRefsGroup_MessageDestinationRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getServiceRefs <em>Service Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getServiceRefs <em>Service Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Service Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup#getServiceRefs()
+	 * @see org.eclipse.jst.j2ee.internal.common.JNDIEnvRefsGroup#getServiceRefs()
 	 * @see #getJNDIEnvRefsGroup()
 	 * @generated
 	 */
@@ -2048,11 +2048,11 @@ public interface CommonPackage extends EPackage{
 	EReference getResourceEnvRef_Type();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.common.ResourceEnvRef#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.common.ResourceEnvRef#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.common.ResourceEnvRef#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.common.ResourceEnvRef#getDescriptions()
 	 * @see #getResourceEnvRef()
 	 * @generated
 	 */
@@ -2083,11 +2083,11 @@ public interface CommonPackage extends EPackage{
 	EEnum getResSharingScopeType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.common.MessageDestinationUsageType <em>Message Destination Usage Type</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.internal.common.MessageDestinationUsageType <em>Message Destination Usage Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Message Destination Usage Type</em>'.
-	 * @see org.eclipse.jst.j2ee.common.MessageDestinationUsageType
+	 * @see org.eclipse.jst.j2ee.internal.common.MessageDestinationUsageType
 	 * @generated
 	 */
 	EEnum getMessageDestinationUsageType();

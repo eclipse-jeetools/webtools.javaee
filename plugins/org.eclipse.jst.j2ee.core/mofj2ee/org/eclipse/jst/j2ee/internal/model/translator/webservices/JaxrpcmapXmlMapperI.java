@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.model.translator.webservices;
 
 //imports for J2EE core classes
-//import org.eclipse.jst.j2ee.xml.DeploymentDescriptorXmlMapperI;
+//import org.eclipse.jst.j2ee.internal.xml.DeploymentDescriptorXmlMapperI;
 
 /**
  * This interface represents a catalog of all the tag names which occur in 

@@ -15,10 +15,10 @@
 package org.eclipse.jst.j2ee.internal.model.translator.common;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.ResAuthTypeBase;
 import org.eclipse.jst.j2ee.common.ResourceRef;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.xml.DeploymentDescriptorXmlMapperI;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emf.resource.Translator;

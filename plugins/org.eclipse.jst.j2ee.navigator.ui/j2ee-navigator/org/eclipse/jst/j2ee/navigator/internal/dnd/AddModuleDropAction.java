@@ -14,7 +14,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author mdelder

@@ -18,9 +18,9 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.util.Map;
 
-import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelFactory;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory;
 
 
 /**
@@ -34,8 +34,8 @@ public class WebEditModelFactory extends EditModelFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.emfworkbench.integration.EditModelFactory#createEditModelForRead(java.lang.String,
-	 *      org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory#createEditModelForRead(java.lang.String,
+	 *      org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext)
 	 */
 	public EditModel createEditModelForRead(String editModelID, EMFWorkbenchContext context, Map params) {
 		return new WebEditModel(editModelID, context, true, isLoadKnownResourcesAsReadOnly());
@@ -44,8 +44,8 @@ public class WebEditModelFactory extends EditModelFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.emfworkbench.integration.EditModelFactory#createEditModelForWrite(java.lang.String,
-	 *      org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelFactory#createEditModelForWrite(java.lang.String,
+	 *      org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext)
 	 */
 	public EditModel createEditModelForWrite(String editModelID, EMFWorkbenchContext context, Map params) {
 		return new WebEditModel(editModelID, context, false, isLoadKnownResourcesAsReadOnly());

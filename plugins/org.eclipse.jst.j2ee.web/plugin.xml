@@ -5,7 +5,7 @@
    name="Web Plug-in"
    version="1.0.0"
    provider-name="IBM"
-   class="org.eclipse.jst.j2ee.web.plugin.WebPlugin">
+   class="org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin">
 
    <runtime>
       <library name="runtime/web.jar">
@@ -33,6 +33,8 @@
       <import plugin="org.eclipse.wst.common.jdt.integration"/>
       <import plugin="org.eclipse.wst.common.annotations.controller"/>
       <import plugin="org.eclipse.emf.codegen"/>
+      <import plugin="org.eclipse.wst.web"/>
+       <import plugin="org.eclipse.jface"/>
    </requires>
    
 <!--============================-->
@@ -126,13 +128,13 @@
    <extension
          id="WebModuleExtension"
          name="WebModuleExtension"
-         point="org.eclipse.jst.j2ee.EARModuleExtension">
+         point="org.eclipse.jst.j2ee.internal.EARModuleExtension">
       <earModuleExtension
-            extensionClass="org.eclipse.jst.j2ee.web.plugin.WebModuleExtensionImpl">
+            extensionClass="org.eclipse.jst.j2ee.internal.web.plugin.WebModuleExtensionImpl">
       </earModuleExtension>
    </extension>
    <extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
             className="org.eclipse.jst.j2ee.internal.web.providers.WebapplicationItemProviderAdapterFactory"
@@ -141,16 +143,16 @@
       </adapterFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
             className="org.eclipse.jst.j2ee.internal.web.providers.JspItemProviderAdapterFactory"
             packageURI="jsp.xmi"
-            id="org.eclipse.jst.j2ee.jsp.provider.JspItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.internal.jsp.provider.JspItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
+         point="org.eclipse.wst.common.frameworks.internals.ExtendableOperation">
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation"
             id="org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation">
@@ -179,11 +181,11 @@
          point="com.ibm.wtp.server.core.moduleObjectAdapters">
       <moduleObjectAdapter
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
-            objectClass="org.eclipse.jst.j2ee.webapplication.WebApp"
+            objectClass="org.eclipse.jst.j2ee.internal.webapplication.WebApp"
             id="com.ibm.wtp.web.server.webresource">
       </moduleObjectAdapter>
       <moduleObjectAdapter
-            objectClass="org.eclipse.jst.j2ee.webapplication.Servlet"
+            objectClass="org.eclipse.jst.j2ee.internal.webapplication.Servlet"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="com.ibm.wtp.web.server.webresource2">
       </moduleObjectAdapter>
@@ -237,7 +239,7 @@
       <migrator
             className="org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator"
             id="org.eclipse.jst.common.migration.WebSettingsMigrator.id"
-            filter="org.eclipse.jst.j2ee.settings.J2EEMigrationFilter">
+            filter="org.eclipse.jst.j2ee.internal.settings.J2EEMigrationFilter">
          <enablement>
 			<projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
          </enablement>
@@ -248,7 +250,7 @@
 <!-- WTP Operation extendable operations						        -->
 <!-- =============================================================== -->
    <extension
-         point="org.eclipse.wst.common.framework.ExtendableOperation">
+         point="org.eclipse.wst.common.frameworks.internal.ExtendableOperation">
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.web.operations.RemoveServletOperation"
             id="org.eclipse.jst.j2ee.internal.web.operations.RemoveServletOperation">
@@ -275,7 +277,7 @@
 	</extension>
 
 
- 	<extension point="org.eclipse.wst.common.framework.navigator.compressedProject">
+ 	<extension point="org.eclipse.wst.common.frameworks.internal.navigator.compressedProject">
  		<compressedProject natureId="org.eclipse.jst.j2ee.web.WebNature" />
 		<compressedProject natureId="org.eclipse.jst.j2ee.web.StaticWebNature" />
  		

@@ -27,10 +27,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 public class StaticWebProjectCreationOperation implements IHeadlessRunnableWithProgress {
 	protected WebProjectInfo fProjectInfo;

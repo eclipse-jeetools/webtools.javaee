@@ -85,8 +85,8 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	protected EList fAttributes = null;
 	protected String fName = null;
 	protected IRoleShapeStrategy roleShapeStrategy;
-	private static final String ROLE_STRATEGY_CLASS_NAME = "org.eclipse.jst.j2ee.ejb.impl.EJB20FlattenedRoleShapeStrategy"; //$NON-NLS-1$
-	private static final String COMMON_ROLE_CLASS_NAME = "org.eclipse.jst.j2ee.ejb.CommonRelationshipRole"; //$NON-NLS-1$
+	private static final String ROLE_STRATEGY_CLASS_NAME = "org.eclipse.jst.j2ee.internal.ejb.impl.EJB20FlattenedRoleShapeStrategy"; //$NON-NLS-1$
+	private static final String COMMON_ROLE_CLASS_NAME = "org.eclipse.jst.j2ee.internal.ejb.CommonRelationshipRole"; //$NON-NLS-1$
 	private static Class COMMON_ROLE_CLASS;
 	private static Class ROLE_STRATEGY_CLASS;
 	private static Constructor ROLE_STRATEGY_CONSTRUCTOR;
@@ -601,7 +601,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 		setRelationshipGen(newContainer);
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.CommonRelationshipRole#getTargetAttributeName(org.eclipse.jst.j2ee.ejb.CMPAttribute)
+	 * @see org.eclipse.jst.j2ee.internal.ejb.CommonRelationshipRole#getTargetAttributeName(org.eclipse.jst.j2ee.internal.ejb.CMPAttribute)
 	 */
 	public String getTargetAttributeName(CMPAttribute roleAttribute) {
 		int roleNameSize = getName().length();
@@ -966,14 +966,14 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.CommonRelationshipRole#setLower(int)
+	 * @see org.eclipse.jst.j2ee.internal.ejb.CommonRelationshipRole#setLower(int)
 	 */
 	public void setLower(int lowerBound) {
 		// Do nothing...  Only upperbound is relevant here
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.CommonRelationshipRole#setUpper(int)
+	 * @see org.eclipse.jst.j2ee.internal.ejb.CommonRelationshipRole#setUpper(int)
 	 */
 	public void setUpper(int upperBound) {
 		switch (upperBound) {

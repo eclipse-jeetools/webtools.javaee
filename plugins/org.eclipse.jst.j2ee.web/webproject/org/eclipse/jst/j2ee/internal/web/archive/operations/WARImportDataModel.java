@@ -19,14 +19,14 @@ import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.WARFileImpl;
-import org.eclipse.jst.j2ee.internal.web.operations.WebSettings;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.web.internal.operation.WebSettings;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class WARImportDataModel extends J2EEModuleImportDataModel {
 	//do not modify this property constant
@@ -50,7 +50,7 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
 	protected J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel() {
 		WebProjectCreationDataModel dm = new WebProjectCreationDataModel();
@@ -84,7 +84,7 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#getType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#getType()
 	 */
 	protected int getType() {
 		return XMLResource.WEB_APP_TYPE;
@@ -93,7 +93,7 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#validateModuleType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#validateModuleType()
 	 */
 	protected IStatus validateModuleType() {
 		if (moduleFile instanceof WARFile)
@@ -106,7 +106,7 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#setUpArchiveFile()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#setUpArchiveFile()
 	 */
 	protected boolean openArchive(String uri) throws OpenFailureException {
 		moduleFile = CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), uri);

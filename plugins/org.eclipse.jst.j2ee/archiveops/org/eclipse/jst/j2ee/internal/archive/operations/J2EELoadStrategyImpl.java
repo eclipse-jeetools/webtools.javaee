@@ -30,12 +30,12 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.Resource.Factory.Registry;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.ArchiveRuntimeException;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategyImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
@@ -348,7 +348,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategyImpl#initializeResourceSet()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commonarchivecore.strategy.LoadStrategyImpl#initializeResourceSet()
 	 */
 	protected void initializeResourceSet() {
 		resourceSet = WorkbenchResourceHelper.getResourceSet(project);
@@ -364,7 +364,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategyImpl#getAbsolutePath()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commonarchivecore.strategy.LoadStrategyImpl#getAbsolutePath()
 	 */
 	public String getAbsolutePath() throws FileNotFoundException {
 		return project.getLocation().toOSString();

@@ -37,13 +37,13 @@ import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl#getEnvironmentProperties <em>Environment Properties</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl#getResourceRefs <em>Resource Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl#getEjbRefs <em>Ejb Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl#getResourceEnvRefs <em>Resource Env Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl#getMessageDestinationRefs <em>Message Destination Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.JNDIEnvRefsGroupImpl#getServiceRefs <em>Service Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl#getEnvironmentProperties <em>Environment Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl#getResourceRefs <em>Resource Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl#getEjbRefs <em>Ejb Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl#getResourceEnvRefs <em>Resource Env Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl#getMessageDestinationRefs <em>Message Destination Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.JNDIEnvRefsGroupImpl#getServiceRefs <em>Service Refs</em>}</li>
  * </ul>
  * </p>
  *

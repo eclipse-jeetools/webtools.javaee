@@ -15,7 +15,7 @@ import org.eclipse.wst.server.core.model.IProjectModule;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
 public class StaticWebDeployableFactory extends ProjectModuleFactoryDelegate {
-	private static final String ID = "org.eclipse.jst.j2ee.internal.web.deployables.static"; //$NON-NLS-1$
+	private static final String ID = "org.eclipse.jst.j2ee.internal.internal.internal.web.deployables.static"; //$NON-NLS-1$
 
 	/*
 	 * @see DeployableProjectFactoryDelegate#getFactoryID()

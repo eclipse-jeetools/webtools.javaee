@@ -33,10 +33,10 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getServiceInterface <em>Service Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getWsdlServiceName <em>Wsdl Service Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getPortMappings <em>Port Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getServiceInterface <em>Service Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getWsdlServiceName <em>Wsdl Service Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceInterfaceMappingImpl#getPortMappings <em>Port Mappings</em>}</li>
  * </ul>
  * </p>
  *

@@ -20,8 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationOperation;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationOperation;
 
 
 /**
@@ -41,7 +41,7 @@ public class JavaUtilityJARProjectCreationOperation extends J2EEProjectCreationO
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationOperation#createProject(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationOperation#createProject(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		JavaProjectCreationDataModel projectModel = (JavaProjectCreationDataModel) ((J2EEProjectCreationDataModel) operationDataModel).getProjectDataModel();
@@ -52,7 +52,7 @@ public class JavaUtilityJARProjectCreationOperation extends J2EEProjectCreationO
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		createProject(monitor);

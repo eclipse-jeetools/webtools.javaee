@@ -28,10 +28,10 @@ import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.QNameImpl#getNamespaceURI <em>Namespace URI</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.QNameImpl#getLocalPart <em>Local Part</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.QNameImpl#getCombinedQName <em>Combined QName</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.QNameImpl#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.QNameImpl#getNamespaceURI <em>Namespace URI</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.QNameImpl#getLocalPart <em>Local Part</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.QNameImpl#getCombinedQName <em>Combined QName</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.QNameImpl#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}</li>
  * </ul>
  * </p>
  *
@@ -396,7 +396,7 @@ public class QNameImpl extends EObjectImpl implements QName {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.QName#setValues(java.lang.String, java.lang.String, java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.common.QName#setValues(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void setValues(String prefix, String nsURI, String localPart) {
 		setInternalPrefixOrNsURIGen(prefix);

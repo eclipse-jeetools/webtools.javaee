@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.EjbRef;
@@ -36,6 +35,7 @@ import org.eclipse.jst.j2ee.common.ResourceRef;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl;
 import org.eclipse.jst.j2ee.common.util.CommonUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 
 

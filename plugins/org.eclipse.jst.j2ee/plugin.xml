@@ -6,7 +6,7 @@
    description="Responsible for creation, deletion and modification of various J2EE modules including ear, application client."
    version="1.0.0"
    provider-name="IBM"
-   class="org.eclipse.jst.j2ee.plugin.J2EEPlugin">
+   class="org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin">
 
    <runtime>
 <!-- ejb jars ========================== -->
@@ -58,18 +58,18 @@
 <!-- This extension-point sends notification to all extensions when J2EEModules are imported.
         Each extension can specify a set of different module types to listen for or listen to them
         all.  The default is to receive notification for all module types.  Notification is sent
-        to the specified class implementing org.eclipse.jst.j2ee.J2EEModulePostImportHandler
+        to the specified class implementing org.eclipse.jst.j2ee.internal.internal.J2EEModulePostImportHandler
 		
 		Both of the following examples register for notification for all J2EEModule types, the first
 		uses the defaults, while the second specifies each module type.  To listen for only specific
 		module types, use the second example and specify only the types to listen to.        
         
-    <extension point="org.eclipse.jst.j2ee.J2EEModulePostImport">
-        <postImport className="org.eclipse.jst.j2ee.tests.extensions.ModulePostImportTestDefault"></postImport>
+    <extension point="org.eclipse.jst.j2ee.internal.internal.J2EEModulePostImport">
+        <postImport className="org.eclipse.jst.j2ee.internal.internal.tests.extensions.ModulePostImportTestDefault"></postImport>
     </extension>
         
-    <extension point="org.eclipse.jst.j2ee.J2EEModulePostImport">
-    	<postImport className="org.eclipse.jst.j2ee.tests.extensions.ModulePostImportTestAll"></postImport>
+    <extension point="org.eclipse.jst.j2ee.internal.internal.J2EEModulePostImport">
+    	<postImport className="org.eclipse.jst.j2ee.internal.internal.tests.extensions.ModulePostImportTestAll"></postImport>
     	<module type="WEB"></module>
     	<module type="EJB"></module>
     	<module type="ApplicationClient"></module>
@@ -258,7 +258,7 @@
          point="org.eclipse.core.resources.builders">
       <builder>
          <run
-               class="org.eclipse.jst.j2ee.plugin.LibCopyBuilder">
+               class="org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder">
          </run>
       </builder>
    </extension>
@@ -396,9 +396,9 @@
    </extension>
    <extension
          name="J2EE tools function group"
-         point="org.eclipse.wst.common.frameworks.functionGroup">
+         point="org.eclipse.wst.common.frameworks.internals.functionGroup">
       <functionGroup
-            initializerClassName="org.eclipse.jst.j2ee.plugin.J2EEGroupInitializer"
+            initializerClassName="org.eclipse.jst.j2ee.internal.plugin.J2EEGroupInitializer"
             name="J2EE Core tools"
             functionGroupID="com.ibm.wtp.j2ee"
             priority="0"
@@ -413,9 +413,9 @@
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.common.provider.CommonItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.common.internal.provider.CommonItemProviderAdapterFactory"
             packageURI="common.xmi"
-            id="org.eclipse.jst.j2ee.common.provider.CommonItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.common.internal.provider.CommonItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
@@ -454,10 +454,10 @@
       </adapterFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
+         point="org.eclipse.wst.common.frameworks.internals.ExtendableOperation">
       <extendableOperation
-            class="org.eclipse.jst.j2ee.reference.MessageDestReferenceCreationOperation"
-            id="org.eclipse.jst.j2ee.reference.MessageDestReferenceCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.reference.MessageDestReferenceCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.reference.MessageDestReferenceCreationOperation">
       </extendableOperation>
     </extension>
 <!-- ==================================================================== -->
@@ -469,17 +469,17 @@
          point="org.eclipse.wst.server.core.moduleObjectAdapters">
       <moduleObjectAdapter
             objectClass="org.eclipse.jst.j2ee.application.Application"
-            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ear1">
       </moduleObjectAdapter>
       <moduleObjectAdapter
             objectClass="org.eclipse.core.resources.IProject"
-            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ear2">
       </moduleObjectAdapter>
       <moduleObjectAdapter
             objectClass="org.eclipse.core.resources.IFile"
-            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ear3">
       </moduleObjectAdapter>
    </extension>
@@ -493,7 +493,7 @@
             label="%appClient12DeployableLabel"
             projects="true"
             icon="icons/full/obj16/appclient_12_deploy.gif"
-            class="org.eclipse.jst.j2ee.deployables.ApplicationClientDeployableFactory"
+            class="org.eclipse.jst.j2ee.internal.deployables.ApplicationClientDeployableFactory"
             id="com.ibm.wtp.server.j2ee.appclient">
          <moduleType
                versions="*"
@@ -504,7 +504,7 @@
             label="%ear12DeployableLabel"
             projects="true"
             icon="icons/full/obj16/12_ear_deploy.gif"
-            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableFactory"
+            class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableFactory"
             id="com.ibm.wtp.server.j2ee.application">
          <moduleType
                versions="*"
@@ -515,7 +515,7 @@
             projects="true"
             icon="icons/full/obj16/jarproject_deploy.gif"
             index="20"
-            class="org.eclipse.jst.j2ee.deployables.LooseArchiveDeployableFactory"
+            class="org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory"
             id="com.ibm.wtp.server.looseArchive">
          <moduleType
                versions="*"
@@ -530,7 +530,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
             editModelID="com.ibm.wtp.webservice.ejb.editModel"
-            factoryClass="org.eclipse.jst.j2ee.webservices.EjbProjectWebServiceEditModelFactory">
+            factoryClass="org.eclipse.jst.j2ee.internal.webservices.EjbProjectWebServiceEditModelFactory">
          <editModelResource
                URI="META-INF/webservices.xml"
                autoload="true">
@@ -543,7 +543,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
             editModelID="com.ibm.wtp.webservice.web.editModel"
-            factoryClass="org.eclipse.jst.j2ee.webservices.WebProjectWebServiceEditModelFactory">
+            factoryClass="org.eclipse.jst.j2ee.internal.webservices.WebProjectWebServiceEditModelFactory">
          <editModelResource
                URI="WEB-INF/webservices.xml"
                autoload="true">
@@ -553,10 +553,10 @@
    <extension
          id="editModel.appClientWebService"
          name="Web Service Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.editModel">
       <editModel
             editModelID="com.ibm.wtp.webservice.appClient.editModel"
-            factoryClass="org.eclipse.jst.j2ee.webservices.AppClientProjectWebServiceEditModelFactory">
+            factoryClass="org.eclipse.jst.j2ee.internal.webservices.AppClientProjectWebServiceEditModelFactory">
          <editModelResource
                URI="META-INF/webservices.xml"
                autoload="true">
@@ -570,23 +570,23 @@
    <extension
          point="org.eclipse.wst.common.frameworks.ExtendableOperation">
       <extendableOperation
-            class="org.eclipse.jst.j2ee.common.operations.RemoveSecurityRoleOperation"
-            id="org.eclipse.jst.j2ee.common.operations.RemoveSecurityRoleOperation">
+            class="org.eclipse.jst.j2ee.internal.common.operations.RemoveSecurityRoleOperation"
+            id="org.eclipse.jst.j2ee.internal.common.operations.RemoveSecurityRoleOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.operations.EJBRelationshipCreationOperation"
-            id="org.eclipse.jst.j2ee.ejb.operations.EJBRelationshipCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.operations.EJBRelationshipCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.operations.EJBRelationshipCreationOperation">
       </extendableOperation>
    </extension>
    <extension
          point="org.eclipse.wst.common.frameworks.ExtendableOperation">
       <extendableOperation
-            class="org.eclipse.jst.j2ee.reference.EJBReferenceCreationOperation"
-            id="org.eclipse.jst.j2ee.reference.EJBReferenceCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.reference.EJBReferenceCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.reference.EJBReferenceCreationOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.delete.DeleteModuleOperation"
-            id="org.eclipse.jst.j2ee.delete.DeleteModuleOperation">     
+            class="org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation"
+            id="org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation">     
 	   </extendableOperation>             
    </extension>
 <!-- .j2ee file migration contributions -->

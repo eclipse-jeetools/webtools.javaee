@@ -24,7 +24,7 @@ public class EJBAttributeMaintenanceFactoryImpl extends EjbAdapterFactory {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.util.EjbAdapterFactory#createAdapter(org.eclipse.emf.common.notify.Notifier)
+	 * @see org.eclipse.jst.j2ee.internal.ejb.util.EjbAdapterFactory#createAdapter(org.eclipse.emf.common.notify.Notifier)
 	 */
 	public Adapter createAdapter(Notifier target) {
 		Adapter targetAdapter = (Adapter) modelSwitch.doSwitch((EObject)target);

@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.taglib.TaglibPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.ExtensibleTypeImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.ExtensibleTypeImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *

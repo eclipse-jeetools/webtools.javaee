@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -42,6 +40,8 @@ import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.QueryMethod;
 import org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind;
 import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 

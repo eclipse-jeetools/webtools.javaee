@@ -8,14 +8,14 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 public class RARImportDataModel extends J2EEModuleImportDataModel {
 
@@ -27,7 +27,7 @@ public class RARImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
 	protected J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel() {
 		return new ConnectorProjectCreationDataModel();
@@ -36,7 +36,7 @@ public class RARImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#getType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#getType()
 	 */
 	protected int getType() {
 		return XMLResource.RAR_TYPE;
@@ -45,7 +45,7 @@ public class RARImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#setUpArchiveFile()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#setUpArchiveFile()
 	 */
 	protected boolean openArchive(String uri) throws OpenFailureException {
 		moduleFile = CommonarchiveFactory.eINSTANCE.openRARFile(getArchiveOptions(), uri);

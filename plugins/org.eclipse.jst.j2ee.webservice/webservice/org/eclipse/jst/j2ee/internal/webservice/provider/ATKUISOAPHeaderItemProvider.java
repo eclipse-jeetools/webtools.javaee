@@ -13,6 +13,8 @@ import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader;
 
 
+
+
 public class ATKUISOAPHeaderItemProvider extends SOAPHeaderItemProvider implements ITableItemLabelProvider {
 	public ATKUISOAPHeaderItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);

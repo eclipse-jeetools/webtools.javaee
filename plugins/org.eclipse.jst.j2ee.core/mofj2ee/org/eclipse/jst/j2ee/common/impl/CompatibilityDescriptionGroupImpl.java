@@ -19,13 +19,13 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.DisplayName;
 import org.eclipse.jst.j2ee.common.IconType;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 
 /**
@@ -35,10 +35,10 @@ import org.eclipse.jst.j2ee.common.IconType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl#getDisplayName <em>Display Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -380,7 +380,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup#setDisplayName(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup#setDisplayName(java.lang.String)
 	 */
 	public void setDisplayName(String newDisplayName) {
 		if(eResource() == null) {

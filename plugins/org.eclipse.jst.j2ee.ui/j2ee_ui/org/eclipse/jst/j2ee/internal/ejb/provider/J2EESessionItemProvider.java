@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 
 /**

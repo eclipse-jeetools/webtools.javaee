@@ -14,9 +14,9 @@
  */
 package org.eclipse.jst.j2ee.internal.model.translator.ejb;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.model.translator.common.JavaClassTranslator;
 import org.eclipse.jst.j2ee.internal.xml.EjbDeploymentDescriptorXmlMapperI;

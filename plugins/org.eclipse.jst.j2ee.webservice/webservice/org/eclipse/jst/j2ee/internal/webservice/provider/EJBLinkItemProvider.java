@@ -24,13 +24,13 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.EJBLink}object.
  * <!-- begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

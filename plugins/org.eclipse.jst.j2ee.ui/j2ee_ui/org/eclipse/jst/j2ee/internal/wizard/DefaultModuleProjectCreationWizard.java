@@ -23,9 +23,9 @@ import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationD
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 /**
  * @author DABERG
@@ -73,7 +73,7 @@ public class DefaultModuleProjectCreationWizard extends WTPWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		return new DefaultModuleProjectCreationDataModel();
@@ -82,7 +82,7 @@ public class DefaultModuleProjectCreationWizard extends WTPWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createOperation() {
 		if (model.getBooleanProperty(DefaultModuleProjectCreationDataModel.ENABLED))

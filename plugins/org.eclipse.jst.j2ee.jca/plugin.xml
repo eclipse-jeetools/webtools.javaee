@@ -6,7 +6,7 @@
    description="A non-ui plugin containing apis to work with J2EE Connector modules.  The JCA EditModel is defined in this plugin.  No extension points are defined here."
    version="1.0.0"
    provider-name="IBM"
-   class="org.eclipse.jst.j2ee.jca.plugin.JcaPlugin">
+   class="org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin">
 
    <runtime>
       <library name="runtime/jca.jar">
@@ -68,16 +68,16 @@
    <extension
          id="JcaModuleExtension"
          name="JcaModuleExtension"
-         point="org.eclipse.jst.j2ee.EARModuleExtension">
+         point="org.eclipse.jst.j2ee.internal.EARModuleExtension">
       <earModuleExtension
-            extensionClass="org.eclipse.jst.j2ee.jca.plugin.JcaModuleExtensionImpl">
+            extensionClass="org.eclipse.jst.j2ee.internal.jca.plugin.JcaModuleExtensionImpl">
       </earModuleExtension>
    </extension>
    <extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.jca.provider.JcaItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.internal.jca.provider.JcaItemProviderAdapterFactory"
             packageURI="jca.xmi"
             id="com.ibm.wtp.j2ee.jca.provider.JcaItemProviderAdapterFactory">
       </adapterFactory>
@@ -114,7 +114,7 @@
          point="org.eclipse.wst.server.core.moduleFactories">
       <moduleFactory
             projects="true"
-            class="org.eclipse.jst.j2ee.internal.jca.deployables.Connector1_3DeployableFactory"
+            class="org.eclipse.jst.j2ee.jca.internal.deployables.Connector1_3DeployableFactory"
             id="com.ibm.wtp.server.j2ee.connector13">
          <moduleType
                versions="1.2, 1.3, 1.4"

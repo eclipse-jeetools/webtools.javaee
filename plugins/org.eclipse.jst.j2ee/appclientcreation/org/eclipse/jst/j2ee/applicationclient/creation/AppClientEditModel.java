@@ -12,13 +12,14 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
-import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 
 /**
@@ -26,14 +27,14 @@ import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
  * 
  * @author: Administrator
  */
-public class AppClientEditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
+public class AppClientEditModel extends J2EEEditModel {
 	/**
 	 * AppClientEditModel constructor comment.
 	 * 
 	 * @param aKey
 	 *            java.lang.Object
 	 * @param aNature
-	 *            org.eclipse.jst.j2ee.j2eeproject.J2EENature
+	 *            org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature
 	 */
 	public AppClientEditModel(String editModelID, EMFWorkbenchContext context, boolean readOnly) {
 		super(editModelID, context, readOnly);
@@ -86,7 +87,7 @@ public class AppClientEditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#getRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#getRootObject()
 	 */
 	public Object getRootObject() {
 		return getApplicationClient();
@@ -96,7 +97,7 @@ public class AppClientEditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#get13WebServicesClientResource()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#get13WebServicesClientResource()
 	 */
 	public WebServicesResource get13WebServicesClientResource() {
 		return (WebServicesResource) getResource(J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ);

@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping}object. <!--
+ * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping}object. <!--
  * begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

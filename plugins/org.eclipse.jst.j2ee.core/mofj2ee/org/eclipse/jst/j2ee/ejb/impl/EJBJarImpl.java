@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.common.impl.CompatibilityDescriptionGroupImpl;
@@ -42,6 +41,7 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.Relationships;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 /**
  * The root element of the EJB deployment descriptor. It contains an optional description of the ejb-jar file; optional display name; optional small icon file name; optional large icon file
@@ -122,7 +122,7 @@ public boolean containsContainerManagedBeans() {
 	return false;
 }
 /**
- * @see org.eclipse.jst.j2ee.ejb.EJBJar
+ * @see org.eclipse.jst.j2ee.internal.ejb.EJBJar
  */
 public boolean containsSecurityRole(java.lang.String name) {
 	AssemblyDescriptor ad = getAssemblyDescriptor();
@@ -305,7 +305,7 @@ public boolean isVersion2_0Descriptor()  {
 	return ejbRes.isEJB2_0();
 }
 /**
- * @see org.eclipse.jst.j2ee.ejb.EJBJar
+ * @see org.eclipse.jst.j2ee.internal.ejb.EJBJar
  */
 public void renameSecurityRole(java.lang.String existingRoleName, java.lang.String newRoleName) {
 	AssemblyDescriptor ad = getAssemblyDescriptor();

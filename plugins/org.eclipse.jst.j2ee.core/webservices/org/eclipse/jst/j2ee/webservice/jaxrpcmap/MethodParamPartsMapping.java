@@ -20,14 +20,14 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getParamPosition <em>Param Position</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getParamType <em>Param Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getWsdlMessageMapping <em>Wsdl Message Mapping</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getParamPosition <em>Param Position</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getParamType <em>Param Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getWsdlMessageMapping <em>Wsdl Message Mapping</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping()
  * @model 
  * @generated
  */
@@ -42,14 +42,14 @@ public interface MethodParamPartsMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -68,14 +68,14 @@ public interface MethodParamPartsMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Param Position</em>' attribute.
    * @see #setParamPosition(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_ParamPosition()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_ParamPosition()
    * @model 
    * @generated
    */
   String getParamPosition();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getParamPosition <em>Param Position</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getParamPosition <em>Param Position</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Param Position</em>' attribute.
@@ -94,14 +94,14 @@ public interface MethodParamPartsMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Param Type</em>' attribute.
    * @see #setParamType(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_ParamType()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_ParamType()
    * @model 
    * @generated
    */
   String getParamType();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getParamType <em>Param Type</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getParamType <em>Param Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Param Type</em>' attribute.
@@ -120,14 +120,14 @@ public interface MethodParamPartsMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Message Mapping</em>' containment reference.
    * @see #setWsdlMessageMapping(WSDLMessageMapping)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_WsdlMessageMapping()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getMethodParamPartsMapping_WsdlMessageMapping()
    * @model containment="true" required="true"
    * @generated
    */
   WSDLMessageMapping getWsdlMessageMapping();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping#getWsdlMessageMapping <em>Wsdl Message Mapping</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping#getWsdlMessageMapping <em>Wsdl Message Mapping</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Message Mapping</em>' containment reference.

@@ -18,12 +18,11 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.deployables.J2EEDeployable;
-import org.eclipse.jst.j2ee.deployables.LooseArchiveDeployable;
-import org.eclipse.jst.j2ee.deployables.LooseArchiveDeployableFactory;
+import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployable;
+import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
+import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
-import org.eclipse.jst.j2ee.internal.web.operations.ILibModule;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.server.j2ee.ILooseArchive;
@@ -33,6 +32,7 @@ import org.eclipse.wst.server.core.IModuleFactory;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.model.IModule;
 import org.eclipse.wst.server.core.model.IModuleFactoryDelegate;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
  * @version 1.0

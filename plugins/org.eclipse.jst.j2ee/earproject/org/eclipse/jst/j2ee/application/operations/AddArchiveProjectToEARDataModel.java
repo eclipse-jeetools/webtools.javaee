@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -58,7 +58,7 @@ public abstract class AddArchiveProjectToEARDataModel extends EditModelOperation
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#init()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#init()
 	 */
 	protected void init() {
 		super.init();
@@ -128,7 +128,7 @@ public abstract class AddArchiveProjectToEARDataModel extends EditModelOperation
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(ARCHIVE_URI))

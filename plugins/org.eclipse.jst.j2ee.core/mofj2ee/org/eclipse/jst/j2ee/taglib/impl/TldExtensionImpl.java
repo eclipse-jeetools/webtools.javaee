@@ -34,8 +34,8 @@ import org.eclipse.jst.j2ee.taglib.TldExtension;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.TldExtensionImpl#getNamespace <em>Namespace</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.TldExtensionImpl#getExtensionElements <em>Extension Elements</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.TldExtensionImpl#getNamespace <em>Namespace</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.TldExtensionImpl#getExtensionElements <em>Extension Elements</em>}</li>
  * </ul>
  * </p>
  *

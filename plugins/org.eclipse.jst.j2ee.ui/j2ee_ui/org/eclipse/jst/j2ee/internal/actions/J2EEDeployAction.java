@@ -23,14 +23,14 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jst.j2ee.deploy.DeployerRegistry;
-import org.eclipse.jst.j2ee.deploy.J2EEDeployOperation;
+import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
+import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.plugin.J2EEPluginResourceHandler;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.progress.IProgressService;
-import org.eclipse.wst.common.framework.operation.WTPOperationJobAdapter;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationJobAdapter;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -46,7 +46,7 @@ public class J2EEDeployAction extends BaseAction {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.ui.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ui.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
 	protected void primRun(Shell shell) {
 

@@ -21,7 +21,7 @@ public interface Defaultor {
  * currently default and not contained.
  * Creation date: (6/15/2001 4:59:28 PM)
  * @return boolean
- * @param aDefaultable org.eclipse.jst.j2ee.common.util.Defaultable
+ * @param aDefaultable org.eclipse.jst.j2ee.internal.common.util.Defaultable
  */
 boolean isDefault(Defaultable aDefaultable);
 }

@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersRe
 
 /**
  * This extended item provider supports the following commands:
- * {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}. The commands are implemented uniformly
+ * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}. The commands are implemented uniformly
  * on all our item adapters using this common base class.
  */
 public class ClientItemProviderAdapter extends ItemProviderAdapter implements org.eclipse.jst.j2ee.internal.application.common.CreateChildCommand.Helper {
@@ -38,7 +38,7 @@ public class ClientItemProviderAdapter extends ItemProviderAdapter implements or
 
 	/**
 	 * This implements the default behavior for
-	 * {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		return null;
@@ -55,14 +55,14 @@ public class ClientItemProviderAdapter extends ItemProviderAdapter implements or
 	}
 
 	/**
-	 * This returns the default image for {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * This returns the default image for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
-		return org.eclipse.jst.j2ee.plugin.J2EEPlugin.getPlugin().getImage("CreateChild"); //$NON-NLS-1$
+		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getImage("CreateChild"); //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the default label for {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * This returns the default label for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("Create_Child_UI_"); //$NON-NLS-1$
@@ -70,7 +70,7 @@ public class ClientItemProviderAdapter extends ItemProviderAdapter implements or
 
 	/**
 	 * This returns the default help text for
-	 * {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

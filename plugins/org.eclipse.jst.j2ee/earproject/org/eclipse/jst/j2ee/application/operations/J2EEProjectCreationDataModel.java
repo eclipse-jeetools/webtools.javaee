@@ -19,13 +19,13 @@ package org.eclipse.jst.j2ee.application.operations;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
 /**
@@ -64,7 +64,7 @@ public abstract class J2EEProjectCreationDataModel extends EditModelOperationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		// TODO What concreate operation should be returned?
@@ -100,7 +100,7 @@ public abstract class J2EEProjectCreationDataModel extends EditModelOperationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -145,7 +145,7 @@ public abstract class J2EEProjectCreationDataModel extends EditModelOperationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(PROJECT_NAME)) {
@@ -168,7 +168,7 @@ public abstract class J2EEProjectCreationDataModel extends EditModelOperationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CREATE_DEFAULT_FILES) || propertyName.equals(ADD_SERVER_TARGET) || propertyName.equals(IS_ENABLED)) {
@@ -180,7 +180,7 @@ public abstract class J2EEProjectCreationDataModel extends EditModelOperationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#isResultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#isResultProperty(java.lang.String)
 	 */
 	protected boolean isResultProperty(String propertyName) {
 		if (propertyName.equals(FINAL_PERSPECTIVE))

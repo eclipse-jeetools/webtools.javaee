@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.jca.impl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;

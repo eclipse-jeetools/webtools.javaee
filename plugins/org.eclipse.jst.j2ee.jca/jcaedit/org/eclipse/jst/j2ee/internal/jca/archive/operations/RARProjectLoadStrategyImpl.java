@@ -25,13 +25,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.ArchiveRuntimeException;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 
@@ -64,7 +64,7 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl#getFiles()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.archive.operations.J2EELoadStrategyImpl#getFiles()
 	 */
 	public List getFiles() {
 		List files = super.getFiles();
@@ -73,14 +73,14 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl#getFiles(List)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.archive.operations.J2EELoadStrategyImpl#getFiles(List)
 	 */
 	protected ArrayList getFiles(List projectResources) throws Exception {
 		return super.getFiles(projectResources);
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl#shouldInclude(IContainer)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.archive.operations.J2EELoadStrategyImpl#shouldInclude(IContainer)
 	 */
 	protected boolean shouldInclude(IContainer iContainer) {
 		return moduleRoot.equals(iContainer) || !getSourceFolders().contains(iContainer);
@@ -205,7 +205,7 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl#shouldInclude(String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.archive.operations.J2EELoadStrategyImpl#shouldInclude(String)
 	 */
 	protected boolean shouldInclude(String uri) {
 		return !hasExtension(uri, ArchiveUtil.DOT_CLASS) && !hasExtension(uri, ArchiveUtil.DOT_JAVA);

@@ -26,27 +26,29 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEEditModel;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
-import org.eclipse.jst.j2ee.webservices.WebServiceEditModel;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.web.internal.operation.ILibModule;
+import org.eclipse.wst.web.internal.operation.WebSettings;
 
 import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -170,7 +172,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEVersion()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEVersion()
 	 */
 	public int getJ2EEVersion() {
 		int j2eeVersion;
@@ -223,7 +225,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 		return null;
 	}
 
-	public org.eclipse.jst.j2ee.commonarchivecore.WARFile asWARFile() throws OpenFailureException {
+	public org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile asWARFile() throws OpenFailureException {
 		if (getWebNatureType() == IWebNatureConstants.J2EE_WEB_PROJECT) {
 			IProject proj = getProject();
 			if (proj == null)
@@ -316,7 +318,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature
 	 */
 	public Module createNewModule() {
 		return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createWebModule();
@@ -484,7 +486,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getEditModelKey()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getEditModelKey()
 	 */
 	public String getEditModelKey() {
 		return EDIT_MODEL_ID;
@@ -980,7 +982,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		return getWebApp();
@@ -989,7 +991,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getVersionFromModuleFile()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getVersionFromModuleFile()
 	 */
 	protected int getVersionFromModuleFile() {
 		WebApp ddRoot = getWebApp();
@@ -1002,7 +1004,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
 	 */
 	public J2EEEditModel getJ2EEEditModelForRead(Object accessorKey) {
 		return getWebAppEditModelForRead(accessorKey);
@@ -1011,7 +1013,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
 	 */
 	public J2EEEditModel getJ2EEEditModelForWrite(Object accessorKey) {
 		return getWebAppEditModelForWrite(accessorKey);

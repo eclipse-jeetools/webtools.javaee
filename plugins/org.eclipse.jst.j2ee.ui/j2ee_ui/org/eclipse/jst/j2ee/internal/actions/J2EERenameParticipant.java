@@ -32,7 +32,7 @@ import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.ltk.core.refactoring.participants.CheckConditionsContext;
 import org.eclipse.ltk.core.refactoring.participants.RenameParticipant;
-import org.eclipse.wst.common.framework.AdaptabilityUtility;
+import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 
 
 /**

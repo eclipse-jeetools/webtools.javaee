@@ -34,10 +34,10 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.InitParamImpl#getParamName <em>Param Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.InitParamImpl#getParamValue <em>Param Value</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.InitParamImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.InitParamImpl#getDescriptionTypes <em>Description Types</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.InitParamImpl#getParamName <em>Param Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.InitParamImpl#getParamValue <em>Param Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.InitParamImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.InitParamImpl#getDescriptionTypes <em>Description Types</em>}</li>
  * </ul>
  * </p>
  *

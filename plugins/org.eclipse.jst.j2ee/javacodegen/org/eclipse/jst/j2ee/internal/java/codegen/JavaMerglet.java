@@ -66,7 +66,7 @@ public abstract class JavaMerglet implements IJavaMerglet {
 	/**
 	 * Returns the associated merge strategy.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.IJavaMergeStrategy
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.IJavaMergeStrategy
 	 */
 	protected IJavaMergeStrategy getJavaMergeStrategy() {
 		return fJavaMergeStrategy;

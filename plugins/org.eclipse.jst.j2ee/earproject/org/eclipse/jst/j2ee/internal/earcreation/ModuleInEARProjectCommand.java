@@ -141,7 +141,7 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 	/**
 	 * Insert the method's description here. Creation date: (3/29/2001 11:44:01 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.application.Module
+	 * @return org.eclipse.jst.j2ee.internal.internal.application.Module
 	 */
 	public Module getModule() {
 		return module;
@@ -239,7 +239,7 @@ public abstract class ModuleInEARProjectCommand extends AbstractCommand {
 	 * Insert the method's description here. Creation date: (3/29/2001 11:44:01 PM)
 	 * 
 	 * @param newAddedModule
-	 *            org.eclipse.jst.j2ee.application.Module
+	 *            org.eclipse.jst.j2ee.internal.internal.application.Module
 	 */
 	public void setModule(Module module) {
 		this.module = module;

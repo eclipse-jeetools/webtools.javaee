@@ -29,8 +29,8 @@ import org.eclipse.jst.j2ee.jca.MessageListener;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.MessageListenerImpl#getMessageListenerType <em>Message Listener Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.MessageListenerImpl#getActivationSpec <em>Activation Spec</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.MessageListenerImpl#getMessageListenerType <em>Message Listener Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.MessageListenerImpl#getActivationSpec <em>Activation Spec</em>}</li>
  * </ul>
  * </p>
  *

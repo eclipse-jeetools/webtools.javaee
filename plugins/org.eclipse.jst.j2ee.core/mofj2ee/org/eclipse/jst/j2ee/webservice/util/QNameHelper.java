@@ -11,9 +11,9 @@
 
 package org.eclipse.jst.j2ee.webservice.util;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.common.QName;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 
 

@@ -41,7 +41,7 @@ public class MergeResults {
 	 * Returns the analysis result from the merge. The generator may return this analysis result
 	 * from analyze or another result instead of or merged with this result.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.codegen.helpers.AnalysisResult
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.codegen.helpers.AnalysisResult
 	 */
 	public org.eclipse.jst.j2ee.internal.codegen.AnalysisResult getAnalysisResult() {
 		return fAnalysisResult;
@@ -128,7 +128,7 @@ public class MergeResults {
 	 * Sets the analysis result for the merge. Typically called by a merglet.
 	 * 
 	 * @param newAnalysisResult
-	 *            org.eclipse.jst.j2ee.internal.codegen.helpers.AnalysisResult
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.codegen.helpers.AnalysisResult
 	 */
 	public void setAnalysisResult(org.eclipse.jst.j2ee.internal.codegen.AnalysisResult newAnalysisResult) {
 		fAnalysisResult = newAnalysisResult;

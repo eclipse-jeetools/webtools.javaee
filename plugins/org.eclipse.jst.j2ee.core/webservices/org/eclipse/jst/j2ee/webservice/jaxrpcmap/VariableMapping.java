@@ -20,16 +20,16 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getJavaVariableName <em>Java Variable Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getXmlElementName <em>Xml Element Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getXmlAttributeName <em>Xml Attribute Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getJavaVariableName <em>Java Variable Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getXmlElementName <em>Xml Element Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getXmlAttributeName <em>Xml Attribute Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping()
  * @model 
  * @generated
  */
@@ -44,14 +44,14 @@ public interface VariableMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -70,14 +70,14 @@ public interface VariableMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Java Variable Name</em>' attribute.
    * @see #setJavaVariableName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_JavaVariableName()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_JavaVariableName()
    * @model 
    * @generated
    */
   String getJavaVariableName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getJavaVariableName <em>Java Variable Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getJavaVariableName <em>Java Variable Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Java Variable Name</em>' attribute.
@@ -96,14 +96,14 @@ public interface VariableMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Xml Element Name</em>' attribute.
    * @see #setXmlElementName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_XmlElementName()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_XmlElementName()
    * @model 
    * @generated
    */
   String getXmlElementName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getXmlElementName <em>Xml Element Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getXmlElementName <em>Xml Element Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Xml Element Name</em>' attribute.
@@ -124,14 +124,14 @@ public interface VariableMapping extends EObject{
    * @see #isSetDataMember()
    * @see #unsetDataMember()
    * @see #setDataMember(boolean)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_DataMember()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_DataMember()
    * @model unsettable="true"
    * @generated
    */
   boolean isDataMember();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Data Member</em>' attribute.
@@ -143,7 +143,7 @@ public interface VariableMapping extends EObject{
   void setDataMember(boolean value);
 
   /**
-   * Unsets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}' attribute.
+   * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #isSetDataMember()
@@ -154,7 +154,7 @@ public interface VariableMapping extends EObject{
   void unsetDataMember();
 
   /**
-   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}' attribute is set.
+   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isDataMember <em>Data Member</em>}' attribute is set.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return whether the value of the '<em>Data Member</em>' attribute is set.
@@ -175,14 +175,14 @@ public interface VariableMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Xml Attribute Name</em>' attribute.
    * @see #setXmlAttributeName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_XmlAttributeName()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_XmlAttributeName()
    * @model 
    * @generated
    */
   String getXmlAttributeName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#getXmlAttributeName <em>Xml Attribute Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#getXmlAttributeName <em>Xml Attribute Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Xml Attribute Name</em>' attribute.
@@ -203,14 +203,14 @@ public interface VariableMapping extends EObject{
    * @see #isSetXmlWildcard()
    * @see #unsetXmlWildcard()
    * @see #setXmlWildcard(boolean)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_XmlWildcard()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getVariableMapping_XmlWildcard()
    * @model unsettable="true"
    * @generated
    */
   boolean isXmlWildcard();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Xml Wildcard</em>' attribute.
@@ -222,7 +222,7 @@ public interface VariableMapping extends EObject{
   void setXmlWildcard(boolean value);
 
   /**
-   * Unsets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}' attribute.
+   * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #isSetXmlWildcard()
@@ -233,7 +233,7 @@ public interface VariableMapping extends EObject{
   void unsetXmlWildcard();
 
   /**
-   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}' attribute is set.
+   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping#isXmlWildcard <em>Xml Wildcard</em>}' attribute is set.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return whether the value of the '<em>Xml Wildcard</em>' attribute is set.

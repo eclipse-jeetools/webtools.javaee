@@ -20,8 +20,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 /**

@@ -39,7 +39,7 @@ public class J2EEWebItemProviderAdapterFactory extends WebapplicationItemProvide
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webapplication.util.WebapplicationAdapterFactory#createWebAppAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webapplication.util.WebapplicationAdapterFactory#createWebAppAdapter()
 	 */
 	public Adapter createWebAppAdapter() {
 		if (webAppItemProvider == null)

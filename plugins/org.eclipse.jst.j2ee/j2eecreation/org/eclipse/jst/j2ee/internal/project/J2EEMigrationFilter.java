@@ -17,8 +17,8 @@
 package org.eclipse.jst.j2ee.internal.project;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
-import org.eclipse.wst.common.migration.IMigrationFilter;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.common.internal.migration.IMigrationFilter;
 
 
 /**

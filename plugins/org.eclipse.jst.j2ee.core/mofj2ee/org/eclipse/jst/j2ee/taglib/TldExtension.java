@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.TldExtension#getNamespace <em>Namespace</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.TldExtension#getExtensionElements <em>Extension Elements</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.TldExtension#getNamespace <em>Namespace</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.TldExtension#getExtensionElements <em>Extension Elements</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTldExtension()
+ * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getTldExtension()
  * @model 
  * @generated
  */
@@ -41,14 +41,14 @@ public interface TldExtension extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Namespace</em>' attribute.
 	 * @see #setNamespace(String)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTldExtension_Namespace()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getTldExtension_Namespace()
 	 * @model 
 	 * @generated
 	 */
 	String getNamespace();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.TldExtension#getNamespace <em>Namespace</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.TldExtension#getNamespace <em>Namespace</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Namespace</em>' attribute.
@@ -59,7 +59,7 @@ public interface TldExtension extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Extension Elements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.taglib.ExtensibleType}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.taglib.ExtensibleType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Extension Elements</em>' containment reference list isn't clear,
@@ -67,8 +67,8 @@ public interface TldExtension extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Extension Elements</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getTldExtension_ExtensionElements()
-	 * @model type="org.eclipse.jst.j2ee.taglib.ExtensibleType" containment="true" required="true"
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getTldExtension_ExtensionElements()
+	 * @model type="org.eclipse.jst.j2ee.internal.taglib.ExtensibleType" containment="true" required="true"
 	 * @generated
 	 */
 	EList getExtensionElements();

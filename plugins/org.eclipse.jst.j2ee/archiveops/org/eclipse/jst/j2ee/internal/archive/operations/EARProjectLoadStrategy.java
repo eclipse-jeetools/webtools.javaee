@@ -10,7 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+
 
 
 

@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 
 
 // Non-generated provider code

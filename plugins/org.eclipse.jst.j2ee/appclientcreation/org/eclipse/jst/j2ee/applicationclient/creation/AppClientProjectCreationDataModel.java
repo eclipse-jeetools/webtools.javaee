@@ -17,14 +17,15 @@
 package org.eclipse.jst.j2ee.applicationclient.creation;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
 
 /**
@@ -68,47 +69,51 @@ public class AppClientProjectCreationDataModel extends J2EEModuleCreationDataMod
 		return super.getDefaultProperty(propertyName);
 	}
 
-	protected String convertVersionIDtoLabel(int id) {
-		switch (id) {
-			case J2EEVersionConstants.J2EE_1_2_ID :
-				return J2EEVersionConstants.VERSION_1_2_TEXT;
-			case J2EEVersionConstants.J2EE_1_3_ID :
-				return J2EEVersionConstants.VERSION_1_3_TEXT;
-			case J2EEVersionConstants.J2EE_1_4_ID :
-				return J2EEVersionConstants.VERSION_1_4_TEXT;
+
+	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
+		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			Integer propertyValue = (Integer) getProperty(propertyName);
+			String description = null;
+			switch (propertyValue.intValue()) {
+				case J2EEVersionConstants.J2EE_1_2_ID :
+					description = J2EEVersionConstants.VERSION_1_2_TEXT;
+					break;
+				case J2EEVersionConstants.J2EE_1_3_ID :
+					description = J2EEVersionConstants.VERSION_1_3_TEXT;
+					break;
+				case J2EEVersionConstants.J2EE_1_4_ID :
+				default :
+					description = J2EEVersionConstants.VERSION_1_4_TEXT;
+					break;
+			}
+			return new WTPPropertyDescriptor(propertyValue, description);
 		}
-		return ""; //$NON-NLS-1$
+		return super.doGetPropertyDescriptor(propertyName);
 	}
 
-	protected Integer convertVersionLabeltoID(String label) {
-		int version = -1;
-		if (label.equals(J2EEVersionConstants.VERSION_1_2_TEXT)) {
-			version = J2EEVersionConstants.J2EE_1_2_ID;
-		} else if (label.equals(J2EEVersionConstants.VERSION_1_3_TEXT)) {
-			version = J2EEVersionConstants.J2EE_1_3_ID;
-		} else if (label.equals(J2EEVersionConstants.VERSION_1_4_TEXT)) {
-			version = J2EEVersionConstants.J2EE_1_4_ID;
-		}
-		return new Integer(version);
-	}
-
-	/**
-	 * @return Return a String[] of the valid J2EE versions for the selected J2EE Preference Level.
-	 */
-	protected Object[] getValidJ2EEVersionLabels() {
+	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
+		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
-			case (J2EEVersionConstants.J2EE_1_4_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_2_TEXT, J2EEVersionConstants.VERSION_1_3_TEXT, J2EEVersionConstants.VERSION_1_4_TEXT};
-			case (J2EEVersionConstants.J2EE_1_3_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_2_TEXT, J2EEVersionConstants.VERSION_1_3_TEXT};
-			case (J2EEVersionConstants.J2EE_1_2_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_2_TEXT};
+			case J2EEVersionConstants.J2EE_1_2_ID :
+				descriptors = new WTPPropertyDescriptor[1];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_3_ID :
+				descriptors = new WTPPropertyDescriptor[2];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
+				descriptors[1] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_3_ID), J2EEVersionConstants.VERSION_1_3_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_4_ID :
 			default :
-				return new String[]{J2EEVersionConstants.VERSION_1_2_TEXT, J2EEVersionConstants.VERSION_1_3_TEXT, J2EEVersionConstants.VERSION_1_4_TEXT};
+				descriptors = new WTPPropertyDescriptor[3];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_2_ID), J2EEVersionConstants.VERSION_1_2_TEXT);
+				descriptors[1] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_3_ID), J2EEVersionConstants.VERSION_1_3_TEXT);
+				descriptors[2] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.J2EE_1_4_ID), J2EEVersionConstants.VERSION_1_4_TEXT);
+				break;
 		}
+		return descriptors;
 	}
-
 
 	protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
 		return moduleVersion;
@@ -117,7 +122,7 @@ public class AppClientProjectCreationDataModel extends J2EEModuleCreationDataMod
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#getModuleType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
 	 */
 	protected EClass getModuleType() {
 		return CommonarchiveFactoryImpl.getPackage().getApplicationClientFile();
@@ -126,7 +131,7 @@ public class AppClientProjectCreationDataModel extends J2EEModuleCreationDataMod
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#getModuleExtension()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleExtension()
 	 */
 	protected String getModuleExtension() {
 		return ".jar"; //$NON-NLS-1$

@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParameterMode;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ParameterModeImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ParameterModeImpl#getParameterMode <em>Parameter Mode</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ParameterModeImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ParameterModeImpl#getParameterMode <em>Parameter Mode</em>}</li>
  * </ul>
  * </p>
  *

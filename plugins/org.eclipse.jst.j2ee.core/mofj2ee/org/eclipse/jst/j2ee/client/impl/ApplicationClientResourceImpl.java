@@ -13,10 +13,10 @@ package org.eclipse.jst.j2ee.client.impl;
 
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.common.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.client.ApplicationClientTranslator;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
@@ -137,7 +137,7 @@ public class ApplicationClientResourceImpl extends XMLResourceImpl implements Ap
 			syncVersionOfRootObject();
 		}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.impl.XMLResourceImpl#syncVersionOfRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
 	protected void syncVersionOfRootObject() {
 		ApplicationClient clt = getApplicationClient();

@@ -17,10 +17,10 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.common.J2EECommonMessages;
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author jialin
@@ -38,7 +38,7 @@ public abstract class AddServletFilterListenerCommonDataModel extends J2EEModelM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return null;
@@ -60,7 +60,7 @@ public abstract class AddServletFilterListenerCommonDataModel extends J2EEModelM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(DISPLAY_NAME))

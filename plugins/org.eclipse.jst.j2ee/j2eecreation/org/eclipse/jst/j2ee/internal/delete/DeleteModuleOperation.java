@@ -23,19 +23,19 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.jst.j2ee.J2EEEditModel;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveModuleFromEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.common.emfworkbench.integration.ComposedEditModel;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
-import org.eclipse.wst.common.emfworkbench.integration.LooseComposedEditModel;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ComposedEditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.LooseComposedEditModel;
 
 
 public class DeleteModuleOperation extends WTPOperation {
@@ -247,7 +247,7 @@ public class DeleteModuleOperation extends WTPOperation {
 		deleteEditModel = new LooseComposedEditModel(EDIT_MODEL_KEY, (EMFWorkbenchContext) WorkbenchResourceHelper.getEMFContext(project)) {
 
 			/**
-			 * @see org.eclipse.jst.j2ee.workbench.EditModel#getNonResourceFiles()
+			 * @see org.eclipse.jst.j2ee.internal.internal.workbench.EditModel#getNonResourceFiles()
 			 */
 			public List getNonResourceFiles() {
 				List result = super.getNonResourceFiles();

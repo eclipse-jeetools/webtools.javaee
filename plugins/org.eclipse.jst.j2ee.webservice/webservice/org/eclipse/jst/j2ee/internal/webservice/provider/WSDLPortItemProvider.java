@@ -22,13 +22,13 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jst.j2ee.common.provider.QNameItemProvider;
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.common.internal.provider.QNameItemProvider;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WSDLPort}object.
  * <!-- begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

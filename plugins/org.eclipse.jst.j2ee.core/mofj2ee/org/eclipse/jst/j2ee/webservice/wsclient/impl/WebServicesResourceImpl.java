@@ -18,9 +18,9 @@ package org.eclipse.jst.j2ee.webservice.wsclient.impl;
 
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.webservices.WebServicesTranslator;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
@@ -136,7 +136,7 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 		return WEBSERVICES_1_0_ID;
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.impl.XMLResourceImpl#syncVersionOfRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
 	protected void syncVersionOfRootObject() {
 		//not model for J2EE 1.4 so no operation required.

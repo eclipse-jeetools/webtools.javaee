@@ -26,15 +26,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource.Factory.Registry;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.ArchiveRuntimeException;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategy;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategyImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
@@ -42,7 +42,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.IServerTargetConstants;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
@@ -421,7 +421,7 @@ public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2E
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategyImpl#initializeResourceSet()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commonarchivecore.strategy.LoadStrategyImpl#initializeResourceSet()
 	 */
 	protected void initializeResourceSet() {
 		resourceSet = WorkbenchResourceHelper.getResourceSet(project);

@@ -29,8 +29,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 
 /**
  * @author DABERG

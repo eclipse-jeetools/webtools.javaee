@@ -20,12 +20,12 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
-
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesClientDataHelper;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.wsdl.Service;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class ServiceReferenceDataModel extends ReferenceDataModel implements WebServicesClientDataHelper {
@@ -86,7 +86,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.reference.ReferenceDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.jst.j2ee.internal.internal.reference.ReferenceDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -167,7 +167,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.reference.ReferenceDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.reference.ReferenceDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		IStatus stat = super.doValidateProperty(propertyName);
@@ -180,7 +180,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new ServiceReferenceCreationOperation(this);
@@ -189,7 +189,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#getWSDLUrl()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#getWSDLUrl()
 	 */
 	public String getWSDLUrl() {
 		return getStringProperty(WSDL_URL);
@@ -198,7 +198,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#getServiceQName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#getServiceQName()
 	 */
 	public String getServiceQName() {
 		return getStringProperty(QNAME_NAMESPACE_URI) + ":" + getStringProperty(QNAME_lOCAL_PART); //$NON-NLS-1$
@@ -207,7 +207,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#getServiceInterfaceName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#getServiceInterfaceName()
 	 */
 	public String getServiceInterfaceName() {
 		return serviceInterfaceName;
@@ -216,7 +216,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#getServiceEndpointInterfaceNames()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#getServiceEndpointInterfaceNames()
 	 */
 	public String[] getServiceEndpointInterfaceNames() {
 		return serviceEndpointInterfaceNames;
@@ -226,7 +226,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#setServiceInterfaceName(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#setServiceInterfaceName(java.lang.String)
 	 */
 	public void setServiceInterfaceName(String name) {
 		serviceInterfaceName = name;
@@ -235,7 +235,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#setServiceEndpointInterfaceNames(java.lang.String[])
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#setServiceEndpointInterfaceNames(java.lang.String[])
 	 */
 	public void setServiceEndpointInterfaceNames(String[] names) {
 		serviceEndpointInterfaceNames = names;
@@ -244,7 +244,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#getProjectName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#getProjectName()
 	 */
 	public String getProjectName() {
 		Object owner = getProperty(OWNER);
@@ -255,7 +255,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#getOutputWSDLFileName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#getOutputWSDLFileName()
 	 */
 	public String getOutputWSDLFileName() {
 		Object owner = getProperty(OWNER);
@@ -283,7 +283,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#shouldDeploy()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#shouldDeploy()
 	 */
 	public boolean shouldDeploy() {
 		return false;
@@ -292,7 +292,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#shouldGenDescriptors()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#shouldGenDescriptors()
 	 */
 	public boolean shouldGenDescriptors() {
 		return false;
@@ -301,7 +301,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservices.WebServicesClientDataHelper#setDidGenDescriptors(boolean)
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservices.WebServicesClientDataHelper#setDidGenDescriptors(boolean)
 	 */
 	public void setDidGenDescriptors(boolean b) {
 		didGenDescriptor = b;
@@ -314,7 +314,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#isResultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#isResultProperty(java.lang.String)
 	 */
 	protected boolean isResultProperty(String propertyName) {
 		if (propertyName.equals(JAX_RPC_MAPPING_FILE))

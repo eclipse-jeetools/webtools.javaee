@@ -24,13 +24,13 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.application.EjbModule;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.application.EjbModule}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.application.EjbModule}object.
  */
 public class EjbModuleItemProvider extends ModuleItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	/**

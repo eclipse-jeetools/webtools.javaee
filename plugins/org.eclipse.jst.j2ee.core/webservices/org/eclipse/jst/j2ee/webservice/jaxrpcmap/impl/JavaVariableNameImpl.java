@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaVariableNameImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaVariableNameImpl#getJavaVariableName <em>Java Variable Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaVariableNameImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaVariableNameImpl#getJavaVariableName <em>Java Variable Name</em>}</li>
  * </ul>
  * </p>
  *

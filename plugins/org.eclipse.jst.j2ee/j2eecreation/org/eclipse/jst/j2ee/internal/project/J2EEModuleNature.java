@@ -36,10 +36,10 @@ import org.eclipse.jem.internal.adapters.jdom.JavaReflectionSynchronizer;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.plugin.IJavaProjectInfo;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.webservices.WebServiceEditModel;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -151,7 +151,7 @@ public abstract class J2EEModuleNature extends J2EENature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#primConfigure()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#primConfigure()
 	 */
 	protected void primConfigure() throws CoreException {
 		super.primConfigure();

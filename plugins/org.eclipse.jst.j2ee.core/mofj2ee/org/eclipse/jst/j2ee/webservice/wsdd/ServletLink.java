@@ -28,11 +28,11 @@ package org.eclipse.jst.j2ee.webservice.wsdd;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.ServletLink#getServletLink <em>Servlet Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink#getServletLink <em>Servlet Link</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getServletLink()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getServletLink()
  * @model 
  * @generated
  */
@@ -47,14 +47,14 @@ public interface ServletLink extends BeanLink{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Servlet Link</em>' attribute.
 	 * @see #setServletLink(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getServletLink_ServletLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getServletLink_ServletLink()
 	 * @model 
 	 * @generated
 	 */
   String getServletLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServletLink#getServletLink <em>Servlet Link</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink#getServletLink <em>Servlet Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Servlet Link</em>' attribute.

@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.web.taglib;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.model.IRuntimeTargetHandlerDelegate;
 

@@ -57,7 +57,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.XMLElementName;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage
  * @generated
  */
 public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
@@ -276,13 +276,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping <em>Java WSDL Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping <em>Java WSDL Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping
    * @generated
    */
   public Adapter createJavaWSDLMappingAdapter()
@@ -291,13 +291,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping <em>Package Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PackageMapping <em>Package Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PackageMapping
    * @generated
    */
   public Adapter createPackageMappingAdapter()
@@ -306,13 +306,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping <em>Java XML Type Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping <em>Java XML Type Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping
    * @generated
    */
   public Adapter createJavaXMLTypeMappingAdapter()
@@ -321,13 +321,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping <em>Exception Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping <em>Exception Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping
    * @generated
    */
   public Adapter createExceptionMappingAdapter()
@@ -336,13 +336,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceInterfaceMapping <em>Service Interface Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceInterfaceMapping <em>Service Interface Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceInterfaceMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceInterfaceMapping
    * @generated
    */
   public Adapter createServiceInterfaceMappingAdapter()
@@ -351,13 +351,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping <em>Service Endpoint Interface Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping <em>Service Endpoint Interface Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping
    * @generated
    */
   public Adapter createServiceEndpointInterfaceMappingAdapter()
@@ -366,13 +366,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageType <em>Package Type</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PackageType <em>Package Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageType
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PackageType
    * @generated
    */
   public Adapter createPackageTypeAdapter()
@@ -381,13 +381,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ClassType <em>Class Type</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ClassType <em>Class Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ClassType
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ClassType
    * @generated
    */
   public Adapter createClassTypeAdapter()
@@ -396,13 +396,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.RootTypeQname <em>Root Type Qname</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.RootTypeQname <em>Root Type Qname</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.RootTypeQname
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.RootTypeQname
    * @generated
    */
   public Adapter createRootTypeQnameAdapter()
@@ -411,13 +411,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.QnameScope <em>Qname Scope</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.QnameScope <em>Qname Scope</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.QnameScope
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.QnameScope
    * @generated
    */
   public Adapter createQnameScopeAdapter()
@@ -426,13 +426,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping <em>Variable Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping <em>Variable Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping
    * @generated
    */
   public Adapter createVariableMappingAdapter()
@@ -441,13 +441,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType <em>Exception Type</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionType <em>Exception Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionType
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionType
    * @generated
    */
   public Adapter createExceptionTypeAdapter()
@@ -456,13 +456,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessage <em>WSDL Message</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessage <em>WSDL Message</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessage
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessage
    * @generated
    */
   public Adapter createWSDLMessageAdapter()
@@ -471,13 +471,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder <em>Constructor Parameter Order</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ConstructorParameterOrder <em>Constructor Parameter Order</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ConstructorParameterOrder
    * @generated
    */
   public Adapter createConstructorParameterOrderAdapter()
@@ -486,13 +486,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaVariableName <em>Java Variable Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaVariableName <em>Java Variable Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaVariableName
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaVariableName
    * @generated
    */
   public Adapter createJavaVariableNameAdapter()
@@ -501,13 +501,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.XMLElementName <em>XML Element Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.XMLElementName <em>XML Element Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.XMLElementName
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.XMLElementName
    * @generated
    */
   public Adapter createXMLElementNameAdapter()
@@ -516,13 +516,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName <em>Element Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName <em>Element Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ElementName
    * @generated
    */
   public Adapter createElementNameAdapter()
@@ -531,13 +531,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName <em>WSDL Service Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLServiceName <em>WSDL Service Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLServiceName
    * @generated
    */
   public Adapter createWSDLServiceNameAdapter()
@@ -546,13 +546,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PortMapping <em>Port Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PortMapping <em>Port Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.PortMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PortMapping
    * @generated
    */
   public Adapter createPortMappingAdapter()
@@ -561,13 +561,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaPortName <em>Java Port Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaPortName <em>Java Port Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaPortName
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaPortName
    * @generated
    */
   public Adapter createJavaPortNameAdapter()
@@ -576,13 +576,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLPortType <em>WSDL Port Type</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLPortType <em>WSDL Port Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLPortType
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLPortType
    * @generated
    */
   public Adapter createWSDLPortTypeAdapter()
@@ -591,13 +591,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLBinding <em>WSDL Binding</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLBinding <em>WSDL Binding</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLBinding
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLBinding
    * @generated
    */
   public Adapter createWSDLBindingAdapter()
@@ -606,13 +606,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping <em>Service Endpoint Method Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping <em>Service Endpoint Method Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping
    * @generated
    */
   public Adapter createServiceEndpointMethodMappingAdapter()
@@ -621,13 +621,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaMethodName <em>Java Method Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaMethodName <em>Java Method Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaMethodName
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaMethodName
    * @generated
    */
   public Adapter createJavaMethodNameAdapter()
@@ -636,13 +636,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation <em>WSDL Operation</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLOperation <em>WSDL Operation</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLOperation
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLOperation
    * @generated
    */
   public Adapter createWSDLOperationAdapter()
@@ -651,13 +651,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping <em>Method Param Parts Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping <em>Method Param Parts Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping
    * @generated
    */
   public Adapter createMethodParamPartsMappingAdapter()
@@ -666,13 +666,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping <em>WSDL Return Value Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping <em>WSDL Return Value Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping
    * @generated
    */
   public Adapter createWSDLReturnValueMappingAdapter()
@@ -681,13 +681,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition <em>Param Position</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamPosition <em>Param Position</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamPosition
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamPosition
    * @generated
    */
   public Adapter createParamPositionAdapter()
@@ -696,13 +696,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType <em>Param Type</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamType <em>Param Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParamType
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParamType
    * @generated
    */
   public Adapter createParamTypeAdapter()
@@ -711,13 +711,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping <em>WSDL Message Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping <em>WSDL Message Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessageMapping
    * @generated
    */
   public Adapter createWSDLMessageMappingAdapter()
@@ -726,13 +726,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessagePartName <em>WSDL Message Part Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessagePartName <em>WSDL Message Part Name</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessagePartName
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLMessagePartName
    * @generated
    */
   public Adapter createWSDLMessagePartNameAdapter()
@@ -741,13 +741,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParameterMode <em>Parameter Mode</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParameterMode <em>Parameter Mode</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.ParameterMode
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ParameterMode
    * @generated
    */
   public Adapter createParameterModeAdapter()
@@ -756,13 +756,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodReturnValue <em>Method Return Value</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodReturnValue <em>Method Return Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodReturnValue
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodReturnValue
    * @generated
    */
   public Adapter createMethodReturnValueAdapter()
@@ -771,13 +771,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping <em>Interface Mapping</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.InterfaceMapping <em>Interface Mapping</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.InterfaceMapping
    * @generated
    */
   public Adapter createInterfaceMappingAdapter()
@@ -786,13 +786,13 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.QName <em>QName</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.QName <em>QName</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.jst.j2ee.common.QName
+   * @see org.eclipse.jst.j2ee.internal.common.QName
    * @generated
    */
   public Adapter createQNameAdapter()

@@ -140,7 +140,7 @@ public class JavaMethodMerglet extends JavaMemberMerglet {
 	 * compares the bodies after trimming whitespace. The method body includes all code following
 	 * the method declaration, including the enclosing braces.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 */
 	protected boolean matchBody(IMethod collisionMethod, IDOMMethod newMethod) throws MergeException {
 		return getBody(collisionMethod).trim().equals(newMethod.getBody().trim());
@@ -247,7 +247,7 @@ public class JavaMethodMerglet extends JavaMemberMerglet {
 	 * migration purposes. For new development, the use of specialized merglets is encouraged
 	 * instead.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 */
 	protected boolean mergeUserCode(IMethod oldMethod, IDOMMethod newMethod) throws MergeException {
 		boolean merged = false;

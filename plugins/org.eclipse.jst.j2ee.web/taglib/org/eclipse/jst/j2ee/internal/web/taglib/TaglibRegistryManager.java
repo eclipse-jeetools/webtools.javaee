@@ -162,7 +162,7 @@ public class TaglibRegistryManager implements ITaglibRegistryManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.taglib.ITaglibRegistryManager#isTaglibRegistryExists(org.eclipse.core.resources.IProject)
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.ITaglibRegistryManager#isTaglibRegistryExists(org.eclipse.core.resources.IProject)
 	 */
 	public boolean isTaglibRegistryExists(IProject project) {
 		return this.registries.containsKey(project);

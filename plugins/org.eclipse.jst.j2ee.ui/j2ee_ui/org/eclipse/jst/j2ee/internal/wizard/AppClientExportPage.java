@@ -48,7 +48,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
 	protected String getProjectLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_PROJECT_LABEL);
@@ -57,7 +57,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFilterExpression()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
 	protected String[] getFilterExpression() {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
@@ -66,7 +66,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof ApplicationClient;
@@ -75,7 +75,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#getNatureID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#getNatureID()
 	 */
 	protected String getNatureID() {
 
@@ -85,7 +85,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEProjectCreationPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEProjectCreationPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.EXPORT_APPCLIENT_WIZARD_P1);

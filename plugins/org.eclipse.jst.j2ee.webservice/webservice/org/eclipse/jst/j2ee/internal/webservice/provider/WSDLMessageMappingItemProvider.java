@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping}object. <!-- begin-user-doc -->
+ * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.WSDLMessageMapping}object. <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * 
  * @generated

@@ -14,9 +14,9 @@ import java.io.OutputStream;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;

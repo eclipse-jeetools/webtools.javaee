@@ -21,10 +21,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.RARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEExportOperation;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 

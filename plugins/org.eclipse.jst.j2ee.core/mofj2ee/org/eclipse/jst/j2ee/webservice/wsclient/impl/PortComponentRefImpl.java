@@ -28,8 +28,8 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.PortComponentRefImpl#getPortComponentLink <em>Port Component Link</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.PortComponentRefImpl#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.PortComponentRefImpl#getPortComponentLink <em>Port Component Link</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.PortComponentRefImpl#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
  * </ul>
  * </p>
  *

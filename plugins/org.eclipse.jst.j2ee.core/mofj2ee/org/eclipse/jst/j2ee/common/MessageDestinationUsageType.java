@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * A representation of the literals of the enumeration '<em><b>Message Destination Usage Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.common.CommonPackage#getMessageDestinationUsageType()
+ * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getMessageDestinationUsageType()
  * @model
  * @generated
  */

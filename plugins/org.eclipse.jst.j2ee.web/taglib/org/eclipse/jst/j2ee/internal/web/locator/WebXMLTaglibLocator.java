@@ -27,9 +27,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.ILibModule;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
@@ -41,6 +40,7 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.webapplication.TagLibRef;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
  * @version 1.0

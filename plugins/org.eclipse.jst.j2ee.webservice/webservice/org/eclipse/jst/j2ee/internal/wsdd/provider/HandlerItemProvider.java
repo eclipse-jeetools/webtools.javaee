@@ -30,21 +30,21 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.common.provider.CompatibilityDescriptionGroupItemProvider;
+import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 /*
- * This class should be merged with HandlerItemProvider in org.eclipse.jst.j2ee.internal.webservice.provider
+ * This class should be merged with HandlerItemProvider in org.eclipse.jst.j2ee.internal.internal.internal.webservice.provider
  * package and all references to this class need to be replaced with HandlerItemProvider in 
- * org.eclipse.jst.j2ee.internal.webservice.provider package.
+ * org.eclipse.jst.j2ee.internal.internal.internal.webservice.provider package.
  */
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webservice.wsdd.Handler}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.Handler}object.
  * <!-- begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

@@ -35,11 +35,11 @@ import org.eclipse.jst.j2ee.taglib.TldExtension;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.FunctionImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.FunctionImpl#getSignature <em>Signature</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.FunctionImpl#getExample <em>Example</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.FunctionImpl#getFunctionClass <em>Function Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.impl.FunctionImpl#getFunctionExtensions <em>Function Extensions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.FunctionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.FunctionImpl#getSignature <em>Signature</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.FunctionImpl#getExample <em>Example</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.FunctionImpl#getFunctionClass <em>Function Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.impl.FunctionImpl#getFunctionExtensions <em>Function Extensions</em>}</li>
  * </ul>
  * </p>
  *

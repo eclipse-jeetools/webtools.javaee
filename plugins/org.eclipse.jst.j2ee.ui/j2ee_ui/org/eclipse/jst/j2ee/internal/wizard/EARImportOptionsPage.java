@@ -28,7 +28,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -44,9 +44,9 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 
 /**
  * @author cbridgha
@@ -81,7 +81,7 @@ public class EARImportOptionsPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);

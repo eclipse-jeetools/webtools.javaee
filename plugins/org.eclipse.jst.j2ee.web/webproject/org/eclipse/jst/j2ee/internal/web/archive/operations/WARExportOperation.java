@@ -34,13 +34,13 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEExportOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.ILibModule;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 
 
 public class WARExportOperation extends J2EEExportOperation {

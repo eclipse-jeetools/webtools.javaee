@@ -10,13 +10,14 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 
 
+
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientImportOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 public class AppClientImportDataModel extends J2EEModuleImportDataModel {
@@ -24,7 +25,7 @@ public class AppClientImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
 	protected J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel() {
 		return new AppClientProjectCreationDataModel();
@@ -33,7 +34,7 @@ public class AppClientImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#getType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#getType()
 	 */
 	protected int getType() {
 		return XMLResource.APP_CLIENT_TYPE;
@@ -42,7 +43,7 @@ public class AppClientImportDataModel extends J2EEModuleImportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#setUpArchiveFile()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#setUpArchiveFile()
 	 */
 	protected boolean openArchive(String uri) throws OpenFailureException {
 		moduleFile = CommonarchiveFactory.eINSTANCE.openApplicationClientFile(getArchiveOptions(), uri);

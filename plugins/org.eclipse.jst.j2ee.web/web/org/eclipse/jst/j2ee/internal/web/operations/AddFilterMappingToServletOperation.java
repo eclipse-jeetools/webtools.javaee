@@ -18,13 +18,13 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.util.List;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.FilterMapping;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 

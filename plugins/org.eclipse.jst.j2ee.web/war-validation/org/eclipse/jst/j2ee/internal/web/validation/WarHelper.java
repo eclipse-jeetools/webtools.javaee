@@ -10,7 +10,7 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 
-//import org.eclipse.wst.validation.core.core.IMessage;
+//import org.eclipse.wst.validation.internal.core.core.IMessage;
 import java.util.Hashtable;
 
 import org.eclipse.core.resources.IFile;
@@ -20,18 +20,18 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.WARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.model.validation.WARMessageConstants;
+import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
 
 
 public class WarHelper extends J2EEValidationHelper {
 	Hashtable warFileMap = new Hashtable();
-	final static String HelperID = "org.eclipse.wst.validation.core.war.workbenchimpl.WarHelper"; //$NON-NLS-1$
+	final static String HelperID = "org.eclipse.wst.validation.internal.core.war.workbenchimpl.WarHelper"; //$NON-NLS-1$
 
 	/**
 	 * WarHelper constructor comment.

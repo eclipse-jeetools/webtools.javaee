@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddUtilityProjectToEARDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.ServerTargetUIHelper;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author jsholl

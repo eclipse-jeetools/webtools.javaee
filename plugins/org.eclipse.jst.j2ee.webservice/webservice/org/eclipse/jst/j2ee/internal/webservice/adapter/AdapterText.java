@@ -13,7 +13,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
 import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
 import org.eclipse.swt.events.ModifyEvent;

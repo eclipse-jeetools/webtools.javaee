@@ -36,12 +36,12 @@ import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.common.impl.J2EEResouceFactorySaxRegistry;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveTypeDiscriminator;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.AppClient12ImportStrategyImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.EjbJar11ImportStrategyImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.AppClient12ImportStrategyImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.EjbJar11ImportStrategyImpl;
 
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -240,7 +240,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 	}
 
 	/**
-	 * @see org.eclipse.wst.common.emfworkbench.WorkbenchURIConverterImpl#canGetUnderlyingResource(String)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.WorkbenchURIConverterImpl#canGetUnderlyingResource(String)
 	 */
 	public boolean canGetUnderlyingResource(String aFileName) {
 		if (isBinary())

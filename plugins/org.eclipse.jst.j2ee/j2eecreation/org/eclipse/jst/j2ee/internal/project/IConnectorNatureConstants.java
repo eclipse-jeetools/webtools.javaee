@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.project;
 
-import org.eclipse.jst.j2ee.plugin.J2EEPluginResourceHandler;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 
 
 /**

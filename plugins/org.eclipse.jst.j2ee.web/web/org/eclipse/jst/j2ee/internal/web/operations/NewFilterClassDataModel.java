@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author jialin

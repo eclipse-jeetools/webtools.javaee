@@ -25,9 +25,9 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.PackageMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.PackageMappingImpl#getPackageType <em>Package Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.PackageMappingImpl#getNamespaceURI <em>Namespace URI</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.PackageMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.PackageMappingImpl#getPackageType <em>Package Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.PackageMappingImpl#getNamespaceURI <em>Namespace URI</em>}</li>
  * </ul>
  * </p>
  *

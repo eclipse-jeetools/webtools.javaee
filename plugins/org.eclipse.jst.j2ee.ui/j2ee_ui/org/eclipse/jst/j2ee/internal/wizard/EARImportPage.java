@@ -36,8 +36,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
 
 /**
  * @author cbridgha
@@ -62,7 +62,7 @@ public class EARImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -121,7 +121,7 @@ public class EARImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
 	 */
 	protected String getFileImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_FILE_LABEL);
@@ -130,7 +130,7 @@ public class EARImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFilterExpression()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
 	protected String[] getFilterExpression() {
 		return new String[]{"*.ear"}; //$NON-NLS-1$
@@ -141,7 +141,7 @@ public class EARImportPage extends J2EEImportPage {
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
 		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		//        if (!org.eclipse.jst.j2ee.plugin.J2EEPlugin.hasDevelopmentRole()) {
+		//        if (!org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole()) {
 		//            serverTargetCombo.setEnabled(false);
 		//        }
 
@@ -154,13 +154,13 @@ public class EARImportPage extends J2EEImportPage {
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
-		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_NAME, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
+		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEModuleImportPage#createAnnotationsStandaloneGroup(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
 		new AnnotationsStandaloneGroup(composite, model, false);
@@ -169,7 +169,7 @@ public class EARImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{J2EEImportDataModel.FILE_NAME, J2EEImportDataModel.PROJECT_NAME, J2EEImportDataModel.SERVER_TARGET_ID, J2EEImportDataModel.OVERWRITE_PROJECT, EARImportDataModel.IMPORT_EAR_PROJECT, IAnnotationsDataModel.USE_ANNOTATIONS};
@@ -178,7 +178,7 @@ public class EARImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
 	 */
 	protected String getFileNamesStoreID() {
 		return IEARNatureConstants.NATURE_ID;

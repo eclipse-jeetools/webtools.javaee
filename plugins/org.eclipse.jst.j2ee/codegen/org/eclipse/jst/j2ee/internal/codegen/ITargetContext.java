@@ -21,14 +21,14 @@ public interface ITargetContext {
 	/**
 	 * Returns a new generation buffer.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.codegen.api.IGenerationBuffer
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerationBuffer
 	 */
 	IGenerationBuffer createGenerationBuffer();
 
 	/**
 	 * Returns the navigator for the target model.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.codegen.Navigator
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.codegen.Navigator
 	 */
 	Navigator getNavigator();
 

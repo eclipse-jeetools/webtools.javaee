@@ -52,15 +52,15 @@ import org.eclipse.jst.j2ee.common.DescriptionGroup;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.Function#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.Function#getSignature <em>Signature</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.Function#getExample <em>Example</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.Function#getFunctionClass <em>Function Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.taglib.Function#getFunctionExtensions <em>Function Extensions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.Function#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.Function#getSignature <em>Signature</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.Function#getExample <em>Example</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.Function#getFunctionClass <em>Function Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.taglib.Function#getFunctionExtensions <em>Function Extensions</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getFunction()
+ * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getFunction()
  * @model 
  * @generated
  */
@@ -75,14 +75,14 @@ public interface Function extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getFunction_Name()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getFunction_Name()
 	 * @model 
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.Function#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
@@ -110,14 +110,14 @@ public interface Function extends DescriptionGroup{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Signature</em>' attribute.
 	 * @see #setSignature(String)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getFunction_Signature()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getFunction_Signature()
 	 * @model 
 	 * @generated
 	 */
 	String getSignature();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.Function#getSignature <em>Signature</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getSignature <em>Signature</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Signature</em>' attribute.
@@ -140,14 +140,14 @@ public interface Function extends DescriptionGroup{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Example</em>' attribute.
 	 * @see #setExample(String)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getFunction_Example()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getFunction_Example()
 	 * @model 
 	 * @generated
 	 */
 	String getExample();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.Function#getExample <em>Example</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getExample <em>Example</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Example</em>' attribute.
@@ -171,14 +171,14 @@ public interface Function extends DescriptionGroup{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Function Class</em>' reference.
 	 * @see #setFunctionClass(JavaClass)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getFunction_FunctionClass()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getFunction_FunctionClass()
 	 * @model required="true"
 	 * @generated
 	 */
 	JavaClass getFunctionClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.Function#getFunctionClass <em>Function Class</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getFunctionClass <em>Function Class</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Function Class</em>' reference.
@@ -189,7 +189,7 @@ public interface Function extends DescriptionGroup{
 
 	/**
 	 * Returns the value of the '<em><b>Function Extensions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.taglib.TldExtension}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.taglib.TldExtension}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Function Extensions</em>' containment reference list isn't clear,
@@ -197,8 +197,8 @@ public interface Function extends DescriptionGroup{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Function Extensions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getFunction_FunctionExtensions()
-	 * @model type="org.eclipse.jst.j2ee.taglib.TldExtension" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getFunction_FunctionExtensions()
+	 * @model type="org.eclipse.jst.j2ee.internal.taglib.TldExtension" containment="true"
 	 * @generated
 	 */
 	EList getFunctionExtensions();

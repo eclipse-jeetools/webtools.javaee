@@ -316,7 +316,7 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#eNS_URI
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#eNS_URI
    * @see #init()
    * @generated
    */

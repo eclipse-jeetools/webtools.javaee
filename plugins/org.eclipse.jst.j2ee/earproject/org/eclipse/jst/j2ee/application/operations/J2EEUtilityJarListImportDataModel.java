@@ -30,9 +30,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.nature.EMFNature;
@@ -110,7 +110,7 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#initValidBaseProperties()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
@@ -132,7 +132,7 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 
@@ -142,7 +142,7 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -246,7 +246,7 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (J2EEUtilityJarListImportDataModel.BINARY_IMPORT.equals(propertyName)) {
@@ -285,7 +285,7 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (CREATE_PROJECT.equals(propertyName))
@@ -319,7 +319,7 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
 	 */
 	protected Object[] doGetValidPropertyValues(String propertyName) {
 		if (EAR_PROJECT.equals(propertyName))
@@ -366,7 +366,7 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (EAR_PROJECT.equals(propertyName) /* && isSet(EAR_PROJECT) */) {

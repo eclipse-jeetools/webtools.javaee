@@ -75,7 +75,7 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	 * (non-Javadoc) we need to return the Resource/folder from where taglib search begins and for a
 	 * web project we can make it faster by searching from WEB-INF folder
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.registry.AbstractTaglibRegistry#getRefreshRoot()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.registry.AbstractTaglibRegistry#getRefreshRoot()
 	 */
 	protected IResource getRefreshRoot() {
 		IResource ret = null;
@@ -89,7 +89,7 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.registry.AbstractTaglibRegistry#shouldProcessDirectory()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.registry.AbstractTaglibRegistry#shouldProcessDirectory()
 	 */
 	protected boolean shouldProcessDirectory(IResource resource) {
 		IContainer tagsFolder = getTagsFolder();
@@ -113,7 +113,7 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	/*
 	 * (non-Javadoc) return true only if the resource is a parent of WEB-INF or is within WEB-INF
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.registry.AbstractTaglibRegistry#canVisitResource(org.eclipse.core.resources.IResource)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.registry.AbstractTaglibRegistry#canVisitResource(org.eclipse.core.resources.IResource)
 	 */
 	protected boolean canVisitResource(IResource resource) {
 		if (resource != null && resource.getType() != IResource.ROOT && this.project != resource.getProject())
@@ -134,7 +134,7 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.registry.AbstractTaglibRegistry#processDirectory(org.eclipse.core.resources.IResource)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.registry.AbstractTaglibRegistry#processDirectory(org.eclipse.core.resources.IResource)
 	 */
 	protected void processDirectory(IResource resource) {
 		Vector existingTaglibs = getExistingTaglibs(resource.getProjectRelativePath());

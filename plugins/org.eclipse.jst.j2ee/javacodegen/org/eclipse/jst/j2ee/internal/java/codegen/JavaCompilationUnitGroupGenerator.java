@@ -63,7 +63,7 @@ public abstract class JavaCompilationUnitGroupGenerator extends JavaElementGener
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator#run()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator#run()
 	 */
 	public final void run() throws GenerationException {
 		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {

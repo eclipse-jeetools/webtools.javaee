@@ -25,9 +25,9 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PortMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.PortMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.PortMappingImpl#getPortName <em>Port Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.PortMappingImpl#getJavaPortName <em>Java Port Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.PortMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.PortMappingImpl#getPortName <em>Port Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.PortMappingImpl#getJavaPortName <em>Java Port Name</em>}</li>
  * </ul>
  * </p>
  *

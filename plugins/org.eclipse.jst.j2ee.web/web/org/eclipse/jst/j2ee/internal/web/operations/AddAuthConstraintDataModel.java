@@ -18,8 +18,8 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.util.Collections;
 
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
  * @author jialin
@@ -47,7 +47,7 @@ public class AddAuthConstraintDataModel extends J2EEModelModifierOperationDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new AddAuthConstraintOperation(this);

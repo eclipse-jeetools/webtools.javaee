@@ -193,14 +193,14 @@ public class SecurityIdentityImpl extends EObjectImpl implements SecurityIdentit
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.common.SecurityIdentity#isRunAsSpecifiedIdentity()
+	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#isRunAsSpecifiedIdentity()
 	 */
 	public boolean isRunAsSpecifiedIdentity() {
 		return false;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.common.SecurityIdentity#isUseCallerIdentity()
+	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#isUseCallerIdentity()
 	 */
 	public boolean isUseCallerIdentity() {
 		return false;

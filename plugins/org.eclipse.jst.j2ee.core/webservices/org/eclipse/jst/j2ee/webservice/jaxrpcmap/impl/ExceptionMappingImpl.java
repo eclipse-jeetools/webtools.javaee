@@ -29,11 +29,11 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ExceptionMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ExceptionMappingImpl#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ExceptionMappingImpl#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ExceptionMappingImpl#getWsdlMessage <em>Wsdl Message</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ExceptionMappingImpl#getConstructorParameterOrder <em>Constructor Parameter Order</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ExceptionMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ExceptionMappingImpl#getExceptionType <em>Exception Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ExceptionMappingImpl#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ExceptionMappingImpl#getWsdlMessage <em>Wsdl Message</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ExceptionMappingImpl#getConstructorParameterOrder <em>Constructor Parameter Order</em>}</li>
  * </ul>
  * </p>
  *

@@ -75,7 +75,7 @@ boolean isEquivalent(MethodPermission anotherMethodPermission) ;
 	void setUnchecked(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.MethodPermission#isUnchecked <em>Unchecked</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MethodPermission#isUnchecked <em>Unchecked</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetUnchecked()
@@ -86,7 +86,7 @@ boolean isEquivalent(MethodPermission anotherMethodPermission) ;
 	void unsetUnchecked();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.MethodPermission#isUnchecked <em>Unchecked</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MethodPermission#isUnchecked <em>Unchecked</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Unchecked</em>' attribute is set.
@@ -123,7 +123,7 @@ boolean isEquivalent(MethodPermission anotherMethodPermission) ;
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -134,8 +134,8 @@ boolean isEquivalent(MethodPermission anotherMethodPermission) ;
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getMethodPermission_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getMethodPermission_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

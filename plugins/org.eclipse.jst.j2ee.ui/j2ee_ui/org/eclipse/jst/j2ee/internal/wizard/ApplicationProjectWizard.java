@@ -23,8 +23,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author DABERG
@@ -68,7 +68,7 @@ public class ApplicationProjectWizard extends J2EEProjectCreationWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		return new EARProjectCreationDataModel();
@@ -77,7 +77,7 @@ public class ApplicationProjectWizard extends J2EEProjectCreationWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createBaseOperation() {
 		return new EARProjectCreationOperation(getApplicationModel());
@@ -106,13 +106,13 @@ public class ApplicationProjectWizard extends J2EEProjectCreationWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.extensions.ExtendableWizard#getWizardID()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
 	 */
 	public String getWizardID() {
-		return "org.eclipse.jst.j2ee.internal.ApplicationProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.ApplicationProjectWizard"; //$NON-NLS-1$
 	}
 
 	public String getLocalId() {
-		return "org.eclipse.jst.j2ee.internal.earProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.earProjectWizard"; //$NON-NLS-1$
 	}
 }

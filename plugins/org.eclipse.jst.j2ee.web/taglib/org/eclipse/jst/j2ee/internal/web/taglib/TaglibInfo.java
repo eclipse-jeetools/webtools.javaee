@@ -350,7 +350,7 @@ public class TaglibInfo implements ITaglibInfo, Cloneable {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.taglib.ITaglibInfo#isServerContribution()
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.ITaglibInfo#isServerContribution()
 	 */
 	public boolean isServerContribution() {
 		return this.isServerContribution;
@@ -363,7 +363,7 @@ public class TaglibInfo implements ITaglibInfo, Cloneable {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.taglib.ITaglibInfo#isDirectoryEntry()
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.ITaglibInfo#isDirectoryEntry()
 	 */
 	public boolean isDirectoryEntry() {
 		return this.isDirectoryEntry;

@@ -15,14 +15,14 @@ import java.io.IOException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.J2EEEditModel;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -104,7 +104,7 @@ public class ConnectorEditModel extends J2EEEditModel {
 	 * @return Resource
 	 */
 	public Resource makeDeploymentDescriptorWithRoot() {
-		XMLResource res = (XMLResource) makeConnectorXmiResource();
+		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) makeConnectorXmiResource();
 		Connector connector = JcaPackage.eINSTANCE.getJcaFactory().createConnector();
 		res.getContents().add(connector);
 		res.setID(connector, ArchiveConstants.CONNECTOR_ID);
@@ -126,7 +126,7 @@ public class ConnectorEditModel extends J2EEEditModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#getRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#getRootObject()
 	 */
 	public Object getRootObject() {
 		return getConnector();

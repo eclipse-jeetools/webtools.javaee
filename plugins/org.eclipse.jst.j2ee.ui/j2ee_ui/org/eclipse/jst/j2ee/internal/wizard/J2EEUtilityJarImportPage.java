@@ -37,9 +37,9 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
 
 /**
  * @author mdelder
@@ -81,7 +81,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 
@@ -378,7 +378,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
 	 */
 	protected String getFileNamesStoreID() {
 		return "UTILITY_JAR_DIRECTORY"; //$NON-NLS-1$
@@ -387,7 +387,7 @@ public class J2EEUtilityJarImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
 	 */
 	protected String getFileImportLabel() {
 		return J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_7"); //$NON-NLS-1$

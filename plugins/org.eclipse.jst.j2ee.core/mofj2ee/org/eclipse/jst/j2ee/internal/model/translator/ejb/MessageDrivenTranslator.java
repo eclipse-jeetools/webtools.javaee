@@ -37,7 +37,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
+	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
 	 */
 	protected Translator[] getSpecificMaps(int versionID) {
 		switch (versionID) {
@@ -143,7 +143,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 	
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.model.translator.ejb.AbstractEJBTranslator#getEndMaps13()
+	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getEndMaps13()
 	 */
 	protected Translator[] getEndMaps13() {
 		return new Translator[] {
@@ -170,7 +170,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.model.translator.ejb.AbstractEJBTranslator#usesHomeRemoteAttributes()
+	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#usesHomeRemoteAttributes()
 	 */
 	protected boolean usesHomeRemoteAttributes() {
 		return false;

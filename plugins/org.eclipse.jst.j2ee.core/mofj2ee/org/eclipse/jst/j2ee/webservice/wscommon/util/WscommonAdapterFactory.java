@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage
+ * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage
  * @generated
  */
 public class WscommonAdapterFactory extends AdapterFactoryImpl
@@ -129,13 +129,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam <em>Init Param</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam <em>Init Param</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.InitParam
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam
 	 * @generated
 	 */
   public Adapter createInitParamAdapter() {
@@ -143,13 +143,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader <em>SOAP Header</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPHeader <em>SOAP Header</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPHeader
 	 * @generated
 	 */
   public Adapter createSOAPHeaderAdapter() {
@@ -157,13 +157,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole <em>SOAP Role</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole <em>SOAP Role</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole
 	 * @generated
 	 */
   public Adapter createSOAPRoleAdapter() {
@@ -171,13 +171,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wscommon.PortName <em>Port Name</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName <em>Port Name</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.PortName
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.PortName
 	 * @generated
 	 */
   public Adapter createPortNameAdapter() {
@@ -185,13 +185,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType <em>Description Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.DescriptionType <em>Description Type</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.DescriptionType
 	 * @generated
 	 */
   public Adapter createDescriptionTypeAdapter() {
@@ -199,13 +199,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType <em>Display Name Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.DisplayNameType <em>Display Name Type</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.DisplayNameType
 	 * @generated
 	 */
   public Adapter createDisplayNameTypeAdapter() {
@@ -213,13 +213,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.Description <em>Description</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.Description <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.Description
+	 * @see org.eclipse.jst.j2ee.internal.common.Description
 	 * @generated
 	 */
   public Adapter createDescriptionAdapter() {
@@ -227,13 +227,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DisplayName <em>Display Name</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.DisplayName <em>Display Name</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.DisplayName
+	 * @see org.eclipse.jst.j2ee.internal.common.DisplayName
 	 * @generated
 	 */
   public Adapter createDisplayNameAdapter() {
@@ -241,13 +241,13 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.QName <em>QName</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.QName <em>QName</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.QName
+	 * @see org.eclipse.jst.j2ee.internal.common.QName
 	 * @generated
 	 */
   public Adapter createQNameAdapter() {

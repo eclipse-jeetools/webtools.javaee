@@ -21,12 +21,12 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webapplication.WebType}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebType}object.
  */
 public class WebTypeItemProvider extends WebapplicationItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 

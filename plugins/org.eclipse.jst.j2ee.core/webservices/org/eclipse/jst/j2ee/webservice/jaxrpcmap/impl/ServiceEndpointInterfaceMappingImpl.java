@@ -34,11 +34,11 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLPortType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getWsdlPortType <em>Wsdl Port Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getWsdlBinding <em>Wsdl Binding</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getServiceEndpointMethodMappings <em>Service Endpoint Method Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getWsdlPortType <em>Wsdl Port Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getWsdlBinding <em>Wsdl Binding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointInterfaceMappingImpl#getServiceEndpointMethodMappings <em>Service Endpoint Method Mappings</em>}</li>
  * </ul>
  * </p>
  *

@@ -42,14 +42,14 @@ public class WebXMLTaglibInfo extends TaglibInfo implements IWebXMLTaglibInfo {
 
 
 	/**
-	 * @see org.eclipse.jst.j2ee.taglib.IWebXMLTaglibInfo#isLocationResolved()
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.IWebXMLTaglibInfo#isLocationResolved()
 	 */
 	public boolean isLocationResolved() {
 		return this.isLocationResolved;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.taglib.IWebXMLTaglibInfo#getWebXMLTaglibLocation()
+	 * @see org.eclipse.jst.j2ee.internal.internal.taglib.IWebXMLTaglibInfo#getWebXMLTaglibLocation()
 	 */
 	public IPath getWebXMLTaglibLocation() {
 		return this.webXMLLocation;

@@ -15,8 +15,8 @@ package org.eclipse.jst.j2ee.internal.model.translator.webapplication;
 
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.common.BooleanTranslator;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.model.translator.common.EnvEntryTranslator;

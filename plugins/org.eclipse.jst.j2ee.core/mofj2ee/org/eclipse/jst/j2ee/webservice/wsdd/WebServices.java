@@ -27,18 +27,18 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices#getWebServiceDescriptions <em>Web Service Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServices#getWebServiceDescriptions <em>Web Service Descriptions</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServices()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServices()
  * @model 
  * @generated
  */
 public interface WebServices extends CompatibilityDescriptionGroup {
 	/**
 	 * Returns the value of the '<em><b>Web Service Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription}.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Web Service Descriptions</em>' containment reference list isn't clear,
@@ -46,8 +46,8 @@ public interface WebServices extends CompatibilityDescriptionGroup {
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Web Service Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServices_WebServiceDescriptions()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription" containment="true" required="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServices_WebServiceDescriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription" containment="true" required="true"
 	 * @generated
 	 */
   EList getWebServiceDescriptions();

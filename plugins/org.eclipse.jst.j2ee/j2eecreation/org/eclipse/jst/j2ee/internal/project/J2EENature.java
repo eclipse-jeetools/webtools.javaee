@@ -18,18 +18,18 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jst.j2ee.J2EEEditModel;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelNature;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelNature;
 import org.eclipse.wst.server.core.model.IModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -407,7 +407,7 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 	 * Insert the method's description here. Creation date: (9/18/2001 11:54:45 AM)
 	 * 
 	 * @param newCacheEditModel
-	 *            org.eclipse.jst.j2ee.workbench.J2EEEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel
 	 */
 	protected void setCacheEditModel(EditModel newCacheEditModel) {
 		cacheEditModel = newCacheEditModel;
@@ -417,7 +417,7 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 	 * Insert the method's description here. Creation date: (9/18/2001 11:54:45 AM)
 	 * 
 	 * @param newCacheEditModel
-	 *            org.eclipse.jst.j2ee.workbench.J2EEEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel
 	 */
 	protected EditModel getCacheEditModel() {
 		if (emfContext == null)
@@ -429,7 +429,7 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.emfworkbench.ISynchronizerExtender#projectChanged(org.eclipse.core.resources.IResourceDelta)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.ISynchronizerExtender#projectChanged(org.eclipse.core.resources.IResourceDelta)
 	 */
 	public void projectChanged(IResourceDelta delta) {
 
@@ -438,7 +438,7 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.emfworkbench.ISynchronizerExtender#projectClosed()
+	 * @see org.eclipse.wst.common.internal.emfworkbench.ISynchronizerExtender#projectClosed()
 	 */
 	public void projectClosed() {
 		this.emfContext = null;

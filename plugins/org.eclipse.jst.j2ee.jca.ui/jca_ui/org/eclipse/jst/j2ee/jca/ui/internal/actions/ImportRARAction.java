@@ -42,7 +42,7 @@ public class ImportRARAction extends BaseAction {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
+	 * @see org.eclipse.jst.j2ee.internal.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
 	protected void primRun(Shell shell) {
 

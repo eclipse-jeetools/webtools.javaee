@@ -28,10 +28,10 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -63,7 +63,7 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveProjectToEARDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#initNestedModels()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initNestedModels()
 	 */
 	protected void initNestedModels() {
 		super.initNestedModels();
@@ -109,7 +109,7 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveProjectToEARDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -142,7 +142,7 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveProjectToEARDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
 	 */
 	protected String getDefaultArchiveURI() {
 		IProject project = (IProject) getProperty(ARCHIVE_PROJECT);

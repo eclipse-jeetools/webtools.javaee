@@ -451,7 +451,7 @@ public void setCollectionTypeName(String typeName) {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.impl.CMPAttributeImpl#getCMPEntity()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.impl.CMPAttributeImpl#getCMPEntity()
 	 */
 	public ContainerManagedEntity getCMPEntity() {
 		EJBRelationshipRole role = getRole();

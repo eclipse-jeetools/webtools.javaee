@@ -28,10 +28,10 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getMethodReturnValue <em>Method Return Value</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getWsdlMessage <em>Wsdl Message</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getMethodReturnValue <em>Method Return Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.WSDLReturnValueMappingImpl#getWsdlMessage <em>Wsdl Message</em>}</li>
  * </ul>
  * </p>
  *

@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.TopLevelGenerationHelper;
-import org.eclipse.wst.common.internal.jdt.integration.WorkingCopyProvider;
+import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyProvider;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -47,7 +47,7 @@ public class JavaTopLevelGenerationHelper extends TopLevelGenerationHelper {
 	 * level helper has the effect of setting the merge strategy for all compilation units affected
 	 * by this generation.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.IJavaMergeStrategy
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.IJavaMergeStrategy
 	 * @see JavaCompilationUnitGenerator#createMergeStrategy()
 	 */
 	public IJavaMergeStrategy createMergeStrategy() {
@@ -115,7 +115,7 @@ public class JavaTopLevelGenerationHelper extends TopLevelGenerationHelper {
 	 * Returns the JavaProject for this generation.
 	 * 
 	 * @return org.eclipse.jdt.core.api.IJavaProject
-	 * @exception org.eclipse.jst.j2ee.internal.codegen.GenerationException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.codegen.GenerationException
 	 *                if the project name has not been set.
 	 */
 	public IJavaProject getJavaProject() throws GenerationException {
@@ -133,7 +133,7 @@ public class JavaTopLevelGenerationHelper extends TopLevelGenerationHelper {
 	 * provider must be set before starting generation. Otherwise, this call will return null and
 	 * null pointer exceptions are sure to result.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.WorkingCopyProvider
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.WorkingCopyProvider
 	 */
 	public WorkingCopyProvider getWorkingCopyProvider() {
 		return workingCopyProvider;
@@ -143,7 +143,7 @@ public class JavaTopLevelGenerationHelper extends TopLevelGenerationHelper {
 	 * Returns the target workspace.
 	 */
 	public IWorkspace getWorkspace() {
-		return org.eclipse.jst.j2ee.plugin.J2EEPlugin.getWorkspace();
+		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getWorkspace();
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class JavaTopLevelGenerationHelper extends TopLevelGenerationHelper {
 	 * generation.
 	 * 
 	 * @param newWorkingCopyProvider
-	 *            org.eclipse.jst.j2ee.internal.java.codegen.WorkingCopyProvider
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.WorkingCopyProvider
 	 */
 	public void setWorkingCopyProvider(WorkingCopyProvider newWorkingCopyProvider) {
 		workingCopyProvider = newWorkingCopyProvider;

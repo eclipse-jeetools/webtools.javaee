@@ -23,21 +23,21 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.OpenJ2EEResourceAction;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
-import org.eclipse.jst.j2ee.webservices.WebServicesManager;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.activities.ActivityManagerEvent;
 import org.eclipse.ui.activities.IActivityManagerListener;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.common.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelEvent;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelListener;
-import org.eclipse.wst.common.navigator.internal.views.NavigatorActivityHelper;
-import org.eclipse.wst.common.navigator.views.DefaultNavigatorContentExtension;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
+import org.eclipse.wst.common.navigator.internal.views.DefaultNavigatorContentExtension;
+import org.eclipse.wst.common.navigator.internal.views.actions.CommonEditActionGroup;
+import org.eclipse.wst.common.navigator.internal.views.actions.ICommonMenuConstants;
+import org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorActivityHelper;
 import org.eclipse.wst.common.navigator.views.INavigatorContentProvider;
-import org.eclipse.wst.common.navigator.views.actions.CommonEditActionGroup;
-import org.eclipse.wst.common.navigator.views.actions.ICommonMenuConstants;
 import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
@@ -105,7 +105,7 @@ public class WebServiceGroupContentExtension extends DefaultNavigatorContentExte
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.emfworkbench.integration.EditModelEvent)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 	 */
 	public void editModelChanged(EditModelEvent anEvent) {
 		this.getExtensionSite().notifyElementReplaced(this, ((WebServicesNavigatorContentProvider) getContentProvider()).getNavigatorGroup());

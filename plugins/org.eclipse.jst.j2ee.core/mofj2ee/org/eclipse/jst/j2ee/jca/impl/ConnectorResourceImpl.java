@@ -12,9 +12,9 @@ package org.eclipse.jst.j2ee.jca.impl;
 
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.connector.ConnectorTranslator;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
@@ -164,7 +164,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.impl.XMLResourceImpl#syncVersionOfRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
 	protected void syncVersionOfRootObject() {
 		Connector conn = getConnector();

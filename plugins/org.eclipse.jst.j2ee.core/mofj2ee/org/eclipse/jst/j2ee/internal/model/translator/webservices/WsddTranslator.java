@@ -12,8 +12,8 @@
 package org.eclipse.jst.j2ee.internal.model.translator.webservices;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.webservice.WebServiceConstants;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;

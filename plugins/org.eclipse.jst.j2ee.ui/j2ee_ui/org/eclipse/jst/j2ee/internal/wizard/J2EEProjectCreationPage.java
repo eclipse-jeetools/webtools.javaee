@@ -40,7 +40,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.help.WorkbenchHelp;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -240,7 +241,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 	 */
 	protected abstract void createVersionComposite(Composite parent);
 
-	protected void createVersionComposite(Composite parent, String labelText, String versionProp, String versionLabelProp) {
+	protected void createVersionComposite(Composite parent, String labelText, String versionProp) {
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(labelText);
 		Combo versionCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
@@ -248,20 +249,27 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 		gridData.widthHint = 305;
 		versionCombo.setLayoutData(gridData);
 		Control[] deps = new Control[]{label};
-		synchHelper.synchCombo(versionCombo, versionLabelProp, versionProp, deps);
+		synchHelper.synchCombo(versionCombo, versionProp, deps);
 		new Label(parent, SWT.NONE); //pad
 	}
 
 	public static boolean launchNewRuntimeWizard(Shell shell, ServerTargetDataModel model) {
-		Object[] preAddition = model.getValidPropertyValues(ServerTargetDataModel.RUNTIME_TARGET_NAME);
+		WTPPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(ServerTargetDataModel.RUNTIME_TARGET_ID);
 		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, model.computeTypeId(), model.computeVersionId());
 		if (isOK && model != null) {
-			//model.resetValidServerTargets();
-			model.notifyValidValuesChange(ServerTargetDataModel.RUNTIME_TARGET_NAME);
-			Object[] postAddition = model.getValidPropertyValues(ServerTargetDataModel.RUNTIME_TARGET_NAME);
+			model.notifyValidValuesChange(ServerTargetDataModel.RUNTIME_TARGET_ID);
+			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(ServerTargetDataModel.RUNTIME_TARGET_ID);
+			Object [] preAddition = new Object[preAdditionDescriptors.length];
+			for(int i=0;i<preAddition.length;i++){
+				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
+			}
+			Object [] postAddition = new Object[postAdditionDescriptors.length];
+			for(int i=0;i<postAddition.length;i++){
+				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
+			}
 			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
 			if (newAddition != null)
-				model.setProperty(ServerTargetDataModel.RUNTIME_TARGET_NAME, newAddition);
+				model.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID, newAddition);
 		}
 		return isOK;
 	}
@@ -269,7 +277,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#dispose()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#dispose()
 	 */
 	public void dispose() {
 		super.dispose();
@@ -279,7 +287,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#enter()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#enter()
 	 */
 	protected void enter() {
 		if (advancedControlsBuilt) {
@@ -299,7 +307,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#exit()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#exit()
 	 */
 	protected void exit() {
 		if (advancedControlsBuilt && isWindows) {
@@ -311,7 +319,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#storeDefaultSettings()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#storeDefaultSettings()
 	 */
 	public void storeDefaultSettings() {
 		super.storeDefaultSettings();
@@ -329,7 +337,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#restoreDefaultSettings()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#restoreDefaultSettings()
 	 */
 	protected void restoreDefaultSettings() {
 		super.restoreDefaultSettings();

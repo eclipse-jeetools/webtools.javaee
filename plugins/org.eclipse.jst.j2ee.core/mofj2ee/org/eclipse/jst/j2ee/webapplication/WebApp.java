@@ -96,7 +96,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	void setDistributable(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.webapplication.WebApp#isDistributable <em>Distributable</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#isDistributable <em>Distributable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetDistributable()
@@ -107,7 +107,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	void unsetDistributable();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webapplication.WebApp#isDistributable <em>Distributable</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#isDistributable <em>Distributable</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Distributable</em>' attribute is set.
@@ -128,7 +128,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #setVersion(String)
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebApp_Version()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebApp_Version()
 	 * @model 
 	 * @generated
 	 */
@@ -143,7 +143,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 */
 	public int getJ2EEVersionID() throws IllegalStateException ;
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getVersion <em>Version</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getVersion <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Version</em>' attribute.
@@ -264,7 +264,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * Returns the value of the '<em><b>Context Params</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.ParamValue}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.ParamValue}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Context Params</em>' containment reference list isn't clear,
@@ -272,8 +272,8 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Context Params</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebApp_ContextParams()
-	 * @model type="org.eclipse.jst.j2ee.common.ParamValue" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebApp_ContextParams()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.ParamValue" containment="true"
 	 * @generated
 	 */
 	EList getContextParams();
@@ -288,14 +288,14 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Jsp Config</em>' containment reference.
 	 * @see #setJspConfig(JSPConfig)
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebApp_JspConfig()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebApp_JspConfig()
 	 * @model containment="true"
 	 * @generated
 	 */
 	JSPConfig getJspConfig();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getJspConfig <em>Jsp Config</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getJspConfig <em>Jsp Config</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Jsp Config</em>' containment reference.
@@ -306,7 +306,7 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 
 	/**
 	 * Returns the value of the '<em><b>Message Destinations</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.MessageDestination}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.MessageDestination}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Message Destinations</em>' containment reference list isn't clear,
@@ -314,8 +314,8 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Message Destinations</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebApp_MessageDestinations()
-	 * @model type="org.eclipse.jst.j2ee.common.MessageDestination" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebApp_MessageDestinations()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.MessageDestination" containment="true"
 	 * @generated
 	 */
 	EList getMessageDestinations();
@@ -330,14 +330,14 @@ public void renameSecurityRole(String existingRoleName, String newRoleName);
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Local Encoding Mapping List</em>' containment reference.
 	 * @see #setLocalEncodingMappingList(LocalEncodingMappingList)
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getWebApp_LocalEncodingMappingList()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getWebApp_LocalEncodingMappingList()
 	 * @model containment="true"
 	 * @generated
 	 */
 	LocalEncodingMappingList getLocalEncodingMappingList();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getLocalEncodingMappingList <em>Local Encoding Mapping List</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getLocalEncodingMappingList <em>Local Encoding Mapping List</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Local Encoding Mapping List</em>' containment reference.

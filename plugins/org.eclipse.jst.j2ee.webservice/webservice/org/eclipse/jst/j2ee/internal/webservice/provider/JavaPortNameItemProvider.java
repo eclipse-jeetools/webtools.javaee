@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaPortName}
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaPortName}
  * object. <!-- begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

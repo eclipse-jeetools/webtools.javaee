@@ -10,7 +10,6 @@ package org.eclipse.jst.j2ee.internal.webservice.provider;
 
 import org.eclipse.emf.common.notify.Adapter;
 
-
 public class ATKUIWscommonAdapterFactory extends WscommonItemProviderAdapterFactory {
 	public ATKUIWscommonAdapterFactory() {
 		super();

@@ -14,13 +14,13 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- *  @deprecated since 4/25/2003 use list on {@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection}
+ *  @deprecated since 4/25/2003 use list on {@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection}
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getHTTPMethodType()
+ * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getHTTPMethodType()
  * @model 
  * @generated
  */
@@ -35,14 +35,14 @@ public interface HTTPMethodType extends EObject{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Http Method</em>' attribute.
 	 * @see #setHttpMethod(String)
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getHTTPMethodType_HttpMethod()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getHTTPMethodType_HttpMethod()
 	 * @model 
 	 * @generated
 	 */
 	String getHttpMethod();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Http Method</em>' attribute.

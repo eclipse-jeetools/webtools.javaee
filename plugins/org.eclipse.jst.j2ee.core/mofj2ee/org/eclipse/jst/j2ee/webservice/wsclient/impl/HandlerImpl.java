@@ -37,12 +37,12 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.HandlerImpl#getHandlerName <em>Handler Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.HandlerImpl#getSoapRoles <em>Soap Roles</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.HandlerImpl#getPortNames <em>Port Names</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.HandlerImpl#getHandlerClass <em>Handler Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.HandlerImpl#getInitParams <em>Init Params</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.HandlerImpl#getSoapHeaders <em>Soap Headers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.HandlerImpl#getHandlerName <em>Handler Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.HandlerImpl#getSoapRoles <em>Soap Roles</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.HandlerImpl#getPortNames <em>Port Names</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.HandlerImpl#getHandlerClass <em>Handler Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.HandlerImpl#getInitParams <em>Init Params</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.HandlerImpl#getSoapHeaders <em>Soap Headers</em>}</li>
  * </ul>
  * </p>
  *

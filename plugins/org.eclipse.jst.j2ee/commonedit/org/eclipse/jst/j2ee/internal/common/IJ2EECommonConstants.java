@@ -23,8 +23,8 @@ public interface IJ2EECommonConstants {
 	// J2EE_NAVIGATOR_LINKING_PREFERENCE specifies whether the J2EE Navigator
 	// selection should be linked to the active editor.
 	// It is a boolean value, and the default is true.
-	final static String J2EE_NAVIGATOR_LINKING_PREFERENCE = "org.eclipse.jst.j2ee.ui.preference.j2eeNavigatorLinking"; //$NON-NLS-1$
-	final static String J2EE_VERSION_PREFERENCE = "org.eclipse.jst.j2ee.ui.preference.j2eeVersion";//$NON-NLS-1$
+	final static String J2EE_NAVIGATOR_LINKING_PREFERENCE = "org.eclipse.jst.j2ee.internal.internal.ui.preference.j2eeNavigatorLinking"; //$NON-NLS-1$
+	final static String J2EE_VERSION_PREFERENCE = "org.eclipse.jst.j2ee.internal.internal.ui.preference.j2eeVersion";//$NON-NLS-1$
 	final static String J2EE_VERSION_1_2 = "J2EE_1_2"; //$NON-NLS-1$
 	final static String J2EE_VERSION_1_3 = "J2EE_1_3"; //$NON-NLS-1$
 

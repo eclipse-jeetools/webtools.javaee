@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 import com.ibm.wtp.common.RegistryReader;
 import com.ibm.wtp.common.logger.proxy.Logger;

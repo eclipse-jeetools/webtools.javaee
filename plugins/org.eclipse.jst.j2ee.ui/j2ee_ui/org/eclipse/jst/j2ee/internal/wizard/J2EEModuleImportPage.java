@@ -39,7 +39,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
@@ -73,7 +73,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{J2EEImportDataModel.FILE_NAME, J2EEImportDataModel.PROJECT_NAME, J2EEImportDataModel.OVERWRITE_PROJECT, J2EEImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT, J2EEModuleImportDataModel.EAR_PROJECT, J2EEImportDataModel.SERVER_TARGET_ID, J2EEModuleImportDataModel.ADD_TO_EAR};

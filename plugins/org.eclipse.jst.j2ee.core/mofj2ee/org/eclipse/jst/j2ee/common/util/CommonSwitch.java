@@ -48,7 +48,7 @@ import org.eclipse.jst.j2ee.common.UseCallerIdentity;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.common.CommonPackage
+ * @see org.eclipse.jst.j2ee.internal.common.CommonPackage
  * @generated
  */
 public class CommonSwitch {

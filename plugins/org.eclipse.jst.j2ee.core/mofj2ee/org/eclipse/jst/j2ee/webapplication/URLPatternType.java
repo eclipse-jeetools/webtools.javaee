@@ -13,18 +13,18 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.ecore.EObject;
 /**
  *  <!-- begin-user-doc -->
- * @deprecated since 4/25/2003 use list on {@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection} 
+ * @deprecated since 4/25/2003 use list on {@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection} 
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webapplication.URLPatternType#getUrlPattern <em>Url Pattern</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webapplication.URLPatternType#getResCollection <em>Res Collection</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.URLPatternType#getUrlPattern <em>Url Pattern</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.URLPatternType#getResCollection <em>Res Collection</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getURLPatternType()
+ * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getURLPatternType()
  * @model 
  * @generated
  */

@@ -18,7 +18,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.wst.common.emfworkbench.CompatibilityWorkbenchURIConverterImpl;
+import org.eclipse.wst.common.internal.emfworkbench.CompatibilityWorkbenchURIConverterImpl;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ISynchronizerExtender;
@@ -86,7 +86,7 @@ public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConv
 	}
 
 	/**
-	 * @see org.eclipse.wst.common.emfworkbench.ISynchronizerExtender#projectChanged(IResourceDelta)
+	 * @see org.eclipse.wst.common.internal.emfworkbench.ISynchronizerExtender#projectChanged(IResourceDelta)
 	 */
 	public void projectChanged(IResourceDelta delta) {
 		if (shouldNotifyChangedListeners(delta))
@@ -162,7 +162,7 @@ public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConv
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.emfworkbench.ISynchronizerExtender#projectClosed()
+	 * @see org.eclipse.wst.common.internal.emfworkbench.ISynchronizerExtender#projectClosed()
 	 */
 	public void projectClosed() {
 	}

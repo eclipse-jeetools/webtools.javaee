@@ -25,19 +25,19 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient#getComponentScopedRefs <em>Component Scoped Refs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient#getServiceRefs <em>Service Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.WebServicesClient#getComponentScopedRefs <em>Component Scoped Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.WebServicesClient#getServiceRefs <em>Service Refs</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getWebServicesClient()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getWebServicesClient()
  * @model 
  * @generated
  */
 public interface WebServicesClient extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Component Scoped Refs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ComponentScopedRefs}.
 	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Component Scoped Refs</em>' containment reference list isn't clear,
@@ -45,15 +45,15 @@ public interface WebServicesClient extends EObject{
      * </p>
      * <!-- end-user-doc -->
 	 * @return the value of the '<em>Component Scoped Refs</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getWebServicesClient_ComponentScopedRefs()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getWebServicesClient_ComponentScopedRefs()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsclient.ComponentScopedRefs" containment="true"
 	 * @generated
 	 */
     EList getComponentScopedRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Service Refs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef}.
 	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Service Refs</em>' containment reference list isn't clear,
@@ -61,8 +61,8 @@ public interface WebServicesClient extends EObject{
      * </p>
      * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Refs</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage#getWebServicesClient_ServiceRefs()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsclient.Webservice_clientPackage#getWebServicesClient_ServiceRefs()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsclient.ServiceRef" containment="true"
 	 * @generated
 	 */
     EList getServiceRefs();

@@ -19,12 +19,12 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author jialin
@@ -50,7 +50,7 @@ public class AddServletMappingDataModel extends J2EEModelModifierOperationDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new AddServletMappingOperation(this);
@@ -70,7 +70,7 @@ public class AddServletMappingDataModel extends J2EEModelModifierOperationDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		IStatus status = validateServletName(getStringProperty(SERVLET));

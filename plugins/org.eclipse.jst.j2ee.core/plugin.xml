@@ -5,7 +5,7 @@
    name="J2EE Core Component"
    version="6.0.0"
    provider-name="IBM"
-   class="org.eclipse.jst.j2ee.core.plugin.J2EECorePlugin">
+   class="org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin">
 
    <runtime>
 <!-- ejb jars ========================== -->
@@ -132,14 +132,14 @@
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="commonarchive.xmi"
-            class="org.eclipse.jst.j2ee.commonarchivecore.CommonarchivePackage">
+            class="org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="commonarchive.looseconfig.xmi"
-            class="org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseconfigPackage">
+            class="org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigPackage">
       </package>
    </extension>
 <!-- ====================================================== -->

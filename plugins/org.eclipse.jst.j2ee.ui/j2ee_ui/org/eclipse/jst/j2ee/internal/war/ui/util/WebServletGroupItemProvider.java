@@ -18,8 +18,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 

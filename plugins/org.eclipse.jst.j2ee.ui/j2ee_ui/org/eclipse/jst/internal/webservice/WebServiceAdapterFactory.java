@@ -16,10 +16,10 @@
  */
 package org.eclipse.jst.internal.webservice;
 
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
-import org.eclipse.jst.j2ee.webservices.WebServicesManager;
-import org.eclipse.wst.common.emfworkbench.EMFAdapterFactory;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.EMFAdapterFactory;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.wsdl.Service;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

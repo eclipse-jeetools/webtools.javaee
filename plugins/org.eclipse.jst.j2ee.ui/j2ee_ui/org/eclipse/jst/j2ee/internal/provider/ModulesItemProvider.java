@@ -15,8 +15,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -206,7 +206,7 @@ public class ModulesItemProvider extends J2EEItemProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider#getAdapter(java.lang.Class)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.provider.J2EEItemProvider#getAdapter(java.lang.Class)
 	 */
 	public Object getAdapter(Class adapter) {
 		if (adapter == IRESOURCE_CLASS || adapter == IPROJECT_CLASS)

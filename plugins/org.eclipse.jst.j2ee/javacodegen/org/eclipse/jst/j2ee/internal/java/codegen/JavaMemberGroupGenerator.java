@@ -47,7 +47,7 @@ public abstract class JavaMemberGroupGenerator extends JavaMemberGenerator {
 	/**
 	 * For a group generator, we want the default implementation.
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public AnalysisResult analyze() throws GenerationException {
 		return primAnalyze();
@@ -63,7 +63,7 @@ public abstract class JavaMemberGroupGenerator extends JavaMemberGenerator {
 	/**
 	 * For a group generator all we want to do is run the children.
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void run() throws GenerationException {
 		runChildren();

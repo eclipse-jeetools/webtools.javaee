@@ -29,8 +29,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.EjbModule;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
@@ -41,14 +39,16 @@ import org.eclipse.jst.j2ee.common.MessageDestinationRef;
 import org.eclipse.jst.j2ee.common.ResourceEnvRef;
 import org.eclipse.jst.j2ee.common.ResourceRef;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.ValidateXmlCommand;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategy;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
@@ -57,26 +57,26 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.ModuleMapHelper;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.model.validation.EarValidator;
+import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.Message;
-import org.eclipse.wst.validation.core.MessageLimitException;
-import org.eclipse.wst.validation.core.SeverityEnum;
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.core.IFileDelta;
+import org.eclipse.wst.validation.internal.core.IHelper;
+import org.eclipse.wst.validation.internal.core.IMessage;
+import org.eclipse.wst.validation.internal.core.IReporter;
+import org.eclipse.wst.validation.internal.core.Message;
+import org.eclipse.wst.validation.internal.core.MessageLimitException;
+import org.eclipse.wst.validation.internal.core.SeverityEnum;
+import org.eclipse.wst.validation.internal.core.ValidationException;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -89,7 +89,7 @@ import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
  * @author: Administrator
  */
 public class UIEarValidator extends EarValidator implements UIEarMessageConstants {
-	public static final String VALIDATOR_ID = "org.eclipse.wst.validation.core.ear.workbenchimpl.UIEarValidator"; //$NON-NLS-1$
+	public static final String VALIDATOR_ID = "org.eclipse.wst.validation.internal.core.ear.workbenchimpl.UIEarValidator"; //$NON-NLS-1$
 	public static final String MANIFEST_GROUP_NAME = "WSAD.EAR.MANIFEST"; //$NON-NLS-1$
 	protected UIEarHelper earHelper;
 	protected EAREditModel earEditModel;
@@ -188,7 +188,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	/**
 	 * Insert the method's description here. Creation date: (9/10/2001 2:56:32 PM)
 	 * 
-	 * @return org.eclipse.wst.validation.core.core.ear.workbenchimpl.UIEarHelper
+	 * @return org.eclipse.wst.validation.internal.core.core.ear.workbenchimpl.UIEarHelper
 	 */
 	public org.eclipse.jst.j2ee.internal.validation.UIEarHelper getEarHelper() {
 		return earHelper;
@@ -221,7 +221,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * Insert the method's description here. Creation date: (9/10/2001 2:56:32 PM)
 	 * 
 	 * @param newEarHelper
-	 *            org.eclipse.wst.validation.core.core.ear.workbenchimpl.UIEarHelper
+	 *            org.eclipse.wst.validation.internal.core.core.ear.workbenchimpl.UIEarHelper
 	 */
 	public void setEarHelper(org.eclipse.jst.j2ee.internal.validation.UIEarHelper newEarHelper) {
 		earHelper = newEarHelper;

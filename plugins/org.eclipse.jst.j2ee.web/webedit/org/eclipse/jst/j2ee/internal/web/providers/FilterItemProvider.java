@@ -27,11 +27,11 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.CommonFactory;
-import org.eclipse.jst.j2ee.common.provider.CompatibilityDescriptionGroupItemProvider;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.InitParam;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -48,7 +48,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
@@ -88,7 +88,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 
 
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
@@ -96,7 +96,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	}
 
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return "Create InitParam"; //$NON-NLS-1$
@@ -104,7 +104,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 
 	/**
 	 * This returns the help text for
-	 * {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

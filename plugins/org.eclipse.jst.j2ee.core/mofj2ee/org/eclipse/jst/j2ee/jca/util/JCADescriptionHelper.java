@@ -11,9 +11,9 @@
 package org.eclipse.jst.j2ee.jca.util;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jca.AuthenticationMechanism;
 import org.eclipse.jst.j2ee.jca.ConfigProperty;
 import org.eclipse.jst.j2ee.jca.License;

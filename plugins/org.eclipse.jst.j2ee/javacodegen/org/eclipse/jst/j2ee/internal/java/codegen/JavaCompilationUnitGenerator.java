@@ -226,7 +226,7 @@ public abstract class JavaCompilationUnitGenerator extends JavaElementGenerator 
 	 * Subclasses can override to create a proper merge strategy. The default is to get it from the
 	 * top level helper.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.IJavaMergeStrategy
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.IJavaMergeStrategy
 	 */
 	protected IJavaMergeStrategy createMergeStrategy() throws GenerationException {
 		IJavaMergeStrategy strategy = null;
@@ -755,7 +755,7 @@ public abstract class JavaCompilationUnitGenerator extends JavaElementGenerator 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void terminate() throws GenerationException {
 		super.terminate();

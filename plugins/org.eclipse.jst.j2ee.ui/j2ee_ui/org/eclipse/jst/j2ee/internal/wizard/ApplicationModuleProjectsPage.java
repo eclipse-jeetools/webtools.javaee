@@ -43,8 +43,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 /**
  * @author DABERG
@@ -72,7 +72,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return null;
@@ -81,7 +81,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.J2EEWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite modulesGroup = new Composite(parent, SWT.NONE);
@@ -278,7 +278,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.J2EEWizardPage#enter()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#enter()
 	 */
 	protected void enter() {
 		moduleProjectsViewer.setInput(ResourcesPlugin.getWorkspace().getRoot());

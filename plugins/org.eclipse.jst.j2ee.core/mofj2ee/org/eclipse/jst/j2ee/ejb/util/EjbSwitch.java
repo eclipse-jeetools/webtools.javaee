@@ -56,7 +56,7 @@ import org.eclipse.jst.j2ee.ejb.Session;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.ejb.EjbPackage
+ * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage
  * @generated
  */
 public class EjbSwitch {

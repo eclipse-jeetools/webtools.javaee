@@ -29,15 +29,15 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerName <em>Handler Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerClass <em>Handler Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getInitParams <em>Init Params</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getSoapHeaders <em>Soap Headers</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getSoapRoles <em>Soap Roles</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerName <em>Handler Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerClass <em>Handler Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getInitParams <em>Init Params</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getSoapHeaders <em>Soap Headers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getSoapRoles <em>Soap Roles</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getHandler()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getHandler()
  * @model 
  * @generated
  */
@@ -52,14 +52,14 @@ public interface Handler extends CompatibilityDescriptionGroup {
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Handler Name</em>' attribute.
 	 * @see #setHandlerName(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getHandler_HandlerName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getHandler_HandlerName()
 	 * @model 
 	 * @generated
 	 */
   String getHandlerName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerName <em>Handler Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerName <em>Handler Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Handler Name</em>' attribute.
@@ -78,14 +78,14 @@ public interface Handler extends CompatibilityDescriptionGroup {
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Handler Class</em>' attribute.
 	 * @see #setHandlerClass(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getHandler_HandlerClass()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getHandler_HandlerClass()
 	 * @model 
 	 * @generated
 	 */
   String getHandlerClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerClass <em>Handler Class</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerClass <em>Handler Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Handler Class</em>' attribute.
@@ -96,7 +96,7 @@ public interface Handler extends CompatibilityDescriptionGroup {
 
 	/**
 	 * Returns the value of the '<em><b>Init Params</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam}.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Init Params</em>' containment reference list isn't clear,
@@ -104,15 +104,15 @@ public interface Handler extends CompatibilityDescriptionGroup {
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Init Params</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getHandler_InitParams()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wscommon.InitParam" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getHandler_InitParams()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam" containment="true"
 	 * @generated
 	 */
   EList getInitParams();
 
 	/**
 	 * Returns the value of the '<em><b>Soap Headers</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPHeader}.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Soap Headers</em>' containment reference list isn't clear,
@@ -120,15 +120,15 @@ public interface Handler extends CompatibilityDescriptionGroup {
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Soap Headers</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getHandler_SoapHeaders()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getHandler_SoapHeaders()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPHeader" containment="true"
 	 * @generated
 	 */
   EList getSoapHeaders();
 
 	/**
 	 * Returns the value of the '<em><b>Soap Roles</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole}.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Soap Roles</em>' containment reference list isn't clear,
@@ -136,8 +136,8 @@ public interface Handler extends CompatibilityDescriptionGroup {
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Soap Roles</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getHandler_SoapRoles()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getHandler_SoapRoles()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wscommon.SOAPRole" containment="true"
 	 * @generated
 	 */
   EList getSoapRoles();

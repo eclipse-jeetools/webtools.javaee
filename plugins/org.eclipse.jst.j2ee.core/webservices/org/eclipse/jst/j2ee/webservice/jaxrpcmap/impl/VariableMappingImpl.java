@@ -25,12 +25,12 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.VariableMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.VariableMappingImpl#getJavaVariableName <em>Java Variable Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.VariableMappingImpl#getXmlElementName <em>Xml Element Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.VariableMappingImpl#isDataMember <em>Data Member</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.VariableMappingImpl#getXmlAttributeName <em>Xml Attribute Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.VariableMappingImpl#isXmlWildcard <em>Xml Wildcard</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.VariableMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.VariableMappingImpl#getJavaVariableName <em>Java Variable Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.VariableMappingImpl#getXmlElementName <em>Xml Element Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.VariableMappingImpl#isDataMember <em>Data Member</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.VariableMappingImpl#getXmlAttributeName <em>Xml Attribute Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.VariableMappingImpl#isXmlWildcard <em>Xml Wildcard</em>}</li>
  * </ul>
  * </p>
  *

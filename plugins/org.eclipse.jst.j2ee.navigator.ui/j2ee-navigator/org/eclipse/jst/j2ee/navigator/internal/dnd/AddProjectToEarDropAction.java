@@ -28,12 +28,12 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.ui.part.PluginTransfer;
 import org.eclipse.ui.views.navigator.LocalSelectionTransfer;
-import org.eclipse.wst.common.framework.AdaptabilityUtility;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.navigator.internal.views.NavigatorPlugin;
-import org.eclipse.wst.common.navigator.views.IDropValidator;
-import org.eclipse.wst.common.navigator.views.NavigatorDropActionDelegate;
-import org.eclipse.wst.common.navigator.views.NavigatorDropAdapter;
+import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
+import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
+import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropAdapter;
 
 /**
  * @author jsholl

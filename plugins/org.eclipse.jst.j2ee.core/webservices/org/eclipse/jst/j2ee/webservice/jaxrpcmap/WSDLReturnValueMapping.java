@@ -20,14 +20,14 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getMethodReturnValue <em>Method Return Value</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessage <em>Wsdl Message</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getMethodReturnValue <em>Method Return Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessage <em>Wsdl Message</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping()
  * @model 
  * @generated
  */
@@ -42,14 +42,14 @@ public interface WSDLReturnValueMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -68,14 +68,14 @@ public interface WSDLReturnValueMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method Return Value</em>' attribute.
    * @see #setMethodReturnValue(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_MethodReturnValue()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_MethodReturnValue()
    * @model 
    * @generated
    */
   String getMethodReturnValue();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getMethodReturnValue <em>Method Return Value</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getMethodReturnValue <em>Method Return Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Method Return Value</em>' attribute.
@@ -94,14 +94,14 @@ public interface WSDLReturnValueMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Message Part Name</em>' attribute.
    * @see #setWsdlMessagePartName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_WsdlMessagePartName()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_WsdlMessagePartName()
    * @model 
    * @generated
    */
   String getWsdlMessagePartName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Message Part Name</em>' attribute.
@@ -120,14 +120,14 @@ public interface WSDLReturnValueMapping extends EObject {
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Message</em>' containment reference.
    * @see #setWsdlMessage(WSDLMessage)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_WsdlMessage()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLReturnValueMapping_WsdlMessage()
    * @model containment="true" required="true"
    * @generated
    */
   WSDLMessage getWsdlMessage();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessage <em>Wsdl Message</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.WSDLReturnValueMapping#getWsdlMessage <em>Wsdl Message</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Message</em>' containment reference.

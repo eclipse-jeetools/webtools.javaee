@@ -9,8 +9,8 @@
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseConfigRegister;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfigRegister;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 public interface ILooseConfigConstants {

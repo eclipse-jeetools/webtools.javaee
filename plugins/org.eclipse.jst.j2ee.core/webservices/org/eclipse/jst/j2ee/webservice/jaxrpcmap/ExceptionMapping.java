@@ -20,15 +20,15 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessage <em>Wsdl Message</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getConstructorParameterOrder <em>Constructor Parameter Order</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getExceptionType <em>Exception Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessage <em>Wsdl Message</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getConstructorParameterOrder <em>Constructor Parameter Order</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping()
  * @model 
  * @generated
  */
@@ -43,14 +43,14 @@ public interface ExceptionMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -69,14 +69,14 @@ public interface ExceptionMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exception Type</em>' attribute.
    * @see #setExceptionType(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_ExceptionType()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_ExceptionType()
    * @model 
    * @generated
    */
   String getExceptionType();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getExceptionType <em>Exception Type</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getExceptionType <em>Exception Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Exception Type</em>' attribute.
@@ -95,14 +95,14 @@ public interface ExceptionMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Message Part Name</em>' attribute.
    * @see #setWsdlMessagePartName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_WsdlMessagePartName()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_WsdlMessagePartName()
    * @model 
    * @generated
    */
   String getWsdlMessagePartName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessagePartName <em>Wsdl Message Part Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Message Part Name</em>' attribute.
@@ -121,14 +121,14 @@ public interface ExceptionMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Message</em>' containment reference.
    * @see #setWsdlMessage(WSDLMessage)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_WsdlMessage()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_WsdlMessage()
    * @model containment="true" required="true"
    * @generated
    */
   WSDLMessage getWsdlMessage();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessage <em>Wsdl Message</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getWsdlMessage <em>Wsdl Message</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Message</em>' containment reference.
@@ -147,14 +147,14 @@ public interface ExceptionMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constructor Parameter Order</em>' containment reference.
    * @see #setConstructorParameterOrder(ConstructorParameterOrder)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_ConstructorParameterOrder()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getExceptionMapping_ConstructorParameterOrder()
    * @model containment="true"
    * @generated
    */
   ConstructorParameterOrder getConstructorParameterOrder();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping#getConstructorParameterOrder <em>Constructor Parameter Order</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping#getConstructorParameterOrder <em>Constructor Parameter Order</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Constructor Parameter Order</em>' containment reference.

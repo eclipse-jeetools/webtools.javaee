@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.impl.SOAPRoleImpl#getSoapRole <em>Soap Role</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.SOAPRoleImpl#getSoapRole <em>Soap Role</em>}</li>
  * </ul>
  * </p>
  *

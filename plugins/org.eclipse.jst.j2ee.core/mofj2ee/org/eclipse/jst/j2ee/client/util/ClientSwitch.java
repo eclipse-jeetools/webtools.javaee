@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.common.DescriptionGroup;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.client.ClientPackage
+ * @see org.eclipse.jst.j2ee.internal.client.ClientPackage
  * @generated
  */
 public class ClientSwitch {

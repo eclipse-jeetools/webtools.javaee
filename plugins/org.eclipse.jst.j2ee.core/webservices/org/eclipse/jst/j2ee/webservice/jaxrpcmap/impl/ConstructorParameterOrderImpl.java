@@ -33,8 +33,8 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ConstructorParameterOrderImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ConstructorParameterOrderImpl#getElementNames <em>Element Names</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ConstructorParameterOrderImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ConstructorParameterOrderImpl#getElementNames <em>Element Names</em>}</li>
  * </ul>
  * </p>
  *

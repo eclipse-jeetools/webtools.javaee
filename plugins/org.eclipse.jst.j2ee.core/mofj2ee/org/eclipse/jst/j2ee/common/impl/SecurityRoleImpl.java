@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.SecurityRole;
-import org.eclipse.wst.common.framework.enablement.nonui.WorkbenchUtil;
+import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WorkbenchUtil;
 
 /**
  * A semantic grouping of operations that may be performed by a subject.

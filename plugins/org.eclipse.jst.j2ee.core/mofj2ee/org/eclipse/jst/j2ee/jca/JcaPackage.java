@@ -257,7 +257,7 @@ public interface JcaPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.jca";//$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.jca";//$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -376,11 +376,11 @@ public interface JcaPackage extends EPackage{
 	int LICENSE_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.InboundResourceAdapterImpl <em>Inbound Resource Adapter</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.InboundResourceAdapterImpl <em>Inbound Resource Adapter</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.InboundResourceAdapterImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getInboundResourceAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.InboundResourceAdapterImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getInboundResourceAdapter()
 	 * @generated
 	 */
 	int INBOUND_RESOURCE_ADAPTER = 6;
@@ -404,11 +404,11 @@ public interface JcaPackage extends EPackage{
 	int INBOUND_RESOURCE_ADAPTER_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.OutboundResourceAdapterImpl <em>Outbound Resource Adapter</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.OutboundResourceAdapterImpl <em>Outbound Resource Adapter</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.OutboundResourceAdapterImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getOutboundResourceAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.OutboundResourceAdapterImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getOutboundResourceAdapter()
 	 * @generated
 	 */
 	int OUTBOUND_RESOURCE_ADAPTER = 7;
@@ -459,11 +459,11 @@ public interface JcaPackage extends EPackage{
 	int OUTBOUND_RESOURCE_ADAPTER_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.MessageAdapterImpl <em>Message Adapter</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.MessageAdapterImpl <em>Message Adapter</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.MessageAdapterImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getMessageAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.MessageAdapterImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getMessageAdapter()
 	 * @generated
 	 */
 	int MESSAGE_ADAPTER = 8;
@@ -487,11 +487,11 @@ public interface JcaPackage extends EPackage{
 	int MESSAGE_ADAPTER_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl <em>Connection Definition</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl <em>Connection Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getConnectionDefinition()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getConnectionDefinition()
 	 * @generated
 	 */
 	int CONNECTION_DEFINITION = 9;
@@ -560,11 +560,11 @@ public interface JcaPackage extends EPackage{
 	int CONNECTION_DEFINITION_FEATURE_COUNT = 6;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.AdminObjectImpl <em>Admin Object</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.AdminObjectImpl <em>Admin Object</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.AdminObjectImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getAdminObject()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.AdminObjectImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getAdminObject()
 	 * @generated
 	 */
 	int ADMIN_OBJECT = 10;
@@ -606,11 +606,11 @@ public interface JcaPackage extends EPackage{
 	int ADMIN_OBJECT_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.MessageListenerImpl <em>Message Listener</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.MessageListenerImpl <em>Message Listener</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.MessageListenerImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getMessageListener()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.MessageListenerImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getMessageListener()
 	 * @generated
 	 */
 	int MESSAGE_LISTENER = 11;
@@ -643,11 +643,11 @@ public interface JcaPackage extends EPackage{
 	int MESSAGE_LISTENER_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.ActivationSpecImpl <em>Activation Spec</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.ActivationSpecImpl <em>Activation Spec</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.ActivationSpecImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getActivationSpec()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.ActivationSpecImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getActivationSpec()
 	 * @generated
 	 */
 	int ACTIVATION_SPEC = 12;
@@ -680,11 +680,11 @@ public interface JcaPackage extends EPackage{
 	int ACTIVATION_SPEC_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.jca.impl.RequiredConfigPropertyTypeImpl <em>Required Config Property Type</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jca.impl.RequiredConfigPropertyTypeImpl <em>Required Config Property Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.jca.impl.RequiredConfigPropertyTypeImpl
-	 * @see org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl#getRequiredConfigPropertyType()
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.RequiredConfigPropertyTypeImpl
+	 * @see org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl#getRequiredConfigPropertyType()
 	 * @generated
 	 */
 	int REQUIRED_CONFIG_PROPERTY_TYPE = 13;
@@ -769,322 +769,322 @@ public interface JcaPackage extends EPackage{
 	EAttribute getLicense_Required();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.License#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.License#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.License#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.jca.License#getDescriptions()
 	 * @see #getLicense()
 	 * @generated
 	 */
 	EReference getLicense_Descriptions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.InboundResourceAdapter <em>Inbound Resource Adapter</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter <em>Inbound Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Inbound Resource Adapter</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.InboundResourceAdapter
+	 * @see org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter
 	 * @generated
 	 */
 	EClass getInboundResourceAdapter();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.jca.InboundResourceAdapter#getMessageAdapter <em>Message Adapter</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter#getMessageAdapter <em>Message Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Message Adapter</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.InboundResourceAdapter#getMessageAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter#getMessageAdapter()
 	 * @see #getInboundResourceAdapter()
 	 * @generated
 	 */
 	EReference getInboundResourceAdapter_MessageAdapter();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter <em>Outbound Resource Adapter</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter <em>Outbound Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Outbound Resource Adapter</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.OutboundResourceAdapter
+	 * @see org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter
 	 * @generated
 	 */
 	EClass getOutboundResourceAdapter();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#isReauthenticationSupport <em>Reauthentication Support</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Reauthentication Support</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#isReauthenticationSupport()
+	 * @see org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#isReauthenticationSupport()
 	 * @see #getOutboundResourceAdapter()
 	 * @generated
 	 */
 	EAttribute getOutboundResourceAdapter_ReauthenticationSupport();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Transaction Support</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getTransactionSupport()
+	 * @see org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getTransactionSupport()
 	 * @see #getOutboundResourceAdapter()
 	 * @generated
 	 */
 	EAttribute getOutboundResourceAdapter_TransactionSupport();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getConnectionDefinitions <em>Connection Definitions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getConnectionDefinitions <em>Connection Definitions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Connection Definitions</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getConnectionDefinitions()
+	 * @see org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getConnectionDefinitions()
 	 * @see #getOutboundResourceAdapter()
 	 * @generated
 	 */
 	EReference getOutboundResourceAdapter_ConnectionDefinitions();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getAuthenticationMechanisms <em>Authentication Mechanisms</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getAuthenticationMechanisms <em>Authentication Mechanisms</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Authentication Mechanisms</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.OutboundResourceAdapter#getAuthenticationMechanisms()
+	 * @see org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter#getAuthenticationMechanisms()
 	 * @see #getOutboundResourceAdapter()
 	 * @generated
 	 */
 	EReference getOutboundResourceAdapter_AuthenticationMechanisms();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.MessageAdapter <em>Message Adapter</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.MessageAdapter <em>Message Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Message Adapter</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.MessageAdapter
+	 * @see org.eclipse.jst.j2ee.internal.jca.MessageAdapter
 	 * @generated
 	 */
 	EClass getMessageAdapter();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.MessageAdapter#getMessageListeners <em>Message Listeners</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.MessageAdapter#getMessageListeners <em>Message Listeners</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Message Listeners</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.MessageAdapter#getMessageListeners()
+	 * @see org.eclipse.jst.j2ee.internal.jca.MessageAdapter#getMessageListeners()
 	 * @see #getMessageAdapter()
 	 * @generated
 	 */
 	EReference getMessageAdapter_MessageListeners();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition <em>Connection Definition</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition <em>Connection Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Connection Definition</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition
 	 * @generated
 	 */
 	EClass getConnectionDefinition();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Managed Connection Factory Class</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition#getManagedConnectionFactoryClass()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getManagedConnectionFactoryClass()
 	 * @see #getConnectionDefinition()
 	 * @generated
 	 */
 	EAttribute getConnectionDefinition_ManagedConnectionFactoryClass();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryInterface <em>Connection Factory Interface</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryInterface <em>Connection Factory Interface</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Connection Factory Interface</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryInterface()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryInterface()
 	 * @see #getConnectionDefinition()
 	 * @generated
 	 */
 	EAttribute getConnectionDefinition_ConnectionFactoryInterface();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Connection Factory Impl Class</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionFactoryImplClass()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionFactoryImplClass()
 	 * @see #getConnectionDefinition()
 	 * @generated
 	 */
 	EAttribute getConnectionDefinition_ConnectionFactoryImplClass();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionInterface <em>Connection Interface</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionInterface <em>Connection Interface</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Connection Interface</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionInterface()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionInterface()
 	 * @see #getConnectionDefinition()
 	 * @generated
 	 */
 	EAttribute getConnectionDefinition_ConnectionInterface();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionImplClass <em>Connection Impl Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionImplClass <em>Connection Impl Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Connection Impl Class</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConnectionImplClass()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConnectionImplClass()
 	 * @see #getConnectionDefinition()
 	 * @generated
 	 */
 	EAttribute getConnectionDefinition_ConnectionImplClass();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConfigProperties <em>Config Properties</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConfigProperties <em>Config Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Config Properties</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition#getConfigProperties()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition#getConfigProperties()
 	 * @see #getConnectionDefinition()
 	 * @generated
 	 */
 	EReference getConnectionDefinition_ConfigProperties();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.AdminObject <em>Admin Object</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.AdminObject <em>Admin Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Admin Object</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.AdminObject
+	 * @see org.eclipse.jst.j2ee.internal.jca.AdminObject
 	 * @generated
 	 */
 	EClass getAdminObject();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectInterface <em>Admin Object Interface</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectInterface <em>Admin Object Interface</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Admin Object Interface</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectInterface()
+	 * @see org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectInterface()
 	 * @see #getAdminObject()
 	 * @generated
 	 */
 	EAttribute getAdminObject_AdminObjectInterface();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectClass <em>Admin Object Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectClass <em>Admin Object Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Admin Object Class</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectClass()
+	 * @see org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectClass()
 	 * @see #getAdminObject()
 	 * @generated
 	 */
 	EAttribute getAdminObject_AdminObjectClass();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.AdminObject#getConfigProperties <em>Config Properties</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getConfigProperties <em>Config Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Config Properties</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.AdminObject#getConfigProperties()
+	 * @see org.eclipse.jst.j2ee.internal.jca.AdminObject#getConfigProperties()
 	 * @see #getAdminObject()
 	 * @generated
 	 */
 	EReference getAdminObject_ConfigProperties();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.MessageListener <em>Message Listener</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.MessageListener <em>Message Listener</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Message Listener</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.MessageListener
+	 * @see org.eclipse.jst.j2ee.internal.jca.MessageListener
 	 * @generated
 	 */
 	EClass getMessageListener();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.MessageListener#getMessageListenerType <em>Message Listener Type</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.MessageListener#getMessageListenerType <em>Message Listener Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Message Listener Type</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.MessageListener#getMessageListenerType()
+	 * @see org.eclipse.jst.j2ee.internal.jca.MessageListener#getMessageListenerType()
 	 * @see #getMessageListener()
 	 * @generated
 	 */
 	EAttribute getMessageListener_MessageListenerType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.jca.MessageListener#getActivationSpec <em>Activation Spec</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.jca.MessageListener#getActivationSpec <em>Activation Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Activation Spec</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.MessageListener#getActivationSpec()
+	 * @see org.eclipse.jst.j2ee.internal.jca.MessageListener#getActivationSpec()
 	 * @see #getMessageListener()
 	 * @generated
 	 */
 	EReference getMessageListener_ActivationSpec();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.ActivationSpec <em>Activation Spec</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.ActivationSpec <em>Activation Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Activation Spec</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ActivationSpec
+	 * @see org.eclipse.jst.j2ee.internal.jca.ActivationSpec
 	 * @generated
 	 */
 	EClass getActivationSpec();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.ActivationSpec#getActivationSpecClass <em>Activation Spec Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.ActivationSpec#getActivationSpecClass <em>Activation Spec Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Activation Spec Class</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ActivationSpec#getActivationSpecClass()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ActivationSpec#getActivationSpecClass()
 	 * @see #getActivationSpec()
 	 * @generated
 	 */
 	EAttribute getActivationSpec_ActivationSpecClass();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.ActivationSpec#getRequiredConfigProperties <em>Required Config Properties</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.ActivationSpec#getRequiredConfigProperties <em>Required Config Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Required Config Properties</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ActivationSpec#getRequiredConfigProperties()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ActivationSpec#getRequiredConfigProperties()
 	 * @see #getActivationSpec()
 	 * @generated
 	 */
 	EReference getActivationSpec_RequiredConfigProperties();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType <em>Required Config Property Type</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType <em>Required Config Property Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Required Config Property Type</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType
+	 * @see org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType
 	 * @generated
 	 */
 	EClass getRequiredConfigPropertyType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType#getName()
+	 * @see org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType#getName()
 	 * @see #getRequiredConfigPropertyType()
 	 * @generated
 	 */
 	EAttribute getRequiredConfigPropertyType_Name();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType#getDescriptions()
 	 * @see #getRequiredConfigPropertyType()
 	 * @generated
 	 */
@@ -1132,11 +1132,11 @@ public interface JcaPackage extends EPackage{
 	EAttribute getResourceAdapter_ReauthenticationSupport();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getResourceAdapterClass <em>Resource Adapter Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getResourceAdapterClass <em>Resource Adapter Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Resource Adapter Class</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ResourceAdapter#getResourceAdapterClass()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getResourceAdapterClass()
 	 * @see #getResourceAdapter()
 	 * @generated
 	 */
@@ -1158,33 +1158,33 @@ public interface JcaPackage extends EPackage{
 	EReference getResourceAdapter_ConfigProperties();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getOutboundResourceAdapter <em>Outbound Resource Adapter</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getOutboundResourceAdapter <em>Outbound Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Outbound Resource Adapter</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ResourceAdapter#getOutboundResourceAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getOutboundResourceAdapter()
 	 * @see #getResourceAdapter()
 	 * @generated
 	 */
 	EReference getResourceAdapter_OutboundResourceAdapter();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getInboundResourceAdapter <em>Inbound Resource Adapter</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getInboundResourceAdapter <em>Inbound Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Inbound Resource Adapter</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ResourceAdapter#getInboundResourceAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getInboundResourceAdapter()
 	 * @see #getResourceAdapter()
 	 * @generated
 	 */
 	EReference getResourceAdapter_InboundResourceAdapter();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.ResourceAdapter#getAdminObjects <em>Admin Objects</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getAdminObjects <em>Admin Objects</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Admin Objects</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ResourceAdapter#getAdminObjects()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ResourceAdapter#getAdminObjects()
 	 * @see #getResourceAdapter()
 	 * @generated
 	 */
@@ -1207,11 +1207,11 @@ public interface JcaPackage extends EPackage{
 	EAttribute getSecurityPermission_Specification();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.SecurityPermission#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.SecurityPermission#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.SecurityPermission#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.jca.SecurityPermission#getDescriptions()
 	 * @see #getSecurityPermission()
 	 * @generated
 	 */
@@ -1229,11 +1229,11 @@ public interface JcaPackage extends EPackage{
 	EAttribute getAuthenticationMechanism_Description();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getAuthenticationMechanism <em>Authentication Mechanism</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getAuthenticationMechanism <em>Authentication Mechanism</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Authentication Mechanism</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getAuthenticationMechanism()
+	 * @see org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getAuthenticationMechanism()
 	 * @see #getAuthenticationMechanism()
 	 * @generated
 	 */
@@ -1276,11 +1276,11 @@ public interface JcaPackage extends EPackage{
 	EAttribute getConfigProperty_Value();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.ConfigProperty#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.ConfigProperty#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.ConfigProperty#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConfigProperty#getDescriptions()
 	 * @see #getConfigProperty()
 	 * @generated
 	 */
@@ -1309,11 +1309,11 @@ public interface JcaPackage extends EPackage{
 	EAttribute getAuthenticationMechanism_CustomAuthMechType();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.jca.AuthenticationMechanism#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.jca.AuthenticationMechanism#getDescriptions()
 	 * @see #getAuthenticationMechanism()
 	 * @generated
 	 */

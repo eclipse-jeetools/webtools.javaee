@@ -12,8 +12,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -61,7 +61,7 @@ public class J2EEWebNatureRuntimeUtilities {
 	/**
 	 * Creation date: (10/22/2001 2:17:25 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.web.operations.IBaseWebNature
 	 */
 	public static IBaseWebNature getRuntime(IProject project) {
 		if (project == null)

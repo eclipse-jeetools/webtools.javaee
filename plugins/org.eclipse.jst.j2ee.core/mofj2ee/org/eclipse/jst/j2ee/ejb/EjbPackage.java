@@ -1779,11 +1779,11 @@ public interface EjbPackage extends EPackage{
 	int QUERY_METHOD_FEATURE_COUNT = METHOD_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.ejb.impl.ActivationConfigPropertyImpl <em>Activation Config Property</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigPropertyImpl <em>Activation Config Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.ejb.impl.ActivationConfigPropertyImpl
-	 * @see org.eclipse.jst.j2ee.ejb.impl.EjbPackageImpl#getActivationConfigProperty()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigPropertyImpl
+	 * @see org.eclipse.jst.j2ee.internal.ejb.impl.EjbPackageImpl#getActivationConfigProperty()
 	 * @generated
 	 */
 	int ACTIVATION_CONFIG_PROPERTY = 21;
@@ -1816,11 +1816,11 @@ public interface EjbPackage extends EPackage{
 	int ACTIVATION_CONFIG_PROPERTY_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.ejb.impl.ActivationConfigImpl <em>Activation Config</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigImpl <em>Activation Config</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.ejb.impl.ActivationConfigImpl
-	 * @see org.eclipse.jst.j2ee.ejb.impl.EjbPackageImpl#getActivationConfig()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigImpl
+	 * @see org.eclipse.jst.j2ee.internal.ejb.impl.EjbPackageImpl#getActivationConfig()
 	 * @generated
 	 */
 	int ACTIVATION_CONFIG = 22;
@@ -1898,7 +1898,7 @@ public interface EjbPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.ejb"; //$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.ejb"; //$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -1940,11 +1940,11 @@ public interface EjbPackage extends EPackage{
 	EReference getMethodPermission_MethodElements();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.MethodPermission#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.MethodPermission#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.MethodPermission#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.MethodPermission#getDescriptions()
 	 * @see #getMethodPermission()
 	 * @generated
 	 */
@@ -1982,11 +1982,11 @@ public interface EjbPackage extends EPackage{
 	EReference getAssemblyDescriptor_ExcludeList();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.AssemblyDescriptor#getMessageDestinations <em>Message Destinations</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.AssemblyDescriptor#getMessageDestinations <em>Message Destinations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Message Destinations</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.AssemblyDescriptor#getMessageDestinations()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.AssemblyDescriptor#getMessageDestinations()
 	 * @see #getAssemblyDescriptor()
 	 * @generated
 	 */
@@ -2019,11 +2019,11 @@ public interface EjbPackage extends EPackage{
 	EReference getMethodTransaction_MethodElements();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.MethodTransaction#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.MethodTransaction#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.MethodTransaction#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.MethodTransaction#getDescriptions()
 	 * @see #getMethodTransaction()
 	 * @generated
 	 */
@@ -2036,11 +2036,11 @@ public interface EjbPackage extends EPackage{
 	EClass getEnterpriseBean();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.ejb.EnterpriseBean#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.EnterpriseBean#getName()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean#getName()
 	 * @see #getEnterpriseBean()
 	 * @generated
 	 */
@@ -2093,11 +2093,11 @@ public interface EjbPackage extends EPackage{
 	EClass getEntity();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.ejb.Entity#isReentrant <em>Reentrant</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.ejb.Entity#isReentrant <em>Reentrant</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Reentrant</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.Entity#isReentrant()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.Entity#isReentrant()
 	 * @see #getEntity()
 	 * @generated
 	 */
@@ -2135,33 +2135,33 @@ public interface EjbPackage extends EPackage{
 	EReference getContainerManagedEntity_KeyAttributes();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getQueries <em>Queries</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getQueries <em>Queries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Queries</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getQueries()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getQueries()
 	 * @see #getContainerManagedEntity()
 	 * @generated
 	 */
 	EReference getContainerManagedEntity_Queries();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getCMPAttribute <em>CMP Attribute</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getCMPAttribute <em>CMP Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>CMP Attribute</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getCMPAttribute()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getCMPAttribute()
 	 * @see #getContainerManagedEntity()
 	 * @generated
 	 */
 	EReference getContainerManagedEntity_CMPAttribute();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getPrimKeyField <em>Prim Key Field</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getPrimKeyField <em>Prim Key Field</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Prim Key Field</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getPrimKeyField()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getPrimKeyField()
 	 * @see #getContainerManagedEntity()
 	 * @generated
 	 */
@@ -2179,11 +2179,11 @@ public interface EjbPackage extends EPackage{
 	EAttribute getCMPAttribute_Description();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.CMPAttribute#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.CMPAttribute#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.CMPAttribute#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.CMPAttribute#getDescriptions()
 	 * @see #getCMPAttribute()
 	 * @generated
 	 */
@@ -2247,11 +2247,11 @@ public interface EjbPackage extends EPackage{
 	EReference getEJBRelationshipRole_CmrField();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.EJBRelationshipRole#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.EJBRelationshipRole#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EJBRelationshipRole#getDescriptions()
 	 * @see #getEJBRelationshipRole()
 	 * @generated
 	 */
@@ -2284,11 +2284,11 @@ public interface EjbPackage extends EPackage{
 	EReference getEJBRelation_RelationshipRoles();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.EJBRelation#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.EJBRelation#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.EJBRelation#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EJBRelation#getDescriptions()
 	 * @see #getEJBRelation()
 	 * @generated
 	 */
@@ -2316,11 +2316,11 @@ public interface EjbPackage extends EPackage{
 	EReference getRelationships_EjbRelations();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.Relationships#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.Relationships#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.Relationships#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.Relationships#getDescriptions()
 	 * @see #getRelationships()
 	 * @generated
 	 */
@@ -2338,11 +2338,11 @@ public interface EjbPackage extends EPackage{
 	EAttribute getEJBJar_EjbClientJar();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.ejb.EJBJar#getVersion <em>Version</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.ejb.EJBJar#getVersion <em>Version</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.EJBJar#getVersion()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EJBJar#getVersion()
 	 * @see #getEJBJar()
 	 * @generated
 	 */
@@ -2385,11 +2385,11 @@ public interface EjbPackage extends EPackage{
 	EReference getRoleSource_EntityBean();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.RoleSource#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.RoleSource#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.RoleSource#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.RoleSource#getDescriptions()
 	 * @see #getRoleSource()
 	 * @generated
 	 */
@@ -2427,11 +2427,11 @@ public interface EjbPackage extends EPackage{
 	EReference getQuery_Entity();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.Query#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.Query#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.Query#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.Query#getDescriptions()
 	 * @see #getQuery()
 	 * @generated
 	 */
@@ -2449,64 +2449,64 @@ public interface EjbPackage extends EPackage{
 	EReference getQueryMethod_Query();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.ejb.ActivationConfigProperty <em>Activation Config Property</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty <em>Activation Config Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Activation Config Property</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ActivationConfigProperty
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty
 	 * @generated
 	 */
 	EClass getActivationConfigProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.ejb.ActivationConfigProperty#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ActivationConfigProperty#getValue()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty#getValue()
 	 * @see #getActivationConfigProperty()
 	 * @generated
 	 */
 	EAttribute getActivationConfigProperty_Value();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.ejb.ActivationConfigProperty#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ActivationConfigProperty#getName()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty#getName()
 	 * @see #getActivationConfigProperty()
 	 * @generated
 	 */
 	EAttribute getActivationConfigProperty_Name();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.ejb.ActivationConfig <em>Activation Config</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfig <em>Activation Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Activation Config</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ActivationConfig
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ActivationConfig
 	 * @generated
 	 */
 	EClass getActivationConfig();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.ActivationConfig#getConfigProperties <em>Config Properties</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfig#getConfigProperties <em>Config Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Config Properties</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ActivationConfig#getConfigProperties()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ActivationConfig#getConfigProperties()
 	 * @see #getActivationConfig()
 	 * @generated
 	 */
 	EReference getActivationConfig_ConfigProperties();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.ActivationConfig#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfig#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ActivationConfig#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ActivationConfig#getDescriptions()
 	 * @see #getActivationConfig()
 	 * @generated
 	 */
@@ -2544,11 +2544,11 @@ public interface EjbPackage extends EPackage{
 	EReference getMethodElement_EnterpriseBean();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.MethodElement#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.MethodElement#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.MethodElement#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.MethodElement#getDescriptions()
 	 * @see #getMethodElement()
 	 * @generated
 	 */
@@ -2571,11 +2571,11 @@ public interface EjbPackage extends EPackage{
 	EReference getExcludeList_MethodElements();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.ejb.ExcludeList#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.ejb.ExcludeList#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.ExcludeList#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ExcludeList#getDescriptions()
 	 * @see #getExcludeList()
 	 * @generated
 	 */
@@ -2598,11 +2598,11 @@ public interface EjbPackage extends EPackage{
 	EAttribute getSession_SessionType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.ejb.Session#getServiceEndpoint <em>Service Endpoint</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.internal.ejb.Session#getServiceEndpoint <em>Service Endpoint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Service Endpoint</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.Session#getServiceEndpoint()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.Session#getServiceEndpoint()
 	 * @see #getSession()
 	 * @generated
 	 */
@@ -2635,44 +2635,44 @@ public interface EjbPackage extends EPackage{
 	EReference getMessageDriven_Destination();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getActivationConfig <em>Activation Config</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getActivationConfig <em>Activation Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Activation Config</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.MessageDriven#getActivationConfig()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getActivationConfig()
 	 * @see #getMessageDriven()
 	 * @generated
 	 */
 	EReference getMessageDriven_ActivationConfig();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getMessageDestination <em>Message Destination</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getMessageDestination <em>Message Destination</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Message Destination</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.MessageDriven#getMessageDestination()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getMessageDestination()
 	 * @see #getMessageDriven()
 	 * @generated
 	 */
 	EReference getMessageDriven_MessageDestination();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getLink <em>Link</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getLink <em>Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Link</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.MessageDriven#getLink()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getLink()
 	 * @see #getMessageDriven()
 	 * @generated
 	 */
 	EAttribute getMessageDriven_Link();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getMessagingType <em>Messaging Type</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getMessagingType <em>Messaging Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Messaging Type</em>'.
-	 * @see org.eclipse.jst.j2ee.ejb.MessageDriven#getMessagingType()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getMessagingType()
 	 * @see #getMessageDriven()
 	 * @generated
 	 */

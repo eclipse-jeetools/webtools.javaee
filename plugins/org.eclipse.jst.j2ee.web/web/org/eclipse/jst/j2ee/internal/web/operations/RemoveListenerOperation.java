@@ -27,7 +27,7 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 import com.ibm.wtp.common.logger.proxy.Logger;

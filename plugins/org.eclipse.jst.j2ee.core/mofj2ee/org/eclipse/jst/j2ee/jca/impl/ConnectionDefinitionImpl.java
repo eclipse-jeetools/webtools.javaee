@@ -34,12 +34,12 @@ import org.eclipse.jst.j2ee.jca.JcaPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl#getConnectionFactoryInterface <em>Connection Factory Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl#getConnectionInterface <em>Connection Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl#getConnectionImplClass <em>Connection Impl Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ConnectionDefinitionImpl#getConfigProperties <em>Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl#getManagedConnectionFactoryClass <em>Managed Connection Factory Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl#getConnectionFactoryInterface <em>Connection Factory Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl#getConnectionFactoryImplClass <em>Connection Factory Impl Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl#getConnectionInterface <em>Connection Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl#getConnectionImplClass <em>Connection Impl Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ConnectionDefinitionImpl#getConfigProperties <em>Config Properties</em>}</li>
  * </ul>
  * </p>
  *

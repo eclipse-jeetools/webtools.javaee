@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.wst.common.emfworkbench.integration.CompoundingCommandStack;
+import org.eclipse.wst.common.internal.emfworkbench.integration.CompoundingCommandStack;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
 
@@ -42,7 +42,7 @@ public class AddArchiveProjectsToEAROperation extends EditModelOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		AddArchiveProjectsToEARDataModel dataModel = (AddArchiveProjectsToEARDataModel) operationDataModel;

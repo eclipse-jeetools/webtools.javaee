@@ -46,7 +46,7 @@ public class J2EEResourceDependencyRegister extends ResourceDependencyRegister i
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EEWorkbenchURIConverterImpl.InputChangedListener#inputsChanged(org.eclipse.jst.j2ee.j2eeproject.J2EEWorkbenchURIConverterImpl)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EEWorkbenchURIConverterImpl.InputChangedListener#inputsChanged(org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EEWorkbenchURIConverterImpl)
 	 */
 	public void inputsChanged(J2EEWorkbenchURIConverterImpl aConverter) {
 		localDependencies.clear();

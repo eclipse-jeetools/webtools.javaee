@@ -34,12 +34,12 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getJavaMethodName <em>Java Method Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getWsdlOperation <em>Wsdl Operation</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#isWrappedElement <em>Wrapped Element</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getMethodParamPartsMappings <em>Method Param Parts Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getWsdlReturnValueMapping <em>Wsdl Return Value Mapping</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getJavaMethodName <em>Java Method Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getWsdlOperation <em>Wsdl Operation</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#isWrappedElement <em>Wrapped Element</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getMethodParamPartsMappings <em>Method Param Parts Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.ServiceEndpointMethodMappingImpl#getWsdlReturnValueMapping <em>Wsdl Return Value Mapping</em>}</li>
  * </ul>
  * </p>
  *

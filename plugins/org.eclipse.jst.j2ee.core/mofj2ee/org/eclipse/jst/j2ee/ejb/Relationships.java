@@ -57,7 +57,7 @@ public interface Relationships extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -68,8 +68,8 @@ public interface Relationships extends EObject{
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getRelationships_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getRelationships_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

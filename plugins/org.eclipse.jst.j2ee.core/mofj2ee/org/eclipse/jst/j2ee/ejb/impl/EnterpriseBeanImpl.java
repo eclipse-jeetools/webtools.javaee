@@ -38,7 +38,6 @@ import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
@@ -54,6 +53,7 @@ import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
 
 /**
@@ -587,7 +587,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.EnterpriseBean#getVersionID()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean#getVersionID()
 	 */
 	public int getVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
@@ -668,7 +668,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		return null;
 	}
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.EnterpriseBean
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean
 	 */
 	public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.String newRoleName) {
 		List roleRefs = getSecurityRoleRefs();

@@ -16,9 +16,9 @@
  */
 package org.eclipse.jst.j2ee.internal.model.translator.application;
 
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.xml.EarDeploymentDescriptorXmlMapperI;
 import org.eclipse.wst.common.internal.emf.resource.ConstantAttributeTranslator;

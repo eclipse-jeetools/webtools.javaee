@@ -25,20 +25,21 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclispe.wst.common.framework.plugin.WTPCommonMessages;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author jsholl
@@ -52,11 +53,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	 * type Integer
 	 */
 	public static final String J2EE_MODULE_VERSION = "J2EEModuleCreationDataModel.J2EE_MODULE_VERSION"; //$NON-NLS-1$
-
-	/**
-	 * type String
-	 */
-	public static final String J2EE_MODULE_VERSION_LBL = "J2EEModuleCreationDataModel.J2EE_MODULE_VERSION_LBL"; //$NON-NLS-1$
 
 	/**
 	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
@@ -109,7 +105,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
 		addValidBaseProperty(J2EE_MODULE_VERSION);
-		addValidBaseProperty(J2EE_MODULE_VERSION_LBL);
 		addValidBaseProperty(J2EE_VERSION);
 		addValidBaseProperty(EAR_PROJECT_NAME);
 		addValidBaseProperty(ADD_TO_EAR);
@@ -129,9 +124,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		addNestedModel(NESTED_MODEL_JAR_DEPENDENCY, jarDependencyDataModel);
 	}
 
-	/**
-	 *  
-	 */
 	protected AddModuleToEARDataModel createModuleNestedModel() {
 		return new AddModuleToEARDataModel();
 	}
@@ -139,8 +131,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(ADD_TO_EAR)) {
 			return Boolean.FALSE;
-		} else if (propertyName.equals(J2EE_MODULE_VERSION_LBL)) {
-			return convertVersionIDtoLabel(getIntProperty(J2EE_MODULE_VERSION));
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			return getDefaultEARName(getStringProperty(PROJECT_NAME));
 		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
@@ -179,11 +169,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 			}
 		}
 		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
-		if (propertyName.equals(J2EE_MODULE_VERSION_LBL)) {
-			Integer id = convertVersionLabeltoID((String) propertyValue);
-			setProperty(J2EE_MODULE_VERSION, id);
-			return true;
-		}
 		if (propertyName.equals(J2EE_MODULE_VERSION)) {
 			int j2eeVersion = getJ2EEVersion();
 			boolean shouldModifyServerTarget = true;
@@ -219,7 +204,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 
 
 		if (propertyName.equals(PROJECT_NAME)) {
-			//if (getBooleanProperty(ADD_TO_EAR)) {
 			IProject project = getTargetProject();
 			getAddModuleToEARDataModel().setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, project);
 			if (!isSet(EAR_PROJECT_NAME)) {
@@ -227,7 +211,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 				notifyListeners(EAR_PROJECT_NAME, earProjectName, earProjectName);
 				synchUPServerTargetWithEAR();
 			}
-			//}
 			jarDependencyDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
 		}
 
@@ -242,9 +225,6 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		return returnValue;
 	}
 
-	/**
-	 * @return
-	 */
 	private boolean checkForNewEARProjectName(String projectName) {
 		IProject project = getProjectHandleFromName(projectName);
 		if (project != null && project.exists())
@@ -289,7 +269,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		if (enabled.booleanValue()) {
 			if (propertyName.equals(EAR_PROJECT_NAME)) {
 				enabled = (Boolean) getProperty(ADD_TO_EAR);
-			} else if (propertyName.equals(SERVER_TARGET_ID) || propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_NAME)) {
+			} else if (propertyName.equals(SERVER_TARGET_ID)) {
 				if (!getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
 					return Boolean.TRUE;
 				}
@@ -340,9 +320,9 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		return j2eeNatureID;
 	}
 
-	protected Object[] doGetValidPropertyValues(String propertyName) {
-		if (propertyName.equals(J2EE_MODULE_VERSION_LBL)) {
-			return getValidJ2EEVersionLabels();
+	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			return getValidJ2EEModuleVersionDescriptors();
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -361,13 +341,13 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 				} catch (CoreException e) {
 				}
 			}
-			String[] projectNames = new String[projectList.size()];
-			for (int i = 0; i < projectNames.length; i++) {
-				projectNames[i] = (String) projectList.get(i);
+			WTPPropertyDescriptor[] descriptors = new WTPPropertyDescriptor[projectList.size()];
+			for (int i = 0; i < descriptors.length; i++) {
+				descriptors[i] = new WTPPropertyDescriptor(projectList.get(i));
 			}
-			return projectNames;
+			return descriptors;
 		}
-		return super.doGetValidPropertyValues(propertyName);
+		return super.doGetValidPropertyDescriptors(propertyName);
 	}
 
 	public int getJ2EEVersion() {
@@ -417,7 +397,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 					if (earNature == null) {
 						return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EAR, new Object[]{earProject.getName()}));
 					} else if (earNature.getJ2EEVersion() < getJ2EEVersion()) {
-						String earVersion = EARProjectCreationDataModel.convertEARVersionToLabel(earNature.getJ2EEVersion());
+						String earVersion = EARProjectCreationDataModel.getEARVersionString(earNature.getJ2EEVersion());
 						return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.INCOMPATABLE_J2EE_VERSIONS, new Object[]{earProject.getName(), earVersion}));
 					}
 					return OK_STATUS;
@@ -442,11 +422,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		return status;
 	}
 
-	protected abstract String convertVersionIDtoLabel(int id);
-
-	protected abstract Integer convertVersionLabeltoID(String label);
-
-	protected abstract Object[] getValidJ2EEVersionLabels();
+	protected abstract WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors();
 
 	protected abstract int convertModuleVersionToJ2EEVersion(int moduleVersion);
 
@@ -485,7 +461,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#dispose()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#dispose()
 	 */
 	public void dispose() {
 		if (cachedSelection != null)

@@ -228,7 +228,7 @@ public abstract class JavaMemberGenerator extends JavaElementGenerator {
 	 * Returns the merge results for the target. This only meaningful after
 	 * {@link JavaMemberGenerator#analyze()}completes.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.MergeResults
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeResults
 	 */
 	public MergeResults getMergeResults() {
 		return fMergeResults;
@@ -381,14 +381,14 @@ public abstract class JavaMemberGenerator extends JavaElementGenerator {
 	 * order to set a particular history before the analyze phase sets one.
 	 * 
 	 * @param newHistoryDescriptor
-	 *            org.eclipse.jst.j2ee.internal.java.codegen.JavaMemberHistoryDescriptor
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMemberHistoryDescriptor
 	 */
 	public void setHistoryDescriptor(JavaMemberHistoryDescriptor newHistoryDescriptor) {
 		fHistoryDescriptor = newHistoryDescriptor;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void terminate() throws GenerationException {
 		super.terminate();

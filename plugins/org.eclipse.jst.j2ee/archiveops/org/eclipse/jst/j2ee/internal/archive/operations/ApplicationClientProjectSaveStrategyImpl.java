@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
@@ -26,7 +26,7 @@ import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
  * 
  * @author: Administrator
  */
-public class ApplicationClientProjectSaveStrategyImpl extends org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategyImpl {
+public class ApplicationClientProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	/**
 	 * ApplicationClientProjectSaveStrategyImpl constructor comment.
 	 */

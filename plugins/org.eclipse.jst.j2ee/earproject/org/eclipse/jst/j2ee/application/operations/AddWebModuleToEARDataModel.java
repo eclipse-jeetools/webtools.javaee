@@ -21,11 +21,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 
 
 /**
@@ -51,7 +51,7 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
@@ -61,7 +61,7 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel#getDefaultURIExtension()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultURIExtension()
 	 */
 	protected String getDefaultURIExtension() {
 		return "war"; //$NON-NLS-1$
@@ -70,7 +70,7 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel#isWebModuleArchive()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddModuleToEARDataModel#isWebModuleArchive()
 	 */
 	public boolean isWebModuleArchive() {
 		return true;
@@ -79,7 +79,7 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -92,7 +92,7 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CONTEXT_ROOT))

@@ -36,11 +36,11 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.HandlerImpl#getHandlerName <em>Handler Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.HandlerImpl#getHandlerClass <em>Handler Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.HandlerImpl#getInitParams <em>Init Params</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.HandlerImpl#getSoapHeaders <em>Soap Headers</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.HandlerImpl#getSoapRoles <em>Soap Roles</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.HandlerImpl#getHandlerName <em>Handler Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.HandlerImpl#getHandlerClass <em>Handler Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.HandlerImpl#getInitParams <em>Init Params</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.HandlerImpl#getSoapHeaders <em>Soap Headers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.HandlerImpl#getSoapRoles <em>Soap Roles</em>}</li>
  * </ul>
  * </p>
  *

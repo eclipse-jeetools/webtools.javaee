@@ -54,7 +54,7 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEProjectCreationPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEProjectCreationPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.NEW_EAR_WIZARD_P1);
@@ -65,9 +65,8 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 	 * @param composite
 	 */
 	protected void createVersionComposite(Composite parent) {
-
 		String label = J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_VERSION_LBL);
-		createVersionComposite(parent, label, EARProjectCreationDataModel.EAR_VERSION, EARProjectCreationDataModel.EAR_VERSION_LBL);
+		createVersionComposite(parent, label, EARProjectCreationDataModel.EAR_VERSION);
 	}
 
 	protected void createServerTargetComposite(Composite parent) {
@@ -75,7 +74,7 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
 		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		//        if (!org.eclipse.jst.j2ee.plugin.J2EEPlugin.hasDevelopmentRole()) {
+		//        if (!org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole()) {
 		//            serverTargetCombo.setEnabled(false);
 		//        }
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
@@ -87,7 +86,7 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
-		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_NAME, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
+		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
 	}
 
 	protected void addToAdvancedComposite(Composite parent) {
@@ -98,9 +97,9 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EditModelOperationDataModel.PROJECT_NAME, J2EEProjectCreationDataModel.PROJECT_LOCATION, EARProjectCreationDataModel.EAR_VERSION, J2EEProjectCreationDataModel.SERVER_TARGET_ID, ServerTargetDataModel.RUNTIME_TARGET_NAME};
+		return new String[]{EditModelOperationDataModel.PROJECT_NAME, J2EEProjectCreationDataModel.PROJECT_LOCATION, EARProjectCreationDataModel.EAR_VERSION, J2EEProjectCreationDataModel.SERVER_TARGET_ID};
 	}
 }

@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.provider;
 
-
 import org.eclipse.emf.common.notify.Adapter;
 
-;
+
 /**
  * Insert the type's description here. Creation date: (6/20/2001 7:20:07 PM)
  * 
@@ -28,7 +27,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.ContainerManagedEntity}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ContainerManagedEntity}.
 	 */
 	public Adapter createContainerManagedEntityAdapter() {
 		if (containerManagedEntityItemProvider == null) {
@@ -39,7 +38,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.EJBJar}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar}.
 	 */
 	public Adapter createEJBJarAdapter() {
 		if (eJBJarItemProvider == null) {
@@ -50,7 +49,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.Entity}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Entity}.
 	 */
 	public Adapter createEntityAdapter() {
 		if (entityItemProvider == null) {
@@ -61,7 +60,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.Session}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Session}.
 	 */
 	public Adapter createSessionAdapter() {
 		if (sessionItemProvider == null) {

@@ -179,7 +179,7 @@ public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements 
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.common.SecurityIdentity#isRunAsSpecifiedIdentity()
+	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#isRunAsSpecifiedIdentity()
 	 */
 	public boolean isRunAsSpecifiedIdentity() {
 		return true;

@@ -57,7 +57,7 @@ public class ClientItemProviderAdapterFactory extends ClientAdapterFactory imple
 	protected Collection supportedTypes = new ArrayList();
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.client.ApplicationClient}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.client.ApplicationClient}instances.
 	 */
 	protected ApplicationClientItemProvider applicationClientItemProvider;
 	protected Disposable disposable = new Disposable();
@@ -111,7 +111,7 @@ public class ClientItemProviderAdapterFactory extends ClientAdapterFactory imple
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.client.ApplicationClient}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.client.ApplicationClient}.
 	 */
 	public Adapter createApplicationClientAdapter() {
 		if (applicationClientItemProvider == null) {

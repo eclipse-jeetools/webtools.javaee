@@ -32,9 +32,9 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 /**
  * @author cbridgha
@@ -66,7 +66,7 @@ public class EARImportWizard extends WTPWizard implements IExecutableExtension, 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		EARImportDataModel aModel = new EARImportDataModel();
@@ -76,7 +76,7 @@ public class EARImportWizard extends WTPWizard implements IExecutableExtension, 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createOperation() {
 		return new EARImportOperation(getEARDataModel());
@@ -111,7 +111,7 @@ public class EARImportWizard extends WTPWizard implements IExecutableExtension, 
 	}
 
 	protected String getFinalPerspectiveID() {
-		return "org.eclipse.jst.j2ee.J2EEPerspective"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.J2EEPerspective"; //$NON-NLS-1$
 	}
 
 	protected boolean prePerformFinish() {

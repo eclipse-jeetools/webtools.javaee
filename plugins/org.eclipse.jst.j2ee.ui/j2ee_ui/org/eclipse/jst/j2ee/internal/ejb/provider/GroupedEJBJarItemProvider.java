@@ -21,15 +21,15 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.impl.NotificationImpl;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 
 
 /**
@@ -342,7 +342,7 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.ejb.provider.EJBJarItemProvider#removeTarget(org.eclipse.emf.common.notify.Notification)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.provider.EJBJarItemProvider#removeTarget(org.eclipse.emf.common.notify.Notification)
 	 */
 	protected void removeTarget(Notification not) {
 		if (not.getNotifier() instanceof EJBJar)

@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping}object. <!-- begin-user-doc --> <!--
+ * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.PackageMapping}object. <!-- begin-user-doc --> <!--
  * end-user-doc -->
  * 
  * @generated

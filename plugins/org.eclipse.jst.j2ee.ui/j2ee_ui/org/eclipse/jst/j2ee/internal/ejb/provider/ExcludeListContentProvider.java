@@ -89,7 +89,7 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.ui.providers.AbstractMethodsContentProvider#getChildren(Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#getChildren(Object)
 	 */
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof ExcludeList)
@@ -98,7 +98,7 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.ui.providers.AbstractMethodsContentProvider#hasChildren(Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#hasChildren(Object)
 	 */
 	public boolean hasChildren(Object element) {
 		if (element instanceof ExcludeList)
@@ -129,7 +129,7 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.ui.providers.AbstractMethodsContentProvider#getMethodElementsContainerReference()
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#getMethodElementsContainerReference()
 	 */
 	protected EStructuralFeature getMethodElementsContainerReference() {
 		return AD_EL_SF;

@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.common.Description;
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getDescriptionType()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getDescriptionType()
  * @model 
  * @generated
  */

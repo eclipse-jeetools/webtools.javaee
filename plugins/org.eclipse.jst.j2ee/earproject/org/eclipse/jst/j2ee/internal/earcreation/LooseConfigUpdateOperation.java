@@ -24,19 +24,19 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaModel;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseApplication;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseArchive;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseConfiguration;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseLibrary;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseModule;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseconfigFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.LooseconfigPackage;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseApplication;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfiguration;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseLibrary;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseModule;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigPackage;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.framework.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

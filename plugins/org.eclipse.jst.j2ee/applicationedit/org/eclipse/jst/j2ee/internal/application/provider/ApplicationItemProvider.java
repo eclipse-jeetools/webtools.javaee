@@ -28,18 +28,18 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.CommonFactory;
-import org.eclipse.jst.j2ee.common.provider.CompatibilityDescriptionGroupItemProvider;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.application.Application}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.application.Application}object.
  */
 public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	/**
@@ -50,11 +50,11 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.application.command.CreateChildCommand}.
+	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
-		Module child = org.eclipse.jst.j2ee.plugin.J2EEPlugin.getPlugin().getApplicationFactory().createModule();
+		Module child = org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getApplicationFactory().createModule();
 
 		// TODO: initialize child here...
 
@@ -87,22 +87,22 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 
 
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.application.command.CreateChildCommand}.
+	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
-		return org.eclipse.jst.j2ee.plugin.J2EEPlugin.getPlugin().getImage(refObject.eClass().getName() + "CreateModule"); //$NON-NLS-1$
+		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getImage(refObject.eClass().getName() + "CreateModule"); //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.application.command.CreateChildCommand}.
+	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("Create_Module_UI_"); //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the help text for {@link org.eclipse.jst.j2ee.application.command.CreateChildCommand}.
+	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

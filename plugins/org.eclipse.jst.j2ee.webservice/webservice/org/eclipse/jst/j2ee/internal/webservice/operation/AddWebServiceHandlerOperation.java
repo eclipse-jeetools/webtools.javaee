@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Handler;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 

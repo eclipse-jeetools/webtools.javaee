@@ -83,7 +83,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.eclipse.jst.j2ee.jsp.JspPackage#eNS_URI
+	 * @see org.eclipse.jst.j2ee.internal.jsp.JspPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */

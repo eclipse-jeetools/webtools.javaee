@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorProjectCreationDataModel;
@@ -36,8 +36,8 @@ import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.operation.extension.ui.ExtendableWizard;
+import org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author DABERG
@@ -68,7 +68,7 @@ public abstract class J2EEProjectCreationWizard extends ExtendableWizard impleme
 	}
 
 	public String getPluginId() {
-		return "org.eclipse.jst.j2ee.ui"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.ui"; //$NON-NLS-1$
 	}
 
 	/*
@@ -112,7 +112,7 @@ public abstract class J2EEProjectCreationWizard extends ExtendableWizard impleme
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#postPerformFinish()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#postPerformFinish()
 	 */
 	protected void postPerformFinish() {
 		BasicNewProjectResourceWizard.updatePerspective(configData);

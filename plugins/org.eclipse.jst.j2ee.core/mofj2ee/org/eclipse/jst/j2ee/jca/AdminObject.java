@@ -31,13 +31,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectInterface <em>Admin Object Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectClass <em>Admin Object Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.AdminObject#getConfigProperties <em>Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectInterface <em>Admin Object Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectClass <em>Admin Object Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getConfigProperties <em>Config Properties</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.jca.JcaPackage#getAdminObject()
+ * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getAdminObject()
  * @model 
  * @generated
  */
@@ -61,14 +61,14 @@ public interface AdminObject extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Admin Object Interface</em>' attribute.
 	 * @see #setAdminObjectInterface(String)
-	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getAdminObject_AdminObjectInterface()
+	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getAdminObject_AdminObjectInterface()
 	 * @model 
 	 * @generated
 	 */
 	String getAdminObjectInterface();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectInterface <em>Admin Object Interface</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectInterface <em>Admin Object Interface</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Admin Object Interface</em>' attribute.
@@ -95,14 +95,14 @@ public interface AdminObject extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Admin Object Class</em>' attribute.
 	 * @see #setAdminObjectClass(String)
-	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getAdminObject_AdminObjectClass()
+	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getAdminObject_AdminObjectClass()
 	 * @model 
 	 * @generated
 	 */
 	String getAdminObjectClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.AdminObject#getAdminObjectClass <em>Admin Object Class</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.AdminObject#getAdminObjectClass <em>Admin Object Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Admin Object Class</em>' attribute.
@@ -113,7 +113,7 @@ public interface AdminObject extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Config Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.jca.ConfigProperty}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.jca.ConfigProperty}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Config Properties</em>' containment reference list isn't clear,
@@ -121,8 +121,8 @@ public interface AdminObject extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Config Properties</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getAdminObject_ConfigProperties()
-	 * @model type="org.eclipse.jst.j2ee.jca.ConfigProperty" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getAdminObject_ConfigProperties()
+	 * @model type="org.eclipse.jst.j2ee.internal.jca.ConfigProperty" containment="true"
 	 * @generated
 	 */
 	EList getConfigProperties();

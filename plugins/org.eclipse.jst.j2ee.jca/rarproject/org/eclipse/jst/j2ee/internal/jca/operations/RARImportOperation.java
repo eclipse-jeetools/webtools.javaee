@@ -31,8 +31,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportOperation;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.RARProjectSaveStrategyImpl;
 
@@ -58,7 +58,7 @@ public class RARImportOperation extends J2EEImportOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel,
+	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationDataModel,
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void createModuleProject(J2EEProjectCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {

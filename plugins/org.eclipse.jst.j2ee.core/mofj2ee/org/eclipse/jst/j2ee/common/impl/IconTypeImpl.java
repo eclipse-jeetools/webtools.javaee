@@ -26,9 +26,9 @@ import org.eclipse.jst.j2ee.common.IconType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.IconTypeImpl#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.IconTypeImpl#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.IconTypeImpl#getLang <em>Lang</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.IconTypeImpl#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.IconTypeImpl#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.IconTypeImpl#getLang <em>Lang</em>}</li>
  * </ul>
  * </p>
  *

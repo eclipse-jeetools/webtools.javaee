@@ -50,9 +50,9 @@ class GeneratorDictionary {
 	 * <code>
 	 * <br>&nbsp;&nbsp;&nbsp;&lt;?xml version="1.0"?&gt;
 	 * <br>&nbsp;&nbsp;&nbsp;&lt;ejbcreationDictionary&gt; 
-	 * <br>&nbsp;&nbsp;&nbsp;&lt;generator name= "SessionGenerator"    code="org.eclipse.jst.j2ee.ejb.codegen.SessionGenerator"/&gt;
-	 * <br>&nbsp;&nbsp;&nbsp;&lt;generator name= "EntityGenerator"     code="org.eclipse.jst.j2ee.ejb.codegen.EntityGenerator"/&gt;
-	 * <br>&nbsp;&nbsp;&nbsp;&lt;generator name= "CMPEntityGenerator"  code="org.eclipse.jst.j2ee.ejb.codegen.CMPEntityGenerator"/&gt;
+	 * <br>&nbsp;&nbsp;&nbsp;&lt;generator name= "SessionGenerator"    code="org.eclipse.jst.j2ee.internal.internal.ejb.codegen.SessionGenerator"/&gt;
+	 * <br>&nbsp;&nbsp;&nbsp;&lt;generator name= "EntityGenerator"     code="org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EntityGenerator"/&gt;
+	 * <br>&nbsp;&nbsp;&nbsp;&lt;generator name= "CMPEntityGenerator"  code="org.eclipse.jst.j2ee.internal.internal.ejb.codegen.CMPEntityGenerator"/&gt;
 	 * <br>&nbsp;&nbsp;&nbsp;&lt;/ejbcreationDictionary&gt;
 	 * </code>
 	 */

@@ -33,8 +33,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
 
 /**
  * @author cbridgha
@@ -119,7 +119,7 @@ public class ServerEarAndStandaloneGroup {
 			});
 
 			Control[] deps = new Control[]{earLabel, newEAR};
-			synchHelper.synchCombo(earCombo, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, deps);
+			synchHelper.synchCombo(earCombo, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, deps);
 
 		}
 
@@ -157,16 +157,10 @@ public class ServerEarAndStandaloneGroup {
 
 	}
 
-	/**
-	 *  
-	 */
 	private Shell getShell() {
 		return serverTargetCombo.getShell();
 	}
 
-	/**
-	 * @return
-	 */
 	protected J2EEModuleCreationDataModel getJ2EEModuleCreationDataModel() {
 		return (J2EEModuleCreationDataModel) model;
 	}
@@ -176,9 +170,6 @@ public class ServerEarAndStandaloneGroup {
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
 		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		//        if (!org.eclipse.jst.j2ee.plugin.J2EEPlugin.hasDevelopmentRole()) {
-		//            serverTargetCombo.setEnabled(false);
-		//        }
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
 		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
@@ -188,7 +179,7 @@ public class ServerEarAndStandaloneGroup {
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
-		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_NAME, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
+		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
 	}
 
 	public void dispose() {

@@ -44,8 +44,8 @@ public void setServletName(String servletName);
 
 	/**
 	 * Returns the value of the '<em><b>Dispatcher Type</b></em>' attribute list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webapplication.DispatcherType}.
-	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.webapplication.DispatcherType}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webapplication.DispatcherType}.
+	 * The literals are from the enumeration {@link org.eclipse.jst.j2ee.internal.webapplication.DispatcherType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Dispatcher Type</em>' attribute list isn't clear,
@@ -53,9 +53,9 @@ public void setServletName(String servletName);
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dispatcher Type</em>' attribute list.
-	 * @see org.eclipse.jst.j2ee.webapplication.DispatcherType
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getFilterMapping_DispatcherType()
-	 * @model type="org.eclipse.jst.j2ee.webapplication.DispatcherType" upper="4"
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.DispatcherType
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getFilterMapping_DispatcherType()
+	 * @model type="org.eclipse.jst.j2ee.internal.webapplication.DispatcherType" upper="4"
 	 * @generated
 	 */
 	EList getDispatcherType();

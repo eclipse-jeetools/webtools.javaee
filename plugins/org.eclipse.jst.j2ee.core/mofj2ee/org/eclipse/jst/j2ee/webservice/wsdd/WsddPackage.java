@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddFactory
  * @generated
  */
 public interface WsddPackage extends EPackage{
@@ -54,7 +54,7 @@ public interface WsddPackage extends EPackage{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  String eNS_PREFIX = "org.eclipse.jst.j2ee.webservice.wsdd";//$NON-NLS-1$
+  String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.webservice.wsdd";//$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -65,11 +65,11 @@ public interface WsddPackage extends EPackage{
   WsddPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServicesImpl <em>Web Services</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServicesImpl <em>Web Services</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServicesImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getWebServices()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServicesImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getWebServices()
 	 * @generated
 	 */
   int WEB_SERVICES = 0;
@@ -156,11 +156,11 @@ public interface WsddPackage extends EPackage{
   int WEB_SERVICES_FEATURE_COUNT = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl <em>Web Service Description</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl <em>Web Service Description</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getWebServiceDescription()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getWebServiceDescription()
 	 * @generated
 	 */
   int WEB_SERVICE_DESCRIPTION = 1;
@@ -274,11 +274,11 @@ public interface WsddPackage extends EPackage{
   int WEB_SERVICE_DESCRIPTION_FEATURE_COUNT = 11;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl <em>Port Component</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl <em>Port Component</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getPortComponent()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getPortComponent()
 	 * @generated
 	 */
   int PORT_COMPONENT = 2;
@@ -401,11 +401,11 @@ public interface WsddPackage extends EPackage{
   int PORT_COMPONENT_FEATURE_COUNT = 12;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WSDLPortImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getWSDLPort()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WSDLPortImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getWSDLPort()
 	 * @generated
 	 */
   int WSDL_PORT = 3;
@@ -456,11 +456,11 @@ public interface WsddPackage extends EPackage{
   int WSDL_PORT_FEATURE_COUNT = CommonPackage.QNAME_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.ServiceImplBeanImpl <em>Service Impl Bean</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.ServiceImplBeanImpl <em>Service Impl Bean</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.ServiceImplBeanImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getServiceImplBean()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.ServiceImplBeanImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getServiceImplBean()
 	 * @generated
 	 */
   int SERVICE_IMPL_BEAN = 4;
@@ -502,11 +502,11 @@ public interface WsddPackage extends EPackage{
   int SERVICE_IMPL_BEAN_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.BeanLinkImpl <em>Bean Link</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.BeanLinkImpl <em>Bean Link</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.BeanLinkImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getBeanLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.BeanLinkImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getBeanLink()
 	 * @generated
 	 */
   int BEAN_LINK = 8;
@@ -521,11 +521,11 @@ public interface WsddPackage extends EPackage{
   int BEAN_LINK_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.ServletLinkImpl <em>Servlet Link</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.ServletLinkImpl <em>Servlet Link</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.ServletLinkImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getServletLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.ServletLinkImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getServletLink()
 	 * @generated
 	 */
   int SERVLET_LINK = 5;
@@ -549,11 +549,11 @@ public interface WsddPackage extends EPackage{
   int SERVLET_LINK_FEATURE_COUNT = BEAN_LINK_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.EJBLinkImpl <em>EJB Link</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.EJBLinkImpl <em>EJB Link</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.EJBLinkImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getEJBLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.EJBLinkImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getEJBLink()
 	 * @generated
 	 */
   int EJB_LINK = 6;
@@ -577,11 +577,11 @@ public interface WsddPackage extends EPackage{
   int EJB_LINK_FEATURE_COUNT = BEAN_LINK_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.HandlerImpl <em>Handler</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.HandlerImpl <em>Handler</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.HandlerImpl
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl#getHandler()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.HandlerImpl
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WsddPackageImpl#getHandler()
 	 * @generated
 	 */
   int HANDLER = 7;
@@ -705,465 +705,465 @@ public interface WsddPackage extends EPackage{
 
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices <em>Web Services</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServices <em>Web Services</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Web Services</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServices
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServices
 	 * @generated
 	 */
   EClass getWebServices();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices#getWebServiceDescriptions <em>Web Service Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServices#getWebServiceDescriptions <em>Web Service Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Web Service Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServices#getWebServiceDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServices#getWebServiceDescriptions()
 	 * @see #getWebServices()
 	 * @generated
 	 */
   EReference getWebServices_WebServiceDescriptions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription <em>Web Service Description</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription <em>Web Service Description</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Web Service Description</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription
 	 * @generated
 	 */
   EClass getWebServiceDescription();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Jaxrpc Mapping File</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EAttribute getWebServiceDescription_JaxrpcMappingFile();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName <em>Web Service Description Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName <em>Web Service Description Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Web Service Description Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EAttribute getWebServiceDescription_WebServiceDescriptionName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWsdlFile <em>Wsdl File</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWsdlFile <em>Wsdl File</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Wsdl File</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWsdlFile()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWsdlFile()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EAttribute getWebServiceDescription_WsdlFile();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getSmallIcon <em>Small Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getSmallIcon <em>Small Icon</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Small Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getSmallIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getSmallIcon()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EAttribute getWebServiceDescription_SmallIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getLargeIcon <em>Large Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getLargeIcon <em>Large Icon</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Large Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getLargeIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getLargeIcon()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EAttribute getWebServiceDescription_LargeIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescription()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescription()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EAttribute getWebServiceDescription_Description();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayName <em>Display Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayName <em>Display Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Display Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayName()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EAttribute getWebServiceDescription_DisplayName();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getPortComponents <em>Port Components</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getPortComponents <em>Port Components</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Port Components</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getPortComponents()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getPortComponents()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EReference getWebServiceDescription_PortComponents();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescriptionType <em>Description Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescriptionType <em>Description Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Description Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescriptionType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescriptionType()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EReference getWebServiceDescription_DescriptionType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayNameType <em>Display Name Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayNameType <em>Display Name Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Display Name Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayNameType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayNameType()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EReference getWebServiceDescription_DisplayNameType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getIconType <em>Icon Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getIconType <em>Icon Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Icon Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getIconType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getIconType()
 	 * @see #getWebServiceDescription()
 	 * @generated
 	 */
   EReference getWebServiceDescription_IconType();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent <em>Port Component</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent <em>Port Component</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Port Component</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent
 	 * @generated
 	 */
   EClass getPortComponent();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getPortComponentName <em>Port Component Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getPortComponentName <em>Port Component Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Port Component Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getPortComponentName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getPortComponentName()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EAttribute getPortComponent_PortComponentName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceEndpointInterface <em>Service Endpoint Interface</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceEndpointInterface <em>Service Endpoint Interface</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Service Endpoint Interface</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceEndpointInterface()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceEndpointInterface()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EAttribute getPortComponent_ServiceEndpointInterface();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getSmallIcon <em>Small Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getSmallIcon <em>Small Icon</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Small Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getSmallIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getSmallIcon()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EAttribute getPortComponent_SmallIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getLargeIcon <em>Large Icon</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getLargeIcon <em>Large Icon</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Large Icon</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getLargeIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getLargeIcon()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EAttribute getPortComponent_LargeIcon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescription()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescription()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EAttribute getPortComponent_Description();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayName <em>Display Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayName <em>Display Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Display Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayName()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EAttribute getPortComponent_DisplayName();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlPort <em>Wsdl Port</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getWsdlPort <em>Wsdl Port</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Wsdl Port</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getWsdlPort()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getWsdlPort()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EReference getPortComponent_WsdlPort();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceImplBean <em>Service Impl Bean</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceImplBean <em>Service Impl Bean</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Service Impl Bean</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getServiceImplBean()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getServiceImplBean()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EReference getPortComponent_ServiceImplBean();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlers <em>Handlers</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getHandlers <em>Handlers</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Handlers</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlers()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getHandlers()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EReference getPortComponent_Handlers();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescriptionType <em>Description Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescriptionType <em>Description Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Description Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDescriptionType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDescriptionType()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EReference getPortComponent_DescriptionType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayNameType <em>Display Name Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayNameType <em>Display Name Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Display Name Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getDisplayNameType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getDisplayNameType()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EReference getPortComponent_DisplayNameType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getIconType <em>Icon Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getIconType <em>Icon Type</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Icon Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getIconType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent#getIconType()
 	 * @see #getPortComponent()
 	 * @generated
 	 */
   EReference getPortComponent_IconType();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort <em>WSDL Port</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WSDLPort <em>WSDL Port</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>WSDL Port</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WSDLPort
 	 * @generated
 	 */
   EClass getWSDLPort();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean <em>Service Impl Bean</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean <em>Service Impl Bean</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Service Impl Bean</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean
 	 * @generated
 	 */
   EClass getServiceImplBean();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEEJBLink <em>EEJB Link</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEEJBLink <em>EEJB Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>EEJB Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEEJBLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEEJBLink()
 	 * @see #getServiceImplBean()
 	 * @generated
 	 */
   EReference getServiceImplBean_EEJBLink();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEServletLink <em>EServlet Link</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEServletLink <em>EServlet Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>EServlet Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getEServletLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getEServletLink()
 	 * @see #getServiceImplBean()
 	 * @generated
 	 */
   EReference getServiceImplBean_EServletLink();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getBeanLink <em>Bean Link</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getBeanLink <em>Bean Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Bean Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean#getBeanLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServiceImplBean#getBeanLink()
 	 * @see #getServiceImplBean()
 	 * @generated
 	 */
   EReference getServiceImplBean_BeanLink();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServletLink <em>Servlet Link</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink <em>Servlet Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Servlet Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServletLink
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink
 	 * @generated
 	 */
   EClass getServletLink();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.ServletLink#getServletLink <em>Servlet Link</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink#getServletLink <em>Servlet Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Servlet Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.ServletLink#getServletLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.ServletLink#getServletLink()
 	 * @see #getServletLink()
 	 * @generated
 	 */
   EAttribute getServletLink_ServletLink();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink <em>EJB Link</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink <em>EJB Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>EJB Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.EJBLink
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink
 	 * @generated
 	 */
   EClass getEJBLink();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.EJBLink#getEjbLink <em>Ejb Link</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink#getEjbLink <em>Ejb Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Ejb Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.EJBLink#getEjbLink()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.EJBLink#getEjbLink()
 	 * @see #getEJBLink()
 	 * @generated
 	 */
   EAttribute getEJBLink_EjbLink();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler <em>Handler</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler <em>Handler</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Handler</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.Handler
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler
 	 * @generated
 	 */
   EClass getHandler();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerName <em>Handler Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerName <em>Handler Name</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Handler Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerName()
 	 * @see #getHandler()
 	 * @generated
 	 */
   EAttribute getHandler_HandlerName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerClass <em>Handler Class</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerClass <em>Handler Class</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Handler Class</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.Handler#getHandlerClass()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getHandlerClass()
 	 * @see #getHandler()
 	 * @generated
 	 */
   EAttribute getHandler_HandlerClass();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getInitParams <em>Init Params</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getInitParams <em>Init Params</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Init Params</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.Handler#getInitParams()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getInitParams()
 	 * @see #getHandler()
 	 * @generated
 	 */
   EReference getHandler_InitParams();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getSoapHeaders <em>Soap Headers</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getSoapHeaders <em>Soap Headers</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Soap Headers</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.Handler#getSoapHeaders()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getSoapHeaders()
 	 * @see #getHandler()
 	 * @generated
 	 */
   EReference getHandler_SoapHeaders();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webservice.wsdd.Handler#getSoapRoles <em>Soap Roles</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getSoapRoles <em>Soap Roles</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Soap Roles</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.Handler#getSoapRoles()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.Handler#getSoapRoles()
 	 * @see #getHandler()
 	 * @generated
 	 */
   EReference getHandler_SoapRoles();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.BeanLink <em>Bean Link</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.BeanLink <em>Bean Link</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Bean Link</em>'.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.BeanLink
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.BeanLink
 	 * @generated
 	 */
   EClass getBeanLink();

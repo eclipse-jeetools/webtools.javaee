@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 import com.ibm.wtp.common.RegistryReader;
 
@@ -62,7 +62,7 @@ public class TargetRuntimeExtensionHandlerReader extends RegistryReader {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
+	 * @see org.eclipse.wst.common.frameworks.internal.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
 	 */
 	public boolean readElement(IConfigurationElement element) {
 		if (!element.getName().equals(HANDLER_EXT_Id))

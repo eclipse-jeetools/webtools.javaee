@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.jca.MessageAdapter;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.InboundResourceAdapterImpl#getMessageAdapter <em>Message Adapter</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.InboundResourceAdapterImpl#getMessageAdapter <em>Message Adapter</em>}</li>
  * </ul>
  * </p>
  *

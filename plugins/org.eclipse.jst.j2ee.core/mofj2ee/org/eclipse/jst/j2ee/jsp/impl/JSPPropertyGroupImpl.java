@@ -33,13 +33,13 @@ import org.eclipse.jst.j2ee.jsp.JspPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl#getUrlPattern <em>Url Pattern</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl#isElIgnored <em>El Ignored</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl#getPageEncoding <em>Page Encoding</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl#isScriptingInvalid <em>Scripting Invalid</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl#isIsXML <em>Is XML</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl#getIncludePreludes <em>Include Preludes</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPPropertyGroupImpl#getIncludeCodas <em>Include Codas</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl#getUrlPattern <em>Url Pattern</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl#isElIgnored <em>El Ignored</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl#getPageEncoding <em>Page Encoding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl#isScriptingInvalid <em>Scripting Invalid</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl#isIsXML <em>Is XML</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl#getIncludePreludes <em>Include Preludes</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPPropertyGroupImpl#getIncludeCodas <em>Include Codas</em>}</li>
  * </ul>
  * </p>
  *

@@ -15,9 +15,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
-import org.eclipse.wst.common.framework.AdaptabilityUtility;
+import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
+import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropAdapter;
 import org.eclipse.wst.common.navigator.internal.workbench.ResourceDropAction;
-import org.eclipse.wst.common.navigator.views.NavigatorDropAdapter;
 
 /**
  * @author mdelder

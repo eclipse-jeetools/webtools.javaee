@@ -27,8 +27,8 @@ import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleProjectCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author jsholl
@@ -75,14 +75,14 @@ public class JCAProjectWizard extends J2EEModuleProjectCreationWizard implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.extensions.ExtendableWizard#getWizardID()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.extensions.ExtendableWizard#getWizardID()
 	 */
 	public String getWizardID() {
-		return "org.eclipse.jst.j2ee.internal.JCAProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.JCAProjectWizard"; //$NON-NLS-1$
 	}
 
 	public String getLocalId() {
-		return "org.eclipse.jst.j2ee.internal.jcaProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.jcaProjectWizard"; //$NON-NLS-1$
 	}
 
 }

@@ -21,16 +21,16 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getClassType <em>Class Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getQnameScope <em>Qname Scope</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getAnonymousTypeQname <em>Anonymous Type Qname</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getRootTypeQname <em>Root Type Qname</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getVariableMappings <em>Variable Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getClassType <em>Class Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getQnameScope <em>Qname Scope</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getAnonymousTypeQname <em>Anonymous Type Qname</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getRootTypeQname <em>Root Type Qname</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getVariableMappings <em>Variable Mappings</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping()
  * @model 
  * @generated
  */
@@ -45,14 +45,14 @@ public interface JavaXMLTypeMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -71,14 +71,14 @@ public interface JavaXMLTypeMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Class Type</em>' attribute.
    * @see #setClassType(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_ClassType()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_ClassType()
    * @model 
    * @generated
    */
   String getClassType();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getClassType <em>Class Type</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getClassType <em>Class Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Class Type</em>' attribute.
@@ -97,14 +97,14 @@ public interface JavaXMLTypeMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Qname Scope</em>' attribute.
    * @see #setQnameScope(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_QnameScope()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_QnameScope()
    * @model 
    * @generated
    */
   String getQnameScope();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getQnameScope <em>Qname Scope</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getQnameScope <em>Qname Scope</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Qname Scope</em>' attribute.
@@ -123,14 +123,14 @@ public interface JavaXMLTypeMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Anonymous Type Qname</em>' attribute.
    * @see #setAnonymousTypeQname(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_AnonymousTypeQname()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_AnonymousTypeQname()
    * @model 
    * @generated
    */
   String getAnonymousTypeQname();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getAnonymousTypeQname <em>Anonymous Type Qname</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getAnonymousTypeQname <em>Anonymous Type Qname</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Anonymous Type Qname</em>' attribute.
@@ -149,14 +149,14 @@ public interface JavaXMLTypeMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Root Type Qname</em>' containment reference.
    * @see #setRootTypeQname(RootTypeQname)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_RootTypeQname()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_RootTypeQname()
    * @model containment="true" required="true"
    * @generated
    */
   RootTypeQname getRootTypeQname();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping#getRootTypeQname <em>Root Type Qname</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping#getRootTypeQname <em>Root Type Qname</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Root Type Qname</em>' containment reference.
@@ -167,7 +167,7 @@ public interface JavaXMLTypeMapping extends EObject{
 
   /**
    * Returns the value of the '<em><b>Variable Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping}.
+   * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Variable Mappings</em>' containment reference list isn't clear,
@@ -175,8 +175,8 @@ public interface JavaXMLTypeMapping extends EObject{
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Variable Mappings</em>' containment reference list.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_VariableMappings()
-   * @model type="org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping" containment="true"
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaXMLTypeMapping_VariableMappings()
+   * @model type="org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.VariableMapping" containment="true"
    * @generated
    */
   EList getVariableMappings();

@@ -21,9 +21,9 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.ArchiveRuntimeException;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategyImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl;
 
 
 public class NestedJARLoadStrategyImpl extends LoadStrategyImpl {

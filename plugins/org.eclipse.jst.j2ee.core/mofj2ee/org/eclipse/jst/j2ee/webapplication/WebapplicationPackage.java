@@ -1073,11 +1073,11 @@ public interface WebapplicationPackage extends EPackage{
 	int FILTER_FEATURE_COUNT = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.impl.LocalEncodingMappingListImpl <em>Local Encoding Mapping List</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webapplication.impl.LocalEncodingMappingListImpl <em>Local Encoding Mapping List</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.LocalEncodingMappingListImpl
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl#getLocalEncodingMappingList()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.LocalEncodingMappingListImpl
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl#getLocalEncodingMappingList()
 	 * @generated
 	 */
 	int LOCAL_ENCODING_MAPPING_LIST = 26;
@@ -1101,11 +1101,11 @@ public interface WebapplicationPackage extends EPackage{
 	int LOCAL_ENCODING_MAPPING_LIST_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.impl.LocalEncodingMappingImpl <em>Local Encoding Mapping</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webapplication.impl.LocalEncodingMappingImpl <em>Local Encoding Mapping</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.LocalEncodingMappingImpl
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl#getLocalEncodingMapping()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.LocalEncodingMappingImpl
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl#getLocalEncodingMapping()
 	 * @generated
 	 */
 	int LOCAL_ENCODING_MAPPING = 27;
@@ -1156,21 +1156,21 @@ public interface WebapplicationPackage extends EPackage{
 	int HTTP_METHOD_TYPE_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.ResAuthServletType <em>Res Auth Servlet Type</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webapplication.ResAuthServletType <em>Res Auth Servlet Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webapplication.ResAuthServletType
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl#getResAuthServletType()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.ResAuthServletType
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl#getResAuthServletType()
 	 * @generated
 	 */
 	int RES_AUTH_SERVLET_TYPE = 29;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum <em>HTTP Method Type Enum</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum <em>HTTP Method Type Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl#getHTTPMethodTypeEnum()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl#getHTTPMethodTypeEnum()
 	 * @generated
 	 */
 	int HTTP_METHOD_TYPE_ENUM = 30;
@@ -1180,22 +1180,22 @@ public interface WebapplicationPackage extends EPackage{
 	 */
 	int TRANSPORT_GUARANTEE_TYPE = 31;
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.DispatcherType <em>Dispatcher Type</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webapplication.DispatcherType <em>Dispatcher Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webapplication.DispatcherType
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl#getDispatcherType()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.DispatcherType
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl#getDispatcherType()
 	 * @generated
 	 */
 	int DISPATCHER_TYPE = 32;
 
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webapplication.AuthMethodKind <em>Auth Method Kind</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webapplication.AuthMethodKind <em>Auth Method Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.webapplication.AuthMethodKind
-	 * @see org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl#getAuthMethodKind()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.AuthMethodKind
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl#getAuthMethodKind()
 	 * @generated
 	 */
 	int AUTH_METHOD_KIND = 33;
@@ -1211,7 +1211,7 @@ public interface WebapplicationPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.webapplication";//$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.webapplication";//$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -1233,11 +1233,11 @@ public interface WebapplicationPackage extends EPackage{
 	EAttribute getWebApp_Distributable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getVersion <em>Version</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getVersion <em>Version</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getVersion()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp#getVersion()
 	 * @see #getWebApp()
 	 * @generated
 	 */
@@ -1314,44 +1314,44 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getWebApp_Listeners();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getContextParams <em>Context Params</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getContextParams <em>Context Params</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Context Params</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getContextParams()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp#getContextParams()
 	 * @see #getWebApp()
 	 * @generated
 	 */
 	EReference getWebApp_ContextParams();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getJspConfig <em>Jsp Config</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getJspConfig <em>Jsp Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Jsp Config</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getJspConfig()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp#getJspConfig()
 	 * @see #getWebApp()
 	 * @generated
 	 */
 	EReference getWebApp_JspConfig();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getMessageDestinations <em>Message Destinations</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getMessageDestinations <em>Message Destinations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Message Destinations</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getMessageDestinations()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp#getMessageDestinations()
 	 * @see #getWebApp()
 	 * @generated
 	 */
 	EReference getWebApp_MessageDestinations();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webapplication.WebApp#getLocalEncodingMappingList <em>Local Encoding Mapping List</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.internal.webapplication.WebApp#getLocalEncodingMappingList <em>Local Encoding Mapping List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Local Encoding Mapping List</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebApp#getLocalEncodingMappingList()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp#getLocalEncodingMappingList()
 	 * @see #getWebApp()
 	 * @generated
 	 */
@@ -1470,11 +1470,11 @@ public interface WebapplicationPackage extends EPackage{
 	EAttribute getTagLibRef_TaglibLocation();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.jst.j2ee.webapplication.TagLibRef#getWebApp <em>Web App</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.jst.j2ee.internal.webapplication.TagLibRef#getWebApp <em>Web App</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Web App</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.TagLibRef#getWebApp()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.TagLibRef#getWebApp()
 	 * @see #getTagLibRef()
 	 * @generated
 	 */
@@ -1487,11 +1487,11 @@ public interface WebapplicationPackage extends EPackage{
 	EClass getSecurityConstraint();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webapplication.SecurityConstraint#getDisplayName <em>Display Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webapplication.SecurityConstraint#getDisplayName <em>Display Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Display Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.SecurityConstraint#getDisplayName()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.SecurityConstraint#getDisplayName()
 	 * @see #getSecurityConstraint()
 	 * @generated
 	 */
@@ -1518,11 +1518,11 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getSecurityConstraint_UserDataConstraint();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.SecurityConstraint#getDisplayNames <em>Display Names</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.SecurityConstraint#getDisplayNames <em>Display Names</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Display Names</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.SecurityConstraint#getDisplayNames()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.SecurityConstraint#getDisplayNames()
 	 * @see #getSecurityConstraint()
 	 * @generated
 	 */
@@ -1545,22 +1545,22 @@ public interface WebapplicationPackage extends EPackage{
 	EAttribute getWebResourceCollection_Description();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getUrlPattern <em>Url Pattern</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getUrlPattern <em>Url Pattern</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Url Pattern</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getUrlPattern()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getUrlPattern()
 	 * @see #getWebResourceCollection()
 	 * @generated
 	 */
 	EAttribute getWebResourceCollection_UrlPattern();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getHttpMethod <em>Http Method</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getHttpMethod <em>Http Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Http Method</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getHttpMethod()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getHttpMethod()
 	 * @see #getWebResourceCollection()
 	 * @generated
 	 */
@@ -1572,35 +1572,35 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getWebResourceCollection_SecConstraint();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getURLs <em>UR Ls</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getURLs <em>UR Ls</em>}'.
 	 * <!-- begin-user-doc -->
 	 * @deprecated since 4/25/2003 use {@link #getWebResourceCollection_UrlPattern()}
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>UR Ls</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getURLs()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getURLs()
 	 * @see #getWebResourceCollection()
 	 * @generated
 	 */
 	EReference getWebResourceCollection_URLs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getDescriptions()
 	 * @see #getWebResourceCollection()
 	 * @generated
 	 */
 	EReference getWebResourceCollection_Descriptions();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getHTTPs <em>HTT Ps</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getHTTPs <em>HTT Ps</em>}'.
 	 * <!-- begin-user-doc -->
 	 * @deprecated since 4/25/2003 use {@link #getWebResourceCollection_HttpMethod()}
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>HTT Ps</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.WebResourceCollection#getHTTPs()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection#getHTTPs()
 	 * @see #getWebResourceCollection()
 	 * @generated
 	 */
@@ -1629,11 +1629,11 @@ public interface WebapplicationPackage extends EPackage{
 	EClass getHTTPMethodType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodType#getHttpMethod <em>Http Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Http Method</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.HTTPMethodType#getHttpMethod()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodType#getHttpMethod()
 	 * @see #getHTTPMethodType()
 	 * @generated
 	 */
@@ -1661,11 +1661,11 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getAuthConstraint_SecConstraint();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.AuthConstraint#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.AuthConstraint#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.AuthConstraint#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.AuthConstraint#getDescriptions()
 	 * @see #getAuthConstraint()
 	 * @generated
 	 */
@@ -1693,11 +1693,11 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getUserDataConstraint_SecConstraint();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.UserDataConstraint#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.UserDataConstraint#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.UserDataConstraint#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.UserDataConstraint#getDescriptions()
 	 * @see #getUserDataConstraint()
 	 * @generated
 	 */
@@ -1720,11 +1720,11 @@ public interface WebapplicationPackage extends EPackage{
 	EAttribute getLoginConfig_RealmName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webapplication.LoginConfig#getAuthorizationMethod <em>Authorization Method</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webapplication.LoginConfig#getAuthorizationMethod <em>Authorization Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Authorization Method</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.LoginConfig#getAuthorizationMethod()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.LoginConfig#getAuthorizationMethod()
 	 * @see #getLoginConfig()
 	 * @generated
 	 */
@@ -1810,11 +1810,11 @@ public interface WebapplicationPackage extends EPackage{
 	EAttribute getServletMapping_UrlPattern();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webapplication.ServletMapping#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webapplication.ServletMapping#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.ServletMapping#getName()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.ServletMapping#getName()
 	 * @see #getServletMapping()
 	 * @generated
 	 */
@@ -1872,11 +1872,11 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getServlet_RunAs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.Servlet#getInitParams <em>Init Params</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.Servlet#getInitParams <em>Init Params</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Init Params</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.Servlet#getInitParams()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.Servlet#getInitParams()
 	 * @see #getServlet()
 	 * @generated
 	 */
@@ -1953,11 +1953,11 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getFilter_FilterClass();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.Filter#getInitParamValues <em>Init Param Values</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.Filter#getInitParamValues <em>Init Param Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Init Param Values</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.Filter#getInitParamValues()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.Filter#getInitParamValues()
 	 * @see #getFilter()
 	 * @generated
 	 */
@@ -1975,11 +1975,11 @@ public interface WebapplicationPackage extends EPackage{
 	EAttribute getFilterMapping_UrlPattern();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.webapplication.FilterMapping#getDispatcherType <em>Dispatcher Type</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.j2ee.internal.webapplication.FilterMapping#getDispatcherType <em>Dispatcher Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Dispatcher Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.FilterMapping#getDispatcherType()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.FilterMapping#getDispatcherType()
 	 * @see #getFilterMapping()
 	 * @generated
 	 */
@@ -1996,74 +1996,74 @@ public interface WebapplicationPackage extends EPackage{
 	EReference getFilterMapping_Servlet();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList <em>Local Encoding Mapping List</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMappingList <em>Local Encoding Mapping List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Local Encoding Mapping List</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMappingList
 	 * @generated
 	 */
 	EClass getLocalEncodingMappingList();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList#getLocalEncodingMappings <em>Local Encoding Mappings</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMappingList#getLocalEncodingMappings <em>Local Encoding Mappings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Local Encoding Mappings</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList#getLocalEncodingMappings()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMappingList#getLocalEncodingMappings()
 	 * @see #getLocalEncodingMappingList()
 	 * @generated
 	 */
 	EReference getLocalEncodingMappingList_LocalEncodingMappings();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping <em>Local Encoding Mapping</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping <em>Local Encoding Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Local Encoding Mapping</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping
 	 * @generated
 	 */
 	EClass getLocalEncodingMapping();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getLocale <em>Locale</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getLocale <em>Locale</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Locale</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getLocale()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getLocale()
 	 * @see #getLocalEncodingMapping()
 	 * @generated
 	 */
 	EAttribute getLocalEncodingMapping_Locale();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getEncoding <em>Encoding</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getEncoding <em>Encoding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Encoding</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping#getEncoding()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.LocalEncodingMapping#getEncoding()
 	 * @see #getLocalEncodingMapping()
 	 * @generated
 	 */
 	EAttribute getLocalEncodingMapping_Encoding();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.webapplication.ResAuthServletType <em>Res Auth Servlet Type</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.internal.webapplication.ResAuthServletType <em>Res Auth Servlet Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Res Auth Servlet Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.ResAuthServletType
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.ResAuthServletType
 	 * @generated
 	 */
 	EEnum getResAuthServletType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum <em>HTTP Method Type Enum</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum <em>HTTP Method Type Enum</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>HTTP Method Type Enum</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.HTTPMethodTypeEnum
 	 * @generated
 	 */
 	EEnum getHTTPMethodTypeEnum();
@@ -2086,21 +2086,21 @@ public interface WebapplicationPackage extends EPackage{
 	EEnum getTransportGuaranteeType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.webapplication.DispatcherType <em>Dispatcher Type</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.internal.webapplication.DispatcherType <em>Dispatcher Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Dispatcher Type</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.DispatcherType
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.DispatcherType
 	 * @generated
 	 */
 	EEnum getDispatcherType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.webapplication.AuthMethodKind <em>Auth Method Kind</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.internal.webapplication.AuthMethodKind <em>Auth Method Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Auth Method Kind</em>'.
-	 * @see org.eclipse.jst.j2ee.webapplication.AuthMethodKind
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.AuthMethodKind
 	 * @generated
 	 */
 	EEnum getAuthMethodKind();

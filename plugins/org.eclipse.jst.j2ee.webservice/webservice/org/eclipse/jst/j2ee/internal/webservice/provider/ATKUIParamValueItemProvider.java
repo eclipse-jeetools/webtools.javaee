@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.webservice.provider;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.jst.j2ee.common.ParamValue;
-import org.eclipse.jst.j2ee.common.provider.ParamValueItemProvider;
+import org.eclipse.jst.j2ee.common.internal.provider.ParamValueItemProvider;
 
 public class ATKUIParamValueItemProvider extends ParamValueItemProvider implements ITableItemLabelProvider {
 	public ATKUIParamValueItemProvider(AdapterFactory adapterFactory) {

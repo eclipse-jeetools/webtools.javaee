@@ -170,7 +170,7 @@ public abstract class JavaMergeStrategy implements IJavaMergeStrategy {
 	 * delete only generation is allowed. If the delete is disallowed,
 	 * {@link MergeResults#isGenerate()}is set to false.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 */
 	protected void mergeForDeleteOnly(MergeResults mr, IJavaMerglet merglet) throws MergeException {
 		if (mr.getOldMember() != null) {
@@ -194,7 +194,7 @@ public abstract class JavaMergeStrategy implements IJavaMergeStrategy {
 	 * {@link IJavaMerglet#isIncrementalPreserveCollision()}and
 	 * {@link IJavaMerglet#merge(MergeResults, IDOMMember)}.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 */
 	protected void mergeForGenerate(MergeResults mr, IDOMMember newMember, IJavaMerglet merglet) throws MergeException {
 		// Check for collisions that cause us not to want to generate the new member.

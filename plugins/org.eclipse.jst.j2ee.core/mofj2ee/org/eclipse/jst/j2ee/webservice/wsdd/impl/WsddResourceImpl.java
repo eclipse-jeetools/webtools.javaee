@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.webservice.wsdd.impl;
 
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.webservices.WsddTranslator;
 import org.eclipse.jst.j2ee.webservice.WebServiceConstants;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
@@ -53,7 +53,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.common.XMLResource#getType()
+	 * @see org.eclipse.jst.j2ee.internal.common.XMLResource#getType()
 	 */
 	public int getType() {
 		return WEB_SERVICE_TYPE;

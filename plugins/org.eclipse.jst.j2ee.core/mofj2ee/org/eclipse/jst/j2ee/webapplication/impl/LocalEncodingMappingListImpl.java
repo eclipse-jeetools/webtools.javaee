@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webapplication.impl.LocalEncodingMappingListImpl#getLocalEncodingMappings <em>Local Encoding Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webapplication.impl.LocalEncodingMappingListImpl#getLocalEncodingMappings <em>Local Encoding Mappings</em>}</li>
  * </ul>
  * </p>
  *

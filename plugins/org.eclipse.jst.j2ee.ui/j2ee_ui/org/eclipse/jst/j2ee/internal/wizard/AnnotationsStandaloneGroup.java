@@ -17,8 +17,8 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
@@ -30,9 +30,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.annotations.controller.AnnotationsControllerManager;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerManager;
 
 /**
  * @author jlanuti

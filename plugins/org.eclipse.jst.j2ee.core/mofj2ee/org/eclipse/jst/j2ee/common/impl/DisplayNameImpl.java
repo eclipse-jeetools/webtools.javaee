@@ -26,8 +26,8 @@ import org.eclipse.jst.j2ee.common.DisplayName;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.DisplayNameImpl#getLang <em>Lang</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.DisplayNameImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.DisplayNameImpl#getLang <em>Lang</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.DisplayNameImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *

@@ -19,20 +19,20 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
-
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
 /**
  * @author jsholl
@@ -41,6 +41,22 @@ import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataMo
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class WebProjectCreationDataModel extends J2EEModuleCreationDataModel {
+
+	/**
+	 * Type Integer
+	 */
+	public static final String SERVLET_VERSION = "WebProjectCreationDataModel.SERVLET_VERSION"; //$NON-NLS-1$
+	/**
+	 * Type Integer
+	 */
+	public static final String JSP_VERSION = "WebProjectCreationDataModel.JSP_VERSION"; //$NON-NLS-1$
+	/**
+	 * Type String
+	 */
+	public static final String CONTEXT_ROOT = AddWebModuleToEARDataModel.CONTEXT_ROOT;
+
+	public static final String WEB_CONTENT = "WebProjectCreationDataModel.WEB_CONTENT"; //$NON-NLS-1$
+	public static final String MIGRATE_WEB_SETTINGS = "WebProjectCreationDataModel.MIGRATE_WEB_SETTINGS"; //$NON-NLS-1$
 
 	public WTPOperation getDefaultOperation() {
 		return new WebProjectCreationOperation(this);
@@ -63,21 +79,6 @@ public class WebProjectCreationDataModel extends J2EEModuleCreationDataModel {
 		}
 	}
 
-	/**
-	 * Type Integer
-	 */
-	public static final String SERVLET_VERSION = "WebProjectCreationDataModel.SERVLET_VERSION"; //$NON-NLS-1$
-	/**
-	 * Type Integer
-	 */
-	public static final String JSP_VERSION = "WebProjectCreationDataModel.JSP_VERSION"; //$NON-NLS-1$
-	/**
-	 * Type String
-	 */
-	public static final String CONTEXT_ROOT = AddWebModuleToEARDataModel.CONTEXT_ROOT;
-
-	public static final String WEB_CONTENT = "WebProjectCreationDataModel.WEB_CONTENT"; //$NON-NLS-1$
-	public static final String MIGRATE_WEB_SETTINGS = "WebProjectCreationDataModel.MIGRATE_WEB_SETTINGS"; //$NON-NLS-1$
 
 	protected void init() {
 		j2eeNatureID = IWebNatureConstants.J2EE_NATURE_ID;
@@ -88,8 +89,6 @@ public class WebProjectCreationDataModel extends J2EEModuleCreationDataModel {
 		updateOutputLocation();
 		super.init();
 	}
-
-
 
 	/**
 	 * @return
@@ -199,45 +198,49 @@ public class WebProjectCreationDataModel extends J2EEModuleCreationDataModel {
 		return super.getDefaultProperty(propertyName);
 	}
 
-	protected String convertVersionIDtoLabel(int id) {
-		switch (id) {
-			case J2EEVersionConstants.WEB_2_2_ID :
-				return J2EEVersionConstants.VERSION_2_2_TEXT;
-			case J2EEVersionConstants.WEB_2_3_ID :
-				return J2EEVersionConstants.VERSION_2_3_TEXT;
-			case J2EEVersionConstants.WEB_2_4_ID :
-				return J2EEVersionConstants.VERSION_2_4_TEXT;
+	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
+		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			Integer propertyValue = (Integer) getProperty(propertyName);
+			String description = null;
+			switch (propertyValue.intValue()) {
+				case J2EEVersionConstants.WEB_2_2_ID :
+					description = J2EEVersionConstants.VERSION_2_2_TEXT;
+					break;
+				case J2EEVersionConstants.WEB_2_3_ID :
+					description = J2EEVersionConstants.VERSION_2_3_TEXT;
+					break;
+				case J2EEVersionConstants.WEB_2_4_ID :
+				default :
+					description = J2EEVersionConstants.VERSION_2_4_TEXT;
+					break;
+			}
+			return new WTPPropertyDescriptor(propertyValue, description);
 		}
-		return ""; //$NON-NLS-1$
+		return super.doGetPropertyDescriptor(propertyName);
 	}
 
-	protected Integer convertVersionLabeltoID(String label) {
-		int version = -1;
-		if (label.equals(J2EEVersionConstants.VERSION_2_2_TEXT)) {
-			version = J2EEVersionConstants.WEB_2_2_ID;
-		} else if (label.equals(J2EEVersionConstants.VERSION_2_3_TEXT)) {
-			version = J2EEVersionConstants.WEB_2_3_ID;
-		} else if (label.equals(J2EEVersionConstants.VERSION_2_4_TEXT)) {
-			version = J2EEVersionConstants.WEB_2_4_ID;
-		}
-		return new Integer(version);
-	}
-
-	/**
-	 * @return Return a String[] of the valid J2EE versions for the selected J2EE Preference Level.
-	 */
-	protected Object[] getValidJ2EEVersionLabels() {
+	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
+		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
-			case (J2EEVersionConstants.J2EE_1_4_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_2_2_TEXT, J2EEVersionConstants.VERSION_2_3_TEXT, J2EEVersionConstants.VERSION_2_4_TEXT};
-			case (J2EEVersionConstants.J2EE_1_3_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_2_2_TEXT, J2EEVersionConstants.VERSION_2_3_TEXT};
-			case (J2EEVersionConstants.J2EE_1_2_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_2_2_TEXT};
+			case J2EEVersionConstants.J2EE_1_2_ID :
+				descriptors = new WTPPropertyDescriptor[1];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.WEB_2_2_ID), J2EEVersionConstants.VERSION_2_2_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_3_ID :
+				descriptors = new WTPPropertyDescriptor[2];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.WEB_2_2_ID), J2EEVersionConstants.VERSION_2_2_TEXT);
+				descriptors[1] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.WEB_2_3_ID), J2EEVersionConstants.VERSION_2_3_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_4_ID :
 			default :
-				return new String[]{J2EEVersionConstants.VERSION_2_2_TEXT, J2EEVersionConstants.VERSION_2_3_TEXT, J2EEVersionConstants.VERSION_2_4_TEXT};
+				descriptors = new WTPPropertyDescriptor[3];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.WEB_2_2_ID), J2EEVersionConstants.VERSION_2_2_TEXT);
+				descriptors[1] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.WEB_2_3_ID), J2EEVersionConstants.VERSION_2_3_TEXT);
+				descriptors[2] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.WEB_2_4_ID), J2EEVersionConstants.VERSION_2_4_TEXT);
+				break;
 		}
+		return descriptors;
 	}
 
 	protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
@@ -267,7 +270,7 @@ public class WebProjectCreationDataModel extends J2EEModuleCreationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#getModuleType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
 	 */
 	protected EClass getModuleType() {
 		return CommonarchiveFactoryImpl.getPackage().getWARFile();
@@ -276,7 +279,7 @@ public class WebProjectCreationDataModel extends J2EEModuleCreationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#getModuleExtension()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleExtension()
 	 */
 	protected String getModuleExtension() {
 		return ".war"; //$NON-NLS-1$
@@ -285,7 +288,7 @@ public class WebProjectCreationDataModel extends J2EEModuleCreationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (USE_ANNOTATIONS.equals(propertyName)) {

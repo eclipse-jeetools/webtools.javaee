@@ -208,13 +208,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.InboundResourceAdapter <em>Inbound Resource Adapter</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter <em>Inbound Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.InboundResourceAdapter
+	 * @see org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter
 	 * @generated
 	 */
 	public Adapter createInboundResourceAdapterAdapter() {
@@ -222,13 +222,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.OutboundResourceAdapter <em>Outbound Resource Adapter</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter <em>Outbound Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.OutboundResourceAdapter
+	 * @see org.eclipse.jst.j2ee.internal.jca.OutboundResourceAdapter
 	 * @generated
 	 */
 	public Adapter createOutboundResourceAdapterAdapter() {
@@ -236,13 +236,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.MessageAdapter <em>Message Adapter</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.MessageAdapter <em>Message Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.MessageAdapter
+	 * @see org.eclipse.jst.j2ee.internal.jca.MessageAdapter
 	 * @generated
 	 */
 	public Adapter createMessageAdapterAdapter() {
@@ -250,13 +250,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.ConnectionDefinition <em>Connection Definition</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition <em>Connection Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.ConnectionDefinition
+	 * @see org.eclipse.jst.j2ee.internal.jca.ConnectionDefinition
 	 * @generated
 	 */
 	public Adapter createConnectionDefinitionAdapter() {
@@ -264,13 +264,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.AdminObject <em>Admin Object</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.AdminObject <em>Admin Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.AdminObject
+	 * @see org.eclipse.jst.j2ee.internal.jca.AdminObject
 	 * @generated
 	 */
 	public Adapter createAdminObjectAdapter() {
@@ -278,13 +278,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.MessageListener <em>Message Listener</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.MessageListener <em>Message Listener</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.MessageListener
+	 * @see org.eclipse.jst.j2ee.internal.jca.MessageListener
 	 * @generated
 	 */
 	public Adapter createMessageListenerAdapter() {
@@ -292,13 +292,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.ActivationSpec <em>Activation Spec</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.ActivationSpec <em>Activation Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.ActivationSpec
+	 * @see org.eclipse.jst.j2ee.internal.jca.ActivationSpec
 	 * @generated
 	 */
 	public Adapter createActivationSpecAdapter() {
@@ -306,13 +306,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType <em>Required Config Property Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType <em>Required Config Property Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType
+	 * @see org.eclipse.jst.j2ee.internal.jca.RequiredConfigPropertyType
 	 * @generated
 	 */
 	public Adapter createRequiredConfigPropertyTypeAdapter() {
@@ -320,13 +320,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.DescriptionGroup <em>Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup <em>Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup
 	 * @generated
 	 */
 	public Adapter createDescriptionGroupAdapter() {
@@ -334,13 +334,13 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup <em>Compatibility Description Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup
+	 * @see org.eclipse.jst.j2ee.internal.common.CompatibilityDescriptionGroup
 	 * @generated
 	 */
 	public Adapter createCompatibilityDescriptionGroupAdapter() {

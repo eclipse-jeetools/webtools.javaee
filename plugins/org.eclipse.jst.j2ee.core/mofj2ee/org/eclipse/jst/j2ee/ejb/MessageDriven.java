@@ -29,11 +29,11 @@ public interface MessageDriven extends EnterpriseBean{
 	TransactionType getTransactionType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getTransactionType <em>Transaction Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getTransactionType <em>Transaction Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transaction Type</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.ejb.TransactionType
+	 * @see org.eclipse.jst.j2ee.internal.ejb.TransactionType
 	 * @see #isSetTransactionType()
 	 * @see #unsetTransactionType()
 	 * @see #getTransactionType()
@@ -42,7 +42,7 @@ public interface MessageDriven extends EnterpriseBean{
 	void setTransactionType(TransactionType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getTransactionType <em>Transaction Type</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getTransactionType <em>Transaction Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetTransactionType()
@@ -53,7 +53,7 @@ public interface MessageDriven extends EnterpriseBean{
 	void unsetTransactionType();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getTransactionType <em>Transaction Type</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getTransactionType <em>Transaction Type</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Transaction Type</em>' attribute is set.
@@ -102,11 +102,11 @@ public interface MessageDriven extends EnterpriseBean{
 	AcknowledgeMode getAcknowledgeMode();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getAcknowledgeMode <em>Acknowledge Mode</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getAcknowledgeMode <em>Acknowledge Mode</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Acknowledge Mode</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.ejb.AcknowledgeMode
+	 * @see org.eclipse.jst.j2ee.internal.ejb.AcknowledgeMode
 	 * @see #isSetAcknowledgeMode()
 	 * @see #unsetAcknowledgeMode()
 	 * @see #getAcknowledgeMode()
@@ -115,7 +115,7 @@ public interface MessageDriven extends EnterpriseBean{
 	void setAcknowledgeMode(AcknowledgeMode value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getAcknowledgeMode <em>Acknowledge Mode</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getAcknowledgeMode <em>Acknowledge Mode</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetAcknowledgeMode()
@@ -126,7 +126,7 @@ public interface MessageDriven extends EnterpriseBean{
 	void unsetAcknowledgeMode();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getAcknowledgeMode <em>Acknowledge Mode</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getAcknowledgeMode <em>Acknowledge Mode</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Acknowledge Mode</em>' attribute is set.
@@ -164,14 +164,14 @@ public interface MessageDriven extends EnterpriseBean{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activation Config</em>' containment reference.
 	 * @see #setActivationConfig(ActivationConfig)
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getMessageDriven_ActivationConfig()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getMessageDriven_ActivationConfig()
 	 * @model containment="true"
 	 * @generated
 	 */
 	ActivationConfig getActivationConfig();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getActivationConfig <em>Activation Config</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getActivationConfig <em>Activation Config</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Activation Config</em>' containment reference.
@@ -193,14 +193,14 @@ public interface MessageDriven extends EnterpriseBean{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destination</em>' reference.
 	 * @see #setMessageDestination(JavaClass)
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getMessageDriven_MessageDestination()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getMessageDriven_MessageDestination()
 	 * @model 
 	 * @generated
 	 */
 	JavaClass getMessageDestination();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getMessageDestination <em>Message Destination</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getMessageDestination <em>Message Destination</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Message Destination</em>' reference.
@@ -224,14 +224,14 @@ public interface MessageDriven extends EnterpriseBean{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Link</em>' attribute.
 	 * @see #setLink(String)
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getMessageDriven_Link()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getMessageDriven_Link()
 	 * @model 
 	 * @generated
 	 */
 	String getLink();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getLink <em>Link</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getLink <em>Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Link</em>' attribute.
@@ -257,14 +257,14 @@ public interface MessageDriven extends EnterpriseBean{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Messaging Type</em>' reference.
 	 * @see #setMessagingType(JavaClass)
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getMessageDriven_MessagingType()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getMessageDriven_MessagingType()
 	 * @model 
 	 * @generated
 	 */
 	JavaClass getMessagingType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDriven#getMessagingType <em>Messaging Type</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDriven#getMessagingType <em>Messaging Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Messaging Type</em>' reference.

@@ -23,14 +23,14 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.webapplication.WelcomeFile}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WelcomeFile}object.
  */
 public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 

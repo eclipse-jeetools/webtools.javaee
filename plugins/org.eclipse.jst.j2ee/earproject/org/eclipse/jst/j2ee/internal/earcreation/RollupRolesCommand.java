@@ -16,11 +16,12 @@ import java.util.HashMap;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 
 
 /**

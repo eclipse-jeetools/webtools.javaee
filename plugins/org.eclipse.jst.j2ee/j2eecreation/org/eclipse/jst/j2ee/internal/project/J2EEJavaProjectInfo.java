@@ -126,7 +126,7 @@ public class J2EEJavaProjectInfo extends JavaProjectInfo {
 		List list = new ArrayList(4);
 		//TODO This class should be deleted.
 		//		if (isJ2EE13()
-		//			|| !org.eclipse.jst.j2ee.plugin.J2EEPlugin.hasDevelopmentRole()) {
+		//			|| !org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole()) {
 		//			list.add(JavaCore.newVariableEntry(new
 		// Path(IEJBNatureConstants.SERVERJDK_50_PLUGINDIR_VARIABLE + "/jre/lib/rt.jar"),
 		// //$NON-NLS-1$
@@ -333,7 +333,7 @@ public class J2EEJavaProjectInfo extends JavaProjectInfo {
 	}
 
 	public IWorkspace getWorkspace() {
-		return org.eclipse.jst.j2ee.plugin.J2EEPlugin.getWorkspace();
+		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getWorkspace();
 	}
 
 	/**
@@ -454,7 +454,7 @@ public class J2EEJavaProjectInfo extends JavaProjectInfo {
 	protected String getWASPluginVariable() {
 		//TODO This class needs to be deleted.
 		//	if (isJ2EE13()
-		//		|| !org.eclipse.jst.j2ee.plugin.J2EEPlugin.hasDevelopmentRole())
+		//		|| !org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole())
 		//		return IEJBNatureConstants.WAS_50_PLUGINDIR_VARIABLE;
 		//	else
 		//		return IEJBNatureConstants.WAS_PLUGINDIR_VARIABLE;

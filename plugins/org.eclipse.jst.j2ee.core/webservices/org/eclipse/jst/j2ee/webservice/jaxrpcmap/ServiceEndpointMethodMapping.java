@@ -21,16 +21,16 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getJavaMethodName <em>Java Method Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlOperation <em>Wsdl Operation</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getMethodParamPartsMappings <em>Method Param Parts Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlReturnValueMapping <em>Wsdl Return Value Mapping</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getJavaMethodName <em>Java Method Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlOperation <em>Wsdl Operation</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getMethodParamPartsMappings <em>Method Param Parts Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlReturnValueMapping <em>Wsdl Return Value Mapping</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping()
  * @model 
  * @generated
  */
@@ -45,14 +45,14 @@ public interface ServiceEndpointMethodMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -71,14 +71,14 @@ public interface ServiceEndpointMethodMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Java Method Name</em>' attribute.
    * @see #setJavaMethodName(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_JavaMethodName()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_JavaMethodName()
    * @model 
    * @generated
    */
   String getJavaMethodName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getJavaMethodName <em>Java Method Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getJavaMethodName <em>Java Method Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Java Method Name</em>' attribute.
@@ -97,14 +97,14 @@ public interface ServiceEndpointMethodMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Operation</em>' attribute.
    * @see #setWsdlOperation(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_WsdlOperation()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_WsdlOperation()
    * @model 
    * @generated
    */
   String getWsdlOperation();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlOperation <em>Wsdl Operation</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlOperation <em>Wsdl Operation</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Operation</em>' attribute.
@@ -125,14 +125,14 @@ public interface ServiceEndpointMethodMapping extends EObject{
    * @see #isSetWrappedElement()
    * @see #unsetWrappedElement()
    * @see #setWrappedElement(boolean)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_WrappedElement()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_WrappedElement()
    * @model unsettable="true"
    * @generated
    */
   boolean isWrappedElement();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wrapped Element</em>' attribute.
@@ -144,7 +144,7 @@ public interface ServiceEndpointMethodMapping extends EObject{
   void setWrappedElement(boolean value);
 
   /**
-   * Unsets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}' attribute.
+   * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #isSetWrappedElement()
@@ -155,7 +155,7 @@ public interface ServiceEndpointMethodMapping extends EObject{
   void unsetWrappedElement();
 
   /**
-   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}' attribute is set.
+   * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#isWrappedElement <em>Wrapped Element</em>}' attribute is set.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return whether the value of the '<em>Wrapped Element</em>' attribute is set.
@@ -168,7 +168,7 @@ public interface ServiceEndpointMethodMapping extends EObject{
 
   /**
    * Returns the value of the '<em><b>Method Param Parts Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping}.
+   * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Method Param Parts Mappings</em>' containment reference list isn't clear,
@@ -176,8 +176,8 @@ public interface ServiceEndpointMethodMapping extends EObject{
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method Param Parts Mappings</em>' containment reference list.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_MethodParamPartsMappings()
-   * @model type="org.eclipse.jst.j2ee.webservice.jaxrpcmap.MethodParamPartsMapping" containment="true"
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_MethodParamPartsMappings()
+   * @model type="org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.MethodParamPartsMapping" containment="true"
    * @generated
    */
   EList getMethodParamPartsMappings();
@@ -192,14 +192,14 @@ public interface ServiceEndpointMethodMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Wsdl Return Value Mapping</em>' containment reference.
    * @see #setWsdlReturnValueMapping(WSDLReturnValueMapping)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_WsdlReturnValueMapping()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getServiceEndpointMethodMapping_WsdlReturnValueMapping()
    * @model containment="true"
    * @generated
    */
   WSDLReturnValueMapping getWsdlReturnValueMapping();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlReturnValueMapping <em>Wsdl Return Value Mapping</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ServiceEndpointMethodMapping#getWsdlReturnValueMapping <em>Wsdl Return Value Mapping</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Wsdl Return Value Mapping</em>' containment reference.

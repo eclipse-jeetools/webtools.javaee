@@ -21,14 +21,14 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamName <em>Param Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamValue <em>Param Value</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getDescriptionTypes <em>Description Types</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamName <em>Param Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamValue <em>Param Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getDescriptionTypes <em>Description Types</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getInitParam()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getInitParam()
  * @model 
  * @generated
  */
@@ -43,14 +43,14 @@ public interface InitParam extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Param Name</em>' attribute.
 	 * @see #setParamName(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getInitParam_ParamName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getInitParam_ParamName()
 	 * @model 
 	 * @generated
 	 */
   String getParamName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamName <em>Param Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamName <em>Param Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Param Name</em>' attribute.
@@ -69,14 +69,14 @@ public interface InitParam extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Param Value</em>' attribute.
 	 * @see #setParamValue(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getInitParam_ParamValue()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getInitParam_ParamValue()
 	 * @model 
 	 * @generated
 	 */
   String getParamValue();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getParamValue <em>Param Value</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getParamValue <em>Param Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Param Value</em>' attribute.
@@ -95,14 +95,14 @@ public interface InitParam extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getInitParam_Description()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getInitParam_Description()
 	 * @model 
 	 * @generated
 	 */
   String getDescription();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wscommon.InitParam#getDescription <em>Description</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.InitParam#getDescription <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Description</em>' attribute.
@@ -113,7 +113,7 @@ public interface InitParam extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Description Types</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wscommon.DescriptionType}.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Description Types</em>' containment reference list isn't clear,
@@ -121,8 +121,8 @@ public interface InitParam extends EObject{
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description Types</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getInitParam_DescriptionTypes()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getInitParam_DescriptionTypes()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wscommon.DescriptionType" containment="true"
 	 * @generated
 	 */
   EList getDescriptionTypes();

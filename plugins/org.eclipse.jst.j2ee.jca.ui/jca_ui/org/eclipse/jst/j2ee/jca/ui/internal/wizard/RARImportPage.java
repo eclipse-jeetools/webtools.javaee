@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 
 /**
@@ -51,7 +51,7 @@ public class RARImportPage extends J2EEModuleImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
 	 */
 	protected String getFileImportLabel() {
 		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_FILE_LBL);
@@ -60,7 +60,7 @@ public class RARImportPage extends J2EEModuleImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFilterExpression()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
 	protected String[] getFilterExpression() {
 		return new String[]{"*.rar"}; //$NON-NLS-1$
@@ -88,7 +88,7 @@ public class RARImportPage extends J2EEModuleImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
 	protected String getProjectImportLabel() {
 		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_LBL);
@@ -101,7 +101,7 @@ public class RARImportPage extends J2EEModuleImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizardPage#getInfopopID()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getInfopopID()
 	 */
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.IMPORT_RAR_WIZARD_PAGE;

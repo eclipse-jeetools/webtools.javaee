@@ -34,10 +34,10 @@ import org.eclipse.jst.j2ee.common.ParamValue;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.ParamValueImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.ParamValueImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.ParamValueImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.ParamValueImpl#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.ParamValueImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.ParamValueImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.ParamValueImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.ParamValueImpl#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *

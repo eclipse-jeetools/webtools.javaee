@@ -34,8 +34,8 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ComponentScopedRefsImpl#getComponentName <em>Component Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsclient.impl.ComponentScopedRefsImpl#getServiceRefs <em>Service Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ComponentScopedRefsImpl#getComponentName <em>Component Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ComponentScopedRefsImpl#getServiceRefs <em>Service Refs</em>}</li>
  * </ul>
  * </p>
  *

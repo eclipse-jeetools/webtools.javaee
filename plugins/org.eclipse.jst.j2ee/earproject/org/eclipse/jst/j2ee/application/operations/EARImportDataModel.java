@@ -24,22 +24,22 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.EJBJarFile;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.FileImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.WARFileImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARImportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
@@ -51,13 +51,13 @@ import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.xml.sax.InputSource;
 
 public class EARImportDataModel extends J2EEImportDataModel implements IAnnotationsDataModel {
@@ -127,7 +127,7 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
@@ -258,7 +258,7 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 			}
 		}
 		if (OVERWRITE_PROJECT.equals(propertyName) || PROJECT_NAME.equals(propertyName) || DELETE_BEFORE_OVERWRITE_PROJECT.equals(propertyName)) {
-			notifyEnablementChange(ServerTargetDataModel.RUNTIME_TARGET_NAME);
+			notifyEnablementChange(ServerTargetDataModel.RUNTIME_TARGET_ID);
 		}
 		return doSet;
 	}
@@ -716,7 +716,7 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 		Boolean enabled = super.basicIsEnabled(propertyName);
 		if (null != enabled && !enabled.booleanValue()) {
 			return enabled;
-		} else if (propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_NAME) || propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
+		} else if (propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
 			IProject project = getProjectHandle(PROJECT_NAME);
 			if (null == project || !project.exists()) {
 				return Boolean.TRUE;
@@ -766,7 +766,7 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel#dispose()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#dispose()
 	 */
 	public void dispose() {
 		super.dispose();

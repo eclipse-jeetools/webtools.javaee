@@ -25,7 +25,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapFactory;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapPackage;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 

@@ -21,10 +21,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
-import org.eclipse.wst.common.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.navigator.views.DefaultNavigatorContentExtension;
+import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
+import org.eclipse.wst.common.navigator.internal.views.DefaultNavigatorContentExtension;
+import org.eclipse.wst.common.navigator.internal.views.actions.CommonEditActionGroup;
 import org.eclipse.wst.common.navigator.views.INavigatorContentProvider;
-import org.eclipse.wst.common.navigator.views.actions.CommonEditActionGroup;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

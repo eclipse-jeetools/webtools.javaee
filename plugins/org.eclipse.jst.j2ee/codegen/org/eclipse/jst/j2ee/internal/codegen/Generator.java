@@ -30,7 +30,7 @@ public class Generator implements IGenerator {
 	private List fDependentChildren = null;
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public void addDependentChild(IDependentGenerator child) {
 		getDependentChildren().add(child);
@@ -53,7 +53,7 @@ public class Generator implements IGenerator {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public List getDependentChildren() {
 		if (fDependentChildren == null)
@@ -62,7 +62,7 @@ public class Generator implements IGenerator {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public IDependentGenerator getDependentGenerator(String logicalName) throws GeneratorNotFoundException {
 		DependentGenerator genImplInstance;
@@ -103,7 +103,7 @@ public class Generator implements IGenerator {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public ISourceContext getSourceContext() {
 		if (fSourceContext == null)
@@ -112,21 +112,21 @@ public class Generator implements IGenerator {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public Object getSourceElement() {
 		return fSourceElement;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public TopLevelGenerationHelper getTopLevelHelper() {
 		return fTopLevelHelper;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public void initialize(Object mofObject) throws GenerationException {
 		setSourceElement(mofObject);
@@ -140,14 +140,14 @@ public class Generator implements IGenerator {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public void setSourceElement(Object sourceElement) {
 		fSourceElement = sourceElement;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public void terminate() throws GenerationException {
 		if (fDependentChildren != null) {

@@ -123,7 +123,7 @@ public class UseCallerIdentityImpl extends SecurityIdentityImpl implements UseCa
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.common.SecurityIdentity#isUseCallerIdentity()
+	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#isUseCallerIdentity()
 	 */
 	public boolean isUseCallerIdentity() {
 		return true;

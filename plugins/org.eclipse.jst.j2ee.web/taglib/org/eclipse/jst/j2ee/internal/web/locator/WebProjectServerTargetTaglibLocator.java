@@ -54,7 +54,7 @@ public class WebProjectServerTargetTaglibLocator extends AbstractWebTaglibLocato
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.AbstractTaglibLocator#search(org.eclipse.core.resources.IResource)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.AbstractTaglibLocator#search(org.eclipse.core.resources.IResource)
 	 */
 	public ITaglibInfo[] search(IResource resource) {
 		// ignore resource calculate server target taglibs
@@ -80,7 +80,7 @@ public class WebProjectServerTargetTaglibLocator extends AbstractWebTaglibLocato
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.AbstractTaglibLocator#searchFile(org.eclipse.core.resources.IFile)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.AbstractTaglibLocator#searchFile(org.eclipse.core.resources.IFile)
 	 */
 	protected ITaglibInfo[] searchFile(File file) {
 		if (hasJarExtension(file.getName())) {
@@ -92,7 +92,7 @@ public class WebProjectServerTargetTaglibLocator extends AbstractWebTaglibLocato
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.AbstractTaglibLocator#searchFile(org.eclipse.core.resources.IFile)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.AbstractTaglibLocator#searchFile(org.eclipse.core.resources.IFile)
 	 */
 	protected ITaglibInfo[] searchFile(IFile file) {
 		// do nothing
@@ -121,7 +121,7 @@ public class WebProjectServerTargetTaglibLocator extends AbstractWebTaglibLocato
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.web.taglib.locator.AbstractWebTaglibLocator#canAddTaglibTld(org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.locator.AbstractWebTaglibLocator#canAddTaglibTld(org.eclipse.jst.j2ee.internal.internal.internal.web.taglib.TLDDigester)
 	 */
 	protected boolean canAddTaglibTld(TLDDigester digester) {
 		// as this is a server contributed entry

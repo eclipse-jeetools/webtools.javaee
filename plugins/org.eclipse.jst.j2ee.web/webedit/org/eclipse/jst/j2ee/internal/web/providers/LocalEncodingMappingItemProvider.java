@@ -25,15 +25,15 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping}object. <!-- begin-user-doc --> <!--
+ * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LocalEncodingMapping}object. <!-- begin-user-doc --> <!--
  * end-user-doc -->
  * 
  * @generated

@@ -300,27 +300,27 @@ public boolean isLocal(){
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.EjbRef#getRemote()
+	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#getRemote()
 	 */
 	public String getRemote() {
 		return getLocal(); //forward to the local
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.EjbRef#setRemote(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#setRemote(java.lang.String)
 	 */
 	public void setRemote(String value) {
 		setLocal(value); //forward to the local
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.EjbRef#getHome()
+	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#getHome()
 	 */
 	public String getHome() {
 		return getLocalHome(); //forward to the local home
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.EjbRef#setHome(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#setHome(java.lang.String)
 	 */
 	public void setHome(String value) {
 		setLocalHome(value); //forward to the local home

@@ -24,7 +24,7 @@ public class DependentGenerator extends Generator implements IDependentGenerator
 	private IDependentGenerator fParentGenerator = null;
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IDependentGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IDependentGenerator
 	 */
 	public IBaseGenerator getBaseAncestor() {
 		// This will be null if we are not the root of the dependent generator tree
@@ -36,7 +36,7 @@ public class DependentGenerator extends Generator implements IDependentGenerator
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public IDependentGenerator getDependentGenerator(String logicalName) throws GeneratorNotFoundException {
 		DependentGenerator genImplInstance;
@@ -53,14 +53,14 @@ public class DependentGenerator extends Generator implements IDependentGenerator
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IDependentGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IDependentGenerator
 	 */
 	public IDependentGenerator getParent() {
 		return fParentGenerator;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IDependentGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IDependentGenerator
 	 */
 	public void run(IGenerationBuffer baseAncestorBuffer) throws GenerationException {
 		runChildren(baseAncestorBuffer);
@@ -83,7 +83,7 @@ public class DependentGenerator extends Generator implements IDependentGenerator
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator
 	 */
 	public void terminate() throws GenerationException {
 		fBaseAncestorGenerator = null;

@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.webapplication.TagLibRef;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperationDataModel;
 

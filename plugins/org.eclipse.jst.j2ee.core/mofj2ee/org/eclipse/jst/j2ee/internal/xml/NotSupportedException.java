@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.xml;
 
-import org.eclipse.jst.j2ee.WrappedRuntimeException;
+import org.eclipse.jst.j2ee.internal.WrappedRuntimeException;
 
 
 

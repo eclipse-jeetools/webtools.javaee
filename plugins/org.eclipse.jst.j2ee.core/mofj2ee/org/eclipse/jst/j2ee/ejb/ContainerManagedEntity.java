@@ -129,8 +129,8 @@ CMPAttribute removePersistentAttribute(String aName) ;
 
 	/**
 	 * Returns the value of the '<em><b>Queries</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.ejb.Query}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.jst.j2ee.ejb.Query#getEntity <em>Entity</em>}'.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.ejb.Query}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.jst.j2ee.internal.ejb.Query#getEntity <em>Entity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Queries</em>' containment reference list isn't clear,
@@ -145,16 +145,16 @@ CMPAttribute removePersistentAttribute(String aName) ;
 	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Queries</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getContainerManagedEntity_Queries()
-	 * @see org.eclipse.jst.j2ee.ejb.Query#getEntity
-	 * @model type="org.eclipse.jst.j2ee.ejb.Query" opposite="entity" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getContainerManagedEntity_Queries()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.Query#getEntity
+	 * @model type="org.eclipse.jst.j2ee.internal.ejb.Query" opposite="entity" containment="true"
 	 * @generated
 	 */
 	EList getQueries();
 
 	/**
 	 * Returns the value of the '<em><b>CMP Attribute</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.ejb.CMPAttribute}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.ejb.CMPAttribute}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>CMP Attribute</em>' reference list isn't clear,
@@ -162,8 +162,8 @@ CMPAttribute removePersistentAttribute(String aName) ;
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>CMP Attribute</em>' reference list.
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getContainerManagedEntity_CMPAttribute()
-	 * @model type="org.eclipse.jst.j2ee.ejb.CMPAttribute"
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getContainerManagedEntity_CMPAttribute()
+	 * @model type="org.eclipse.jst.j2ee.internal.ejb.CMPAttribute"
 	 * @generated
 	 */
 	EList getCMPAttribute();
@@ -178,14 +178,14 @@ CMPAttribute removePersistentAttribute(String aName) ;
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Prim Key Field</em>' reference.
 	 * @see #setPrimKeyField(CMPAttribute)
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getContainerManagedEntity_PrimKeyField()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getContainerManagedEntity_PrimKeyField()
 	 * @model 
 	 * @generated
 	 */
 	CMPAttribute getPrimKeyField();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getPrimKeyField <em>Prim Key Field</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getPrimKeyField <em>Prim Key Field</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Prim Key Field</em>' reference.

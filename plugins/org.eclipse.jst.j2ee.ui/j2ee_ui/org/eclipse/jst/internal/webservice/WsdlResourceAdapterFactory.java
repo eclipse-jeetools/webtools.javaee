@@ -16,8 +16,8 @@
  */
 package org.eclipse.jst.internal.webservice;
 
-import org.eclipse.wst.common.emfworkbench.EMFAdapterFactory;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.EMFAdapterFactory;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

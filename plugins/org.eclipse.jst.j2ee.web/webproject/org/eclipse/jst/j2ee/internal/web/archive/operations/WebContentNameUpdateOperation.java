@@ -13,8 +13,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
-import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 
 public class WebContentNameUpdateOperation implements IHeadlessRunnableWithProgress {

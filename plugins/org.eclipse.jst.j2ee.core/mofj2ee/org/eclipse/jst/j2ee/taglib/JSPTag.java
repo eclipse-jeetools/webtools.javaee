@@ -50,11 +50,11 @@ public interface JSPTag extends DescriptionGroup{
 	BodyContentType getBodyContent();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTag#getBodyContent <em>Body Content</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTag#getBodyContent <em>Body Content</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Body Content</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.taglib.BodyContentType
+	 * @see org.eclipse.jst.j2ee.internal.taglib.BodyContentType
 	 * @see #isSetBodyContent()
 	 * @see #unsetBodyContent()
 	 * @see #getBodyContent()
@@ -63,7 +63,7 @@ public interface JSPTag extends DescriptionGroup{
 	void setBodyContent(BodyContentType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTag#getBodyContent <em>Body Content</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTag#getBodyContent <em>Body Content</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetBodyContent()
@@ -74,7 +74,7 @@ public interface JSPTag extends DescriptionGroup{
 	void unsetBodyContent();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTag#getBodyContent <em>Body Content</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTag#getBodyContent <em>Body Content</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Body Content</em>' attribute is set.
@@ -109,14 +109,14 @@ public interface JSPTag extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTag_Name()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getJSPTag_Name()
 	 * @model 
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTag#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTag#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
@@ -135,14 +135,14 @@ public interface JSPTag extends DescriptionGroup{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dynamic Attributes</em>' attribute.
 	 * @see #setDynamicAttributes(boolean)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTag_DynamicAttributes()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getJSPTag_DynamicAttributes()
 	 * @model 
 	 * @generated
 	 */
 	boolean isDynamicAttributes();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTag#isDynamicAttributes <em>Dynamic Attributes</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTag#isDynamicAttributes <em>Dynamic Attributes</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Dynamic Attributes</em>' attribute.

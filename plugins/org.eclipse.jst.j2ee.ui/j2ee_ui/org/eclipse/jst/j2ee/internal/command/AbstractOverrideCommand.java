@@ -57,7 +57,7 @@ public abstract class AbstractOverrideCommand extends AbstractCommand {
 	/**
 	 * Insert the method's description here. Creation date: (06/07/01 11:19:27 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.command.J2EEClipboard
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.command.J2EEClipboard
 	 */
 	public J2EEClipboard getJ2eeClipboard() {
 		return j2eeClipboard;
@@ -80,7 +80,7 @@ public abstract class AbstractOverrideCommand extends AbstractCommand {
 	 * Insert the method's description here. Creation date: (06/07/01 11:19:27 AM)
 	 * 
 	 * @param newJ2eeClipboard
-	 *            org.eclipse.jst.j2ee.internal.command.J2EEClipboard
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.command.J2EEClipboard
 	 */
 	protected void setJ2eeClipboard(J2EEClipboard newJ2eeClipboard) {
 		j2eeClipboard = newJ2eeClipboard;

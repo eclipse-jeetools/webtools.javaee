@@ -33,8 +33,8 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.webapplication.URLPatternType;
 import org.eclipse.jst.j2ee.webapplication.WebResourceCollection;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -43,7 +43,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection}object.
+ * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebResourceCollection}object.
  */
 public class WebResourceCollectionItemProvider extends WebapplicationItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 
@@ -55,7 +55,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
@@ -92,7 +92,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 
 
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
@@ -100,7 +100,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	}
 
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return WebAppEditResourceHandler.getString("Create_URLPatternType_UI_"); //$NON-NLS-1$ = "Create URLPatternType"
@@ -108,7 +108,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 
 	/**
 	 * This returns the help text for
-	 * {@link org.eclipse.jst.j2ee.webapplication.commandCreateChildCommand}.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

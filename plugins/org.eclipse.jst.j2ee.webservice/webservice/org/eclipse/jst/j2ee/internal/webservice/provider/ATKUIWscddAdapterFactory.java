@@ -37,7 +37,7 @@ public class ATKUIWscddAdapterFactory extends Webservice_clientItemProviderAdapt
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.util.Webservice_clientAdapterFactory#createServiceRefAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.util.Webservice_clientAdapterFactory#createServiceRefAdapter()
 	 */
 	public Adapter createServiceRefAdapter() {
 		if (serviceRefItemProvider == null)
@@ -48,7 +48,7 @@ public class ATKUIWscddAdapterFactory extends Webservice_clientItemProviderAdapt
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.webservice.wsclient.util.Webservice_clientAdapterFactory#createHandlerAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.util.Webservice_clientAdapterFactory#createHandlerAdapter()
 	 */
 	public Adapter createHandlerAdapter() {
 		if (handlerItemProvider == null)

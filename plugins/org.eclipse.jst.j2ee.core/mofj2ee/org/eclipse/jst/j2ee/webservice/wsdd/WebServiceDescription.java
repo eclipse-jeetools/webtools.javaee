@@ -34,21 +34,21 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName <em>Web Service Description Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWsdlFile <em>Wsdl File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayName <em>Display Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getPortComponents <em>Port Components</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescriptionType <em>Description Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayNameType <em>Display Name Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getIconType <em>Icon Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName <em>Web Service Description Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWsdlFile <em>Wsdl File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getPortComponents <em>Port Components</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescriptionType <em>Description Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayNameType <em>Display Name Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getIconType <em>Icon Type</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription()
  * @model 
  * @generated
  */
@@ -67,14 +67,14 @@ public interface WebServiceDescription extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Jaxrpc Mapping File</em>' attribute.
 	 * @see #setJaxrpcMappingFile(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_JaxrpcMappingFile()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_JaxrpcMappingFile()
 	 * @model 
 	 * @generated
 	 */
   String getJaxrpcMappingFile();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Jaxrpc Mapping File</em>' attribute.
@@ -99,14 +99,14 @@ public interface WebServiceDescription extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Web Service Description Name</em>' attribute.
 	 * @see #setWebServiceDescriptionName(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_WebServiceDescriptionName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_WebServiceDescriptionName()
 	 * @model 
 	 * @generated
 	 */
   String getWebServiceDescriptionName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName <em>Web Service Description Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWebServiceDescriptionName <em>Web Service Description Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Web Service Description Name</em>' attribute.
@@ -129,14 +129,14 @@ public interface WebServiceDescription extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Wsdl File</em>' attribute.
 	 * @see #setWsdlFile(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_WsdlFile()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_WsdlFile()
 	 * @model 
 	 * @generated
 	 */
   String getWsdlFile();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getWsdlFile <em>Wsdl File</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getWsdlFile <em>Wsdl File</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Wsdl File</em>' attribute.
@@ -155,14 +155,14 @@ public interface WebServiceDescription extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Small Icon</em>' attribute.
 	 * @see #setSmallIcon(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_SmallIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_SmallIcon()
 	 * @model 
 	 * @generated
 	 */
   String getSmallIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getSmallIcon <em>Small Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getSmallIcon <em>Small Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Small Icon</em>' attribute.
@@ -181,14 +181,14 @@ public interface WebServiceDescription extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Large Icon</em>' attribute.
 	 * @see #setLargeIcon(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_LargeIcon()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_LargeIcon()
 	 * @model 
 	 * @generated
 	 */
   String getLargeIcon();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getLargeIcon <em>Large Icon</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getLargeIcon <em>Large Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Large Icon</em>' attribute.
@@ -207,14 +207,14 @@ public interface WebServiceDescription extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_Description()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_Description()
 	 * @model 
 	 * @generated
 	 */
   String getDescription();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescription <em>Description</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescription <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Description</em>' attribute.
@@ -233,14 +233,14 @@ public interface WebServiceDescription extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Display Name</em>' attribute.
 	 * @see #setDisplayName(String)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_DisplayName()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_DisplayName()
 	 * @model 
 	 * @generated
 	 */
   String getDisplayName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayName <em>Display Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayName <em>Display Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Display Name</em>' attribute.
@@ -251,7 +251,7 @@ public interface WebServiceDescription extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Port Components</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent}.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Port Components</em>' containment reference list isn't clear,
@@ -259,8 +259,8 @@ public interface WebServiceDescription extends EObject{
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Port Components</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_PortComponents()
-	 * @model type="org.eclipse.jst.j2ee.webservice.wsdd.PortComponent" containment="true" required="true"
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_PortComponents()
+	 * @model type="org.eclipse.jst.j2ee.internal.webservice.wsdd.PortComponent" containment="true" required="true"
 	 * @generated
 	 */
   EList getPortComponents();
@@ -275,14 +275,14 @@ public interface WebServiceDescription extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Description Type</em>' containment reference.
 	 * @see #setDescriptionType(DescriptionType)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_DescriptionType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_DescriptionType()
 	 * @model containment="true"
 	 * @generated
 	 */
   DescriptionType getDescriptionType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDescriptionType <em>Description Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDescriptionType <em>Description Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Description Type</em>' containment reference.
@@ -301,14 +301,14 @@ public interface WebServiceDescription extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Display Name Type</em>' containment reference.
 	 * @see #setDisplayNameType(DisplayNameType)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_DisplayNameType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_DisplayNameType()
 	 * @model containment="true"
 	 * @generated
 	 */
   DisplayNameType getDisplayNameType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getDisplayNameType <em>Display Name Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getDisplayNameType <em>Display Name Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Display Name Type</em>' containment reference.
@@ -327,14 +327,14 @@ public interface WebServiceDescription extends EObject{
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icon Type</em>' containment reference.
 	 * @see #setIconType(IconType)
-	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getWebServiceDescription_IconType()
+	 * @see org.eclipse.jst.j2ee.internal.webservice.wsdd.WsddPackage#getWebServiceDescription_IconType()
 	 * @model containment="true"
 	 * @generated
 	 */
   IconType getIconType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription#getIconType <em>Icon Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.WebServiceDescription#getIconType <em>Icon Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Icon Type</em>' containment reference.

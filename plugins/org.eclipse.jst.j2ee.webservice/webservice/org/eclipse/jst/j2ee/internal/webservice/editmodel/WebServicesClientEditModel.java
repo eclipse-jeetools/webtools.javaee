@@ -23,10 +23,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 //import com.ibm.etools.emf.workbench.plugin.EMFWorkbenchPlugin;
 
-//import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
-//import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
+//import org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WsddResource;
+//import org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WebServices;
 
-//import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
+//import org.eclipse.jst.j2ee.internal.internal.common.impl.J2EEResourceFactoryRegistry;
 
 
 public class WebServicesClientEditModel extends CompositeEditModel {

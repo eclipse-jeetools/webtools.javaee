@@ -29,11 +29,11 @@ public interface MessageDrivenDestination extends EObject{
 	DestinationType getType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDrivenDestination#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.ejb.DestinationType
+	 * @see org.eclipse.jst.j2ee.internal.ejb.DestinationType
 	 * @see #isSetType()
 	 * @see #unsetType()
 	 * @see #getType()
@@ -42,7 +42,7 @@ public interface MessageDrivenDestination extends EObject{
 	void setType(DestinationType value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination#getType <em>Type</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDrivenDestination#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetType()
@@ -53,7 +53,7 @@ public interface MessageDrivenDestination extends EObject{
 	void unsetType();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination#getType <em>Type</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDrivenDestination#getType <em>Type</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Type</em>' attribute is set.
@@ -77,11 +77,11 @@ public interface MessageDrivenDestination extends EObject{
 	SubscriptionDurabilityKind getSubscriptionDurability();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination#getSubscriptionDurability <em>Subscription Durability</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDrivenDestination#getSubscriptionDurability <em>Subscription Durability</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Subscription Durability</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind
+	 * @see org.eclipse.jst.j2ee.internal.ejb.SubscriptionDurabilityKind
 	 * @see #isSetSubscriptionDurability()
 	 * @see #unsetSubscriptionDurability()
 	 * @see #getSubscriptionDurability()
@@ -90,7 +90,7 @@ public interface MessageDrivenDestination extends EObject{
 	void setSubscriptionDurability(SubscriptionDurabilityKind value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination#getSubscriptionDurability <em>Subscription Durability</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDrivenDestination#getSubscriptionDurability <em>Subscription Durability</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetSubscriptionDurability()
@@ -101,7 +101,7 @@ public interface MessageDrivenDestination extends EObject{
 	void unsetSubscriptionDurability();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination#getSubscriptionDurability <em>Subscription Durability</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.ejb.MessageDrivenDestination#getSubscriptionDurability <em>Subscription Durability</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Subscription Durability</em>' attribute is set.

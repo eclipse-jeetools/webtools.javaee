@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.application.operations;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 public class EARExportDataModel extends J2EEExportDataModel {
@@ -19,7 +19,7 @@ public class EARExportDataModel extends J2EEExportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new EARExportOperation(this);
@@ -53,7 +53,7 @@ public class EARExportDataModel extends J2EEExportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel#getModuleExtension()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEExportDataModel#getModuleExtension()
 	 */
 	protected String getModuleExtension() {
 		return ".ear"; //$NON-NLS-1$
@@ -62,7 +62,7 @@ public class EARExportDataModel extends J2EEExportDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel#getNatureID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEExportDataModel#getNatureID()
 	 */
 	protected String getNatureID() {
 		return IEARNatureConstants.NATURE_ID;

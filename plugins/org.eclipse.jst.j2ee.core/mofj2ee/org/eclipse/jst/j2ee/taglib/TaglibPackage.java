@@ -343,11 +343,11 @@ public interface TaglibPackage extends EPackage{
 	int JSP_VARIABLE_FEATURE_COUNT = 6;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.taglib.impl.FunctionImpl <em>Function</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.taglib.impl.FunctionImpl <em>Function</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.taglib.impl.FunctionImpl
-	 * @see org.eclipse.jst.j2ee.taglib.impl.TaglibPackageImpl#getFunction()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.FunctionImpl
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.TaglibPackageImpl#getFunction()
 	 * @generated
 	 */
 	int FUNCTION = 5;
@@ -434,11 +434,11 @@ public interface TaglibPackage extends EPackage{
 	int FUNCTION_FEATURE_COUNT = CommonPackage.DESCRIPTION_GROUP_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.taglib.impl.TagFileImpl <em>Tag File</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.taglib.impl.TagFileImpl <em>Tag File</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.taglib.impl.TagFileImpl
-	 * @see org.eclipse.jst.j2ee.taglib.impl.TaglibPackageImpl#getTagFile()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.TagFileImpl
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.TaglibPackageImpl#getTagFile()
 	 * @generated
 	 */
 	int TAG_FILE = 6;
@@ -516,11 +516,11 @@ public interface TaglibPackage extends EPackage{
 	int TAG_FILE_FEATURE_COUNT = CommonPackage.DESCRIPTION_GROUP_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.taglib.impl.TldExtensionImpl <em>Tld Extension</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.taglib.impl.TldExtensionImpl <em>Tld Extension</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.taglib.impl.TldExtensionImpl
-	 * @see org.eclipse.jst.j2ee.taglib.impl.TaglibPackageImpl#getTldExtension()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.TldExtensionImpl
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.TaglibPackageImpl#getTldExtension()
 	 * @generated
 	 */
 	int TLD_EXTENSION = 7;
@@ -553,11 +553,11 @@ public interface TaglibPackage extends EPackage{
 	int TLD_EXTENSION_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.taglib.impl.ExtensibleTypeImpl <em>Extensible Type</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.taglib.impl.ExtensibleTypeImpl <em>Extensible Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.taglib.impl.ExtensibleTypeImpl
-	 * @see org.eclipse.jst.j2ee.taglib.impl.TaglibPackageImpl#getExtensibleType()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.ExtensibleTypeImpl
+	 * @see org.eclipse.jst.j2ee.internal.taglib.impl.TaglibPackageImpl#getExtensibleType()
 	 * @generated
 	 */
 	int EXTENSIBLE_TYPE = 8;
@@ -598,7 +598,7 @@ public interface TaglibPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.taglib";//$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.taglib";//$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -650,22 +650,22 @@ public interface TaglibPackage extends EPackage{
 	EReference getTagLib_Listeners();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.TagLib#getFunctions <em>Functions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.TagLib#getFunctions <em>Functions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Functions</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TagLib#getFunctions()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TagLib#getFunctions()
 	 * @see #getTagLib()
 	 * @generated
 	 */
 	EReference getTagLib_Functions();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.TagLib#getTaglibExtensions <em>Taglib Extensions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.TagLib#getTaglibExtensions <em>Taglib Extensions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Taglib Extensions</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TagLib#getTaglibExtensions()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TagLib#getTaglibExtensions()
 	 * @see #getTagLib()
 	 * @generated
 	 */
@@ -688,11 +688,11 @@ public interface TaglibPackage extends EPackage{
 	EReference getValidator_InitParams();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.Validator#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.Validator#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.Validator#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.Validator#getDescriptions()
 	 * @see #getValidator()
 	 * @generated
 	 */
@@ -715,22 +715,22 @@ public interface TaglibPackage extends EPackage{
 	EAttribute getJSPTag_Example();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.JSPTag#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTag#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.JSPTag#getName()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.JSPTag#getName()
 	 * @see #getJSPTag()
 	 * @generated
 	 */
 	EAttribute getJSPTag_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.JSPTag#isDynamicAttributes <em>Dynamic Attributes</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTag#isDynamicAttributes <em>Dynamic Attributes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Dynamic Attributes</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.JSPTag#isDynamicAttributes()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.JSPTag#isDynamicAttributes()
 	 * @see #getJSPTag()
 	 * @generated
 	 */
@@ -778,11 +778,11 @@ public interface TaglibPackage extends EPackage{
 	EAttribute getJSPTagAttribute_RtExprValue();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.JSPTagAttribute#isFragment <em>Fragment</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#isFragment <em>Fragment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Fragment</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.JSPTagAttribute#isFragment()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#isFragment()
 	 * @see #getJSPTagAttribute()
 	 * @generated
 	 */
@@ -794,11 +794,11 @@ public interface TaglibPackage extends EPackage{
 	EReference getJSPTagAttribute_Type();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.JSPTagAttribute#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.JSPTagAttribute#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#getDescriptions()
 	 * @see #getJSPTagAttribute()
 	 * @generated
 	 */
@@ -836,183 +836,183 @@ public interface TaglibPackage extends EPackage{
 	EReference getJSPVariable_VariableClass();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.JSPVariable#getDescriptions <em>Descriptions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.JSPVariable#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.JSPVariable#getDescriptions()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.JSPVariable#getDescriptions()
 	 * @see #getJSPVariable()
 	 * @generated
 	 */
 	EReference getJSPVariable_Descriptions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.taglib.Function <em>Function</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.taglib.Function <em>Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Function</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.Function
+	 * @see org.eclipse.jst.j2ee.internal.taglib.Function
 	 * @generated
 	 */
 	EClass getFunction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.Function#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.Function#getName()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.Function#getName()
 	 * @see #getFunction()
 	 * @generated
 	 */
 	EAttribute getFunction_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.Function#getSignature <em>Signature</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getSignature <em>Signature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Signature</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.Function#getSignature()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.Function#getSignature()
 	 * @see #getFunction()
 	 * @generated
 	 */
 	EAttribute getFunction_Signature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.Function#getExample <em>Example</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getExample <em>Example</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Example</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.Function#getExample()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.Function#getExample()
 	 * @see #getFunction()
 	 * @generated
 	 */
 	EAttribute getFunction_Example();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.taglib.Function#getFunctionClass <em>Function Class</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getFunctionClass <em>Function Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Function Class</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.Function#getFunctionClass()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.Function#getFunctionClass()
 	 * @see #getFunction()
 	 * @generated
 	 */
 	EReference getFunction_FunctionClass();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.Function#getFunctionExtensions <em>Function Extensions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.Function#getFunctionExtensions <em>Function Extensions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Function Extensions</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.Function#getFunctionExtensions()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.Function#getFunctionExtensions()
 	 * @see #getFunction()
 	 * @generated
 	 */
 	EReference getFunction_FunctionExtensions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.taglib.TagFile <em>Tag File</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.taglib.TagFile <em>Tag File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Tag File</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TagFile
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TagFile
 	 * @generated
 	 */
 	EClass getTagFile();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.TagFile#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.TagFile#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TagFile#getName()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TagFile#getName()
 	 * @see #getTagFile()
 	 * @generated
 	 */
 	EAttribute getTagFile_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.TagFile#getPath <em>Path</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.TagFile#getPath <em>Path</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Path</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TagFile#getPath()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TagFile#getPath()
 	 * @see #getTagFile()
 	 * @generated
 	 */
 	EAttribute getTagFile_Path();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.TagFile#getExample <em>Example</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.TagFile#getExample <em>Example</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Example</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TagFile#getExample()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TagFile#getExample()
 	 * @see #getTagFile()
 	 * @generated
 	 */
 	EAttribute getTagFile_Example();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.TagFile#getTagExtensions <em>Tag Extensions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.TagFile#getTagExtensions <em>Tag Extensions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Tag Extensions</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TagFile#getTagExtensions()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TagFile#getTagExtensions()
 	 * @see #getTagFile()
 	 * @generated
 	 */
 	EReference getTagFile_TagExtensions();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.taglib.TldExtension <em>Tld Extension</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.taglib.TldExtension <em>Tld Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Tld Extension</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TldExtension
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TldExtension
 	 * @generated
 	 */
 	EClass getTldExtension();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.TldExtension#getNamespace <em>Namespace</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.TldExtension#getNamespace <em>Namespace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Namespace</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TldExtension#getNamespace()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TldExtension#getNamespace()
 	 * @see #getTldExtension()
 	 * @generated
 	 */
 	EAttribute getTldExtension_Namespace();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.taglib.TldExtension#getExtensionElements <em>Extension Elements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.taglib.TldExtension#getExtensionElements <em>Extension Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Extension Elements</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.TldExtension#getExtensionElements()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TldExtension#getExtensionElements()
 	 * @see #getTldExtension()
 	 * @generated
 	 */
 	EReference getTldExtension_ExtensionElements();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.taglib.ExtensibleType <em>Extensible Type</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.internal.taglib.ExtensibleType <em>Extensible Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Extensible Type</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.ExtensibleType
+	 * @see org.eclipse.jst.j2ee.internal.taglib.ExtensibleType
 	 * @generated
 	 */
 	EClass getExtensibleType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.taglib.ExtensibleType#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.taglib.ExtensibleType#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.eclipse.jst.j2ee.taglib.ExtensibleType#getValue()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.ExtensibleType#getValue()
 	 * @see #getExtensibleType()
 	 * @generated
 	 */

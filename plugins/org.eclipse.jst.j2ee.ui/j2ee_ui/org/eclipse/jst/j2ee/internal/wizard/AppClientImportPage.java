@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 /**
  * @author cbridgha
@@ -50,7 +50,7 @@ public class AppClientImportPage extends J2EEModuleImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
 	 */
 	protected String getFileImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_FILE_LABEL);
@@ -63,7 +63,7 @@ public class AppClientImportPage extends J2EEModuleImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFilterExpression()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
 	protected String[] getFilterExpression() {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
@@ -72,7 +72,7 @@ public class AppClientImportPage extends J2EEModuleImportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
 	protected String getProjectImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_PROJECT_LABEL);

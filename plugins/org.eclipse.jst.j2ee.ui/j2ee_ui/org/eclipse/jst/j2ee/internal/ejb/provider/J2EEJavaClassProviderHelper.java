@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.frameworks.ui.OverlayIcon;
+import org.eclipse.wst.common.frameworks.internal.ui.OverlayIcon;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -70,7 +70,7 @@ public abstract class J2EEJavaClassProviderHelper implements IAdaptable {
 	/**
 	 * Insert the method's description here. Creation date: (7/11/2001 1:47:24 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.EnterpriseBean
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean
 	 */
 	public org.eclipse.jst.j2ee.ejb.EnterpriseBean getEjb() {
 		return ejb;
@@ -123,7 +123,7 @@ public abstract class J2EEJavaClassProviderHelper implements IAdaptable {
 	 * Insert the method's description here. Creation date: (7/11/2001 1:47:24 PM)
 	 * 
 	 * @param newEjb
-	 *            org.eclipse.jst.j2ee.ejb.EnterpriseBean
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean
 	 */
 	public void setEjb(org.eclipse.jst.j2ee.ejb.EnterpriseBean newEjb) {
 		ejb = newEjb;

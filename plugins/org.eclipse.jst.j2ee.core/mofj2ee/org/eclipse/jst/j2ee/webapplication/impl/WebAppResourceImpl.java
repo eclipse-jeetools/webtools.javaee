@@ -17,9 +17,9 @@
 package org.eclipse.jst.j2ee.webapplication.impl;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.webapplication.WebAppTranslator;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
@@ -185,7 +185,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.common.impl.XMLResourceImpl#syncVersionOfRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
 	protected void syncVersionOfRootObject() {
 		WebApp app = getWebApp();

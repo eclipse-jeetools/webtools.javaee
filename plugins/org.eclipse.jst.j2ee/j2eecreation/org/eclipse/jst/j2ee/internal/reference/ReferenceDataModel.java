@@ -16,8 +16,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.J2EEConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
 import org.eclipse.jst.j2ee.common.EjbRef;
@@ -25,13 +23,15 @@ import org.eclipse.jst.j2ee.common.MessageDestinationRef;
 import org.eclipse.jst.j2ee.common.ResourceEnvRef;
 import org.eclipse.jst.j2ee.common.ResourceRef;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
-import org.eclipse.jst.j2ee.webservices.WebServicesManager;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -121,7 +121,7 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MODULE_TYPE)) {
@@ -194,7 +194,7 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (OWNER.equals(propertyName)) {
@@ -217,7 +217,7 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.reference.ReferenceDataModel#validateReferenceDoesNotExist(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.reference.ReferenceDataModel#validateReferenceDoesNotExist(java.lang.String)
 	 */
 	public boolean validateReferenceDoesNotExist(String nameValue) {
 		if (ownerType == EJB_TYPE) {

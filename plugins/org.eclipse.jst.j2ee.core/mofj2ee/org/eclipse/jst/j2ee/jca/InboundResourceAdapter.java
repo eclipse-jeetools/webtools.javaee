@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.InboundResourceAdapter#getMessageAdapter <em>Message Adapter</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter#getMessageAdapter <em>Message Adapter</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.jca.JcaPackage#getInboundResourceAdapter()
+ * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getInboundResourceAdapter()
  * @model 
  * @generated
  */
@@ -52,14 +52,14 @@ public interface InboundResourceAdapter extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Adapter</em>' containment reference.
 	 * @see #setMessageAdapter(MessageAdapter)
-	 * @see org.eclipse.jst.j2ee.jca.JcaPackage#getInboundResourceAdapter_MessageAdapter()
+	 * @see org.eclipse.jst.j2ee.internal.jca.JcaPackage#getInboundResourceAdapter_MessageAdapter()
 	 * @model containment="true"
 	 * @generated
 	 */
 	MessageAdapter getMessageAdapter();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.jca.InboundResourceAdapter#getMessageAdapter <em>Message Adapter</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.jca.InboundResourceAdapter#getMessageAdapter <em>Message Adapter</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Message Adapter</em>' containment reference.

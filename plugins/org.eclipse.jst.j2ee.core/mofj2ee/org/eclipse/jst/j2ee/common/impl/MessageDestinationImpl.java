@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.common.MessageDestination;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.MessageDestinationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.MessageDestinationImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *

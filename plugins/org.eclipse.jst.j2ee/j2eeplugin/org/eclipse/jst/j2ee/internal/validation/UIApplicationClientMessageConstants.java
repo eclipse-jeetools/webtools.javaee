@@ -10,7 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.validation;
 
-import org.eclipse.jst.j2ee.model.validation.ApplicationClientMessageConstants;
+import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientMessageConstants;
+
 
 
 

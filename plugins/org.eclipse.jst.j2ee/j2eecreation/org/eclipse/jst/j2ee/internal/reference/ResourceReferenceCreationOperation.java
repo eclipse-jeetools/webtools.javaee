@@ -10,7 +10,6 @@ package org.eclipse.jst.j2ee.internal.reference;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.client.impl.ClientFactoryImpl;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -19,7 +18,8 @@ import org.eclipse.jst.j2ee.common.ResAuthTypeBase;
 import org.eclipse.jst.j2ee.common.ResSharingScopeType;
 import org.eclipse.jst.j2ee.common.ResourceRef;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 

@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.wst.common.framework.AdaptabilityUtility;
-import org.eclipse.wst.common.navigator.views.ISerializer;
+import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
+import org.eclipse.wst.common.navigator.internal.views.dnd.ISerializer;
 
 
 

@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.DisplayName;
 import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
@@ -43,17 +43,17 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getWebServiceDescriptionName <em>Web Service Description Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getWsdlFile <em>Wsdl File</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getDisplayName <em>Display Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getPortComponents <em>Port Components</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getDescriptionType <em>Description Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getDisplayNameType <em>Display Name Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.WebServiceDescriptionImpl#getIconType <em>Icon Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getJaxrpcMappingFile <em>Jaxrpc Mapping File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getWebServiceDescriptionName <em>Web Service Description Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getWsdlFile <em>Wsdl File</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getPortComponents <em>Port Components</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getDescriptionType <em>Description Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getDisplayNameType <em>Display Name Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServiceDescriptionImpl#getIconType <em>Icon Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -397,7 +397,7 @@ public class WebServiceDescriptionImpl extends EObjectImpl implements WebService
   /*
    * (non-Javadoc)
    * 
-   * @see org.eclipse.jst.j2ee.common.DescriptionGroup#getJ2EEVersionID()
+   * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getJ2EEVersionID()
    */
   public int getJ2EEVersionID() throws IllegalStateException {
   	J2EEVersionResource res = (J2EEVersionResource) eResource();

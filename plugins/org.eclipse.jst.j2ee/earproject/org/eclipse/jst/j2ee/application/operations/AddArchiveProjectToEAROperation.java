@@ -45,7 +45,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.RemoveModuleFromEARProjectComma
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;

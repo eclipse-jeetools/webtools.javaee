@@ -29,7 +29,7 @@ import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jst.j2ee.common.provider.ListenerItemProvider;
+import org.eclipse.jst.j2ee.common.internal.provider.ListenerItemProvider;
 import org.eclipse.jst.j2ee.webapplication.util.WebapplicationAdapterFactory;
 
 
@@ -59,148 +59,148 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	 */
 	protected Collection supportedTypes = new ArrayList();
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.webapplication.WebApp}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebApp}
 	 * instances.
 	 */
 	protected WebAppItemProvider webAppItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.ContextParam}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ContextParam}instances.
 	 */
 	protected ContextParamItemProvider contextParamItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.ErrorPage}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ErrorPage}instances.
 	 */
 	protected ErrorPageItemProvider errorPageItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.ExceptionTypeErrorPage}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ExceptionTypeErrorPage}instances.
 	 */
 	protected ExceptionTypeErrorPageItemProvider exceptionTypeErrorPageItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.webapplication.Filter}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Filter}
 	 * instances.
 	 */
 	protected FilterItemProvider filterItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.FilterMapping}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.FilterMapping}instances.
 	 */
 	protected FilterMappingItemProvider filterMappingItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.ErrorCodeErrorPage}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ErrorCodeErrorPage}instances.
 	 */
 	protected ErrorCodeErrorPageItemProvider errorCodeErrorPageItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.WelcomeFileList}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WelcomeFileList}instances.
 	 */
 	protected WelcomeFileListItemProvider welcomeFileListItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.WelcomeFile}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WelcomeFile}instances.
 	 */
 	protected WelcomeFileItemProvider welcomeFileItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.TagLibRef}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.TagLibRef}instances.
 	 */
 	protected TagLibRefItemProvider tagLibRefItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.TagLibRefType}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.TagLibRefType}instances.
 	 */
 	protected TagLibRefTypeItemProvider tagLibRefTypeItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.SecurityConstraint}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.SecurityConstraint}instances.
 	 */
 	protected SecurityConstraintItemProvider securityConstraintItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebResourceCollection}instances.
 	 */
 	protected WebResourceCollectionItemProvider webResourceCollectionItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.URLPatternType}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.URLPatternType}instances.
 	 */
 	protected URLPatternTypeItemProvider uRLPatternTypeItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.HTTPMethodType}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.HTTPMethodType}instances.
 	 */
 	protected HTTPMethodTypeItemProvider hTTPMethodTypeItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.AuthConstraint}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.AuthConstraint}instances.
 	 */
 	protected AuthConstraintItemProvider authConstraintItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.UserDataConstraint}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.UserDataConstraint}instances.
 	 */
 	protected UserDataConstraintItemProvider userDataConstraintItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.LoginConfig}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LoginConfig}instances.
 	 */
 	protected LoginConfigItemProvider loginConfigItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.FormLoginConfig}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.FormLoginConfig}instances.
 	 */
 	protected FormLoginConfigItemProvider formLoginConfigItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.MimeMapping}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.MimeMapping}instances.
 	 */
 	protected MimeMappingItemProvider mimeMappingItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.SessionConfig}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.SessionConfig}instances.
 	 */
 	protected SessionConfigItemProvider sessionConfigItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.ServletMapping}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ServletMapping}instances.
 	 */
 	protected ServletMappingItemProvider servletMappingItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.Servlet}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Servlet}instances.
 	 */
 	protected ServletItemProvider servletItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.WebType}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebType}instances.
 	 */
 	protected WebTypeItemProvider webTypeItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.ServletType}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ServletType}instances.
 	 */
 	protected ServletTypeItemProvider servletTypeItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.JSPType}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.JSPType}instances.
 	 */
 	protected JSPTypeItemProvider jSPTypeItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.InitParam}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.InitParam}instances.
 	 */
 	protected InitParamItemProvider initParamItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.Listener}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Listener}instances.
 	 */
 	protected ListenerItemProvider listenerItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.RoleNameType}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.RoleNameType}instances.
 	 */
 	protected RoleNameTypeItemProvider roleNameTypeItemProvider;
 	protected Disposable disposable = new Disposable();
@@ -248,7 +248,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.AuthConstraint}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.AuthConstraint}.
 	 */
 	public Adapter createAuthConstraintAdapter() {
 		if (authConstraintItemProvider == null) {
@@ -259,7 +259,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.ContextParam}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ContextParam}.
 	 */
 	public Adapter createContextParamAdapter() {
 		if (contextParamItemProvider == null) {
@@ -270,7 +270,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.ErrorCodeErrorPage}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ErrorCodeErrorPage}.
 	 */
 	public Adapter createErrorCodeErrorPageAdapter() {
 		if (errorCodeErrorPageItemProvider == null) {
@@ -281,7 +281,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.ErrorPage}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ErrorPage}.
 	 */
 	public Adapter createErrorPageAdapter() {
 		if (errorPageItemProvider == null) {
@@ -292,7 +292,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.ExceptionTypeErrorPage}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ExceptionTypeErrorPage}.
 	 */
 	public Adapter createExceptionTypeErrorPageAdapter() {
 		if (exceptionTypeErrorPageItemProvider == null) {
@@ -303,7 +303,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.Filter}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Filter}.
 	 */
 	public Adapter createFilterAdapter() {
 		if (filterItemProvider == null) {
@@ -315,7 +315,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList}instances. <!-- begin-user-doc
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LocalEncodingMappingList}instances. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -323,7 +323,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	protected LocalEncodingMappingListItemProvider localEncodingMappingListItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LocalEncodingMappingList}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -338,7 +338,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping}instances. <!-- begin-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LocalEncodingMapping}instances. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -346,7 +346,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	protected LocalEncodingMappingItemProvider localEncodingMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LocalEncodingMapping}.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -360,7 +360,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.FilterMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.FilterMapping}.
 	 */
 	public Adapter createFilterMappingAdapter() {
 		if (filterMappingItemProvider == null) {
@@ -371,7 +371,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.FormLoginConfig}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.FormLoginConfig}.
 	 */
 	public Adapter createFormLoginConfigAdapter() {
 		if (formLoginConfigItemProvider == null) {
@@ -382,7 +382,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.HTTPMethodType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.HTTPMethodType}.
 	 */
 	public Adapter createHTTPMethodTypeAdapter() {
 		if (hTTPMethodTypeItemProvider == null) {
@@ -393,7 +393,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.InitParam}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.InitParam}.
 	 */
 	public Adapter createInitParamAdapter() {
 		if (initParamItemProvider == null) {
@@ -404,7 +404,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.Listener}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Listener}.
 	 */
 	public Adapter createListenerAdapter() {
 		if (listenerItemProvider == null) {
@@ -415,7 +415,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.JSPType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.JSPType}.
 	 */
 	public Adapter createJSPTypeAdapter() {
 		if (jSPTypeItemProvider == null) {
@@ -427,7 +427,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.URLPatternType}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.URLPatternType}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -435,7 +435,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	protected URLPatternTypeItemProvider urlPatternTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.LoginConfig}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LoginConfig}.
 	 */
 	public Adapter createLoginConfigAdapter() {
 		if (loginConfigItemProvider == null) {
@@ -446,7 +446,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.MimeMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.MimeMapping}.
 	 */
 	public Adapter createMimeMappingAdapter() {
 		if (mimeMappingItemProvider == null) {
@@ -457,7 +457,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.RoleNameType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.RoleNameType}.
 	 */
 	public Adapter createRoleNameTypeAdapter() {
 		if (roleNameTypeItemProvider == null) {
@@ -468,7 +468,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.SecurityConstraint}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.SecurityConstraint}.
 	 */
 	public Adapter createSecurityConstraintAdapter() {
 		if (securityConstraintItemProvider == null) {
@@ -479,7 +479,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.Servlet}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Servlet}.
 	 */
 	public Adapter createServletAdapter() {
 		if (servletItemProvider == null) {
@@ -490,7 +490,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.ServletMapping}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ServletMapping}.
 	 */
 	public Adapter createServletMappingAdapter() {
 		if (servletMappingItemProvider == null) {
@@ -501,7 +501,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.ServletType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ServletType}.
 	 */
 	public Adapter createServletTypeAdapter() {
 		if (servletTypeItemProvider == null) {
@@ -513,7 +513,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.JSPType}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.JSPType}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -521,7 +521,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	protected JSPTypeItemProvider jspTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.SessionConfig}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.SessionConfig}.
 	 */
 	public Adapter createSessionConfigAdapter() {
 		if (sessionConfigItemProvider == null) {
@@ -532,7 +532,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.TagLibRef}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.TagLibRef}.
 	 */
 	public Adapter createTagLibRefAdapter() {
 		if (tagLibRefItemProvider == null) {
@@ -543,7 +543,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.TagLibRef}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.TagLibRef}.
 	 */
 	public Adapter createTagLibRefTypeAdapter() {
 		if (tagLibRefTypeItemProvider == null) {
@@ -554,7 +554,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.URLPatternType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.URLPatternType}.
 	 */
 	public Adapter createURLPatternTypeAdapter() {
 		if (uRLPatternTypeItemProvider == null) {
@@ -566,7 +566,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.webapplication.HTTPMethodType}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.HTTPMethodType}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -574,7 +574,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	protected HTTPMethodTypeItemProvider httpMethodTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.UserDataConstraint}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.UserDataConstraint}.
 	 */
 	public Adapter createUserDataConstraintAdapter() {
 		if (userDataConstraintItemProvider == null) {
@@ -585,7 +585,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.WebApp}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebApp}.
 	 */
 	public Adapter createWebAppAdapter() {
 		if (webAppItemProvider == null) {
@@ -596,7 +596,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.WebResourceCollection}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebResourceCollection}.
 	 */
 	public Adapter createWebResourceCollectionAdapter() {
 		if (webResourceCollectionItemProvider == null) {
@@ -607,7 +607,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.WebType}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebType}.
 	 */
 	public Adapter createWebTypeAdapter() {
 		if (webTypeItemProvider == null) {
@@ -618,7 +618,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.WelcomeFile}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WelcomeFile}.
 	 */
 	public Adapter createWelcomeFileAdapter() {
 		if (welcomeFileItemProvider == null) {
@@ -629,7 +629,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.webapplication.WelcomeFileList}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WelcomeFileList}.
 	 */
 	public Adapter createWelcomeFileListAdapter() {
 		if (welcomeFileListItemProvider == null) {

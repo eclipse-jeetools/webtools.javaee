@@ -33,8 +33,8 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.ejb.impl.ActivationConfigImpl#getConfigProperties <em>Config Properties</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.ejb.impl.ActivationConfigImpl#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigImpl#getConfigProperties <em>Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.ejb.impl.ActivationConfigImpl#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *

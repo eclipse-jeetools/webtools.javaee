@@ -33,8 +33,8 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPConfigImpl#getTagLibs <em>Tag Libs</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jsp.impl.JSPConfigImpl#getPropertyGroups <em>Property Groups</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPConfigImpl#getTagLibs <em>Tag Libs</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPConfigImpl#getPropertyGroups <em>Property Groups</em>}</li>
  * </ul>
  * </p>
  *

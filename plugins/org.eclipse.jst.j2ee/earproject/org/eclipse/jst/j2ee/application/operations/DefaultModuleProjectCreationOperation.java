@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationO
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
-import org.eclipse.wst.common.framework.activities.WTPActivityBridge;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.activities.WTPActivityBridge;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 /**
@@ -68,7 +68,7 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		DefaultModuleProjectCreationDataModel model = (DefaultModuleProjectCreationDataModel) operationDataModel;

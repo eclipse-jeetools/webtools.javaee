@@ -28,10 +28,10 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLMessageMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getParamPosition <em>Param Position</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getParamType <em>Param Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getWsdlMessageMapping <em>Wsdl Message Mapping</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getParamPosition <em>Param Position</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getParamType <em>Param Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.MethodParamPartsMappingImpl#getWsdlMessageMapping <em>Wsdl Message Mapping</em>}</li>
  * </ul>
  * </p>
  *

@@ -34,12 +34,12 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.VariableMapping;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getClassType <em>Class Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getQnameScope <em>Qname Scope</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getAnonymousTypeQname <em>Anonymous Type Qname</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getRootTypeQname <em>Root Type Qname</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getVariableMappings <em>Variable Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getClassType <em>Class Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getQnameScope <em>Qname Scope</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getAnonymousTypeQname <em>Anonymous Type Qname</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getRootTypeQname <em>Root Type Qname</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.util.JavaXMLTypeMappingImpl#getVariableMappings <em>Variable Mappings</em>}</li>
  * </ul>
  * </p>
  *

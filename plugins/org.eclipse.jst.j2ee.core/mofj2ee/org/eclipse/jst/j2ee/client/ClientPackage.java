@@ -148,11 +148,11 @@ public interface ClientPackage extends EPackage{
 	int APPLICATION_CLIENT_FEATURE_COUNT = CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP_FEATURE_COUNT + 9;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.j2ee.client.ResAuthApplicationType <em>Res Auth Application Type</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.client.ResAuthApplicationType <em>Res Auth Application Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.j2ee.client.ResAuthApplicationType
-	 * @see org.eclipse.jst.j2ee.client.impl.ClientPackageImpl#getResAuthApplicationType()
+	 * @see org.eclipse.jst.j2ee.internal.client.ResAuthApplicationType
+	 * @see org.eclipse.jst.j2ee.internal.client.impl.ClientPackageImpl#getResAuthApplicationType()
 	 * @generated
 	 */
 	int RES_AUTH_APPLICATION_TYPE = 1;
@@ -168,7 +168,7 @@ public interface ClientPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.client"; //$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.client"; //$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -185,11 +185,11 @@ public interface ClientPackage extends EPackage{
 	EClass getApplicationClient();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.client.ApplicationClient#getVersion <em>Version</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.client.ApplicationClient#getVersion <em>Version</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.eclipse.jst.j2ee.client.ApplicationClient#getVersion()
+	 * @see org.eclipse.jst.j2ee.internal.client.ApplicationClient#getVersion()
 	 * @see #getApplicationClient()
 	 * @generated
 	 */
@@ -221,44 +221,44 @@ public interface ClientPackage extends EPackage{
 	EReference getApplicationClient_CallbackHandler();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.client.ApplicationClient#getServiceRefs <em>Service Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.client.ApplicationClient#getServiceRefs <em>Service Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Service Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.client.ApplicationClient#getServiceRefs()
+	 * @see org.eclipse.jst.j2ee.internal.client.ApplicationClient#getServiceRefs()
 	 * @see #getApplicationClient()
 	 * @generated
 	 */
 	EReference getApplicationClient_ServiceRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.client.ApplicationClient#getMessageDestinationRefs <em>Message Destination Refs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.client.ApplicationClient#getMessageDestinationRefs <em>Message Destination Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Message Destination Refs</em>'.
-	 * @see org.eclipse.jst.j2ee.client.ApplicationClient#getMessageDestinationRefs()
+	 * @see org.eclipse.jst.j2ee.internal.client.ApplicationClient#getMessageDestinationRefs()
 	 * @see #getApplicationClient()
 	 * @generated
 	 */
 	EReference getApplicationClient_MessageDestinationRefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.client.ApplicationClient#getMessageDestinations <em>Message Destinations</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.j2ee.internal.client.ApplicationClient#getMessageDestinations <em>Message Destinations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Message Destinations</em>'.
-	 * @see org.eclipse.jst.j2ee.client.ApplicationClient#getMessageDestinations()
+	 * @see org.eclipse.jst.j2ee.internal.client.ApplicationClient#getMessageDestinations()
 	 * @see #getApplicationClient()
 	 * @generated
 	 */
 	EReference getApplicationClient_MessageDestinations();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.client.ResAuthApplicationType <em>Res Auth Application Type</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.internal.client.ResAuthApplicationType <em>Res Auth Application Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Res Auth Application Type</em>'.
-	 * @see org.eclipse.jst.j2ee.client.ResAuthApplicationType
+	 * @see org.eclipse.jst.j2ee.internal.client.ResAuthApplicationType
 	 * @generated
 	 */
 	EEnum getResAuthApplicationType();

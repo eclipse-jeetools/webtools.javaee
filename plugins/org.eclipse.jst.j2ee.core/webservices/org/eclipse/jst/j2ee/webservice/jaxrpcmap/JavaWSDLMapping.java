@@ -21,15 +21,15 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping#getPackageMappings <em>Package Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping#getJavaXMLTypeMappings <em>Java XML Type Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping#getExceptionMappings <em>Exception Mappings</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping#getInterfaceMappings <em>Interface Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping#getPackageMappings <em>Package Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping#getJavaXMLTypeMappings <em>Java XML Type Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping#getExceptionMappings <em>Exception Mappings</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping#getInterfaceMappings <em>Interface Mappings</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping()
  * @model 
  * @generated
  */
@@ -44,14 +44,14 @@ public interface JavaWSDLMapping extends EObject{
    * <!-- end-user-doc -->
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_Id()
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_Id()
    * @model 
    * @generated
    */
   String getId();
 
   /**
-   * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaWSDLMapping#getId <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Id</em>' attribute.
@@ -62,7 +62,7 @@ public interface JavaWSDLMapping extends EObject{
 
   /**
    * Returns the value of the '<em><b>Package Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping}.
+   * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PackageMapping}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Package Mappings</em>' containment reference list isn't clear,
@@ -70,15 +70,15 @@ public interface JavaWSDLMapping extends EObject{
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Package Mappings</em>' containment reference list.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_PackageMappings()
-   * @model type="org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping" containment="true" required="true"
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_PackageMappings()
+   * @model type="org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.PackageMapping" containment="true" required="true"
    * @generated
    */
   EList getPackageMappings();
 
   /**
    * Returns the value of the '<em><b>Java XML Type Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping}.
+   * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Java XML Type Mappings</em>' containment reference list isn't clear,
@@ -86,15 +86,15 @@ public interface JavaWSDLMapping extends EObject{
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Java XML Type Mappings</em>' containment reference list.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_JavaXMLTypeMappings()
-   * @model type="org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaXMLTypeMapping" containment="true"
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_JavaXMLTypeMappings()
+   * @model type="org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JavaXMLTypeMapping" containment="true"
    * @generated
    */
   EList getJavaXMLTypeMappings();
 
   /**
    * Returns the value of the '<em><b>Exception Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping}.
+   * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Exception Mappings</em>' containment reference list isn't clear,
@@ -102,15 +102,15 @@ public interface JavaWSDLMapping extends EObject{
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exception Mappings</em>' containment reference list.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_ExceptionMappings()
-   * @model type="org.eclipse.jst.j2ee.webservice.jaxrpcmap.ExceptionMapping" containment="true"
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_ExceptionMappings()
+   * @model type="org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.ExceptionMapping" containment="true"
    * @generated
    */
   EList getExceptionMappings();
 
   /**
    * Returns the value of the '<em><b>Interface Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping}.
+   * The list contents are of type {@link org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.InterfaceMapping}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Interface Mappings</em>' containment reference list isn't clear,
@@ -118,8 +118,8 @@ public interface JavaWSDLMapping extends EObject{
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Interface Mappings</em>' containment reference list.
-   * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_InterfaceMappings()
-   * @model type="org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping" containment="true"
+   * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getJavaWSDLMapping_InterfaceMappings()
+   * @model type="org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.InterfaceMapping" containment="true"
    * @generated
    */
   EList getInterfaceMappings();

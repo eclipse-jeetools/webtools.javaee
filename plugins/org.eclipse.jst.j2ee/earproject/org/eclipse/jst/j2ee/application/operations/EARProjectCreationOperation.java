@@ -23,8 +23,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
-import org.eclipse.wst.common.framework.operation.ProjectCreationOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
 

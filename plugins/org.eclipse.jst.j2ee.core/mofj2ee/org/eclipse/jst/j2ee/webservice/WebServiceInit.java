@@ -12,7 +12,7 @@
 
 package org.eclipse.jst.j2ee.webservice;
 
-import org.eclipse.jst.j2ee.J2EEInit;
+import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResourceFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.impl.JaxrpcmapPackageImpl;
 

@@ -25,14 +25,14 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppItemProvider;
+import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
-import org.eclipse.jst.j2ee.webservices.WebServiceEditModel;
-import org.eclipse.jst.j2ee.webservices.WebServicesManager;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelEvent;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelListener;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -87,7 +87,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.eclipse.wst.common.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.emfworkbench.integration.EditModelEvent)
+		 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 		 */
 		public void editModelChanged(EditModelEvent anEvent) {
 			if (editModel == null)

@@ -77,14 +77,14 @@ public boolean isVersion1_3Descriptor();
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #setVersion(String)
-	 * @see org.eclipse.jst.j2ee.application.ApplicationPackage#getApplication_Version()
+	 * @see org.eclipse.jst.j2ee.internal.application.ApplicationPackage#getApplication_Version()
 	 * @model 
 	 * @generated
 	 */
 	String getVersion();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.application.Application#getVersion <em>Version</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.application.Application#getVersion <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Version</em>' attribute.

@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.EnvEntry;
 import org.eclipse.jst.j2ee.common.EnvEntryType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.emfworkbench.integration.ModifierHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;
 
 /**

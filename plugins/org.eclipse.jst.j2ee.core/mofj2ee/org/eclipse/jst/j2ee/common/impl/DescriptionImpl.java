@@ -26,8 +26,8 @@ import org.eclipse.jst.j2ee.common.Description;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.DescriptionImpl#getLang <em>Lang</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.DescriptionImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.DescriptionImpl#getLang <em>Lang</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.DescriptionImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *

@@ -79,7 +79,7 @@ public class ContainerManagedEntityTranslator extends EntityTranslator {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.model.translator.ejb.EntityTranslator#getSpecificMaps()
+	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.EntityTranslator#getSpecificMaps()
 	 */
 	protected Translator[] getSpecificMaps(int versionID) {
 		Translator[] cmpTranslators = new Translator[] {

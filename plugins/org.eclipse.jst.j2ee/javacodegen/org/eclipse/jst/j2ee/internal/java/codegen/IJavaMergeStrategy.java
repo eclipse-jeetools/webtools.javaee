@@ -101,7 +101,7 @@ public interface IJavaMergeStrategy {
 	 * Merges user changes to previously generated field into the descriptor for a new field. The
 	 * default field merglet for this merge strategy is used.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 * @see IJavaMergeStrategy#createDefaultFieldMerglet()
 	 */
 	MergeResults merge(JavaMemberHistoryDescriptor oldField, IDOMField newField) throws MergeException;
@@ -111,7 +111,7 @@ public interface IJavaMergeStrategy {
 	 * a caller specified merglet. The caller is responsible for ensuring that the three parameters
 	 * are type compatible.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 */
 	public MergeResults merge(JavaMemberHistoryDescriptor histDesc, IDOMMember newMember, IJavaMerglet merglet) throws MergeException;
 
@@ -119,7 +119,7 @@ public interface IJavaMergeStrategy {
 	 * Merges user changes to previously generated type into the descriptor for a new type. The
 	 * default type merglet for this merge strategy is used.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 * @see IJavaMergeStrategy#createDefaultTypeMerglet()
 	 */
 	MergeResults merge(JavaMemberHistoryDescriptor oldType, IDOMType newType) throws MergeException;
@@ -128,7 +128,7 @@ public interface IJavaMergeStrategy {
 	 * Merges user changes to previously generated method into the descriptor for a new method. The
 	 * default method merglet for this merge strategy is used.
 	 * 
-	 * @exception org.eclipse.jst.j2ee.internal.java.codegen.MergeException
+	 * @exception org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeException
 	 * @see IJavaMergeStrategy#createDefaultMethodMerglet()
 	 */
 	MergeResults merge(JavaMethodHistoryDescriptor oldMethod, IDOMMethod newMethod) throws MergeException;

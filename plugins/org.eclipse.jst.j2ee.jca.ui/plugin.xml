@@ -4,7 +4,6 @@
    id="org.eclipse.jst.j2ee.jca.ui"
    name="WTP JCA UI Plug-in"
    version="1.0.0"
-
    class="org.eclipse.jst.j2ee.jca.ui.internal.plugin.JCAUIPlugin">
 
    <runtime>
@@ -37,7 +36,7 @@
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectWizard"
             project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
             id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectWizard">
          <description>
             %new.jca.project.description_ui_
@@ -87,13 +86,13 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
+            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.rarNewProjectActions">
          <action
                label="%jca.project_ui_"
                icon="icons/full/ctool16/newconnectionprj_wiz.gif"
                class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProjectAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.new.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProjectAction">
          </action>
@@ -106,13 +105,13 @@
       </objectContribution>
       
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
+            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.rarProjectActions">
          <action
                label="%connector.jar.file_ui_"
                icon="icons/full/ctool16/import_rar.gif"
                class="org.eclipse.jst.j2ee.jca.ui.internal.actions.ImportRARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.import.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.jca.ui.internal.actions.ImportRARAction">
          </action>
@@ -120,7 +119,7 @@
                label="%connector.jar.file_ui_"
                icon="icons/full/ctool16/export_rar.gif"
                class="org.eclipse.jst.j2ee.jca.ui.internal.actions.ExportRARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.export.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.export.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.j2ee.jca.ui.internal.actions.ExportRARAction">
          </action>

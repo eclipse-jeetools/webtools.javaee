@@ -27,20 +27,20 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.DescriptionGroup#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.DescriptionGroup#getDisplayNames <em>Display Names</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.DescriptionGroup#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getIcons <em>Icons</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getDisplayNames <em>Display Names</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.common.CommonPackage#getDescriptionGroup()
+ * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDescriptionGroup()
  * @model 
  * @generated
  */
 public interface DescriptionGroup extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.IconType}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.IconType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Icons</em>' containment reference list isn't clear,
@@ -48,15 +48,15 @@ public interface DescriptionGroup extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Icons</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getDescriptionGroup_Icons()
-	 * @model type="org.eclipse.jst.j2ee.common.IconType" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDescriptionGroup_Icons()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.IconType" containment="true"
 	 * @generated
 	 */
 	EList getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.DisplayName}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.DisplayName}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Display Names</em>' containment reference list isn't clear,
@@ -64,15 +64,15 @@ public interface DescriptionGroup extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Display Names</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getDescriptionGroup_DisplayNames()
-	 * @model type="org.eclipse.jst.j2ee.common.DisplayName" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDescriptionGroup_DisplayNames()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.DisplayName" containment="true"
 	 * @generated
 	 */
 	EList getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -80,8 +80,8 @@ public interface DescriptionGroup extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.common.CommonPackage#getDescriptionGroup_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getDescriptionGroup_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

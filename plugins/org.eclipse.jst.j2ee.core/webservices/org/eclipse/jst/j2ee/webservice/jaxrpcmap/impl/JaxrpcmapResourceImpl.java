@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.impl;
 
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.impl.XMLResourceImpl;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.model.translator.webservices.JaxrpcmapTranslator;
 import org.eclipse.jst.j2ee.webservice.WebServiceConstants;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
@@ -46,7 +46,7 @@ public class JaxrpcmapResourceImpl extends XMLResourceImpl implements JaxrpcmapR
 	}
 	
 	/**
-	 * @see org.eclipse.jst.j2ee.common.XMLResource#getType()
+	 * @see org.eclipse.jst.j2ee.internal.common.XMLResource#getType()
 	 */
 	public int getType() {
 		return JAXRPC_MAP_TYPE;

@@ -20,13 +20,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
 import org.eclipse.jst.j2ee.common.DisplayName;
 import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 
 /**
@@ -35,9 +35,9 @@ import org.eclipse.jst.j2ee.common.J2EEVersionResource;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.DescriptionGroupImpl#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.DescriptionGroupImpl#getDisplayNames <em>Display Names</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.common.impl.DescriptionGroupImpl#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.DescriptionGroupImpl#getIcons <em>Icons</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.DescriptionGroupImpl#getDisplayNames <em>Display Names</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.common.impl.DescriptionGroupImpl#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *
@@ -203,7 +203,7 @@ public class DescriptionGroupImpl extends EObjectImpl implements DescriptionGrou
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.common.DescriptionGroup#getJ2EEVersionID()
+	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup#getJ2EEVersionID()
 	 */
 	public int getJ2EEVersionID() throws IllegalStateException {
 		

@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
@@ -42,10 +41,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
-import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.ui.RunnableWithProgressWrapper;
+import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
-import org.eclipse.wst.common.frameworks.ui.RunnableWithProgressWrapper;
-import org.eclipse.wst.common.frameworks.ui.WorkspaceModifyComposedOperation;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

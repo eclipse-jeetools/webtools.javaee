@@ -25,11 +25,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel;
-import org.eclipse.jst.j2ee.commonarchivecore.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.plugin.LibCopyBuilder;
-import org.eclipse.wst.common.framework.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
+import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
+import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

@@ -34,8 +34,8 @@ import org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ActivationSpecImpl#getActivationSpecClass <em>Activation Spec Class</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.ActivationSpecImpl#getRequiredConfigProperties <em>Required Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ActivationSpecImpl#getActivationSpecClass <em>Activation Spec Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.ActivationSpecImpl#getRequiredConfigProperties <em>Required Config Properties</em>}</li>
  * </ul>
  * </p>
  *

@@ -16,10 +16,10 @@
  */
 package org.eclipse.jst.j2ee.common.impl;
 
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.application.impl.ApplicationResourceFactory;
 import org.eclipse.jst.j2ee.client.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.ejb.impl.EJBJarResourceFactory;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.jca.impl.ConnectorResourceFactory;
 import org.eclipse.jst.j2ee.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.jst.j2ee.webservice.WebServiceConstants;

@@ -23,7 +23,7 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidator;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter;
 

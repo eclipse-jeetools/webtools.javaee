@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * <!-- end-model-doc -->
  *
  *
- * @see org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage#getSOAPHeader()
+ * @see org.eclipse.jst.j2ee.internal.webservice.wscommon.WscommonPackage#getSOAPHeader()
  * @model 
  * @generated
  */

@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getInterfaceMapping()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getInterfaceMapping()
  * @model 
  * @generated
  */

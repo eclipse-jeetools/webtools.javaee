@@ -9,7 +9,7 @@
 
 package org.eclipse.jst.j2ee.internal.webservice.constants;
 
-import org.eclipse.jst.j2ee.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 
 public class InfopopConstants {
 

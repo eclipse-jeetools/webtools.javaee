@@ -15,22 +15,22 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.J2EEEditModel;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.RARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.RARProjectLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.jca.Connector;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -101,7 +101,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEVersion()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEVersion()
 	 */
 	public int getJ2EEVersion() {
 		// TODO Auto-generated method stub
@@ -330,7 +330,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		return getConnector();
@@ -339,7 +339,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getVersionFromModuleFile()
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getVersionFromModuleFile()
 	 */
 	protected int getVersionFromModuleFile() {
 
@@ -353,7 +353,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
 	 */
 	public J2EEEditModel getJ2EEEditModelForRead(Object accessorKey) {
 		return getConnectortEditModelForRead(accessorKey);
@@ -362,7 +362,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
 	 */
 	public J2EEEditModel getJ2EEEditModelForWrite(Object accessorKey) {
 		return getConnectorEditModelForWrite(accessorKey);

@@ -22,12 +22,12 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.SWTException;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelEvent;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelListener;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
 
 import com.ibm.wtp.common.logger.proxy.Logger;

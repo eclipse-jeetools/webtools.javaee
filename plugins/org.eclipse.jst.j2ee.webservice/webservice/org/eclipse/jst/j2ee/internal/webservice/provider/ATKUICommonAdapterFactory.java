@@ -9,7 +9,7 @@
 package org.eclipse.jst.j2ee.internal.webservice.provider;
 
 import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.jst.j2ee.common.provider.CommonItemProviderAdapterFactory;
+import org.eclipse.jst.j2ee.common.internal.provider.CommonItemProviderAdapterFactory;
 
 
 public class ATKUICommonAdapterFactory extends CommonItemProviderAdapterFactory {

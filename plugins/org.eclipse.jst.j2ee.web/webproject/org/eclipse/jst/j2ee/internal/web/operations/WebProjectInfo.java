@@ -24,9 +24,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 
 
 /**
@@ -108,7 +108,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	public IClasspathEntry[] getWASClasspathEntries() {
 		List list = new ArrayList(4);
 		//TODO This class needs to be deleted.
-		//		if (!org.eclipse.jst.j2ee.plugin.J2EEPlugin.hasDevelopmentRole()) {
+		//		if (!org.eclipse.jst.j2ee.internal.internal.plugin.J2EEPlugin.hasDevelopmentRole()) {
 		//			list.add(JavaCore.newVariableEntry(new Path(IEJBNatureConstants.WAS_50_PLUGINDIR_VARIABLE
 		// + "/lib/j2ee.jar"), null, null)); //$NON-NLS-1$
 		//			list.add(JavaCore.newVariableEntry(new Path(IEJBNatureConstants.WAS_50_PLUGINDIR_VARIABLE
@@ -542,7 +542,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.web.operations.IWebProjectWizardInfo#getWebContentName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.operations.IWebProjectWizardInfo#getWebContentName()
 	 */
 	public String getWebContentName() {
 		if (fWebContentName == null)
@@ -551,14 +551,14 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.web.operations.IWebProjectWizardInfo#setWebContentName(String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.operations.IWebProjectWizardInfo#setWebContentName(String)
 	 */
 	public void setWebContentName(String name) {
 		fWebContentName = name;
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.web.operations.IWebProjectWizardInfo#getJavaSourceName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.operations.IWebProjectWizardInfo#getJavaSourceName()
 	 */
 	public String getJavaSourceName() {
 		if (fJavaSourceName == null)
@@ -567,7 +567,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.web.operations.IWebProjectWizardInfo#setJavaSourceName(String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.web.operations.IWebProjectWizardInfo#setJavaSourceName(String)
 	 */
 	public void setJavaSourceName(String name) {
 		fJavaSourceName = name;
@@ -577,7 +577,7 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	 * In addition to setting the server target, this method also sets the server target type.
 	 * WebProjectInfo clients don't need to worry about setting the target type.
 	 * 
-	 * @see org.eclipse.jst.j2ee.j2eeproject.J2EEJavaProjectInfo#setServerTarget(com.ibm.etools.server.target.IServerTarget)
+	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EEJavaProjectInfo#setServerTarget(com.ibm.etools.server.target.IServerTarget)
 	 */
 	/*
 	 * public void setServerTarget(IServerTarget target) { if( (target != null &&

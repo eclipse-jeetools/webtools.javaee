@@ -30,13 +30,13 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapPackage;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap}
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.EARProjectMap}
  * object.
  */
 public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {

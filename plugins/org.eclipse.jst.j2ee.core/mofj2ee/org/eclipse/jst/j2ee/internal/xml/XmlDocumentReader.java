@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.internal.xml;
 
 import java.io.InputStream;
 
-import org.eclipse.jst.j2ee.WrappedRuntimeException;
+import org.eclipse.jst.j2ee.internal.WrappedRuntimeException;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.xml.sax.EntityResolver;

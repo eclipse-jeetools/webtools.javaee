@@ -65,7 +65,7 @@ public abstract class JavaMemberMerglet extends JavaMerglet {
 	 * @see IJavaMerglet
 	 * @return boolean
 	 * @param mr
-	 *            org.eclipse.jst.j2ee.internal.java.codegen.MergeResults
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeResults
 	 * @param newMember
 	 *            org.eclipse.jdt.core.jdom.IDOMMember
 	 */
@@ -116,7 +116,7 @@ public abstract class JavaMemberMerglet extends JavaMerglet {
 	/**
 	 * @see IJavaMerglet
 	 * @param mr
-	 *            org.eclipse.jst.j2ee.internal.java.codegen.MergeResults
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeResults
 	 */
 	public boolean validateCollision(MergeResults mr) throws MergeException {
 		// If a collision, do not generate and inform the user.
@@ -136,7 +136,7 @@ public abstract class JavaMemberMerglet extends JavaMerglet {
 	/**
 	 * @see IJavaMerglet
 	 * @param mr
-	 *            org.eclipse.jst.j2ee.internal.java.codegen.MergeResults
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeResults
 	 */
 	public boolean validateForDelete(MergeResults mr) throws MergeException {
 		return validateForDeleteOnly(mr);
@@ -145,7 +145,7 @@ public abstract class JavaMemberMerglet extends JavaMerglet {
 	/**
 	 * @see IJavaMerglet
 	 * @param mr
-	 *            org.eclipse.jst.j2ee.internal.java.codegen.MergeResults
+	 *            org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.MergeResults
 	 */
 	public boolean validateForDeleteOnly(MergeResults mr) throws MergeException {
 		// If not generated, do not delete. Inform the user.

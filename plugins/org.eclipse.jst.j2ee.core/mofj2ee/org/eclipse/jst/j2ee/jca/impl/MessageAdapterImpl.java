@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.jca.MessageListener;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.MessageAdapterImpl#getMessageListeners <em>Message Listeners</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.MessageAdapterImpl#getMessageListeners <em>Message Listeners</em>}</li>
  * </ul>
  * </p>
  *

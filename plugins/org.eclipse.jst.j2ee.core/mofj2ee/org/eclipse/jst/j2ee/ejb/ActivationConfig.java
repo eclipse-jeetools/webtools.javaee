@@ -36,19 +36,19 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.ejb.ActivationConfig#getConfigProperties <em>Config Properties</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.ejb.ActivationConfig#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfig#getConfigProperties <em>Config Properties</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfig#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getActivationConfig()
+ * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getActivationConfig()
  * @model 
  * @generated
  */
 public interface ActivationConfig extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Config Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.ejb.ActivationConfigProperty}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Config Properties</em>' containment reference list isn't clear,
@@ -56,15 +56,15 @@ public interface ActivationConfig extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Config Properties</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getActivationConfig_ConfigProperties()
-	 * @model type="org.eclipse.jst.j2ee.ejb.ActivationConfigProperty" containment="true" required="true"
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getActivationConfig_ConfigProperties()
+	 * @model type="org.eclipse.jst.j2ee.internal.ejb.ActivationConfigProperty" containment="true" required="true"
 	 * @generated
 	 */
 	EList getConfigProperties();
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -72,8 +72,8 @@ public interface ActivationConfig extends EObject{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.ejb.EjbPackage#getActivationConfig_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.ejb.EjbPackage#getActivationConfig_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

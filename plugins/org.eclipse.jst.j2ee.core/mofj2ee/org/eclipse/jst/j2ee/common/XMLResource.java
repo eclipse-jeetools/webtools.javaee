@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 
 

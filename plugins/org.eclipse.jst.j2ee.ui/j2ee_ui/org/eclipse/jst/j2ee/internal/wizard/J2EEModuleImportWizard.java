@@ -29,8 +29,8 @@ import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
 
 /**
@@ -86,7 +86,7 @@ public abstract class J2EEModuleImportWizard extends WTPWizard implements IExecu
 	}
 
 	protected String getFinalPerspectiveID() {
-		return "org.eclipse.jst.j2ee.J2EEPerspective"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.J2EEPerspective"; //$NON-NLS-1$
 	}
 
 	protected boolean prePerformFinish() {

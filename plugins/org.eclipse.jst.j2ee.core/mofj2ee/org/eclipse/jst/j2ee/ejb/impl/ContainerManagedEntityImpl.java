@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
@@ -53,6 +52,7 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.jst.j2ee.ejb.Query;
 import org.eclipse.jst.j2ee.ejb.util.CMPKeySynchronizationAdapter;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 
 /**
@@ -282,7 +282,7 @@ public int getCMPVersionID() throws IllegalStateException {
 }
 
 /* (non-Javadoc)
- * @see org.eclipse.jst.j2ee.ejb.EnterpriseBean#getVersionID()
+ * @see org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean#getVersionID()
  */
 public int getVersionID() {
 	return getCMPVersionID();
@@ -1065,7 +1065,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getCMRFields()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getCMRFields()
 	 */
 	public List getCMRFields() {
 		List myRoles = getRoles();
@@ -1092,7 +1092,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getRoles()
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getRoles()
 	 */
 	public List getRoles() {
 		if (getEjbJar() == null)
@@ -1122,7 +1122,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.ContainerManagedEntity#getRole(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getRole(java.lang.String)
 	 */
 	public CommonRelationshipRole getRole(String roleName) {
 		for (int i=0; i<getRoles().size(); i++) {

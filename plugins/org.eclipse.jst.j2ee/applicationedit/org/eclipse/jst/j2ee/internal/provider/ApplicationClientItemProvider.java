@@ -31,20 +31,20 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.CommonFactory;
-import org.eclipse.jst.j2ee.common.provider.CompatibilityDescriptionGroupItemProvider;
+import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersResourceHandler;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
-import org.eclipse.jst.j2ee.webservices.WebServicesManager;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.client.ApplicationClient}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.client.ApplicationClient}object.
  */
 public class ApplicationClientItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	/**
@@ -55,7 +55,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: create some child object.
@@ -92,7 +92,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 
 
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
@@ -100,14 +100,14 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	}
 
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("Create_Child_UI_"); //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the help text for {@link org.eclipse.jst.j2ee.client.command.CreateChildCommand}.
+	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

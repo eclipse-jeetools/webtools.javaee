@@ -19,9 +19,9 @@ package org.eclipse.jst.j2ee.internal.actions;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchSite;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.operation.extension.ui.IActionWTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.operation.extension.ui.WTPOperationDataModelUICreator;
+import org.eclipse.wst.common.frameworks.internal.operation.extensionui.IActionWTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operation.extensionui.WTPOperationDataModelUICreator;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author mdelder
@@ -36,7 +36,7 @@ public class J2EEDeleteModuleActionPopulator implements WTPOperationDataModelUIC
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.extension.ui.WTPOperationDataModelUICreator#createDataModel(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.extension.ui.WTPOperationDataModelUICreator#createDataModel(java.lang.String,
 	 *      java.lang.String, org.eclipse.jface.viewers.IStructuredSelection,
 	 *      org.eclipse.ui.IWorkbenchSite)
 	 */

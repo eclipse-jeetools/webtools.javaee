@@ -39,18 +39,18 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getPortComponentName <em>Port Component Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getSmallIcon <em>Small Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getLargeIcon <em>Large Icon</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getDisplayName <em>Display Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getWsdlPort <em>Wsdl Port</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getServiceImplBean <em>Service Impl Bean</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getHandlers <em>Handlers</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getDescriptionType <em>Description Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getDisplayNameType <em>Display Name Type</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.impl.PortComponentImpl#getIconType <em>Icon Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getPortComponentName <em>Port Component Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getSmallIcon <em>Small Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getLargeIcon <em>Large Icon</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getWsdlPort <em>Wsdl Port</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getServiceImplBean <em>Service Impl Bean</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getHandlers <em>Handlers</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getDescriptionType <em>Description Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getDisplayNameType <em>Display Name Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.PortComponentImpl#getIconType <em>Icon Type</em>}</li>
  * </ul>
  * </p>
  *

@@ -252,7 +252,7 @@ public interface ApplicationPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jst.j2ee.application"; //$NON-NLS-1$
+	String eNS_PREFIX = "org.eclipse.jst.j2ee.internal.application"; //$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.
@@ -269,11 +269,11 @@ public interface ApplicationPackage extends EPackage{
 	EClass getApplication();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.application.Application#getVersion <em>Version</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.internal.application.Application#getVersion <em>Version</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.eclipse.jst.j2ee.application.Application#getVersion()
+	 * @see org.eclipse.jst.j2ee.internal.application.Application#getVersion()
 	 * @see #getApplication()
 	 * @generated
 	 */

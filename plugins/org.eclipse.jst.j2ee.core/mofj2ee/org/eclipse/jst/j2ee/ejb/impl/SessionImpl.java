@@ -647,7 +647,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 		return result.toString();
 	}
     /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.ejb.Session#setServiceEndpointName(java.lang.String)
+     * @see org.eclipse.jst.j2ee.internal.ejb.Session#setServiceEndpointName(java.lang.String)
      */
     public void setServiceEndpointName(String serviceEndpointName) {
         eSet(EjbPackage.eINSTANCE.getSession_ServiceEndpoint(), createClassRef(serviceEndpointName));

@@ -36,20 +36,20 @@ import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapPackage;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
-import org.eclipse.wst.common.emfworkbench.integration.EditModelEvent;
-import org.eclipse.wst.common.framework.SaveFailedException;
+import org.eclipse.wst.common.frameworks.internal.SaveFailedException;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
-public class EAREditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
+public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	private boolean stopListenerNotifications = false;
 	//TODO this is a hack until the DOM adaptors are working
 	public static final String MODULE_MAP_URI = "META-INF/.modulemaps"; //$NON-NLS-1$
@@ -467,7 +467,7 @@ public class EAREditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
 	//	 * @return Application
 	//	 * @deprecated Please use getApplication() for consistency
 	//	 */
-	//	public org.eclipse.jst.j2ee.application.Application getRootObject() {
+	//	public org.eclipse.jst.j2ee.internal.internal.application.Application getRootObject() {
 	//		return getApplication();
 	//	}// getRootObject
 
@@ -726,7 +726,7 @@ public class EAREditModel extends org.eclipse.jst.j2ee.J2EEEditModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#getRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#getRootObject()
 	 */
 	public Object getRootObject() {
 		return getApplication();

@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * SERVLET=3
  * 
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.j2ee.common.CommonPackage#getResAuthTypeBase()
+ * @see org.eclipse.jst.j2ee.internal.common.CommonPackage#getResAuthTypeBase()
  * @model
  * @generated
  */

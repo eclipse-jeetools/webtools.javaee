@@ -31,6 +31,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
@@ -38,7 +39,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.jca.Connector;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
@@ -53,8 +53,8 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.common.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.wst.wsdl.Service;
 import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
@@ -65,15 +65,15 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * Action for opening a J2EE resource from the J2EE navigator.
  */
 public class OpenJ2EEResourceAction extends AbstractOpenAction {
-	public static final String ID = "org.eclipse.jst.j2ee.ui.actions.OpenJ2EEResourceAction"; //$NON-NLS-1$
-	public static final String EJB_EDITOR_ID = "org.eclipse.jst.j2ee.ejb.ui.presentation.EJBMultiEditor"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.jst.j2ee.internal.internal.ui.actions.OpenJ2EEResourceAction"; //$NON-NLS-1$
+	public static final String EJB_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.ejb.ui.presentation.EJBMultiEditor"; //$NON-NLS-1$
 	public static final String WEB_EDITOR_ID = "com.ibm.etools.web.ui.presentation.WebEditor"; //$NON-NLS-1$
-	public static final String APP_EDITOR_ID = "org.eclipse.jst.j2ee.application.presentation.ApplicationEditor"; //$NON-NLS-1$
-	public static final String APP_CLIENT_EDITOR_ID = "org.eclipse.jst.j2ee.application.client.presentation.ApplicationClientEditor"; //$NON-NLS-1$
-	public static final String JAVA_EDITOR_ID = "org.eclipse.jst.j2ee.ejb.ui.java.EnterpriseBeanJavaEditor"; //$NON-NLS-1$
+	public static final String APP_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.application.presentation.ApplicationEditor"; //$NON-NLS-1$
+	public static final String APP_CLIENT_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.application.client.presentation.ApplicationClientEditor"; //$NON-NLS-1$
+	public static final String JAVA_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.ejb.ui.java.EnterpriseBeanJavaEditor"; //$NON-NLS-1$
 	public static final String EJB_MAP_EDITOR_ID = "com.ibm.etools.ejbrdbmapping.presentation.EjbRdbMappingEditorID"; //$NON-NLS-1$
 	public static final String CONNECTOR_EDITOR_ID = "com.ibm.sse.editor.xml.StructuredTextEditorXML"; //$NON-NLS-1$
-	public static final String WEB_SERVICE_EDITOR_ID = "org.eclipse.jst.j2ee.webservice.atk.ui.editor.ws.WebServicesEditor"; //$NON-NLS-1$
+	public static final String WEB_SERVICE_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.editor.ws.WebServicesEditor"; //$NON-NLS-1$
 	public static final String BASE_JAVA_EDITOR_ID = "org.eclipse.jdt.ui.CompilationUnitEditor"; //$NON-NLS-1$
 	public static final String WSDL_EDITOR_ID = "com.ibm.etools.wsdleditor.WSDLEditor"; //$NON-NLS-1$
 

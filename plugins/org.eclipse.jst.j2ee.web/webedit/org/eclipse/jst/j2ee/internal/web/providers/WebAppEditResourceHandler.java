@@ -14,7 +14,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 
 public class WebAppEditResourceHandler {

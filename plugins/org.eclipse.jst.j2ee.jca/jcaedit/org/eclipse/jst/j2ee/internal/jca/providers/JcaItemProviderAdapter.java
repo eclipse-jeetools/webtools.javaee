@@ -16,6 +16,7 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.edit.command.CommandParameter;
+import org.eclipse.emf.edit.command.CreateChildCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.jca.JcaFactory;

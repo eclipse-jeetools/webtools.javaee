@@ -107,7 +107,7 @@ public class MethodPermissionsContentProvider extends AbstractMethodsContentProv
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.ui.providers.AbstractMethodsContentProvider#getMethodElementsContainerReference()
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#getMethodElementsContainerReference()
 	 */
 	protected EStructuralFeature getMethodElementsContainerReference() {
 		return AD_MP_SF;

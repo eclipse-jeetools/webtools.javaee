@@ -16,8 +16,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
+import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.plugin.LibCopyBuilder;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

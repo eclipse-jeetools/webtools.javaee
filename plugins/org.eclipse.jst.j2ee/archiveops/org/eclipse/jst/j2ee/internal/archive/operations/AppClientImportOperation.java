@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 
 /**

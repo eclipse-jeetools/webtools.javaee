@@ -29,11 +29,11 @@ public interface LoginConfig extends EObject{
 	AuthMethodKind getAuthMethod();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.LoginConfig#getAuthMethod <em>Auth Method</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.LoginConfig#getAuthMethod <em>Auth Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Auth Method</em>' attribute.
-	 * @see org.eclipse.jst.j2ee.webapplication.AuthMethodKind
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.AuthMethodKind
 	 * @see #isSetAuthMethod()
 	 * @see #unsetAuthMethod()
 	 * @see #getAuthMethod()
@@ -42,7 +42,7 @@ public interface LoginConfig extends EObject{
 	void setAuthMethod(AuthMethodKind value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.webapplication.LoginConfig#getAuthMethod <em>Auth Method</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.LoginConfig#getAuthMethod <em>Auth Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetAuthMethod()
@@ -53,7 +53,7 @@ public interface LoginConfig extends EObject{
 	void unsetAuthMethod();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.webapplication.LoginConfig#getAuthMethod <em>Auth Method</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.LoginConfig#getAuthMethod <em>Auth Method</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Auth Method</em>' attribute is set.
@@ -91,14 +91,14 @@ public interface LoginConfig extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Authorization Method</em>' attribute.
 	 * @see #setAuthorizationMethod(String)
-	 * @see org.eclipse.jst.j2ee.webapplication.WebapplicationPackage#getLoginConfig_AuthorizationMethod()
+	 * @see org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage#getLoginConfig_AuthorizationMethod()
 	 * @model 
 	 * @generated
 	 */
 	String getAuthorizationMethod();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webapplication.LoginConfig#getAuthorizationMethod <em>Authorization Method</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.webapplication.LoginConfig#getAuthorizationMethod <em>Authorization Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Authorization Method</em>' attribute.

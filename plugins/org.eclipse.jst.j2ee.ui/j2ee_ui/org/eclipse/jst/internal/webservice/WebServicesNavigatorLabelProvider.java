@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
@@ -33,9 +34,8 @@ import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
-import org.eclipse.jst.j2ee.webservices.WebServicesManager;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.wsdl.Service;
 import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 

@@ -86,7 +86,7 @@ public class TopLevelGenerationHelper extends GenerationHelper {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.helpers.GenerationHelper#isTopLevelHelper()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.helpers.GenerationHelper#isTopLevelHelper()
 	 */
 	public boolean isTopLevelHelper() {
 		return true;

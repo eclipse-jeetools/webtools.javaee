@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.ejb.provider;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.wst.common.framework.Messages;
+import org.eclipse.wst.common.frameworks.internal.Messages;
 
 
 public class EJBUIMessages extends Messages {
@@ -69,7 +69,7 @@ public class EJBUIMessages extends Messages {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.Messages#initializeBundle()
+	 * @see org.eclipse.wst.common.frameworks.internal.Messages#initializeBundle()
 	 */
 	protected void initializeBundle() {
 		try {

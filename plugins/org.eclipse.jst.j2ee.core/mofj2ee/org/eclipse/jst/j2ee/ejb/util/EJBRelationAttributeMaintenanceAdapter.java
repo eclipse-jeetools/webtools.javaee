@@ -22,14 +22,14 @@ public class EJBRelationAttributeMaintenanceAdapter extends CommonRelationshipAt
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.util.CommonRelationshipAttributeMaintenanceAdapter#isRelationshipRolesSF(EObject)
+	 * @see org.eclipse.jst.j2ee.internal.ejb.util.CommonRelationshipAttributeMaintenanceAdapter#isRelationshipRolesSF(EObject)
 	 */
 	protected boolean isRelationshipRolesSF(EObject sf) {
 		return sf == EJB_PACK.getEJBRelation_RelationshipRoles();
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.util.CommonRelationshipAttributeMaintenanceAdapter#isRelationshipsSF(EObject)
+	 * @see org.eclipse.jst.j2ee.internal.ejb.util.CommonRelationshipAttributeMaintenanceAdapter#isRelationshipsSF(EObject)
 	 */
 	protected boolean isRelationshipsSF(EObject sf) {
 		return sf == EJB_PACK.getRelationships_EjbRelations();

@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * <p>
  * </p>
  *
- * @see org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessage()
+ * @see org.eclipse.jst.j2ee.internal.webservice.jaxrpcmap.JaxrpcmapPackage#getWSDLMessage()
  * @model 
  * @generated
  */

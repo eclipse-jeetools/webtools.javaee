@@ -45,7 +45,7 @@ public interface JSPTagAttribute extends EObject{
 	void setRequired(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTagAttribute#isRequired <em>Required</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#isRequired <em>Required</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetRequired()
@@ -56,7 +56,7 @@ public interface JSPTagAttribute extends EObject{
 	void unsetRequired();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTagAttribute#isRequired <em>Required</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#isRequired <em>Required</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Required</em>' attribute is set.
@@ -84,7 +84,7 @@ public interface JSPTagAttribute extends EObject{
 	void setRtExprValue(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTagAttribute#isRtExprValue <em>Rt Expr Value</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#isRtExprValue <em>Rt Expr Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSetRtExprValue()
@@ -95,7 +95,7 @@ public interface JSPTagAttribute extends EObject{
 	void unsetRtExprValue();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTagAttribute#isRtExprValue <em>Rt Expr Value</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#isRtExprValue <em>Rt Expr Value</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Rt Expr Value</em>' attribute is set.
@@ -119,14 +119,14 @@ public interface JSPTagAttribute extends EObject{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Fragment</em>' attribute.
 	 * @see #setFragment(boolean)
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTagAttribute_Fragment()
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getJSPTagAttribute_Fragment()
 	 * @model 
 	 * @generated
 	 */
 	boolean isFragment();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.j2ee.taglib.JSPTagAttribute#isFragment <em>Fragment</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.internal.taglib.JSPTagAttribute#isFragment <em>Fragment</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Fragment</em>' attribute.
@@ -152,7 +152,7 @@ public interface JSPTagAttribute extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jst.j2ee.common.Description}.
+	 * The list contents are of type {@link org.eclipse.jst.j2ee.internal.common.Description}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Descriptions</em>' containment reference list isn't clear,
@@ -163,8 +163,8 @@ public interface JSPTagAttribute extends EObject{
 	 * @since J2EE1.4
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Descriptions</em>' containment reference list.
-	 * @see org.eclipse.jst.j2ee.taglib.TaglibPackage#getJSPTagAttribute_Descriptions()
-	 * @model type="org.eclipse.jst.j2ee.common.Description" containment="true"
+	 * @see org.eclipse.jst.j2ee.internal.taglib.TaglibPackage#getJSPTagAttribute_Descriptions()
+	 * @model type="org.eclipse.jst.j2ee.internal.common.Description" containment="true"
 	 * @generated
 	 */
 	EList getDescriptions();

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 
@@ -59,7 +59,7 @@ public class AddArchiveProjectsToEARDataModel extends EditModelOperationDataMode
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#init()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#init()
 	 */
 	protected void init() {
 		super.init();
@@ -76,7 +76,7 @@ public class AddArchiveProjectsToEARDataModel extends EditModelOperationDataMode
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MODULE_LIST) || propertyName.equals(MODULE_MODELS)) {
@@ -88,7 +88,7 @@ public class AddArchiveProjectsToEARDataModel extends EditModelOperationDataMode
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetProperty(java.lang.String)
 	 */
 	protected Object doGetProperty(String propertyName) {
 		if (propertyName.equals(ALL_MODULE_MODELS)) {

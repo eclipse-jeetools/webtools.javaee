@@ -34,8 +34,8 @@ import org.eclipse.jst.j2ee.jca.RequiredConfigPropertyType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.RequiredConfigPropertyTypeImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.j2ee.jca.impl.RequiredConfigPropertyTypeImpl#getDescriptions <em>Descriptions</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.RequiredConfigPropertyTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.internal.jca.impl.RequiredConfigPropertyTypeImpl#getDescriptions <em>Descriptions</em>}</li>
  * </ul>
  * </p>
  *

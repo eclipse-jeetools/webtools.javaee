@@ -16,7 +16,7 @@ import java.util.Collections;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.jst.j2ee.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 
 /**
@@ -35,7 +35,7 @@ public class WebapplicationItemProviderAdapter extends org.eclipse.emf.edit.prov
 
 	/**
 	 * This implements the default behavior for
-	 * {@link org.eclipse.jst.j2ee.webapplication.command.CreateChildCommand}.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		return null;

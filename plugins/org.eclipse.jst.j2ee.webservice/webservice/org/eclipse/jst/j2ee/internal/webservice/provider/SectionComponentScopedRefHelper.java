@@ -18,6 +18,7 @@ package org.eclipse.jst.j2ee.internal.webservice.provider;
 
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 
+
 /**
  * @author jlanuti
  * 

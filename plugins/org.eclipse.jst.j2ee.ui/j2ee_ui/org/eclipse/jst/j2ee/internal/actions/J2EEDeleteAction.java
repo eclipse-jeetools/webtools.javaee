@@ -47,15 +47,15 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.ui.actions.SelectionListenerAction;
-import org.eclipse.wst.common.frameworks.ui.WTPUIPlugin;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
