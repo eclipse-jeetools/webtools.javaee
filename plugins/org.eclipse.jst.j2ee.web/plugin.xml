@@ -266,7 +266,7 @@
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.internal.webapplication.Servlet">
+             adaptableType="org.eclipse.jst.j2ee.internal.webapplication.impl.ServletImpl">
              <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
