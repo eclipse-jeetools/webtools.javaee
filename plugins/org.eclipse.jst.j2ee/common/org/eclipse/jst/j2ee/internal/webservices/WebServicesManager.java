@@ -39,7 +39,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.ejb.EJBJar;

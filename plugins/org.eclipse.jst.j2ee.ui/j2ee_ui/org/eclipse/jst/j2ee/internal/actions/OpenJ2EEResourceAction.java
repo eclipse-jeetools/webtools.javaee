@@ -25,7 +25,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.ejb.EJBJar;

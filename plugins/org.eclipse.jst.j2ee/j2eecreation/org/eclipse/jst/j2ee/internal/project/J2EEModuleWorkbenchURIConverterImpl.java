@@ -37,7 +37,7 @@ import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;

@@ -21,7 +21,7 @@ package org.eclipse.jst.j2ee.internal.project;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
