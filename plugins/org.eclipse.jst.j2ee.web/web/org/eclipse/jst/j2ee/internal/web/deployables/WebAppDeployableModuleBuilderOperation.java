@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -59,15 +58,14 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 			IPath deployPath = absoluteOCP.append(deployURI.toString());
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
-			IResource resource = getWorkspace().getRoot().getContainerForLocation(sourcePath);
-			if (resource == null) {
+			IResource resource = getWorkspace().getRoot().getFolder(sourcePath);
+			if (resource == null || !(resource instanceof IFolder)) {
 				resource = getWorkspace().getRoot().getFile(sourcePath);
 			}
 			if (resource == null)
 				continue;
 			IPath parentPath = deployPath.removeLastSegments(1);
 			createFolder(parentPath);
-			
 			resource.copy(deployPath, true, new NullProgressMonitor());
 		}
 	}
