@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/30 15:56:06 $ 
  */
 
 
@@ -288,6 +288,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public Method getReadMethod() {
 		if (validProxy(fFeatureProxy) && !this.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_ReadMethod())) {
 			if (validProxy(fFeatureProxy)) {
+				if (retrievedReadMethod && cachedReadMethod.eContainer() == null) {
+					clearCache();	// Method has been removed or refreshed, so we have a new one to get instead.
+				}
 				if (!retrievedReadMethod) {
 					try {
 						cachedReadMethod = Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getReadMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
@@ -306,6 +309,9 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public Method getWriteMethod() {
 		if (validProxy(fFeatureProxy) && !this.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_WriteMethod())) {
 			if (validProxy(fFeatureProxy)) {
+				if (retrievedReadMethod && cachedReadMethod.eContainer() == null) {
+					clearCache();	// Method has been removed or refreshed, so we have a new one to get instead.
+				}				
 				if (!retrievedWriteMethod) {
 					try {
 						cachedWriteMethod = Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getWriteMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
