@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.5 $  $Date: 2004/05/26 22:02:09 $ 
+ *  $Revision: 1.6 $  $Date: 2004/06/07 19:22:09 $ 
  */
 
 import java.io.*;
@@ -496,9 +496,12 @@ public class Commands {
 			anObject = null;
 		}
 		public void set(Byte value) {
-			type = L_BYTE;
-			aByte = value.byteValue();
-			anObject = null;
+			if (value != null) {
+				type = L_BYTE;
+				aByte = value.byteValue();
+				anObject = null;
+			} else
+				set();
 		}
 		public void set(char value) {
 			type = CHAR;
@@ -506,9 +509,12 @@ public class Commands {
 			anObject = null;
 		}
 		public void set(Character value) {
-			type = L_CHAR;
-			aChar = value.charValue();
-			anObject = null;
+			if (value != null) {
+				type = L_CHAR;
+				aChar = value.charValue();
+				anObject = null;
+			} else
+				set();
 		}
 		public void set(double value) {
 			type = DOUBLE;
@@ -516,9 +522,12 @@ public class Commands {
 			anObject = null;
 		}
 		public void set(Double value) {
-			type = L_DOUBLE;
-			aDouble = value.doubleValue();
-			anObject = null;
+			if (value != null) {
+				type = L_DOUBLE;
+				aDouble = value.doubleValue();
+				anObject = null;
+			} else
+				set();
 		}
 		public void set(float value) {
 			type = FLOAT;
@@ -526,9 +535,12 @@ public class Commands {
 			anObject = null;
 		}
 		public void set(Float value) {
-			type = L_FLOAT;
-			aFloat = value.floatValue();
-			anObject = null;
+			if (value != null) {
+				type = L_FLOAT;
+				aFloat = value.floatValue();
+				anObject = null;
+			} else
+				set();
 		}
 		public void set(int value) {
 			type = INT;
@@ -536,9 +548,12 @@ public class Commands {
 			anObject = null;
 		}
 		public void set(Integer value) {
-			type = L_INT;
-			anInt = value.intValue();
-			anObject = null;
+			if (value != null) {
+				type = L_INT;
+				anInt = value.intValue();
+				anObject = null;
+			} else
+				set();
 		}
 		public void set(short value) {
 			type = SHORT;
@@ -546,9 +561,12 @@ public class Commands {
 			anObject = null;
 		}
 		public void set(Short value) {
-			type = L_SHORT;
-			aShort = value.shortValue();
-			anObject = null;
+			if (value != null) {
+				type = L_SHORT;
+				aShort = value.shortValue();
+				anObject = null;
+			} else
+				set();
 		}
 		public void set(long value) {
 			type = LONG;
@@ -566,18 +584,27 @@ public class Commands {
 			anObject = null;
 		}
 		public void set(Boolean value) {
-			type = L_BOOL;
-			aBool = value.booleanValue();
-			anObject = null;
+			if (value != null) {
+				type = L_BOOL;
+				aBool = value.booleanValue();
+				anObject = null;
+			} else
+				set();
 		}
 		public void set(String value) {
-			type = STRING;
-			anObject = value;
+			if (value != null) {
+				type = STRING;
+				anObject = value;
+			} else
+				set();
 		}				
 		public void set(Object value, int classObjectID) {
-			type = OBJECT;
-			classID = classObjectID;
-			anObject = value;
+			if (value != null) {
+				type = OBJECT;
+				classID = classObjectID;
+				anObject = value;
+			} else
+				set();
 		}
 		public void setObjectID(int value) {
 			type = OBJECT_ID;
