@@ -11,14 +11,14 @@ import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.client.ClientFactory;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 
-public class AppClientArtifactEdit extends ArtifactEdit {
+public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	
 	/**
 	 * <p>
