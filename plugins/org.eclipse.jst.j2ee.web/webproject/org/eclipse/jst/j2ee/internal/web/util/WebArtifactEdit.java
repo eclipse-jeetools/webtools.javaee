@@ -8,6 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -20,7 +21,6 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -28,11 +28,11 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
+import org.eclipse.wst.common.modulecore.DependentModule;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
  * <p>
@@ -60,6 +60,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 */
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
+	
+	private static String LIB = "lib"; //$NON-NLS-1$
 
 	/**
 	 * <p>
@@ -312,39 +314,88 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
+	/**
+	 * This method will retrieve the web app resource, create it if necessary, add get the root object,
+	 * the web app out of that web app resource.  It will create the web app instance if need be, and add
+	 * it to the web resource.  Then, it returns the web app object as the model root.  This method will
+	 * not return null.
+	 * 
+	 * @see EnterpriseArtifactEdit#createModelRoot()
+	 * 
+	 * @return the eObject instance of the model root
+	 */
+	public EObject createModelRoot() {
+		if(getDeploymentDescriptorResource() == null) {
+			 addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
+		}
+		return ((WebAppResource)getDeploymentDescriptorResource()).getRootObject();
+	}
+	
+	/**
+	 * This method will return the list of dependent modules which are utility jars in the web lib
+	 * folder of the deployed path of the module.  It will not return null.
+	 * 
+	 * @return array of the web library dependent modules
+	 */
+	public DependentModule[] getLibModules() {
+		List result = new ArrayList();
+		List dependentModules = module.getModules();
+		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
+		for (int i=0; i<dependentModules.size(); i++) {
+			DependentModule child = (DependentModule) dependentModules.get(i);
+			URI parentFolderURI = child.getDeployedPath().trimSegments(1);
+			URI webLib = getDeploymentDescriptorResource().getURI().trimSegments(1).appendSegment(LIB);
+			if (parentFolderURI.equals(webLib))
+				result.add(child);
+		}
+		// add results to an array for return
+		DependentModule[] libModules = new DependentModule[result.size()];
+		for (int i=0; i<result.size(); i++) {
+			DependentModule child = (DependentModule) result.get(i);
+			libModules[i] = child;
+		}
+		return libModules;
+	}
+	
+	/**
+	 * This method will add the dependent modules from the passed in array to the dependentmodules list
+	 * of the associated workbench module. It will ensure a null is not passed and it will ensure the
+	 * dependent modules are not already in the list.
+	 * 
+	 * @param libModules array of dependent modules to add as web libraries 
+	 */
+	public void addLibModules(DependentModule[] libModules) {
+		if (libModules==null)
+			return;
+		for (int i=0; i<libModules.length; i++) {
+			if (!module.getModules().contains(libModules[i]))
+				module.getModules().add(libModules[i]);
+		}
+	}
+	
+	/**
+	 * This method will retrieve the context root for the associated workbench module which is used
+	 * by the server at runtime.  This method is not yet completed as the context root has to be
+	 * abstracted and added to the workbenchModule model.  This API will not change though.
+	 * Returns null for now.
+	 * 
+	 * @return String value of the context root for runtime of the associated module
+	 */
 	public String getServerContextRoot() {
 		//TODO return the valid context root for the module, needs to be be added to the model
 		return null;
 	}
 	
+	/**
+	 * This method will set the context root on the associated workbench module with the given string
+	 * value passed in.  This context root is used by the server at runtime.  This method is not yet
+	 * completed as the context root still needs to be abstracted and added to the workbench module
+	 * model.  This API will not change though.
+	 * Does nothing as of now.
+	 * 
+	 * @param contextRoot string
+	 */
 	public void setServerContextRoot(String contextRoot) {
 		//TODO set the new context root on the module, needs to be added to the model
-	}
-	
-	public ILibModule[] getLibModules() {
-		//TODO return the appropriate web lib modules
-		return null;
-	}
-	
-	public void setLibModules(ILibModule[] libModules) {
-		//TODO we need an edit model for write to do it.
-	}
-
-
-	public EObject createModelRoot() {
-		if(getWebAppXmiResource() == null) {
-			 addWebAppIfNecessary(getWebAppXmiResource());
-		}
-		return getWebAppXmiResource().getRootObject();
-	}
-	
-	/**
-	 * 
-	 * @return WebAppResource from (@link getDeploymentDescriptorResource())
-	 *  
-	 */
-
-	public WebAppResource getWebAppXmiResource() {
-		return (WebAppResource) getDeploymentDescriptorResource();
 	}
 }

@@ -70,11 +70,12 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 	}
 	
 	protected ILibModule[] getLibModules() {
+		//TODO this will throw class cast exception, do we use ILibModule anymore?
 		WebArtifactEdit webEdit = null;
 		try {
 			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(prj);
 			if (webEdit != null)
-				return webEdit.getLibModules();
+				return (ILibModule[]) webEdit.getLibModules();
 		} finally {
 			if (webEdit != null)
 				webEdit.dispose();

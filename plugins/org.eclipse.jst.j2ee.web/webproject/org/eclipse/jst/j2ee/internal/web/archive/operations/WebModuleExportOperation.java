@@ -203,11 +203,12 @@ public final class WebModuleExportOperation extends J2EEArtifactExportOperation 
 	}
 	
 	protected ILibModule[] getLibModules() {
+		//TODO this will throw class cast exception, do we still use ILibModule?
 		WebArtifactEdit webArtifactEdit = null;
 		try {
 			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit!=null)
-				return webArtifactEdit.getLibModules();
+				return (ILibModule[]) webArtifactEdit.getLibModules();
 		} finally {
 			if (webArtifactEdit!=null)
 				webArtifactEdit.dispose();

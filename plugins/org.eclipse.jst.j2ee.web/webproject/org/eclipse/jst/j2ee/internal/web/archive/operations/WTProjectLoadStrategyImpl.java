@@ -395,11 +395,12 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 	}
 	
 	public ILibModule[] getLibModules() {
+		//TODO this will throw classcast exception, do we still use ILibModule?
 		WebArtifactEdit webArtifactEdit = null;
 		try {
 			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 			if (webArtifactEdit!=null)
-				return webArtifactEdit.getLibModules();
+				return (ILibModule[]) webArtifactEdit.getLibModules();
 		} finally {
 			if (webArtifactEdit!=null)
 				webArtifactEdit.dispose();

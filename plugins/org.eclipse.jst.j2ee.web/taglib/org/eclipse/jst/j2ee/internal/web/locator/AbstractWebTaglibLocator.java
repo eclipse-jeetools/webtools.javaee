@@ -29,7 +29,6 @@ import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
@@ -251,11 +250,12 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	}
 	
 	protected ILibModule[] getLibModules() {
+		//TODO this will throw classcastexception, do we use ILibModule anymore?
 		WebArtifactEdit webEdit = null;
 		try {
 			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
 			if (webEdit != null)
-				return webEdit.getLibModules();
+				return (ILibModule[])webEdit.getLibModules();
 		} finally {
 			if (webEdit != null)
 				webEdit.dispose();
