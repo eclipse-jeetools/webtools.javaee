@@ -21,13 +21,6 @@ import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 
 
 
-/**
- * @author vijayb
- * 
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates. To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
- */
 public class ManifestFileCreationAction {
 
 	public static final String MANIFEST_HEADER = "Manifest-Version: 1.0\r\nClass-Path: \r\n\r\n"; //$NON-NLS-1$
@@ -41,11 +34,10 @@ public class ManifestFileCreationAction {
 
 	public static void createManifestFile(IFile file, IProject aJ2EEProject) throws CoreException, IOException {
 		try {
-			//if (!JavaProjectUtilities.isBinaryProject(aJ2EEProject)) {
-				WorkbenchByteArrayOutputStream out = new WorkbenchByteArrayOutputStream(file);
-				out.write(MANIFEST_HEADER.getBytes());
-				out.close();
-			//}
+			WorkbenchByteArrayOutputStream out = new WorkbenchByteArrayOutputStream(file);
+			out.write(MANIFEST_HEADER.getBytes());
+			out.close();
+
 		} catch (IOException ioe) {
 			throw ioe;
 		}
