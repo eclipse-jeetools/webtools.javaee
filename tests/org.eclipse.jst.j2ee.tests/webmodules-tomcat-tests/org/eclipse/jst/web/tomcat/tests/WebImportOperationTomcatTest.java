@@ -11,6 +11,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
@@ -51,6 +52,13 @@ public class WebImportOperationTomcatTest extends ModuleImportOperationTestCase 
 	 */
 	protected List getImportableArchiveFileNames() {
 		return ProjectUtility.getWarsInDirectory(HeadlessTestsPlugin.getDefault(),TESTS_PATH);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase#setServerTargetProperty(org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel)
+	 */
+	public void setServerTargetProperty(J2EEModuleImportDataModel dataModel) {
+		dataModel.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID,AllTomcatTests.TOMCAT_RUNTIME);
 	}
 
 }
