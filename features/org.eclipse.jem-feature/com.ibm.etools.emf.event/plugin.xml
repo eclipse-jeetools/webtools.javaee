@@ -19,7 +19,6 @@
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
-            factory="com.ibm.etools.emf.event.impl.EventFactoryImpl"
             uri="event.xmi"
             class="com.ibm.etools.emf.event.impl.EventPackageImpl">
       </package>
