@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
@@ -48,6 +49,7 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreURIConverter;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.WebSettings;
@@ -760,6 +762,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 		getEmfContext().setDefaultToMOF5Compatibility(true);
 		//Overriding superclass to use our own URI converter, which knows about binary projects
 		ProjectResourceSet projectResourceSet = aNewEMFContext.getResourceSet();
+		projectResourceSet.setURIConverter(createURIConverter(getProject(), projectResourceSet));
 		/* Flexible projects have their own ResourceFactories and their URI Converters */
 //		set.setResourceFactoryRegistry(new J2EEResourceFactoryRegistry());
 //		WorkbenchURIConverter conv = initializeWorbenchURIConverter(set);
@@ -772,6 +775,14 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 		// created.
     }
     
+	/**
+	 * @param project
+	 * @return
+	 */
+	private URIConverter createURIConverter(IProject aProject, ProjectResourceSet aResourceSet ) {
+		return new ModuleCoreURIConverter(aProject, aResourceSet.getSynchronizer()); 
+	}
+
 	/**
      * @param aNewEMFContext
      */

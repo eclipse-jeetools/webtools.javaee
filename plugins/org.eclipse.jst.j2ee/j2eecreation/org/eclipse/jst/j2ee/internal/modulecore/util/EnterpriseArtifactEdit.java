@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
+import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 
 /**
  * <p>
@@ -41,6 +43,10 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	public EnterpriseArtifactEdit(ArtifactEditModel model) {
 		super(model);
 	}
+	
+	public EnterpriseArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly){
+		super( aNature, aModule, toAccessAsReadOnly );
+	}	
 
 	/***********************************************************************************************
 	 * <p>

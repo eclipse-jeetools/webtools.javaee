@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.util;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -24,8 +25,13 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.ModuleURIUtil;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * <p>
@@ -66,6 +72,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		super(model);
 
 	}
+	
+	
+	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule,
+			boolean toAccessAsReadOnly) {
+		super(aNature, aModule, toAccessAsReadOnly);
+	}	
 
 	/***********************************************************************************************
 	 * <p>
@@ -194,5 +206,23 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			files.add(file);
 		}
 	}
+	
 
+	public static WebArtifactEdit getWebEditForRead(WorkbenchModule aModule) {
+		try {
+			ModuleType moduleType = aModule.getModuleType();
+			if(moduleType == null)
+				return null;
+			if(IModuleConstants.JST_WEB_MODULE.equals(moduleType.getModuleTypeId())) { 
+				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				if (project.isAccessible()) {
+					ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
+					
+					return new WebArtifactEdit(nature, aModule, true);
+				}
+			}
+		} catch (UnresolveableURIException uue) {
+		}
+		return null;	
+	}
 }

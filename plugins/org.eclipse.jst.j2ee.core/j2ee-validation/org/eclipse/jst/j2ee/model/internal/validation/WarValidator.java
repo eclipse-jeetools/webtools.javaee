@@ -283,6 +283,30 @@ public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChan
 		throw new ValidationException(errorMsg, e);
 	}
 }
+
+
+public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles, WebApp webApp) throws ValidationException {
+
+	super.validate(inHelper, inReporter, inChangedFiles);
+
+	// First remove all previous msg. for this project
+	_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
+
+	try {
+		webDD = webApp;
+		validate();
+		
+	} catch (ValidationException ex) {
+		throw ex;
+	} catch (Exception e) {
+		String[] parms = new String[1];
+		parms[0] = e.toString();
+		IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms );
+		throw new ValidationException(errorMsg, e);
+	}
+}
+
+
 /**
  * This validator can be used for validation when the reporter and helper have
  * been supplied via the constructor.
