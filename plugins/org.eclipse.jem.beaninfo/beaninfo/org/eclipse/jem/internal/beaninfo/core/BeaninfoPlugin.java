@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/24 15:07:44 $ 
+ *  $Revision: 1.3 $  $Date: 2004/04/19 19:11:10 $ 
  */
 
 
@@ -430,7 +430,8 @@ public class BeaninfoPlugin extends Plugin {
 		try {
 			IConfigurationContributionInfo info = (IConfigurationContributionInfo) project.getSessionProperty(BeaninfoNature.CONFIG_INFO_SESSION_KEY);
 			final IBeanInfoContributor[] explicitContributors = (IBeanInfoContributor[]) project.getSessionProperty(BeaninfoNature.BEANINFO_CONTRIBUTORS_SESSION_KEY);
-			
+			if (ocFragments == null)
+				processBeanInfoContributionExtensionPoint();	// We haven't processed them yet.
 			for (int fragmentIndex = 0; fragmentIndex < ocFragments.length; fragmentIndex++) {
 				if (ocFragments[fragmentIndex].isPrefixOf(packagePath)) {
 					String leftOver = null;	// The left over portion of the package. This will be set first time needed. 

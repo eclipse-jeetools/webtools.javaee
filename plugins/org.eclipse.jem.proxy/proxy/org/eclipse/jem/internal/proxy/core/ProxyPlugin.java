@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.15 $  $Date: 2004/04/05 22:55:39 $ 
+ *  $Revision: 1.16 $  $Date: 2004/04/19 19:11:28 $ 
  */
 
 
@@ -745,6 +745,14 @@ public class ProxyPlugin extends Plugin {
 						containers.put(container, first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );
 					if (!containerIds.containsKey(entry.getPath().segment(0)))
 						containerIds.put(entry.getPath().segment(0), first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );					
+					break;
+				case IClasspathEntry.CPE_VARIABLE:
+					// We only care about JRE_LIB. If we have that, then we will treat it as JRE_CONTAINER. Only
+					// care about first project too, because the first project is the one that determines the JRE type.
+					if (first && "JRE_LIB".equals(entry.getPath().segment(0))) {
+						if (!containerIds.containsKey("org.eclipse.jdt.launching.JRE_CONTAINER"))
+							containerIds.put("org.eclipse.jdt.launching.JRE_CONTAINER", Boolean.TRUE);
+					}
 					break;
 				default:
 					break;
