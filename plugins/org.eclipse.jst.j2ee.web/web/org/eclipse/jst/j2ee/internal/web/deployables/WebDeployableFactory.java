@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ProjectModules;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.util.ModuleCore;
 import org.eclipse.wst.server.core.IModule;
 
@@ -91,14 +92,14 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
     }
 
     private List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
-        J2EEWebDeployable moduleDelegate = null;
+    	J2EEFlexProjWebDeployable moduleDelegate = null;
         IModule module;
         List moduleList = new ArrayList(workBenchModules.size());
-        J2EENature nature = (J2EENature)project.getNature(getNatureID());
+      //  J2EENature nature = (J2EENature)project.getNature(getNatureID());
        
         for (int i = 0; i < workBenchModules.size(); i++) {
             try {
-                moduleDelegate = new J2EEWebDeployable(nature, ID);
+                moduleDelegate = new J2EEFlexProjWebDeployable( project, ID, (WorkbenchModule)workBenchModules.get(i) );
                 module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),moduleDelegate.getProject());
                 moduleList.add(module);
                 moduleDelegate.initialize(module);
