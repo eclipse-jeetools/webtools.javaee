@@ -367,12 +367,26 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 
+	/**
+	 * Returns the lib folder
+	 */
 	public IFolder getLibraryFolder() {
 		IFolder webInfFolder = (IFolder)getWebInfFolder();
 		IFolder libFolder = (IFolder)webInfFolder.getFolder(IWebNatureConstants.LIBRARY_DIRECTORY);
 		return libFolder;
 	}
-	
+
+	/**
+	 * Returns the source folder
+	 */
+	public IFolder getSourceFolder() {
+		//TODO return the source folder
+		return null;
+	}
+
+	/**
+	 * Set lib modules
+	 */
 	public void setLibModules(ILibModule[] libModules) {
 		//TODO we need an edit model for write to do it.
 	}
