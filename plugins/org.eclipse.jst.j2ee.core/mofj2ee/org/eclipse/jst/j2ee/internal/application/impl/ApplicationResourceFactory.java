@@ -70,7 +70,7 @@ public class ApplicationResourceFactory extends TranslatorResourceFactory {
 
 	
 	public static Resource.Factory getRegisteredFactory() {
-		return WTPResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.APPLICATION_DD_URI_OBJ);
+		return J2EEResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.APPLICATION_DD_URI_OBJ);
 	}
 
 }
