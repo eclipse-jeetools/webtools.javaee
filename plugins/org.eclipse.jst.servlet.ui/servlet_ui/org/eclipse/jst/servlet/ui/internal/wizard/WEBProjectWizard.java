@@ -33,8 +33,8 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author jsholl
@@ -54,16 +54,16 @@ public class WEBProjectWizard extends J2EEModuleProjectCreationWizard implements
 	}
 
 	public String getWizardID() {
-		return "org.eclipse.jst.j2ee.internal.webProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.webProjectWizard"; //$NON-NLS-1$
 	}
 
 	public String getLocalID() {
-		return "org.eclipse.jst.j2ee.internal.webProjectWizard"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.internal.internal.internal.webProjectWizard"; //$NON-NLS-1$
 	}
 
 	protected void doAddPages() {
 		WEBProjectCreationPage page = new WEBProjectCreationPage(getWEBProjectCreationDataModel(), MAIN_PG);
-		page.setInfopopID("org.eclipse.jst.j2ee.internal.ui.webw1000"); //$NON-NLS-1$
+		page.setInfopopID("org.eclipse.jst.j2ee.internal.internal.internal.ui.webw1000"); //$NON-NLS-1$
 		addPage(page);
 		super.doAddPages();
 	}
@@ -95,7 +95,7 @@ public class WEBProjectWizard extends J2EEModuleProjectCreationWizard implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#postPerformFinish()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#postPerformFinish()
 	 */
 	protected void postPerformFinish() {
 		String finalPerspective = model.getStringProperty(J2EEProjectCreationDataModel.FINAL_PERSPECTIVE);

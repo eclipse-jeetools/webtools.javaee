@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WARExportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WARExportOperation;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEExportWizard;
 import org.eclipse.ui.IExportWizard;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author cbridgha
@@ -53,7 +53,7 @@ public class WARExportWizard extends J2EEExportWizard implements IExecutableExte
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		WARExportDataModel aModel = new WARExportDataModel();
@@ -63,7 +63,7 @@ public class WARExportWizard extends J2EEExportWizard implements IExecutableExte
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createOperation() {
 		return new WARExportOperation(getWEBDataModel());
@@ -83,7 +83,7 @@ public class WARExportWizard extends J2EEExportWizard implements IExecutableExte
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportWizard#doInit()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportWizard#doInit()
 	 */
 	protected void doInit() {
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_EXPORT_WIZARD_BANNER));

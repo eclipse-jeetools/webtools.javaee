@@ -48,7 +48,7 @@ public class WARExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
 	protected String getProjectLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.WEB_PROJ_LBL);
@@ -57,7 +57,7 @@ public class WARExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEImportPage#getFilterExpression()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
 	protected String[] getFilterExpression() {
 		return new String[]{"*.war"}; //$NON-NLS-1$
@@ -66,7 +66,7 @@ public class WARExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -75,7 +75,7 @@ public class WARExportPage extends J2EEModuleExportPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.wizard.J2EEExportPage#getNatureID()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#getNatureID()
 	 */
 	protected String getNatureID() {
 

@@ -44,7 +44,7 @@
             category="org.eclipse.jst.servlet.ui.internal"
             class="org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"
             project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
             id="org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard">
          <description>
             %new.web.project.description_ui_
@@ -92,13 +92,13 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
+            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.webProjectActions">
          <action
                label="%web.project_ui_"
                icon="icons/full/ctool16/newwar_wiz.gif"
                class="org.eclipse.jst.servlet.ui.internal.actions.NewWebProjectAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.new.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.servlet.ui.internal.actions.NewWebProjectAction">
          </action>
@@ -111,13 +111,13 @@
       </objectContribution>
    
       <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.ui.navigator.webProjectActions">
+            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
+            id="org.eclipse.jst.j2ee.internal.internal.ui.navigator.webProjectActions">
          <action
                label="%WarImportWizard.name"
                icon="icons/full/ctool16/importwar_wiz.gif"
                class="org.eclipse.jst.servlet.ui.internal.actions.ImportWARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.import.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.servlet.ui.internal.actions.ImportWARAction">
          </action>
@@ -125,7 +125,7 @@
                label="%WarexportWizard.name"
                icon="icons/full/ctool16/exportwar_wiz.gif"
                class="org.eclipse.jst.servlet.ui.internal.actions.ExportWARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.export.menu/additions"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.export.menu/additions"
                enablesFor="1"
                id="org.eclipse.jst.servlet.ui.internal.actions.ExportWARAction">
          </action>

@@ -54,7 +54,7 @@ public class NewWebProjectAction extends AbstractOpenWizardWorkbenchAction {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ui.actions.AbstractOpenWizardAction#createWizard()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.actions.AbstractOpenWizardAction#createWizard()
 	 */
 	protected Wizard createWizard() {
 		return new WEBProjectWizard();
