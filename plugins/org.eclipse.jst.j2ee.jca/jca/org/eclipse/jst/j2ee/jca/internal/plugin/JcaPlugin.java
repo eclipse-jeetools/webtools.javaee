@@ -21,9 +21,15 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderFactory;
+import org.eclipse.jst.j2ee.internal.jca.impl.ConnectorResourceFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderFactoryRegistry;
+import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 
 /**
@@ -142,4 +148,16 @@ public class JcaPlugin extends WTPPlugin implements ResourceLocator {
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}
+	
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		ConnectorResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
+		registerDeployableModuleFactory();
+	}	
+	/**
+     * 
+     */
+    private void registerDeployableModuleFactory() {
+       DeployableModuleBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_CONNECTOR_MODULE, new JavaDeployableModuleBuilderFactory());     
+    }
 }

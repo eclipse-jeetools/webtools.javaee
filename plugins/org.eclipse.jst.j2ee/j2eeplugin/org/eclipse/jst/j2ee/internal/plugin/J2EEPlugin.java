@@ -502,6 +502,8 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ApplicationResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		ApplicationClientResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		registerDeployableModuleFactory(IModuleConstants.JST_UTILITY_MODULE);
+		registerDeployableModuleFactory(IModuleConstants.JST_APPCLIENT_MODULE);
+		registerDeployableModuleFactory(IModuleConstants.JST_EAR_MODULE);
 		WSDLServiceExtensionRegistry.getInstance();
 		
 	}

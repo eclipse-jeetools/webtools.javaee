@@ -55,18 +55,6 @@
       </nature>
    </extension> -->
    <extension
-         id="editModel.jca"
-         name="Connector Edit Model"
-         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
-      <editModel
-            editModelID="org.eclipse.jst.j2ee.jca.editModel"
-            factoryClass="org.eclipse.jst.j2ee.internal.jca.operations.ConnectorEditModelFactory">
-         <editModelResource
-               URI="META-INF/ra.xml">
-         </editModelResource>
-      </editModel>
-   </extension>
-   <extension
          id="JcaModuleExtension"
          name="JcaModuleExtension"
          point="org.eclipse.jst.j2ee.EARModuleExtension">
