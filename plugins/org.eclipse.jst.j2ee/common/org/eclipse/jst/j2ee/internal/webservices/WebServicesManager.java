@@ -782,30 +782,44 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			// Handle project adds
 			if (delta.getKind() == IResourceDelta.ADDED) {
 				WebServiceEditModel editModel = getWebServiceEditModelForProject(p);
-				if (editModel != null && !getEditModels().containsValue(editModel)) {
-					getEditModels().put(p, editModel);
+				if (editModel !=null && !getEditModels().containsValue(editModel)) {
+					getEditModels().put(p,editModel);
 					editModel.addListener(this);
 					// forward an edit model event to manager's listeners
-					notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE, editModel));
+					notifyListeners(new EditModelEvent(EditModelEvent.ADDED_RESOURCE,editModel));
 					return false;
 				}
 			}
-			// Handle project removals
+			// Handle project close events removals
+			else if (delta.getKind() == IResourceDelta.CHANGED) {
+				boolean projectOpenStateChanged = ((delta.getFlags() & IResourceDelta.OPEN) != 0);
+				if (projectOpenStateChanged) {
+				WebServiceEditModel editModel = (WebServiceEditModel)getEditModels().get(p);
+					if (editModel !=null) {
+						editModel.removeListener(this);
+						getEditModels().remove(p);
+						notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,editModel));
+						return false;
+					}		
+				}
+			}
+			// Handle project delete events
 			else if (delta.getKind() == IResourceDelta.REMOVED) {
-				WebServiceEditModel editModel = (WebServiceEditModel) getEditModels().get(p);
-				if (editModel != null) {
+				WebServiceEditModel editModel = (WebServiceEditModel)getEditModels().get(p);
+				if (editModel !=null) {
 					editModel.removeListener(this);
 					getEditModels().remove(p);
-					notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE, editModel));
+					notifyListeners(new EditModelEvent(EditModelEvent.REMOVED_RESOURCE,editModel));
 					return false;
-				}
+				}		
 			}
-		} else if (resource.getType() == IResource.FILE && isInterrestedInFile((IFile) resource)) {
+		}
+		else if (resource.getType() == IResource.FILE && isInterrestedInFile((IFile) resource)) {
 			if ((delta.getKind() == IResourceDelta.ADDED) || ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0))
 				if (resource.getFileExtension().equals(WSDL_EXT))
-					addedWsdl((IFile) resource);
+				    addedWsdl((IFile) resource);
 				else if (resource.getFileExtension().equals(WSIL_EXT))
-					addedWsil((IFile) resource);
+				    addedWsil((IFile)resource);
 			return false;
 		}
 		return true;
