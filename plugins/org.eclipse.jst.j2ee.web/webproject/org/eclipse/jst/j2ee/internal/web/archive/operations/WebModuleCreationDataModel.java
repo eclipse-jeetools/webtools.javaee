@@ -36,6 +36,8 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.IRuntimeType;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -48,7 +50,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * @since WTP 1.0
  */
 public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
-
+	public static final String APACHE_VENDER_NAME = "Apache";
 	/**
 	 * Type Integer
 	 */
@@ -79,8 +81,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 	 *            Sets the Web Module Version for the descibed project. The version must be one of
 	 *            the following: <code>J2EEVersionConstants.WEB_2_2_ID</code>,
 	 *            <code>J2EEVersionConstants.WEB_2_3_ID</code>, or
-	 * 			  <code>J2EEVersionConstants.WEB_2_4_ID</code>
-	 *            or.
+	 *            <code>J2EEVersionConstants.WEB_2_4_ID</code> or.
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int connectorModuleVersion) {
@@ -125,7 +126,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 		setJ2EENatureID(IWebNatureConstants.J2EE_NATURE_ID);
 		setProperty(EDIT_MODEL_ID, IWebNatureConstants.EDIT_MODEL_ID);
 		getServerTargetDataModel().setIntProperty(ServerTargetDataModel.DEPLOYMENT_TYPE_ID, XMLResource.WEB_APP_TYPE);
-		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IWebNatureConstants.J2EE_NATURE_ID,IModuleConstants.MODULE_NATURE_ID});
+		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IWebNatureConstants.J2EE_NATURE_ID, IModuleConstants.MODULE_NATURE_ID});
 		getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.SOURCE_FOLDERS, new String[]{getDefaultJavaSourceFolderName()});
 		updateOutputLocation();
 		super.init();
@@ -190,9 +191,24 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 		return new AddWebModuleToEARDataModel();
 	}
 
+	private Object updateAddToEar() {
+		IRuntime type = getServerTargetDataModel().getRuntimeTarget();
+		if (type == null)
+			return Boolean.TRUE;
+		IRuntimeType rType = type.getRuntimeType();
+		if (rType == null)
+			return Boolean.TRUE;
+		return new Boolean(!rType.getVendor().equals(APACHE_VENDER_NAME));
+	}
+
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MIGRATE_WEB_SETTINGS)) {
 			return Boolean.TRUE;
+		}
+
+		if (propertyName.equals(ADD_TO_EAR)) {
+			return updateAddToEar();
+
 		}
 
 		if (propertyName.equals(WEB_CONTENT)) {
@@ -342,6 +358,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 		super.propertyChanged(event);
 		if (event.getDataModel() == getAddModuleToApplicationDataModel() && event.getPropertyName().equals(AddWebModuleToEARDataModel.CONTEXT_ROOT) && event.getDataModel().isSet(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
 			setProperty(CONTEXT_ROOT, event.getProperty());
-		}
+		} else if (event.getDataModel() == getServerTargetDataModel() && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID) && event.getDataModel().isSet(ServerTargetDataModel.RUNTIME_TARGET_ID))
+			setProperty(ADD_TO_EAR, updateAddToEar());
 	}
 }
