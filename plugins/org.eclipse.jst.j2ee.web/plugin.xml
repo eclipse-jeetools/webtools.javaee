@@ -197,7 +197,7 @@
             id="org.eclipse.jst.web.server.webresource2">
          <enablement>
            <with variable="selection">
-             <adapt type="org.eclipse.jst.server.j2ee.Servlet"/>
+             <adapt type="org.eclipse.jst.server.core.Servlet"/>
            </with>
          </enablement>
        </moduleArtifactAdapter>
