@@ -63,7 +63,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.MessageLimitException;
@@ -196,7 +196,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		earHelper = newEarHelper;
 	}
 
-	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		earHelper = (UIEarHelper) inHelper;
 		IProject proj = ((IWorkbenchHelper) inHelper).getProject();

@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
 
@@ -75,7 +75,7 @@ public class UIApplicationClientValidator extends ApplicationClientValidator imp
 	/**
 	 * Does the validation.
 	 */
-	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		UIApplicationClientHelper helper = (UIApplicationClientHelper) inHelper;
 		AppClientEditModel editModel = getAppClientEditModel(helper.getProject());
