@@ -9,19 +9,24 @@ package org.eclipse.jst.j2ee.ejb.internal.deployables;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.debug.ui.actions.ILaunchable; 
 import org.eclipse.wst.server.core.IModuleArtifact;
+import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 
-public class EJBDeployableArtifactAdapterFactory implements IAdapterFactory {
+public class EJBDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDelegate implements IAdapterFactory {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
-		if (adapterType == IEJBModuleArtifact.class || adapterType == IModuleArtifact.class) {
-			moduleArtifact = EJBDeployableArtifactAdapterUtil.getModuleObject(adaptableObject);
+		if (adapterType == ILaunchable.class ) {
+			getModuleArtifact(adaptableObject);
 		}
 		return moduleArtifact;
 	}
 
 	public Class[] getAdapterList() {
-		return new Class[]{IEJBModuleArtifact.class, ILaunchable.class, IModuleArtifact.class};
+		return new Class[]{ILaunchable.class};
+	}
+
+	public IModuleArtifact getModuleArtifact(Object obj) {
+		return EJBDeployableArtifactAdapterUtil.getModuleObject(obj);
 	}
 
 }
