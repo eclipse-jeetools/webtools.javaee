@@ -20,6 +20,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -63,7 +64,7 @@ public class ModuleEditModelTest extends TestCase {
 	public static Test suite() {
 		// return new TestSuite(ModuleEditModelTest.class);
 		TestSuite suite = new TestSuite();
-		suite.addTest(new ModuleEditModelTest("testURIAPI"));
+		suite.addTest(new ModuleEditModelTest("testCreateWTPModulesResource"));
 		return suite;
 	}
 
@@ -109,7 +110,7 @@ public class ModuleEditModelTest extends TestCase {
 							break;
 					}
 				}
-				System.out.println(resource != null ? resource.getSourcePath().toString() : "NOT FOUND" );
+				System.out.println(resource != null ? resource.getSourcePath().toString() : "NOT FOUND");
 			} finally {
 				if (structuralModel != null)
 					structuralModel.releaseAccess(this);
@@ -119,26 +120,57 @@ public class ModuleEditModelTest extends TestCase {
 		}
 	}
 
+	public void testCreateWTPModulesResource() throws Exception {
+		ModuleStructuralModel structuralModel = null;
+		try {
+			IProject containingProject = getProject(getProjectName());
+			ModuleCoreNature moduleCoreNature = getNature(containingProject);
+			structuralModel = moduleCoreNature.getModuleStructuralModelForWrite(this);
+			structuralModel.prepareProjectModulesIfNecessary();
+			ProjectModules projectModules = (ProjectModules) structuralModel.getPrimaryResource().getContents().get(0);
+			addContent(projectModules);
+			structuralModel.saveIfNecessary(this);
+		} finally {
+			if(structuralModel != null)
+				structuralModel.releaseAccess(this);
+		}
+
+	}
+
 	/**
 	 * @return
 	 */
 	private ProjectModules getProjectModules() {
 		ProjectModules projectModules = ModuleCoreFactory.eINSTANCE.createProjectModules();
+		addContent(projectModules);
+		return projectModules;
+	}
+
+	/**
+	 * @param projectModules
+	 */
+	private void addContent(ProjectModules projectModules) {
 
 		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
 		module.setDeployedPath(URI.createURI(getModulesFolder() + ".war")); //$NON-NLS-1$
 		module.setHandle(URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder())); //$NON-NLS-1$
 
 		projectModules.getWorkbenchModules().add(module);
+		
+		WorkbenchModule dependentLib = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+		dependentLib.setDeployedPath(URI.createURI(getModulesFolder() + "Lib.jar")); //$NON-NLS-1$
+		dependentLib.setHandle(URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder()+"Lib")); //$NON-NLS-1$
+		
+		module.getModules().add(dependentLib);
+		projectModules.getWorkbenchModules().add(dependentLib);
 
 		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
 		IFile sourceFile = getProject().getFile(new Path(getModulesFolder() + IPath.SEPARATOR + "BLAH" + IPath.SEPARATOR + getTestResourcePath()));
 		resource.setSourcePath(URI.createURI(sourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(getTestResourcePath()));
-
+		
 		module.getResources().add(resource);
 
-		return projectModules;
 	}
 
 	/**
@@ -172,8 +204,28 @@ public class ModuleEditModelTest extends TestCase {
 	 * @param segments
 	 * @return
 	 */
-	private IProject getProject(String aProjectName) {
-		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
+	private IProject getProject(String aProjectName) throws Exception {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
+
+		if (!project.exists()) {
+			try {
+				WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
+				dataModel.setProperty(WebModuleCreationDataModel.PROJECT_NAME, getProjectName());
+				dataModel.getDefaultOperation().run(null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if(!project.hasNature(ModuleCoreNature.MODULE_NATURE_ID)) {
+			IProjectDescription description = project.getDescription();
+			String[] natureIds = description.getNatureIds();
+			String[] newNatureIds = new String[natureIds.length + 1];
+			System.arraycopy(natureIds, 0, newNatureIds, 1, natureIds.length);
+			newNatureIds[0] = ModuleCoreNature.MODULE_NATURE_ID;
+			description.setNatureIds(newNatureIds);
+			project.setDescription(description, null);
+		}
+		return project;
 	}
 
 	/**
