@@ -58,7 +58,8 @@ public class WebSettingsMigrator implements IMigrator {
 	 * @see org.eclipse.jst.common.migration.IMigrator#migrate(org.eclipse.core.resources.IProject)
 	 */
 	public boolean migrate(IProject project) {
-		migrateProjectFile(project);
+	    //TODO: re-implement as necessary in M4
+	    //migrateProjectFile(project);
 		if (migrateWebSettingsFile(project))
 			return true;
 		return false;
