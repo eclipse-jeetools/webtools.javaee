@@ -11,17 +11,11 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.internal.runtime.AdapterManager;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
@@ -30,7 +24,6 @@ import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.util.ModuleCore;
 import org.eclipse.wst.server.core.IModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
