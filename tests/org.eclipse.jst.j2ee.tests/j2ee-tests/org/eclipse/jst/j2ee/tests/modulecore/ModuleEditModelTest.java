@@ -88,7 +88,11 @@ public class ModuleEditModelTest extends TestCase {
 		try {
 			artifactModel = getNature(getProject()).getModuleEditModelForRead(getModuleURI(), this);
 			Resource resource = artifactModel.getPrimaryResource();
-			System.out.println(resource.getContents().get(0));
+			EObject rootObject = (EObject) resource.getContents().get(0);
+			if (rootObject == null)
+				System.out.println("Read failed.");
+			else
+				System.out.println("Found WebApp: " + ((WebApp) rootObject).getDisplayName()); 
 		} finally {
 			if (artifactModel != null)
 				artifactModel.releaseAccess(this);
@@ -109,8 +113,9 @@ public class ModuleEditModelTest extends TestCase {
 			ModuleStructuralModel structuralModel = null;
 			try {
 				/* We need to find the project */
-				structuralModel = ModuleCore.INSTANCE.getModuleStructuralModelForRead(uri, this);
-				WorkbenchModuleResource resource = ModuleCore.INSTANCE.findWorkbenchModuleResourceByDeployPath(structuralModel, uri);
+				structuralModel = ModuleCore.getModuleStructuralModelForRead(ModuleCore.getContainingProject(uri), this);
+				ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_CLASS);
+				WorkbenchModuleResource resource = editUtility.findWorkbenchModuleResourceByDeployPath(uri);
 				System.out.println(resource != null ? resource.getSourcePath().toString() : "NOT FOUND");
 			} finally {
 				if (structuralModel != null)
@@ -141,7 +146,7 @@ public class ModuleEditModelTest extends TestCase {
 	/**
 	 * @return
 	 */
-	private ProjectModules getProjectModules() {
+	public ProjectModules getProjectModules() {
 		ProjectModules projectModules = ModuleCoreFactory.eINSTANCE.createProjectModules();
 		addContent(projectModules);
 		return projectModules;
@@ -216,7 +221,7 @@ public class ModuleEditModelTest extends TestCase {
 	 * @param containingProject
 	 * @return
 	 */
-	private ModuleCoreNature getNature(IProject aProject) {
+	public ModuleCoreNature getNature(IProject aProject) {
 		try {
 			return (ModuleCoreNature) aProject.getNature(ModuleCoreNature.MODULE_NATURE_ID);
 		} catch (CoreException e) {
@@ -242,15 +247,15 @@ public class ModuleEditModelTest extends TestCase {
 				e.printStackTrace();
 			}
 		}
-		if (!project.hasNature(ModuleCoreNature.MODULE_NATURE_ID)) {
-			IProjectDescription description = project.getDescription();
-			String[] natureIds = description.getNatureIds();
-			String[] newNatureIds = new String[natureIds.length + 1];
-			System.arraycopy(natureIds, 0, newNatureIds, 1, natureIds.length);
-			newNatureIds[0] = ModuleCoreNature.MODULE_NATURE_ID;
-			description.setNatureIds(newNatureIds);
-			project.setDescription(description, null);
-		}
+//		if (!project.hasNature(ModuleCoreNature.MODULE_NATURE_ID)) {			
+//			IProjectDescription description = project.getDescription();
+//			String[] natureIds = description.getNatureIds();
+//			String[] newNatureIds = new String[natureIds.length + 1];
+//			System.arraycopy(natureIds, 0, newNatureIds, 1, natureIds.length);
+//			newNatureIds[0] = ModuleCoreNature.MODULE_NATURE_ID;
+//			description.setNatureIds(newNatureIds);
+//			project.setDescription(description, null);
+//		}
 		return project;
 	}
 
@@ -307,7 +312,7 @@ public class ModuleEditModelTest extends TestCase {
 	}
 
 	public String getModuleName() {
-		return "MyWebModule";
+		return getProjectName();
 	}
 
 
