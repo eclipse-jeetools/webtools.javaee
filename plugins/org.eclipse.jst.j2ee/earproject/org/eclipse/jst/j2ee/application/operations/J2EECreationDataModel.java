@@ -44,17 +44,17 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
     /**
      * Required
      */
-    public static final String PROJECT_NAME = "FlexibleJ2EECreationDataModel.PROJECT_NAME"; //$NON-NLS-1$
+    public static final String PROJECT_NAME = "J2EECreationDataModel.PROJECT_NAME"; //$NON-NLS-1$
 
     /**
      * Required
      */
-    public static final String MODULE_NAME = "FlexibleJ2EECreationDataModel.MODULE_NAME"; //$NON-NLS-1$
+    public static final String MODULE_NAME = "J2EECreationDataModel.MODULE_NAME"; //$NON-NLS-1$
 	/**
 	 * Required
 	 */	
 	
-	public static final String MODULE_DEPLOY_NAME = "FlexibleJ2EECreationDataModel.MODULE_DEPLOY_NAME"; //$NON-NLS-1$
+	public static final String MODULE_DEPLOY_NAME = "J2EECreationDataModel.MODULE_DEPLOY_NAME"; //$NON-NLS-1$
 	
     /**
      * An optional dataModel propertyName for a <code>Boolean</code> type. The
@@ -62,7 +62,7 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
      * <code>Boolean.TRUE</code> then a default deployment descriptor and
      * supporting bindings files will be generated.
      */
-    public static final String CREATE_DEFAULT_FILES = "FlexibleJ2EECreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
+    public static final String CREATE_DEFAULT_FILES = "J2EECreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
 
     /**
      * An optional dataModel propertyName for a <code>Boolean</code> type. The
@@ -70,22 +70,22 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
      * <code>Boolean.TRUE</code> then a default deployment descriptor and
      * supporting bindings files will be generated.
      */
-    public static final String SHOULD_CREATE_PROJECT = "FlexibleJ2EECreationDataModel.SHOULD_CREATE_PROJECT"; //$NON-NLS-1$
+    public static final String SHOULD_CREATE_PROJECT = "J2EECreationDataModel.SHOULD_CREATE_PROJECT"; //$NON-NLS-1$
 
     /**
      * Optional, type String
      */
-    public static final String FINAL_PERSPECTIVE = "FlexibleJ2EECreationDataModel.FINAL_PERSPECTIVE"; //$NON-NLS-1$
+    public static final String FINAL_PERSPECTIVE = "J2EECreationDataModel.FINAL_PERSPECTIVE"; //$NON-NLS-1$
 
-    protected static final String IS_ENABLED = "FlexibleJ2EECreationDataModel.IS_ENABLED"; //$NON-NLS-1$
+    protected static final String IS_ENABLED = "J2EECreationDataModel.IS_ENABLED"; //$NON-NLS-1$
 	/**
 	 * type Integer
 	 */
-	public static final String J2EE_MODULE_VERSION = "FlexibleJ2EEModuleCreationDataModel.J2EE_MODULE_VERSION"; //$NON-NLS-1$
+	public static final String J2EE_MODULE_VERSION = "J2EECreationDataModel.J2EE_MODULE_VERSION"; //$NON-NLS-1$
 	/**
 	 * type Integer
 	 */
-	public static final String VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME = "FlexibleJ2EEModuleCreationDataModel.VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME"; //$NON-NLS-1$
+	public static final String VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME = "J2EECreationDataModel.VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME"; //$NON-NLS-1$
 
 	/**
 	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
@@ -94,7 +94,7 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
 	 * 
 	 * type Integer
 	 */
-	public static final String J2EE_VERSION = "FlexibleJ2EEModuleCreationDataModel.J2EE_VERSION"; //$NON-NLS-1$
+	public static final String J2EE_VERSION = "J2EECreationDataModel.J2EE_VERSION"; //$NON-NLS-1$
     /* (non-Javadoc)
      * @see org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel#init()
      */
