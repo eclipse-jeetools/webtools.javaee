@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.util.WebEdit;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
@@ -139,7 +139,7 @@ public class ModuleStructuralModelTest extends TestCase {
 		try {
 			URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + getWebModuleAndLocalWebLibModuleProjectName() + "/" + getWebModuleAndLocalWebLibModuleProjectName() + ".war");
 			artifactModel = getNature(getProjectForWebModuleAndLocalWebLib()).getArtifactEditModelForRead(moduleURI, this);
-			WebEdit editUtility = (WebEdit) artifactModel.getAdapter(WebEdit.ADAPTER_TYPE);
+			WebArtifactEdit editUtility = (WebArtifactEdit) artifactModel.getAdapter(WebArtifactEdit.ADAPTER_TYPE);
 
 			WebApp webApp = editUtility.getWebApplication();
 			if (webApp == null)
