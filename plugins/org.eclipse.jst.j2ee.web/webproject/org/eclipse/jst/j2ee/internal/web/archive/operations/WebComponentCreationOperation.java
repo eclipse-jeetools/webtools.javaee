@@ -20,6 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -60,13 +61,13 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
     	webContent.createLink(new Path("/" + getModuleName() + "/" + "WebContent" ), 0, null);
     	
     	IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
-    	webInfFolder.create(true, true, null);		
+    	webInfFolder.create(IResource.FORCE, null);		
     	
     	IVirtualFolder metaInfFolder = webContent.getFolder(J2EEConstants.META_INF);
-    	metaInfFolder.create(true, true, null);
+    	metaInfFolder.create(IResource.FORCE,null);
 
     	IVirtualFolder webLib = webInfFolder.getFolder("lib");
-    	webLib.create(true, true, null);
+    	webLib.create(IResource.FORCE, null);
     	//webLib.create();
     }
     

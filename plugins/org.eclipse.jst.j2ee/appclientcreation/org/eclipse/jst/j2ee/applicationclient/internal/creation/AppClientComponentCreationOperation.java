@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -42,7 +43,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
 		
 		//create and link META-INF folder
     	IVirtualFolder metaInfFolder = appClientModuleFolder.getFolder(J2EEConstants.META_INF);
-    	metaInfFolder.create(true, true, null);	
+    	metaInfFolder.create(IResource.FORCE, null);	
     }
     
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {

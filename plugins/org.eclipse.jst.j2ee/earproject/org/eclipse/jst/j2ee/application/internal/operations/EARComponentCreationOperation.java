@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -46,7 +47,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 		root.createLink(new Path("/" + getModuleName()), 0, null);
 		
     	IVirtualFolder metaInfFolder = root.getFolder(J2EEConstants.META_INF);
-    	metaInfFolder.create(true, true, null);
+    	metaInfFolder.create(IResource.FORCE, null);
     }
 	
 	public IProject getProject() {
