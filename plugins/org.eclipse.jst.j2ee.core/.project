@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>org.eclipse.jst.j2ee.core</name>
+	<comment></comment>
+	<projects>
+		<project>com.ibm.etools.validation.core</project>
+		<project>com.ibm.wtp.common</project>
+		<project>com.ibm.wtp.emf</project>
+		<project>org.eclipse.jem</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+</projectDescription>

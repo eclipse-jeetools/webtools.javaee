@@ -1,0 +1,17 @@
+<project name="com.ibm.etools.emf.workbench" default="packagingPlugin" basedir="./..">
+    <target name="init">
+        <property name="packageDir" value=""/>
+        <property name="plugin.directory"  value="${basedir}"/>
+        <property name="plugin.id" value="com.ibm.etools.ejb"/>
+        <property name="plugin.version"  value=""/>
+    </target>
+    <target name="packagingPlugin" depends="init">
+        <echo message="${plugin.id}"/>
+        <copy todir="${packageDir}/plugins/${plugin.id}_${plugin.version}">
+            <fileset dir="${plugin.directory}">
+                <include name="plugin.xml"/>
+                <include name="runtime/ejb.jar"/>
+            </fileset>
+        </copy>
+    </target>
+</project>

@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.j2ee"
+   name="J2EE Component"
+   description="Responsible for creation, deletion and modification of various J2EE modules including ear, application client."
+   version="1.0.0"
+   provider-name="IBM"
+   class="org.eclipse.jst.j2ee.plugin.J2EEPlugin">
+
+   <runtime>
+<!-- ejb jars ========================== -->
+<!-- Deferred for now
+    <library name="runtime/websphere_validation.jar">
+		<export name="*"/>
+    </library>
+    -->
+      <library name="runtime/j2eeplugin.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.jst.j2ee.core"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.wst.validation"/>
+      <import plugin="org.eclipse.wst.validation.mof"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
+      <import plugin="org.eclipse.wst.sse.core"/>
+      <import plugin="org.eclipse.wst.server.core"/>
+      <import plugin="org.eclipse.jst.server.core"/>
+      <import plugin="org.eclipse.wst.common.emf"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="com.ibm.wtp.emf.workbench"/>
+      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="com.ibm.etools.wsdl"/>
+      <import plugin="org.eclipse.wst.common.jdt.integration"/>
+      <import plugin="org.eclipse.wst.common.migration"/>
+      <import plugin="com.ibm.wtp.ws.parser"/>
+      <import plugin="org.eclipse.emf.codegen"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+   </requires>
+
+
+<!-- Extension point to register specialized edit models with the EJBNature -->
+<!-- Extension point to register specialized EJB commands -->
+   <extension-point id="EJBCommandExtension" name="EJBCommandExtension" schema="schema/EJBCommandExtension.exsd"/>
+<!--============================-->
+<!-- Codegen Contributions                   -->
+<!--============================-->
+   <extension-point id="basecodegenextensionpoint" name="Base Code Generation Extension Point"/>
+<!-- This extension-point sends notification to all extensions when J2EEModules are imported.
+        Each extension can specify a set of different module types to listen for or listen to them
+        all.  The default is to receive notification for all module types.  Notification is sent
+        to the specified class implementing org.eclipse.jst.j2ee.J2EEModulePostImportHandler
+		
+		Both of the following examples register for notification for all J2EEModule types, the first
+		uses the defaults, while the second specifies each module type.  To listen for only specific
+		module types, use the second example and specify only the types to listen to.        
+        
+    <extension point="org.eclipse.jst.j2ee.J2EEModulePostImport">
+        <postImport className="org.eclipse.jst.j2ee.tests.extensions.ModulePostImportTestDefault"></postImport>
+    </extension>
+        
+    <extension point="org.eclipse.jst.j2ee.J2EEModulePostImport">
+    	<postImport className="org.eclipse.jst.j2ee.tests.extensions.ModulePostImportTestAll"></postImport>
+    	<module type="WEB"></module>
+    	<module type="EJB"></module>
+    	<module type="ApplicationClient"></module>
+    	<module type="Connector"></module>
+    </extension>
+     -->
+   <extension-point id="J2EEModulePostImport" name="J2EEModulePostImport" schema="schema/J2EEModulePostImport.exsd"/>
+   <extension-point id="GeneratorDictionaryExtension" name="GeneratorDictionaryExtension" schema="schema/GeneratorDictionaryExtension.exsd"/>
+   <extension-point id="EARModuleExtension" name="EARModuleExtension" schema="schema/EARModuleExtension.exsd"/>
+   <extension-point id="DeployerExtension" name="J2EE Deployer Extension" schema="schema/DeployerExtension.exsd"/>
+   <extension-point id="resourceEnvRefType" name="Resource Environment Reference Type" schema="schema/resourceEnvRefType.exsd"/>
+   <extension-point id="resourceRefType" name="Resource Reference Type" schema="schema/resourceRefType.exsd"/>
+   <extension-point id="WebServiceClientGenerator" name="WebServiceClientGenerator" schema="schema/WebServiceClientGenerator.exsd"/>
+   <extension-point id="ExtendedModuleImport" name="ExtendedModuleImport" schema="schema/ExtendedModuleImport.exsd"/>
+
+<!--============================-->
+<!-- Application Client J2EE 1.2 Nature             -->
+<!--============================-->
+<!--============================-->
+<!-- Application Client Project Nature Contributions    -->
+<!--============================-->
+   <extension
+         id="ApplicationClientNature"
+         name="Application Client Properties"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime">
+         </run>
+      </runtime>
+   </extension>
+<!-- Register the nature id with the EMFNature -->
+   <extension
+         point="com.ibm.wtp.emf.workbench.nature_registration">
+      <nature
+            id="org.eclipse.jst.j2ee.ApplicationClientNature">
+      </nature>
+   </extension>
+<!--============================-->
+<!-- Ear J2EE 12 Nature                -->
+<!--============================-->
+<!--============================-->
+<!-- EAR Project Nature Contributions                -->
+<!--============================-->
+   <extension
+         id="EARNature"
+         name="EAR Properties"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime">
+         </run>
+      </runtime>
+   </extension>
+<!-- Register the nature id with the EMFNature -->
+   <extension
+         point="com.ibm.wtp.emf.workbench.nature_registration">
+      <nature
+            id="org.eclipse.jst.j2ee.EARNature">
+      </nature>
+   </extension>
+<!--===================================================-->
+<!-- Register known J2EE DTDs and XSDs for XML editor  -->
+<!-- DTD and XSD Contributions                         -->
+<!--===================================================-->
+   <extension
+         point="com.ibm.etools.xmlcatalog.catalogContributor">
+      <catalogContributor
+            catalogId="default">
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+               uri="dtds/web-app_2_2.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+               uri="dtds/web-app_2_3.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD J2EE Application Client 1.2//EN"
+               uri="dtds/application-client_1_2.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD J2EE Application Client 1.3//EN"
+               uri="dtds/application-client_1_3.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN"
+               uri="dtds/application_1_2.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+               uri="dtds/application_1_3.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 1.1//EN"
+               uri="dtds/ejb-jar_1_1.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
+               uri="dtds/ejb-jar_2_0.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD Connector 1.0//EN"
+               uri="dtds/connector_1_0.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+               uri="dtds/web-jsptaglibrary_1_1.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+               uri="dtds/web-jsptaglibrary_1_2.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"
+               uri="xsds/application-client_1_4.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"
+               uri="xsds/application_1_4.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd"
+               uri="xsds/connector_1_5.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"
+               uri="xsds/ejb-jar_2_1.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/"
+               uri="xsds/j2ee_1_4.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/jsp_2_0.xsd"
+               uri="xsds/jsp_2_0.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+               uri="xsds/web-app_2_4.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+               uri="xsds/web-jsptaglibrary_2_0.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd"
+               uri="xsds/j2ee_jaxrpc_mapping_1_1.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://www.ibm.com/webservices/xsd/j2ee_web_services_1_1.xsd"
+               uri="xsds/j2ee_web_services_1_1.xsd">
+         </mappingInfo>
+         <mappingInfo
+               key="http://www.ibm.com/webservices/xsd/j2ee_web_services_client_1_1.xsd"
+               uri="xsds/j2ee_web_services_client_1_1.xsd">
+         </mappingInfo>
+                  <mappingInfo
+               key="-//W3C//DTD XMLSCHEMA 200102//EN"
+               uri="dtds/XMLSchema.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="datatypes"
+               uri="dtds/datatypes.dtd">
+         </mappingInfo>
+         <mappingInfo
+               key="-//IBM Corporation, Inc.//DTD J2EE JAX-RPC mapping 1.0//EN"
+               uri="dtds/j2ee_jaxrpc_mapping_1_0.dtd ">
+         </mappingInfo> 
+         <mappingInfo
+               key="-//IBM Corporation, Inc.//DTD J2EE Web services 1.0//EN"
+               uri="dtds/j2ee_web_services_1_0.dtd">
+         </mappingInfo> 
+         <mappingInfo
+               key="-//IBM Corporation, Inc.//DTD J2EE Web services client 1.0//EN"
+               uri="dtds/j2ee_web_services_client_1_0.dtd">
+         </mappingInfo> 
+      </catalogContributor>
+   </extension>
+<!--=================================-->
+<!-- LibCopy Builder Contributions   -->
+<!--=================================-->
+   <extension
+         id="LibCopyBuilder"
+         name="Library Copying Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="org.eclipse.jst.j2ee.plugin.LibCopyBuilder">
+         </run>
+      </builder>
+   </extension>
+<!--===========================================-->
+<!-- Ruth asked for this to be put back in.    -->
+<!-- Migrates 4.X workspaces to 5.X workspaces -->
+<!-- Validation Framework Contribution         -->
+<!--===========================================-->
+<!--============================-->
+<!-- Validation Contributions                 -->
+<!--============================-->
+   <extension
+         id="validationbuilder"
+         name="%validation_UI_"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="org.eclipse.wst.validation.internal.operations.TransitionValidationBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="EarValidator"
+         name="%ear_validator_UI_"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <projectNature
+               id="org.eclipse.jst.j2ee.EARNature">
+         </projectNature>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.xml">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.xmi">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.jar">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter=".modulemaps">
+         </filter>
+         <dependentValidator
+               depValValue="true">
+         </dependentValidator>
+         <run
+               class="org.eclipse.jst.j2ee.internal.validation.UIEarValidator">
+         </run>
+         <helper
+               class="org.eclipse.jst.j2ee.internal.validation.UIEarHelper">
+         </helper>
+      </validator>
+   </extension>
+   <extension
+         id="ApplicationClientValidator"
+         name="%application_client_validator_UI_"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <projectNature
+               id="org.eclipse.jst.j2ee.ApplicationClientNature">
+         </projectNature>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="MANIFEST.MF">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="application-client.xml">
+         </filter>
+         <dependentValidator
+               depValValue="true">
+         </dependentValidator>
+         <helper
+               class="org.eclipse.jst.j2ee.internal.validation.UIApplicationClientHelper">
+         </helper>
+         <run
+               class="org.eclipse.jst.j2ee.internal.validation.UIApplicationClientValidator">
+         </run>
+      </validator>
+   </extension>
+<!--ModuleMapInit-->
+<!--============================-->
+<!-- J2EE Extension Point Registry-->
+<!--============================-->
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="modulemap.xmi"
+            class="org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapPackage">
+      </package>
+   </extension>
+<!-- ====================================================== -->
+<!-- Register package mappings                              -->
+<!-- Several that have not changed are still registered as  -->
+<!-- a place holder for the future.                         -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.wst.common.emf.packageURIMap">
+      <map
+            uri="modulemap.xmi"
+            prefix="modulemap">
+      </map>
+   </extension>
+<!-- ====================================================== -->
+<!-- Extendable Operations                                  -->
+<!-- These operation are extendable in other plugins        -->
+<!-- ====================================================== -->
+   <extension
+         id="baseEditModels"
+         name="Core Edit Model"
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="com.ibm.wtp.application.editModel"
+            factoryClass="org.eclipse.jst.j2ee.internal.earcreation.EAREditModelFactory">
+         <editModelResource
+               URI="META-INF/application.xml">
+         </editModelResource>
+         <editModelResource
+               URI="META-INF/.modulemaps">
+         </editModelResource>
+      </editModel>
+      <editModel
+            editModelID="com.ibm.wtp.applicationClient.editModel"
+            factoryClass="org.eclipse.jst.j2ee.applicationclient.creation.AppClientEditModelFactory">
+         <editModelResource
+               URI="META-INF/application-client.xml">
+         </editModelResource>
+         <editModelResource
+               URI="META-INF/webservicesclient.xml">
+         </editModelResource>
+      </editModel>
+   </extension>
+   <extension
+         name="J2EE tools function group"
+         point="org.eclipse.wst.common.frameworks.functionGroup">
+      <functionGroup
+            initializerClassName="org.eclipse.jst.j2ee.plugin.J2EEGroupInitializer"
+            name="J2EE Core tools"
+            functionGroupID="com.ibm.wtp.j2ee"
+            priority="0"
+            description="J2EE Core tools">
+      </functionGroup>
+      <functionGroupPatternBinding
+            functionGroupID="com.ibm.wtp.j2ee"
+            pattern="com.ibm.wtp.j2ee.*">
+      </functionGroupPatternBinding>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+      <adapterFactory
+            functionGroupID="com.ibm.wtp.j2ee"
+            className="org.eclipse.jst.j2ee.common.provider.CommonItemProviderAdapterFactory"
+            packageURI="common.xmi"
+            id="org.eclipse.jst.j2ee.common.provider.CommonItemProviderAdapterFactory">
+      </adapterFactory>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+      <adapterFactory
+            functionGroupID="com.ibm.wtp.j2ee"
+            className="org.eclipse.jst.j2ee.internal.application.provider.ApplicationItemProviderAdapterFactory"
+            packageURI="application.xmi"
+            id="com.ibm.wtp.j2ee.application.provider.ApplicationItemProviderAdapterFactory">
+      </adapterFactory>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+      <adapterFactory
+            functionGroupID="com.ibm.wtp.j2ee"
+            className="org.eclipse.jst.j2ee.internal.provider.ClientItemProviderAdapterFactory"
+            packageURI="client.xmi"
+            id="com.ibm.wtp.j2ee.client.provider.ClientItemProviderAdapterFactory">
+      </adapterFactory>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+      <adapterFactory
+            functionGroupID="com.ibm.wtp.j2ee"
+            className="org.eclipse.jst.j2ee.internal.provider.ModulemapItemProviderAdapterFactory"
+            packageURI="modulemap.xmi"
+            id="com.ibm.wtp.j2ee.ear.modulemap.provider.ModulemapItemProviderAdapterFactory">
+      </adapterFactory>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+      <adapterFactory 
+            className="org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory"
+            packageURI="org.eclipse.emf.ecore.resource"
+            id="org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory">
+      </adapterFactory>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.reference.MessageDestReferenceCreationOperation"
+            id="org.eclipse.jst.j2ee.reference.MessageDestReferenceCreationOperation">
+      </extendableOperation>
+    </extension>
+<!-- ==================================================================== -->
+<!-- Purpose: Define adapters for EAR resources                   -->
+<!-- Extension point: com.ibm.etools.server.core.deployableObjectAdapters -->
+<!-- ==================================================================== -->
+   
+   <extension
+         point="org.eclipse.wst.server.core.moduleObjectAdapters">
+      <moduleObjectAdapter
+            objectClass="org.eclipse.jst.j2ee.application.Application"
+            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ear1">
+      </moduleObjectAdapter>
+      <moduleObjectAdapter
+            objectClass="org.eclipse.core.resources.IProject"
+            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ear2">
+      </moduleObjectAdapter>
+      <moduleObjectAdapter
+            objectClass="org.eclipse.core.resources.IFile"
+            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ear3">
+      </moduleObjectAdapter>
+   </extension>
+<!-- =============================================================== -->
+<!-- Purpose: Define the default deployable project factory          -->
+<!-- Extension point: com.ibm.etools.server.core.deployableFactories -->
+<!-- =============================================================== -->
+   <extension
+         point="org.eclipse.wst.server.core.moduleFactories">
+      <moduleFactory
+            label="%appClient12DeployableLabel"
+            projects="true"
+            icon="icons/full/obj16/appclient_12_deploy.gif"
+            class="org.eclipse.jst.j2ee.deployables.ApplicationClientDeployableFactory"
+            id="com.ibm.wtp.server.j2ee.appclient">
+         <moduleType
+               versions="*"
+               types="j2ee.appClient">
+         </moduleType>
+      </moduleFactory>
+      <moduleFactory
+            label="%ear12DeployableLabel"
+            projects="true"
+            icon="icons/full/obj16/12_ear_deploy.gif"
+            class="org.eclipse.jst.j2ee.deployables.EnterpriseApplicationDeployableFactory"
+            id="com.ibm.wtp.server.j2ee.application">
+         <moduleType
+               versions="*"
+               types="j2ee.ear">
+         </moduleType>
+      </moduleFactory>
+      <moduleFactory
+            projects="true"
+            icon="icons/full/obj16/jarproject_deploy.gif"
+            index="20"
+            class="org.eclipse.jst.j2ee.deployables.LooseArchiveDeployableFactory"
+            id="com.ibm.wtp.server.looseArchive">
+         <moduleType
+               versions="*"
+               types="j2ee.loosearchive">
+         </moduleType>
+      </moduleFactory>
+   </extension>
+<!-- Web services edit models -->
+   <extension
+         id="editModel.ejbWebService"
+         name="Web Service Edit Model"
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="com.ibm.wtp.webservice.ejb.editModel"
+            factoryClass="org.eclipse.jst.j2ee.webservices.EjbProjectWebServiceEditModelFactory">
+         <editModelResource
+               URI="META-INF/webservices.xml"
+               autoload="true">
+         </editModelResource>
+      </editModel>
+   </extension>
+   <extension
+         id="editModel.webWebService"
+         name="Web Service Edit Model"
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="com.ibm.wtp.webservice.web.editModel"
+            factoryClass="org.eclipse.jst.j2ee.webservices.WebProjectWebServiceEditModelFactory">
+         <editModelResource
+               URI="WEB-INF/webservices.xml"
+               autoload="true">
+         </editModelResource>
+      </editModel>
+   </extension>
+   <extension
+         id="editModel.appClientWebService"
+         name="Web Service Edit Model"
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="com.ibm.wtp.webservice.appClient.editModel"
+            factoryClass="org.eclipse.jst.j2ee.webservices.AppClientProjectWebServiceEditModelFactory">
+         <editModelResource
+               URI="META-INF/webservices.xml"
+               autoload="true">
+         </editModelResource>
+      </editModel>
+   </extension>
+<!-- =============================================================== -->
+<!-- WTP Operation extendable operations						        -->
+<!-- 																	 -->
+<!-- =============================================================== -->
+   <extension
+         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.common.operations.RemoveSecurityRoleOperation"
+            id="org.eclipse.jst.j2ee.common.operations.RemoveSecurityRoleOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.operations.EJBRelationshipCreationOperation"
+            id="org.eclipse.jst.j2ee.ejb.operations.EJBRelationshipCreationOperation">
+      </extendableOperation>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.reference.EJBReferenceCreationOperation"
+            id="org.eclipse.jst.j2ee.reference.EJBReferenceCreationOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.delete.DeleteModuleOperation"
+            id="org.eclipse.jst.j2ee.delete.DeleteModuleOperation">     
+	   </extendableOperation>             
+   </extension>
+<!-- .j2ee file migration contributions -->
+   <extension
+         point="org.eclipse.wst.common.migration.migrator">
+      <migrator
+            className="org.eclipse.jst.j2ee.internal.project.J2EESettingsMigrator"
+            id="org.eclipse.jst.j2ee.internal.project.J2EESettingsMigrator.id"
+            filter="org.eclipse.jst.j2ee.internal.project.J2EEMigrationFilter">
+         <enablement>
+			<projectNature natureID="org.eclipse.jst.j2ee.ejb.EJBNature"/>
+			<projectNature natureID="org.eclipse.jst.j2ee.ApplicationClientNature"/>
+			<projectNature natureID="org.eclipse.jst.j2ee.jca.ConnectorNature"/>
+			<projectNature natureID="org.eclipse.jst.j2ee.EARNature"/>
+         </enablement>
+      </migrator>
+   </extension>
+   
+  <!--  Associates .j2ee & .websettings to the XML content type -->
+   <extension
+         point="org.eclipse.core.runtime.contentTypes">
+        <file-association 
+         content-type="org.eclipse.core.runtime.xml"
+         file-extensions="j2ee,websettings"/>
+   </extension>
+</plugin>

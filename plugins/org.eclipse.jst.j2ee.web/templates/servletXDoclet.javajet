@@ -1,0 +1,81 @@
+<%@ jet package="com.ibm.wtp.web" 
+	imports="com.ibm.wtp.web.operations.* java.util.* " 
+	class="ServletTemplate" 
+%><%@ include file="servletHeader.template" %>
+
+<%if (model.isPublic()) {%>public<%}%> <%if (model.isAbstract()) {%>abstract <%}%><%if (model.isFinal()) {%>final <%}
+%>class <%=model.getServletClassName()%> extends <%=model.getSuperclassName()%><%
+ List interfaces = model.getInterfaces(); 
+ if (interfaces.size()>0) {%> implements <% }
+ for (int i=0; i<interfaces.size(); i++) {
+   String INTERFACE = (String) interfaces.get(i);
+   if (i>0) { %>, <%}%><%=INTERFACE%><%}%> {
+    /* (non-Java-doc)
+	 * @see javax.servlet.http.HttpServlet#HttpServlet()
+	 */
+	public <%=model.getServletClassName()%>() {
+		super();
+	} <% if (model.shouldGenDestroy()) { %>
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+	} <% } %> <% if (model.shouldGenDoDelete()) { %>
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doDelete(arg0, arg1);
+	} <% } %> 	<% if (model.shouldGenDoGet()) { %>
+	
+	/* (non-Java-doc)
+	 * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest arg0, HttpServletResponse arg1)
+	 */
+	protected void doGet(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	} <% } %> 	<% if (model.shouldGenDoPost()) { %>
+	
+	/* (non-Java-doc)
+	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest arg0, HttpServletResponse arg1)
+	 */
+	protected void doPost(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	} <% } %>  	<% if (model.shouldGenDoPut()) { %>
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	protected void doPut(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPut(arg0, arg1);
+	} <% } %>  	<% if (model.shouldGenGetServletInfo()) { %>
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.Servlet#getServletInfo()
+	 */
+	public String getServletInfo() {
+		// TODO Auto-generated method stub
+		return super.getServletInfo();
+	} <% } %>  <% if (model.shouldGenInit()) { %>
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.GenericServlet#init()
+	 */
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+	} <% } %>  <% if (model.shouldGenToString()) { %>
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	} <% } %>
+}

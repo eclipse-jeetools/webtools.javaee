@@ -1,0 +1,3 @@
+20040205 - DCB:
+Removed ContainerManagedEntity#addKeyAttributeName(String, boolean) because it is no longer required 
+and it was only to be used by internal code.  You should use ContainerManagedEntity#addKeyAttributeName(String).

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0"
+  xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="wsdd"
+    nsURI="wsdd.xmi" nsPrefix="com.ibm.etools.webservice.wsdd">
+  <eClassifiers xsi:type="ecore:EClass" name="WebServices" eSuperTypes="common.ecore#//CompatibilityDescriptionGroup">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The webservices element is the root element for the web services deployment descriptor.  It specifies the set of Web service descriptions that are to be deployed into the J2EE Application Server and the dependencies they have on container resources and services.&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="webServiceDescriptions"
+        lowerBound="1" upperBound="-1" eType="#//WebServiceDescription" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WebServiceDescription">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The webservice-description element defines a WSDL document file and the set of Port components associated with the WSDL ports defined in the WSDL document.  There may be multiple webservice-descriptions defined within a module.&#xD;&#xA;&#xD;&#xA;All WSDL file ports must have a corresponding port-component element defined.&#xD;&#xA;&#xD;&#xA;Used in: webservices&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="jaxrpcMappingFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The jaxrpc-mapping-file element contains the name of a file that describes the JAX-RPC mapping between the Java interaces used by the application and the WSDL description in the wsdl-file. The file name is a relative path within the module.&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="webServiceDescriptionName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The webservice-description-name identifies the collection of port-components associated with a WSDL file and JAX-RPC mapping. The name must be unique within the deployment descriptor.&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="wsdlFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The wsdl-file element contains the name of a WSDL file in the module. The file name is a relative path within the module.&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="smallIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="largeIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="portComponents" lowerBound="1"
+        upperBound="-1" eType="#//PortComponent" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="descriptionType" eType="ecore:EClass wscommon.ecore#//DescriptionType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="displayNameType" eType="ecore:EClass wscommon.ecore#//DisplayNameType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iconType" eType="ecore:EClass common.ecore#//IconType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PortComponent">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The port-component element associates a WSDL port with a Web service interface and implementation.  It defines the name of the port as a component, optional description, optional display name, optional iconic representations, WSDL port QName, Service Endpoint Interface, Service Implementation Bean.&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="portComponentName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The port-component-name element specifies a port component's name. This name is assigned by the module producer to name the service implementation bean in the module's deployment descriptor. The name must be unique among the port component names defined in the same module.&#xD;&#xA;&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceEndpointInterface"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The service-endpoint-interface element contains the fully-qualified name of the port component's Service Endpoint Interface.&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="smallIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="largeIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wsdlPort" lowerBound="1"
+        eType="#//WSDLPort" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceImplBean" lowerBound="1"
+        eType="#//ServiceImplBean" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="handlers" upperBound="-1"
+        eType="#//Handler" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="descriptionType" eType="ecore:EClass wscommon.ecore#//DescriptionType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="displayNameType" eType="ecore:EClass wscommon.ecore#//DisplayNameType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iconType" eType="ecore:EClass common.ecore#//IconType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WSDLPort" eSuperTypes="common.ecore#//QName">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Defines the name space and local name part of the WSDL port QName.&#xD;&#xA;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceImplBean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The service-impl-bean element defines the Web service implementation.A service implementation can be an EJB bean class or JAX-RPC web component. Existing EJB implementations are exposed as a Web service using an ejb-link.&#xD;&#xA;&#xD;&#xA;Used in: port-component&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eEJBLink" eType="#//EJBLink"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eServletLink" eType="#//ServletLink"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="beanLink" eType="#//BeanLink"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServletLink" eSuperTypes="#//BeanLink">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The servlet-link element is used in the service-impl-bean element to specify that a Service Implementation Bean is defined as a JAX-RPC Service Endpoint.&#xD;&#xA;&#xD;&#xA;The value of the servlet-link element must be the servlet-name of a JAX-RPC Service Endpoint in the same WAR file.&#xD;&#xA;&#xD;&#xA;Used in: service-impl-bean&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="servletLink" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EJBLink" eSuperTypes="#//BeanLink">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The ejb-link element is used in the service-impl-bean element to specify that a Service Implementation Bean is defined as a Web Service Endpoint.&#xD;&#xA;&#xD;&#xA;The value of the ejb-link element must be the ejb-name of an enterprise bean in the same ejb-jar file.&#xD;&#xA;&#xD;&#xA;Used in: service-impl-bean&#xD;&#xA;&#xD;&#xA;Examples:&#xD;&#xA;&lt;ejb-link>EmployeeRecord&lt;/ejb-link>&#xD;&#xA;&#x9;&lt;ejb-link>../products/product.jar#ProductEJB&lt;/ejb-link>&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ejbLink" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Handler" eSuperTypes="common.ecore#//CompatibilityDescriptionGroup">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Declares the handler for a port-component. Handlers can access the init-param name/value pairs using the HandlerInfo interface.&#xD;&#xA;&#xD;&#xA;Used in: port-component&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handlerName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="handlerClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initParams" upperBound="-1"
+        eType="ecore:EClass wscommon.ecore#//InitParam" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="soapHeaders" upperBound="-1"
+        eType="ecore:EClass wscommon.ecore#//SOAPHeader" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="soapRoles" upperBound="-1"
+        eType="ecore:EClass wscommon.ecore#//SOAPRole" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BeanLink"/>
+</ecore:EPackage>
