@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 20:11:47 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 22:26:27 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 
@@ -27,7 +27,7 @@ import org.eclipse.jem.internal.instantiation.ParseVisitor;
  */
 public class NaiveExpressionFlattener extends ParseVisitor {
 	
-	protected StringBuffer buffer = new StringBuffer(100);
+	private StringBuffer buffer = new StringBuffer(100);
 	
 	protected final StringBuffer getStringBuffer() {
 		return buffer;
