@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.16 $  $Date: 2004/04/19 19:11:28 $ 
+ *  $Revision: 1.17 $  $Date: 2004/05/04 22:29:42 $ 
  */
 
 
@@ -534,7 +534,9 @@ public class ProxyPlugin extends Plugin {
 	 * @see org.eclipse.core.runtime.Plugin#shutdown()
 	 */
 	public void shutdown() throws CoreException {
-		DebugPlugin.getDefault().getLaunchManager().removeLaunchConfigurationListener(launchListener);
+		// Handle case where debug plugin shuts down before we do since order not guarenteed.
+		if (DebugPlugin.getDefault() != null)
+			DebugPlugin.getDefault().getLaunchManager().removeLaunchConfigurationListener(launchListener);
 		cleanupJob.cancel();	// Stop what we are doing.		
 		if (shutdownListeners != null) {
 			Object[] listeners = shutdownListeners.getListeners();
