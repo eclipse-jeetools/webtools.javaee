@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/16 20:49:21 $ 
+ *  $Revision: 1.7 $  $Date: 2004/06/18 18:11:04 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -539,7 +539,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 			if (result != null)
 				result = result.replace('$', '.');
 		}
-		return result;
+		return result.replace('$', '.');
 	}
 
 	/**
