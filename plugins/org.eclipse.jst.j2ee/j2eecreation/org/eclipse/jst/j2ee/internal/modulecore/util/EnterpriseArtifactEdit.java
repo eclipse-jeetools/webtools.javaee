@@ -119,4 +119,15 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 */
 	
 	public abstract EObject createModelRoot();
+	
+	/**
+	 * <p>
+	 * Create an deployment descriptor resource if one does not get and return it.
+	 * Subclasses should overwrite this method to create their own type of deployment descriptor
+	 * </p>
+	 * @param version version of the component
+	 * @return an EObject
+	 */
+	
+	public abstract EObject createModelRoot(int version);
 }
