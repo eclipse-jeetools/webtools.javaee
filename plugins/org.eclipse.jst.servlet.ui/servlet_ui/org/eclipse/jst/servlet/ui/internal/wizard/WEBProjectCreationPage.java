@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
+import org.eclipse.jst.j2ee.internal.wizard.FlexibleModuleStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
@@ -49,7 +50,8 @@ public class WEBProjectCreationPage extends J2EEModuleCreationPage {
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 	private AnnotationsStandaloneGroup annotationsGroup;
-
+	private FlexibleModuleStandaloneGroup flexibleGroup;
+	
 	/**
 	 * @param model
 	 * @param pageName
@@ -91,12 +93,18 @@ public class WEBProjectCreationPage extends J2EEModuleCreationPage {
 		});
 
 		createAnnotationsGroup(advanced);
+		
+		createFlexibleProjectGroup(advanced);
 	}
 
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, getJ2EEModuleCreationDataModel(), false);
 	}
-
+	
+	private void createFlexibleProjectGroup(Composite parent) {
+	    flexibleGroup = new FlexibleModuleStandaloneGroup(parent, getJ2EEModuleCreationDataModel());
+	}
+	
 	WebModuleCreationDataModel getWebProjectCreationDataModel() {
 		return (WebModuleCreationDataModel) model;
 	}

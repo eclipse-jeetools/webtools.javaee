@@ -34,7 +34,6 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.modulecore.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -73,7 +72,12 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	 * type String
 	 */
 	public static final String EAR_PROJECT_NAME = "J2EEModuleCreationDataModel.EAR_PROJECT_NAME"; //$NON-NLS-1$
-
+	
+	/**
+	 * type boolean
+	 */
+	public static final String IS_FLEXIBLE_PROJECT = "J2EEModuleCreationDataModel.IS_FLEXIBLE_PROJECT"; //$NON-NLS-1$
+	
 	public static final String JAR_LIST = UpdateManifestDataModel.JAR_LIST;
 
 	public static String JAR_LIST_TEXT_UI = UpdateManifestDataModel.JAR_LIST_TEXT_UI;
@@ -114,6 +118,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 		addValidBaseProperty(UI_SHOW_EAR_SECTION);
 		addValidBaseProperty(USE_ANNOTATIONS);
 		addValidBaseProperty(PROJECT_LOCATION);
+		addValidBaseProperty(IS_FLEXIBLE_PROJECT);
 	}
 
 	protected void initNestedModels() {
@@ -142,7 +147,9 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 			return Boolean.FALSE;
 		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
 			return getDefaultJ2EEModuleVersion();
-		} else {
+		} else if (propertyName.equals(IS_FLEXIBLE_PROJECT)){
+		    return Boolean.FALSE;
+		}else {
 			return super.getDefaultProperty(propertyName);
 		}
 	}
@@ -229,7 +236,13 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 		if (IS_ENABLED.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) {
 			notifyEnablementChange(ADD_TO_EAR);
 		}
-
+		if (IS_FLEXIBLE_PROJECT.equals(propertyName)) {
+		    if(((Boolean)propertyValue).booleanValue()) 
+		    	setProperty(ADD_TO_EAR, Boolean.FALSE);
+		    else
+		        setProperty(ADD_TO_EAR, Boolean.TRUE);
+		    notifyEnablementChange(ADD_TO_EAR);
+		}
 		return returnValue;
 	}
 
@@ -284,6 +297,11 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 				String earProjectName = getStringProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME);
 				IProject earProject = getProjectHandleFromName(earProjectName);
 				enabled = new Boolean(null == earProject || !earProject.exists());
+			} else if (propertyName.equals(ADD_TO_EAR)){
+			    if(getBooleanProperty(IS_FLEXIBLE_PROJECT))
+			        return Boolean.FALSE;
+			    else
+			        return Boolean.TRUE;
 			}
 		}
 		return enabled;

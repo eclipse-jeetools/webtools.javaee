@@ -93,7 +93,8 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 			WebSettingsMigrator migrator = new WebSettingsMigrator();
 			migrator.migrate(project);
 		}
-		//TODO: make this optional
-		WTPProjectUtilities.addNatureToProjectLast(dataModel.getProjectDataModel().getProject(), IModuleConstants.MODULE_NATURE_ID);
+		//By default we do not create a flexible project
+		if(dataModel.getBooleanProperty(J2EEModuleCreationDataModel.IS_FLEXIBLE_PROJECT))
+		    WTPProjectUtilities.addNatureToProjectLast(dataModel.getProjectDataModel().getProject(), IModuleConstants.MODULE_NATURE_ID);
 	}
 }
