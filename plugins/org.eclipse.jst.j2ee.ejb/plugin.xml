@@ -258,7 +258,7 @@
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.internal.ejb.EJBJar">
+             adaptableType=" org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
              <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>    

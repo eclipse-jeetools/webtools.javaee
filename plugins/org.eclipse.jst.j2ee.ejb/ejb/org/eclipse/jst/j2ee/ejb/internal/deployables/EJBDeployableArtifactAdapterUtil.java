@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.deployables;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
@@ -24,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
+import org.eclipse.wst.server.core.ServerUtil;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -32,7 +36,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * @version 1.0
  * @author
  */
-public class EJBDeployableArtifactAdapterUtil  {
+public class EJBDeployableArtifactAdapterUtil {
 	/**
 	 * Constructor for EJBDeployableObjectAdapter.
 	 */
@@ -100,8 +104,21 @@ public class EJBDeployableArtifactAdapterUtil  {
 
 	protected static IModule getModule(IProject project) {
 		EJBNatureRuntime nature = getNature(project);
-		if (nature != null)
-			return nature.getModule();
+		if (nature != null) {
+			IModule deployable = nature.getModule();
+			if (deployable != null)
+				return deployable;
+			Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ejb")).iterator(); //$NON-NLS-1$
+
+			while (iterator.hasNext()) {
+				Object next = iterator.next();
+				if (next instanceof IModule) {
+					deployable = (IModule) next;
+					if (deployable.getProject().equals(project))
+						return deployable;
+				}
+			}
+		}
 		return null;
 	}
 
@@ -148,7 +165,6 @@ public class EJBDeployableArtifactAdapterUtil  {
 		return null;
 	}
 
-  
 
 
 }
