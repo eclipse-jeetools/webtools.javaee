@@ -19,9 +19,9 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 /**
  * <p>
  * EnterpriseArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}to obtain
- * J2EE specific data from a resource (@see Resource), i.e. Deployment Descriptor. The Deployment
- * Descriptor resource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}using a
- * client defined URI. Define methods extracts the data from the resource.
+ * J2EE specific data from a resource (@see Resource), i.e. deployment descriptor. The deployment
+ * descriptor resource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}using a
+ * client defined URI. Defined methods extract data from the resource.
  * </p>
  * 
  * <p>
@@ -33,7 +33,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 
 	/**
 	 * <p>
-	 * Creates an instance facade for the given {@see ArtifactEditModel}
+	 * Creates an instance facade for the given {@see ArtifactEditModel}.
 	 * </p>
 	 * 
 	 * @param anArtifactEditModel
@@ -44,7 +44,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 
 	/***********************************************************************************************
 	 * <p>
-	 * Retrieves J2EE version information from deployment descriptor resource
+	 * Retrieves J2EE version information from deployment descriptor resource.
 	 * </p>
 	 * 
 	 * @return an interger representation of a J2EE Spec version
@@ -55,7 +55,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	/***********************************************************************************************
 	 * <p>
 	 * Retrieves a deployment descriptor resource from ArtifactEditModel (@see ArtifactEditModel)
-	 * using a defined URI
+	 * using a defined URI.
 	 * </p>
 	 * 
 	 * @return deployment descriptor resource
@@ -66,8 +66,12 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	/***********************************************************************************************
 	 * <p>
 	 * Obtains the root object from a deployment descriptor resource, the root object contains all
-	 * other resource defined objects. Examples of a Deployment Descriptor root include: WebAPP
+	 * other resource defined objects. Examples of a deployment descriptor root include: WebAPP
 	 * (@see WebApp), Applicaiton(@see Application), EJBJar((@see EJBJar)
+	 * </p>
+	 * <p>
+	 * Subclasses may extend this method to perform their own deployment descriptor creataion/
+	 * retrieval.
 	 * </p>
 	 * 
 	 * @return a J2EE specific root object
