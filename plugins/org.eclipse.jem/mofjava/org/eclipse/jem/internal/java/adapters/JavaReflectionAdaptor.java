@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Copyright (c) 2001, 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
  *     IBM Corporation - initial API and implementation
@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.10 $  $Date: 2005/02/09 19:04:04 $ 
+ *  $Revision: 1.11 $  $Date: 2005/02/15 22:37:02 $ 
  */
 import java.util.List;
 
