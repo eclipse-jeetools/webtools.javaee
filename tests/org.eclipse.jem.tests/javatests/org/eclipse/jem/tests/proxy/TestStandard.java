@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.proxy;
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/10 22:38:32 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/11 17:46:25 $ 
  */
 import java.io.IOException;
 
@@ -116,12 +116,12 @@ public class TestStandard extends AbstractTestProxy {
 	}
 
 	public void testGetDeclaredConstructors() {
-		IBeanTypeProxy stringType = proxyTypeFactory.getBeanTypeProxy("java.lang.String"); //$NON-NLS-1$				
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
 		
 		// Get all constructors.
-		IConstructorProxy[] ctors = stringType.getDeclaredConstructors();
+		IConstructorProxy[] ctors = testAccessType.getDeclaredConstructors();
 		assertNotNull(ctors);
-		assertEquals(16, ctors.length);		
+		assertEquals(3, ctors.length);		
 	}
 
 	public void testSimpleConstructor() throws ThrowableProxy {
@@ -139,10 +139,10 @@ public class TestStandard extends AbstractTestProxy {
 	}
 
 	public void testSimpleDeclaredConstructor() throws ThrowableProxy {
-		IBeanTypeProxy stringType = proxyTypeFactory.getBeanTypeProxy("java.lang.String"); //$NON-NLS-1$				
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
 		
 		// See if we can get a private constructor.
-		IConstructorProxy ctor = stringType.getDeclaredConstructorProxy(new String[] {"java.lang.String", "int"}); //$NON-NLS-1$ //$NON-NLS-2$
+		IConstructorProxy ctor = testAccessType.getDeclaredConstructorProxy(new String[] {"java.lang.RuntimeException"}); //$NON-NLS-1$
 		assertNotNull(ctor);
 	}
 
