@@ -14,7 +14,8 @@ import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.model.ModuleDelegate;
+
+import com.ibm.wtp.common.logger.proxy.Logger;
 ;
 
 /**
@@ -45,24 +46,28 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 		return IEJBNatureConstants.NATURE_ID;
 	}
 
-	/*
-	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
-	 */
-	public IModule createModule(J2EENature nature) {
-		return new EJBDeployable(nature, ID);
-	}
 
-
-    public ModuleDelegate getModuleDelegate(IModule module) {
-        // TODO Auto-generated method stub
-        return null;
+	
+    public IModule createModule(J2EENature nature) {
+        if (nature == null)
+            return null;
+        EJBDeployable moduleDelegate = null;
+        IModule module = nature.getModule();
+        if (module == null) {
+            try {
+                moduleDelegate = new EJBDeployable(nature, ID);
+                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+                nature.setModule(module);
+                moduleDelegate.initialize(module);
+            } catch (Exception e) {
+                Logger.getLogger().write(e);
+            } finally {
+                moduleDelegates.add(moduleDelegate);
+            }
+        }
+        return module;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
-     */
-    public IModule[] getModules() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
+
 }

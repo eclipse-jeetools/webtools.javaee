@@ -19,8 +19,6 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.server.j2ee.IEJBModule;
-import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.IModuleType;
 
 public class EJBDeployable extends J2EEDeployable implements IEJBModule {
 	/**
@@ -82,27 +80,4 @@ public class EJBDeployable extends J2EEDeployable implements IEJBModule {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModule#getModuleType()
-     */
-    public IModuleType getModuleType() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IModule[] getChildModules(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
-     */
-    public Object getAdapter(Class adapter) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }
