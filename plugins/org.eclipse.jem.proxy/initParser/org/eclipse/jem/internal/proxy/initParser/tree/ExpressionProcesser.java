@@ -3,14 +3,14 @@
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl~v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:55:20 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/16 14:38:04 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
