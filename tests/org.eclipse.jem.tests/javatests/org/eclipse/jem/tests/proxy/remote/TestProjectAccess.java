@@ -1,9 +1,3 @@
-/*
- * Created on Aug 27, 2003
- *
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
 package org.eclipse.jem.tests.proxy.remote;
 /*******************************************************************************
  * Copyright (c)  2003 IBM Corporation and others.
@@ -15,7 +9,10 @@ package org.eclipse.jem.tests.proxy.remote;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-
+/*
+ *  $RCSfile: TestProjectAccess.java,v $
+ *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ */
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;

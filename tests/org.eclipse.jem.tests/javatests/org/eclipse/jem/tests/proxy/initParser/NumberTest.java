@@ -1,9 +1,3 @@
-/*
- * Created on Apr 25, 2003
- *
- * To change the template for this generated file go to
- * Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jem.tests.proxy.initParser;
 /*******************************************************************************
  * Copyright (c)  2003 IBM Corporation and others.
@@ -15,7 +9,10 @@ package org.eclipse.jem.tests.proxy.initParser;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-
+/*
+ *  $RCSfile: NumberTest.java,v $
+ *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ */
 
 /**
  * @author jmyers
