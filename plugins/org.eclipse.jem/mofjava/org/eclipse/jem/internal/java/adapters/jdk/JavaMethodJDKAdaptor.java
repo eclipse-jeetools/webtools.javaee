@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
  *  $RCSfile: JavaMethodJDKAdaptor.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/03 21:19:40 $ 
  */
 
 import java.util.List;
@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.java.*;
+import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.java.impl.MethodImpl;
 /**
@@ -28,7 +29,7 @@ import org.eclipse.jem.java.impl.MethodImpl;
  * Creation date: (6/6/2000 4:42:50 PM)
  * @author: Administrator
  */
-public class JavaMethodJDKAdaptor extends JDKAdaptor {
+public class JavaMethodJDKAdaptor extends JDKAdaptor implements IJavaMethodAdapter {
 	protected java.lang.reflect.AccessibleObject sourceAccessible = null; // Could be method or ctor.
 	protected Class parentType = null;
 	// cache a static empty Class[] for no parm methods
@@ -164,6 +165,7 @@ public class JavaMethodJDKAdaptor extends JDKAdaptor {
 	 */
 	public boolean reflectValues() {
 		if (getSourceAccessible() != null) {
+			((Method) getTarget()).setIsGenerated(false);
 			setModifiers();
 			setNaming();
 			setReturnType();
@@ -173,6 +175,15 @@ public class JavaMethodJDKAdaptor extends JDKAdaptor {
 		}
 		return false;
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter#reflectGeneratedIfNecessary()
+	 */
+	public boolean reflectGeneratedIfNecessary() {
+		return reflectValuesIfNecessary();
+	}
+	
 	/**
 	 * setModifiers - set the attribute values related to modifiers here
 	 */

@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
 
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/03 21:19:40 $ 
  */
 
 import java.util.Collection;
@@ -22,26 +22,14 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EOperationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.*;
 
-import org.eclipse.jem.java.Block;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.jem.java.JavaParameter;
-import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.JavaVisibilityKind;
-import org.eclipse.jem.java.Method;
+import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.java.*;
 
 /**
  * @generated
@@ -461,7 +449,9 @@ public class MethodImpl extends EOperationImpl implements Method {
 		return null;
 	}
 
-	protected boolean hasReflected = false;
+	private static final int NOT_REFLECTED = 0x0, REFLECTED_BASE = 0x1, REFLECTED_GENERATED = 0x2;
+
+	protected int reflectionStatus = NOT_REFLECTED;
 
 	protected void reflectValues() {
 		// We only want the testing of the hasReflected and get readadapter to be sync(this) so that
@@ -471,7 +461,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 		// during the sync.
 		ReadAdaptor readAdaptor = null;
 		synchronized (this) {
-			if (!hasReflected) {
+			if ((reflectionStatus & REFLECTED_BASE) == 0) {
 				readAdaptor = getReadAdapter();
 			}
 		}
@@ -480,7 +470,7 @@ public class MethodImpl extends EOperationImpl implements Method {
 			synchronized (this) {
 				// Don't want to set it false. That is job of reflection adapter. Otherwise we could have a race.
 				if (setReflected)
-					hasReflected = setReflected;
+					reflectionStatus |= REFLECTED_BASE;
 			}
 		}
 	}
@@ -496,7 +486,8 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 * Used by reflection adapter to clear the reflection. This not intended to be used by others.
 	 */
 	public synchronized void setReflected(boolean reflected) {
-		hasReflected = reflected;
+		if (!reflected)
+			reflectionStatus = NOT_REFLECTED;
 	}
 
 	/**
@@ -588,11 +579,34 @@ public class MethodImpl extends EOperationImpl implements Method {
 		return sb.toString();
 	}
 
+	protected void reflectGenerated() {
+		// We only want the testing of the hasReflected and get readadapter to be sync(this) so that
+		// it is short and no deadlock possibility (this is because the the method reflection adapter may go
+		// back to the containing java class to get its reflection adapter, which would lock on itself. So
+		// we need to keep the sections that are sync(this) to not be deadlockable by not doing significant work
+		// during the sync.
+		ReadAdaptor readAdaptor = null;
+		synchronized (this) {
+			if ((reflectionStatus & REFLECTED_GENERATED) == 0) {
+				readAdaptor = getReadAdapter();
+			}
+		}
+		if (readAdaptor != null) {
+			boolean setReflected = ((IJavaMethodAdapter) readAdaptor).reflectGeneratedIfNecessary();
+			synchronized (this) {
+				// Don't want to set it false. That is job of reflection adapter. Otherwise we could have a race.
+				if (setReflected)
+					reflectionStatus |= (REFLECTED_GENERATED | REFLECTED_BASE); // We can be certain base will be done by reflect generated if not already
+																			  // done.
+			}
+		}
+	}
+
 	/**
 	 * Returns true if the method is system generated. This is usually determined by the "generated" tag in the comment.
 	 */
 	public boolean isGenerated() {
-		reflectValues();
+		reflectGenerated();
 		return isGeneratedGen();
 	}
 	

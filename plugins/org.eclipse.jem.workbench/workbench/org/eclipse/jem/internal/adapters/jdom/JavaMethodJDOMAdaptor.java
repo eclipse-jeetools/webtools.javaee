@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.6 $  $Date: 2004/09/08 18:44:08 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/03 21:19:40 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
 
+import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.java.*;
@@ -33,7 +34,7 @@ import org.eclipse.jem.java.impl.MethodImpl;
  * Creation date: (6/6/2000 4:42:50 PM)
  * @author: Administrator
  */
-public class JavaMethodJDOMAdaptor extends JDOMAdaptor {
+public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAdapter  {
 
 	protected IMethod sourceMethod = null;
 
@@ -220,7 +221,6 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor {
 	public boolean reflectValues() {
 		super.reflectValues();
 		if (getSourceProject() != null && getSourceMethod() != null && sourceMethod.exists()) {
-			setGeneratedFlag();
 			setModifiers();
 			setNaming();
 			setReturnType();
@@ -250,6 +250,17 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor {
 		}
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter#reflectGeneratedIfNecessary()
+	 */
+	public boolean reflectGeneratedIfNecessary() {
+		if (reflectValuesIfNecessary()) {
+			setGeneratedFlag();
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * setModifiers - set the attribute values related to modifiers here
 	 */
