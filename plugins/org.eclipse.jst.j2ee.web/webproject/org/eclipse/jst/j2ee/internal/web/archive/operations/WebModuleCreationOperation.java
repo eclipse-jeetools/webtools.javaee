@@ -31,7 +31,9 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
+import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
+import org.eclipse.wst.common.modulecore.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 
@@ -91,5 +93,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 			WebSettingsMigrator migrator = new WebSettingsMigrator();
 			migrator.migrate(project);
 		}
+		//TODO: make this optional
+		WTPProjectUtilities.addNatureToProjectLast(dataModel.getProjectDataModel().getProject(), IModuleConstants.MODULE_NATURE_ID);
 	}
 }

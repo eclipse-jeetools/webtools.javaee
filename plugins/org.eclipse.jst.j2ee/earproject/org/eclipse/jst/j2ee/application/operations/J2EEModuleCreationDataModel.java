@@ -99,7 +99,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 
 	protected void init() {
 		super.init();
-		getJavaProjectCreationDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{J2EENatureID,IModuleConstants.MODULE_NATURE_ID});
+		getJavaProjectCreationDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{J2EENatureID});
 		//set it so it pushes it down to ServerTargeting
 		setProperty(J2EE_MODULE_VERSION, getDefaultProperty(J2EE_MODULE_VERSION));
 		applicationCreationDataModel.addListener(this);
