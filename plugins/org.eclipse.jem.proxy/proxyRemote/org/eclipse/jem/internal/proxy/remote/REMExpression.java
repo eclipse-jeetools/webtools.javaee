@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/02 19:59:11 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -53,9 +53,9 @@ public class REMExpression extends Expression {
 	/**
 	 * General IOException occurred msg.
 	 */
-	protected static final String IO_EXCEPTION_MSG = "I/O Exception occurred. See .log file for details.";
+	protected static final String IO_EXCEPTION_MSG = ProxyRemoteMessages.getString("REMExpression.IOExceptionSeeLog"); //$NON-NLS-1$
 	
-	protected static final String COMMAND_EXCEPTION_MSG = "Command Exception occurred. See .log file for details.";
+	protected static final String COMMAND_EXCEPTION_MSG = ProxyRemoteMessages.getString("REMExpression.CommandExceptionSeeLog"); //$NON-NLS-1$
 	
 	/**
 	 * Throw an an illegal state exception if some general error, in particular an I/O or Command Exception

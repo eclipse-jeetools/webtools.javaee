@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.6 $  $Date: 2004/05/26 14:41:32 $ 
+ *  $Revision: 1.7 $  $Date: 2004/06/02 20:02:54 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -138,7 +138,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 			return perform(astExpression);
 		} catch (InvalidExpressionException e) {
 			// Create a msg that is formed of the exception message and the full init string.
-			String msg = MessageFormat.format("{0} - {1}", new Object[] {e.getLocalizedMessage(), astExpression.toString()});
+			String msg = MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.0"), new Object[] {e.getLocalizedMessage(), astExpression.toString()}); //$NON-NLS-1$
 			PTInvalidExpression exp = InstantiationFactory.eINSTANCE.createPTInvalidExpression();
 			exp.setMessage(msg);
 			return exp;
@@ -167,7 +167,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 			expression = null;
 			astExpression.accept(this);
 			if (expression == null)
-				throw new InvalidExpressionException(MessageFormat.format("Expression \"{0}\" is too complicated.", new Object[] {astExpression.toString()}));
+				throw new InvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.ExpressionTooComplicated"), new Object[] {astExpression.toString()})); //$NON-NLS-1$
 			return expression;
 		} else
 			return null;	// This is ok. It means an optional expression was being processed and the expression didn't exist.
@@ -267,7 +267,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 */
 	public boolean visit(ClassInstanceCreation node) {
 		if (node.getAnonymousClassDeclaration() != null) {
-			throw new InvalidExpressionException("Cannot process anonymous declarations.");
+			throw new InvalidExpressionException(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.CannotProcessAnonymousDeclarations.")); //$NON-NLS-1$
 		}
 		PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
 		PTExpression type = perform(node.getName());
@@ -346,7 +346,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		if (inoper == null) {
 			// It is not one we can handle.
 			throw new InvalidExpressionException(
-					MessageFormat.format("Operator \"{0}\" is too complicated to handle.", new Object[] { node.getOperator().toString() }));
+					MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
 		}
 		inf.setOperator(inoper);
 		inf.setRightOperand(perform(node.getRightOperand()));
@@ -460,7 +460,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		if (ptoper == null) {
 			// It is not one we can handle.
 			throw new InvalidExpressionException(
-				MessageFormat.format("Operator \"{0}\" is too complicated to handle.", new Object[] { node.getOperator().toString() }));
+				MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
 		}
 		pe.setOperator(ptoper);
 		expression = pe;

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.23 $  $Date: 2004/06/02 16:28:51 $ 
+ *  $Revision: 1.24 $  $Date: 2004/06/02 19:58:49 $ 
  */
 
 
@@ -244,7 +244,7 @@ public class ProxyPlugin extends Plugin {
 		}
 	}
 	
-	private static final IPath PROXYJARS_PATH = new Path("proxy.jars");
+	private static final IPath PROXYJARS_PATH = new Path("proxy.jars"); //$NON-NLS-1$
 	
 	/**
 	 * @see ProxyPlugin#localizeFromBundle(Bundle, String)
@@ -549,7 +549,7 @@ public class ProxyPlugin extends Plugin {
 		}
 	};
 	
-	private Job cleanupJob = new Job("Clean up default proxy launch configurations.") {
+	private Job cleanupJob = new Job(ProxyMessages.getString("ProxyPlugin.CleanupDefaultProxyLaunchConfigurations")) { //$NON-NLS-1$
 		{
 			setSystem(true);	// So it doesn't show up in progress monitor. No need to interrupt user.
 			setPriority(Job.SHORT);	// A quick running job.
@@ -652,10 +652,10 @@ public class ProxyPlugin extends Plugin {
 		super.stop(context);
 	}
 	
-	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributors";
-	public static final String PI_CONTAINER = "container";
-	public static final String PI_PLUGIN = "plugin";
-	public static final String PI_CLASS = "class";
+	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributors"; //$NON-NLS-1$
+	public static final String PI_CONTAINER = "container"; //$NON-NLS-1$
+	public static final String PI_PLUGIN = "plugin"; //$NON-NLS-1$
+	public static final String PI_CLASS = "class"; //$NON-NLS-1$
 	
 	/*
 	 * Map of container id's to their ordered array of contribution config elements.
@@ -856,9 +856,9 @@ public class ProxyPlugin extends Plugin {
 				case IClasspathEntry.CPE_VARIABLE:
 					// We only care about JRE_LIB. If we have that, then we will treat it as JRE_CONTAINER. Only
 					// care about first project too, because the first project is the one that determines the JRE type.
-					if (first && "JRE_LIB".equals(entry.getPath().segment(0))) {
-						if (!containerIds.containsKey("org.eclipse.jdt.launching.JRE_CONTAINER"))
-							containerIds.put("org.eclipse.jdt.launching.JRE_CONTAINER", Boolean.TRUE);
+					if (first && "JRE_LIB".equals(entry.getPath().segment(0))) { //$NON-NLS-1$
+						if (!containerIds.containsKey("org.eclipse.jdt.launching.JRE_CONTAINER")) //$NON-NLS-1$
+							containerIds.put("org.eclipse.jdt.launching.JRE_CONTAINER", Boolean.TRUE); //$NON-NLS-1$
 					}
 					break;
 				default:

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.8 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.9 $  $Date: 2004/06/02 19:58:49 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -36,13 +36,13 @@ public class ProxyLaunchSupport {
 	/**
 	 * These are public only so that jem.ui can access this constant. Not meant to be accessed by others.
 	 */
-	public static final QualifiedName PROPERTY_LAUNCH_CONFIGURATION = new QualifiedName("org.eclipse.jem.proxy", "proxyLaunchConfiguration");
+	public static final QualifiedName PROPERTY_LAUNCH_CONFIGURATION = new QualifiedName("org.eclipse.jem.proxy", "proxyLaunchConfiguration"); //$NON-NLS-1$ //$NON-NLS-2$
 	// If a project's persistent property is set with this value, that means there is at least one
 	// launch configuration with this project, but none are selected as the default. This is here
 	// so that we can check in the object contribution that if not set then don't show the menu
 	// item at all. This is to clean up the popup menu so not so cluttered.
 	// If the property is trully not set, then there is no default and there are no configurations for it.
-	public static final String NOT_SET = "...not..set..";	 
+	public static final String NOT_SET = "...not..set..";	  //$NON-NLS-1$
 		
 	/*
 	 * Registry of launch key to LaunchInfo classes.
@@ -245,14 +245,14 @@ public class ProxyLaunchSupport {
 					break;
 				}
 			}
-			if (config == null || !config.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "").equals(project.getName())) {
+			if (config == null || !config.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "").equals(project.getName())) { //$NON-NLS-1$
 				project.setPersistentProperty(PROPERTY_LAUNCH_CONFIGURATION, (String) null);	// Config not found, or for a different project, so no longer the default.
 				config = null;
 			}
 		}
 		
 		if (config == null) {
-			ILaunchConfigurationWorkingCopy configwc = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurationType(IProxyConstants.LOCAL_LAUNCH_TYPE).newInstance(null, DebugPlugin.getDefault().getLaunchManager().generateUniqueLaunchConfigurationNameFrom("LocalProxy_"+project.getName()));
+			ILaunchConfigurationWorkingCopy configwc = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurationType(IProxyConstants.LOCAL_LAUNCH_TYPE).newInstance(null, DebugPlugin.getDefault().getLaunchManager().generateUniqueLaunchConfigurationNameFrom("LocalProxy_"+project.getName())); //$NON-NLS-1$
 			configwc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName()); 
 			config = configwc;
 		}
@@ -287,7 +287,7 @@ public class ProxyLaunchSupport {
 		// decided
 		// too difficult to determine if build would affect us or not, so just wait.
 		pm.beginTask("", 400);
-		pm.subTask(ProxyMessages.getString("ProxyLaunch"));
+		pm.subTask(ProxyMessages.getString("ProxyLaunch")); //$NON-NLS-1$
 		handleBuild(new SubProgressMonitor(pm, 100));
 				
 		if (aContribs != null) {
@@ -415,7 +415,7 @@ public class ProxyLaunchSupport {
 			
 			final ProxyFactoryRegistry reg = launchInfo.resultRegistry;
 			if (reg == null)
-				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Registry could not be started for some reason.", null));
+				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("ProxyLaunchSupport.RegistryCouldNotStartForSomeReason"), null)); //$NON-NLS-1$
 			
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
@@ -450,7 +450,7 @@ public class ProxyLaunchSupport {
 			pm.beginTask("", 100);
 			if (build.length == 1) {
 				if (build[0].getState() == Job.RUNNING || build[0].getState() == Job.WAITING || build[0].getState() == Job.SLEEPING) {
-					pm.subTask(ProxyMessages.getString("ProxyWaitForBuild"));
+					pm.subTask(ProxyMessages.getString("ProxyWaitForBuild")); //$NON-NLS-1$
 					try {						
 						build[0].join();						
 					} catch (InterruptedException e) {

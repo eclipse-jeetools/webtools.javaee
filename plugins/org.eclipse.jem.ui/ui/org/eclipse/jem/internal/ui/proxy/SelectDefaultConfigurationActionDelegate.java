@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: SelectDefaultConfigurationActionDelegate.java,v $
- *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:43 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/02 19:59:58 $ 
  */
 package org.eclipse.jem.internal.ui.proxy;
 
@@ -78,7 +78,7 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 	 * @since 1.0.0
 	 */
 	public SelectDefaultConfigurationActionDelegate() {
-		super(Platform.getResourceString(JEMUIPlugin.getPlugin().getBundle(), "%Action.selectDefault"));
+		super(Platform.getResourceString(JEMUIPlugin.getPlugin().getBundle(), "%Action.selectDefault")); //$NON-NLS-1$
 		setEnabled(false);
 	}
 
@@ -126,7 +126,7 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 		if (action != null)			
 			action.setEnabled(isEnabled());
 		if (javaproject != null)
-			setToolTipText(MessageFormat.format(Platform.getResourceString(JEMUIPlugin.getPlugin().getBundle(), "%Action.selectDefaultTip"), new Object[] {javaproject.getElementName()}));
+			setToolTipText(MessageFormat.format(Platform.getResourceString(JEMUIPlugin.getPlugin().getBundle(), "%Action.selectDefaultTip"), new Object[] {javaproject.getElementName()})); //$NON-NLS-1$
 		else
 			setToolTipText(getText());
 	}

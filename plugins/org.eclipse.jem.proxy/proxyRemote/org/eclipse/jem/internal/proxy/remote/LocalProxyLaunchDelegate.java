@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.10 $ $Date: 2004/05/25 14:06:06 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.11 $ $Date: 2004/06/02 19:59:11 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -50,7 +50,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 
 		String launchKey = configuration.getAttribute(IProxyConstants.ATTRIBUTE_LAUNCH_KEY, (String) null);
 		if (launchKey == null)
-			abort(ProxyRemoteMessages.getString("ProxyRemoteNoLaunchKey"), null, 0);
+			abort(ProxyRemoteMessages.getString("ProxyRemoteNoLaunchKey"), null, 0); //$NON-NLS-1$
 
 		// In Eclipse, even if private, a launch will show up in the debug process tree and in the console viewer.
 		// To be absolutely private, we need to remove the launch which has already been added.
@@ -72,7 +72,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			name = name.replace('"', '\'');
 
 		pm.beginTask("", 500); //$NON-NLS-1$
-		pm.subTask(MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteLaunchVM"), new Object[] { name }));
+		pm.subTask(MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteLaunchVM"), new Object[] { name })); //$NON-NLS-1$
 		// check for cancellation
 		if (pm.isCanceled())
 			return;
@@ -149,7 +149,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 
 		// Create VM config
 		VMRunnerConfiguration runConfig =
-			new VMRunnerConfiguration("org.eclipse.jem.internal.proxy.vm.remote.RemoteVMApplication", classpath);
+			new VMRunnerConfiguration("org.eclipse.jem.internal.proxy.vm.remote.RemoteVMApplication", classpath); //$NON-NLS-1$
 
 		REMProxyFactoryRegistry registry = new REMProxyFactoryRegistry(ProxyRemoteUtil.getRegistryController(), name);
 		Integer registryKey = registry.getRegistryKey();
@@ -173,7 +173,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		if (!javaLibPaths.isEmpty()) {
 			// first need to see if java lib path also specified in standard args by someone configuring the configuration by hand.
 			for (int i = 0; i < evmArgs.length; i++) {
-				if (evmArgs[i].startsWith("-Djava.library.path")) {
+				if (evmArgs[i].startsWith("-Djava.library.path")) { //$NON-NLS-1$
 					// We found one already here, save the spot so we update it later.
 					existingLibpaths = i;
 					break;
@@ -186,19 +186,19 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		String[] cvmArgs = new String[evmArgs.length + extraArgs];
 		System.arraycopy(evmArgs, 0, cvmArgs, extraArgs, evmArgs.length);	// Put existing into new list at the end.		
 		
-		cvmArgs[0] = "-Dproxyvm.registryKey=" + registryKey;
-		cvmArgs[1] = "-Dproxyvm.masterPort=" + String.valueOf(masterServerPort);
-		cvmArgs[2] = "-Dproxyvm.bufsize=" + bufSize;
-		cvmArgs[3] = "-Dproxyvm.servername=" + name;
+		cvmArgs[0] = "-Dproxyvm.registryKey=" + registryKey; //$NON-NLS-1$
+		cvmArgs[1] = "-Dproxyvm.masterPort=" + String.valueOf(masterServerPort); //$NON-NLS-1$
+		cvmArgs[2] = "-Dproxyvm.bufsize=" + bufSize; //$NON-NLS-1$
+		cvmArgs[3] = "-Dproxyvm.servername=" + name; //$NON-NLS-1$
 
 		// If in debug mode, we need to find a port for it to use.
 		int dport = -1;
 		if (debugMode) {
 			dport = findUnusedLocalPort("localhost", 5000, 15000, new int[0]); //$NON-NLS-1$
-			cvmArgs[4] = "-Djava.compiler=NONE";
-			cvmArgs[5] = "-Xdebug";
-			cvmArgs[6] = "-Xnoagent";
-			cvmArgs[7] = "-Xrunjdwp:transport=dt_socket,server=y,address=" + dport;
+			cvmArgs[4] = "-Djava.compiler=NONE"; //$NON-NLS-1$
+			cvmArgs[5] = "-Xdebug"; //$NON-NLS-1$
+			cvmArgs[6] = "-Xnoagent"; //$NON-NLS-1$
+			cvmArgs[7] = "-Xrunjdwp:transport=dt_socket,server=y,address=" + dport; //$NON-NLS-1$
 		}
 		
 		if (!javaLibPaths.isEmpty()) {
@@ -207,7 +207,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 				appendTo = new StringBuffer(evmArgs[existingLibpaths]); 
 				appendTo.append(File.pathSeparatorChar);	// Plus a separator so we can append
 			} else 
-				appendTo = new StringBuffer("-Djava.library.path=");
+				appendTo = new StringBuffer("-Djava.library.path="); //$NON-NLS-1$
 			for (int i = 0; i < javaLibPaths.size(); i++) {
 				if (i != 0)
 					appendTo.append(File.pathSeparator);
@@ -308,7 +308,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 						IStatus.WARNING,
 						ProxyPlugin.getPlugin().getBundle().getSymbolicName(),
 						0,
-						"Debugger attach canceled",
+						"Debugger attach canceled", //$NON-NLS-1$
 						null));
 			}
 		}

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMRegistryController.java,v $
- *  $Revision: 1.4 $  $Date: 2004/05/18 17:55:51 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/02 19:59:11 $ 
  */
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class REMRegistryController {
 	private static final long CLEANUP_INTERVAL = 60000l;	// The interval between clean up job execution.
 	
 	// Thread to clean up GC'd proxies. Runs as a daemon at the lowest priority
-	private Job processQueueJob= new Job(ProxyRemoteMessages.getString("CleanupJob.title")) {
+	private Job processQueueJob= new Job(ProxyRemoteMessages.getString("CleanupJob.title")) { //$NON-NLS-1$
 		public IStatus run(IProgressMonitor m) {
 				REMProxyFactoryRegistry[] registries = null;
 				synchronized (REMRegistryController.this) {

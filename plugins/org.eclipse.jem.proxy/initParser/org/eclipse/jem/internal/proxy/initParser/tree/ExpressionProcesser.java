@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.2 $  $Date: 2004/04/16 18:31:37 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/02 19:58:29 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -404,7 +404,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwClassCast(Class returnType, Object bean) throws ClassCastException {
-		throw new ClassCastException(MessageFormat.format("Cannot cast \"{0}\" to be \"{1}\".", new Object[] {bean != null ? bean.getClass().getName() : null, returnType.getName()}));
+		throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CannotCastXToY"), new Object[] {bean != null ? bean.getClass().getName() : null, returnType.getName()})); //$NON-NLS-1$
 	}
 
 	/**
@@ -432,7 +432,7 @@ public class ExpressionProcesser {
 		else if (bean instanceof Short)
 			return Short.TYPE;
 		else
-			throw new IllegalArgumentException(bean != null ? bean.getClass().getName() : "null");
+			throw new IllegalArgumentException(bean != null ? bean.getClass().getName() : "null"); //$NON-NLS-1$
 	}
 	
 
@@ -475,10 +475,10 @@ public class ExpressionProcesser {
 	private static final String[] PRE_OPER_TO_STRING;
 	static {
 		PRE_OPER_TO_STRING = new String[IExpressionConstants.PRE_MAX+1];
-		PRE_OPER_TO_STRING[IExpressionConstants.PRE_PLUS] = "+";
-		PRE_OPER_TO_STRING[IExpressionConstants.PRE_MINUS] = "-";
-		PRE_OPER_TO_STRING[IExpressionConstants.PRE_COMPLEMENT] = "~";
-		PRE_OPER_TO_STRING[IExpressionConstants.PRE_NOT] = "!";
+		PRE_OPER_TO_STRING[IExpressionConstants.PRE_PLUS] = "+"; //$NON-NLS-1$
+		PRE_OPER_TO_STRING[IExpressionConstants.PRE_MINUS] = "-"; //$NON-NLS-1$
+		PRE_OPER_TO_STRING[IExpressionConstants.PRE_COMPLEMENT] = "~"; //$NON-NLS-1$
+		PRE_OPER_TO_STRING[IExpressionConstants.PRE_NOT] = "!"; //$NON-NLS-1$
 	}
 	
 	/**
@@ -623,31 +623,31 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwInvalidPrefix(int operator, Object exp) throws IllegalArgumentException {
-		throw new IllegalArgumentException(MessageFormat.format("{0} not valid as the operand of prefix operator \"{1}\".", new Object[] {exp != null ? exp.toString() : null, PRE_OPER_TO_STRING[operator]}));
+		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfPrefixOperator"), new Object[] {exp != null ? exp.toString() : null, PRE_OPER_TO_STRING[operator]})); //$NON-NLS-1$
 	}
 
 	private static final String[] IN_OPER_TO_STRING;
 	static {
 		IN_OPER_TO_STRING = new String[IExpressionConstants.IN_MAX+1];
-		IN_OPER_TO_STRING[IExpressionConstants.IN_AND] = "&";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_CONDITIONAL_AND] = "&&";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_CONDITIONAL_OR] = "||";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_DIVIDE] = "/";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_EQUALS] = "==";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_GREATER] = ">";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_GREATER_EQUALS] = ">=";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_LEFT_SHIFT] = "<<";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_LESS] = "<";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_LESS_EQUALS] = "<=";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_MINUS] = "-";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_NOT_EQUALS] = "!=";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_OR] = "|";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_PLUS] = "+";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_REMAINDER] = "%";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_RIGHT_SHIFT_SIGNED] = ">>";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_RIGHT_SHIFT_UNSIGNED] = ">>>";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_TIMES] = "*";
-		IN_OPER_TO_STRING[IExpressionConstants.IN_XOR] = "^";
+		IN_OPER_TO_STRING[IExpressionConstants.IN_AND] = "&"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_CONDITIONAL_AND] = "&&"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_CONDITIONAL_OR] = "||"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_DIVIDE] = "/"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_EQUALS] = "=="; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_GREATER] = ">"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_GREATER_EQUALS] = ">="; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_LEFT_SHIFT] = "<<"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_LESS] = "<"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_LESS_EQUALS] = "<="; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_MINUS] = "-"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_NOT_EQUALS] = "!="; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_OR] = "|"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_PLUS] = "+"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_REMAINDER] = "%"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_RIGHT_SHIFT_SIGNED] = ">>"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_RIGHT_SHIFT_UNSIGNED] = ">>>"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_TIMES] = "*"; //$NON-NLS-1$
+		IN_OPER_TO_STRING[IExpressionConstants.IN_XOR] = "^"; //$NON-NLS-1$
 	}
 		
 	
@@ -1168,7 +1168,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwInvalidInfix(int operator, Object value) throws IllegalArgumentException {
-		throw new IllegalArgumentException(MessageFormat.format("{0} not valid as the operand of operator \"{1}\".", new Object[] {value != null ? value.toString() : null, IN_OPER_TO_STRING[operator]}));
+		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfOperator"), new Object[] {value != null ? value.toString() : null, IN_OPER_TO_STRING[operator]})); //$NON-NLS-1$
 	}
 	
 	private void testValidBitType(Class type, int operator) {
@@ -1264,7 +1264,7 @@ public class ExpressionProcesser {
 			}
 			
 			if (dimcount < indexCount)
-				throw new IllegalArgumentException(MessageFormat.format("{0} is greater then number of dimensions ({1}) in the array", new Object[] {new Integer(indexCount), new Integer(dimcount)}));
+				throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.XIsGreaterThanNumberOfDimensionsInArray"), new Object[] {new Integer(indexCount), new Integer(dimcount)})); //$NON-NLS-1$
 			
 			// Now start accessing one index at a time.
 			Object value = array;	// Final value, start with full array. 
@@ -1273,7 +1273,7 @@ public class ExpressionProcesser {
 			}
 			pushExpressionValue(value, componentTypes[indexCount-1]);
 		}  else
-			throw new IllegalArgumentException(MessageFormat.format("\"{0}\" is not an array.", new Object[] {arrayType}));
+			throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.NotAnArray"), new Object[] {arrayType})); //$NON-NLS-1$
 	}
 	
 	/**
@@ -1304,7 +1304,7 @@ public class ExpressionProcesser {
 			for(int i=0; i < dimensionCount && componentType != null; i++)
 				componentType = componentType.getComponentType();
 			if (componentType == null)
-				throw new IllegalArgumentException(MessageFormat.format("Arraytype \"{0}\" has fewer dimensions than creation requested ({1}).", new Object[] {arrayType, new Integer(dimensionCount)}));
+				throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.ArraytypeHasFewerDimensionsThanRequested"), new Object[] {arrayType, new Integer(dimensionCount)})); //$NON-NLS-1$
 			
 			// We need to pull in the dimension initializers. They are stacked in reverse order.
 			int[] dimInit = new int[dimensionCount];

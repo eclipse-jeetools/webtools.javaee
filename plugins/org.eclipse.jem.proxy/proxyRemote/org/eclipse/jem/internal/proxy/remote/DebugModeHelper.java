@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: DebugModeHelper.java,v $
- *  $Revision: 1.3 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/02 19:59:11 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -72,7 +72,7 @@ class DebugModeHelper {
 	
 	 		// Setup Eclipse
 		 	Class cPlatformUI = uiBundle.loadClass("org.eclipse.ui.PlatformUI"); //$NON-NLS-1$
-		 	Method isWBRunning = cPlatformUI.getMethod("isWorkbenchRunning", null);
+		 	Method isWBRunning = cPlatformUI.getMethod("isWorkbenchRunning", null); //$NON-NLS-1$
 		 	if (!((Boolean) isWBRunning.invoke(null, null)).booleanValue()) {
 		 		setupAWT();	// UI not available, try through AWT.
 		 		return;

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.2 $  $Date: 2004/04/01 21:25:02 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/02 19:58:49 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -365,13 +365,13 @@ public abstract class Expression implements IExpression {
 			else if (nextForExpressionStack[nextForExpressionStackPos--] == forExpression)
 				return;	// Valid, the top expression matched.
 		} else {
-			String expMsg = invalidMsg != null ? MessageFormat.format("Expression is in invalid state due to \"{0}\"", new Object[] {invalidMsg}) : "Expression is in invalid state";
+			String expMsg = invalidMsg != null ? MessageFormat.format(ProxyMessages.getString("Expression.InInvalidStateDueTo"), new Object[] {invalidMsg}) : ProxyMessages.getString("Expression.InInvalidState"); //$NON-NLS-1$ //$NON-NLS-2$
 			throw new IllegalStateException(expMsg);
 		}
 		
 		// If we got here, then invalid.
 		nextForExpressionStackPos = INVALID;
-		throw new IllegalStateException("Expression type sent in invalid order");
+		throw new IllegalStateException(ProxyMessages.getString("Expression.TypeSentInInvalidOrder")); //$NON-NLS-1$
 	}
 	
 	/**
@@ -681,14 +681,14 @@ public abstract class Expression implements IExpression {
 			if (arrayType instanceof String) {
 				// Need to remove the end set of "[]" to reduce by one dimension.
 				String at = (String) arrayType;
-				int i = at.lastIndexOf("[]");
+				int i = at.lastIndexOf("[]"); //$NON-NLS-1$
 				if (i == -1)
-					throw new IllegalArgumentException(MessageFormat.format("ArrayType \"{0}\" is not an array.", new Object[] {arrayType}));
+					throw new IllegalArgumentException(MessageFormat.format(ProxyMessages.getString("Expression.ArrayTypeNotAnArray"), new Object[] {arrayType})); //$NON-NLS-1$
 				arrayType = at.substring(0, i);
 			} else if (arrayType instanceof IArrayBeanTypeProxy) {
 				arrayType = ((IArrayBeanTypeProxy) arrayType).getComponentType();
 			} else
-				throw new IllegalArgumentException(MessageFormat.format("ArrayType \"{0}\" is not an array.", new Object[] {arrayType}));
+				throw new IllegalArgumentException(MessageFormat.format(ProxyMessages.getString("Expression.ArrayTypeNotAnArray"), new Object[] {arrayType})); //$NON-NLS-1$
 			push(arrayType);
 			push(ARRAYINITIALIZER);
 			
@@ -839,7 +839,7 @@ public abstract class Expression implements IExpression {
 		try {
 			checkForExpression(forExpression);
 			if (!hasReceiver)
-				throw new IllegalArgumentException("Currently cannot handle no receiver on field access.");
+				throw new IllegalArgumentException(ProxyMessages.getString("Expression.CannotHandleNoReceiveOnFieldAccess")); //$NON-NLS-1$
 			
 			push(hasReceiver ? Boolean.TRUE : Boolean.FALSE);	// We have a receiver
 			push(fieldName);
@@ -948,7 +948,7 @@ public abstract class Expression implements IExpression {
 		try {
 			checkForExpression(forExpression);
 			if (!hasReceiver)
-				throw new IllegalArgumentException(MessageFormat.format("Currently methods need receiver ({0})", new Object[] {name}));
+				throw new IllegalArgumentException(MessageFormat.format(ProxyMessages.getString("Expression.MethodsNeedReceiver"), new Object[] {name})); //$NON-NLS-1$
 
 			switch (argumentCount) {
 				case 0 :
