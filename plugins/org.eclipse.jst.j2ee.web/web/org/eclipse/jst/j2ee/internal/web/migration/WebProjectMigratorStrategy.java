@@ -158,7 +158,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	    properties[0] = createProperty(CONTEXT_ROOT, contextRootName);
 	    properties[1] = createProperty(JSP_LEVEL, jspLevel);
 	    for (int i = 2; i < featureIDs.length + 2; i++) {
-	    	properties[i] = createProperty(FEATURE_ID,featureIDs[i - 2]);
+	    	properties[i] = createProperty(FEATURE_ID + (i - 1),featureIDs[i - 2]);
 			
 		}
 		return properties;
