@@ -338,6 +338,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
+	//server specific, dont have support in WTP, but will in RAD
 	public ILibModule[] getLibModules() {
 		//TODO return the appropriate web lib modules
 		return null;
