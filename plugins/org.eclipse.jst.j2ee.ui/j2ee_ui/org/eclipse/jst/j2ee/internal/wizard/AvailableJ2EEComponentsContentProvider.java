@@ -16,9 +16,8 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
@@ -57,21 +56,21 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 				WorkbenchComponent[] appClientComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_APPCLIENT_MODULE);
 				for (int j = 0; j < appClientComps.length; j++) {
 					String version = appClientComps[j].getComponentType().getVersion();
-					int versionID = convertAppClientVersionStringToJ2EEVersionID(version);
+					int versionID = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(version);
 					if (versionID < j2eeVersion)
 						validCompList.add(appClientComps[j]);
 				}
 				WorkbenchComponent[] ejbComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_EJB_MODULE);
 				for (int j = 0; j < ejbComps.length; j++) {
 					String version = ejbComps[j].getComponentType().getVersion();
-					int versionID = convertEJBVersionStringToJ2EEVersionID(version);
+					int versionID = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(version);
 					if (versionID < j2eeVersion)
 						validCompList.add(ejbComps[j]);
 				}
 				WorkbenchComponent[] webComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_WEB_MODULE);
 				for (int j = 0; j < webComps.length; j++) {
 					String version = webComps[j].getComponentType().getVersion();
-					int versionID = convertWebVersionStringToJ2EEVersionID(version);
+					int versionID = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(version);
 //					if (versionID < j2eeVersion)
 						validCompList.add(webComps[j]);
 				}
@@ -85,53 +84,6 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 			}			
 		}
 		return validCompList.toArray();
-	}
-	
-	private boolean isValidComponentForEAR(WorkbenchComponent comp) {
-		ComponentType type = comp.getComponentType();
-		String id = type.getModuleTypeId();
-		String version = type.getVersion();
-		int versionID = convertAppClientVersionStringToJ2EEVersionID(version);
-		if (IModuleConstants.JST_APPCLIENT_MODULE.equals(id) && versionID < j2eeVersion)
-			return true;
-		if (IModuleConstants.JST_EJB_MODULE.equals(id) && versionID < j2eeVersion)
-			return true;
-		if (IModuleConstants.JST_WEB_MODULE.equals(id) && versionID < j2eeVersion)
-			return true;
-		if (IModuleConstants.JST_CONNECTOR_MODULE.equals(id) && versionID < j2eeVersion)
-			return true;
-		return false;
-	}
-	
-	private int convertAppClientVersionStringToJ2EEVersionID(String version) {
-		if (version.equals(J2EEVersionConstants.VERSION_1_2_TEXT))
-			return J2EEVersionConstants.J2EE_1_2_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_1_3_TEXT))
-			return J2EEVersionConstants.J2EE_1_3_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_1_4_TEXT))
-			return J2EEVersionConstants.J2EE_1_4_ID;
-		return Integer.MAX_VALUE;
-	}
-	
-	private int convertEJBVersionStringToJ2EEVersionID(String version) {		
-		if (version.equals(J2EEVersionConstants.VERSION_1_1_TEXT))
-			return J2EEVersionConstants.J2EE_1_2_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_2_0_TEXT))
-			return J2EEVersionConstants.J2EE_1_3_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_2_1_TEXT))
-			return J2EEVersionConstants.J2EE_1_4_ID;
-		return Integer.MAX_VALUE;
-	}
-	
-	private int convertWebVersionStringToJ2EEVersionID(String version) {		
-		// Web module
-		if (version.equals(J2EEVersionConstants.VERSION_2_2_TEXT))
-			return J2EEVersionConstants.J2EE_1_2_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_2_3_TEXT))
-			return J2EEVersionConstants.J2EE_1_3_ID;
-		if (version.equals(J2EEVersionConstants.VERSION_2_4_TEXT))
-			return J2EEVersionConstants.J2EE_1_4_ID;
-		return Integer.MAX_VALUE;
 	}
 
 	/*
