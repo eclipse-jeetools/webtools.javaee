@@ -47,16 +47,6 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	protected boolean advancedControlsBuilt = false;
 	protected Combo serverTargetCombo;
 
-	/*
-	 * @author DABERG
-	 * 
-	 * This type is responsible for setting the Shell size based on the showAdvanced flag. It will
-	 * track the original size of the Shell even if the user resizes it. One problem that we may
-	 * face is that the Shell size could change by the framework prior to the Shell being made
-	 * visible but the page will already get an enter call. This means that we will need to set the
-	 * Shell size based on the showAdvanced flag when the Shell resize event is called and the Shell
-	 * is visible.
-	 */
 	private class AdvancedSizeController implements ControlListener {
 		private int advancedHeight = -1;
 		private Point originalSize;
@@ -145,7 +135,6 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.NEW_EAR_WIZARD_P1);
 		Composite top = new Composite(parent, SWT.NONE);
-//		WorkbenchHelp.setHelp(top, getInfopopID());
 		top.setLayout(new GridLayout());
 		top.setData(new GridData(GridData.FILL_BOTH));
 		Composite composite = new Composite(top, SWT.NONE);

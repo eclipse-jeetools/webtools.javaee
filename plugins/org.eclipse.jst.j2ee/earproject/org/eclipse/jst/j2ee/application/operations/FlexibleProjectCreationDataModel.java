@@ -10,13 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.operations;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class FlexibleProjectCreationDataModel extends WTPOperationDataModel {
 	/**
@@ -51,6 +56,25 @@ public class FlexibleProjectCreationDataModel extends WTPOperationDataModel {
 		addValidBaseProperty(PROJECT_NAME);
 		addValidBaseProperty(PROJECT_LOCATION);
 		super.initValidBaseProperties();
+	}
+	
+	protected IStatus doValidateProperty(String propertyName) {
+		if (PROJECT_NAME.equals(propertyName)) {
+			return validateProjectName();
+		} 
+		return super.doValidateProperty(propertyName);
+	}
+	
+	private IStatus validateProjectName() {
+		String projectName = getStringProperty(PROJECT_NAME);
+		if (projectName != null && projectName.length() != 0) {
+			IProject project = ProjectUtilities.getProject(projectName);
+			if (project != null && project.exists()) {
+				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_PROJECT_NAME_EXISTS);
+				return WTPCommonPlugin.createErrorStatus(msg);
+			}
+		}
+		return WTPCommonPlugin.OK_STATUS;
 	}
 	
 	protected Object getDefaultProperty(String propertyName) {
