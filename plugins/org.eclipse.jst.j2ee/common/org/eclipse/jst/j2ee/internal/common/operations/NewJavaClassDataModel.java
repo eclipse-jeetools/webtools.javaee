@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.operations;
 
-import java.lang.reflect.Modifier;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -18,14 +17,15 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -287,8 +287,11 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 			return validateFolder(getStringProperty(propertyName));
 		if (propertyName.equals(JAVA_PACKAGE))
 			return validateJavaPackage(getStringProperty(propertyName));
-		if (propertyName.equals(CLASS_NAME))
-			return validateJavaClassName(getStringProperty(propertyName));
+		if (propertyName.equals(CLASS_NAME)) {
+			result = validateJavaClassName(getStringProperty(propertyName));
+			if (result.isOK())
+				result = canCreateTypeInClasspath(getStringProperty(CLASS_NAME));
+		}
 		if (propertyName.equals(SUPERCLASS))
 			return validateSuperclass(getStringProperty(propertyName));
 		if (propertyName.equals(MODIFIER_ABSTRACT) || propertyName.equals(MODIFIER_FINAL))
@@ -365,13 +368,6 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_WARNING) + javaStatus.getMessage();
 			return WTPCommonPlugin.createWarningStatus(msg);
 		}
-		// Make sure the class does not already exist
-		else if (findTypeInClasspath(getQualifiedClassName())!=null) {
-		 	String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EXIST);
-		 	return WTPCommonPlugin.createErrorStatus(msg);
-		}
-		
-		// The java class name is valid
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
@@ -402,23 +398,22 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 		IStatus status = validateJavaClassName(className);
 		// If unqualified super class name is valid, ensure validity of superclass itself
 		if (status.isOK()) {
-			// Ensure the superclass exists
-			IType superClassType = findTypeInClasspath(superclassName);
-			if (superClassType == null) {
+			// If the superclass does not exist, throw an error
+			if (canCreateTypeInClasspath(className).isOK()) {
 				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_NOT_EXIST);
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 			// Ensure the superclass is not final
-			int flags = -1;
-			try {
-				flags = superClassType.getFlags();
-			} catch (JavaModelException e) {
-				Logger.getLogger().log(e);
-			}
-			if (Modifier.isFinal(flags)) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_FINAL);
-				return WTPCommonPlugin.createErrorStatus(msg);
-			}
+//			int flags = -1;
+//			try {
+//				flags = superClassType.getFlags();
+//			} catch (Exception e) {
+//				Logger.getLogger().log(e);
+//			}
+//			if (Modifier.isFinal(flags)) {
+//				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_SUPERCLASS_FINAL);
+//				return WTPCommonPlugin.createErrorStatus(msg);
+//			}
 		}
 		// Return status of specified superclass
 		return status;
@@ -480,17 +475,25 @@ public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 	 * @param fullClassName
 	 * @return IType for the specified classname
 	 */
-	private IType findTypeInClasspath(String fullClassName) {
+	private IStatus canCreateTypeInClasspath(String className) {
 		// Retrieve the java project for the cached project
 		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(getTargetProject());
 		try {
-			//Use the java model to try and find the IType for the qualified class name
-			IType type = JavaModelUtil.findType(javaProject, fullClassName);
-			return type;
-		} catch (JavaModelException e) {
+			IPath path = new Path(getStringProperty(SOURCE_FOLDER)+"//"+getStringProperty(JAVA_PACKAGE)); //$NON-NLS-1$
+			IPackageFragment pack= javaProject.findPackageFragment(path);
+			if (pack != null) {
+				ICompilationUnit cu= pack.getCompilationUnit(className + ".java"); //$NON-NLS-1$
+				IResource resource= cu.getResource();
+				if (resource.exists()) {
+					String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EXIST);
+				 	return WTPCommonPlugin.createErrorStatus(msg);
+				}
+			}
+			return WTPCommonPlugin.OK_STATUS;
+		} catch (Exception e) {
 			Logger.getLogger().log(e);
 		}
-		return null;
+		return WTPCommonPlugin.OK_STATUS;
 	}
 
 	/**

@@ -51,7 +51,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  * 
- * @deprecated This needs to be removed as it is legacy inherited from another team
+ * This needs to be removed as it is legacy inherited from another team
  */
 public class NewJavaClassOperation extends WTPOperation {
 
