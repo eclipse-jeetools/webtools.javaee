@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/06/16 20:49:21 $ 
+ *  $Revision: 1.5 $  $Date: 2004/08/17 22:02:45 $ 
  */
 
 import java.util.Collection;
@@ -416,10 +416,6 @@ public class MethodImpl extends EOperationImpl implements Method {
 	 */
 	public EClassifier getEType() {
 		reflectValues();
-		return getETypeGen();
-	}
-
-	public EClassifier getETypeGen() {
 		return super.getEType();
 	}
 
