@@ -191,14 +191,5 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 			return DELEGATE_NULL_STRING;
 		return delegateElement.toString();
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.IConfigurationElement#loadExtensionClass(java.lang.String)
-	 */
-	public Class loadExtensionClass(String propertyName) throws CoreException {
-		if (delegateElement == null)
-			return null;
-		return delegateElement.loadExtensionClass(propertyName);
-	}
 
 }

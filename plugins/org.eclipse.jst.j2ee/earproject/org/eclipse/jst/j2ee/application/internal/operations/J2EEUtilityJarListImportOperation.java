@@ -36,6 +36,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jdt.core.IAccessRule;
+import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -237,11 +239,19 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 		linkedJarFile.createLink(pathToArchive, IResource.ALLOW_MISSING_LOCAL, new SubProgressMonitor(monitor, 1));
 
 		if (project.hasNature(JavaCore.NATURE_ID)) {
-			IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, linkedJarFile.getFullPath(), ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null, // source
+			IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY,
+					IClasspathEntry.CPE_LIBRARY,
+					linkedJarFile.getFullPath(),
+					ClasspathEntry.INCLUDE_ALL,
+					ClasspathEntry.EXCLUDE_NONE,
+					null, // source
 						// attachment
 						null, // source attachment root
 						null, // custom output location
-						false);
+						false,
+						null,
+						false,
+						null);
 
 			JavaProjectUtilities.appendJavaClassPath(project, entry);
 		}
@@ -280,11 +290,19 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 			copiedJarFile.create(jarFileInputStream, 0, new SubProgressMonitor(monitor, 1));
 
 			if (project.hasNature(JavaCore.NATURE_ID)) {
-				IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, IClasspathEntry.CPE_LIBRARY, copiedJarFile.getFullPath(), ClasspathEntry.INCLUDE_ALL, ClasspathEntry.EXCLUDE_NONE, null, // source
+				IClasspathEntry entry = new ClasspathEntry(IPackageFragmentRoot.K_BINARY, 
+						IClasspathEntry.CPE_LIBRARY, 
+						copiedJarFile.getFullPath(), 
+						ClasspathEntry.INCLUDE_ALL, 
+						ClasspathEntry.EXCLUDE_NONE, 
+						null, // source
 							// attachment
 							null, // source attachment root
 							null, // custom output location
-							false);
+							false,
+							null,
+							false,
+							null);
 
 				JavaProjectUtilities.appendJavaClassPath(project, entry);
 			}
