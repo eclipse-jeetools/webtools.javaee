@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.16 $  $Date: 2004/12/06 18:46:06 $ 
+ *  $Revision: 1.17 $  $Date: 2005/01/07 20:51:29 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -31,8 +31,8 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.temp.VETimerTests;
+import org.eclipse.jem.util.PerformanceMonitorUtil;
 
-import com.ibm.wtp.common.util.PerformanceMonitorUtil;
  
 /**
  * This is the used to launch the proxy registries.

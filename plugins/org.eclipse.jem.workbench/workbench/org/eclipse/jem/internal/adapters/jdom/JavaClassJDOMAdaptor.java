@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.12 $  $Date: 2004/12/16 18:36:45 $ 
+ *  $Revision: 1.13 $  $Date: 2005/01/07 20:51:49 $ 
  */
 
 import java.util.*;
@@ -29,14 +29,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
 
-import com.ibm.wtp.common.UIContextDetermination;
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.internal.plugin.JavaPlugin;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.util.UIContextDetermination;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdaptor {

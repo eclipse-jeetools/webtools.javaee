@@ -10,19 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.6 $ $Date: 2004/08/27 15:35:09 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.7 $ $Date: 2005/01/07 20:51:49 $
  */
 
 import org.eclipse.core.runtime.*;
 import org.osgi.framework.BundleContext;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
-import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
 import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 
 /**
  * This is a top-level class of the java plugin tool.
@@ -61,7 +61,7 @@ public class JavaPlugin extends Plugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		JavaRefFactoryImpl.setReflectionAdapterFactoryClass(JavaJDOMAdapterFactory.class);
-		EMFWorkbenchPlugin.getPluginResourceSet().getAdapterFactories().add(new JavaJDKAdapterFactory());		
+		JEMUtilPlugin.getPluginResourceSet().getAdapterFactories().add(new JavaJDKAdapterFactory());		
 	}
 
 }

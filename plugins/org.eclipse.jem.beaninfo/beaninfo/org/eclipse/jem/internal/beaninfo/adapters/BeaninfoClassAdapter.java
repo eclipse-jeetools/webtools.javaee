@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.23 $  $Date: 2004/12/16 18:35:36 $ 
+ *  $Revision: 1.24 $  $Date: 2005/01/07 20:51:34 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -42,11 +42,11 @@ import org.eclipse.jem.internal.temp.VETimerTests;
 
 import com.ibm.etools.emf.event.EventFactory;
 import com.ibm.etools.emf.event.EventUtil;
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Beaninfo adapter for doing introspection on a Java Model class.

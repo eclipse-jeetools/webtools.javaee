@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoContributorAdapter.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/04 12:58:28 $ 
+ *  $Revision: 1.4 $  $Date: 2005/01/07 20:51:34 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -27,8 +27,8 @@ import org.osgi.framework.Bundle;
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IContributorOverrideRunnable;
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 
-import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
  
 /**
  * A default implementation of IBeanInfoContributor for users to subclass. Default does nothing.
@@ -96,7 +96,7 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 	 * @since 1.0.0
 	 */
 	protected Resource loadOverrideResource(Bundle bundle, String relativePath, ResourceSet rset, BeaninfoPlugin.IContributorOverrideRunnable runnable) {
-		URI uri = URI.createURI(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+relativePath);
+		URI uri = URI.createURI(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+relativePath);
 		if (runnable.resourceContributed(uri))
 			return null;	// Already contributed once.
 		Resource result = null;

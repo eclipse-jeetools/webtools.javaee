@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jem"
       label="%featureName"
-      version="1.0.2"
+      version="1.1.0"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -16,12 +16,7 @@
 
    <url>
       <update label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
-      <discovery label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
    </url>
-
-   <includes
-         id="com.ibm.wtp.emf.integration.core"
-         version="0.0.0"/>
 
    <requires>
       <import feature="org.eclipse.jdt" version="3.0.0" match="compatible"/>
@@ -63,5 +58,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+         
+   <plugin
+         id="org.eclipse.jem.util"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>.
+                  
 
 </feature>

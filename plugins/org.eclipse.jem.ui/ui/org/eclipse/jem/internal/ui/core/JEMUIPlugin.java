@@ -10,15 +10,16 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JEMUIPlugin.java,v $
- *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:43 $ 
+ *  $Revision: 1.3 $  $Date: 2005/01/07 20:51:36 $ 
  */
 package org.eclipse.jem.internal.ui.core;
 
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.logger.proxyrender.EclipseLogger;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
+
  
 /**
  * 

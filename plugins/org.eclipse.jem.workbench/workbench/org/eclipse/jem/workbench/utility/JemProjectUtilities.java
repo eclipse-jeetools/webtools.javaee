@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.4 $ $Date: 2004/08/27 15:35:09 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.5 $ $Date: 2005/01/07 20:51:49 $
  */
 
 import java.util.*;
@@ -22,9 +22,9 @@ import org.eclipse.jdt.core.*;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 
-import com.ibm.wtp.emf.workbench.WorkbenchResourceHelperBase;
-import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
 
 public class JemProjectUtilities {
 
@@ -79,7 +79,7 @@ public class JemProjectUtilities {
 		try {
 			cp = javaProj.getRawClasspath();
 		} catch (JavaModelException ex) {
-			EMFWorkbenchPlugin.getLogger().logError(ex);
+			JEMUtilPlugin.getLogger().logError(ex);
 			return null;
 		}
 		List sourcePaths = new ArrayList();
@@ -124,7 +124,7 @@ public class JemProjectUtilities {
 		try {
 			cp = javaProj.getRawClasspath();
 		} catch (JavaModelException ex) {
-			EMFWorkbenchPlugin.getLogger().logError(ex);
+			JEMUtilPlugin.getLogger().logError(ex);
 			return null;
 		}
 		List libraryPaths = new ArrayList();

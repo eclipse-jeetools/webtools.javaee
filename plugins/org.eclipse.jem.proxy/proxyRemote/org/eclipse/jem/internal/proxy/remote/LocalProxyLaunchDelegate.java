@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.17 $ $Date: 2004/12/16 18:35:37 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.18 $ $Date: 2005/01/07 20:51:29 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -33,8 +33,8 @@ import org.eclipse.jdt.launching.*;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.remote.awt.REMRegisterAWT;
 import org.eclipse.jem.internal.temp.VETimerTests;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * Launch Delegate for launching Local (i.e. remote vm is on local system). Here "remote" means the

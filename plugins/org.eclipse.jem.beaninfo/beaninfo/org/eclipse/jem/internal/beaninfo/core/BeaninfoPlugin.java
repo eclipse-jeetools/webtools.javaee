@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.10 $  $Date: 2004/10/07 22:29:57 $ 
+ *  $Revision: 1.11 $  $Date: 2005/01/07 20:51:34 $ 
  */
 
 
@@ -32,10 +32,10 @@ import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin.ContributorExtensionPointInfo;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
-import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 
 /**
  * The plugin class for the org.eclipse.jem.internal.proxy.core plugin.
@@ -508,7 +508,7 @@ public class BeaninfoPlugin extends Plugin {
 								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									runnable.run(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
+									runnable.run(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
 								}
 							}
 						}
@@ -524,7 +524,7 @@ public class BeaninfoPlugin extends Plugin {
 								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									runnable.run(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
+									runnable.run(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
 								}
 							}
 						}

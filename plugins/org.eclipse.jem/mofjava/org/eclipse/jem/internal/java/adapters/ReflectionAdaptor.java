@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.6 $  $Date: 2004/12/16 18:35:30 $ 
+ *  $Revision: 1.7 $  $Date: 2005/01/07 20:51:26 $ 
  */
 import java.util.logging.Level;
 
@@ -22,9 +22,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
+import org.eclipse.jem.util.logger.proxy.Logger;
 /**
  * ReflectionAdaptor - a read adaptor base implementation which does a bulk
  * 	load of relflected values on the first request.

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.9 $  $Date: 2004/12/16 18:35:36 $ 
+ *  $Revision: 1.10 $  $Date: 2005/01/07 20:51:34 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -21,8 +21,8 @@ import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.*;
 
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
  
 
 /**

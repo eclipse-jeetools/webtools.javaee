@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.26 $  $Date: 2004/11/19 21:17:40 $ 
+ *  $Revision: 1.27 $  $Date: 2005/01/07 20:51:34 $ 
  */
 
 import java.io.*;
@@ -45,8 +45,8 @@ import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.util.emf.workbench.ResourceHandler;
 
-import com.ibm.wtp.emf.workbench.ResourceHandler;
 
 /**
  * The beaninfo nature. It is created for a project and holds the

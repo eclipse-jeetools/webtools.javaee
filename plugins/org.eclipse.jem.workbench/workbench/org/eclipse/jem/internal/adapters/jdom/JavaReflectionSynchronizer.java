@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.7 $  $Date: 2004/12/16 18:36:45 $ 
+ *  $Revision: 1.8 $  $Date: 2005/01/07 20:51:49 $ 
  */
 
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.jdt.core.*;
 
 import org.eclipse.jem.internal.plugin.JavaPlugin;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
 /**
  * Insert the type's description here.
  * Creation date: (11/1/2000 11:42:05 AM)

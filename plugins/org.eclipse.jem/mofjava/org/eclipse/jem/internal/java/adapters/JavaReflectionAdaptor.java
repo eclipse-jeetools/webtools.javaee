@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.8 $  $Date: 2005/01/07 20:51:26 $ 
  */
 import java.util.List;
 
@@ -20,9 +20,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 import org.eclipse.jem.java.*;
+import org.eclipse.jem.util.logger.proxy.Logger;
 	
 /**
  * 

@@ -11,11 +11,12 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: SpecialResourceSet.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.7 $  $Date: 2005/01/07 20:51:34 $ 
  */
 
-import com.ibm.wtp.internal.emf.workbench.ProjectResourceSetImpl;
-import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
+import org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
+
 
 /**
  * A Special resource set that is used to link together to the beaninfo
@@ -37,7 +38,7 @@ class SpecialResourceSet extends ProjectResourceSetImpl {
 	 */
 	public SpecialResourceSet() {
 		super(null);
-		EMFWorkbenchPlugin.getSharedCache().stopListening(this);	// We don't care about listening.
+		JEMUtilPlugin.getSharedCache().stopListening(this);	// We don't care about listening.
 	}
 
 }

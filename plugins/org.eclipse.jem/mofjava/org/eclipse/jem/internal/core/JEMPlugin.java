@@ -10,15 +10,16 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JEMPlugin.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.6 $  $Date: 2005/01/07 20:51:26 $ 
  */
 package org.eclipse.jem.internal.core;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.logger.proxyrender.EclipseLogger;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
+
 
 /**
  * org.eclipse.jem plugin

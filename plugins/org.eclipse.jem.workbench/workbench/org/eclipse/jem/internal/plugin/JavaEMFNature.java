@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.7 $ $Date: 2004/08/27 15:35:09 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.8 $ $Date: 2005/01/07 20:51:49 $
  */
 
 import java.util.List;
@@ -21,12 +21,12 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import com.ibm.wtp.emf.workbench.*;
-import com.ibm.wtp.emf.workbench.nature.EMFNature;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.util.emf.workbench.*;
+import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 
 public class JavaEMFNature extends EMFNature {
 	public static final String NATURE_ID = "org.eclipse.jem.workbench.JavaEMFNature";

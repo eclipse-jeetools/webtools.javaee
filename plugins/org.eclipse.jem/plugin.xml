@@ -3,7 +3,7 @@
 <plugin
    id="org.eclipse.jem"
    name="%pluginName"
-   version="1.0.2"
+   version="1.1.0"
    provider-name="%providerName"
    class="org.eclipse.jem.internal.core.JEMPlugin">
 
@@ -19,9 +19,9 @@
    </runtime>
    <requires>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="com.ibm.wtp.common.util"/>
       <import plugin="org.eclipse.jem.proxy" optional="true"/>
       <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jem.util"/>
    </requires>
 
 

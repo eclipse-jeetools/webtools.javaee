@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.9 $  $Date: 2004/12/16 18:35:29 $ 
+ *  $Revision: 1.10 $  $Date: 2005/01/07 20:51:26 $ 
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;
@@ -23,12 +23,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 import org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Reflect the class using standard java.reflect methods.
