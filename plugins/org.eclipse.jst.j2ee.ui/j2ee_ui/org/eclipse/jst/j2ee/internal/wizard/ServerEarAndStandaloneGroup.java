@@ -20,11 +20,11 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard;
+import org.eclipse.jst.j2ee.ui.EARComponentCreationWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -172,19 +172,15 @@ public class ServerEarAndStandaloneGroup {
 	 */
 	protected void handleNewEarSelected() {
 		J2EEComponentCreationDataModel moduleModel = model;
-		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
-		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
-		earModel.setProperty(J2EECreationDataModel.PROJECT_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
-		//TODO the flexible ear data model needs to be used and server target has to be discovered from project
-		//earModel.setProperty(EnterpriseApplicationCreationDataModelOld.SERVER_TARGET_ID, moduleModel.getProperty(J2EEComponentCreationDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
-		EnterpriseApplicationCreationWizard earWizard = new EnterpriseApplicationCreationWizard(earModel);
+		EARComponentCreationDataModel earModel = new EARComponentCreationDataModel();
+		earModel.setIntProperty(J2EECreationDataModel.J2EE_VERSION, moduleModel.getJ2EEVersion());
+		earModel.setProperty(J2EECreationDataModel.MODULE_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
+		EARComponentCreationWizard earWizard = new EARComponentCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
 			//moduleModel.notifyUpdatedEARs();
-			moduleModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(J2EECreationDataModel.PROJECT_NAME));
+			moduleModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(J2EECreationDataModel.MODULE_NAME));
 		}
-
 	}
 
 	public void dispose() {
