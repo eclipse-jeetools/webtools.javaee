@@ -17,7 +17,7 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
@@ -61,7 +61,7 @@ public class EJBImportPage extends J2EEModuleImportPage {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
 	}
 
-	protected J2EEArtifactCreationDataModelOld getNewProjectCreationDataModel() {
+	protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
 		return getEJBDataModel().getJ2eeArtifactCreationDataModel();
 	}
 

@@ -13,12 +13,11 @@ package org.eclipse.jst.j2ee.internal.ejb.workbench.validation;
 import java.util.MissingResourceException;
 import java.util.logging.Level;
 
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.model.internal.validation.IEJBValidatorConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.J2EEValidationResourceHandler;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here. Creation date: (1/22/01 4:13:13 PM)

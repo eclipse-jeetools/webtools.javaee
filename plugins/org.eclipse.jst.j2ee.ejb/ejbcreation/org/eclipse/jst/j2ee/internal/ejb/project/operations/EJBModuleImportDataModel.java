@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportFactory;
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportRegistry;
@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleImportOperation;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
@@ -56,7 +57,7 @@ public final class EJBModuleImportDataModel extends J2EEModuleImportDataModel {
 		dataModel.setProperty(PROJECT_NAME, ejbProjectName);
 		dataModel.setBooleanProperty(ADD_TO_EAR, addToEar);
 		if (earProjectName != null) {
-			dataModel.setProperty(EAR_PROJECT, earProjectName);
+			dataModel.setProperty(EAR_NAME, earProjectName);
 		}
 		try {
 			dataModel.getDefaultOperation().run(null);
@@ -68,9 +69,9 @@ public final class EJBModuleImportDataModel extends J2EEModuleImportDataModel {
 	}
 
 
-	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		EJBModuleCreationDataModel m = new EJBModuleCreationDataModel();
-		m.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
+	protected J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel() {
+		EjbComponentCreationDataModel m = new EjbComponentCreationDataModel();
+		m.setProperty(EjbComponentCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
 		return m;
 	}
 

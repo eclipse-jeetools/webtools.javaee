@@ -17,20 +17,20 @@ package org.eclipse.jst.j2ee.ejb.internal.plugin;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBPostImportOperation;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
@@ -139,8 +139,8 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
 	 */
-	public J2EEModuleCreationOperationOld createProjectCreationOperation(J2EEModuleCreationDataModelOld dataModel) {
-		return new EJBModuleCreationOperation((EJBModuleCreationDataModel) dataModel);
+	public J2EEComponentCreationOperation createProjectCreationOperation(J2EEComponentCreationDataModel dataModel) {
+		return new EjbComponentCreationOperation((EjbComponentCreationDataModel) dataModel);
 	}
 
 	/*
@@ -148,16 +148,16 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
-	public J2EEModuleCreationDataModelOld createProjectDataModel() {
-		EJBModuleCreationDataModel model = new EJBModuleCreationDataModel();
+	public J2EEComponentCreationDataModel createProjectDataModel() {
+		EjbComponentCreationDataModel model = new EjbComponentCreationDataModel();
 
 		//Added this property so Application Creation Wizard, will not create a
 		//EJB client jar, when a EJB module is created.
-		model.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
+		model.setProperty(EjbComponentCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
 
 		//Override the default to not create a default session bean.
 		//This is necessary when creating a default EJB project from an EAR project wizard.
-		model.setProperty(EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, Boolean.FALSE);
+		model.setProperty(EjbComponentCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, Boolean.FALSE);
 		return model;
 	}
 
@@ -184,10 +184,10 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
 	 */
-	public J2EEModuleCreationOperationOld createProjectCreationOperation(ImportOption option) {
+	public J2EEComponentCreationOperation createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == IJ2EEProjectTypes.EJB_CLIENT) {
-			J2EEModuleCreationDataModelOld model = (J2EEModuleCreationDataModelOld) option.getModel();
-			model.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.TRUE);
+			J2EEComponentCreationDataModel model = (J2EEComponentCreationDataModel) option.getModel();
+			model.setProperty(EjbComponentCreationDataModel.CREATE_CLIENT, Boolean.TRUE);
 			return createProjectCreationOperation(model);
 		}
 		return super.createProjectCreationOperation(option);

@@ -51,10 +51,8 @@ import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBGenHelpers;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -62,7 +60,6 @@ import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class EJBClientComponentCreationOperation extends JavaUtilityComponentCreationOperation {
