@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalLaunchProjectTab.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/04 23:26:20 $ 
  */
 package org.eclipse.jem.internal.ui.proxy.remote;
 
@@ -218,15 +218,15 @@ public class LocalLaunchProjectTab extends JavaLaunchConfigurationTab {
 			if (status.isOK()) {
 				IProject project= ResourcesPlugin.getWorkspace().getRoot().getProject(name);
 				if (!project.exists()) {
-					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectNotExist"), new String[] {name})); //$NON-NLS-1$
+					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectNotExist_ERROR_"), new String[] {name})); //$NON-NLS-1$
 					return false;
 				}
 				if (!project.isOpen()) {
-					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectNotOpen"), new String[] {name})); //$NON-NLS-1$
+					setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectNotOpen_ERROR_"), new String[] {name})); //$NON-NLS-1$
 					return false;
 				}
 			} else {
-				setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectValidateError"), new String[]{status.getMessage()})); //$NON-NLS-1$
+				setErrorMessage(MessageFormat.format(ProxyRemoteUIMessages.getString("LocalLaunchProjectTab.ProjectValidateError_ERROR_"), new String[]{status.getMessage()})); //$NON-NLS-1$
 				return false;
 			}
 		}

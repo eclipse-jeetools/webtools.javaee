@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.8 $  $Date: 2004/06/04 18:38:39 $ 
+ *  $Revision: 1.9 $  $Date: 2004/06/04 23:26:40 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -180,7 +180,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 			expression = null;
 			astExpression.accept(this);
 			if (expression == null)
-				throw new InvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.ExpressionTooComplicated"), new Object[] {astExpression.toString()})); //$NON-NLS-1$
+				throw new InvalidExpressionException(MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.ExpressionTooComplicated_EXC_"), new Object[] {astExpression.toString()})); //$NON-NLS-1$
 			return expression;
 		} else
 			return null;	// This is ok. It means an optional expression was being processed and the expression didn't exist.
@@ -280,7 +280,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 */
 	public boolean visit(ClassInstanceCreation node) {
 		if (node.getAnonymousClassDeclaration() != null) {
-			throw new InvalidExpressionException(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.CannotProcessAnonymousDeclarations.")); //$NON-NLS-1$
+			throw new InvalidExpressionException(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.CannotProcessAnonymousDeclarations_EXC_")); //$NON-NLS-1$
 		}
 		PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
 		// If ast level = 2, then you must use getName, but the name needs to be turned into a type
@@ -361,7 +361,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		if (inoper == null) {
 			// It is not one we can handle.
 			throw new InvalidExpressionException(
-					MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
+					MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle_EXC_"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
 		}
 		inf.setOperator(inoper);
 		inf.setRightOperand(perform(node.getRightOperand()));
@@ -475,7 +475,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		if (ptoper == null) {
 			// It is not one we can handle.
 			throw new InvalidExpressionException(
-				MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
+				MessageFormat.format(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.OperatorTooComplicatedToHandle_EXC_"), new Object[] { node.getOperator().toString() })); //$NON-NLS-1$
 		}
 		pe.setOperator(ptoper);
 		expression = pe;

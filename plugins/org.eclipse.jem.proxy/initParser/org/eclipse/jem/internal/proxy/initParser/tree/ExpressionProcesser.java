@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/02 19:58:29 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/04 23:26:02 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -404,7 +404,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwClassCast(Class returnType, Object bean) throws ClassCastException {
-		throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CannotCastXToY"), new Object[] {bean != null ? bean.getClass().getName() : null, returnType.getName()})); //$NON-NLS-1$
+		throw new ClassCastException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.CannotCastXToY_EXC_"), new Object[] {bean != null ? bean.getClass().getName() : null, returnType.getName()})); //$NON-NLS-1$
 	}
 
 	/**
@@ -623,7 +623,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwInvalidPrefix(int operator, Object exp) throws IllegalArgumentException {
-		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfPrefixOperator"), new Object[] {exp != null ? exp.toString() : null, PRE_OPER_TO_STRING[operator]})); //$NON-NLS-1$
+		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfPrefixOperator_EXC_"), new Object[] {exp != null ? exp.toString() : null, PRE_OPER_TO_STRING[operator]})); //$NON-NLS-1$
 	}
 
 	private static final String[] IN_OPER_TO_STRING;
@@ -1168,7 +1168,7 @@ public class ExpressionProcesser {
 	}
 	
 	private void throwInvalidInfix(int operator, Object value) throws IllegalArgumentException {
-		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfOperator"), new Object[] {value != null ? value.toString() : null, IN_OPER_TO_STRING[operator]})); //$NON-NLS-1$
+		throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.InvalidOperandOfOperator_EXC_"), new Object[] {value != null ? value.toString() : null, IN_OPER_TO_STRING[operator]})); //$NON-NLS-1$
 	}
 	
 	private void testValidBitType(Class type, int operator) {
@@ -1264,7 +1264,7 @@ public class ExpressionProcesser {
 			}
 			
 			if (dimcount < indexCount)
-				throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.XIsGreaterThanNumberOfDimensionsInArray"), new Object[] {new Integer(indexCount), new Integer(dimcount)})); //$NON-NLS-1$
+				throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.XIsGreaterThanNumberOfDimensionsInArray_EXC_"), new Object[] {new Integer(indexCount), new Integer(dimcount)})); //$NON-NLS-1$
 			
 			// Now start accessing one index at a time.
 			Object value = array;	// Final value, start with full array. 
@@ -1273,7 +1273,7 @@ public class ExpressionProcesser {
 			}
 			pushExpressionValue(value, componentTypes[indexCount-1]);
 		}  else
-			throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.NotAnArray"), new Object[] {arrayType})); //$NON-NLS-1$
+			throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.NotAnArray_EXC_"), new Object[] {arrayType})); //$NON-NLS-1$
 	}
 	
 	/**
@@ -1304,7 +1304,7 @@ public class ExpressionProcesser {
 			for(int i=0; i < dimensionCount && componentType != null; i++)
 				componentType = componentType.getComponentType();
 			if (componentType == null)
-				throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.ArraytypeHasFewerDimensionsThanRequested"), new Object[] {arrayType, new Integer(dimensionCount)})); //$NON-NLS-1$
+				throw new IllegalArgumentException(MessageFormat.format(InitparserTreeMessages.getString("ExpressionProcesser.ArraytypeHasFewerDimensionsThanRequested_EXC_"), new Object[] {arrayType, new Integer(dimensionCount)})); //$NON-NLS-1$
 			
 			// We need to pull in the dimension initializers. They are stacked in reverse order.
 			int[] dimInit = new int[dimensionCount];

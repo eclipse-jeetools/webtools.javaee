@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.10 $  $Date: 2004/06/04 15:29:38 $ 
+ *  $Revision: 1.11 $  $Date: 2004/06/04 23:26:02 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -481,7 +481,7 @@ public class ProxyLaunchSupport {
 			
 			final ProxyFactoryRegistry reg = launchInfo.resultRegistry;
 			if (reg == null)
-				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("ProxyLaunchSupport.RegistryCouldNotStartForSomeReason"), null)); //$NON-NLS-1$
+				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("ProxyLaunchSupport.RegistryCouldNotStartForSomeReason_WARN_"), null)); //$NON-NLS-1$
 			
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
