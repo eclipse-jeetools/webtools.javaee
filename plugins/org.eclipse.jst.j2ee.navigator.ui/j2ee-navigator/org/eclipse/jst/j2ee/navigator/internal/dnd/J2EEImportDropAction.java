@@ -230,7 +230,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 					if (archiveType == ImportUtil.EARFILE || !project.hasNature(IEARNatureConstants.NATURE_ID)) {
 						dataModel.setProperty(J2EEArtifactImportDataModel.PROJECT_NAME, project.getName());
 					} else {
-						dataModel.setProperty(J2EEModuleImportDataModel.EAR_PROJECT, project.getName());
+						dataModel.setProperty(J2EEModuleImportDataModel.EAR_NAME, project.getName());
 						dataModel.setBooleanProperty(J2EEModuleImportDataModel.ADD_TO_EAR, true);
 					}
 				} catch (CoreException e) {

@@ -11,13 +11,12 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorModuleExportOperation;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used to export Connector Modules to Connector RAR files.

@@ -21,8 +21,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.SWT;
@@ -126,7 +126,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 	 *  
 	 */
 	protected void handleNewProjectButtonPressed() {
-		J2EEArtifactCreationDataModelOld dm = getNewProjectCreationDataModel();
+		J2EEComponentCreationDataModel dm = getNewProjectCreationDataModel();
 
 		WizardDialog dialog = new WizardDialog(projectCombo.getShell(), getNewProjectWizard(dm));
 		dialog.create();
@@ -139,11 +139,11 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		}
 	}
 
-	protected J2EEArtifactCreationDataModelOld getNewProjectCreationDataModel() {
+	protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
 		return null;
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModelOld aModel) {
+	protected WTPWizard getNewProjectWizard(J2EEComponentCreationDataModel aModel) {
 		return null;
 	}
 

@@ -105,7 +105,7 @@ public abstract class J2EEModuleImportWizard extends J2EEArtifactImportWizard im
 				moduleValidator.run(monitor);
 
 				if (importModel.getBooleanProperty(J2EEModuleImportDataModel.ADD_TO_EAR)) {
-					IProject earProject = importModel.getJ2EEModuleCreationDataModel().getApplicationCreationDataModel().getTargetProject();
+					IProject earProject = importModel.getJ2EEModuleCreationDataModel().getEarComponentCreationDataModel().getTargetProject();
 					ValidatorSubsetOperation earValidator = new ValidatorSubsetOperation(earProject, true, false);
 					earValidator.setValidators(getEarValidatorStrings());
 					earValidator.run(monitor);
@@ -147,7 +147,7 @@ public abstract class J2EEModuleImportWizard extends J2EEArtifactImportWizard im
 			if (getSelection() != null && !getSelection().isEmpty()) {
 				IProject targetEARProject = (IProject) AdaptabilityUtility.getAdapter(getSelection().getFirstElement(), IPROJECT_CLASS);
 				if (targetEARProject != null && targetEARProject.hasNature(IEARNatureConstants.NATURE_ID))
-					importModel.setProperty(J2EEModuleImportDataModel.EAR_PROJECT, targetEARProject.getName());
+					importModel.setProperty(J2EEModuleImportDataModel.EAR_NAME, targetEARProject.getName());
 			}
 		} catch (Exception e) {
 			//Ignore

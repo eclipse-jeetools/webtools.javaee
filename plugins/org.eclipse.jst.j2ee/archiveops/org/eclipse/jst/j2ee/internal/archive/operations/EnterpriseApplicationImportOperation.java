@@ -21,15 +21,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.AddUtilityProjectToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
@@ -37,14 +37,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOperation {
 	public EnterpriseApplicationImportOperation(EnterpriseApplicationImportDataModel dataModel) {
@@ -251,8 +250,8 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 		}
 	}
 
-	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EnterpriseApplicationCreationOperation earProjectOp = new EnterpriseApplicationCreationOperation((EnterpriseApplicationCreationDataModel) model);
+	protected void createModuleProject(J2EEComponentCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		EARComponentCreationOperation earProjectOp = new EARComponentCreationOperation((EARComponentCreationDataModel) model);
 		earProjectOp.run(monitor);
 	}
 

@@ -77,7 +77,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEArtifactImportDataModel.FILE_NAME, J2EEArtifactImportDataModel.PROJECT_NAME, J2EEArtifactImportDataModel.OVERWRITE_PROJECT, J2EEArtifactImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT, J2EEModuleImportDataModel.EAR_PROJECT, J2EEArtifactImportDataModel.SERVER_TARGET_ID, J2EEModuleImportDataModel.ADD_TO_EAR};
+		return new String[]{J2EEArtifactImportDataModel.FILE_NAME, J2EEArtifactImportDataModel.PROJECT_NAME, J2EEArtifactImportDataModel.OVERWRITE_PROJECT, J2EEArtifactImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT, J2EEModuleImportDataModel.EAR_NAME, J2EEArtifactImportDataModel.SERVER_TARGET_ID, J2EEModuleImportDataModel.ADD_TO_EAR};
 	}
 
 }

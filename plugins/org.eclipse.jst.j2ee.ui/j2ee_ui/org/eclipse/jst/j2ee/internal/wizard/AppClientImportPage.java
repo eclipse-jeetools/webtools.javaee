@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
@@ -78,7 +78,7 @@ public class AppClientImportPage extends J2EEModuleImportPage {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_PROJECT_LABEL);
 	}
 
-	protected J2EEArtifactCreationDataModelOld getNewProjectCreationDataModel() {
+	protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
 		return getAppClientDataModel().getJ2eeArtifactCreationDataModel();
 	}
 

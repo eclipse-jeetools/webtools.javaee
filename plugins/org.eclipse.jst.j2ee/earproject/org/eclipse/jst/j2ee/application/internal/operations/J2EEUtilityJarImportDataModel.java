@@ -19,6 +19,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 
 public final class J2EEUtilityJarImportDataModel extends J2EEArtifactImportDataModel {
 
@@ -33,23 +34,15 @@ public final class J2EEUtilityJarImportDataModel extends J2EEArtifactImportDataM
 		return false;
 	}
 
-	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		return new J2EEArtifactCreationDataModelOld() {
-			public void initProjectModel() {
-				setProjectDataModel(new JavaProjectCreationDataModel());
-			}
-
-			public WTPOperation getDefaultOperation() {
-				return null;
-			}
-		};
+	protected J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel() {
+		return null;
 	}
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean returnVal = super.doSetProperty(propertyName, propertyValue);
 		if (propertyName.equals(PRESERVE_PROJECT_METADATA)) {
-			JavaProjectCreationDataModel jdm = (JavaProjectCreationDataModel) getJ2eeArtifactCreationDataModel().getProjectDataModel();
-			jdm.setBooleanProperty(JavaProjectCreationDataModel.CREATE_SOURCE_FOLDERS, !getBooleanProperty(BINARY));
+//			JavaProjectCreationDataModel jdm = (JavaProjectCreationDataModel) getJ2eeArtifactCreationDataModel().getProjectDataModel();
+//			jdm.setBooleanProperty(JavaProjectCreationDataModel.CREATE_SOURCE_FOLDERS, !getBooleanProperty(BINARY));
 		}
 		return returnVal;
 	}

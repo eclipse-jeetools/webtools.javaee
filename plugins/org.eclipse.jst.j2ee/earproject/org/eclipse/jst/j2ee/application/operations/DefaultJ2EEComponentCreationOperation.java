@@ -11,8 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
@@ -94,9 +93,9 @@ public class DefaultJ2EEComponentCreationOperation extends WTPOperation {
 //		WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
 	}
 
-	private void runModuleExtensionOperation(EarModuleExtension extension, J2EEModuleCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	private void runModuleExtensionOperation(EarModuleExtension extension, J2EEComponentCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		if (extension != null) {
-			J2EEModuleCreationOperationOld op = extension.createProjectCreationOperation(model);
+			J2EEComponentCreationOperation op = extension.createProjectCreationOperation(model);
 			if (op != null)
 				op.doRun(monitor);
 		}

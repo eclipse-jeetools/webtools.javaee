@@ -16,7 +16,7 @@ import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleExportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationCreationWizard;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationExportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizard;
@@ -38,7 +38,7 @@ import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
  */
 public interface IJ2EEWizardConstants {
 
-	String NEW_EAR_PROJECT_WIZARD_ID = EnterpriseApplicationCreationWizard.WIZARD_ID;
+	String NEW_EAR_PROJECT_WIZARD_ID = EARComponentCreationWizard.WIZARD_ID;
 
 	String NEW_APPCLIENT_PROJECT_WIZARD_ID = AppClientComponentCreationWizard.WIZARD_ID;
 

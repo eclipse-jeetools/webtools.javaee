@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -105,9 +106,9 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	/**
 	 * Extended attributes
 	 */
-	public static final String SERVER_TARGET_ID = J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID;
+	public static final String SERVER_TARGET_ID = FlexibleProjectCreationDataModel.SERVER_TARGET_ID;
 
-	private J2EEArtifactCreationDataModelOld j2eeArtifactCreationDataModel;
+	private J2EEComponentCreationDataModel j2eeArtifactCreationDataModel;
 	private Archive archiveFile;
 	private OpenFailureException cachedOpenFailureException = null;
 
@@ -136,7 +137,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	protected void initNestedModels() {
 		super.initNestedModels();
 		j2eeArtifactCreationDataModel = createJ2EEProjectCreationDataModel();
-		j2eeArtifactCreationDataModel.setBooleanProperty(J2EEArtifactCreationDataModelOld.CREATE_DEFAULT_FILES, false);
+		j2eeArtifactCreationDataModel.setBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES, false);
 		j2eeArtifactCreationDataModel.addListener(this);
 		addNestedModel(NESTED_MODEL_J2EE_PROJECT_CREATION, j2eeArtifactCreationDataModel);
 	}
@@ -148,7 +149,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		if (propertyName.equals(PRESERVE_PROJECT_METADATA) || propertyName.equals(OVERWRITE_PROJECT) || propertyName.equals(DELETE_BEFORE_OVERWRITE_PROJECT)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(PROJECT_NAME)) {
-			return j2eeArtifactCreationDataModel.getProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME);
+			return j2eeArtifactCreationDataModel.getProperty(FlexibleProjectCreationDataModel.PROJECT_NAME);
 		} else if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(URI_FOR_MODULE_MAPPING)) {
@@ -224,7 +225,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		//            updateDefaultProjectName();
 		//        }
 		if (propertyName.equals(PROJECT_NAME)) {
-			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME, propertyValue);
+			j2eeArtifactCreationDataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, propertyValue);
 		} else if (propertyName.equals(SAVE_FILTER) && archiveFile != null) {
 			archiveFile.setSaveFilter(getSaveFilter());
 		}
@@ -265,7 +266,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 					defaultProjectName = baseName + Integer.toString(i);
 				}
 			}
-			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME, defaultProjectName);
+			j2eeArtifactCreationDataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, defaultProjectName);
 			notifyDefaultChange(PROJECT_NAME);
 			setBooleanProperty(DEFAULT_PROJECT_NAME, true);
 		}
@@ -305,40 +306,32 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 			return OK_STATUS;
 		}
 		if (PROJECT_NAME.equals(propertyName)) {
-			ProjectCreationDataModel projectDataModel = j2eeArtifactCreationDataModel.getProjectDataModel();
-			IStatus status = ProjectCreationDataModel.validateProjectName(projectDataModel.getStringProperty(ProjectCreationDataModel.PROJECT_NAME));
+			IProject proj = j2eeArtifactCreationDataModel.getProject();
+			IStatus status = ProjectCreationDataModel.validateProjectName(proj.getName());
 			if (!status.isOK()) {
 				return status;
 			}
-			IProject project = projectDataModel.getProject();
-			if (null != project && !project.exists() || !getBooleanProperty(OVERWRITE_PROJECT)) {
-				status = projectDataModel.validateDataModel();
-				if (!status.isOK()) {
-					status = WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_3", new Object[]{project.getName()}));//$NON-NLS-1$
-				}
-				return status;
-			}
-			if (!getBooleanProperty(DELETE_BEFORE_OVERWRITE_PROJECT)) {
-				//now we have an existing project we are going to overwrite
-				String[] natures = (String[]) projectDataModel.getProperty(ProjectCreationDataModel.PROJECT_NATURES);
-				for (int i = 0; null != natures && i < natures.length; i++) {
-					try {
-						if (!project.hasNature(natures[i])) {
-							return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("importWrongType", new Object[]{project.getName()}));//$NON-NLS-1$
-						}
-					} catch (CoreException e) {
-					}
-				}
-				J2EENature nature = J2EENature.getRegisteredRuntime(project);
-				if (null != nature && nature.getJ2EEVersion() < getJ2EEVersion()) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("importWrongVersion", new Object[]{project.getName()}));//$NON-NLS-1$
-				}
-			} else {
+//			if (!getBooleanProperty(DELETE_BEFORE_OVERWRITE_PROJECT)) {
+//				//now we have an existing project we are going to overwrite
+//				String[] natures = (String[]) projectDataModel.getProperty(ProjectCreationDataModel.PROJECT_NATURES);
+//				for (int i = 0; null != natures && i < natures.length; i++) {
+//					try {
+//						if (!proj.hasNature(natures[i])) {
+//							return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("importWrongType", new Object[]{project.getName()}));//$NON-NLS-1$
+//						}
+//					} catch (CoreException e) {
+//					}
+//				}
+//				J2EENature nature = J2EENature.getRegisteredRuntime(project);
+//				if (null != nature && nature.getJ2EEVersion() < getJ2EEVersion()) {
+//					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("importWrongVersion", new Object[]{project.getName()}));//$NON-NLS-1$
+//				}
+//			} else {
 				String name = getStringProperty(PROJECT_NAME);
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				return workspace.validateName(name, IResource.PROJECT);
-			}
-			return OK_STATUS;
+//			}
+//			return OK_STATUS;
 		}
 		if (FILE_NAME.equals(propertyName)) {
 			String fileName = (String) getProperty(FILE_NAME);
@@ -357,7 +350,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		return 0;
 	}
 
-	protected abstract J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel();
+	protected abstract J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel();
 
 	/*
 	 * @see XMLResource#APP_CLIENT_TYPE
@@ -368,7 +361,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	 */
 	protected abstract int getType();
 
-	public final J2EEArtifactCreationDataModelOld getJ2eeArtifactCreationDataModel() {
+	public final J2EEComponentCreationDataModel getJ2eeArtifactCreationDataModel() {
 		return j2eeArtifactCreationDataModel;
 	}
 
@@ -414,8 +407,8 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getDataModel().equals(j2eeArtifactCreationDataModel) && event.getPropertyName().equals(J2EEArtifactCreationDataModelOld.PROJECT_NAME)) {
-			setProperty(PROJECT_NAME, j2eeArtifactCreationDataModel.getStringProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME));
+		if (event.getDataModel().equals(j2eeArtifactCreationDataModel) && event.getPropertyName().equals(J2EEComponentCreationDataModel.PROJECT_NAME)) {
+			setProperty(PROJECT_NAME, j2eeArtifactCreationDataModel.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
 			setBooleanProperty(DEFAULT_PROJECT_NAME, false);
 		}
 		super.propertyChanged(event);
@@ -425,38 +418,38 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	}
 
 	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
-		if (propertyName.equals(PROJECT_NAME)) {
-			int j2eeVersion = getJ2EEVersion();
-			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-			ArrayList projectList = new ArrayList();
-			String[] natureIds = (String[]) j2eeArtifactCreationDataModel.getProjectDataModel().getProperty(ProjectCreationDataModel.PROJECT_NATURES);
-			String j2eeNatureID = null;
-			for (int j = 0; null == j2eeNatureID && j < natureIds.length; j++) {
-				if (IEARNatureConstants.NATURE_ID.equals(natureIds[j]) || IEJBNatureConstants.NATURE_ID.equals(natureIds[j]) || IWebNatureConstants.J2EE_NATURE_ID.equals(natureIds[j]) || IConnectorNatureConstants.NATURE_ID.equals(natureIds[j]) || IApplicationClientNatureConstants.NATURE_ID.equals(natureIds[j])) {
-					j2eeNatureID = natureIds[j];
-				}
-			}
-			J2EENature j2eeNature = null;
-			for (int i = 0; i < projects.length && j2eeNatureID != null; i++) {
-				try {
-					j2eeNature = (J2EENature) projects[i].getNature(j2eeNatureID);
-					if (j2eeNature != null) {
-						if (j2eeVersion <= j2eeNature.getJ2EEVersion()) {
-							projectList.add(projects[i].getName());
-						}
-					}
-				} catch (CoreException e) {
-				}
-			}
-			String[] projectNames = new String[projectList.size()];
-			for (int i = 0; i < projectNames.length; i++) {
-				projectNames[i] = (String) projectList.get(i);
-			}
-			return WTPPropertyDescriptor.createDescriptors(projectNames);
-		} else if (propertyName.equals(FILE_NAME)) {
-			String[] sourceNames = (String[]) getProperty(FILE_SELECTION_HISTORY);
-			return WTPPropertyDescriptor.createDescriptors(sourceNames);
-		}
+//		if (propertyName.equals(PROJECT_NAME)) {
+//			int j2eeVersion = getJ2EEVersion();
+//			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+//			ArrayList projectList = new ArrayList();
+//			String[] natureIds = (String[]) j2eeArtifactCreationDataModel.getProjectDataModel().getProperty(ProjectCreationDataModel.PROJECT_NATURES);
+//			String j2eeNatureID = null;
+//			for (int j = 0; null == j2eeNatureID && j < natureIds.length; j++) {
+//				if (IEARNatureConstants.NATURE_ID.equals(natureIds[j]) || IEJBNatureConstants.NATURE_ID.equals(natureIds[j]) || IWebNatureConstants.J2EE_NATURE_ID.equals(natureIds[j]) || IConnectorNatureConstants.NATURE_ID.equals(natureIds[j]) || IApplicationClientNatureConstants.NATURE_ID.equals(natureIds[j])) {
+//					j2eeNatureID = natureIds[j];
+//				}
+//			}
+//			J2EENature j2eeNature = null;
+//			for (int i = 0; i < projects.length && j2eeNatureID != null; i++) {
+//				try {
+//					j2eeNature = (J2EENature) projects[i].getNature(j2eeNatureID);
+//					if (j2eeNature != null) {
+//						if (j2eeVersion <= j2eeNature.getJ2EEVersion()) {
+//							projectList.add(projects[i].getName());
+//						}
+//					}
+//				} catch (CoreException e) {
+//				}
+//			}
+//			String[] projectNames = new String[projectList.size()];
+//			for (int i = 0; i < projectNames.length; i++) {
+//				projectNames[i] = (String) projectList.get(i);
+//			}
+//			return WTPPropertyDescriptor.createDescriptors(projectNames);
+//		} else if (propertyName.equals(FILE_NAME)) {
+//			String[] sourceNames = (String[]) getProperty(FILE_SELECTION_HISTORY);
+//			return WTPPropertyDescriptor.createDescriptors(sourceNames);
+//		}
 		return super.doGetValidPropertyDescriptors(propertyName);
 	}
 }

@@ -8,15 +8,16 @@ package org.eclipse.jst.servlet.ui.internal.actions;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
 import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebComponentTypeWizard;
 import org.eclipse.ui.IWorkbench;
@@ -24,8 +25,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction {
 
@@ -46,17 +45,17 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 
 	protected Wizard createWizard() {
 		ConvertToWebComponentTypeWizard wizard = new ConvertToWebComponentTypeWizard(new ConvertWebProjectDataModel());
-		WebModuleCreationDataModel model = (WebModuleCreationDataModel) wizard.getModel();
+		WebComponentCreationDataModel model = (WebComponentCreationDataModel) wizard.getModel();
 		model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
-		model.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
+		model.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
 
 		StaticWebNatureRuntime nature;
 		try {
 			nature = (StaticWebNatureRuntime) project.getNature(IWebNatureConstants.STATIC_NATURE_ID);
 			String webContent = nature.getRootPublishableFolder().getName();
 			String contextRoot = nature.getContextRoot();
-			model.setProperty(WebModuleCreationDataModel.WEB_CONTENT, webContent);
-			model.setProperty(WebModuleCreationDataModel.CONTEXT_ROOT, contextRoot);
+			//model.setProperty(WebComponentCreationDataModel.WEB_CONTENT, webContent);
+			model.setProperty(WebComponentCreationDataModel.CONTEXT_ROOT, contextRoot);
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			Logger.getLogger().logError(e);

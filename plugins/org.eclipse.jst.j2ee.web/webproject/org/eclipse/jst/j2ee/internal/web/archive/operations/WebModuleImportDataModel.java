@@ -14,8 +14,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -25,8 +26,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used for to import Web Modules (from WAR files) into the workspace.
@@ -64,7 +63,7 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 		dataModel.setProperty(PROJECT_NAME, webProjectName);
 		dataModel.setBooleanProperty(ADD_TO_EAR, addToEar);
 		if (earProjectName != null) {
-			dataModel.setProperty(EAR_PROJECT, earProjectName);
+			dataModel.setProperty(EAR_NAME, earProjectName);
 		}
 		try {
 			dataModel.getDefaultOperation().run(null);
@@ -90,10 +89,10 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 		return super.getDefaultProperty(propertyName);
 	}
 
-	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		WebModuleCreationDataModel dm = new WebModuleCreationDataModel();
-		dm.setBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET, false);
-		dm.setBooleanProperty(WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS, false);
+	protected J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel() {
+		WebComponentCreationDataModel dm = new WebComponentCreationDataModel();
+//		dm.setBooleanProperty(J2EEComponentCreationDataModel.ADD_SERVER_TARGET, false);
+//		dm.setBooleanProperty(WebComponentCreationDataModel.MIGRATE_WEB_SETTINGS, false);
 		return dm;
 	}
 
@@ -131,7 +130,7 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 					}
 				}
 			}
-			setProperty(WebModuleCreationDataModel.WEB_CONTENT, webContentName);
+			//setProperty(WebComponentCreationDataModel.WEB_CONTENT, webContentName);
 		}
 		return returnVal;
 	}

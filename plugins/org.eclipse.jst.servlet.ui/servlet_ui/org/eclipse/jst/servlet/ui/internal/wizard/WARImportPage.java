@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -56,7 +56,7 @@ public class WARImportPage extends J2EEModuleImportPage {
 		return new String[]{"*.war"}; //$NON-NLS-1$
 	}
 
-	protected J2EEArtifactCreationDataModelOld getNewProjectCreationDataModel() {
+	protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
 		return getWebDataModel().getJ2eeArtifactCreationDataModel();
 	}
 

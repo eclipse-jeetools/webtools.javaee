@@ -6,7 +6,7 @@
  */
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.widgets.Composite;
 
@@ -22,7 +22,7 @@ public class ConvertToWebComponentTypeWizardPage extends WebComponentCreationWiz
 	 * @param model
 	 * @param pageName
 	 */
-	protected ConvertToWebComponentTypeWizardPage(WebModuleCreationDataModel model, String pageName) {
+	protected ConvertToWebComponentTypeWizardPage(WebComponentCreationDataModel model, String pageName) {
 		// TODO use flexible project
 		//super(model, pageName);
 		super(null, pageName);

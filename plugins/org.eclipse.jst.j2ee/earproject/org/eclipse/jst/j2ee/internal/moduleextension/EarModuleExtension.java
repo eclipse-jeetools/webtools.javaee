@@ -16,8 +16,8 @@
  */
 package org.eclipse.jst.j2ee.internal.moduleextension;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 
@@ -37,11 +37,11 @@ public interface EarModuleExtension {
 	 * 
 	 * @return
 	 */
-	J2EEModuleCreationDataModelOld createProjectDataModel();
+	J2EEComponentCreationDataModel createProjectDataModel();
 
 	J2EEModuleImportDataModel createImportDataModel();
 
-	J2EEModuleCreationOperationOld createProjectCreationOperation(J2EEModuleCreationDataModelOld dataModel);
+	J2EEComponentCreationOperation createProjectCreationOperation(J2EEComponentCreationDataModel dataModel);
 
-	J2EEModuleCreationOperationOld createProjectCreationOperation(ImportOption option);
+	J2EEComponentCreationOperation createProjectCreationOperation(ImportOption option);
 }

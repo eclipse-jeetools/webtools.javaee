@@ -27,8 +27,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -72,13 +73,13 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 	}
 
 	protected void addServerTarget(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		J2EEArtifactCreationDataModelOld projModel = ((J2EEArtifactImportDataModel) operationDataModel).getJ2eeArtifactCreationDataModel();
-		ServerTargetDataModel servModel = projModel.getServerTargetDataModel();
-		ServerTargetOperation serverTargetOperation = new ServerTargetOperation(servModel);
-		serverTargetOperation.doRun(monitor);
+		J2EEComponentCreationDataModel projModel = ((J2EEArtifactImportDataModel) operationDataModel).getJ2eeArtifactCreationDataModel();
+//		ServerTargetDataModel servModel = projModel.getServerTargetDataModel();
+//		ServerTargetOperation serverTargetOperation = new ServerTargetOperation(servModel);
+//		serverTargetOperation.doRun(monitor);
 	}
 
-	protected abstract void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
+	protected abstract void createModuleProject(J2EEComponentCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
 	/**
 	 * Creates the appropriate save strategy. Subclases should overwrite this method to create the

@@ -17,6 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -37,7 +38,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
  * Generation - Code and Comments
  */
 public class ServerTargetGroup {
-	private ServerTargetDataModel model;
+	private J2EEProjectServerTargetDataModel model;
 	private WTPDataModelSynchHelper synchHelper;
 	private Combo targetServerCombo;
 	private Button newTargetServerButton;
@@ -55,7 +56,7 @@ public class ServerTargetGroup {
 	 * @param parent
 	 * @param style
 	 */
-	public ServerTargetGroup(Composite parent, int style, ServerTargetDataModel model) {
+	public ServerTargetGroup(Composite parent, int style, J2EEProjectServerTargetDataModel model) {
 		this.model = model;
 		this.parentUI = parent;
 		synchHelper = new WTPDataModelSynchHelper(model);
@@ -102,7 +103,7 @@ public class ServerTargetGroup {
 	 *  
 	 */
 	protected void handleNewTargetServerButtonPressed() {
-		J2EEProjectCreationPage.launchNewRuntimeWizard(parentUI.getShell(), model);
+		FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(parentUI.getShell(), model);
 	}
 
 	public void dispose() {

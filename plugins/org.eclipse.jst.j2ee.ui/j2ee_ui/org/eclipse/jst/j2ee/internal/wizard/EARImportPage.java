@@ -15,12 +15,12 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -79,18 +79,18 @@ public class EARImportPage extends J2EEImportPage {
 		return composite;
 	}
 
-	protected J2EEArtifactCreationDataModelOld getNewProjectCreationDataModel() {
+	protected J2EEComponentCreationDataModel getNewProjectCreationDataModel() {
 		EnterpriseApplicationImportDataModel importModel = (EnterpriseApplicationImportDataModel) model;
-		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
-		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, importModel.getJ2EEVersion());
+		EARComponentCreationDataModel earModel = new EARComponentCreationDataModel();
+		earModel.setIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION, importModel.getJ2EEVersion());
 		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, importModel.getProperty(J2EEArtifactImportDataModel.PROJECT_NAME));
-		earModel.setProperty(J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID, importModel.getProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
+//		earModel.setProperty(J2EEComponentCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID));
+//		earModel.setBooleanProperty(EARComponentCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
 		return earModel;
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModelOld aModel) {
-		return new EnterpriseApplicationCreationWizard((EnterpriseApplicationCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(J2EEComponentCreationDataModel aModel) {
+		return new EARComponentCreationWizard((EARComponentCreationDataModel) aModel);
 	}
 
 	protected String getProjectImportLabel() {
@@ -114,7 +114,7 @@ public class EARImportPage extends J2EEImportPage {
 	/**
 	 *  
 	 */
-	private J2EEArtifactCreationDataModelOld getJ2EEProjectCreationDataModel() {
+	private J2EEComponentCreationDataModel getJ2EEProjectCreationDataModel() {
 		return ((J2EEArtifactImportDataModel) model).getJ2eeArtifactCreationDataModel();
 	}
 
@@ -148,11 +148,11 @@ public class EARImportPage extends J2EEImportPage {
 		Button newServerTargetButton = new Button(parent, SWT.NONE);
 		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
-		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				J2EEProjectCreationPage.launchNewRuntimeWizard(getShell(), getJ2EEProjectCreationDataModel().getServerTargetDataModel());
-			}
-		});
+//		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
+//			public void widgetSelected(SelectionEvent e) {
+//				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), getJ2EEProjectCreationDataModel().getServerTargetDataModel());
+//			}
+//		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
 		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
 	}

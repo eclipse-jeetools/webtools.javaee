@@ -19,9 +19,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
@@ -43,8 +44,8 @@ public class AppClientModuleImportOperation extends J2EEArtifactImportOperation 
 		}
 	}
 
-	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		AppClientModuleCreationOperation op = new AppClientModuleCreationOperation((AppClientModuleCreationDataModel) model);
+	protected void createModuleProject(J2EEComponentCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		J2EEComponentCreationOperation op = (J2EEComponentCreationOperation)model.getDefaultOperation();
 		op.run(monitor);
 	}
 

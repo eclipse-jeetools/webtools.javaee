@@ -11,7 +11,9 @@ package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -56,7 +58,7 @@ public final class AppClientModuleImportDataModel extends J2EEModuleImportDataMo
 		dataModel.setProperty(PROJECT_NAME, appClientProjectName);
 		dataModel.setBooleanProperty(ADD_TO_EAR, addToEar);
 		if (earProjectName != null) {
-			dataModel.setProperty(EAR_PROJECT, earProjectName);
+			dataModel.setProperty(EAR_NAME, earProjectName);
 		}
 		try {
 			dataModel.getDefaultOperation().run(null);
@@ -67,8 +69,8 @@ public final class AppClientModuleImportDataModel extends J2EEModuleImportDataMo
 		}
 	}
 
-	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		return new AppClientModuleCreationDataModel();
+	protected J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel() {
+		return new AppClientComponentCreationDataModel();
 	}
 
 	protected int getType() {

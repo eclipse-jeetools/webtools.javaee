@@ -11,8 +11,7 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -54,7 +53,7 @@ public final class ConnectorModuleImportDataModel extends J2EEModuleImportDataMo
 		dataModel.setProperty(PROJECT_NAME, connectorProjectName);
 		dataModel.setBooleanProperty(ADD_TO_EAR, addToEar);
 		if (earProjectName != null) {
-			dataModel.setProperty(EAR_PROJECT, earProjectName);
+			dataModel.setProperty(EAR_NAME, earProjectName);
 		}
 		try {
 			dataModel.getDefaultOperation().run(null);
@@ -67,7 +66,7 @@ public final class ConnectorModuleImportDataModel extends J2EEModuleImportDataMo
 
 	protected void init() {
 		super.init();
-		setIntProperty(J2EEModuleCreationDataModelOld.J2EE_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
+		setIntProperty(J2EEComponentCreationDataModel.J2EE_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
 	}
 
 	/*
@@ -75,8 +74,8 @@ public final class ConnectorModuleImportDataModel extends J2EEModuleImportDataMo
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
-	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		return new ConnectorModuleCreationDataModel();
+	protected J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel() {
+		return new ConnectorComponentCreationDataModel();
 	}
 
 	/*

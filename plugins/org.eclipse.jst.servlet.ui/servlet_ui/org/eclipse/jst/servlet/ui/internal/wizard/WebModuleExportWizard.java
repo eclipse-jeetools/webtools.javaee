@@ -10,6 +10,7 @@
  *******************************************************************************/ 
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;

@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImportOperation;
+import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
@@ -233,9 +234,9 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			setProperty(MODULE_MODELS_LIST, getModuleModels());
 			setBooleanProperty(PRESERVE_PROJECT_METADATA, false);
 			setProperty(UTILITY_LIST, null);
-			EnterpriseApplicationCreationDataModel earProjectModel = (EnterpriseApplicationCreationDataModel) getJ2eeArtifactCreationDataModel();
+			EARComponentCreationDataModel earProjectModel = (EARComponentCreationDataModel) getJ2eeArtifactCreationDataModel();
 			if (getModuleFile() != null) {
-				earProjectModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, ArchiveUtil.getFastSpecVersion(getModuleFile()));
+				earProjectModel.setIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION, ArchiveUtil.getFastSpecVersion(getModuleFile()));
 			}
 			notifyValidValuesChange(PROJECT_NAME);
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
@@ -265,8 +266,8 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			J2EEArtifactImportDataModel nestedModel = null;
 			for (int i = 0; i < projectModels.size(); i++) {
 				nestedModel = (J2EEArtifactImportDataModel) projectModels.get(i);
-				if (nestedModel.getJ2eeArtifactCreationDataModel() instanceof J2EEModuleCreationDataModelOld)
-					((J2EEModuleCreationDataModelOld) nestedModel.getJ2eeArtifactCreationDataModel()).setProperty(J2EEModuleCreationDataModelOld.USE_ANNOTATIONS, propertyValue);
+				if (nestedModel.getJ2eeArtifactCreationDataModel() instanceof J2EEComponentCreationDataModel)
+					((J2EEComponentCreationDataModel) nestedModel.getJ2eeArtifactCreationDataModel()).setProperty(J2EEComponentCreationDataModel.USE_ANNOTATIONS, propertyValue);
 			}
 		} else if (MODULE_MODELS_LIST.equals(propertyName)) {
 			List newList = new ArrayList();
@@ -277,7 +278,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			J2EEArtifactImportDataModel nestedModel = null;
 			for (int i = 0; i < nestedModels.size(); i++) {
 				nestedModel = (J2EEModuleImportDataModel) nestedModels.get(i);
-				nestedModel.setProperty(J2EEModuleImportDataModel.EAR_PROJECT, propertyValue);
+				nestedModel.setProperty(J2EEModuleImportDataModel.EAR_NAME, propertyValue);
 			}
 			nestedModels = (List) getProperty(UTILITY_MODELS_LIST);
 			for (int i = 0; i < nestedModels.size(); i++) {
@@ -413,8 +414,8 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 		for (int i = 0; null != projects && i < projects.size(); i++) {
 			model = (J2EEArtifactImportDataModel) projects.get(i);
 			IPath newPath = new Path(property);
-			newPath = newPath.append((String) model.getProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME));
-			model.setProperty(J2EEArtifactCreationDataModelOld.PROJECT_LOCATION, newPath.toOSString());
+			newPath = newPath.append((String) model.getProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
+			//model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION, newPath.toOSString());
 		}
 	}
 
@@ -424,10 +425,10 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			model = (J2EEArtifactImportDataModel) projects.get(i);
 			if (isSet(NESTED_MODULE_ROOT)) {
 				IPath newPath = new Path((String) getProperty(NESTED_MODULE_ROOT));
-				newPath = newPath.append((String) model.getProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME));
-				model.setProperty(J2EEArtifactCreationDataModelOld.PROJECT_LOCATION, newPath.toOSString());
+				newPath = newPath.append((String) model.getProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
+				//model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION, newPath.toOSString());
 			} else {
-				model.setProperty(J2EEArtifactCreationDataModelOld.PROJECT_LOCATION, null);
+				//model.setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION, null);
 			}
 		}
 	}
@@ -492,7 +493,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 				J2EEUtilityJarImportDataModel model = new J2EEUtilityJarImportDataModel();
 				model.setProperty(J2EEUtilityJarImportDataModel.FILE, currentArchive);
 				model.setProperty(J2EEUtilityJarImportDataModel.EAR_PROJECT, getStringProperty(PROJECT_NAME));
-				model.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET, false);
+				//model.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEComponentCreationDataModel.ADD_SERVER_TARGET, false);
 				model.setProperty(PRESERVE_PROJECT_METADATA, getProperty(PRESERVE_PROJECT_METADATA));
 				model.setProperty(OVERWRITE_PROJECT, getProperty(OVERWRITE_NESTED_PROJECTS));
 				utilityModels.add(model);
@@ -574,8 +575,8 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			}
 			if (model != null) {
 				model.setProperty(FILE, temp);
-				model.setProperty(J2EEModuleImportDataModel.EAR_PROJECT, earProjectName);
-				model.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, false);
+				model.setProperty(J2EEModuleImportDataModel.EAR_NAME, earProjectName);
+				model.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
 				model.setProperty(OVERWRITE_PROJECT, getProperty(OVERWRITE_PROJECT));
 				model.setProperty(PRESERVE_PROJECT_METADATA, getProperty(PRESERVE_PROJECT_METADATA));
 				model.setProperty(SERVER_TARGET_ID, getProperty(ServerTargetDataModel.RUNTIME_TARGET_ID));
@@ -637,8 +638,8 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 		return moduleModels;
 	}
 
-	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		return new EnterpriseApplicationCreationDataModel();
+	protected J2EEComponentCreationDataModel createJ2EEProjectCreationDataModel() {
+		return new EARComponentCreationDataModel();
 	}
 
 	protected int getType() {

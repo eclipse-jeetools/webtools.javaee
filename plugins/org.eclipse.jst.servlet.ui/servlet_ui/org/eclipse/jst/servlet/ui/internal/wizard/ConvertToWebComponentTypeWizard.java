@@ -14,8 +14,8 @@ import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.IWorkbench;
@@ -55,7 +55,7 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 	 */
 	protected WTPOperation createBaseOperation() {
 		// TODO Auto-generated method stub
-		return new WebModuleCreationOperation((WebModuleCreationDataModel) model);
+		return new WebComponentCreationOperation((WebComponentCreationDataModel) model);
 	}
 
 	/*
@@ -95,7 +95,7 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 	protected boolean prePerformFinish() {
 		IProjectDescription desc;
 		try {
-			desc = ((WebModuleCreationDataModel) model).getProjectDataModel().getProject().getDescription();
+			desc = ((WebComponentCreationDataModel) model).getTargetProject().getDescription();
 			desc.setBuildSpec(new ICommand[0]);
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block

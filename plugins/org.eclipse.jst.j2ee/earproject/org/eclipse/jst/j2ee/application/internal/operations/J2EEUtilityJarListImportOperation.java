@@ -115,10 +115,10 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 						importModel.setBooleanProperty(J2EEUtilityJarImportDataModel.PRESERVE_PROJECT_METADATA, isBinary);
 						importModel.setProperty(J2EEUtilityJarImportDataModel.FILE, archive);
 
-						if (overrideProjectRoot && projectRoot != null && projectRoot.length() > 0)
-							importModel.getJ2eeArtifactCreationDataModel().setProperty(J2EEArtifactCreationDataModelOld.PROJECT_LOCATION, projectRoot);
-
-						importModel.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET, true);
+//						if (overrideProjectRoot && projectRoot != null && projectRoot.length() > 0)
+//							importModel.getJ2eeArtifactCreationDataModel().setProperty(J2EEComponentCreationDataModel.PROJECT_LOCATION, projectRoot);
+//
+//						importModel.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEComponentCreationDataModel.ADD_SERVER_TARGET, true);
 						importModel.setBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT, model.getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY));
 						importModel.setProperty(J2EEUtilityJarImportDataModel.EAR_PROJECT, earProject);
 

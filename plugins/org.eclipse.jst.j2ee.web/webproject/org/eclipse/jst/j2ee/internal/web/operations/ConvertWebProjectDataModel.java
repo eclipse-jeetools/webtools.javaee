@@ -7,9 +7,8 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
@@ -20,7 +19,7 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
-public class ConvertWebProjectDataModel extends WebModuleCreationDataModel
+public class ConvertWebProjectDataModel extends WebComponentCreationDataModel
 {
 	/*
 	 * (non-Javadoc)
@@ -30,7 +29,7 @@ public class ConvertWebProjectDataModel extends WebModuleCreationDataModel
 	public WTPOperation getDefaultOperation()
 	{
 		// TODO Auto-generated method stub
-		return new WebModuleCreationOperation(this);
+		return new WebComponentCreationOperation(this);
 	}
 
 	/*
@@ -54,6 +53,7 @@ public class ConvertWebProjectDataModel extends WebModuleCreationDataModel
 	{
 		// use JavaProjectConverstionDataModel instead of JavaProjectCreationDataModel
 		// to avoid validating project name and location
-		setProjectDataModel(new JavaProjectCreationDataModel());
+		//TODO Doe this still make sense??
+		//setProjectDataModel(new JavaProjectCreationDataModel());
 	}
 }

@@ -28,18 +28,17 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.BinaryProjectHelper;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
-//import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.LibModule;
 
@@ -57,8 +56,8 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationDataModel,
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		WebModuleCreationOperation op = new WebModuleCreationOperation((WebModuleCreationDataModel) model);
+	protected void createModuleProject(J2EEComponentCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		WebComponentCreationOperation op = new WebComponentCreationOperation((WebComponentCreationDataModel) model);
 		op.run(monitor);
 	}
 
@@ -100,8 +99,8 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		//project.getFile(webNature.getWebSettingsPath()).refreshLocal(0, monitor);
 		//WebSettingsMigrator migrator = new WebSettingsMigrator();
 		//migrator.migrate(project);
-		if (!model.getJ2eeArtifactCreationDataModel().getBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET))
-			addServerTarget(monitor);
+//		if (!model.getJ2eeArtifactCreationDataModel().getBooleanProperty(J2EEComponentCreationDataModel.ADD_SERVER_TARGET))
+//			addServerTarget(monitor);
 	}
 
 	private void addExtraClasspathEntries(IProgressMonitor monitor, WebModuleImportDataModel model) throws InvocationTargetException, InterruptedException, CoreException, JavaModelException {
