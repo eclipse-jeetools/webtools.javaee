@@ -142,11 +142,6 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
     protected abstract List createModules(ModuleCoreNature nature);
 
-    /**
-     * Return the nature ID.
-     * 
-     * @return java.lang.String
-     */
     public abstract String getNatureID();
 
     public abstract IModule createModule(J2EENature nature);
@@ -179,13 +174,9 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
             modulesArray[i++] = element;
 
         }
-        // TODO Auto-generated method stub
-        return modulesArray;
+           return modulesArray;
     }
 
-    /**
-     * @return
-     */
     private IModule[] getALLModules() {
         Iterator moduleDelegateIterator = getProjectModules().values().iterator();
         List modules = new ArrayList();
@@ -194,8 +185,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
             modules.addAll(elements);
         }
         int i = 0;
-        // Iterator modulesIter = modules.iterator();
-        Collection nonFlexableProjectModules = Collections.synchronizedCollection(projects.values());
+        Collection nonFlexableProjectModules = projects.values();
         modules.addAll(nonFlexableProjectModules);
         IModule[] modules_Array = new IModule[modules.size()];
         for (int j = 0; j < modules.size(); j++) {
