@@ -1,13 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.util;
 
 import java.util.List;
@@ -27,25 +25,25 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * <p>
- * WebArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}&nbsp;to obtain Web
- * specifec data from a WebAppResource (@see WebAppResource). The WebAppResource is retrieved from
- * the ArtifactEditModel {@see ArtifactEditModel}&nbsp;using a cached constant (@see
- * J2EEConstants.WEBAPP_DD_URI_OBJ). Defined methods extract data from the resource.
+ * WebArtifactEdit obtains a Web Deployment Descriptor metamodel specifec data from a
+ * {@see org.eclipse.jst.j2ee.webapplication.WebAppResource}&nbsp; which stores the metamodel. The
+ * {@see org.eclipse.jst.j2ee.webapplication.WebAppResource}&nbsp;is retrieved from the
+ * {@see org.eclipse.wst.common.modulecore.ArtifactEditModel}&nbsp;using a constant {@see
+ * J2EEConstants#WEBAPP_DD_URI_OBJ}. The defined methods extract data or manipulate the contents of
+ * the underlying resource.
  * </p>
  */
 public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	/**
 	 * <p>
-	 * Identifier used to link WebArtifactEdit to a WebEditAdapterFactory (@see
-	 * WebEditAdapterFactory) stored in an AdapterManger (@see AdapterManager)
+	 * Identifier used to link WebArtifactEdit to a WebEditAdapterFactory {@see
+	 * WebEditAdapterFactory} stored in an AdapterManger (@see AdapterManager)
 	 * </p>
 	 */
 
@@ -58,6 +56,90 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
+
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that will not
+	 * be used for editing. Invocations of any save*() API on an instance returned from this method
+	 * will throw exceptions.
+	 * </p>
+	 * <p>
+	 * <b>This method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            project in the workspace
+	 * @return An instance of WebArtifactEdit that may only be used to read the underlying content
+	 *         model
+	 * @throws UnresolveableURIException
+	 *             could not resolve uri.
+	 */
+	public static WebArtifactEdit getWebArtifactEditForRead(WorkbenchModule aModule) {
+		try {
+			if (isValidWebModule(aModule)) {
+				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
+				return new WebArtifactEdit(nature, aModule, true);
+			}
+		} catch (UnresolveableURIException uue) {
+		}
+		return null;
+	}
+
+
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that
+	 * will be used for editing.
+	 * </p>
+	 * <p>
+	 * <b>This method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchModule}&nbsp;with a handle that resolves to an accessible
+	 *            project in the workspace
+	 * @return An instance of WebArtifactEdit that may be used to modify and persist changes to the
+	 *         underlying content model
+	 */
+	public static WebArtifactEdit getWebArtifactEditForWrite(WorkbenchModule aModule) {
+		try {
+			if (isValidWebModule(aModule)) {
+				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
+				return new WebArtifactEdit(nature, aModule, false);
+			}
+		} catch (UnresolveableURIException uue) {
+		}
+		return null;
+	}
+
+	/**
+	 * @param module
+	 *            A {@see WorkbenchModule}
+	 * @return True if the supplied module
+	 *         {@see ArtifactEdit#isValidEditableModule(WorkbenchModule)}and the moduleTypeId is a
+	 *         JST module
+	 */
+	public static boolean isValidWebModule(WorkbenchModule aModule) throws UnresolveableURIException {
+		if (!isValidEditableModule(aModule))
+			return false;
+		/* and match the JST_WEB_MODULE type */
+		if (!TYPE_ID.equals(aModule.getModuleType().getModuleTypeId()))
+			return false;
+		return true;
+	}
 
 	/**
 	 * <p>
@@ -153,7 +235,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	/**
 	 * <p>
-	 * Retrieves Servlet version information derived from the WebAppResource.
+	 * Retrieves Servlet version information derived from the {@see WebAppResource}.
 	 * </p>
 	 * 
 	 * @return an integer representation of a module version
@@ -175,7 +257,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * <p>
 	 * 
 	 * @param aModule
-	 *            A non-null pointing to a XMLResource (@see XMLResource)
+	 *            A non-null pointing to a {@see XMLResource}
 	 * 
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
@@ -217,45 +299,4 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		}
 	}
 
-	/**
-	 * <p>
-	 * Returns an instance facade to manage the underlying edit model for the given
-	 * {@see WorkbenchModule}. Instances of WebArtifactEdit that are returned through this method
-	 * must be {@see #dispose()}ed of when no longer in use.
-	 * </p>
-	 * <p>
-	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}that will not
-	 * be used for editing. Invocations of any save*() API on an instance returned from this method
-	 * will throw exceptions.
-	 * </p>
-	 * <p>
-	 * <b>The following method may return null. </b>
-	 * </p>
-	 * 
-	 * @param aModule
-	 *            A valid {@see WorkbenchModule}with a handle that resolves to an accessible
-	 *            project in the workspace
-	 * @return An instance of WebArtifactEdit that may only be used to read the underlying content
-	 *         model
-	 * @throws UnresolveableURIException
-	 *             could not resolve uri.
-	 */
-
-
-	public static WebArtifactEdit getWebEditForRead(WorkbenchModule aModule) {
-		try {
-			ModuleType moduleType = aModule.getModuleType();
-			if (moduleType == null)
-				return null;
-			if (IModuleConstants.JST_WEB_MODULE.equals(moduleType.getModuleTypeId())) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
-				if (project.isAccessible()) {
-					ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-					return new WebArtifactEdit(nature, aModule, true);
-				}
-			}
-		} catch (UnresolveableURIException uue) {
-		}
-		return null;
-	}
 }

@@ -130,7 +130,7 @@ public class UIWarValidator extends WarValidator {
 		                WorkbenchModule wbModule = workBenchModules[i];
 		                WebArtifactEdit webEdit = null;
 		               	try{
-		               		webEdit = WebArtifactEdit.getWebEditForRead(wbModule );
+		               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule );
 		               		if(webEdit != null) {
 			               		WebApp webApp = webEdit.getWebApplication();		               		
 			               		super.validate(inHelper, inReporter, inChangedFiles, webApp);

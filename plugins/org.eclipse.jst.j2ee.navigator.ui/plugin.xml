@@ -411,7 +411,7 @@
          point="org.eclipse.wst.common.navigator.views.navigatorContent">
       <navigatorContent
             name="Experimental J2EE"
-            priority="5"
+            priority="higher"
             icon="icons/J2EEPerspective.gif" 
             contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
             labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"

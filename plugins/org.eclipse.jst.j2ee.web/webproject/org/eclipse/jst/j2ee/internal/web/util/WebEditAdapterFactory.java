@@ -1,9 +1,11 @@
-/*
- * Created on Feb 7, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
@@ -12,10 +14,10 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 
 
 /**
- * @author cbridgha
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Style - Code Templates
+ * <p>
+ * Adapts {@see org.eclipse.wst.common.modulecore.ArtifactEditModel}s to
+ * {@see org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit}&nbsp; facades.
+ * </p>
  */
 public class WebEditAdapterFactory implements IAdapterFactory {
 
@@ -29,7 +31,7 @@ public class WebEditAdapterFactory implements IAdapterFactory {
 			ArtifactEditModel editModel = (ArtifactEditModel) adaptableObject;
 			if (editModel.getModuleType().equals(WebArtifactEdit.TYPE_ID))
 				return new WebArtifactEdit((ArtifactEditModel) adaptableObject);
-		} 
+		}
 		return null;
 	}
 
@@ -39,7 +41,7 @@ public class WebEditAdapterFactory implements IAdapterFactory {
 	 * 
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
 	 */
-	public Class[] getAdapterList() { 
+	public Class[] getAdapterList() {
 		return new Class[]{ArtifactEdit.class, WebArtifactEdit.class};
 	}
 }

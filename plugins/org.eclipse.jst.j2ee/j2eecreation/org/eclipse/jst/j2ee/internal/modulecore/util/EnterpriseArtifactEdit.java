@@ -1,13 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
@@ -20,10 +18,10 @@ import org.eclipse.wst.common.modulecore.WorkbenchModule;
 
 /**
  * <p>
- * EnterpriseArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}to obtain
- * J2EE specific data from a resource (@see Resource), i.e deployment descriptor resource. The
- * deployment descriptor resource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}
- * using a client defined URI. Defined methods extract data from the resource.
+ * EnterpriseArtifactEdit obtains a type-specific J2EE metamodel from the managed
+ * {@see org.eclipse.wst.common.modulecore.ArtifactEditModel}. The underlying EditModel maintains
+ * {@see org.eclipse.emf.ecore.resource.Resource}s, such as the J2EE deployment descriptor
+ * resource. The defined methods extract data or manipulate the contents of the underlying resource.
  * </p>
  * 
  * <p>
@@ -37,8 +35,13 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}.
 	 * </p>
+	 * <p>
+	 * Clients that use this constructor are required to release their access of the EditModel when
+	 * finished. Calling {@see ArtifactEdit#dispose()}will not touch the supplied EditModel.
+	 * </p>
 	 * 
 	 * @param anArtifactEditModel
+	 *            A valid, properly-accessed EditModel
 	 */
 	public EnterpriseArtifactEdit(ArtifactEditModel model) {
 		super(model);
@@ -46,13 +49,17 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 
 	/**
 	 * <p>
-	 * Creates an instance facade for the given {@see ArtifactEditModel}
+	 * Creates an instance facade for the given {@see WorkbenchModule}.
+	 * </p>
+	 * <p>
+	 * Instances of EnterpriseArtifactEdit that are returned through this method must be
+	 * {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * 
 	 * @param aNature
-	 *            A non-null {@see ModuleCoreNature}for an accessible project
+	 *            A non-null {@see ModuleCoreNature}&nbsp;for an accessible project
 	 * @param aModule
-	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
+	 *            A non-null {@see WorkbenchModule}&nbsp;pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
 
@@ -65,18 +72,17 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * Retrieves J2EE version information from deployment descriptor resource.
 	 * </p>
 	 * 
-	 * @return an integer representation of a J2EE Spec version
+	 * @return An the J2EE Specification version of the underlying {@see WorkbenchModule}
 	 *  
 	 */
 	public abstract int getJ2EEVersion();
 
 	/**
 	 * <p>
-	 * Retrieves a deployment descriptor resource from ArtifactEditModel (@see ArtifactEditModel)
-	 * using a defined URI.
+	 * Retrieves a deployment descriptor resource from {@see ArtifactEditModel}using a defined URI.
 	 * </p>
 	 * 
-	 * @return deployment descriptor resource
+	 * @return The correct deployment descriptor resource for the underlying {@see WorkbenchModule}
 	 *  
 	 */
 	public abstract Resource getDeploymentDescriptorResource();
@@ -84,15 +90,17 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	/**
 	 * <p>
 	 * Obtains the root object from a deployment descriptor resource, the root object contains all
-	 * other resource defined objects. Examples of a deployment descriptor root include: WebAPP
-	 * (@see WebApp), Applicaiton(@see Application), EJBJar((@see EJBJar)
+	 * other resource defined objects. Examples of a deployment descriptor root include:
+	 * {@see org.eclipse.jst.j2ee.webapplication.WebApp},
+	 * {@see org.eclipse.jst.j2ee.application.Application}, and
+	 * {@see org.eclipse.jst.j2ee.ejb.EJBJar}
 	 * </p>
 	 * <p>
 	 * Subclasses may extend this method to perform their own deployment descriptor creataion/
 	 * retrieval.
 	 * </p>
 	 * 
-	 * @return a J2EE specific root object
+	 * @return An EMF metamodel object representing the J2EE deployment descriptor
 	 *  
 	 */
 

@@ -83,7 +83,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
             WebArtifactEdit webEdit = null;
            	try{
-           		webEdit = WebArtifactEdit.getWebEditForRead( wbModule );
+           		webEdit = WebArtifactEdit.getWebArtifactEditForRead( wbModule );
            		if(webEdit != null) {
                		int nVersion = webEdit.getJ2EEVersion();	
                		switch( nVersion ){
@@ -120,7 +120,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
         WebArtifactEdit webEdit = null;
         int nVersion = 22;
        	try{
-       		webEdit = WebArtifactEdit.getWebEditForRead( wbModule );
+       		webEdit = WebArtifactEdit.getWebArtifactEditForRead( wbModule );
        		if(webEdit != null) {
        			nVersion = webEdit.getServletVersion();
        		}

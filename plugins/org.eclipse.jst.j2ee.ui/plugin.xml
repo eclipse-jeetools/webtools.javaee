@@ -358,13 +358,13 @@
          point="org.eclipse.wst.common.navigator.views.navigatorContent">
       <navigatorContent
             name="Web Services"
-            priority="30"
+            priority="low"
             icon="icons/webgroup_obj.gif"
             contentProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorContentProvider"
             labelProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorLabelProvider"
             openListener="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorGroupOpenListener"
             id="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
-            rootLabel="Web Services" >
+            >
          <enables>
             <or>
                <objectClass
