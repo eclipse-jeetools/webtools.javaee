@@ -62,10 +62,10 @@
             name="%connector_module_ui_"
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard">
+            id="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
          <description>
             %new.connector.module.description_ui_
          </description>
@@ -164,21 +164,12 @@
       <!-- Connector New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
          <enablement>
          <or>
                <objectClass
 	                  name="org.eclipse.core.resources.IWorkspaceRoot">
 	           </objectClass>
-               <and>
-            	   <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-               	   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-                  </objectState>
-                </and>
                 <and>
                    <objectClass
 	                     name="org.eclipse.core.resources.IProject">
@@ -186,7 +177,7 @@
 	               <or>
 	                  <objectState
 	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.EARNature">
+	                        value="org.eclipse.jdt.core.javanature">
 	                  </objectState>
 	               </or> 
                 </and> 

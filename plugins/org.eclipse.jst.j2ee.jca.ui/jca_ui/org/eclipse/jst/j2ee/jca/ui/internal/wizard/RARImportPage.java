@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard;
+import org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
@@ -72,7 +72,7 @@ public class RARImportPage extends J2EEModuleImportPage {
 	}
 
 	protected WTPWizard getNewProjectWizard(ConnectorComponentCreationDataModel aModel) {
-		return new ConnectorModuleCreationWizard(aModel);
+		return new ConnectorComponentCreationWizard(aModel);
 	}
 
 	protected String getFileNamesStoreID() {

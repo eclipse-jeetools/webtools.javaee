@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
-import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebComponentTypeWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
@@ -50,7 +50,7 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 
 	protected Wizard createWizard()
 	{
-		ConvertToWebModuleTypeWizard wizard = new ConvertToWebModuleTypeWizard(
+		ConvertToWebComponentTypeWizard wizard = new ConvertToWebComponentTypeWizard(
 				new ConvertWebProjectDataModel());
 		WebModuleCreationDataModel model = (WebModuleCreationDataModel) wizard
 				.getModel();

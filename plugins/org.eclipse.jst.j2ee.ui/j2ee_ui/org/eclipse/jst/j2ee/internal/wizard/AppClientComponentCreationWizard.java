@@ -14,12 +14,12 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
-import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
+import org.eclipse.jst.j2ee.ui.J2EEComponentCreationWizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
-public class AppClientComponentCreationWizard extends J2EEModuleCreationWizard implements IExecutableExtension, INewWizard {
+public class AppClientComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
 	
 	/**
 	 * <p>
@@ -96,11 +96,11 @@ public class AppClientComponentCreationWizard extends J2EEModuleCreationWizard i
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Adds a {@link JCAProjectCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG}.
+	 * Adds a {@link JCAProjectCreationPage} as the {@link J2EEComponentCreationWizard#MAIN_PG}.
 	 * </p>
 	 */
 	protected void doAddPages() {
-		AppClientComponentCreationPage page1 = new AppClientComponentCreationPage(getSpecificDataModel(), MAIN_PG);
+		AppClientComponentCreationWizardPage page1 = new AppClientComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG);
 		addPage(page1);
 		super.doAddPages();
 	} 

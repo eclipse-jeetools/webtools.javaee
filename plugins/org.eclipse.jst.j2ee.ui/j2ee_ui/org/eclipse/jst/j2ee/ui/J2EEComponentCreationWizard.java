@@ -34,7 +34,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
  * 
  * @see org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard
  */
-public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizard {
+public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWizard {
 
 	/**
 	 * <p>
@@ -49,7 +49,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
-	public J2EEModuleCreationWizard() {
+	public J2EEComponentCreationWizard() {
 		super();
 	}
 
@@ -62,7 +62,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public J2EEModuleCreationWizard(J2EEComponentCreationDataModel model) {
+	public J2EEComponentCreationWizard(J2EEComponentCreationDataModel model) {
 		super(model);
 	}
 
@@ -105,7 +105,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	/**
 	 * <p>
 	 * Skips the page identified by the MODULE_PG name if
-	 * {@link J2EEModuleCreationWizard#shouldShowModulesPage()}is false.
+	 * {@link J2EEComponentCreationWizard#shouldShowModulesPage()}is false.
 	 * </p>
 	 * 
 	 * @see org.eclipse.jface.wizard.IWizard#getPreviousPage(org.eclipse.jface.wizard.IWizardPage)

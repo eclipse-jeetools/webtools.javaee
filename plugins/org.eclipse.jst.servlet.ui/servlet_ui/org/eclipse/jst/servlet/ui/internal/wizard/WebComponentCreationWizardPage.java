@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -31,7 +31,7 @@ import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDat
 /**
  * 
  */
-public class WebModuleCreationPage extends J2EEModuleCreationPage {
+public class WebComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 
 	public Text contextRootNameField = null;
 	public Label contextRootLabel = null;
@@ -43,7 +43,7 @@ public class WebModuleCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public WebModuleCreationPage(WebComponentCreationDataModel  model, String pageName) {
+	public WebComponentCreationWizardPage(WebComponentCreationDataModel  model, String pageName) {
 		super(model, pageName);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC));

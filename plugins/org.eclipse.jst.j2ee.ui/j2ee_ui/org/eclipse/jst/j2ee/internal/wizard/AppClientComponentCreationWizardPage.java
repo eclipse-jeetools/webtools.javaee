@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
-public class AppClientComponentCreationPage extends J2EEModuleCreationPage {
+public class AppClientComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 
 	public Text contextRootNameField = null;
 	public Label contextRootLabel = null;
@@ -29,7 +29,7 @@ public class AppClientComponentCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public AppClientComponentCreationPage(AppClientComponentCreationDataModel  model, String pageName) {
+	public AppClientComponentCreationWizardPage(AppClientComponentCreationDataModel  model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APPCLIENT_COMPONENT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APPCLIENT_COMPONENT_MAIN_PG_DESC));

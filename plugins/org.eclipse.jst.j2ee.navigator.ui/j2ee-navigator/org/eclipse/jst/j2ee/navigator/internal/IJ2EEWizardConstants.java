@@ -10,20 +10,20 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal;
 
-import org.eclipse.jst.ejb.ui.EJBModuleCreationWizard;
+import org.eclipse.jst.ejb.ui.EJBComponentCreationWizard;
 import org.eclipse.jst.ejb.ui.EJBModuleExportWizard;
 import org.eclipse.jst.ejb.ui.EJBModuleImportWizard;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard;
+import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard;
+import org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard;
 import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard;
-import org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard;
 import org.eclipse.jst.j2ee.ui.AppClientModuleExportWizard;
 import org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard;
 import org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard;
 import org.eclipse.jst.j2ee.ui.EnterpriseApplicationExportWizard;
 import org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizard;
 import org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard;
-import org.eclipse.jst.servlet.ui.WebModuleCreationWizard;
+import org.eclipse.jst.servlet.ui.WebComponentCreationWizard;
 import org.eclipse.jst.servlet.ui.WebModuleExportWizard;
 import org.eclipse.jst.servlet.ui.WebModuleImportWizard;
 
@@ -40,13 +40,13 @@ public interface IJ2EEWizardConstants {
 
 	String NEW_EAR_PROJECT_WIZARD_ID = EnterpriseApplicationCreationWizard.WIZARD_ID;
 
-	String NEW_APPCLIENT_PROJECT_WIZARD_ID = AppClientModuleCreationWizard.WIZARD_ID;
+	String NEW_APPCLIENT_PROJECT_WIZARD_ID = AppClientComponentCreationWizard.WIZARD_ID;
 
-	String NEW_JCA_PROJECT_WIZARD_ID = ConnectorModuleCreationWizard.WIZARD_ID;
+	String NEW_JCA_PROJECT_WIZARD_ID = ConnectorComponentCreationWizard.WIZARD_ID;
 
-	String NEW_EJB_PROJECT_WIZARD_ID = EJBModuleCreationWizard.WIZARD_ID;
+	String NEW_EJB_PROJECT_WIZARD_ID = EJBComponentCreationWizard.WIZARD_ID;
 
-	String NEW_WEB_PROJECT_WIZARD_ID = WebModuleCreationWizard.WIZARD_ID;
+	String NEW_WEB_PROJECT_WIZARD_ID = WebComponentCreationWizard.WIZARD_ID;
 
 	String NEW_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.j2ee.ejb.ui.util.createEJBWizard"; //$NON-NLS-1$
 

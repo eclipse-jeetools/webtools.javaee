@@ -16,13 +16,13 @@ import org.eclipse.swt.widgets.Composite;
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
-public class ConvertToWebModuleTypeWizardPage extends WebModuleCreationPage {
+public class ConvertToWebComponentTypeWizardPage extends WebComponentCreationWizardPage {
 
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	protected ConvertToWebModuleTypeWizardPage(WebModuleCreationDataModel model, String pageName) {
+	protected ConvertToWebComponentTypeWizardPage(WebModuleCreationDataModel model, String pageName) {
 		// TODO use flexible project
 		//super(model, pageName);
 		super(null, pageName);

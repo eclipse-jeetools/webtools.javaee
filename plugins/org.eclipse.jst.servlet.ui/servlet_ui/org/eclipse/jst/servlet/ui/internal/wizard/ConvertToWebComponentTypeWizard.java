@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
-import org.eclipse.jst.servlet.ui.WebModuleCreationWizard;
+import org.eclipse.jst.servlet.ui.WebComponentCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
@@ -29,10 +29,10 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
 
-public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard {
+public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard {
 	private static final String ConvertToWebModuleTypeWizard = "org.eclipse.jst.servlet.ui.internal.wizard.convertWebProjectTypeWizard"; //$NON-NLS-1$
 
-	public ConvertToWebModuleTypeWizard(ConvertWebProjectDataModel dataModel) {
+	public ConvertToWebComponentTypeWizard(ConvertWebProjectDataModel dataModel) {
 		// TODO use flexible project
 		//super(dataModel);
 	}

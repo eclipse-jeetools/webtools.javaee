@@ -17,9 +17,9 @@ import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOp
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleCreationPage;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizardPage;
 import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
-import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
+import org.eclipse.jst.j2ee.ui.J2EEComponentCreationWizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
@@ -29,14 +29,14 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
  * Wizard used to create J2EE Connector module structures in Eclipse Projects.
  * </p>
  */
-public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizard implements IExecutableExtension, INewWizard {
+public final class ConnectorComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
 
 	/**
 	 * <p>
 	 * The Wizard ID of the ConnectorModuleCreationWizard. Used for internal purposes and activities management.
 	 * </p>
 	 */
-	public static final String WIZARD_ID = ConnectorModuleCreationWizard.class.getName();
+	public static final String WIZARD_ID = ConnectorComponentCreationWizard.class.getName();
 	
 	/**
 	 * <p>
@@ -45,7 +45,7 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * operation will be created as needed.
 	 * </p>
 	 */
-	public ConnectorModuleCreationWizard() {
+	public ConnectorComponentCreationWizard() {
 		super();
 	}
 	
@@ -56,7 +56,7 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public ConnectorModuleCreationWizard(J2EEComponentCreationDataModel model) {
+	public ConnectorComponentCreationWizard(J2EEComponentCreationDataModel model) {
 		super(model);
 	}
 	
@@ -107,11 +107,11 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Adds a {@link ConnectorModuleCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG}.
+	 * Adds a {@link ConnectorComponentCreationWizardPage} as the {@link J2EEComponentCreationWizard#MAIN_PG}.
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new ConnectorModuleCreationPage(getSpecificDataModel(), MAIN_PG));
+		addPage(new ConnectorComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG));
 		super.doAddPages();
 	}
 

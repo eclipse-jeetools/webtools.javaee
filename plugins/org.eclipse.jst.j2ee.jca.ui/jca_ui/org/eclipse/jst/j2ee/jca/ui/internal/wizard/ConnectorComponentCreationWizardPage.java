@@ -15,18 +15,18 @@ import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
-public class ConnectorModuleCreationPage extends J2EEModuleCreationPage {
+public class ConnectorComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public ConnectorModuleCreationPage(ConnectorComponentCreationDataModel model, String pageName) {
+	public ConnectorComponentCreationWizardPage(ConnectorComponentCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_MAIN_PG_TITLE));
 		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_MAIN_PG_DESC));

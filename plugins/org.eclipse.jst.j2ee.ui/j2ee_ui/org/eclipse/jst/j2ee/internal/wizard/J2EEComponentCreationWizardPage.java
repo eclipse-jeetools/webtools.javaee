@@ -49,7 +49,7 @@ import org.eclipse.wst.server.ui.ServerUIUtil;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 
-public abstract class J2EEModuleCreationPage extends WTPWizardPage {
+public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
 
 	private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
 	protected static final String MODULE_VERSION = "Module Version:";
@@ -139,7 +139,7 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 		}
 	}
 	
-	public J2EEModuleCreationPage(J2EEComponentCreationDataModel dataModel, String pageName) {
+	public J2EEComponentCreationWizardPage(J2EEComponentCreationDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
 	

@@ -636,42 +636,35 @@
           <!-- EAR New -->
           <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard">
          <enablement>
          <or> 
                <objectClass
 	                  name="org.eclipse.core.resources.IWorkspaceRoot">
 	           </objectClass>
                <and>
-            	   <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-               	   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.EARNature">
-                  </objectState>
-                </and>	          
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jdt.core.javanature">
+	                  </objectState>
+	               </or> 
+                </and>      
             </or>
          </enablement>
        </commonWizard>
         <!-- AppClient New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard">
+            wizardId="org.eclipse.jst.j2ee.ui.AppClientComponentCreationWizard">
          <enablement>
          <or>
                <objectClass
 	                  name="org.eclipse.core.resources.IWorkspaceRoot">
 	           </objectClass>
-               <and>
-            	   <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-               	   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
-                  </objectState>
-                </and>
                 <and>
                    <objectClass
 	                     name="org.eclipse.core.resources.IProject">
@@ -679,7 +672,7 @@
 	               <or>
 	                  <objectState
 	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.EARNature">
+	                        value="org.eclipse.jdt.core.javanature">
 	                  </objectState>
 	               </or> 
                 </and> 

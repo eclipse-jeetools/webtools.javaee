@@ -14,12 +14,12 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
-import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
+import org.eclipse.jst.j2ee.ui.J2EEComponentCreationWizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
-public class EARComponentCreationWizard extends J2EEModuleCreationWizard implements IExecutableExtension, INewWizard {
+public class EARComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
 	
 	/**
 	 * <p>
@@ -98,11 +98,11 @@ public class EARComponentCreationWizard extends J2EEModuleCreationWizard impleme
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Adds a {@link JCAProjectCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG}.
+	 * Adds a {@link JCAProjectCreationPage} as the {@link J2EEComponentCreationWizard#MAIN_PG}.
 	 * </p>
 	 */
 	protected void doAddPages() {
-		EARComponentCreationMainPage page1 = new EARComponentCreationMainPage(getSpecificDataModel(), MAIN_PG);
+		EARComponentCreationWizardPage page1 = new EARComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG);
 //		page.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
 		addPage(page1);
 		EARComponentCreationSecondPage page2 = new EARComponentCreationSecondPage(getSpecificDataModel(), SECOND_PG);
