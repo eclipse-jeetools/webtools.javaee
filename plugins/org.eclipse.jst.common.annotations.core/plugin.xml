@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.common.annotations.core"
+   name="Annotation Core Plug-in"
+   description="This plugin house core annotation features like the Annotation Tag Parser which is the base parser for reading annotated tags."
+   version="1.0.0"
+   provider-name="IBM" >
+
+   <runtime>
+      <library name="annotations-core.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires> 
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.wst.common.emf"/> 
+   </requires>
+
+
+</plugin>
