@@ -10,8 +10,9 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.wst.server.core.ILaunchable;
 import org.eclipse.wst.server.core.IModuleArtifact;
+import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 
-public class EnterpriseDeployableArtifactAdapterFactory implements IAdapterFactory {
+public class EnterpriseDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDelegate implements IAdapterFactory  {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
@@ -22,6 +23,14 @@ public class EnterpriseDeployableArtifactAdapterFactory implements IAdapterFacto
 
 	public Class[] getAdapterList() {
 		return new Class[] { IModuleArtifact.class, ILaunchable.class };
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate#getModuleArtifact(java.lang.Object)
+	 */
+	public IModuleArtifact getModuleArtifact(Object obj) {
+		// TODO Auto-generated method stub
+		return EnterpriseApplicationDeployableAdapterUtil.getModuleObject(obj);
 	}
 
 }

@@ -9,8 +9,9 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.debug.ui.actions.ILaunchable;
 import org.eclipse.wst.server.core.IModuleArtifact;
+import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 
-public class WebDeployableArtifactAdapterFactory implements IAdapterFactory {
+public class WebDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDelegate implements IAdapterFactory {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
@@ -20,7 +21,15 @@ public class WebDeployableArtifactAdapterFactory implements IAdapterFactory {
 	}
 
 	public Class[] getAdapterList() {
-		return new Class[]{ILaunchable.class, IModuleArtifact.class, WebModuleArtifact.class};
+		return new Class[]{ILaunchable.class};
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate#getModuleArtifact(java.lang.Object)
+	 */
+	public IModuleArtifact getModuleArtifact(Object obj) {
+		// TODO Auto-generated method stub
+		return WebDeployableArtifactUtil.getModuleObject(obj);
 	}
 
 }
