@@ -27,7 +27,7 @@ import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * @since WTP 1.0
  */
-public abstract class WTPModuleCreationDataModel extends ArtifactEditOperationDataModel {
+public abstract class FlexibleJ2EEModuleCreationDataModel extends ArtifactEditOperationDataModel {
 	/**
 	 * An optional dataModel propertyName for a <code>Boolean</code> type. The default value is
 	 * <code>Boolean.TRUE</code>. If this property is set to <code>Boolean.TRUE</code> then a
