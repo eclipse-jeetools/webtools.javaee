@@ -141,6 +141,7 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 				setReplacementString(localString);
 				setCursorPosition(localString.length());
 			} catch (BadLocationException e) {
+				// Do nothing
 			}
 		}
 	}

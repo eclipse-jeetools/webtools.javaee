@@ -48,6 +48,7 @@ public class AnnotationTagRegistry {
 	 * Set to true once we've read in the annotation tag information from the plugin registry.
 	 */
 	private static boolean initialized = false;
+	private static final String ANNOTATION_TAG_INFO = "org.eclipse.jst.common.annotations.controller.AnnotationTagInfo"; //$NON-NLS-1$
 
 	/**
 	 * List of tag specs for all of the tags.
@@ -335,7 +336,7 @@ public class AnnotationTagRegistry {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
 
 		//TODO: Not even checking the tagset extension point yet.
-		IExtensionPoint xp = registry.getExtensionPoint("AnnotationTagInfo"); //$NON-NLS-1$
+		IExtensionPoint xp = registry.getExtensionPoint(ANNOTATION_TAG_INFO);
 
 		if (xp == null) {
 			initialized = true;

@@ -414,6 +414,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * @see com.ibm.ws.rd.annotations.TagParseEventHandler#endOfTag(int)
 	 */
 	public void endOfTag(int pos) {
+		// Do nothing
 	}
 
 	/*
@@ -469,6 +470,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 			result = currentLine.substring(0, annotationIndex);
 			result = result + "  "; //$NON-NLS-1$
 		} catch (Exception e) {
+			// Do nothing
 		}
 
 		return result;
@@ -612,6 +614,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 			try {
 				return ts.lookupTagHelp();
 			} catch (MissingResourceException e) {
+				// Do nothing, return null
 			}
 		return null;
 	}
@@ -621,6 +624,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 			try {
 				return tas.lookupTagHelp();
 			} catch (MissingResourceException e) {
+				// Do nothing, return null
 			}
 		return null;
 	}

@@ -71,6 +71,7 @@ public class TagsetDescriptor {
 				this.validValuesHelper = (AttributeValuesHelper) loaded.newInstance();
 			}
 		} catch (Exception e) {
+			// Do nothing
 		}
 	}
 

@@ -230,6 +230,7 @@ public class AnnotationTagParser {
 
 	private void parseAttributes() {
 		while (!eos() && parseNextAttribute()) {
+			// loop while not end of string
 		}
 	}
 

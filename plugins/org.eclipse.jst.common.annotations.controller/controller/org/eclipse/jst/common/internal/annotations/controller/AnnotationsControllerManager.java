@@ -200,6 +200,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 				}
 			}
 		} catch (Exception e) {
+			// Do nothing
 		}
 		return false;
 	}

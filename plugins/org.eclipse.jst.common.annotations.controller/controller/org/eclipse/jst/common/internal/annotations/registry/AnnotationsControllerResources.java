@@ -36,6 +36,7 @@ public class AnnotationsControllerResources {
 	 *  
 	 */
 	private AnnotationsControllerResources() {
+		// Default constructor
 	}
 
 	/**

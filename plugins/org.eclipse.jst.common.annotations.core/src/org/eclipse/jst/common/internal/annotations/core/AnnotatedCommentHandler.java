@@ -47,7 +47,7 @@ public class AnnotatedCommentHandler implements TagParseEventHandler {
 	 * @see org.eclipse.wst.common.internal.annotations.core.TagParseEventHandler#endOfTag(int)
 	 */
 	public void endOfTag(int pos) {
-
+		// Do nothing
 	}
 
 	/*

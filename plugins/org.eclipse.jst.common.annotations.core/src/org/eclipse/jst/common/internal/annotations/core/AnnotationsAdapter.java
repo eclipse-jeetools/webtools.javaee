@@ -33,6 +33,7 @@ public class AnnotationsAdapter extends AdapterImpl implements CloneablePublic {
 	protected final static String ADAPTER_TYPE = AnnotationsAdapter.class.getName();
 
 	public final static EStructuralFeature NOTIFICATION_FEATURE = new EStructuralFeatureImpl() {
+		// anonymous inner class
 	};
 
 	private Map annotationsMap;
