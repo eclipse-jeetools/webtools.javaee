@@ -14,8 +14,12 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 /**
  * Insert the type's description here. Creation date: (4/4/2001 10:04:11 AM)
- * 
- * @author: Administrator
+ * @deprecated
+ * Use
+ * <p>
+ * All nature constants interfaces are also deprecated along with nature runtime classes
+ * IModuleConstants need to be used.
+ * </p>
  */
 public interface IApplicationClientNatureConstants {
 	String NATURE_ID = IConfigurationConstants.PLUG_IN_ID + ".ApplicationClientNature"; //$NON-NLS-1$

@@ -15,8 +15,14 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 
-/*
+/**
  * The Web Nature constants are the constants for the web nature interface to the plugins
+ * @deprecated
+ * Use
+ * <p>
+ * All nature constants interfaces are also deprecated along with nature runtime classes
+ * IModuleConstants need to be used.
+ * </p>
  */
 
 public interface IWebNatureConstants {

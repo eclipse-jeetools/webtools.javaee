@@ -15,6 +15,12 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 
 /**
  * Defines constants used with the ConnectorNatureRuntime class
+ * @deprecated
+ * Use
+ * <p>
+ * All nature constants interfaces are also deprecated along with nature runtime classes
+ * IModuleConstants need to be used.
+ * </p>
  */
 public interface IConnectorNatureConstants {
 
