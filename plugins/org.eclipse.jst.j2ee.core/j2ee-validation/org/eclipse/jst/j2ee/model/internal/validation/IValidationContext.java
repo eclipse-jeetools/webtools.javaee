@@ -14,14 +14,14 @@ import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
-import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.SeverityEnum;
+import org.eclispe.wst.validation.internal.core.MessageLimitException;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;
 
 public interface IValidationContext {
-	public static final int ERROR = SeverityEnum.HIGH_SEVERITY;
+	public static final int ERROR = IMessage.HIGH_SEVERITY;
 	public static final int WARNING = SeverityEnum.NORMAL_SEVERITY;
 	public static final int INFO = SeverityEnum.LOW_SEVERITY;
 	

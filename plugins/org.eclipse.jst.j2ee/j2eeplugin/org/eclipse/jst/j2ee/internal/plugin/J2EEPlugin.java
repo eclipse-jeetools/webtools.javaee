@@ -61,7 +61,7 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderFactoryRegistry;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
-import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
+import org.eclipse.wst.validation.plugin.ValidationPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 

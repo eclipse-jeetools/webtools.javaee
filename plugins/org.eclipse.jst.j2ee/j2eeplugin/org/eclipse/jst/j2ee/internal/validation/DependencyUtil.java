@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
+import org.eclipse.wst.validation.plugin.ValidationPlugin;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;

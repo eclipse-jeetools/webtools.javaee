@@ -22,9 +22,8 @@ import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.Message;
-import org.eclipse.wst.validation.core.SeverityEnum;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.Message;
 
 
 /**
@@ -91,13 +90,13 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 				if ( rarFile != null ) {
 					setConnectorDD( rarFile.getDeploymentDescriptor() );
 				} else {
-					IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_INVALID_CONNECTOR_FILE);
+					IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_CONNECTOR_FILE);
 					throw new ValidationException(errorMsg);
 				}// if
 			} catch (ValidationException ex) {
 				throw ex;
 			} catch (Exception e) {
-				IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_CONNECTOR_VALIDATION_FAILED);
+				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_CONNECTOR_VALIDATION_FAILED);
 				throw new ValidationException(errorMsg, e);
 			}// try 
 		}// validate

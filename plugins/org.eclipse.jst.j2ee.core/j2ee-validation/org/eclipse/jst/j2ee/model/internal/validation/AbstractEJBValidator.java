@@ -27,8 +27,8 @@ import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.MessageLimitException;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 /**
