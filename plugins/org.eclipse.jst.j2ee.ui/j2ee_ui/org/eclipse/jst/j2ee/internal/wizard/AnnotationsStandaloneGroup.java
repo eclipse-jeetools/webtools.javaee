@@ -164,4 +164,9 @@ public class AnnotationsStandaloneGroup {
 	public void setUseServlet(boolean aBoolean) {
 		useServletString = aBoolean;
 	}
+	
+	public void setUseAnnotations(boolean aBoolean) {
+		if (useAnnotations != null)
+			useAnnotations.setSelection(aBoolean);
+	}
 }
