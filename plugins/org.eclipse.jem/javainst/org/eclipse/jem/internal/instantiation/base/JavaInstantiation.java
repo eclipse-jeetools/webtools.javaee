@@ -11,11 +11,10 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaInstantiation.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -30,10 +29,7 @@ import org.eclipse.jem.internal.java.instantiation.IInstantiationHandlerFactoryA
 public class JavaInstantiation {
 	
 	
-	public static final String INITSTRING = "initializationString";  //$NON-NLS-1$
-	public static final String IMPLICIT = "implicit";  //$NON-NLS-1$
-	public static final String INSTANTIATEUSING = "instantiateUsing"; 	 //$NON-NLS-1$
-	public static final String SERIALIZEDATA = "serializeData";		 //$NON-NLS-1$
+	public static final String ALLOCATION = "allocation";  //$NON-NLS-1$
 
 	/**
 	 * Get a structural feature from an instance of an IJavaObjectInstance, where the feature
@@ -100,37 +96,13 @@ public class JavaInstantiation {
 	}	
 	
 	/**
-	 * Get the init string Feature for this object. Since it depends
+	 * Get the allocation Feature for this object. Since it depends
 	 * on what resource that the metaclass is defined in, we must look for it.
 	 */
-	public static EAttribute getInitializationStringFeature(IJavaObjectInstance jobject) {
-		return (EAttribute) jobject.eClass().getEStructuralFeature(INITSTRING);
+	public static EReference getAllocationFeature(IJavaInstance jinstance) {
+		return (EReference) jinstance.eClass().getEStructuralFeature(ALLOCATION);
 	}
-	
-	/**
-	 * Get the implicit Feature for this object. Since it depends
-	 * on what resource that the metaclass is defined in, we must look for it.
-	 */
-	public static EAttribute getImplicitFeature(IJavaObjectInstance jobject) {
-		return (EAttribute) jobject.eClass().getEStructuralFeature(IMPLICIT);
-	}
-		
-	/**
-	 * Get the instantiate using Feature for this object. Since it depends
-	 * on what resource that the metaclass is defined in, we must look for it.
-	 */
-	public static EAttribute getInstantiateUsingFeature(IJavaObjectInstance jobject) {
-		return (EAttribute) jobject.eClass().getEStructuralFeature(INSTANTIATEUSING);
-	}
-
-	/**
-	 * Get the serialize data Feature for this object. Since it depends
-	 * on what resource that the metaclass is defined in, we must look for it.
-	 */
-	public static EAttribute getSerializeDataFeature(IJavaObjectInstance jobject) {
-		return (EAttribute) jobject.eClass().getEStructuralFeature(SERIALIZEDATA);
-	}
-		
+			
 	public static void initialize(ResourceSet rset) {
 			if (EcoreUtil.getExistingAdapter(rset, IInstantiationHandlerFactoryAdapter.ADAPTER_KEY) == null)
 				rset.eAdapters().add(new JavaInstantiationHandlerFactoryAdapter());

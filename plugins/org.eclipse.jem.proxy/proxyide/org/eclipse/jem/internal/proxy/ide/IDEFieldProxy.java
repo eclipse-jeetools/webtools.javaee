@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEFieldProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
 
 import java.lang.reflect.Field;
@@ -28,67 +28,69 @@ import org.eclipse.jem.internal.proxy.core.*;
  * Creation date: (1/17/00 12:32:24 PM)
  * @author: Joe Winchester
  */
-public class IDEFieldProxy extends IDEBeanProxy implements IFieldProxy {
-	protected Field fField;
+public class IDEFieldProxy extends IDEAccessibleObjectProxy implements IFieldProxy {
 	protected IBeanTypeProxy fFieldType;
-/**
- * Package protected constructor that takes the field directly
- * This is package protected because only classes in the IDE package can construct
- * this.  Everyone else must go via the typeProxy
- */
-IDEFieldProxy(ProxyFactoryRegistry aRegistry, Field aField) {
-	super(aRegistry);
-	fField = aField;
-}
-/**
- * Get the value of the field and return it wrapped in a bean proxy
- */
-public IBeanProxy get(IBeanProxy aSubject) {
-
-	Object result = null;
-	// Get the field value and catch any errors	
-	try { 
-		result = fField.get(aSubject != null ? ((IIDEBeanProxy)aSubject).getBean() : null);
-	} catch ( Exception e ) {		
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+	/**
+	 * Package protected constructor that takes the field directly
+	 * This is package protected because only classes in the IDE package can construct
+	 * this.  Everyone else must go via the typeProxy
+	 */
+	IDEFieldProxy(ProxyFactoryRegistry aRegistry, Field aField) {
+		super(aRegistry, aField);
 	}
+	/**
+	 * Get the value of the field and return it wrapped in a bean proxy
+	 */
+	public IBeanProxy get(IBeanProxy aSubject) {
 
-	// If we have a non null result wrap it in an IBeanProxy and return it
-	if ( result != null ){
-		return IDEMethodProxy.getBeanProxy(fProxyFactoryRegistry,fField.getType(),result);
-	} else {
-		return null;
-	}
+		Object result = null;
+		// Get the field value and catch any errors	
+		try {
+			result = ((Field) getBean()).get(aSubject != null ? ((IIDEBeanProxy) aSubject).getBean() : null);
+		} catch (Exception e) {
+			ProxyPlugin.getPlugin().getMsgLogger().log(
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+		}
 
-}
-/**
- * Get the beans from both of the proxies and invoke the field set method
- * Cast to IDEBeanProxy and use package protected method
- */
-public void set(IBeanProxy aSubject, IBeanProxy argument) {
+		// If we have a non null result wrap it in an IBeanProxy and return it
+		if (result != null) {
+			return IDEMethodProxy.getBeanProxy(fProxyFactoryRegistry, ((Field) getBean()).getType(), result);
+		} else {
+			return null;
+		}
 
-	// Set the field value and catch any errors	
-	try { 
-		fField.set(
-			aSubject != null ? ((IIDEBeanProxy)aSubject).getBean() : null,
-			argument != null ? ((IIDEBeanProxy)argument).getBean() : null);
-	} catch ( Exception e ) {
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 	}
-}
-/**
- * The type proxy is constant proxy out of the method factory.
- */
-public IBeanTypeProxy getTypeProxy() {
-	return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).fieldType;
-} 
-/**
- * Return the type of the field.
- */
-public IBeanTypeProxy getFieldType() {
-	if (fFieldType == null) {
-		fFieldType = ((IDEStandardBeanTypeProxyFactory)fProxyFactoryRegistry.getBeanTypeProxyFactory()).getBeanTypeProxy(fField.getType());
+	/**
+	 * Get the beans from both of the proxies and invoke the field set method
+	 * Cast to IDEBeanProxy and use package protected method
+	 */
+	public void set(IBeanProxy aSubject, IBeanProxy argument) {
+
+		// Set the field value and catch any errors	
+		try {
+			((Field) getBean()).set(
+				aSubject != null ? ((IIDEBeanProxy) aSubject).getBean() : null,
+				argument != null ? ((IIDEBeanProxy) argument).getBean() : null);
+		} catch (Exception e) {
+			ProxyPlugin.getPlugin().getMsgLogger().log(
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+		}
 	}
-	return fFieldType;
-}
+	/**
+	 * The type proxy is constant proxy out of the method factory.
+	 */
+	public IBeanTypeProxy getTypeProxy() {
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).fieldType;
+	}
+	/**
+	 * Return the type of the field.
+	 */
+	public IBeanTypeProxy getFieldType() {
+		if (fFieldType == null) {
+			fFieldType =
+				((IDEStandardBeanTypeProxyFactory) fProxyFactoryRegistry.getBeanTypeProxyFactory()).getBeanTypeProxy(
+					((Field) getBean()).getType());
+		}
+		return fFieldType;
+	}
 }

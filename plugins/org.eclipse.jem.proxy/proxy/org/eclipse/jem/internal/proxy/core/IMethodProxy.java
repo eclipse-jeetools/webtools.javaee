@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IMethodProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
 
 
@@ -20,7 +20,7 @@ package org.eclipse.jem.internal.proxy.core;
  * Creation date: (12/3/99 11:36:29 AM)
  * @author: Joe Winchester
  */
-public interface IMethodProxy extends IBeanProxy {
+public interface IMethodProxy extends IAccessibleObjectProxy {
 /**
  * Answer the class the method is defined in.
  * Creation date: (12/3/99 11:37:12 AM)

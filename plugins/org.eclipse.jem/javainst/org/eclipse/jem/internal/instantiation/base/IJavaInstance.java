@@ -11,11 +11,12 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: IJavaInstance.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.jem.internal.instantiation.JavaAllocation;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationInstance;
 /**
  * A common interface for Java instances. It will be
@@ -24,15 +25,23 @@ import org.eclipse.jem.internal.java.instantiation.IInstantiationInstance;
 public interface IJavaInstance extends EObject, IInstantiationInstance {
 	
 	/**
-	 * Return the initialization string.
+	 * Get the allocation object.
+	 * @return The allocation object.
 	 */
-	public String getInitializationString();
+	public JavaAllocation getAllocation();
 	
 	/**
-	 * Return whether the initialization string
-	 * is set or not.
+	 * Set the allocation for this object instance.
+	 * @param allocation
 	 */
-	public boolean isSetInitializationString();
+	public void setAllocation(JavaAllocation allocation);	
+	
+	/**
+	 * Return whether the allocation has been set or not.
+	 * @return <code>true</code> if set. 
+	 */
+	public boolean isSetAllocation();
+	
 	/**
 	 * Answer true if we are an instance of one of Java's primitive data types.
 	 * e.g. boolean, char - true otherwise, e.g. java.lang.Boolean

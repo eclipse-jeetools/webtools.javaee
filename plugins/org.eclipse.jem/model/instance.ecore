@@ -8,4 +8,17 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IJavaObjectInstance" instanceClassName="org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance"
       abstract="true" interface="true" eSuperTypes="#//IJavaInstance"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaAllocation" abstract="true">
+    <eAttributes name="allocString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        volatile="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InitStringAllocation" eSuperTypes="#//JavaAllocation">
+    <eAttributes name="initString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImplicitAllocation" eSuperTypes="#//JavaAllocation">
+    <eReferences name="parent" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EObject"
+        lowerBound="1"/>
+    <eReferences name="feature" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EStructuralFeature"
+        lowerBound="1"/>
+  </eClassifiers>
 </ecore:EPackage>

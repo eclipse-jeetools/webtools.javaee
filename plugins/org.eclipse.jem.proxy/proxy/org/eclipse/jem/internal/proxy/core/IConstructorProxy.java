@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IConstructorProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
 
 
@@ -21,7 +21,7 @@ package org.eclipse.jem.internal.proxy.core;
  * Creation date: (1/17/00 1:21:52 PM)
  * @author: Joe Winchester
  */
-public interface IConstructorProxy extends IBeanProxy {
+public interface IConstructorProxy extends IAccessibleObjectProxy {
 /**
  * Return a new instance with no creation arguments,
  * i.e. for a null constructor

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: IInstantiationHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 import org.eclipse.emf.ecore.*;
 
@@ -29,16 +29,13 @@ public interface IInstantiationHandler {
 	 * or whether the standard EFactory does.
 	 */
 	public boolean handlesDataType(JavaDataType type);
+	
 	/**
 	 * Answers whether the adapter handles the EClass or the
 	 * standard EFactory does.
 	 */
 	public boolean handlesClass(EClass type);
-	/**
-	 * If adapterHandlesDataType returns true, then
-	 * this method will be called to create the datatype.
-	 */
-	public Object createFromString(JavaDataType dataType, String s);
+	
 	/**
 	 * If adapterHandlesInstance returns true, then
 	 * this method will be called to create the instance.

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaFactoryImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import org.eclipse.jem.internal.java.JavaDataType;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationHandler;
 import org.eclipse.jem.internal.java.instantiation.IInstantiationHandlerFactoryAdapter;
 
@@ -64,19 +63,6 @@ public class JavaFactoryImpl extends EFactoryImpl {
 			return super.create(eClass);
 		else
 			return ia.create(eClass);
-	}
-
-	/**
-	 * This is just a helper method to easily create JavaDataTypes. Since
-	 * the initialization string is supposed to be immutable for JavaDataTypes,
-	 * the actual init string feature is not exposed.
-	 */
-	public Object createFromString(JavaDataType eDataType, String literalValue) {
-		IInstantiationHandler ia = getInstantiationHandler();
-		if (ia == null || !ia.handlesDataType(eDataType))
-			return null;
-		else
-			return ia.createFromString(eDataType, literalValue);
 	}
 
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -40,7 +40,7 @@ public abstract class IDEBeanProxy implements IBeanProxy, IIDEBeanProxy {
 	/**
 	 * USE with extreme care
 	 */
-	public Object getBean() {
+	public final Object getBean() {
 		return fBean;
 	}
 	/**

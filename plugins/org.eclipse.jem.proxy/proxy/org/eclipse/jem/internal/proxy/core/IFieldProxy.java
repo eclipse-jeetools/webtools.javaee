@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IFieldProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
 
 
@@ -22,7 +22,7 @@ package org.eclipse.jem.internal.proxy.core;
  * Creation date: (1/17/00 12:17:52 PM)
  * @author: Joe Winchester
  */
-public interface IFieldProxy extends IBeanProxy {
+public interface IFieldProxy extends IAccessibleObjectProxy {
 /**
  * Return the type of the field.
  */

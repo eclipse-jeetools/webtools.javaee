@@ -11,11 +11,12 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationFactoryImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
 import org.eclipse.jem.internal.instantiation.*;
 
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
@@ -33,7 +34,8 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstantiationFactoryImpl() {
+	public InstantiationFactoryImpl()
+	{
 		super();
 	}
 
@@ -42,8 +44,11 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject create(EClass eClass) {
+	public EObject create(EClass eClass)
+	{
 		switch (eClass.getClassifierID()) {
+			case InstantiationPackage.INIT_STRING_ALLOCATION: return createInitStringAllocation();
+			case InstantiationPackage.IMPLICIT_ALLOCATION: return createImplicitAllocation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -54,7 +59,30 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstantiationPackage getInstantiationPackage() {
+	public InitStringAllocation createInitStringAllocation()
+	{
+		InitStringAllocationImpl initStringAllocation = new InitStringAllocationImpl();
+		return initStringAllocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplicitAllocation createImplicitAllocation()
+	{
+		ImplicitAllocationImpl implicitAllocation = new ImplicitAllocationImpl();
+		return implicitAllocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InstantiationPackage getInstantiationPackage()
+	{
 		return (InstantiationPackage)getEPackage();
 	}
 
@@ -63,8 +91,28 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static InstantiationPackage getPackage() {
+	public static InstantiationPackage getPackage()
+	{
 		return InstantiationPackage.eINSTANCE;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createImplicitAllocation(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature)
+	 */
+	public ImplicitAllocation createImplicitAllocation(EObject parent, EStructuralFeature sf) {
+		ImplicitAllocation alloc = createImplicitAllocation();
+		alloc.setParent(parent);
+		alloc.setFeature(sf);
+		return alloc;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createInitStringAllocation(java.lang.String)
+	 */
+	public InitStringAllocation createInitStringAllocation(String initString) {
+		InitStringAllocation alloc = createInitStringAllocation();
+		alloc.setInitString(initString);
+		return alloc;
 	}
 
 } //InstantiationFactoryImpl

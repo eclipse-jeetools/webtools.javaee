@@ -11,15 +11,25 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.emf.ecore.impl.EcorePackageImpl;
+
+import org.eclipse.jem.internal.instantiation.ImplicitAllocation;
+import org.eclipse.jem.internal.instantiation.InitStringAllocation;
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
 import org.eclipse.jem.internal.instantiation.InstantiationPackage;
+import org.eclipse.jem.internal.instantiation.JavaAllocation;
+
 import org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance;
 import org.eclipse.jem.internal.instantiation.base.IJavaInstance;
 import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
@@ -50,6 +60,27 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass javaAllocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass initStringAllocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass implicitAllocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass iJavaInstanceEClass = null;
 
 	/**
@@ -67,7 +98,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * @see #init()
 	 * @generated
 	 */
-	private InstantiationPackageImpl() {
+	private InstantiationPackageImpl()
+	{
 		super(eNS_URI, InstantiationFactory.eINSTANCE);
 	}
 
@@ -100,13 +132,17 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static InstantiationPackage init() {
+	public static InstantiationPackage init()
+	{
 		if (isInited) return (InstantiationPackage)EPackage.Registry.INSTANCE.get(InstantiationPackage.eNS_URI);
 
 		// Obtain or create and register package.
 		InstantiationPackageImpl theInstantiationPackage = (InstantiationPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new InstantiationPackageImpl());
 
 		isInited = true;
+
+		// Initialize simple dependencies
+		EcorePackageImpl.init();
 
 		// Obtain or create and register interdependencies
 
@@ -124,7 +160,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIJavaObjectInstance() {
+	public EClass getIJavaObjectInstance()
+	{
 		return iJavaObjectInstanceEClass;
 	}
 
@@ -133,7 +170,78 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIJavaDataTypeInstance() {
+	public EClass getJavaAllocation()
+	{
+		return javaAllocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJavaAllocation_AllocString()
+	{
+		return (EAttribute)javaAllocationEClass.getEAttributes().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInitStringAllocation()
+	{
+		return initStringAllocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInitStringAllocation_InitString()
+	{
+		return (EAttribute)initStringAllocationEClass.getEAttributes().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getImplicitAllocation()
+	{
+		return implicitAllocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getImplicitAllocation_Parent()
+	{
+		return (EReference)implicitAllocationEClass.getEReferences().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getImplicitAllocation_Feature()
+	{
+		return (EReference)implicitAllocationEClass.getEReferences().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIJavaDataTypeInstance()
+	{
 		return iJavaDataTypeInstanceEClass;
 	}
 
@@ -142,7 +250,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIJavaInstance() {
+	public EClass getIJavaInstance()
+	{
 		return iJavaInstanceEClass;
 	}
 
@@ -151,7 +260,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstantiationFactory getInstantiationFactory() {
+	public InstantiationFactory getInstantiationFactory()
+	{
 		return (InstantiationFactory)getEFactoryInstance();
 	}
 
@@ -169,7 +279,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void createPackageContents() {
+	public void createPackageContents()
+	{
 		if (isCreated) return;
 		isCreated = true;
 
@@ -179,6 +290,16 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		iJavaInstanceEClass = createEClass(IJAVA_INSTANCE);
 
 		iJavaObjectInstanceEClass = createEClass(IJAVA_OBJECT_INSTANCE);
+
+		javaAllocationEClass = createEClass(JAVA_ALLOCATION);
+		createEAttribute(javaAllocationEClass, JAVA_ALLOCATION__ALLOC_STRING);
+
+		initStringAllocationEClass = createEClass(INIT_STRING_ALLOCATION);
+		createEAttribute(initStringAllocationEClass, INIT_STRING_ALLOCATION__INIT_STRING);
+
+		implicitAllocationEClass = createEClass(IMPLICIT_ALLOCATION);
+		createEReference(implicitAllocationEClass, IMPLICIT_ALLOCATION__PARENT);
+		createEReference(implicitAllocationEClass, IMPLICIT_ALLOCATION__FEATURE);
 	}
 
 	/**
@@ -195,7 +316,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void initializePackageContents() {
+	public void initializePackageContents()
+	{
 		if (isInitialized) return;
 		isInitialized = true;
 
@@ -204,9 +326,14 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		EcorePackageImpl theEcorePackage = (EcorePackageImpl)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+
 		// Add supertypes to classes
 		iJavaDataTypeInstanceEClass.getESuperTypes().add(this.getIJavaInstance());
 		iJavaObjectInstanceEClass.getESuperTypes().add(this.getIJavaInstance());
+		initStringAllocationEClass.getESuperTypes().add(this.getJavaAllocation());
+		implicitAllocationEClass.getESuperTypes().add(this.getJavaAllocation());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(iJavaDataTypeInstanceEClass, IJavaDataTypeInstance.class, "IJavaDataTypeInstance", IS_ABSTRACT, IS_INTERFACE);
@@ -214,6 +341,16 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		initEClass(iJavaInstanceEClass, IJavaInstance.class, "IJavaInstance", IS_ABSTRACT, IS_INTERFACE);
 
 		initEClass(iJavaObjectInstanceEClass, IJavaObjectInstance.class, "IJavaObjectInstance", IS_ABSTRACT, IS_INTERFACE);
+
+		initEClass(javaAllocationEClass, JavaAllocation.class, "JavaAllocation", IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getJavaAllocation_AllocString(), ecorePackage.getEString(), "allocString", null, 0, 1, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
+
+		initEClass(initStringAllocationEClass, InitStringAllocation.class, "InitStringAllocation", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getInitStringAllocation_InitString(), ecorePackage.getEString(), "initString", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
+
+		initEClass(implicitAllocationEClass, ImplicitAllocation.class, "ImplicitAllocation", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getImplicitAllocation_Parent(), theEcorePackage.getEObject(), null, "parent", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEReference(getImplicitAllocation_Feature(), theEcorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
 
 		// Create resource
 		createResource(eNS_URI);

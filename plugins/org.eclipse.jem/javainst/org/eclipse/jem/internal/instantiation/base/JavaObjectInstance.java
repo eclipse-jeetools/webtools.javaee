@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.jem.internal.instantiation.JavaAllocation;
 import org.eclipse.jem.internal.java.JavaHelpers;
 
 /**
@@ -35,66 +36,18 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 		return (JavaHelpers) eClass();
 	}
 	
-	public boolean isImplicit() {
-		return isSetImplicit() ? ((Boolean) eGet(JavaInstantiation.getImplicitFeature(this))).booleanValue() : false;
+	public JavaAllocation getAllocation() {
+		return isSetAllocation() ? (JavaAllocation) eGet(JavaInstantiation.getAllocationFeature(this)) : null;
 	}
 	
-	public boolean isSetImplicit() {
-		return eIsSet(JavaInstantiation.getImplicitFeature(this));
+	public boolean isSetAllocation() {
+		return eIsSet(JavaInstantiation.getAllocationFeature(this));
 	}
 	
-	public void setImplicit(boolean implicit) {
-		eSet(JavaInstantiation.getImplicitFeature(this), implicit ? Boolean.TRUE : Boolean.FALSE);
-	}	
-	
-	public String getInitializationString() {
-		if (isSetInitializationString())
-			return (String) eGet(JavaInstantiation.getInitializationStringFeature(this));
-		else {
-			// Return construct with default ctor when not explicitly set.
-			JavaHelpers jc = getJavaType();
-			String qn = jc.getQualifiedName();
-			return "new " + qn + "()"; //$NON-NLS-1$ //$NON-NLS-2$
-		}
+	public void setAllocation(JavaAllocation allocation) {
+		eSet(JavaInstantiation.getAllocationFeature(this), allocation);
 	}
 	
-	public boolean isSetInitializationString() {
-		return eIsSet(JavaInstantiation.getInitializationStringFeature(this));
-	}
-	
-	public void setInitializationString(String initString) {
-		eSet(JavaInstantiation.getInitializationStringFeature(this), initString);
-	}
-	
-	public String getInstantiateUsing() {
-		if (isSetInstantiateUsing())
-			return (String) eGet(JavaInstantiation.getInstantiateUsingFeature(this));
-		else
-			return null;
-	}
-	
-	public boolean isSetInstantiateUsing() {
-		return eIsSet(JavaInstantiation.getInstantiateUsingFeature(this));
-	}
-	
-	public void setInstantiateUsing(String aClassname) {
-		eSet(JavaInstantiation.getInstantiateUsingFeature(this), aClassname);
-	}
-	
-	public String getSerializeData(){
-		if(isSetSerializeData())
-			return (String) eGet(JavaInstantiation.getSerializeDataFeature(this));
-		else
-			return null;
-	}
-	
-	public boolean isSetSerializeData(){
-		return eIsSet(JavaInstantiation.getSerializeDataFeature(this));
-	}
-	
-	public void setSerializeData(String serializableData){
-		eSet(JavaInstantiation.getSerializeDataFeature(this), serializableData);
-	}
 	
 	public boolean isPrimitive(){
 		return false;
@@ -113,10 +66,10 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 		  result.append(')');
 		}		
 		try {
-			String initString = getInitializationString();
-			if (initString != null) {
+			JavaAllocation allocation = getAllocation();
+			if (allocation != null) {
 				result.append(':'); //$NON-NLS-1$
-				result.append(initString);
+				result.append(allocation.getAllocString());
 			}
 		} catch (IllegalArgumentException e) {
 		} catch (NullPointerException e) {

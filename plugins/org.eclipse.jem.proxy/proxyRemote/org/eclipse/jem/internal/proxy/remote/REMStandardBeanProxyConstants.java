@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanProxyConstants.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
 
 
@@ -52,6 +52,9 @@ public final class REMStandardBeanProxyConstants {
 	private IMethodProxy fMethodMethodNameMessage;
 	private IMethodProxy fMethodParameterTypesMessage;
 	private IMethodProxy fMethodReturnTypeMessage;
+	
+	private IMethodProxy fAccessibleIsAccessible;
+	private IMethodProxy fAccessibleSetAccessible;
 	
 	private IMethodProxy fFieldGet;
 	private IMethodProxy fFieldGetType;
@@ -178,6 +181,18 @@ public IMethodProxy getMethodReturnTypeMessage() {
 	if (fMethodReturnTypeMessage == null)
 		fMethodReturnTypeMessage = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.reflect.Method", "getReturnType", null); //$NON-NLS-1$ //$NON-NLS-2$
 	return fMethodReturnTypeMessage;
+}
+
+public IMethodProxy getAccessibleIsAccessible() {
+	if (fAccessibleIsAccessible == null)
+		fAccessibleIsAccessible = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.reflect.AccessibleObject", "isAccessible", null); //$NON-NLS-1$ //$NON-NLS-2$
+	return fAccessibleIsAccessible;
+}
+
+public IMethodProxy getAccessibleSetAccessible() {
+	if (fAccessibleSetAccessible == null)
+		fAccessibleSetAccessible = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.reflect.AccessibleObject", "setAccessible", new String[] {"boolean"}); //$NON-NLS-1$ //$NON-NLS-2$
+	return fAccessibleSetAccessible;
 }
 
 public IMethodProxy getFieldGetType() {

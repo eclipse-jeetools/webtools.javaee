@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClass.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 import java.util.List;
 
@@ -57,11 +57,7 @@ public interface JavaClass extends EClass, JavaHelpers{
 	 * Returns a filtered list on the methods of this class, having a name equal to that of the parameter.
 	 */
 	public List getPublicMethodsExtendedNamed(String name);
-/**
- * To be used by people that need to get the qualified name used for reflection.
- * Typically bean info would need to use something like this.
- */
-String getQualifiedNameForReflection() ;
+
 	/**
 	 * Return an array listing our Fields, including inherited fields.
 	 * The field relationship is derived from contents.

@@ -11,11 +11,12 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaDataTypeInstance.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.jem.internal.instantiation.JavaAllocation;
 import org.eclipse.jem.internal.java.JavaHelpers;
 
 /**
@@ -27,34 +28,32 @@ import org.eclipse.jem.internal.java.JavaHelpers;
  * used instead. It is public so that it can be subclassed. 
  */
 public class JavaDataTypeInstance extends EObjectImpl implements IJavaDataTypeInstance {
-	
-	public static final String INIT_STRING_NAME = "initializationString"; //$NON-NLS-1$
 
 	protected JavaDataTypeInstance() {
 	}
 
 	/*
-	 * This is here only for JavaFactoryHandler to set the init string.
+	 * This is here only for JavaFactoryHandler to set the allocation.
 	 * It is not exposed in the interface and should not be called outside.
 	 */
-	public void setInitializationString(String initString) {
-		eSet(eClass().getEStructuralFeature(INIT_STRING_NAME), initString);
+	public JavaAllocation getAllocation() {
+		return isSetAllocation() ? (JavaAllocation) eGet(JavaInstantiation.getAllocationFeature(this)) : null;
+	}
+	
+	public boolean isSetAllocation() {
+		return eIsSet(JavaInstantiation.getAllocationFeature(this));
+	}
+	
+	public void setAllocation(JavaAllocation allocation) {
+		eSet(JavaInstantiation.getAllocationFeature(this), allocation);
 	}
 			
 	public JavaHelpers getJavaType() {
 		return (JavaHelpers) eClass();
 	}
-	
-	public String getInitializationString() {
-		return (String) eGet(eClass().getEStructuralFeature(INIT_STRING_NAME));
-	}
-	
-	public boolean isSetInitializationString() {
-		return eIsSet(eClass().getEStructuralFeature(INIT_STRING_NAME));
-	}
-	
+		
 	public String toString() {
-		return isSetInitializationString() ? getInitializationString() : ""; //$NON-NLS-1$
+		return isSetAllocation() ? getAllocation().getAllocString() : ""; //$NON-NLS-1$
 	}
 	public boolean isPrimitive(){
 		return true;

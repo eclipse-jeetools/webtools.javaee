@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaFactoryHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
 import org.eclipse.emf.ecore.*;
@@ -26,6 +26,7 @@ import org.eclipse.jem.internal.java.instantiation.IInstantiationHandler;
 public class JavaFactoryHandler implements IInstantiationHandler {
 
 	public final static JavaFactoryHandler INSTANCE = new JavaFactoryHandler();
+
 	/**
 	 * Constructor for JavaFactoryAdapter.
 	 */
@@ -33,39 +34,27 @@ public class JavaFactoryHandler implements IInstantiationHandler {
 		super();
 	}
 
-
-	/**
-	 * @see org.eclipse.jem.internal.instantiation.IInstantiationHandler#handlesClass(EClass)
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.instantiation.IInstantiationHandler#handlesClass(org.eclipse.emf.ecore.EClass)
 	 */
 	public boolean handlesClass(EClass type) {
-		return type instanceof JavaClass || type instanceof JavaDataType;	// During XMI loading, it can't tell the JavaDataType is different than JavaClass.
+		return type instanceof JavaClass || type instanceof JavaDataType;
+		// During XMI loading, it can't tell the JavaDataType is different than JavaClass.
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.instantiation.IInstantiationHandler#handlesDataType(EDataType)
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.instantiation.IInstantiationHandler#handlesDataType(org.eclipse.jem.internal.java.JavaDataType)
 	 */
 	public boolean handlesDataType(JavaDataType type) {
 		return true;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.instantiation.IInstantiationHandler#create(EClass)
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.instantiation.IInstantiationHandler#create(org.eclipse.emf.ecore.EClass)
 	 */
 	public EObject create(EClass javaClass) {
 		EObject result = javaClass instanceof JavaClass ? (EObject) new JavaObjectInstance() : new JavaDataTypeInstance();
-		((InternalEObject)result).eSetClass(javaClass);
+		((InternalEObject) result).eSetClass(javaClass);
 		return result;
 	}
-
-	/**
-	 * @see org.eclipse.jem.internal.instantiation.IInstantiationHandler#createFromString(EDataType, String)
-	 */
-	public Object createFromString(JavaDataType dataType, String s) {
-		JavaDataTypeInstance jdt = new JavaDataTypeInstance();
-		((InternalEObject)jdt).eSetClass(dataType);
-		if (s != null)		
-			jdt.setInitializationString(s);
-		return jdt;
-	}
-
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMMethodProxyFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
 
 
@@ -31,7 +31,7 @@ public class REMMethodProxyFactory implements IMethodProxyFactory {
 	final protected REMProxyFactoryRegistry fFactoryRegistry;
 	
 	// Cached copy of a few typical method type proxies.
-	private IREMBeanTypeProxy accessibleType;
+	IREMBeanTypeProxy accessibleType;
 	REMMethodTypeProxy methodType;
 	REMFieldTypeProxy fieldType;
 	REMConstructorTypeProxy ctorType;

@@ -1,7 +1,7 @@
 
 (object Petal
-    version    	45
-    _written   	"Rose 7.6.0109.2314"
+    version    	47
+    _written   	"Rose 8.0.0303.1400"
     charSet    	0)
 
 (object Class_Category "instantiation"
@@ -47,7 +47,78 @@
 	    class_attributes 	(list class_attribute_list
 		(object ClassAttribute "org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance"
 		    quid       	"3B78301801C9"
-		    stereotype 	"javaclass"))))
+		    stereotype 	"javaclass")))
+	(object Class "JavaAllocation"
+	    quid       	"3FD9E6900061"
+	    documentation 	
+|This class is the abstract base class of the allocation class. It is the value of the "allocation" property on a Java Object so that the actual allocation can be controlled. For example, there could be one for just init string, or one for serialized.
+	    
+	    class_attributes 	(list class_attribute_list
+		(object ClassAttribute "allocString"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Ecore"
+			    name       	"isVolatile"
+			    value      	TRUE))
+		    quid       	"3FD9E8C80375"
+		    documentation 	"This is the allocation string in readable format. It is derived in that subclasses will need to implement the getComputedAllocationString method to return the actual string. This string will be used directly in the code generation so it must be accurate. The set method is there, but it is ignored. This is just so that the string shows up in XMI serialization. (I.e. it is really read-only, but XMI doesn't understand this on serialization)."
+		    type       	"String"
+		    exportControl 	"Public"))
+	    abstract   	TRUE)
+	(object Class "InitStringAllocation"
+	    quid       	"3FD9EAF9001E"
+	    documentation 	"This is used when the allocation string can be parsed by the remote vm. It uses the allocString."
+	    superclasses 	(list inheritance_relationship_list
+		(object Inheritance_Relationship
+		    quid       	"3FD9EB7502DA"
+		    supplier   	"Logical View::instantiation::JavaAllocation"
+		    quidu      	"3FD9E6900061"))
+	    class_attributes 	(list class_attribute_list
+		(object ClassAttribute "initString"
+		    quid       	"3FFDE1DE032E"
+		    documentation 	"This is the initialization string for this object."
+		    type       	"String"
+		    exportControl 	"Public")))
+	(object Class "ImplicitAllocation"
+	    quid       	"3FD9EC140242"
+	    documentation 	"This class is for an implicit allocation where the object comes from the feature of another object. It is the live Java value from the remote vm."
+	    superclasses 	(list inheritance_relationship_list
+		(object Inheritance_Relationship
+		    quid       	"3FD9EC4700E7"
+		    supplier   	"Logical View::instantiation::JavaAllocation"
+		    quidu      	"3FD9E6900061")))
+	(object Association "$UNNAMED$0"
+	    quid       	"3FD9ED7103D5"
+	    documentation 	"The parent who is to give up the value."
+	    roles      	(list role_list
+		(object Role "parent"
+		    quid       	"3FD9ED720390"
+		    label      	"parent"
+		    supplier   	"Logical View::ecore::EObject"
+		    quidu      	"3C4F1C860123"
+		    client_cardinality 	(value cardinality "1")
+		    Containment 	"By Reference"
+		    is_navigable 	TRUE)
+		(object Role "$UNNAMED$1"
+		    quid       	"3FD9ED72039A"
+		    supplier   	"Logical View::instantiation::ImplicitAllocation"
+		    quidu      	"3FD9EC140242")))
+	(object Association "$UNNAMED$2"
+	    quid       	"3FD9EDD00088"
+	    documentation 	"The feature that will be used to query the live value."
+	    roles      	(list role_list
+		(object Role "feature"
+		    quid       	"3FD9EDD10148"
+		    label      	"feature"
+		    supplier   	"Logical View::ecore::EStructuralFeature"
+		    quidu      	"3903D59D0230"
+		    client_cardinality 	(value cardinality "1")
+		    Containment 	"By Reference"
+		    is_navigable 	TRUE)
+		(object Role "$UNNAMED$3"
+		    quid       	"3FD9EDD10152"
+		    supplier   	"Logical View::instantiation::ImplicitAllocation"
+		    quidu      	"3FD9EC140242"))))
     logical_presentations 	(list unit_reference_list
 	(object ClassDiagram "Main"
 	    quid       	"3B782D1B034F"
@@ -96,19 +167,19 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@2
-			location   	(1687, 593)
+			location   	(1557, 593)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	1416
+			max_width  	1676
 			justify    	0
 			label      	"IJavaDataTypeInstance")
 		    stereotype 	(object ItemLabel
 			Parent_View 	@2
-			location   	(1687, 548)
+			location   	(1557, 548)
 			fill_color 	13434879
 			anchor     	10
 			nlines     	1
-			max_width  	1416
+			max_width  	1676
 			justify    	0
 			label      	"<<Interface>>")
 		    icon       	"Interface"
@@ -118,7 +189,7 @@
 		    quidu      	"3B8AB17802B1"
 		    compartment 	(object Compartment
 			Parent_View 	@2
-			location   	(1687, 649)
+			location   	(1557, 649)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -132,8 +203,8 @@
 			fill_color 	16777215
 			anchor     	2
 			nlines     	2
-			max_width  	1413)
-		    width      	1434
+			max_width  	1427)
+		    width      	1694
 		    height     	218
 		    annotation 	8
 		    autoResize 	TRUE)
@@ -181,10 +252,10 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@5
-			location   	(960, 93)
+			location   	(846, 93)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	1248
+			max_width  	1476
 			justify    	0
 			label      	"IJavaInstance")
 		    icon       	"Interface"
@@ -194,7 +265,7 @@
 		    quidu      	"3E51575A02D4"
 		    compartment 	(object Compartment
 			Parent_View 	@5
-			location   	(960, 149)
+			location   	(846, 149)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -208,8 +279,8 @@
 			fill_color 	16777215
 			anchor     	2
 			nlines     	2
-			max_width  	1246)
-		    width      	1266
+			max_width  	1257)
+		    width      	1494
 		    height     	168
 		    annotation 	8
 		    autoResize 	TRUE)
@@ -238,19 +309,19 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@7
-			location   	(137, 613)
+			location   	(13, 613)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	1360
+			max_width  	1608
 			justify    	0
 			label      	"IJavaObjectInstance")
 		    stereotype 	(object ItemLabel
 			Parent_View 	@7
-			location   	(137, 568)
+			location   	(13, 568)
 			fill_color 	13434879
 			anchor     	10
 			nlines     	1
-			max_width  	1360
+			max_width  	1608
 			justify    	0
 			label      	"<<Interface>>")
 		    icon       	"Interface"
@@ -260,7 +331,7 @@
 		    quidu      	"3B782D790296"
 		    compartment 	(object Compartment
 			Parent_View 	@7
-			location   	(137, 669)
+			location   	(13, 669)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -274,8 +345,8 @@
 			fill_color 	16777215
 			anchor     	2
 			nlines     	2
-			max_width  	1357)
-		    width      	1378
+			max_width  	1370)
+		    width      	1626
 		    height     	218
 		    annotation 	8
 		    autoResize 	TRUE)
@@ -304,4 +375,389 @@
 		    line_style 	3
 		    origin_attachment 	(2394, 537)
 		    terminal_attachment 	(2394, 455)
-		    drawSupplier 	@6)))))
+		    drawSupplier 	@6)))
+	(object ClassDiagram "Java Constructors"
+	    quid       	"3FD9E66D007F"
+	    title      	"Java Constructors"
+	    zoom       	100
+	    max_height 	28350
+	    max_width  	21600
+	    origin_x   	0
+	    origin_y   	0
+	    items      	(list diagram_item_list
+		(object ClassView "Class" "Logical View::instantiation::JavaAllocation" @11
+		    ShowCompartmentStereotypes 	TRUE
+		    IncludeAttribute 	TRUE
+		    IncludeOperation 	TRUE
+		    location   	(1073, 120)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	TRUE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@11
+			location   	(856, 42)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	434
+			justify    	0
+			label      	"JavaAllocation")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"3FD9E6900061"
+		    compartment 	(object Compartment
+			Parent_View 	@11
+			location   	(856, 101)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	TRUE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	2
+			max_width  	365)
+		    width      	452
+		    height     	180
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object ClassView "Class" "Logical View::instantiation::InitStringAllocation" @12
+		    ShowCompartmentStereotypes 	TRUE
+		    IncludeAttribute 	TRUE
+		    IncludeOperation 	TRUE
+		    location   	(553, 495)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@12
+			location   	(342, 422)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	422
+			justify    	0
+			label      	"InitStringAllocation")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"3FD9EAF9001E"
+		    compartment 	(object Compartment
+			Parent_View 	@12
+			location   	(342, 478)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	2
+			max_width  	332)
+		    width      	440
+		    height     	168
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object InheritTreeView "" @13
+		    location   	(1073, 323)
+		    line_color 	3342489
+		    fill_color 	13434879
+		    supplier   	@11
+		    vertices   	(list Points
+			(1073, 323)
+			(1073, 210)))
+		(object InheritView "" @14
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    quidu      	"3FD9EB7502DA"
+		    client     	@12
+		    supplier   	@11
+		    line_style 	3
+		    origin_attachment 	(668, 410)
+		    terminal_attachment 	(668, 323)
+		    drawSupplier 	@13)
+		(object ClassView "Class" "Logical View::ecore::EObject" @15
+		    ShowCompartmentStereotypes 	TRUE
+		    location   	(901, 840)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@15
+			location   	(794, 768)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	214
+			justify    	0
+			label      	"EObject")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	16776960
+		    quidu      	"3C4F1C860123"
+		    width      	232
+		    height     	166
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object ClassView "Class" "Logical View::ecore::EStructuralFeature" @16
+		    ShowCompartmentStereotypes 	TRUE
+		    location   	(1417, 840)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	TRUE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@16
+			location   	(1193, 765)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	448
+			justify    	0
+			label      	"EStructuralFeature")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	16776960
+		    quidu      	"3903D59D0230"
+		    width      	466
+		    height     	174
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object ClassView "Class" "Logical View::instantiation::ImplicitAllocation" @17
+		    ShowCompartmentStereotypes 	TRUE
+		    IncludeAttribute 	TRUE
+		    IncludeOperation 	TRUE
+		    location   	(1165, 500)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@17
+			location   	(969, 426)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	392
+			justify    	0
+			label      	"ImplicitAllocation")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"3FD9EC140242"
+		    width      	410
+		    height     	170
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object InheritView "" @18
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    quidu      	"3FD9EC4700E7"
+		    client     	@17
+		    supplier   	@11
+		    line_style 	3
+		    origin_attachment 	(1165, 415)
+		    terminal_attachment 	(1165, 323)
+		    drawSupplier 	@13)
+		(object AssociationViewNew "$UNNAMED$0" @19
+		    location   	(1032, 670)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    quidu      	"3FD9ED7103D5"
+		    roleview_list 	(list RoleViews
+			(object RoleView "parent" @20
+			    Parent_View 	@19
+			    location   	(-133, 170)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @21
+				Parent_View 	@20
+				location   	(910, 712)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				anchor     	1
+				anchor_loc 	1
+				nlines     	1
+				max_width  	137
+				justify    	0
+				label      	"+parent"
+				pctDist    	0.991224
+				height     	72
+				orientation 	1)
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3FD9ED720390"
+			    client     	@19
+			    supplier   	@15
+			    line_style 	0
+			    label      	(object SegLabel @22
+				Parent_View 	@20
+				location   	(1030, 715)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				anchor     	2
+				anchor_loc 	1
+				nlines     	1
+				max_width  	15
+				justify    	0
+				label      	"1"
+				pctDist    	0.337817
+				height     	26
+				orientation 	0))
+			(object RoleView "$UNNAMED$1" @23
+			    Parent_View 	@19
+			    location   	(-133, 170)
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3FD9ED72039A"
+			    client     	@19
+			    supplier   	@17
+			    line_style 	0)))
+		(object AssociationViewNew "$UNNAMED$2" @24
+		    location   	(1290, 668)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    stereotype 	TRUE
+		    line_color 	3342489
+		    quidu      	"3FD9EDD00088"
+		    roleview_list 	(list RoleViews
+			(object RoleView "feature" @25
+			    Parent_View 	@24
+			    location   	(125, 168)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object SegLabel @26
+				Parent_View 	@25
+				location   	(1251, 720)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				anchor     	1
+				anchor_loc 	1
+				nlines     	1
+				max_width  	159
+				justify    	0
+				label      	"+feature"
+				pctDist    	0.181346
+				height     	64
+				orientation 	1)
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3FD9EDD10148"
+			    client     	@24
+			    supplier   	@16
+			    line_style 	0
+			    label      	(object SegLabel @27
+				Parent_View 	@25
+				location   	(1388, 712)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				anchor     	2
+				anchor_loc 	1
+				nlines     	1
+				max_width  	15
+				justify    	0
+				label      	"1"
+				pctDist    	0.900000
+				height     	54
+				orientation 	0))
+			(object RoleView "$UNNAMED$3" @28
+			    Parent_View 	@24
+			    location   	(125, 168)
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3FD9EDD10152"
+			    client     	@24
+			    supplier   	@17
+			    line_style 	0)))))))

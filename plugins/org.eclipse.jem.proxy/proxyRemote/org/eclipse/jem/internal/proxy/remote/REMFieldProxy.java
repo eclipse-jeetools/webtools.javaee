@@ -11,32 +11,31 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMFieldProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
  */
-
 
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 
-final class REMFieldProxy extends REMAbstractBeanProxy implements IFieldProxy {
+final class REMFieldProxy extends REMAccessibleObjectProxy implements IFieldProxy {
 	private IBeanTypeProxy fFieldType;
 
-	REMFieldProxy(REMProxyFactoryRegistry aRegistry, Integer anID){
+	REMFieldProxy(REMProxyFactoryRegistry aRegistry, Integer anID) {
 		super(aRegistry, anID);
 	}
-
 
 	/**
 	 * Return the type of the field.
 	 */
 	public IBeanTypeProxy getFieldType() {
 		if (fFieldType == null)
-			fFieldType = (IBeanTypeProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetType().invokeCatchThrowableExceptions(this);
-			
+			fFieldType =
+				(IBeanTypeProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetType().invokeCatchThrowableExceptions(
+					this);
+
 		return fFieldType;
 	}
-	
-	
+
 	/**
 	 * Release the proxy, i.e. mark it invalid.
 	 */
@@ -44,7 +43,7 @@ final class REMFieldProxy extends REMAbstractBeanProxy implements IFieldProxy {
 		fFieldType = null;
 		super.release();
 	}
-	
+
 	/**
 	 * Get the value of this field from the subject
 	 */
@@ -60,25 +59,33 @@ final class REMFieldProxy extends REMAbstractBeanProxy implements IFieldProxy {
 			// Use the correct primitive getter.
 			int id = ((IREMBeanProxy) fieldType).getID().intValue();
 			switch (id) {
-				case Commands.BYTE_TYPE:
+				case Commands.BYTE_TYPE :
 					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetByte()).invoke(this, subject);
-				case Commands.BOOLEAN_TYPE:
-					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetBoolean()).invoke(this, subject);
-				case Commands.CHARACTER_TYPE:
+				case Commands.BOOLEAN_TYPE :
+					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetBoolean()).invoke(
+						this,
+						subject);
+				case Commands.CHARACTER_TYPE :
 					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetChar()).invoke(this, subject);
-				case Commands.DOUBLE_TYPE:
-					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetDouble()).invoke(this, subject);
-				case Commands.FLOAT_TYPE:
-					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetFloat()).invoke(this, subject);
-				case Commands.INTEGER_TYPE:
+				case Commands.DOUBLE_TYPE :
+					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetDouble()).invoke(
+						this,
+						subject);
+				case Commands.FLOAT_TYPE :
+					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetFloat()).invoke(
+						this,
+						subject);
+				case Commands.INTEGER_TYPE :
 					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetInt()).invoke(this, subject);
-				case Commands.LONG_TYPE:
+				case Commands.LONG_TYPE :
 					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetLong()).invoke(this, subject);
-				case Commands.SHORT_TYPE:
-					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetShort()).invoke(this, subject);
+				case Commands.SHORT_TYPE :
+					return ((IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getFieldGetShort()).invoke(
+						this,
+						subject);
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -86,14 +93,14 @@ final class REMFieldProxy extends REMAbstractBeanProxy implements IFieldProxy {
 	 * Set the value of this field in this subject to this value.
 	 */
 	public void set(IBeanProxy subject, IBeanProxy value) throws ThrowableProxy {
-		REMStandardBeanProxyConstants.getConstants(fFactory).getFieldSet().invoke(this, new IBeanProxy[] {subject, value});	
+		REMStandardBeanProxyConstants.getConstants(fFactory).getFieldSet().invoke(this, new IBeanProxy[] { subject, value });
 	}
-	
+
 	/**
 	 * The type proxy is constant proxy out of the method factory.
 	 */
 	public IBeanTypeProxy getTypeProxy() {
 		return ((REMMethodProxyFactory) fFactory.getMethodProxyFactory()).fieldType;
-	} 
+	}
 
 }

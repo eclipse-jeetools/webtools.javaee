@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaDataTypeImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
 
 import java.util.Collection;
@@ -385,6 +385,13 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 				return getEIDAttribute() != null;
 		}
 		return eDynamicIsSet(eFeature);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.JavaHelpers#getQualifiedNameForReflection()
+	 */
+	public String getQualifiedNameForReflection() {
+		return getJavaName();
 	}
 
 }

@@ -12,8 +12,9 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaHelpers.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:21 $ 
  */
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 
 /**
@@ -21,7 +22,7 @@ import org.eclipse.emf.ecore.EClassifier;
  * Creation date: (6/27/2000 4:42:04 PM)
  * @author: Administrator
  */
-public interface JavaHelpers extends EClassifier {
+public interface JavaHelpers extends EClass {
 	static final String BOOLEAN_NAME = "java.lang.Boolean";
 	static final String CHARACTER_NAME = "java.lang.Character";
 	static final String BYTE_NAME = "java.lang.Byte";
@@ -51,4 +52,10 @@ public interface JavaHelpers extends EClassifier {
 	 */
 	public boolean isAssignableFrom(EClassifier aClass);
 	public boolean isPrimitive();
+	
+	/**
+	 * To be used by people that need to get the qualified name used for reflection.
+	 * Typically bean info would need to use something like this.
+	 */
+	public String getQualifiedNameForReflection() ;	
 }

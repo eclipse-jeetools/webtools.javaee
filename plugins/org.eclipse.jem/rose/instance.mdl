@@ -1,7 +1,7 @@
 
 (object Petal
-    version    	45
-    _written   	"Rose 7.6.0109.2314"
+    version    	47
+    _written   	"Rose 8.0.0303.1400"
     charSet    	0)
 
 (object Design "Logical View"
@@ -98,7 +98,12 @@
 		is_unit    	TRUE
 		is_loaded  	FALSE
 		file_name  	"$WorkspaceRoot\\org.eclipse.jem\\rose\\instantiation.cat"
-		quid       	"3B86F1720180"))
+		quid       	"3B86F1720180")
+	    (object Class_Category "ecore"
+		is_unit    	TRUE
+		is_loaded  	FALSE
+		file_name  	"$WorkspaceRoot\\org.eclipse.emf.ecore\\src\\model\\org.eclipse.emf.Ecore.cat"
+		quid       	"39A5ED04004E"))
 	logical_presentations 	(list unit_reference_list
 	    (object ClassDiagram "Main"
 		quid       	"3B86F1720173"
@@ -164,7 +169,32 @@
 			line_color 	3342489
 			fill_color 	8421631
 			width      	920
-			height     	305)))))
+			height     	305)
+		    (object CategoryView "Logical View::ecore" @3
+			location   	(258, 190)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@3
+			    location   	(114, 106)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"ecore")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"39A5ED04004E"
+			width      	300
+			height     	180)))))
     root_subsystem 	(object SubSystem "Component View"
 	quid       	"3B86F172016F"
 	physical_models 	(list unit_reference_list)
@@ -3131,7 +3161,7 @@
 		    (object Attribute
 			tool       	"Java"
 			name       	"ClassPath"
-			value      	".;D:\\Program Files\\Rational\\RUPBuilder;D:\\Program Files\\Rational\\common\\java\\swingall.jar;D:\\Program Files\\Rational\\common\\java\\javahelp\\jh.jar;d:\\program files\\sun\\jdk1.3.1_03\\src.jar;d:\\program files\\sun\\jdk1.3.1_03\\jre\\lib\\i18n.jar;d:\\program files\\sun\\jdk1.3.1_03\\jre\\lib\\jaws.jar;d:\\program files\\sun\\jdk1.3.1_03\\jre\\lib\\rt.jar;d:\\program files\\sun\\jdk1.3.1_03\\lib\\dt.jar;d:\\program files\\sun\\jdk1.3.1_03\\lib\\tools.jar;d:\\program files\\sun\\jdk1.3.1_03\\jre\\lib\\sunrsasign.jar")
+			value      	";D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\charsets.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\jce.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\jsse.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\rt.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\sunrsasign.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\dnsns.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\ldapsec.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\localedata.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\sunjce_provider.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\security\\local_policy.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\security\\US_export_policy.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\lib\\dt.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\lib\\htmlconverter.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\lib\\tools.jar")
 		    (object Attribute
 			tool       	"Java"
 			name       	"ReferenceClasspath"
@@ -3299,7 +3329,27 @@
 		    (object Attribute
 			tool       	"Java"
 			name       	"LocalHomeSuffix"
-			value      	"")))
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"SourceControl"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"SCCSelected"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"SCCProjectSourceRoot"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"SCCProjectName"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"SCCComment"
+			value      	FALSE)))
 	    (object Attribute
 		tool       	"Java"
 		name       	"default__Class"
