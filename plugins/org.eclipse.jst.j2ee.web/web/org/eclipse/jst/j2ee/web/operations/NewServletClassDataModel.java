@@ -8,6 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
+
 package org.eclipse.jst.j2ee.web.operations;
 
 import java.io.File;
@@ -23,12 +24,13 @@ import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.operations.WebMessages;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -151,11 +153,6 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	 */
 	private List interfaceList;
 	
-	/**
-	 * The J2EENature for the currently selected and targetted project.
-	 */
-	protected J2EENature j2eeNature;
-	
 	private static boolean useAnnotations = true;
 	
 	/**
@@ -184,7 +181,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	protected Boolean basicIsEnabled(String propertyName) {
 		// Annotations should only be enabled on a valid j2ee project of version 1.3 or higher
 		if (USE_ANNOTATIONS.equals(propertyName)) {
-			if (j2eeNature ==null || j2eeNature.getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
+			if (!isAnnotationsSupported())
 				return Boolean.FALSE;
 			return Boolean.TRUE;
 		}
@@ -234,14 +231,16 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		if (propertyName.equals(DO_POST))
 			return new Boolean(true);
 		// Generate a doGet method by default
-		if (propertyName.equals(DO_GET))
+		else if (propertyName.equals(DO_GET))
 			return new Boolean(true);
 		// Use servlet by default
-		if (propertyName.equals(IS_SERVLET_TYPE))
+		else if (propertyName.equals(IS_SERVLET_TYPE))
 			return new Boolean(true);
 		// Create an annotated servlet java class by default
 		else if (propertyName.equals(USE_ANNOTATIONS))
 			return shouldDefaultAnnotations();
+		else if (propertyName.equals(DISPLAY_NAME))
+			return getProperty(CLASS_NAME);
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
 	}
@@ -264,15 +263,9 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		// If annotations is changed, notify an enablement change
 		if (propertyName.equals(USE_ANNOTATIONS)) {
 			useAnnotations = ((Boolean) propertyValue).booleanValue();
-			if (j2eeNature !=null && ((Boolean) propertyValue).booleanValue() && j2eeNature.getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
+			if (useAnnotations && !isAnnotationsSupported())
 				return true;
 			notifyEnablementChange(USE_ANNOTATIONS);
-		}
-		// If display name is changed, update the class name to be the same
-		if (propertyName.equals(DISPLAY_NAME)) {
-			setNotificationEnabled(false);
-			setProperty(CLASS_NAME,propertyValue);
-			setNotificationEnabled(true);
 		}
 		// If the source folder is changed, ensure we have the correct project name
 		if (propertyName.equals(SOURCE_FOLDER)) {
@@ -290,33 +283,35 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		}
 		// Call super to set the property on the data model
 		boolean result = super.doSetProperty(propertyName, propertyValue);
-		
+		//	If class name is changed, update the display name to be the same
+		if (propertyName.equals(CLASS_NAME) && !isSet(DISPLAY_NAME)) {
+			notifyDefaultChange(DISPLAY_NAME);
+		}
 		// After the property is set, if project changed, update the nature and the annotations enablement
-		if (propertyName.equals(PROJECT_NAME)) {
-			updateJ2EENature();
+		if (propertyName.equals(MODULE_NAME)) {
 			notifyEnablementChange(USE_ANNOTATIONS);
 		}
 		// After property is set, if annotations is set to true, update its value based on the new level of the project
 		if (getBooleanProperty(USE_ANNOTATIONS)) {
-			if (j2eeNature !=null && j2eeNature.getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
+			if (!isAnnotationsSupported())
 				setBooleanProperty(USE_ANNOTATIONS, false);
 		}
 		// Return whether property was set
 		return result;
 	}
 	
-	/**
-	 * This method is intended for internal use only.  This will update the j2ee nature
-	 * cache based on the current targetted  project.
-	 * @see NewServletClassDataModel#doSetProperty(String, Object)
-	 */
-	private void updateJ2EENature() {
-		// Get nature for the targetted project
-		j2eeNature = J2EENature.getRegisteredRuntime(getTargetProject());
-		String key = null;
-		if (j2eeNature != null)
-			key = j2eeNature.getEditModelKey();
-		setProperty(EDIT_MODEL_ID, key);
+	protected boolean isAnnotationsSupported() {
+		if (getTargetProject()==null || getWorkbenchModule()==null) return true;
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(getWorkbenchModule());
+			if (webEdit == null)
+				return false;
+			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
 	}
 	
 	/**
@@ -332,6 +327,9 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	 * @return IStatus is property value valid?
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
+		IStatus result = super.doValidateProperty(propertyName);
+		if (!result.isOK())
+			return result;
 		// Validate init params
 		if (propertyName.equals(INIT_PARAM))
 			return validateInitParamList((List) getProperty(propertyName));
@@ -345,7 +343,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(SERVLET_SUPERCLASS))
 			return WTPCommonPlugin.OK_STATUS;
 		// Otherwise defer to super to validate the property
-		return super.doValidateProperty(propertyName);
+		return result;
 	}
 
 	/**
@@ -516,22 +514,34 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 			String msg = WebMessages.getResourceString(WebMessages.ERR_DISPLAY_NAME_EMPTY);
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
-		WebApp webApp = getDeploymentDescriptorRoot();
-		List servlets = webApp.getServlets();
-		boolean exists = false;
-		// Ensure the display does not already exist in the web application
-		if (servlets != null && !servlets.isEmpty()) {
-			for (int i = 0; i < servlets.size(); i++) {
-				String name = ((Servlet) servlets.get(i)).getServletName();
-				if (prop.equals(name))
-					exists = true;
+		if (getTargetProject()==null || getWorkbenchModule()==null)
+			return WTPCommonPlugin.OK_STATUS;
+		ArtifactEdit edit = null;
+		try {
+			edit = getArtifactEditForRead();
+			WebApp webApp = (WebApp) edit.getContentModelRoot();
+			if (webApp == null)
+				return WTPCommonPlugin.OK_STATUS;
+			List servlets = webApp.getServlets();
+			boolean exists = false;
+			// Ensure the display does not already exist in the web application
+			if (servlets != null && !servlets.isEmpty()) {
+				for (int i = 0; i < servlets.size(); i++) {
+					String name = ((Servlet) servlets.get(i)).getServletName();
+					if (prop.equals(name))
+						exists = true;
+				}
 			}
+			// If the servlet name already exists, throw an error
+			if (exists) {
+				String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_DISPLAY_NAME_EXIST, new String[]{prop});
+				return WTPCommonPlugin.createErrorStatus(msg);
+			}
+		} finally {
+			if (edit!=null)
+				edit.dispose();
 		}
-		// If the servlet name already exists, throw an error
-		if (exists) {
-			String msg = WebMessages.getResourceString(WebMessages.ERR_SERVLET_DISPLAY_NAME_EXIST, new String[]{prop});
-			return WTPCommonPlugin.createErrorStatus(msg);
-		}
+		
 		//Otherwise, return OK
 		return WTPCommonPlugin.OK_STATUS;
 	}
@@ -578,19 +588,6 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		return (IFolder) WebPropertiesUtil.getJavaSourceFolder(project);
 	}
 	
-	/**
-	 * This method is used to retrieve the web app deployment descriptor root from the j2eenature
-	 * cached for the current targetted project.  This method may return null.
-	 * @see NewServletClassDataModel#j2eeNature
-	 * 
-	 * @return WebApp for the targetted web project
-	 */
-	public final WebApp getDeploymentDescriptorRoot() {
-		// Return the web app deployment descriptor modelled object for the targetted project
-		if (j2eeNature != null)
-			return (WebApp) j2eeNature.getDeploymentDescriptorRoot();
-		return null;
-	}
 	/**
 	 * @return boolean should the default annotations be true?
 	 */

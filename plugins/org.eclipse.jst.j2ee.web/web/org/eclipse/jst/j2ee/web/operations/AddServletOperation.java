@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Description;
@@ -29,9 +30,8 @@ import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
 
 /**
  * This class, AddServlet Operation is a WTPOperation following the WTP wizard data model and
@@ -61,7 +61,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class AddServletOperation extends EditModelOperation {
+public class AddServletOperation extends ArtifactEditOperation {
 	
 	/**
 	 * This is the constructor which should be used when creating the operation.
@@ -198,7 +198,7 @@ public class AddServletOperation extends EditModelOperation {
 			servlet.setWebType(jspType);
 		}
 		// Add the servlet to the web application model
-		WebApp webApp = model.getDeploymentDescriptorRoot();
+		WebApp webApp = (WebApp) getArtifactEdit().getContentModelRoot();
 		webApp.getServlets().add(servlet);
 		// Return the servlet instance
 		return servlet;
@@ -216,8 +216,7 @@ public class AddServletOperation extends EditModelOperation {
 	 */
 	private void setUpInitParams(List initParamList, Servlet servlet) {
 		// Get the web app instance from the data model
-		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
-		WebApp webApp = model.getDeploymentDescriptorRoot();
+		WebApp webApp = (WebApp) getArtifactEdit().getContentModelRoot();
 		int nP = initParamList.size();
 		// If J2EE 1.4, add the param value and description info instances to the servlet init params
 		if (webApp.getJ2EEVersionID() >= J2EEVersionConstants.J2EE_1_4_ID) {
@@ -268,8 +267,7 @@ public class AddServletOperation extends EditModelOperation {
 	 */
 	private void setUpURLMappings(List urlMappingList, Servlet servlet) {
 		// Get the web app modelled object from the data model
-		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
-		WebApp webApp = model.getDeploymentDescriptorRoot();
+		WebApp webApp = (WebApp) getArtifactEdit().getContentModelRoot();
 		int nM = urlMappingList.size();
 		// Create the servlet mappings if any
 		for (int iM = 0; iM < nM; iM++) {

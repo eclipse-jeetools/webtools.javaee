@@ -222,6 +222,38 @@
             </or>
          </enablement>
        </commonWizard>
+       <!-- New Servlet -->
+        <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+         <enablement>
+           <or>
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
+               <and>
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jdt.core.javanature">
+	                  </objectState>
+	               </or> 
+               </and> 
+               <objectClass
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
+           	   </objectClass>
+           	   <objectClass
+                 name="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+           	   </objectClass>
+            </or>
+         </enablement>
+       </commonWizard>
        <!-- Web Import -->
         <commonWizard
             type="import"

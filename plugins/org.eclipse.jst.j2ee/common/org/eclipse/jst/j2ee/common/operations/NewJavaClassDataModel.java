@@ -32,10 +32,9 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.JavaModelUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -55,7 +54,7 @@ import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class NewJavaClassDataModel extends EditModelOperationDataModel {
+public class NewJavaClassDataModel extends ArtifactEditOperationDataModel {
 
 	/**
 	 * Required, String property used to set the unqualified java class name for the new java class.
@@ -150,12 +149,14 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 		} catch (CoreException e) {
 			Logger.getLogger().log(e);
 		}
-		IFolder sourcefolder = getJavaSourceFolder();
+		//TODO use module source folders
+		//IFolder sourcefolder = getJavaSourceFolder();
 		// Ensure the selected folder is a valid java source folder for the project
-		if (sourcefolder == null || (sourcefolder != null && !sourcefolder.getFullPath().equals(new Path(folderFullPath)))) {
-			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_SOURCE, new String[]{folderFullPath});
-			return WTPCommonPlugin.createErrorStatus(msg);
-		}
+		
+//		if (sourcefolder == null || (sourcefolder != null && !sourcefolder.getFullPath().equals(new Path(folderFullPath)))) {
+//			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_SOURCE, new String[]{folderFullPath});
+//			return WTPCommonPlugin.createErrorStatus(msg);
+//		}
 		// Valid source is selected
 		return WTPCommonPlugin.OK_STATUS;
 	}
@@ -281,6 +282,9 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 	 * @return IStatus of the validity of the specifiec property
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
+		IStatus result = super.doValidateProperty(propertyName);
+		if (!result.isOK())
+			return result;
 		if (propertyName.equals(SOURCE_FOLDER))
 			return validateFolder(getStringProperty(propertyName));
 		if (propertyName.equals(JAVA_PACKAGE))
@@ -291,7 +295,7 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 			return validateSuperclass(getStringProperty(propertyName));
 		if (propertyName.equals(MODIFIER_ABSTRACT) || propertyName.equals(MODIFIER_FINAL))
 			return validateModifier(propertyName,getBooleanProperty(propertyName));
-		return super.doValidateProperty(propertyName);
+		return result;
 	}
 
 	/**
@@ -534,17 +538,9 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 		List sources = JavaProjectUtilities.getSourceContainers(project);
 		return sources;
 	}
-	
-	/**
-	 * This method will return the target project for the new java class based on the project name set
-	 * in the data model.  It uses static API on ProjectCreationDataModel.
-	 * This method may return null.
-	 * @see NewJavaClassDataModel#PROJECT_NAME
-	 * @see ProjectCreationDataModel#getProjectHandleFromProjectName(String)
-	 * 
-	 * @return IProject target project
-	 */
-	public final IProject getTargetProject() {
-		return ProjectCreationDataModel.getProjectHandleFromProjectName(getStringProperty(PROJECT_NAME));
+
+	protected boolean doSetProperty(String propertyName, Object propertyValue) {
+					
+		return super.doSetProperty(propertyName, propertyValue);
 	}
 }

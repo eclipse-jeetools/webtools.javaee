@@ -151,8 +151,9 @@ public class AnnotationsStandaloneGroup {
 	}
 
 	public void setEnablement(IProject project) {
-		boolean isEnabled = isAnnotationsSupported(project);
-		useAnnotations.setEnabled(isEnabled);
+		//TODO
+		//boolean isEnabled = isAnnotationsSupported(project);
+		useAnnotations.setEnabled(true);
 //		if (!isEnabled || (!isForBean && !shouldProjectDefaultUseAnnotations) || (isForBean && !shouldBeanDefaultUseAnnotations)) {
 //			useAnnotations.setSelection(false);
 //			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);

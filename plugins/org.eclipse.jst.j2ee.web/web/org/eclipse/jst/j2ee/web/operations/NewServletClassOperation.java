@@ -30,6 +30,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsController;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
@@ -37,10 +38,8 @@ import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperation;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
  * The NewServletClassOperation is a WTPOperation following the WTP wizard data model and
@@ -71,7 +70,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
  *
  * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
-public class NewServletClassOperation extends EditModelOperation {
+public class NewServletClassOperation extends ArtifactEditOperation {
 	
 	/**
 	 * The extension name for a java class
@@ -109,7 +108,7 @@ public class NewServletClassOperation extends EditModelOperation {
 	 * @param dataModel
 	 * @return NewServletClassOperation
 	 */
-	public NewServletClassOperation(EditModelOperationDataModel dataModel) {
+	public NewServletClassOperation(ArtifactEditOperationDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -188,7 +187,7 @@ public class NewServletClassOperation extends EditModelOperation {
 	protected void generateUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment) throws WFTWrappedException, CoreException {
 		// Create the servlet template model
 		CreateServletTemplateModel tempModel = createTemplateModel();
-		IProject project = getOperationDataModel().getTargetProject();
+		IProject project = ((ArtifactEditOperationDataModel)getOperationDataModel()).getTargetProject();
 		String source;
 		// Using the WTPJetEmitter, generate the java source based on the servlet template model
 		try {

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.web.operations.AddServletOperation;
@@ -18,7 +17,7 @@ import org.eclipse.jst.j2ee.web.operations.NewServletClassDataModel;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * New servlet wizard
@@ -50,9 +49,9 @@ public class AddServletWizard extends NewWebWizard {
 		model.setProperty(NewJavaClassDataModel.SUPERCLASS, NewServletClassDataModel.SERVLET_SUPERCLASS);
 		model.setProperty(NewJavaClassDataModel.INTERFACES, ((NewServletClassDataModel)model).getServletInterfaces());
 		
-		IProject project = getDefaultWebProject();
-		if (project != null)
-		    model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
+		//IProject project = getDefaultWebProject();
+		//if (project != null)
+		//    model.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, project.getName());
 		return model;
 	}
 	
@@ -67,16 +66,17 @@ public class AddServletWizard extends NewWebWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
+		
+		NewJavaClassWizardPage page2 = new NewJavaClassWizardPage(
+				(NewServletClassDataModel)model, 
+				PAGE_TWO,
+				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
+				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE, IModuleConstants.JST_WEB_MODULE);
+		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
+		addPage(page2);
 		AddServletWizardPage page1 = new AddServletWizardPage((NewServletClassDataModel) model, PAGE_ONE);
 		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1);
 		addPage(page1);
-		NewWebJavaClassDestinationWizardPage page2 = new NewWebJavaClassDestinationWizardPage(
-				model, 
-				PAGE_TWO,
-				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE);
-		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
-		addPage(page2);
 		NewServletClassOptionsWizardPage page3 = new NewServletClassOptionsWizardPage(
 				model, 
 				PAGE_THREE,
@@ -95,7 +95,7 @@ public class AddServletWizard extends NewWebWizard {
 	
 	public boolean canFinish() {
 		AddServletWizardPage firstPage = (AddServletWizardPage)getPage(PAGE_ONE);
-		NewWebJavaClassDestinationWizardPage secondPage = (NewWebJavaClassDestinationWizardPage)getPage(PAGE_TWO);
+		NewJavaClassWizardPage secondPage = (NewJavaClassWizardPage)getPage(PAGE_TWO);
 		if (firstPage != null && firstPage.isPageComplete() && secondPage.isPageComplete() ) {
 			return true;
 		}

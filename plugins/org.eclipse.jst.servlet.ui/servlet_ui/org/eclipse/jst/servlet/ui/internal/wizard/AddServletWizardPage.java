@@ -26,9 +26,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -40,8 +39,6 @@ public class AddServletWizardPage extends WTPWizardPage {
 	private Text displayNameText;
 
 	private StringArrayTableWizardSection urlSection;
-	
-	private AnnotationsStandaloneGroup annotationsGroup = null;
 
 	public AddServletWizardPage(NewServletClassDataModel model, String pageName) {
 		super(model, pageName);
@@ -78,14 +75,13 @@ public class AddServletWizardPage extends WTPWizardPage {
 		if (!projectStatus.isOK()) {
 			setErrorMessage(projectStatus.getMessage());
 			composite.setEnabled(false);
-		} else
-			createAnnotationsGroup(composite);
+		}
 		return composite;
 	}
 
 	protected IStatus validateProjectName() {
 		// check for empty
-		if (model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME) == null || model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME).trim().length() == 0) {
+		if (model.getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME) == null || model.getStringProperty(ArtifactEditOperationDataModel.PROJECT_NAME).trim().length() == 0) {
 			return WTPCommonPlugin.createErrorStatus(IWebWizardConstants.NO_WEB_PROJECTS);
 		}
 		return WTPCommonPlugin.OK_STATUS;
@@ -120,17 +116,6 @@ public class AddServletWizardPage extends WTPWizardPage {
 		Text descText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(descText, NewServletClassDataModel.DESCRIPTION, null);
-	}
-
-	/**
-	 * Create annotations group and set default enablement
-	 */
-	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
-		IProject project = null;
-		project = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
-		annotationsGroup.setEnablement(project);
-		//annotationsGroup.setUseAnnotations(true);
 	}
 
 	public String getDisplayName() {
