@@ -11,9 +11,13 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: AbstractInitParserTestCase.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/19 22:50:22 $ 
  */
+import java.util.Enumeration;
+
+import junit.framework.*;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * @author richkulp
@@ -24,27 +28,43 @@ import junit.framework.TestCase;
 public abstract class AbstractInitParserTestCase extends TestCase {
 
 	/**
+	 * Initialize the test helper for all of the tests within the given suite.
 	 * 
+	 * @param suite
+	 * @param testHelper
+	 * 
+	 * @since 1.0.0
 	 */
+	public static void initSuite(TestSuite suite, AbstractInitStringParserTestHelper testHelper) {
+		Enumeration tests = suite.tests();
+		while (tests.hasMoreElements()) {
+			Test test = (Test) tests.nextElement();
+			if (test instanceof AbstractInitParserTestCase)
+				((AbstractInitParserTestCase) test).setTestHelper(testHelper);
+			else if (test instanceof TestSuite)
+				initSuite((TestSuite) test, testHelper);
+		}
+	}
+	
 	public AbstractInitParserTestCase() {
 		super();
 	}
 
-	/**
-	 * @param name
-	 */
 	public AbstractInitParserTestCase(String name) {
 		super(name);
 	}
 
-	protected InitStringParserTestHelper testHelper;
+	protected AbstractInitStringParserTestHelper testHelper;
 	
-	/* (non-Javadoc)
-	 * @see junit.framework.TestCase#setUp()
+	/**
+	 * Set the test helper to use.
+	 * 
+	 * @param testHelper
+	 * 
+	 * @since 1.0.0
 	 */
-	protected void setUp() throws Exception {
-		super.setUp();
-		// Setup testHelper with classLoader that loaded this class.
-		testHelper = new InitStringParserTestHelper(this.getClass().getClassLoader());
+	public void setTestHelper(AbstractInitStringParserTestHelper testHelper) {
+		this.testHelper = testHelper;
 	}
+	
 }

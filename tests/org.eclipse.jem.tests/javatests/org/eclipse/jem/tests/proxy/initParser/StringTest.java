@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: StringTest.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/19 22:50:22 $ 
  */
 
 /**
@@ -43,10 +43,10 @@ public class StringTest extends AbstractInitParserTestCase {
 		testHelper.testInitString("\"Frog\\\"prince\\\"123\"", "Frog\"prince\"123");	
 	}
 	public void testBackSlashes() throws Throwable {
-		testHelper.testInitString("\"Frog\\prince\\123\"", "Frog\\prince\\123");	
+		testHelper.testInitString("\"Frog\\\\prince\\\\123\"", "Frog\\prince\\123");	
 	}
 	public void testBackSlash() throws Throwable {
-		testHelper.testInitString("\"\\Frog\"", "\\Frog");	
+		testHelper.testInitString("\"\\\\Frog\"", "\\Frog");	
 	}
 	public void testStringFunction() throws Throwable {
 		testHelper.testInitString("\"Frog\".length()", new Integer(4));	

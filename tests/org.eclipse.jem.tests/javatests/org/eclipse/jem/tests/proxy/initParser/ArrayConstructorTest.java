@@ -10,8 +10,8 @@ package org.eclipse.jem.tests.proxy.initParser;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ArrayContructorTest.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $RCSfile: ArrayConstructorTest.java,v $
+ *  $Revision: 1.1 $  $Date: 2004/01/19 22:50:22 $ 
  */
 
 /**
@@ -20,13 +20,13 @@ package org.eclipse.jem.tests.proxy.initParser;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class ArrayContructorTest extends AbstractInitParserTestCase {
+public class ArrayConstructorTest extends AbstractInitParserTestCase {
 
 	/**
 	 * Constructor for ArrayContructorTest.
 	 * @param name
 	 */
-	public ArrayContructorTest(String name) {
+	public ArrayConstructorTest(String name) {
 		super(name);
 	}
 		
@@ -118,6 +118,7 @@ public class ArrayContructorTest extends AbstractInitParserTestCase {
 		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters(new double[][]{{ 5.0, -2.0, 5.0, -1.0, -1.0, 5.0, -2.0, 5.0 , }, { 5.0, -2.0, 5.0, -2.0, 5.0, -1.0, 5.0, -2.0, 5.0 , } , })",
 							new org.eclipse.jem.tests.proxy.initParser.NavigationParameters(new double[][]{{ 5.0, -2.0, 5.0, -1.0, -1.0, 5.0, -2.0, 5.0 , }, { 5.0, -2.0, 5.0, -2.0, 5.0, -1.0, 5.0, -2.0, 5.0 , } , }));	
 	}
+	
 	
 	// TODO: enable this test when the case is handled properly
 	/*

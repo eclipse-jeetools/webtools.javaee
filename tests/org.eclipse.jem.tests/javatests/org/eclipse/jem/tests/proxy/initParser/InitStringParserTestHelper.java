@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: InitStringParserTestHelper.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/19 22:50:22 $ 
  */
 import java.lang.reflect.Array;
 
@@ -25,7 +25,7 @@ import org.eclipse.jem.internal.proxy.initParser.InitializationStringParser;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class InitStringParserTestHelper {
+public class InitStringParserTestHelper extends AbstractInitStringParserTestHelper {
 
 	private final ClassLoader classLoader;
 	
@@ -36,14 +36,6 @@ public class InitStringParserTestHelper {
 	public InitStringParserTestHelper(ClassLoader classLoader) {
 		this.classLoader = classLoader;	
 	}
-	
-	public void testInitString(String aString, Object expectedResult) throws Throwable {
-		testInitString(aString, expectedResult, false, true);
-	}
-	
-	public void testInitString(String aString, boolean equalsOnly, Object expectedResult) throws Throwable {
-		testInitString(aString, expectedResult, false, equalsOnly);
-	}	
 	
 	/**
 	 * TestInitializationStringParser constructor comment.
