@@ -6,21 +6,28 @@
  */
 package org.eclipse.jst.j2ee.internal.earcreation;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.IRuntimeType;
+import org.eclipse.wst.server.core.ServerCore;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class EARComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
@@ -47,35 +54,19 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 
 
 	protected void init() {
-		//setJ2EENatureID(IWebNatureConstants.J2EE_NATURE_ID);
-		//setProperty(EDIT_MODEL_ID, IWebNatureConstants.EDIT_MODEL_ID);
-//		getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{IModuleConstants.MODULE_NATURE_ID});
-//		getJavaProjectCreationDataModel().setProperty(JavaProjectCreationDataModel.SOURCE_FOLDERS, new String[]{getDefaultJavaSourceFolderName()});
-//		updateOutputLocation();
 		super.init();
 	}
 
-
-
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		boolean retVal = super.doSetProperty(propertyName, propertyValue);
-		if (propertyName.equals(USE_ANNOTATIONS)) {
-			notifyEnablementChange(J2EE_MODULE_VERSION);
-		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
-			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
-				setProperty(USE_ANNOTATIONS, Boolean.FALSE);
-			notifyEnablementChange(USE_ANNOTATIONS);
-		} 
-		return retVal;
+		return super.doSetProperty(propertyName, propertyValue);
 	}
 
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
-		addValidBaseProperty(USE_ANNOTATIONS);
 	}
 
 	protected AddModuleToEARDataModel createModuleNestedModel() {
-		return new AddWebModuleToEARDataModel();
+		return null;
 	}
 
 	private Object updateAddToEar() {
@@ -93,12 +84,13 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	}
 
 	protected Object getDefaultProperty(String propertyName) {
-
 		if (propertyName.equals(DD_FOLDER)) {
-			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
-		}		
+			return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "META_INF";
+		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
+			return Boolean.FALSE;
+		}
 		return super.getDefaultProperty(propertyName);
-	}
+	}		
 
 	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
 		if (propertyName.equals(J2EE_MODULE_VERSION)) {
@@ -178,6 +170,22 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	}
 
 	protected IStatus doValidateProperty(String propertyName) {
+		// validate server target
+		String projectName = getStringProperty(J2EECreationDataModel.PROJECT_NAME);
+		if (projectName != null && projectName.length()!= 0) {
+			IProject project = ProjectUtilities.getProject(projectName);
+			if (project != null) {
+				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
+				if (runtime != null) {
+					IRuntimeType type = runtime.getRuntimeType();
+					String typeId = type.getId();
+					if (typeId.startsWith("org.eclipse.jst.server.tomcat")) {
+						String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+						return WTPCommonPlugin.createErrorStatus(msg);
+					}
+				}
+			}
+		}
 		return super.doValidateProperty(propertyName);
 	}
 
