@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.ui;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModulesDependencyPage;
@@ -62,7 +62,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public J2EEModuleCreationWizard(FlexibleJ2EEModuleCreationDataModel model) {
+	public J2EEModuleCreationWizard(J2EEComponentCreationDataModel model) {
 		super(model);
 	}
 
@@ -88,8 +88,8 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	 *  
 	 */
 	protected void addModulesPageIfNecessary() {
-		if (model.getBooleanProperty(FlexibleJ2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION)) {
-			addPage(new J2EEModulesDependencyPage((FlexibleJ2EEModuleCreationDataModel) model, MODULE_PG));
+		if (model.getBooleanProperty(J2EEComponentCreationDataModel.UI_SHOW_EAR_SECTION)) {
+			addPage(new J2EEModulesDependencyPage((J2EEComponentCreationDataModel) model, MODULE_PG));
 		}
 	}
 
@@ -151,7 +151,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	 * @return Returns a boolean true if the module page should be shown.
 	 */
 	protected final boolean shouldShowModulesPage() {
-		return model.getBooleanProperty(FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR) && shouldShowModulesPageForEAR();
+		return model.getBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR) && shouldShowModulesPageForEAR();
 	}
 
 	/**
@@ -161,7 +161,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	 * </p>
 	 * 
 	 * @return true only if the
-	 * @see J2EEModuleCreationDataModel#getClassPathSelection() is non-empty.
+	 * @see J2EEModuleCreationDataModelOld#getClassPathSelection() is non-empty.
 	 */
 	protected final boolean shouldShowModulesPageForEAR() {
 		//TODO is this what we want here?
@@ -181,8 +181,8 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 					earEdit.dispose();
 			}
 			model.setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
-			model.setIntProperty(FlexibleJ2EEModuleCreationDataModel.J2EE_VERSION, j2eeVersion);
-			model.setProperty(FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, earModule.getName());
+			model.setIntProperty(J2EEComponentCreationDataModel.J2EE_VERSION, j2eeVersion);
+			model.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModule.getName());
 		}
 	}
 }

@@ -51,7 +51,7 @@ public class J2EEUtilityJarImportOperation extends WTPOperation {
 		}
 
 		if (!dataModel.getJ2eeArtifactCreationDataModel().getTargetProject().exists()) {
-			JavaUtilityJARProjectCreationOperation javaProjectCreationOp = new JavaUtilityJARProjectCreationOperation(dataModel.getJ2eeArtifactCreationDataModel());
+			JavaUtilityJARProjectCreationOperationOld javaProjectCreationOp = new JavaUtilityJARProjectCreationOperationOld(dataModel.getJ2eeArtifactCreationDataModel());
 			javaProjectCreationOp.run(monitor);
 		}
 

@@ -11,11 +11,11 @@
 package org.eclipse.jst.servlet.ui;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.FlexibleWebModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.FlexibleWebModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleCreationPage;
@@ -59,7 +59,7 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public WebModuleCreationWizard(FlexibleWebModuleCreationDataModel model) {
+	public WebModuleCreationWizard(WebComponentCreationDataModel model) {
 		super(model);
 	}
 
@@ -68,14 +68,14 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * 
 	 * <p>
 	 * Overridden to return a {@link WebProjectCreationDataModel} and defaults
-	 * the value of {@link J2EEModuleCreationDataModel#ADD_TO_EAR} to <b>true</b>
+	 * the value of {@link J2EEModuleCreationDataModelOld#ADD_TO_EAR} to <b>true</b>
 	 * </p>
 	 * 
 	 * @return Returns the specific operation data model for the creation of J2EE Web modules
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
-		FlexibleWebModuleCreationDataModel aModel = new FlexibleWebModuleCreationDataModel();
-		aModel.setBooleanProperty(FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR, true);
+		WebComponentCreationDataModel aModel = new WebComponentCreationDataModel();
+		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
 	
@@ -89,7 +89,7 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * @return Returns the specific operation for the creation of J2EE Web modules
 	 */
 	protected WTPOperation createBaseOperation() {
-		return new FlexibleWebModuleCreationOperation(getSpecificDataModel());
+		return new WebComponentCreationOperation(getSpecificDataModel());
 	}
 
 	/** 
@@ -129,8 +129,8 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 		return WIZARD_ID;
 	} 
 	
-	private FlexibleWebModuleCreationDataModel getSpecificDataModel() {
-		return (FlexibleWebModuleCreationDataModel) getModel();
+	private WebComponentCreationDataModel getSpecificDataModel() {
+		return (WebComponentCreationDataModel) getModel();
 	}
 
 }

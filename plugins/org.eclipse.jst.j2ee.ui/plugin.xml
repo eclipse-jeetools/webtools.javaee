@@ -112,41 +112,6 @@
          </selection>
       </wizard>
       
-<!-- Application Project Wizard -->
-      <wizard
-            name="%ear.project_ui_"
-            icon="icons/full/ctool16/newear_wiz.gif"
-            category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard"
-            project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard"
-            >
-         <description>
-            %new.ear.project.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-<!-- Application Client Project Wizard -->
-      <wizard
-            name="%appclient.project_ui_"
-            icon="icons/full/ctool16/newappclient_wiz.gif"
-            category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard"
-            project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard">
-         <description>
-            %new.appclient.project.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-
-
    </extension>
 <!--================================-->
 <!-- Import Wizard Contributions    -->

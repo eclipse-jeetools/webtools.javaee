@@ -25,26 +25,26 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
-public class EnterpriseApplicationCreationOperation extends J2EEArtifactCreationOperation {
+public class EnterpriseApplicationCreationOperationOld extends J2EEArtifactCreationOperationOld {
 
-	public EnterpriseApplicationCreationOperation(EnterpriseApplicationCreationDataModel dataModel) {
+	public EnterpriseApplicationCreationOperationOld(EnterpriseApplicationCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EnterpriseApplicationCreationDataModel dataModel = (EnterpriseApplicationCreationDataModel) operationDataModel;
+		EnterpriseApplicationCreationDataModelOld dataModel = (EnterpriseApplicationCreationDataModelOld) operationDataModel;
 
 		createProject(monitor);
 		setVersion((J2EENature) dataModel.getProjectDataModel().getProject().getNature(IEARNatureConstants.NATURE_ID), monitor);
 		addServerTarget(monitor);
-		if (dataModel.getBooleanProperty(EnterpriseApplicationCreationDataModel.CREATE_DEFAULT_FILES)) {
+		if (dataModel.getBooleanProperty(EnterpriseApplicationCreationDataModelOld.CREATE_DEFAULT_FILES)) {
 			createApplication(dataModel, monitor);
 		}
 		addModules(dataModel.getAddModulesToEARDataModel(), monitor);
 	}
 
 	protected void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		ProjectCreationDataModel projectModel = ((J2EEArtifactCreationDataModel) operationDataModel).getProjectDataModel();
+		ProjectCreationDataModel projectModel = ((J2EEArtifactCreationDataModelOld) operationDataModel).getProjectDataModel();
 		ProjectCreationOperation projectOperation = new ProjectCreationOperation(projectModel);
 		projectOperation.doRun(monitor);
 	}
@@ -56,7 +56,7 @@ public class EnterpriseApplicationCreationOperation extends J2EEArtifactCreation
 		}
 	}
 
-	private void createApplication(EnterpriseApplicationCreationDataModel dataModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	private void createApplication(EnterpriseApplicationCreationDataModelOld dataModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		EditModelOperation op = new EditModelOperation(dataModel) {
 			protected void execute(IProgressMonitor aMonitor) throws CoreException, InvocationTargetException, InterruptedException {
 				EAREditModel earEditModel = (EAREditModel) editModel;
@@ -67,8 +67,8 @@ public class EnterpriseApplicationCreationOperation extends J2EEArtifactCreation
 	}
 
 	protected void setVersion(J2EENature nature, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EnterpriseApplicationCreationDataModel dataModel = (EnterpriseApplicationCreationDataModel) operationDataModel;
-		nature.setModuleVersion(dataModel.getIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION));
+		EnterpriseApplicationCreationDataModelOld dataModel = (EnterpriseApplicationCreationDataModelOld) operationDataModel;
+		nature.setModuleVersion(dataModel.getIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION));
 	}
 
 }

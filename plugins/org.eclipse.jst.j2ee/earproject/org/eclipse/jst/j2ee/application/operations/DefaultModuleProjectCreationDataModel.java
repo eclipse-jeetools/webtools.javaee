@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -109,10 +109,10 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	private static final String NESTED_MODEL_JCA = "DefaultModuleProjectCreationDataModel.NESTED_MODEL_JCA"; //$NON-NLS-1$
 	private static final String NESTED_MODEL_CLIENT = "DefaultModuleProjectCreationDataModel.NESTED_MODEL_CLIENT"; //$NON-NLS-1$
 
-	private J2EEModuleCreationDataModel ejbModel;
-	private J2EEModuleCreationDataModel webModel;
-	private J2EEModuleCreationDataModel jcaModel;
-	private AppClientModuleCreationDataModel clientModel;
+	private J2EEModuleCreationDataModelOld ejbModel;
+	private J2EEModuleCreationDataModelOld webModel;
+	private J2EEModuleCreationDataModelOld jcaModel;
+	private AppClientModuleCreationDataModelOld clientModel;
 
 	/**
 	 *  
@@ -152,7 +152,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initNestedModels()
 	 */
 	protected void initNestedModels() {
-		clientModel = new AppClientModuleCreationDataModel();
+		clientModel = new AppClientModuleCreationDataModelOld();
 		addNestedModel(NESTED_MODEL_CLIENT, clientModel);
 		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 		if (ejbExt != null) {
@@ -174,8 +174,8 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 		}
 	}
 
-	private void addNestedModel(String modelName, J2EEModuleCreationDataModel moduleModel) {
-		moduleModel.setProperty(J2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION, Boolean.FALSE);
+	private void addNestedModel(String modelName, J2EEModuleCreationDataModelOld moduleModel) {
+		moduleModel.setProperty(J2EEModuleCreationDataModelOld.UI_SHOW_EAR_SECTION, Boolean.FALSE);
 		super.addNestedModel(modelName, moduleModel);
 	}
 
@@ -253,7 +253,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getPropertyName().equals(J2EEModuleCreationDataModel.PROJECT_NAME)) {
+		if (event.getPropertyName().equals(J2EEModuleCreationDataModelOld.PROJECT_NAME)) {
 			Object source = event.getDataModel();
 			String propertyName = null;
 			if (ejbModel == source) {
@@ -383,10 +383,10 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	}
 
 	private void setDefaultNestedProjectName(String name, int flag) {
-		J2EEModuleCreationDataModel modModule = getNestedModel(flag);
+		J2EEModuleCreationDataModelOld modModule = getNestedModel(flag);
 		if (modModule != null) {
 			String projName = ensureUniqueProjectName(name);
-			modModule.setProperty(J2EEModuleCreationDataModel.PROJECT_NAME, projName);
+			modModule.setProperty(J2EEModuleCreationDataModelOld.PROJECT_NAME, projName);
 		}
 	}
 
@@ -422,12 +422,12 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	 */
 	private void setNestedJ2EEVersion(Object j2eeVersion) {
 		if (ejbModel != null)
-			ejbModel.setProperty(J2EEModuleCreationDataModel.J2EE_VERSION, j2eeVersion);
+			ejbModel.setProperty(J2EEModuleCreationDataModelOld.J2EE_VERSION, j2eeVersion);
 		if (webModel != null)
-			webModel.setProperty(J2EEModuleCreationDataModel.J2EE_VERSION, j2eeVersion);
+			webModel.setProperty(J2EEModuleCreationDataModelOld.J2EE_VERSION, j2eeVersion);
 		if (jcaModel != null)
-			jcaModel.setProperty(J2EEModuleCreationDataModel.J2EE_VERSION, j2eeVersion);
-		clientModel.setProperty(J2EEModuleCreationDataModel.J2EE_VERSION, j2eeVersion);
+			jcaModel.setProperty(J2EEModuleCreationDataModelOld.J2EE_VERSION, j2eeVersion);
+		clientModel.setProperty(J2EEModuleCreationDataModelOld.J2EE_VERSION, j2eeVersion);
 	}
 
 	/**
@@ -435,9 +435,9 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	 * @param projectName
 	 */
 	private void setNestedProjectName(int flag, String projectName) {
-		J2EEModuleCreationDataModel model = getNestedModel(flag);
+		J2EEModuleCreationDataModelOld model = getNestedModel(flag);
 		if (model != null) {
-			model.setProperty(J2EEModuleCreationDataModel.PROJECT_NAME, projectName);
+			model.setProperty(J2EEModuleCreationDataModelOld.PROJECT_NAME, projectName);
 		}
 	}
 
@@ -445,7 +445,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	 * @param flag
 	 */
 	private IStatus validateNestedProjectName(int flag) {
-		J2EEModuleCreationDataModel model = getNestedModel(flag);
+		J2EEModuleCreationDataModelOld model = getNestedModel(flag);
 		if (model != null) {
 			String createProperty = null;
 			switch (flag) {
@@ -463,20 +463,20 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 					break;
 			}
 			if (null != createProperty && getBooleanProperty(createProperty)) {
-				return model.validateProperty(J2EEModuleCreationDataModel.PROJECT_NAME);
+				return model.validateProperty(J2EEModuleCreationDataModelOld.PROJECT_NAME);
 			}
 		}
 		return J2EEPlugin.OK_STATUS;
 	}
 
 	private Object getNestedProjectName(int flag) {
-		J2EEModuleCreationDataModel model = getNestedModel(flag);
+		J2EEModuleCreationDataModelOld model = getNestedModel(flag);
 		if (model != null)
-			return model.getProperty(J2EEModuleCreationDataModel.PROJECT_NAME);
+			return model.getProperty(J2EEModuleCreationDataModelOld.PROJECT_NAME);
 		return null;
 	}
 
-	private J2EEModuleCreationDataModel getNestedModel(int flag) {
+	private J2EEModuleCreationDataModelOld getNestedModel(int flag) {
 		switch (flag) {
 			case EJB :
 				return ejbModel;
@@ -493,28 +493,28 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/**
 	 * @return Returns the clientModel.
 	 */
-	public AppClientModuleCreationDataModel getClientModel() {
+	public AppClientModuleCreationDataModelOld getClientModel() {
 		return clientModel;
 	}
 
 	/**
 	 * @return Returns the ejbModel.
 	 */
-	public J2EEModuleCreationDataModel getEjbModel() {
+	public J2EEModuleCreationDataModelOld getEjbModel() {
 		return ejbModel;
 	}
 
 	/**
 	 * @return Returns the rarModel.
 	 */
-	public J2EEModuleCreationDataModel getJCAModel() {
+	public J2EEModuleCreationDataModelOld getJCAModel() {
 		return jcaModel;
 	}
 
 	/**
 	 * @return Returns the webModel.
 	 */
-	public J2EEModuleCreationDataModel getWebModel() {
+	public J2EEModuleCreationDataModelOld getWebModel() {
 		return webModel;
 	}
 

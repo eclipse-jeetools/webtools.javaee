@@ -27,10 +27,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
@@ -46,12 +46,12 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
-public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
-	public FlexibleWebModuleCreationOperation(FlexibleWebModuleCreationDataModel dataModel) {
+public class WebComponentCreationOperation extends J2EEComponentCreationOperation {
+	public WebComponentCreationOperation(WebComponentCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
-	public FlexibleWebModuleCreationOperation() {
+	public WebComponentCreationOperation() {
 		super();
 	}
 
@@ -59,7 +59,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		
 		
-		String moduleName = (String)operationDataModel.getProperty(FlexibleWebModuleCreationDataModel.MODULE_NAME);
+		String moduleName = (String)operationDataModel.getProperty(WebComponentCreationDataModel.MODULE_NAME);
 
 		
 		IFolder moduleFolder = getProject().getFolder( moduleName );
@@ -104,7 +104,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
         WorkbenchComponent wbmodule = null;
         try {
             moduleCore = ModuleCore.getModuleCoreForRead(getProject());
-            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(FlexibleWebModuleCreationDataModel.MODULE_DEPLOY_NAME));
+            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
@@ -122,7 +122,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
        		IPath webxmlPath = new Path(projPath);
        		boolean b = webxmlPath.isValidPath(webxmlPath.toString());
        		if(webEdit != null) {
-       			int moduleVersion = operationDataModel.getIntProperty(FlexibleWebModuleCreationDataModel.J2EE_MODULE_VERSION);
+       			int moduleVersion = operationDataModel.getIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION);
   			
            		webEdit.createModelRoot( getProject(), webinf, webxmlPath, moduleVersion );
        		}

@@ -43,7 +43,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
-public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOperation {
+public abstract class J2EEModuleCreationOperationOld extends J2EEArtifactCreationOperationOld {
 	/**
 	 * name of the template emitter to be used to generate the deployment descriptor from the tags
 	 */
@@ -53,18 +53,18 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 	 */
 	protected static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
 	
-	public J2EEModuleCreationOperation(J2EEModuleCreationDataModel dataModel) {
+	public J2EEModuleCreationOperationOld(J2EEModuleCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
-	public J2EEModuleCreationOperation() {
+	public J2EEModuleCreationOperationOld() {
 		super();
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
+		J2EEModuleCreationDataModelOld dataModel = (J2EEModuleCreationDataModelOld) operationDataModel;
 		createProject(monitor);
-		if (dataModel.getBooleanProperty(J2EEArtifactCreationDataModel.CREATE_DEFAULT_FILES)) {
+		if (dataModel.getBooleanProperty(J2EEArtifactCreationDataModelOld.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
 			J2EENature nature = (J2EENature) dataModel.getProjectDataModel().getProject().getNature(dataModel.getJ2EENatureID());
 			createManifest(nature, monitor);
@@ -74,11 +74,11 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 
 	protected abstract void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
-	public static void linkToEARIfNecessary(J2EEModuleCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		if (moduleModel.getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
-			EnterpriseApplicationCreationDataModel earModel = moduleModel.getApplicationCreationDataModel();
+	public static void linkToEARIfNecessary(J2EEModuleCreationDataModelOld moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		if (moduleModel.getBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR)) {
+			EnterpriseApplicationCreationDataModelOld earModel = moduleModel.getApplicationCreationDataModel();
 			if (!earModel.getTargetProject().exists()) {
-				EnterpriseApplicationCreationOperation earOp = new EnterpriseApplicationCreationOperation(earModel);
+				EnterpriseApplicationCreationOperationOld earOp = new EnterpriseApplicationCreationOperationOld(earModel);
 				earOp.doRun(monitor);
 			}
 			AddArchiveToEARDataModel addModuleModel = moduleModel.getAddModuleToApplicationDataModel();
@@ -88,11 +88,11 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 	}
 
 	protected void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		JavaProjectCreationDataModel projectModel = ((J2EEModuleCreationDataModel) operationDataModel).getJavaProjectCreationDataModel();
+		JavaProjectCreationDataModel projectModel = ((J2EEModuleCreationDataModelOld) operationDataModel).getJavaProjectCreationDataModel();
 		JavaProjectCreationOperation javaProjectOperation = new JavaProjectCreationOperation(projectModel);
 		javaProjectOperation.doRun(monitor);
 		updateClasspath(projectModel);
-		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
+		J2EEModuleCreationDataModelOld dataModel = (J2EEModuleCreationDataModelOld) operationDataModel;
 		//setVersion(nature, monitor);
 		addServerTarget(monitor);
 	}
@@ -102,7 +102,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 	 * @throws JavaModelException
 	 */
 	private void updateClasspath(JavaProjectCreationDataModel projectModel) throws JavaModelException {
-		ClassPathSelection classpath = ((J2EEModuleCreationDataModel) getOperationDataModel()).getClassPathSelection();
+		ClassPathSelection classpath = ((J2EEModuleCreationDataModelOld) getOperationDataModel()).getClassPathSelection();
 		if (classpath == null || classpath.getClasspathElements().size() == 0)
 			return;
 		IClasspathEntry[] newEntries = classpath.getClasspathEntriesForSelected();
@@ -134,13 +134,13 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ioe);
 				return;
 			}
-			UpdateManifestOperation op = new UpdateManifestOperation(((J2EEModuleCreationDataModel) operationDataModel).getUpdateManifestDataModel());
+			UpdateManifestOperation op = new UpdateManifestOperation(((J2EEModuleCreationDataModelOld) operationDataModel).getUpdateManifestDataModel());
 			op.doRun(monitor);
 		}
 	}
 
 	protected void setVersion(WorkbenchComponent module, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
+		J2EEModuleCreationDataModelOld dataModel = (J2EEModuleCreationDataModelOld) operationDataModel;
 		//TODO set module version?
 		//module.setModuleVersion(dataModel.getIntProperty(J2EEModuleCreationDataModel.J2EE_MODULE_VERSION));
 	}
@@ -173,7 +173,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 			// Find the xdoclet builder from the extension registry
 			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
 			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
-			IProject project = ((J2EEModuleCreationDataModel)operationDataModel).getTargetProject(); 
+			IProject project = ((J2EEModuleCreationDataModelOld)operationDataModel).getTargetProject(); 
 			IProjectDescription description = project.getDescription();
 			ICommand[] commands = description.getBuildSpec();
 			boolean found = false;

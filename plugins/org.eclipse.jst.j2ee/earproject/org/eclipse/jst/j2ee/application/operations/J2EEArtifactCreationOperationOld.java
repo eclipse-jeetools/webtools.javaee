@@ -24,16 +24,28 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
-public abstract class FlexibleJ2EECreationOperation extends WTPOperation {
+/**
+ * @deprecated Use J2EECreationOperation
+ *
+ */
+public abstract class J2EEArtifactCreationOperationOld extends WTPOperation {
 
-	public FlexibleJ2EECreationOperation(FlexibleJ2EECreationDataModel dataModel) {
+	public J2EEArtifactCreationOperationOld(J2EEArtifactCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
-	public FlexibleJ2EECreationOperation() {
+	public J2EEArtifactCreationOperationOld() {
 		super();
 	}
 
-	//protected abstract void createModule(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
+	protected abstract void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
+
+	protected void addServerTarget(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		if (operationDataModel.getBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET)) {
+			ServerTargetDataModel model = ((J2EEArtifactCreationDataModelOld) operationDataModel).getServerTargetDataModel();
+			ServerTargetOperation serverTargetOperation = new ServerTargetOperation(model);
+			serverTargetOperation.doRun(monitor);
+		}
+	}
 
 }

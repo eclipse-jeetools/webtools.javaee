@@ -10,8 +10,8 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -68,7 +68,7 @@ public final class ConnectorModuleImportDataModel extends J2EEModuleImportDataMo
 
 	protected void init() {
 		super.init();
-		setIntProperty(J2EEModuleCreationDataModel.J2EE_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
+		setIntProperty(J2EEModuleCreationDataModelOld.J2EE_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
 	}
 
 	/*
@@ -76,8 +76,8 @@ public final class ConnectorModuleImportDataModel extends J2EEModuleImportDataMo
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
-	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
-		return new ConnectorModuleCreationDataModel();
+	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
+		return new ConnectorModuleCreationDataModelOld();
 	}
 
 	/*

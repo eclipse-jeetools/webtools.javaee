@@ -11,9 +11,9 @@
 package org.eclipse.jst.j2ee.jca.ui;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.FlexibleConnectorModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.FlexibleConnectorModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
@@ -56,7 +56,7 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public ConnectorModuleCreationWizard(FlexibleJ2EEModuleCreationDataModel model) {
+	public ConnectorModuleCreationWizard(J2EEComponentCreationDataModel model) {
 		super(model);
 	}
 	
@@ -71,8 +71,8 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * @return Returns the specific operation data model for the creation of J2EE Connector modules
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		FlexibleConnectorModuleCreationDataModel aModel = new FlexibleConnectorModuleCreationDataModel();
-		aModel.setBooleanProperty(FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR, true);
+		ConnectorComponentCreationDataModel aModel = new ConnectorComponentCreationDataModel();
+		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
 	
@@ -86,7 +86,7 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * @return Returns the specific operation for the creation of J2EE Connector modules
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new FlexibleConnectorModuleCreationOperation(getSpecificDataModel());
+		return new ConnectorComponentCreationOperation(getSpecificDataModel());
 	}
 	
 	/** 
@@ -125,8 +125,8 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	} 
  
 
-	private FlexibleConnectorModuleCreationDataModel getSpecificDataModel() {
-		return (FlexibleConnectorModuleCreationDataModel) getModel();
+	private ConnectorComponentCreationDataModel getSpecificDataModel() {
+		return (ConnectorComponentCreationDataModel) getModel();
 	}
 
 }

@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.applicationclient.creation;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -27,7 +27,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
  * 
  * @since WTP 1.0
  */
-public class FlexibleAppClientCreationDataModel extends FlexibleJ2EEModuleCreationDataModel {
+public class AppClientComponentCreationDataModel extends J2EEComponentCreationDataModel {
 	/**
 	 * Boolean, default=true. If this is true and CREATE_DEFAULT_FILES is true, then a default main
 	 * class will be generated during project creation.
@@ -90,7 +90,7 @@ public class FlexibleAppClientCreationDataModel extends FlexibleJ2EEModuleCreati
 
 
     public WTPOperation getDefaultOperation() {
-        return new FlexibleAppClientModuleCreationOperation(this);
+        return new AppClientComponentCreationOperation(this);
     }
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()

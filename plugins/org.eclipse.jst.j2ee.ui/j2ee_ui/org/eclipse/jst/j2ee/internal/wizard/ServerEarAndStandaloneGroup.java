@@ -20,9 +20,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard;
 import org.eclipse.swt.SWT;
@@ -48,7 +48,7 @@ public class ServerEarAndStandaloneGroup {
 	private Combo earCombo;
 	private Label earLabel;
 	private Button addToEAR;
-	private FlexibleJ2EEModuleCreationDataModel model;
+	private J2EEComponentCreationDataModel model;
 	private WTPDataModelSynchHelper synchHelper;
 	
 	private Composite parentComposite;
@@ -56,7 +56,7 @@ public class ServerEarAndStandaloneGroup {
 	/**
 	 *  
 	 */
-	public ServerEarAndStandaloneGroup(Composite parent, FlexibleJ2EEModuleCreationDataModel model) {
+	public ServerEarAndStandaloneGroup(Composite parent, J2EEComponentCreationDataModel model) {
 		this.model = model;
 		this.parentComposite = parent;
 		synchHelper = new WTPDataModelSynchHelper(model);
@@ -72,7 +72,7 @@ public class ServerEarAndStandaloneGroup {
 	 */
 	protected void createEarAndStandaloneComposite(Composite parent) {
 
-		if (model.getBooleanProperty(FlexibleJ2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION)) {
+		if (model.getBooleanProperty(J2EEComponentCreationDataModel.UI_SHOW_EAR_SECTION)) {
 
 			Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -88,7 +88,7 @@ public class ServerEarAndStandaloneGroup {
 			gd = new GridData(GridData.FILL_HORIZONTAL);
 			gd.horizontalSpan = 2;
 			addToEAR.setLayoutData(gd);
-			synchHelper.synchCheckbox(addToEAR, FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR, null);
+			synchHelper.synchCheckbox(addToEAR, J2EEComponentCreationDataModel.ADD_TO_EAR, null);
 			addToEAR.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
 					handleAddToEarSelection();
@@ -122,9 +122,9 @@ public class ServerEarAndStandaloneGroup {
 
 			IProject project = getCurrentProject();
 			if (project != null)
-				model.setProperty(FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, project.getName());
+				model.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, project.getName());
 			Control[] deps = new Control[]{earLabel, newEAR};
-			synchHelper.synchCombo(earCombo, FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, deps);
+			synchHelper.synchCombo(earCombo, J2EEComponentCreationDataModel.EAR_MODULE_NAME, deps);
 
 		}
 
@@ -172,18 +172,18 @@ public class ServerEarAndStandaloneGroup {
 	 *  
 	 */
 	protected void handleNewEarSelected() {
-		FlexibleJ2EEModuleCreationDataModel moduleModel = model;
-		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
-		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
-		earModel.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, moduleModel.getProperty(FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME));
+		J2EEComponentCreationDataModel moduleModel = model;
+		EnterpriseApplicationCreationDataModelOld earModel = new EnterpriseApplicationCreationDataModelOld();
+		earModel.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
+		earModel.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
 		//TODO the flexible ear data model needs to be used and server target has to be discovered from project
-		earModel.setProperty(EnterpriseApplicationCreationDataModel.SERVER_TARGET_ID, moduleModel.getProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
+		earModel.setProperty(EnterpriseApplicationCreationDataModelOld.SERVER_TARGET_ID, moduleModel.getProperty(J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID));
+		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModelOld.UI_SHOW_FIRST_PAGE_ONLY, true);
 		EnterpriseApplicationCreationWizard earWizard = new EnterpriseApplicationCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
 			//moduleModel.notifyUpdatedEARs();
-			moduleModel.setProperty(FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
+			moduleModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
 		}
 
 	}

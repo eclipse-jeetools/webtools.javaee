@@ -22,21 +22,21 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOld;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
-public class AppClientModuleCreationOperation extends J2EEModuleCreationOperation {
+public class AppClientModuleCreationOperationOld extends J2EEModuleCreationOperationOld {
 
-	public AppClientModuleCreationOperation(AppClientModuleCreationDataModel dataModel) {
+	public AppClientModuleCreationOperationOld(AppClientModuleCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
+		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModelOld) operationDataModel) {
 			protected void execute(IProgressMonitor localMonitor) throws CoreException, InvocationTargetException, InterruptedException {
 				AppClientEditModel model = (AppClientEditModel) editModel;
 
@@ -46,8 +46,8 @@ public class AppClientModuleCreationOperation extends J2EEModuleCreationOperatio
 				}
 
 				model.makeDeploymentDescriptorWithRoot();
-				AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel) operationDataModel;
-				if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
+				AppClientModuleCreationDataModelOld dataModel = (AppClientModuleCreationDataModelOld) operationDataModel;
+				if (dataModel.getBooleanProperty(AppClientModuleCreationDataModelOld.CREATE_DEFAULT_MAIN_CLASS)) {
 					NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
 					mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, dataModel.getProjectDataModel().getProject().getName());
 					mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$

@@ -17,14 +17,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 
-public class FlexibleConnectorModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
+public class ConnectorComponentCreationOperation extends J2EEComponentCreationOperation {
 
-    public FlexibleConnectorModuleCreationOperation(FlexibleConnectorModuleCreationDataModel dataModel) {
+    public ConnectorComponentCreationOperation(ConnectorComponentCreationDataModel dataModel) {
         super(dataModel);
     }
 

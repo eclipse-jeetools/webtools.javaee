@@ -21,7 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -42,7 +42,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * 
  * @since WTP 1.0
  */
-public final class ConnectorModuleCreationDataModel extends J2EEModuleCreationDataModel {
+public final class ConnectorModuleCreationDataModelOld extends J2EEModuleCreationDataModelOld {
 	
 	/**
 	 * Creates an Connector project with the specified name and version in the specified location.
@@ -61,7 +61,7 @@ public final class ConnectorModuleCreationDataModel extends J2EEModuleCreationDa
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int connectorModuleVersion) {
-		ConnectorModuleCreationDataModel dataModel = new ConnectorModuleCreationDataModel();
+		ConnectorModuleCreationDataModelOld dataModel = new ConnectorModuleCreationDataModelOld();
 		dataModel.setProperty(PROJECT_NAME, projectName);
 		if (null != projectLocation) {
 			dataModel.setProperty(PROJECT_LOCATION, projectLocation.toOSString());
@@ -78,7 +78,7 @@ public final class ConnectorModuleCreationDataModel extends J2EEModuleCreationDa
 	
 	
 	public WTPOperation getDefaultOperation() {
-		return new ConnectorModuleCreationOperation(this);
+		return new ConnectorModuleCreationOperationOld(this);
 	}
 
 	protected void init() {

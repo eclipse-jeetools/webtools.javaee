@@ -10,7 +10,7 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -68,8 +68,8 @@ public final class AppClientModuleImportDataModel extends J2EEModuleImportDataMo
 		}
 	}
 
-	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
-		return new AppClientModuleCreationDataModel();
+	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
+		return new AppClientModuleCreationDataModelOld();
 	}
 
 	protected int getType() {

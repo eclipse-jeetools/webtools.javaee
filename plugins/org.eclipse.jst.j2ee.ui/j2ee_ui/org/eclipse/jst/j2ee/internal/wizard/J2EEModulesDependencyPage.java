@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.operations.ClasspathElement;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -57,7 +57,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 
 	private CheckboxTableViewer availableJarsViewer;
 
-	public J2EEModulesDependencyPage(FlexibleJ2EEModuleCreationDataModel model, String pageName) {
+	public J2EEModulesDependencyPage(J2EEComponentCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_DESC));
@@ -70,7 +70,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 
 
 	private void updateJarViewer() {
-		FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) model;
+		J2EEComponentCreationDataModel dataModel = (J2EEComponentCreationDataModel) model;
 
 		ClassPathSelection classPathSelection = dataModel.getClassPathSelection();
 
@@ -98,7 +98,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		Label earLabel = new Label(composite, SWT.NONE);
 		earLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION));
 		Text earText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
-		synchHelper.synchText(earText, FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, null);
+		synchHelper.synchText(earText, J2EEComponentCreationDataModel.EAR_MODULE_NAME, null);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		earText.setLayoutData(gd);
 
@@ -186,7 +186,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		ClasspathElement element = (ClasspathElement) event.getElement();
 		element.setSelected(event.getChecked());
 		String classEntry = element.getText();
-		UpdateManifestDataModel updateManifest = ((FlexibleJ2EEModuleCreationDataModel) model).getUpdateManifestDataModel();
+		UpdateManifestDataModel updateManifest = ((J2EEComponentCreationDataModel) model).getUpdateManifestDataModel();
 		List classpathList = (List) updateManifest.getProperty(UpdateManifestDataModel.JAR_LIST);
 		if (event.getChecked()) {
 			if (!classpathList.contains(classEntry)) {

@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -57,8 +57,8 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationDataModel,
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	protected void createModuleProject(J2EEArtifactCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		WebModuleCreationOperation op = new WebModuleCreationOperation((WebModuleCreationDataModel) model);
+	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		WebModuleCreationOperationOld op = new WebModuleCreationOperationOld((WebModuleCreationDataModelOld) model);
 		op.run(monitor);
 	}
 
@@ -100,7 +100,7 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		//project.getFile(webNature.getWebSettingsPath()).refreshLocal(0, monitor);
 		//WebSettingsMigrator migrator = new WebSettingsMigrator();
 		//migrator.migrate(project);
-		if (!model.getJ2eeArtifactCreationDataModel().getBooleanProperty(J2EEArtifactCreationDataModel.ADD_SERVER_TARGET))
+		if (!model.getJ2eeArtifactCreationDataModel().getBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET))
 			addServerTarget(monitor);
 	}
 

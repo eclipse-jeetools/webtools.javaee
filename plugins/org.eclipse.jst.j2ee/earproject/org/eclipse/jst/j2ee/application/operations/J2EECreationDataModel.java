@@ -42,7 +42,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * 
  * @since WTP 1.0
  */
-public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataModel {
+public abstract class J2EECreationDataModel extends WTPOperationDataModel {
     
     /**
      * Required

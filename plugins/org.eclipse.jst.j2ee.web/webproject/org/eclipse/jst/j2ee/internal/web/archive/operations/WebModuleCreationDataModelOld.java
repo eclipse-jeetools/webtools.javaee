@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -49,7 +49,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * 
  * @since WTP 1.0
  */
-public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
+public class WebModuleCreationDataModelOld extends J2EEModuleCreationDataModelOld {
 	public static final String APACHE_VENDER_NAME = "Apache"; //$NON-NLS-1$
 	/**
 	 * Type Integer
@@ -85,7 +85,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int connectorModuleVersion) {
-		WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
+		WebModuleCreationDataModelOld dataModel = new WebModuleCreationDataModelOld();
 		dataModel.setProperty(PROJECT_NAME, projectName);
 		if (null != projectLocation) {
 			dataModel.setProperty(PROJECT_LOCATION, projectLocation.toOSString());
@@ -101,7 +101,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 	}
 
 	public WTPOperation getDefaultOperation() {
-		return new WebModuleCreationOperation(this);
+		return new WebModuleCreationOperationOld(this);
 	}
 
 	/**

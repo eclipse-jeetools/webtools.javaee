@@ -12,10 +12,10 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.FlexibleWebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
@@ -43,7 +43,7 @@ public class WebModuleCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public WebModuleCreationPage(FlexibleWebModuleCreationDataModel  model, String pageName) {
+	public WebModuleCreationPage(WebComponentCreationDataModel  model, String pageName) {
 		super(model, pageName);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC));
@@ -67,7 +67,7 @@ public class WebModuleCreationPage extends J2EEModuleCreationPage {
 		data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		contextRootNameField.setLayoutData(data);
-		synchHelper.synchText(contextRootNameField, FlexibleWebModuleCreationDataModel.CONTEXT_ROOT, new Control[]{contextRootLabel});
+		synchHelper.synchText(contextRootNameField, WebComponentCreationDataModel.CONTEXT_ROOT, new Control[]{contextRootLabel});
 		
 		createAnnotationsGroup(advanced);
 	}
@@ -76,13 +76,13 @@ public class WebModuleCreationPage extends J2EEModuleCreationPage {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, getJ2EEModuleCreationDataModel(), false);
 	}
 	
-	FlexibleWebModuleCreationDataModel getWebProjectCreationDataModel() {
-		return (FlexibleWebModuleCreationDataModel) model;
+	WebComponentCreationDataModel getWebProjectCreationDataModel() {
+		return (WebComponentCreationDataModel) model;
 	}
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-		return new String[]{ArtifactEditOperationDataModel.PROJECT_NAME, FlexibleJ2EEModuleCreationDataModel.J2EE_MODULE_VERSION, WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR, AddWebModuleToEARDataModel.CONTEXT_ROOT};
+		return new String[]{ArtifactEditOperationDataModel.PROJECT_NAME, J2EEComponentCreationDataModel.J2EE_MODULE_VERSION, WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEComponentCreationDataModel.ADD_TO_EAR, AddWebModuleToEARDataModel.CONTEXT_ROOT};
 	}
 
 	public void dispose() {

@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ui;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.FlexibleAppClientCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.FlexibleAppClientModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -55,7 +55,7 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public AppClientModuleCreationWizard(FlexibleAppClientCreationDataModel dataModel) {
+	public AppClientModuleCreationWizard(AppClientComponentCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -64,15 +64,15 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 * 
 	 * <p>
 	 * Overridden to return an {@link AppClientProjectCreationDataModel}and defaults the value of
-	 * {@link J2EEModuleCreationDataModel#ADD_TO_EAR}to <b>true </b>
+	 * {@link J2EEModuleCreationDataModelOld#ADD_TO_EAR}to <b>true </b>
 	 * </p>
 	 * 
 	 * @return Returns the specific operation data model for the creation of J2EE Application
 	 *         Clients
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		AppClientModuleCreationDataModel aModel = new AppClientModuleCreationDataModel();
-		aModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
+		AppClientModuleCreationDataModelOld aModel = new AppClientModuleCreationDataModelOld();
+		aModel.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
 		return aModel;
 	}
 
@@ -86,7 +86,7 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 * @return Returns the specific operation for the creation of J2EE Application Clients
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new FlexibleAppClientModuleCreationOperation(getSpecificDataModel());
+		return new AppClientComponentCreationOperation(getSpecificDataModel());
 	}
 
 	/**
@@ -124,8 +124,8 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 		return WIZARD_ID;
 	}
 
-	private FlexibleAppClientCreationDataModel getSpecificDataModel() {
-		return (FlexibleAppClientCreationDataModel) model;
+	private AppClientComponentCreationDataModel getSpecificDataModel() {
+		return (AppClientComponentCreationDataModel) model;
 	}
 
 }

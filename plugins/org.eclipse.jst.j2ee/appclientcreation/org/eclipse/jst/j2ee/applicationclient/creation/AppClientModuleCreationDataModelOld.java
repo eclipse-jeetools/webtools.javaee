@@ -21,7 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -40,7 +40,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * 
  * @since WTP 1.0
  */
-public final class AppClientModuleCreationDataModel extends J2EEModuleCreationDataModel {
+public final class AppClientModuleCreationDataModelOld extends J2EEModuleCreationDataModelOld {
 
 	/**
 	 * Boolean, default=true. If this is true and CREATE_DEFAULT_FILES is true, then a default main
@@ -67,7 +67,7 @@ public final class AppClientModuleCreationDataModel extends J2EEModuleCreationDa
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int applicationClientVersion) {
-		AppClientModuleCreationDataModel dataModel = new AppClientModuleCreationDataModel();
+		AppClientModuleCreationDataModelOld dataModel = new AppClientModuleCreationDataModelOld();
 		dataModel.setProperty(PROJECT_NAME, projectName);
 		if (null != projectLocation) {
 			dataModel.setProperty(PROJECT_LOCATION, projectLocation.toOSString());
@@ -84,7 +84,7 @@ public final class AppClientModuleCreationDataModel extends J2EEModuleCreationDa
 
 
 	public WTPOperation getDefaultOperation() {
-		return new AppClientModuleCreationOperation(this);
+		return new AppClientModuleCreationOperationOld(this);
 	}
 
 	protected void initValidBaseProperties() {

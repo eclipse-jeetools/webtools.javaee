@@ -8,8 +8,8 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperationOld;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
@@ -20,7 +20,7 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
-public class ConvertWebProjectDataModel extends WebModuleCreationDataModel
+public class ConvertWebProjectDataModel extends WebModuleCreationDataModelOld
 {
 	/*
 	 * (non-Javadoc)
@@ -30,7 +30,7 @@ public class ConvertWebProjectDataModel extends WebModuleCreationDataModel
 	public WTPOperation getDefaultOperation()
 	{
 		// TODO Auto-generated method stub
-		return new WebModuleCreationOperation(this);
+		return new WebModuleCreationOperationOld(this);
 	}
 
 	/*

@@ -20,8 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperationOld;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
@@ -85,7 +85,7 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	/**
 	 * @param model
 	 */
-	private void createEJBModuleProject(J2EEModuleCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	private void createEJBModuleProject(J2EEModuleCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		EarModuleExtension ext = EarModuleManager.getEJBModuleExtension();
 		runModuleExtensionOperation(ext, model, monitor);
 		WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
@@ -94,7 +94,7 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	/**
 	 * @param model
 	 */
-	private void createWebModuleProject(J2EEModuleCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	private void createWebModuleProject(J2EEModuleCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		EarModuleExtension ext = EarModuleManager.getWebModuleExtension();
 		runModuleExtensionOperation(ext, model, monitor);
 		WTPActivityBridge.getInstance().enableActivity(WEB_DEV_ACTIVITY_ID, true);
@@ -103,15 +103,15 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	/**
 	 * @param model
 	 */
-	private void createRarModuleProject(J2EEModuleCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	private void createRarModuleProject(J2EEModuleCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		JcaModuleExtension jcaExt = EarModuleManager.getJCAModuleExtension();
 		runModuleExtensionOperation(jcaExt, model, monitor);
 		WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
 	}
 
-	private void runModuleExtensionOperation(EarModuleExtension extension, J2EEModuleCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	private void runModuleExtensionOperation(EarModuleExtension extension, J2EEModuleCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		if (extension != null) {
-			J2EEModuleCreationOperation op = extension.createProjectCreationOperation(model);
+			J2EEModuleCreationOperationOld op = extension.createProjectCreationOperation(model);
 			if (op != null)
 				op.doRun(monitor);
 		}
@@ -120,8 +120,8 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	/**
 	 * @param model
 	 */
-	private void createAppClientModuleProject(J2EEModuleCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		AppClientModuleCreationOperation op = new AppClientModuleCreationOperation((AppClientModuleCreationDataModel) model);
+	private void createAppClientModuleProject(J2EEModuleCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		AppClientModuleCreationOperationOld op = new AppClientModuleCreationOperationOld((AppClientModuleCreationDataModelOld) model);
 		op.doRun(monitor);
 		WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
 

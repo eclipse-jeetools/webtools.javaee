@@ -10,6 +10,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -125,7 +126,7 @@ public class FlexibleProjectCreationWizard extends WTPWizard implements INewWiza
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
-		return new J2EEProjectCreationDataModel();
+		return new JavaProjectCreationDataModel();
 	}
 
 	/**

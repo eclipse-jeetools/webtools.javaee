@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -36,7 +36,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
  * 
  * @since WTP 1.0
  */
-public class FlexibleWebModuleCreationDataModel extends FlexibleJ2EEModuleCreationDataModel {
+public class WebComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
 	/**
 	 * Type Integer
@@ -55,7 +55,7 @@ public class FlexibleWebModuleCreationDataModel extends FlexibleJ2EEModuleCreati
 
 
 	public WTPOperation getDefaultOperation() {
-		return new FlexibleWebModuleCreationOperation(this);
+		return new WebComponentCreationOperation(this);
 	}
 
 	/**

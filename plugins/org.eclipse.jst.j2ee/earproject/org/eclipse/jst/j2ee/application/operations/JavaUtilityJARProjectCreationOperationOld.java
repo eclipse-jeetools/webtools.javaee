@@ -21,11 +21,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationOperation;
 
-public class JavaUtilityJARProjectCreationOperation extends J2EEArtifactCreationOperation {
+public class JavaUtilityJARProjectCreationOperationOld extends J2EEArtifactCreationOperationOld {
 	/**
 	 * @param dataModel
 	 */
-	public JavaUtilityJARProjectCreationOperation(J2EEArtifactCreationDataModel dataModel) {
+	public JavaUtilityJARProjectCreationOperationOld(J2EEArtifactCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
@@ -35,7 +35,7 @@ public class JavaUtilityJARProjectCreationOperation extends J2EEArtifactCreation
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationOperation#createProject(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		JavaProjectCreationDataModel projectModel = (JavaProjectCreationDataModel) ((J2EEArtifactCreationDataModel) operationDataModel).getProjectDataModel();
+		JavaProjectCreationDataModel projectModel = (JavaProjectCreationDataModel) ((J2EEArtifactCreationDataModelOld) operationDataModel).getProjectDataModel();
 		JavaProjectCreationOperation javaProjectOperation = new JavaProjectCreationOperation(projectModel);
 		javaProjectOperation.doRun(monitor);
 	}

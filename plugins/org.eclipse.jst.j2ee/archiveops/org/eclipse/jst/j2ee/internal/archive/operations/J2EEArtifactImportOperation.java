@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
@@ -73,13 +73,13 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 	}
 
 	protected void addServerTarget(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		J2EEArtifactCreationDataModel projModel = ((J2EEArtifactImportDataModel) operationDataModel).getJ2eeArtifactCreationDataModel();
+		J2EEArtifactCreationDataModelOld projModel = ((J2EEArtifactImportDataModel) operationDataModel).getJ2eeArtifactCreationDataModel();
 		ServerTargetDataModel servModel = projModel.getServerTargetDataModel();
 		ServerTargetOperation serverTargetOperation = new ServerTargetOperation(servModel);
 		serverTargetOperation.doRun(monitor);
 	}
 
-	protected abstract void createModuleProject(J2EEArtifactCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
+	protected abstract void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
 	/**
 	 * Creates the appropriate save strategy. Subclases should overwrite this method to create the

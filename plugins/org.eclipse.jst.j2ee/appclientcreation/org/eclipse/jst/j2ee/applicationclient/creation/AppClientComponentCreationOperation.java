@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
@@ -38,9 +38,9 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
-public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
+public class AppClientComponentCreationOperation extends J2EEComponentCreationOperation {
 
-    public FlexibleAppClientModuleCreationOperation(FlexibleAppClientCreationDataModel dataModel) {
+    public AppClientComponentCreationOperation(AppClientComponentCreationDataModel dataModel) {
         super(dataModel);
     }
 
@@ -56,8 +56,8 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
             createFolder(absMetaRoot);
 
             artifactEdit.getDeploymentDescriptorRoot();
-            AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel) operationDataModel;
-            if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
+            AppClientModuleCreationDataModelOld dataModel = (AppClientModuleCreationDataModelOld) operationDataModel;
+            if (dataModel.getBooleanProperty(AppClientModuleCreationDataModelOld.CREATE_DEFAULT_MAIN_CLASS)) {
                 NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
                 mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, dataModel.getProjectDataModel().getProject().getName());
                 mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
@@ -90,8 +90,8 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
         ModuleCore moduleCore = null;
         WorkbenchComponent module = null;
         try {
-            moduleCore = ModuleCore.getModuleCoreForRead(((FlexibleAppClientCreationDataModel) operationDataModel).getTargetProject());
-            module = moduleCore.findWorkbenchModuleByDeployName(((FlexibleAppClientCreationDataModel) operationDataModel).getStringProperty(ArtifactEditOperationDataModel.MODULE_NAME));
+            moduleCore = ModuleCore.getModuleCoreForRead(((AppClientComponentCreationDataModel) operationDataModel).getTargetProject());
+            module = moduleCore.findWorkbenchModuleByDeployName(((AppClientComponentCreationDataModel) operationDataModel).getStringProperty(ArtifactEditOperationDataModel.MODULE_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
@@ -100,8 +100,8 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
         return module;
     }
 
-    public FlexibleAppClientCreationDataModel getDataModel() {
-        return (FlexibleAppClientCreationDataModel) operationDataModel;
+    public AppClientComponentCreationDataModel getDataModel() {
+        return (AppClientComponentCreationDataModel) operationDataModel;
     }
     
 

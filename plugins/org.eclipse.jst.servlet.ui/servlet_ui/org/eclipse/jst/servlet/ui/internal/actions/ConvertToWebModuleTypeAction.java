@@ -13,10 +13,10 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
 import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeWizard;
 import org.eclipse.ui.IWorkbench;
@@ -52,11 +52,11 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	{
 		ConvertToWebModuleTypeWizard wizard = new ConvertToWebModuleTypeWizard(
 				new ConvertWebProjectDataModel());
-		WebModuleCreationDataModel model = (WebModuleCreationDataModel) wizard
+		WebModuleCreationDataModelOld model = (WebModuleCreationDataModelOld) wizard
 				.getModel();
 		model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project
 				.getName());
-		model.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
+		model.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
 
 		StaticWebNatureRuntime nature;
 		try
@@ -65,9 +65,9 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 					.getNature(IWebNatureConstants.STATIC_NATURE_ID);
 			String webContent = nature.getRootPublishableFolder().getName();
 			String contextRoot = nature.getContextRoot();
-			model.setProperty(WebModuleCreationDataModel.WEB_CONTENT,
+			model.setProperty(WebModuleCreationDataModelOld.WEB_CONTENT,
 					webContent);
-			model.setProperty(WebModuleCreationDataModel.CONTEXT_ROOT,
+			model.setProperty(WebModuleCreationDataModelOld.CONTEXT_ROOT,
 					contextRoot);
 		}
 		catch( CoreException e )

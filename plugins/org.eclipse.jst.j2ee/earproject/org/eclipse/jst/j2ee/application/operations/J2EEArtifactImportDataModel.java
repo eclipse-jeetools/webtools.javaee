@@ -105,9 +105,9 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	/**
 	 * Extended attributes
 	 */
-	public static final String SERVER_TARGET_ID = J2EEArtifactCreationDataModel.SERVER_TARGET_ID;
+	public static final String SERVER_TARGET_ID = J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID;
 
-	private J2EEArtifactCreationDataModel j2eeArtifactCreationDataModel;
+	private J2EEArtifactCreationDataModelOld j2eeArtifactCreationDataModel;
 	private Archive archiveFile;
 	private OpenFailureException cachedOpenFailureException = null;
 
@@ -136,7 +136,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	protected void initNestedModels() {
 		super.initNestedModels();
 		j2eeArtifactCreationDataModel = createJ2EEProjectCreationDataModel();
-		j2eeArtifactCreationDataModel.setBooleanProperty(J2EEArtifactCreationDataModel.CREATE_DEFAULT_FILES, false);
+		j2eeArtifactCreationDataModel.setBooleanProperty(J2EEArtifactCreationDataModelOld.CREATE_DEFAULT_FILES, false);
 		j2eeArtifactCreationDataModel.addListener(this);
 		addNestedModel(NESTED_MODEL_J2EE_PROJECT_CREATION, j2eeArtifactCreationDataModel);
 	}
@@ -148,7 +148,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		if (propertyName.equals(PRESERVE_PROJECT_METADATA) || propertyName.equals(OVERWRITE_PROJECT) || propertyName.equals(DELETE_BEFORE_OVERWRITE_PROJECT)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(PROJECT_NAME)) {
-			return j2eeArtifactCreationDataModel.getProperty(J2EEArtifactCreationDataModel.PROJECT_NAME);
+			return j2eeArtifactCreationDataModel.getProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME);
 		} else if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(URI_FOR_MODULE_MAPPING)) {
@@ -224,7 +224,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		//            updateDefaultProjectName();
 		//        }
 		if (propertyName.equals(PROJECT_NAME)) {
-			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModel.PROJECT_NAME, propertyValue);
+			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME, propertyValue);
 		} else if (propertyName.equals(SAVE_FILTER) && archiveFile != null) {
 			archiveFile.setSaveFilter(getSaveFilter());
 		}
@@ -265,7 +265,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 					defaultProjectName = baseName + Integer.toString(i);
 				}
 			}
-			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModel.PROJECT_NAME, defaultProjectName);
+			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME, defaultProjectName);
 			notifyDefaultChange(PROJECT_NAME);
 			setBooleanProperty(DEFAULT_PROJECT_NAME, true);
 		}
@@ -357,7 +357,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		return 0;
 	}
 
-	protected abstract J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel();
+	protected abstract J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel();
 
 	/*
 	 * @see XMLResource#APP_CLIENT_TYPE
@@ -368,7 +368,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	 */
 	protected abstract int getType();
 
-	public final J2EEArtifactCreationDataModel getJ2eeArtifactCreationDataModel() {
+	public final J2EEArtifactCreationDataModelOld getJ2eeArtifactCreationDataModel() {
 		return j2eeArtifactCreationDataModel;
 	}
 
@@ -414,8 +414,8 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getDataModel().equals(j2eeArtifactCreationDataModel) && event.getPropertyName().equals(J2EEArtifactCreationDataModel.PROJECT_NAME)) {
-			setProperty(PROJECT_NAME, j2eeArtifactCreationDataModel.getStringProperty(J2EEArtifactCreationDataModel.PROJECT_NAME));
+		if (event.getDataModel().equals(j2eeArtifactCreationDataModel) && event.getPropertyName().equals(J2EEArtifactCreationDataModelOld.PROJECT_NAME)) {
+			setProperty(PROJECT_NAME, j2eeArtifactCreationDataModel.getStringProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME));
 			setBooleanProperty(DEFAULT_PROJECT_NAME, false);
 		}
 		super.propertyChanged(event);

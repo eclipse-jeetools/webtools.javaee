@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
@@ -90,10 +90,10 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 		return super.getDefaultProperty(propertyName);
 	}
 
-	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
-		WebModuleCreationDataModel dm = new WebModuleCreationDataModel();
-		dm.setBooleanProperty(J2EEArtifactCreationDataModel.ADD_SERVER_TARGET, false);
-		dm.setBooleanProperty(WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS, false);
+	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
+		WebModuleCreationDataModelOld dm = new WebModuleCreationDataModelOld();
+		dm.setBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET, false);
+		dm.setBooleanProperty(WebModuleCreationDataModelOld.MIGRATE_WEB_SETTINGS, false);
 		return dm;
 	}
 
@@ -131,7 +131,7 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 					}
 				}
 			}
-			setProperty(WebModuleCreationDataModel.WEB_CONTENT, webContentName);
+			setProperty(WebModuleCreationDataModelOld.WEB_CONTENT, webContentName);
 		}
 		return returnVal;
 	}

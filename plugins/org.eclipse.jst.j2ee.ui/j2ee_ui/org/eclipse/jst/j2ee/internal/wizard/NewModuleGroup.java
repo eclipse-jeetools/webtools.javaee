@@ -17,8 +17,8 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard;
 import org.eclipse.swt.SWT;
@@ -43,7 +43,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  */
 public class NewModuleGroup {
 	
-	private FlexibleJ2EEModuleCreationDataModel model;
+	private J2EEComponentCreationDataModel model;
 	protected Combo projectNameCombo = null;
 	protected Text moduleNameText = null;
 	protected Button newButton = null;
@@ -59,7 +59,7 @@ public class NewModuleGroup {
 	 * @param parent
 	 * @param style
 	 */
-	public NewModuleGroup(Composite parent, int style, FlexibleJ2EEModuleCreationDataModel model) {
+	public NewModuleGroup(Composite parent, int style, J2EEComponentCreationDataModel model) {
 		this.model = model;
 		synchHelper = new WTPDataModelSynchHelper(model);
 		buildComposites(parent);
@@ -129,7 +129,7 @@ public class NewModuleGroup {
 		data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		moduleNameText.setLayoutData(data);
-		synchHelper.synchText(moduleNameText,FlexibleJ2EECreationDataModel.MODULE_NAME,new Control[] {});
+		synchHelper.synchText(moduleNameText,J2EECreationDataModel.MODULE_NAME,new Control[] {});
 		new Label(parent,SWT.NONE);
 		
 	}

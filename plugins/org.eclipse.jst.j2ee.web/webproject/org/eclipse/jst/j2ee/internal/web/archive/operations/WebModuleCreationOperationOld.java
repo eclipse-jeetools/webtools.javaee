@@ -28,8 +28,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOld;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
@@ -44,12 +44,12 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
-	public WebModuleCreationOperation(WebModuleCreationDataModel dataModel) {
+public class WebModuleCreationOperationOld extends J2EEModuleCreationOperationOld {
+	public WebModuleCreationOperationOld(WebModuleCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
-	public WebModuleCreationOperation() {
+	public WebModuleCreationOperationOld() {
 		super();
 	}
 
@@ -58,7 +58,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
+		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModelOld) operationDataModel) {
 			protected void execute(IProgressMonitor amonitor) throws CoreException, InvocationTargetException, InterruptedException {
 				WebEditModel model = (WebEditModel) editModel;
 				IFolder moduleRoot = WebPropertiesUtil.getModuleServerRoot(model.getProject());
@@ -86,8 +86,8 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.execute(monitor);
-		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
-		if (dataModel.getBooleanProperty(WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS)) {
+		J2EEModuleCreationDataModelOld dataModel = (J2EEModuleCreationDataModelOld) operationDataModel;
+		if (dataModel.getBooleanProperty(WebModuleCreationDataModelOld.MIGRATE_WEB_SETTINGS)) {
 			//TODO migrate websettings file?
 			//IProject project = dataModel.getProjectDataModel().getProject();	
 			//webNature.getWebSettings().write();
@@ -96,11 +96,11 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 			//migrator.migrate(project);
 		}
 		//By default we do not create a flexible project
-		if(dataModel.getBooleanProperty(J2EEModuleCreationDataModel.IS_FLEXIBLE_PROJECT)) {
+		if(dataModel.getBooleanProperty(J2EEModuleCreationDataModelOld.IS_FLEXIBLE_PROJECT)) {
 		    WTPProjectUtilities.addNatureToProjectLast(dataModel.getProjectDataModel().getProject(), IModuleConstants.MODULE_NATURE_ID);
 		    createInitialWTPModulesFile();
 		}
-		if (((WebModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+		if (((WebModuleCreationDataModelOld) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
 			addAnnotationsBuilder();
 	}
 
@@ -132,7 +132,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		try {
 			webArtifactEdit = WebArtifactEdit.getWebArtifactEditForWrite(webModule);
 			if (webArtifactEdit != null) {
-				webArtifactEdit.setServerContextRoot(operationDataModel.getStringProperty(WebModuleCreationDataModel.CONTEXT_ROOT));
+				webArtifactEdit.setServerContextRoot(operationDataModel.getStringProperty(WebModuleCreationDataModelOld.CONTEXT_ROOT));
 				// TODO add contentName setting
 				//nature.getWebSettings().setWebContentName(operationDataModel.getStringProperty(WebModuleCreationDataModel.WEB_CONTENT));
 			}
@@ -175,7 +175,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	}
 	
 	public IProject getProject() {
-	    J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
+	    J2EEModuleCreationDataModelOld dataModel = (J2EEModuleCreationDataModelOld) operationDataModel;
 	    return dataModel.getProjectDataModel().getProject();
 	}
 

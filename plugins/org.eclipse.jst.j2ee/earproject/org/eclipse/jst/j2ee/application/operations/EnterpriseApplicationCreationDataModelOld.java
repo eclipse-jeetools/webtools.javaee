@@ -39,7 +39,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * 
  * @since WTP 1.0
  */
-public final class EnterpriseApplicationCreationDataModel extends J2EEArtifactCreationDataModel {
+public final class EnterpriseApplicationCreationDataModelOld extends J2EEArtifactCreationDataModelOld {
 	/**
 	 * An optional dataModel propertyName for an Integer type. It is used to specify the J2EE
 	 * Version for the new Enterprise Application. The default value is computed based on the
@@ -80,7 +80,7 @@ public final class EnterpriseApplicationCreationDataModel extends J2EEArtifactCr
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int applicationVersion) {
-		EnterpriseApplicationCreationDataModel dataModel = new EnterpriseApplicationCreationDataModel();
+		EnterpriseApplicationCreationDataModelOld dataModel = new EnterpriseApplicationCreationDataModelOld();
 		dataModel.setProperty(PROJECT_NAME, projectName);
 		if (null != projectLocation) {
 			dataModel.setProperty(PROJECT_LOCATION, projectLocation.toOSString());
@@ -97,7 +97,7 @@ public final class EnterpriseApplicationCreationDataModel extends J2EEArtifactCr
 
 
 	public WTPOperation getDefaultOperation() {
-		return new EnterpriseApplicationCreationOperation(this);
+		return new EnterpriseApplicationCreationOperationOld(this);
 	}
 
 	protected void init() {

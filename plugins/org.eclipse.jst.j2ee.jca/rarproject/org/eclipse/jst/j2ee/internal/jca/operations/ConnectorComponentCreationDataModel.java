@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -25,7 +25,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class FlexibleConnectorModuleCreationDataModel extends FlexibleJ2EEModuleCreationDataModel {
+public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel#getDefaultJ2EEModuleVersion()
@@ -110,7 +110,7 @@ public class FlexibleConnectorModuleCreationDataModel extends FlexibleJ2EEModule
 
 
     public WTPOperation getDefaultOperation() {
-        return new FlexibleConnectorModuleCreationOperation(this);
+        return new ConnectorComponentCreationOperation(this);
     }
 
     /* (non-Javadoc)

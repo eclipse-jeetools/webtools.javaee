@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
@@ -143,12 +143,12 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 		}
 	}
 
-	public J2EEProjectCreationPage(J2EEArtifactCreationDataModel dataModel, String pageName) {
+	public J2EEProjectCreationPage(J2EEArtifactCreationDataModelOld dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
 
-	protected J2EEArtifactCreationDataModel getJ2EEProjectCreationDataModel() {
-		return (J2EEArtifactCreationDataModel) model;
+	protected J2EEArtifactCreationDataModelOld getJ2EEProjectCreationDataModel() {
+		return (J2EEArtifactCreationDataModelOld) model;
 	}
 
 	protected void createProjectNameGroup(Composite parent) {
@@ -344,7 +344,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 	protected void restoreDefaultSettings() {
 		super.restoreDefaultSettings();
 		if (advancedControlsBuilt) {
-			boolean hasServerTarget = model.getProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID) != null;
+			boolean hasServerTarget = model.getProperty(J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID) != null;
 			//Need to show advanced if there are no server targets.
 			if (!hasServerTarget)
 				showAdvanced = false;

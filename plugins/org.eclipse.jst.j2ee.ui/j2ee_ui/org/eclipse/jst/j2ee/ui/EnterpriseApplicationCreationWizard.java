@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ui;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationOperationOld;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -55,7 +55,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	 * @param model
 	 *            used to collect information and interface with the WTP Operation
 	 */
-	public EnterpriseApplicationCreationWizard(EnterpriseApplicationCreationDataModel model) {
+	public EnterpriseApplicationCreationWizard(EnterpriseApplicationCreationDataModelOld model) {
 		super(model);
 	}
 
@@ -66,7 +66,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	 */
 	protected void doAddPages() {
 		addPage(new ApplicationProjectCreationPage(getSpecificDataModel(), MAIN_PG));
-		if (!model.getBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY)) {
+		if (!model.getBooleanProperty(EnterpriseApplicationCreationDataModelOld.UI_SHOW_FIRST_PAGE_ONLY)) {
 			addPage(new ApplicationModuleProjectsPage(getSpecificDataModel(), MODULES_PG));
 		}
 	}
@@ -81,7 +81,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
-		return new EnterpriseApplicationCreationDataModel();
+		return new EnterpriseApplicationCreationDataModelOld();
 	}
 
 	/**
@@ -90,7 +90,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createBaseOperation() {
-		return new EnterpriseApplicationCreationOperation(getSpecificDataModel());
+		return new EnterpriseApplicationCreationOperationOld(getSpecificDataModel());
 	}
 
 	/*
@@ -114,7 +114,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 		return WIZARD_ID;
 	}
 
-	private EnterpriseApplicationCreationDataModel getSpecificDataModel() {
-		return (EnterpriseApplicationCreationDataModel) model;
+	private EnterpriseApplicationCreationDataModelOld getSpecificDataModel() {
+		return (EnterpriseApplicationCreationDataModelOld) model;
 	}
 }

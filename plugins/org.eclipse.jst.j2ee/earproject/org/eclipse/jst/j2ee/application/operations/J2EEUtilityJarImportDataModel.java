@@ -33,8 +33,8 @@ public final class J2EEUtilityJarImportDataModel extends J2EEArtifactImportDataM
 		return false;
 	}
 
-	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
-		return new J2EEArtifactCreationDataModel() {
+	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
+		return new J2EEArtifactCreationDataModelOld() {
 			public void initProjectModel() {
 				setProjectDataModel(new JavaProjectCreationDataModel());
 			}

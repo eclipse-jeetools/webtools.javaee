@@ -10,8 +10,8 @@
  *******************************************************************************/ 
 package org.eclipse.jst.servlet.ui;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -113,8 +113,8 @@ public final class WebModuleImportWizard extends J2EEModuleImportWizard {
 	 * @see org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportWizard#getFinalPerspectiveID()
 	 */
 	protected String getFinalPerspectiveID() {
-		J2EEModuleCreationDataModel projCreationModel = getSpecificDataModel().getJ2EEModuleCreationDataModel();
-		return projCreationModel.getStringProperty(J2EEArtifactCreationDataModel.FINAL_PERSPECTIVE);
+		J2EEModuleCreationDataModelOld projCreationModel = getSpecificDataModel().getJ2EEModuleCreationDataModel();
+		return projCreationModel.getStringProperty(J2EEArtifactCreationDataModelOld.FINAL_PERSPECTIVE);
 	}
  
 	private WebModuleImportDataModel getSpecificDataModel() {

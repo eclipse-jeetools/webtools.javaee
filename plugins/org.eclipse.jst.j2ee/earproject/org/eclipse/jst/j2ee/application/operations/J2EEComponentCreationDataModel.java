@@ -26,7 +26,7 @@ import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
  * 
  * @since WTP 1.0
  */
-public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECreationDataModel implements IAnnotationsDataModel {
+public abstract class J2EEComponentCreationDataModel extends J2EECreationDataModel implements IAnnotationsDataModel {
 
 	/**
 	 * type Boolean, default false

@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
@@ -139,12 +139,12 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 		}
 	}
 	
-	public J2EEModuleCreationPage(FlexibleJ2EEModuleCreationDataModel dataModel, String pageName) {
+	public J2EEModuleCreationPage(J2EEComponentCreationDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
 	
 	protected void createProjectNameGroup(Composite parent) {
-		projectNameGroup = new NewModuleGroup(parent, SWT.NULL, (FlexibleJ2EEModuleCreationDataModel)model);
+		projectNameGroup = new NewModuleGroup(parent, SWT.NULL, (J2EEComponentCreationDataModel)model);
 	}
 
 	protected void addToAdvancedComposite(Composite advanced) {
@@ -156,8 +156,8 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 		earGroup = new ServerEarAndStandaloneGroup(parent, getJ2EEModuleCreationDataModel());
 	}
 
-	protected FlexibleJ2EEModuleCreationDataModel getJ2EEModuleCreationDataModel() {
-		return (FlexibleJ2EEModuleCreationDataModel) model;
+	protected J2EEComponentCreationDataModel getJ2EEModuleCreationDataModel() {
+		return (J2EEComponentCreationDataModel) model;
 	}
 
 	protected void validatePage() {
@@ -165,7 +165,7 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 		if (!showAdvanced && !isPageComplete()) {
 			String prop = validateControlsBase();
 			if (null != prop) {
-				String[] advancedProperties = {WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, FlexibleJ2EEModuleCreationDataModel.J2EE_MODULE_VERSION, FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR};
+				String[] advancedProperties = {WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEComponentCreationDataModel.J2EE_MODULE_VERSION, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
 				for (int i = 0; i < advancedProperties.length; i++) {
 					if (prop.equals(advancedProperties[i])) {
 						toggleAdvanced(true);
@@ -177,11 +177,11 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{ArtifactEditOperationDataModel.PROJECT_NAME, FlexibleJ2EEModuleCreationDataModel.J2EE_MODULE_VERSION, FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR};
+		return new String[]{ArtifactEditOperationDataModel.PROJECT_NAME, J2EEComponentCreationDataModel.J2EE_MODULE_VERSION, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
 	}
 
 	protected void createVersionComposite(Composite parent) {
-		createVersionComposite(parent, getVersionLabel(), FlexibleJ2EEModuleCreationDataModel.J2EE_MODULE_VERSION);
+		createVersionComposite(parent, getVersionLabel(), J2EEComponentCreationDataModel.J2EE_MODULE_VERSION);
 	}
 
 	protected String getVersionLabel() {

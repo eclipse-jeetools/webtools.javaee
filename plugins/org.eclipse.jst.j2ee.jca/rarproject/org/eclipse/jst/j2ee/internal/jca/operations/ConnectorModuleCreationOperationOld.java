@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOld;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -41,13 +41,13 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
 
-public class ConnectorModuleCreationOperation extends J2EEModuleCreationOperation {
-	public ConnectorModuleCreationOperation(ConnectorModuleCreationDataModel dataModel) {
+public class ConnectorModuleCreationOperationOld extends J2EEModuleCreationOperationOld {
+	public ConnectorModuleCreationOperationOld(ConnectorModuleCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
+		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModelOld) operationDataModel) {
 			protected void execute(IProgressMonitor aMonitor) throws CoreException, InvocationTargetException, InterruptedException {
 				ConnectorEditModel model = (ConnectorEditModel) editModel;
 				IFolder metainf = model.getConnectorNature().getEMFRoot().getFolder(new Path(J2EEConstants.META_INF));

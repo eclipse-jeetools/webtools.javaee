@@ -27,26 +27,6 @@
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
     </requires>
 
- <extension
-         id="J2EEUIProjectWizards"
-         point="org.eclipse.ui.newWizards">
-<!-- JCA Project Wizard -->
-      <wizard
-            name="%jca.project_ui_"
-            icon="icons/full/ctool16/newconnectionprj_wiz.gif"
-            category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard"
-            project="true"
-            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard">
-         <description>
-            %new.jca.project.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-    </extension>
 <!-- ====================================================== -->
 <!--                                                        -->
 <!-- Purpose: Extension for the J2EE ACtion Sets            -->

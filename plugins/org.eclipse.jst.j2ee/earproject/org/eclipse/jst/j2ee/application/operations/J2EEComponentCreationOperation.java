@@ -46,7 +46,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
-public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECreationOperation {
+public abstract class J2EEComponentCreationOperation extends J2EECreationOperation {
 	/**
 	 * name of the template emitter to be used to generate the deployment descriptor from the tags
 	 */
@@ -56,25 +56,25 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 	 */
 	protected static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
 	
-	public FlexibleJ2EEModuleCreationOperation(FlexibleJ2EEModuleCreationDataModel dataModel) {
+	public J2EEComponentCreationOperation(J2EEComponentCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
-	public FlexibleJ2EEModuleCreationOperation() {
+	public J2EEComponentCreationOperation() {
 		super();
 	}
 
 	protected void execute( String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
+		J2EEComponentCreationDataModel dataModel = (J2EEComponentCreationDataModel) operationDataModel;
 		
 	    createProjectStructure();
 		createComponent( componentType, monitor);
 		
-		if (dataModel.getBooleanProperty(FlexibleJ2EEModuleCreationDataModel.CREATE_DEFAULT_FILES)) {
+		if (dataModel.getBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
 		}
 		
-		if (((FlexibleJ2EEModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+		if (((J2EEComponentCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
 			addAnnotationsBuilder();	
 		
 		linkToEARIfNecessary(dataModel, monitor);
@@ -86,7 +86,7 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 	
 	protected abstract void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
-	public static void linkToEARIfNecessary(FlexibleJ2EEModuleCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	public static void linkToEARIfNecessary(J2EEComponentCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 //		if (moduleModel.getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
 //			EnterpriseApplicationCreationDataModel earModel = moduleModel.getApplicationCreationDataModel();
 //			if (!earModel.getTargetProject().exists()) {
@@ -116,7 +116,7 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 			}     
 		}
 		public IProject getProject() {
-			String projName = operationDataModel.getStringProperty(FlexibleJ2EEModuleCreationDataModel.PROJECT_NAME );
+			String projName = operationDataModel.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME );
 			return ProjectUtilities.getProject( projName );
 			//FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
 			//return dataModel.getTargetProject();
@@ -145,11 +145,11 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 		
 		
 		public String getModuleName() {
-			return (String)operationDataModel.getProperty(FlexibleJ2EEModuleCreationDataModel.MODULE_NAME);
+			return (String)operationDataModel.getProperty(J2EEComponentCreationDataModel.MODULE_NAME);
 		}
 		
 		public String getModuleDeployName() {
-			return (String)operationDataModel.getProperty(FlexibleJ2EEModuleCreationDataModel.MODULE_DEPLOY_NAME);
+			return (String)operationDataModel.getProperty(J2EEComponentCreationDataModel.MODULE_DEPLOY_NAME);
 		}
 	
 		
@@ -241,7 +241,7 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 			// Find the xdoclet builder from the extension registry
 			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
 			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
-			IProject project = ((FlexibleJ2EEModuleCreationDataModel)operationDataModel).getTargetProject(); 
+			IProject project = ((J2EEComponentCreationDataModel)operationDataModel).getTargetProject(); 
 			IProjectDescription description = project.getDescription();
 			ICommand[] commands = description.getBuildSpec();
 			boolean found = false;

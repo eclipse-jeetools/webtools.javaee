@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
@@ -61,7 +61,7 @@ public class ImportOption implements IJ2EEProjectTypes {
 	}
 
 	public String getProjectName() {
-		return model.getStringProperty(J2EEArtifactCreationDataModel.PROJECT_NAME);
+		return model.getStringProperty(J2EEArtifactCreationDataModelOld.PROJECT_NAME);
 	}
 
 	/**
