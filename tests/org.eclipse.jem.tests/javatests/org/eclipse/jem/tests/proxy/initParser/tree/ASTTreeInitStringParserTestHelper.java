@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTTreeInitStringParserTestHelper.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:13 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/04 17:08:19 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
@@ -27,6 +27,7 @@ import org.eclipse.jdt.core.dom.*;
 import org.eclipse.jem.internal.instantiation.PTExpression;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.tests.proxy.initParser.AbstractInitStringParserTestHelper;
+import org.eclipse.jem.workbench.utility.*;
 import org.eclipse.jem.workbench.utility.ASTBoundResolver;
 import org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST;
  
