@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValueImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 
@@ -34,8 +34,8 @@ import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getValueProxy <em>Value Proxy</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getValueProxy <em>Value Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -64,6 +64,16 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 */
 	protected String name = NAME_EDEFAULT;
 	/**
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected EObject value = null;
+	
+	/**
 	 * The default value of the '{@link #getValueProxy() <em>Value Proxy</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -91,16 +101,6 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 */
 	protected boolean valueProxyESet = false;
 
-	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected EObject value = null;
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -209,10 +209,10 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
 				return getName();
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
-				return getValueProxy();
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
 				return getValue();
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
+				return getValueProxy();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -227,11 +227,11 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
 				setName((String)newValue);
 				return;
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
-				setValueProxy((Object)newValue);
-				return;
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
 				setValue((EObject)newValue);
+				return;
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
+				setValueProxy((Object)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -247,11 +247,11 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
-				unsetValueProxy();
-				return;
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
 				setValue((EObject)null);
+				return;
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
+				unsetValueProxy();
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -266,10 +266,10 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
-				return isSetValueProxy();
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
 				return value != null;
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
+				return isSetValueProxy();
 		}
 		return eDynamicIsSet(eFeature);
 	}

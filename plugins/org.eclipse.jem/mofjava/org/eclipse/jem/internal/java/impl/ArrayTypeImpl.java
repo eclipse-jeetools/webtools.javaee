@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 
 import java.util.Collection;
@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.java.ArrayType;
@@ -217,9 +216,9 @@ public boolean isExistingType() {
 			case JavaRefPackage.ARRAY_TYPE__EALL_REFERENCES:
 				return !getEAllReferences().isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__EREFERENCES:
-				return eReferences != null && !eReferences.isEmpty();
+				return !getEReferences().isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__EATTRIBUTES:
-				return eAttributes != null && !eAttributes.isEmpty();
+				return !getEAttributes().isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__EALL_CONTAINMENTS:
 				return !getEAllContainments().isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__EALL_OPERATIONS:
@@ -230,6 +229,8 @@ public boolean isExistingType() {
 				return !getEAllSuperTypes().isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__EID_ATTRIBUTE:
 				return getEIDAttribute() != null;
+			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
+				return eStructuralFeatures != null && !eStructuralFeatures.isEmpty();
 			case JavaRefPackage.ARRAY_TYPE__KIND:
 				return kind != KIND_EDEFAULT;
 			case JavaRefPackage.ARRAY_TYPE__PUBLIC:
@@ -296,13 +297,9 @@ public boolean isExistingType() {
 				getEOperations().clear();
 				getEOperations().addAll((Collection)newValue);
 				return;
-			case JavaRefPackage.ARRAY_TYPE__EREFERENCES:
-				getEReferences().clear();
-				getEReferences().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.ARRAY_TYPE__EATTRIBUTES:
-				getEAttributes().clear();
-				getEAttributes().addAll((Collection)newValue);
+			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
+				getEStructuralFeatures().clear();
+				getEStructuralFeatures().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.ARRAY_TYPE__KIND:
 				setKind((TypeKind)newValue);
@@ -389,11 +386,8 @@ public boolean isExistingType() {
 			case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
 				getEOperations().clear();
 				return;
-			case JavaRefPackage.ARRAY_TYPE__EREFERENCES:
-				getEReferences().clear();
-				return;
-			case JavaRefPackage.ARRAY_TYPE__EATTRIBUTES:
-				getEAttributes().clear();
+			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
+				getEStructuralFeatures().clear();
 				return;
 			case JavaRefPackage.ARRAY_TYPE__KIND:
 				setKind(KIND_EDEFAULT);
@@ -465,7 +459,7 @@ public boolean isExistingType() {
 	{
 		if (componentType != null && componentType.eIsProxy()) {
 			EClassifier oldComponentType = componentType;
-			componentType = (EClassifier)EcoreUtil.resolve(componentType, this);
+			componentType = (EClassifier)eResolveProxy((InternalEObject)componentType);
 			if (componentType != oldComponentType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.ARRAY_TYPE__COMPONENT_TYPE, oldComponentType, componentType));
@@ -514,6 +508,8 @@ public boolean isExistingType() {
 					return eBasicSetContainer(otherEnd, JavaRefPackage.ARRAY_TYPE__EPACKAGE, msgs);
 				case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
 					return ((InternalEList)getEOperations()).basicAdd(otherEnd, msgs);
+				case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
+					return ((InternalEList)getEStructuralFeatures()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.ARRAY_TYPE__FIELDS:
 					return ((InternalEList)getFields()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.ARRAY_TYPE__METHODS:
@@ -550,10 +546,8 @@ public boolean isExistingType() {
 					return eBasicSetContainer(null, JavaRefPackage.ARRAY_TYPE__EPACKAGE, msgs);
 				case JavaRefPackage.ARRAY_TYPE__EOPERATIONS:
 					return ((InternalEList)getEOperations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__EREFERENCES:
-					return ((InternalEList)getEReferences()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.ARRAY_TYPE__EATTRIBUTES:
-					return ((InternalEList)getEAttributes()).basicRemove(otherEnd, msgs);
+				case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
+					return ((InternalEList)getEStructuralFeatures()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.ARRAY_TYPE__FIELDS:
 					return ((InternalEList)getFields()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.ARRAY_TYPE__METHODS:
@@ -637,6 +631,8 @@ public boolean isExistingType() {
 				return getEAllSuperTypes();
 			case JavaRefPackage.ARRAY_TYPE__EID_ATTRIBUTE:
 				return getEIDAttribute();
+			case JavaRefPackage.ARRAY_TYPE__ESTRUCTURAL_FEATURES:
+				return getEStructuralFeatures();
 			case JavaRefPackage.ARRAY_TYPE__KIND:
 				return getKind();
 			case JavaRefPackage.ARRAY_TYPE__PUBLIC:

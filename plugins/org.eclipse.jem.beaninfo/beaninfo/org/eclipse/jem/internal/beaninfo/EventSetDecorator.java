@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: EventSetDecorator.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 
@@ -253,6 +253,9 @@ public interface EventSetDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If the listenerMethods feature is explicitly set, ie. not through the event set descriptor proxy, then this flag must be set true. If it is true, then the listenerMethods will not be brought over from the descriptor proxy, nor will default ones be created if there aren't any specified.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Listener Methods Explicit</em>' attribute.
 	 * @see #setListenerMethodsExplicit(boolean)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getEventSetDecorator_ListenerMethodsExplicit()

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:20:50 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/08 22:32:20 $ 
  */
 
 import java.net.MalformedURLException;
@@ -31,8 +31,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.misc.OverlayComposite;
 
 import org.eclipse.jem.internal.beaninfo.adapters.*;
@@ -70,12 +70,12 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		fVariableImage = reg.get(JavaPluginImages.IMG_OBJS_ENV_VAR);
 
 		IWorkbench workbench = JavaPlugin.getDefault().getWorkbench();
-		fProjectImage = workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_PROJECT);
+		fProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT);
 
 		fMissingLibaryImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_JAR);
 		fMissingVariableImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_ENV_VAR);
 		fMissingFolderImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_PACKFRAG_ROOT);
-		fMissingProjectImage = workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_PROJECT_CLOSED);
+		fMissingProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT_CLOSED);
 
 		fPackageImage = reg.get(JavaPluginImages.IMG_OBJS_PACKAGE);
 

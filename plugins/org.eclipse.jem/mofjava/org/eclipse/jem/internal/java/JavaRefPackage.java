@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefPackage.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:34 $ 
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -137,7 +137,7 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_CLASS__EALL_REFERENCES = EcorePackage.ECLASS__EALL_REFERENCES;
 
 	/**
-	 * The feature id for the '<em><b>EReferences</b></em>' containment reference list.
+	 * The feature id for the '<em><b>EReferences</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -146,7 +146,7 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_CLASS__EREFERENCES = EcorePackage.ECLASS__EREFERENCES;
 
 	/**
-	 * The feature id for the '<em><b>EAttributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>EAttributes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -198,6 +198,15 @@ public interface JavaRefPackage extends EPackage{
 	 * @ordered
 	 */
   int JAVA_CLASS__EID_ATTRIBUTE = EcorePackage.ECLASS__EID_ATTRIBUTE;
+
+	/**
+	 * The feature id for the '<em><b>EStructural Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS__ESTRUCTURAL_FEATURES = EcorePackage.ECLASS__ESTRUCTURAL_FEATURES;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -359,6 +368,60 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int JAVA_PARAMETER__NAME = EcorePackage.EPARAMETER__NAME;
 	/**
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_PARAMETER__ORDERED = EcorePackage.EPARAMETER__ORDERED;
+
+	/**
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_PARAMETER__UNIQUE = EcorePackage.EPARAMETER__UNIQUE;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_PARAMETER__LOWER_BOUND = EcorePackage.EPARAMETER__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_PARAMETER__UPPER_BOUND = EcorePackage.EPARAMETER__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Many</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_PARAMETER__MANY = EcorePackage.EPARAMETER__MANY;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_PARAMETER__REQUIRED = EcorePackage.EPARAMETER__REQUIRED;
+
+	/**
 	 * The feature id for the '<em><b>EType</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -411,6 +474,60 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	int METHOD__NAME = EcorePackage.EOPERATION__NAME;
+	/**
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__ORDERED = EcorePackage.EOPERATION__ORDERED;
+
+	/**
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__UNIQUE = EcorePackage.EOPERATION__UNIQUE;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__LOWER_BOUND = EcorePackage.EOPERATION__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__UPPER_BOUND = EcorePackage.EOPERATION__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Many</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__MANY = EcorePackage.EOPERATION__MANY;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__REQUIRED = EcorePackage.EOPERATION__REQUIRED;
+
 	/**
 	 * The feature id for the '<em><b>EType</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -544,40 +661,13 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int FIELD__NAME = EcorePackage.EATTRIBUTE__NAME;
 	/**
-	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__ETYPE = EcorePackage.EATTRIBUTE__ETYPE;
-
-	/**
-	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__CHANGEABLE = EcorePackage.EATTRIBUTE__CHANGEABLE;
-
-	/**
-	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__VOLATILE = EcorePackage.EATTRIBUTE__VOLATILE;
-
-	/**
-	 * The feature id for the '<em><b>Transient</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__TRANSIENT = EcorePackage.EATTRIBUTE__TRANSIENT;
+	int FIELD__ORDERED = EcorePackage.EATTRIBUTE__ORDERED;
 
 	/**
 	 * The feature id for the '<em><b>Unique</b></em>' attribute.
@@ -587,24 +677,6 @@ public interface JavaRefPackage extends EPackage{
 	 * @ordered
 	 */
 	int FIELD__UNIQUE = EcorePackage.EATTRIBUTE__UNIQUE;
-
-	/**
-	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__DEFAULT_VALUE_LITERAL = EcorePackage.EATTRIBUTE__DEFAULT_VALUE_LITERAL;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__DEFAULT_VALUE = EcorePackage.EATTRIBUTE__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
@@ -643,6 +715,60 @@ public interface JavaRefPackage extends EPackage{
 	int FIELD__REQUIRED = EcorePackage.EATTRIBUTE__REQUIRED;
 
 	/**
+	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__ETYPE = EcorePackage.EATTRIBUTE__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__CHANGEABLE = EcorePackage.EATTRIBUTE__CHANGEABLE;
+
+	/**
+	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__VOLATILE = EcorePackage.EATTRIBUTE__VOLATILE;
+
+	/**
+	 * The feature id for the '<em><b>Transient</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__TRANSIENT = EcorePackage.EATTRIBUTE__TRANSIENT;
+
+	/**
+	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__DEFAULT_VALUE_LITERAL = EcorePackage.EATTRIBUTE__DEFAULT_VALUE_LITERAL;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__DEFAULT_VALUE = EcorePackage.EATTRIBUTE__DEFAULT_VALUE;
+
+	/**
 	 * The feature id for the '<em><b>Unsettable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -652,7 +778,16 @@ public interface JavaRefPackage extends EPackage{
 	int FIELD__UNSETTABLE = EcorePackage.EATTRIBUTE__UNSETTABLE;
 
 	/**
-	 * The feature id for the '<em><b>EContaining Class</b></em>' reference.
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__DERIVED = EcorePackage.EATTRIBUTE__DERIVED;
+
+	/**
+	 * The feature id for the '<em><b>EContaining Class</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -957,7 +1092,7 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_DATA_TYPE__EALL_REFERENCES = EcorePackage.ECLASS__EALL_REFERENCES;
 
 	/**
-	 * The feature id for the '<em><b>EReferences</b></em>' containment reference list.
+	 * The feature id for the '<em><b>EReferences</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -966,7 +1101,7 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_DATA_TYPE__EREFERENCES = EcorePackage.ECLASS__EREFERENCES;
 
 	/**
-	 * The feature id for the '<em><b>EAttributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>EAttributes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1018,6 +1153,15 @@ public interface JavaRefPackage extends EPackage{
 	 * @ordered
 	 */
 	int JAVA_DATA_TYPE__EID_ATTRIBUTE = EcorePackage.ECLASS__EID_ATTRIBUTE;
+
+	/**
+	 * The feature id for the '<em><b>EStructural Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES = EcorePackage.ECLASS__ESTRUCTURAL_FEATURES;
 
 	/**
 	 * The number of structural features of the the '<em>Java Data Type</em>' class.
@@ -1127,7 +1271,7 @@ public interface JavaRefPackage extends EPackage{
 	int ARRAY_TYPE__EALL_REFERENCES = JAVA_CLASS__EALL_REFERENCES;
 
 	/**
-	 * The feature id for the '<em><b>EReferences</b></em>' containment reference list.
+	 * The feature id for the '<em><b>EReferences</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1136,7 +1280,7 @@ public interface JavaRefPackage extends EPackage{
 	int ARRAY_TYPE__EREFERENCES = JAVA_CLASS__EREFERENCES;
 
 	/**
-	 * The feature id for the '<em><b>EAttributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>EAttributes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1188,6 +1332,15 @@ public interface JavaRefPackage extends EPackage{
 	 * @ordered
 	 */
   int ARRAY_TYPE__EID_ATTRIBUTE = JAVA_CLASS__EID_ATTRIBUTE;
+
+	/**
+	 * The feature id for the '<em><b>EStructural Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_TYPE__ESTRUCTURAL_FEATURES = JAVA_CLASS__ESTRUCTURAL_FEATURES;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -1286,40 +1439,13 @@ public interface JavaRefPackage extends EPackage{
 	 */
 	int JAVA_EVENT__NAME = EcorePackage.ESTRUCTURAL_FEATURE__NAME;
 	/**
-	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JAVA_EVENT__ETYPE = EcorePackage.ESTRUCTURAL_FEATURE__ETYPE;
-
-	/**
-	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_EVENT__CHANGEABLE = EcorePackage.ESTRUCTURAL_FEATURE__CHANGEABLE;
-
-	/**
-	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_EVENT__VOLATILE = EcorePackage.ESTRUCTURAL_FEATURE__VOLATILE;
-
-	/**
-	 * The feature id for the '<em><b>Transient</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_EVENT__TRANSIENT = EcorePackage.ESTRUCTURAL_FEATURE__TRANSIENT;
+	int JAVA_EVENT__ORDERED = EcorePackage.ESTRUCTURAL_FEATURE__ORDERED;
 
 	/**
 	 * The feature id for the '<em><b>Unique</b></em>' attribute.
@@ -1329,24 +1455,6 @@ public interface JavaRefPackage extends EPackage{
 	 * @ordered
 	 */
 	int JAVA_EVENT__UNIQUE = EcorePackage.ESTRUCTURAL_FEATURE__UNIQUE;
-
-	/**
-	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_EVENT__DEFAULT_VALUE_LITERAL = EcorePackage.ESTRUCTURAL_FEATURE__DEFAULT_VALUE_LITERAL;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_EVENT__DEFAULT_VALUE = EcorePackage.ESTRUCTURAL_FEATURE__DEFAULT_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
@@ -1385,6 +1493,60 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_EVENT__REQUIRED = EcorePackage.ESTRUCTURAL_FEATURE__REQUIRED;
 
 	/**
+	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__ETYPE = EcorePackage.ESTRUCTURAL_FEATURE__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__CHANGEABLE = EcorePackage.ESTRUCTURAL_FEATURE__CHANGEABLE;
+
+	/**
+	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__VOLATILE = EcorePackage.ESTRUCTURAL_FEATURE__VOLATILE;
+
+	/**
+	 * The feature id for the '<em><b>Transient</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__TRANSIENT = EcorePackage.ESTRUCTURAL_FEATURE__TRANSIENT;
+
+	/**
+	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__DEFAULT_VALUE_LITERAL = EcorePackage.ESTRUCTURAL_FEATURE__DEFAULT_VALUE_LITERAL;
+
+	/**
+	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__DEFAULT_VALUE = EcorePackage.ESTRUCTURAL_FEATURE__DEFAULT_VALUE;
+
+	/**
 	 * The feature id for the '<em><b>Unsettable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1394,7 +1556,16 @@ public interface JavaRefPackage extends EPackage{
 	int JAVA_EVENT__UNSETTABLE = EcorePackage.ESTRUCTURAL_FEATURE__UNSETTABLE;
 
 	/**
-	 * The feature id for the '<em><b>EContaining Class</b></em>' reference.
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_EVENT__DERIVED = EcorePackage.ESTRUCTURAL_FEATURE__DERIVED;
+
+	/**
+	 * The feature id for the '<em><b>EContaining Class</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

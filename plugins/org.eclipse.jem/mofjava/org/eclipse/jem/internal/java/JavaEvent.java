@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaEvent.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * A representation of the model object '<em><b>Java Event</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
  *
  * @see org.eclipse.jem.internal.java.JavaRefPackage#getJavaEvent()
  * @model abstract="true"

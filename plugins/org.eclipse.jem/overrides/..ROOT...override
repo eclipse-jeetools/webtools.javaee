@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <event:AddMany xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:event="event.xmi" 
-    featureName="eAttributes">
+    featureName="eStructuralFeatures">
   <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   <addedEObjects xsi:type="ecore:EAttribute" name="implicit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   <addedEObjects xsi:type="ecore:EAttribute" name="instantiateUsing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

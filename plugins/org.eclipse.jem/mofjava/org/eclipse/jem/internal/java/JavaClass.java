@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClass.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import java.util.List;
 
@@ -345,6 +345,9 @@ String getQualifiedNameForReflection() ;
 	/**
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Is this an interface.
+	 * <!-- end-model-doc -->
 	 * @model 
 	 * @generated
 	 */

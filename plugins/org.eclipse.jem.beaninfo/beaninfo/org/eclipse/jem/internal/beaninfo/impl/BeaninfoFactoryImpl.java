@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoFactoryImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 import org.eclipse.jem.internal.beaninfo.*;
@@ -164,12 +164,12 @@ public class BeaninfoFactoryImpl extends EFactoryImpl implements BeaninfoFactory
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @deprecated
 	 * @generated
 	 */
 	public static BeaninfoPackage getPackage() {
 		return BeaninfoPackage.eINSTANCE;
 	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

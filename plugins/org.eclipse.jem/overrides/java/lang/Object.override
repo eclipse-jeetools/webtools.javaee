@@ -8,28 +8,28 @@
       will be done at the same time. And since Object needs to be introspected before anything else
       can be done, these will be done before anything needs them. -->
           
-  <event:Add notifierURI="java:/#boolean" featureName="eAttributes">
+  <event:Add notifierURI="java:/#boolean" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
-  <event:Add notifierURI="java:/#char" featureName="eAttributes">
+  <event:Add notifierURI="java:/#char" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
-  <event:Add notifierURI="java:/#int" featureName="eAttributes">
+  <event:Add notifierURI="java:/#int" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
-  <event:Add notifierURI="java:/#float" featureName="eAttributes">
+  <event:Add notifierURI="java:/#float" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
-  <event:Add notifierURI="java:/#short" featureName="eAttributes">
+  <event:Add notifierURI="java:/#short" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
-  <event:Add notifierURI="java:/#long" featureName="eAttributes">
+  <event:Add notifierURI="java:/#long" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
-  <event:Add notifierURI="java:/#double" featureName="eAttributes">
+  <event:Add notifierURI="java:/#double" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
-  <event:Add notifierURI="java:/#byte" featureName="eAttributes">
+  <event:Add notifierURI="java:/#byte" featureName="eStructuralFeatures">
     <addedEObjects xsi:type="ecore:EAttribute" name="initializationString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </event:Add>
 </xmi:XMI>

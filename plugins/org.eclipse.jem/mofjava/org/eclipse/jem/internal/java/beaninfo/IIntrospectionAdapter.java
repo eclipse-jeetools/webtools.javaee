@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: IIntrospectionAdapter.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -28,8 +28,7 @@ public interface IIntrospectionAdapter extends org.eclipse.emf.common.notify.Ada
 	public void introspect();
 	public void introspectIfNecessary();
 	public boolean isStale();
-	public EList getEAttributes();
-	public EList getEReferences();
+	public EList getEStructuralFeatures();
 	public EList getEOperations();
 	public BasicEList getEAllOperations();
 	public EList getEvents();

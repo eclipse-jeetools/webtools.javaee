@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import java.util.Collection;
 
@@ -156,6 +156,18 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 				return eAnnotations != null && !eAnnotations.isEmpty();
 			case JavaRefPackage.JAVA_PARAMETER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
+			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
+				return unique != UNIQUE_EDEFAULT;
+			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
+				return lowerBound != LOWER_BOUND_EDEFAULT;
+			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
+				return upperBound != UPPER_BOUND_EDEFAULT;
+			case JavaRefPackage.JAVA_PARAMETER__MANY:
+				return isMany() != false;
+			case JavaRefPackage.JAVA_PARAMETER__REQUIRED:
+				return isRequired() != false;
 			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
 				return eType != null;
 			case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
@@ -181,6 +193,18 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 			case JavaRefPackage.JAVA_PARAMETER__NAME:
 				setName((String)newValue);
 				return;
+			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
+				setOrdered(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
+				setUnique(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
+				setLowerBound(((Integer)newValue).intValue());
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
+				setUpperBound(((Integer)newValue).intValue());
+				return;
 			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
 				setEType((EClassifier)newValue);
 				return;
@@ -205,6 +229,18 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 				return;
 			case JavaRefPackage.JAVA_PARAMETER__NAME:
 				setName(NAME_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
+				setLowerBound(LOWER_BOUND_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
+				setUpperBound(UPPER_BOUND_EDEFAULT);
 				return;
 			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
 				setEType((EClassifier)null);
@@ -309,6 +345,18 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 				return getEAnnotations();
 			case JavaRefPackage.JAVA_PARAMETER__NAME:
 				return getName();
+			case JavaRefPackage.JAVA_PARAMETER__ORDERED:
+				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_PARAMETER__UNIQUE:
+				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_PARAMETER__LOWER_BOUND:
+				return new Integer(getLowerBound());
+			case JavaRefPackage.JAVA_PARAMETER__UPPER_BOUND:
+				return new Integer(getUpperBound());
+			case JavaRefPackage.JAVA_PARAMETER__MANY:
+				return isMany() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_PARAMETER__REQUIRED:
+				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.JAVA_PARAMETER__ETYPE:
 				if (resolve) return getEType();
 				return basicGetEType();

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -76,10 +76,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 	
 		if (hasIntrospectedProperties) {
-			// Clear out the attributes that we implicitly created.
-			Iterator propItr = getJavaClass().getEAttributesGen().iterator();
+			// Clear out the features that we implicitly created.
+			Iterator propItr = getJavaClass().getEStructuralFeaturesGen().iterator();
 			while (propItr.hasNext()) {
-				EAttribute prop = (EAttribute) propItr.next();
+				EStructuralFeature prop = (EStructuralFeature) propItr.next();
 				Iterator pdItr = prop.getEAnnotations().iterator();
 				while (pdItr.hasNext()) {
 					EAnnotation dec = (EAnnotation) pdItr.next();
@@ -98,31 +98,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						break;
 					}
 				}
-			}
-	
-			// Clear out the references that we implicitly created. 
-			propItr = getJavaClass().getEReferencesGen().iterator();
-			while (propItr.hasNext()) {
-				EReference prop = (EReference) propItr.next();
-				Iterator pdItr = prop.getEAnnotations().iterator();
-				while (pdItr.hasNext()) {
-					EAnnotation dec = (EAnnotation) pdItr.next();
-					if (dec instanceof PropertyDecorator) {
-						PropertyDecorator pd = (PropertyDecorator) dec;
-						pd.setDescriptorProxy(null);
-						pd.setDecoratorProxy(null);
-						if (pd.isImplicitlyCreated() != PropertyDecorator.NOT_IMPLICIT) {
-							pdItr.remove(); // Remove it from the property.
-							 ((InternalEObject) pd).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
-						}
-						if (pd.isImplicitlyCreated() == PropertyDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
-							propItr.remove(); // Remove the feature itself
-							 ((InternalEObject) prop).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
-						}
-						break;
-					}
-				}
-	
 			}
 	
 			hasIntrospectedProperties = false;
@@ -192,9 +167,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// Clear out the annotations.
 		getJavaClass().getEAnnotations().clear();
 		// Clear out the attributes.
-		getJavaClass().getEAttributesGen().clear();	
-		// Clear out the references.
-		getJavaClass().getEReferencesGen().clear();	
+		getJavaClass().getEStructuralFeaturesGen().clear();	
 		// Clear out the operations.
 		getJavaClass().getEOperationsGen().clear();
 		// Clear out the events.
@@ -252,9 +225,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	// it is not the value Boolean.FALSE in the map, and the entry is implicitly created. This means this
 	// was an implicit entry from the previous introspection and was not re-created in this introspection.
 	private HashMap propertiesMap;
-	private List attributesRealList; // Temp pointer to the real list we are building. It is the true list in java class.
-	private List referencesRealList; // Temp pointer to the real list we are building. It is the true list in java class.	
-
+	private List featuresRealList; // Temp pointer to the real list we are building. It is the true list in java class.
+	
 	// A temporary hashmap of the local operations. Used when creating a new
 	// operation to reuse the old one. It is cleared out at the end of operation introspection.
 	// It is only built once during operation introspection so that we have the snapshot
@@ -335,18 +307,12 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected HashMap getPropertiesMap() {
 		if (propertiesMap == null) {
-			List localAttrs = (List) getJavaClass().getEAttributesGen();
-			List localRefs = (List) getJavaClass().getEReferencesGen();
-			propertiesMap = new HashMap(localAttrs.size() + localRefs.size());
-			Iterator itr = localAttrs.iterator();
+			List localFeatures = (List) getJavaClass().getEStructuralFeaturesGen();
+			propertiesMap = new HashMap(localFeatures.size());
+			Iterator itr = localFeatures.iterator();
 			while (itr.hasNext()) {
-				EAttribute attr = (EAttribute) itr.next();
-				propertiesMap.put(attr.getName(), attr);
-			}
-			itr = localRefs.iterator();
-			while (itr.hasNext()) {
-				EReference ref = (EReference) itr.next();
-				propertiesMap.put(ref.getName(), ref);
+				EStructuralFeature feature = (EStructuralFeature) itr.next();
+				propertiesMap.put(feature.getName(), feature);
 			}
 		}
 		return propertiesMap;
@@ -355,19 +321,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	/**
 	 * Get it once so that we don't need to keep getting it over and over.
 	 */
-	protected List getAttributesList() {
-		if (attributesRealList == null)
-			attributesRealList = (List) getJavaClass().getEAttributesGen();
-		return attributesRealList;
-	}
-
-	/**
-	 * Get it once so that we don't need to keep getting it over and over.
-	 */
-	protected List getReferencesList() {
-		if (referencesRealList == null)
-			referencesRealList = (List) getJavaClass().getEReferencesGen();
-		return referencesRealList;
+	protected List getFeaturesList() {
+		if (featuresRealList == null)
+			featuresRealList = (List) getJavaClass().getEStructuralFeaturesGen();
+		return featuresRealList;
 	}
 
 	/**
@@ -620,19 +577,11 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	}
 
 	/**
-	 * @see org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter#getEAttributes()
+	 * @see org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter#getEStructuralFeatures()
 	 */
-	public EList getEAttributes() {
+	public EList getEStructuralFeatures() {
 		introspectProperties();
-		return getJavaClass().getEAttributesGen();
-	}
-	
-	/**
-	 * @see org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter#getEReferences()
-	 */
-	public EList getEReferences() {
-		introspectProperties();
-		return getJavaClass().getEReferencesGen();
+		return getJavaClass().getEStructuralFeaturesGen();
 	}
 	
 	/**
@@ -732,33 +681,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 					// Now go through the list and remove those that should be removed.
 					Map oldLocals = getPropertiesMap();
-					Iterator itr = getAttributesList().iterator();
-					while (itr.hasNext()) {
-						EStructuralFeature a = (EStructuralFeature) itr.next();
-						PropertyDecorator p = Utilities.getPropertyDecorator(a);
-						Object aOld = oldLocals.get(a.getName());
-						if (aOld != null && aOld != Boolean.FALSE) {
-							// A candidate for removal. It was in the old list and it was not processed.
-							if (p != null) {
-								int implicit = p.isImplicitlyCreated();
-								if (implicit != PropertyDecorator.NOT_IMPLICIT) {
-									p.setEModelElement(null); // Remove from the feature;
-									((InternalEObject) p).eSetProxyURI(BAD_URI);
-									// Mark it as bad proxy so we know it is no longer any use.
-									p = null;
-								}
-
-								if (implicit == PropertyDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
-									itr.remove(); // Remove it, this was implicitly created and not processed this time.
-									((InternalEObject) a).eSetProxyURI(BAD_URI);
-									// Mark it as bad proxy so we know it is no longer any use.
-								}
-							}
-						}
-					}
-
-					// Now go through the references to remove any old property decorators. Since names must be unique between Attributes AND References we can use the same map.
-					itr = getJavaClass().getEReferencesGen().iterator();
+					Iterator itr = getFeaturesList().iterator();
 					while (itr.hasNext()) {
 						EStructuralFeature a = (EStructuralFeature) itr.next();
 						PropertyDecorator p = Utilities.getPropertyDecorator(a);
@@ -787,7 +710,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			} finally {
 				isIntrospectingProperties = false;
 				propertiesMap = null; // Get rid of accumulated map.
-				attributesRealList = referencesRealList = null; // Release the real list.
+				featuresRealList = null; // Release the real list.
 			}
 		}
 	}
@@ -965,9 +888,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 		int implicit = pd == null ? FeatureDecorator.IMPLICIT_DECORATOR : pd.isImplicitlyCreated();
 		if (prop == null) {
-			// We will create a new property. New properties are Attributes/References depending upon whether datatype or class.
+			// We will create a new property.
 			// We can't have an implicit feature, but an explicit decorator.
-			getReferencesList().add(prop = EcoreFactory.eINSTANCE.createEReference());
+			getFeaturesList().add(prop = EcoreFactory.eINSTANCE.createEReference());
 			implicit = FeatureDecorator.IMPLICIT_DECORATOR_AND_FEATURE;
 		}
 

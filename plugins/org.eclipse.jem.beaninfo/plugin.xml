@@ -2,7 +2,7 @@
 <plugin
    id="org.eclipse.jem.beaninfo"
    name="%pluginName"
-   version="0.5.0"
+   version="1.0.0"
    provider-name="%providerName"
    class="org.eclipse.jem.internal.beaninfo.adapters.BeaninfoPlugin">
 
@@ -13,11 +13,17 @@
       </library>
    </runtime>
    <requires>
-      <import plugin="org.eclipse.jem.proxy" export="true"/>
+      <import plugin="org.eclipse.jem.proxy"/>
       <import plugin="com.ibm.etools.emf.event"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.apache.xerces"/>
-      <import plugin="org.eclipse.jem.workbench" export="true"/>
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="com.ibm.etools.emf.workbench"/>
    </requires>
 
 

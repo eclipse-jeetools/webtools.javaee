@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InitializerImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -128,7 +128,7 @@ public class InitializerImpl extends EObjectImpl implements Initializer{
 	{
 		if (source != null && source.eIsProxy()) {
 			Block oldSource = source;
-			source = (Block)EcoreUtil.resolve(source, this);
+			source = (Block)eResolveProxy((InternalEObject)source);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.INITIALIZER__SOURCE, oldSource, source));

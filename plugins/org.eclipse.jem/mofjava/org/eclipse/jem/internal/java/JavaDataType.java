@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaDataType.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import org.eclipse.emf.ecore.EClass;
 
@@ -21,8 +21,6 @@ import org.eclipse.emf.ecore.EClass;
  * @extends JavaHelpers
  * <!-- end-user-doc -->
  *
- * <p>
- * </p>
  *
  * @see org.eclipse.jem.internal.java.JavaRefPackage#getJavaDataType()
  * @model 

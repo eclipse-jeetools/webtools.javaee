@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoSuperAdapter.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 import java.util.Collection;
@@ -86,8 +86,7 @@ public class BeaninfoSuperAdapter extends AdapterImpl {
 				setAllPropertiesCollectionModified(true);
 				break;				
 				
-			case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-			case JavaRefPackage.JAVA_CLASS__EREFERENCES:							
+			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
 				setAllPropertiesCollectionModified(true);
 				break;
 				
