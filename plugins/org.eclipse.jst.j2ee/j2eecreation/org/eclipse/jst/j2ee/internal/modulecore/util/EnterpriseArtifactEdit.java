@@ -19,9 +19,9 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 /**
  * <p>
  * EnterpriseArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}to obtain
- * J2EE specific data from a resource (@see Resource), i.e. deployment descriptor. The deployment
- * descriptor resource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}using a
- * client defined URI. Defined methods extract data from the resource.
+ * J2EE specific data from a resource (@see Resource), i.e deployment descriptor resource. The
+ * deployment descriptor resource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}
+ * using a client defined URI. Defined methods extract data from the resource.
  * </p>
  * 
  * <p>
