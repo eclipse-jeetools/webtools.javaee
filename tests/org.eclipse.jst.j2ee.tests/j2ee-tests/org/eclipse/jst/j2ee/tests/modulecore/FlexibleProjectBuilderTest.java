@@ -92,7 +92,16 @@ public class FlexibleProjectBuilderTest extends TestCase {
             IFolder tempFolder = remoteWeb.getFolder(remoteOutputFolders[0].getName());
             if(!tempFolder.exists())
                 assertFalse(".deployables should exist, a build has been run", true);
-            tempFolder = remoteWeb.getFolder(getWebModuleDeployedName());
+            
+            if(!tempFolder.getFolder(getRemoteWebLibraryDeployedName()).exists())
+                assertFalse(".deployables/RemoteWebLibProject.jar should exist, a build has been run", true);
+            //check the remote java util project
+            IProject localWeb = getProjectForWebModuleAndLocalWebLib();
+            IFolder[] localOutputFolders = ModuleCore.getOutputContainersForProject(localWeb);
+            tempFolder = localWeb.getFolder(localOutputFolders[0].getName());
+            if(!tempFolder.exists())
+                assertFalse(".deployables should exist, a build has been run", true);
+            tempFolder = tempFolder.getFolder(getWebModuleDeployedName());
             if(!tempFolder.exists())
                 assertFalse(getWebModuleDeployedName() + " should exist, a build has been run", true);
             IFolder metaFolder = tempFolder.getFolder("META-INF");
@@ -113,15 +122,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
                 assertFalse(getWebModuleDeployedName() + "/WEB-INF/lib/LocalWebLibrary.jar should exist, a build has been run", true);  
             if(!lib.getFile(getRemoteWebLibraryDeployedName()).exists())
                 assertFalse(getWebModuleDeployedName() + "/WEB-INF/lib/RemoteWebLibProject.jar should exist, a build has been run", true);
-           
-            //check the remote java util project
-            IProject localWeb = getProjectForWebModuleAndLocalWebLib();
-            IFolder[] localOutputFolders = ModuleCore.getOutputContainersForProject(localWeb);
-            tempFolder = remoteWeb.getFolder(localOutputFolders[0].getName());
-            if(!tempFolder.exists())
-                assertFalse(".deployables should exist, a build has been run", true);
-            if(!tempFolder.getFolder(getRemoteWebLibraryDeployedName()).exists())
-                assertFalse(".deployables/RemoteWebLibProject.jar should exist, a build has been run", true);
+          
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
