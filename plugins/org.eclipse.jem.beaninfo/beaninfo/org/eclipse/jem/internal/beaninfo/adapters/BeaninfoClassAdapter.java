@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.24 $  $Date: 2005/01/07 20:51:34 $ 
+ *  $Revision: 1.25 $  $Date: 2005/01/10 19:26:47 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.temp.VETimerTests;
 
 import com.ibm.etools.emf.event.EventFactory;
 import com.ibm.etools.emf.event.EventUtil;
@@ -46,6 +45,7 @@ import com.ibm.etools.emf.event.EventUtil;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
@@ -448,7 +448,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					BeanDecorator decor = Utilities.getBeanDecorator(getJavaClass());
 					if (decor == null || decor.isDoBeaninfo()) {
 						IBeanTypeProxy targetType = null;
-						VETimerTests.basicTest.startCumulativeStep(REMOTE_INTROSPECT);							
+						TimerTests.basicTest.startCumulativeStep(REMOTE_INTROSPECT);							
 						ProxyFactoryRegistry registry = getRegistry();
 						if (registry != null && registry.isValid())
 							targetType =
@@ -501,7 +501,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					}
 					calculateBeanDescriptor(decor);
 					hasIntrospected = true;
-					VETimerTests.basicTest.stopCumulativeStep(REMOTE_INTROSPECT);					
+					TimerTests.basicTest.stopCumulativeStep(REMOTE_INTROSPECT);					
 				}
 				getAdapterFactory().registerIntrospection(getJavaClass().getQualifiedNameForReflection(), this);
 			}
@@ -514,7 +514,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	
 	protected void applyExtensionDocument(boolean rootOnly) {
 		try {
-			VETimerTests.basicTest.startCumulativeStep(APPLY_EXTENSIONS);
+			TimerTests.basicTest.startCumulativeStep(APPLY_EXTENSIONS);
 			boolean alreadyRetrievedRoot = retrievedExtensionDocument == RETRIEVED_ROOT_ONLY;
 			retrievedExtensionDocument = rootOnly ? RETRIEVED_ROOT_ONLY : RETRIEVED_FULL_DOCUMENT;
 			JavaClass jc = getJavaClass();
@@ -532,7 +532,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			String baseOverridefile = className + BeaninfoPlugin.OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
 			applyExtensionDocTo(rset, jc, baseOverridefile, getJavaClass().getJavaPackage().getPackageName(), className);
 		} finally {
-			VETimerTests.basicTest.stopCumulativeStep(APPLY_EXTENSIONS);	
+			TimerTests.basicTest.stopCumulativeStep(APPLY_EXTENSIONS);	
 		}
 	}
 	
@@ -689,7 +689,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					if (bd == null || bd.isIntrospectProperties()) {
 						// bd wants properties to be introspected/reflected
 						if (beaninfo != null) {
-							VETimerTests.basicTest.startCumulativeStep(INTROSPECT_PROPERTIES);							
+							TimerTests.basicTest.startCumulativeStep(INTROSPECT_PROPERTIES);							
 							IArrayBeanProxy props =
 								(IArrayBeanProxy) getProxyConstants().getPropertyDescriptorsProxy().invokeCatchThrowableExceptions(
 									beaninfo);
@@ -698,7 +698,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 								for (int i = 0; i < propSize; i++)
 									calculateProperty(props.getCatchThrowableException(i));
 							}
-							VETimerTests.basicTest.stopCumulativeStep(INTROSPECT_PROPERTIES);							
+							TimerTests.basicTest.stopCumulativeStep(INTROSPECT_PROPERTIES);							
 						} else
 							reflectProperties(); // No beaninfo, so use reflection to create properties
 					}
@@ -1025,7 +1025,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// gets confusing. We need to look for dups from the super types.
 		//
 		// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
-		VETimerTests.basicTest.startCumulativeStep(REFLECT_PROPERTIES);		
+		TimerTests.basicTest.startCumulativeStep(REFLECT_PROPERTIES);		
 		Set supers = new HashSet(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
 		if (bd == null || bd.isMergeSuperProperties()) {
@@ -1112,7 +1112,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				((PropertyInfo) entry.getValue()).createProperty((String) entry.getKey(), isBound);
 			}
 		}
-		VETimerTests.basicTest.stopCumulativeStep(REFLECT_PROPERTIES);		
+		TimerTests.basicTest.stopCumulativeStep(REFLECT_PROPERTIES);		
 	}
 
 	private class PropertyInfo {

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.18 $ $Date: 2005/01/07 20:51:29 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.19 $ $Date: 2005/01/10 19:26:48 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -32,7 +32,7 @@ import org.eclipse.jdt.launching.*;
 
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.remote.awt.REMRegisterAWT;
-import org.eclipse.jem.internal.temp.VETimerTests;
+import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
 
@@ -74,7 +74,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMNameWithComment"), new Object[] { project != null ? project.getProject().getName() : "", name }); //$NON-NLS-1$
 
 		String stepId = "Launch VM ( " + name + " )";
-		VETimerTests.basicTest.startStep(stepId);
+		TimerTests.basicTest.startStep(stepId);
 		// Problem with launch, can't have double-quotes in vmName.
 		if (name.indexOf('"') != -1)
 			name = name.replace('"', '\'');
@@ -344,7 +344,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		launchInfo.resultRegistry = registry;
 
 		pm.done();
-		VETimerTests.basicTest.stopStep(stepId);
+		TimerTests.basicTest.stopStep(stepId);
 	}
 
 	/**

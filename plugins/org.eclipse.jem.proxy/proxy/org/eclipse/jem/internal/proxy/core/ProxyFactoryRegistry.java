@@ -11,14 +11,14 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.6 $  $Date: 2004/12/01 17:09:06 $ 
+ *  $Revision: 1.7 $  $Date: 2005/01/10 19:26:48 $ 
  */
 
 
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import org.eclipse.jem.internal.temp.VETimerTests;
+import org.eclipse.jem.util.TimerTests;
 
 /**
  * Registry of proxy factories on a per-VM basis.
@@ -290,9 +290,9 @@ public abstract class ProxyFactoryRegistry {
 			return;	// Already or are already terminating. Don't do it again and don't notify again.
 		fIsValid = false;
 		if (fCurrentStandardBeanTypeProxyFactory != null) {
-//			VETimerTests.basicTest.startStep("Terminate Bean Type Factory");
+//			TimerTests.basicTest.startStep("Terminate Bean Type Factory");
 			fCurrentStandardBeanTypeProxyFactory.terminateFactory(wait);
-//			VETimerTests.basicTest.stopStep("Terminate Bean Type Factory");
+//			TimerTests.basicTest.stopStep("Terminate Bean Type Factory");
 			fCurrentStandardBeanTypeProxyFactory = null;
 		}
 		if (fCurrentStandardBeanProxyFactory != null) {
@@ -318,13 +318,13 @@ public abstract class ProxyFactoryRegistry {
 		
 		fRegisteredConstants.clear();
 		
-		VETimerTests.basicTest.startStep("Registry Terminated");
+		TimerTests.basicTest.startStep("Registry Terminated");
 		registryTerminated(wait);
-		VETimerTests.basicTest.stopStep("Registry Terminated");
+		TimerTests.basicTest.stopStep("Registry Terminated");
 		
-//		VETimerTests.basicTest.startStep("Registry Terminated Notification");
+//		TimerTests.basicTest.startStep("Registry Terminated Notification");
 		fireRegistryTerminated();	// Let everyone know that we are gone. This is fired even if wait is false because at this point in time the registry is invalid.
-//		VETimerTests.basicTest.stopStep("Registry Terminated Notification");
+//		TimerTests.basicTest.stopStep("Registry Terminated Notification");
 	}
 	
 

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.17 $  $Date: 2005/01/07 20:51:29 $ 
+ *  $Revision: 1.18 $  $Date: 2005/01/10 19:26:48 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -30,8 +30,8 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.osgi.framework.Bundle;
 
-import org.eclipse.jem.internal.temp.VETimerTests;
 import org.eclipse.jem.util.PerformanceMonitorUtil;
+import org.eclipse.jem.util.TimerTests;
 
  
 /**
@@ -351,7 +351,7 @@ public class ProxyLaunchSupport {
 		if (pm == null)
 			pm = new NullProgressMonitor();
 		String stepId = "Pre-launch VM ( " + vmTitle + " )";
-		VETimerTests.basicTest.startStep(stepId);
+		TimerTests.basicTest.startStep(stepId);
 		if (vmTitle.equals("Beaninfo"))
 			PerformanceMonitorUtil.getMonitor().snapshot(125);
 		final ILaunchConfigurationWorkingCopy configwc = config.getWorkingCopy();
@@ -439,7 +439,7 @@ public class ProxyLaunchSupport {
 					reg.terminateRegistry();
 				return null;
 			}
-//			VETimerTests.basicTest.startStep("contribute to registry");
+//			TimerTests.basicTest.startStep("contribute to registry");
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
 				// Run in safe mode so that anything happens we don't go away.
@@ -450,13 +450,13 @@ public class ProxyLaunchSupport {
 
 					public void run() throws Exception {
 						String stepid = "contribute to registry for " + contribs[ii].getClass();
-//						VETimerTests.basicTest.startStep(stepid);
+//						TimerTests.basicTest.startStep(stepid);
 						contribs[ii].contributeToRegistry(reg);
-//						VETimerTests.basicTest.stopStep(stepid);
+//						TimerTests.basicTest.stopStep(stepid);
 					}
 				});
 			}
-//			VETimerTests.basicTest.stopStep("contribute to registry");
+//			TimerTests.basicTest.stopStep("contribute to registry");
 		} finally {
 			// Clean up and return.
 			LAUNCH_INFO.remove(launchKey);
@@ -465,7 +465,7 @@ public class ProxyLaunchSupport {
 		pm.done();
 		if (vmTitle.equals("Beaninfo"))
 			PerformanceMonitorUtil.getMonitor().snapshot(126);
-		VETimerTests.basicTest.stopStep(stepId);
+		TimerTests.basicTest.stopStep(stepId);
 		return launchInfo.resultRegistry;
 	}
 	
