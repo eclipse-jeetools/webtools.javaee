@@ -1,7 +1,6 @@
-package org.eclipse.jem.java;
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
@@ -9,9 +8,10 @@ package org.eclipse.jem.java;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaRefPackage.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/14 00:16:44 $ 
+ *  $Revision: 1.2.4.1 $  $Date: 2004/06/24 18:17:06 $ 
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;

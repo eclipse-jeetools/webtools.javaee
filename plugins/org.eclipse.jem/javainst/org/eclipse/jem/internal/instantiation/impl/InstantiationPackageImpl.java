@@ -1,7 +1,6 @@
-package org.eclipse.jem.internal.instantiation.impl;
 /*******************************************************************************
- * Copyright (c)  2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
@@ -9,9 +8,10 @@ package org.eclipse.jem.internal.instantiation.impl;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+package org.eclipse.jem.internal.instantiation.impl;
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2004/02/03 23:18:28 $ 
+ *  $Revision: 1.7.4.1 $  $Date: 2004/06/24 18:17:07 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;

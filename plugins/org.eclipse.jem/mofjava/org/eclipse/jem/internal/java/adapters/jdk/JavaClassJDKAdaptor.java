@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.7 $  $Date: 2004/06/22 17:55:19 $ 
+ *  $Revision: 1.7.2.1 $  $Date: 2004/06/24 18:17:08 $ 
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;
