@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.19 $  $Date: 2004/11/12 19:15:08 $ 
+ *  $Revision: 1.20 $  $Date: 2004/11/12 23:11:07 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -750,22 +750,34 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			isDoingAllProperties = true;
 			try {
 				EList localProperties = getJavaClass().getProperties();
-				JavaClass superType = getJavaClass().getSupertype();
-				if (superType != null) {
+				// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
+				// Interfaces can have multiple extends, while the Introspector ignores these for reflection,
+				// the truth is most people want these. So we will add them in. But since there could be more than one it
+				// gets confusing. We need to look for dups from the super types and still keep order.
+				//
+				// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
+				List superTypes = getJavaClass().getESuperTypes();
+				if (!superTypes.isEmpty()) {
 					// Now we need to merge in the supers.
 					BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-					List supers = superType.getAllProperties();					
-
+					// If there is only one supertype, we can add to the actual events, else we will use the linked hashset so that
+					// we don't add possible duplicates (e.g. IA extends IB,IC and IB extends IC. In this case there would be dups
+					// because IB would contribute IC's too).
+					Collection workingAllProperties = superTypes.size() == 1 ? (Collection) allProperties : new LinkedHashSet(); 
 					// We will now merge as directed.
 					boolean mergeAll = bd == null || bd.isMergeSuperProperties();
 					if (!mergeAll) {
 						// we don't to want to merge super properties, but we still need super non-properties or explict ones.
-						int len = supers.size();
-						for (int i = 0; i < len; i++) {
-							EStructuralFeature p = (EStructuralFeature) supers.get(i);
-							PropertyDecorator pd = Utilities.getPropertyDecorator(p);
-							if ( pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()))
-								allProperties.add(p);
+						int lenST = superTypes.size();
+						for (int i=0; i<lenST; i++) {
+							List supers = ((JavaClass) superTypes.get(i)).getAllProperties();
+							int len = supers.size();
+							for (int i1 = 0; i1 < len; i1++) {
+								EStructuralFeature p = (EStructuralFeature) supers.get(i1);
+								PropertyDecorator pd = Utilities.getPropertyDecorator(p);
+								if ( pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()))
+									workingAllProperties.add(p);
+							}
 						}
 					} else {
 						// We want to merge all.					
@@ -783,23 +795,35 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 								
 								// Now walk and add in non-bean properties (and bean properties that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
 								// and those specifically called out by BeanInfo.
-								int len = supers.size();
-								for (int i = 0; i < len; i++) {
-									EStructuralFeature p = (EStructuralFeature) supers.get(i);
-									PropertyDecorator pd = Utilities.getPropertyDecorator(p);
-									if (pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()) || superSet.contains(pd.getName()))
-										allProperties.add(p);
-								}							
+								int lenST = superTypes.size();
+								for (int i=0; i<lenST; i++) {
+									List supers = ((JavaClass) superTypes.get(i)).getAllProperties();
+									int len = supers.size();
+									for (int i1 = 0; i1 < len; i1++) {
+										EStructuralFeature p = (EStructuralFeature) supers.get(i1);
+										PropertyDecorator pd = Utilities.getPropertyDecorator(p);
+										if (pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()) || superSet.contains(pd.getName()))
+											workingAllProperties.add(p);
+									}
+								}
 							} else {
 								// BeanInfo called out that all super properties are good
-								allProperties.addAll(supers);
+								int lenST = superTypes.size();
+								for (int i=0; i<lenST; i++) {
+									workingAllProperties.addAll(((JavaClass) superTypes.get(i)).getAllProperties());
+								}
 							}
 						} else {
 							// We don't have a BeanInfo telling us how to merge. This means we're reflecting and have prevented
 							// dups. So we accept all supers.
-							allProperties.addAll(supers);
+							int lenST = superTypes.size();
+							for (int i=0; i<lenST; i++) {
+								workingAllProperties.addAll(((JavaClass) superTypes.get(i)).getAllProperties());
+							}
 						}
 					}
+					if (workingAllProperties != allProperties)
+						allProperties.addAll(workingAllProperties);	// Now copy over the ordered super properties.
 				}
 				allProperties.addAll(localProperties);				
 				superAdapter.setAllPropertiesCollectionModified(false); // Now built, so reset to not changed.
@@ -964,15 +988,26 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// If we are set to mergeSuperTypeProperties, then we need to get the super properties.
 		// This is so that duplicate any from super that we find here. When reflecting we don't
 		// allow discovered duplicates unless they are different types.
-		HashMap supers = new HashMap(50);
+		//
+		// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
+		// Interfaces can have multiple extends, while the Introspector ignores these for reflection,
+		// the truth is most people want these. So we will add them in. But since there could be more than one it
+		// gets confusing. We need to look for dups from the super types.
+		//
+		// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
+		Set supers = new HashSet(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
 		if (bd == null || bd.isMergeSuperProperties()) {
-			JavaClass superType = getJavaClass().getSupertype();
-			if (superType != null) {
-				Iterator superAllItr = superType.getAllProperties().iterator();
-				while (superAllItr.hasNext()) {
-					EStructuralFeature sf = (EStructuralFeature) superAllItr.next();
-					supers.put(sf.getName(), sf);
+			List superTypes = getJavaClass().getESuperTypes();
+			if (!superTypes.isEmpty()) {
+				int lenST = superTypes.size();
+				for (int i=0; i<lenST; i++) {
+					List superAll = ((JavaClass) superTypes.get(i)).getAllProperties();
+					int len = superAll.size();
+					for (int i1=0; i1<len; i1++) {
+						EStructuralFeature sf = (EStructuralFeature) superAll.get(i1);
+						supers.add(sf.getName());
+					}
 				}
 				// Kludge: The above requests for super properties could of caused a recycle (in case the super
 				// was stale). Because of this we need to reintrospect to mark ourselves as not stale.
@@ -984,12 +1019,13 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		boolean isBound = isDefaultBound();
 		if (!isBound) {
 			List superTypes = getJavaClass().getEAllSuperTypes();
-			ListIterator sprs = superTypes.listIterator(superTypes.size());
 			// Start from end because that will be first class above the this one.
-			while (sprs.hasPrevious() && !isBound) {
-				JavaClass spr = (JavaClass) sprs.previous();
+			for (int i=superTypes.size()-1; !isBound && i>=0; i--) {
+				JavaClass spr = (JavaClass) superTypes.get(i);
 				BeaninfoClassAdapter bi = (BeaninfoClassAdapter) EcoreUtil.getExistingAdapter(spr, IIntrospectionAdapter.ADAPTER_KEY);
-				isBound = bi.isDefaultBound();
+				// They should all be reflected, but be on safe side, check if null.
+				if (bi != null)
+					isBound = bi.isDefaultBound();
 			}
 		}
 
@@ -1040,10 +1076,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		itr = props.entrySet().iterator();
 		while (itr.hasNext()) {
 			Map.Entry entry = (Map.Entry) itr.next();
-			EStructuralFeature sf = (EStructuralFeature) supers.get(entry.getKey());
-			// Create it if the sf is not a super.
-			if (sf == null)
-				 ((PropertyInfo) entry.getValue()).createProperty((String) entry.getKey(), isBound);
+			if(!supers.contains(entry.getKey())) {
+				// Create it if the sf is not a super.
+				((PropertyInfo) entry.getValue()).createProperty((String) entry.getKey(), isBound);
+			}
 		}
 	}
 
@@ -1355,15 +1391,26 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// This is so that duplicate any from super that we find here. When reflecting we don't
 		// allow discovered duplicates unless they are different signatures. So all super operations
 		// will be allowed and we will not override them.
-		HashMap supers = new HashMap(50);
+		//
+		// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
+		// Interfaces can have multiple extends, while the Introspector ignores these for reflection,
+		// the truth is most people want these. So we will add them in. But since there could be more than one it
+		// gets confusing. We need to look for dups from the super types.
+		//
+		// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
+		Set supers = new HashSet(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
 		if (bd == null || bd.isMergeSuperBehaviors()) {
-			EClass superType = getJavaClass().getSupertype();
-			if (superType != null) {
-				Iterator superAllItr = superType.getEAllOperations().iterator();
-				while (superAllItr.hasNext()) {
-					EOperation op = (EOperation) superAllItr.next();
-					supers.put(formLongName(op), op);
+			List superTypes = getJavaClass().getESuperTypes();
+			if (!superTypes.isEmpty()) {
+				int lenST = superTypes.size();
+				for (int i=0; i<lenST; i++) {
+					List superAll = ((JavaClass) superTypes.get(i)).getEAllOperations();
+					int len = superAll.size();
+					for (int i1=0; i1<len; i1++) {
+						EOperation op = (EOperation) superAll.get(i1);
+						supers.add(formLongName(op));
+					}
 				}
 				// Kludge: The above requests for super properties could of caused a recycle (in case the super
 				// was stale). Because of this we need to reintrospect to mark ourselves as not stale.
@@ -1377,10 +1424,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			if (mthd.isStatic() || mthd.isConstructor())
 				continue; // Statics/constructors don't participate as behaviors	
 			String longName = formLongName(mthd);
-			if (supers.get(longName) != null)
-				continue;	// Already exists in supers, don't override.
-				
-			createOperation(null, longName, mthd, null);	// Don't pass a name, try to create it by name, only use ID if there is more than one of the same name.
+			// Add if super not already contain it.
+			if (!supers.contains(longName))
+				createOperation(null, longName, mthd, null);	// Don't pass a name, try to create it by name, only use ID if there is more than one of the same name.
 		}
 	}
 
@@ -1401,22 +1447,34 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			isDoingAllOperations = true;
 			try {
 				EList localOperations = getJavaClass().getEOperations();
-				JavaClass superType = getJavaClass().getSupertype();
-				if (superType != null) {
+				// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
+				// Interfaces can have multiple extends, while the Introspector ignores these for reflection,
+				// the truth is most people want these. So we will add them in. But since there could be more than one it
+				// gets confusing. We need to look for dups from the super types and still keep order.
+				//
+				// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
+				List superTypes = getJavaClass().getESuperTypes();
+				if (!superTypes.isEmpty()) {
 					// Now we need to merge in the supers.
 					BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-					List supers = superType.getEAllOperations();					
-
+					// If there is only one supertype, we can add to the actual events, else we will use the linked hashset so that
+					// we don't add possible duplicates (e.g. IA extends IB,IC and IB extends IC. In this case there would be dups
+					// because IB would contribute IC's too).
+					Collection workingAllOperations = superTypes.size() == 1 ? (Collection) allOperations : new LinkedHashSet(); 
 					// We will now merge as directed.
 					boolean mergeAll = bd == null || bd.isMergeSuperBehaviors();
 					if (!mergeAll) {
-						// we don't to want to merge super properties, but we still need super non-properties.
-						int len = supers.size();
-						for (int i = 0; i < len; i++) {
-							EOperation o = (EOperation) supers.get(i);
-							MethodDecorator md = Utilities.getMethodDecorator(o);
-							if (md == null || (md.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !md.isMergeIntrospection()))
-								allOperations.add(o);
+						// we don't to want to merge super properties, but we still need super non-operations.
+						int lenST = superTypes.size();
+						for (int i=0; i<lenST; i++) {
+							List supers = ((JavaClass) superTypes.get(i)).getEAllOperations();
+							int len = supers.size();
+							for (int i1 = 0; i1 < len; i1++) {
+								EOperation o = (EOperation) supers.get(i1);
+								MethodDecorator md = Utilities.getMethodDecorator(o);
+								if (md == null || (md.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !md.isMergeIntrospection()))
+									workingAllOperations.add(o);
+							}
 						}
 					} else {
 						// We want to merge all.					
@@ -1432,30 +1490,44 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 									superSet.add(((IStringBeanProxy) superNames.getCatchThrowableException(i)).stringValue());
 								}
 								
-								// Now walk and add in non-bean properties (and bean operations that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
+								// Now walk and add in non-bean operations (and bean operations that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
 								// and those specifically called out by BeanInfo.
-								int len = supers.size();
-								for (int i = 0; i < len; i++) {
-									EOperation o = (EOperation) supers.get(i);
-									MethodDecorator md = Utilities.getMethodDecorator(o);
-									if (md == null || (md.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !md.isMergeIntrospection()))
-										allOperations.add(o);
-									else {
-										String longName = formLongName(o);
-										if (longName == null || superSet.contains(longName))
-											allOperations.add(o);
+								// Now walk and add in non-bean events (and bean events that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
+								// and those specifically called out by BeanInfo.
+								int lenST = superTypes.size();
+								for (int i=0; i<lenST; i++) {
+									List supers = ((JavaClass) superTypes.get(i)).getEAllOperations();
+									int len = supers.size();
+									for (int i1 = 0; i1 < len; i1++) {
+										EOperation o = (EOperation) supers.get(i1);
+										MethodDecorator md = Utilities.getMethodDecorator(o);
+										if (md == null || (md.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !md.isMergeIntrospection()))
+											workingAllOperations.add(o);
+										else {
+											String longName = formLongName(o);
+											if (longName == null || superSet.contains(longName))
+												workingAllOperations.add(o);
+										}
 									}
-								}						
+								}
 							} else {
-								// BeanInfo called out that all super properties 
-								allOperations.addAll(supers);
+								// BeanInfo called out that all super operations should be added 
+								int lenST = superTypes.size();
+								for (int i=0; i<lenST; i++) {
+									workingAllOperations.addAll(((JavaClass) superTypes.get(i)).getEAllOperations());
+								}
 							}
 						} else {
 							// We don't have a BeanInfo telling us how to merge, so we did reflection. But if that is the case, we already
 							// took the supers into account and did not override any thru the reflection, so all supers are good.
-							allOperations.addAll(supers);
+							int lenST = superTypes.size();
+							for (int i=0; i<lenST; i++) {
+								workingAllOperations.addAll(((JavaClass) superTypes.get(i)).getEAllOperations());
+							}
 						}
 					}
+					if (workingAllOperations != allOperations)
+						allOperations.addAll(workingAllOperations);	// Now copy over the ordered super operations.					
 				}
 				allOperations.addAll(localOperations);				
 				ESuperAdapter sa = getJavaClass().getESuperAdapter();
@@ -1610,15 +1682,26 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// If we are set to mergeSuperTypeEvents, then we need to get the super events.
 		// This is so that duplicate any from super that we find here. When reflecting we don't
 		// allow discovered duplicates.
-		HashMap supers = new HashMap(50);
+		//
+		// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
+		// Interfaces can have multiple extends, while the Introspector ignores these for reflection,
+		// the truth is most people want these. So we will add them in. But since there could be more than one it
+		// gets confusing. We need to look for dups from the super types.
+		//
+		// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
+		Set supers = new HashSet(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
 		if (bd == null || bd.isMergeSuperEvents()) {
-			JavaClass superType = (JavaClass) getJavaClass().getSupertype();
-			if (superType != null) {
-				Iterator superAllItr = superType.getAllEvents().iterator();
-				while (superAllItr.hasNext()) {
-					JavaEvent se = (JavaEvent) superAllItr.next();
-					supers.put(se.getName(), se);
+			List superTypes = getJavaClass().getESuperTypes();
+			if (!superTypes.isEmpty()) {
+				int lenST = superTypes.size();
+				for (int i=0; i<lenST; i++) {
+					List superAll = ((JavaClass) superTypes.get(i)).getAllEvents();
+					int len = superAll.size();
+					for (int i1=0; i1<len; i1++) {
+						JavaEvent se = (JavaEvent) superAll.get(i1);
+						supers.add(se.getName());
+					}
 				}
 				// Kludge: The above requests for super events could of caused a recycle (in case the super
 				// was stale). Because of this we need to reintrospect to mark ourselves as not stale.
@@ -1670,8 +1753,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				if (eventNames.contains(eventName))
 					continue;	// Aleady created it. (Note: Introspector actually takes last one over previous dups, but the order is totally undefined, so choosing first is just as good or bad.
 
-				JavaEvent superEvent = (JavaEvent) supers.get(eventName);
-				if (superEvent != null)
+				if (supers.contains(eventName))
 					continue; // Don't override a super event.
 
 				if (ei.createEvent(eventName))
@@ -1710,22 +1792,34 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			isDoingAllEvents = true;
 			try {
 				EList localEvents = getJavaClass().getEvents();
-				JavaClass superType = getJavaClass().getSupertype();
-				if (superType != null) {
+				// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
+				// Interfaces can have multiple extends, while the Introspector ignores these for reflection,
+				// the truth is most people want these. So we will add them in. But since there could be more than one it
+				// gets confusing. We need to look for dups from the super types and still keep order.
+				//
+				// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
+				List superTypes = getJavaClass().getESuperTypes();
+				if (!superTypes.isEmpty()) {
 					// Now we need to merge in the supers.
 					BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-					List supers = superType.getAllEvents();					
-
+					// If there is only one supertype, we can add to the actual events, else we will use the linked hashset so that
+					// we don't add possible duplicates (e.g. IA extends IB,IC and IB extends IC. In this case there would be dups
+					// because IB would contribute IC's too).
+					Collection workingAllEvents = superTypes.size() == 1 ? (Collection) allEvents : new LinkedHashSet(); 
 					// We will now merge as directed.
 					boolean mergeAll = bd == null || bd.isMergeSuperEvents();
 					if (!mergeAll) {
-						// we don't to want to merge super properties, but we still need super non-properties or explicit ones.
-						int len = supers.size();
-						for (int i = 0; i < len; i++) {
-							JavaEvent e = (JavaEvent) supers.get(i);
-							EventSetDecorator ed = Utilities.getEventSetDecorator(e);
-							if (ed == null || (ed.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !ed.isMergeIntrospection()))
-								allEvents.add(e);
+						// we don't to want to merge super events, but we still need super non-events or explicit ones.
+						int lenST = superTypes.size();
+						for (int i=0; i<lenST; i++) {
+							List supers = ((JavaClass) superTypes.get(i)).getAllEvents();
+							int len = supers.size();
+							for (int i1 = 0; i1 < len; i1++) {
+								JavaEvent e = (JavaEvent) supers.get(i1);
+								EventSetDecorator ed = Utilities.getEventSetDecorator(e);
+								if (ed == null || (ed.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !ed.isMergeIntrospection()))
+									workingAllEvents.add(e);
+							}
 						}
 					} else {
 						// We want to merge all.					
@@ -1741,25 +1835,37 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 									superSet.add(((IStringBeanProxy) superNames.getCatchThrowableException(i)).stringValue());
 								}
 								
-								// Now walk and add in non-bean properties (and bean events that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
+								// Now walk and add in non-bean events (and bean events that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
 								// and those specifically called out by BeanInfo.
-								int len = supers.size();
-								for (int i = 0; i < len; i++) {
-									JavaEvent e = (JavaEvent) supers.get(i);
-									EventSetDecorator ed = Utilities.getEventSetDecorator(e);
-									if (ed == null || (ed.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !ed.isMergeIntrospection()) || superSet.contains(ed.getName()))
-										allEvents.add(e);
-								}							
+								int lenST = superTypes.size();
+								for (int i=0; i<lenST; i++) {
+									List supers = ((JavaClass) superTypes.get(i)).getAllEvents();
+									int len = supers.size();
+									for (int i1 = 0; i1 < len; i1++) {
+										JavaEvent e = (JavaEvent) supers.get(i1);
+										EventSetDecorator ed = Utilities.getEventSetDecorator(e);
+										if (ed == null || (ed.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !ed.isMergeIntrospection()) || superSet.contains(ed.getName()))
+											workingAllEvents.add(e);
+									}
+								}
 							} else {
-								// BeanInfo called out that all super properties 
-								allEvents.addAll(supers);
+								// BeanInfo called out that all super events should be added
+								int lenST = superTypes.size();
+								for (int i=0; i<lenST; i++) {
+									workingAllEvents.addAll(((JavaClass) superTypes.get(i)).getAllEvents());
+								}
 							}
 						} else {
 							// We don't have a BeanInfo telling us how to merge. This means we reflected and have already stripped
 							// out and prevented duplicates by name.
-							allEvents.addAll(supers);
+							int lenST = superTypes.size();
+							for (int i=0; i<lenST; i++) {
+								workingAllEvents.addAll(((JavaClass) superTypes.get(i)).getAllEvents());
+							}
 						}
 					}
+					if (workingAllEvents != allEvents)
+						allEvents.addAll(workingAllEvents);	// Now copy over the ordered super events.
 				}
 				allEvents.addAll(localEvents);				
 				superAdapter.setAllEventsCollectionModified(false); // Now built, so reset to not changed.

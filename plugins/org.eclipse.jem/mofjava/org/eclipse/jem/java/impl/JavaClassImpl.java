@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.11 $  $Date: 2004/11/12 23:11:05 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -294,6 +294,11 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 		return null;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @deprecated If anyone is referencing this, please use getEAllSuperTypes() instead. This was placed here and misspelled by mistake.
+	 */
 	public EList getAllSupertypes() {
 		getESuperTypes(); //Force reflection, if needed, before getting all supertypes.
 		return super.getEAllSuperTypes();
@@ -780,10 +785,11 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	}
 
 	public JavaClass getSupertype() {
+		// If this is an interface, there is no supertype. However, the eSuperTypes IS filled in with any interface that this extends. 
+		if (isInterface())
+			return null;
 		List list = getESuperTypes();
-		if (!list.isEmpty())
-			return (JavaClass) list.get(0);
-		return null;
+		return (!list.isEmpty()) ? (JavaClass) list.get(0) : null;
 	}
 
 	public JavaClass getWrapper() {
