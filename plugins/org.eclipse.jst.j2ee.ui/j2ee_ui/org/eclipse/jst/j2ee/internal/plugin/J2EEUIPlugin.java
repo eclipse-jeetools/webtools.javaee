@@ -39,6 +39,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.wst.server.core.internal.ServerPlugin;
 
 
 /**
@@ -272,17 +273,6 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 		return null;
 	}
 	
-	public void startup() throws CoreException {
-        super.startup();
-        
-        // register adapter factory for web services navigator actions
-        IAdapterManager manager = Platform.getAdapterManager();
-        manager.registerAdapters(new J2EEUIAdapterFactory(), EnterpriseBean.class);
-        manager.registerAdapters(new J2EEUIAdapterFactory(), Application.class);
-        manager.registerAdapters(new J2EEUIAdapterFactory(), WebApp.class);
-        manager.registerAdapters(new J2EEUIAdapterFactory(), EJBJar.class);
-        manager.registerAdapters(new J2EEUIAdapterFactory(), Servlet.class);
-        
-    }
+	
 	
 }
