@@ -43,9 +43,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
 import org.eclipse.wst.common.frameworks.ui.RunnableWithProgressWrapper;
 import org.eclipse.wst.common.frameworks.ui.WorkspaceModifyComposedOperation;
-import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

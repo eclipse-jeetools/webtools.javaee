@@ -15,18 +15,13 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.wizard.EJBProjectWizard;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.rar.wizard.JCAProjectWizard;
-import org.eclipse.jst.j2ee.internal.war.wizard.WEBProjectWizard;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationDataModel;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 import org.eclipse.swt.SWT;
@@ -40,8 +35,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.activities.WorkbenchActivityHelper;
+import org.eclipse.ui.internal.dialogs.WorkbenchWizardElement;
+import org.eclipse.ui.internal.registry.NewWizardsRegistryReader;
 import org.eclipse.wst.internal.common.frameworks.ui.GenericWizardNode;
 import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
+
+import com.ibm.wtp.common.logger.proxy.Logger;
 
 
 /**
@@ -354,7 +353,14 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				 * @see org.eclipse.wst.common.framework.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
-					return new JCAProjectWizard((ConnectorProjectCreationDataModel) getDefaultModel().getJCAModel());
+					IWizard result = null;
+					WorkbenchWizardElement connWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectWizard"); //$NON-NLS-1$
+					try {
+						result = (IWizard) connWizElement.createExecutableExtension();
+					} catch (CoreException ce) {
+						Logger.getLogger().log(ce);
+					}
+					return result;
 				}
 			};
 		}
@@ -373,7 +379,14 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				 * @see org.eclipse.wst.common.framework.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
-					return new EJBProjectWizard((EJBProjectCreationDataModel) getDefaultModel().getEjbModel());
+					IWizard result = null;
+					WorkbenchWizardElement ejbWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.j2ee.ejb.ui.internal.wizard.EJBProjectWizard"); //$NON-NLS-1$
+					try {
+						result = (IWizard) ejbWizElement.createExecutableExtension();
+					} catch (CoreException ce) {
+						Logger.getLogger().log(ce);
+					}
+					return result;
 				}
 			};
 		}
@@ -392,7 +405,14 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				 * @see org.eclipse.wst.common.framework.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
-					return new WEBProjectWizard((WebProjectCreationDataModel) getDefaultModel().getWebModel());
+					IWizard result = null;
+					WorkbenchWizardElement servletWizElement = new NewWizardsRegistryReader().findWizard("org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"); //$NON-NLS-1$
+					try {
+						result = (IWizard) servletWizElement.createExecutableExtension();
+					} catch (CoreException ce) {
+						Logger.getLogger().log(ce);
+					}
+					return result;
 				}
 			};
 		}

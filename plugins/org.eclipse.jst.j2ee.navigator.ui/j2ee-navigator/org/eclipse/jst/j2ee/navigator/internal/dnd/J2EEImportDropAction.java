@@ -49,7 +49,7 @@ import org.eclipse.wst.common.framework.AdaptabilityUtility;
 import org.eclipse.wst.common.navigator.views.IDropValidator;
 import org.eclipse.wst.common.navigator.views.NavigatorDropActionDelegate;
 import org.eclipse.wst.common.navigator.views.NavigatorDropAdapter;
-import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.internal.common.ui.WTPWizard;
 
 /**
  * @author jsholl

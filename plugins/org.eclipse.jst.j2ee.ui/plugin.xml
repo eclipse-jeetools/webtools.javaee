@@ -97,60 +97,14 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-<!-- EJB Project Wizard -->
-      <category
-            name="%web.category_ui_"
-            id="org.eclipse.jst.j2ee.internal.war.ui.util">
-      </category>
-      <wizard
-            name="%web.project_ui_"
-            icon="icons/full/ctool16/newwar_wiz.gif"
-            category="org.eclipse.jst.j2ee.internal.war.ui.util"
-            class="org.eclipse.jst.j2ee.internal.war.wizard.WEBProjectWizard"
-            project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.internal.webProjectWizard">
-         <description>
-            %new.web.project.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-<!-- JCA Project Wizard -->
-      <wizard
-            name="%jca.project_ui_"
-            icon="icons/full/ctool16/newconnectionprj_wiz.gif"
-            category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.rar.wizard.JCAProjectWizard"
-            project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.internal.jcaProjectWizard">
-         <description>
-            %new.jca.project.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
+
+
    </extension>
 <!--================================-->
 <!-- Import Wizard Contributions    -->
 <!--================================-->
-   <extension
+    <extension
          point="org.eclipse.ui.importWizards">
-      <wizard
-            name="%ejb.jar.file_ui_"
-            icon="icons/full/ctool16/import_ejbjar.gif"
-            class="org.eclipse.jst.j2ee.internal.ejb.wizard.EJBJarImportWizard"
-            id="EJBImportWizard">
-         <description>
-            %ejb.import.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
       <wizard
             name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_import_wiz.gif"
@@ -158,30 +112,6 @@
             id="ApplicationClientImportWizard">
          <description>
             %client.import.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-      <wizard
-            name="%WarImportWizard.name"
-            icon="icons/full/ctool16/importwar_wiz.gif"
-            class="org.eclipse.jst.j2ee.internal.war.wizard.WARImportWizard"
-            id="WarImportWizard">
-         <description>
-            %WarImportWizard.description
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-      <wizard
-            name="%connector.jar.file_ui_"
-            icon="icons/full/ctool16/import_rar.gif"
-            class="org.eclipse.jst.j2ee.internal.rar.wizard.RARImportWizard"
-            id="ConnectorImportWizard">
-         <description>
-            %connector.import.description_ui_
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -221,30 +151,6 @@
             id="ApplicationClientExportWizard">
          <description>
             %client.export.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-      <wizard
-            name="%WarexportWizard.name"
-            icon="icons/full/ctool16/exportwar_wiz.gif"
-            class="org.eclipse.jst.j2ee.internal.war.ui.util.wizard.WARExportWizard"
-            id="WarExportWizard">
-         <description>
-            %WarexportWizard.description
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-      <wizard
-            name="%connector.jar.file_ui_"
-            icon="icons/full/ctool16/export_rar.gif"
-            class="org.eclipse.jst.j2ee.internal.rar.ui.util.wizard.RARExportWizard"
-            id="ConnectorExportWizard">
-         <description>
-            %connector.export.description_ui_
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -295,12 +201,7 @@
             id="org.eclipse.ui.webProjectNatureImage">
       </image>
    </extension>
-   <extension
-         point="org.eclipse.wst.common.frameworks.ui.extendableWizard">
-      <extendableWizard
-            id="org.eclipse.jst.j2ee.internal.webProjectWizard">
-      </extendableWizard>
-   </extension>
+   
 <!-- Navigator Object Contributions -->
 <!-- EAR Group Contributions -->
    <extension
@@ -348,87 +249,7 @@
       </objectContribution>
    </extension>
 <!-- Navigator Object Contributions -->
-<!-- Connector Group Contributions -->
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.ui.navigator.rarNewProjectActions">
-         <action
-               label="%jca.project_ui_"
-               icon="icons/full/ctool16/newconnectionprj_wiz.gif"
-               class="org.eclipse.jst.j2ee.internal.rar.actions.NewConnectorProjectAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.new.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.j2ee.internal.ui.navigator.newRARAction">
-         </action>
-         <visibility>
-            <objectState
-                  name="projectNature"
-                  value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-   </extension>
-<!-- Navigator Object Contributions -->
-<!-- EJB Group Contributions -->
-<!-- Navigator Object Contributions -->
-<!-- WEB Group Contributions -->
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.ui.navigator.webProjectActions">
-         <action
-               label="%web.project_ui_"
-               icon="icons/full/ctool16/newwar_wiz.gif"
-               class="org.eclipse.jst.j2ee.internal.war.actions.NewWebProjectAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.new.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.j2ee.internal.ui.navigator.newWebProjectAction">
-         </action>
-         <visibility>
-            <objectState
-                  name="projectNature"
-                  value="org.eclipse.jst.j2ee.web.WebNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-   </extension>
-<!-- ====================================================== -->
-<!--           Label Decorators                             -->
-<!-- ====================================================== -->
-  
-    <extension
-         point="org.eclipse.ui.decorators">
-         <decorator
-               lightweight="true"
-               objectClass="org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper"
-               adaptable="true"
-               label="%beanClassAnnotationDecorator"
-               class="org.eclipse.jst.j2ee.internal.ejb.ui.util.EJBAnnotationBeanDecorator"
-               state="true"
-               location="TOP_LEFT"
-               id="org.eclipse.jst.j2ee.internal.ejb.ui.util.beanJavaAnnotationBeanDecorator">
-         <description>
-            %beanClassAnnotationDecorator.description
-         </description>
-      </decorator>
-      <decorator
-               lightweight="true"
-               objectClass="org.eclipse.jst.j2ee.ejb.EnterpriseBean"
-               adaptable="true"
-               label="%ejbAnnotationDecorator"
-               class="org.eclipse.jst.j2ee.internal.ejb.ui.util.EJBAnnotationBeanDecorator"
-               state="true"
-               location="TOP_LEFT"
-               id="org.eclipse.jst.j2ee.internal.ejb.ui.util.enterpriseBeanAnnotationBeanDecorator">
-         <description>
-            %ejbAnnotationDecorator.description
-         </description>
-      </decorator>
-    </extension> 
-  
+
     <extension
          point="org.eclipse.wst.common.frameworks.ui.wtpuiAction"> 
       <masterOperation
@@ -684,69 +505,8 @@
       </objectContribution>
    </extension>
 
-<!-- Connector Group Contributions -->
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.ui.navigator.rarProjectActions">
-         <action
-               label="%connector.jar.file_ui_"
-               icon="icons/full/ctool16/import_rar.gif"
-               class="org.eclipse.jst.j2ee.internal.rar.actions.ImportRARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.import.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.j2ee.internal.ui.navigator.importRARAction">
-         </action>
-         <action
-               label="%connector.jar.file_ui_"
-               icon="icons/full/ctool16/export_rar.gif"
-               class="org.eclipse.jst.j2ee.internal.rar.actions.ExportRARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.export.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.j2ee.internal.ui.navigator.exportRARAction">
-         </action>
-         <visibility>
-            <objectState
-                  name="projectNature"
-                  value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-   </extension>
 <!-- Navigator Object Contributions -->
-<!-- EJB Group Contributions -->
-<!-- Navigator Object Contributions -->
-<!-- WEB Group Contributions -->
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.wst.common.framework.navigator.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.ui.navigator.webProjectActions">
-         <action
-               label="%WarImportWizard.name"
-               icon="icons/full/ctool16/importwar_wiz.gif"
-               class="org.eclipse.jst.j2ee.internal.war.actions.ImportWARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.import.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.j2ee.internal.ui.navigator.importWARAction">
-         </action>
-         <action
-               label="%WarexportWizard.name"
-               icon="icons/full/ctool16/exportwar_wiz.gif"
-               class="org.eclipse.jst.j2ee.internal.war.actions.ExportWARAction"
-               menubarPath="org.eclipse.wst.common.framework.navigator.export.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.j2ee.internal.ui.navigator.exportWARAction">
-         </action>
-         <visibility>
-            <objectState
-                  name="projectNature"
-                  value="org.eclipse.jst.j2ee.web.WebNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-   </extension>
+
    
    
     <extension

@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.frameworks.ui.OverlayIcon;
+import org.eclipse.wst.common.ui.OverlayIcon;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
