@@ -101,20 +101,13 @@
          <enablement>
          <or>
             <and>
-            	<or>
-                  <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
 	               <objectClass
 	                     name="org.eclipse.core.resources.IProject">
 	               </objectClass>
-               </or>
-               <or>
                   <objectState
                         name="projectNature"
-                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
+                        value="org.eclipse.jdt.core.javanature">
                   </objectState>
-               </or>
             </and>            
             </or>
          </enablement>
@@ -128,20 +121,14 @@
          <enablement>
          <or>
             <and>
-            	<or>
-                  <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-	               <objectClass
+            	   <objectClass
 	                     name="org.eclipse.core.resources.IProject">
 	               </objectClass>
-               </or>
-               <or>
                   <objectState
                         name="projectNature"
-                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
+                        value="org.eclipse.jdt.core.javanature">
                   </objectState>
-               </or>
+               
             </and>            
             </or>
          </enablement>
