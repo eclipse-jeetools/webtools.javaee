@@ -377,6 +377,10 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	
 	public String getModuleVersionText(){
+		return getServletLevel();
+	}
+	
+	public String getServletLevel(){
 		int servletVersion = getServletVersion();
 		
 		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
@@ -384,6 +388,18 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
 			return J2EEVersionConstants.VERSION_2_3_TEXT;
 		else
-			return J2EEVersionConstants.VERSION_2_4_TEXT;
+			return J2EEVersionConstants.VERSION_2_4_TEXT;		
+	}
+	
+	public String getJSPLevel(){
+		int servletVersion = getServletVersion();
+		
+		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
+			return J2EEVersionConstants.VERSION_1_1_TEXT;
+		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
+			return J2EEVersionConstants.VERSION_1_2_TEXT;
+		else
+			return J2EEVersionConstants.VERSION_2_0_TEXT;	
+		
 	}
 }
