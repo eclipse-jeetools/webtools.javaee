@@ -43,6 +43,7 @@ import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
@@ -61,9 +62,10 @@ import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-public class EJBClientComponentCreationOperation extends WTPOperation {
+public class EJBClientComponentCreationOperation extends JavaUtilityComponentCreationOperation {
 	protected String ejbModule;
 	protected String clientModuleName;
 	protected String clientModulePath;

@@ -12,13 +12,14 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class EJBClientComponentDataModel extends ComponentCreationDataModel {
+public class EJBClientComponentDataModel extends JavaComponentCreationDataModel {
 	
 	/**
 	 * Required, type String
@@ -39,11 +40,6 @@ public class EJBClientComponentDataModel extends ComponentCreationDataModel {
 	 * Optional, type boolean
 	 */
 	public static final String DELETE_WHEN_FINISHED = "EJBClientComponentDataModel.DELETE_WHEN_FINISHED"; //$NON-NLS-1$
-
-	/**
-	 * type String
-	 */
-	public static final String JAVASOURCE_FOLDER = "EJBClientCreationDataModel.JAVASOURCE_FOLDER"; //$NON-NLS-1$
 
 	/**
 	 *  
@@ -150,15 +146,6 @@ public class EJBClientComponentDataModel extends ComponentCreationDataModel {
 
 	public boolean hasExistingClientJar(){
 		return false;
-	}
-
-	protected String getComponentExtension() {
-		return ".jar"; //$NON-NLS-1$
-	}
-
-	protected String getComponentID() {
-		//TODO
-		return null;
 	}
 
 	protected EClass getComponentType() {
