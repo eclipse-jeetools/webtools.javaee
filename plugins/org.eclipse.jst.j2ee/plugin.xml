@@ -115,7 +115,7 @@
 <!--============================-->
 <!-- EAR Project Nature Contributions                -->
 <!--============================-->
-<!--
+
    <extension
          id="EARNature"
          name="EAR Properties"
@@ -126,7 +126,7 @@
          </run>
       </runtime>
    </extension>
--->
+
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
