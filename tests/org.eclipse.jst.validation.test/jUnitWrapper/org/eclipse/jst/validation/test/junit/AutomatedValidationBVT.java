@@ -22,6 +22,7 @@ import junit.textui.TestRunner;
 
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jst.validation.api.test.ApiTestsSuite;
 
 
 /**
@@ -65,6 +66,7 @@ public class AutomatedValidationBVT extends TestSuite {
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for org.eclipse.jst.validation.test");
         suite.addTest(BVTSuite.suite());
+		suite.addTest(ApiTestsSuite.suite());
         return suite;
     }
 }
