@@ -8,12 +8,21 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.internal.resources.Folder;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -33,6 +42,9 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.EclipseResourceAdapter;
+
+
 
 /**
  * <p>
@@ -246,9 +258,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	protected void addWebAppIfNecessary(XMLResource aResource) {
 
-		if (aResource != null && aResource.getContents().isEmpty()) {
-			WebApp webApp = WebapplicationFactory.eINSTANCE.createWebApp();
-			aResource.getContents().add(webApp);
+		if (aResource != null ) {
+
+			WebApp  webApp = (WebApp)aResource.getContents().get( 0 );
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				webApp.setDisplayName(ModuleCore.getDeployedName(moduleURI));
@@ -278,6 +290,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
 			file.setWelcomeFile("default.jsp"); //$NON-NLS-1$
 			files.add(file);
+		}
+		try{
+			aResource.saveIfNecessary();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
@@ -330,6 +347,39 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		}
 		return ((WebAppResource)getDeploymentDescriptorResource()).getRootObject();
 	}
+	
+	public void createModelRoot(IProject project, IFolder  webinf, IPath path, int moduleVersion ) {
+		
+		File file = null;
+		file = new File(path.toOSString());
+		
+		try{
+			FileOutputStream out = new FileOutputStream(file);
+			PrintStream p = null;
+			p = new PrintStream( out );
+			
+			
+			p.println( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
+			if( moduleVersion == 23 ){
+				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN\" \"http://java.sun.com/dtd/web-app_2_3.dtd\">");				
+			}
+
+			p.println("<web-app></web-app>");
+			p.close();					
+
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+
+		try{
+			project.refreshLocal(IResource.DEPTH_INFINITE, null);
+		}catch(CoreException e){
+			e.printStackTrace();
+		}
+
+		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
+	}
+	
 	
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib

@@ -75,7 +75,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 		
 		IFolder webContentFolder = moduleFolder.getFolder( "WebContent" );
 		if (!webContentFolder.exists()) {
-			webContentFolder.create(true, true, null);
+			webContentFolder.create(true, true, null); 
 		}
 		
 		IFolder metainf = webContentFolder.getFolder(J2EEConstants.META_INF);
@@ -87,6 +87,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 			metainf.create(true, true, null);
 		}
 		
+		
 		IFolder webinf = webContentFolder.getFolder(J2EEConstants.WEB_INF);
 		if (!webinf.exists()) {
 			webinf.create(true, true, null);
@@ -96,6 +97,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 		if (!lib.exists()) {
 			lib.create(true, true, null);
 		}
+
 		
 		//should cache wbmodule when created instead of  searching ?
         ModuleCore moduleCore = null;
@@ -114,8 +116,15 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
        	try{
 
        		webEdit = WebArtifactEdit.getWebArtifactEditForWrite( wbmodule );
+       		IPath path2 = getProject().getLocation();
+       		String projPath = getProject().getLocation().toOSString();
+       		projPath += IPath.SEPARATOR + moduleName + IPath.SEPARATOR + "WebContent" + IPath.SEPARATOR + J2EEConstants.WEB_INF + IPath.SEPARATOR + "web.xml";
+       		IPath webxmlPath = new Path(projPath);
+       		boolean b = webxmlPath.isValidPath(webxmlPath.toString());
        		if(webEdit != null) {
-           		webEdit.createModelRoot();
+       			int moduleVersion = operationDataModel.getIntProperty(FlexibleWebModuleCreationDataModel.J2EE_MODULE_VERSION);
+  			
+           		webEdit.createModelRoot( getProject(), webinf, webxmlPath, moduleVersion );
        		}
        	}
        	catch(Exception e){
