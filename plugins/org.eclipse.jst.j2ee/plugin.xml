@@ -43,6 +43,7 @@
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.debug.ui"/>
    </requires>
 
 
@@ -530,11 +531,13 @@
              class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IProject">
             <adapter type="org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact"/>
+            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.application.Application">
             <adapter type="org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact"/>
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
@@ -545,16 +548,26 @@
              class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableAdapterFactory"
              adaptableType="org.eclipse.core.resources.IProject">
              <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+         
+        </factory>
+        <factory
+             class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableAdapterFactory"
+             adaptableType="org.eclipse.jst.j2ee.application.Application">
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>   
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>       
         </factory>
          <factory
              class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableAdapterFactory"
              adaptableType="org.eclipse.jdt.core.ICompilationUnit">
-             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>   
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>       
         </factory>
              <factory
              class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableAdapterFactory"
              adaptableType="org.eclipse.core.resources.IFile">
-             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>     
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>   
         </factory>
    </extension>
    

@@ -178,14 +178,14 @@
             id="org.eclipse.jst.web.server.webresource">
       </moduleArtifactAdapter> -->
       
-      <moduleArtifactAdapter
+       <moduleArtifactAdapter
             id="org.eclipse.jst.web.server.webresource">
          <enablement>
            <with variable="selection">
              <adapt type="org.eclipse.jst.j2ee.webapplication.WebApp"/>
            </with>
          </enablement>
-      </moduleArtifactAdapter>
+      </moduleArtifactAdapter> 
 
    
      <!-- <moduleArtifactAdapter
@@ -267,13 +267,13 @@
        <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.internal.webapplication.Servlet">
-            <adapter type="org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact"/>
-            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jst.j2ee.webapplication.WebApp">
-            <adapter type="org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact"/>
+             adaptableType="org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppImpl">
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>    
    </extension> 

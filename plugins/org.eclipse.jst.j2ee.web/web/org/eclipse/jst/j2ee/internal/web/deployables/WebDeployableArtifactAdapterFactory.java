@@ -15,19 +15,13 @@ public class WebDeployableArtifactAdapterFactory implements IAdapterFactory {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
-		if (adapterType == WebModuleArtifact.class)
+		if (adapterType == WebModuleArtifact.class || adapterType == IModuleArtifact.class)
 			moduleArtifact = WebDeployableArtifactUtil.getModuleObject(adaptableObject);
-		else if (adapterType == ILaunchable.class) {
-			if (adaptableObject instanceof EObject) {
-				return adaptableObject;
-			}
-		}
-
 		return moduleArtifact;
 	}
 
 	public Class[] getAdapterList() {
-		return new Class[]{WebModuleArtifact.class, ILaunchable.class};
+		return new Class[]{ILaunchable.class, IModuleArtifact.class, WebModuleArtifact.class};
 	}
 
 }
