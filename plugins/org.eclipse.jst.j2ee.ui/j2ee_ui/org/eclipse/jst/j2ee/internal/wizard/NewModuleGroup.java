@@ -194,5 +194,11 @@ public class NewModuleGroup {
 		serverTargetText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetText.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 		new Label(parent, SWT.NONE);
+		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
+		if (project !=null) {
+			IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
+			if (runtime != null)
+				serverTargetText.setText(runtime.getName());
+		}
 	}
 }

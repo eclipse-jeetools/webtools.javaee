@@ -142,7 +142,8 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
 			Integer modVersion = convertJ2EEVersionToModuleVersion((Integer) propertyValue);
 			setProperty(J2EE_MODULE_VERSION, modVersion);
 			return false;
-		}
+		} else if (MODULE_NAME.equals(propertyName))
+			setProperty(MODULE_DEPLOY_NAME,propertyValue);
         return true;
     }
     
