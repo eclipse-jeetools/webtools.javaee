@@ -10,13 +10,14 @@
  *******************************************************************************/
 /*
  *  $RCSfile: UIRunner.java,v $
- *  $Revision: 1.1 $  $Date: 2004/06/04 15:29:37 $ 
+ *  $Revision: 1.2 $  $Date: 2004/08/27 18:49:49 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
+import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -32,38 +33,73 @@ import org.eclipse.ui.PlatformUI;
  * 
  * @since 1.0.0
  */
-class UIRunner implements IUIRunner, IRunnableWithProgress {
+class UIRunner implements IUIRunner {
+	
+	/*
+	 * Special class that takes a progress monitor 1 and only handles isCanceled from it,
+	 * but everything else is forwarded to progress monitor 2. This allows the pm that
+	 * is sent into handleBuild to signal a cancel even though the progress service
+	 * sends in its own pm. 
+	 * 
+	 * @since 1.0.0
+	 */
+	private static class UIRunnerProgressMonitor extends ProgressMonitorWrapper {
+		private IProgressMonitor pmcancel;
+		
+		public UIRunnerProgressMonitor(IProgressMonitor pmcancel, IProgressMonitor pmmain) {
+			super(pmmain);
+			this.pmcancel = pmcancel;
+		}
+		
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.core.runtime.IProgressMonitor#isCanceled()
+		 */
+		public boolean isCanceled() {
+			return pmcancel.isCanceled() || super.isCanceled();
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.core.runtime.IProgressMonitor#setCanceled(boolean)
+		 */
+		public void setCanceled(boolean value) {
+			super.setCanceled(value);
+			pmcancel.setCanceled(value);	// Cancel it too now.
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IUIRunner#handleBuild(org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	public void handleBuild(IProgressMonitor pm) throws CoreException {
+	public void handleBuild(final IProgressMonitor pm) throws CoreException {
 		if (!PlatformUI.isWorkbenchRunning() || Display.getCurrent() == null) {
 			ProxyLaunchSupport.runBuild(pm);
 		} else {
 			pm.beginTask("", 100); //$NON-NLS-1$
 			try {
-				PlatformUI.getWorkbench().getProgressService().busyCursorWhile(this);
+				PlatformUI.getWorkbench().getProgressService().busyCursorWhile(new IRunnableWithProgress() {
+
+					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+						IProgressMonitor uipm = new UIRunnerProgressMonitor(pm, monitor); 
+						try {
+							ProxyLaunchSupport.runBuild(uipm);
+						} catch (CoreException e) {
+							throw new InvocationTargetException(e);
+						}
+						if (uipm.isCanceled()) {
+							pm.setCanceled(true);	// Make sure that cancel got through (could of come from monitor instead).
+							throw new InterruptedException();
+						}
+					}
+				});
 			} catch (InvocationTargetException e) {
 				if (e.getCause() instanceof CoreException)
 					throw (CoreException) e.getCause();
 				ProxyPlugin.getPlugin().getLogger().log(e.getCause(), Level.WARNING);
 			} catch (InterruptedException e) {
-				// It was cancelled, so we just go on and launch.
+				// It was canceled, launch will be canceled too. pm is already marked canceled and caller can check that
 			}
 			pm.done();
-		}
-	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.operation.IRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		try {
-			ProxyLaunchSupport.runBuild(monitor);
-		} catch (CoreException e) {
-			throw new InvocationTargetException(e);
-		}
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
 		}
 	}
 }
