@@ -179,6 +179,6 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	}
 	
 	public String getModuleName() {
-		return "WebModule";
+		return getProject().getName();
 	}
 }
