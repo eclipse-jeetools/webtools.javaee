@@ -3,7 +3,7 @@
 <plugin
    id="com.ibm.wtp.emf.workbench"
    name="EMF Workbench"
-   version="1.0.0"
+   version="1.0.1"
    provider-name="IBM"
    class="com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin">
 

@@ -2,13 +2,13 @@
 <feature
       id="com.ibm.wtp.common.utilities"
       label="WTP Common Utilities"
-      version="1.0.0"
+      version="1.0.1"
       provider-name="IBM">
 
    <plugin
          id="com.ibm.wtp.common.util"
          download-size="0"
          install-size="0"
-         version="1.0.0"/>
+         version="1.0.1"/>
 
 </feature>
