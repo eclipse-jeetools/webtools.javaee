@@ -9,13 +9,13 @@ package org.eclipse.wtp.j2ee.headless.tests.jca.verifiers;
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorEditModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -31,8 +31,8 @@ public class JCAProjectCreationDataModelVerifier extends ModuleProjectCreationDa
     /* (non-Javadoc)
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier#verifyProjectCreationDataModel(com.ibm.etools.application.operations.J2EEProjectCreationDataModel)
      */
-    public void verifyProjectCreationDataModel(J2EEModuleCreationDataModelOld model) {
-        ConnectorModuleCreationDataModel dataModel = (ConnectorModuleCreationDataModel) model;
+    public void verifyProjectCreationDataModel(J2EEComponentCreationDataModel model) {
+        ConnectorComponentCreationDataModel dataModel = (ConnectorComponentCreationDataModel) model;
         ProjectUtility.verifyProject(dataModel.getTargetProject().getName(), true);
         ConnectorEditModel editModel = null;
         Object key = new Object();
@@ -45,8 +45,8 @@ public class JCAProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         } finally {
             editModel.releaseAccess(key);
         }
-        if (dataModel.getBooleanProperty(ConnectorModuleCreationDataModel.ADD_TO_EAR)) {
-            IProject earProject = dataModel.getApplicationCreationDataModel().getTargetProject();
+        if (dataModel.getBooleanProperty(ConnectorComponentCreationDataModel.ADD_TO_EAR)) {
+            IProject earProject = dataModel.getEarComponentCreationDataModel().getTargetProject();
             EAREditModel ear = null;
             try {
                 Assert.assertTrue("EAR doesn't exist:", earProject.exists());

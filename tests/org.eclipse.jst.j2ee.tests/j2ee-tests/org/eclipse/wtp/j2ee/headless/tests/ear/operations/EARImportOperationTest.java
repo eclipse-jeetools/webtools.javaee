@@ -5,7 +5,6 @@ import java.util.List;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -15,6 +14,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -59,10 +59,10 @@ public class EARImportOperationTest extends OperationTestCase {
         String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test13WEBEJBEAR.ear");
         try {
             importModel = new EnterpriseApplicationImportDataModel();
-            importModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, projectName);
+            importModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, projectName);
             importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME, earName);
-            importModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
-            importModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION, "c:" + fileSep + "EARTestTemp");
+            importModel.setIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
+            //importModel.setProperty(EARComponentCreationDataModel.PROJECT_LOCATION, "c:" + fileSep + "EARTestTemp");
             importModel.setProperty(EnterpriseApplicationImportDataModel.NESTED_MODULE_ROOT, "c:" + fileSep + "EARTestModulesTemp");
             runAndVerify(importModel);
         } finally {

@@ -6,7 +6,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
@@ -21,9 +21,9 @@ public abstract class ModuleProjectCreationDataModelVerifier extends J2EEProject
      */
     public void verify(WTPOperationDataModel model) throws Exception {
         super.verify(model);
-        verifyProjectCreationDataModel((J2EEModuleCreationDataModelOld)model);
+        verifyProjectCreationDataModel((J2EEComponentCreationDataModel)model);
     }
 
-    public abstract void verifyProjectCreationDataModel(J2EEModuleCreationDataModelOld model); 
+    public abstract void verifyProjectCreationDataModel(J2EEComponentCreationDataModel model); 
 
 }
