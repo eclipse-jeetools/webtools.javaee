@@ -75,12 +75,6 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		return ejbClientComponentDataModel;
 	}
 
-	protected void init() {
-		super.init();
-	}
-
-
-
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean doSet = super.doSetProperty(propertyName, propertyValue);
 		if (propertyName.equals(ADD_TO_EAR)) {
@@ -105,6 +99,10 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			}
 		}else if (propertyName.equals(COMPONENT_NAME)) {
 			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_NAME, propertyValue);
+			if (!ejbClientComponentDataModel.isSet(ComponentCreationDataModel.COMPONENT_NAME))
+				ejbClientComponentDataModel.notifyDefaultChange(ComponentCreationDataModel.COMPONENT_NAME);
+			if (!ejbClientComponentDataModel.isSet(EJBClientComponentDataModel.CLIENT_COMPONENT_URI))
+				ejbClientComponentDataModel.notifyDefaultChange(EJBClientComponentDataModel.CLIENT_COMPONENT_URI);
 		}else if (getBooleanProperty(CREATE_CLIENT)) {
 			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)) {
 				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
