@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+   id="org.eclipse.jst.validation.test"
+   name="Validation Testing Component"
+   version="5.1.1"
+   class="org.eclipse.jst.validation.test.BVTValidationPlugin">
+
+   <runtime>
+      <library name="runtime/test.jar">
+         <export name="*"/>
+      </library>
+      <library name="runtime/jUnitWrapper.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.boot" export="true"/>
+      <import plugin="org.eclipse.core.resources" export="true"/>
+      <import plugin="org.eclipse.core.runtime" export="true"/>
+      <import plugin="org.eclipse.wst.validation" export="true"/>
+      <import plugin="org.eclipse.jst.validation.sample"/>
+      <import plugin="org.junit" export="true" optional="true"/>
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.wst.common.frameworks"/>
+   </requires>
+
+
+<!--============================-->
+<!-- Validation Contributions   -->
+<!--============================-->
+<!-- Validation extension points -->
+   <extension-point id="test" name="validator test"/>
+   <extension-point id="testSetup" name="testSetup"/>
+   <extension-point id="opTest" name="operation test"/>
+
+<!-- ====================================================== -->
+<!--           JUnit BVT Test Suite                         -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.wst.common.tests.collector.suites">
+      <suite
+            suiteName="Validation BVT Suite"
+            suiteClass="org.eclipse.jst.validation.test.junit.BVTSuite">
+      </suite>
+   </extension>
+<!-- batch BVT -->
+   <extension
+         id="bvt_batch"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="org.eclipse.jst.validation.test.BVTValidationBatch">
+         </run>
+      </application>
+   </extension>
+
+</plugin>

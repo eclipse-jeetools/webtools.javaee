@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+   id="com.ibm.etools.validation.prop"
+   name="Properties Validator"
+   version="5.1.0"
+   class="com.ibm.etools.validation.properties.workbenchimpl.PropertiesValidatorPlugin">
+
+	<!--=================================================================-->
+	<!-- When testing TVT in EJBDeploy, because org.eclipse.help isn't   -->
+	<!-- packaged with EJBDeploy, this plugin is deactivated. However,   -->
+	<!-- because the TVT plugin doesn't ship the documentation, all      -->
+	<!-- references to the help can be removed.                          -->
+	<!--=================================================================-->
+	
+   <runtime>
+      <library name="runtime/propertiesValidator.jar">
+         <export name="*"/>
+      </library>
+      <library name="runtime/propertiesValFS.jar">
+         <export name="*"/>
+      </library>
+      <library name="runtime/propertiesValWB.jar">
+         <export name="*"/>
+      </library>
+      <library name="runtime/filesystemFWK.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   
+    <requires>
+       <import plugin="org.eclipse.core.runtime" version="2.1" match="equivalent"/>
+       <import plugin="org.eclipse.core.resources" version="2.1" match="equivalent"/>
+       <import plugin="org.eclipse.jdt.core" version="2.1" match="equivalent"/>
+       <import plugin="com.ibm.etools.validation" export="true" version="5.1" match="equivalent"/>
+       <import plugin="com.ibm.etools.logging.util" version="5.1" match="equivalent"/>
+    </requires>
+
+    <!--=======================================-->
+    <!-- Properties Validator Contributions    -->
+    <!--=======================================-->
+    <extension
+       id="PropertiesValidator"
+       name="Properties Validator"
+       point="com.ibm.etools.validation.validator">
+       <validator>
+           <projectNature id="org.eclipse.jdt.core.javanature"/>
+           <filter objectClass="org.eclipse.core.resources.IFile" nameFilter="*.properties" action="add, change"/>
+           <run class="com.ibm.etools.validation.properties.PropertiesValidator" enabled="false" async="true"/>
+           <helper class="com.ibm.etools.validation.properties.workbenchimpl.PropertiesHelper"/>
+       </validator>
+    </extension>
+</plugin>
