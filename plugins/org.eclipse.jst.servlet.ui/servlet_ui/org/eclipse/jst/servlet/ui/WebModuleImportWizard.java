@@ -82,7 +82,7 @@ public final class WebModuleImportWizard extends J2EEModuleImportWizard {
 	 * Adds an {@link WARImportPage} as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new WARImportPage(getSpecificDataModel(), MAIN_PG));
 	}
 

@@ -73,7 +73,7 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	 * </p>
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new ConnectorModuleExportOperation(getSpecificModel());
 	}
 
@@ -85,7 +85,7 @@ public final class ConnectorModuleExportWizard extends J2EEArtifactExportWizard 
 	 * </ul>
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new RARExportPage(getSpecificModel(), MAIN_PG, getSelection()));
 	}
 

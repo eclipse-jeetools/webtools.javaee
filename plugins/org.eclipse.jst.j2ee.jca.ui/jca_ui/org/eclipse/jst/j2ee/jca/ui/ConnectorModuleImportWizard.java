@@ -84,7 +84,7 @@ public final class ConnectorModuleImportWizard extends J2EEModuleImportWizard {
 	 * Adds an {@link RARImportPage} as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new RARImportPage(getSpecificDataModel(), MAIN_PG));
 	} 
 

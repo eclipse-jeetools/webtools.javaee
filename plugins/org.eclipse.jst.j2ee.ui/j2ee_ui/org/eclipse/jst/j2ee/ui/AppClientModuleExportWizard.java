@@ -73,7 +73,7 @@ public final class AppClientModuleExportWizard extends J2EEArtifactExportWizard 
 	 * 
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new AppClientModuleExportOperation(getSpecificModel());
 	}
 
@@ -85,7 +85,7 @@ public final class AppClientModuleExportWizard extends J2EEArtifactExportWizard 
 	 * </ul>
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new AppClientExportPage(getSpecificModel(), MAIN_PG, getSelection()));
 	}
 

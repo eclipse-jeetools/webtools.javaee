@@ -88,7 +88,7 @@ public abstract class J2EEModuleImportWizard extends J2EEArtifactImportWizard im
 	 * @see #getImportOperation()
 	 * @see #getModuleValidatorStrings()
 	 */
-	protected final WTPOperation createOperation() {
+	protected final WTPOperation createBaseOperation() {
 		return new WTPOperation() {
 			protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 				WTPOperation importOp = getImportOperation();

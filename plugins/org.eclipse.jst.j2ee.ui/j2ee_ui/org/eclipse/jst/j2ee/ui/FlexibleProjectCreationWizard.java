@@ -20,9 +20,9 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.ui.ExtendableWizard;
+import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 
-public class FlexibleProjectCreationWizard extends ExtendableWizard implements INewWizard, IExecutableExtension { 
+public class FlexibleProjectCreationWizard extends WTPWizard implements INewWizard, IExecutableExtension { 
 
 	/**
 	 * <p>

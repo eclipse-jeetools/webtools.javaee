@@ -84,7 +84,7 @@ public class DefaultModuleProjectCreationWizard extends WTPWizard {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		if (model.getBooleanProperty(DefaultModuleProjectCreationDataModel.ENABLED))
 			return new DefaultModuleProjectCreationOperation((DefaultModuleProjectCreationDataModel) model);
 		return null;
@@ -95,7 +95,7 @@ public class DefaultModuleProjectCreationWizard extends WTPWizard {
 	 * 
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new NewModuleProjectSelectionPage((DefaultModuleProjectCreationDataModel) model, SELECTION_PG));
 	}
 

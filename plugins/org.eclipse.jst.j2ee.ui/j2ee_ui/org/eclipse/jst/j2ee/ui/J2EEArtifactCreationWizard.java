@@ -27,7 +27,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.ui.ExtendableWizard;
+import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 
 /**
  * <p>
@@ -55,7 +55,7 @@ import org.eclipse.wst.common.frameworks.ui.ExtendableWizard;
  * 
  * @see org.eclipse.wst.common.frameworks.ui.ExtendableWizard
  */
-public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implements INewWizard, IExecutableExtension, IPluginContribution {
+public abstract class J2EEArtifactCreationWizard extends WTPWizard implements INewWizard, IExecutableExtension, IPluginContribution {
 
 	/**
 	 * <p>

@@ -92,7 +92,7 @@ public final class J2EEUtilityJarImportWizard extends J2EEArtifactImportWizard i
 	 * 
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return getModel().getDefaultOperation();
 	}
 
@@ -105,7 +105,7 @@ public final class J2EEUtilityJarImportWizard extends J2EEArtifactImportWizard i
 	 * </ul>
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		this.addPage(new J2EEUtilityJarImportTypePage(getUtilityJarImportModel(), IMPORT_TYPE, selection));
 		this.addPage(new J2EEUtilityJarImportPage(getUtilityJarImportModel(), SELECT_JARS));
 	}

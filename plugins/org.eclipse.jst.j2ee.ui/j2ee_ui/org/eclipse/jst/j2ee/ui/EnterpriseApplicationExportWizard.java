@@ -73,7 +73,7 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 * 
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new EnterpriseApplicationExportOperation(getSpecificModel());
 	}
 
@@ -85,7 +85,7 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 	 * </ul>
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new EARExportPage(getSpecificModel(), MAIN_PG, getSelection()));
 	}
 

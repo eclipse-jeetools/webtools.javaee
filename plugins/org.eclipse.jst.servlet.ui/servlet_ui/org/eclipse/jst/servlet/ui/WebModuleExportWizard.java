@@ -73,7 +73,7 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * </p>
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new WebModuleExportOperation(getSpecificModel());
 	}
 
@@ -85,7 +85,7 @@ public final class WebModuleExportWizard extends J2EEArtifactExportWizard implem
 	 * </ul>
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new WARExportPage(getSpecificModel(), MAIN_PG, getSelection()));
 	}
 

@@ -59,14 +59,14 @@ public class AddServletWizard extends NewWebWizard {
 	/* (non-Javadoc)
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new AddServletOperation((NewServletClassDataModel)model) ;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		AddServletWizardPage page1 = new AddServletWizardPage((NewServletClassDataModel) model, PAGE_ONE);
 		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1);
 		addPage(page1);

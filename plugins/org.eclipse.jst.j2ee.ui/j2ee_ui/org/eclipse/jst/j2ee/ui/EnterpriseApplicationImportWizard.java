@@ -81,7 +81,7 @@ public final class EnterpriseApplicationImportWizard extends J2EEArtifactImportW
 	 * 
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new EARImportPage(getSpecificDataModel(), MAIN_PG));
 		addPage(new EARImportOptionsPage(getSpecificDataModel(), OPTIONS_PG));
 		addPage(new EARImportProjectsPage(getSpecificDataModel(), PROJECT_PG));
@@ -110,7 +110,7 @@ public final class EnterpriseApplicationImportWizard extends J2EEArtifactImportW
 	 * 
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new EnterpriseApplicationImportOperation(getSpecificDataModel());
 	}
 

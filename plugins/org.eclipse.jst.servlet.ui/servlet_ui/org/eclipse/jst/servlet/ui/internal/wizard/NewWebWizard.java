@@ -46,20 +46,6 @@ public abstract class NewWebWizard extends WTPWizard implements INewWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createDefaultModel()
-	 */
-	protected abstract WTPOperationDataModel createDefaultModel();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
-	 */
-	protected abstract WTPOperation createOperation();
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
 	 *      org.eclipse.jface.viewers.IStructuredSelection)
 	 */
