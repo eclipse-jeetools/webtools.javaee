@@ -31,12 +31,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.DependentModule;
+import org.eclipse.wst.common.modulecore.IModuleConstants;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ModuleEditModel;
 import org.eclipse.wst.common.modulecore.ModuleEditModelFactory;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
+import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
@@ -65,7 +67,7 @@ public class ModuleEditModelTest extends TestCase {
 	public static Test suite() {
 		// return new TestSuite(ModuleEditModelTest.class);
 		TestSuite suite = new TestSuite();
-		suite.addTest(new ModuleEditModelTest("testURIAPI"));
+		suite.addTest(new ModuleEditModelTest("testLoadResource"));
 		return suite;
 	}
 
@@ -75,18 +77,32 @@ public class ModuleEditModelTest extends TestCase {
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	protected void setUp() throws Exception {
-		IProject project = getProject();
+		getProject().delete(true, null);
+		testCreateWTPModulesResource();
 		super.setUp();
 	}
 
+	public void testLoadResource() throws Exception {
+
+		ArtifactEditModel artifactModel = null;
+		try {
+			artifactModel = getNature(getProject()).getModuleEditModelForRead(getModuleURI(), this);
+			Resource resource = artifactModel.getPrimaryResource();
+			System.out.println(resource.getContents().get(0));
+		} finally {
+			if (artifactModel != null)
+				artifactModel.releaseAccess(this);
+		}
+	}
+
 	public void testURIAPI() throws Exception {
-		URI uri = URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModuleName() +".war" + IPath.SEPARATOR + getTestResourcePath());
+		URI uri = URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModuleName() + ".war" + IPath.SEPARATOR + getTestResourcePath());
 		System.out.println("URI : \"" + uri.toString() + "\"" + " with scheme \"" + uri.scheme() + "\" has " + uri.segmentCount() + " segments. They are ...");
 		String[] segments = uri.segments();
 		for (int i = 0; i < segments.length; i++)
 			System.out.println("[" + i + "]: " + segments[i]);
- 
- 
+
+
 		/* Determine if the URI is for a resource or binary module */
 
 		if (PlatformURLModuleConnection.RESOURCE_MODULE.equals(segments[0])) {
@@ -116,7 +132,7 @@ public class ModuleEditModelTest extends TestCase {
 			addContent(projectModules);
 			structuralModel.saveIfNecessary(this);
 		} finally {
-			if(structuralModel != null)
+			if (structuralModel != null)
 				structuralModel.releaseAccess(this);
 		}
 
@@ -134,44 +150,51 @@ public class ModuleEditModelTest extends TestCase {
 	/**
 	 * @param projectModules
 	 */
-	private void addContent(ProjectModules projectModules) {
+	public void addContent(ProjectModules projectModules) {
 
-		WorkbenchModule webModule = addWorkbenchModule(projectModules, getModulesFolder()+".war", URI.createURI("module:/resource/"+getProjectName()+IPath.SEPARATOR+getModuleName()));		
-		addResource(webModule, getModuleRelativeFile(getTestResourcePath()), getTestResourcePath());
-		addResource(webModule, getModuleRelativeFile("jsps/login.jsp"), "deployed-jsps/login.jsp");
-		
-		WorkbenchModule webLibModule = addWorkbenchModule(projectModules, getModulesFolder()+"Lib.jar", URI.createURI("module:/resource/"+getProjectName()+IPath.SEPARATOR+getModulesFolder()+"Lib"));		
+		WorkbenchModule webModule = addWorkbenchModule(projectModules, getModulesFolder() + ".war", URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModuleName()));
+		addResource(webModule, getModuleRelativeFile("WebContent" + IPath.SEPARATOR + getTestResourcePath()), getTestResourcePath());
+				
+		ModuleType webModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
+		webModuleType.setModuleTypeId(IModuleConstants.WST_WEB_MODULE); 
+		webModule.setModuleType(webModuleType);
+
+		WorkbenchModule webLibModule = addWorkbenchModule(projectModules, getModulesFolder() + "Lib.jar", URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder() + "Lib"));
 		addResource(webLibModule, getProject().getFolder("lib-src"), "/");
 		
+		ModuleType webLibType = ModuleCoreFactory.eINSTANCE.createModuleType();
+		webLibType.setModuleTypeId(IModuleConstants.UTILITY_MODULE); 
+		webLibModule.setModuleType(webLibType);
+		
 		addDependentModule(webModule, URI.createURI("WEB-INF/lib"), URI.createURI(webLibModule.getDeployedName()));
-		addDependentModule(webModule, URI.createURI("WEB-INF/lib"), URI.createURI("module:/resource/AnotherProject/"+webLibModule.getDeployedName()));
+		addDependentModule(webModule, URI.createURI("WEB-INF/lib"), URI.createURI("module:/resource/AnotherProject/" + webLibModule.getDeployedName()));
 		addDependentModule(webModule, URI.createURI("WEB-INF/lib"), URI.createURI("module:/classpath/AnotherTeamsUtilities.jar"));
 
 	}
-	
+
 	public IFile getModuleRelativeFile(String aModuleRelativePath) {
 		return getProject().getFile(new Path(getModulesFolder() + IPath.SEPARATOR + aModuleRelativePath));
 	}
-	
+
 	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
-		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
+		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
-	
+
 	public WorkbenchModule addWorkbenchModule(ProjectModules theModules, String aDeployedName, URI aHandle) {
 		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
-		module.setDeployedName(aDeployedName);  
-		module.setHandle(aHandle);  
+		module.setDeployedName(aDeployedName);
+		module.setHandle(aHandle);
 		theModules.getWorkbenchModules().add(module);
 		return module;
 	}
-	
+
 	public void addDependentModule(WorkbenchModule aModule, URI aDeployedPath, URI aHandle) {
 		DependentModule aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createDependentModule();
 		aClasspathDependentModule.setDeployedPath(aDeployedPath);
-		aClasspathDependentModule.setHandle(aHandle);	
+		aClasspathDependentModule.setHandle(aHandle);
 		aModule.getModules().add(aClasspathDependentModule);
 	}
 
@@ -206,7 +229,7 @@ public class ModuleEditModelTest extends TestCase {
 	 * @param segments
 	 * @return
 	 */
-	private IProject getProject(String aProjectName) throws Exception {
+	public IProject getProject(String aProjectName) throws Exception {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 
 		if (!project.exists()) {
@@ -219,7 +242,7 @@ public class ModuleEditModelTest extends TestCase {
 				e.printStackTrace();
 			}
 		}
-		if(!project.hasNature(ModuleCoreNature.MODULE_NATURE_ID)) {
+		if (!project.hasNature(ModuleCoreNature.MODULE_NATURE_ID)) {
 			IProjectDescription description = project.getDescription();
 			String[] natureIds = description.getNatureIds();
 			String[] newNatureIds = new String[natureIds.length + 1];
@@ -243,7 +266,7 @@ public class ModuleEditModelTest extends TestCase {
 		Map params = new HashMap();
 		params.put(ModuleEditModelFactory.PARAM_MODULE_URI, moduleURI);
 		EMFWorkbenchContext context = createEMFWorkbenchContext();
-		ModuleEditModel editModel = (ModuleEditModel) factory.createEditModelForWrite(IModuleTypesConstants.MODULE_TYPE_WEB, context, params);
+		ArtifactEditModel editModel = (ArtifactEditModel) factory.createEditModelForWrite(IModuleTypesConstants.MODULE_TYPE_WEB, context, params);
 		Resource ddResource = editModel.getResource(ddURI);
 		EObject rootObject = (EObject) ddResource.getContents().get(0);
 		if (rootObject == null)
@@ -273,6 +296,10 @@ public class ModuleEditModelTest extends TestCase {
 			}
 		}
 		return project;
+	}
+
+	public URI getModuleURI() {
+		return URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModuleName() + ".war");
 	}
 
 	public String getProjectName() {
