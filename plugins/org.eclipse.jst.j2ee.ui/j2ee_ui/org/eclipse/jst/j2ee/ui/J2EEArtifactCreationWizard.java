@@ -1,13 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 package org.eclipse.jst.j2ee.ui;
 
 import java.lang.reflect.InvocationTargetException;
@@ -38,15 +36,11 @@ import org.eclipse.wst.common.frameworks.ui.ExtendableWizard;
  * </p>
  * <p>
  * Creation wizards must define the abstract methods from
- * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard}which
- * include the following:
+ * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard}which include the following:
  * <ul>
- * <li>
- * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#doAddPages()}
- * <li>
- * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#canFinish()}
- * <li>
- * {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#createBaseOperation()}
+ * <li> {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#doAddPages()}
+ * <li> {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#canFinish()}
+ * <li> {@link org.eclipse.wst.common.frameworks.ui.ExtendableWizard#createBaseOperation()}
  * <li>{@link org.eclipse.wst.common.frameworks.ui.WTPWizard#createDefaultModel()}
  * </ul>
  * </p>
@@ -54,8 +48,9 @@ import org.eclipse.wst.common.frameworks.ui.ExtendableWizard;
  * And optionally, they can override the following methods:
  * <ul>
  * <li>{@link #getFinalPerspectiveID()}
- * <li>{@link #doInit()()}
- * <li>{@link #doDispose()()}
+ * <li>{@link #doInit()}
+ * <li>{@link #doDispose()}
+ * <li>{@link #doSetInitializeData(IConfigurationElement, String, Object)}
  * </ul>
  * 
  * @see org.eclipse.wst.common.frameworks.ui.ExtendableWizard
@@ -142,8 +137,27 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * @see org.eclipse.core.runtime.IExecutableExtension#setInitializationData(org.eclipse.core.runtime.IConfigurationElement,
 	 *      java.lang.String, java.lang.Object)
 	 */
-	public final void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
-		this.configurationElement = config;
+	public final void setInitializationData(IConfigurationElement aConfigurationElement, String aPropertyName, Object theData) throws CoreException {
+		configurationElement = aConfigurationElement;
+		doSetInitializeData(aConfigurationElement, aPropertyName, theData);
+
+	}
+
+	/**
+	 * <p>
+	 * Override method for clients that wish to take advantage of the information provided by
+	 * {@see #setInitializationData(IConfigurationElement, String, Object)}.
+	 * </p>
+	 * 
+	 * @param aConfigurationElement
+	 *            The configuration element provided from the templated method.
+	 * @param aPropertyName
+	 *            The property name provided from the templated method.
+	 * @param theData
+	 *            The data provided from the templated method.
+	 */
+	protected void doSetInitializeData(IConfigurationElement aConfigurationElement, String aPropertyName, Object theData) {
+
 	}
 
 	/**
@@ -156,7 +170,7 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * </p>
 	 */
 	protected void doInit() {
-		//init
+		// init
 	}
 
 	/**
@@ -165,7 +179,7 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * </p>
 	 */
 	protected void doDispose() {
-		//dispose
+		// dispose
 	}
 
 	/**
@@ -266,5 +280,10 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	protected final IProject getSelectedEARProject() {
 		return UIProjectUtilities.getSelectedProject(getSelection(), IEARNatureConstants.NATURE_ID);
 	}
+
+	protected final IConfigurationElement getConfigurationElement() {
+		return configurationElement;
+	}
+
 
 }
