@@ -97,12 +97,20 @@ public class J2EEVersionUtil {
 	}
 
 	public static int convertWebVersionStringToJ2EEVersionID(String version) {
-		// Web module
 		if (version.equals(J2EEVersionConstants.VERSION_2_2_TEXT))
 			return J2EEVersionConstants.J2EE_1_2_ID;
 		if (version.equals(J2EEVersionConstants.VERSION_2_3_TEXT))
 			return J2EEVersionConstants.J2EE_1_3_ID;
 		if (version.equals(J2EEVersionConstants.VERSION_2_4_TEXT))
+			return J2EEVersionConstants.J2EE_1_4_ID;
+		// default
+		return J2EEVersionConstants.J2EE_1_4_ID;
+	}
+
+	public static int convertConnectorVersionStringToJ2EEVersionID(String version) {
+		if (version.equals(J2EEVersionConstants.VERSION_1_0_TEXT))
+			return J2EEVersionConstants.J2EE_1_3_ID;
+		if (version.equals(J2EEVersionConstants.VERSION_1_5_TEXT))
 			return J2EEVersionConstants.J2EE_1_4_ID;
 		// default
 		return J2EEVersionConstants.J2EE_1_4_ID;

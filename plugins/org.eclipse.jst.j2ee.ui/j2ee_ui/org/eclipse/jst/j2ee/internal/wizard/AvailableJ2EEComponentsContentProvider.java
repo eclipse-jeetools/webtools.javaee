@@ -71,8 +71,15 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 				for (int j = 0; j < webComps.length; j++) {
 					String version = webComps[j].getComponentType().getVersion();
 					int versionID = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(version);
-//					if (versionID < j2eeVersion)
+					if (versionID <= j2eeVersion)
 						validCompList.add(webComps[j]);
+				}
+				WorkbenchComponent[] connComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_CONNECTOR_MODULE);
+				for (int j = 0; j < connComps.length; j++) {
+					String version = connComps[j].getComponentType().getVersion();
+					int versionID = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(version);
+					if (versionID <= j2eeVersion)
+						validCompList.add(connComps[j]);
 				}
 			} catch (CoreException e) {
 				// TODO Auto-generated catch block
