@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
+ *  $Revision: 1.1.4.2 $  $Date: 2004/01/12 22:41:20 $ 
  */
 
 import java.io.*;
@@ -27,18 +27,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
-import com.ibm.etools.emf.workbench.ResourceHandler;
+import org.eclipse.wtp.emf.workbench.ResourceHandler;
+
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
-import org.eclipse.jem.internal.plugin.*;
+import org.eclipse.jem.internal.plugin.JavaEMFNature;
+import org.eclipse.jem.internal.proxy.core.*;
+
 /**
  * The beaninfo nature. It is created for a project and holds the
  * necessary info for beaninfo to be performed on a project.

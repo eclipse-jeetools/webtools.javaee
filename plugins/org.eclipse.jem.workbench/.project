@@ -3,8 +3,6 @@
 	<name>org.eclipse.jem.workbench</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.etools.emf.ecore.utilities</project>
-		<project>com.ibm.etools.emf.workbench</project>
 		<project>org.eclipse.core.boot</project>
 		<project>org.eclipse.core.resources</project>
 		<project>org.eclipse.core.runtime</project>
@@ -12,6 +10,8 @@
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jem</project>
 		<project>org.eclipse.wtp.common</project>
+		<project>org.eclipse.wtp.emf</project>
+		<project>org.eclipse.wtp.emf.workbench</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.plugin;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.1.2.1 $ $Date: 2003/12/16 19:29:09 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.1.2.2 $ $Date: 2004/01/12 22:41:16 $
  */
 
 import java.util.List;
@@ -19,13 +19,13 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import org.eclipse.wtp.emf.workbench.EMFWorkbenchContext;
+import org.eclipse.wtp.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.wtp.emf.workbench.nature.EMFNature;
+
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
-
-import com.ibm.etools.emf.workbench.EMFWorkbenchContext;
-import com.ibm.etools.emf.workbench.WorkbenchURIConverter;
-import com.ibm.etools.emf.workbench.nature.EMFNature;
 
 public class JavaEMFNature extends EMFNature {
 	public static final String NATURE_ID = "org.eclipse.jem.workbench.JavaEMFNature";

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.plugin;
  *******************************************************************************/
 /*
  *  $RCSfile: ProjectUtilities.java,v $
- *  $Revision: 1.1.4.2 $  $Date: 2003/12/16 19:29:09 $ 
+ *  $Revision: 1.1.4.3 $  $Date: 2004/01/12 22:41:16 $ 
  */
 
 import java.net.MalformedURLException;
@@ -24,11 +24,11 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.core.JavaModel;
 import org.eclipse.jdt.internal.core.JavaModelManager;
 
+import org.eclipse.wtp.emf.workbench.WorkbenchResourceHelper;
+
 import org.eclipse.jem.internal.java.JavaClass;
 import org.eclipse.jem.internal.java.impl.JavaClassImpl;
-
-import com.ibm.etools.emf.workbench.WorkbenchResourceHelper;
-public class ProjectUtilities extends com.ibm.etools.emf.workbench.ProjectUtilities {
+public class ProjectUtilities extends org.eclipse.wtp.emf.workbench.ProjectUtilities {
 	public final static String DOT_PROJECT = ".project"; //$NON-NLS-1$
 	public final static String DOT_CLASSPATH = ".classpath"; //$NON-NLS-1$
 	/**

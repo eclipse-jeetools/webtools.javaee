@@ -8,18 +8,18 @@ package org.eclipse.jem.internal.plugin;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.1.4.1 $ $Date: 2003/12/16 19:29:09 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.1.4.2 $ $Date: 2004/01/12 22:41:16 $
  */
 
 import org.eclipse.core.runtime.*;
+
+import org.eclipse.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.core.EclipseLogMsgLogger;
 import org.eclipse.jem.internal.core.MsgLogger;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
 import org.eclipse.jem.internal.java.impl.JavaRefFactoryImpl;
-
-import com.ibm.etools.emf.workbench.plugin.EMFWorkbenchPlugin;
 
 /**
  * This is a top-level class of the java plugin tool.

@@ -50,7 +50,7 @@
          version="1.0.0"/>
 
    <plugin
-         id="com.ibm.etools.emf.ecore.utilities"
+         id="org.eclipse.wtp.emf"
          download-size="0"
          install-size="0"
          version="0.5.0"/>
@@ -62,7 +62,7 @@
          version="3.0.0.1"/>
 
    <plugin
-         id="com.ibm.etools.emf.workbench"
+         id="org.eclipse.wtp.emf.workbench"
          download-size="0"
          install-size="0"
          version="0.5.0"/>
