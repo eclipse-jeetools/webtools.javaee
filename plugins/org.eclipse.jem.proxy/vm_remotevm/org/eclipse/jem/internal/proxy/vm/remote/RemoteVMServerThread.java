@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/04 20:30:21 $ 
+ *  $Revision: 1.5 $  $Date: 2004/08/17 19:32:02 $ 
  */
 
 
@@ -411,12 +411,16 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 		for (int i=0; i<threadsArray.length; i++)
 			try {
 				threadsArray[i].join(10000);	// Wait ten seconds, if longer, just go on to next one.
+				if (threadsArray[i].isAlive())
+					System.out.println("*** Connection "+i+" did not die.");
 			} catch (InterruptedException e) {
 			}
 	
 		if (safeClean.isAlive()) {
 			try {	
 				safeClean.join(10000);
+				if (safeClean.isAlive())
+					System.out.println("*** Cleanup thread did not die.");
 			} catch (InterruptedException e) {
 			}
 		}
