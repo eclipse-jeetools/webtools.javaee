@@ -5,7 +5,10 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ApplicationClientResource;
 import org.eclipse.jst.j2ee.client.ClientFactory;
@@ -115,6 +118,16 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 			aResource.setID(appClient, J2EEConstants.APP_CLIENT_ID);
 			//TODO add more mandatory elements
 		}
+	}
+	
+	/**
+	 * <p>
+	 * Method used for adding a j2ee project to an ear project; subclasses must override to create a
+	 * new instance of the correct kind of Module
+	 * </p>
+	 */
+	public Module createNewModule() {
+		return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createJavaClientModule();
 	}
 	
 	/**
