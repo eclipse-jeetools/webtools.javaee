@@ -53,6 +53,7 @@ public interface IWebNatureConstants {
 	String EXTENSIONS_FILE_NAME = "ibm-web-ext.xmi"; //$NON-NLS-1$
 	//String WEBSETTINGS_FILE_NAME = ".websettings"; //$NON-NLS-1$
 	String WEBSETTINGS_FILE_NAME = ".j2ee"; //$NON-NLS-1$
+	String WEBSETTINGS_MIGRATION_FILE_NAME = ".websettings"; //$NON-NLS-1$
 	String INFO_DIRECTORY = "WEB-INF"; //$NON-NLS-1$
 	String META_INFO_DIRECTORY = "META-INF"; //$NON-NLS-1$
 	String CLASSES_DIRECTORY = "classes"; //$NON-NLS-1$
@@ -95,7 +96,5 @@ public interface IWebNatureConstants {
 	java.lang.String STATIC_CONTEXT_ROOT = "/"; //$NON-NLS-1$
 	String STATIC_NATURE_ID = "org.eclipse.jst.j2ee.web" + ".StaticWebNature"; //$NON-NLS-1$ //$NON-NLS-2$
 	int STATIC_WEB_PROJECT = 0;
-	//putting this constant back as this was creating a compile error
-	String WEBSETTINGS_MIGRATION_FILE_NAME = "";
 
 }
