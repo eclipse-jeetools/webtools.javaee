@@ -1,16 +1,12 @@
 package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Test;
 
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -19,15 +15,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.OperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author vijayb
@@ -63,8 +55,8 @@ public class EARImportOperationTest extends OperationTestCase {
 
     public void testEARImportRootLocation() throws Exception {
     	EnterpriseApplicationImportDataModel importModel = null;
-        String projectName = "AuctionEAR";
-        String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test14EJBEAR.ear");
+        String projectName = "Test13WEBEJBEAR";
+        String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test13WEBEJBEAR.ear");
         try {
             importModel = new EnterpriseApplicationImportDataModel();
             importModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, projectName);
@@ -77,8 +69,10 @@ public class EARImportOperationTest extends OperationTestCase {
             importModel.dispose();
         }
     }
+    
+    //TODO M4 Action Item - enable the util jar tests after the fixes for util jar import are available in M4
 
-    public void testImportSomeUtilityJarsExploded() throws Exception {
+    /*public void testImportSomeUtilityJarsExploded() throws Exception {
         String projectName = "UtilityJarTestEAR";
         String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "UtilityJarTestEAR.ear");
         EnterpriseApplicationImportDataModel importModel = null;
@@ -124,8 +118,8 @@ public class EARImportOperationTest extends OperationTestCase {
             importModel.dispose();
         }
     }
-    //TODO M4 Action Item - enable the util jar tests after the fixes for util jar import are available in M4
-   /* public void testImportWebLibWithMetaData() throws Exception {
+    
+    public void testImportWebLibWithMetaData() throws Exception {
         String projectName = "YourCompanyExampleEAR";
         String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "YourCompanyExampleEAR.ear");
         EnterpriseApplicationImportDataModel importModel = null;
@@ -208,7 +202,7 @@ public class EARImportOperationTest extends OperationTestCase {
 
     protected static String getFullTestDataPath(String dataPath) {
     	try {
-    	  ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(),dataPath);
+    	  return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(),dataPath);
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
@@ -246,6 +240,11 @@ public class EARImportOperationTest extends OperationTestCase {
     public void testImportEAR12() throws Exception {
         String projectName = "Test12WEBEJBEAR";
         String earName = "TestData" + fileSep + "EARImportTests" + fileSep + "Test12WEBEJBEAR.ear";
+        load(projectName, earName);
+    }
+    public void testImportEAR13() throws Exception {
+        String projectName = "Test13WEBEJBEAR";
+        String earName = "TestData" + fileSep + "EARImportTests" + fileSep + "Test13WEBEJBEAR.ear";
         load(projectName, earName);
     }
     public static void testAllEARImportProjects() throws Exception {

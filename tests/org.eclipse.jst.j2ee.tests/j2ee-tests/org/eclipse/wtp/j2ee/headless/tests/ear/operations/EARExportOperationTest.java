@@ -45,8 +45,9 @@ public class EARExportOperationTest extends OperationTestCase {
     public static void exportEARProjectWithMetaData(String projectName, IPath exportPath, boolean exportSource) throws Exception {
     	EnterpriseApplicationExportDataModel model = new EnterpriseApplicationExportDataModel();
         model.setProperty(EnterpriseApplicationExportDataModel.PROJECT_NAME, projectName);
-        model.setProperty(EnterpriseApplicationExportDataModel.ARCHIVE_DESTINATION, exportPath);
+        model.setProperty(EnterpriseApplicationExportDataModel.ARCHIVE_DESTINATION, exportPath.toOSString());
         model.setBooleanProperty(EnterpriseApplicationExportDataModel.EXPORT_SOURCE_FILES, exportSource);
+        model.setBooleanProperty(EnterpriseApplicationExportDataModel.OVERWRITE_EXISTING, true);
         model.setBooleanProperty(EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, true);
         runAndVerify(model);
     }
@@ -55,17 +56,17 @@ public class EARExportOperationTest extends OperationTestCase {
         String projectName = "Test12WEBEJBEAR";
         String earName = "TestData" + fileSep + "EARImportTests" + fileSep + "Test12WEBEJBEAR.ear";
         EARImportOperationTest.load(projectName, earName);
-        exportEARProject("Test12WEBEJBEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("ExpAuctionWithoutSource.ear"), false);
+        exportEARProject("Test12WEBEJBEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("Test12WEBEJBEAR.ear"), false);
     }
     public void testEARExportWithMetaData() throws Exception {
-        String projectName = "Test14WEBEJBEARWithMetaData.ear";
+        String projectName = "Test14WEBEJBEARWithMetaData";
         String earName = "TestData" + fileSep + "EARImportTests" + fileSep + "Test14WEBEJBEARWithMetaData.ear";
         EARImportOperationTest.load(projectName, earName);
-        exportEARProject("UtilityJarTestEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("Test14WEBEJBEARWithMetaData.ear"), true);
+        exportEARProjectWithMetaData("Test14WEBEJBEARWithMetaData", J2EEPlugin.getWorkspace().getRoot().getLocation().append("Test14WEBEJBEARWithMetaData.ear"), true);
     }
     public void testEARExportWithSource() throws Exception {
         String projectName = "Test14WEBEJBEAR";
-        String earName = "TestData" + fileSep + "Auction" + fileSep + "Test14WEBEJBEAR.ear";
+        String earName = "TestData" + fileSep + "EARImportTests" + fileSep + "Test14WEBEJBEAR.ear";
         EARImportOperationTest.load(projectName, earName);
         exportEARProject("Test14WEBEJBEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("Test14WEBEJBEAR.ear"), true);
     }

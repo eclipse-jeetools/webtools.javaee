@@ -50,9 +50,9 @@ public class EARProjectCreationTest extends AbstractProjectCreationTest{
 		ProjectUtility.deleteAllProjects();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			if (RandomObjectGenerator.createRandomProjectNumber() % 2 == 0)
-				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.EJB_2_0_ID, true);
+				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_3_ID, true);
 			else
-				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.EJB_1_1_ID, true);
+				createVaildProjectNameCreationWithAlphabetChars(EAR_PROJECT, J2EEVersionConstants.J2EE_1_2_ID, true);
 		}
 	}
 	
