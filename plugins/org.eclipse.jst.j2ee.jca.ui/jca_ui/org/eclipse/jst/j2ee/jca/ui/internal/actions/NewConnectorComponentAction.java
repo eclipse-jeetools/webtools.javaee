@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbench;
 /**
  * Creates an action for the Connector project
  */
-public class NewConnectorModuleAction extends AbstractOpenWizardWorkbenchAction {
+public class NewConnectorComponentAction extends AbstractOpenWizardWorkbenchAction {
 
 	// TODO MDE 02-28 Find correct label
 	public static String LABEL = JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_WIZ_TITLE); //$NON-NLS-1$
@@ -32,7 +32,7 @@ public class NewConnectorModuleAction extends AbstractOpenWizardWorkbenchAction 
 	/**
 	 * Default constructor
 	 */
-	public NewConnectorModuleAction() {
+	public NewConnectorComponentAction() {
 		setText(LABEL);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}// NewConnectorProjectAction
@@ -47,7 +47,7 @@ public class NewConnectorModuleAction extends AbstractOpenWizardWorkbenchAction 
 	 * @param Class[]
 	 *            acceptedTypes - List of accepted types for this wizard
 	 */
-	public NewConnectorModuleAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
+	public NewConnectorComponentAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
 		super(workbench, label, acceptedTypes, false);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}// NewConnectorProjectAction

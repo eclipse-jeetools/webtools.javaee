@@ -44,9 +44,9 @@
                label="%new.jca.module.description_ui_"
                icon="icons/full/ctool16/newconnectionprj_wiz.gif"
                tooltip="%new.jca.module.description_ui_"
-               class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorModuleAction"
+               class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorComponentAction"
                toolbarPath="J2EEMain4"
-               id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorModuleAction">
+               id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorComponent">
          </action>
       </actionSet>
 	</extension>

@@ -16,18 +16,18 @@ import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard;
 import org.eclipse.ui.IWorkbench;
 
 
-public class NewAppClientModuleAction extends AbstractOpenWizardWorkbenchAction {
+public class NewAppClientComponentAction extends AbstractOpenWizardWorkbenchAction {
 
 	// TODO MDE 02-28 Find correct label
 	public static String LABEL = J2EEUIMessages.getResourceString("NewApplClientModuleAction_UI_0"); //$NON-NLS-1$
 	private static final String ICON = "new_appclientproject_wiz"; //$NON-NLS-1$
 
-	public NewAppClientModuleAction() {
+	public NewAppClientComponentAction() {
 		setText(LABEL);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
-	public NewAppClientModuleAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
+	public NewAppClientComponentAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
 		super(workbench, label, acceptedTypes, false);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}

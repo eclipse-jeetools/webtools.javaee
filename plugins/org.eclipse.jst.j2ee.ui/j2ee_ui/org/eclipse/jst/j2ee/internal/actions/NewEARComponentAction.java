@@ -17,17 +17,17 @@ import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard;
 import org.eclipse.ui.IWorkbench;
 
 
-public class NewEARModuleAction extends AbstractOpenWizardWorkbenchAction {
+public class NewEARComponentAction extends AbstractOpenWizardWorkbenchAction {
 	// TODO MDE 02-28 Find correct label
 	public static String LABEL = J2EEUIMessages.getResourceString("NewEARModuleAction_UI_0"); //$NON-NLS-1$
 	private static final String ICON = "newear_wiz"; //$NON-NLS-1$
 
-	public NewEARModuleAction() {
+	public NewEARComponentAction() {
 		setText(LABEL);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
-	public NewEARModuleAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
+	public NewEARComponentAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
 		super(workbench, label, acceptedTypes, false);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}

@@ -69,17 +69,17 @@
                label="%create.client.module_ui_"
                icon="icons/full/ctool16/newappclient_wiz.gif"
                tooltip="%create.client.module_ui_"
-               class="org.eclipse.jst.j2ee.internal.actions.NewAppClientModuleAction"
+               class="org.eclipse.jst.j2ee.internal.actions.NewAppClientComponentAction"
                toolbarPath="J2EEMain"
-               id="org.eclipse.jst.j2ee.internal.actions.NewAppClientModuleAction">
+               id="org.eclipse.jst.j2ee.internal.actions.NewAppClientComponent">
          </action>
          <action
                label="%create.enterprise.application_ui_"
                icon="icons/full/ctool16/newear_wiz.gif"
                tooltip="%create.enterprise.application_ui_"
-               class="org.eclipse.jst.j2ee.internal.actions.NewEARModuleAction"
+               class="org.eclipse.jst.j2ee.internal.actions.NewEARComponentAction"
                toolbarPath="J2EEMain"
-               id="org.eclipse.jst.j2ee.internal.actions.NewEARModuleAction">
+               id="org.eclipse.jst.j2ee.internal.actions.NewEARComponent">
          </action>
       </actionSet> 
    </extension>
