@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.37 $  $Date: 2005/01/07 20:51:29 $ 
+ *  $Revision: 1.38 $  $Date: 2005/01/25 16:14:38 $ 
  */
 
 
@@ -56,6 +56,7 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	private static ProxyPlugin PROXY_PLUGIN = null;
+	public static final String PREFERENCES_VM_NOVERIFY_KEY = "JEM_PREFERENCES_VM_NOVERIFY_KEY"; // Key for NOVERIFY option of VM
 		
 	// If this is set to true, then in development mode and it will try for proxy jars in directories.
 	private boolean devMode;
@@ -702,6 +703,7 @@ public class ProxyPlugin extends Plugin {
 				}
 			}
 		});
+		getPluginPreferences().setDefault(PREFERENCES_VM_NOVERIFY_KEY, true);
 	}
 	
 

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.19 $ $Date: 2005/01/10 19:26:48 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.20 $ $Date: 2005/01/25 16:14:38 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -177,11 +177,14 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		// See if debug mode is requested.
 		DebugModeHelper dh = new DebugModeHelper();
 		boolean debugMode = dh.debugMode(name);
+		boolean useNoverify = ProxyPlugin.getPlugin().getPluginPreferences().getBoolean(ProxyPlugin.PREFERENCES_VM_NOVERIFY_KEY);
 
 		String[] evmArgs = execArgs.getVMArgumentsArray();
 		int extraArgs = 4;	// Number of extra standard args added (if number changes below, this must change)
 		if (debugMode)
 			extraArgs+=4;	// Number of extra args added for debug mode (if number changes below, this must change).
+		if(useNoverify)
+			extraArgs++; // An extra arg added for '-noverify' flag (if number changes below, this must change).
 		List javaLibPaths = controller.getFinalJavaLibraryPath();
 		int existingLibpaths = -1;
 		if (!javaLibPaths.isEmpty()) {
@@ -200,19 +203,23 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		String[] cvmArgs = new String[evmArgs.length + extraArgs];
 		System.arraycopy(evmArgs, 0, cvmArgs, extraArgs, evmArgs.length);	// Put existing into new list at the end.		
 		
-		cvmArgs[0] = "-Dproxyvm.registryKey=" + registryKey; //$NON-NLS-1$
-		cvmArgs[1] = "-Dproxyvm.masterPort=" + String.valueOf(masterServerPort); //$NON-NLS-1$
-		cvmArgs[2] = "-Dproxyvm.bufsize=" + bufSize; //$NON-NLS-1$
-		cvmArgs[3] = "-Dproxyvm.servername=" + name; //$NON-NLS-1$
+		int cvmArgsCount=0;
+		cvmArgs[cvmArgsCount++] = "-Dproxyvm.registryKey=" + registryKey; //$NON-NLS-1$
+		cvmArgs[cvmArgsCount++] = "-Dproxyvm.masterPort=" + String.valueOf(masterServerPort); //$NON-NLS-1$
+		cvmArgs[cvmArgsCount++] = "-Dproxyvm.bufsize=" + bufSize; //$NON-NLS-1$
+		cvmArgs[cvmArgsCount++] = "-Dproxyvm.servername=" + name; //$NON-NLS-1$
+		
+		if(useNoverify)
+			cvmArgs[cvmArgsCount++] = "-noverify"; //$NON-NLS-1$
 
 		// If in debug mode, we need to find a port for it to use.
 		int dport = -1;
 		if (debugMode) {
 			dport = findUnusedLocalPort("localhost", 5000, 15000, new int[0]); //$NON-NLS-1$
-			cvmArgs[4] = "-Djava.compiler=NONE"; //$NON-NLS-1$
-			cvmArgs[5] = "-Xdebug"; //$NON-NLS-1$
-			cvmArgs[6] = "-Xnoagent"; //$NON-NLS-1$
-			cvmArgs[7] = "-Xrunjdwp:transport=dt_socket,server=y,address=" + dport; //$NON-NLS-1$
+			cvmArgs[cvmArgsCount++] = "-Djava.compiler=NONE"; //$NON-NLS-1$
+			cvmArgs[cvmArgsCount++] = "-Xdebug"; //$NON-NLS-1$
+			cvmArgs[cvmArgsCount++] = "-Xnoagent"; //$NON-NLS-1$
+			cvmArgs[cvmArgsCount++] = "-Xrunjdwp:transport=dt_socket,server=y,address=" + dport; //$NON-NLS-1$
 		}
 		
 		if (!javaLibPaths.isEmpty()) {
