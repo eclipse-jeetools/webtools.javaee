@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.27 $  $Date: 2005/02/07 18:18:18 $ 
+ *  $Revision: 1.28 $  $Date: 2005/02/07 21:01:23 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -696,6 +696,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 										ChangeDescription cacheCD = (ChangeDescription) cds.next();
 										cacheCD.apply();
 									}
+									// We need to walk through and create the appropriate ID's for events/actions/properties because by
+									// default from the change descriptions these don't get reflected back. And if some one doesn't
+									// use an ID to get them, they won't have an id set.
+									doIDs();
 									doIntrospection = false;
 								} catch (RuntimeException e) {
 									BeaninfoPlugin.getPlugin().getLogger().log(e);
@@ -781,7 +785,47 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 		}
 	}
-	
+
+	private void doIDs() {
+		// Do properties.
+		if (getJavaClass().eIsSet(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures())) {
+			List features = getFeaturesList();
+			int len = features.size();
+			for (int i = 0; i < len; i++) {
+				EStructuralFeature f = (EStructuralFeature) features.get(i);
+				PropertyDecorator pd = Utilities.getPropertyDecorator(f);
+				if (pd == null || !pd.isMergeIntrospection())
+					continue; // Not a property for us to give an ID to.
+				setPropertyID(f.getName(), f);
+			}
+		}
+		
+		// Do events.
+		if (getJavaClass().eIsSet(JavaRefPackage.eINSTANCE.getJavaClass_Events())) {
+			List events = getEventsList();
+			int len = events.size();
+			for (int i = 0; i < len; i++) {
+				BeanEvent e = (BeanEvent) events.get(i);
+				EventSetDecorator ed = Utilities.getEventSetDecorator(e);
+				if (ed == null || !ed.isMergeIntrospection())
+					continue; // Not an event for us to give an ID to.
+				setEventID(e.getName(), e);
+			}
+		}
+
+		// Do Operations.
+		if (getJavaClass().eIsSet(EcorePackage.eINSTANCE.getEClass_EOperations())) {
+			List ops = getOperationsList();
+			int len = ops.size();
+			for (int i = 0; i < len; i++) {
+				EOperation o = (EOperation) ops.get(i);
+				MethodDecorator md = Utilities.getMethodDecorator(o);
+				if (md == null || !md.isMergeIntrospection())
+					continue; // Not an event for us to give an ID to.
+				setMethodID(o.getName(), o);
+			}
+		}
+	}
 
 	private static final String ROOT_OVERRIDE = BeaninfoPlugin.ROOT+BeaninfoPlugin.OVERRIDE_EXTENSION;	 //$NON-NLS-1$
 	
@@ -1307,10 +1351,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			implicit = ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL;
 		}
 
-		// Now fill it in. Normal id for an attribute is "classname.attributename" but we can't use that
-		// for us because that format is used by Java Core for a field and there would be confusion.
-		// So we will use '/' instead.
-		((XMIResource) prop.eResource()).setID(prop, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.FEATURE + name);
+		setPropertyID(name, prop);
 		prop.setName(name);
 		prop.setTransient(false);
 		prop.setVolatile(false);
@@ -1345,6 +1386,19 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			prop.getEAnnotations().add(pd);
 		}
 		return pd;
+	}
+
+	/**
+	 * @param name
+	 * @param prop
+	 * 
+	 * @since 1.1.0
+	 */
+	private void setPropertyID(String name, EStructuralFeature prop) {
+		// Now fill it in. Normal id for an attribute is "classname.attributename" but we can't use that
+		// for us because that format is used by Java Core for a field and there would be confusion.
+		// So we will use '/' instead.
+		((XMIResource) prop.eResource()).setID(prop, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.FEATURE + name);
 	}
 
 	/*
@@ -1691,7 +1745,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// Now fill it in.
 		if (oper instanceof MethodProxy)
 			 ((MethodProxy) oper).setMethod(method);
-		((XMIResource) oper.eResource()).setID(oper, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.BEHAVIOR + name);
+		setMethodID(name, oper);
 		oper.setName(name);
 		newoperations.add(oper);
 
@@ -1705,6 +1759,16 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		} else
 			BeanInfoDecoratorUtility.clear(md);
 		return md;
+	}
+
+	/**
+	 * @param name
+	 * @param oper
+	 * 
+	 * @since 1.1.0
+	 */
+	private void setMethodID(String name, EOperation oper) {
+		((XMIResource) oper.eResource()).setID(oper, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.BEHAVIOR + name);
 	}
 
 	private void reflectOperations() {
@@ -1964,8 +2028,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			implicit = ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL; // Can't have an implicit feature but explicit decorator.
 		}
 
-		// Now fill it in.
-		((XMIResource) event.eResource()).setID(event, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.EVENT + name);
+		setEventID(name, event);
 		event.setName(name);
 
 		// Now create in the event decorator for it.
@@ -1978,6 +2041,17 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		} else
 			BeanInfoDecoratorUtility.clear(ed);
 		return ed;
+	}
+
+	/**
+	 * @param name
+	 * @param event
+	 * 
+	 * @since 1.1.0
+	 */
+	private void setEventID(String name, JavaEvent event) {
+		// Now fill it in.
+		((XMIResource) event.eResource()).setID(event, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.EVENT + name);
 	}
 
 	/**
