@@ -148,6 +148,27 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 		} // try 
 	} // validate
 	
+	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] changedFiles, Application app) throws ValidationException {
+
+		super.validate(inHelper, inReporter, changedFiles);
+
+		// First remove all previous msg. for this project
+		_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
+
+		try {
+			appDD = app;
+			validate();
+			
+		} catch (ValidationException ex) {
+			throw ex;
+		} catch (Exception e) {
+			String[] parms = new String[1];
+			parms[0] = e.toString();
+			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_EAR_VALIDATION_FAILED, parms );
+			throw new ValidationException(errorMsg, e);
+		}
+	}
+	
 	/**
 	 * Gets the resource name
 	 * 
