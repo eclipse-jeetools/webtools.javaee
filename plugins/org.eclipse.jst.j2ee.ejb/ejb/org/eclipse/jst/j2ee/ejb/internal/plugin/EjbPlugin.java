@@ -19,9 +19,8 @@ import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -31,6 +30,7 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEJBArchiveTransforma
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.osgi.framework.Bundle;
 
 
 /**
@@ -41,7 +41,7 @@ import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	// Default instance of the receiver
 	private static EjbPlugin inst;
-	protected final IPath iconsFolder = new Path(getDescriptor().getInstallURL().getFile()).append("icons");//$NON-NLS-1$
+	protected final IPath iconsFolder = new Path(Platform.getBundle(PLUGIN_ID).getEntry("icons").getPath());//$NON-NLS-1$
 	// Links View part of the plugin
 	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.ejb";//$NON-NLS-1$
 	private static IPath location;
@@ -49,8 +49,8 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * Create the J2EE plugin and cache its default instance
 	 */
-	public EjbPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public EjbPlugin() {
+		super();
 		if (inst == null)
 			inst = this;
 	}
@@ -66,14 +66,14 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public URL getBaseURL() {
-		return getDescriptor().getInstallURL();
+		return getBundle().getEntry("/");
 	}
 
 	/**
 	 * This gets a .gif from the icons folder.
 	 */
 	public Object getImage(String key) {
-		return J2EEPlugin.getImageURL(key, getDescriptor());
+		return J2EEPlugin.getImageURL(key, getBundle());
 	}
 
 	public static IPath getInstallLocation() {
@@ -90,7 +90,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getDescriptor().getInstallURL();
+		return getDefault().getBundle().getEntry("/");
 	}
 
 	public static EjbPlugin getPlugin() {
@@ -102,16 +102,15 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * d:\installdir\plugin)
 	 */
 	public static IPath getPluginLocation(String pluginId) {
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IPluginDescriptor pd = registry.getPluginDescriptor(pluginId);
-		if (pd != null) {
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		Bundle bundle = Platform.getBundle(pluginId);
+		if (bundle != null) {
 			try {
-				IPath installPath = new Path(pd.getInstallURL().toExternalForm()).removeTrailingSeparator();
+				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {
-				//Ignore
-			}
+			};
 		}
 		return null;
 	}
@@ -150,7 +149,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public String getString(String key) {
-		return getDescriptor().getResourceBundle().getString(key);
+		return Platform.getResourceString(getBundle(), key);
 	}
 
 	/*
@@ -177,7 +176,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public IEJBArchiveTransformationOperation getExtendedArchiveOperation() {
-		IPluginRegistry registry = Platform.getPluginRegistry();
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
 		IExtensionPoint pct = registry.getExtensionPoint(J2EEPlugin.PLUGIN_ID, "PreAndPostArchiveOperation");//$NON-NLS-1$
 		IExtension[] extension = pct.getExtensions();
 		for (int l = 0; l < extension.length; ++l) {

@@ -8,7 +8,6 @@ package org.eclipse.jst.ejb.ui.internal.plugin;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -27,8 +26,8 @@ public class EJBUIPlugin extends AbstractUIPlugin {
 	/**
 	 * The constructor.
 	 */
-	public EJBUIPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public EJBUIPlugin() {
+		super();
 		plugin = this;
 	}
 	
