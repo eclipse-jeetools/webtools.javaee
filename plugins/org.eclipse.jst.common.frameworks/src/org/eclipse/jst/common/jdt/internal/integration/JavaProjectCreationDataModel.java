@@ -77,7 +77,7 @@ public class JavaProjectCreationDataModel extends ProjectCreationDataModel {
 			return "bin"; //$NON-NLS-1$
 		}
 		if (propertyName.equals(SOURCE_FOLDERS)) {
-			return new String[]{"src"}; //$NON-NLS-1$
+			return new String[0]; //$NON-NLS-1$
 		}
 		if (propertyName.equals(CREATE_SOURCE_FOLDERS))
 			return Boolean.TRUE;
