@@ -19,9 +19,6 @@
          <export name="*"/>
       </library>
 <!--compatibility jars ========================== -->
-      <library name="runtime/j2ee.jar">
-         <export name="*"/>
-      </library>
       <library name="runtime/j2eeCorePlugin.jar">
          <export name="*"/>
       </library>

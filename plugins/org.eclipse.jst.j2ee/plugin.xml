@@ -133,8 +133,9 @@
 <!--===================================================-->
 <!-- Register known J2EE DTDs and XSDs for XML editor  -->
 <!-- DTD and XSD Contributions                         -->
+<!-- Removing for now   - Work to be done regarding caching dtd's -->
 <!--===================================================-->
-   <extension
+<!--   <extension
          point="com.ibm.etools.xmlcatalog.catalogContributor">
       <catalogContributor
             catalogId="default">
@@ -247,7 +248,7 @@
                uri="dtds/j2ee_web_services_client_1_0.dtd">
          </mappingInfo> 
       </catalogContributor>
-   </extension>
+   </extension> -->
 <!--=================================-->
 <!-- LibCopy Builder Contributions   -->
 <!--=================================-->

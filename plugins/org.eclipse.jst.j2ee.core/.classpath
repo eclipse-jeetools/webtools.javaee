@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="j2ee-validation"/>
 	<classpathentry kind="src" path="mofj2ee"/>
 	<classpathentry kind="src" path="webservices"/>
-	<classpathentry exported="true" kind="lib" path="runtime/j2ee.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
