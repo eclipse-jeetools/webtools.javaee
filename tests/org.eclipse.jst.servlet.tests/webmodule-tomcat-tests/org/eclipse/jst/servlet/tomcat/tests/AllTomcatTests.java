@@ -37,7 +37,7 @@ public class AllTomcatTests extends TestSuite {
     }
     
     public static IRuntime createRuntime()  {
-    	String s = "D:/Program Files/Apache Software Foundation/Tomcat 5.0";
+    	String s = System.getProperty("org.eclipse.jst.server.tomcat.50");
     	if (s == null || s.length() == 0)
     		return null;
     	try {
