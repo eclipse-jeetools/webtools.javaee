@@ -51,9 +51,9 @@
                label="%create.web.module_ui_"
                icon="icons/full/ctool16/newwar_wiz.gif"
                tooltip="%create.web.module_ui_"
-               class="org.eclipse.jst.servlet.ui.internal.actions.NewWebProjectAction"
+               class="org.eclipse.jst.servlet.ui.internal.actions.NewWebModuleAction"
                toolbarPath="J2EEMain"
-               id="org.eclipse.jst.servlet.ui.internal.actions.NewWebProject">
+               id="org.eclipse.jst.servlet.ui.internal.actions.NewWebModule">
          </action>
       </actionSet>
 	</extension>

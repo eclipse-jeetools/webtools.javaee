@@ -40,12 +40,12 @@
             visible="false"
             id="org.eclipse.jst.j2ee.J2eeMainActionSet4">
          <action
-               label="%new.jca.project.description_ui_"
+               label="%new.jca.module.description_ui_"
                icon="icons/full/ctool16/newconnectionprj_wiz.gif"
-               tooltip="%new.jca.project.description_ui_"
-               class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProjectAction"
+               tooltip="%new.jca.module.description_ui_"
+               class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorModuleAction"
                toolbarPath="J2EEMain4"
-               id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProject">
+               id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorModuleAction">
          </action>
       </actionSet>
 	</extension>
@@ -115,7 +115,7 @@
             objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
             id="org.eclipse.jst.j2ee.internal.ui.navigator.rarNewProjectActions">
          <action
-               label="%jca.project_ui_"
+               label="%jca.module_ui_"
                icon="icons/full/ctool16/newconnectionprj_wiz.gif"
                class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProjectAction"
                menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
@@ -271,7 +271,7 @@
                </or>
                <or>
                   <objectState
-                        name="projectNature"
+                        name="sNature"
                         value="org.eclipse.jst.j2ee.jca.ConnectorNature">
                   </objectState>
                </or>

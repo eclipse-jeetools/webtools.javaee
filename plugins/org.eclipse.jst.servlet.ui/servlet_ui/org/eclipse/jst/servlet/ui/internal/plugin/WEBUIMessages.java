@@ -17,7 +17,7 @@ import org.eclipse.wst.common.frameworks.internal.Messages;
 public class WEBUIMessages extends Messages {
 
 	public static final String IMAGE_LOAD_ERROR = "0"; //$NON-NLS-1$
-	public static final String WEB_PROJECT_WIZ_TITLE = "1"; //$NON-NLS-1$
+	public static final String WEB_MODULE_WIZ_TITLE = "1"; //$NON-NLS-1$
 	public static final String WEB_VERSION_LBL = "2"; //$NON-NLS-1$
 	public static final String WEB_PROJECT_MAIN_PG_TITLE = "3"; //$NON-NLS-1$
 	public static final String WEB_PROJECT_MAIN_PG_DESC = "4"; //$NON-NLS-1$

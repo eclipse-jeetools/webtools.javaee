@@ -102,7 +102,7 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
 	protected void doInit() {
-		setWindowTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_WIZ_TITLE));
+		setWindowTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_MODULE_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_PROJECT_WIZARD_BANNER));
 	} 
 	 

@@ -99,7 +99,7 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
 	protected void doInit() {
-		setWindowTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_WIZ_TITLE));
+		setWindowTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_PROJECT_WIZARD_BANNER));
 	}
 	

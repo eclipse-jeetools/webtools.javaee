@@ -13,29 +13,23 @@ import org.eclipse.jst.servlet.ui.WebModuleCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.IWorkbench;
 
-/**
- * @author jlanuti
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
-public class NewWebProjectAction extends AbstractOpenWizardWorkbenchAction {
+public class NewWebModuleAction extends AbstractOpenWizardWorkbenchAction {
 	
-	public static String LABEL = WEBUIMessages.WEB_PROJECT_WIZ_TITLE;
+	public static String LABEL = WEBUIMessages.WEB_MODULE_WIZ_TITLE;
 	private static final String ICON = "war_wiz"; //$NON-NLS-1$
 	
-	public NewWebProjectAction() {
+	public NewWebModuleAction() {
 		super();
 		setText(LABEL); 
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 	
-	public NewWebProjectAction(IWorkbench workbench, String label, Class[] activatedOnTypes, boolean acceptEmptySelection) {
+	public NewWebModuleAction(IWorkbench workbench, String label, Class[] activatedOnTypes, boolean acceptEmptySelection) {
 		super(workbench, label, activatedOnTypes, acceptEmptySelection);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 	
-	public NewWebProjectAction(IWorkbench workbench, String label, boolean acceptEmptySelection) {
+	public NewWebModuleAction(IWorkbench workbench, String label, boolean acceptEmptySelection) {
 		super(workbench, label, acceptEmptySelection);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
