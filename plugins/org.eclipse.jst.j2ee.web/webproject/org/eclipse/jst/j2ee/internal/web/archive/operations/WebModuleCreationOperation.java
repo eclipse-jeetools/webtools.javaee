@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -108,6 +109,8 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		    WTPProjectUtilities.addNatureToProjectLast(dataModel.getProjectDataModel().getProject(), IModuleConstants.MODULE_NATURE_ID);
 		    createInitialWTPModulesFile();
 		}
+		if (((WebModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+			addAnnotationsBuilder();
 	}
 
     /**

@@ -22,24 +22,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 
 public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOperation {
-
+	/**
+	 * name of the template emitter to be used to generate the deployment descriptor from the tags
+	 */
+	protected static final String TEMPLATE_EMITTER = "org.eclipse.jst.j2ee.ejb.annotations.emitter.template"; //$NON-NLS-1$
+	/**
+	 * id of the builder used to kick off generation of web metadata based on parsing of annotations
+	 */
+	protected static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
+	
 	public J2EEModuleCreationOperation(J2EEModuleCreationDataModel dataModel) {
 		super(dataModel);
 	}
@@ -51,7 +63,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
 		createProject(monitor);
-		if (dataModel.getBooleanProperty(J2EEModuleCreationDataModel.CREATE_DEFAULT_FILES)) {
+		if (dataModel.getBooleanProperty(J2EEArtifactCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
 			J2EENature nature = (J2EENature) dataModel.getProjectDataModel().getProject().getNature(dataModel.getJ2EENatureID());
 			createManifest(nature, monitor);
@@ -116,7 +128,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 	protected void createManifest(J2EENature nature, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		if (nature.getEMFRoot() != null) {
 			try {
-				IFile file = nature.getEMFRoot().getFile(new Path(ArchiveConstants.MANIFEST_URI));
+				IFile file = nature.getEMFRoot().getFile(new Path(J2EEConstants.MANIFEST_URI));
 				ManifestFileCreationAction.createManifestFile(file, nature.getProject());
 			} catch (IOException ioe) {
 				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ioe);
@@ -143,6 +155,47 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 			getOperationDataModel().dispose();
 			super.dispose(pm);
 		} catch (RuntimeException re) {
+			//Ignore
+		}
+	}
+	
+	/**
+	 * This method is intended for internal use only.  This method will add the annotations builder
+	 * for Xdoclet to the targetted project.  This needs to be removed from the operation and set
+	 * up to be more extensible throughout the workbench.
+	 * @see EJBModuleCreationOperation#execute(IProgressMonitor)
+	 * 
+	 * @deprecated
+	 */
+	protected final void addAnnotationsBuilder() {
+		try {
+			// Find the xdoclet builder from the extension registry
+			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
+			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
+			IProject project = operationDataModel.getTargetProject(); 
+			IProjectDescription description = project.getDescription();
+			ICommand[] commands = description.getBuildSpec();
+			boolean found = false;
+			// Check if the builder is already set on the project
+			for (int i = 0; i < commands.length; ++i) {
+				if (commands[i].getBuilderName().equals(builderID)) {
+					found = true;
+					break;
+				}
+			}
+			// If the builder is not on the project, add it
+			if (!found) {
+				ICommand command = description.newCommand();
+				command.setBuilderName(builderID);
+				ICommand[] newCommands = new ICommand[commands.length + 1];
+				System.arraycopy(commands, 0, newCommands, 0, commands.length);
+				newCommands[commands.length] = command;
+				IProjectDescription desc = project.getDescription();
+				desc.setBuildSpec(newCommands);
+				project.setDescription(desc, null);
+			}
+		} catch (Exception e) {
+			//Ignore
 		}
 	}
 
