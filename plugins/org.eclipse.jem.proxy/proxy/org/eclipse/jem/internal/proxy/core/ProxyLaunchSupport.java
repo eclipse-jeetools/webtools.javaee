@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/05 22:06:34 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/07 17:21:42 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -21,6 +21,7 @@ import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
+import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
@@ -43,9 +44,61 @@ public class ProxyLaunchSupport {
 	// item at all. This is to clean up the popup menu so not so cluttered.
 	// If the property is trully not set, then there is no default and there are no configurations for it.
 	public static final String NOT_SET = "...not..set..";	 
+		
+	/*
+	 * Registry of launch key to LaunchInfo classes.
+	 */
+	private static Map LAUNCH_INFO = new HashMap(2);
 	
-	private static Map LAUNCH_CONTRIBUTORS = new HashMap(2);
-	private static Map LAUNCH_REGISTRY_RETURN = new HashMap(2);
+	/**
+	 * LaunchInfo for a launch. Stored by key and retrievable by the key.
+	 * 
+	 * @see ProxyLaunchSupport#getInfo(String)
+	 * @since 1.0.0
+	 */
+	public static class LaunchInfo {
+		/**
+		 * Contributors for this launch
+		 */
+		public IConfigurationContributor[] contributors;
+		
+		/**
+		 * The registry returned from the launch. The launch needs to set this before it returns.
+		 */
+		public ProxyFactoryRegistry resultRegistry;
+		
+		/**
+		 * Set of containers (IClasspathContainer) found in classpath (including required projects).
+		 * This is for each project found. If there was a container in more than one project with the
+		 * id, this set will contain the container from each such project. They are not considered the
+		 * same because they come from a different project.
+		 * <p>
+		 * This is used for determining if a project's container implements the desired contributor.
+		 * 
+		 * Will be <code>null</code> if no project sent in to launch configuration.
+		 * 
+		 * @see org.eclipse.jdt.core.IClasspathContainer
+		 */
+		public Set containers;
+		
+		/**
+		 * Set of unique container id strings found in classpath (including required projects).
+		 * If a container with the same id was found in more than one project, only one id will
+		 * be in this set since they are the same.
+		 * 
+		 * Will be <code>null</code> if no project sent in to launch configuration.
+		 */
+		public Set containerIds;
+		
+		/**
+		 * Set of unique plugin id strings found in classpath (including required projects).
+		 * If a required plugin with the same id was found in more than one project, only one id will
+		 * be in this set since they are the same.
+		 * 
+		 * Will be <code>null</code> if no project sent in to launch configuration.
+		 */		
+		public Set pluginIds;
+	}
 	
 	/**
 	 * Start an implementation using the default config for the given project.
@@ -149,6 +202,15 @@ public class ProxyLaunchSupport {
 		} else
 			aContribs = new IConfigurationContributor[] {new ProxyContributor()};
 
+		String launchKey = String.valueOf(System.currentTimeMillis());
+		LaunchInfo launchInfo = new LaunchInfo();
+		synchronized (ProxyLaunchSupport.class) {
+			while (LAUNCH_INFO.containsKey(launchKey)) {
+				launchKey += 'a'; // Just add something on to make it unique.
+			}
+			LAUNCH_INFO.put(launchKey, launchInfo);
+		}
+		
 		String projectName = configwc.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, (String) null);
 		if (projectName != null) {
 			projectName = projectName.trim();
@@ -156,20 +218,21 @@ public class ProxyLaunchSupport {
 				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 				IJavaProject javaProject = JavaCore.create(project);
 				if (javaProject != null && javaProject.exists()) {
-					Set containerIds = new HashSet(5);
-					Set containers = new HashSet(5);
-					Set pluginIds = new HashSet(5);
-					ProxyPlugin.getPlugin().getIDsFound(javaProject, containerIds, containers, pluginIds);					
-					if (!containerIds.isEmpty() || !containers.isEmpty() || !pluginIds.isEmpty()) {
-						List computedContributors = new ArrayList(containerIds.size()+containers.size()+pluginIds.size());
+					launchInfo.containerIds = new HashSet(5);
+					launchInfo.containers = new HashSet(5);
+					launchInfo.pluginIds = new HashSet(5);
+					ProxyPlugin.getPlugin().getIDsFound(javaProject, launchInfo.containerIds, launchInfo.containers, launchInfo.pluginIds);					
+					if (!launchInfo.containerIds.isEmpty() || !launchInfo.containers.isEmpty() || !launchInfo.pluginIds.isEmpty()) {
+						List computedContributors = new ArrayList(launchInfo.containerIds.size()+launchInfo.containers.size()+launchInfo.pluginIds.size());
 						// First handle explicit classpath containers that implement IConfigurationContributor
-						for (Iterator iter = containers.iterator(); iter.hasNext();) {
-							IConfigurationContributor containerContributor = (IConfigurationContributor) iter.next();
-							computedContributors.add(containerContributor);
+						for (Iterator iter = launchInfo.containers.iterator(); iter.hasNext();) {
+							IClasspathContainer container = (IClasspathContainer) iter.next();
+							if (container instanceof IConfigurationContributor)
+								computedContributors.add(container);
 						}
 						
 						// Second add in contributors that exist for a container id.
-						for (Iterator iter = containerIds.iterator(); iter.hasNext();) {
+						for (Iterator iter = launchInfo.containerIds.iterator(); iter.hasNext();) {
 							String containerid = (String) iter.next();
 							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerConfigurations(containerid);
 							if (contributors != null)
@@ -179,7 +242,7 @@ public class ProxyLaunchSupport {
 						}
 						
 						// Finally add in contributors that exist for a plugin id.
-						for (Iterator iter = pluginIds.iterator(); iter.hasNext();) {
+						for (Iterator iter = launchInfo.pluginIds.iterator(); iter.hasNext();) {
 							String pluginId = (String) iter.next();
 							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getPluginConfigurations(pluginId);
 							if (contributors != null)
@@ -201,15 +264,8 @@ public class ProxyLaunchSupport {
 			}
 		}
 		
+		launchInfo.contributors = aContribs;
 		
-		String launchKey = String.valueOf(System.currentTimeMillis());
-		synchronized (ProxyLaunchSupport.class) {
-			while (LAUNCH_CONTRIBUTORS.containsKey(launchKey)) {
-				launchKey += 'a'; // Just add something on to make it unique.
-			}
-			LAUNCH_CONTRIBUTORS.put(launchKey, aContribs);
-		}
-		ProxyFactoryRegistry registry = null;
 		try {		
 			configwc.setAttribute(IProxyConstants.ATTRIBUTE_LAUNCH_KEY, launchKey);
 			if (vmTitle != null && vmTitle.length()>0)
@@ -237,7 +293,7 @@ public class ProxyLaunchSupport {
 			
 			configwc.launch(ILaunchManager.RUN_MODE, new SubProgressMonitor(pm, 100));
 			
-			final ProxyFactoryRegistry reg = (ProxyFactoryRegistry) LAUNCH_REGISTRY_RETURN.remove(launchKey);
+			final ProxyFactoryRegistry reg = launchInfo.resultRegistry;
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
 				// Run in safe mode so that anything happens we don't go away.
@@ -251,16 +307,13 @@ public class ProxyLaunchSupport {
 					}
 				});
 			}
-			
-			registry = reg;	// Now we have something to return.
 		} finally {
 			// Clean up and return.
-			LAUNCH_CONTRIBUTORS.remove(launchKey);
-			LAUNCH_REGISTRY_RETURN.remove(launchKey);
+			LAUNCH_INFO.remove(launchKey);
 		}	
 		
 		pm.done();
-		return registry;
+		return launchInfo.resultRegistry;
 	}
 	
 	private static void handleBuild(IProgressMonitor pm) throws CoreException {
@@ -314,25 +367,12 @@ public class ProxyLaunchSupport {
 	 * Only referenced by launch delegates. public because they are in other packages,
 	 * or even external developers packages. Not meant to be generally available.
 	 * 
-	 * This is needed because we can't pass the contributors into a launch configuration
+	 * This is needed because we can't pass the generic info into a launch configuration
 	 * because a launch configuration can't take objects. Only can take strings and numbers.  
 	 */
-	public static IConfigurationContributor[] getContributors(String key) {
-		return (IConfigurationContributor[]) LAUNCH_CONTRIBUTORS.get(key);
+	public static synchronized LaunchInfo getInfo(String key) {
+		return (LaunchInfo) LAUNCH_INFO.get(key);
 	}
-	
-	/* (non-Javadoc)
-	 * Only referenced by launch delegates. public because they are in other packages,
-	 * or even external developers packages. Not meant to be generally available.
-	 * 
-	 * This is needed because we can't get the registry returned from a launch. So
-	 * the launch needs to put the registry in here.
-	 * 
-	 * It will use the same launch key as for contributors.
-	 */
-	public static void setRegistry(String key, ProxyFactoryRegistry registry) {
-		LAUNCH_REGISTRY_RETURN.put(key, registry);
-	}	
 	
 	/* (non-Javadoc)
 	 * Local contributor used to make sure that certain jars are in the path.

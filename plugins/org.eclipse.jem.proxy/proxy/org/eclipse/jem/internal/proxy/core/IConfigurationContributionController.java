@@ -11,8 +11,10 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IConfigurationContributionController.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/07 17:21:42 $ 
  */
+
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -73,6 +75,35 @@ public interface IConfigurationContributionController {
 	 * @since 1.0.0
 	 */
 	public IJavaProject getJavaProject();
+	
+	/**
+	 * Return the set of containers that are found in the classpath. This is useful for determining
+	 * if the container impliments a contributor interface.
+	 * 
+	 * @return set of containers. Elements of type IClasspathContainer. <code>null</code> if launch not in a project.
+	 * 
+	 * @see org.eclipse.jdt.core.IClasspathContainer
+	 * @since 1.0.0
+	 */
+	public Set getContainers();
+	
+	/**
+	 * Return the set of container ids that are found in the classpath.
+	 * 
+	 * @return set of container ids. Elements of type String. <code>null</code> if launch not in a project.
+	 * 
+	 * @since 1.0.0
+	 */
+	public Set getContainerIds();
+	
+	/**
+	 * Return the set of plugin ids that are found in the classpath.
+	 * 
+	 * @return set of plugin ids. Elements of type String. <code>null</code> if launch not in a project.
+	 * 
+	 * @since 1.0.0
+	 */
+	public Set getPluginIds();	
 	
 	/**
 	 * Add a project to the classpath. The type flag tells where to add it.

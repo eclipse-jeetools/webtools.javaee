@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/07 17:21:42 $ 
  */
 
 import java.net.MalformedURLException;
@@ -82,7 +82,8 @@ public class IDERegistration {
 
 		// Add in any classpaths the contributors want to add.
 		if (contributors != null) {
-			LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(jp, classPaths, new String[3][]);
+			ProxyLaunchSupport.LaunchInfo launchInfo = new ProxyLaunchSupport.LaunchInfo();
+			LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(jp, classPaths, new String[3][], launchInfo);
 			for (int i = 0; i < contributors.length; i++) {
 				contributors[i].contributeClasspaths(controller);
 			}

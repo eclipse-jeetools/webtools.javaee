@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/07 17:21:42 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -23,8 +23,7 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
 
-import org.eclipse.jem.internal.proxy.core.IConfigurationContributionController;
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
+import org.eclipse.jem.internal.proxy.core.*;
  
 /**
  * This version works with local files being added to the classpath, and the classpath is strings.
@@ -40,11 +39,13 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	private List prependBootpath;
 	private List appendBootpath;
 	private List javaLibraryPath;
+	private ProxyLaunchSupport.LaunchInfo launchInfo;
 	
-	public LocalFileConfigurationContributorController(IJavaProject javaProject, String[] classpathInfo, String[][] bootpathInfo) {
+	public LocalFileConfigurationContributorController(IJavaProject javaProject, String[] classpathInfo, String[][] bootpathInfo, ProxyLaunchSupport.LaunchInfo launchInfo) {
 		this.javaProject = javaProject;
 		this.classpathInfo = classpathInfo;
 		this.bootpathInfo = bootpathInfo;
+		this.launchInfo = launchInfo;
 	}
 	
 	public String[] getFinalClasspath() {
@@ -140,6 +141,27 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 		return javaProject;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#getContainerIds()
+	 */
+	public Set getContainerIds() {
+		return launchInfo.containerIds;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#getContainers()
+	 */
+	public Set getContainers() {
+		return launchInfo.containers;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#getPluginIds()
+	 */
+	public Set getPluginIds() {
+		return launchInfo.pluginIds;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeProject(org.eclipse.core.resources.IProject)
 	 */

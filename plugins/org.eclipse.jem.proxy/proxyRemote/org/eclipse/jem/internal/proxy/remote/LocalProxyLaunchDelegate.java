@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.1 $ $Date: 2004/03/04 16:14:04 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.2 $ $Date: 2004/03/07 17:21:42 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -105,9 +105,10 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		// Now let's get the classpaths created through the contributors.
 		String[] classpath = getClasspath(configuration);
 		String[][] bootpathInfo = getBootpathExt(configuration);
-		final IConfigurationContributor[] contributors = ProxyLaunchSupport.getContributors(launchKey);
+		ProxyLaunchSupport.LaunchInfo launchInfo = ProxyLaunchSupport.getInfo(launchKey);
+		final IConfigurationContributor[] contributors = launchInfo.contributors;
 		final LocalFileConfigurationContributorController controller =
-			new LocalFileConfigurationContributorController(project, classpath, bootpathInfo);
+			new LocalFileConfigurationContributorController(project, classpath, bootpathInfo, launchInfo);
 		if (contributors != null) {
 			for (int i = 0; i < contributors.length; i++) {
 				// Run in safe mode so that anything happens we don't go away.
@@ -318,7 +319,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		if (configuration.getAttribute(IProxyConstants.ATTRIBUTE_AWT_SWING, true))
 			REMRegisterAWT.registerAWT(registry);
 
-		ProxyLaunchSupport.setRegistry(launchKey, registry);
+		launchInfo.resultRegistry = registry;
 
 		pm.done();
 	}

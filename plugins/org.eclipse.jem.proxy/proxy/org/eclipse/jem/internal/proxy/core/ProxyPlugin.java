@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.8 $  $Date: 2004/03/05 22:06:34 $ 
+ *  $Revision: 1.9 $  $Date: 2004/03/07 17:21:42 $ 
  */
 
 
@@ -660,8 +660,7 @@ public class ProxyPlugin extends Plugin {
 					break;
 				case IClasspathEntry.CPE_CONTAINER:
 					IClasspathContainer container = JavaCore.getClasspathContainer(entry.getPath(), project);
-					if (container instanceof IConfigurationContributor)
-						containers.add(container);
+					containers.add(container);
 					containerIds.add(entry.getPath().segment(0));
 					break;
 				default:
