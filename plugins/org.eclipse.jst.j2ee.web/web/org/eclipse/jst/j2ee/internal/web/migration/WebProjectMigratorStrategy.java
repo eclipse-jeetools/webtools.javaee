@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigration;
 import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.Property;
@@ -32,7 +33,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	protected static String FEATURE_ID = "FeatureID";
 	protected static String JAVA_SOURCE_DEPLOY_PATH_NAME = "/WEB-INF/classes";
 
-	protected WebSettings fWebSettings;
+	protected WebSettingsMigration fWebSettings;
 	int fVersion;
 
 
@@ -84,9 +85,9 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 		return resources;
 	}
 
-	public WebSettings getWebSettings() {
+	public WebSettingsMigration getWebSettings() {
 		if (fWebSettings == null) {
-			fWebSettings = new WebSettings(getProject());
+			fWebSettings = new WebSettingsMigration(getProject());
 		}
 		return fWebSettings;
 	}
@@ -111,7 +112,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public IPath getBasicWebModulePath() {
-		WebSettings webSettings = getWebSettings();
+		WebSettingsMigration webSettings = getWebSettings();
 		String name = webSettings.getWebContentName();
 		if (name == null) {
 			int version = getVersion();
@@ -155,7 +156,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 		String[] featureIDs = getWebSettings().getFeatureIds();
 	    Property[] properties = new Property[featureIDs.length + 2];
 	    properties[0] = createProperty(CONTEXT_ROOT, contextRootName);
-	    properties[1] = createProperty(JSP_LEVEL, contextRootName);
+	    properties[1] = createProperty(JSP_LEVEL, jspLevel);
 	    for (int i = 2; i < featureIDs.length + 2; i++) {
 	    	properties[i] = createProperty(FEATURE_ID,featureIDs[i - 2]);
 			
