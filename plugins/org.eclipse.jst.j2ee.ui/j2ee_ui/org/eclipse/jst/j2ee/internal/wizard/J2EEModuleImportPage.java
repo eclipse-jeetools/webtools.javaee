@@ -60,7 +60,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	 * @param composite
 	 */
 	private void createServerEarAndStandaloneGroup(Composite composite) {
-		new ServerEarAndStandaloneGroup(composite, getJ2EEModuleImportDataModel().getJ2eeArtifactCreationDataModel());
+		new ServerEarAndStandaloneGroup(composite, getJ2EEModuleImportDataModel().getJ2EEModuleCreationDataModel());
 	}
 
 	/**

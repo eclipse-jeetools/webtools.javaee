@@ -46,6 +46,7 @@
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
       <import plugin="org.eclipse.jst.common.navigator.java"/>
       <import plugin="org.eclipse.wst.web"/>
+      <import plugin="org.eclipse.wst.common.navigator.workbench"/>
       
    </requires>
 
@@ -247,7 +248,7 @@
 <!-- Navigator Object Contributions -->
 
     <extension
-         point="org.eclipse.wst.common.frameworks.internals.ui.wtpuiAction"> 
+         point="org.eclipse.wst.common.frameworks.ui.wtpuiAction"> 
       <masterOperation
             description="Delete the dependent J2EE modules"
             extendedGenericId="org.eclipse.wst.common.generic.Delete"
@@ -524,7 +525,7 @@
          </filter>
       </page>
       <page
-            objectClass="org.eclipse.core.resources.IJavaProject"
+            objectClass="org.eclipse.jdt.core.IJavaProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
@@ -547,7 +548,7 @@
          </filter>
       </page>
       <page
-            objectClass="org.eclipse.core.resources.IJavaProject"
+            objectClass="org.eclipse.jdt.core.IJavaProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
@@ -570,7 +571,7 @@
          </filter>
       </page>
       <page
-            objectClass="org.eclipse.core.resources.IJavaProject"
+            objectClass="org.eclipse.jdt.core.IJavaProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
@@ -593,7 +594,7 @@
          </filter>
       </page>
       <page
-            objectClass="org.eclipse.core.resources.IJavaProject"
+            objectClass="org.eclipse.jdt.core.IJavaProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
@@ -605,7 +606,7 @@
       </page>
 <!-- =========== org.eclipse.jst.j2ee.internal.ejb.EJBNature ============ -->
       <page
-            objectClass="org.eclipsbe.core.resources.IProject"
+            objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
@@ -616,7 +617,7 @@
          </filter>
       </page>
       <page
-            objectClass="org.eclipse.core.resources.IJavaProject"
+            objectClass="org.eclipse.jdt.core.IJavaProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"

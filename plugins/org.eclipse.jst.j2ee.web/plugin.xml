@@ -142,7 +142,7 @@
       </adapterFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.common.frameworks.internals.ExtendableOperation">
+         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation"
             id="org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation">
@@ -159,7 +159,7 @@
          point="org.eclipse.core.resources.builders">
       <builder>
          <run
-               class="com.ibm.iwt.webtools.LibDirBuilder">
+               class="org.eclipse.jst.j2ee.internal.web.operations.LibDirBuilder">
          </run>
       </builder>
    </extension>
@@ -168,31 +168,31 @@
 <!-- Purpose: Define adapters for EJB and Web resources                   -->
 <!-- ==================================================================== -->
    <extension
-         point="com.ibm.wtp.server.core.moduleObjectAdapters">
+         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
       <moduleObjectAdapter
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             objectClass="org.eclipse.jst.j2ee.internal.webapplication.WebApp"
-            id="com.ibm.wtp.web.server.webresource">
+            id="org.eclipse.jst.web.server.webresource">
       </moduleObjectAdapter>
       <moduleObjectAdapter
             objectClass="org.eclipse.jst.j2ee.internal.webapplication.Servlet"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
-            id="com.ibm.wtp.web.server.webresource2">
+            id="org.eclipse.jst.web.server.webresource2">
       </moduleObjectAdapter>
             <moduleObjectAdapter
             objectClass="org.eclipse.core.resources.IProject"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
-            id="com.ibm.wtp.web.server.webresource3">
+            id="org.eclipse.jst.web.server.webresource3">
       </moduleObjectAdapter>
       <moduleObjectAdapter
             objectClass="org.eclipse.core.resources.IFile"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
-            id="com.ibm.wtp.web.server.webresource4">
+            id="corg.eclipse.jst.web.server.webresource4">
       </moduleObjectAdapter>
       <moduleObjectAdapter
             objectClass="org.eclipse.jdt.core.ICompilationUnit"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
-            id="com.ibm.wtp.web.server.webresource5">
+            id="org.eclipse.jst.web.server.webresource5">
       </moduleObjectAdapter>
    </extension>
 <!-- =============================================================== -->
@@ -212,7 +212,7 @@
       </moduleFactory>
    </extension>
    <extension
-         point="org.eclipse.jst.common.migration.migrator">
+         point="org.eclipse.wst.common.migration.migrator">
       <migrator
             className="org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator"
             id="org.eclipse.jst.common.migration.WebSettingsMigrator.id"
@@ -227,7 +227,7 @@
 <!-- WTP Operation extendable operations						        -->
 <!-- =============================================================== -->
    <extension
-         point="org.eclipse.wst.common.frameworks.internal.ExtendableOperation">
+         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.web.operations.RemoveServletOperation"
             id="org.eclipse.jst.j2ee.internal.web.operations.RemoveServletOperation">
@@ -246,7 +246,7 @@
 <!-- TagLib Server Target Listener Ext 						        -->
 <!-- =============================================================== -->
    
-   <extension point="com.ibm.wtp.server.core.runtimeTargetHandlers">
+   <extension point="org.eclipse.wst.server.core.runtimeTargetHandlers">
    <runtimeTargetHandler
       id="com.ibm.wtp.webtools.taglib.runtimeTarget"
       runtimeTypeIds="com.ibm.ws.ast.st.runtime.v60, com.ibm.etools.websphere*"
@@ -254,7 +254,7 @@
 	</extension>
 
 
- 	<extension point="org.eclipse.wst.common.navigator.java.compressedProject">
+ 	<extension point="org.eclipse.jst.common.navigator.java.compressedProject">
  		<compressedProject natureId="org.eclipse.jst.j2ee.web.WebNature" />
 		<compressedProject natureId="org.eclipse.wst.web.StaticWebNature" />
  		

@@ -29,6 +29,7 @@
       <import plugin="com.ibm.wtp.emf.workbench"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.wst.web"/>
+      <import plugin="org.eclipse.wst.common.navigator.workbench"/>
    </requires>
    
 <!-- Web Project Wizard -->

@@ -82,7 +82,7 @@
       </adapterFactory>
    </extension>
    <extension
-         point="com.ibm.wtp.emf.workbench.editModelExtension">
+         point="org.eclipse.wst.common.emfworkbench.integration.editModelExtension">
       <editModelExtension
             editModelID="org.eclipse.jst.j2ee.applicationClient.editModel"
             id="com.ibm.wtp.webservices.appclient.editModelextension">
@@ -103,7 +103,7 @@
 
 
    <extension
-         point="com.ibm.wtp.webservice.webserviceseditmodelcontainer">
+         point="org.eclipse.jst.j2ee.webservice.webserviceseditmodelcontainer">
       <webserviceseditmodelcontainer
             name="%WSDD_EDIT_MODEL_NAME"
             class="org.eclipse.jst.j2ee.internal.webservice.atk.ui.model.ws.WsddEditModel"
@@ -112,7 +112,7 @@
       </webserviceseditmodelcontainer>
    </extension>
    <extension
-         point="com.ibm.wtp.webservice.webservicesclienteditmodelcontainer">
+         point="org.eclipse.jst.j2ee.webservice.webservicesclienteditmodelcontainer">
       <webservicesclienteditmodelcontainer
             name="%WSCDD_EDIT_MODEL_NAME"
             class="org.eclipse.jst.j2ee.internal.webservice.atk.ui.model.wsc.WscddEditModel"

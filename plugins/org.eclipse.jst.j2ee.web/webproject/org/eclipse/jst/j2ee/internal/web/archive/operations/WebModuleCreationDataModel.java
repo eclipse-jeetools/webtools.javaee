@@ -65,19 +65,21 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 	public static final String MIGRATE_WEB_SETTINGS = "WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS"; //$NON-NLS-1$
 
 	/**
-	 * Creates a Connector project with the specified name and version in the specified location.
+	 * Creates a Web project with the specified name and version in the specified location.
 	 * 
 	 * @param projectName
-	 *            The name of the Connector project to create.
+	 *            The name of the Web project to create.
 	 * @param projectLocation
 	 *            Sets the local file system location for the described project. The path must be
 	 *            either an absolute file system path, or a relative path whose first segment is the
 	 *            name of a defined workspace path variable. If <code>null</code> is specified,
 	 *            the default location is used.
 	 * @param connectorModuleVersion
-	 *            Sets the Connector Module Version for the descibed project. The version must be either
-	 *            <code>J2EEVersionConstants.JCA_1_0_ID</code> or
-	 *            <code>J2EEVersionConstants.JCA_1_5_ID</code>.
+	 *            Sets the Web Module Version for the descibed project. The version must be one of
+	 *            the following: <code>J2EEVersionConstants.WEB_2_2_ID</code>,
+	 *            <code>J2EEVersionConstants.WEB_2_3_ID</code>, or
+	 * 			  <code>J2EEVersionConstants.WEB_2_4_ID</code>
+	 *            or.
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int connectorModuleVersion) {
@@ -95,7 +97,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 			Logger.getLogger().logError(e);
 		}
 	}
-	
+
 	public WTPOperation getDefaultOperation() {
 		return new WebModuleCreationOperation(this);
 	}

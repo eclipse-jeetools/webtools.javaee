@@ -49,17 +49,19 @@ public class ServerEarAndStandaloneGroup {
 	private Label earLabel;
 	private Button addToEAR;
 	protected Combo serverTargetCombo;
-	private J2EEArtifactCreationDataModel model;
+	private J2EEModuleCreationDataModel model;
 	//	constants
 	//private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 	private WTPDataModelSynchHelper synchHelper;
+	private WTPDataModelSynchHelper serverTargetSynchHelper;
 
 	/**
 	 *  
 	 */
-	public ServerEarAndStandaloneGroup(Composite parent, J2EEArtifactCreationDataModel model) {
+	public ServerEarAndStandaloneGroup(Composite parent, J2EEModuleCreationDataModel model) {
 		this.model = model;
 		synchHelper = new WTPDataModelSynchHelper(model);
+		serverTargetSynchHelper = new WTPDataModelSynchHelper(model.getServerTargetDataModel());
 		buildComposites(parent);
 	}
 
@@ -142,8 +144,7 @@ public class ServerEarAndStandaloneGroup {
 	 *  
 	 */
 	protected void handleNewEarSelected() {
-
-		J2EEModuleCreationDataModel moduleModel = getJ2EEModuleCreationDataModel();
+		J2EEModuleCreationDataModel moduleModel = model;
 		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
 		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
 		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, moduleModel.getProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME));
@@ -162,10 +163,6 @@ public class ServerEarAndStandaloneGroup {
 		return serverTargetCombo.getShell();
 	}
 
-	protected J2EEModuleCreationDataModel getJ2EEModuleCreationDataModel() {
-		return (J2EEModuleCreationDataModel) model;
-	}
-
 	protected void createServerTargetComposite(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
@@ -176,14 +173,16 @@ public class ServerEarAndStandaloneGroup {
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				J2EEProjectCreationPage.launchNewRuntimeWizard(getShell(), getJ2EEModuleCreationDataModel().getServerTargetDataModel());
+				J2EEProjectCreationPage.launchNewRuntimeWizard(getShell(), model.getServerTargetDataModel());
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
-		synchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
+		serverTargetSynchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
 	}
 
 	public void dispose() {
+		serverTargetSynchHelper.dispose();
+		serverTargetSynchHelper = null;
 		model.removeListener(synchHelper);
 		model.dispose();
 		synchHelper = null;
