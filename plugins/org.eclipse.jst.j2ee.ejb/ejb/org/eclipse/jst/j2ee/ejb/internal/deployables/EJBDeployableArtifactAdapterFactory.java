@@ -14,7 +14,7 @@ import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 public class EJBDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDelegate implements IAdapterFactory {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		return null;
+      return null;
 	}
 
 	public Class[] getAdapterList() {
