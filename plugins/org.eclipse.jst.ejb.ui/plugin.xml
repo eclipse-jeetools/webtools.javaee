@@ -56,12 +56,12 @@
             visible="false"
             id="org.eclipse.jst.j2ee.J2eeMainActionSet3">
          <action
-               label="%create.ejb.project_ui_"
+               label="%create.ejb.module_ui_"
                icon="icons/full/ctool16/newejbprj_wiz.gif"
-               tooltip="%create.ejb.project_ui_"
-               class="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProjectAction"
+               tooltip="%create.ejb.module_ui_"
+               class="org.eclipse.jst.ejb.ui.internal.actions.NewEJBModuleAction"
                toolbarPath="J2EEMain2"
-               id="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProject">
+               id="org.eclipse.jst.ejb.ui.internal.actions.NewEJBModule">
          </action>
       </actionSet>
    </extension>
