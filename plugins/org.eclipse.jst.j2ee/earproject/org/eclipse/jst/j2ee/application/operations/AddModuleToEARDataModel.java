@@ -16,21 +16,10 @@
 package org.eclipse.jst.j2ee.application.operations;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * @author DABERG
@@ -45,20 +34,28 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 		super.initValidBaseProperties();
 		addValidBaseProperty(MODULE_PROJECT_LIST);
 	}
-
+	/**
+	 * (non-Javadoc)
+	 *  * @deprecated - This method is deprecated module must be passed
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
+	 */
 	public static AddModuleToEARDataModel createAddToEARDataModel(String earProjectName, IProject moduleProject) {
 		AddModuleToEARDataModel model = new AddModuleToEARDataModel();
-		model.setProperty(AddModuleToEARDataModel.PROJECT_NAME, earProjectName);
-		model.setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, moduleProject);
+	//	model.setProperty(AddModuleToEARDataModel.PROJECT_NAME, earProjectName);
+	//	model.setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, moduleProject);
 		return model;
 	}
-
+	public static AddModuleToEARDataModel createAddToEARDataModel(String earModuleName, WorkbenchComponent module) {
+		AddModuleToEARDataModel model = new AddModuleToEARDataModel();
+		model.setProperty(AddModuleToEARDataModel.MODULE_NAME, earModuleName);
+		model.setProperty(AddModuleToEARDataModel.ARCHIVE_MODULE, module);
+		return model;
+	}
 	public AddModuleToEARDataModel getAppropriateDataModel() {
 		AddModuleToEARDataModel model = this;
-		IProject project = (IProject) getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_PROJECT);
-		J2EENature j2eeNature = J2EENature.getRegisteredRuntime(project);
-		if (j2eeNature != null && XMLResource.WEB_APP_TYPE == j2eeNature.getDeploymentDescriptorType() && !model.isWebModuleArchive()) {
-			model = AddWebModuleToEARDataModel.createAddWebModuleToEARDataModel(getStringProperty(PROJECT_NAME), project);
+		WorkbenchComponent wbComp = (WorkbenchComponent) getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_MODULE);
+		if (wbComp != null && wbComp.getComponentType().getModuleTypeId() == IModuleConstants.JST_WEB_MODULE) {
+			model = AddWebModuleToEARDataModel.createAddWebModuleToEARDataModel(getStringProperty(PROJECT_NAME), getProjectForGivenComponent(wbComp));
 			model.setProperty(AddWebModuleToEARDataModel.ARCHIVE_URI, getProperty(ARCHIVE_URI));
 		}
 		return model;
@@ -74,53 +71,41 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
 	 */
 	protected String getDefaultArchiveURI() {
-		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
-		J2EENature j2eeNature = J2EENature.getRegisteredRuntime(archiveProj);
-		if (j2eeNature != null) {
-			J2EEModuleNature modNature = (J2EEModuleNature) j2eeNature;
-			String existingURI = modNature.getModuleUriInFirstEAR();
-			if (existingURI != null)
-				return existingURI;
-		}
-		return super.getDefaultArchiveURI();
+	    return getStringProperty(MODULE_NAME);
+	    //TODO: reimplement 
+//		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
+//		J2EENature j2eeNature = J2EENature.getRegisteredRuntime(archiveProj);
+//		if (j2eeNature != null) {
+//			J2EEModuleNature modNature = (J2EEModuleNature) j2eeNature;
+//			String existingURI = modNature.getModuleUriInFirstEAR();
+//			if (existingURI != null)
+//				return existingURI;
+//		}
+//		return super.getDefaultArchiveURI();
 	}
 
 	protected IStatus doValidateProperty(String propertyName) {
-		if (ARCHIVE_PROJECT.equals(propertyName)) {
-			IProject project = (IProject) getProperty(propertyName);
-			IStatus status = super.doValidateProperty(propertyName);
-			if (!status.isOK()) {
-				return status;
-			}
-			if (!isJ2EEModule(project)) {
-				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_TYPE));
-			}
-			//TODO 
-//			EAREditModel editModel = null;
-//			Object key = new Object();
-//			try {
-//				editModel = (EAREditModel) getEditModelForRead(key);
-//				ModuleMapping mapping = editModel.getModuleMapping(project);
-//				if (mapping != null && mapping.getModule() != null) {
-//					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_EXISTS));
-//				}
-//			} finally {
-//				if (null != editModel) {
-//					editModel.releaseAccess(key);
-//				}
+//		if (ARCHIVE_PROJECT.equals(propertyName)) {
+//			IProject project = (IProject) getProperty(propertyName);
+//			IStatus status = super.doValidateProperty(propertyName);
+//			if (!status.isOK()) {
+//				return status;
 //			}
-		}
+//			if (!isJ2EEModule(project)) {
+//				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_TYPE));
+//			}
+//		}
 		return super.doValidateProperty(propertyName);
 	}
 
-	protected boolean isJ2EEModule(IProject aProject) {
-		try {
-			return aProject.hasNature(EarModuleManager.getEJBModuleExtension().getNatureID()) || aProject.hasNature(EarModuleManager.getJCAModuleExtension().getNatureID()) || aProject.hasNature(EarModuleManager.getWebModuleExtension().getNatureID()) || ApplicationClientNatureRuntime.hasRuntime(aProject);
-		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
-			return false;
-		}
-	}
+//	protected boolean isJ2EEModule(IProject aProject) {
+//		try {
+//			return aProject.hasNature(EarModuleManager.getEJBModuleExtension().getNatureID()) || aProject.hasNature(EarModuleManager.getJCAModuleExtension().getNatureID()) || aProject.hasNature(EarModuleManager.getWebModuleExtension().getNatureID()) || ApplicationClientNatureRuntime.hasRuntime(aProject);
+//		} catch (CoreException e) {
+//			Logger.getLogger().logError(e);
+//			return false;
+//		}
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -128,11 +113,10 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultURIExtension()
 	 */
 	protected String getDefaultURIExtension() {
-		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
-		J2EENature j2eeNature = J2EENature.getRegisteredRuntime(archiveProj);
-		if (j2eeNature != null && j2eeNature.getDeploymentDescriptorType() == XMLResource.WEB_APP_TYPE)
+	    WorkbenchComponent wbComp = (WorkbenchComponent) getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_MODULE);
+		if (wbComp != null && wbComp.getComponentType().getModuleTypeId() == IModuleConstants.JST_WEB_MODULE) 
 			return "war"; //$NON-NLS-1$
-		if (j2eeNature != null && j2eeNature.getDeploymentDescriptorType() == XMLResource.RAR_TYPE)
+		if (wbComp != null && wbComp.getComponentType().getModuleTypeId() == IModuleConstants.JST_CONNECTOR_MODULE) 
 			return "rar"; //$NON-NLS-1$
 		return super.getDefaultURIExtension();
 	}
@@ -149,4 +133,5 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 	public boolean isWebModuleArchive() {
 		return false;
 	}
+
 }

@@ -219,7 +219,7 @@ public abstract class J2EEModuleCreationDataModelOld extends J2EEArtifactCreatio
 
 		if (propertyName.equals(PROJECT_NAME)) {
 			IProject project = getTargetProject();
-			getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, project);
+			//getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, project);
 			if (!isSet(EAR_PROJECT_NAME)) {
 				notifyListeners(EAR_PROJECT_NAME);
 				synchUPServerTargetWithEAR();

@@ -32,7 +32,6 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelNature;
 import org.eclipse.wst.server.core.IModule;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;
 import com.ibm.wtp.emf.workbench.ISynchronizerExtender;
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;

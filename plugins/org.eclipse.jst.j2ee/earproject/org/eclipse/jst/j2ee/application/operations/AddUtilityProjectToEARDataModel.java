@@ -16,10 +16,7 @@
 package org.eclipse.jst.j2ee.application.operations;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
@@ -27,13 +24,12 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * @author DABERG
@@ -42,14 +38,23 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * Generation>Code and Comments
  */
 public class AddUtilityProjectToEARDataModel extends AddArchiveToEARDataModel {
-
+	/**
+	 * (non-Javadoc)
+	 *  * @deprecated - This method is deprecated module must be passed
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
+	 */
 	public static AddUtilityProjectToEARDataModel createAddToEARDataModel(String earProjectName, IProject moduleProject) {
 		AddUtilityProjectToEARDataModel model = new AddUtilityProjectToEARDataModel();
 		model.setProperty(AddModuleToEARDataModel.PROJECT_NAME, earProjectName);
-		model.setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, moduleProject);
+		//model.setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, moduleProject);
 		return model;
 	}
-
+	public static AddUtilityProjectToEARDataModel createAddToEARDataModel(String earModuleName, WorkbenchComponent module) {
+		AddUtilityProjectToEARDataModel model = new AddUtilityProjectToEARDataModel();
+		model.setProperty(AddModuleToEARDataModel.MODULE_NAME, earModuleName);
+		model.setProperty(AddModuleToEARDataModel.ARCHIVE_MODULE, module);
+		return model;
+	}
 	private static final String NESTED_MODEL_MANIFEST = "AddUtilityProjectToEARDataModel.NESTED_MODEL_MANIFEST"; //$NON-NLS-1$
 	private static final String NESTED_MODEL_SERVER_TARGET = "AddUtilityProjectToEARDataModel.NESTED_MODEL_SERVER_TARGET"; //$NON-NLS-1$
 
@@ -114,8 +119,9 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveToEARDataModel {
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean result = super.doSetProperty(propertyName, propertyValue);
-		if (propertyName.equals(ARCHIVE_PROJECT)) {
-			IProject proj = (IProject) propertyValue;
+		if (propertyName.equals(ARCHIVE_MODULE)) {
+			WorkbenchComponent wbComp = (WorkbenchComponent) propertyValue;
+			IProject proj = getProjectForGivenComponent(wbComp);
 			updateManifestModel(proj);
 			updateServerTargetModel(proj);
 		} else if (propertyName.equals(PROJECT_NAME))
@@ -145,17 +151,20 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveToEARDataModel {
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
 	 */
 	protected String getDefaultArchiveURI() {
-		IProject project = (IProject) getProperty(ARCHIVE_PROJECT);
-		if (project != null) {
-			String defaultURI = getUtilityJARUriInFirstEAR(project);
-			if (defaultURI != null)
-				return defaultURI;
-		}
-		return super.getDefaultArchiveURI();
+		WorkbenchComponent wbComp = (WorkbenchComponent) getProperty(ARCHIVE_MODULE);
+		return wbComp.getHandle().toString();
+		//TODO: port
+//		IProject project = (IProject) getProperty(ARCHIVE_PROJECT);
+//		if (project != null) {
+//			String defaultURI = getUtilityJARUriInFirstEAR(project);
+//			if (defaultURI != null)
+//				return defaultURI;
+//		}
+//		return super.getDefaultArchiveURI();
 	}
 
 	protected IStatus doValidateProperty(String propertyName) {
-		if (ARCHIVE_PROJECT.equals(propertyName)) {
+		if (ARCHIVE_MODULE.equals(propertyName)) {
 			IStatus status = super.doValidateProperty(propertyName);
 			if (!status.isOK()) {
 				return status;
@@ -173,8 +182,8 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveToEARDataModel {
 //					editModel.releaseAccess(key);
 //				}
 //			}
-			IProject project = (IProject) getProperty(propertyName);
-			if (isWebOrClientModule(project) || !isJavaProject(project)) {
+			WorkbenchComponent wbComp = (WorkbenchComponent) getProperty(ARCHIVE_MODULE);
+			if (isWebOrClientModule(wbComp) || !isJavaModule(wbComp)) {
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_NOT_JAVA));
 			}
 		} else if (ARCHIVE_URI.equals(propertyName)) {
@@ -189,22 +198,13 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveToEARDataModel {
 		return super.doValidateProperty(propertyName);
 	}
 
-	private boolean isJavaProject(IProject project) {
-		try {
-			return project.hasNature(JavaCore.NATURE_ID);
-		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
-		}
-		return false;
+	private boolean isJavaModule(WorkbenchComponent wbComp) {
+		return wbComp.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_UTILITY_MODULE);
 	}
 
-	private boolean isWebOrClientModule(IProject project) {
-		try {
-			return project.hasNature(EarModuleManager.getWebModuleExtension().getNatureID()) || ApplicationClientNatureRuntime.hasRuntime(project);
-		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
-			return false;
-		}
+	private boolean isWebOrClientModule(WorkbenchComponent wbComp) {
+	    String typeID = wbComp.getComponentType().getModuleTypeId();
+	    return typeID.equals(IModuleConstants.JST_WEB_MODULE) || typeID.equals(IModuleConstants.JST_APPCLIENT_MODULE);
 	}
 
 	/**

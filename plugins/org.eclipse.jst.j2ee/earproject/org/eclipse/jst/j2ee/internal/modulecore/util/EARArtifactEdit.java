@@ -9,6 +9,8 @@
 
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -21,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
@@ -243,4 +246,24 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 			//TODO add more mandatory elements
 		}
 	}
+	/**
+	 * Checks if the uri mapping already exists.
+	 * 
+	 * @param String
+	 *            currentURI - The current uri of the module.
+	 * @return boolean
+	 */
+	public boolean uriExists(String currentURI) {
+		if (currentURI != null) {
+		    List refComponents = module.getReferencedComponents();
+		    if(refComponents == null) return false;
+		    ReferencedComponent comp = null;
+		    for (int i = 0; i < refComponents.size(); i++){
+		        comp = (ReferencedComponent)refComponents.get(i);
+		        if(comp.getHandle().equals(currentURI))
+		            return true;
+		    }
+		} // if
+		return false;
+	} // uriExists
 }

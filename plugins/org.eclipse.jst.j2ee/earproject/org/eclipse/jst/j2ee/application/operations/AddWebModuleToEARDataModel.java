@@ -26,6 +26,7 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 
 /**
@@ -37,14 +38,23 @@ import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	
 	public String defaultContextRoot = "";
-
+	/**
+	 * (non-Javadoc)
+	 *  * @deprecated - This method is deprecated module must be passed
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
+	 */
 	public static AddWebModuleToEARDataModel createAddWebModuleToEARDataModel(String earProjectName, IProject moduleProject) {
 		AddWebModuleToEARDataModel model = new AddWebModuleToEARDataModel();
 		model.setProperty(AddWebModuleToEARDataModel.PROJECT_NAME, earProjectName);
-		model.setProperty(AddWebModuleToEARDataModel.ARCHIVE_PROJECT, moduleProject);
+		//model.setProperty(AddWebModuleToEARDataModel.ARCHIVE_PROJECT, moduleProject);
 		return model;
 	}
-
+	public static AddWebModuleToEARDataModel createAddWebModuleToEARDataModel(String earModuleName, WorkbenchComponent module) {
+		AddWebModuleToEARDataModel model = new AddWebModuleToEARDataModel();
+		model.setProperty(AddModuleToEARDataModel.MODULE_NAME, earModuleName);
+		model.setProperty(AddModuleToEARDataModel.ARCHIVE_MODULE, module);
+		return model;
+	}
 	/**
 	 * Optional - This is the context root stored with the module in the application.xml.
 	 */
@@ -86,7 +96,7 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean notify = super.doSetProperty(propertyName, propertyValue);
-		if (notify && propertyName.equals(ARCHIVE_PROJECT))
+		if (notify && propertyName.equals(ARCHIVE_MODULE))
 			notifyDefaultChange(CONTEXT_ROOT);
 		return notify;
 	}
@@ -120,9 +130,9 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	}
 
 	private String computeDefaultContextRoot() {
-		IProject proj = (IProject) getProperty(ARCHIVE_PROJECT);
-		if (proj != null)
-			return proj.getName().replace(' ', '_');
+		WorkbenchComponent wbComp = (WorkbenchComponent)getProperty(ARCHIVE_MODULE);
+		if (wbComp != null)
+			return wbComp.getName().replace(' ', '_');
 		return null;
 	}
 

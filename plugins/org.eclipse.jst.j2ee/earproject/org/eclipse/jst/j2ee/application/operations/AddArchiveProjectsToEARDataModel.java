@@ -135,14 +135,15 @@ public class AddArchiveProjectsToEARDataModel extends EditModelOperationDataMode
 	 * @return
 	 */
 	private AddArchiveToEARDataModel findOrCreateModel(IProject project, List models) {
-		if (!models.isEmpty()) {
-			AddArchiveToEARDataModel model = null;
-			for (int i = 0; i < models.size(); i++) {
-				model = (AddArchiveToEARDataModel) models.get(i);
-				if (project.equals(model.getProperty(AddArchiveToEARDataModel.ARCHIVE_PROJECT)))
-					return model;
-			}
-		}
+	    //TODO: implement for modules not projects
+//		if (!models.isEmpty()) {
+//			AddArchiveToEARDataModel model = null;
+//			for (int i = 0; i < models.size(); i++) {
+//				model = (AddArchiveToEARDataModel) models.get(i);
+//				if (project.equals(model.getProperty(AddArchiveToEARDataModel.ARCHIVE_PROJECT)))
+//					return model;
+//			}
+//		}
 		//Not found so we need to create one.
 		return null; //TODO fix up createArchiveModel(project);
 	}

@@ -23,7 +23,9 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperationDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -37,10 +39,10 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  */
 public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationDataModel {
 	/**
-	 * Required - This is the project that is being added to the EAR (designated by the
-	 * PROJECT_NAME). type = IProject
+	 * Required - This is the module that is being added to the EAR (designated by the
+	 * PROJECT_NAME). type = WorkbenchComponent
 	 */
-	public static final String ARCHIVE_PROJECT = "AddModuleToEARDataModel.ARCHIVE_PROJECT"; //$NON-NLS-1$
+	public static final String ARCHIVE_MODULE = "AddModuleToEARDataModel.ARCHIVE_PROJECT"; //$NON-NLS-1$
 	/**
 	 * Optional - The URI used for the archive in the EAR project. type = String
 	 */
@@ -58,7 +60,7 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
-		addValidBaseProperty(ARCHIVE_PROJECT);
+		addValidBaseProperty(ARCHIVE_MODULE);
 		addValidBaseProperty(ARCHIVE_URI);
 		addValidBaseProperty(SYNC_TARGET_RUNTIME);
 	}
@@ -67,19 +69,20 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 		if (PROJECT_NAME.equals(propertyName)) {
 			IProject project = getTargetProject();
 			try {
-				if (project == null || !project.exists() || !project.isOpen() || !project.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+				if (project == null || !project.exists() || !project.isOpen() || !project.hasNature(IEARNatureConstants.NATURE_ID)) {
 					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_NOT_EAR));
 				}
 			} catch (CoreException e) {
 				Logger.getLogger().logError(e);
 			}
 		}
-		if (ARCHIVE_PROJECT.equals(propertyName)) {
-			IProject project = (IProject) getProperty(propertyName);
-			if (null == project) {
+		if (ARCHIVE_MODULE.equals(propertyName)) {
+		    WorkbenchComponent module = (WorkbenchComponent) getProperty(propertyName);
+			if (null == module) {
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_NULL));
 			}
-			if (!project.isOpen()) {
+			IProject containingProj = getProjectForGivenComponent(module);
+			if (!containingProj.isOpen()) {
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_CLOSED));
 			}
 		} else if (ARCHIVE_URI.equals(propertyName)) {
@@ -91,10 +94,9 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 			EARArtifactEdit earEdit = null;
 			try {
 				earEdit = getEARArtifactEditForRead();
-				//TODO fix up uri check for existence
-//				if (earEdit.uriExists(uri)) {
-//					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_URI_EXISTS));
-//				}
+				if (earEdit.uriExists(uri)) {
+					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_URI_EXISTS));
+				}
 			} finally {
 				if (earEdit != null) {
 					earEdit.dispose();
@@ -106,7 +108,7 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
-		if (propertyName.equals(ARCHIVE_PROJECT)) {
+		if (propertyName.equals(ARCHIVE_MODULE)) {
 			notifyDefaultChange(ARCHIVE_URI);
 		}
 		return returnValue;
@@ -127,10 +129,10 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 	 * @return
 	 */
 	protected String getDefaultArchiveURI() {
-		IProject proj = (IProject) getProperty(ARCHIVE_PROJECT);
-		if (proj != null) {
+	    WorkbenchComponent module = (WorkbenchComponent) getProperty(ARCHIVE_MODULE);
+		if (module != null) {
 			StringBuffer b = new StringBuffer();
-			b.append(proj.getName().replace(' ', '_'));
+			b.append(module.getName().replace(' ', '_'));
 			b.append('.');
 			b.append(getDefaultURIExtension());
 			return b.toString();
@@ -156,12 +158,23 @@ public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationD
 			model.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID, earRuntime.getId());
 		else
 			model.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID, null);
-		IProject modProject = (IProject) getProperty(ARCHIVE_PROJECT);
+	    WorkbenchComponent module = (WorkbenchComponent) getProperty(ARCHIVE_MODULE);
+	    IProject modProject = getProjectForGivenComponent(module);
 		if (modProject != null)
 			model.setProperty(ServerTargetDataModel.PROJECT_NAME, modProject.getName());
 		return model;
 	}
 
+	public IProject getProjectForGivenComponent(WorkbenchComponent wbComp) {
+	    IProject modProject = null;
+	    try {
+		    modProject = ModuleCore.getContainingProject(wbComp.getHandle());
+	    } catch (UnresolveableURIException ex) {
+			Logger.getLogger().logError(ex);
+	    }
+	    return modProject;
+	}
+	
 	public AddArchiveToEARDataModel createArchiveModel() {
 		AddArchiveToEARDataModel model = null;
 //		switch (ModuleType) {

@@ -48,6 +48,7 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -236,7 +237,8 @@ public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 	 * @param model
 	 */
 	private void updateUtilProject(AddUtilityProjectToEARDataModel model, IProgressMonitor aMonitor) {
-		IProject proj = (IProject) model.getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_PROJECT);
+		WorkbenchComponent wbComp = (WorkbenchComponent) model.getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_MODULE);
+		IProject proj = ((AddArchiveToEARDataModel)operationDataModel).getProjectForGivenComponent(wbComp);
 		if (proj != null && J2EEProjectUtilities.getFirstReferencingEARProject(proj) == null) {
 			createManifest(model, aMonitor);
 			IRuntime runtime = ServerCore.getProjectProperties(proj).getRuntimeTarget();
@@ -307,7 +309,8 @@ public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 	}
 
 	private IProject getArchiveProject() {
-		return (IProject) operationDataModel.getProperty(AddArchiveToEARDataModel.ARCHIVE_PROJECT);
+	    WorkbenchComponent wbComp = (WorkbenchComponent) operationDataModel.getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_MODULE);
+		return ((AddArchiveToEARDataModel)operationDataModel).getProjectForGivenComponent(wbComp);
 	}
 
 	private IProject getEARProject() {
