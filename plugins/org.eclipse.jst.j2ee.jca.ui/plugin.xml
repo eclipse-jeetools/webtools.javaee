@@ -140,6 +140,9 @@
             wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard">
          <enablement>
          <or>
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
@@ -178,6 +181,9 @@
             wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard">
          <enablement>
           <or>
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">

@@ -629,6 +629,9 @@
             wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard">
          <enablement>
          <or> 
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
@@ -647,6 +650,9 @@
             wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard">
          <enablement>
          <or>
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
@@ -686,6 +692,9 @@
             wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizard">
          <enablement>
          <or> 
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
@@ -705,6 +714,9 @@
             wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard">
          <enablement>
          <or> 
+               <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	           </objectClass>
                <and>
             	   <objectClass
                      name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
@@ -750,6 +762,15 @@
             wizardId="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard">
          <enablement>
          <or>
+             <objectClass
+	                  name="org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider">
+	        </objectClass>
+         	 <objectClass
+	                  name="org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMapImpl">
+	        </objectClass>
+            <objectClass
+	                  name="org.eclipse.core.resources.IWorkspaceRoot">
+	        </objectClass>
             <and>
                <objectClass
                      name="org.eclipse.core.resources.IProject">
