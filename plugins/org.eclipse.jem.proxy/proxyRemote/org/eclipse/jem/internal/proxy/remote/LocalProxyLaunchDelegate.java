@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.14 $ $Date: 2004/08/27 15:35:20 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.15 $ $Date: 2004/11/01 21:43:18 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -137,6 +137,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		// Add in the required ones by the Proxy support. These are hard-coded since they are
 		// required.
 		ProxyRemoteUtil.updateClassPaths(controller);
+		addInFragmentLibraries(controller);
 
 		classpath = controller.getFinalClasspath();
 		if (bootpathInfo[0] != controller.getFinalPrependBootpath()) {
@@ -338,6 +339,19 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		pm.done();
 	}
 
+	/**
+	 * @param controller
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.2
+	 */
+	private void addInFragmentLibraries(IConfigurationContributionController controller) throws CoreException {
+		IPDEContributeClasspath instance = IPDEContributeClasspath.INSTANCE;
+		if (instance != null) {
+			instance.getPDEContributions(controller);
+		}
+	}
+
 	// Utilities to find the free port
 	private static final Random fgRandom = new Random(System.currentTimeMillis());
 
@@ -375,5 +389,6 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 	    }
 	    return ext;
 	}
+	
 
 }

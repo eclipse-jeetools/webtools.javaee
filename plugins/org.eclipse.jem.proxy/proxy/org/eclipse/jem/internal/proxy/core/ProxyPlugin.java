@@ -11,13 +11,11 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.35 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.36 $  $Date: 2004/11/01 21:43:18 $ 
  */
 
 
 import java.io.*;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
@@ -29,9 +27,6 @@ import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.osgi.util.ManifestElement;
-import org.eclipse.pde.core.plugin.*;
-import org.eclipse.pde.internal.core.PDECore;
-import org.eclipse.pde.internal.core.WorkspaceModelManager;
 import org.osgi.framework.*;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -959,40 +954,81 @@ public class ProxyPlugin extends Plugin {
 			}
 		}		
 		
-		processPlugin(project, pluginIds, visible, first);	// expand the plugins for this project, if any.
+		findPlugins(pluginIds, visible, first, project);
 	}
 	
-	private void processPlugin(IJavaProject project, Map pluginIds, boolean visible, boolean first) {
-		WorkspaceModelManager wm = (WorkspaceModelManager)PDECore.getDefault().getWorkspaceModelManager();
-		IPluginModelBase m = wm.getWorkspacePluginModel(project.getProject());
-		if (m instanceof IPluginModel) {
-			// it is a plugin, process it.
-			IPlugin plugin = ((IPluginModel) m).getPlugin();			
-			if (pluginIds.containsKey(plugin.getId()))
-				return;	// already processed it
-			pluginIds.put(plugin.getId(), first || visible ? Boolean.TRUE : Boolean.FALSE);			
-			expandPlugin(plugin, pluginIds, visible, first);
-		}
-		return;
+	/**
+	 * Find the plugins that the given project references, either directly or indirectly.
+	 * <p>
+	 * The map will be of plugin ids to a Boolean. If the boolean is <code>BooleanTRUE</code>,
+	 * then the plugin is visible to the given project. the visible and first flags
+	 * will modify this. If first is true, then all direct plugins will be visible,
+	 * else only exported plugins will be visible. If visible is false and first is false, then it doesn't matter, all of the
+	 * plugins will not be visible. 
+	 * <p>
+	 * Visible means that classes in the plugin can be referenced directly from code. Not visible
+	 * means that they can only be referenced from some other plugin in the list. In other words,
+	 * visible ones can be directly referenced, but invisible ones can only be referenced from
+	 * plugins that can see it.
+	 * <p>
+	 * For most uses, first and visible should be true. Then it will treat the project as the toplevel
+	 * project and will return true for those that are visible to it, either directly or indirectly.
+	 * These flags were added for more special cases where may be calling on a project that is deeper
+	 * down in the classpath were visibilty has already been decided.
+	 * <p>
+	 * Note: PDE must be installed for this to return anything, otherwise it will leave
+	 * the map alone.
+	 * 
+	 * @param pluginIds map of pluginIds->Boolean(TRUE is visible)
+	 * @param visible <code>true</code> means this project is visible, so any plugins visible to it will be visible, else none will be visible.
+	 * @param first <code>true</code> if this is the top project of interest. This means that all plugins within the project are visible. Else only exported projects will be visible.
+	 * @param project project to start looking from
+	 * 
+	 * @since 1.0.2
+	 */
+	public void findPlugins(Map pluginIds, boolean visible, boolean first, IJavaProject project) {
+		IPDEProcessForPlugin pdeprocess = getPDEProcessForPlugin();
+		if (pdeprocess != null)
+			pdeprocess.findPlugins(project, pluginIds, visible, first);	// expand the plugins for this project, if any.
+	}
+
+	/*
+	 * Interface for processing Plugins. Used when PDE plugin is present in the installation. 
+	 * 
+	 * @since 1.0.2
+	 */
+	interface IPDEProcessForPlugin {
+
+		/*
+		 * Go through the project and find all of the plugins it references, either directly or through
+		 * the referenced plugins, and mark them as visible or not.
+		 */
+		public abstract void findPlugins(IJavaProject project, Map pluginIds, boolean visible, boolean first);
 	}
 	
-	private void expandPlugin(IPlugin plugin, Map pluginIds, boolean visible, boolean first) {
-		IPluginImport[] imports = plugin.getImports();
-		for (int i = 0; i < imports.length; i++) {
-			IPluginImport pi = imports[i];
-			Boolean piValue = (Boolean) pluginIds.get(pi.getId());
-			boolean importVisible = first || (visible && pi.isReexported());
-			if (piValue != null && (!importVisible || !piValue.booleanValue()))
-				continue;	// we already processed it, this time not visible, or this time visible and was previously visible.
-			// Now either first time, or it was there before, but now visible, but this time it is visible.
-			// We want it to become visible in that case. 
-			pluginIds.put(pi.getId(), importVisible ? Boolean.TRUE : Boolean.FALSE);			
-			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
-				pi.getVersion(),
-				pi.getMatch());
-			if (pb != null)
-				expandPlugin(pb, pluginIds, importVisible, false);
+	/*
+	 * Try to get the pde process for plugin. If already tried once and not found, then forget it.
+	 * <package-protected> because PDEContributeClasspath needs it too.
+	 */
+	private IPDEProcessForPlugin pdeProcessForPlugin;
+	private boolean triedPDEProcess;
+	IPDEProcessForPlugin getPDEProcessForPlugin() {
+		if (!triedPDEProcess) {
+			triedPDEProcess = true;
+			if (Platform.getBundle("org.eclipse.pde.core") != null) {
+				try {
+					Class classPDEProcess = Class.forName("org.eclipse.jem.internal.proxy.core.PDEProcessForPlugin");
+					pdeProcessForPlugin = (IPDEProcessForPlugin) classPDEProcess.newInstance();
+				} catch (ClassNotFoundException e) {
+					// Not found, do nothing.
+				} catch (InstantiationException e) {
+					getLogger().log(e, Level.WARNING);
+				} catch (IllegalAccessException e) {
+					getLogger().log(e, Level.WARNING);
+				}
+			}
 		}
+		return pdeProcessForPlugin;
 	}
 	
 	/**
