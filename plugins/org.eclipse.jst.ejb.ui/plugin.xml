@@ -196,19 +196,10 @@
             type="new"
             wizardId="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
          <enablement>
-         <or>
+           <or>
                <objectClass
 	                  name="org.eclipse.core.resources.IWorkspaceRoot">
 	           </objectClass>
-               <and>
-            	   <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-               	   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
-                  </objectState>
-                </and>
                 <and>
                    <objectClass
 	                     name="org.eclipse.core.resources.IProject">
@@ -216,7 +207,7 @@
 	               <or>
 	                  <objectState
 	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.EARNature">
+	                        value="org.eclipse.jdt.core.javanature">
 	                  </objectState>
 	               </or> 
                 </and> 
