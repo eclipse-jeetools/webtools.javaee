@@ -71,8 +71,10 @@ public class EJBProjectMigratorStrategy implements IMigratorStrategy {
 					IResource packageResource;
 					try {
 						packageResource = (roots[i].getKind() == IPackageFragmentRoot.K_SOURCE) ? roots[i].getCorrespondingResource() : null;
-						if (packageResource != null && packageResource.getType() == IResource.FOLDER)
-							sourceFolders.add(packageResource);
+						if (packageResource != null && packageResource.getType() == IResource.FOLDER) {
+							if (project == packageResource.getProject())
+								sourceFolders.add(packageResource);
+						}
 					} catch (JavaModelException e) {
 						e.printStackTrace();
 					}
@@ -90,9 +92,9 @@ public class EJBProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public IPath getRuntimeType(IResource resource, int type) {
-		if (resource.getName().equals(JAVA_SOURCE))
-			return (new Path(JAVA_SOURCE_DEPLOY_PATH_NAME));
-		return new Path("/");
+		//if (resource.getName().equals(JAVA_SOURCE))
+		 return (new Path(JAVA_SOURCE_DEPLOY_PATH_NAME));
+		//return new Path("/");
 	}
 
 
@@ -135,11 +137,12 @@ public class EJBProjectMigratorStrategy implements IMigratorStrategy {
 							UtilityJARMapping jarMapping = (UtilityJARMapping) aIterator.next();
 							if (jarMapping.getUri().toLowerCase().equals(eJBClientName.toLowerCase())) {
 								clientJarProject = getProjectFromWorkspace(jarMapping.getProjectName());
-								utilityProjects.add(clientJarProject);
+								if (utilityProjects != null && !utilityProjects.contains(clientJarProject))
+									utilityProjects.add(clientJarProject);
 								continue;
 							}
 							IProject project = getProjectFromWorkspace(jarMapping.getProjectName());
-							if (project != null)
+							if (project != null && utilityProjects != null && (!utilityProjects.contains(clientJarProject)))
 								utilityProjects.add(project);
 						}
 
@@ -194,10 +197,15 @@ public class EJBProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public String getComponentTypeName(String componentName) {
+		if (isUtilityProject())
+			return IModuleConstants.JST_UTILITY_MODULE;
 		return IModuleConstants.JST_EJB_MODULE;
 	}
 
 	public String getComponetTypeVersion(String componentName) {
+		if (isUtilityProject())
+			return null;
+
 		return J2EEVersionUtil.getJ2EETextVersion(getJ2EEVersion());
 	}
 
@@ -258,7 +266,7 @@ public class EJBProjectMigratorStrategy implements IMigratorStrategy {
 
 
 	public boolean hasReferencedComponent(String componentName) {
-		boolean hasClientJar= hasEJBClientJar();
+		boolean hasClientJar = hasEJBClientJar();
 		boolean isClientJarProject = (project != getClientJarProject());
 		String clientJarName = getClientProjectName();
 		List list = Arrays.asList(getUtilityProjectNames());
@@ -288,5 +296,9 @@ public class EJBProjectMigratorStrategy implements IMigratorStrategy {
 			return new IProject[]{getClientJarProject()};
 		else
 			return null;
+	}
+
+	private boolean isUtilityProject() {
+		return utilityProjects.contains(project);
 	}
 }
