@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.proxy.remote;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,8 +10,9 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/10 17:52:10 $ 
  */
+package org.eclipse.jem.internal.proxy.remote;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -24,18 +24,23 @@ import org.eclipse.jem.internal.proxy.common.remote.TransmitableArray;
 
 /**
  * This implementation of IBeanTypeProxy is for where the Bean is on a different VM then the IDE
- *
+ * 
  * Creation date: (12/3/99 12:29:26 PM)
+ * 
  * @author: Joe Winchester
  */
 public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
+
 	private Integer fID;
+
 	protected final REMProxyFactoryRegistry fRegistry;
+
 	protected final String fClassname; // This is cached here so that we don't need to go over the line to get it.
+
 	private IBeanTypeProxy fSuperType; // This is cached so as not to have to go over the line for it.
+
 	/**
-	 * Create with a registry and a class. It is protected so that only subclasses
-	 * and the factory with this REM package can call it.
+	 * Create with a registry and a class. It is protected so that only subclasses and the factory with this REM package can call it.
 	 */
 	protected REMAbstractBeanTypeProxy(REMProxyFactoryRegistry aRegistry, Integer anID, String aClassname, IBeanTypeProxy aSuperType) {
 		fRegistry = aRegistry;
@@ -45,49 +50,58 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	}
 
 	/**
-	 * equals: Equal if:
-	 *         1) This proxy == (identity) to the other object
-	 *	This is all that is needed for BeanTypes because we know these are classes, there is only one per class,
-	 *  and Class equals is true only for identity.
+	 * equals: Equal if: 1) This proxy == (identity) to the other object This is all that is needed for BeanTypes because we know these are classes,
+	 * there is only one per class, and Class equals is true only for identity.
 	 */
 	public boolean equals(Object anObject) {
 		return super.equals(anObject);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#sameAs(org.eclipse.jem.internal.proxy.core.IBeanProxy)
 	 */
 	public boolean sameAs(IBeanProxy aBeanProxy) {
-		return this == aBeanProxy;	// We can be assured in Remote Proxy that identity of proxy and identity of object are the same.
-	}	
+		return this == aBeanProxy; // We can be assured in Remote Proxy that identity of proxy and identity of object are the same.
+	}
 
-	/**
-	 * Return the ID of this proxy
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanProxy#getID()
 	 */
 	public Integer getID() {
 		return fID;
 	}
 
-	/**
-	 * isValid - has beantype been released
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#isValid()
 	 */
 	public boolean isValid() {
 		return fID != null;
 	}
 
-	/**
-	 * release - BeanType is about to be released.
-	 * Clear the id and supertype (supertype is cleared so that
-	 * it won't hold onto it and will let the supertype be GC'd
-	 * if necessary.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanProxy#release()
 	 */
 	public void release() {
+		// Clear the id and supertype (supertype is cleared so that
+		// it won't hold onto it and will let the supertype be GC'd
+		// if necessary.
+
 		fID = null;
 		fSuperType = null;
 	}
 
-	/**
-	 * Return a proxy to the constructor for the target VM 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(java.lang.String[])
 	 */
 	public IConstructorProxy getConstructorProxy(String[] argumentClassNames) {
 		if (isInterface())
@@ -108,8 +122,10 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 		return getConstructorProxy(argTypes);
 	}
 
-	/**
-	 * Return a proxy to the constructor for the target VM with specified argument types
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
 	public IConstructorProxy getConstructorProxy(IBeanTypeProxy[] argumentTypes) {
 		if (isInterface())
@@ -118,9 +134,11 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 		IREMMethodProxy getCtorMethod = (IREMMethodProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassConstructor();
 
 		// Create the argument array
-		Object[] getParms = (argumentTypes != null) ? new Object[] { new TransmitableArray(Commands.CLASS_CLASS, argumentTypes)}
-		: // Get Ctor has only one parm, the array of parm types.
-		null;
+		Object[] getParms = (argumentTypes != null) ? new Object[] { new TransmitableArray(Commands.CLASS_CLASS, argumentTypes)} : // Get Ctor has
+																																   // only one parm,
+																																   // the array of
+																																   // parm types.
+				null;
 
 		try {
 			return (IConstructorProxy) getCtorMethod.invokeWithParms(this, getParms);
@@ -129,110 +147,176 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 			return null;
 		}
 	}
-	/**
-	 * Construct an REMFieldProxy and return it
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getDeclaredFieldProxy(java.lang.String)
 	 */
 	public IFieldProxy getDeclaredFieldProxy(String fieldName) {
-		return (IFieldProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetDeclaredField().invokeCatchThrowableExceptions(
-			this,
-			fRegistry.getBeanProxyFactory().createBeanProxyWith(fieldName));
-	}	
-	/**
-	 * Construct an REMFieldProxy and return it
+		return (IFieldProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetDeclaredField().invokeCatchThrowableExceptions(this,
+				fRegistry.getBeanProxyFactory().createBeanProxyWith(fieldName));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getFieldProxy(java.lang.String)
 	 */
 	public IFieldProxy getFieldProxy(String fieldName) {
-		return (IFieldProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetField().invokeCatchThrowableExceptions(
-			this,
-			fRegistry.getBeanProxyFactory().createBeanProxyWith(fieldName));
+		return (IFieldProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetField().invokeCatchThrowableExceptions(this,
+				fRegistry.getBeanProxyFactory().createBeanProxyWith(fieldName));
 	}
-	/**
-	 * Return the method proxy for this method with no parms.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String)
 	 */
 	public IMethodProxy getMethodProxy(String methodName) {
 		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getMethodProxy(this, methodName, (IBeanTypeProxy[]) null);
 	}
-	/**
-	 * Return the method proxy for this method with these arguments.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, java.lang.String[])
 	 */
 	public IMethodProxy getMethodProxy(String methodName, String[] argumentClassNames) {
 		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getMethodProxy(this, methodName, argumentClassNames);
 	}
-	/**
-	 * Defer to the method that accepts an array of arguments.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, java.lang.String)
 	 */
 	public IMethodProxy getMethodProxy(String methodName, String argumentQualifiedTypeName) {
-		return getMethodProxy(methodName, new String[] { argumentQualifiedTypeName });
+		return getMethodProxy(methodName, new String[] { argumentQualifiedTypeName});
 	}
 
-	/**
-	 * Return the method proxy for this method with these argument types.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
 	public IMethodProxy getMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes) {
 		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getMethodProxy(this, methodName, argumentTypes);
 	}
-	/**
-	 * Return a proxy to the null constructor for the target VM being the same as the REM
-	 * We can use the package protected contstructor on REMConstructorProxy
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String)
+	 */
+	public IInvokable getInvokable(String methodName) {
+		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getInvokable(this, methodName, (IREMBeanTypeProxy[]) null);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, java.lang.String[])
+	 */
+	public IInvokable getInvokable(String methodName, String[] argumentClassNames) {
+		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getInvokable(this, methodName, argumentClassNames);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, java.lang.String)
+	 */
+	public IInvokable getInvokable(String methodName, String argumentQualifiedTypeName) {
+		return getInvokable(methodName, new String[] { argumentQualifiedTypeName});
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IInvokable getInvokable(String methodName, IBeanTypeProxy[] argumentTypes) {
+		return ((REMMethodProxyFactory) fRegistry.getMethodProxyFactory()).getInvokable(this, methodName, argumentTypes);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getNullConstructorProxy()
 	 */
 	public IConstructorProxy getNullConstructorProxy() {
 		return getConstructorProxy((IBeanTypeProxy[]) null);
 	}
-	/**
-	 * getProxyFactoryRegistry method comment.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#getProxyFactoryRegistry()
 	 */
 	public ProxyFactoryRegistry getProxyFactoryRegistry() {
 		return fRegistry;
 	}
-	/**
-	 * Return the supertype for us
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getSuperBeanTypeProxy()
 	 */
 	public IBeanTypeProxy getSuperBeanTypeProxy() {
 		return fSuperType;
 	}
-	/**
-	 * Return the name of the type
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getTypeName()
 	 */
 	public String getTypeName() {
 		return fClassname;
 	}
-	/**
-	 * We are not an array type.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isArray()
 	 */
 	public boolean isArray() {
 		return false;
 	}
 
-	/**
-	 * Interfaces override this and return the correct value.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isInterface()
 	 */
 	public boolean isInterface() {
 		return false;
 	}
 
-	/**
-	 * Primitives override this and return the correct value.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isPrimitive()
 	 */
 	public boolean isPrimitive() {
 		return false;
 	}
-	/**
-	 * Answer as to whether we are a kind of the argument
-	 * This is the same as asking whether the argument isAssignable from us
-	 * See the comment on Class.isAssignableFrom() for more details on this method.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isKindOf(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy)
 	 */
 	public boolean isKindOf(IBeanTypeProxy aBeanProxyType) {
-		return (
-			(IBooleanBeanProxy) REMStandardBeanProxyConstants
-				.getConstants(fRegistry)
-				.getClassIsAssignableFrom()
-				.invokeCatchThrowableExceptions(
-				aBeanProxyType,
-				this))
-			.booleanValue();
+		return ((IBooleanBeanProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassIsAssignableFrom().invokeCatchThrowableExceptions(
+				aBeanProxyType, this)).booleanValue();
 	}
 
-	/**
-	 * newInstance method comment.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#newInstance(java.lang.String)
 	 */
 	public IBeanProxy newInstance(String initializationString) throws ThrowableProxy, ClassCastException, InstantiationException {
 		try {
@@ -243,51 +327,67 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 		}
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
 		return super.toString() + "(" + getTypeName() + ")"; //$NON-NLS-2$//$NON-NLS-1$
 	}
 
-	/**
-	 * Get Type Proxy. The type proxy of a BeanType is Class.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#getTypeProxy()
 	 */
 	public IBeanTypeProxy getTypeProxy() {
 		return ((REMStandardBeanTypeProxyFactory) fRegistry.getBeanTypeProxyFactory()).classClass;
 	}
 
-	/**
-	 * toBeanString
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#toBeanString()
 	 */
 	public String toBeanString() {
 		return getTypeName();
 	}
-	/**
-	 * newInstance method. Let the factory create a new instance on the remote using the default ctor.
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#newInstance()
 	 */
 	public IBeanProxy newInstance() throws ThrowableProxy {
 		return ((REMStandardBeanProxyFactory) fRegistry.getBeanProxyFactory()).createBeanProxy(this);
 	}
 
-	/**
-	 * Render the bean into value object.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanProxy#renderBean(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
 	 */
 	public void renderBean(Commands.ValueObject value) {
 		value.setObjectID(getID().intValue());
 	}
 
-	/**
-	 * @see IBeanTypeProxy#getFormalTypeName()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getFormalTypeName()
 	 */
 	public String getFormalTypeName() {
 		return getTypeName();
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInitializationError()
 	 */
 	public String getInitializationError() {
-		return null;	// By default none have an initialization error. There is a special instance for init errors.
+		return null; // By default none have an initialization error. There is a special instance for init errors.
 	}
 
 }

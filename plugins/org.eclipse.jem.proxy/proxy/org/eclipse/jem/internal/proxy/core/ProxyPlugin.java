@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.31 $  $Date: 2004/08/06 14:29:06 $ 
+ *  $Revision: 1.32 $  $Date: 2004/08/10 17:52:10 $ 
  */
 
 
@@ -629,13 +629,13 @@ public class ProxyPlugin extends Plugin {
 						IProject p = ((IJavaProject) children[j]).getProject();
 						if (projectNames.contains(p.getName())) {
 							// This project has a launch config. If it has a setting, then do nothing, else need to put on not set. 
-							if (p.getPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION) == null)
+							if (p.getPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION) == null)
 								p.getProject().setPersistentProperty(
-									ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION,
+									ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION,
 									ProxyLaunchSupport.NOT_SET);
 						} else {
 							// This project has no launch configs. Remove any setting if it exists.
-							p.setPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION, (String) null);
+							p.setPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION, (String) null);
 						}
 					}
 				}
@@ -706,6 +706,11 @@ public class ProxyPlugin extends Plugin {
 	 * Map of plugin id's to their ordered array of contribution config elements.
 	 */
 	protected Map pluginToContributions = null;
+
+	/**
+	 * These are public only so that jem.ui can access this constant. Not meant to be accessed by others.
+	 */
+	public static final QualifiedName PROPERTY_LAUNCH_CONFIGURATION = new QualifiedName("org.eclipse.jem.proxy", "proxyLaunchConfiguration"); //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**
 	 * Return the plugin ordered array of configuration elements for the given container, or <code>null</code> if not contributed.

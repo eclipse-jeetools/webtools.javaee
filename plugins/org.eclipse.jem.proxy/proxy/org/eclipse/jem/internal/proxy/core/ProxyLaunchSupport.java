@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.11 $  $Date: 2004/06/04 23:26:02 $ 
+ *  $Revision: 1.12 $  $Date: 2004/08/10 17:52:10 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -35,10 +35,11 @@ import org.osgi.framework.Bundle;
  */
 public class ProxyLaunchSupport {
 	
-	/**
-	 * These are public only so that jem.ui can access this constant. Not meant to be accessed by others.
-	 */
-	public static final QualifiedName PROPERTY_LAUNCH_CONFIGURATION = new QualifiedName("org.eclipse.jem.proxy", "proxyLaunchConfiguration"); //$NON-NLS-1$ //$NON-NLS-2$
+	// The key for the persisten property is in ProxyPlugin so that it can set it on startup without
+	// causing this class to be initialized. We don't want this class initialized until the very last
+	// moment when needed. This is because it needs UI to be active when initialized to query some 
+	// values and if ProxyPlugin.start() causes this class to initialize, it may be too soon.
+	//
 	// If a project's persistent property is set with this value, that means there is at least one
 	// launch configuration with this project, but none are selected as the default. This is here
 	// so that we can check in the object contribution that if not set then don't show the menu
@@ -266,7 +267,7 @@ public class ProxyLaunchSupport {
 		}
 
 		// First if specific set.
-		String launchName = project.getPersistentProperty(PROPERTY_LAUNCH_CONFIGURATION);
+		String launchName = project.getPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION);
 		ILaunchConfiguration config = null;		
 		if (launchName != null && !NOT_SET.equals(launchName)) {
 			ILaunchConfiguration[] configs = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurations();
@@ -277,7 +278,7 @@ public class ProxyLaunchSupport {
 				}
 			}
 			if (config == null || !config.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "").equals(project.getName())) { //$NON-NLS-1$
-				project.setPersistentProperty(PROPERTY_LAUNCH_CONFIGURATION, (String) null);	// Config not found, or for a different project, so no longer the default.
+				project.setPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION, (String) null);	// Config not found, or for a different project, so no longer the default.
 				config = null;
 			}
 		}
@@ -555,22 +556,25 @@ public class ProxyLaunchSupport {
 	static {
 		ATTR_PRIVATE = null;
 		try {
-			// So that we can run headless (w/o ui), need to do class forName for debugui contants
-			Bundle debuguiBundle = Platform.getBundle("org.eclipse.debug.ui"); //$NON-NLS-1$
-			if (debuguiBundle != null) {
-				Class debugUIConstants = debuguiBundle.loadClass("org.eclipse.debug.ui.IDebugUIConstants"); //$NON-NLS-1$
-				ATTR_PRIVATE = (String) debugUIConstants.getField("ATTR_PRIVATE").get(null); //$NON-NLS-1$
-			}
-			
+			// See if we have a UI bundle and it is active. If it exists but is not active,
+			// then we won't do anything. If we were running a UI application, it should already
+			// of been active before we got here.
 			Bundle uiBundle = Platform.getBundle("org.eclipse.ui");	//$NON-NLS-1$
-			if (uiBundle != null) {
+			if (uiBundle != null && uiBundle.getState() == Bundle.ACTIVE) {
 				try {
 					// We have a UI bundle, so we can load our UIRunner class and it will load fine.
 					UI_RUNNER = (IUIRunner) Class.forName("org.eclipse.jem.internal.proxy.core.UIRunner").newInstance(); //$NON-NLS-1$
 				} catch (InstantiationException e1) {
 					ProxyPlugin.getPlugin().getLogger().log(e1, Level.WARNING);
 				}
-			}
+				
+				// So that we can run headless (w/o ui), need to do class forName for debugui contants
+				Bundle debuguiBundle = Platform.getBundle("org.eclipse.debug.ui"); //$NON-NLS-1$
+				if (debuguiBundle != null && debuguiBundle.getState() == Bundle.ACTIVE) {
+					Class debugUIConstants = debuguiBundle.loadClass("org.eclipse.debug.ui.IDebugUIConstants"); //$NON-NLS-1$
+					ATTR_PRIVATE = (String) debugUIConstants.getField("ATTR_PRIVATE").get(null); //$NON-NLS-1$
+				}
+			}			
 		} catch (SecurityException e) {
 		} catch (ClassNotFoundException e) {
 		} catch (NoSuchFieldException e) {

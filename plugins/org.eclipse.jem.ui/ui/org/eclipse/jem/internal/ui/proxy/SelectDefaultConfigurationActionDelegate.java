@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: SelectDefaultConfigurationActionDelegate.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/02 19:59:58 $ 
+ *  $Revision: 1.4 $  $Date: 2004/08/10 17:52:20 $ 
  */
 package org.eclipse.jem.internal.ui.proxy;
 
@@ -119,7 +119,7 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 		try {
 			setEnabled(
 				javaproject != null
-					&& javaproject.getProject().getPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION) != null);
+					&& javaproject.getProject().getPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION) != null);
 		} catch (Exception e) {
 			setEnabled(false);	// Some error, so not enabled.
 		}
@@ -205,7 +205,7 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 			configs = (ILaunchConfiguration[]) configsList.toArray(new ILaunchConfiguration[configsList.size()]);
 			dialog.setInput(configs);
 
-			String launchName = javaproject.getProject().getPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION);
+			String launchName = javaproject.getProject().getPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION);
 			ILaunchConfiguration config = null;
 			if (launchName != null) {
 				for (int i = 0; i < configs.length; i++) {
@@ -221,9 +221,9 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 			if (dialog.open() == Window.OK) {
 				config = (ILaunchConfiguration) dialog.getFirstResult();
 				if (config != null)
-					javaproject.getProject().setPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION, config.getName());
+					javaproject.getProject().setPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION, config.getName());
 				else
-					javaproject.getProject().setPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION, ProxyLaunchSupport.NOT_SET);
+					javaproject.getProject().setPersistentProperty(ProxyPlugin.PROPERTY_LAUNCH_CONFIGURATION, ProxyLaunchSupport.NOT_SET);
 			} 
 			
 		} catch (CoreException e) {

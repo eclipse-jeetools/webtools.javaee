@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: IREMConnection.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/08/10 17:52:10 $ 
  */
 
 
@@ -69,7 +69,13 @@ public interface IREMConnection {
 	 * The parms valueObject must represent an Object[] (either through ARRAY_IDS or OBJECT)
 	 */	
 	public void invokeMethod(int methodID, Commands.ValueObject invokeOn, Commands.ValueObject parms, Commands.ValueObject returnValue) throws CommandException;
-		
+
+	/**
+	 * Invoke the method call with method passed.
+	 * The parms valueObject must represent an Object[] (either through ARRAY_IDS or OBJECT)
+	 */	
+	public void invokeMethod(Commands.ValueObject classType, String methodName, Commands.ValueObject parmTypes, Commands.ValueObject invokeOn, Commands.ValueObject parms, Commands.ValueObject returnValue) throws CommandException;
+
 	/**
 	 * Release the id. It is no longer needed on the client.
 	 */

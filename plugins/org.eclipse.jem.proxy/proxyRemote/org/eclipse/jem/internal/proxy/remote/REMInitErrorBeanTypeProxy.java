@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.proxy.remote;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,24 +10,26 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2004/04/20 09:01:20 $ 
- */
- 
+ *  $Revision: 1.4 $  $Date: 2004/08/10 17:52:10 $ 
+ */package org.eclipse.jem.internal.proxy.remote;
+
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 
 /**
- * A special bean type proxy. It is for those bean types that had an
- * instantiation error while being initialized. It is so we have
- * the message. All other actions against it will fail.
+ * A special bean type proxy. It is for those bean types that had an instantiation error while being initialized. It is so we have the message. All
+ * other actions against it will fail.
+ * 
  * @author richkulp
  */
 public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 
 	protected final String initializationError;
+
 	protected final REMProxyFactoryRegistry registry;
+
 	protected final String classname;
-	
+
 	/**
 	 * Constructor for REMInitErrorBeanTypeProxy.
 	 */
@@ -39,203 +40,298 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 		this.classname = classname;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanTypeProxy#newBeanProxy(Integer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanTypeProxy#newBeanProxy(java.lang.Integer)
 	 */
 	public IREMBeanProxy newBeanProxy(Integer anID) {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanTypeProxy#newBeanTypeForClass(Integer, String, boolean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanTypeProxy#newBeanTypeForClass(java.lang.Integer, java.lang.String, boolean)
 	 */
 	public IREMBeanTypeProxy newBeanTypeForClass(Integer anID, String aClassname, boolean anAbstract) {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(String[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(java.lang.String[])
 	 */
 	public IConstructorProxy getConstructorProxy(String[] argumentClassNames) {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(IBeanTypeProxy[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getConstructorProxy(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
 	public IConstructorProxy getConstructorProxy(IBeanTypeProxy[] argumentTypes) {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getFieldProxy(String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getFieldProxy(java.lang.String)
 	 */
 	public IFieldProxy getFieldProxy(String fieldName) {
 		return null;
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getDeclaredFieldProxy(java.lang.String)
+	 */
 	public IFieldProxy getDeclaredFieldProxy(String fieldName) {
 		return null;
 	}
-	
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String)
 	 */
 	public IMethodProxy getMethodProxy(String methodName) {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(String, String[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, java.lang.String[])
 	 */
 	public IMethodProxy getMethodProxy(String methodName, String[] argumentClassNames) {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(String, String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, java.lang.String)
 	 */
 	public IMethodProxy getMethodProxy(String methodName, String argumentClassName) {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(String, IBeanTypeProxy[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getMethodProxy(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
 	 */
 	public IMethodProxy getMethodProxy(String methodName, IBeanTypeProxy[] argumentTypes) {
 		return null;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getNullConstructorProxy()
 	 */
 	public IConstructorProxy getNullConstructorProxy() {
 		return null;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#getProxyFactoryRegistry()
 	 */
 	public ProxyFactoryRegistry getProxyFactoryRegistry() {
 		return registry;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getSuperBeanTypeProxy()
 	 */
 	public IBeanTypeProxy getSuperBeanTypeProxy() {
 		return null;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getTypeName()
 	 */
 	public String getTypeName() {
 		return classname;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getFormalTypeName()
 	 */
 	public String getFormalTypeName() {
 		return getTypeName();
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isArray()
 	 */
 	public boolean isArray() {
 		return false;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isInterface()
 	 */
 	public boolean isInterface() {
 		return false;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isPrimitive()
 	 */
 	public boolean isPrimitive() {
 		return false;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isKindOf(IBeanTypeProxy)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#isKindOf(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy)
 	 */
 	public boolean isKindOf(IBeanTypeProxy aBeanProxyType) {
 		return false;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#newInstance()
 	 */
 	public IBeanProxy newInstance() throws ThrowableProxy {
 		return null;
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#newInstance(String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#newInstance(java.lang.String)
 	 */
 	public IBeanProxy newInstance(String initializationString) throws ThrowableProxy, ClassCastException, InstantiationException {
 		return null;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInitializationError()
 	 */
 	public String getInitializationError() {
 		return initializationError;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanProxy#getID()
 	 */
 	public Integer getID() {
 		return null;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanProxy#release()
 	 */
 	public void release() {
 	}
 
-	/**
-	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanProxy#renderBean(ValueObject)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMBeanProxy#renderBean(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
 	 */
 	public void renderBean(Commands.ValueObject renderInto) {
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#getTypeProxy()
 	 */
 	public IBeanTypeProxy getTypeProxy() {
 		return null;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#toBeanString()
 	 */
 	public String toBeanString() {
 		return ""; //$NON-NLS-1$
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#isValid()
 	 */
 	public boolean isValid() {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#sameAs(org.eclipse.jem.internal.proxy.core.IBeanProxy)
 	 */
 	public boolean sameAs(IBeanProxy aBeanProxy) {
-		return this == aBeanProxy;	// This is place holder anyway. So only identical if same proxy.
+		return this == aBeanProxy; // This is place holder anyway. So only identical if same proxy.
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+	 */
+	public IInvokable getInvokable(String methodName, IBeanTypeProxy[] argumentTypes) {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, java.lang.String)
+	 */
+	public IInvokable getInvokable(String methodName, String argumentClassName) {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String, java.lang.String[])
+	 */
+	public IInvokable getInvokable(String methodName, String[] argumentClassNames) {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanTypeProxy#getInvokable(java.lang.String)
+	 */
+	public IInvokable getInvokable(String methodName) {
+		return null;
+	}
 }

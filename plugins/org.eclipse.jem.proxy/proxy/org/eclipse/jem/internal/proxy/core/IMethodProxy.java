@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.proxy.core;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,82 +10,43 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IMethodProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/08/10 17:52:10 $ 
  */
-
+package org.eclipse.jem.internal.proxy.core;
 
 /**
- * Interface for Method Proxies
- * Creation date: (12/3/99 11:36:29 AM)
+ * Interface for Method Proxies Creation date: (12/3/99 11:36:29 AM)
+ * 
  * @author: Joe Winchester
  */
-public interface IMethodProxy extends IAccessibleObjectProxy {
-/**
- * Answer the class the method is defined in.
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanTypeProxy getClassType();
-/**
- * Answer the name of the method
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-String getName();
-/**
- * Answer the parameter types of the method
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanTypeProxy[] getParameterTypes();
-/**
- * Answer the return type of the method
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanTypeProxy getReturnType();
-/**
- * Invoke us on the subject
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanProxy invoke(IBeanProxy subject) throws ThrowableProxy;
-/**
- * Invoke us on the subject with the specified arguments
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanProxy invoke(IBeanProxy subject, IBeanProxy[] arguments) throws ThrowableProxy;
-/**
- * Invoke us on the subject with the specified argument
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanProxy invoke(IBeanProxy subject, IBeanProxy argument) throws ThrowableProxy;
+public interface IMethodProxy extends IAccessibleObjectProxy, IInvokable {
 
-/**
- * Invoke us on the subject, however catch all exceptions
- * Only to be used when you don't want ThrowableExceptions. This should
- * not be the normal way to invoke.
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanProxy invokeCatchThrowableExceptions(IBeanProxy subject);
-/**
- * Invoke us on the subject with the specified arguments, however catch all exceptions
- * Only to be used when you don't want ThrowableExceptions. This should
- * not be the normal way to invoke.
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanProxy invokeCatchThrowableExceptions(IBeanProxy subject, IBeanProxy[] arguments);
-/**
- * Invoke us on the subject with the specified argument, however catch all exceptions
- * Only to be used when you don't want ThrowableExceptions. This should
- * not be the normal way to invoke.
- * Creation date: (12/3/99 11:37:12 AM)
- * @author Joe Winchester
- */
-IBeanProxy invokeCatchThrowableExceptions(IBeanProxy subject, IBeanProxy argument);
+	/**
+	 * Answer the class the method is defined in. Creation date: (12/3/99 11:37:12 AM)
+	 * 
+	 * @author Joe Winchester
+	 */
+	IBeanTypeProxy getClassType();
+
+	/**
+	 * Answer the name of the method Creation date: (12/3/99 11:37:12 AM)
+	 * 
+	 * @author Joe Winchester
+	 */
+	String getName();
+
+	/**
+	 * Answer the parameter types of the method Creation date: (12/3/99 11:37:12 AM)
+	 * 
+	 * @author Joe Winchester
+	 */
+	IBeanTypeProxy[] getParameterTypes();
+
+	/**
+	 * Answer the return type of the method Creation date: (12/3/99 11:37:12 AM)
+	 * 
+	 * @author Joe Winchester
+	 */
+	IBeanTypeProxy getReturnType();
 
 }

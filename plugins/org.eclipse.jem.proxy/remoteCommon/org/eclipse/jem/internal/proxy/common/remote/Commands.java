@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/07 19:22:09 $ 
+ *  $Revision: 1.7 $  $Date: 2004/08/10 17:52:10 $ 
  */
 
 import java.io.*;
@@ -34,8 +34,8 @@ public class Commands {
 		RELEASE_OBJECT = 7,	// An object is no longer needed on the client side, so
 					// it can be removed from the server id table and released.
 		GET_CLASS_RETURN = 8,	// The return command from GET_CLASS
-		GET_METHOD = 9,	// Return the id for a method
-		GET_CTOR = 10,		// Return the id for a constructor		
+		// Obsolete, not used anymore GET_METHOD = 9,	// Return the id for a method
+		// Obsolete, not used anymore GET_CTOR = 10,		// Return the id for a constructor		
 		NEW_INIT_STRING = 11,	// Create a new bean using the init string
 		GET_CLASS_FROM_ID = 12,	// We have an ID, return the class info for this id.
 		GET_CLASS_ID_RETURN = 13,	// The return command from GET_CLASS_FROM_ID
@@ -55,7 +55,8 @@ public class Commands {
 
 		// These are more regular commands. They were historically added after the master server thread commands, so
 		// they are shown here after them and with numbers greater than them.
-		EXPRESSION_TREE_COMMAND = 19;	// An expression tree subcommand has come in.
+		EXPRESSION_TREE_COMMAND = 19,	// An expression tree subcommand has come in.
+		INVOKE_WITH_METHOD_PASSED = 20;	// Invoke where the description of the method is passed in with the command.
 	
 		
 	// Callback commands
@@ -257,7 +258,6 @@ public class Commands {
 	// INVOKE: 15b, n1, tb, value1, value2
 	//		Where "n1" is the id of the method to invoke.
 	//		tb, value1 is the value of who to invoke against (it is usually an OBJECT_ID for tb)
-	//		n2 is the number of parms
 	//      value2 is an ARRAY_IDS type or an OBJECT array of values if all constants.
 	//		What is returned is a VALUE command containing the return value, (the value will be null (VOID) if
 	//		there is no return type (i.e. the method was void). So null can be returned either if the value
@@ -269,6 +269,15 @@ public class Commands {
 	//		There can be more data following, but it is read by the 
 	//		ExpressionProcesserController, not by the connection. See the controller for the subcommands.
 	//		@see ExpressionProcessController
+	//
+	// INVOKE_WITH_METHOD_PASSED: 20b,  classId, "methodName", value0, tb, value1, value2
+	//		Where classID is the id of the class the method should be found in.
+	//		value0 is an ARRAY_IDS type for the type of the parms, or null type for no parms.  
+	//		tb, value1 is the value of who to invoke against (it is usually an OBJECT_ID for tb)
+	//      value2 is an ARRAY_IDS type or an OBJECT array of values if all constants.
+	//		What is returned is a VALUE command containing the return value, (the value will be null (VOID) if
+	//		there is no return type (i.e. the method was void). So null can be returned either if the value
+	//		was null or if the return type was void.
 	//
 	//
 	// Callback commands:
@@ -1210,6 +1219,25 @@ public class Commands {
 		try {
 			os.writeByte(INVOKE);
 			os.writeInt(methodID);
+			writeValue(os, invokeOn, false);
+			writeValue(os, parms, false);
+			os.flush();
+			readBackValue(is, valueReturn, NO_TYPE_CHECK);
+		} catch (CommandException e) {
+			// rethrow this exception since we want these to go on out.
+			throw e;
+		} catch (Exception e) {
+			// Wrapper this one.
+			throw new UnexpectedExceptionCommandException(false, e);
+		}		
+	}
+
+	public static void sendInvokeMethodCommand(DataOutputStream os, DataInputStream is, ValueObject classType, String methodName, ValueObject parmTypes, ValueObject invokeOn, ValueObject parms, ValueObject valueReturn) throws CommandException {
+		try {
+			os.writeByte(INVOKE_WITH_METHOD_PASSED);
+			writeValue(os, classType, false);
+			os.writeUTF(methodName);
+			writeValue(os, parmTypes, false);
 			writeValue(os, invokeOn, false);
 			writeValue(os, parms, false);
 			os.flush();

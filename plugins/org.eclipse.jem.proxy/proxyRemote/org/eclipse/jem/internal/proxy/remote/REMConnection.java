@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.6 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.7 $  $Date: 2004/08/10 17:52:10 $ 
  */
 
 
@@ -193,6 +193,17 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 		if (isConnected()) {
 			// It's simple, just pass onto Commands.
 			Commands.sendInvokeMethodCommand(out, in, methodID, invokeOn, parms, returnValue);
+		}			
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.remote.IREMConnection#invokeMethod(org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject, java.lang.String, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject, org.eclipse.jem.internal.proxy.common.remote.Commands.ValueObject)
+	 */
+	public void invokeMethod(ValueObject classType, String methodName, ValueObject parmTypes, ValueObject invokeOn, ValueObject parms,
+			ValueObject returnValue) throws CommandException {
+		if (isConnected()) {
+			// It's simple, just pass onto Commands.
+			Commands.sendInvokeMethodCommand(out, in, classType, methodName, parmTypes, invokeOn, parms, returnValue);
 		}			
 	}
 	

@@ -1,6 +1,5 @@
-package org.eclipse.jem.internal.proxy.remote;
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
+ * Copyright (c) 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,89 +9,44 @@ package org.eclipse.jem.internal.proxy.remote;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: REMMethodProxy.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/10 17:52:10 $ 
+ *  $RCSfile: REMInvokable.java,v $
+ *  $Revision: 1.1 $  $Date: 2004/08/10 17:52:10 $ 
  */
+package org.eclipse.jem.internal.proxy.remote;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jem.internal.proxy.core.*;
+
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
+import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.IInvokable;
+ 
+
 /**
- * Remote VM implementation of the MethodProxy
+ * Remote Invokable. This invokes on the remote vm, but it doesn't use a method proxy. Instead
+ * it sends the information to get the method to the remote vm along with the parms. That way
+ * it will do the lookup on the remote vm and we don't have the overhead of two calls, one to
+ * get the methodproxy and the other to actually do the invoke. This should typically be used
+ * only for infrequent calls so that cache of the method proxy is not needed.
+ * 
+ * @since 1.0.0
  */
+class REMInvokable implements IInvokable {
 
-final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMethodProxy {
-
-	private IBeanTypeProxy fDeclaringType;
-	private String fMethodName;
-	private IBeanTypeProxy[] fParameterTypes;
-	private IBeanTypeProxy fReturnType;
-
-	REMMethodProxy(REMProxyFactoryRegistry aRegistry, Integer anID) {
-		super(aRegistry, anID);
+	protected final IREMBeanTypeProxy beanType;	// Beantype to get method from.
+	protected final String methodName;	// Method name
+	protected final IBeanTypeProxy[] methodArgTypes;	// Argument types (or null if no arguments).
+	protected final REMProxyFactoryRegistry factory;	// Factory for this invokable
+	
+	
+	REMInvokable(IREMBeanTypeProxy beanType, String methodName, IBeanTypeProxy[] methodArgTypes) {
+		this.beanType = beanType;
+		this.methodName = methodName;
+		this.methodArgTypes = methodArgTypes;
+		this.factory = (REMProxyFactoryRegistry) beanType.getProxyFactoryRegistry();
 	}
-
-	public IBeanTypeProxy getClassType() {
-		if (fDeclaringType == null)
-			fDeclaringType =
-				(IBeanTypeProxy) REMStandardBeanProxyConstants
-					.getConstants(fFactory)
-					.getMethodDeclaringClassMessage()
-					.invokeCatchThrowableExceptions(
-					this);
-		return fDeclaringType;
-	}
-
-	public String getName() {
-		if (fMethodName == null) {
-			IStringBeanProxy proxy =
-				(IStringBeanProxy) REMStandardBeanProxyConstants
-					.getConstants(fFactory)
-					.getMethodMethodNameMessage()
-					.invokeCatchThrowableExceptions(
-					this);
-			if (proxy != null)
-				fMethodName = proxy.stringValue();
-			else
-				fMethodName = ""; //$NON-NLS-1$
-		}
-		return fMethodName;
-	}
-
-	public synchronized IBeanTypeProxy[] getParameterTypes() {
-		if (fParameterTypes == null) {
-			IArrayBeanProxy parmTypes = (IArrayBeanProxy) REMStandardBeanProxyConstants.getConstants(fFactory)
-					.getMethodParameterTypesMessage().invokeCatchThrowableExceptions(this);
-			if (parmTypes == null)
-				fParameterTypes = new IBeanTypeProxy[0]; // There was some error, only way null is returned
-			else {
-				int len = parmTypes.getLength();
-				fParameterTypes = new IBeanTypeProxy[len];
-				for (int i = 0; i < len; i++)
-					try {
-						fParameterTypes[i] = (IBeanTypeProxy) parmTypes.get(i);
-					} catch (ThrowableProxy e) {
-					}
-				fFactory.releaseProxy(parmTypes); // Don't need the array on the server anymore.
-			}
-		}
-
-		return fParameterTypes;
-	}
-
-	public IBeanTypeProxy getReturnType() {
-		if (fReturnType == null)
-			fReturnType =
-				(IBeanTypeProxy) REMStandardBeanProxyConstants
-					.getConstants(fFactory)
-					.getMethodReturnTypeMessage()
-					.invokeCatchThrowableExceptions(
-					this);
-		return fReturnType;
-	}
-
+	
 	public IBeanProxy invoke(IBeanProxy subject) throws ThrowableProxy {
 		return invoke(subject, (IBeanProxy[]) null);
 	}
@@ -111,14 +65,43 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 	 *       It should still work, but it could be asking for them in the middle of the request
 	 *       if they are not first gotton.
 	 *
-	 * NOTE: This is in IREMMethodProxy only so that other REM proxy implementations can access it.
 	 */
-
 	public IBeanProxy invokeWithParms(IBeanProxy subject, final Object[] parms) throws ThrowableProxy {
-		IREMConnection connect = fFactory.getFreeConnection();
-		REMStandardBeanProxyFactory proxyFactory = (REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory();
+		IREMConnection connect = factory.getFreeConnection();
+		REMStandardBeanProxyFactory proxyFactory = (REMStandardBeanProxyFactory) factory.getBeanProxyFactory();
 		proxyFactory.startTransaction(); // This is definately a transaction, so start it.
 		try {
+			// First need to send the method info.
+			Commands.ValueObject classValue = new Commands.ValueObject();
+			beanType.renderBean(classValue);
+			
+			Commands.ValueObject parmTypesValue = new Commands.ValueObject();
+			if (methodArgTypes != null) {
+				class Retriever implements Commands.ValueRetrieve {
+					int index = 0;
+					Object[] array;
+					Commands.ValueObject worker = new Commands.ValueObject();
+
+					public Retriever(Object[] anArray) {
+						array = anArray;
+					}
+
+					public Commands.ValueObject nextValue() {
+						if (index < array.length) {
+							Object parm = array[index++];
+							((IREMBeanTypeProxy) parm).renderBean(worker);
+							return worker;
+						} else
+							return null;
+					}
+				};
+
+				parmTypesValue.setArrayIDS(new Retriever(methodArgTypes), methodArgTypes.length, Commands.CLASS_CLASS); // Create Class[].
+			}
+			
+			
+			// Now we start building the actual invocation.
+			
 			Commands.ValueObject subjectValue = new Commands.ValueObject();
 			if (subject != null)
 				 ((IREMBeanProxy) subject).renderBean(subjectValue);
@@ -128,7 +111,7 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 			if (parms != null) {
 				// Have a local definition of the retriever so that the retriever can create
 				// another one of itself if necessary.
-				final IStandardBeanTypeProxyFactory typeFactory = fFactory.getBeanTypeProxyFactory();
+				final IStandardBeanTypeProxyFactory typeFactory = factory.getBeanTypeProxyFactory();
 
 				class Retriever implements Commands.ValueRetrieve {
 					int index = 0;
@@ -172,20 +155,20 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 
 			Commands.ValueObject returnValue = new Commands.ValueObject();
 			try {
-				invoke(connect, proxyFactory, subjectValue, parmsValue, returnValue);
+				invoke(connect, proxyFactory, classValue, parmTypesValue, subjectValue, parmsValue, returnValue);
 				return proxyFactory.getBeanProxy(returnValue);
 			} catch (CommandException e) {
 				if (!e.isRecoverable()) {
 					// Close the connection and try again.
-					fFactory.closeConnection(connect);
+					factory.closeConnection(connect);
 					connect = null;
-					connect = fFactory.getFreeConnection();
+					connect = factory.getFreeConnection();
 					try {
-						invoke(connect, proxyFactory, subjectValue, parmsValue, returnValue);
+						invoke(connect, proxyFactory, classValue, parmTypesValue, subjectValue, parmsValue, returnValue);
 						return proxyFactory.getBeanProxy(returnValue);
 					} catch (CommandException eAgain) {
 						// Failed again. Just close and print trace.
-						fFactory.closeConnection(connect);
+						factory.closeConnection(connect);
 						connect = null;
 						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", eAgain)); //$NON-NLS-1$
 						return null;
@@ -199,19 +182,21 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 		} finally {
 			proxyFactory.stopTransaction();
 			if (connect != null)
-				fFactory.returnConnection(connect);
+				factory.returnConnection(connect);
 		}
 	}
 
 private void invoke(
 		IREMConnection connect,
 		REMStandardBeanProxyFactory proxyFactory,
+		Commands.ValueObject classTypeValue,
+		Commands.ValueObject parmTypesValue,
 		Commands.ValueObject subjectValue,
 		Commands.ValueObject parmsValue,
 		Commands.ValueObject returnValue)
 		throws ThrowableProxy, CommandException {
 		try {
-			connect.invokeMethod(getID().intValue(), subjectValue, parmsValue, returnValue);
+			connect.invokeMethod(classTypeValue, methodName, parmTypesValue, subjectValue, parmsValue, returnValue);
 		} catch (CommandErrorException e) {
 			proxyFactory.processErrorReturn(e);
 		}
@@ -226,7 +211,7 @@ private void invoke(
 			return invoke(subject);
 		} catch (ThrowableProxy e) {
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
-			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
+			factory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}
 	}
@@ -236,7 +221,7 @@ private void invoke(
 			return invoke(subject, parms);
 		} catch (ThrowableProxy e) {
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
-			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
+			factory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}
 	}
@@ -246,26 +231,9 @@ private void invoke(
 			return invoke(subject, parm);
 		} catch (ThrowableProxy e) {
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
-			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
+			factory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}
 	}
 
-	/**
-	 * The type proxy is constant proxy out of the method factory.
-	 */
-	public IBeanTypeProxy getTypeProxy() {
-		return ((REMMethodProxyFactory) fFactory.getMethodProxyFactory()).methodType;
-	}
-
-	/**
-	 * The bean is being released, clear out the fields so they can be GC'd if necessary.
-	 * Usually only big objects and proxy fields need to be cleared.
-	 */
-	public void release() {
-		fDeclaringType = null;
-		fParameterTypes = null;
-		fReturnType = null;
-		super.release();
-	}
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.5 $  $Date: 2004/04/16 19:02:09 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/10 17:52:11 $ 
  */
 
 
@@ -350,6 +350,86 @@ public class ConnectionHandler {
 							newValue = null;
 							valueSender.clear();
 						}					
+						break;
+						
+					case Commands.INVOKE_WITH_METHOD_PASSED:
+						aClass = null;
+						String methodName = null;
+						Class[] parmTypes = null;
+						target = null;
+						parms = null;						
+						returnType = null;
+						aMethod = null;						
+						
+						try {
+							Commands.readValue(in, valueObject);
+							aClass = (Class) getInvokableObject(valueObject); // The class that has the method.
+							methodName = in.readUTF();
+							Commands.readValue(in, valueObject);
+							if (valueObject.type == Commands.ARRAY_IDS) {
+								// It is an array containing IDs, as it normally would be.
+								valueSender.initialize(valueObject);
+								Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+								parmTypes = (Class[]) valueSender.getArray();
+							} else {
+								// It null, so it should be an null. If not, then this is an error.
+								parmTypes = null;
+							}
+							aMethod = aClass.getMethod(methodName, parmTypes);
+
+							// Now we get the info for the invocation of the method and execute it.
+							Commands.readValue(in, valueObject);
+							target = getInvokableObject(valueObject);	
+							Commands.readValue(in, valueObject);
+							if (valueObject.type == Commands.ARRAY_IDS) {
+								// It is an array containing IDs, as it normally would be.
+								valueSender.initialize(valueObject);
+								Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+								parms = (Object[]) valueSender.getArray();
+							} else {
+								// It is all objects or null, so it should be an Object[] or null. If not, then this is an error.
+								parms = (Object[]) valueObject.anObject;
+							}
+							
+							if (!aMethod.isAccessible())
+								aMethod.setAccessible(true);	// We will allow all to occur. Let access control be handled by IDE and compiler.
+							newValue = aMethod.invoke(target, parms);
+							returnType = aMethod.getReturnType();
+							if (returnType.isPrimitive()) {
+								int returnTypeID = server.getIdentityID(returnType);
+								// Need to tell sendObject the correct primitive type.
+								sendObject(newValue, returnTypeID, valueObject, out, true);
+				
+							} else {
+								sendObject(newValue, NOT_A_PRIMITIVE, valueObject, out, true);	// Just send the object back. sendObject knows how to iterpret the type
+							}									
+						} catch (CommandException e) {
+							throw e;	// Throw it again. These we don't want to come up as an exception proxy. These should end the thread.
+						} catch (java.lang.reflect.InvocationTargetException e) {
+							// This is a wrappered exception. Return the wrappered one so it looks like
+							// it was the real one. (Sometimes the method being invoked is on a java.lang.reflect.Constructor.newInstance,
+							// which in turn is an InvocationTargetException, so we will go until we don't have an InvocationTargetException.
+							Throwable t = e;
+							do {
+								t = ((java.lang.reflect.InvocationTargetException) t).getTargetException();
+							} while (t instanceof java.lang.reflect.InvocationTargetException);
+							sendException(t, valueObject, out);
+
+						} catch (Throwable e) {
+								sendException(e, valueObject, out);	// Turn it into a exception proxy on the client.
+						} finally {
+							aClass = null;
+							methodName = null;
+							parmTypes = null;
+							// Clear out for GC to work
+							valueObject.set();
+							parms = null;
+							target = null;
+							aMethod = null;
+							returnType = null;
+							newValue = null;
+							valueSender.clear();							
+						}
 						break;
 						
 					case Commands.CALLBACK_DONE:
