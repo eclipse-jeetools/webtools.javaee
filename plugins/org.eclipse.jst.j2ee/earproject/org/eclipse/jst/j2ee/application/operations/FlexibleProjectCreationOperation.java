@@ -22,12 +22,11 @@ import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class FlexibleProjectCreationOperation extends WTPOperation {
 
-    public FlexibleProjectCreationOperation(flexibleProjectCreationDataModel operationDataModel) {
+    public FlexibleProjectCreationOperation(FlexibleProjectCreationDataModel operationDataModel) {
         super(operationDataModel);
         // TODO Auto-generated constructor stub
     }
@@ -40,13 +39,13 @@ public class FlexibleProjectCreationOperation extends WTPOperation {
     }
 
     private void addServerTarget(IProgressMonitor monitor)  throws CoreException, InvocationTargetException, InterruptedException{
-        J2EEProjectServerTargetDataModel serverModel = ((flexibleProjectCreationDataModel) operationDataModel).getServerTargetDataModel();
+        J2EEProjectServerTargetDataModel serverModel = ((FlexibleProjectCreationDataModel) operationDataModel).getServerTargetDataModel();
         J2EEProjectServerTargetOperation serverTargetOperation = (J2EEProjectServerTargetOperation)serverModel.getDefaultOperation();
         serverTargetOperation.doRun(monitor);
     }
 
     private void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        ProjectCreationDataModel projModel = ((flexibleProjectCreationDataModel) operationDataModel).getProjectDataModel();
+        ProjectCreationDataModel projModel = ((FlexibleProjectCreationDataModel) operationDataModel).getProjectDataModel();
         WTPOperation op = projModel.getDefaultOperation();
         op.doRun(monitor);
     }
@@ -66,7 +65,7 @@ public class FlexibleProjectCreationOperation extends WTPOperation {
     }
     
     protected IProject getProject() {
-        String name = (String) ((flexibleProjectCreationDataModel) operationDataModel).getStringProperty(flexibleProjectCreationDataModel.PROJECT_NAME);
+        String name = (String) ((FlexibleProjectCreationDataModel) operationDataModel).getStringProperty(FlexibleProjectCreationDataModel.PROJECT_NAME);
         if (name != null && name.length() > 0)
             return ResourcesPlugin.getWorkspace().getRoot().getProject(name);
         return null;
