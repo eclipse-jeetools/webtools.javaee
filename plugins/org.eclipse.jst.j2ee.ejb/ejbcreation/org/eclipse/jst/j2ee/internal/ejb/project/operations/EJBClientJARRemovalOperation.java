@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -66,9 +67,9 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 
 	protected boolean yesToAll = false;
 
-	public EJBClientJARRemovalOperation(EJBClientProjectDataModel dataModel, IOperationHandler opHandler) {
+	public EJBClientJARRemovalOperation(EJBClientComponentDataModel dataModel, IOperationHandler opHandler) {
 		super(dataModel, opHandler);
-		shouldDelete = dataModel.getBooleanProperty(EJBClientProjectDataModel.DELETE_WHEN_FINISHED);
+		shouldDelete = dataModel.getBooleanProperty(EJBClientComponentDataModel.DELETE_WHEN_FINISHED);
 	}
 
 	/*

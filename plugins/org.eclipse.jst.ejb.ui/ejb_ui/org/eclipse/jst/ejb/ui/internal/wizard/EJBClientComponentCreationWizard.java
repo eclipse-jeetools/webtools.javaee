@@ -9,9 +9,8 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
@@ -71,6 +70,6 @@ public class EJBClientComponentCreationWizard extends WTPWizard {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createBaseOperation() {
-		return new EJBClientJarCreationOperation((EJBClientProjectDataModel) model);
+		return new EJBClientComponentCreationOperation((EJBClientComponentDataModel) model);
 	}
 }

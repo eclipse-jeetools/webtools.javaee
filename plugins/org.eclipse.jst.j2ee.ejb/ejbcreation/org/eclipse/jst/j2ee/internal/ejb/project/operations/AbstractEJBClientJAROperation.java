@@ -33,6 +33,7 @@ import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
@@ -40,10 +41,7 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**
- * @author schacher
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
+ * TODO fix up this class to be on new hierarchy
  */
 public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 
@@ -59,15 +57,15 @@ public abstract class AbstractEJBClientJAROperation extends EditModelOperation {
 	protected IProgressMonitor monitor;
 	protected IProgressMonitor moveResourceMonitor;
 
-	public AbstractEJBClientJAROperation(EJBClientProjectDataModel dataModel, IOperationHandler opHandler) {
-		super(dataModel);
+	public AbstractEJBClientJAROperation(EJBClientComponentDataModel dataModel, IOperationHandler opHandler) {
+		//super(dataModel);
 		ejbProject = getEJBProject(dataModel.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		operationHandler = opHandler;
 		validateEditContext = opHandler.getContext();
 	}
 
-	public AbstractEJBClientJAROperation(EJBClientProjectDataModel dataModel) {
-		super(dataModel);
+	public AbstractEJBClientJAROperation(EJBClientComponentDataModel dataModel) {
+		//super(dataModel);
 		ejbProject = getEJBProject(dataModel.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		operationHandler = null;
 	}

@@ -24,13 +24,13 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBPostImportOperation;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
@@ -128,9 +128,9 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	}
 
 	public WTPOperation createEJBClientJARProject(IProject anEJBProject) {
-		EJBClientProjectDataModel dataModel = new EJBClientProjectDataModel();
+		EJBClientComponentDataModel dataModel = new EJBClientComponentDataModel();
 		dataModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, anEJBProject.getName());
-		EJBClientJarCreationOperation op = new EJBClientJarCreationOperation(dataModel);
+		EJBClientComponentCreationOperation op = new EJBClientComponentCreationOperation(dataModel);
 		return op;
 	}
 
