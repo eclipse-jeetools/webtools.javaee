@@ -26,10 +26,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.web.operations.ServerTargetUtil;
+import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.ServerJarsUtil;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
-import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.wst.server.core.IRuntime;
 
 /**

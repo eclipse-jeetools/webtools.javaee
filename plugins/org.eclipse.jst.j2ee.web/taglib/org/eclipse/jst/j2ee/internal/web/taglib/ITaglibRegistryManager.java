@@ -6,12 +6,22 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.web.taglib;
+package org.eclipse.jst.j2ee.internal.web.taglib;
 
-public interface ITaglibRegistryListener {
-	void taglibAdded(ITaglibInfo taglib);
+import org.eclipse.core.resources.IProject;
 
-	void taglibRemoved(ITaglibInfo taglib);
+public interface ITaglibRegistryManager {
 
-	void taglibChanged(ITaglibInfo taglib);
+	ITaglibRegistry getTaglibRegistry(IProject project);
+
+	/**
+	 * use this if you want to access the registry only if it exists
+	 * 
+	 * @param project
+	 * @return
+	 */
+	boolean isTaglibRegistryExists(IProject project);
+
+
+	void dispose();
 }

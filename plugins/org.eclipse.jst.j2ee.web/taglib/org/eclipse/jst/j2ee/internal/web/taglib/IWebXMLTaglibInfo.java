@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.web.taglib;
+package org.eclipse.jst.j2ee.internal.web.taglib;
 
 import org.eclipse.core.runtime.IPath;
 

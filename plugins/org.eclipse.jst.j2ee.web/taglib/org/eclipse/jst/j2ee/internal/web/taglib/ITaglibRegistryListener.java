@@ -6,11 +6,12 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.web.taglib;
+package org.eclipse.jst.j2ee.internal.web.taglib;
 
-import org.eclipse.core.resources.IResource;
+public interface ITaglibRegistryListener {
+	void taglibAdded(ITaglibInfo taglib);
 
+	void taglibRemoved(ITaglibInfo taglib);
 
-public interface ITaglibLocator {
-	ITaglibInfo[] search(IResource resource);
+	void taglibChanged(ITaglibInfo taglib);
 }

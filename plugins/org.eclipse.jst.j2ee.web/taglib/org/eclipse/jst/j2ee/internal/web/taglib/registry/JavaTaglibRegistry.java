@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.web.locator.JavaProjectTaglibLocator;
-import org.eclipse.jst.j2ee.web.taglib.ITaglibLocator;
+import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibLocator;
 
 
 public class JavaTaglibRegistry extends AbstractTaglibRegistry {

@@ -24,8 +24,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.JavaTaglibRegistry;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.WebTaglibRegistry;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
-import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
-import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 
 

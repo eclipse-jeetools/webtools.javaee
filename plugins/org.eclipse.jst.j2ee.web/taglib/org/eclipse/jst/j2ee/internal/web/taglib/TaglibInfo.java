@@ -23,7 +23,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandler;
-import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 
 
 public class TaglibInfo implements ITaglibInfo, Cloneable {

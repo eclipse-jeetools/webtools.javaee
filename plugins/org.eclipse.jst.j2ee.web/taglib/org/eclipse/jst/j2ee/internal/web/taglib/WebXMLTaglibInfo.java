@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.web.taglib;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.web.taglib.IWebXMLTaglibInfo;
 
 
 /**
