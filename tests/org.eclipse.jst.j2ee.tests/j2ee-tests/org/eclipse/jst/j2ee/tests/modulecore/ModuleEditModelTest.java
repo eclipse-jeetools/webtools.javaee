@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.tests.modulecore;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import junit.framework.Test;
@@ -26,7 +25,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -215,6 +213,7 @@ public class ModuleEditModelTest extends TestCase {
 			try {
 				WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
 				dataModel.setProperty(WebModuleCreationDataModel.PROJECT_NAME, getProjectName());
+				dataModel.setBooleanProperty(WebModuleCreationDataModel.IS_FLEXIBLE_PROJECT, true);
 				dataModel.getDefaultOperation().run(null);
 			} catch (Exception e) {
 				e.printStackTrace();
