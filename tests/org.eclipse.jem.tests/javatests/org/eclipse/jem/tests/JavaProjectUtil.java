@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests;
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.9 $  $Date: 2004/08/27 15:33:39 $ 
+ *  $Revision: 1.10 $  $Date: 2005/02/03 18:37:19 $ 
  */
 
 
@@ -212,7 +212,7 @@ public class JavaProjectUtil {
 	 * @since 1.0.0
 	 */
 	public static void addBundleJarToPath(Bundle bundle, String pathToJar, final IJavaProject project, IProgressMonitor pm) throws CoreException {
-		final IPath actualPath = new Path(ProxyPlugin.getPlugin().localizeFromBundle(bundle, pathToJar));
+		final IPath actualPath = new Path(ProxyPlugin.getPlugin().localizeFromBundleAndFragments(bundle, pathToJar));
 		if (actualPath.isEmpty())
 			return;	// Didn't exist.
 		
