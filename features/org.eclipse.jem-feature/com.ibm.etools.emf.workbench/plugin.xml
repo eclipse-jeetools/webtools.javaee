@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+   id="com.ibm.etools.emf.workbench"
+   name="EMF Workbench"
+   version="5.1.1"
+   provider-name="IBM"
+   class="com.ibm.etools.emf.workbench.plugin.EMFWorkbenchPlugin">
+
+   <runtime>
+      <library name="runtime/emfworkbench.jar">
+         <export name="*"/>
+         <packages prefixes="com.ibm.etools.emf.workbench"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="com.ibm.etools.emf.ecore.utilities" export="true" version="5.1.1" match="equivalent"/>
+      <import plugin="org.apache.xerces" version="4.0.13" match="equivalent"/>
+      <import plugin="org.eclipse.core.resources" version="2.1.1" match="equivalent"/>
+      <!--import plugin="com.ibm.etools.logging.util" version="5.1.1" match="equivalent"/-->
+   </requires>
+
+
+<!-- Extension point to register ResourceHandlers that will always be added to 
+	new WorkbenchContexts -->
+   <extension-point id="ResourceHandlerExtension" name="ResourceHandlerExtension"/>
+   <extension-point id="globalPluginResourceLoad" name="Global Plugin Resource Load" schema="schema/globalPluginResourceLoad.exsd"/>
+
+</plugin>

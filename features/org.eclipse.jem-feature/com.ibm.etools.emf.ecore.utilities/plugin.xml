@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+   id="com.ibm.etools.emf.ecore.utilities"
+   name="Ecore Utilities"
+   version="5.1.1"
+   provider-name="IBM"
+   class="com.ibm.etools.eclipse.integration.EcoreUtilitiesPlugin">
+
+   <runtime>
+      <library name="runtime/ecore.utilities.jar">
+         <export name="*"/>
+         <packages prefixes="com.ibm.etools.emf,com.ibm.etools.encoders,com.ibm.etools.logger, com.ibm.etools.wft,com.ibm.etools.xmi"/>
+      </library>
+      <library name="runtime/workbench.jar">
+         <export name="*"/>
+         <packages prefixes="com.ibm.etools.eclipse.integration"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.emf.ecore.xmi" export="true" version="1.1.1" match="equivalent"/>
+      <import plugin="org.apache.xerces" version="4.0.13" match="equivalent"/>
+   </requires>
+
+
+   <extension-point id="packageURIMap" name="PackageURIMap"/>
+
+<!-- Need to register the Ecore specific package mappings -->
+   <extension
+         point="com.ibm.etools.emf.ecore.utilities.packageURIMap">
+      <map
+        uri="http://www.eclipse.org/emf/2002/Ecore"
+        prefix="ecore"/>
+      <map
+       prefix="mapping"
+       uri="http://www.eclipse.org/emf/2002/Mapping"/>
+     <!-- Trick to get Mapping.xmi for MOF5 serialization -->
+     <map
+       prefix="Mapping"
+       uri="http://www.eclipse.org/emf/2002/Mapping"/>
+   </extension>
+
+</plugin>
