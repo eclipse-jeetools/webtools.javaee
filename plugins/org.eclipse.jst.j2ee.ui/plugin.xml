@@ -611,7 +611,7 @@
       <uiContextSensitiveClass
             context="UI"
             key="rendererFactory"
-            className="org.eclipse.jst.j2ee.emf2xml.sed.EMF2DOMSedRendererFactory">
+            className="org.eclipse.jst.j2ee.internal.emf2xml.sed.EMF2DOMSedRendererFactory">
       </uiContextSensitiveClass>
    </extension>
    -->
