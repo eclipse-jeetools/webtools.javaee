@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.20 $  $Date: 2004/11/12 23:11:07 $ 
+ *  $Revision: 1.21 $  $Date: 2004/11/19 17:34:44 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -685,7 +685,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							reflectProperties(); // No beaninfo, so use reflection to create properties
 					}
 
-					// Now go through the list and remove those that should be removed.
+					// Now go through the list and remove those that should be removed, and set the etype for those that don't have it set.
 					Map oldLocals = getPropertiesMap();
 					Iterator itr = getFeaturesList().iterator();
 					while (itr.hasNext()) {
@@ -707,8 +707,18 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 									itr.remove(); // Remove it, this was implicitly created and not processed this time.
 									((InternalEObject) a).eSetProxyURI(BAD_URI);
 									// Mark it as bad proxy so we know it is no longer any use.
+									continue;
 								}
 							}
+						}
+						
+						// [79083] Also check for eType not set, and if it is, set it to EObject type. That way it will be valid, but not valid as 
+						// a bean setting.
+						if (a.getEType() == null) {
+							// Set it to EObject type. If it becomes valid later (through the class being changed), then the introspect/reflect
+							// will set it to the correct type.
+							a.setEType(EcorePackage.eINSTANCE.getEObject());
+							BeaninfoPlugin.getPlugin().getLogger().logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
 						}
 					}
 				}
