@@ -150,13 +150,13 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
 		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();		
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setDeployedPath(URI.createURI(aDeployPath));
+		resource.setRuntimePath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
 		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
 		module.setHandle(aHandle);  
-		module.setDeployedName(aDeployedName);  
+		module.setName(aDeployedName);  
 		ComponentType type = ModuleCoreFactory.eINSTANCE.createComponentType();
 		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
 		module.setComponentType(type);

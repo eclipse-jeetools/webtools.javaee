@@ -58,7 +58,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	}
 
     public String getContextRoot() {
-        return wbModule.getDeployedName();
+        return wbModule.getName();
     }
 
  

@@ -216,7 +216,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 				String contextRoot = ""; //$NON-NLS-1$
 				//TODO add context root to the module model
 				//contextRoot = module.getServerContextRoot();
-				dlg = new RenameModuleDialog(shell, module.getDeployedName(), contextRoot);
+				dlg = new RenameModuleDialog(shell, module.getName(), contextRoot);
 				dlg.open();
 				if (dlg.getReturnCode() == Window.CANCEL)
 					return;

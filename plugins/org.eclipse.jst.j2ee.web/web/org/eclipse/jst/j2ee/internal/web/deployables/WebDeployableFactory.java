@@ -79,7 +79,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
             try {
                 WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
                 moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
-                module = createModule(wbModule.getDeployedName(), wbModule.getDeployedName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
+                module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
                         moduleDelegate.getProject());
                 moduleList.add(module);
                 moduleDelegate.initialize(module);

@@ -343,7 +343,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
 		for (int i=0; i<dependentModules.size(); i++) {
 			ReferencedComponent child = (ReferencedComponent) dependentModules.get(i);
-			URI parentFolderURI = child.getDeployedPath().trimSegments(1);
+			URI parentFolderURI = child.getRuntimePath().trimSegments(1);
 			URI webLib = getDeploymentDescriptorResource().getURI().trimSegments(1).appendSegment(LIB);
 			if (parentFolderURI.equals(webLib))
 				result.add(child);
