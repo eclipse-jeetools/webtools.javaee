@@ -13,6 +13,7 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -46,7 +47,7 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 	protected static final String CLIENT_PG = "client"; //$NON-NLS-1$
 	
 	/* A convenience reference to the client page. Initialized in doAddPages() */
-	private EJBClientCreationWizardPage clientPage;
+	private EJBClientComponentCreationWizardPage clientPage;
 
 	/**
 	 * <p>
@@ -160,7 +161,7 @@ public final class EJBComponentCreationWizard extends J2EEComponentCreationWizar
 	 */
 	public void doAddPages() {
 		addPage(new EJBComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG));
-		clientPage = new EJBClientCreationWizardPage(getSpecificDataModel().getNestedEJBClientComponentDataModel(), CLIENT_PG);
+		clientPage = new EJBClientComponentCreationWizardPage(getSpecificDataModel().getNestedEJBClientComponentDataModel(), CLIENT_PG);
 		addPage(clientPage);
 		super.doAddPages();
 	}

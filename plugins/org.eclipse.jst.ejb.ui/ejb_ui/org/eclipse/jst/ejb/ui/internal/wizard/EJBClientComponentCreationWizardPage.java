@@ -29,7 +29,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
-public class EJBClientCreationWizardPage extends WTPWizardPage {
+public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 	public NewModuleGroup newModuleGroup = null;
 	protected EJBJar selProject = null;
 	private Label selectedProjectLabel;
@@ -43,7 +43,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBClientCreationWizardPage(EJBClientComponentDataModel model, String pageName) {
+	public EJBClientComponentCreationWizardPage(EJBClientComponentDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Title)); //$NON-NLS-1$
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Desc)); //$NON-NLS-1$
@@ -55,7 +55,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 	 * @param title
 	 * @param titleImage
 	 */
-	public EJBClientCreationWizardPage(WTPOperationDataModel model, String pageName, String title, ImageDescriptor titleImage) {
+	public EJBClientComponentCreationWizardPage(WTPOperationDataModel model, String pageName, String title, ImageDescriptor titleImage) {
 		super(model, pageName, title, titleImage);
 	}
 

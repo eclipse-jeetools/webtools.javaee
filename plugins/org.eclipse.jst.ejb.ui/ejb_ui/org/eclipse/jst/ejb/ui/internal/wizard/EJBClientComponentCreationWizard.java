@@ -18,13 +18,13 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 
-public class EJBClientCreationWizard extends WTPWizard {
+public class EJBClientComponentCreationWizard extends WTPWizard {
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$
 
 	/**
 	 * @param model
 	 */
-	public EJBClientCreationWizard(WTPOperationDataModel model) {
+	public EJBClientComponentCreationWizard(WTPOperationDataModel model) {
 		super(model);
 		setWindowTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Title));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.CLIENT_BANNER));
@@ -33,7 +33,7 @@ public class EJBClientCreationWizard extends WTPWizard {
 	/**
 	 *  
 	 */
-	public EJBClientCreationWizard() {
+	public EJBClientComponentCreationWizard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -44,7 +44,7 @@ public class EJBClientCreationWizard extends WTPWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		addPage(new EJBClientCreationWizardPage((EJBClientComponentDataModel) model, PAGE_ONE));
+		addPage(new EJBClientComponentCreationWizardPage((EJBClientComponentDataModel) model, PAGE_ONE));
 	}
 
 	/*

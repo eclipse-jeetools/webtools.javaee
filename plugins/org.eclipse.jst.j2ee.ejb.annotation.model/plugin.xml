@@ -32,6 +32,7 @@
      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
       <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
  
    </requires>
 
