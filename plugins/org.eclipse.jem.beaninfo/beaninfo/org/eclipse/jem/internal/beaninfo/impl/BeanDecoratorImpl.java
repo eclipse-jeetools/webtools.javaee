@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2004/03/09 00:07:53 $ 
+ *  $Revision: 1.8 $  $Date: 2004/03/09 19:45:57 $ 
  */
 
 
@@ -1002,34 +1002,31 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 		if(styleDetails == null){
 			styleDetails = new HashMap();
 			try{
-				Iterator featureAttributeValues = getAttributes().iterator();
-				while(featureAttributeValues.hasNext()){
-					FeatureAttributeValue value = (FeatureAttributeValue) featureAttributeValues.next();
-					if(value.getName().equals("SWEET_STYLEBITS")) { // $NON-NLS-1$
-						IArrayBeanProxy outerArray  = (IArrayBeanProxy) value.getValueProxy();
-						for (int i = 0; i < outerArray.getLength(); i++) {
-							IArrayBeanProxy innerArray = (IArrayBeanProxy) outerArray.get(i);
-							// The first element is a String for the internal canonnical name
-							String propertyName = ((IStringBeanProxy)innerArray.get(0)).stringValue();
-							// The second element is the user visible name
-							String displayName = ((IStringBeanProxy)innerArray.get(1)).stringValue();
-							// The third element is a Boolean value for whether the property is expert or not
-							boolean expert = ((IBooleanBeanProxy)innerArray.get(2)).booleanValue();
-							// The next is a three element array of name, initString, and actual value * n for the number of allowble values
-							// Iterate over it to extract the names and strings and turn these into two separate String arrays
-							IArrayBeanProxy triplicateArray = (IArrayBeanProxy)innerArray.get(3);
-							int numberOfValues = triplicateArray.getLength()/3;
-							String[] names = new String[numberOfValues];
-							String[] initStrings = new String[numberOfValues];
-							Integer[] values = new Integer[numberOfValues]; 
-							for (int j = 0; j < triplicateArray.getLength(); j = j+3) {
-								int index = j/3;
-								names[index] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
-								initStrings[index] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
-								values[index] = new Integer(((IIntegerBeanProxy)triplicateArray.get(j+2)).intValue());
-							}							
-							styleDetails.put(propertyName, new SweetStyleBits(propertyName,displayName,expert,names,initStrings,values));
-						}
+				FeatureAttributeValue value = (FeatureAttributeValue) getAttributes().get("SWEET_STYLEBITS");				
+				if(value != null && value.isSetValueJava() && value.isSetValueProxy()){
+					IArrayBeanProxy outerArray  = (IArrayBeanProxy) value.getValueProxy();
+					for (int i = 0; i < outerArray.getLength(); i++) {
+						IArrayBeanProxy innerArray = (IArrayBeanProxy) outerArray.get(i);
+						// The first element is a String for the internal canonnical name
+						String propertyName = ((IStringBeanProxy)innerArray.get(0)).stringValue();
+						// The second element is the user visible name
+						String displayName = ((IStringBeanProxy)innerArray.get(1)).stringValue();
+						// The third element is a Boolean value for whether the property is expert or not
+						boolean expert = ((IBooleanBeanProxy)innerArray.get(2)).booleanValue();
+						// The next is a three element array of name, initString, and actual value * n for the number of allowble values
+						// Iterate over it to extract the names and strings and turn these into two separate String arrays
+						IArrayBeanProxy triplicateArray = (IArrayBeanProxy)innerArray.get(3);
+						int numberOfValues = triplicateArray.getLength()/3;
+						String[] names = new String[numberOfValues];
+						String[] initStrings = new String[numberOfValues];
+						Integer[] values = new Integer[numberOfValues]; 
+						for (int j = 0; j < triplicateArray.getLength(); j = j+3) {
+							int index = j/3;
+							names[index] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
+							initStrings[index] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
+							values[index] = new Integer(((IIntegerBeanProxy)triplicateArray.get(j+2)).intValue());
+						}							
+						styleDetails.put(propertyName, new SweetStyleBits(propertyName,displayName,expert,names,initStrings,values));
 					}
 				}
 			} catch (ThrowableProxy exc) {
