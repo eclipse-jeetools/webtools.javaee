@@ -9,7 +9,6 @@ package org.eclipse.jst.j2ee.application.operations;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -52,12 +51,6 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		String moduleName = (String)operationDataModel.getProperty(EARComponentCreationDataModel.COMPONENT_NAME);
-		IFolder moduleFolder = getProject().getFolder(moduleName);
-		if (!moduleFolder.exists()) {
-			moduleFolder.create(true, true, null);
-		}
-		
 		//should cache wbmodule when created instead of  searching ?
         ModuleCore moduleCore = null;
         EARArtifactEdit edit = null;
@@ -68,7 +61,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
             		operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
        		edit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
        		int versionId = ((ComponentCreationDataModel)getOperationDataModel()).getIntProperty(ComponentCreationDataModel.COMPONENT_VERSION);
-       		edit.createModelRoot(versionId);
+       		edit.createModelRoot(getModuleName(), versionId);
        		// set version to WorkbenchComponent
        		String versionText = J2EEVersionUtil.getJ2EETextVersion(versionId);
        		earComp.getComponentType().setVersion(versionText);

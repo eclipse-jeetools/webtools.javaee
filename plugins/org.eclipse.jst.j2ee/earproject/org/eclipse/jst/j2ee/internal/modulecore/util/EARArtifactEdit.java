@@ -278,9 +278,8 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
 	 */
-	public EObject createModelRoot(int version) {
+	public EObject createModelRoot(String moduleName, int version) {
 		URI moduleURI = getArtifactEditModel().getModuleURI();
-		String moduleName = moduleURI.lastSegment();
 		String uriString = moduleName + IPath.SEPARATOR + ArchiveConstants.APPLICATION_DD_URI;
 		URI uri = URI.createURI(uriString);
 		XMLResource resource = (XMLResource)getArtifactEditModel().createResource(uri);
@@ -297,7 +296,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		}
 		return getApplicationXmiResource().getRootObject();
 	}
-
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
+	 */
+	public EObject createModelRoot(int version) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.modulecore.IEditModelHandler#save(org.eclipse.core.runtime.IProgressMonitor)
