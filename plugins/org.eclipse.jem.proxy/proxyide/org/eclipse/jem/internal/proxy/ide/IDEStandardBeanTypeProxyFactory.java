@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.4 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/26 22:02:09 $ 
  */
 
 import java.lang.reflect.Array;
@@ -23,6 +23,7 @@ import java.util.*;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import org.eclipse.jem.internal.proxy.common.MapTypes;
 import org.eclipse.jem.internal.proxy.core.*;
 
 public class IDEStandardBeanTypeProxyFactory implements IStandardBeanTypeProxyFactory {
@@ -153,7 +154,7 @@ IBeanTypeProxy getBeanTypeProxy(Class anIDEClass) {
  * the IDEBeanTypeProxy object
  */
 public synchronized IBeanTypeProxy getBeanTypeProxy(String typeName) {
-	typeName = getJNIFormatName(typeName);
+	typeName = MapTypes.getJNIFormatName(typeName);
 
 	// See whether we already have the proxy for the argument name
 	IBeanTypeProxy beanTypeProxy = (IBeanTypeProxy) beanProxies.get(typeName);
@@ -258,7 +259,7 @@ public synchronized IBeanTypeProxy getBeanTypeProxy(String typeName) {
  *      Object [][][][]
  */
 public IBeanTypeProxy getBeanTypeProxy(String componentClassName, int dimensions) {
-	String jniComponentTypeName = getJNIFormatName(componentClassName);
+	String jniComponentTypeName = MapTypes.getJNIFormatName(componentClassName);
 	String compType = jniComponentTypeName;
 	if (jniComponentTypeName.charAt(0) != '[') {
 		// We're not already an array, so create correct template.
@@ -276,39 +277,6 @@ public IBeanTypeProxy getBeanTypeProxy(String componentClassName, int dimensions
 	return getBeanTypeProxy(buffer.toString());
 }
 
-/*
- * convert formal type name for an array (i.e. java.lang.Object[]
- * to the jni format (i.e. [Ljava.lang.Object;)
- * This is used when a name is passed in from the IDE side.
- * The VM side uses the jni format, and all of proxy uses the jni format.
- */
-protected String getJNIFormatName(String classname) {
-	if (classname.length() == 0 || !classname.endsWith("]")) //$NON-NLS-1$
-		return classname;	// Not an array,or invalid
-	
-	StringBuffer jni = new StringBuffer(classname.length());
-	int firstOpenBracket = classname.indexOf('[');
-	int ob = firstOpenBracket;
-	while (ob > -1) {
-		int cb = classname.indexOf(']', ob);
-		if (cb == -1)
-			break;
-		jni.append('[');
-		ob = classname.indexOf('[', cb);
-	}
-	
-	IBeanTypeProxy finalType = getBeanTypeProxy(classname.substring(0, firstOpenBracket).trim());
-	if (finalType != null)
-		if (!finalType.isPrimitive()) {
-			jni.append('L');
-			jni.append(finalType.getTypeName());
-			jni.append(';');
-		} else {
-			jni.append(MAP_TYPENAME_TO_SHORTSIG.get(finalType.getTypeName()));
-		}
-	
-	return jni.toString();
-}
 public void terminateFactory(){
 }
 /**
@@ -325,7 +293,7 @@ public synchronized void registerBeanTypeProxy(IBeanTypeProxy aBeanTypeProxy,boo
  * @see org.eclipse.jem.internal.proxy.core.IStandardBeanTypeProxyFactory#isBeanTypeRegistered(String)
  */
 public synchronized boolean isBeanTypeRegistered(String className) {
-	return beanProxies.containsKey(getJNIFormatName(className));
+	return beanProxies.containsKey(MapTypes.getJNIFormatName(className));
 }
 
 /* (non-Javadoc)

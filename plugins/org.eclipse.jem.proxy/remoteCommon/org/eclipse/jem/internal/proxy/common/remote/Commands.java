@@ -11,11 +11,11 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/04 20:30:21 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/26 22:02:09 $ 
  */
 
 import java.io.*;
-import java.util.HashMap;
+
 import org.eclipse.jem.internal.proxy.common.CommandException;
 /**
  * The commands that can be passed back and forth between
@@ -24,38 +24,6 @@ import org.eclipse.jem.internal.proxy.common.CommandException;
  * - Contains helper methods for reading/writing commands.
  */
 public class Commands {
-	public final static HashMap MAP_SHORTSIG_TO_TYPE = new HashMap(8);
-	public final static HashMap MAP_TYPENAME_TO_SHORTSIG = new HashMap(8);
-	
-	static {
-		MAP_SHORTSIG_TO_TYPE.put("B", Byte.TYPE); //$NON-NLS-1$
-		MAP_SHORTSIG_TO_TYPE.put("C", Character.TYPE); //$NON-NLS-1$
-		MAP_SHORTSIG_TO_TYPE.put("D", Double.TYPE);		 //$NON-NLS-1$
-		MAP_SHORTSIG_TO_TYPE.put("F", Float.TYPE); //$NON-NLS-1$
-		MAP_SHORTSIG_TO_TYPE.put("I", Integer.TYPE); //$NON-NLS-1$
-		MAP_SHORTSIG_TO_TYPE.put("J", Long.TYPE); //$NON-NLS-1$
-		MAP_SHORTSIG_TO_TYPE.put("S", Short.TYPE); //$NON-NLS-1$
-		MAP_SHORTSIG_TO_TYPE.put("Z", Boolean.TYPE); //$NON-NLS-1$
-		
-		MAP_TYPENAME_TO_SHORTSIG.put("byte","B"); //$NON-NLS-1$ //$NON-NLS-2$
-		MAP_TYPENAME_TO_SHORTSIG.put("char","C"); //$NON-NLS-1$ //$NON-NLS-2$
-		MAP_TYPENAME_TO_SHORTSIG.put("double","D"); //$NON-NLS-1$ //$NON-NLS-2$
-		MAP_TYPENAME_TO_SHORTSIG.put("float","F"); //$NON-NLS-1$ //$NON-NLS-2$
-		MAP_TYPENAME_TO_SHORTSIG.put("int","I"); //$NON-NLS-1$ //$NON-NLS-2$
-		MAP_TYPENAME_TO_SHORTSIG.put("long","J"); //$NON-NLS-1$ //$NON-NLS-2$
-		MAP_TYPENAME_TO_SHORTSIG.put("short","S"); //$NON-NLS-1$ //$NON-NLS-2$
-		MAP_TYPENAME_TO_SHORTSIG.put("boolean","Z"); //$NON-NLS-1$ //$NON-NLS-2$
-	}
-	
-	// The stream between server and clients are Data...Streams.
-	// If someone gets out of sync and can't determine where the
-	// start/end of a command is, then simply close the connection
-	// and open up a fresh one. This should work because there
-	// should never be more than one command on the pipe at a
-	// time since the client shouldn't send a new one until
-	// it has received a response to the previous one, if the
-	// command has a response.
-	
 	// The commands will be written in writeByte format .
 	public final static byte
 		GET_CLASS = 1,		// Get the class object,

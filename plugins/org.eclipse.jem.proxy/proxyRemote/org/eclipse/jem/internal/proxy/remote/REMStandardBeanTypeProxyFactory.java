@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.4 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/26 22:02:08 $ 
  */
 
 
@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.common.CommandException;
+import org.eclipse.jem.internal.proxy.common.MapTypes;
 import org.eclipse.jem.internal.proxy.common.remote.CommandErrorException;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 
@@ -233,7 +234,7 @@ private synchronized IREMBeanTypeProxy createBeanTypeProxy(String typeName, IREM
  */
 public IBeanTypeProxy getBeanTypeProxy(String typeName) {
 	try {
-		return getBeanTypeProxy(getJNIFormatName(typeName), (IREMConnection) null);
+		return getBeanTypeProxy(MapTypes.getJNIFormatName(typeName), (IREMConnection) null);
 	} catch (CommandException e) {
 		// Try once more (we won't have received recoverable exceptions here, they were already caught and handled)
 		try {
@@ -332,11 +333,11 @@ private Commands.GetClassReturn getClassReturn(IREMConnection connection, String
  *      Object [][][][]
  */
 public IBeanTypeProxy getBeanTypeProxy(String componentClassName, int dimensions) {
-	String jniComponentClassName = getJNIFormatName(componentClassName);
+	String jniComponentClassName = MapTypes.getJNIFormatName(componentClassName);
 	String compType = jniComponentClassName;
 	if (jniComponentClassName.charAt(0) != '[') {
 		// We're not already an array, so create correct template.
-		compType = (String) Commands.MAP_TYPENAME_TO_SHORTSIG.get(jniComponentClassName);
+		compType = (String) MapTypes.MAP_TYPENAME_TO_SHORTSIG.get(jniComponentClassName);
 		if (compType == null) {
 			// It is a class, and not a type.
 			compType = "L"+jniComponentClassName+";"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -350,42 +351,6 @@ public IBeanTypeProxy getBeanTypeProxy(String componentClassName, int dimensions
 	buffer.append(compType);
 	return getBeanTypeProxy(buffer.toString());
 }
-
-/*
- * convert formal type name for an array (i.e. java.lang.Object[]
- * to the jni format (i.e. [Ljava.lang.Object;)
- * This is used when a name is passed in from the IDE side.
- * The VM side uses the jni format, and all of proxy uses the jni format.
- */
-protected String getJNIFormatName(String classname) {
-	if (classname.length() == 0 || !classname.endsWith("]")) //$NON-NLS-1$
-		return classname;	// Not an array,or invalid
-	
-	StringBuffer jni = new StringBuffer(classname.length());
-	int firstOpenBracket = classname.indexOf('[');
-	int ob = firstOpenBracket;
-	while (ob > -1) {
-		int cb = classname.indexOf(']', ob);
-		if (cb == -1)
-			break;
-		jni.append('[');
-		ob = classname.indexOf('[', cb);
-	}
-	
-	IBeanTypeProxy finalType = getBeanTypeProxy(classname.substring(0, firstOpenBracket).trim());
-	if (finalType != null)
-		if (!finalType.isPrimitive()) {
-			jni.append('L');
-			jni.append(finalType.getTypeName());
-			jni.append(';');
-		} else {
-			jni.append(Commands.MAP_TYPENAME_TO_SHORTSIG.get(finalType.getTypeName()));
-		}
-	
-	return jni.toString();
-}
-
-	
 
 /**
  * Get the bean type proxy from a class id. This means that a new class id
@@ -569,7 +534,7 @@ public void terminateFactory() {
  * @see org.eclipse.jem.internal.proxy.core.IStandardBeanTypeProxyFactory#isBeanTypeRegistered(String)
  */
 public synchronized boolean isBeanTypeRegistered(String className) {
-	return fBeanProxies.containsKey(getJNIFormatName(className));
+	return fBeanProxies.containsKey(MapTypes.getJNIFormatName(className));
 }
 
 /* (non-Javadoc)
@@ -583,7 +548,7 @@ public Set registeredTypes() {
  * @see org.eclipse.jem.internal.proxy.core.IStandardBeanTypeProxyFactory#isBeanTypeNotFound(String)
  */
 public synchronized boolean isBeanTypeNotFound(String className) {
-	return fNotFoundTypes != null && fNotFoundTypes.contains(getJNIFormatName(className));
+	return fNotFoundTypes != null && fNotFoundTypes.contains(MapTypes.getJNIFormatName(className));
 }
 
 /* (non-Javadoc)

@@ -11,13 +11,13 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMArrayBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/26 22:02:09 $ 
  */
 
 
 
+import org.eclipse.jem.internal.proxy.common.MapTypes;
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.common.remote.Commands;
 /**
  * Array Type Proxy for the IDE VM.
  *
@@ -53,7 +53,7 @@ public final class REMArrayBeanTypeProxy extends REMAbstractBeanTypeProxy implem
 			return fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy(getTypeName().substring(typeStart+1, getTypeName().length()-1));
 		} else {
 			// It is a type. Need to map it.
-			Class aType = (Class) Commands.MAP_SHORTSIG_TO_TYPE.get(getTypeName().substring(typeStart, typeStart+1));
+			Class aType = (Class) MapTypes.MAP_SHORTSIG_TO_TYPE.get(getTypeName().substring(typeStart, typeStart+1));
 			return aType != null ? fRegistry.getBeanTypeProxyFactory().getBeanTypeProxy(aType.getName()) : null;
 		}
 	}

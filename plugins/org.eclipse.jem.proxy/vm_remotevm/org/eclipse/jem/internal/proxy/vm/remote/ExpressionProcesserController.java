@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesserController.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/26 22:02:08 $ 
  */
 package org.eclipse.jem.internal.proxy.vm.remote;
 
@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
+import org.eclipse.jem.internal.proxy.common.MapTypes;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.ExpressionCommands;
 import org.eclipse.jem.internal.proxy.initParser.EvaluationException;
@@ -126,7 +127,7 @@ public class ExpressionProcesserController {
 			return null;
 		else if (className.endsWith("[]")) {
 			// We have an array request instead. This is trickier.
-			return loadClass(getJNIFormatName(className));
+			return loadClass(MapTypes.getJNIFormatName(className));
 		} else {
 			int primIndex = PRIMITIVE_NAMES.indexOf(className);
 			if (primIndex >= 0)
@@ -139,33 +140,6 @@ public class ExpressionProcesserController {
 		}
 	}
 
-	private String getJNIFormatName(String classname) throws ClassNotFoundException {
-		if (classname.length() == 0 || !classname.endsWith("]")) //$NON-NLS-1$
-			return classname;	// Not an array,or invalid
-		
-		StringBuffer jni = new StringBuffer(classname.length());
-		int firstOpenBracket = classname.indexOf('[');
-		int ob = firstOpenBracket;
-		while (ob > -1) {
-			int cb = classname.indexOf(']', ob);
-			if (cb == -1)
-				break;
-			jni.append('[');
-			ob = classname.indexOf('[', cb);
-		}
-		
-		Class finalType = loadClass(classname.substring(0, firstOpenBracket).trim());
-		if (finalType != null)
-			if (!finalType.isPrimitive()) {
-				jni.append('L');
-				jni.append(finalType.getName());
-				jni.append(';');
-			} else {
-				jni.append(Commands.MAP_TYPENAME_TO_SHORTSIG.get(finalType.getName()));
-			}
-		return jni.toString();
-	}
-	
 	/**
 	 * Now process the input stream. If either throws occurs, this is a hard error and we must terminate
 	 * the entire connection. The input stream is in an unknown state.
