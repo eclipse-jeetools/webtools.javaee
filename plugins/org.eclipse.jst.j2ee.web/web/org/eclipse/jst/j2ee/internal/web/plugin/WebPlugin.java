@@ -36,14 +36,14 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.jst.j2ee.internal.web.deployables.WebAppDeployableModuleFactory;
+import org.eclipse.jst.j2ee.internal.web.deployables.WebAppDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.web.operations.WebContentResourceChangeListener;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.modulecore.IModuleConstants;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleFactory;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleFactoryRegistry;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactory;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
 
 
 /**
@@ -318,7 +318,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
      * 
      */
     private void registerDeployableModuleFactory() {
-       DeployableModuleFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new WebAppDeployableModuleFactory());     
+       DeployableModuleBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new WebAppDeployableModuleBuilderFactory());     
     }
 
     /*

@@ -1,14 +1,14 @@
 package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleDataModel;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderDataModel;
 
-public class WebAppDeployableModuleDataModel extends DeployableModuleDataModel {
+public class WebAppDeployableModuleBuilderDataModel extends DeployableModuleBuilderDataModel {
 
     /**
      * 
      */
-    public WebAppDeployableModuleDataModel() {
+    public WebAppDeployableModuleBuilderDataModel() {
         super();
     }
 
