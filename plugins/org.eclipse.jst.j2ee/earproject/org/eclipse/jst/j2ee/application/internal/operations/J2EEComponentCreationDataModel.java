@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
@@ -36,7 +37,7 @@ import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * @since WTP 1.0
  */
-public abstract class J2EEComponentCreationDataModel extends ComponentCreationDataModel implements IAnnotationsDataModel {
+public abstract class J2EEComponentCreationDataModel extends JavaComponentCreationDataModel implements IAnnotationsDataModel {
 
 	/**
 	 * type Boolean, default false
@@ -72,11 +73,6 @@ public abstract class J2EEComponentCreationDataModel extends ComponentCreationDa
 	
 	
 	/**
-	 * type String
-	 */
-	public static final String JAVASOURCE_FOLDER = "J2EEComponentCreationDataModel.JAVASOURCE_FOLDER"; //$NON-NLS-1$
-	
-	/**
 	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
 	 * version to its corresponding highest module version supported by the J2EE version and set the
 	 * J2EE_MODULE_VERSION property.
@@ -88,11 +84,6 @@ public abstract class J2EEComponentCreationDataModel extends ComponentCreationDa
 	public AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel;
 	
 	protected EARComponentCreationDataModel earComponentCreationDataModel;
-	/**
-	 * type String
-	 */
-	public static final String MANIFEST_FOLDER = "J2EEComponentCreationDataModel.MANIFEST_FOLDER"; //$NON-NLS-1$
-	
 	private UpdateManifestDataModel jarDependencyDataModel;
 
 	private ClassPathSelection cachedSelection;
@@ -193,8 +184,10 @@ public abstract class J2EEComponentCreationDataModel extends ComponentCreationDa
 	protected final AddComponentToEnterpriseApplicationDataModel getAddModuleToApplicationDataModel() {
 		return addComponentToEARDataModel;
 	}
-
 	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(COMPONENT_VERSION)) {
+			return getValidComponentVersionDescriptors();
+		}
 		if (propertyName.equals(EAR_MODULE_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 		 ModuleCore mc = null;
@@ -357,6 +350,8 @@ public abstract class J2EEComponentCreationDataModel extends ComponentCreationDa
 	public String getModuleName() {
 		return getStringProperty(COMPONENT_NAME);
 	}
+	
+	protected abstract WTPPropertyDescriptor[] getValidComponentVersionDescriptors();
 	
 	public final int getJ2EEVersion() {
 		return convertModuleVersionToJ2EEVersion(getIntProperty(COMPONENT_VERSION));

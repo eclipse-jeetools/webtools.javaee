@@ -39,6 +39,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.modulecore.ComponentType;
@@ -60,7 +61,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 	 */
 	protected static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
 	
-	public J2EEComponentCreationOperation(J2EEComponentCreationDataModel dataModel) {
+	public J2EEComponentCreationOperation(JavaComponentCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
