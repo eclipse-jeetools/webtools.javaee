@@ -10,11 +10,12 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NoASTResolver.java,v $
- *  $Revision: 1.1 $  $Date: 2004/05/18 18:15:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/09 22:45:30 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
 import org.eclipse.jdt.core.dom.Name;
+import org.eclipse.jdt.core.dom.Type;
 
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
 import org.eclipse.jem.internal.instantiation.PTExpression;
@@ -35,4 +36,16 @@ public class NoASTResolver extends ASTBoundResolver {
 		return InstantiationFactory.eINSTANCE.createPTName(name.toString());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST.Resolver#resolveType(org.eclipse.jdt.core.dom.Type)
+	 */
+	public String resolveType(Type type) {
+		return type.toString();
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST.Resolver#resolveType(org.eclipse.jdt.core.dom.Name)
+	 */
+	public String resolveType(Name name) throws InvalidExpressionException {
+		return name.toString();
+	}
 }
