@@ -6,7 +6,7 @@
  */
 package org.eclipse.jst.j2ee.internal.deployables;
 
-import org.eclipse.wst.server.core.ILaunchable;
+import org.eclipse.debug.ui.actions.ILaunchable;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 

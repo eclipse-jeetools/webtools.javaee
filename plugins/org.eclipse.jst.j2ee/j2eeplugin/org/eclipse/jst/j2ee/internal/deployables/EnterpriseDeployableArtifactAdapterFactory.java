@@ -7,7 +7,6 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import org.eclipse.core.runtime.IAdapterFactory;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.debug.ui.actions.ILaunchable;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
