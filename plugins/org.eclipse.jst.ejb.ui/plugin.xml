@@ -224,7 +224,15 @@
 	                  </objectState>
 	               </or> 
                 </and> 
-                   
+                <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+           	   </objectClass>
+           	  <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+           	   </objectClass>
             </or>
          </enablement>
        </commonWizard>
@@ -258,7 +266,22 @@
 	                  </objectState>
 	               </or> 
                 </and> 
-                   
+        	   <objectClass
+                 name="org.eclipse.jst.j2ee.ejb.impl.EJBJarImpl">
+           	   </objectClass>
+           	   <objectClass
+                 name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
+           	   </objectClass>
+           	   <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+           	   </objectClass>
+           	  <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+           	   </objectClass>
+           	   
             </or>
          </enablement>
        </commonWizard>
@@ -283,8 +306,29 @@
                         value="org.eclipse.jst.j2ee.ejb.EJBNature">
                   </objectState>
                </or>
-            </and>            
+            </and>  
+            <objectClass
+                 name="org.eclipse.jst.j2ee.ejb.impl.EJBJarImpl">
+           	 </objectClass>        
+           	  <objectClass
+                 name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
+           	   </objectClass>
             </or>
+         </enablement>
+       </commonWizard>
+        <!-- Import Classes Wizard -->
+        <commonWizard
+            type="import"
+            wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
+         <enablement>
+            <or>
+              <objectClass
+                 name="org.eclipse.jst.j2ee.ejb.impl.EJBJarImpl">
+           	 </objectClass> 
+           	 <objectClass
+                 name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
+           	   </objectClass>
+           </or>
          </enablement>
        </commonWizard>
     </extension>
