@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosPropertyPage.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
+ *  $Revision: 1.3 $  $Date: 2004/05/20 21:42:42 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,10 +22,10 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.dialogs.StatusUtil;
 import org.eclipse.jdt.internal.ui.util.ExceptionHandler;
 import org.eclipse.jdt.internal.ui.wizards.IStatusChangeListener;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation;
 import org.eclipse.ui.dialogs.PropertyPage;
 
@@ -144,7 +144,7 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 			IRunnableWithProgress op= new WorkspaceModifyDelegatingOperation(runnable);
 			Shell shell= getControl().getShell();
 			try {
-				new ProgressMonitorDialog(shell).run(false, false, op);
+				PlatformUI.getWorkbench().getProgressService().run(false, false, op);
 			} catch (InvocationTargetException e) {
 				String title= BeanInfoUIMessages.getString(BeanInfoUIMessages.BUI_ERRORTITLE);
 				String message= BeanInfoUIMessages.getString(BeanInfoUIMessages.BUI_ERROR); 
