@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoEntry.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:00 $ 
  */
 
 import java.util.ArrayList;
@@ -32,6 +32,12 @@ import org.w3c.dom.*;
 
 /**
  * Beaninfo entry. Location of the beaninfos. Much like a standard classpath entry.
+ * The BeanInfos are either in a jar or another project. They can be supplied as
+ * a local file in the project, or as an external jar, or as external jar through a
+ * variable, or an external jar through a plugin.
+ * <p>
+ * An external jar through containers is not valid because container are attached to
+ * projects. they aren't standalone.
  * 
  * @version 	1.0
  * @author
@@ -43,7 +49,10 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 	public static final int BIE_PLUGIN = 100;	// Beaninfo jar can be found in a plugin.
 
 	static int kindFromString(String kindStr) {
-
+		if (kindStr == null)
+			return -1;
+		if (kindStr.equalsIgnoreCase("con"))
+			return IClasspathEntry.CPE_CONTAINER;
 		if (kindStr.equalsIgnoreCase("var")) //$NON-NLS-1$
 			return IClasspathEntry.CPE_VARIABLE;
 		if (kindStr.equalsIgnoreCase("src")) //$NON-NLS-1$
@@ -66,6 +75,8 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 				return "lib"; //$NON-NLS-1$
 			case IClasspathEntry.CPE_VARIABLE :
 				return "var"; //$NON-NLS-1$
+			case IClasspathEntry.CPE_CONTAINER:
+				return "con";
 			case BIE_PLUGIN:
 				return "plugin";	//$NON-NLS-1$
 			default :
@@ -100,6 +111,7 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 
 			case IClasspathEntry.CPE_VARIABLE :
 				return JavaCore.newVariableEntry(path, null, null, isExported);
+
 		}
 
 		return null;
@@ -113,7 +125,7 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 		// ensure path is absolute
 		IPath path = new Path(pathStr);
 		int kind = kindFromString(elementKind);
-		if (kind != IClasspathEntry.CPE_VARIABLE && kind != BIE_PLUGIN && !path.isAbsolute()) {
+		if (kind != IClasspathEntry.CPE_VARIABLE && kind != IClasspathEntry.CPE_CONTAINER && kind != BIE_PLUGIN && !path.isAbsolute()) {
 			path = project != null ? project.getFullPath().append(path) : path.makeAbsolute(); // Some folder/jar within this project
 		}
 
@@ -213,7 +225,7 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 		if (entry != null) {
 			element.setAttribute(BeaninfosDoc.sKind, kindToString(entry.getEntryKind()));
 			path = entry.getPath();
-			if (entry.getEntryKind() != IClasspathEntry.CPE_VARIABLE) {
+			if (entry.getEntryKind() != IClasspathEntry.CPE_VARIABLE && entry.getEntryKind() != IClasspathEntry.CPE_CONTAINER) {
 				// translate to project relative from absolute (unless a device path)
 				if (path.isAbsolute()) {
 					if (path.segment(0).equals(project.getFullPath().segment(0))) {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: SPListElementSorter.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -38,12 +38,14 @@ public class SPListElementSorter extends ViewerSorter {
 			
 			switch (((SearchpathEntry) element.getEntry()).getKind()) {
 			case IClasspathEntry.CPE_LIBRARY:
-				return 3;
+				return 4;
 			case IClasspathEntry.CPE_PROJECT:
 				return 1;
 			case IClasspathEntry.CPE_SOURCE:
 				return 0;
 			case IClasspathEntry.CPE_VARIABLE:
+				return 3;
+			case IClasspathEntry.CPE_CONTAINER:
 				return 2;
 			}
 		}

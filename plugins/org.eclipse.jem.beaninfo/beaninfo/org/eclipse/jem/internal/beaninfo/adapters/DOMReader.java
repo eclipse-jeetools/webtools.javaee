@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: DOMReader.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:00 $ 
  */
 
 import org.w3c.dom.Element;
@@ -65,7 +65,7 @@ class DOMReader implements IReader {
 	 * @see IReader#getAttribute(Object, String)
 	 */
 	public String getAttribute(Object element, String attributeName) {
-		return (element instanceof Element) ? ((Element) element).getAttribute(attributeName) : null;
+		return (element instanceof Element) && ((Element) element).hasAttribute(attributeName) ? ((Element) element).getAttribute(attributeName) : null;
 	}
 
 }

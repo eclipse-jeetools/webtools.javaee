@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import java.util.*;
@@ -57,6 +57,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 	
 	private IClasspathEntry[] resolvedList;
 	private IClasspathEntry[] rawList;
+	private SearchPathListLabelProvider labelProvider;
 	
 	private static final String DIALOGSTORE_LASTEXTJAR = JEMUIPlugin.PI_BEANINFO_UI + ".lastextjar"; //$NON-NLS-1$
 	private static final String DIALOGSTORE_LASTVARIABLE = JEMUIPlugin.PI_BEANINFO_UI + ".lastvar"; //$NON-NLS-1$
@@ -82,7 +83,8 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 				
 		BeaninfosAdapter adapter= new BeaninfosAdapter();
 				
-		fBeaninfosList= new ListDialogField(adapter, buttonLabels, new SearchPathListLabelProvider());
+		labelProvider = new SearchPathListLabelProvider();	// kept around so can be updated with java project later
+		fBeaninfosList= new ListDialogField(adapter, buttonLabels, labelProvider);
 		fBeaninfosList.setDialogFieldListener(adapter);
 		fBeaninfosList.setLabelText(BeanInfoUIMessages.getString("BeanInfosWorkbookPage.List.Text")); //$NON-NLS-1$
 		fBeaninfosList.setRemoveButtonIndex(8);
@@ -96,6 +98,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 		
 	public void init(IJavaProject jproject) {
 		fCurrJProject= jproject;
+		labelProvider.setJavaProject(jproject);
 		try {
 			rawList = fCurrJProject.getRawClasspath();
 			resolvedList = new IClasspathEntry[rawList.length];

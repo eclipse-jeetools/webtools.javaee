@@ -24,6 +24,7 @@
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jdt.debug.ui"/>
       <import plugin="com.ibm.wtp.common.util"/>
+      <import plugin="org.eclipse.jem.workbench"/>
    </requires>
 
 
@@ -69,8 +70,8 @@
                label="%Action.proxyLaunch"
                pulldown="true"
                icon="icons/full/ctool16/run_exc.gif"
-               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchToolbarDelegate"
                tooltip="%Action.proxyLaunchTip"
+               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchToolbarDelegate"
                toolbarPath="org.eclipse.debug.ui.launchActionSet/proxyLaunch"
                id="org.eclipse.jem.ui.proxy.ProxyLaunchToolbarDelegateAction">
          </action>
@@ -94,8 +95,8 @@
          <action
                label="%Action.proxyLaunch"
                icon="icons/full/ctool16/run_exc.gif"
-               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchMenuDelegate"
                tooltip="%Action.proxyLaunchTip"
+               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchMenuDelegate"
                menubarPath="org.eclipse.ui.run/"
                id="org.eclipse.jem.ui.proxy.ProxyLaunchMenuDelegateAction">
          </action>
@@ -104,8 +105,8 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.core.resources.IProject"
             adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
             id="org.eclipse.jem.ui.select.default.objectcontibution">
          <action
                label="%Action.selectDefault"
@@ -148,10 +149,10 @@
          point="org.eclipse.ui.editors">
       <editor
             name="%Editors.OverrideEditor"
-            icon="icons/full/obj16/file_obj.gif"
             extensions="override"
-            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            icon="icons/full/obj16/file_obj.gif"
             class="org.eclipse.ui.editors.text.TextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             id="org.eclipse.jem.beaninfo.OverrideEditor">
       </editor>
    </extension>

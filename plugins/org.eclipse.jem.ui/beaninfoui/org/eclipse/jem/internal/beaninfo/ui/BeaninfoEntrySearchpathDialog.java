@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoEntrySearchpathDialog.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import java.text.MessageFormat;
@@ -113,7 +113,7 @@ public class BeaninfoEntrySearchpathDialog extends Dialog {
 			/* 5 */
 			BeanInfoUIMessages.getString("SearchPathDialog.Remove") }; //$NON-NLS-1$
 
-		listField = new ListDialogField(adapter, buttonLabels, new SearchPathListLabelProvider());
+		listField = new ListDialogField(adapter, buttonLabels, new SearchPathListLabelProvider(jProject));
 		listField.setLabelText(BeanInfoUIMessages.getString("SearchPathDialog.Desc.Label")); //$NON-NLS-1$
 		listField.setUpButtonIndex(0);
 		listField.setDownButtonIndex(1);

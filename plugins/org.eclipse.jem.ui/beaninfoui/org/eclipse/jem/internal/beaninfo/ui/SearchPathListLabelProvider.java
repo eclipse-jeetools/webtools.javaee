@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import java.net.MalformedURLException;
@@ -22,15 +22,19 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.wizards.buildpaths.ArchiveFileFilter;
+import org.eclipse.jdt.ui.JavaElementImageDescriptor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.misc.OverlayComposite;
@@ -41,11 +45,12 @@ import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 public class SearchPathListLabelProvider extends LabelProvider {
 
 	IWorkspaceRoot fRoot;
+	IJavaProject javaProject;
 
 	// Shared images
 	private Image fJarIcon, fExtJarIcon;
-	private Image fFolderImage, fProjectImage, fVariableImage;
-	private Image fMissingLibaryImage, fMissingVariableImage;
+	private Image fFolderImage, fProjectImage, fVariableImage, fLibraryImage;
+	private Image fMissingJarImage, fMissingVariableImage;
 	private Image fMissingFolderImage, fMissingProjectImage;
 	private Image fPackageImage;
 
@@ -54,6 +59,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 	private Image fBeanImage;
 	private Image fMissingPackageImage;
 	private Image fBlankImage;
+	private Image fMissingLibraryImage;
 	private HashMap fBeanedImages = new HashMap(); // Key of image to a composite with a bean attached
 	private HashMap fPackagedImages = new HashMap();
 	private HashMap fMissingPackagedImages = new HashMap();
@@ -61,6 +67,12 @@ public class SearchPathListLabelProvider extends LabelProvider {
 	// Key of image to a composite with a package attached
 
 	public SearchPathListLabelProvider() {
+		this(null);
+	}
+	
+	public SearchPathListLabelProvider(IJavaProject javaProject) {
+		this.javaProject = javaProject;
+		
 		fRoot = ResourcesPlugin.getWorkspace().getRoot();
 		ImageRegistry reg = JavaPlugin.getDefault().getImageRegistry();
 
@@ -69,17 +81,23 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		fFolderImage = reg.get(JavaPluginImages.IMG_OBJS_PACKFRAG_ROOT);
 
 		fVariableImage = reg.get(JavaPluginImages.IMG_OBJS_ENV_VAR);
+		
+		fLibraryImage = reg.get(JavaPluginImages.IMG_OBJS_LIBRARY);
 
 		IWorkbench workbench = JavaPlugin.getDefault().getWorkbench();
 		fProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT);
 
-		fMissingLibaryImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_JAR);
+		fMissingJarImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_JAR);
 		fMissingVariableImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_ENV_VAR);
 		fMissingFolderImage = reg.get(JavaPluginImages.IMG_OBJS_MISSING_PACKFRAG_ROOT);
 		fMissingProjectImage = workbench.getSharedImages().getImage(IDE.SharedImages.IMG_OBJ_PROJECT_CLOSED);
 
 		fPackageImage = reg.get(JavaPluginImages.IMG_OBJS_PACKAGE);
 
+		Rectangle r = fLibraryImage.getBounds();
+		Point s = new Point(r.width, r.height);
+		JavaElementImageDescriptor jed = new JavaElementImageDescriptor(reg.getDescriptor(JavaPluginImages.IMG_OBJS_LIBRARY),  JavaElementImageDescriptor.WARNING, s);
+		fMissingLibraryImage = jed.createImage();
 		try {
 			ImageDescriptor pin =
 				ImageDescriptor.createFromURL(
@@ -117,6 +135,10 @@ public class SearchPathListLabelProvider extends LabelProvider {
 
 	}
 
+	public void setJavaProject(IJavaProject javaProject) {
+		this.javaProject = javaProject;
+	}
+	
 	public String getText(Object element) {
 		if (element instanceof BPListElement) {
 			BPListElement bpentry = (BPListElement) element;
@@ -161,6 +183,18 @@ public class SearchPathListLabelProvider extends LabelProvider {
 						pathString = name;
 					break;
 
+				case IClasspathEntry.CPE_CONTAINER:
+					try {
+						IClasspathContainer c = JavaCore.getClasspathContainer(path, javaProject);
+						if (c != null) {
+							pathString = c.getDescription();
+							break;
+						}
+					} catch (JavaModelException e) {
+					}
+					pathString = path.toString();
+					break;
+					
 				case IClasspathEntry.CPE_PROJECT :
 					pathString = path.toString();
 					break;
@@ -220,7 +254,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 						else
 							pathImage = fExtJarIcon;
 					} else
-						pathImage = fMissingLibaryImage;
+						pathImage = fMissingJarImage;
 					break;
 
 				case IClasspathEntry.CPE_PROJECT :
@@ -237,6 +271,13 @@ public class SearchPathListLabelProvider extends LabelProvider {
 						pathImage = fMissingVariableImage;
 					break;
 
+				case IClasspathEntry.CPE_CONTAINER:
+					if (!bpentry.isMissing())
+						pathImage = fLibraryImage;
+					else
+						pathImage = fMissingLibraryImage;
+					break;				
+					
 				case BeaninfoEntry.BIE_PLUGIN:
 					pathImage = fPluginImage;
 					break;
@@ -325,6 +366,7 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		fBeanImage.dispose();
 		fMissingPackageImage.dispose();
 		fBlankImage.dispose();
+		fMissingLibraryImage.dispose();
 		for (Iterator itr = fBeanedImages.values().iterator(); itr.hasNext();) {
 			((Image) itr.next()).dispose();
 		}

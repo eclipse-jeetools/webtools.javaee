@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BIListElementSorter.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -37,15 +37,17 @@ public class BIListElementSorter extends ViewerSorter {
 			
 			switch (((BeaninfoEntry) element.getEntry()).getKind()) {
 			case IClasspathEntry.CPE_LIBRARY:
-				return 3;
+				return 4;
 			case IClasspathEntry.CPE_PROJECT:
 				return 1;
 			case IClasspathEntry.CPE_SOURCE:
 				return 0;
 			case IClasspathEntry.CPE_VARIABLE:
-				return 2;
+				return 3;
 			case BeaninfoEntry.BIE_PLUGIN:
-				return 4;
+				return 5;
+			case IClasspathEntry.CPE_CONTAINER:
+				return 2;
 			}
 		}
 		return super.category(obj);

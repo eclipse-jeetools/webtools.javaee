@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import java.io.File;
@@ -63,7 +63,8 @@ public class BeaninfoPathsBlock {
 	private BeaninfosWorkbookPage fBeaninfosPage;
 
 	private BuildSearchBasePage fCurrPage;
-
+	private SearchPathListLabelProvider labelProvider;
+	
 	public BeaninfoPathsBlock(IWorkspaceRoot root, IStatusChangeListener context) {
 		fWorkspaceRoot = root;
 		fContext = context;
@@ -81,7 +82,8 @@ public class BeaninfoPathsBlock {
 			/* 4 */ BeanInfoUIMessages.getString("BeanInfoPathsBlock.UnexportAll") //$NON-NLS-1$
 			};
 		
-		fSearchOrder = new CheckedListDialogField(null, buttonLabels, new SearchPathListLabelProvider());
+		labelProvider = new SearchPathListLabelProvider();	// We keep around to update with latest project.
+		fSearchOrder = new CheckedListDialogField(null, buttonLabels, labelProvider);
 		fSearchOrder.setDialogFieldListener(adapter);
 		fSearchOrder.setLabelText(
 			BeanInfoUIMessages.getString(BeanInfoUIMessages.BPB_SEARCHPATH_LABEL));
@@ -209,6 +211,7 @@ public class BeaninfoPathsBlock {
 	 */
 	public void init(IJavaProject jproject) {
 		fCurrJProject = jproject;
+		labelProvider.setJavaProject(jproject);
 
 		try {
 			// If we have a config file, we will assume we have a nature. It will add it automatically
@@ -297,6 +300,7 @@ public class BeaninfoPathsBlock {
 			fEnableBeaninfoDialogField.setSelection(false);
 		}
 
+//		listenForClasspathChange();
 		doStatusLineUpdate();
 	}
 	
@@ -556,5 +560,5 @@ public class BeaninfoPathsBlock {
 			}
 			fCurrPage = newPage;
 		}
-	}
+	}	
 }

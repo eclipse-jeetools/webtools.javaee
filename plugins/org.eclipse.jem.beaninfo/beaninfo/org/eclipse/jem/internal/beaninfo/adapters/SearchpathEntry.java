@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: SearchpathEntry.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:00 $ 
  */
 
 import org.eclipse.core.resources.IProject;
@@ -23,6 +23,9 @@ import org.w3c.dom.*;
 /**
  * Searchpath entry. Beaninfo searchpath entry (i.e. package name). Can include
  * kind/path/exported if not a child of the BeaninfoEntry.
+ * 
+ * Note: if not a child of a BeanInfoEntry, then the path refers to a package
+ * in the classpath, so container is supported here.
  * 
  * @version 	1.0
  * @author
@@ -42,11 +45,14 @@ public class SearchpathEntry implements IBeaninfosDocEntry {
 
 		String elementKind = reader.getAttribute(element, BeaninfosDoc.sKind);
 		String pathStr = reader.getAttribute(element, BeaninfosDoc.sPath);
-		// ensure path is absolute
-		IPath path = new Path(pathStr);
-		int kind = BeaninfoEntry.kindFromString(elementKind);
-		if (kind != IClasspathEntry.CPE_VARIABLE && !path.isAbsolute()) {
-			path = project != null ? project.getFullPath().append(path) : path.makeAbsolute(); // Some folder/jar within this project
+		int kind = BeaninfoEntry.kindFromString(elementKind);		
+		IPath path = null;
+		if (pathStr != null) {
+			// ensure path is absolute
+			path = new Path(pathStr);
+			if (kind != IClasspathEntry.CPE_VARIABLE && kind != IClasspathEntry.CPE_CONTAINER && !path.isAbsolute()) {
+				path = project != null ? project.getFullPath().append(path) : path.makeAbsolute(); // Some folder/jar within this project
+			}
 		}
 
 		// create the appropriate entry
@@ -54,11 +60,13 @@ public class SearchpathEntry implements IBeaninfosDocEntry {
 		switch (kind) {
 
 			case IClasspathEntry.CPE_LIBRARY :
-				valid = path.isAbsolute();
+				valid = path != null && path.isAbsolute();
 				break;
 
 			case IClasspathEntry.CPE_SOURCE :
-				if (path.isAbsolute()) {
+				if (path == null)
+					valid = false;
+				else if (path.isAbsolute()) {
 					// must be an entry in this project or specify another project
 					String projSegment = path.segment(0);
 					if (project == null || projSegment == null || !projSegment.equals(project.getName())) {
@@ -69,6 +77,7 @@ public class SearchpathEntry implements IBeaninfosDocEntry {
 				break;
 
 			case IClasspathEntry.CPE_VARIABLE :
+			case IClasspathEntry.CPE_CONTAINER:				
 				break;
 
 			default :
@@ -117,7 +126,7 @@ public class SearchpathEntry implements IBeaninfosDocEntry {
 			// A non-beaninfo child
 			element.setAttribute(BeaninfosDoc.sKind, BeaninfoEntry.kindToString(kind));
 			IPath tPath = path;
-			if (kind != IClasspathEntry.CPE_VARIABLE) {
+			if (kind != IClasspathEntry.CPE_VARIABLE && kind != IClasspathEntry.CPE_CONTAINER) {
 				// translate to project relative from absolute (unless a device path)
 				if (tPath.isAbsolute()) {
 					if (tPath.segment(0).equals(project.getFullPath().segment(0))) {

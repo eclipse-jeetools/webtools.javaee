@@ -11,14 +11,13 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: PackagesWorkbookPage.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import java.util.*;
 import java.util.List;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
@@ -90,8 +89,10 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 
 	private ListDialogField fSearchPackagesList;
 
-	private IClasspathEntry[] resolvedList;
+	private IPackageFragmentRoot[][] rootsPerRawEntry;
 	private IClasspathEntry[] rawList;
+	
+	SearchPathListLabelProvider labelProvider;
 
 	public PackagesWorkbookPage(IWorkspaceRoot root, BeaninfoPathsBlock biPathsBlock, List interestedFieldsForEnableControl) {
 		this.biPathsBlock = biPathsBlock;
@@ -112,7 +113,8 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 			/* 3 */
 			BeanInfoUIMessages.getString("PackagesWorkbook.Remove") }; //$NON-NLS-1$
 
-		fSearchPackagesList = new ListDialogField(adapter, buttonLabels, new SearchPathListLabelProvider());
+		labelProvider = new SearchPathListLabelProvider();
+		fSearchPackagesList = new ListDialogField(adapter, buttonLabels, labelProvider);
 		fSearchPackagesList.setDialogFieldListener(adapter);
 		fSearchPackagesList.setLabelText(BeanInfoUIMessages.getString("PackagesWorkbook.LabelText")); //$NON-NLS-1$
 		fSearchPackagesList.setRemoveButtonIndex(3);
@@ -124,11 +126,16 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 
 	public void init(IJavaProject jproject) {
 		fCurrJProject = jproject;
+		labelProvider.setJavaProject(jproject);
 		try {
 			rawList = fCurrJProject.getRawClasspath();
-			resolvedList = fCurrJProject.getResolvedClasspath(true);
+			rootsPerRawEntry = new IPackageFragmentRoot[rawList.length][];
+			for (int i = 0; i < rawList.length; i++) {
+				rootsPerRawEntry[i] = fCurrJProject.findPackageFragmentRoots(rawList[i]);
+			}		
 		} catch (JavaModelException e) {
-			rawList = resolvedList = new IClasspathEntry[0];
+			rawList = new IClasspathEntry[0];
+			rootsPerRawEntry = new IPackageFragmentRoot[0][];
 		}
 		updatePackagesList();
 	}
@@ -345,12 +352,12 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 	 */
 	private List chooseDefined() {
 
-		// Current pre-defined ones are only pre-reqed projects. Registered vars will be added later.
+		// Current pre-defined ones are only pre-reqed projects.
 		// The list of inputs will not contain any already in the path.
 		// We will create them here and if not selected they will thrown away.
 		// The assumption is that there are not very many and our SearchPathListLabelProvider does
 		// a good job of showing them. Otherwise we would need to come up with one that can show
-		// IJavaProjects and Registered vars when we get them.
+		// IJavaProjects when we get them.
 		List inputs = new ArrayList();
 		List currentList = fSearchPackagesList.getElements();
 		for (int i = 0; i < rawList.length; i++) {
@@ -369,9 +376,9 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 			}
 		}
 		
-		ILabelProvider labelProvider = new SearchPathListLabelProvider();
+		ILabelProvider labelProvider1 = new SearchPathListLabelProvider(fCurrJProject);
 		ElementListSelectionDialog dialog =
-			new ElementListSelectionDialog(getShell(), labelProvider);
+			new ElementListSelectionDialog(getShell(), labelProvider1);
 		dialog.setTitle(BeanInfoUIMessages.getString("PackagesWorkbook.SelectionDialog.DefinedPaths.Title")); //$NON-NLS-1$
 
 		dialog.setMessage(BeanInfoUIMessages.getString("PackagesWorkbook.SelectionDialog.DefinedPaths.Message")); //$NON-NLS-1$
@@ -391,12 +398,14 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 		boolean isExported = false;
 		IPackageFragment frag = (IPackageFragment) element;
 		// Need to find corresponding raw class path entry.
-		IPath path = ((IPackageFragmentRoot) frag.getParent()).getPath(); // Get frag root path.
-		for (int i = 0; i < resolvedList.length; i++) {
-			if (resolvedList[i] != null && path.equals(resolvedList[i].getPath())) {
-				isExported = rawList[i].isExported() || rawList[i].getEntryKind() == IClasspathEntry.CPE_SOURCE;
-				se = new SearchpathEntry(rawList[i].getEntryKind(), rawList[i].getPath(), frag.getElementName());
-				break;
+		IPackageFragmentRoot root = (IPackageFragmentRoot) frag.getParent(); // Get frag root.
+		for (int i = 0; i < rootsPerRawEntry.length; i++) {
+			for (int j = 0; j < rootsPerRawEntry[i].length; j++) {
+				if (rootsPerRawEntry[i][j].equals(root)) {
+					isExported = rawList[i].isExported() || rawList[i].getEntryKind() == IClasspathEntry.CPE_SOURCE;
+					se = new SearchpathEntry(rawList[i].getEntryKind(), rawList[i].getPath(), frag.getElementName());
+					break;
+				}
 			}
 		}
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.8 $  $Date: 2004/03/06 18:38:37 $ 
+ *  $Revision: 1.9 $  $Date: 2004/03/08 00:48:00 $ 
  */
 
 import java.io.*;
@@ -348,64 +348,7 @@ public class BeaninfoNature implements IProjectNature {
 			Utilities.setBeanInfoSearchPath(registry, null);
 	}
 
-	/*
-	 * Get the search path in the old format.
-	 */
-	private BeaninfoSearchPathEntry[] getOldFormatSearchPath(Element root) {
-		NodeList children = root.getChildNodes();
-		int childrenLength = children.getLength();
-		ArrayList childrenList = new ArrayList(childrenLength);
-		for (int i = 0; i < childrenLength; i++) {
-			Node child = children.item(i);
-			BeaninfoSearchPathEntry bentry = BeaninfoSearchPathEntry.readEntry(child);
-			if (bentry != null)
-				childrenList.add(bentry);
-		}
-		return (BeaninfoSearchPathEntry[]) childrenList.toArray(new BeaninfoSearchPathEntry[childrenList.size()]);
-	}
-
-	/*
-	 * Convert the old format to new format.
-	 */
-	private BeaninfosDoc convertOldFormatSearchPath(Element root) {
-		BeaninfoSearchPathEntry[] entries = getOldFormatSearchPath(root);
-
-		try {
-			IJavaProject jp = JavaCore.create(getProject());
-			IClasspathEntry[] cpEntries = jp.getRawClasspath();
-			HashMap resolvedEntries = new HashMap(cpEntries.length);
-			for (int i = 0; i < cpEntries.length; i++) {
-				IClasspathEntry resolved = JavaCore.getResolvedClasspathEntry(cpEntries[i]);
-				if (resolved != null)
-					resolvedEntries.put(resolved.getPath(), new Integer(i));
-			}
-
-			List newentries = new ArrayList(entries.length);
-			for (int i = 0; i < entries.length; i++) {
-				IPath pkgPath = new Path(entries[i].getPackageName().replace('.', '/'));
-				try {
-					IPackageFragment frag = (IPackageFragment) jp.findElement(pkgPath); // Find the first match
-					if (frag != null) {
-						IPackageFragmentRoot froot = (IPackageFragmentRoot) frag.getParent();
-						Integer index = (Integer) resolvedEntries.get(froot.getPath());
-						if (index != null) {
-							IClasspathEntry cpe = cpEntries[index.intValue()];
-							newentries.add(new SearchpathEntry(cpe.getEntryKind(), cpe.getPath(), frag.getElementName()));
-						}
-					}
-				} catch (ClassCastException e) {
-					// It didn't find a IPackageFragment, it should of, so skip this entry.
-				}
-			}
-			return new BeaninfosDoc((IBeaninfosDocEntry[]) newentries.toArray(new IBeaninfosDocEntry[newentries.size()]));
-		} catch (JavaModelException e) {
-		}
-		return null;
-	}
-
 	private static final String ENCODING = "UTF-8"; //$NON-NLS-1$
-	private static final String sSearchPathElementName = "searchPath"; //$NON-NLS-1$
-	// Old format root element name (WSAD 4.0.0)
 	static final String sBeaninfos = "beaninfos"; // Root element name //$NON-NLS-1$
 	/**
 	 * Get the persistent search path. The object returned is a copy of the
@@ -422,12 +365,7 @@ public class BeaninfoNature implements IProjectNature {
 					DocumentBuilderFactoryImpl bldrFactory = new DocumentBuilderFactoryImpl();
 					Document doc = bldrFactory.newDocumentBuilder().parse(new InputSource(new InputStreamReader(property, ENCODING)));
 					Element root = doc.getDocumentElement();
-					if (root != null && root.getNodeName().equalsIgnoreCase(sSearchPathElementName)) {
-						// Old format. Need to convert to new format.
-						bdoc = convertOldFormatSearchPath(root);
-						setSearchPath(bdoc); // Now put out the converted format.
-					} else if (root != null && root.getNodeName().equalsIgnoreCase(sBeaninfos)) {
-						// New format
+					if (root != null && root.getNodeName().equalsIgnoreCase(sBeaninfos)) {
 						bdoc = BeaninfosDoc.readEntry(new DOMReader(), root, getProject());
 					}
 				} finally {

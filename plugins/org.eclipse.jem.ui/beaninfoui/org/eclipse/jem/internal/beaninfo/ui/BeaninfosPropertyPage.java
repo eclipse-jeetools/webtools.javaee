@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosPropertyPage.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -37,6 +37,8 @@ import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 public class BeaninfosPropertyPage extends PropertyPage implements IStatusChangeListener {
 		
 	private BeaninfoPathsBlock fBuildPathsBlock;
+	private IResourceChangeListener listener;
+	private IProject project;
 	
 	/*
 	 * @see PreferencePage#createControl(Composite)
@@ -48,23 +50,43 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 		// ensure the page has no special buttons
 		noDefaultAndApplyButton();		
 		
-		IProject project= getProject();
+		project= getProject();
 		if (project == null || !isJavaProject(project)) {
 			return createWithoutJava(parent);
 		} else if (!project.isOpen()) {
 			return createForClosedProject(parent);
 		} else {
-			return createWithJava(parent, project);
+			return createWithJava(parent);
 		}
 	}
 	
 	/**
 	 * Content for valid projects.
 	 */
-	private Control createWithJava(Composite parent, IProject project) {
+	private Control createWithJava(Composite parent) {
 		IWorkspaceRoot root= ResourcesPlugin.getWorkspace().getRoot();
 		fBuildPathsBlock= new BeaninfoPathsBlock(root, this);
-		fBuildPathsBlock.init(JavaCore.create(project));
+		final IJavaProject jproject = JavaCore.create(project);
+		fBuildPathsBlock.init(jproject);
+		final IPath classpathfile = project.getFile(".classpath").getFullPath();
+		listener = new IResourceChangeListener() {
+			
+			/* (non-Javadoc)
+			 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
+			 */
+			public void resourceChanged(IResourceChangeEvent event) {
+				if (fBuildPathsBlock != null) {
+					if (event.getDelta().findMember(classpathfile) != null)
+						getControl().getDisplay().asyncExec(new Runnable() {	// Can be called outside of display loop
+							public void run() {
+								fBuildPathsBlock.init(jproject);
+							}
+						});
+				}
+			}
+		};
+		project.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_CHANGE);
+
 		return fBuildPathsBlock.createControl(parent);
 	}
 
@@ -144,4 +166,14 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 		StatusUtil.applyToStatusLine(this, status);
 	}
 
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.IDialogPage#dispose()
+	 */
+	public void dispose() {
+		if (listener != null)
+			project.getWorkspace().removeResourceChangeListener(listener);
+		listener = null;
+		super.dispose();
+	}
 }
