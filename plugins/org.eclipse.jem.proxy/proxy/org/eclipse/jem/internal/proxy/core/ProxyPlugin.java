@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.20 $  $Date: 2004/05/24 15:57:24 $ 
+ *  $Revision: 1.21 $  $Date: 2004/06/01 23:51:45 $ 
  */
 
 
@@ -893,7 +893,7 @@ public class ProxyPlugin extends Plugin {
 	
 	private void processPlugin(IJavaProject project, Map pluginIds, boolean visible, boolean first) {
 		WorkspaceModelManager wm = (WorkspaceModelManager)PDECore.getDefault().getWorkspaceModelManager();
-		IModel m = wm.getWorkspaceModel(project.getProject());
+		IPluginModelBase m = wm.getWorkspacePluginModel(project.getProject());
 		if (m instanceof IPluginModel) {
 			// it is a plugin, process it.
 			IPlugin plugin = ((IPluginModel) m).getPlugin();			
