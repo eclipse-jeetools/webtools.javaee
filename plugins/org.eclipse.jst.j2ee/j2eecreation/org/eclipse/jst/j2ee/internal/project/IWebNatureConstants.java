@@ -95,5 +95,7 @@ public interface IWebNatureConstants {
 	java.lang.String STATIC_CONTEXT_ROOT = "/"; //$NON-NLS-1$
 	String STATIC_NATURE_ID = "org.eclipse.jst.j2ee.web" + ".StaticWebNature"; //$NON-NLS-1$ //$NON-NLS-2$
 	int STATIC_WEB_PROJECT = 0;
+	//putting this constant back as this was creating a compile error
+	String WEBSETTINGS_MIGRATION_FILE_NAME = "";
 
 }
