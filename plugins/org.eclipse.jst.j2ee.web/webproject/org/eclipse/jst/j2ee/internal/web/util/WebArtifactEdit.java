@@ -369,11 +369,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	public IFolder getLibraryFolder() {
 		IFolder webInfFolder = (IFolder)getWebInfFolder();
-		IFolder libFolder = (IFolder)webInfFolder.findMember(IWebNatureConstants.LIBRARY_DIRECTORY);
+		IFolder libFolder = (IFolder)webInfFolder.getFolder(IWebNatureConstants.LIBRARY_DIRECTORY);
 		return libFolder;
 	}
 	
 	public void setLibModules(ILibModule[] libModules) {
-		//TODO 
+		//TODO we need an edit model for write to do it.
 	}
 }
