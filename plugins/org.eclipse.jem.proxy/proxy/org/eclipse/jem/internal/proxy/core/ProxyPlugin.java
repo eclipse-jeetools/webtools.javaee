@@ -11,10 +11,11 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.26 $  $Date: 2004/06/09 23:08:07 $ 
+ *  $Revision: 1.27 $  $Date: 2004/06/17 22:26:25 $ 
  */
 
 
+import java.io.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -134,7 +135,7 @@ public class ProxyPlugin extends Plugin {
 	 */
 	public String localizeFromBundle(Bundle bundle, String filenameWithinBundle) {
 		URL url = urlLocalizeFromBundle(bundle, filenameWithinBundle);
-		return url != null ? url.getFile() : "."; //$NON-NLS-1$
+		return url != null ? getFileFromURL(url) : "."; //$NON-NLS-1$
 	}
 	
 	/**
@@ -174,9 +175,16 @@ public class ProxyPlugin extends Plugin {
 		URL[] urls = urlLocalizeFromBundleAndFragments(bundle, filenameWithinBundle);
 		String[] result = new String[urls.length];
 		for (int i = 0; i < urls.length; i++) {
-			result[i] = urls[i].getFile();
+			result[i] = getFileFromURL(urls[i]);
 		}
 		return result;
+	}
+	
+	private static String getFileFromURL(URL url) {
+		// We need to do this in a device independent way. The URL will always put a leading '/' in the
+		// file part of the URL, but on Windows we need to have this '/' removed. Some JRE's don't understand it.
+		return new File(url.getFile()).getAbsolutePath();
+
 	}
 
 
@@ -309,10 +317,12 @@ public class ProxyPlugin extends Plugin {
 						props.load(ios);
 						String pathString = props.getProperty(filenameWithinBundle.toString());
 						if (pathString != null) {
-							IPath path = new Path(Platform.resolve(bundle.getEntry("/")).getFile());
-							path = path.removeLastSegments(1); // Move up one level to workspace root of development workspace.
-							path = path.append(pathString);
-							return new URL("file", null, path.toString()); //$NON-NLS-1$
+							URL url = Platform.resolve(bundle.getEntry("/"));	// It is assumed that if in debug mode, then this plugin is an imported plugin within the developement workspace.
+							if (url.getProtocol().equals("file")) {
+								File file = new File(url.getFile()).getParentFile();	// This gets us to workspace root of development workspace.
+								file = new File(file, pathString);
+								return file.toURL();
+							}
 						}
 					} finally {
 						if (ios != null)
