@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.24 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.25 $  $Date: 2004/10/01 21:24:01 $ 
  */
 
 import java.io.*;
@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.jdt.core.*;
 import org.osgi.framework.Bundle;
 import org.w3c.dom.Document;
@@ -198,18 +199,35 @@ public class BeaninfoNature implements IProjectNature {
 		cleanup(true, false);
 	}
 
+
 	/**
 	 * Return a new ResourceSet that is linked correctly to this Beaninfo Nature.
+	 * <p>
 	 * This links up a ResourceSet so that it will work correctly with this nature.
 	 * It makes sure that going through the ResourceSet that any "java:/..."
 	 * classes can be found and it makes sure that any new classes are placed into the
 	 * nature's resource set and not resource set doing the calling.
-	 * 
-	 * The resourceset will have a context assigned to it.
-	 * 
+	 * <p>
 	 * This should be used any time a resource set is needed that is not the
 	 * project wide resource set associated with beaninfos, but will reference
 	 * Java Model classes or instantiate.
+	 * <p>
+	 * An additional change is made too. The ResourceFactoryRegistry's extensionToResourceFactory map is modified
+	 * to have an "java"->XMIResourceFactory entry added to it if EMF Examples is loaded. EMF Examples add
+	 * the "java" extension and sets it to their own special JavaResourceFactory. 
+	 * If EMF Examples is not loaded, then it falls back to the default "*" mapping, which is to XMIResourceFactory.
+	 * This normally causes problems for many
+	 * customers. If users of this resource set really want the EMF examples entry instead, after they retrieve the
+	 * new resource set they can do this:
+	 * <p>
+	 * <pre><code>
+	 * 	rset = beaninfoNature.newResourceSet();
+	 * 	rset.getResourceFactoryRegistry().getExtensionToFactoryMap().remove("java");
+	 * </code></pre>
+	 * 
+	 * @return a ResourceSet that is specially connected to the JEM java model.
+	 * 
+	 * @since 1.0.0
 	 */
 	public ResourceSet newResourceSet() {
 		SpecialResourceSet rset = new SpecialResourceSet();
@@ -242,6 +260,12 @@ public class BeaninfoNature implements IProjectNature {
 					return null;
 			}
 		});
+		// [71473] Restore "*.java" to be an XMIResource. If EMF Examples are loaded they overload this and load their special resource for "*.java" which we don't want.
+		// If some user really wants that, they grab the resource resource set and remove our override.
+		if (Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("java")) {
+			// Need to add an override to go to XMI instead.
+			rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("java", new XMIResourceFactoryImpl());
+		}
 		return rset;
 	}
 	/**
