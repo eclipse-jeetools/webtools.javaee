@@ -196,7 +196,7 @@
             id="com.ibm.wtp.server.j2ee.ejb">
          <enablement>
            <with variable="selection">
-             <adapt type="org.eclipse.jst.j2ee.internal.ejb.EJBJar"/>
+             <adapt type="org.eclipse.jst.j2ee.ejb.EJBJar"/>
            </with>
          </enablement>
       </moduleArtifactAdapter>
@@ -204,7 +204,7 @@
             id="com.ibm.wtp.server.j2ee.ejb2">
          <enablement>
            <with variable="selection">
-             <adapt type="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean"/>
+             <adapt type="org.eclipse.jst.j2ee.ejb.EnterpriseBean"/>
            </with>
          </enablement>
       </moduleArtifactAdapter>
