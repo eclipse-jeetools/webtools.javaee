@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTTreeInitStringParserTestHelper.java,v $
- *  $Revision: 1.7 $  $Date: 2004/03/07 18:34:23 $ 
+ *  $Revision: 1.8 $  $Date: 2004/05/20 15:41:56 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
@@ -65,7 +65,7 @@ public class ASTTreeInitStringParserTestHelper extends AbstractInitStringParserT
 	 */
 	public void testInitString(String aString, Object expectedResult, boolean throwsException, boolean equalsOnly) throws Throwable {
 		String testClass = MessageFormat.format(TEMPLATE_CLASS, new Object[] {aString});
-		ASTParser parser = ASTParser.newParser(AST.LEVEL_2_0);
+		ASTParser parser = ASTParser.newParser(AST.JLS2);
 		parser.setSource(testClass.toCharArray());
 		parser.setUnitName("TEMPLATE.java");
 		if (project != null) {
@@ -98,7 +98,7 @@ public class ASTTreeInitStringParserTestHelper extends AbstractInitStringParserT
 			importLines.append(";\n");
 		}
 		String testClass = MessageFormat.format(TEMPLATE_CLASS_IMPORTS, new Object[] {importLines, aString});
-		ASTParser parser = ASTParser.newParser(AST.LEVEL_2_0);
+		ASTParser parser = ASTParser.newParser(AST.JLS2);
 		parser.setSource(testClass.toCharArray());
 		parser.setUnitName("TEMPLATE.java");
 		if (project != null) {
