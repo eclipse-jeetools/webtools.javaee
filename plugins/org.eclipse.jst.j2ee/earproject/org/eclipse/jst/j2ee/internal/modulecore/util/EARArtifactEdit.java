@@ -30,10 +30,16 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 
 public class EARArtifactEdit extends EnterpriseArtifactEdit {
 
+	/***********************************************************************************************
+	 * <p>
+	 * Identifier used to group and query common artifact edits.
+	 * </p>
+	 */
+
 
 	public static String TYPE_ID = "EAR_TYPE";
 
-	/**
+	/***********************************************************************************************
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}.
 	 * </p>
@@ -46,10 +52,10 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 
 	/***********************************************************************************************
 	 * <p>
-	 * Retrieves J2EE version information from ApplicationXMIResource.
+	 * Retrieves J2EE version information from ApplicationResource.
 	 * </p>
 	 * 
-	 * @return an interger representation of a J2EE Spec version
+	 * @return an integer representation of a J2EE Spec version
 	 *  
 	 */
 	public int getJ2EEVersion() {

@@ -29,63 +29,138 @@ import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 
 /**
  * <p>
- * The following class is experimental until fully documented.
- * </p> 
+ * WebArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}to obtain Web
+ * specifec data from a WebAppResource (@see WebAppResource). The WebAppResource is retrieved from
+ * the ArtifactEditModel {@see ArtifactEditModel}using a cached constant (@see
+ * J2EEConstants.WEBAPP_DD_URI_OBJ). Defined methods extract data from the resource.
+ * </p>
  */
-public class WebEdit extends EnterpriseArtifactEdit {
-	
-	public static final Class ADAPTER_TYPE = WebEdit.class;
-	
-	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
-	
-	/**
-	 * @param model
+public class WebArtifactEdit extends EnterpriseArtifactEdit {
+
+	/***********************************************************************************************
+	 * <p>
+	 * Identifier used to link WebArtifactEdit to a WebEditAdapterFactory (@see
+	 * WebEditAdapterFactory) stored in an AdapterManger (@see AdapterManager)
+	 * </p>
 	 */
-	public WebEdit(ArtifactEditModel model) {
+
+	public static final Class ADAPTER_TYPE = WebArtifactEdit.class;
+
+	/***********************************************************************************************
+	 * <p>
+	 * Identifier used to group and query common artifact edits.
+	 * </p>
+	 */
+
+	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
+
+	/***********************************************************************************************
+	 * <p>
+	 * Creates an instance facade for the given {@see ArtifactEditModel}.
+	 * </p>
+	 * 
+	 * @param anArtifactEditModel
+	 */
+
+	public WebArtifactEdit(ArtifactEditModel model) {
 		super(model);
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#getJ2EEVersion()
+	/***********************************************************************************************
+	 * <p>
+	 * Retrieves J2EE version information from WebAppResource.
+	 * </p>
+	 * 
+	 * @return an integer representation of a J2EE Spec version
+	 *  
 	 */
 	public int getJ2EEVersion() {
 		return getWebApplicationXmiResource().getJ2EEVersionID();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#getDeploymentDescriptorRoot()
+	/***********************************************************************************************
+	 * <p>
+	 * Obtains the WebApp (@see WebApp) root object from the WebAppResource. If the root object does
+	 * not exist, then one is created (@link addWebAppIfNecessary(getWebApplicationXmiResource())).
+	 * The root object contains all other resource defined objects.
+	 * </p>
+	 * 
+	 * @return EObject
+	 *  
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
-		if(contents.size() > 0)
-			return (EObject)contents.get(0);
+		if (contents.size() > 0)
+			return (EObject) contents.get(0);
 		addWebAppIfNecessary(getWebApplicationXmiResource());
-		return (EObject)contents.get(0);
+		return (EObject) contents.get(0);
 	}
-	
+
+	/***********************************************************************************************
+	 * 
+	 * @return WebAppResource from (@link getDeploymentDescriptorResource())
+	 *  
+	 */
+
 	public WebAppResource getWebApplicationXmiResource() {
-		return (WebAppResource)getDeploymentDescriptorResource();
+		return (WebAppResource) getDeploymentDescriptorResource();
 	}
+
+	/***********************************************************************************************
+	 * <p>
+	 * Retrieves the underlying resource from the ArtifactEditModel using defined URI.
+	 * </p>
+	 * 
+	 * @return Resource
+	 *  
+	 */
 
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 	}
-	
+
+	/***********************************************************************************************
+	 * 
+	 * @return WebApp from (@link getDeploymentDescriptorRoot())
+	 *  
+	 */
 	public WebApp getWebApplication() {
-		return (WebApp)getDeploymentDescriptorRoot();
+		return (WebApp) getDeploymentDescriptorRoot();
 	}
-	
+
+	/***********************************************************************************************
+	 * <p>
+	 * Retrieves Servlet version information derived from the WebAppResource.
+	 * </p>
+	 * 
+	 * @return an integer representation of a module version
+	 *  
+	 */
+
+
 	public int getServletVersion() {
 		return getWebApplicationXmiResource().getModuleVersionID();
 	}
-	
+
+
+	/***********************************************************************************************
+	 * <p>
+	 * Creates a deployment decriptor root object (WebApp) and populates with data. Adds the root
+	 * object to the deployment descriptor resource.
+	 * </p>
+	 * 
+	 * <p>
+	 * Note: this is typically used for JUNIT testing
+	 * </p>
+	 */
+
 	protected void addWebAppIfNecessary(XMLResource aResource) {
-		 
+
 		if (aResource != null && aResource.getContents().isEmpty()) {
 			WebApp webApp = WebapplicationFactory.eINSTANCE.createWebApp();
 			aResource.getContents().add(webApp);
-			URI moduleURI = getArtifactEditModel().getModuleURI();			
+			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				webApp.setDisplayName(ModuleURIUtil.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {

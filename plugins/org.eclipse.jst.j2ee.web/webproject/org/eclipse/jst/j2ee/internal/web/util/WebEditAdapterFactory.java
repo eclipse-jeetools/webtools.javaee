@@ -25,10 +25,10 @@ public class WebEditAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if (adapterType == WebEdit.ADAPTER_TYPE || adapterType == ArtifactEdit.ADAPTER_TYPE) {
+		if (adapterType == WebArtifactEdit.ADAPTER_TYPE || adapterType == ArtifactEdit.ADAPTER_TYPE) {
 			ArtifactEditModel editModel = (ArtifactEditModel) adaptableObject;
-			if (editModel.getModuleType().equals(WebEdit.TYPE_ID))
-				return new WebEdit((ArtifactEditModel) adaptableObject);
+			if (editModel.getModuleType().equals(WebArtifactEdit.TYPE_ID))
+				return new WebArtifactEdit((ArtifactEditModel) adaptableObject);
 		} 
 		return null;
 	}
@@ -40,6 +40,6 @@ public class WebEditAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
 	 */
 	public Class[] getAdapterList() { 
-		return new Class[]{ArtifactEdit.class, WebEdit.class};
+		return new Class[]{ArtifactEdit.class, WebArtifactEdit.class};
 	}
 }

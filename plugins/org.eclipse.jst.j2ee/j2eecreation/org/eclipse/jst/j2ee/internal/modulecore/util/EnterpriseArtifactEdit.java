@@ -47,7 +47,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * Retrieves J2EE version information from deployment descriptor resource.
 	 * </p>
 	 * 
-	 * @return an interger representation of a J2EE Spec version
+	 * @return an integer representation of a J2EE Spec version
 	 *  
 	 */
 	public abstract int getJ2EEVersion();
