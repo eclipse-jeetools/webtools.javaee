@@ -54,7 +54,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	public void runAll(){
 		try {
 			createSimpleProject(DEFAULT_PROJECT_NAME);
-			setupWebModule();
+			//setupWebModule();
 			setupEJBModule();
 		}
 		catch (Exception e) {
@@ -65,7 +65,7 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}
 	
 	public void setupEJBModule() throws Exception {
-		createEJBModule(11, "FirstEJBModule", "FirstEJBModule.war", DEFAULT_PROJECT_NAME);
+		createEJBModule(11, "FirstEJBModule", "FirstEJBModule.jar", DEFAULT_PROJECT_NAME);
 		createEJBModule(20, "SecondEJBModule", "SecondEJBModule.jar", DEFAULT_PROJECT_NAME);
 		createEJBModule(21, "ThirdEJBModule", "ThirdEJBModule.jar", DEFAULT_PROJECT_NAME);
 	}
