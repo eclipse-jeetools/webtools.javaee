@@ -6,6 +6,12 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 
+import org.eclipse.core.runtime.Path;
+import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.server.core.IRuntimeType;
+import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
+import org.eclipse.wst.server.core.ServerCore;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -16,7 +22,9 @@ import junit.framework.TestSuite;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class AllTests extends TestSuite {
-
+	
+	public static IRuntime TOMCAT_RUNTIME = createRuntime();
+	
     public static Test suite(){
         return new AllTests();
     }
@@ -27,6 +35,21 @@ public class AllTests extends TestSuite {
         addTest(WebImportOperationTest.suite());
         addTest(WebProjectCreationOperationTest.suite());
         addTest(WebProjectCreationTest.suite());
+    }
+    
+    public static IRuntime createRuntime()  {
+    	String s = "D:/Program Files/Apache Software Foundation/Tomcat 5.0";
+    	if (s == null || s.length() == 0)
+    		return null;
+    	try {
+    		IRuntimeType rt = ServerCore.findRuntimeType("org.eclipse.jst.server.tomcat.runtime.50");
+    		IRuntimeWorkingCopy wc = rt.createRuntime(null, null);
+    		wc.setLocation(new Path(s));
+    		return wc.save(true, null);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
     }
     
 }
