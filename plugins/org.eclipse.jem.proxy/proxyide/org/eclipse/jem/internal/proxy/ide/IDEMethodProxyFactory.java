@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.6 $ $Date: 2004/08/27 15:35:20 $
+ * $RCSfile: IDEMethodProxyFactory.java,v $ $Revision: 1.7 $ $Date: 2004/10/12 20:20:14 $
  */
 package org.eclipse.jem.internal.proxy.ide;
 
@@ -155,6 +155,10 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 		return getMethodProxy(className, methodName, parameterTypes);
 	}
 
-	public void terminateFactory() {
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxyFactory#terminateFactory(boolean)
+	 */
+	public void terminateFactory(boolean wait) {
 	}
 }

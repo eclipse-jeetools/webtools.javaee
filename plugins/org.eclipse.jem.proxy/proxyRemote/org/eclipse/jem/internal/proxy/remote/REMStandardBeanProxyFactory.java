@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.8 $  $Date: 2004/09/08 22:15:53 $ 
+ *  $Revision: 1.9 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 
@@ -762,8 +762,10 @@ public	void stopTransaction()  {
  * Terminate the factory. If this is being terminated, then the server is being terminated too.
  * So just go through all of the proxies and release them, but don't send any notification to
  * the server since the server is subsequently just going to throw them away when it terminates.
+ * <p>
+ * This can't run async, so wait is a suggestion here.
  */
-public void terminateFactory() {
+public void terminateFactory(boolean wait) {
 	synchronized (fIDToProxiesMap) {
 		Iterator itr = fIDToProxiesMap.values().iterator();
 		while (itr.hasNext()) {

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.7 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 import java.lang.reflect.Array;
@@ -277,8 +277,13 @@ public IBeanTypeProxy getBeanTypeProxy(String componentClassName, int dimensions
 	return getBeanTypeProxy(buffer.toString());
 }
 
-public void terminateFactory(){
+/*
+ *  (non-Javadoc)
+ * @see org.eclipse.jem.internal.proxy.core.IBeanProxyFactory#terminateFactory(boolean)
+ */
+public void terminateFactory(boolean wait){
 }
+
 /**
  * registerBeanTypeProxy.
  * Register this bean type proxy on behalf of the

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.7 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 
@@ -521,13 +521,13 @@ boolean releaseProxy(IBeanTypeProxy proxy) {
 	return false;
 }
 
-/**
+/*
  * Terminate this factory. Since all of the proxies are registered in the
  * proxy factory, there is no need to release them here. There is no
  * need to clear out any fields since this factory will not be held onto
  * by anything and so it will be GC'd.
  */
-public void terminateFactory() {
+public void terminateFactory(boolean wait) {
 }
 
 /* (non-Javadoc)

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.4 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 
@@ -252,40 +252,57 @@ public abstract class ProxyFactoryRegistry {
 	public boolean isValid() {
 		return fIsValid;
 	}
+	
+	/**
+	 * Terminate the registry without waiting.
+	 * <p>
+	 * Terminate the registry, but don't necessarily wait for it.
+	 *
+	 * @see #terminateRegistry(boolean)
+	 * @since 1.0.0
+	 */
+	public final void terminateRegistry() {
+		terminateRegistry(false);
+	}
 		
 	/**
-	 * Terminate the registry. This will go through each factory and terminate it, and
+	 * Terminate the registry.
+	 * <p>
+	 * This will go through each factory and terminate it, and
 	 * let the subclass terminate. It will then remove all of the factories so that
 	 * if there are any proxies still hanging around they won't hold onto everything,
 	 * just the this registry will be held onto.
-	 *
+	 *<p>
 	 * Note during termination, the factories should not reference any other factory.
 	 * It can assume that the factories will take care of themselves and they should
 	 * only release their resources.
-	 *
+	 * <p>
 	 * The constants registry will not be terminated because they aren't factories.
 	 * However, they will be cleared (no longer referenced) from here so that they
 	 * can be GC'd.
+	 * 
+	 * @param wait <code>true</code> to wait for complete termination, <code>false</code> to kick off termination but return ASAP.
+	 * @since 1.0.2
 	 */
-	public final void terminateRegistry() {
+	public final void terminateRegistry(boolean wait) {
 		if (!fIsValid)
 			return;	// Already or are already terminating. Don't do it again and don't notify again.
 		fIsValid = false;
 		if (fCurrentStandardBeanTypeProxyFactory != null) {
 			TimerTests.basicTest.startStep("Terminate Bean Type Factory", TimerTests.CURRENT_PARENT_ID);
-			fCurrentStandardBeanTypeProxyFactory.terminateFactory();
+			fCurrentStandardBeanTypeProxyFactory.terminateFactory(wait);
 			TimerTests.basicTest.stopStep("Terminate Bean Type Factory");
 			fCurrentStandardBeanTypeProxyFactory = null;
 		}
 		if (fCurrentStandardBeanProxyFactory != null) {
 			TimerTests.basicTest.startStep("Terminate Bean Factory", TimerTests.CURRENT_PARENT_ID);
-			fCurrentStandardBeanProxyFactory.terminateFactory();
+			fCurrentStandardBeanProxyFactory.terminateFactory(wait);
 			TimerTests.basicTest.stopStep("Terminate Bean Factory");
 			fCurrentStandardBeanProxyFactory = null;
 		}
 		if (fMethodProxyFactory != null) {
 			TimerTests.basicTest.startStep("Terminate Method Factory", TimerTests.CURRENT_PARENT_ID);
-			fMethodProxyFactory.terminateFactory();
+			fMethodProxyFactory.terminateFactory(wait);
 			TimerTests.basicTest.stopStep("Terminate Method Factory");
 			fMethodProxyFactory = null;
 		}
@@ -294,7 +311,7 @@ public abstract class ProxyFactoryRegistry {
 		TimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory", TimerTests.CURRENT_PARENT_ID);
 		while (itr.hasNext()) {
 			TimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory");
-			((IBeanProxyFactory) itr.next()).terminateFactory();
+			((IBeanProxyFactory) itr.next()).terminateFactory(wait);
 			TimerTests.basicTest.stopCumulativeStep("Terminate Aux. Bean Factory");
 		}
 		TimerTests.basicTest.stopStep("Terminate Aux. Bean Factory");
@@ -304,7 +321,7 @@ public abstract class ProxyFactoryRegistry {
 		TimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory", TimerTests.CURRENT_PARENT_ID);		
 		while (itr.hasNext()) {
 			TimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory");
-			((IBeanProxyFactory) itr.next()).terminateFactory();
+			((IBeanProxyFactory) itr.next()).terminateFactory(wait);
 			TimerTests.basicTest.stopCumulativeStep("Terminate Aux. BeanType Factory");
 		}
 		TimerTests.basicTest.stopStep("Terminate Aux. BeanType Factory");
@@ -313,18 +330,27 @@ public abstract class ProxyFactoryRegistry {
 		fRegisteredConstants.clear();
 		
 		TimerTests.basicTest.startStep("Registry Terminated", TimerTests.CURRENT_PARENT_ID);
-		registryTerminated();
+		registryTerminated(wait);
 		TimerTests.basicTest.stopStep("Registry Terminated");
 		
 		TimerTests.basicTest.startStep("Registry Terminated Notification", TimerTests.CURRENT_PARENT_ID);
-		fireRegistryTerminated();	// Let everyone know that we are gone.
+		fireRegistryTerminated();	// Let everyone know that we are gone. This is fired even if wait is false because at this point in time the registry is invalid.
 		TimerTests.basicTest.stopStep("Registry Terminated Notification");
 	}
 	
+
 	/**
-	 * Terminate the Registry. It is up to each registry to determine what this means.
+	 * Terminate the Registry. 
+	 * <p>
+	 * It is up to each registry to determine what this means.
+	 * <p>
+	 * The wait parm is a suggestion if it is <code>false</code>, but it must be honoured if <code>true</code>
+	 * 
+	 * @param wait wait for registry to terminate flag.
+	 * 
+	 * @since 1.0.2
 	 */
-	protected abstract void registryTerminated();
+	protected abstract void registryTerminated(boolean wait);
 	
 	/**
 	 * Get the callback registry.

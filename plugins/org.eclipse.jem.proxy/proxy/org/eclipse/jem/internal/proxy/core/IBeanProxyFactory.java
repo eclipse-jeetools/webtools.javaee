@@ -1,6 +1,6 @@
 package org.eclipse.jem.internal.proxy.core;
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
+ * Copyright (c)  2001, 2003, 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanProxyFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 
@@ -27,14 +27,23 @@ package org.eclipse.jem.internal.proxy.core;
  */
 public interface IBeanProxyFactory {
 	/**
-	 * The factory is being terminated. It should clean up its resources.
+	 * The factory is being terminated.
+	 * <p>
+	 * It should clean up its resources.
 	 * It should not reference any other factory because they could of
 	 * already been terminated.
-	 *
+	 * <p>
 	 * For example, if it is holding onto IREMBeanProxy's, it doesn't
 	 * need to call release on them except if they are constants because
 	 * the BeanProxyFactory has all non-constant bean proxies registered
 	 * and will call the release itself.
+	 * <p>
+	 * Note: This is not meant to be called by users. It will be called internally by the proxy registry when necessary.
+	 * 
+	 * @param wait <code>true</code> should wait for completion, <code>false</code> don't necessarily wait. False is just
+	 * a suggestion. The factory may not permit not waiting. True must be honoured and it must wait.
+	 * 
+	 * @since 1.0.2
 	 */
-	public void terminateFactory(); 
+	public void terminateFactory(boolean wait); 
 }

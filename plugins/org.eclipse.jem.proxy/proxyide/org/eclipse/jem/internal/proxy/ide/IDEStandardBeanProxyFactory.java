@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide;
 /*
- * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.6 $ $Date: 2004/09/08 22:15:53 $
+ * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.7 $ $Date: 2004/10/12 20:20:14 $
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -213,7 +213,11 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 		}
 	}
 	
-	public void terminateFactory() {
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxyFactory#terminateFactory(boolean)
+	 */
+	public void terminateFactory(boolean wait) {
 		// Nothing really to do here - more applicable to remote proxy factories
 	}
 	

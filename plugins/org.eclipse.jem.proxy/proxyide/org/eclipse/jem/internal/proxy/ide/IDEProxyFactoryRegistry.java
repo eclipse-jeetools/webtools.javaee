@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.7 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 import java.net.URL;
@@ -118,8 +118,9 @@ ClassLoader getPluginClassLoader(){
 	return fClassLoader;
 }
 
-public void registryTerminated(){	
+protected void registryTerminated(boolean wait){	
 }
+
 Class loadClass(String aClassName) throws ClassNotFoundException, ExceptionInInitializerError, LinkageError {
 	return fClassLoader.loadClass(aClassName);
 }

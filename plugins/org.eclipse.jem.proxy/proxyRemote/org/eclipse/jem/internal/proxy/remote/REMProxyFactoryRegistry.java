@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.12 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.13 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 
@@ -221,10 +221,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		}
 	}
 	
-	/**
-	 * Terminate the server.
-	 */
-	protected void registryTerminated() {
+	protected void registryTerminated(boolean wait) {
 		if (processListener != null) {
 			// Remove listener cause we are now going to terminate process and don't want premature terminate notice.
 			// Sometimes in shutdown we are called and the debug plugin may of already been shutdown. In that case the db
@@ -235,6 +232,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			processListener = null;
 		}
 		
+		Job tjob = null;
 		if (fServerPort != 0) {
 			if (waitRegistrationThread != null) {
 				synchronized (waitRegistrationThread) {
@@ -269,8 +267,9 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			}
 			fConnectionPool.clear();
 			fServerPort = 0;
+			
 			if (fProcess != null) {
-				Job tjob = new TerminateProcess(fProcess);
+				tjob = new TerminateProcess(fProcess);
 				tjob.setSystem(true);
 				tjob.schedule();
 				fProcess = null;
@@ -284,6 +283,14 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		
 		fConnectionPool.clear();
 		fRegistryController.deregisterRegistry(fRegistryKey);	// De-register this registry.
+		
+		if (wait && tjob != null) {
+			try {
+				tjob.wait(30000L);
+			} catch (InterruptedException e) {
+				// It timed out, so we'll just go on.
+			}
+		}
 	}
 			
 	/**

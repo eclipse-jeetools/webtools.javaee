@@ -1,6 +1,6 @@
 package org.eclipse.jem.internal.proxy.ide.awt;
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
+ * Copyright (c)  2001, 2003, 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStandardAWTBeanTypeProxyFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/10/12 20:20:14 $ 
  */
 
 import org.eclipse.jem.internal.proxy.ide.*;
@@ -61,6 +61,6 @@ public IDEBeanTypeProxy getExtensionBeanTypeProxy(String className, IBeanTypePro
 	return getExtensionBeanTypeProxy(className);
 }
 
-public void terminateFactory(){
+public void terminateFactory(boolean wait){
 }
 }
