@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionAdapterFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/05/05 21:03:07 $ 
  */
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,11 +59,11 @@ public Adapter createAdapter(Notifier target) {
 					adapter = createJavaFieldAdaptor(target);
 	return adapter;
 }
+
 protected ReflectionAdaptor createArrayTypeAdaptor(Notifier target) {
-	// temporary implementation, placeholder to later optimize
-	// Array reflection.  For now, do class reflection.
-	return createJavaClassAdaptor(target);
+	return new JavaArrayTypeReflectionAdapter(target);
 }
+
 protected abstract ReflectionAdaptor createJavaClassAdaptor(Notifier target) ;
 protected abstract ReflectionAdaptor createJavaFieldAdaptor(Notifier target) ;
 protected abstract ReflectionAdaptor createJavaMethodAdaptor(Notifier target) ;

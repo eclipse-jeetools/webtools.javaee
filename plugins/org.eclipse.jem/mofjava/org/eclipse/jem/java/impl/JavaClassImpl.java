@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/05 21:03:07 $ 
  */
 
 import java.util.ArrayList;
@@ -838,8 +838,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * Does this type exist.
 	 */
 	public boolean isExistingType() {
-		// Note: Temporary, inefficient implementation
-		return ((JavaReflectionAdaptor) EcoreUtil.getRegisteredAdapter(this, ReadAdaptor.TYPE_KEY)).hasReflectionSource();
+		// TODO: Temporary, inefficient implementation
+		return ((JavaReflectionAdaptor) getReadAdaptor()).hasReflectionSource();
 	}
 	/**
 	 * See if this is valid object of this type.

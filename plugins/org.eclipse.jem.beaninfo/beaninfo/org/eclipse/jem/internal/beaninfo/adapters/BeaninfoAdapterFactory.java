@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.3 $  $Date: 2004/05/05 21:03:09 $ 
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -25,6 +25,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
+import org.eclipse.jem.java.ArrayType;
 /**
  * BeaninfoAdapterFactory - the factory for 
  * beaninfo introspection to populate the Java Model.
@@ -61,7 +62,7 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 	
 	public Adapter createAdapter(Notifier target, Object type) {
 		if (type == IIntrospectionAdapter.ADAPTER_KEY) {
-			return new BeaninfoClassAdapter(this);
+			return !(target instanceof ArrayType) ? new BeaninfoClassAdapter(this) : null;	// Array types don't have beaninfo adapters.
 		} else
 			return new BeaninfoSuperAdapter();
 	}

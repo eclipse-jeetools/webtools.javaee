@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/05 21:03:07 $ 
  */
 
 import java.util.Collection;
@@ -75,6 +75,8 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	 * @ordered
 	 */
 	protected EClassifier componentType = null;
+	
+	protected JavaHelpers finalComponentType = null;
 
 	protected ArrayTypeImpl() {
 		super();
@@ -98,21 +100,21 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	 *
 	 */
 	public JavaHelpers computeComponentType() {
-		String componentName = getQualifiedName();
+		String componentName = getQualifiedNameForReflection();
 		// Strip the last [] form my name to get my component type's name
 		componentName = componentName.substring(0, componentName.length() - 2);
 		return JavaRefFactory.eINSTANCE.reflectType(componentName, this);
 	}
-/**
+	/**
 	 * Override to perform some lazy initialization
 	 */
 	public EClassifier getComponentType() {
 		// If we do not have a component type set, but we have a name (which contains our component type name)
 		// we can compute the component type.
 		if ((this.getComponentTypeGen() == null) && (this.getName() != null)) {
-			componentType = (EClassifier) computeComponentType();
+			componentType = computeComponentType();
 		}
-		return componentType;
+		return getComponentTypeGen();
 	}
 	/**
 	 * Get the component type of this array. 
@@ -120,8 +122,7 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	 * If this is a multi-dimensional array, the component type will be the nested array type.
 	 */
 	public JavaHelpers getComponentTypeAsHelper() {
-		EClassifier componentClassifier = getComponentType();
-		return (JavaHelpers) componentClassifier;
+		return (JavaHelpers) getComponentType();
 	}
 	/**
 	 * Get the final component type for this Array Type.
@@ -129,10 +130,13 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	 * In order to ensure a unique instance, we will resolve this type using reflection. It turns out to be most efficient to just do this by trimming the name.
 	 */
 	public JavaHelpers getFinalComponentType() {
-		String componentName = getQualifiedName();
-		// Strip all the [] from my name to get my FINAL component type's name
-		componentName = componentName.substring(0, componentName.indexOf("["));
-		return JavaRefFactory.eINSTANCE.reflectType(componentName, this);
+		if (finalComponentType == null) {
+			String componentName = getQualifiedNameForReflection();
+			// Strip all the [] from my name to get my FINAL component type's name
+			componentName = componentName.substring(0, componentName.indexOf("["));
+			finalComponentType = JavaRefFactory.eINSTANCE.reflectType(componentName, this);
+		}
+		return finalComponentType;
 	}
 	/**
 	 * (JavaHelpers)isArray - ArrayTypes are arrays
@@ -141,19 +145,6 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	public boolean isArray() {
 		return true;
 	}
-/**
- * Does this type exist.
- */
-public boolean isExistingType() {
-	JavaHelpers component = getComponentTypeAsHelper();
-	if (component != null) {
-		if (component.isPrimitive())
-			return true;
-		else
-			return ((JavaClass) component).isExistingType();
-	} else
-		return false;
-}
 	/**
 	 * Is this an array of java primitives
 	 */
@@ -470,12 +461,17 @@ public boolean isExistingType() {
 		return componentType;
 	}
 
+	public void setComponentType(EClassifier newComponentType) {
+		finalComponentType = null;
+		setComponentTypeGen(newComponentType);
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setComponentType(EClassifier newComponentType) {
+	public void setComponentTypeGen(EClassifier newComponentType) {
 		EClassifier oldComponentType = componentType;
 		componentType = newComponentType;
 		if (eNotificationRequired())
@@ -659,6 +655,31 @@ public boolean isExistingType() {
 		return eDynamicGet(eFeature, resolve);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaClass#getKind()
+	 */
+	public TypeKind getKind() {
+		// Override to always return the class if final type is valid.
+		JavaHelpers ft = getFinalComponentType();
+		if (!ft.isPrimitive()) {
+			TypeKind ftKind = ((JavaClass) ft).getKind(); 
+			return  ftKind != TypeKind.UNDEFINED_LITERAL ? TypeKind.CLASS_LITERAL : TypeKind.UNDEFINED_LITERAL;
+		} else
+			return TypeKind.CLASS_LITERAL;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaClass#isPublic()
+	 */
+	public boolean isPublic() {
+		// Override to return the kind of the final component, because that determines it.
+		JavaHelpers ft = getFinalComponentType();
+		if (!ft.isPrimitive()) {
+			return ((JavaClass) ft).isPublic();
+		} else
+			return true;
+	}
 }
 
 
