@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/15 22:56:10 $ 
+ *  $Revision: 1.9 $  $Date: 2005/04/06 22:28:02 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -26,6 +26,7 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.util.plugin.JEMUtilPlugin;
  
 /**
  * This version works with local files being added to the classpath, and the classpath is strings.
@@ -213,8 +214,14 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
 		if (nlsLocalize)
 			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeAllFromBundleAndFragments(bundle, relativePath), typeFlag);
-		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
-			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath), typeFlag);
+		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH) {
+			URL contribution = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath);
+			if (contribution == null) {
+				// PDE is not here to help us extract that @#$ dll
+			    JEMUtilPlugin.getLogger().log("No free lunch!");
+			}
+			contributeClasspath(contribution, typeFlag);
+		}
 		else
 			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
 	}
