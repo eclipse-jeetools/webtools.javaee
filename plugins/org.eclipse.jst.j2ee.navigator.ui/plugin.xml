@@ -459,9 +459,6 @@
          	<package uri="jca.xmi" />                 	
          	<package uri="webapplication.xmi" />                 	
          	<package uri="jsp.xmi" />                 	
-         	<package uri="wsdd.xmi" />                 	
-         	<package uri="webservice_client.xmi" />           	         	
-         	<package uri="wscommon.xmi" />  
          </emfEnablement>
       </navigatorContent>
    </extension>

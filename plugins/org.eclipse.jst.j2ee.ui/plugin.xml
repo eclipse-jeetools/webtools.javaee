@@ -50,6 +50,7 @@
       <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.eclipse.wst.sse.core"/>
       <import plugin="org.eclipse.wst.xml.core"/>
+      <import plugin="org.eclipse.wst.wsdl"/>
       
    </requires>
 
@@ -352,40 +353,54 @@
       </adapterFactory>
    </extension>
    
-<!--  TODO WebServices for M3 
+
    <extension
          point="org.eclipse.wst.common.navigator.views.navigatorContent">
       <navigatorContent
             name="Web Services"
             priority="30"
             icon="icons/webgroup_obj.gif"
-            class="org.eclipse.jst.internal.webservice.WebServiceGroupContentExtension"
+            contentProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorContentProvider"
+            labelProvider="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorLabelProvider"
+            openListener="org.eclipse.jst.j2ee.internal.webservice.WebServicesNavigatorGroupOpenListener"
             id="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
             rootLabel="Web Services" >
          <enables>
             <or>
                <objectClass
-                     name="org.eclipse.jst.internal.webservice.WebServiceNavigatorGroup">
+                     name="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroup">
                </objectClass>
                <objectClass
-                     name="org.eclipse.jst.internal.webservice.wsdd.WebServiceDescription">
+                     name="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription">
+               </objectClass>
+               <objectClass
+               		name="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType">
+               </objectClass>
+               <objectClass
+                     name="org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl">
                </objectClass>
             </or>
          </enables>
+         <emfEnablement>
+         	<package uri="wsdd.xmi" />                 	
+         	<package uri="webservice_client.xmi" />           	         	
+         	<package uri="wscommon.xmi" />
+         	<package uri="http://www.ibm.com/wsdl/2003/WSDL"/>
+         </emfEnablement>
       </navigatorContent>
    </extension>
- -->  
+
    
    <!-- J2EE View Web Services contribution -->
-   <!-- TODO WebServices for M3 -->
-<!--   <extension
+   
+   <extension
          point="org.eclipse.wst.common.navigator.views.navigatorViewer">
       <navigatorViewer
-            rootContentExtensionId="org.eclipse.wst.common.frameworks.navigator.webservice"
+            rootContentExtensionId="org.eclipse.wst.common.frameworks.internal.navigator.webservice"
             viewerId="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
       </navigatorViewer>
    </extension>
- -->  
+  
 <!-- Navigator Object Contributions -->
 <!-- EAR Group Contributions 
    <extension
