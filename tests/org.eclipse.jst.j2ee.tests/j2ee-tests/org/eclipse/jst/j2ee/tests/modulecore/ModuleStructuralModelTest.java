@@ -49,6 +49,7 @@ import org.eclipse.wst.common.modulecore.internal.impl.PlatformURLModuleConnecti
 import org.eclipse.wst.common.modulecore.internal.impl.ResourceTreeRoot;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.modulecore.internal.util.SourcePathProvider;
+import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
 /**
  * <p>
@@ -117,14 +118,24 @@ public class ModuleStructuralModelTest extends TestCase {
 			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI()); 
 			moduleCore = ModuleCore.getModuleCoreForRead(containingProject);
 			WorkbenchModule[] modules = moduleCore.getWorkbenchModules();
+			ProjectModules pm = moduleCore.getModuleModelRoot();
+			Class clazz = moduleCore.getClass();
+			String name = ModuleCore.getDeployedName(getWebModuleURI());
 			List dependentModules = null;
 			for(int i=0; i<modules.length; i++) {
 				System.out.println("Module: "+modules[i].getDeployedName());
+				List list = modules[i].getResources();
+				for (int j = 0; j < list.size(); j++) {
+					WorkbenchModuleResource wmr = (WorkbenchModuleResource)list.get(j);
+					IResource er = ModuleCore.getEclipseResource(wmr);
+				}
+				// test modulecore API
 				dependentModules = modules[i].getModules(); 			
 				for(int dependentIndex=0; dependentIndex<dependentModules.size(); dependentIndex++) {
 					DependentModule dependentModule = (DependentModule)dependentModules.get(dependentIndex);
 					WorkbenchModule resolvedModule = moduleCore.findWorkbenchModuleByModuleURI(dependentModule.getHandle());
 					System.out.println("\tDependentModule: "+resolvedModule.getDeployedName()+ " in " + resolvedModule.getHandle());
+					boolean b = moduleCore.isLocalDependency(dependentModule);
 				}
 			}
 		} finally {
@@ -300,6 +311,9 @@ public class ModuleStructuralModelTest extends TestCase {
 			WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
 			dataModel.setProperty(WebModuleCreationDataModel.PROJECT_NAME, aProjectName);
 			dataModel.setProperty(WebModuleCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
+			dataModel.setProperty(WebModuleCreationDataModel.ADD_TO_EAR, Boolean.FALSE);
+			dataModel.setProperty(WebModuleCreationDataModel.ADD_SERVER_TARGET, Boolean.FALSE);
+//			dataModel.setProperty(WebModuleCreationDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
 			dataModel.getDefaultOperation().run(null);
 		}
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
