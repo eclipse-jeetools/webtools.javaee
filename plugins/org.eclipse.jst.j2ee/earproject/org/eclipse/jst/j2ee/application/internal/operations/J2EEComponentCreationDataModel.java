@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
@@ -158,7 +157,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	}
 
 	private void setEARDeployNameProperty(Object propertyValue) {
-	   setProperty(EAR_MODULE_DEPLOY_NAME,propertyValue + ArchiveConstants.EAR_FILE_EXT);
+	   setProperty(EAR_MODULE_DEPLOY_NAME,propertyValue);
 	}
 
 	/**

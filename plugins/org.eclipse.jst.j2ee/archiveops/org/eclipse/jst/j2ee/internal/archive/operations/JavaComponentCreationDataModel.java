@@ -2,13 +2,10 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.util.List;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
