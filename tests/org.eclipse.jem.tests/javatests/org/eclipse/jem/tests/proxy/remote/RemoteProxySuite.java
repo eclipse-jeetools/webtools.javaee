@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: RemoteProxySuite.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/04 16:13:39 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/02 15:57:16 $ 
  */
 import java.net.URL;
 
@@ -101,7 +101,7 @@ public class RemoteProxySuite extends TestSetup {
 		oldAutoBuildingState = JavaProjectUtil.setAutoBuild(true);
 		String zipPath =
 			Platform
-				.asLocalURL(new URL(JavaTestsPlugin.getPlugin().getDescriptor().getInstallURL(), "testdata/testremoteproject.zip"))
+				.asLocalURL(new URL(JavaTestsPlugin.getPlugin().getBundle().getEntry("/"), "testdata/testremoteproject.zip"))
 				.getFile();
 		IProject[] projects = JavaProjectUtil.importProjects(new String[] { TEST_PROJECT_NAME }, new String[] { zipPath });
 		assertNotNull(projects[0]);

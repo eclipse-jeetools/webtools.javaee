@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
 <plugin
    id="org.eclipse.jem.tests"
    name="%pluginName"
@@ -23,6 +24,7 @@
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
 

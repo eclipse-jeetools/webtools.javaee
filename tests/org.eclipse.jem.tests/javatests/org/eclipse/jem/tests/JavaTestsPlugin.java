@@ -11,9 +11,8 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaTestsPlugin.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/02 15:57:16 $ 
  */
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Plugin;
 
 /**
@@ -28,8 +27,7 @@ public class JavaTestsPlugin extends Plugin {
 	/**
 	 * @param descriptor
 	 */
-	public JavaTestsPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public JavaTestsPlugin() {
 		PLUGIN = this;
 	}
 	

@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser.tree;
  *******************************************************************************/
 /*
  *  $RCSfile: ASTParserSuite.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/04 16:13:39 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/02 15:57:16 $ 
  */
 import junit.extensions.TestSetup;
 import junit.framework.*;
@@ -90,7 +90,7 @@ public class ASTParserSuite extends TestSetup {
 			IJavaProject jproject = JavaCore.create(project);
 			// Add javatests.jar (i.e. this plugins jar) so that the classes within the tests jar are available
 			// to the jdt parser for referencing.
-			JavaProjectUtil.addPluginJarToPath(JavaTestsPlugin.getPlugin(), "javatests.jar", jproject, null);
+			JavaProjectUtil.addBundleJarToPath(JavaTestsPlugin.getPlugin().getBundle(), "javatests.jar", jproject, null);
 			
 			// We're going to use the remote proxy, because it is easier to start up, but we aren't really testing
 			// the remote proxy expression evaluation. We are really testing AST->ParseTree->BeanProxy. If any expression

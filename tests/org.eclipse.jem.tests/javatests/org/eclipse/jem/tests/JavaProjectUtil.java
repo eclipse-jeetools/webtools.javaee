@@ -11,7 +11,7 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.3 $  $Date: 2004/05/20 21:42:39 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/02 15:57:16 $ 
  */
 
 
@@ -23,10 +23,8 @@ import java.net.URL;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
+import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 
@@ -58,7 +56,7 @@ public class JavaProjectUtil {
 		
 		File projectFile = new File(projectPath.toFile(), IProjectDescription.DESCRIPTION_FILE_NAME);
 		if (!projectFile.exists())
-			throw new CoreException(new Status(IStatus.ERROR, JavaTestsPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Project file not in project directory. Couldn't create project \""+projectPath.toString()+"\"", null));
+			throw new CoreException(new Status(IStatus.ERROR, JavaTestsPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Project file not in project directory. Couldn't create project \""+projectPath.toString()+"\"", null));
 
 
 		IPath projectFilePath = new Path(projectFile.getPath());
@@ -176,7 +174,7 @@ public class JavaProjectUtil {
 			public void run(IProgressMonitor monitor) throws CoreException {
 				// First import all, then after that, create the projects.
 				IPath rootLocation = workspace.getRoot().getLocation();
-				URL installLoc = JavaTestsPlugin.getPlugin().getDescriptor().getInstallURL();					
+				URL installLoc = JavaTestsPlugin.getPlugin().getBundle().getEntry("/");					
 				try {
 					String antFile = Platform.asLocalURL(new URL(installLoc, "testdata/unzip.xml")).getFile();
 					for (int i = 0; i < zipFiles.length; i++) {
@@ -206,14 +204,14 @@ public class JavaProjectUtil {
 	static int cfSuffix = 0;
 	/**
 	 * Add a path to plugin jar to the java project's class path.
-	 * @param plugin The plugin where the jar is located.
+	 * @param bundle The plugin where the jar is located.
 	 * @param pathToJar Path to the jar within the above plugin
 	 * @param project java project to add to.
 	 * 
 	 * @since 1.0.0
 	 */
-	public static void addPluginJarToPath(Plugin plugin, String pathToJar, final IJavaProject project, IProgressMonitor pm) throws CoreException {
-		final IPath actualPath = new Path(ProxyPlugin.getPlugin().localizeFromPlugin(plugin, pathToJar));
+	public static void addBundleJarToPath(Bundle bundle, String pathToJar, final IJavaProject project, IProgressMonitor pm) throws CoreException {
+		final IPath actualPath = new Path(ProxyPlugin.getPlugin().localizeFromBundle(bundle, pathToJar));
 		if (actualPath.isEmpty())
 			return;	// Didn't exist.
 		
