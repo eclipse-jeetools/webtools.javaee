@@ -88,13 +88,17 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	private void addModulesToEAR(IProgressMonitor monitor) {
 		try{
 			AddComponentToEnterpriseApplicationDataModel dm = new AddComponentToEnterpriseApplicationDataModel();
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, getProject().getName());
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, getOperationDataModel().getProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, 
+					getOperationDataModel().getProperty(EARComponentCreationDataModel.PROJECT_NAME));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, 
+					getOperationDataModel().getProperty(EARComponentCreationDataModel.PROJECT_NAME));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, 
+					getOperationDataModel().getProperty(EARComponentCreationDataModel.COMPONENT_NAME));
 			List modulesList = (List)getOperationDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST);
-			if(modulesList != null && !modulesList.isEmpty()) {
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
-			AddComponentToEnterpriseApplicationOperation addModuleOp = (AddComponentToEnterpriseApplicationOperation)dm.getDefaultOperation();
-			addModuleOp.execute(monitor);
+			if (modulesList != null && !modulesList.isEmpty()) {
+				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
+				AddComponentToEnterpriseApplicationOperation addModuleOp = (AddComponentToEnterpriseApplicationOperation)dm.getDefaultOperation();
+				addModuleOp.execute(monitor);
 		   }
 		 } catch(Exception e) {
 			 Logger.getLogger().log(e);

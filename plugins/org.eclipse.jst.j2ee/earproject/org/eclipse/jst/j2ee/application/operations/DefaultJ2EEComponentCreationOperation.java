@@ -62,8 +62,20 @@ public class DefaultJ2EEComponentCreationOperation extends WTPOperation {
 //			createWebJ2EEComponent(model.getWebModel(), monitor);
 //		if (model.getJCAModel() != null && model.getBooleanProperty(DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR))
 //			createRarJ2EEComponent(model.getJCAModel(), monitor);
-		if (model.getClientModel() != null && model.getBooleanProperty(DefaultJ2EEComponentCreationDataModel.CREATE_APPCLIENT))
-			createAppClientComponent(model.getClientModel(), monitor);
+		if (model.getBooleanProperty(DefaultJ2EEComponentCreationDataModel.CREATE_APPCLIENT)) {
+			AppClientComponentCreationDataModel clientModel = model.getClientModel();
+			clientModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME,
+					model.getStringProperty(DefaultJ2EEComponentCreationDataModel.PROJECT_NAME));
+			clientModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME,
+					model.getStringProperty(DefaultJ2EEComponentCreationDataModel.APPCLIENT_COMPONENT_NAME));
+			clientModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME,
+					model.getStringProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME));
+			clientModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME,
+					model.getStringProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME));
+			clientModel.setProperty(J2EEComponentCreationDataModel.ADD_TO_EAR,
+					Boolean.TRUE);
+			createAppClientComponent(clientModel, monitor);
+		}
 	}
 
 	/**

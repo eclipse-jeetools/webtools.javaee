@@ -36,51 +36,32 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	 */
 	public static final String EAR_COMPONENT_NAME = "DefaultJ2EEComponentCreationDataModel.EAR_NAME"; //$NON-NLS-1$
 	/**
-	 * Required - This is the name used to caculate the module project names. type String
+	 * Required - This is the name of the ear. type String
 	 */
-	public static final String BASE_NAME = "DefaultJ2EEComponentCreationDataModel.BASE_NAME"; //$NON-NLS-1$
-	/**
-	 * Required - Set the J2EE version which each default module will be set to. type Integer
-	 */
+	public static final String APPCLIENT_COMPONENT_NAME = "DefaultJ2EEComponentCreationDataModel.APPCLIENT_NAME"; //$NON-NLS-1$
+
 	public static final String J2EE_VERSION = "DefaultJ2EEComponentCreationDataModel.J2EE_VERSION"; //$NON-NLS-1$
 	private static final int EJB = 0;
 	private static final int WEB = 1;
 	private static final int RAR = 2;
 	private static final int CLIENT = 3;
 	private static String CREATE_BASE = "DefaultJ2EEComponentCreationDataModel.CREATE_"; //$NON-NLS-1$
-	private static String PROJECT_BASE = "DefaultJ2EEComponentCreationDataModel.PROJECT_NAME_"; //$NON-NLS-1$
 	/**
 	 * Default is true. type Boolean
 	 */
 	public static final String CREATE_EJB = CREATE_BASE + EJB;
 	/**
-	 * The EJB Project name to use. type String
-	 */
-	public static final String EJB_PROJECT_NAME = PROJECT_BASE + EJB;
-	/**
 	 * Default is true. type Boolean
 	 */
 	public static final String CREATE_WEB = CREATE_BASE + WEB;
-	/**
-	 * The WEB Project name to use. type String
-	 */
-	public static final String WEB_PROJECT_NAME = PROJECT_BASE + WEB;
 	/**
 	 * Default is true. type Boolean
 	 */
 	public static final String CREATE_APPCLIENT = CREATE_BASE + CLIENT;
 	/**
-	 * The EJB Project name to use. type String
-	 */
-	public static final String APPCLIENT_PROJECT_NAME = PROJECT_BASE + CLIENT;
-	/**
 	 * Default is true. type Boolean
 	 */
 	public static final String CREATE_CONNECTOR = CREATE_BASE + RAR;
-	/**
-	 * The EJB Project name to use. type String
-	 */
-	public static final String CONNECTOR_PROJECT_NAME = PROJECT_BASE + RAR;
 
 	/**
 	 * Used for validation only; validates no collsions between various module names. Do not set
@@ -120,18 +101,22 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
-		addValidBaseProperty(BASE_NAME);
-		addValidBaseProperty(APPCLIENT_PROJECT_NAME);
-		addValidBaseProperty(CONNECTOR_PROJECT_NAME);
-		addValidBaseProperty(EJB_PROJECT_NAME);
-		addValidBaseProperty(WEB_PROJECT_NAME);
-		addValidBaseProperty(CREATE_CONNECTOR);
+		addValidBaseProperty(PROJECT_NAME);
+		addValidBaseProperty(EAR_COMPONENT_NAME);
+		addValidBaseProperty(APPCLIENT_COMPONENT_NAME);
+
+//		addValidBaseProperty(BASE_NAME);
+//		addValidBaseProperty(APPCLIENT_PROJECT_NAME);
+//		addValidBaseProperty(CONNECTOR_PROJECT_NAME);
+//		addValidBaseProperty(EJB_PROJECT_NAME);
+//		addValidBaseProperty(WEB_PROJECT_NAME);
+//		addValidBaseProperty(CREATE_CONNECTOR);
 		addValidBaseProperty(CREATE_APPCLIENT);
-		addValidBaseProperty(CREATE_EJB);
-		addValidBaseProperty(CREATE_WEB);
+//		addValidBaseProperty(CREATE_EJB);
+//		addValidBaseProperty(CREATE_WEB);
 		addValidBaseProperty(J2EE_VERSION);
 		addValidBaseProperty(ENABLED);
-		addValidBaseProperty(MODULE_NAME_COLLISIONS_VALIDATION);
+//		addValidBaseProperty(MODULE_NAME_COLLISIONS_VALIDATION);
 		super.initValidBaseProperties();
 	}
 
@@ -142,7 +127,7 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	 */
 	protected void initNestedModels() {
 		clientModel = new AppClientComponentCreationDataModel();
-		addNestedModel(NESTED_MODEL_CLIENT, clientModel);
+//		addNestedModel(NESTED_MODEL_CLIENT, clientModel);
 //		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 //		if (ejbExt != null) {
 //			ejbModel = ejbExt.createE();
@@ -161,11 +146,6 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 //			if (jcaModel != null)
 //				addNestedModel(NESTED_MODEL_JCA, jcaModel);
 //		}
-	}
-
-	private void addNestedModel(String modelName, J2EEComponentCreationDataModel moduleModel) {
-		moduleModel.setProperty(J2EEComponentCreationDataModel.UI_SHOW_EAR_SECTION, Boolean.FALSE);
-		super.addNestedModel(modelName, moduleModel);
 	}
 
 	/*
@@ -224,16 +204,8 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean notify = super.doSetProperty(propertyName, propertyValue);
-		if (propertyName.startsWith(PROJECT_BASE)) {
-			setNestedComponentName(convertPropertyNameToInt(propertyName), (String) propertyValue);
-			return true;
-		}
 		if (propertyName.equals(J2EE_VERSION)) {
 			updatedJ2EEVersion((Integer) propertyValue);
-			return true;
-		}
-		if (propertyName.equals(BASE_NAME)) {
-			setDefaultComponentNames((String) propertyValue);
 			return true;
 		}
 		if (propertyName.startsWith(CREATE_BASE))
@@ -252,9 +224,6 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 //			} else if (jcaModel == source) {
 //				propertyName = CONNECTOR_PROJECT_NAME;
 //			} else 
-			if (clientModel == source) {
-				propertyName = APPCLIENT_PROJECT_NAME;
-			}
 			if (null != propertyName) {
 				setProperty(propertyName, event.getProperty());
 				return;
@@ -269,17 +238,17 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	private void notifyEnablement(int flag) {
 		String propertyName = null;
 		switch (flag) {
-			case EJB :
-				propertyName = EJB_PROJECT_NAME;
-				break;
-			case WEB :
-				propertyName = WEB_PROJECT_NAME;
-				break;
+//			case EJB :
+//				propertyName = EJB_PROJECT_NAME;
+//				break;
+//			case WEB :
+//				propertyName = WEB_PROJECT_NAME;
+//				break;
 			case CLIENT :
-				propertyName = APPCLIENT_PROJECT_NAME;
+				propertyName = APPCLIENT_COMPONENT_NAME;
 				break;
-			case RAR :
-				propertyName = CONNECTOR_PROJECT_NAME;
+//			case RAR :
+//				propertyName = CONNECTOR_PROJECT_NAME;
 		}
 		if (propertyName != null)
 			notifyEnablementChange(propertyName);
@@ -351,13 +320,6 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
-		if (propertyName.startsWith(PROJECT_BASE)) {
-			return validateNestedProjectName(convertPropertyNameToInt(propertyName));
-		} else if (propertyName.equals(MODULE_NAME_COLLISIONS_VALIDATION)) {
-			return validateModuleNameCollisions();
-		} else if (propertyName.equals(NESTED_MODEL_VALIDATION_HOOK)) {
-			return OK_STATUS;
-		}
 		return super.doValidateProperty(propertyName);
 	}
 
@@ -367,8 +329,6 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetProperty(java.lang.String)
 	 */
 	protected Object doGetProperty(String componentName) {
-		if (componentName.startsWith(PROJECT_BASE))
-			return getNestedComponentName(convertPropertyNameToInt(componentName));
 		return super.doGetProperty(componentName);
 	}
 
@@ -514,19 +474,19 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
-		if (propertyName.equals(CREATE_CONNECTOR) || propertyName.equals(CONNECTOR_PROJECT_NAME)) {
-			int version = getIntProperty(J2EE_VERSION);
-			boolean result = version > J2EEVersionConstants.J2EE_1_2_ID;
-			if (result)
-				return (Boolean) getProperty(CREATE_CONNECTOR);
-			return new Boolean(result);
-		}
-		if (propertyName.equals(APPCLIENT_PROJECT_NAME))
-			return (Boolean) getProperty(CREATE_APPCLIENT);
-		if (propertyName.equals(EJB_PROJECT_NAME))
-			return (Boolean) getProperty(CREATE_EJB);
-		if (propertyName.equals(WEB_PROJECT_NAME))
-			return (Boolean) getProperty(CREATE_WEB);
+//		if (propertyName.equals(CREATE_CONNECTOR) || propertyName.equals(CONNECTOR_PROJECT_NAME)) {
+//			int version = getIntProperty(J2EE_VERSION);
+//			boolean result = version > J2EEVersionConstants.J2EE_1_2_ID;
+//			if (result)
+//				return (Boolean) getProperty(CREATE_CONNECTOR);
+//			return new Boolean(result);
+//		}
+//		if (propertyName.equals(APPCLIENT_PROJECT_NAME))
+//			return (Boolean) getProperty(CREATE_APPCLIENT);
+//		if (propertyName.equals(EJB_PROJECT_NAME))
+//			return (Boolean) getProperty(CREATE_EJB);
+//		if (propertyName.equals(WEB_PROJECT_NAME))
+//			return (Boolean) getProperty(CREATE_WEB);
 		return super.basicIsEnabled(propertyName);
 	}
 

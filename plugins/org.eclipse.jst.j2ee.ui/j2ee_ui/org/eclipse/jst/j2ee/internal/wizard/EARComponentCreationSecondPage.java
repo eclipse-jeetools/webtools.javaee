@@ -6,7 +6,6 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -182,42 +181,10 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		WizardDialog dialog = new WizardDialog(getShell(), wizard);
 		dialog.create();
 		if (dialog.open() != IDialogConstants.CANCEL_ID) {
-			setNewModules(aModel);
-//			refreshModules();
+			IWorkspaceRoot input = ResourcesPlugin.getWorkspace().getRoot();
+			moduleProjectsViewer.setInput(input);
 		}
-//		validatePage();
 	}
-
-	/**
-	 * @param model
-	 */
-	private void setNewModules(DefaultJ2EEComponentCreationDataModel defaultModel) {
-		List newModules = new ArrayList();
-//		collectNewProjects(defaultModel, newProjects);
-//		AddArchiveProjectsToEARDataModel modModel = ((EnterpriseApplicationCreationDataModel) model).getAddModulesToEARDataModel();
-//		List selectedProjects = (List) modModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST);
-//		newProjects.addAll(selectedProjects);
-//		modModel.setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, newProjects);
-	}
-
-	/**
-	 * @param defaultModel
-	 * @param newProjects
-	 */
-//	private void collectNewProjects(DefaultModuleProjectCreationDataModel defaultModel, List newProjects) {
-//		collectProject(defaultModel.getEjbModel(), newProjects);
-//		collectProject(defaultModel.getWebModel(), newProjects);
-//		collectProject(defaultModel.getClientModel(), newProjects);
-//		collectProject(defaultModel.getJCAModel(), newProjects);
-//	}
-//
-//	private void collectProject(J2EEArtifactCreationDataModel projModel, List newProjects) {
-//		if (projModel != null) {
-//			IProject project = projModel.getTargetProject();
-//			if (project != null && project.exists())
-//				newProjects.add(project);
-//		}
-//	}
 
 	private DefaultJ2EEComponentCreationDataModel createNewModuleModel() {
 		DefaultJ2EEComponentCreationDataModel defaultModel = new DefaultJ2EEComponentCreationDataModel();
@@ -225,7 +192,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		String projectName = model.getStringProperty(EARComponentCreationDataModel.PROJECT_NAME);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.PROJECT_NAME, projectName);
 		// ear component name
-		String earName = model.getStringProperty(EARComponentCreationDataModel.EAR_MODULE_NAME);
+		String earName = model.getStringProperty(EARComponentCreationDataModel.COMPONENT_NAME);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME, earName);
 		// ear j2ee version
 		int j2eeVersion = model.getIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION);

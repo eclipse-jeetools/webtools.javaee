@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
@@ -65,14 +64,14 @@ public class NewJ2EEComponentSelectionPage extends WTPWizardPage {
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{DefaultJ2EEComponentCreationDataModel.CREATE_APPCLIENT, 
-				DefaultJ2EEComponentCreationDataModel.APPCLIENT_PROJECT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR, 
-				DefaultJ2EEComponentCreationDataModel.CONNECTOR_PROJECT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.CREATE_EJB, 
-				DefaultJ2EEComponentCreationDataModel.EJB_PROJECT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.CREATE_WEB, 
-				DefaultJ2EEComponentCreationDataModel.WEB_PROJECT_NAME, 
-				DefaultJ2EEComponentCreationDataModel.MODULE_NAME_COLLISIONS_VALIDATION, 
+				DefaultJ2EEComponentCreationDataModel.APPCLIENT_COMPONENT_NAME, 
+//				DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR, 
+//				DefaultJ2EEComponentCreationDataModel.CONNECTOR_PROJECT_NAME, 
+//				DefaultJ2EEComponentCreationDataModel.CREATE_EJB, 
+//				DefaultJ2EEComponentCreationDataModel.EJB_PROJECT_NAME, 
+//				DefaultJ2EEComponentCreationDataModel.CREATE_WEB, 
+//				DefaultJ2EEComponentCreationDataModel.WEB_PROJECT_NAME, 
+//				DefaultJ2EEComponentCreationDataModel.MODULE_NAME_COLLISIONS_VALIDATION, 
 				DefaultJ2EEComponentCreationDataModel.ENABLED};
 	}
 
@@ -118,11 +117,11 @@ public class NewJ2EEComponentSelectionPage extends WTPWizardPage {
 		defaultModulesComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		//Default Module Controls creation
 		createAppClientDefaultModuleControl();
-		if (J2EEPlugin.isEJBSupportAvailable())
-			createEJBDefaultModuleControl();
-		createWebDefaultModuleControl();
-		if (J2EEPlugin.isEJBSupportAvailable())
-			createConnectorDefaultModuleControl();
+//		if (J2EEPlugin.isEJBSupportAvailable())
+//			createEJBDefaultModuleControl();
+//		createWebDefaultModuleControl();
+//		if (J2EEPlugin.isEJBSupportAvailable())
+//			createConnectorDefaultModuleControl();
 	}
 
 	/**
@@ -143,53 +142,55 @@ public class NewJ2EEComponentSelectionPage extends WTPWizardPage {
 			ejbRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.ejb")); //$NON-NLS-1$
 			ejbRadioButton.addListener(SWT.Selection, this);
 		}
-		if (EarModuleManager.getWebModuleExtension() != null) {
-			webRadioButton = new Button(newModulesComposite, SWT.RADIO);
-			webRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.web")); //$NON-NLS-1$
-			webRadioButton.addListener(SWT.Selection, this);
-		}
-		if (EarModuleManager.getJCAModuleExtension() != null) {
-			connectorRadioButton = new Button(newModulesComposite, SWT.RADIO);
-			connectorRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.jca")); //$NON-NLS-1$
-			connectorRadioButton.addListener(SWT.Selection, this);
-		}
+//		if (EarModuleManager.getWebModuleExtension() != null) {
+//			webRadioButton = new Button(newModulesComposite, SWT.RADIO);
+//			webRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.web")); //$NON-NLS-1$
+//			webRadioButton.addListener(SWT.Selection, this);
+//		}
+//		if (EarModuleManager.getJCAModuleExtension() != null) {
+//			connectorRadioButton = new Button(newModulesComposite, SWT.RADIO);
+//			connectorRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.jca")); //$NON-NLS-1$
+//			connectorRadioButton.addListener(SWT.Selection, this);
+//		}
 	}
 
 	/**
 	 *  
 	 */
 	private void createConnectorDefaultModuleControl() {
-		if (EarModuleManager.getJCAModuleExtension() != null) {
-			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_JCA_MODULE_LBL);
-			createJ2EEComponentControl(label, 
-					DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR, 
-					DefaultJ2EEComponentCreationDataModel.CONNECTOR_PROJECT_NAME);
-		}
+//		if (EarModuleManager.getJCAModuleExtension() != null) {
+//			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_JCA_MODULE_LBL);
+//			createJ2EEComponentControl(label, 
+//					DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR, 
+//					DefaultJ2EEComponentCreationDataModel.CONNECTOR_PROJECT_NAME);
+//		}
 	}
 
 	/**
 	 *  
 	 */
 	private void createWebDefaultModuleControl() {
-		if (EarModuleManager.getWebModuleExtension() != null) {
-			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_WEB_MODULE_LBL);
-			createJ2EEComponentControl(label, DefaultJ2EEComponentCreationDataModel.CREATE_WEB, DefaultJ2EEComponentCreationDataModel.WEB_PROJECT_NAME);
-		}
+//		if (EarModuleManager.getWebModuleExtension() != null) {
+//			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_WEB_MODULE_LBL);
+//			createJ2EEComponentControl(label, DefaultJ2EEComponentCreationDataModel.CREATE_WEB, DefaultJ2EEComponentCreationDataModel.WEB_PROJECT_NAME);
+//		}
 	}
 
 	/**
 	 *  
 	 */
 	private void createEJBDefaultModuleControl() {
-		if (EarModuleManager.getEJBModuleExtension() != null) {
-			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_EJB_MODULE_LBL);
-			createJ2EEComponentControl(label, DefaultJ2EEComponentCreationDataModel.CREATE_EJB, DefaultJ2EEComponentCreationDataModel.EJB_PROJECT_NAME);
-		}
+//		if (EarModuleManager.getEJBModuleExtension() != null) {
+//			String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_EJB_MODULE_LBL);
+//			createJ2EEComponentControl(label, DefaultJ2EEComponentCreationDataModel.CREATE_EJB, DefaultJ2EEComponentCreationDataModel.EJB_PROJECT_NAME);
+//		}
 	}
 
 	private void createAppClientDefaultModuleControl() {
 		String label = J2EEUIMessages.getResourceString(J2EEUIMessages.DEFAULT_COMPONENT_PAGE_APPCLIENT_MODULE_LBL);
-		createJ2EEComponentControl(label, DefaultJ2EEComponentCreationDataModel.CREATE_APPCLIENT, DefaultJ2EEComponentCreationDataModel.APPCLIENT_PROJECT_NAME);
+		createJ2EEComponentControl(label, 
+				DefaultJ2EEComponentCreationDataModel.CREATE_APPCLIENT, 
+				DefaultJ2EEComponentCreationDataModel.APPCLIENT_COMPONENT_NAME);
 	}
 
 	private void createJ2EEComponentControl(String label, String createProperty, String projectProperty) {
@@ -242,12 +243,12 @@ public class NewJ2EEComponentSelectionPage extends WTPWizardPage {
 		else if (!defaultModulesButton.getSelection()) {
 			if (evt.widget == appClientRadioButton && appClientRadioButton.getSelection())
 				setSelectedNode(getAppClientNode());
-			else if (evt.widget == ejbRadioButton && ejbRadioButton.getSelection())
-				setSelectedNode(getEjbNode());
-			else if (evt.widget == webRadioButton && webRadioButton.getSelection())
-				setSelectedNode(getWebNode());
-			else if (evt.widget == connectorRadioButton && connectorRadioButton.getSelection())
-				setSelectedNode(getConnectorNode());
+//			else if (evt.widget == ejbRadioButton && ejbRadioButton.getSelection())
+//				setSelectedNode(getEjbNode());
+//			else if (evt.widget == webRadioButton && webRadioButton.getSelection())
+//				setSelectedNode(getWebNode());
+//			else if (evt.widget == connectorRadioButton && connectorRadioButton.getSelection())
+//				setSelectedNode(getConnectorNode());
 			validatePage();
 		}
 		super.handleEvent(evt);
