@@ -11,7 +11,7 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/23 22:53:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/05/20 21:42:39 $ 
  */
 
 
@@ -23,6 +23,7 @@ import java.net.URL;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -71,7 +72,7 @@ public class JavaProjectUtil {
 				project.create(description, new SubProgressMonitor(monitor, 1000));
 				project.open(new SubProgressMonitor(monitor, 1000));				
 			}
-		}, pm);
+		}, project, 0, pm);
 		
 		return project;
 	}
@@ -121,7 +122,7 @@ public class JavaProjectUtil {
 					e.printStackTrace();
 				}
 			}
-		}, pm);
+		}, project, 0, pm);
 		
 		return project;
 	}
@@ -197,7 +198,7 @@ public class JavaProjectUtil {
 				} catch (IOException e) {
 				}
 			}
-		}, null);
+		}, workspace.getRoot(), 0, null);
 		
 		return result;
 	}
@@ -241,6 +242,6 @@ public class JavaProjectUtil {
 					project.setRawClasspath(newRaw, new SubProgressMonitor(monitor, 100));
 				}
 			}
-		}, pm);
+		}, project.getProject(), 0, pm);
 	}
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.5 $  $Date: 2004/05/05 21:03:10 $ 
+ *  $Revision: 1.6 $  $Date: 2004/05/20 21:42:39 $ 
  */
 
 import java.util.Iterator;
@@ -499,7 +499,7 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 					project.close(monitor);
 					project.open(monitor);
 				}
-			}, null);
+			}, project, 0, null);
 		}
 	}
 	
@@ -523,7 +523,7 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 					project.close(monitor);
 					project.open(monitor);
 				}
-			}, null);
+			}, project, 0, null);
 		}
 	}
 	

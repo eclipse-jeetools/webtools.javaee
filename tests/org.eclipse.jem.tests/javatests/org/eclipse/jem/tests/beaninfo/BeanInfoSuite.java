@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoSuite.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/24 15:07:48 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/20 21:42:39 $ 
  */
 import java.net.URL;
 
@@ -92,7 +92,7 @@ public class BeanInfoSuite extends TestSetup {
 				JavaProjectUtil.deleteProject(JavaProjectUtil.getProject(AbstractBeanInfoTestCase.TEST_BEANINFO_BEANINFOS_PROJECT));
 				JavaProjectUtil.deleteProject(JavaProjectUtil.getProject(AbstractBeanInfoTestCase.TEST_BEANINFO_PREREQ_PROJECT));
 			}
-		}, null);
+		}, ResourcesPlugin.getWorkspace().getRoot(), 0, null);
 
 		JavaProjectUtil.setAutoBuild(oldAutoBuildingState);
 	}
