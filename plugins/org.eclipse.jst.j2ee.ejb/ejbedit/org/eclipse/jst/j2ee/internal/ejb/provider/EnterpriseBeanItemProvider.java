@@ -30,9 +30,7 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.internal.provider.JNDIEnvRefsGroupItemProvider;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -261,8 +259,9 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 		if (bean == null || bean.getEjbJar() == null)
 			return myChildren;
 		try {
-			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
-				myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(bean));
+			// TODO WebServices for M3
+//			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
+//				myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(bean));
 		} catch (RuntimeException re) {
 			Logger.getLogger().logError(re);
 		}
@@ -278,8 +277,9 @@ public class EnterpriseBeanItemProvider extends JNDIEnvRefsGroupItemProvider imp
 		Collection myChildren = super.getChildren(object);
 		EnterpriseBean bean = (EnterpriseBean) object;
 		try {
-			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
-				myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(bean));
+			// TODO WebServices for M3
+//			if (bean.getEjbJar().getJ2EEVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
+//				myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(bean));
 		} catch (RuntimeException re) {
 			Logger.getLogger().logError(re);
 		}
