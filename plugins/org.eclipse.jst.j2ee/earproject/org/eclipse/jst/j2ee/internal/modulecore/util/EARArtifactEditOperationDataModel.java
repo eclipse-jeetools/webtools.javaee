@@ -11,8 +11,6 @@
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 public class EARArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {
@@ -20,8 +18,9 @@ public class EARArtifactEditOperationDataModel extends ArtifactEditOperationData
     public WTPOperation getDefaultOperation() {
         return new EARArtifactEditOperation(this);
     }
-    private ArtifactEdit getArtifactEditForRead(WorkbenchComponent module) {
-        return EARArtifactEdit.getEARArtifactEditForRead(module);
+    
+    public EARArtifactEdit getEARArtifactEditForRead() {
+        return EARArtifactEdit.getEARArtifactEditForRead(getWorkbenchModule());
     }
  
 }
