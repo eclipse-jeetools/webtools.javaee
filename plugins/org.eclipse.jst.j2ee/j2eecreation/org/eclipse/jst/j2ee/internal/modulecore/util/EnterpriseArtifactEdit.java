@@ -17,21 +17,21 @@ import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 
 /**
- * 
  * <p>
- *  EnterpriseArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit} to obtain
- *  J2EE specific data from a resource (@see Resource), i.e. Deployment Descriptor. The Deployment Descriptor resource
- *  is retrieved from the ArtifactEditModel {@see ArtifactEditModel} using a client defined URI. Define methods extracts
- *  the data from the resource.
+ * EnterpriseArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}to obtain
+ * J2EE specific data from a resource (@see Resource), i.e. Deployment Descriptor. The Deployment
+ * Descriptor resource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}using a
+ * client defined URI. Define methods extracts the data from the resource.
  * </p>
  * 
  * <p>
- *   This class is an abstract class, and clients are intended to subclass and own their implementation.
- * </p> 
+ * This class is an abstract class, and clients are intended to subclass and own their
+ * implementation.
+ * </p>
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 
-    /**
+	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}
 	 * </p>
@@ -41,16 +41,20 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	public EnterpriseArtifactEdit(ArtifactEditModel model) {
 		super(model);
 	}
-	
-	/***
-	 * <p> Retrieves J2EE version information from deployment descriptor resource </p>
+
+	/***********************************************************************************************
+	 * <p>
+	 * Retrieves J2EE version information from deployment descriptor resource
+	 * </p>
 	 * 
-	 * @return an interger representation of a J2EE Spec version 
+	 * @return an interger representation of a J2EE Spec version
 	 *  
 	 */
 	public abstract int getJ2EEVersion();
-	/***
-	 * <p> Retrieves a deployment descriptor resource from ArtifactEditModel (@see ArtifactEditModel) 
+
+	/***********************************************************************************************
+	 * <p>
+	 * Retrieves a deployment descriptor resource from ArtifactEditModel (@see ArtifactEditModel)
 	 * using a defined URI
 	 * </p>
 	 * 
@@ -58,19 +62,20 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 *  
 	 */
 	public abstract Resource getDeploymentDescriptorResource();
-	
-	/***
-	 * <p> Obtains the root object from a deployment descriptor resource, the root object contains 
-	 * all other resource defined objects. Examples of a Deployment Descriptor root include:
-	 * WebAPP (@see WebApp), Applicaiton(@see Application), EJBJar((@see EJBJar)
+
+	/***********************************************************************************************
+	 * <p>
+	 * Obtains the root object from a deployment descriptor resource, the root object contains all
+	 * other resource defined objects. Examples of a Deployment Descriptor root include: WebAPP
+	 * (@see WebApp), Applicaiton(@see Application), EJBJar((@see EJBJar)
 	 * </p>
 	 * 
 	 * @return a J2EE specific root object
 	 *  
 	 */
-	
+
 	public EObject getDeploymentDescriptorRoot() {
 		Resource res = getDeploymentDescriptorResource();
-		return (EObject)res.getContents().get(0);
+		return (EObject) res.getContents().get(0);
 	}
 }
