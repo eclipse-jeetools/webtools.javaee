@@ -32,18 +32,18 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * @version 1.0
  * @author
  */
-public class EJBDeployableObjectAdapter  {
+public class EJBDeployableArtifactAdapterUtil  {
 	/**
 	 * Constructor for EJBDeployableObjectAdapter.
 	 */
-	public EJBDeployableObjectAdapter() {
+	public EJBDeployableArtifactAdapterUtil() {
 		super();
 	}
 
 	/*
 	 * @see IDeployableObjectAdapterDelegate#getDeployableObject(Object)
 	 */
-	public IModuleArtifact getModuleObject(Object obj) {
+	public static IModuleArtifact getModuleObject(Object obj) {
 		if (obj == null)
 			return null;
 		if (obj instanceof EJBJar)
@@ -60,7 +60,7 @@ public class EJBDeployableObjectAdapter  {
 		return null;
 	}
 
-	protected IModuleArtifact getModuleObject(ICompilationUnit cu) {
+	protected static IModuleArtifact getModuleObject(ICompilationUnit cu) {
 		try {
 			return getModuleJavaObject((IFile) cu.getCorrespondingResource());
 		} catch (JavaModelException e) {
@@ -69,22 +69,22 @@ public class EJBDeployableObjectAdapter  {
 		return null;
 	}
 
-	protected IModuleArtifact getModuleObject(EJBJar ejbJar) {
+	protected static IModuleArtifact getModuleObject(EJBJar ejbJar) {
 		IModule dep = getModule(ejbJar);
 		return createModuleObject(dep, null, false, false);
 	}
 
-	protected IModuleArtifact getModuleObject(EnterpriseBean ejb) {
+	protected static IModuleArtifact getModuleObject(EnterpriseBean ejb) {
 		IModule dep = getModule(ejb);
 		return createModuleObject(dep, ejb.getName(), ejb.hasRemoteClient(), ejb.hasLocalClient());
 	}
 
-	protected IModuleArtifact getModuleObject(IProject project) {
+	protected static IModuleArtifact getModuleObject(IProject project) {
 		IModule dep = getModule(project);
 		return createModuleObject(dep, null, false, false);
 	}
 
-	protected IModuleArtifact getModuleObject(IFile file) {
+	protected static IModuleArtifact getModuleObject(IFile file) {
 		String ext = file.getFileExtension();
 		if ("java".equals(ext) || "class".equals(ext)) //$NON-NLS-1$ //$NON-NLS-2$
 			return getModuleJavaObject(file);
@@ -93,25 +93,25 @@ public class EJBDeployableObjectAdapter  {
 		return null;
 	}
 
-	protected IModule getModule(EObject refObject) {
+	protected static IModule getModule(EObject refObject) {
 		IProject proj = ProjectUtilities.getProject(refObject);
 		return getModule(proj);
 	}
 
-	protected IModule getModule(IProject project) {
+	protected static IModule getModule(IProject project) {
 		EJBNatureRuntime nature = getNature(project);
 		if (nature != null)
 			return nature.getModule();
 		return null;
 	}
 
-	protected EJBNatureRuntime getNature(IProject project) {
+	protected static EJBNatureRuntime getNature(IProject project) {
 		if (project != null)
 			return EJBNatureRuntime.getRuntime(project);
 		return null;
 	}
 
-	protected IModuleArtifact getModuleJavaObject(IFile file) {
+	protected static IModuleArtifact getModuleJavaObject(IFile file) {
 		EJBNatureRuntime nat = getNature(file.getProject());
 		if (nat != null) {
 			JavaClass javaClass = JemProjectUtilities.getJavaClass(file);
@@ -126,19 +126,19 @@ public class EJBDeployableObjectAdapter  {
 		return null;
 	}
 
-	protected boolean isRemote(EnterpriseBean ejb, JavaClass javaClass) {
+	protected static boolean isRemote(EnterpriseBean ejb, JavaClass javaClass) {
 		if (javaClass.equals(ejb.getHomeInterface()) || javaClass.equals(ejb.getRemoteInterface()))
 			return true;
 		return false;
 	}
 
-	protected boolean isLocal(EnterpriseBean ejb, JavaClass javaClass) {
+	protected static boolean isLocal(EnterpriseBean ejb, JavaClass javaClass) {
 		if (javaClass.equals(ejb.getLocalHomeInterfaceName()) || javaClass.equals(ejb.getLocalInterface()))
 			return true;
 		return false;
 	}
 
-	protected IModuleArtifact createModuleObject(IModule module, String ejbName, boolean remote, boolean local) {
+	protected static IModuleArtifact createModuleObject(IModule module, String ejbName, boolean remote, boolean local) {
 		if (module != null) {
 			String jndiName = null;
 			if (ejbName != null)
