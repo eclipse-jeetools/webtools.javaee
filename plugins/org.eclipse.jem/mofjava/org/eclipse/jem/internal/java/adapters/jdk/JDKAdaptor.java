@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JDKAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/07/16 15:31:10 $ 
  */
 
 import java.lang.reflect.Array;
@@ -249,22 +249,22 @@ public abstract class JDKAdaptor extends JavaReflectionAdaptor {
 		}
 		return type.getName();
 	}
-	/**
-	 * Try to load a Class with a @qualifiedName using the alternateClassLoader if
-	 * available.  If no alternateClassLoader is available, use Class.forName().
-	 * Use only the alternateClassLoader if its parent is the same as the System ClassLoader
-	 * so we do not try the System ClassLoader twice.  If not, use Class.forName() first
-	 * before trying the alternateClassLoader.
-	 */
+
 	protected Class loadFromAlternateClassLoader(String qualifiedName) throws ClassNotFoundException {
+		// Changed for defect #212147 botp@ausaix19.austin.ibm.com@7630 system.
 		if (getAlternateClassLoader() != null) {
-			if (getAlternateClassLoader().getParent() == ClassLoader.getSystemClassLoader()) {
+			try {
 				return getAlternateClassLoader().loadClass(qualifiedName);
-			} else {
-				try {
-					return Class.forName(qualifiedName);
-				} catch (ClassNotFoundException cnfe2) {
-					return getAlternateClassLoader().loadClass(qualifiedName);
+			} catch (ClassNotFoundException cnf2) {
+				ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+				if (systemClassLoader != null) {
+					ClassLoader parent = getAlternateClassLoader().getParent();					
+					while (parent != null) {
+						if (parent == systemClassLoader)
+							throw cnf2;	// We've already tried the system class loader. Go no further.
+						parent = parent.getParent();
+					}
+					return systemClassLoader.loadClass(qualifiedName);
 				}
 			}
 		}
