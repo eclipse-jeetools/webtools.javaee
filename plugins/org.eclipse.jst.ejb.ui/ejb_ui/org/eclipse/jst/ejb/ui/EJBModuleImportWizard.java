@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataM
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.ui.J2EEModuleImportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
