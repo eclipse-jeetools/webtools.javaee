@@ -94,6 +94,24 @@
             name="%j2ee.category_ui_"
             id="org.eclipse.jst.j2ee.internal">
       </category>
+<!-- Flexible Project Wizard -->
+      <wizard
+            name="%flexible.project_ui_"
+            icon="icons/full/ctool16/newear_wiz.gif"
+            category="org.eclipse.jst.j2ee.internal"
+            class="org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard"
+            project="true"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            id="org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard"
+            >
+         <description>
+            %new.flexible.project.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      
 <!-- Application Project Wizard -->
       <wizard
             name="%ear.project_ui_"
