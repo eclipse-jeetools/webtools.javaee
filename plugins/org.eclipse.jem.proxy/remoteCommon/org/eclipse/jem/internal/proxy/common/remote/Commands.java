@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/10 17:52:10 $ 
+ *  $Revision: 1.8 $  $Date: 2004/08/13 21:02:46 $ 
  */
 
 import java.io.*;
@@ -722,7 +722,7 @@ public class Commands {
 					value.aBool = is.readBoolean();
 					break;
 				case STRING:
-					value.anObject = is.readUTF();
+					value.anObject = readStringData(is);
 					break;
 				case OBJECT:
 					value.classID = is.readInt();	// Read the class id
@@ -883,7 +883,7 @@ public class Commands {
 					break;
 				case STRING:
 					os.writeByte(value.type);			
-					os.writeUTF((String) value.anObject);
+					sendStringData(os, (String) value.anObject);
 					break;
 				case OBJECT:
 					os.writeByte(value.type);
@@ -1054,7 +1054,83 @@ public class Commands {
 			throw new UnexpectedExceptionCommandException(false, e);
 		}		
 	}
-		
+	
+	protected static final byte STRING_NOT_CHUNKED = 0;
+	protected static final byte STRING_CHUNKED = 1;
+	protected static final byte MORE_CHUNKS = 2;
+	protected static final byte LAST_CHUNK = 3;
+	protected static final int CHUNK_SIZE = 65000/3; 
+	
+	/**
+	 * Send string data. This is for general string data. It makes sure that if the string is too big (there is a UTF-8 limit)
+	 * that it will send it in chunks. Use the corresponding <code>readStringData</code> to read such data in.
+	 * @param os
+	 * @param string
+	 * @throws IOException
+	 * 
+	 * @since 1.0.0
+	 */
+	public static void sendStringData(DataOutputStream os, String string) throws IOException {
+		// UTF-8 can take up to three bytes for each char. To be on safe side we will
+		// not send a string larger than 65K/3 as one chunk.
+		if (string.length() <= CHUNK_SIZE) {
+			// Less than the limit, send byte to indicate not chunked.
+			os.writeByte(STRING_NOT_CHUNKED);
+			os.writeUTF(string);
+		} else {
+			// Over limit, need to chunk it.
+			// send byte to indicate chunked, then send true length so that other side knows how big to create.
+			os.writeByte(STRING_CHUNKED);
+			os.writeInt(string.length());
+			// Now send first chunk
+			for(int i=0; i<string.length(); i+=CHUNK_SIZE) {
+				int endIndex = i+CHUNK_SIZE;
+				if (i == 0) {
+					// The first chunk is just written as is. We know endIndex will be ok because we wouldn't get here unless LARGER than chunksize.
+					os.writeUTF(string.substring(i, endIndex));
+				} else {
+					// Following chunks have either byte MORE_CHUNKS or LAST_CHUNK
+					if (endIndex >= string.length()) {
+						// This is last chunk.
+						os.writeByte(LAST_CHUNK);
+						os.writeUTF(string.substring(i));
+					} else {
+						// This is an intermediate chunk.
+						os.writeByte(MORE_CHUNKS);
+						os.writeUTF(string.substring(i, endIndex));
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Read a string that was sent using the sendStringData command.
+	 * @param in
+	 * @return
+	 * @throws IOException
+	 * 
+	 * @since 1.0.0
+	 */
+	public static String readStringData(DataInputStream is) throws IOException {
+		byte chunked = is.readByte();
+		if (chunked == STRING_NOT_CHUNKED)
+			return is.readUTF();	// Not chunk, just read it.
+		else {
+			// It is chunked.
+			int totalLength = is.readInt();	// Get the total length.
+			StringBuffer sbr = new StringBuffer(totalLength);
+			while(true) {
+				sbr.append(is.readUTF());
+				if (chunked != LAST_CHUNK)
+					chunked = is.readByte();
+				else
+					break;
+			}
+			return sbr.toString();
+		}
+	}
+	
 	/**
 	 * Read back command, expecting either a VALUE or an ERROR. You can request that
 	 * it be of a specific type (if any type can be accepted then enter -1 for the type).
