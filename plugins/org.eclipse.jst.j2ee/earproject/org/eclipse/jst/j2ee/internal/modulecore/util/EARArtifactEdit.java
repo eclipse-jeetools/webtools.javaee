@@ -12,13 +12,16 @@ package org.eclipse.jst.j2ee.internal.modulecore.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
+import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -210,11 +213,24 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 		return getArtifactEditModel().getResource(URI.createURI(J2EEConstants.APPLICATION_DD_URI));
 	}
 
-
 	public EObject createModelRoot() {
-		if(getApplicationXmiResource() == null) {
-			 addApplicationIfNecessary(getApplicationXmiResource());
+		URI moduleURI = getArtifactEditModel().getModuleURI();
+		String moduleName = moduleURI.lastSegment();
+		String uriString = moduleName + IPath.SEPARATOR + ArchiveConstants.APPLICATION_DD_URI;
+		URI uri = URI.createURI(uriString);
+		XMLResource resource = (XMLResource)getArtifactEditModel().createResource(uri);
+		Application app = ApplicationPackage.eINSTANCE.getApplicationFactory().createApplication();
+		app.setDisplayName(moduleName);
+		resource.getContents().add(app);
+		resource.setID(app, ArchiveConstants.APPL_ID);
+		try {
+			resource.saveIfNecessary();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		int j2eeVersion = getJ2EEVersion();
+		resource.setJ2EEVersionID(j2eeVersion);
 		return getApplicationXmiResource().getRootObject();
 	}
 	

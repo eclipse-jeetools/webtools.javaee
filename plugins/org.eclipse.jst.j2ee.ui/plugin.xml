@@ -111,8 +111,25 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
+<!-- EAR Component Wizard -->
+      <wizard
+            name="%ear_component_ui_"
+            icon="icons/full/ctool16/newear_wiz.gif"
+            category="org.eclipse.jst.j2ee.internal"
+            class="org.eclipse.jst.j2ee.ui.EARComponentCreationWizard"
+            project="true"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            id="org.eclipse.jst.j2ee.ui.EARComponentCreationWizard">
+         <description>
+            %new.ear.component.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
 
    </extension>
+  
 <!--================================-->
 <!-- Import Wizard Contributions    -->
 <!--================================-->
