@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -47,6 +48,15 @@ import org.eclipse.wst.web.internal.operation.ILibModule;
  * </p>
  */
 public class WebArtifactEdit extends EnterpriseArtifactEdit {
+	
+	public final String SERVLETLEVEL_2_2 = "Servlet 2.2"; //$NON-NLS-1$
+	public final String SERVLETLEVEL_2_3 = "Servlet 2.3"; //$NON-NLS-1$
+	public final String SERVLETLEVEL_2_4 = "Servlet 2.4"; //$NON-NLS-1$
+	public final String JSPLEVEL_1_1 = "JSP 1.1"; //$NON-NLS-1$
+	public final String JSPLEVEL_1_2 = "JSP 1.2"; //$NON-NLS-1$
+	public final String JSPLEVEL_2_0 = "JSP 2.0"; //$NON-NLS-1$
+
+
 
 	/**
 	 * <p>
@@ -410,5 +420,19 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	
 	public void setLibModules(ILibModule[] libModules) {
 		//TODO we need an edit model for write to do it.
+	}
+	
+	public IFolder getRootPublishableFolder(){
+//		TODO return the rootpublishableFolder
+		return null;
+		
+	}
+	public IFolder getDefaultJavaSourceName(){
+		return null;
+	}
+	
+	public IJavaProject getJavaProject(){
+		return null;
+		
 	}
 }
