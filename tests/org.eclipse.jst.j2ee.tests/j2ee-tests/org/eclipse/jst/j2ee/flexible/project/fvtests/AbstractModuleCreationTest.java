@@ -1,29 +1,24 @@
 package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
+
+import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
 import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 
 public abstract class AbstractModuleCreationTest extends TestCase {
-	protected static final String ILLEGAL_PROJECT_NAME_MESSAGE = "Illegal project name: ";
-	protected static final String UNEXPECTED_ERROR_MESSAGE = "Unexpected exception";
-	protected static final String TEST_FAILED_MESSAGE = "Test fails Exception should of been trown";
-	protected static final String MANIFEST_CLASS_NAME = "Junit_Test_Dummy_Class";
-	protected static final String MANIFEST_WRITE_ERROR = "Could not write to manifest test failed";
-	protected static final String MANIFEST_LOCK_ERROR = "Manifest IO error - File could be locked";
-	protected static final String MANIFEST_CORE_ERROR = "Java core error";
-
 	
-	public static final int APPLICATION_CLIENT_MODULE = 0;
-	public static final int WEB_MODULE = 1;
-	public static final int EJB_MODULE = 2;
-	public static final int EAR_MODULE = 3;
-//	public IProject ejbproject;
-//	public IProject earproject;
 	public static String DEFAULT_PROJECT_NAME = "Flexible";	
 	
 	public AbstractModuleCreationTest(String name) {
@@ -54,15 +49,74 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	public void runAll(){
 		try {
 			createSimpleProject(DEFAULT_PROJECT_NAME);
-			//setupWebModule();
+			setupEARModule();
+			setupjavaUtilComponent();
+			setupWebModule();
 			setupEJBModule();
+			setupAppClientModule();
+			setupConnectorModule();
 		}
 		catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
+	
+
+	
+	public void setupjavaUtilComponent() throws Exception {
+		createjavautilComponent(15, "javaUtil", "javaUtil.jar", DEFAULT_PROJECT_NAME);
+	}
+
+	private void createjavautilComponent(int j2eeVersion, String aModuleName, String aModuleDeployName,String projectName){
+		
+		JavaComponentCreationDataModel model = new JavaComponentCreationDataModel();
+		model.setProperty( JavaComponentCreationDataModel.PROJECT_NAME, projectName);
+		model.setIntProperty(JavaComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(JavaComponentCreationDataModel.COMPONENT_NAME, aModuleName);		
+		model.setProperty(JavaComponentCreationDataModel.COMPONENT_DEPLOY_NAME, aModuleDeployName);
+		try {
+			runJavaUtilComponentCreationOperation(model);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	private  void runJavaUtilComponentCreationOperation(JavaComponentCreationDataModel model) throws Exception {
+		
+		JavaUtilityComponentCreationOperation webOp = new JavaUtilityComponentCreationOperation(model);
+		webOp.run(null);
+	}		
+	
+	
+	
+	public void setupEARModule() throws Exception {
+		createEARModule(12, "FirstEARModule", "FirstEARModule.ear", DEFAULT_PROJECT_NAME);
+
+	}
+	
+	private void createEARModule(int j2eeVersion, String aModuleName, String aModuleDeployName,String projectName){
+		
+		EARComponentCreationDataModel model = new EARComponentCreationDataModel();
+		model.setProperty( EARComponentCreationDataModel.PROJECT_NAME, projectName);
+		model.setIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(EARComponentCreationDataModel.COMPONENT_NAME, aModuleName);		
+		model.setProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME, aModuleDeployName);
+		try {
+			runEARComponenteCreationOperation(model);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	private  void runEARComponenteCreationOperation(EARComponentCreationDataModel model) throws Exception {
+		
+		EARComponentCreationOperation webOp = new EARComponentCreationOperation(model);
+		webOp.run(null);
+	}
+	
 	
 	public void setupEJBModule() throws Exception {
 		createEJBModule(11, "FirstEJBModule", "FirstEJBModule.jar", DEFAULT_PROJECT_NAME);
@@ -77,11 +131,13 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		model.setIntProperty(EjbComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
 		model.setProperty(EjbComponentCreationDataModel.COMPONENT_NAME, aModuleName);		
 		model.setProperty(EjbComponentCreationDataModel.COMPONENT_DEPLOY_NAME, aModuleDeployName);
+		
+		model.setBooleanProperty(EjbComponentCreationDataModel.ADD_TO_EAR, false);
+		
 		try {
 			runEJBComponenteCreationOperation(model);
 		}
 		catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
@@ -110,7 +166,6 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 			runWebModuleCreationOperation(model);
 		}
 		catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
@@ -120,5 +175,56 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
 		webOp.run(null);
 	}
+	
+	
+	public void setupAppClientModule() throws Exception {
+		createAppClientModule(12, "FirstAppClient", "FirstAppClient.jar", DEFAULT_PROJECT_NAME);
+	}
+
+	private void createAppClientModule(int j2eeVersion, String aModuleName, String aModuleDeployName,String projectName){
+		
+		AppClientComponentCreationDataModel model = new AppClientComponentCreationDataModel();
+		model.setProperty( AppClientComponentCreationDataModel.PROJECT_NAME, projectName);
+		model.setIntProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(AppClientComponentCreationDataModel.COMPONENT_NAME, aModuleName);		
+		model.setProperty(AppClientComponentCreationDataModel.COMPONENT_DEPLOY_NAME, aModuleDeployName);
+		try {
+			runAppClientModuleCreationOperation(model);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	private  void runAppClientModuleCreationOperation(AppClientComponentCreationDataModel model) throws Exception {
+		
+		AppClientComponentCreationOperation webOp = new AppClientComponentCreationOperation(model);
+		webOp.run(null);
+	}	
+	
+	public void setupConnectorModule() throws Exception {
+		createConnectorModule(15, "FirstConnector", "FirstConnector.jar", DEFAULT_PROJECT_NAME);
+	}
+
+	private void createConnectorModule(int j2eeVersion, String aModuleName, String aModuleDeployName,String projectName){
+		
+		ConnectorComponentCreationDataModel model = new ConnectorComponentCreationDataModel();
+		model.setProperty( ConnectorComponentCreationDataModel.PROJECT_NAME, projectName);
+		model.setIntProperty(ConnectorComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(ConnectorComponentCreationDataModel.COMPONENT_NAME, aModuleName);		
+		model.setProperty(ConnectorComponentCreationDataModel.COMPONENT_DEPLOY_NAME, aModuleDeployName);
+		try {
+			runConnectorModuleCreationOperation(model);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	private  void runConnectorModuleCreationOperation(ConnectorComponentCreationDataModel model) throws Exception {
+		
+		ConnectorComponentCreationOperation webOp = new ConnectorComponentCreationOperation(model);
+		webOp.run(null);
+	}		
 
 }
