@@ -14,8 +14,8 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard;
@@ -59,7 +59,7 @@ public class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * 
 	 * @param model used to initialize the wizard and to interface with the operation
 	 */
-	public EJBModuleCreationWizard(EJBProjectCreationDataModel model) {
+	public EJBModuleCreationWizard(EJBModuleCreationDataModel model) {
 		super(model);
 	}
 
@@ -74,7 +74,7 @@ public class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return Returns the specific operation data model for the creation of J2EE EJB modules
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		EJBProjectCreationDataModel aModel = new EJBProjectCreationDataModel();
+		EJBModuleCreationDataModel aModel = new EJBModuleCreationDataModel();
 		aModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
@@ -89,7 +89,7 @@ public class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return Returns the specific operation for the creation of J2EE EJB modules
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new EJBProjectCreationOperation(getEJBProjectCreationDataModel());
+		return new EJBModuleCreationOperation(getEJBProjectCreationDataModel());
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return true if the parent Wizard class is ready and EJB Client Creation settings are complete
 	 */
 	public boolean canFinish() {
-		if (!getEJBProjectCreationDataModel().getBooleanProperty(EJBProjectCreationDataModel.CREATE_CLIENT)) {
+		if (!getEJBProjectCreationDataModel().getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT)) {
 			clientPage.setPageComplete(true);
 		}
 		return super.canFinish();
@@ -193,13 +193,13 @@ public class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return true if the client page should be skipped (based on the value of {@see EJBProjectCreationDataModel#CREATE_CLIENT}.
 	 */
 	protected final boolean shouldSkipClientPage() {
-		return !((EJBProjectCreationDataModel) model).getBooleanProperty(EJBProjectCreationDataModel.CREATE_CLIENT);
+		return !((EJBModuleCreationDataModel) model).getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT);
 	}
 
 	/**
 	 *  
 	 */
-	private EJBProjectCreationDataModel getEJBProjectCreationDataModel() {
-		return (EJBProjectCreationDataModel) model;
+	private EJBModuleCreationDataModel getEJBProjectCreationDataModel() {
+		return (EJBModuleCreationDataModel) model;
 	}
 }

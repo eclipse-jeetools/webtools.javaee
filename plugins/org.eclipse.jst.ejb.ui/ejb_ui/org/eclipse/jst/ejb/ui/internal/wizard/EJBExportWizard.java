@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarExportOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBExportDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBJarExportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEExportWizard;
@@ -39,7 +39,7 @@ public class EJBExportWizard extends J2EEExportWizard implements IExecutableExte
 	/**
 	 * @param model
 	 */
-	public EJBExportWizard(EJBExportDataModel model) {
+	public EJBExportWizard(EJBJarExportDataModel model) {
 		super(model);
 	}
 
@@ -56,7 +56,7 @@ public class EJBExportWizard extends J2EEExportWizard implements IExecutableExte
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
-		EJBExportDataModel aModel = new EJBExportDataModel();
+		EJBJarExportDataModel aModel = new EJBJarExportDataModel();
 		return aModel;
 	}
 
@@ -76,8 +76,8 @@ public class EJBExportWizard extends J2EEExportWizard implements IExecutableExte
 	/**
 	 *  
 	 */
-	private EJBExportDataModel getEJBDataModel() {
-		return (EJBExportDataModel) model;
+	private EJBJarExportDataModel getEJBDataModel() {
+		return (EJBJarExportDataModel) model;
 	}
 
 

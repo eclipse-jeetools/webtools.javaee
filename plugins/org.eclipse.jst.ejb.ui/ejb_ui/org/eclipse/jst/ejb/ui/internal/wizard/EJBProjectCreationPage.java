@@ -20,7 +20,7 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -32,13 +32,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
-
-/**
- * @author jsholl
- * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
 public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	protected Button addClient;
 	protected AnnotationsStandaloneGroup annotationsGroup;
@@ -48,7 +41,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	protected EJBProjectCreationPage(EJBProjectCreationDataModel model, String pageName) {
+	protected EJBProjectCreationPage(EJBModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_TITLE));
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_DESC));
@@ -74,7 +67,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	private void createDefaultBean(Composite advanced) {
 		addDefaultBean = new Button(advanced, SWT.CHECK);
 		addDefaultBean.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_DEFAULT_SESSION_BEAN));
-		synchHelper.synchCheckbox(addDefaultBean, EJBProjectCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, null);
+		synchHelper.synchCheckbox(addDefaultBean, EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, null);
 		GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
 		gd1.horizontalSpan = 3;
 		addDefaultBean.setLayoutData(gd1);
@@ -96,7 +89,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 		addSpacers(parent, 1);
 		addClient = new Button(parent, SWT.CHECK);
 		addClient.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_EJB_CLIENT_JAR));
-		synchHelper.synchCheckbox(addClient, EJBProjectCreationDataModel.CREATE_CLIENT, null);
+		synchHelper.synchCheckbox(addClient, EJBModuleCreationDataModel.CREATE_CLIENT, null);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
 		addClient.setLayoutData(gd);
@@ -119,7 +112,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 		String[] names = super.getValidationPropertyNames();
 		String[] allNames = new String[names.length + 2];
 		System.arraycopy(names, 0, allNames, 0, names.length);
-		allNames[names.length] = EJBProjectCreationDataModel.CREATE_CLIENT;
+		allNames[names.length] = EJBModuleCreationDataModel.CREATE_CLIENT;
 		allNames[names.length + 1] = IAnnotationsDataModel.USE_ANNOTATIONS;
 		return allNames;
 	}
@@ -139,7 +132,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 		super.storeDefaultSettings();
 		IDialogSettings settings = getDialogSettings();
 		if (settings != null)
-			settings.put(getAddDefaultBeanKey(), model.getBooleanProperty(EJBProjectCreationDataModel.CREATE_DEFAULT_SESSION_BEAN));
+			settings.put(getAddDefaultBeanKey(), model.getBooleanProperty(EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN));
 	}
 
 
@@ -151,7 +144,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 		super.restoreDefaultSettings();
 		IDialogSettings settings = getDialogSettings();
 		if (settings != null)
-			model.setBooleanProperty(EJBProjectCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, settings.getBoolean(getAddDefaultBeanKey()));
+			model.setBooleanProperty(EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, settings.getBoolean(getAddDefaultBeanKey()));
 	}
 
 	/*

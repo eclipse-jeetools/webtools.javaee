@@ -18,10 +18,10 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBJarImportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
@@ -61,12 +61,12 @@ public class EJBImportPage extends J2EEModuleImportPage {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
 	}
 
-	protected J2EEProjectCreationDataModel getNewProjectCreationDataModel() {
-		return getEJBDataModel().getJ2eeProjectCreationDataModel();
+	protected J2EEArtifactCreationDataModel getNewProjectCreationDataModel() {
+		return getEJBDataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new EJBModuleCreationWizard((EJBProjectCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
+		return new EJBModuleCreationWizard((EJBModuleCreationDataModel) aModel);
 	}
 
 	private EJBJarImportDataModel getEJBDataModel() {

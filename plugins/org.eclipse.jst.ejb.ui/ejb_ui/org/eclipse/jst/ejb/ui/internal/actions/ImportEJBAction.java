@@ -18,7 +18,7 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBJarImportWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
@@ -46,7 +46,7 @@ public class ImportEJBAction extends BaseAction {
 	 */
 	protected void primRun(Shell shell) {
 
-		EJBJarImportWizard wizard = new EJBJarImportWizard();
+		EJBModuleImportWizard wizard = new EJBModuleImportWizard();
 
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 
