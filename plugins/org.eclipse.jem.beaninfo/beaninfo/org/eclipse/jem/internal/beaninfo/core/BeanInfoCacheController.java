@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.4 $  $Date: 2005/03/10 17:34:16 $ 
+ *  $Revision: 1.5 $  $Date: 2005/03/18 20:28:26 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -1188,33 +1188,40 @@ public class BeanInfoCacheController {
 				case ISaveContext.SNAPSHOT:
 					// For a snapshot, just the dirty indexes, no clean up. If fullsave, cleanup the indexes, but only save the dirty.
 					synchronized (BeanInfoCacheController.INSTANCE) {
-						if (MAIN_INDEX != null) {
-							if (fullsave) {
-								if (cleanIndexDirectory(null, MAIN_INDEX)) {
-									if (MAIN_INDEX.isDirty())
-										writeIndex(null, MAIN_INDEX);
-								} else {
-									// It was empty, just get rid of the index.
-									MAIN_INDEX = null;
-								}
-							} else if (MAIN_INDEX.isDirty())
-								writeIndex(null, MAIN_INDEX);
-						}
-						// Now do the project indexes.
-						for (Iterator projectIndexEntryItr = PROJECT_INDEXES.entrySet().iterator(); projectIndexEntryItr.hasNext();) {
-							Map.Entry entry = (Map.Entry) projectIndexEntryItr.next();
-							project = (IProject) entry.getKey();
-							Index index = (Index) entry.getValue();
-							if (fullsave) {
-								if (cleanIndexDirectory(project, index)) {
-									if (index.isDirty())
-										writeIndex(project, index);
-								} else {
-									// It was empty, just get rid of the index.
-									projectIndexEntryItr.remove();
-								}
-							} else if (index.isDirty())
-								writeIndex(project, index);
+						try {
+							if (MAIN_INDEX != null) {
+								if (fullsave) {
+									if (cleanIndexDirectory(null, MAIN_INDEX)) {
+										if (MAIN_INDEX.isDirty())
+											writeIndex(null, MAIN_INDEX);
+									} else {
+										// It was empty, just get rid of the index.
+										MAIN_INDEX = null;
+									}
+								} else if (MAIN_INDEX.isDirty())
+									writeIndex(null, MAIN_INDEX);
+							}
+							// Now do the project indexes.
+							for (Iterator projectIndexEntryItr = PROJECT_INDEXES.entrySet().iterator(); projectIndexEntryItr.hasNext();) {
+								Map.Entry entry = (Map.Entry) projectIndexEntryItr.next();
+								project = (IProject) entry.getKey();
+								Index index = (Index) entry.getValue();
+								if (fullsave) {
+									if (cleanIndexDirectory(project, index)) {
+										if (index.isDirty())
+											writeIndex(project, index);
+									} else {
+										// It was empty, just get rid of the index.
+										projectIndexEntryItr.remove();
+									}
+								} else if (index.isDirty())
+									writeIndex(project, index);
+							}
+						} catch (RuntimeException e) {
+							e.printStackTrace();
+							// TODO Need to fix the case whereas the cache has been removed
+							// by Project-->Clean but the memory cache still thinks it exists.
+							// This try/catch should be remove once that is fixed.
 						}
 					}
 			}
