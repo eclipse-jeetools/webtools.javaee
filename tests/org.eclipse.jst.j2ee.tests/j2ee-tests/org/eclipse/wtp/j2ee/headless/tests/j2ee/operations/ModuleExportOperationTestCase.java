@@ -7,6 +7,7 @@
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 import junit.framework.Test;
@@ -49,9 +50,16 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 		super(name);
 
 		String relativeOutputTestsPath = "TestData" + File.separator + getOutputDirectory() + File.separator;
-		URL fullOutputTestsPath = HeadlessTestsPlugin.getDefault().find(new Path(relativeOutputTestsPath));
-
-		TESTS_OUTPUT_PATH = fullOutputTestsPath.getPath();
+		TESTS_OUTPUT_PATH = getOutputPath(relativeOutputTestsPath);
+	}
+	
+	public String getOutputPath(String relPath) {
+		try{
+			return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(),relPath);
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		return null;
 	}
 
 	/*

@@ -68,7 +68,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		J2EEModuleImportDataModel dataModel = getModelInstance();
 		dataModel.setProperty(J2EEModuleImportDataModel.FILE_NAME, filename);
 		dataModel.setProperty(J2EEModuleImportDataModel.PROJECT_NAME, projectName);
-		dataModel.setProperty(J2EEModuleImportDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
+		setServerTargetProperty(dataModel);
 		// TODO revisit once refactorings are completed
 		//dataModel.setBooleanProperty(J2EEImportDataModel.CREATE_BINARY_PROJECT, isBinary);
 		dataModel.setBooleanProperty(J2EEModuleImportDataModel.OVERWRITE_PROJECT, overwriteProject);
@@ -77,6 +77,13 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 			runAndVerify(dataModel);
 		else 
 			verifyInvalidDataModel(dataModel);
+	}
+
+	/**
+	 * @param dataModel
+	 */
+	public void setServerTargetProperty(J2EEModuleImportDataModel dataModel) {
+		dataModel.setProperty(J2EEModuleImportDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
 	}
 
 	public void testAllBinaryImportTestCases() throws Exception {
