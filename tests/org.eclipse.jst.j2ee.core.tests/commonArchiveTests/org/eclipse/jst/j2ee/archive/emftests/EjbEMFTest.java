@@ -35,11 +35,11 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
-import org.eclipse.jst.j2ee.ejb.impl.EJBRelationshipRoleImpl;
-import org.eclipse.jst.j2ee.ejb.impl.MethodPermissionImpl;
-import org.eclipse.jst.j2ee.ejb.impl.QueryMethodImpl;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.ejb.impl.EJBRelationshipRoleImpl;
+import org.eclipse.jst.j2ee.internal.ejb.impl.MethodPermissionImpl;
+import org.eclipse.jst.j2ee.internal.ejb.impl.QueryMethodImpl;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 

@@ -26,12 +26,12 @@ import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.webapplication.impl.FilterMappingImpl;
 import org.eclipse.jst.j2ee.webapplication.ErrorPage;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.webapplication.impl.FilterMappingImpl;
 
 
 public class WarEMFTest extends GeneralEMFPopulationTest {
