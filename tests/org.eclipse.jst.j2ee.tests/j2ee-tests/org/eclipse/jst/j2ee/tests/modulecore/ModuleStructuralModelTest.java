@@ -226,7 +226,7 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	public void createLocalModules(ModuleCore moduleCore) throws Exception {
 
-		ProjectModules projectModules = moduleCore.getProjectModules();
+		ProjectModules projectModules = moduleCore.getModuleModelRoot();
 
 		WorkbenchModule webLibraryModule = addWorkbenchModule(projectModules, getLocalWebLibraryDeployedName(), getLocalWebLibraryModuleURI());
 		IFolder localWebLibrary = getProjectForWebModuleAndLocalWebLib().getFolder(getLocalWebLibraryFolderName());
@@ -323,7 +323,7 @@ public class ModuleStructuralModelTest extends TestCase {
 				ModuleCore moduleCore = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
 				String deployedName = aProjectName + ".jar";
 				URI moduleURI = URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + aProjectName + IPath.SEPARATOR + deployedName);
-				WorkbenchModule utilityModule = addWorkbenchModule(moduleCore.getProjectModules(), deployedName, moduleURI);
+				WorkbenchModule utilityModule = addWorkbenchModule(moduleCore.getModuleModelRoot(), deployedName, moduleURI);
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
 
