@@ -51,7 +51,11 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
- * @deprecated - This class is deprecated. Use EJBArtifactEdit instead.
+ * @deprecated
+ * Use
+ * <p>
+ * 		EJBArtifactEdit
+ * </p>
  */
 
 public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureConstants {

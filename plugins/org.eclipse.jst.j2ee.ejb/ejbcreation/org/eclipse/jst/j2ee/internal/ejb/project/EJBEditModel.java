@@ -30,7 +30,11 @@ import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 /**
  * Insert the type's description here. Creation date: (4/11/2001 5:05:30 PM)
  * 
- * @author: Administrator
+ * @deprecated
+ * Use
+ * <p>
+ *  	EJBArtifactEdit 
+ * </p>
  */
 public class EJBEditModel extends AbstractEJBEditModel implements WorkingCopyProvider {
 
