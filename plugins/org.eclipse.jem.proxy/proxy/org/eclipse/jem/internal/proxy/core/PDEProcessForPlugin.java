@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEProcessForPlugin.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.3 $  $Date: 2005/03/11 21:23:38 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -57,7 +57,7 @@ class PDEProcessForPlugin implements ProxyPlugin.IPDEProcessForPlugin {
 			IPluginImport pi = imports[i];
 			Boolean piValue = (Boolean) pluginIds.get(pi.getId());
 			boolean importVisible = first || (visible && pi.isReexported());
-			if (piValue != null && (!importVisible || !piValue.booleanValue()))
+			if (piValue != null && (!importVisible || piValue.booleanValue()))
 				continue;	// we already processed it, this time not visible, or this time visible and was previously visible.
 			// Now either first time, or it was there before, but now visible, but this time it is visible.
 			// We want it to become visible in that case. 
