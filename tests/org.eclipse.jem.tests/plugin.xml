@@ -23,6 +23,7 @@
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.wtp.common"/>
    </requires>
 
 

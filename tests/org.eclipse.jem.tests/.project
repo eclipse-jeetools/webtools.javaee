@@ -14,6 +14,7 @@
 		<project>org.eclipse.jem.beaninfo</project>
 		<project>org.eclipse.jem.proxy</project>
 		<project>org.eclipse.jem.workbench</project>
+		<project>org.eclipse.wtp.common</project>
 		<project>org.junit</project>
 	</projects>
 	<buildSpec>
