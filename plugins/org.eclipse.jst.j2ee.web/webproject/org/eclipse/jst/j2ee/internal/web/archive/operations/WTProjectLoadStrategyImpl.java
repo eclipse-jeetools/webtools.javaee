@@ -31,9 +31,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandler;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
@@ -68,9 +69,12 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 	 */
 	public void addLooseLibJARsToFiles() {
 
-		J2EEWebNatureRuntime nature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
-		if (nature != null) {
-			ILibModule[] libModules = nature.getLibModules();
+//		J2EEWebNatureRuntime nature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
+//		if (nature != null) {
+//			ILibModule[] libModules = nature.getLibModules();
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+		if (webArtifactEdit != null) {
+			ILibModule[] libModules = webArtifactEdit.getLibModules();
 			for (int i = 0; i < libModules.length; i++) {
 				ILibModule iLibModule = libModules[i];
 				String uri = new Path(iLibModule.getURI()).makeRelative().toString();
@@ -379,9 +383,11 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 
 		try {
 			IContainer libraryFolder = null;
-			J2EEWebNatureRuntime wnr = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
-			if (wnr != null)
-				libraryFolder = wnr.getLibraryFolder();
+//			J2EEWebNatureRuntime wnr = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
+//			if (wnr != null)
+//				libraryFolder = wnr.getLibraryFolder();
+			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			libraryFolder = webArtifactEdit.getLibraryFolder();
 			return libraryFolder;
 		} catch (Exception e) {
 			throw new ArchiveRuntimeException(e.getMessage(), e);
@@ -418,9 +424,11 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 	public IFolder getSourceFolder() throws Exception {
 		try {
 			IFolder sourceFolder = null;
-			J2EEWebNatureRuntime wnr = J2EEWebNatureRuntime.getRuntime(project);
-			if (wnr != null)
-				sourceFolder = wnr.getSourceFolder();
+//			J2EEWebNatureRuntime wnr = J2EEWebNatureRuntime.getRuntime(project);
+//			if (wnr != null)
+//				sourceFolder = wnr.getSourceFolder();
+			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			sourceFolder = webArtifactEdit.getSourceFolder();
 			return sourceFolder;
 		} catch (Exception e) {
 			throw new SaveFailureException(e.getMessage(), e);
@@ -432,10 +440,15 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 		if (isProjectMetaFile(aPath.toString()))
 			return aPath;
 
-		J2EEWebNatureRuntime wnr = J2EEWebNatureRuntime.getRuntime(project);
+//		J2EEWebNatureRuntime wnr = J2EEWebNatureRuntime.getRuntime(project);
+//		String uri = aPath.toString();
+//		if (uri.startsWith(wnr.getModuleServerRootName())) {
+//			return new Path(uri).removeFirstSegments(wnr.getModuleServerRoot().getProjectRelativePath().segmentCount());
+//		}
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 		String uri = aPath.toString();
-		if (uri.startsWith(wnr.getModuleServerRootName())) {
-			return new Path(uri).removeFirstSegments(wnr.getModuleServerRoot().getProjectRelativePath().segmentCount());
+		if (uri.startsWith(webArtifactEdit.getModuleServerRoot().getName())) {
+			return new Path(uri).removeFirstSegments(webArtifactEdit.getModuleServerRoot().getProjectRelativePath().segmentCount());
 		}
 		// If this is a source folder, stick it 'source' dir under the classes directory
 		List asourceFolders = getSourceFolders();
@@ -467,9 +480,12 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 
 	private boolean areLooseLibJarsIncluded() {
 		boolean exists = false;
-		J2EEWebNatureRuntime nature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
-		if (nature != null) {
-			ILibModule[] libModules = nature.getLibModules();
+//		J2EEWebNatureRuntime nature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
+//		if (nature != null) {
+//			ILibModule[] libModules = nature.getLibModules();
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+		if (webArtifactEdit != null) {
+			ILibModule[] libModules = webArtifactEdit.getLibModules();
 
 			if (libModules.length > 0)
 				exists = true;

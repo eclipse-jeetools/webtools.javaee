@@ -39,7 +39,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 
@@ -177,12 +178,13 @@ public final class WebModuleExportOperation extends J2EEArtifactExportOperation 
 		}
 		SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 1);
 		try {
-			J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(project);
-			if (nature == null)
-				return;
+//			J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(project);
+//			if (nature == null)
+//				return;
+			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 
 			Set projectsToBuild = new HashSet();
-			ILibModule[] libModules = nature.getLibModules();
+			ILibModule[] libModules = webArtifactEdit.getLibModules();
 			for (int i = 0; i < libModules.length; i++) {
 				projectsToBuild.add(libModules[i].getProject());
 			}

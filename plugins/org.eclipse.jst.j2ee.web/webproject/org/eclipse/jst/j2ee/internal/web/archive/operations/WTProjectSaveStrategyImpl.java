@@ -34,8 +34,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
 import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
@@ -67,7 +67,8 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	 * Return the container that represents the root of this war file
 	 */
 	public IContainer getModuleServerRoot() {
-		return getWebNature().getRootPublishableFolder();
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+		return webArtifactEdit.getModuleServerRoot();
 	}
 
 	/**
@@ -101,9 +102,9 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	/**
 	 * Return the web nature for the war project.
 	 */
-	public J2EEWebNatureRuntime getWebNature() {
-		return J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
-	}
+//	public J2EEWebNatureRuntime getWebNature() {
+//		return J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
+//	}
 
 	protected void saveFiles(FileIterator iterator) throws SaveFailureException {
 		while (iterator.hasNext()) {
@@ -160,7 +161,8 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	}
 
 	protected String convertToSourceURI(String uri) {
-		IPath path = getWebNature().getSourceFolder().getProjectRelativePath();
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+		IPath path = webArtifactEdit.getSourceFolder().getProjectRelativePath();
 		path = path.append(uri);
 		return path.toString();
 	}
@@ -168,7 +170,8 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	protected String convertToContentURI(String uri) {
 		if (isProjectMetaFile(uri))
 			return uri;
-		IPath path = getWebNature().getModuleServerRoot().getProjectRelativePath();
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+		IPath path = webArtifactEdit.getModuleServerRoot().getProjectRelativePath();
 		path = path.append(uri);
 		return path.toString();
 	}

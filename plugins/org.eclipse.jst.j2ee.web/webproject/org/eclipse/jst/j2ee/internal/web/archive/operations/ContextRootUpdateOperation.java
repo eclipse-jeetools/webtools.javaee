@@ -76,10 +76,10 @@ public class ContextRootUpdateOperation implements IHeadlessRunnableWithProgress
 
 	protected void updateContextRootInEAR(org.eclipse.core.resources.IProject project, String contextRoot) {
 
-		J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(project);
+//		J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(project);
 
-		if (runtime == null)
-			return;
+//		if (runtime == null)
+//			return;
 
 		EARNatureRuntime earNatureRuntime[] = runtime.getReferencingEARProjects();
 		EAREditModel editModel = null;
