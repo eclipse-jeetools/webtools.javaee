@@ -19,7 +19,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -50,7 +52,8 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 	 */
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		IRuntime target = ServerTargetUtil.getServerTarget(prj.getName());
-		ILibModule[] wlps = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(prj).getLibModules();
+		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(prj);
+		ILibModule[] wlps = webModuleArtifact.getLibModules();
 		monitor.beginTask(ProjectSupportResourceHandler.getString("Sync_WLP_Op"), wlps.length); //$NON-NLS-1$
 		for (int i = 0; i < wlps.length; i++) {
 			IProject module = wlps[i].getProject();

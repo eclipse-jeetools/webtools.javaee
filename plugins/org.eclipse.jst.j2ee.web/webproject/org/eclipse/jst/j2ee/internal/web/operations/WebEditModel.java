@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -23,6 +24,7 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
@@ -48,9 +50,9 @@ public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	}
 
 	// TODO -- mdelder isn't sure about this and needs to talk to jsholl
-	public J2EEWebNatureRuntime getWebNature() {
+/*	public J2EEWebNatureRuntime getWebNature() {
 		return J2EEWebNatureRuntime.getRuntime(getProject());
-	}
+	}*/
 
 	/**
 	 * Return the root object, the web app, from the web.xml DD.
@@ -88,6 +90,8 @@ public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 
 	public Resource makeDeploymentDescriptorWithRoot() {
 		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) createResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
+		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(prj);
+		
 		res.setModuleVersionID(getWebNature().getModuleVersion());
 		addWebAppIfNecessary(res);
 		return res;
