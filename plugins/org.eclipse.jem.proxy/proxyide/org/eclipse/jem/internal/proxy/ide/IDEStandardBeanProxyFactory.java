@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.proxy.ide;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.3 $ $Date: 2004/02/20 00:44:05 $
+ * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.4 $ $Date: 2004/05/24 23:23:36 $
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -157,7 +157,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 			return newValue != null ? aTypeProxy.newBeanProxy(newValue) : null;
 		} catch (Exception exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
 			return null;
 		}
 	}
@@ -176,7 +176,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 			return aTypeProxy.newBeanProxy(!(aTypeProxy.isPrimitive()) ? beanType.newInstance() : null);
 		} catch (Exception exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
 			return null;
 		}
 	}
@@ -211,7 +211,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 				return null;
 		} catch (Exception exc) {
 			ProxyPlugin.getPlugin().getLogger().log(
-					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
+					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
 			return null;
 		}
 	}

@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.beaninfo.ui;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,12 +10,13 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/24 15:07:52 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/24 23:23:43 $ 
  */
+package org.eclipse.jem.internal.beaninfo.ui;
+
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
@@ -42,7 +42,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
-import org.eclipse.jem.internal.beaninfo.adapters.*;
+import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 
@@ -161,13 +161,11 @@ public class BeaninfoPathsBlock {
 
 		// a non shared image
 		Image fBeanImage = null;
-		try {
-			ImageDescriptor pin = ImageDescriptor.createFromURL(
-						new URL(JEMUIPlugin.getPlugin().getDescriptor().getInstallURL(), "icons/javabean.gif")); //$NON-NLS-1$
-			fBeanImage = pin.createImage();
-		} catch(MalformedURLException e) {
+		URL imageURL = Platform.find(JEMUIPlugin.getPlugin().getBundle(), new Path("icons/javabean.gif")); //$NON-NLS-1$
+		if (imageURL != null) 
+			fBeanImage = ImageDescriptor.createFromURL(imageURL).createImage();
+		else
 			fBeanImage = ImageDescriptor.getMissingImageDescriptor().createImage();
-		}
 		composite.addDisposeListener(new ImageDisposer(fBeanImage));
 				
 		fBeaninfosPage= new BeaninfosWorkbookPage(fWorkspaceRoot, this, interestedDialogFields);		

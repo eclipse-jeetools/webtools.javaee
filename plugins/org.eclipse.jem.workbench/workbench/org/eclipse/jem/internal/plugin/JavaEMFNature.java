@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.plugin;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.5 $ $Date: 2004/03/06 18:39:45 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.6 $ $Date: 2004/05/24 23:23:49 $
  */
 
 import java.util.List;
@@ -56,7 +56,7 @@ public java.lang.String getNatureID() {
  * Return the ID of the plugin that this nature is contained within.
  */
 protected java.lang.String getPluginID() {
-	return JavaPlugin.getDefault().getDescriptor().getUniqueIdentifier();
+	return JavaPlugin.getDefault().getBundle().getSymbolicName();
 }
 /**
  * Get a IJavaMOFNatureRuntime that corresponds to the supplied project.

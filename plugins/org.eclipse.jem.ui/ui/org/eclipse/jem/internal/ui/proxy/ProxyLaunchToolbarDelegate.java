@@ -10,10 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchToolbarDelegate.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:43 $ 
  */
 package org.eclipse.jem.internal.ui.proxy;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -119,7 +120,7 @@ public class ProxyLaunchToolbarDelegate implements IWorkbenchWindowPulldownDeleg
 		if (selectDelegate.isEnabled())
 			action.setToolTipText(selectDelegate.getToolTipText());
 		else
-			action.setToolTipText(JEMUIPlugin.getPlugin().getDescriptor().getResourceString("%Action.proxyLaunchTip"));
+			action.setToolTipText(Platform.getResourceString(JEMUIPlugin.getPlugin().getBundle(), "%Action.proxyLaunchTip"));
 			
 	}
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ListIteratorBeanProxyWrapper.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.3 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 
@@ -49,7 +49,7 @@ public class ListIteratorBeanProxyWrapper extends IteratorBeanProxyWrapper {
 			return ((IBooleanBeanProxy) fConstants.getListIteratorHasPrevious().invoke(fIterator)).booleanValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
 			return false;
 		}			
 	}
@@ -58,7 +58,7 @@ public class ListIteratorBeanProxyWrapper extends IteratorBeanProxyWrapper {
 			return ((IIntegerBeanProxy) fConstants.getListIteratorNextIndex().invoke(fIterator)).intValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
 			return -1;
 		}			
 	}			
@@ -70,7 +70,7 @@ public class ListIteratorBeanProxyWrapper extends IteratorBeanProxyWrapper {
 			return ((IIntegerBeanProxy) fConstants.getListIteratorPreviousIndex().invoke(fIterator)).intValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
 			return -1;
 		}
 	}

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.5 $  $Date: 2004/04/27 21:00:07 $ 
+ *  $Revision: 1.6 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 
@@ -51,7 +51,7 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 			out = new DataOutputStream(new BufferedOutputStream(fSocket.getOutputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
 			in = new DataInputStream(new BufferedInputStream(fSocket.getInputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
 		} catch (IOException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
 			
 			if (out != null)
 				try {

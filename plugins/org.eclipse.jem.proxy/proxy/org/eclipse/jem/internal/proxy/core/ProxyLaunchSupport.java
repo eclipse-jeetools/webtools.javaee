@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.7 $  $Date: 2004/04/20 21:15:57 $ 
+ *  $Revision: 1.8 $  $Date: 2004/05/24 23:23:36 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.osgi.framework.Bundle;
  
 /**
  * This is the used to launch the proxy registries.
@@ -225,7 +226,7 @@ public class ProxyLaunchSupport {
 			throw new CoreException(
 					new Status(
 							IStatus.WARNING,
-							ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+							ProxyPlugin.getPlugin().getBundle().getSymbolicName(),
 							0,
 							MessageFormat.format(
 									ProxyMessages.getString(ProxyMessages.NOT_JAVA_PROJECT),
@@ -414,7 +415,7 @@ public class ProxyLaunchSupport {
 			
 			final ProxyFactoryRegistry reg = launchInfo.resultRegistry;
 			if (reg == null)
-				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Registry could not be started for some reason.", null));
+				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Registry could not be started for some reason.", null));
 			
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
@@ -454,7 +455,7 @@ public class ProxyLaunchSupport {
 						build[0].join();						
 					} catch (InterruptedException e) {
 						throw new CoreException(
-								new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), IStatus.ERROR, "", e)); //$NON-NLS-1$
+								new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), IStatus.ERROR, "", e)); //$NON-NLS-1$
 					}
 				}
 			} 
@@ -473,9 +474,9 @@ public class ProxyLaunchSupport {
 		ATTR_PRIVATE = null;
 		try {
 			// So that we can run headless (w/o ui), need to do class forName for debugui contants
-			Plugin debuguiPlugin = Platform.getPlugin("org.eclipse.debug.ui"); //$NON-NLS-1$
-			if (debuguiPlugin != null) {
-				Class debugUIConstants = debuguiPlugin.getDescriptor().getPluginClassLoader().loadClass("org.eclipse.debug.ui.IDebugUIConstants"); //$NON-NLS-1$
+			Bundle debuguiBundle = Platform.getBundle("org.eclipse.debug.ui"); //$NON-NLS-1$
+			if (debuguiBundle != null) {
+				Class debugUIConstants = debuguiBundle.loadClass("org.eclipse.debug.ui.IDebugUIConstants"); //$NON-NLS-1$
 				ATTR_PRIVATE = (String) debugUIConstants.getField("ATTR_PRIVATE").get(null); //$NON-NLS-1$
 			}
 		} catch (SecurityException e) {
@@ -505,8 +506,8 @@ public class ProxyLaunchSupport {
 	static class ProxyContributor extends ConfigurationContributorAdapter {
 		public void contributeClasspaths(IConfigurationContributionController controller) {
 			// Add the required jars to the end of the classpath.
-			controller.contributeClasspath(ProxyPlugin.getPlugin().getDescriptor(), "proxycommon.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, false);	//$NON-NLS-1$
-			controller.contributeClasspath(ProxyPlugin.getPlugin().getDescriptor(), "initparser.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true);	//$NON-NLS-1$			
+			controller.contributeClasspath(ProxyPlugin.getPlugin().getBundle(), "proxycommon.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, false);	//$NON-NLS-1$
+			controller.contributeClasspath(ProxyPlugin.getPlugin().getBundle(), "initparser.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true);	//$NON-NLS-1$			
 		}
 	}
 	

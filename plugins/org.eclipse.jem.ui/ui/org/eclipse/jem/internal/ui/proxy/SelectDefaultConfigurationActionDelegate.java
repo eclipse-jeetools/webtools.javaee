@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: SelectDefaultConfigurationActionDelegate.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:43 $ 
  */
 package org.eclipse.jem.internal.ui.proxy;
 
@@ -21,6 +21,7 @@ import java.util.logging.Level;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.ui.DebugUITools;
@@ -36,13 +37,9 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.*;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.dialogs.CheckedTreeSelectionDialog;
 
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.ProxyLaunchSupport;
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
  
 /**
@@ -81,7 +78,7 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 	 * @since 1.0.0
 	 */
 	public SelectDefaultConfigurationActionDelegate() {
-		super(JEMUIPlugin.getPlugin().getDescriptor().getResourceString("%Action.selectDefault"));
+		super(Platform.getResourceString(JEMUIPlugin.getPlugin().getBundle(), "%Action.selectDefault"));
 		setEnabled(false);
 	}
 
@@ -129,7 +126,7 @@ public class SelectDefaultConfigurationActionDelegate extends Action implements 
 		if (action != null)			
 			action.setEnabled(isEnabled());
 		if (javaproject != null)
-			setToolTipText(MessageFormat.format(JEMUIPlugin.getPlugin().getDescriptor().getResourceString("%Action.selectDefaultTip"), new Object[] {javaproject.getElementName()}));
+			setToolTipText(MessageFormat.format(Platform.getResourceString(JEMUIPlugin.getPlugin().getBundle(), "%Action.selectDefaultTip"), new Object[] {javaproject.getElementName()}));
 		else
 			setToolTipText(getText());
 	}

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.15 $  $Date: 2004/04/26 21:44:35 $ 
+ *  $Revision: 1.16 $  $Date: 2004/05/24 23:23:31 $ 
  */
 
 import java.io.*;
@@ -20,10 +20,7 @@ import java.util.*;
 import java.util.logging.Level;
 
 import javax.xml.parsers.*;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
-import javax.xml.transform.Result;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -36,6 +33,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.*;
+import org.osgi.framework.Bundle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -140,7 +138,7 @@ public class BeaninfoNature implements IProjectNature {
 					BeaninfoPlugin.PI_BEANINFO_PLUGINID,
 					0,
 					MessageFormat.format(
-						BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(BeaninfoProperties.INTROSPECTFAILED),
+						BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
 						new Object[] { project.getName(), "Invalid project"}),
 					null));
 
@@ -779,7 +777,7 @@ public class BeaninfoNature implements IProjectNature {
 			}
 			
 			// Add the beaninfovm.jar and any nls to the end of the classpath.
-			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getDescriptor(), "vm/beaninfovm.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
+			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), "vm/beaninfovm.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
 		}
 
 		private IClasspathEntry get(IClasspathEntry[] array, SearchpathEntry se) {
@@ -867,9 +865,9 @@ public class BeaninfoNature implements IProjectNature {
 					controller.contributeClasspath((String) cp, IConfigurationContributionController.APPEND_USER_CLASSPATH);
 				else if (cp instanceof IPath) {
 					IPath path = (IPath) cp;
-					IPluginDescriptor pd = Platform.getPluginRegistry().getPluginDescriptor(path.segment(0));
-					if (pd != null)
-						controller.contributeClasspath(pd, path.removeFirstSegments(1).toString(), IConfigurationContributionController.APPEND_USER_CLASSPATH, true);
+					Bundle bundle = Platform.getBundle(path.segment(0));
+					if (bundle != null)
+						controller.contributeClasspath(bundle, path.removeFirstSegments(1).toString(), IConfigurationContributionController.APPEND_USER_CLASSPATH, true);
 				}
 			}
 

@@ -11,17 +11,16 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: SearchPathListLabelProvider.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/22 23:48:57 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/24 23:23:43 $ 
  */
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.*;
-import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
@@ -34,6 +33,7 @@ import org.eclipse.swt.graphics.*;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.misc.OverlayComposite;
+import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
@@ -94,41 +94,30 @@ public class SearchPathListLabelProvider extends LabelProvider {
 		Point s = new Point(r.width, r.height);
 		JavaElementImageDescriptor jed = new JavaElementImageDescriptor(reg.getDescriptor(JavaPluginImages.IMG_OBJS_LIBRARY),  JavaElementImageDescriptor.WARNING, s);
 		fMissingLibraryImage = jed.createImage();
-		try {
-			ImageDescriptor pin =
-				ImageDescriptor.createFromURL(
-					new URL(JEMUIPlugin.getPlugin().getDescriptor().getInstallURL(), "icons/plugin_obj.gif")); //$NON-NLS-1$
-			fPluginImage = pin.createImage();
+		Bundle bundle = JEMUIPlugin.getPlugin().getBundle();
+		URL url = Platform.find(bundle, new Path("icons/plugin_obj.gif")); //$NON-NLS-1$
+		if (url != null)
+			fPluginImage = ImageDescriptor.createFromURL(url).createImage();
+		else
+			fPluginImage = ImageDescriptor.getMissingImageDescriptor().createImage();
 
-			pin =
-				ImageDescriptor.createFromURL(
-					new URL(JEMUIPlugin.getPlugin().getDescriptor().getInstallURL(), "icons/javabean.gif")); //$NON-NLS-1$
-			fBeanImage = pin.createImage();
+		url = Platform.find(bundle, new Path("icons/javabean.gif")); //$NON-NLS-1$
+		if (url != null)
+			fBeanImage = ImageDescriptor.createFromURL(url).createImage();
+		else
+			fBeanImage = ImageDescriptor.getMissingImageDescriptor().createImage();
 
-			pin =
-				ImageDescriptor.createFromURL(
-					new URL(
-							JEMUIPlugin.getPlugin().getDescriptor().getInstallURL(),
-						"icons/package_obj_missing.gif")); //$NON-NLS-1$
-			fMissingPackageImage = pin.createImage();
-			
-			pin =
-				ImageDescriptor.createFromURL(
-					new URL(
-							JEMUIPlugin.getPlugin().getDescriptor().getInstallURL(),
-						"icons/blank.gif")); //$NON-NLS-1$
-			fBlankImage = pin.createImage();			
-		} catch (MalformedURLException e) {
-			if (fPluginImage == null)
-				fPluginImage = ImageDescriptor.getMissingImageDescriptor().createImage();
-			if (fBeanImage == null)
-				fBeanImage = ImageDescriptor.getMissingImageDescriptor().createImage();
-			if (fMissingPackageImage == null)
-				fMissingPackageImage = ImageDescriptor.getMissingImageDescriptor().createImage();
-			if (fBlankImage == null)
-				fBlankImage = ImageDescriptor.getMissingImageDescriptor().createImage();
-		}
+		url = Platform.find(bundle, new Path("icons/package_obj_missing.gif")); //$NON-NLS-1$
+		if (url != null)
+			fMissingPackageImage = ImageDescriptor.createFromURL(url).createImage();
+		else
+			fMissingPackageImage = ImageDescriptor.getMissingImageDescriptor().createImage();
 
+		url = Platform.find(bundle, new Path("icons/blank.gif")); //$NON-NLS-1$
+		if (url != null)
+			fBlankImage = ImageDescriptor.createFromURL(url).createImage();
+		else
+			fBlankImage = ImageDescriptor.getMissingImageDescriptor().createImage();
 	}
 
 	public void setJavaProject(IJavaProject javaProject) {

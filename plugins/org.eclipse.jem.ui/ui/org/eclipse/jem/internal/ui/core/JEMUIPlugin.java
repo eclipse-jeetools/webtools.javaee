@@ -10,12 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JEMUIPlugin.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:43 $ 
  */
 package org.eclipse.jem.internal.ui.core;
 
 
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -35,8 +34,7 @@ public class JEMUIPlugin extends AbstractUIPlugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public JEMUIPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public JEMUIPlugin() {
 		PLUGIN = this;
 	}
 	

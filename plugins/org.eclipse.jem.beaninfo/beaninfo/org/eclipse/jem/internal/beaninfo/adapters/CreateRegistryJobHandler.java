@@ -10,13 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2004/04/20 21:15:27 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:31 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
 import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.Platform;
  
 
 /**
@@ -31,8 +29,7 @@ class CreateRegistryJobHandler {
 	public static void createRegistry(BeaninfoNature nature) {
 		synchronized (CreateRegistryJobHandler.class) {
 			if (jobHandler == null) {
-				IPluginDescriptor uiPlugin = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.ui"); //$NON-NLS-1$
-				if (uiPlugin != null) {
+				if (Platform.getBundle("org.eclipse.ui") != null) {	//$NON-NLS-1$
 					try {
 						// There is a UI, it may not be active, but bring in UICreateRegistryJobHandler to do the
 						// actual work since it can reference the UI.

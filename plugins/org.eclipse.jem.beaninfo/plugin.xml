@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
 <plugin
    id="org.eclipse.jem.beaninfo"
    name="%pluginName"
@@ -26,6 +27,7 @@
       <import plugin="com.ibm.wtp.emf.workbench"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.ui" optional="true"/>
+      <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
 

@@ -10,24 +10,24 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoContributorAdapter.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:31 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IContributorOverrideRunnable;
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
+
+import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
  
 /**
  * A default implementation of IBeanInfoContributor for users to subclass. Default does nothing.
@@ -87,9 +87,9 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 	}
 	
 	/**
-	 * Subclasses can use this helper method to get the override resource from the given plugin. 
+	 * Subclasses can use this helper method to get the override resource from the given bundle. 
 	 * 
-	 * @param plugin the plugin to use.
+	 * @param bundle the bundle to use.
 	 * @param relativePath path of file relative to the plugin.
 	 * @param resource set to load into.
 	 * @param runnable the runnable that is being used for the override. It is used to determine if resource already used once.
@@ -97,8 +97,10 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 	 * 
 	 * @since 1.0.0
 	 */
-	protected Resource loadOverrideResource(IPluginDescriptor plugin, String relativePath, ResourceSet rset, BeaninfoPlugin.IContributorOverrideRunnable runnable) {
-		URI uri = URI.createURI(plugin.getInstallURL().toString()+relativePath);
+	protected Resource loadOverrideResource(Bundle bundle, String relativePath, ResourceSet rset, BeaninfoPlugin.IContributorOverrideRunnable runnable) {
+		// TODO Because of converters and normalizers we need to use platform:/plugin format here for overrides. Should
+		// change so that normalization can handle bundle format.
+		URI uri = URI.createURI(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+relativePath);
 		if (runnable.resourceContributed(uri))
 			return null;	// Already contributed once.
 		Resource result = null;
@@ -107,9 +109,7 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 		} catch (WrappedException e) {
 			// FileNotFoundException is ok
 			if (!(e.exception() instanceof FileNotFoundException)) {
-				if (e.exception() instanceof IOException && e.getMessage() == null)
-					;	// TODO remove this when bugzilla fixed so that throws FileNotFound again. https://bugs.eclipse.org/bugs/show_bug.cgi?id=51649
-				else if (e.exception() instanceof CoreException
+				if (e.exception() instanceof CoreException
 					&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
 					// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
 				} else {

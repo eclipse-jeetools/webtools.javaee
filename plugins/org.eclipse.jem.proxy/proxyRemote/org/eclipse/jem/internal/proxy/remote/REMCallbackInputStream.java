@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackInputStream.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.3 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 import java.io.*;
@@ -67,7 +67,7 @@ public class REMCallbackInputStream extends InputStream {
 			try {
 				close(false);
 			} catch (IOException e1) {
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e1));	// Error during close, just log it.
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e1));	// Error during close, just log it.
 			}
 			throw new IOCommandException(e);
 		}

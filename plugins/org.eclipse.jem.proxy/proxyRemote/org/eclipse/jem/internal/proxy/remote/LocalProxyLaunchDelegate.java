@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.8 $ $Date: 2004/05/24 18:31:56 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.9 $ $Date: 2004/05/24 23:23:36 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -265,7 +265,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			String msg = MessageFormat.format(ProxyRemoteMessages.getString("Proxy_Terminated_too_soon_ERROR_"), new Object[] { name }); //$NON-NLS-1$
 			dh.displayErrorMessage(ProxyRemoteMessages.getString("Proxy_Error_Title"), msg); //$NON-NLS-1$
 			throw new CoreException(
-				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
+				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, s.toString(), null));
 		} else {
 			final String traceName = name;
 			IStreamsProxy fStreamsProxy = process.getStreamsProxy();
@@ -290,7 +290,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 				monitor.addListener(new StreamListener("err", Level.WARNING)); //$NON-NLS-1$
 
 			// If debug trace is requested, then attach trace listener for System.out
-			if ("true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier() + ProxyRemoteUtil.DEBUG_VM_TRACEOUT))) { //$NON-NLS-1$
+			if ("true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName() + ProxyRemoteUtil.DEBUG_VM_TRACEOUT))) { //$NON-NLS-1$
 				// Want to trace the output of the remote vm's.
 
 				monitor = fStreamsProxy.getOutputStreamMonitor();
@@ -306,7 +306,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 				throw new CoreException(
 					new Status(
 						IStatus.WARNING,
-						ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+						ProxyPlugin.getPlugin().getBundle().getSymbolicName(),
 						0,
 						"Debugger attach canceled",
 						null));

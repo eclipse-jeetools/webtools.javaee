@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.proxy.remote;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,13 +10,16 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: DebugModeHelper.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:24 $ 
+ *  $Revision: 1.3 $  $Date: 2004/05/24 23:23:36 $ 
  */
+package org.eclipse.jem.internal.proxy.remote;
+
 
 import java.lang.reflect.*;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.Bundle;
+
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 /**
  * This is a helper for debug mode. It allows access to
@@ -56,20 +58,20 @@ class DebugModeHelper {
 		setup = true;
 		
 		// See if use system console instead. If false or not set, then try to query usage.	 		
-	 	console = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier()+ProxyRemoteUtil.IO_CONSOLE)); //$NON-NLS-1$
+	 	console = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName()+ProxyRemoteUtil.IO_CONSOLE)); //$NON-NLS-1$
 	 	if (console)
 	 		return;
 		
 		try {		 		
 		 	// See if PlatformUI plugin available.
-		 	Plugin uiPlugin = Platform.getPlugin("org.eclipse.ui"); //$NON-NLS-1$
-		 	if (uiPlugin == null) {
+		 	Bundle uiBundle = Platform.getBundle("org.eclipse.ui"); //$NON-NLS-1$
+		 	if (uiBundle == null) {
 		 		setupAWT();	// UI not available, try through AWT.
 		 		return;
 		 	}
 	
 	 		// Setup Eclipse
-		 	Class cPlatformUI = uiPlugin.getDescriptor().getPluginClassLoader().loadClass("org.eclipse.ui.PlatformUI"); //$NON-NLS-1$
+		 	Class cPlatformUI = uiBundle.loadClass("org.eclipse.ui.PlatformUI"); //$NON-NLS-1$
 		 	Method isWBRunning = cPlatformUI.getMethod("isWorkbenchRunning", null);
 		 	if (!((Boolean) isWBRunning.invoke(null, null)).booleanValue()) {
 		 		setupAWT();	// UI not available, try through AWT.
@@ -80,7 +82,7 @@ class DebugModeHelper {
 		 	Object w = fGetWorkbench.invoke(null, null);
 
 			if (w != null) {
-	 			Class cDisplay = uiPlugin.getDescriptor().getPluginClassLoader().loadClass("org.eclipse.swt.widgets.Display"); //$NON-NLS-1$
+	 			Class cDisplay = uiBundle.loadClass("org.eclipse.swt.widgets.Display"); //$NON-NLS-1$
 	 			Method fGetCurrent = cDisplay.getMethod("getCurrent", null); //$NON-NLS-1$
 	 			Method fGetDefault = cDisplay.getMethod("getDefault", null);	 			 //$NON-NLS-1$
 	 			fasync = cDisplay.getMethod("asyncExec", new Class[] {Runnable.class}); //$NON-NLS-1$
@@ -93,15 +95,15 @@ class DebugModeHelper {
 			}
 			
 			if (display != null) { 	
-	 			Class cShell = uiPlugin.getDescriptor().getPluginClassLoader().loadClass("org.eclipse.swt.widgets.Shell"); //$NON-NLS-1$
-	 			Class cMessageBox = uiPlugin.getDescriptor().getPluginClassLoader().loadClass("org.eclipse.swt.widgets.MessageBox"); //$NON-NLS-1$
+	 			Class cShell = uiBundle.loadClass("org.eclipse.swt.widgets.Shell"); //$NON-NLS-1$
+	 			Class cMessageBox = uiBundle.loadClass("org.eclipse.swt.widgets.MessageBox"); //$NON-NLS-1$
 	 			cMB = cMessageBox.getConstructor(new Class[] {cShell, Integer.TYPE});
 
 				fSetText = cMessageBox.getMethod("setText", new Class[] {String.class}); //$NON-NLS-1$
 				fSetMessage = cMessageBox.getMethod("setMessage", new Class[] {String.class});				 //$NON-NLS-1$
 				fOpen = cMessageBox.getMethod("open", null);		 		 //$NON-NLS-1$				
 		 			
-	 			cSWT = uiPlugin.getDescriptor().getPluginClassLoader().loadClass("org.eclipse.swt.SWT"); //$NON-NLS-1$
+	 			cSWT = uiBundle.loadClass("org.eclipse.swt.SWT"); //$NON-NLS-1$
 	 			fAppModel = cSWT.getField("APPLICATION_MODAL"); //$NON-NLS-1$
 		 	} else {
 		 		setupAWT();	// UI not available, try through AWT.
@@ -132,7 +134,7 @@ class DebugModeHelper {
 	} 	
 	
 	public boolean debugMode(final String name) {
-	 	boolean debugMode = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier()+ProxyRemoteUtil.DEBUG_VM)); //$NON-NLS-1$
+	 	boolean debugMode = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName()+ProxyRemoteUtil.DEBUG_VM)); //$NON-NLS-1$
 	 	if (!debugMode)
 	 		return debugMode;
 	 		

@@ -8,10 +8,11 @@ package org.eclipse.jem.internal.plugin;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.4 $ $Date: 2004/02/24 19:33:35 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.5 $ $Date: 2004/05/24 23:23:49 $
  */
 
 import org.eclipse.core.runtime.*;
+import org.osgi.framework.BundleContext;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
@@ -29,15 +30,14 @@ import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 
 public class JavaPlugin extends Plugin {
 
-	private static JavaPlugin inst;
+	private static JavaPlugin INSTANCE;
 	private Logger logger;
 
 	/**
 	 * Create the Java plugin and cache its default instance
 	 */
-	public JavaPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
-		inst = this;
+	public JavaPlugin() {
+		INSTANCE = this;
 	}
 
 	public Logger getLogger() {
@@ -50,12 +50,16 @@ public class JavaPlugin extends Plugin {
 	 * Get the plugin singleton.
 	 */
 	static public JavaPlugin getDefault() {
-		return inst;
+		return INSTANCE;
 	}
 
-	public void startup() throws CoreException {
+		/* (non-Javadoc)
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+	 */
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
 		JavaRefFactoryImpl.setReflectionAdapterFactoryClass(JavaJDOMAdapterFactory.class);
-		EMFWorkbenchPlugin.getPluginResourceSet().getAdapterFactories().add(new JavaJDKAdapterFactory());
+		EMFWorkbenchPlugin.getPluginResourceSet().getAdapterFactories().add(new JavaJDKAdapterFactory());		
 	}
 
 }

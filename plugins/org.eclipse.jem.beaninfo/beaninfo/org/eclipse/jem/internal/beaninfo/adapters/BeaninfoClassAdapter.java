@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.11 $  $Date: 2004/04/27 15:26:03 $ 
+ *  $Revision: 1.12 $  $Date: 2004/05/24 23:23:31 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -390,17 +390,17 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 	public void introspectIfNecessary() {
 		if (!hasIntrospected && !isIntrospecting) {
-			try {
+			try {				
 				introspect();
 			} catch (Throwable e) {
 				hasIntrospected = false;
 				BeaninfoPlugin.getPlugin().getLogger().log(
 					new Status(
 						IStatus.WARNING,
-						BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+						BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
 						0,
 						MessageFormat.format(
-							BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(BeaninfoProperties.INTROSPECTFAILED),
+							BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
 							new Object[] { getJavaClass().getJavaName(), ""}),
 						e));
 			}
@@ -454,11 +454,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 									BeaninfoPlugin.getPlugin().getLogger().log(
 										new Status(
 											IStatus.WARNING,
-											BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+											BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
 											0,
 											MessageFormat.format(
-												BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(
-													BeaninfoProperties.INTROSPECTFAILED),
+												BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
 												new Object[] { getJavaClass().getJavaName(), ""}),
 											e));
 								}
@@ -467,11 +466,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 								BeaninfoPlugin.getPlugin().getLogger().log(
 									new Status(
 										IStatus.WARNING,
-										BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+										BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
 										0,
 										MessageFormat.format(
-											BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(
-												BeaninfoProperties.INTROSPECTFAILED),
+											BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
 											new Object[] { getJavaClass().getJavaName(), targetType.getInitializationError()}),
 										null));
 							}
@@ -480,10 +478,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							BeaninfoPlugin.getPlugin().getLogger().log(
 								new Status(
 									IStatus.INFO,
-									BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+									BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
 									0,
 									MessageFormat.format(
-										BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(BeaninfoProperties.INTROSPECTFAILED),
+										BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
 										new Object[] { getJavaClass().getJavaName(), "Class not found"}),
 									null));
 						}

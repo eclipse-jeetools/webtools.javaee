@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 import java.lang.reflect.Array;
@@ -201,15 +201,15 @@ public synchronized IBeanTypeProxy getBeanTypeProxy(String typeName) {
 			if (beanTypeProxy == null) 
 				beanTypeProxy = new IDEBeanTypeProxy(fFactoryRegistry, ideClass);
 		} catch (ClassNotFoundException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
 			String msg = MessageFormat.format("{0}({1})", new Object[] {e.getClass(), e.getMessage()}); //$NON-NLS-1$
 			beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
 		} catch (ExceptionInInitializerError e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
 			String msg = MessageFormat.format("{0}({1})", new Object[] {e.getClass(), e.getMessage()}); //$NON-NLS-1$
 			beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
 		} catch (LinkageError e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
 			String msg = MessageFormat.format("{0}({1})", new Object[] {e.getClass(), e.getMessage()}); //$NON-NLS-1$
 			beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
 		}

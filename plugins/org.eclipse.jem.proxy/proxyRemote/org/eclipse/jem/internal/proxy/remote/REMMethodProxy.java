@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMMethodProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -191,12 +191,12 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 						// Failed again. Just close and print trace.
 						fFactory.closeConnection(connect);
 						connect = null;
-						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", eAgain)); //$NON-NLS-1$
 						return null;
 					}
 				} else {
 					// A recoverable error, print trace and return
-					ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+					ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 					return null;
 				}
 			}
@@ -229,7 +229,7 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 		try {
 			return invoke(subject);
 		} catch (ThrowableProxy e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}
@@ -239,7 +239,7 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 		try {
 			return invoke(subject, parms);
 		} catch (ThrowableProxy e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}
@@ -249,7 +249,7 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 		try {
 			return invoke(subject, parm);
 		} catch (ThrowableProxy e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}

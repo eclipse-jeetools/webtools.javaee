@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBeanTypeProxy.java,v $
- *  $Revision: 1.4 $  $Date: 2004/04/20 09:01:20 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -73,7 +73,7 @@ public IMethodProxy getMethodProxy(String methodName) {
 		Method aMethod = fClass.getMethod( methodName , new Class[0] );
 		return ((IDEMethodProxyFactory)fProxyFactoryRegistry.getMethodProxyFactory()).getMethodProxy(aMethod);
 	} catch ( Exception exc ) {
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", exc));
 	}
 	return null;
 	
@@ -98,7 +98,7 @@ public IConstructorProxy getConstructorProxy(String[] argTypeNames){
 			argClasses[i] = Class.forName(argTypeNames[i]);
 		}
 	} catch ( ClassNotFoundException exc ) {
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Constructor not found - " + fClass.getName() + " args=" + argTypeNames, exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Constructor not found - " + fClass.getName() + " args=" + argTypeNames, exc));
 		return null;
 	}
 	return ((IDEMethodProxyFactory)fProxyFactoryRegistry.getMethodProxyFactory()).getConstructorProxy(fClass,argClasses);
@@ -129,7 +129,7 @@ public IFieldProxy getFieldProxy(String fieldName){
 		Field field = fClass.getField(fieldName);
 		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFieldProxy(field);
 	} catch ( NoSuchFieldException exc ) {
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
 		return null;
 	}
 }
@@ -138,7 +138,7 @@ public IFieldProxy getDeclaredFieldProxy(String fieldName){
 		Field field = fClass.getDeclaredField(fieldName);
 		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFieldProxy(field);
 	} catch ( NoSuchFieldException exc ) {
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
 		return null;
 	}
 }
@@ -154,7 +154,7 @@ IConstructorProxy getConstructorProxy(Class[] parameterTypes) {
 	try {
 		aConstructor = fClass.getConstructor(parameterTypes);
 	} catch ( Exception e ) {
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
 	}
 	// If we have a constructor return it
 	if ( aConstructor != null ){
@@ -185,7 +185,7 @@ public IConstructorProxy getNullConstructorProxy() {
 		aConstructor = fClass.getConstructor(null);
 		return ((IDEMethodProxyFactory)fProxyFactoryRegistry.getMethodProxyFactory()).getConstructorProxy(aConstructor);
 	} catch ( Exception e ) {
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e));
 		return null;
 	}
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.3 $  $Date: 2004/04/19 19:11:10 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/24 23:23:31 $ 
  */
 
 
@@ -24,13 +24,15 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IClasspathContainer;
+import org.osgi.framework.Bundle;
 
-import org.eclipse.jem.internal.beaninfo.adapters.*;
+import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin.ContributorExtensionPointInfo;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
+import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
 import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 
 /**
@@ -43,8 +45,7 @@ public class BeaninfoPlugin extends Plugin {
 	
 	private static BeaninfoPlugin BEANINFO_PLUGIN = null;
 		
-	public BeaninfoPlugin(IPluginDescriptor pluginDescriptor) {	
-		super(pluginDescriptor);
+	public BeaninfoPlugin() {	
 		BEANINFO_PLUGIN = this;
 	}
 	
@@ -441,11 +442,18 @@ public class BeaninfoPlugin extends Plugin {
 						Boolean visible = (Boolean) info.getContainerIds().get(contribution.id);
 						if (visible != null && visible.booleanValue()) {
 							for (int cindex = 0; cindex < contribution.pluginIds.length; cindex++) {
-								IPluginDescriptor pd = Platform.getPluginRegistry().getPluginDescriptor(contribution.pluginIds[cindex]);
-								if (pd != null) {
+								// Because of URIConverters and normalization in com.ibm.wtp stuff, we
+								// need to have plugin uri's in the form "platform:/plugin/pluginname".
+								// Bundle's don't return this format. They return bundle:/stuff
+								// So we will simple create it of the platform:/plugin format.
+								// To save time, we will first see if we have the bundle.
+								// TODO See if we should get URIConverter to normalize into bundle: format
+								// instead so that no matter how formed it is correct.
+								Bundle bundle = Platform.getBundle(contribution.pluginIds[cindex]);
+								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									runnable.run(pd.getInstallURL().toString()+contribution.paths[cindex]+leftOver);
+									runnable.run(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
 								}
 							}
 						}
@@ -457,11 +465,12 @@ public class BeaninfoPlugin extends Plugin {
 						Boolean visible = (Boolean) info.getPluginIds().get(contribution.id);
 						if (visible != null && visible.booleanValue()) {
 							for (int cindex = 0; cindex < contribution.pluginIds.length; cindex++) {
-								IPluginDescriptor pd = Platform.getPluginRegistry().getPluginDescriptor(contribution.pluginIds[cindex]);
-								if (pd != null) {
+								Bundle bundle = Platform.getBundle(contribution.pluginIds[cindex]);
+								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									runnable.run(pd.getInstallURL().toString()+contribution.paths[cindex]+leftOver);
+									// TODO See above, same comment applies here.
+									runnable.run(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
 								}
 							}
 						}

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/04 20:30:21 $ 
+ *  $Revision: 1.6 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 import java.io.*;
@@ -249,7 +249,7 @@ class REMCallbackThread extends Thread {
 									} catch (IOException e) {
 										// Exception while closing, just log it and then mark to end the loop so we close connection too.
 										doLoop = false;
-										ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$										
+										ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$										
 									}
 								}
 							} else {
@@ -265,7 +265,7 @@ class REMCallbackThread extends Thread {
 						
 					default:
 						// Unknown command. We don't know how long the command is, so we need to close the connection.
-						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "REMCallback: Invalid cmd sent="+cmd, null)); //$NON-NLS-1$
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "REMCallback: Invalid cmd sent="+cmd, null)); //$NON-NLS-1$
 						doLoop = false;						
 						break;
 				}
@@ -274,7 +274,7 @@ class REMCallbackThread extends Thread {
 			// This is ok. It means that the connection on the other side was terminated.
 			// So just accept this and go down.
 		} catch (Throwable e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$
 		} finally {
 			if (in != null)
 				try {
@@ -330,12 +330,12 @@ class REMCallbackThread extends Thread {
 			} catch (ThrowableProxy e) {
 				// We can't stop it right away because we can't send exception on, however,
 				// we can log it and close the socket so next request to the socket will fail.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				close();				
 			} catch (CommandException e) {
 				// We can't stop it right away because we can't send exception on, however,
 				// we can log it and close the socket so next request to the socket will fail.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				close();
 			}
 		}

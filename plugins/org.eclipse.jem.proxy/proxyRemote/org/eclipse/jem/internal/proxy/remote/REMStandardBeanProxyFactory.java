@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.6 $  $Date: 2004/05/24 23:23:36 $ 
  */
 
 
@@ -258,7 +258,7 @@ IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy, String initializationSt
 					java.io.StringWriter s = new java.io.StringWriter();
 					java.io.PrintWriter w = new java.io.PrintWriter(s);
 					((ThrowableProxy) e.getErrorObject()).printProxyStackTrace(w);
-					ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
+					ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, s.toString(), null));
 					throw new InstantiationException(
 						MessageFormat.format(ProxyRemoteMessages.getString("Instantiate_EXC_"), new Object[] {extractFirstLine(initializationString)})); //$NON-NLS-1$
 				default:
@@ -269,7 +269,7 @@ IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy, String initializationSt
 				ProxyPlugin.getPlugin().getLogger().log( 
 					new Status(
 						IStatus.WARNING,
-						ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+						ProxyPlugin.getPlugin().getBundle().getSymbolicName(),
 						0,
 						"", //$NON-NLS-1$
 						e));
@@ -376,7 +376,7 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 					return null;	// Cannot find the type to create it.
 			} catch (ClassCastException e) {
 				// It wasn't a constant type, so we can't create it. Return null.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				return null;
 			}
 			
@@ -399,7 +399,7 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 					ProxyPlugin.getPlugin().getLogger().log(
 						new Status(
 							IStatus.WARNING,
-							ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+							ProxyPlugin.getPlugin().getBundle().getSymbolicName(),
 							0,
 							"", //$NON-NLS-1$
 							e));
@@ -482,7 +482,7 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 					return null;	// Cannot find the type to create it.
 			} catch (ClassCastException e) {
 				// It wasn't a standard type, so we can't create it. Return null.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 				return null;
 			}
 			return standardBeanType.newBeanProxy(value);
@@ -536,7 +536,7 @@ public IREMBeanTypeProxy getBeanType(int id) throws CommandException {
 			return null;	// Cannot find the type to create it.
 	} catch (ClassCastException e) {
 		// It wasn't a bean type, so we can't create it. Return null.
-		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$
 	} finally {
 		if (beanType == null)
 			releaseID(id);	// Couldn't create a proxy, so release the id.
@@ -794,7 +794,7 @@ public void terminateFactory() {
 		try {
 			return createBeanProxy(fBeanTypeProxyFactory.voidType, initializationString);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$		}
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", e)); //$NON-NLS-1$		}
 		}
 		return null;
 	}
