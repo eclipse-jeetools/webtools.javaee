@@ -97,7 +97,7 @@ public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) t
 	InputSource result = new InputSource(url.toString());
 	result.setPublicId(publicId);	
 	// force the encoding to be UTF8
-	result.setEncoding("UTF8"); //$NON-NLS-1$
+	result.setEncoding("UTF-8"); //$NON-NLS-1$
 	
 	return result;
 }

@@ -75,18 +75,38 @@ public class JavaClassTranslator extends Translator {
 	 */
 	public Object convertStringToValue(String strValue, EObject owner) {
 		if (strValue != null) {
+			String qualifiedName = removePreceedingAndTrailingPeriods(strValue.trim());		
 			if (owner != null) {
 				Resource ownerRes = owner.eResource();
 				if (ownerRes != null) {
 					ResourceSet rs = ownerRes.getResourceSet();
-					if (rs != null)
-						return JavaRefFactory.eINSTANCE.reflectType(strValue.trim(), rs);
+					if (rs != null) {
+						//Try to reflect the type directly.  If nothing is returned
+						//or an error occurs, return a proxy.
+						Object javaClass = null;
+						try {
+							javaClass = JavaRefFactory.eINSTANCE.reflectType(qualifiedName, rs);
+						} catch (Exception e) {}
+						if (javaClass != null)
+							return javaClass;
 				}
 			}
-			return JavaRefFactory.eINSTANCE.createClassRef(strValue.trim());
+		}
+			return JavaRefFactory.eINSTANCE.createClassRef(qualifiedName);
 		}
 		return null;
 	}
+	private String removePreceedingAndTrailingPeriods(String qualifiedName) {
+		char[] characters = qualifiedName.toCharArray();
+		int startIndex = 0;
+		for (; startIndex < characters.length && characters[startIndex] == '.'; startIndex++);
+		int qualifiedNameEnd = qualifiedName.length() - 1;
+		int endIndex = qualifiedNameEnd;
+		for (; endIndex > -1 && characters[endIndex] == '.'; endIndex--);
+		if (startIndex == 0 && endIndex == qualifiedNameEnd)
+			return qualifiedName;
+		return qualifiedName.substring(startIndex, endIndex + 1);
+	}	
 
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertValueToString(Object)
