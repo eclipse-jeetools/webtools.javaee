@@ -950,6 +950,6 @@
    		<componentStructuralBuilder 
     	serverTargetID="default"
     	componentTypeID="jst.ejb"
-    	componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderDataModel"/>
+    	componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>
