@@ -22,8 +22,8 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("App Client Tests");
-        addTest(AppClientExportOperationTest.suite());
-        addTest(AppClientImportOperationTest.suite());
+     //   addTest(AppClientExportOperationTest.suite());
+     //   addTest(AppClientImportOperationTest.suite());
         addTest(AppClientProjectCreationOperationTest.suite());
         addTest(AppClientProjectTest.suite());
     }

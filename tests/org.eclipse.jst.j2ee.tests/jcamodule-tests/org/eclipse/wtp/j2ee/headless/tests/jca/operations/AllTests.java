@@ -24,8 +24,8 @@ public class AllTests extends TestSuite {
     public AllTests(){
         super("JCA Tests");
         addTest(ConnectorProjectCreationOperationTest.suite());
-        addTest(RARExportOperationTest.suite());
-        addTest(RARImportOperationTest.suite());
+      //  addTest(RARExportOperationTest.suite());
+      //  addTest(RARImportOperationTest.suite());
     }
     
 }

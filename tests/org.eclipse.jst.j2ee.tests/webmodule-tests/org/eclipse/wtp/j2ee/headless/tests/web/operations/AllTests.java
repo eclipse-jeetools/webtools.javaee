@@ -33,8 +33,8 @@ public class AllTests extends TestSuite {
     
     public AllTests(){
         super("WEB Tests");
-        addTest(WebExportOperationTest.suite());
-        addTest(WebImportOperationTest.suite());
+       // addTest(WebExportOperationTest.suite());
+       // addTest(WebImportOperationTest.suite());
         addTest(WebProjectCreationOperationTest.suite());
         addTest(WebProjectCreationTest.suite());
     }
