@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.application.operations;
 
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
-public class FlexibleJavaProjectCreationDataModel extends flexibleProjectCreationDataModel {
+public class FlexibleJavaProjectCreationDataModel extends FlexibleProjectCreationDataModel {
 	protected void initProjectModel() {
 	    setProjectDataModel(new JavaProjectCreationDataModel());
 	}
