@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.6 $  $Date: 2004/03/26 23:07:45 $ 
+ *  $Revision: 1.7 $  $Date: 2004/04/20 21:15:57 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -413,6 +413,9 @@ public class ProxyLaunchSupport {
 			configwc.launch(ILaunchManager.RUN_MODE, new SubProgressMonitor(pm, 100));
 			
 			final ProxyFactoryRegistry reg = launchInfo.resultRegistry;
+			if (reg == null)
+				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Registry could not be started for some reason.", null));
+			
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
 				// Run in safe mode so that anything happens we don't go away.
