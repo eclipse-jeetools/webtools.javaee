@@ -63,7 +63,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWi
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderFactoryRegistry;
+import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderFactoryRegistry;
 import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
@@ -511,7 +511,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
      * 
      */
     private void registerDeployableModuleFactory(String moduleID) {
-       DeployableModuleBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(moduleID, new JavaDeployableModuleBuilderFactory());     
+       ComponentStructuralBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(moduleID, new JavaDeployableModuleBuilderFactory());     
     }
 	/*
 	 * need to make sure the correct factories get loaded when we are in the UI

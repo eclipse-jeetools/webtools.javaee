@@ -31,8 +31,8 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilder;
-import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderDataModel;
+import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilder;
+import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderDataModel;
 
 /**
  * @author jialin
@@ -54,16 +54,16 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		
 		// preparation
 		JavaDeployableModuleBuilderDataModel dataModel = (JavaDeployableModuleBuilderDataModel) operationDataModel;
-		WorkbenchComponent workbenchModule = (WorkbenchComponent)dataModel.getProperty(DeployableModuleBuilderDataModel.WORKBENCH_MODULE);
+		WorkbenchComponent workbenchModule = (WorkbenchComponent)dataModel.getProperty(ComponentStructuralBuilderDataModel.WORKBENCH_MODULE);
 		
-		IProject project = (IProject)dataModel.getProperty(DeployableModuleBuilderDataModel.PROJECT);
+		IProject project = (IProject)dataModel.getProperty(ComponentStructuralBuilderDataModel.PROJECT);
 		IPath projectPath = project.getFullPath();
 		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
 		List javaSourceFolderList = JavaProjectUtilities.getSourceContainers(project);
 		
 		
 		// create output container folder if it does not exist
-		IFolder outputContainer = (IFolder)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
+		IFolder outputContainer = (IFolder)dataModel.getProperty(ComponentStructuralBuilderDataModel.OUTPUT_CONTAINER);
 		if(!outputContainer.exists())
 			createFolder(outputContainer);
 		
@@ -104,7 +104,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 			// create parent folders for deploy folder if not exist
 			IPath parentPath = deployPath.removeLastSegments(1);
 			createFolder(parentPath);
-			DeployableModuleBuilder.smartCopy(sourceResource, deployPath, new NullProgressMonitor());
+			ComponentStructuralBuilder.smartCopy(sourceResource, deployPath, new NullProgressMonitor());
 		}
 
 		// set Java specific output path, do it after resource copy

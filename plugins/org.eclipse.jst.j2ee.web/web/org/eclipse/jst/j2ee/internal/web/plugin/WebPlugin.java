@@ -43,7 +43,7 @@ import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderFactoryRegistry;
+import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderFactoryRegistry;
 import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.osgi.framework.Bundle;
@@ -325,7 +325,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
      * 
      */
     private void registerDeployableModuleFactory() {
-       DeployableModuleBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new JavaDeployableModuleBuilderFactory());     
+       ComponentStructuralBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new JavaDeployableModuleBuilderFactory());     
     }
 
     /*

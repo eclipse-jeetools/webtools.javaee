@@ -1,9 +1,9 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
-import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderDataModel;
-import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderFactory;
+import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderDataModel;
+import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderFactory;
 
-public class JavaDeployableModuleBuilderFactory implements DeployableModuleBuilderFactory {
+public class JavaDeployableModuleBuilderFactory implements ComponentStructuralBuilderFactory {
 
     /**
      * 
@@ -15,7 +15,7 @@ public class JavaDeployableModuleBuilderFactory implements DeployableModuleBuild
     /* (non-Javadoc)
      * @see org.eclipse.wst.common.modulecore.builder.DeployableModuleFactory#createDeploymentModuleDataModel()
      */
-    public DeployableModuleBuilderDataModel createDeploymentModuleDataModel() {
+    public ComponentStructuralBuilderDataModel createDeploymentModuleDataModel() {
         return new JavaDeployableModuleBuilderDataModel();
     }
 
