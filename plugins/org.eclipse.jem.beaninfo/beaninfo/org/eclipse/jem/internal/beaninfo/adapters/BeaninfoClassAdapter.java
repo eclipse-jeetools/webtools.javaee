@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.16 $  $Date: 2004/08/04 12:58:28 $ 
+ *  $Revision: 1.17 $  $Date: 2004/08/17 21:37:36 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -78,7 +78,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	
 		if (hasIntrospectedProperties) {
 			// Clear out the features that we implicitly created.
-			Iterator propItr = getJavaClass().getEStructuralFeaturesGen().iterator();
+			Iterator propItr = getJavaClass().getEStructuralFeaturesInternal().iterator();
 			while (propItr.hasNext()) {
 				EStructuralFeature prop = (EStructuralFeature) propItr.next();
 				Iterator pdItr = prop.getEAnnotations().iterator();
@@ -106,7 +106,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	
 		if (hasIntrospectedOperations) {
 			// Clear out the operations that we implicitly created.
-			Iterator operItr = getJavaClass().getEOperationsGen().iterator();
+			Iterator operItr = getJavaClass().getEOperationsInternal().iterator();
 			while (operItr.hasNext()) {
 				EOperation oper = (EOperation) operItr.next();
 				Iterator mdItr = oper.getEAnnotations().iterator();
@@ -168,9 +168,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// Clear out the annotations.
 		getJavaClass().getEAnnotations().clear();
 		// Clear out the attributes.
-		getJavaClass().getEStructuralFeaturesGen().clear();	
+		getJavaClass().getEStructuralFeaturesInternal().clear();	
 		// Clear out the operations.
-		getJavaClass().getEOperationsGen().clear();
+		getJavaClass().getEOperationsInternal().clear();
 		// Clear out the events.
 		getJavaClass().getEventsGen().clear();
 	}
@@ -308,7 +308,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected HashMap getPropertiesMap() {
 		if (propertiesMap == null) {
-			List localFeatures = (List) getJavaClass().getEStructuralFeaturesGen();
+			List localFeatures = (List) getJavaClass().getEStructuralFeaturesInternal();
 			propertiesMap = new HashMap(localFeatures.size());
 			Iterator itr = localFeatures.iterator();
 			while (itr.hasNext()) {
@@ -324,7 +324,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected List getFeaturesList() {
 		if (featuresRealList == null)
-			featuresRealList = (List) getJavaClass().getEStructuralFeaturesGen();
+			featuresRealList = (List) getJavaClass().getEStructuralFeaturesInternal();
 		return featuresRealList;
 	}
 
@@ -337,7 +337,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected HashMap getOperationsMap() {
 		if (operationsMap == null) {
-			List locals = (List) getJavaClass().getEOperationsGen();
+			List locals = (List) getJavaClass().getEOperationsInternal();
 			int l = locals.size();
 			operationsMap = new HashMap(l);
 			for (int i = 0; i < l; i++) {
@@ -353,7 +353,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	protected EList getOperationsList() {
 		if (operationsRealList == null)
-			operationsRealList = getJavaClass().getEOperationsGen();
+			operationsRealList = getJavaClass().getEOperationsInternal();
 		return operationsRealList;
 	}
 
@@ -586,7 +586,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	public EList getEStructuralFeatures() {
 		introspectProperties();
-		return getJavaClass().getEStructuralFeaturesGen();
+		return getJavaClass().getEStructuralFeaturesInternal();
 	}
 	
 	/**
@@ -1271,7 +1271,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 			}
 		}
-		return getJavaClass().getEOperationsGen();
+		return getJavaClass().getEOperationsInternal();
 	}
 
 	/**

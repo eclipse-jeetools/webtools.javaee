@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2004/06/18 19:46:29 $ 
+ *  $Revision: 1.9 $  $Date: 2004/08/17 21:37:35 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -328,7 +328,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 		return super.getEOperations();
 	}
 
-	public EList getEOperationsGen() {
+	public EList getEOperationsInternal() {
 		// An internal method for returning actual wo fluffing up.
 		return super.getEOperations();
 	}
@@ -347,7 +347,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 		return super.getEStructuralFeatures();
 	}
 
-	public EList getEStructuralFeaturesGen() {
+	public EList getEStructuralFeaturesInternal() {
 		// An internal method for returning actual wo fluffing up.
 		return super.getEStructuralFeatures();
 	}
