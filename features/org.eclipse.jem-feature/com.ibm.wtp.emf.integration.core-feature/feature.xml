@@ -2,12 +2,12 @@
 <feature
       id="com.ibm.wtp.emf.integration.core"
       label="WTP EMF Integration Core"
-      version="1.0.1"
+      version="1.0.1.1"
       provider-name="IBM">
 
    <includes
          id="com.ibm.wtp.common.utilities"
-         version="1.0.1"/>
+         version="0.0.0"/>
 
    <requires>
       <import plugin="org.eclipse.core.resources"/>
@@ -22,6 +22,6 @@
          id="com.ibm.wtp.emf.workbench"
          download-size="0"
          install-size="0"
-         version="1.0.1"/>
+         version="0.0.0"/>
 
 </feature>

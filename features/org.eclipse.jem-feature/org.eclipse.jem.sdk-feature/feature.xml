@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jem.sdk"
       label="%featureName"
-      version="1.0.1"
+      version="1.0.1.1"
       image= "eclipse_update_120.jpg"
       provider-name="%providerName">
 
