@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: InitParserSuite.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2003/11/11 16:27:40 $ 
  */
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -40,7 +40,8 @@ public class InitParserSuite extends TestSuite {
 		CharTest.class,
 		JFCTest.class,
 		BorderTest.class,
-		OverloadingTest.class
+		OverloadingTest.class,
+		SameName46376Test.class
 		                               } ;
 	public static String pkgName = "org.eclipse.jem.tests.proxy.initParser" ;
 	    
