@@ -76,7 +76,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         EJBArtifactEdit ejbEdit = null;
        	try{
        		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite( wbmodule );
-       		Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+       		Integer version = (Integer)operationDataModel.getProperty(EjbComponentCreationDataModel.COMPONENT_VERSION);
        		ejbEdit.createModelRoot(version.intValue());
        		ejbEdit.save(monitor);
        	}
