@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTBoundResolver.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/05 15:45:24 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/04 18:38:39 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -21,6 +21,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jem.internal.instantiation.*;
 import org.eclipse.jem.internal.instantiation.PTExpression;
 import org.eclipse.jem.internal.instantiation.PTName;
+import org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST.InvalidExpressionException;
  
 /**
  * This works on resolved AST nodes. If the nodes had not been resolved, this will return noting.
@@ -77,6 +78,14 @@ public class ASTBoundResolver extends ParseTreeCreationFromAST.Resolver {
 		return (binding != null) ? getTypeName(binding) : null; 
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST.Resolver#resolveType(org.eclipse.jdt.core.dom.Name)
+	 */
+	public String resolveType(Name name) throws InvalidExpressionException {
+		ITypeBinding binding = name.resolveTypeBinding();
+		return (binding != null) ? getTypeName(binding) : null; 
+	}
+	
 	private String getTypeName(ITypeBinding typeBinding) {
 		StringBuffer name;
 		if (typeBinding.isArray()) {
@@ -99,6 +108,4 @@ public class ASTBoundResolver extends ParseTreeCreationFromAST.Resolver {
 		}
 		return name.toString();
 	}
-	
-
 }

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.7 $  $Date: 2004/06/02 20:02:54 $ 
+ *  $Revision: 1.8 $  $Date: 2004/06/04 18:38:39 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -77,6 +77,19 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		 * @since 1.0.0
 		 */
 		public abstract String resolveType(Type type) throws InvalidExpressionException;
+		
+		/**
+		 * Resolve the type specified as a Name. It may be a simple name or it may be
+		 * a qualified name. This is used when we have Name that we know must be a
+		 * type. This is so that there is no confusion with it possibly being a field or variable
+		 * that has the same case and spelling as a type name.
+		 * @param name
+		 * @return the type name.
+		 * @throws InvalidExpressionException
+		 * 
+		 * @since 1.0.0
+		 */
+		public abstract String resolveType(Name name) throws InvalidExpressionException;
 		
 		/**
 		 * This is used by the resolver if it can't resolve for some reason. This will throw
@@ -270,11 +283,13 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 			throw new InvalidExpressionException(WorkbenchUtilityMessages.getString("ParseTreeCreationFromAST.CannotProcessAnonymousDeclarations.")); //$NON-NLS-1$
 		}
 		PTClassInstanceCreation cic = InstantiationFactory.eINSTANCE.createPTClassInstanceCreation();
-		PTExpression type = perform(node.getName());
-		if (type instanceof PTName)
-		    cic.setType(((PTName) type).getName());
-	    else if (type instanceof PTInstanceReference)
-	    	cic.setType(((PTInstanceReference)type).getObject().getJavaType().getQualifiedName());
+		// If ast level = 2, then you must use getName, but the name needs to be turned into a type
+		// so that it can be resolved. If ast level > 2, then it will return a type to be resolved.
+		// Note: can't just use resolve name on the name because if a field and a class were spelled
+		// the same then the codegen resolver would return an instance ref to the field instead.
+		cic.setType(node.getAST().apiLevel() == AST.JLS2 ? 
+				resolver.resolveType(node.getName()) :
+				resolver.resolveType(node.getType())); 					
 		List args = cic.getArguments();
 		List nargs = node.arguments();
 		int nsize = nargs.size();
