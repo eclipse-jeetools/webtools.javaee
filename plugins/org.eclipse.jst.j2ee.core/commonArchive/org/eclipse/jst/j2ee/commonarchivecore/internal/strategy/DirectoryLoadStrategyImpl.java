@@ -210,7 +210,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 		if (fileName == null || root == null)
 			return null;
 		String name = null;
-		for (; root.endsWith("/"); root = ArchiveUtil.truncateIgnoreCase(root, "/")) //$NON-NLS-1$ //$NON-NLS-2$
+		for (; root.endsWith("/"); root = ArchiveUtil.truncateIgnoreCase(root, "/")); //$NON-NLS-1$ //$NON-NLS-2$
 		name = replaceSeparators(fileName);
 		if (name.startsWith(root))
 			name = name.substring(root.length() + 1);
