@@ -16,8 +16,8 @@ import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.internal.webservices.WebServicesClientDataHelper;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class ServiceReferenceDataModel extends ReferenceDataModel implements WebServicesClientDataHelper {
 	/**

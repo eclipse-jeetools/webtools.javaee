@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.reference;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
 public class ResourceEnvironmentReferenceDataModel extends ReferenceDataModel {

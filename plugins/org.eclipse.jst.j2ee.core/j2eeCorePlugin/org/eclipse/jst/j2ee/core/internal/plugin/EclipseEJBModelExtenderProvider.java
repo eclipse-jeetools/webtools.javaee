@@ -26,8 +26,8 @@ import org.eclipse.jem.util.RegistryReader;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderProvider;
-import org.eclispe.wst.common.frameworks.internal.enablement.Identifiable;
-import org.eclispe.wst.common.frameworks.internal.enablement.IdentifiableComparator;
+import org.eclipse.wst.common.frameworks.internal.enablement.Identifiable;
+import org.eclipse.wst.common.frameworks.internal.enablement.IdentifiableComparator;
 
 /**
  * To change the template for this generated type comment go to

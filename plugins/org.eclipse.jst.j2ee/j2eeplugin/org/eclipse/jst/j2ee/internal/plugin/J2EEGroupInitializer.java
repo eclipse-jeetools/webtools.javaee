@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.plugin;
 
 import org.eclipse.core.resources.IProject;
-import org.eclispe.wst.common.frameworks.internal.enablement.IGroupInitializer;
+import org.eclipse.wst.common.frameworks.internal.enablement.IGroupInitializer;
 
 
 /**

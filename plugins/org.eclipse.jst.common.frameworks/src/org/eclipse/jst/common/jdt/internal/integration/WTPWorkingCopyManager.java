@@ -35,7 +35,7 @@ import org.eclipse.wst.common.frameworks.internal.ISaveHandler;
 import org.eclipse.wst.common.frameworks.internal.SaveFailedException;
 import org.eclipse.wst.common.frameworks.internal.SaveHandlerHeadless;
 import org.eclipse.wst.common.frameworks.internal.SaveHandlerRegister;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * Insert the type's description here. Creation date: (4/27/2001 4:14:30 PM)
