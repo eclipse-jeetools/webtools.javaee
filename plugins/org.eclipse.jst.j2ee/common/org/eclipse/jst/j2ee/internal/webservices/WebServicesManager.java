@@ -66,12 +66,6 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
-import org.eclipse.wst.ws.parser.wsil.WebServiceEntity;
-import org.eclipse.wst.ws.parser.wsil.WebServicesParser;
-import org.eclipse.wst.wsdl.Definition;
-import org.eclipse.wst.wsdl.Port;
-import org.eclipse.wst.wsdl.Service;
-import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
@@ -316,7 +310,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		List wsddWebServices = getInternalWebServicesDescriptions();
 		for (int i = 0; i < wsddWebServices.size(); i++) {
 			WebServiceDescription webServices = (WebServiceDescription) wsddWebServices.get(i);
-			WSDLResourceImpl wsdl = getWSDLResource(webServices);
+			Resource wsdl = getWSDLResource(webServices);
 			if (wsdl != null && !result.contains(wsdl))
 				result.add(wsdl);
 		}
@@ -341,14 +335,14 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			return result;
 		}
 		
-	public boolean isServiceInternal(Service service) {
+	public boolean isServiceInternal(EObject service) {
 		return getInternalWSDLResources().contains(getWSDLResource(service));
 	}
 
 	private List getWSDLServicesFromWSDLResources(List wsdlResources) {
 		List result = new ArrayList();
 		for (int i = 0; i < wsdlResources.size(); i++) {
-			WSDLResourceImpl wsdl = (WSDLResourceImpl) wsdlResources.get(i);
+			Resource wsdl = (Resource) wsdlResources.get(i);
 			List services = getWSDLServices(wsdl);
 			if (wsdl != null && services != null && !services.isEmpty())
 				result.addAll(services);
@@ -375,43 +369,11 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	}
 
 	public List getWsdlServicesFromWsilFile(IFile wsil) {
-		List result = new ArrayList();
-		WebServiceEntity entity = parseWsilFile(wsil);
-		if (entity != null && entity.getType() == WebServiceEntity.TYPE_WSIL) {
-			// get all the WSDL references from the WSIL entity
-			List wsdlList = entity.getChildren();
-			for (Iterator it = wsdlList.iterator(); it.hasNext();) {
-				Object item = it.next();
-				if (item != null && item instanceof WebServiceEntity) {
-					if (((WebServiceEntity) item).getModel() != null && ((WebServiceEntity) item).getModel() instanceof Definition) {
-						Definition def = (Definition) ((WebServiceEntity) item).getModel();
-						if (def != null && !def.getServices().isEmpty())
-							result.addAll(def.getServices().values());
-					}
-				}
-			}
-		}
-		return result;
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		return serviceHelper.getWsdlServicesFromWsilFile(wsil);
 	}
 
-	public WebServiceEntity parseWsilFile(IFile wsil) {
-		WebServicesParser parser = null;
-		String url = null;
-		// verify proper input
-		if (wsil == null || !wsil.getFileExtension().equals(WSIL_EXT))
-			return null;
-		// Parse wsil file to get wsdl services
-		try {
-			url = wsil.getLocation().toFile().toURL().toString();
-			parser = new WebServicesParser(url);
-			parser.parse(WebServicesParser.PARSE_WSIL | WebServicesParser.PARSE_WSDL);
-		} catch (Exception e) {
-			//Ignore
-		}
-		if (parser == null)
-			return null;
-		return parser.getWebServiceEntityByURI(url);
-	}
+	
 
 	/**
 	 * Returns all WSDL Services, both internal and external
@@ -429,9 +391,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		INSTANCE = null;
 	}
 
-	public WSDLResourceImpl getWSDLResource(WebServiceDescription webService) {
+	public Resource getWSDLResource(WebServiceDescription webService) {
 		String wsdlFileName = webService.getWsdlFile();
-		WSDLResourceImpl res = null;
+		Resource res = null;
 		String projName = ProjectUtilities.getProject(webService).getName();
 		for (int i = 0; i < getEditModelList().size(); i++) {
 			WebServiceEditModel editModel = (WebServiceEditModel) getEditModelList().get(i);
@@ -444,22 +406,24 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return res;
 	}
 
-	public List getWSDLServices(WSDLResourceImpl wsdl) {
+	public List getWSDLServices(Resource wsdl) {
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		List result = new ArrayList();
-		Definition def = wsdl.getDefinition();
+		Object def = serviceHelper.getWSDLDefinition(wsdl);
 		if (def == null)
 			return result;
-		result = new ArrayList(def.getServices().values());
+		result = new ArrayList(serviceHelper.getDefinitionServices(def).values());
 		return result;
 	}
 
-	public Service getWSDLServiceForWebService(WebServiceDescription webService) {
-		Service service = null;
-		WSDLResourceImpl wsdl = getWSDLResource(webService);
+	public EObject getWSDLServiceForWebService(WebServiceDescription webService) {
+		EObject service = null;
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		Resource wsdl = getWSDLResource(webService);
 		if (wsdl == null) return service;
-		Definition definition = wsdl.getDefinition();
+		Object definition = serviceHelper.getWSDLDefinition(wsdl);
 		if (definition == null) return service;
-		Map services = definition.getServices();
+		Map services = serviceHelper.getDefinitionServices(definition);
 		if (services.isEmpty()) return service;
 		PortComponent portComp = null;
 		if (webService.getPortComponents()!=null && webService.getPortComponents().size()>0) {
@@ -469,17 +433,18 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return service;
 	}
 
-	public WSDLResourceImpl getWSDLResource(Service wsdlService) {
-		return (WSDLResourceImpl) wsdlService.eResource();
+	public Resource getWSDLResource(EObject wsdlService) {
+		return wsdlService.eResource();
 	}
 
-	public Service getService(PortComponent port) {
+	public EObject getService(PortComponent port) {
 		List services = getInternalWSDLServices();
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		for (int i = 0; i < services.size(); i++) {
-			Service service = (Service) services.get(i);
-			if (service.getPorts().size() == 1) {
-				Port wsdlPort = (Port) service.getPorts().values().toArray()[0];
-				String qName = wsdlPort.getBinding().getQName().getNamespaceURI();
+			EObject service = (EObject)services.get(i);
+			if (serviceHelper.getServicePorts(service).size() == 1) {
+				Object wsdlPort = serviceHelper.getServicePorts(service).values().toArray()[0];
+				String qName = serviceHelper.getPortBindingNamespaceURI(wsdlPort);
 				if (port.getWsdlPort().getNamespaceURI().equals(qName))
 					return service;
 			}
@@ -515,34 +480,35 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return null;
 	}
 
-	public PortComponent getPortComponent(Service wsdlService) {
+	public PortComponent getPortComponent(EObject wsdlService) {
 		// If there is only one port in the wsdl service, find the matching port component
 		// otherwise if multiple ports return null because we need more information
-		if (wsdlService == null || wsdlService.getPorts().isEmpty())
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		if (wsdlService == null || serviceHelper.getServicePorts(wsdlService).isEmpty())
 			return null;
-		if (wsdlService.getPorts().size() == 1) {
-			Port port = (Port) wsdlService.getPorts().values().toArray()[0];
-			String qName = port.getBinding().getQName().getNamespaceURI();
+		if (serviceHelper.getServicePorts(wsdlService).size() == 1) {
+			Object port = serviceHelper.getServicePorts(wsdlService).values().toArray()[0];
+			String qName = serviceHelper.getPortBindingNamespaceURI(port);
 			return getPortComponent(qName, ProjectUtilities.getProject(wsdlService));
 		}
 		return null;
 	}
 
-	public ServiceImplBean getServiceImplBean(Service wsdlService) {
+	public ServiceImplBean getServiceImplBean(EObject wsdlService) {
 		PortComponent port = getPortComponent(wsdlService);
 		if (port == null)
 			return null;
 		return port.getServiceImplBean();
 	}
 
-	public WsddResource getWsddResource(Service wsdlService) {
+	public WsddResource getWsddResource(EObject wsdlService) {
 		PortComponent port = getPortComponent(wsdlService);
 		if (port == null)
 			return null;
 		return (WsddResource) port.eResource();
 	}
 
-	public String getServiceEndpointInterface(Service wsdlService) {
+	public String getServiceEndpointInterface(EObject wsdlService) {
 		PortComponent port = getPortComponent(wsdlService);
 		if (port == null)
 			return null;
@@ -657,7 +623,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 				List wsdlResources = editModel.getWSDLResources();
 				if (wsdlResources != null && !wsdlResources.isEmpty()) {
 					for (int j = 0; j < wsdlResources.size(); j++) {
-						WSDLResourceImpl wsdl = (WSDLResourceImpl) wsdlResources.get(j);
+						Resource wsdl = (Resource) wsdlResources.get(j);
 						if (!result.contains(wsdl))
 							result.add(wsdl);
 					}
@@ -835,7 +801,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	protected void addedWsdl(IFile wsdl) {
 		if (!wsdl.exists())
 			return;
-		WSDLResourceImpl res = (WSDLResourceImpl) WorkbenchResourceHelperBase.getResource(wsdl, true);
+		Resource res = WorkbenchResourceHelperBase.getResource(wsdl, true);
 		IProject p = ProjectUtilities.getProject(res);
 		WebServiceEditModel editModel = getWebServiceEditModelForProject(p);
 		// forward an edit model event to manager's listeners

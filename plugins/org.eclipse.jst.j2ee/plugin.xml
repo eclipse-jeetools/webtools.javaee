@@ -42,8 +42,6 @@
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
-      <import plugin="org.eclipse.wst.wsdl"/>
-      <import plugin="org.eclipse.wst.ws.parser"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
 
@@ -84,6 +82,7 @@
    <extension-point id="resourceRefType" name="Resource Reference Type" schema="schema/resourceRefType.exsd"/>
    <extension-point id="WebServiceClientGenerator" name="WebServiceClientGenerator" schema="schema/WebServiceClientGenerator.exsd"/>
    <extension-point id="ExtendedModuleImport" name="ExtendedModuleImport" schema="schema/ExtendedModuleImport.exsd"/>
+   <extension-point id="WSDLServiceHelper" name="WSDLServiceHelper" schema="schema/WSDLServiceHelper.exsd"/>
 
 <!--============================-->
 <!-- Application Client J2EE 1.2 Nature             -->

@@ -22,6 +22,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
@@ -32,7 +33,6 @@ import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchResourceHelperBase;
@@ -118,7 +118,10 @@ public class WebServiceEditModel extends J2EEEditModel {
 	}
 
 	public WsddResource getWebServicesXmlResource() {
-		return (WsddResource) getResource(getWebServicesXmlResourceURI());
+		Resource aResource = getResource(getWebServicesXmlResourceURI());
+		if (aResource.isLoaded())
+			return (WsddResource) aResource;
+		else return null;
 	}
 
 	public URI getWebServicesXmlResourceURI() {
@@ -131,7 +134,7 @@ public class WebServiceEditModel extends J2EEEditModel {
 	/**
 	 * return the WSDLResource if it exists, otherwise return null
 	 */
-	public WSDLResourceImpl getWsdlResource(String path) {
+	public ResourceImpl getWsdlResource(String path) {
 		if (path == null || path.equals(""))return null; //$NON-NLS-1$
 		Resource res = null;
 		try {
@@ -139,8 +142,8 @@ public class WebServiceEditModel extends J2EEEditModel {
 		} catch (Exception e) {
 			//Ignore
 		}
-		if (res != null && res.isLoaded() && res instanceof WSDLResourceImpl)
-			return (WSDLResourceImpl) res;
+		if (res != null && res.isLoaded() && res.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl"))
+			return (ResourceImpl) res;
 		return null;
 
 	}

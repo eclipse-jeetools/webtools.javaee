@@ -20,18 +20,11 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
-import org.eclipse.wst.wsdl.Definition;
-import org.eclipse.wst.wsdl.Port;
-import org.eclipse.wst.wsdl.Service;
-import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
-
-import com.ibm.wtp.emf.workbench.WorkbenchResourceHelperBase;
 
 /**
  * This class contains methods to help navigate WSDL files provided in various JSR-109 descriptors
@@ -116,20 +109,21 @@ public class WSDLHelper {
 	 *         specified local name could not be found.
 	 */
 	private String[] getPortNames(String wsdlURL, String serviceLocalName) {
-		Service targetService = getTargetService(wsdlURL, serviceLocalName);
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		Object targetService = getTargetService(wsdlURL, serviceLocalName);
 
 		if (targetService == null) {
 			//System.out.println("getPortNames ... targetService null.");
 			return null;
 		}
 
-		Map ports = targetService.getPorts();
+		Map ports = serviceHelper.getServicePorts(targetService);
 		int numberOfPorts = ports.size();
 		String[] portNames = new String[numberOfPorts];
 		Iterator k = ports.values().iterator();
 		for (int m = 0; m < numberOfPorts; m++) {
-			Port port = (Port) k.next();
-			portNames[m] = port.getName();
+			Object port = k.next();
+			portNames[m] = serviceHelper.getPortName(port);
 		}
 
 		return portNames;
@@ -146,24 +140,25 @@ public class WSDLHelper {
 	 *         with the specified local name could not be found.
 	 */
 	private String getPortNamespace(String wsdlURL, String serviceLocalName) {
-		Service targetService = getTargetService(wsdlURL, serviceLocalName);
+		Object targetService = getTargetService(wsdlURL, serviceLocalName);
 
 		if (targetService == null) {
 			//System.out.println("getPortNamespace ... targetService null.");
 			return ""; //$NON-NLS-1$
 		}
 
-		return targetService.getQName().getNamespaceURI();
+		return WSDLServiceExtManager.getServiceHelper().getServiceNamespaceURI(targetService);
 	}
 
-	private Service getTargetService(String wsdlURL, String serviceLocalName) {
-		Definition definition = getWSDLDefinition(wsdlURL);
+	private Object getTargetService(String wsdlURL, String serviceLocalName) {
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		Object definition = getWSDLDefinition(wsdlURL);
 		if (definition == null) {
 			return null;
 		}
 
-		Service targetService = null;
-		Map services = definition.getServices();
+		Object targetService = null;
+		Map services = serviceHelper.getDefinitionServices(definition);
 		if (!services.isEmpty()) {
 			if ((serviceLocalName == null || serviceLocalName.length() == 0) && services.size() > 1) //Multiple
 			// services
@@ -180,13 +175,13 @@ public class WSDLHelper {
 			if ((serviceLocalName == null || serviceLocalName.length() == 0) && services.size() == 1) {
 				//Return the port names in the one service
 				Iterator i = services.values().iterator();
-				targetService = (Service) i.next();
+				targetService = i.next();
 			} else //There are multiple services but one is designated
 			{
 				Iterator j = services.values().iterator();
 				while (j.hasNext()) {
-					Service service = (Service) j.next();
-					String serviceName = service.getQName().getLocalPart();
+					Object service = j.next();
+					String serviceName = serviceHelper.getServiceLocalPart(service);
 					if (serviceName.equals(serviceLocalName)) {
 						targetService = service;
 						break; //Found a match. Break out of loop. We must be assuming unique names
@@ -201,15 +196,18 @@ public class WSDLHelper {
 	}
 
 
-	private Definition getWSDLDefinition(String wsdlURL) {
-		try {
+	private Object getWSDLDefinition(String wsdlURL) {
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		return serviceHelper.getWSDLDefinition(wsdlURL);
+		
+		/*try {
 			WSDLResourceImpl res = (WSDLResourceImpl) WorkbenchResourceHelperBase.getResource(URI.createURI(wsdlURL), true);
 			if (res == null)
 				return null;
 			return res.getDefinition();
 		} catch (Exception wsdle) {
 			return null;
-		}
+		}*/
 	}
 
 	/**

@@ -55,9 +55,8 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-import org.eclipse.wst.wsdl.Definition;
-import org.eclipse.wst.wsdl.Service;
-import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
+
+import sun.misc.Service;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -181,7 +180,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		}
 
 		// Handle wsdl case, non emf object
-		if (srcObject instanceof WSDLResourceImpl || isWsdlInstance(srcObject)) {
+		if (srcObject.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl") || isWsdlInstance(srcObject)) {
 			openWsdlEditor();
 			return;
 		}
@@ -190,7 +189,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		IProject p = ProjectUtilities.getProject(ro);
 		J2EENature nature = J2EENature.getRegisteredRuntime(p);
 
-		if (ro instanceof Definition || ro instanceof Service || ro instanceof Handler)
+		if (ro.getClass().getName().equals("org.eclipse.wst.wsdl.Definition") || ro.getClass().getName().equals("org.eclipse.wst.wsdl.Service") || ro instanceof Handler)
 			r = getWebService(p); 
 		else if (ro instanceof BeanLink) {
 			openBeanLinkInJavaEditor((BeanLink) ro, p);
@@ -204,11 +203,11 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	}
 
 	private void openWsdlEditor() {
-		WSDLResourceImpl wsdl = null;
-		if (srcObject instanceof WSDLResourceImpl)
-			wsdl = (WSDLResourceImpl) srcObject;
-		else if (srcObject instanceof Service)
-			wsdl = (WSDLResourceImpl) ((Service) srcObject).eResource();
+		Resource wsdl = null;
+		if (srcObject.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl"))
+			wsdl = (Resource) srcObject;
+		else if (srcObject.getClass().getName().equals("org.eclipse.wst.wsdl.Service"))
+			wsdl = (Resource) ((EObject) srcObject).eResource();
 		if (wsdl != null) {
 			IResource r = WorkbenchResourceHelper.getFile(wsdl);
 			openAppropriateEditor(r);
@@ -397,14 +396,14 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	
 	protected boolean isWebserviceInstance(Object obj) {
 		EObject root = getRootObject(obj);
-		return (root instanceof Definition || root instanceof WebServices);
+		return (root.getClass().getName().equals("org.eclipse.wst.wsdl.Definition") || root instanceof WebServices);
 	}
 	
 	protected boolean isWsdlInstance(Object obj) {
 		EObject root = getRootObject(obj);
 		IProject p = ProjectUtilities.getProject(root);
 		Object ws = getWebService(p);
-		return (obj instanceof WSDLResourceImpl) || (root instanceof Definition && ws == null);
+		return (obj.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl")) || (root.getClass().getName().equals("org.eclipse.wst.wsdl.Definition") && ws == null);
 	}
 	
 	protected boolean is13ServiceRefForNature(String natureId, EObject root) {

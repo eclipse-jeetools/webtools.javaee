@@ -1,8 +1,5 @@
 package org.eclipse.jst.j2ee.internal.reference;
 
-import org.eclipse.wst.wsdl.Service;
-import javax.xml.namespace.QName;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -11,8 +8,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.internal.webservices.WebServicesClientDataHelper;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -94,10 +94,11 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 		return doSet;
 	}
 
-	protected Object getLocationForServiceFromWSIL(Service wsdl) {
+	protected Object getLocationForServiceFromWSIL(EObject wsdl) {
 		// Fix to get "external" workspace wsdl file because wsilparser uses generic resource set
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (wsdl.eResource() == null)
-			return wsdl.getEnclosingDefinition().getLocation();
+			return serviceHelper.getServiceDefinitionLocation(wsdl);
 		URI uri = wsdl.eResource().getURI();
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IPath rootPath = root.getLocation();
@@ -112,12 +113,13 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	}
 
 	protected Object getDefaultProperty(String propertyName) {
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (propertyName.equals(REF_NAME)) {
-			Service wsdl = (Service) getProperty(TARGET_WEB_SERVICE);
+			Object wsdl = getProperty(TARGET_WEB_SERVICE);
 			if (wsdl != null)
-				return "service/" + wsdl.getQName().getLocalPart(); //$NON-NLS-1$
+				return "service/" + serviceHelper.getServiceLocalPart(wsdl); //$NON-NLS-1$
 		} else if (propertyName.equals(WSDL_FILE)) {
-			Service wsdl = (Service) getProperty(TARGET_WEB_SERVICE);
+			EObject wsdl = (EObject)getProperty(TARGET_WEB_SERVICE);
 			if (wsdl != null) {
 				boolean isInternal = WorkbenchResourceHelper.getFile(wsdl) != null && WorkbenchResourceHelper.getFile(wsdl).exists();
 				if (isInternal)
@@ -128,30 +130,30 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 					return location;
 			}
 		} else if (propertyName.equals(WSDL_URL)) {
-			Service wsdl = (Service) getProperty(TARGET_WEB_SERVICE);
+			EObject wsdl = (EObject) getProperty(TARGET_WEB_SERVICE);
 			if (wsdl != null) {
 				boolean isInternal = WorkbenchResourceHelper.getFile(wsdl) != null && WorkbenchResourceHelper.getFile(wsdl).exists();
 				if (isInternal)
 					return "file:/" + WorkbenchResourceHelper.getFile(wsdl).getRawLocation().toString(); //$NON-NLS-1$
-				return wsdl.getEnclosingDefinition().getLocation();
+				return serviceHelper.getServiceDefinitionLocation(wsdl);
 			}
 		} else if (propertyName.equals(QNAME)) {
-			Service wsdl = (Service) getProperty(TARGET_WEB_SERVICE);
+			EObject wsdl = (EObject) getProperty(TARGET_WEB_SERVICE);
 			if (wsdl != null)
-				return wsdl.getQName();
+				return serviceHelper.getServiceQName(wsdl);
 		} else if (propertyName.equals(QNAME_NAMESPACE_URI)) {
-			Service wsdl = (Service) getProperty(TARGET_WEB_SERVICE);
+			EObject wsdl = (EObject) getProperty(TARGET_WEB_SERVICE);
 			if (wsdl != null) {
-				QName qName = wsdl.getQName();
+				Object qName = serviceHelper.getServiceQName(wsdl);
 				if (qName != null)
-					return qName.getNamespaceURI();
+					return serviceHelper.getServiceNamespaceURI(wsdl);
 			}
 		} else if (propertyName.equals(QNAME_lOCAL_PART)) {
-			Service wsdl = (Service) getProperty(TARGET_WEB_SERVICE);
+			EObject wsdl = (EObject) getProperty(TARGET_WEB_SERVICE);
 			if (wsdl != null) {
-				QName qName = wsdl.getQName();
+				Object qName = serviceHelper.getServiceQName(wsdl);
 				if (qName != null)
-					return qName.getLocalPart();
+					return serviceHelper.getServiceLocalPart(wsdl);
 			}
 		}
 		return super.getDefaultProperty(propertyName);
@@ -164,7 +166,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		IStatus stat = super.doValidateProperty(propertyName);
-		if (!(getProperty(TARGET_WEB_SERVICE) instanceof Service)) {
+		if (!(getProperty(TARGET_WEB_SERVICE).getClass().getName().equals("org.eclipse.wst.wsdl.Service"))) {
 			return WTPCommonPlugin.createErrorStatus(J2EECreationResourceHandler.getString("ServiceReferenceDataModel_ERROR_8")); //$NON-NLS-1$
 		}
 		return stat;
@@ -251,6 +253,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	 * @see com.ibm.wtp.j2ee.webservices.WebServicesClientDataHelper#getOutputWSDLFileName()
 	 */
 	public String getOutputWSDLFileName() {
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		Object owner = getProperty(OWNER);
 		String outputLocation = null;
 		IProject project;
@@ -268,9 +271,10 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 				outputLocation = project.getFullPath().toString() + "\\Web Content\\WEB-INF\\"; //$NON-NLS-1$
 				break;
 		}
-		if (getProperty(TARGET_WEB_SERVICE) == null)
+		EObject service = (EObject) getProperty(TARGET_WEB_SERVICE);
+		if (service == null)
 			return ""; //$NON-NLS-1$
-		return outputLocation + ((Service) getProperty(TARGET_WEB_SERVICE)).getQName().getLocalPart() + ".wsdl"; //$NON-NLS-1$
+		return outputLocation + serviceHelper.getServiceLocalPart(service) + ".wsdl"; //$NON-NLS-1$
 	}
 
 	/*

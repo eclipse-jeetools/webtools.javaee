@@ -26,6 +26,8 @@
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.wst.ws.parser"/>
+      <import plugin="org.eclipse.wst.wsdl"/>
    </requires>
 
 
@@ -119,5 +121,13 @@
             descriptorName="webservicesclient.xml"
             id="org.eclipse.jst.j2ee.internal.webservice.editmodel.WscddEditModel">
       </webservicesclienteditmodelcontainer>
+   </extension>
+   <extension
+         id="WSDLServiceHelper"
+         name="WSDLServiceHelper"
+         point="org.eclipse.jst.j2ee.WSDLServiceHelper">
+      <wsdlHelper
+            helperClass="org.eclipse.jst.j2ee.internal.webservice.helper.WSDLServiceHelperImpl">
+      </wsdlHelper>
    </extension>
 </plugin>

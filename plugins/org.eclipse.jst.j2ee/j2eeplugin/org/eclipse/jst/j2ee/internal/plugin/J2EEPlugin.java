@@ -52,6 +52,7 @@ import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
@@ -495,6 +496,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new EarEditAdapterFactory(), ArtifactEditModel.class);
 		registerDeployableModuleFactory(IModuleConstants.JST_UTILITY_MODULE);
+		WSDLServiceExtensionRegistry.getInstance();
 	}
 	/**
      * 
