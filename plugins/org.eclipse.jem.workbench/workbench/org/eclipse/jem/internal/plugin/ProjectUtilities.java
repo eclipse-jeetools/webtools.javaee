@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.plugin;
  *******************************************************************************/
 /*
  *  $RCSfile: ProjectUtilities.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:33:53 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/08 22:32:34 $ 
  */
 
 import java.net.MalformedURLException;
@@ -320,16 +320,18 @@ public class ProjectUtilities {
 	/**
 	 * Hack to force a reload of the .classpath file
 	 */
-	public static void forceClasspathReload(IProject project) throws JavaModelException {
-		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);	
-		if (javaProj != null) {
-			javaProj.close();
-			//Hack provided by eclipse team, as this broke in 2.1.1
-			JavaModelManager.PerProjectInfo perProjectInfo = JavaModelManager.getJavaModelManager().getPerProjectInfo(project, true/*create if missing*/);
-			perProjectInfo.classpath = null;
-			perProjectInfo.lastResolvedClasspath = null;
-		}
-	}
+// Nobody in VE uses this and it won't compile with 3.0M5, so comment out for now. When J2EE Tools comes around, they
+// can see if they need it and fix it then.
+//	public static void forceClasspathReload(IProject project) throws JavaModelException {
+//		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);	
+//		if (javaProj != null) {
+//			javaProj.close();
+//			//Hack provided by eclipse team, as this broke in 2.1.1
+//			JavaModelManager.PerProjectInfo perProjectInfo = JavaModelManager.getJavaModelManager().getPerProjectInfo(project, true/*create if missing*/);
+//			perProjectInfo.classpath = null;
+//			perProjectInfo.lastResolvedClasspath = null;
+//		}
+//	}
 	/**
 	 *	Import the appropriate resources from the specified archive file
 	 */
