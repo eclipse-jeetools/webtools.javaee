@@ -54,7 +54,6 @@ import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceFactory;
 import org.eclipse.jst.j2ee.internal.client.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
-import org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
@@ -63,9 +62,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWi
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderFactoryRegistry;
 import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 import org.osgi.framework.Bundle;
@@ -501,18 +498,10 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		manager.registerAdapters(new AppClientEditAdapterFactory(), ArtifactEditModel.class);
 		ApplicationResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		ApplicationClientResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
-		registerDeployableModuleFactory(IModuleConstants.JST_UTILITY_MODULE);
-		registerDeployableModuleFactory(IModuleConstants.JST_APPCLIENT_MODULE);
-		registerDeployableModuleFactory(IModuleConstants.JST_EAR_MODULE);
 		WSDLServiceExtensionRegistry.getInstance();
 		
 	}
-	/**
-     * 
-     */
-    private void registerDeployableModuleFactory(String moduleID) {
-       ComponentStructuralBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(moduleID, new JavaDeployableModuleBuilderFactory());     
-    }
+
 	/*
 	 * need to make sure the correct factories get loaded when we are in the UI
 	 */

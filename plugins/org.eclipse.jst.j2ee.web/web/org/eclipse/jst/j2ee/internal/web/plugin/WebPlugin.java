@@ -33,7 +33,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.web.operations.WebContentResourceChangeListener;
@@ -43,9 +42,7 @@ import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.internal.builder.ComponentStructuralBuilderFactoryRegistry;
 import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -314,19 +311,11 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		// register the listener for link refactoring of moved/renamed files
 		// add listener for web content changes
 		addWebContentListener();
-		registerDeployableModuleFactory();
 		WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new WebEditAdapterFactory(), ArtifactEditModel.class);
 	}
 
-
-	/**
-     * 
-     */
-    private void registerDeployableModuleFactory() {
-       ComponentStructuralBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new JavaDeployableModuleBuilderFactory());     
-    }
 
     /*
 	 * (non-Javadoc)
