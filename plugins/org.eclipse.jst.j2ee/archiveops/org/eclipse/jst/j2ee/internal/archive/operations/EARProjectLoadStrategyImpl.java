@@ -89,6 +89,8 @@ public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2E
 				continue;
 			try {
 				Archive moduleFile = ((J2EEModuleNature) nature).asArchive(exportSource);
+				if( moduleFile == null )
+					continue;
 				moduleFile.setURI(uri);
 				setIncludeProjectMetaFiles(moduleFile);
 				if (existingFiles.containsKey(uri))

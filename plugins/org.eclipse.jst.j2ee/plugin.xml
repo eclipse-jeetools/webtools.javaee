@@ -44,6 +44,7 @@
       <import plugin="org.eclipse.jst.common.frameworks"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
       <import plugin="org.eclipse.debug.ui"/>
+	  <import plugin="org.eclipse.wst.xml.uriresolver"/>
    </requires>
 
 
@@ -134,10 +135,9 @@
 <!--===================================================-->
 <!-- Register known J2EE DTDs and XSDs for XML editor  -->
 <!-- DTD and XSD Contributions                         -->
-<!-- Removing these until final location is known...   -->
 <!--===================================================-->
-<!--   <extension
-         point="com.ibm.etools.xmlcatalog.catalogContributor">
+  <extension
+         point="org.eclipse.wst.xml.uriresolver.catalogContributor">
       <catalogContributor
             catalogId="default">
          <mappingInfo
@@ -249,7 +249,7 @@
                uri="dtds/j2ee_web_services_client_1_0.dtd">
          </mappingInfo> 
       </catalogContributor>
-   </extension> -->
+   </extension> 
 <!--=================================-->
 <!-- LibCopy Builder Contributions   -->
 <!--=================================-->
