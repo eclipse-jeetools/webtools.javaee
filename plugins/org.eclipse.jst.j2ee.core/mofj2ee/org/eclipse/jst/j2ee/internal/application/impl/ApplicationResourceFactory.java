@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
+import org.eclipse.wst.common.internal.emf.resource.FileNameResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
@@ -61,6 +62,10 @@ public class ApplicationResourceFactory extends TranslatorResourceFactory {
 	 */
 	public static void register() {
 		registerWith(RendererFactory.getDefaultRendererFactory());
+	}
+	
+	public static void register(FileNameResourceFactoryRegistry aRegistry) {
+		aRegistry.registerLastFileSegment(J2EEConstants.APPLICATION_DD_SHORT_NAME, new ApplicationResourceFactory(RendererFactory.getDefaultRendererFactory()));
 	}
 
 	
