@@ -22,7 +22,6 @@
       <import plugin="org.eclipse.jem.proxy" optional="true"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.jem.util"/>
-      <import plugin="org.eclipse.ve.cde"/>
    </requires>
 
 

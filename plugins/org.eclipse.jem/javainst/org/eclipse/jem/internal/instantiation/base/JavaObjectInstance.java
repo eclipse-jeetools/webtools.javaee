@@ -11,19 +11,17 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.10 $  $Date: 2005/01/25 13:43:47 $ 
+ *  $Revision: 1.11 $  $Date: 2005/01/25 15:11:27 $ 
  */
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
+
 import org.eclipse.jem.internal.instantiation.JavaAllocation;
 import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.ve.internal.cde.emf.FeatureValueProvider;
 
 /**
  * This is the default instance for java model objects.
