@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
@@ -121,7 +122,7 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
 
     public void propertyChanged(WTPOperationDataModelEvent event) {
         if (event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG) {
-            WTPOperationDataModel dm = event.getDataModel();
+            event.getDataModel();
         }
         super.propertyChanged(event);
     }
@@ -165,7 +166,7 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
                     String errorMessage = J2EECreationResourceHandler.getString("InvalidCharsError"); //$NON-NLS-1$
                     return WTPCommonPlugin.createErrorStatus(errorMessage);
                 } else if (moduleName==null || moduleName.equals("")) { //$NON-NLS-1$
-					String errorMessage = "Module name cannot be empty.";
+					String errorMessage = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_EMPTY_MODULE_NAME);
 					return WTPCommonPlugin.createErrorStatus(errorMessage); 
                 }
             } else
@@ -247,7 +248,7 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
     }
 
     private static boolean matches(String a, String b) {
-        if (a == null || b == null || "*".equals(a) || "*".equals(b) || a.startsWith(b) || b.startsWith(a))
+        if (a == null || b == null || "*".equals(a) || "*".equals(b) || a.startsWith(b) || b.startsWith(a)) //$NON-NLS-1$ //$NON-NLS-2$
             return true;
         return false;
     }

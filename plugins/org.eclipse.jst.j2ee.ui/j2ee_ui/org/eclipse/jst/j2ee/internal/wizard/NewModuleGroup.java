@@ -61,7 +61,7 @@ public class NewModuleGroup {
 	private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 	private static final String PROJECT_NAME = J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TABLE_PROJECT)+ ":"; //$NON-NLS-1$
 	private static final String NEW_LABEL = J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E); //$NON-NLS-1$
-	private static final String MODULE_NAME = "Module name:";
+	private static final String MODULE_NAME = J2EEUIMessages.getResourceString(J2EEUIMessages.MODULE_NAME); //$NON-NLS-1$
 	
 	/**
 	 * @param parent

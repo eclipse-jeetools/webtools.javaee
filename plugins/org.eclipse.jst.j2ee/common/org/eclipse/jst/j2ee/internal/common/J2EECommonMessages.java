@@ -49,7 +49,7 @@ public class J2EECommonMessages extends Messages {
 	public static final String ERR_JAVA_PACKAGE_NAME_WARNING = "ERR_JAVA_PACKAGE_NAME_WARNING"; //$NON-NLS-1$
 	public static final String ERR_BOTH_FINAL_AND_ABSTRACT = "ERR_BOTH_FINAL_AND_ABSTRACT"; //$NON-NLS-1$
 	public static final String ERR_SECURITY_ROLE_LIST_EMPTY = "ERR_SECURITY_ROLE_LIST_EMPTY"; //$NON-NLS-1$
-
+	public static final String ERR_EMPTY_MODULE_NAME = "ERR_EMPTY_MODULE_NAME"; //$NON-NLS-1$
 
 	private static final J2EECommonMessages INSTANCE = new J2EECommonMessages();
 
