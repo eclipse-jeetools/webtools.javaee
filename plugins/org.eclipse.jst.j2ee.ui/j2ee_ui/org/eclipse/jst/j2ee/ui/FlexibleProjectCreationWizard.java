@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationOperation;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -54,7 +53,7 @@ public class FlexibleProjectCreationWizard extends WTPWizard implements INewWiza
 	 * @param model
 	 *            used to collect information and interface with the WTP Operation
 	 */
-	public FlexibleProjectCreationWizard(J2EEProjectCreationDataModel model) {
+	public FlexibleProjectCreationWizard(FlexibleJavaProjectCreationDataModel model) {
 		super(model);
 	}
 
