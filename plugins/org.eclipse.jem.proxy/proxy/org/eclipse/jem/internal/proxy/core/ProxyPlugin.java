@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.43 $  $Date: 2005/02/03 18:37:18 $ 
+ *  $Revision: 1.44 $  $Date: 2005/02/08 22:09:58 $ 
  */
 
 
@@ -27,7 +27,6 @@ import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.osgi.service.resolver.BundleSpecification;
-import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.*;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -401,9 +400,9 @@ public class ProxyPlugin extends Plugin {
 					}
 					ib.remove();
 					// decrement the dependent count for all of the prerequisites.
-					List requires = getPrereqs(bundle, prereqsMap);
-					for (int j = 0; j < requires.size(); j++) {
-						Bundle prereq = (Bundle) requires.get(j);
+					Bundle[] requires = getPrereqs(bundle, prereqsMap);
+					for (int j = 0; j < requires.length; j++) {
+						Bundle prereq = requires[j];
 						int[] countPrereq = (int[]) dependents.get(prereq);
 						if (countPrereq != null)
 							--countPrereq[0];
@@ -431,9 +430,9 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	private static void getAllPrereqs(Bundle bundle, List prereqs, Map prereqsMap) {
-		List prs = getPrereqs(bundle, prereqsMap);
-		for (int i = 0; i < prs.size(); i++) {
-			Bundle pre = (Bundle) prs.get(i);
+		Bundle[] prs = getPrereqs(bundle, prereqsMap);
+		for (int i = 0; i < prs.length; i++) {
+			Bundle pre = prs[i];
 			if (prereqsMap.containsKey(pre))
 				continue;	// Already processed this one once.
 			prereqs.add(pre);	// Add to the list of pre-reqs accumulated so far.
@@ -441,8 +440,8 @@ public class ProxyPlugin extends Plugin {
 		}
 	}
 	
-	private static List getPrereqs(Bundle bundle, Map prereqsMap) {
-		List prereqs = (List) prereqsMap.get(bundle);
+	private static Bundle[] getPrereqs(Bundle bundle, Map prereqsMap) {
+		Bundle[] prereqs = (Bundle[]) prereqsMap.get(bundle);
 		if (prereqs == null) {
 			prereqs = getPrereqs(bundle);
 			prereqsMap.put(bundle, prereqs);
@@ -450,13 +449,13 @@ public class ProxyPlugin extends Plugin {
 		return prereqs;
 	}
 	
-	public static List getPrereqs(Bundle bundle) {
-		List l = (List) pluginRequiredMap.get(bundle.getSymbolicName());
+	public static Bundle[] getPrereqs(Bundle bundle) {
+		Bundle[] l = (Bundle[]) pluginRequiredMap.get(bundle.getSymbolicName());
 		if (l == null) {
 			BundleSpecification specs[] = Platform.getPlatformAdmin().getState(false).getBundle(bundle.getBundleId()).getRequiredBundles();
-			l = new ArrayList(specs.length);
+			l = new Bundle[specs.length];
 			for (int i = 0; i < specs.length; i++) {
-				l.add(Platform.getBundle(specs[i].getName()));
+				l[i] = Platform.getBundle(specs[i].getName());
 			}
 			pluginRequiredMap.put(bundle.getSymbolicName(), l);
 		}
@@ -493,9 +492,9 @@ public class ProxyPlugin extends Plugin {
 				Bundle bundle = (Bundle) processNow.get(i);
 				if (activeOnly && bundle.getState() != Bundle.ACTIVE)
 					continue;			
-				List requires = getPrereqs(bundle, prereqsMap);
-				for (int j = 0; j < requires.size(); j++) {
-					Bundle prereq = (Bundle) requires.get(j);
+				Bundle[] requires = getPrereqs(bundle, prereqsMap);
+				for (int j = 0; j < requires.length; j++) {
+					Bundle prereq = requires[j];
 					if (prereq == null || activeOnly
 							&& bundle.getState() != Bundle.ACTIVE)
 						continue;

@@ -11,12 +11,12 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: EnumerationBeanProxyWrapper.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/08 11:26:36 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/08 22:10:11 $ 
  */
 
 
-import java.text.MessageFormat;
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 /**
  * This is a wrapper for an java.util.Enumeration proxy.
  * It provides the Enumeration methods to interface to
