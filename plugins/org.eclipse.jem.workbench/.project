@@ -3,8 +3,6 @@
 	<name>org.eclipse.jem.workbench</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.wtp.common.util</project>
-		<project>com.ibm.wtp.emf.workbench</project>
 		<project>org.eclipse.core.resources</project>
 		<project>org.eclipse.core.runtime.compatibility</project>
 		<project>org.eclipse.emf.ecore.xmi</project>

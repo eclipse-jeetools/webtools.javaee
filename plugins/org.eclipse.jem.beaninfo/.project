@@ -4,8 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>com.ibm.etools.emf.event</project>
-		<project>com.ibm.wtp.common.util</project>
-		<project>com.ibm.wtp.emf.workbench</project>
 		<project>org.apache.xerces</project>
 		<project>org.eclipse.compare</project>
 		<project>org.eclipse.core.resources</project>
