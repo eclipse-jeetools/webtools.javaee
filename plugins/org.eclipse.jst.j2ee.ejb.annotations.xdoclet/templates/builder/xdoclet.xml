@@ -32,6 +32,7 @@
    	  <!-- Set up java.class.path -->
       <path id="project.class.path">
         <pathelement location="${ejb.project.dir}/${ejb.bin.dir}" />
+        <pathelement path="${ejb.project.classpath}" />
 
 
      	<fileset dir="${ant.home}">
