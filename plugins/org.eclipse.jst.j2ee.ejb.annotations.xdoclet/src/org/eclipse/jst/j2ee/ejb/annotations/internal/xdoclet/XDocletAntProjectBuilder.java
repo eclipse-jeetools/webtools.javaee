@@ -177,11 +177,9 @@ public class XDocletAntProjectBuilder {
 				return;
 			for (int i = 0; i < elements.length; i++) {
 				IJavaElement element = elements[i];
-				if (element.getElementType() == IJavaElement.COMPILATION_UNIT) {
-					String contents = ((ICompilationUnit) element).getSource();
-					// System.out.println(contents);
-					if (contents.indexOf(XDOCLET_EJB_BEAN_TAG) >= 0)
-						list.add(element);
+
+				if (XDoxletAnnotationUtil.isXDocletAnnotatedResource(element)){
+					list.add(element);
 				} else if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
 					getAllAnnotatedEjbs((IPackageFragment) element, list);
 				}

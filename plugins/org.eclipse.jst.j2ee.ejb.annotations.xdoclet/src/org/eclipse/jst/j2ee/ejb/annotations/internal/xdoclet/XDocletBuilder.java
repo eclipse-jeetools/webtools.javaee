@@ -34,8 +34,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentDescription;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Logger;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletPreferenceStore;
 
@@ -45,7 +43,6 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements
 
 	private static final String JAVASOURCE_TYPE = "org.eclipse.jdt.core.javaSource";
 
-	private static final String XDOCLET_EJB_BEAN_TAG = "@ejb.bean";
 
 	private static final boolean performValidateEdit = false;
 
@@ -320,10 +317,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements
 				d = ((IFile) resource).getContentDescription();
 				if (d != null
 						&& JAVASOURCE_TYPE.equals(d.getContentType().getId())) {
-					String contents = JavaCore.createCompilationUnitFrom(
-							(IFile) resource).getSource();
-					// System.out.println(contents);
-					return contents.indexOf(XDOCLET_EJB_BEAN_TAG) >= 0;
+					return XDoxletAnnotationUtil.isXDocletAnnotatedResource(resource);
 				}
 			} catch (CoreException e) {
 				// should not be possible given the accessible and file type
@@ -335,14 +329,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements
 				for (int i = 0; i < types.length; i++) {
 					IContentType type = types[i];
 					if (JAVASOURCE_TYPE.equals(type.getId())) {
-						String contents = "";
-						try {
-							contents = JavaCore.createCompilationUnitFrom(
-									(IFile) resource).getSource();
-						} catch (JavaModelException e1) {
-							Logger.logException(e1);
-						}
-						return contents.indexOf(XDOCLET_EJB_BEAN_TAG) >= 0;
+						return XDoxletAnnotationUtil.isXDocletAnnotatedResource(resource);
 					}
 				}
 			}
