@@ -229,7 +229,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addApplicationIfNecessary(XMLResource aResource, Integer version) {
+	protected void addApplicationIfNecessary(XMLResource aResource) {
 	    if (aResource != null) {
 		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
 		        Application newApp = ApplicationFactory.eINSTANCE.createApplication();
@@ -239,8 +239,6 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				application.setDisplayName(ModuleCore.getDeployedName(moduleURI));
-				if(version != null)
-				    application.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(application, J2EEConstants.APPL_ID);
@@ -273,13 +271,15 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
 	public EObject createModelRoot() {
-	    return createModelRoot(null);
+	    return createModelRoot(getJ2EEVersion());
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
 	 */
-	public EObject createModelRoot(Integer version) {
-	    addApplicationIfNecessary((ApplicationResource)getDeploymentDescriptorResource(), version);
+	public EObject createModelRoot(int version) {
+	    ApplicationResource res = (ApplicationResource)getDeploymentDescriptorResource();
+		res.setModuleVersionID(version);
+		addApplicationIfNecessary(res);
 		return ((ApplicationResource)getDeploymentDescriptorResource()).getRootObject();
 	}
 	/**

@@ -20,11 +20,6 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
-	
-	public EObject createModelRoot(int version) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	/**
 	 * <p>
 	 * Identifier used to link ConnectorArtifactEdit to a ConnectorEditAdapterFactory {@see
@@ -107,7 +102,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addConnectorIfNecessary(getConnectorXmiResource(), null);
+		addConnectorIfNecessary(getConnectorXmiResource());
 		return (EObject) contents.get(0);
 	}
 	
@@ -125,7 +120,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addConnectorIfNecessary(XMLResource aResource, Integer version) {
+	protected void addConnectorIfNecessary(XMLResource aResource) {
 
 		if (aResource != null && aResource.getContents().isEmpty()) {
 			Connector connector = JcaFactory.eINSTANCE.createConnector();
@@ -133,8 +128,6 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				connector.setDisplayName(ModuleCore.getDeployedName(moduleURI));
-				if(version != null)
-				    connector.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(connector, J2EEConstants.CONNECTOR_ID);
@@ -248,15 +241,15 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public EObject createModelRoot() {
-	    return createModelRoot(null);
+	    return createModelRoot(getJ2EEVersion());
 	}
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
      */
-    public EObject createModelRoot(Integer version) {
-	    addConnectorIfNecessary((ConnectorResource)getDeploymentDescriptorResource(), version);
+    public EObject createModelRoot(int version) {
+        ConnectorResource res = (ConnectorResource)getDeploymentDescriptorResource();
+		res.setModuleVersionID(version);
+	    addConnectorIfNecessary(res);
 		return ((ConnectorResource)getDeploymentDescriptorResource()).getRootObject();
     }
-
-
 }

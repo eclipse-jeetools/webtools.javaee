@@ -62,7 +62,8 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
         
        	try{
        	    artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbmodule);
-       	 	artifactEdit.createModelRoot((Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION));
+       	    Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+       	 	artifactEdit.createModelRoot(version.intValue());
        	 	artifactEdit.save(monitor);
             
         	AppClientComponentCreationDataModel dataModel = (AppClientComponentCreationDataModel) operationDataModel;

@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
@@ -60,7 +61,8 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
             moduleCore = ModuleCore.getModuleCoreForWrite(getProject());
             WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
             earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
-            earEdit.createModelRoot((Integer)operationDataModel.getProperty(EARComponentCreationDataModel.J2EE_VERSION));
+            Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+       	 	earEdit.createModelRoot(version.intValue());
             earEdit.save(monitor);
         } finally {
             if (null != moduleCore) {

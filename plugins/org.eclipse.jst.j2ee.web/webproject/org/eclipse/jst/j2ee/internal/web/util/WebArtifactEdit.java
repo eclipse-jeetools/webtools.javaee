@@ -13,12 +13,10 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -206,7 +204,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource(), null);
+		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
 		return (EObject) contents.get(0);
 	}
 
@@ -250,7 +248,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addWebAppIfNecessary(XMLResource aResource, Integer version) {
+	protected void addWebAppIfNecessary(XMLResource aResource) {
 		if (aResource != null) {
 		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
 		        WebApp webAppNew = WebapplicationFactory.eINSTANCE.createWebApp();
@@ -261,8 +259,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				webApp.setDisplayName(ModuleCore.getDeployedName(moduleURI));
-				if(version != null)
-				    webApp.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 				//Ignore
 			}
@@ -342,7 +338,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot() {
-	    return createModelRoot(null);
+	    return createModelRoot(getJ2EEVersion());
 	}
 	/**
 	 * This method will retrieve the web app resource, create it if necessary, add get the root object, set version
@@ -354,10 +350,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @return the eObject instance of the model root
 	 */
-	public EObject createModelRoot(Integer version) {
-		WebAppResource resource = (WebAppResource)getDeploymentDescriptorResource();
-	    addWebAppIfNecessary(resource, version);
-		return resource.getRootObject();
+	public EObject createModelRoot(int version) {
+		WebAppResource res = (WebAppResource)getDeploymentDescriptorResource();
+		res.setModuleVersionID(version);
+	    addWebAppIfNecessary(res);
+		return res.getRootObject();
 	}
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib

@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.jca.internal.module.util.ConnectorArtifactEdit;
@@ -65,7 +66,8 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
 
         try {
             artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbmodule);
-            artifactEdit.createModelRoot((Integer) operationDataModel.getProperty(ConnectorComponentCreationDataModel.COMPONENT_VERSION));
+            Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+       	 	artifactEdit.createModelRoot(version.intValue());
             artifactEdit.save(monitor);
         } catch (Exception e) {
             Logger.getLogger().logError(e);

@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
@@ -86,7 +87,8 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
         WebArtifactEdit webEdit = null;
        	try{
        		webEdit = WebArtifactEdit.getWebArtifactEditForWrite(wbmodule);
-       		webEdit.createModelRoot((Integer)operationDataModel.getProperty(WebComponentCreationDataModel.JSP_VERSION));
+       		Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+       		webEdit.createModelRoot(version.intValue());
        		webEdit.save(monitor);
        	}
        	catch(Exception e){
