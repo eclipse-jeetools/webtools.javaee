@@ -125,7 +125,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 
 	protected static boolean validateArgs(String[] args) {
 		if (!(args.length == 2)) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(CommonArchiveResourceHandler.getString("RepairArchiveCommand_usage")); //$NON-NLS-1$ = "RepairArchiveCommand usage:  <sourceJarFilePath> <destinationPath>"
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(CommonArchiveResourceHandler.getString("RepairArchiveCommand_usage")); //$NON-NLS-1$ = "RepairArchiveCommand usage:  <sourceJarFilePath> <destinationPath>"
 			return false;
 		}
 		java.io.File file = new java.io.File(args[0]);

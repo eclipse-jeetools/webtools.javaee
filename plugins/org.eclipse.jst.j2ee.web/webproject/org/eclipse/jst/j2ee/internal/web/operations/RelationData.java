@@ -245,7 +245,7 @@ public class RelationData {
 						Link lnk = (Link) in_links.elementAt(i);
 						St.append("\tValue=" + lnk.getURL() + "[" + lnk.getOccurrences() + "]");//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
 					}
-					com.ibm.wtp.common.logger.proxy.Logger.getLogger().logInfo(St.toString());
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logInfo(St.toString());
 				}
 			}
 		}
@@ -270,7 +270,7 @@ public class RelationData {
 						Link lnk = (Link) in_links.elementAt(i);
 						St.append("\tValue=" + lnk.getURL() + "[" + lnk.getOccurrences() + "]");//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
 					}
-					com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(St.toString());
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(St.toString());
 				}
 			}
 		}
@@ -836,15 +836,15 @@ public class RelationData {
 					//		
 					//				}
 				} catch (FileNotFoundException fe) {
-					com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(fe);
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(fe);
 				} catch (IOException ie) {
-					com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ie);
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ie);
 				} finally {
 					if (reader != null) {
 						try {
 							reader.close();
 						} catch (IOException ie2) {
-							com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ie2);
+							org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ie2);
 						}
 					}
 				}
@@ -976,7 +976,7 @@ public class RelationData {
 				out.flush();
 				out.close();
 			} catch (IOException e) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ProjectSupportResourceHandler.getString("Error_while_saving_links_s_EXC_")); //$NON-NLS-1$ = "Error while saving links state file"
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ProjectSupportResourceHandler.getString("Error_while_saving_links_s_EXC_")); //$NON-NLS-1$ = "Error while saving links state file"
 			}
 		}
 	}

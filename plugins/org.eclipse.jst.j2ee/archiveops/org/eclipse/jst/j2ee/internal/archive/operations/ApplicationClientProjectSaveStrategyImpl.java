@@ -18,8 +18,8 @@ import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRu
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * Insert the type's description here. Creation date: (4/4/2001 11:14:29 AM)

@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.frameworks.internal.ui.OverlayIcon;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public abstract class J2EEJavaClassProviderHelper implements IAdaptable {
 	private EnterpriseBean ejb;

@@ -19,8 +19,8 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public abstract class UtilityJARInEARProjectCommand extends AbstractCommand {
 	protected EAREditModel editModel;

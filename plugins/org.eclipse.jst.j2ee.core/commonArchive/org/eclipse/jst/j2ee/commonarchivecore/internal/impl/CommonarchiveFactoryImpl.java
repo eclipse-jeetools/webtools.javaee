@@ -65,7 +65,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.TempZipFileLoadS
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.War22ImportStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

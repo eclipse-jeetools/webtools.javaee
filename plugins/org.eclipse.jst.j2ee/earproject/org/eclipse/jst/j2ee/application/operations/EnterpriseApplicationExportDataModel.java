@@ -15,7 +15,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used to export Enterprise Applications to EAR files.

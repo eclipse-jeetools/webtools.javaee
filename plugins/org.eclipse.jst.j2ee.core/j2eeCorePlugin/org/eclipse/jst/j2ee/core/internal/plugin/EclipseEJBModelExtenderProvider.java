@@ -22,13 +22,12 @@ import java.util.TreeSet;
 import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.jem.util.RegistryReader;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderProvider;
 import org.eclispe.wst.common.frameworks.internal.enablement.Identifiable;
 import org.eclispe.wst.common.frameworks.internal.enablement.IdentifiableComparator;
-
-import com.ibm.wtp.common.RegistryReader;
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * To change the template for this generated type comment go to

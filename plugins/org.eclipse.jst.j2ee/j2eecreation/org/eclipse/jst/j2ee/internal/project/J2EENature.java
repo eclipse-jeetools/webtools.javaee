@@ -32,12 +32,12 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelNature;
 import org.eclipse.wst.server.core.IModule;
 
-import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;
-import com.ibm.wtp.emf.workbench.ISynchronizerExtender;
-import com.ibm.wtp.emf.workbench.ProjectResourceSet;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.ResourceSetWorkbenchSynchronizer;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.EMFWorkbenchContextBase;
+import org.eclipse.jem.util.emf.workbench.ISynchronizerExtender;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 
 /**
  * @deprecated

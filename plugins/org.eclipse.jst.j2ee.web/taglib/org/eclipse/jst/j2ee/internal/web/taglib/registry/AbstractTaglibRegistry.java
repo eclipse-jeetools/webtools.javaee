@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.web.taglib.ITaglibLocator;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryListener;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

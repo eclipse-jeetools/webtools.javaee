@@ -85,7 +85,7 @@ public class RollupRolesCommand extends AbstractCommand {
 			EARFile earFile = EARNatureRuntime.getRuntime(getEarProject()).asEARFile(true, false);
 			earFile.rollUpRoles();
 		} catch (OpenFailureException e) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
 		}
 	}
 

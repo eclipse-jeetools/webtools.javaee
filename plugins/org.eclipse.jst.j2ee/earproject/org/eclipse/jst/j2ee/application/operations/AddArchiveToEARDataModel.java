@@ -29,7 +29,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @author DABERG

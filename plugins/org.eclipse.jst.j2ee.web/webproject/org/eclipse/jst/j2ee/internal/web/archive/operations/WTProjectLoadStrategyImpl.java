@@ -22,6 +22,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
@@ -35,10 +38,6 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
 
 public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl {
 	private final static String SOURCE_DIR = "source"; //$NON-NLS-1$
@@ -78,7 +77,7 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 				filesList.add(utilJAR);
 			} catch (OpenFailureException oe) {
 				String message = ProjectSupportResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logTrace(message);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
 			}
 		}
 	}
@@ -101,7 +100,7 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 				webAppFiles.add(getProject().getFile(CLASSPATH_FILE_URI));
 				webAppFiles.add(getProject().getFile(WEBSETTINGS_FILE_URI));
 			}
-			IContainer outputContainer = ProjectUtilities.getJavaProjectOutputContainer(getProject());
+			IContainer outputContainer = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
 			webAppFiles.addAll(Arrays.asList(outputContainer.members()));
 
 			// if the user has chosen not to export compiled JSP files, then we need to make sure
@@ -430,7 +429,7 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 		}
 
 		// If this is in an output folder, stick it in 'WEB-INF/classes
-		IPath outputPath = ProjectUtilities.getJavaProjectOutputContainer(getProject()).getProjectRelativePath();
+		IPath outputPath = JavaProjectUtilities.getJavaProjectOutputContainer(getProject()).getProjectRelativePath();
 		if (aPath.segmentCount() > outputPath.segmentCount() && aPath.removeLastSegments(aPath.segmentCount() - outputPath.segmentCount()).equals(outputPath)) {
 			IPath retPath = new Path(J2EEConstants.WEB_INF);
 			retPath = retPath.append(CLASSES_DIR);

@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 //import org.eclipse.emf.ecore.resource.ResourceSet;
 //import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-//import com.ibm.etools.emf.workbench.plugin.EMFWorkbenchPlugin;
+//import com.ibm.etools.emf.workbench.plugin.JEMUtilPlugin;
 
 //import org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WsddResource;
 //import org.eclipse.jst.j2ee.internal.internal.webservice.wsdd.WebServices;

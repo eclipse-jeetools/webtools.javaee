@@ -55,8 +55,8 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDeleteUIConstants {
 

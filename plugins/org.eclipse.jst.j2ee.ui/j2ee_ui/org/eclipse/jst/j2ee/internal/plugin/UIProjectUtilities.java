@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.ItemProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author mdelder

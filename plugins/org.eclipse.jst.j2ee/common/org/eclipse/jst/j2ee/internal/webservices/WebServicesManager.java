@@ -67,10 +67,10 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectResourceSet;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 
 /**
  * @author jlanuti

@@ -62,7 +62,7 @@ import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.xml.sax.InputSource;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used for to import Enterprise Applications(from EAR files) into the workspace.

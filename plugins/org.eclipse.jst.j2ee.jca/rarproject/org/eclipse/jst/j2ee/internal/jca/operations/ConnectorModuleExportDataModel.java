@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorModuleExpor
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used to export Connector Modules to Connector RAR files.

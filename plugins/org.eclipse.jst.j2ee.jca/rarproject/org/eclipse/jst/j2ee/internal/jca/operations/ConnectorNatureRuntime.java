@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.XMLResource;
@@ -31,8 +32,6 @@ import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @deprecated
@@ -278,7 +277,7 @@ public class ConnectorNatureRuntime extends J2EEModuleNature {
 	 * @return IContainer
 	 */
 	public IContainer getModuleServerRoot() {
-		return ProjectUtilities.getJavaProjectOutputContainer(project);
+		return JavaProjectUtilities.getJavaProjectOutputContainer(project);
 	}// getModuleServerRoot
 
 	/**

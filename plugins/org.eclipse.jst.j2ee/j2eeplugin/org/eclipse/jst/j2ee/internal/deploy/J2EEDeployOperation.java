@@ -36,8 +36,8 @@ import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author cbridgha

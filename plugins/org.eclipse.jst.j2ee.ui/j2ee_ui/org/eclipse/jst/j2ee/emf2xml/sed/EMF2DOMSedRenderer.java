@@ -34,8 +34,8 @@ import org.eclipse.wst.xml.core.document.XMLNode;
 import org.eclipse.wst.xml.core.internal.document.DocumentTypeImpl;
 import org.w3c.dom.Node;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 
 public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateListener, IModelLifecycleListener {
 
@@ -333,7 +333,7 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 				file.create(is, true, null);
 				file.setLocal(true, 1, null);
 			} catch (CoreException e1) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e1);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e1);
 			} finally {
 				if (null != is) {
 					is.close();
@@ -341,8 +341,8 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 			}
 			initializeXMLModel(file, true);
 		} catch (java.io.IOException ex) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(UIResourceHandler.getString("Unexpected_IO_exception_occurred_creating_xml_document_1_EXC_"));//$NON-NLS-1$
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(UIResourceHandler.getString("Unexpected_IO_exception_occurred_creating_xml_document_1_EXC_"));//$NON-NLS-1$
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 		}
 	}
 
@@ -362,7 +362,7 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 				setXMLModel((XMLModel) getModelManager().getModelForRead(file));
 			needsToCreateDOM = false;
 		} catch (CoreException e) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
 			return null;
 		}
 		syncReferenceCounts(id, forWrite);
@@ -446,7 +446,7 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.internal.emf.xml.EMF2DOMRenderer#replaceDocumentType(java.lang.String,
+	 * @see org.eclipse.jem.internal.util.emf.xml.EMF2DOMRenderer#replaceDocumentType(java.lang.String,
 	 *      java.lang.String, java.lang.String)
 	 */
 	public void replaceDocumentType(String docTypeName, String publicId, String systemId) {

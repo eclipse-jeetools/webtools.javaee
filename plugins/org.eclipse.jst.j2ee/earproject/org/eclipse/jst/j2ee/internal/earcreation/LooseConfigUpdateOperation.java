@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaModel;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseApplication;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseConfiguration;
@@ -37,8 +38,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class LooseConfigUpdateOperation extends WTPOperation implements ILooseConfigConstants {
 
@@ -180,7 +179,7 @@ public class LooseConfigUpdateOperation extends WTPOperation implements ILooseCo
 	}
 
 	protected JavaModel getJavaModel() {
-		return ProjectUtilities.getJavaModel();
+		return JavaProjectUtilities.getJavaModel();
 	}
 
 	protected IJavaProject getJavaProject(IProject p) {

@@ -25,8 +25,8 @@ import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
 
-import com.ibm.wtp.common.logger.LogEntry;
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here.

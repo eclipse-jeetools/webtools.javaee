@@ -31,7 +31,7 @@
       <import plugin="org.eclipse.jst.server.core"/>
       <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="com.ibm.wtp.emf.workbench"/>
+      <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
       <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
@@ -101,7 +101,7 @@
    </extension> -->
    <!-- Register the nature id with the EMFNature -->
    <extension
-         point="com.ibm.wtp.emf.workbench.nature_registration">
+         point="org.eclipse.jem.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.ModuleCore">
       </nature>
@@ -127,7 +127,7 @@
    </extension> -->
 <!-- Register the nature id with the EMFNature -->
    <!-- <extension
-         point="com.ibm.wtp.emf.workbench.nature_registration">
+         point="org.eclipse.jem.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.ApplicationClientNature">
       </nature>
@@ -162,7 +162,7 @@
    </extension>
 <!-- Register the nature id with the EMFNature -->
    <!-- <extension
-         point="com.ibm.wtp.emf.workbench.nature_registration">
+         point="org.eclipse.jem.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.EARNature">
       </nature>

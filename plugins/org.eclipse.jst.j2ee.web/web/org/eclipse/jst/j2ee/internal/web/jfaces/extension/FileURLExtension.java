@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.web.jfaces.extension;
 import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @author vijayb

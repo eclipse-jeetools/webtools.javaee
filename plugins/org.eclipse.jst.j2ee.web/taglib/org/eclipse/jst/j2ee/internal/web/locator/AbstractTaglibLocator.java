@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibLocator;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

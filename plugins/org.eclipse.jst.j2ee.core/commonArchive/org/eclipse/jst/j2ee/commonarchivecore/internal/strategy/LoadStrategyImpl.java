@@ -55,7 +55,7 @@ import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryDomRegistry;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Abstact implementer off which and load strategy may subclass

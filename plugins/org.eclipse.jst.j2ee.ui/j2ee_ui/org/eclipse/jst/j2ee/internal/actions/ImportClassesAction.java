@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author jsholl

@@ -50,8 +50,8 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.nature.EMFNature;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 
 /**
  * @author mdelder

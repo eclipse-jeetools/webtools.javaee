@@ -43,7 +43,7 @@ import org.eclipse.jst.j2ee.ejb.MultiplicityKind;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.wst.common.internal.emf.utilities.IDUtil;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 /**
  * The ejb-relationship-role element describes a role within a relationship.
  * There are two roles in each relationship. The ejb-relationship-role element contains an optional description; an optional name for the relationship role; a specification of the multiplicity of the role; an optional specification of cascade-delete functionality for the role; the role source; and a declaration of the cmr-field, if any, by means of which the other side of the relationship is accessed from the perspective of the role source. The multiplicity and relationship-role-source element are mandatory. The relationship-role-source element designates an entity-bean by means of an ejb-name element. For bidirectional relationships, both roles of a relationship must declare a relationship-role-source element that specifies a cmr-field in terms of which the relationship is accessed. The lack of a cmr-field element in an ejb-relationship-role specifies that the relationship is unidirectional in navigability and that entity bean that participates in the relationship is "not aware" of the relationship.

@@ -16,9 +16,8 @@ import java.io.IOException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 
 
 
@@ -42,7 +41,7 @@ public class ManifestFileCreationAction {
 
 	public static void createManifestFile(IFile file, IProject aJ2EEProject) throws CoreException, IOException {
 		try {
-			if (!ProjectUtilities.isBinaryProject(aJ2EEProject)) {
+			if (!JavaProjectUtilities.isBinaryProject(aJ2EEProject)) {
 				WorkbenchByteArrayOutputStream out = new WorkbenchByteArrayOutputStream(file);
 				out.write(MANIFEST_HEADER.getBytes());
 				out.close();

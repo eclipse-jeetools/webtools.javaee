@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This class, AddServlet Operation is a WTPOperation following the WTP wizard data model and

@@ -40,6 +40,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -47,9 +50,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author mdelder
@@ -216,7 +216,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 			}
 			createLinkedArchive(project, jarFile.getName(), jarFile, monitor);
 
-			ProjectUtilities.forceClasspathReload(project);
+			JavaProjectUtilities.forceClasspathReload(project);
 		} catch (Exception e) {
 			Logger.getLogger().logError(e);
 			throw new CoreException(new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.getString("J2EEUtilityJarListImportOperation_UI_2"), e)); //$NON-NLS-1$
@@ -243,7 +243,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 						null, // custom output location
 						false);
 
-			ProjectUtilities.appendJavaClassPath(project, entry);
+			JavaProjectUtilities.appendJavaClassPath(project, entry);
 		}
 	}
 
@@ -286,7 +286,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 							null, // custom output location
 							false);
 
-				ProjectUtilities.appendJavaClassPath(project, entry);
+				JavaProjectUtilities.appendJavaClassPath(project, entry);
 			}
 		} finally {
 			if (bos != null)

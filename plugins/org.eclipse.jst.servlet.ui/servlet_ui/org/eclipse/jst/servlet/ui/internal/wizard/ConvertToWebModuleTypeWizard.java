@@ -40,7 +40,7 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	private static final String PAGE_ONE = "page1"; //$NON-NLS-1$
 
@@ -52,7 +52,7 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createBaseOperation() {
 		// TODO Auto-generated method stub
@@ -91,7 +91,7 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#prePerformFinish()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#prePerformFinish()
 	 */
 	protected boolean prePerformFinish() {
 		IProjectDescription desc;

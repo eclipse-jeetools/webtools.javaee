@@ -24,6 +24,8 @@ import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.jem.util.RegistryReader;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.registry.AnnotationsControllerResources;
 import org.eclispe.wst.common.frameworks.internal.enablement.EnablementIdentifier;
 import org.eclispe.wst.common.frameworks.internal.enablement.EnablementIdentifierEvent;
@@ -32,9 +34,6 @@ import org.eclispe.wst.common.frameworks.internal.enablement.IEnablementIdentifi
 import org.eclispe.wst.common.frameworks.internal.enablement.IEnablementIdentifierListener;
 import org.eclispe.wst.common.frameworks.internal.enablement.Identifiable;
 import org.eclispe.wst.common.frameworks.internal.enablement.IdentifiableComparator;
-
-import com.ibm.wtp.common.RegistryReader;
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 
 /**

@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Core EJB Validation rules

@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
@@ -35,8 +36,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @deprecated
@@ -159,7 +158,7 @@ public class ApplicationClientNatureRuntime extends J2EEModuleNature implements 
 	 * @see IJ2EENature
 	 */
 	public IContainer getModuleServerRoot() {
-		return ProjectUtilities.getJavaProjectOutputContainer(project);
+		return JavaProjectUtilities.getJavaProjectOutputContainer(project);
 	}
 
 	/**

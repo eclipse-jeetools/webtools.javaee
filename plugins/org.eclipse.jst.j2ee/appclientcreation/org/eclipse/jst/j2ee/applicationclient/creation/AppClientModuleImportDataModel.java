@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleImportOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used for to import Application Client Modules (from Application Client jar

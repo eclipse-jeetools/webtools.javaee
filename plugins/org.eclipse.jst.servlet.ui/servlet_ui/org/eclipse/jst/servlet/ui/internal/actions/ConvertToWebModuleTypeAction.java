@@ -25,7 +25,7 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction
 {

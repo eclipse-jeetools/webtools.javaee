@@ -40,7 +40,7 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * The NewServletClassOperation is a WTPOperation following the WTP wizard data model and

@@ -22,8 +22,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.wst.validation.plugin.ValidationPlugin;
 
-import com.ibm.wtp.common.logger.LogEntry;
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This singleton keeps an internal record of project dependencies. That is, every IProject can

@@ -432,7 +432,7 @@ public class ArchiveUtil {
 	}
 
 	public static void inform(String message) {
-		com.ibm.wtp.common.logger.proxy.Logger.getLogger().logInfo(message);
+		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logInfo(message);
 	}
 
 	/**

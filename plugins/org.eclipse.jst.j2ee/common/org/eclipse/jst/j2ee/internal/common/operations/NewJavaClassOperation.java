@@ -32,12 +32,11 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * NewJavaClassOperation is a WTP operation that is used to create a default instance of a new java class
@@ -426,7 +425,7 @@ public class NewJavaClassOperation extends WTPOperation {
 		StringBuffer sb = new StringBuffer();
 		NewJavaClassDataModel model = (NewJavaClassDataModel) operationDataModel;
 		IProject project = model.getTargetProject();
-		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);
+		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
 		if (model.getBooleanProperty(NewJavaClassDataModel.MAIN_METHOD)) {
 			// Add main method
 			sb.append(MAIN_METHOD);

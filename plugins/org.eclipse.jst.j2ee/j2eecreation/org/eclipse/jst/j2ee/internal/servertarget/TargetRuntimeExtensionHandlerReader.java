@@ -26,7 +26,7 @@ import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
-import com.ibm.wtp.common.RegistryReader;
+import org.eclipse.jem.util.RegistryReader;
 
 /**
  * @author vijayb

@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.core.internal.plugin;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxyrender.DefaultPluginTraceRenderer;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.osgi.framework.BundleContext;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.logger.proxyrender.DefaultPluginTraceRenderer;
 
 /*
  * Created on Nov 25, 2003

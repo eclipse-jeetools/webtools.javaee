@@ -52,7 +52,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{NewServletClassDataModel.DISPLAY_NAME, NewServletClassDataModel.INIT_PARAM, NewServletClassDataModel.URL_MAPPINGS};

@@ -12,31 +12,20 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class AppClientComponentCreationOperation extends J2EEComponentCreationOperation {
 
@@ -52,7 +41,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
             artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbModule);
             IProject rootProject = getDataModel().getTargetProject();
             URI metainfURI = URI.createURI(rootProject.getName() + IPath.SEPARATOR + getModuleName() + ".jar");
-            IPath absMetaRoot = ProjectUtilities.getJavaProjectOutputAbsoluteLocation(rootProject).append(metainfURI.toString());
+            IPath absMetaRoot = JavaProjectUtilities.getJavaProjectOutputAbsoluteLocation(rootProject).append(metainfURI.toString());
             createFolder(absMetaRoot);
 
             artifactEdit.getDeploymentDescriptorRoot();

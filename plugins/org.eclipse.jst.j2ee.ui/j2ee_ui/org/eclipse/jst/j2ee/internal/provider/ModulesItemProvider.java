@@ -16,7 +16,7 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class ModulesItemProvider extends J2EEItemProvider {
 	public static final String MODULES = J2EEUIMessages.getResourceString("Modules_UI_"); //$NON-NLS-1$

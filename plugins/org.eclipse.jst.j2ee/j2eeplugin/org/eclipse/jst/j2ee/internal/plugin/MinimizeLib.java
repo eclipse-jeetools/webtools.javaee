@@ -32,9 +32,8 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * Minimize the number of loose class files from an unzipped class library by removing ones
@@ -90,7 +89,7 @@ public class MinimizeLib {
 			}
 			return;
 		}
-		List sourceFolders = ProjectUtilities.getSourceContainers(project.getProject());
+		List sourceFolders = JavaProjectUtilities.getSourceContainers(project.getProject());
 		for (Iterator iter = sourceFolders.iterator(); iter.hasNext();) {
 			IFolder srcFolder = (IFolder) iter.next();
 			// use Java model to rip through sources to get list of type names

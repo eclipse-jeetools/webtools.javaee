@@ -38,8 +38,8 @@ import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 
 public class ConnectorModuleCreationOperationOld extends J2EEModuleCreationOperationOld {
 	public ConnectorModuleCreationOperationOld(ConnectorModuleCreationDataModelOld dataModel) {

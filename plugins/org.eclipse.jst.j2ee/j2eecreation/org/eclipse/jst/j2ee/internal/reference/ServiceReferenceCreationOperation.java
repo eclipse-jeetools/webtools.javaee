@@ -60,7 +60,7 @@ public class ServiceReferenceCreationOperation extends ModelModifierOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.emf.workbench.operation.ModelModifierOperation#addHelpers()
+	 * @see org.eclipse.jem.util.emf.workbench.operation.ModelModifierOperation#addHelpers()
 	 */
 	protected void addHelpers() {
 		WebServiceClientGenerator actualGen = getWebServiceClientGenerator();

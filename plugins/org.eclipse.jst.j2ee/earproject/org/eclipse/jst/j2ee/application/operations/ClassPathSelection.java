@@ -34,7 +34,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.ModuleMapHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 public class ClassPathSelection {

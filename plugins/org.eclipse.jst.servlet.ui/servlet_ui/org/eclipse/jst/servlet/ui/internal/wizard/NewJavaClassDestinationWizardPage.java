@@ -24,6 +24,7 @@ import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -52,8 +53,6 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author jialin
@@ -84,7 +83,7 @@ public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{NewJavaClassDataModel.SOURCE_FOLDER, NewJavaClassDataModel.JAVA_PACKAGE, NewJavaClassDataModel.CLASS_NAME, NewJavaClassDataModel.SUPERCLASS};
@@ -93,7 +92,7 @@ public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -318,7 +317,7 @@ public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 				} else if (element instanceof IFolder) {
 					IFolder folder = (IFolder) element;
 					// only show source folders
-					if (ProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
+					if (JavaProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
 						ret = true;
 					}
 				}

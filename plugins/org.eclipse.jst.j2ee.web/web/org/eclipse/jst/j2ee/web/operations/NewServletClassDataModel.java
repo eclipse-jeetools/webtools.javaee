@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -29,8 +30,6 @@ import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * The NewServletClassData model is a subclass of WTPOperationDataModel and follows the WTP Operation and WTP Wizard frameworks.
@@ -551,7 +550,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		if (project == null)
 			return null;
 
-		IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
+		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
 		if (javaProject != null) {
 			// Ensure source folder exists
 			IFolder sourcefolder = getJavaSourceFolder();

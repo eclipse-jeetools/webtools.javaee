@@ -19,7 +19,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 /**
  * Insert the type's description here.
  * Creation date: (4/11/2001 11:58:50 AM)
@@ -242,7 +242,7 @@ public class GeneralXmlDocumentReader
     
     protected void primHandleException(String aMessage, Throwable anException) 
     {
-        com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(anException);
+        org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(anException);
         throw new RuntimeException(aMessage);
 
     }

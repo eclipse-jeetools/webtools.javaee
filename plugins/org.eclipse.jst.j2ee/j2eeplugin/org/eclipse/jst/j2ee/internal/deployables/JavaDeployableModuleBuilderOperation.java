@@ -25,15 +25,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilder;
 import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderDataModel;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author jialin
@@ -58,8 +57,8 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		
 		IProject project = (IProject)dataModel.getProperty(DeployableModuleBuilderDataModel.PROJECT);
 		IPath projectPath = project.getFullPath();
-		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);
-		List javaSourceFolderList = ProjectUtilities.getSourceContainers(project);
+		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
+		List javaSourceFolderList = JavaProjectUtilities.getSourceContainers(project);
 		
 		// create output container folder if it does not exist
 		IFolder outputContainer = (IFolder)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);

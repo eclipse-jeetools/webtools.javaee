@@ -11,7 +11,7 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 //import org.eclipse.jst.j2ee.internal.project.J2EESettings;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public interface IJ2EEImportExportConstants {
 

@@ -44,6 +44,8 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.JavaModel;
+import org.eclipse.jem.util.UIContextDetermination;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
@@ -64,9 +66,6 @@ import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.plugin.ValidationPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-
-import com.ibm.wtp.common.UIContextDetermination;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * This is a top-level class of the j2ee plugin.
@@ -268,7 +267,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			try {
 				return new URL( bundle.getEntry("/"), path.toString());
 			} catch (MalformedURLException exception) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Load_Image_Error_", new Object[]{key})); //$NON-NLS-1$
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Load_Image_Error_", new Object[]{key})); //$NON-NLS-1$
 				exception.printStackTrace();
 				continue;
 			}
@@ -290,7 +289,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 				String installLocation = ((PlatformURLConnection) url.openConnection()).getURLAsLocal().getFile();
 				location = new Path(installLocation);
 			} catch (IOException e) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
 			}
 		}
 		return location;
@@ -301,12 +300,12 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	protected static JavaModel getJavaModel() {
-		return ProjectUtilities.getJavaModel();
+		return JavaProjectUtilities.getJavaModel();
 	}
 
 	protected static JavaModel getJavaModel(IProject aProject) {
 		if (aProject != null)
-			return ProjectUtilities.getJavaModel();
+			return JavaProjectUtilities.getJavaModel();
 		return null;
 	}
 

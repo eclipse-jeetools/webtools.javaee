@@ -22,13 +22,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
@@ -61,7 +61,7 @@ public class JARDependencyOperation extends WTPOperation {
 	}
 
 	protected UpdateJavaBuildPathOperation createBuildPathOperation(ClasspathModel model) {
-		IJavaProject javaProject = J2EEProjectUtilities.getJavaProject(model.getProject());
+		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(model.getProject());
 		return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
 	}
 

@@ -58,7 +58,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.ui.part.PageBook;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here.

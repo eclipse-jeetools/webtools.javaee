@@ -20,7 +20,7 @@ import java.util.logging.Level;
 
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * To change the template for this generated type comment go to

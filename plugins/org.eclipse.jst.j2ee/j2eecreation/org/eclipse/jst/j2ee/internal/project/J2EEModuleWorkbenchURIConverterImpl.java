@@ -33,6 +33,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -42,10 +46,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.AppClient12Impor
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.EjbJar11ImportStrategyImpl;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResouceFactorySaxRegistry;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
-
-import com.ibm.wtp.emf.workbench.ProjectResourceSet;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.ResourceSetWorkbenchSynchronizer;
 
 /**
  * @author jlanuti
@@ -152,7 +152,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 		IPath newLoc = null;
 		boolean changed = false;
 		IResource resource = null;
-		if (ProjectUtilities.isBinaryProject(nature.getProject())) {
+		if (JavaProjectUtilities.isBinaryProject(nature.getProject())) {
 			resource = getInputJARResource();
 			newLoc = resource == null ? null : resource.getLocation();
 		}
@@ -169,7 +169,7 @@ public class J2EEModuleWorkbenchURIConverterImpl extends J2EEWorkbenchURIConvert
 		IProject project = nature.getProject();
 		if (project == null)
 			return null;
-		List jarPaths = ProjectUtilities.getLocalJARPathsFromClasspath(project);
+		List jarPaths = JavaProjectUtilities.getLocalJARPathsFromClasspath(project);
 		for (int i = 0; i < jarPaths.size(); i++) {
 			IPath path = (IPath) jarPaths.get(i);
 			IResource resource = project.findMember(path);

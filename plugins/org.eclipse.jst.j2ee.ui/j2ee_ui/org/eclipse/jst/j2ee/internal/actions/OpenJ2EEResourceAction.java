@@ -66,7 +66,7 @@ import org.eclipse.wst.common.modulecore.ComponentResource;
 
 import sun.misc.Service;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * Action for opening a J2EE resource from the J2EE navigator.

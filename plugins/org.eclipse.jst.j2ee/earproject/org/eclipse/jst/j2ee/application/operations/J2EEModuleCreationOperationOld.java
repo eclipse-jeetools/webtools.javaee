@@ -131,7 +131,7 @@ public abstract class J2EEModuleCreationOperationOld extends J2EEArtifactCreatio
 				IFile file = nature.getEMFRoot().getFile(new Path(J2EEConstants.MANIFEST_URI));
 				ManifestFileCreationAction.createManifestFile(file, nature.getProject());
 			} catch (IOException ioe) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ioe);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ioe);
 				return;
 			}
 			UpdateManifestOperation op = new UpdateManifestOperation(((J2EEModuleCreationDataModelOld) operationDataModel).getUpdateManifestDataModel());

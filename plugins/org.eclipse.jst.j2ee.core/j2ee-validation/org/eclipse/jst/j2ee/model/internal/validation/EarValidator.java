@@ -58,7 +58,7 @@ import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

@@ -26,6 +26,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -35,8 +36,6 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public abstract class J2EEArtifactImportOperation extends WTPOperation {
 	public J2EEArtifactImportOperation(J2EEArtifactImportDataModel model) {
@@ -113,7 +112,7 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 			modifyStrategy(aStrategy);
 			moduleFile.save(aStrategy);
 			if (model.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA)) {
-				ProjectUtilities.forceClasspathReload(model.getJ2eeArtifactCreationDataModel().getTargetProject());
+				JavaProjectUtilities.forceClasspathReload(model.getJ2eeArtifactCreationDataModel().getTargetProject());
 			}
 		} catch (OverwriteHandlerException oe) {
 			throw new InterruptedException();

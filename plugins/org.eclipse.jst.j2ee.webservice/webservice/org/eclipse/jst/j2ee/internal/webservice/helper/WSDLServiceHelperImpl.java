@@ -15,6 +15,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.wst.ws.parser.wsil.WebServiceEntity;
 import org.eclipse.wst.ws.parser.wsil.WebServicesParser;
@@ -22,8 +23,6 @@ import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.wst.wsdl.Port;
 import org.eclipse.wst.wsdl.Service;
 import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
-
-import com.ibm.wtp.emf.workbench.WorkbenchResourceHelperBase;
 
 /**
  * @author cbridgha
@@ -38,7 +37,7 @@ public class WSDLServiceHelperImpl implements WSDLServiceHelper {
 	 */
 	public WSDLServiceHelperImpl() {
 		super();
-	}
+	} 
 
 
 	/* (non-Javadoc)

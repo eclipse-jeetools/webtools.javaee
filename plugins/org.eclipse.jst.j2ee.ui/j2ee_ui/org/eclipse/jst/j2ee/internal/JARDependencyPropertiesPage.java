@@ -19,6 +19,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.preference.IPreferencePage;
@@ -56,9 +59,6 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-
 /**
  * @author jialin
  *
@@ -94,7 +94,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
     private void updateModelManifest() {
-        if (ProjectUtilities.isBinaryProject(project) || model.getAvailableEARNatures().length == 0)
+        if (JavaProjectUtilities.isBinaryProject(project) || model.getAvailableEARNatures().length == 0)
             return;
 
         IContainer root = null;
@@ -103,7 +103,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         if (nature != null)
             root = nature.getEMFRoot();
         else
-            root = ProjectUtilities.getSourceFolderOrFirst(project, null);
+            root = JavaProjectUtilities.getSourceFolderOrFirst(project, null);
 
         if (root != null)
             manifestFile = root.getFile(new Path(J2EEConstants.MANIFEST_URI));
@@ -413,7 +413,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
             if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
                 msg = ex.getTargetException().getMessage();
             MessageDialog.openError(this.getShell(), title, msg);
-            com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+            org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
             return false;
         } catch (InterruptedException e) {
             // cancelled
@@ -423,7 +423,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         return true;
     }
     protected IHeadlessRunnableWithProgress createBuildPathOperation() {
-        IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
+        IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
         return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
     }
     protected UpdateManifestOperation createManifestOperation() {
@@ -431,7 +431,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     }
 
     protected boolean isReadOnly() {
-        return ProjectUtilities.isBinaryProject(project);
+        return JavaProjectUtilities.isBinaryProject(project);
     }
 
 }

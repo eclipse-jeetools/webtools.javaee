@@ -29,6 +29,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
@@ -42,11 +47,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
 
 public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements IJ2EEImportExportConstants {
 	protected URIConverter javaOutputURIConverter;
@@ -292,7 +292,7 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 				classesFolder.create(true, true, new NullProgressMonitor());
 			}
 
-			ProjectUtilities.appendJavaClassPath(getProject(), JavaCore.newLibraryEntry(classesFolder.getFullPath(), null, null, true));
+			JavaProjectUtilities.appendJavaClassPath(getProject(), JavaCore.newLibraryEntry(classesFolder.getFullPath(), null, null, true));
 			//In case this is a Java project, or a non-migrated 4.0 project,
 			// add the builder
 			//that's a no-op if the builder is already added
@@ -348,7 +348,7 @@ public abstract class J2EESaveStrategyImpl extends SaveStrategyImpl implements I
 	 */
 	public org.eclipse.emf.ecore.resource.URIConverter getJavaOutputURIConverter() {
 		J2EENature enr = J2EENature.getRegisteredRuntime(project);
-		javaOutputURIConverter = new WorkbenchURIConverterImpl(ProjectUtilities.getJavaProjectOutputContainer(enr.getProject()));
+		javaOutputURIConverter = new WorkbenchURIConverterImpl(JavaProjectUtilities.getJavaProjectOutputContainer(enr.getProject()));
 		return javaOutputURIConverter;
 	}
 }

@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.server.core.IModule;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @version 1.0

@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.ValidationException;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This class checks entity bean classes for errors or potential errors.

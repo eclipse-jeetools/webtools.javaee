@@ -31,6 +31,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
@@ -43,8 +45,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class RenameModuleDependencyOperation extends WTPOperation {
 
@@ -190,7 +190,7 @@ public class RenameModuleDependencyOperation extends WTPOperation {
 	}
 
 	protected void replaceBuildPath(J2EENature nature, ClasspathRenameInfo info) throws JavaModelException {
-		IJavaProject javaP = ProjectUtilities.getJavaProject(nature.getProject());
+		IJavaProject javaP = JavaProjectUtilities.getJavaProject(nature.getProject());
 		if (javaP == null)
 			return;
 		List result = new ArrayList();

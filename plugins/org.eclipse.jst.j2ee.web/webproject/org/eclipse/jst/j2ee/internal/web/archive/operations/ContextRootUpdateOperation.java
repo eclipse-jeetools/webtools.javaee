@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here. Creation date: (10/31/2001 6:45:07 PM)

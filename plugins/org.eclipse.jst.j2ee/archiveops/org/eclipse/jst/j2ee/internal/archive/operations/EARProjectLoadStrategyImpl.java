@@ -44,8 +44,8 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.IServerTargetConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 
 public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2EEImportExportConstants {
 	protected ArrayList filesList;
@@ -143,7 +143,7 @@ public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2E
 					filesList.add(utilJAR);
 				} catch (OpenFailureException oe) {
 					String message = EARArchiveOpsResourceHandler.getString("UNABLE_TO_LOAD_MODULE_ERROR_", new Object[]{uri, getProject().getName(), oe.getConcatenatedMessages()}); //$NON-NLS-1$
-					com.ibm.wtp.common.logger.proxy.Logger.getLogger().logTrace(message);
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
 				}
 			}
 		} finally {

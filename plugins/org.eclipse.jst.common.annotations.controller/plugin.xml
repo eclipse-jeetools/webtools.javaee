@@ -20,8 +20,8 @@
       <import plugin="org.eclipse.wst.common.frameworks"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.emf"/>
-      <import plugin="com.ibm.wtp.emf.workbench"/>
-      <import plugin="org.eclipse.jst.common.annotations.core"/> 
+      <import plugin="org.eclipse.jst.common.annotations.core"/>
+      <import plugin="org.eclipse.jem.util"/> 
    </requires>
 
 

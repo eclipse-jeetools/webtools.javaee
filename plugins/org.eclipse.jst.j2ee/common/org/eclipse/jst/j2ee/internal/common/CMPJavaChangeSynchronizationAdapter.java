@@ -26,17 +26,18 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jem.internal.adapters.jdom.JDOMAdaptor;
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.internal.java.adapters.ReflectionAdaptor;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaVisibilityKind;
+import org.eclipse.jem.java.util.NotificationUtil;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.nature.EMFNature;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.nature.EMFNature;
 
 /**
  * This adapter is used to listen for changes to the ejb class or the primary key class in order to
@@ -153,7 +154,7 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 	 *            msg - Message indicates what has changed.
 	 */
 	protected void touchNotification(Notification msg) {
-		if (((EStructuralFeature) msg.getFeature() == JDOMAdaptor.FLUSH_NEW_REFLECTION_SF || (EStructuralFeature) msg.getFeature() == JDOMAdaptor.FLUSH_REFLECTION_SF) && !isMigrating()) {
+		if ((NotificationUtil.isFlushNewEvent(msg) || NotificationUtil.isFlushEvent(msg)) && !isMigrating()) {
 			if (msg.getNotifier() == ((ContainerManagedEntity) getTarget()).getEjbClass()) {
 				touchBeanAdapter(msg);
 			} else if (msg.getNotifier() == ((ContainerManagedEntity) getTarget()).getPrimaryKey()) {

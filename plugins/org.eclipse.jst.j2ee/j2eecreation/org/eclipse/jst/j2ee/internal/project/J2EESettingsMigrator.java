@@ -29,7 +29,7 @@ import org.eclipse.wst.common.internal.migration.CompatibilityUtils;
 import org.eclipse.wst.common.internal.migration.IDeprecatedConstants;
 import org.eclipse.wst.common.internal.migration.IMigrator;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author vijayb

@@ -34,6 +34,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -50,10 +53,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
 public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements EARProjectSaveStrategy, IJ2EEImportExportConstants {
 	protected IProject project;
@@ -292,10 +291,10 @@ public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements EARP
 
 		try {
 			if (!projectCpEntries.isEmpty())
-				ProjectUtilities.appendJavaClassPath(p, projectCpEntries);
-			ProjectUtilities.forceClasspathReload(p);
+				JavaProjectUtilities.appendJavaClassPath(p, projectCpEntries);
+			JavaProjectUtilities.forceClasspathReload(p);
 		} catch (JavaModelException ex) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 		}
 
 	}
@@ -355,7 +354,7 @@ public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements EARP
 		//Right now WARs are not optimized
 		if (nature != null && !nature.canBeBinary())
 			return;
-		IJavaProject javaP = ProjectUtilities.getJavaProject(p);
+		IJavaProject javaP = JavaProjectUtilities.getJavaProject(p);
 		if (javaP == null)
 			return;
 		List newCp = new ArrayList();

@@ -31,7 +31,7 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.internal.Module;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 public class WebDeployableFactory extends J2EEDeployableFactory {
 	private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$

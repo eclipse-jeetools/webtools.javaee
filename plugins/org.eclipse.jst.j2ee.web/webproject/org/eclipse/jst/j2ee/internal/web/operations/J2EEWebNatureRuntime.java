@@ -22,6 +22,11 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jem.util.emf.workbench.EMFWorkbenchContextBase;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.XMLResource;
@@ -50,12 +55,6 @@ import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreURIConverter;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
-//import org.eclipse.wst.web.internal.operation.WebSettings;
-
-import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;
-import com.ibm.wtp.emf.workbench.ProjectResourceSet;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
 /**
  * @deprecated - 
@@ -406,7 +405,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * org.eclipse.jdt.core.IJavaProject
 	 */
 	public IJavaProject getJ2EEJavaProject() {
-		return ProjectUtilities.getJavaProject(project);
+		return JavaProjectUtilities.getJavaProject(project);
 	}
 
 	protected IPath getLibraryPath() {

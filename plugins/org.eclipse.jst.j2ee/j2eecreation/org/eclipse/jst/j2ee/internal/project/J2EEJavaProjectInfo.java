@@ -105,7 +105,7 @@ public class J2EEJavaProjectInfo extends JavaProjectInfo {
 		IClasspathEntry[] entry = new IClasspathEntry[1];
 		Path path = new Path(jdkJarFullPathName);
 		if (!path.toFile().exists()) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(J2EECreationResourceHandler.getString("JdkJarFileDoesNotExist_UI", new Object[]{jdkJarFullPathName})); //$NON-NLS-1$
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(J2EECreationResourceHandler.getString("JdkJarFileDoesNotExist_UI", new Object[]{jdkJarFullPathName})); //$NON-NLS-1$
 			return false;
 		}
 

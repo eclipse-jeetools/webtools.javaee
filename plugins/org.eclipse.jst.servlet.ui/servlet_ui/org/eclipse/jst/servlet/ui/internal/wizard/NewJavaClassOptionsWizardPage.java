@@ -20,6 +20,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -47,8 +48,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author jialin
@@ -81,7 +80,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#getValidationPropertyNames()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
 		return new String[]{NewJavaClassDataModel.MODIFIER_ABSTRACT, NewJavaClassDataModel.MODIFIER_FINAL};
@@ -90,7 +89,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -327,7 +326,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	protected void handleInterfaceAddButtonSelected() {
 		IProject project = model.getTargetProject();
 		IRunnableContext context = Workbench.getInstance().getActiveWorkbenchWindow();
-		IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
+		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
 		// this eliminates the non-exported classpath entries
 		final IJavaSearchScope scope = TypeSearchEngine.createJavaSearchScopeForAProject(javaProject, true, true);
 		TypeSelectionDialog dialog = new TypeSelectionDialog(getShell(),context,IJavaSearchConstants.INTERFACE, scope);

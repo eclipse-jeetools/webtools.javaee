@@ -103,11 +103,11 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 					notifType = "STRUCTURE_CHANGE"; //$NON-NLS-1$
 					break;
 			}
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError("DOM Change: " + notifType); //$NON-NLS-1$
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError("\tnotifier      : " + notifier); //$NON-NLS-1$
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError("\tchangedFeature: " + changedFeature); //$NON-NLS-1$
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError("\toldValue      : " + oldValue); //$NON-NLS-1$
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError("\tnewValue      : " + newValue); //$NON-NLS-1$
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError("DOM Change: " + notifType); //$NON-NLS-1$
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError("\tnotifier      : " + notifier); //$NON-NLS-1$
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError("\tchangedFeature: " + changedFeature); //$NON-NLS-1$
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError("\toldValue      : " + oldValue); //$NON-NLS-1$
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError("\tnewValue      : " + newValue); //$NON-NLS-1$
 		}
 	}
 
@@ -150,7 +150,7 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 				return text.substring(inx);
 			}
 		} catch (org.eclipse.jface.text.BadLocationException ex) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 		}
 		return ""; //$NON-NLS-1$
 	}

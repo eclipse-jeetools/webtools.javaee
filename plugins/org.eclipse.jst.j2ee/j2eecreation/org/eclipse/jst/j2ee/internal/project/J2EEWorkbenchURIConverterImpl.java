@@ -21,9 +21,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.wst.common.internal.emfworkbench.CompatibilityWorkbenchURIConverterImpl;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ISynchronizerExtender;
-import com.ibm.wtp.emf.workbench.ResourceSetWorkbenchSynchronizer;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.ISynchronizerExtender;
+import org.eclipse.jem.util.emf.workbench.ResourceSetWorkbenchSynchronizer;
 
 public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConverterImpl implements ISynchronizerExtender {
 

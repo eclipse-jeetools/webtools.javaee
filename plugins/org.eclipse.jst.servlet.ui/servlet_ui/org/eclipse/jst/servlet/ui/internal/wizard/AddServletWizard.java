@@ -41,7 +41,7 @@ public class AddServletWizard extends NewWebWizard {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 	    if (model != null)
@@ -57,7 +57,7 @@ public class AddServletWizard extends NewWebWizard {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createBaseOperation() {
 		return new AddServletOperation((NewServletClassDataModel)model) ;
@@ -87,7 +87,7 @@ public class AddServletWizard extends NewWebWizard {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#runForked()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#runForked()
 	 */
 	protected boolean runForked() {
 		return false;

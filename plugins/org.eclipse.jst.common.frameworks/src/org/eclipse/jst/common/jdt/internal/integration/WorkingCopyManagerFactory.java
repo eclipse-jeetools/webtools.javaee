@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.integration;
 
-import com.ibm.wtp.common.UIContextDetermination;
+import org.eclipse.jem.util.UIContextDetermination;
 
 
 /**

@@ -16,14 +16,14 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
-      <import plugin="com.ibm.wtp.common.util"/>
+      <import plugin="org.eclipse.jem.util"/>
       <import plugin="org.eclipse.core.resources"/>
    </requires>
    
   <extension
          id="context.Sensitive.Class.workingCopyManager"
          name="Working Copy Manager - Headless Context Class"
-         point="com.ibm.wtp.common.util.uiContextSensitiveClass">
+         point="org.eclipse.jem.util.uiContextSensitiveClass">
       <uiContextSensitiveClass
             key="workingCopyManager"
             context="Headless"

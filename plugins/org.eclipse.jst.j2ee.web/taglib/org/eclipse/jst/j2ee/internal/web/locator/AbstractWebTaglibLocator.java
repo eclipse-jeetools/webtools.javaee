@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	/**

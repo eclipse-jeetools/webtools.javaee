@@ -35,15 +35,15 @@ import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.adapters.jdom.JavaReflectionSynchronizer;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.plugin.IJavaProjectInfo;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
-
-import com.ibm.wtp.emf.workbench.ProjectResourceSet;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
 /**
  * @author jlanuti
@@ -99,11 +99,11 @@ public abstract class J2EEModuleNature extends J2EENature {
 	 */
 	protected void createFolders() throws CoreException {
 		// build for classpath
-		IPath sourcePath = ProjectUtilities.getSourcePathOrFirst(getProject(), null);
+		IPath sourcePath = JavaProjectUtilities.getSourcePathOrFirst(getProject(), null);
 		//might be null for binary projects
 		if (sourcePath != null) {
 			createFolder(sourcePath.toString());
-			IContainer container = ProjectUtilities.getJavaProjectOutputContainer(getProject());
+			IContainer container = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
 			if (container != null && container.getType() == IResource.FOLDER)
 				createFolder(container.getProjectRelativePath().toString());
 		}
@@ -189,7 +189,7 @@ public abstract class J2EEModuleNature extends J2EENature {
 //		settings.setModuleVersion(j2eeInfo.getModuleVersion());
 //		settings.write();
 
-		ProjectUtilities.updateClasspath(j2eeInfo.getJavaProject()); //lsr - no monitor, do not
+		JavaProjectUtilities.updateClasspath(j2eeInfo.getJavaProject()); //lsr - no monitor, do not
 		// update resources
 	}
 
@@ -235,8 +235,8 @@ public abstract class J2EEModuleNature extends J2EENature {
 	 * @see org.eclipse.jem.internal.java.plugin.IJavaMOFNature#getSourceFolder()
 	 */
 	public IFolder getSourceFolder() {
-		IContainer output = ProjectUtilities.getJavaProjectOutputContainer(getProject());
-		List sources = ProjectUtilities.getSourceContainers(getProject());
+		IContainer output = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
+		List sources = JavaProjectUtilities.getSourceContainers(getProject());
 		//TODO: We need to be able to support the project as the source, but this would be a
 		// breaking change
 		if (sources == null || sources.isEmpty() || ((IContainer) sources.get(0)).getType() != IResource.FOLDER)
@@ -275,7 +275,7 @@ public abstract class J2EEModuleNature extends J2EENature {
 
 		// Override JavaJDOMFactory so we can notify on add of compilation unit for ejb annotation
 		// support
-		JavaJDOMAdapterFactory jdomFactory = new JavaJDOMAdapterFactory(ProjectUtilities.getJavaProject(project)) {
+		JavaJDOMAdapterFactory jdomFactory = new JavaJDOMAdapterFactory(JavaProjectUtilities.getJavaProject(project)) {
 			protected void initializeSynchronizer() {
 				synchronizer = new JavaReflectionSynchronizer(this) {
 					// TODO push this up into JavaReflectionSynchronizer

@@ -19,9 +19,8 @@ package org.eclipse.jst.common.internal.annotations.registry;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.core.AnnotationsCoreResources;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * @author kelleyp Information on a single parameter for a tag. Parameters have names, and can be

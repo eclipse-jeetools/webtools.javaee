@@ -12,13 +12,12 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class NewWebJavaClassDestinationWizardPage extends NewJavaClassDestinationWizardPage {
 	public NewWebJavaClassDestinationWizardPage(WTPOperationDataModel model, String pageName,
@@ -39,7 +38,7 @@ public class NewWebJavaClassDestinationWizardPage extends NewJavaClassDestinatio
 				} else if (element instanceof IFolder) {
 					IFolder folder = (IFolder) element;
 					// only show source folders
-					if (ProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
+					if (JavaProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
 					//if (((NewJavaClassDataModel)model).isSourceFolder(fullPath)) {
 						ret = true;
 					}
@@ -50,7 +49,7 @@ public class NewWebJavaClassDestinationWizardPage extends NewJavaClassDestinatio
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#enter()
+	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#enter()
 	 */
 	protected void enter() {
 		String className = classText.getText();

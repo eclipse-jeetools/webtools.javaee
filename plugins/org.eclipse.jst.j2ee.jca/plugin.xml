@@ -15,7 +15,7 @@
    </runtime>
    <requires>
       <import plugin="org.eclipse.jst.j2ee"/>
-      <import plugin="com.ibm.wtp.emf.workbench"/>
+      <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
       <import plugin="org.eclipse.wst.server.core"/>
       <import plugin="org.eclipse.jst.server.core"/>
@@ -49,7 +49,7 @@
     </extension> -->
 <!-- Register the nature id with the AbstractJavaMOFNature -->
 <!-- <extension
-         point="com.ibm.wtp.emf.workbench.nature_registration">
+         point="org.eclipse.jem.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.jca.ConnectorNature">
       </nature>

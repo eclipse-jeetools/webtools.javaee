@@ -68,7 +68,7 @@ public class DependentJarExportMerger {
 					dependentJar = getArchiveFactory().primOpenArchive(file.getLocation().toOSString());
 				} catch (OpenFailureException ex) {
 					//Need to write this to the log file
-					com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 					continue;
 				}
 				dependentArchives.add(dependentJar);

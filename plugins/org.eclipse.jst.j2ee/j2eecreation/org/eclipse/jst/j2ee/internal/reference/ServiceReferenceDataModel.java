@@ -18,7 +18,7 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class ServiceReferenceDataModel extends ReferenceDataModel implements WebServicesClientDataHelper {
 	/**
@@ -61,7 +61,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.emf.workbench.operation.EditModelOperationDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jem.util.emf.workbench.operation.EditModelOperationDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(TARGET_WEB_SERVICE);
@@ -176,7 +176,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.jem.util.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new ServiceReferenceCreationOperation(this);
@@ -312,7 +312,7 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ibm.wtp.common.operation.WTPOperationDataModel#isResultProperty(java.lang.String)
+	 * @see org.eclipse.jem.util.operation.WTPOperationDataModel#isResultProperty(java.lang.String)
 	 */
 	protected boolean isResultProperty(String propertyName) {
 		if (propertyName.equals(JAX_RPC_MAPPING_FILE))

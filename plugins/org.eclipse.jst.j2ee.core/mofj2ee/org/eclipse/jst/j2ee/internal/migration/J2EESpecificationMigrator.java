@@ -45,7 +45,7 @@ import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @author DABERG

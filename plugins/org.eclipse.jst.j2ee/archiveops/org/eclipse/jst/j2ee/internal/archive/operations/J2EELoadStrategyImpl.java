@@ -30,6 +30,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.Resource.Factory.Registry;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
@@ -37,10 +41,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * Insert the type's description here. Creation date: (5/10/2001 3:54:51 PM)
@@ -114,7 +114,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 			return filesList;
 		}
 
-		IContainer outputFolder = ProjectUtilities.getJavaProjectOutputContainer(getProject());
+		IContainer outputFolder = JavaProjectUtilities.getJavaProjectOutputContainer(getProject());
 
 		Iterator iterator = projectResources.iterator();
 		while (iterator.hasNext()) {
@@ -274,7 +274,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 
 	public String getSourceFolderName() throws Exception {
 		try {
-			return ProjectUtilities.getSourceFolderOrFirst(project, null).getName();
+			return JavaProjectUtilities.getSourceFolderOrFirst(project, null).getName();
 		} catch (Exception e) {
 			throw new SaveFailureException(EJBArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_ProjectNature"), e);//$NON-NLS-1$
 		}
@@ -298,7 +298,7 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 
 	protected List getSourceFolders() {
 		if (sourceFolders == null) {
-			sourceFolders = ProjectUtilities.getSourceContainers(project);
+			sourceFolders = JavaProjectUtilities.getSourceContainers(project);
 		}
 		return sourceFolders;
 	}

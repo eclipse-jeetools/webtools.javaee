@@ -44,7 +44,7 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOperation {
 	public EnterpriseApplicationImportOperation(EnterpriseApplicationImportDataModel dataModel) {
@@ -246,7 +246,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 					res.releaseFromRead();
 			}
 		} catch (Exception suppress) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(suppress);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(suppress);
 		}
 	}
 

@@ -29,6 +29,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
@@ -42,9 +44,6 @@ import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author vijayb
@@ -76,7 +75,7 @@ public class ServerTargetHelper {
 	 */
 	public static void removeNonSeverTargetClasspathEntries(IProject project, List existingClasspathEntries) {
 		try {
-			ProjectUtilities.removeFromJavaClassPath(project, existingClasspathEntries);
+			JavaProjectUtilities.removeFromJavaClassPath(project, existingClasspathEntries);
 		} catch (JavaModelException jme) {
 			Logger.getLogger().logError(jme);
 		}

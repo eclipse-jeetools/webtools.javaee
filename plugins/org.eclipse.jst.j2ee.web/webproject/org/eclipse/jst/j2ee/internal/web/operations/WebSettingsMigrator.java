@@ -17,23 +17,20 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EESettings;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
-import org.eclipse.wst.common.internal.migration.CompatibilityUtils;
 import org.eclipse.wst.common.internal.migration.IDeprecatedConstants;
 import org.eclipse.wst.common.internal.migration.IMigrator;
-import org.eclipse.wst.web.internal.operation.WebSettings;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author vijayb
@@ -165,7 +162,7 @@ public class WebSettingsMigrator implements IMigrator {
 	}
 
 	private String getWebContentOutputFolderName(IProject project) {
-		IPath outputPath = ProjectUtilities.getJavaProjectOutputLocation(project);
+		IPath outputPath = JavaProjectUtilities.getJavaProjectOutputLocation(project);
 		String[] folders = outputPath.segments();
 		for (int i = 0; i < folders.length; i++) {
 			IContainer container = project.getFolder(folders[i]);

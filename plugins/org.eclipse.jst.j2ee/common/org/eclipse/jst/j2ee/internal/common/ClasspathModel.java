@@ -40,8 +40,8 @@ import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateVa
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class ClasspathModel implements ResourceStateInputProvider, ResourceStateValidator {
 
@@ -204,7 +204,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	protected void handleOpenFailureException(OpenFailureException ex) {
-		com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+		org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 	}
 
 	public void dispose() {

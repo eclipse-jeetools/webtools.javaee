@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -45,8 +46,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author cbridgha
@@ -141,7 +140,7 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 				J2EEArtifactImportDataModel importDM = null;
 				for (int i = 0; i < list.size(); i++) {
 					importDM = (J2EEArtifactImportDataModel) list.get(i);
-					if (!newList.contains(importDM) && ProjectUtilities.isBinaryProject(importDM.getProject())) {
+					if (!newList.contains(importDM) && JavaProjectUtilities.isBinaryProject(importDM.getProject())) {
 						newList.add(importDM);
 					}
 				}

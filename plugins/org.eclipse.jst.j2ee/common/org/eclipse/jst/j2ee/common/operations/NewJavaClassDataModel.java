@@ -26,16 +26,17 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.JavaModelUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * This data model is a subclass of WTPOperationDataModel and follows the WTP Operation and WTP Wizard frameworks.
@@ -170,8 +171,8 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		IContainer output = ProjectUtilities.getJavaProjectOutputContainer(project);
-		List sources = ProjectUtilities.getSourceContainers(project);
+		IContainer output = JavaProjectUtilities.getJavaProjectOutputContainer(project);
+		List sources = JavaProjectUtilities.getSourceContainers(project);
 		//TODO: We need to be able to support the project as the source, but this would be a breaking change
 		if (sources == null || sources.isEmpty() || ((IContainer) sources.get(0)).getType() != IResource.FOLDER)
 			return null;
@@ -205,7 +206,7 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 	 */
 	public IPackageFragmentRoot getJavaPackageFragmentRoot() {
 		IProject project = getTargetProject();
-		IJavaProject aJavaProject = ProjectUtilities.getJavaProject(project);
+		IJavaProject aJavaProject = JavaProjectUtilities.getJavaProject(project);
 		// Return the source folder for the java project of the selected project
 		if (aJavaProject != null) {
 			IFolder sourcefolder = getJavaSourceFolder();
@@ -479,7 +480,7 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 	 */
 	private IType findTypeInClasspath(String fullClassName) {
 		// Retrieve the java project for the cached project
-		IJavaProject javaProject = ProjectUtilities.getJavaProject(getTargetProject());
+		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(getTargetProject());
 		try {
 			//Use the java model to try and find the IType for the qualified class name
 			IType type = JavaModelUtil.findType(javaProject, fullClassName);
@@ -530,7 +531,7 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 		if (project == null)
 			return null;
 		// Return all source containers in the specified project
-		List sources = ProjectUtilities.getSourceContainers(project);
+		List sources = JavaProjectUtilities.getSourceContainers(project);
 		return sources;
 	}
 	

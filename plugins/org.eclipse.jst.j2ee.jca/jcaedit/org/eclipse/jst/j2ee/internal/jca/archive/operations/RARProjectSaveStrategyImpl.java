@@ -25,9 +25,9 @@ import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHan
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 
-import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * Implements the save strategy for RAR projects

@@ -36,7 +36,7 @@ import org.eclipse.wst.common.frameworks.internal.SaveHandlerHeadless;
 import org.eclipse.wst.common.frameworks.internal.SaveHandlerRegister;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here. Creation date: (4/27/2001 4:14:30 PM)
@@ -89,13 +89,13 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 					throw e;
 			}
 		} catch (JavaModelException e) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
 			throw new SaveFailedException(e);
 		} finally {
 			try {
 				wc.discardWorkingCopy();
 			} catch (JavaModelException e1) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e1);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e1);
 				throw new SaveFailedException(e1);
 			}
 		}
@@ -114,7 +114,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 			cu.delete(false, monitor);
 		} catch (JavaModelException e) {
 			if (e.getStatus().getCode() != org.eclipse.jdt.core.IJavaModelStatusConstants.ELEMENT_DOES_NOT_EXIST)
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
 		}
 	}
 
@@ -311,7 +311,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 			if (cu.exists())
 				cu.delete(true, new org.eclipse.core.runtime.NullProgressMonitor());
 		} catch (JavaModelException e) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
 			//What to do here?
 		}
 	}
@@ -399,7 +399,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 					existingCU.delete(false, pm);
 				pack.createCompilationUnit(typeName, source, false, pm);
 			} catch (JavaModelException e) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(e);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
 			}
 		}
 	}

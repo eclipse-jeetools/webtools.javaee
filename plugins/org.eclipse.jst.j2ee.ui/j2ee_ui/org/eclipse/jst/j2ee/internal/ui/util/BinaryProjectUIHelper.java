@@ -10,11 +10,10 @@ package org.eclipse.jst.j2ee.internal.ui.util;
 
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.widgets.Shell;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class BinaryProjectUIHelper {
 
@@ -34,7 +33,7 @@ public class BinaryProjectUIHelper {
 	}
 
 	public static boolean displayErrorIfBinaryProject(Shell parent, IProject aProject) {
-		boolean isBinary = ProjectUtilities.isBinaryProject(aProject);
+		boolean isBinary = JavaProjectUtilities.isBinaryProject(aProject);
 		if (isBinary)
 			displayError(parent);
 		return isBinary;

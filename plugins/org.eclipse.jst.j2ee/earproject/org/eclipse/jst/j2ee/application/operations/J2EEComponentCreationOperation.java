@@ -44,7 +44,7 @@ import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public abstract class J2EEComponentCreationOperation extends J2EECreationOperation {
 	/**
@@ -204,7 +204,7 @@ public abstract class J2EEComponentCreationOperation extends J2EECreationOperati
 //				IFile file = nature.getEMFRoot().getFile(new Path(J2EEConstants.MANIFEST_URI));
 //				ManifestFileCreationAction.createManifestFile(file, nature.getProject());
 //			} catch (IOException ioe) {
-//				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ioe);
+//				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ioe);
 //				return;
 //			}
 //			UpdateManifestOperation op = new UpdateManifestOperation(((J2EEModuleCreationDataModel) operationDataModel).getUpdateManifestDataModel());

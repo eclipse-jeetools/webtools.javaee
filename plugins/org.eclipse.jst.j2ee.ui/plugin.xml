@@ -27,7 +27,7 @@
       <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.wst.validation"/>
       <import plugin="org.eclipse.jst.j2ee.core"/>
-      <import plugin="com.ibm.wtp.emf.workbench"/>
+      <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
       <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.eclipse.jem.workbench"/>
@@ -607,7 +607,7 @@
    </extension>	
    <!--
    <extension
-         point="com.ibm.wtp.common.util.uiContextSensitiveClass">
+         point="org.eclipse.jem.util.uiContextSensitiveClass">
       <uiContextSensitiveClass
             context="UI"
             key="rendererFactory"

@@ -23,8 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-
-import com.ibm.wtp.common.RegistryReader;
+import org.eclipse.jem.util.RegistryReader;
 
 /**
  * @author mdelder

@@ -29,6 +29,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.EjbModule;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
@@ -76,10 +79,6 @@ import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 
 
 /**
@@ -727,7 +726,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				}
 			}
 		} catch (org.eclipse.core.runtime.CoreException ce) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ce);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ce);
 		}
 
 	}
@@ -748,7 +747,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			if (input == null)
 				return null;
 			IProject p = input.getProject();
-			if (p == null || ProjectUtilities.isBinaryProject(p))
+			if (p == null || JavaProjectUtilities.isBinaryProject(p))
 				return null;
 			IFile result = J2EEProjectUtilities.getManifestFile(p);
 			if (result != null && result.exists())

@@ -34,7 +34,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationJobAdap
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author cbridgha
