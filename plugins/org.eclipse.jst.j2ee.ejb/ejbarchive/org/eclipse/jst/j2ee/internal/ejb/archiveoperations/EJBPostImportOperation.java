@@ -10,11 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
-
-
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
