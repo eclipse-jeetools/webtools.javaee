@@ -120,7 +120,10 @@ public class J2EEUIMessages extends Messages {
 
 	public static final String J2EE_UTILITY_JAR_LISTEAR_IMPORT_SELECT_UTIL_JARS_TO_BE_PROJECTS = "97"; //$NON-NLS-1$
 
-
+	public static final String FLEXIBLE_PROJECT_MAIN_PG_TITLE = "FlexibleProjectCreationWizard.mainPage.title"; //$NON-NLS-1$
+	public static final String FLEXIBLE_PROJECT_MAIN_PG_DESC = "FlexibleProjectCreationWizard.mainPage.desc"; //$NON-NLS-1$
+	public static final String FLEXIBLE_PROJECT_WIZ_TITLE = "FlexibleProjectCreationWizard.title"; //$NON-NLS-1$
+	
 	private static final J2EEUIMessages INSTANCE = new J2EEUIMessages();
 
 

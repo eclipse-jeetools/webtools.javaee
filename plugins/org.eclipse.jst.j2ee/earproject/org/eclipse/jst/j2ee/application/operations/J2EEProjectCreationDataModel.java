@@ -34,7 +34,7 @@ public class J2EEProjectCreationDataModel extends WTPOperationDataModel {
 	 * 
 	 * @see ServerTargetDataModel.RUNTIME_TARGET_ID
 	 */
-	public static final String SERVER_TARGET_ID = ServerTargetDataModel.RUNTIME_TARGET_ID;
+	public static final String SERVER_TARGET_ID = J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID;
 
 	private J2EEProjectServerTargetDataModel serverTargetDataModel;
 	private static final String NESTED_MODEL_SERVER_TARGET = "J2EEProjectCreationDataModel.NESTED_MODEL_SERVER_TARGET"; //$NON-NLS-1$
