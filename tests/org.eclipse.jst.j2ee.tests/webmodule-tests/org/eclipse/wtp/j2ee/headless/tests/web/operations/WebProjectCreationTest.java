@@ -89,6 +89,9 @@ public class WebProjectCreationTest extends AbstractProjectCreationTest {
     public static Test suite() {
         return new SimpleTestSuite(WebProjectCreationTest.class);
     }
+    
+    public void testJavaCreation() throws Exception {
+	}
 	
 
 }

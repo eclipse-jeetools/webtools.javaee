@@ -4,8 +4,7 @@
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-package org.eclipse.wtp.j2ee.headless.tests.web.operations;
-
+package org.eclipse.jst.web.tomcat.tests;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -21,41 +20,24 @@ import junit.framework.TestSuite;
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class AllTests extends TestSuite {
+public class AllTomcatTests extends TestSuite {
 	
 	public static IRuntime TOMCAT_RUNTIME = createRuntime();
-	public static IRuntime JONAS_TOMCAT_RUNTIME = createJONASRuntime();
-	
 	
     public static Test suite(){
-        return new AllTests();
+        return new AllTomcatTests();
     }
     
-    public AllTests(){
+    public AllTomcatTests(){
         super("WEB Tests");
-        addTest(WebExportOperationTest.suite());
-        addTest(WebImportOperationTest.suite());
-        addTest(WebProjectCreationOperationTest.suite());
-        addTest(WebProjectCreationTest.suite());
+        addTest(WebProjectCreationTomcatTest.suite());
+        addTest(WebImportOperationTomcatTest.suite());
+        addTest(WebExportOperationTomcatTest.suite());
+        
     }
     
     public static IRuntime createRuntime()  {
     	String s = "D:/Program Files/Apache Software Foundation/Tomcat 5.0";
-    	if (s == null || s.length() == 0)
-    		return null;
-    	try {
-    		IRuntimeType rt = ServerCore.findRuntimeType("org.eclipse.jst.server.tomcat.runtime.50");
-    		IRuntimeWorkingCopy wc = rt.createRuntime(null, null);
-    		wc.setLocation(new Path(s));
-    		return wc.save(true, null);
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		return null;
-    	}
-    }
-    
-    public static IRuntime createJONASRuntime()  {
-    	String s = "D:/JOnAS-4.3.2";
     	if (s == null || s.length() == 0)
     		return null;
     	try {

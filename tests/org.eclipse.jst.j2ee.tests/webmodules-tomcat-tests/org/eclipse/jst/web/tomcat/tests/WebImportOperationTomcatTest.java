@@ -4,16 +4,12 @@
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-package org.eclipse.wtp.j2ee.headless.tests.web.operations;
-
-import java.io.File;
-import java.net.URL;
+package org.eclipse.jst.web.tomcat.tests;
 import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -26,19 +22,14 @@ import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-public class WebImportOperationTest extends ModuleImportOperationTestCase {
+public class WebImportOperationTomcatTest extends ModuleImportOperationTestCase {
 	
-	public final String WEB_TESTS_PATH;
-	
-	public WebImportOperationTest(String name) {
+	public WebImportOperationTomcatTest(String name) {
 		super(name);
-		String relativeImportTestsPath = "TestData" + File.separator + getDirectory() + File.separator;
-		URL fullImportTestsPath = HeadlessTestsPlugin.getDefault().find(new Path(relativeImportTestsPath));
-		WEB_TESTS_PATH = fullImportTestsPath.getPath();
 	}	
 	
 	public static Test suite() {
-		return new TestSuite(WebImportOperationTest.class);
+		return new TestSuite(WebImportOperationTomcatTest.class);
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +50,7 @@ public class WebImportOperationTest extends ModuleImportOperationTestCase {
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase#getImportableArchiveFileNames()
 	 */
 	protected List getImportableArchiveFileNames() {
-		return ProjectUtility.getWarsInDirectory(HeadlessTestsPlugin.getDefault(),WEB_TESTS_PATH);
+		return ProjectUtility.getWarsInDirectory(HeadlessTestsPlugin.getDefault(),TESTS_PATH);
 	}
 
 }

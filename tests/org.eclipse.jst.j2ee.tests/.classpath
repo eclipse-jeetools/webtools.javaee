@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="ejbmodule-tests"/>
 	<classpathentry kind="src" path="webmodule-tests"/>
 	<classpathentry kind="src" path="jcamodule-tests"/>
+	<classpathentry kind="src" path="webmodules-tomcat-tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
