@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.operations;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
@@ -52,10 +54,25 @@ public class J2EEProjectCreationDataModel extends WTPOperationDataModel {
 	}
 	
 	protected Object getDefaultProperty(String propertyName) {
+		if (PROJECT_LOCATION.equals(propertyName)) {
+			return getDefaultLocation();
+		}
 		if (propertyName.equals(ADD_SERVER_TARGET)) {
 			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);
+	}
+
+	private String getDefaultLocation() {
+		IPath path = getRootLocation();
+		String projectName = (String) getProperty(PROJECT_NAME);
+		if (projectName != null)
+			path = path.append(projectName);
+		return path.toOSString();
+	}
+
+	private IPath getRootLocation() {
+		return ResourcesPlugin.getWorkspace().getRoot().getLocation();
 	}
 	
 	public final J2EEProjectServerTargetDataModel getServerTargetDataModel() {
