@@ -142,7 +142,7 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 
 	protected IProject getEJBProject() {
 		String projectName = getStringProperty(PROJECT_NAME);
-		if (!validateProjectName(projectName).isOK()) {
+		if (!ProjectCreationDataModel.validateProjectName(projectName).isOK()) {
 			return null;
 		}
 		return getWorkspace().getRoot().getProject(projectName);
@@ -158,7 +158,7 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 		String projectName = ejbProjectName + "Client"; //$NON-NLS-1$
 		String baseName = projectName + "_"; //$NON-NLS-1$
 		int index = 0;
-		IProject project = getProjectHandleFromName(projectName);
+		IProject project = ProjectCreationDataModel.getProjectHandleFromName(projectName);
 		if (null == project) {
 			return "";//$NON-NLS-1$
 		} else if (!project.exists()) {
@@ -166,7 +166,7 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 		}
 		for (int i = 0; i < 10; i++) {
 			projectName = baseName + index;
-			project = getProjectHandleFromName(projectName);
+			project = ProjectCreationDataModel.getProjectHandleFromName(projectName);
 			if (null != project && !project.exists()) {
 				return projectName;
 			}

@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleExportOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -95,7 +96,7 @@ public final class EJBModuleExportDataModel extends J2EEModuleExportDataModel {
 		if (status.isOK()) {
 			if (PROJECT_NAME.equals(propertyName)) {
 				String projectName = (String) getProperty(PROJECT_NAME);
-				IStatus status2 = validateProjectName(projectName);
+				IStatus status2 = ProjectCreationDataModel.validateProjectName(projectName);
 				if (!status2.isOK()) {
 					return status2;
 				}
