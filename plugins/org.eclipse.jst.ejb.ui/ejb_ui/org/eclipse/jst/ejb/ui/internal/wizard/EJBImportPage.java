@@ -21,6 +21,7 @@ import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.FlexibleEjbModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -66,8 +67,8 @@ public class EJBImportPage extends J2EEModuleImportPage {
 		return getEJBDataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
-		return new EJBModuleCreationWizard((EJBModuleCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(FlexibleEjbModuleCreationDataModel aModel) {
+		return new EJBModuleCreationWizard(aModel);
 	}
 
 	private EJBModuleImportDataModel getEJBDataModel() {

@@ -12,13 +12,13 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.FlexibleEjbModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
-import org.eclipse.jst.j2ee.internal.wizard.NewProjectGroup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
@@ -35,7 +35,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBProjectCreationPage(EJBModuleCreationDataModel model, String pageName) {
+	public EJBProjectCreationPage(FlexibleEjbModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_TITLE));
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_DESC));
@@ -94,7 +94,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	}
 
 	protected void createProjectNameGroup(Composite parent) {
-		projectNameGroup = new NewProjectGroup(parent, SWT.NULL, super.getJ2EEProjectCreationDataModel().getProjectDataModel());
+		//projectNameGroup = new NewProjectGroup(parent, SWT.NULL, super.getJ2EEProjectCreationDataModel().getProjectDataModel());
 	}
 
 	/*
