@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.10 $  $Date: 2004/08/17 19:31:33 $ 
+ *  $Revision: 1.11 $  $Date: 2004/08/17 21:03:22 $ 
  */
 
 
@@ -21,15 +21,15 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Stack;
 
+import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
 
 import org.eclipse.jem.internal.proxy.core.*;
-
-import com.ibm.wtp.common.util.TimerTests;
 /**
  * This is the factory registry to use for Remote VM.
  * It adds to the standard registry, connection specific information.
@@ -190,6 +190,37 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		return fCallbackServer;
 	}
 	
+	private static class TerminateProcess extends Job {
+		private IProcess process;
+		
+		public TerminateProcess(IProcess process) {
+			super("Terminate the remote vm process.");	
+			this.process = process;
+		}
+		
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Thread#run()
+		 */
+		public IStatus run(IProgressMonitor mon) {
+			try {
+				// There is no join on a process available, so we will have to
+				// busy wait. Give it 10 seconds in 1/10 second intervals.
+				for (int i=0; !process.isTerminated() && i<100; i++) {
+					try {
+						Thread.sleep(100);							
+					} catch (InterruptedException e) {
+					}
+				}
+				if (!process.isTerminated()) {
+					process.terminate();
+				} 
+			} catch (DebugException e) {
+			}
+			return Status.OK_STATUS;
+		}
+	}
+	
 	/**
 	 * Terminate the server.
 	 */
@@ -206,18 +237,15 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		
 		if (fServerPort != 0) {
 			if (waitRegistrationThread != null) {
-				TimerTests.basicTest.startStep("Wait Registration", TimerTests.CURRENT_PARENT_ID);
 				synchronized (waitRegistrationThread) {
 					// Still waiting. close it out.
 					WaitForRegistrationThread wThread = waitRegistrationThread;
 					waitRegistrationThread = null;
 					wThread.notifyAll();
 				}
-				TimerTests.basicTest.stopStep("Wait Registration");
 			}
 					
 			IREMConnection closeCon = null;	// The connection we will use to close the remote vm.
-			TimerTests.basicTest.startCumulativeStep("Close Connections", TimerTests.CURRENT_PARENT_ID);
 			synchronized(fConnectionPool) {
 				// Now we walk through all of the free connections and close them properly.
 				Iterator itr = fConnectionPool.iterator();
@@ -225,12 +253,9 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 					closeCon = (IREMConnection) itr.next();
 				while (itr.hasNext()) {
 					IREMConnection con = (IREMConnection) itr.next();
-					TimerTests.basicTest.startCumulativeStep("Close Connections");
 					con.close();
-					TimerTests.basicTest.stopCumulativeStep("Close Connections");
 				}
 			}
-			TimerTests.basicTest.stopStep("Close Connections");
 				
 			// Now we terminate the server.
 			if (closeCon == null)
@@ -240,39 +265,20 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 					// Do nothing, don't want to stop termination just because we can't get a connection.
 				}
 			if (closeCon != null) {
-				TimerTests.basicTest.startStep("Close Connection Server", TimerTests.CURRENT_PARENT_ID);
 				closeCon.terminateServer();	// We got a connection to terminate (process may of terminated early, so we would not have a conn then).
-				TimerTests.basicTest.stopStep("Close Connection Server");
 			}
 			fConnectionPool.clear();
 			fServerPort = 0;
 			if (fProcess != null) {
-				try {
-					TimerTests.basicTest.startStep("Wait for termination", TimerTests.CURRENT_PARENT_ID);
-					// There is no join on a process available, so we will have to
-					// busy wait. Give it 10 seconds in 1/10 second intervals.
-					for (int i=0; !fProcess.isTerminated() && i<100; i++) {
-						try {
-							Thread.sleep(100);							
-						} catch (InterruptedException e) {
-						}
-					}
-					TimerTests.basicTest.stopStep("Wait for termination");
-					if (!fProcess.isTerminated()) {
-						TimerTests.basicTest.startStep("Force termination", TimerTests.CURRENT_PARENT_ID);
-						fProcess.terminate();
-						TimerTests.basicTest.stopStep("Force termination");
-					}
-				} catch (DebugException e) {
-				}
+				Job tjob = new TerminateProcess(fProcess);
+				tjob.setSystem(true);
+				tjob.schedule();
 				fProcess = null;
 			}
 		}
 	
 		if (fCallbackServer != null) {
-			TimerTests.basicTest.startStep("Callback shutdown", TimerTests.CURRENT_PARENT_ID);
 			fCallbackServer.requestShutdown();
-			TimerTests.basicTest.stopStep("Callback shutdown");
 			fCallbackServer = null;				
 		}
 		
