@@ -7,7 +7,7 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations.classgen;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.classgen;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -50,7 +50,7 @@ import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jst.j2ee.ejb.annotations.IEnterpriseBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IEnterpriseBeanDelegate;
 import org.eclipse.text.edits.TextEdit;
 
 

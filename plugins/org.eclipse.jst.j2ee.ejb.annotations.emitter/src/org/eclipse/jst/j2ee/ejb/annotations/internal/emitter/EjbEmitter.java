@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.jst.j2ee.ejb.annotations.IEnterpriseBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IEnterpriseBeanDelegate;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 
 public abstract class EjbEmitter {

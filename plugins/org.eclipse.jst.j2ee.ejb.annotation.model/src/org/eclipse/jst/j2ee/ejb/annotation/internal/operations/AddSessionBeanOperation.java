@@ -8,7 +8,7 @@
  **************************************************************************************************/
 
 
-package org.eclipse.jst.j2ee.ejb.annotation.operations;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -23,15 +23,15 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
-import org.eclipse.jst.j2ee.ejb.annotation.model.BeanFactory;
-import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.SessionBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotations.ISessionBeanDelegate;
-import org.eclipse.jst.j2ee.ejb.annotations.classgen.EjbBuilder;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.BeanFactory;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.NewEJBJavaClassDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.classgen.EjbBuilder;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.ISessionBeanDelegate;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 

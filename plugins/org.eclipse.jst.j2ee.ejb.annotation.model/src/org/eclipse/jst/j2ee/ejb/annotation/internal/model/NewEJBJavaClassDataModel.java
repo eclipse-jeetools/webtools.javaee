@@ -7,7 +7,7 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotation.model;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.io.File;
 
@@ -19,13 +19,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
+import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-
 
 public class NewEJBJavaClassDataModel extends NewJavaClassDataModel {
 
@@ -35,36 +34,24 @@ public class NewEJBJavaClassDataModel extends NewJavaClassDataModel {
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		try {
-			// check for JavaSource folder
-			EJBNatureRuntime nature = (EJBNatureRuntime) project.getNature(IEJBNatureConstants.NATURE_ID);
-			if (nature == null)
-				return null;
-			IPath folderFullPath = nature.getSourceFolder().getFullPath();
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			IFolder folder = root.getFolder(folderFullPath);
-			return folder;
-		} catch (CoreException e1) {
-			e1.printStackTrace();
-		}
-		return null;
+		if (!ServerTargetHelper.hasJavaNature(project))
+			return null;
+		IPath folderFullPath = JavaProjectUtilities.getSourceFolderOrFirst(
+				project, "src").getFullPath();
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IFolder folder = root.getFolder(folderFullPath);
+		return folder;
 	}
 
 	public IPackageFragmentRoot getJavaPackageFragmentRoot() {
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		try {
-			if (project.hasNature(IEJBNatureConstants.NATURE_ID)) {
-				IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
-				if (javaProject != null) {
-					IFolder sourcefolder = getJavaSourceFolder();
-					if (sourcefolder != null)
-						return javaProject.getPackageFragmentRoot(sourcefolder);
-				}
-			}
-		} catch (CoreException ex) {
-			//Do nothing
+		IJavaProject javaProject = JavaCore.create(project);
+		if (javaProject != null) {
+			IFolder sourcefolder = getJavaSourceFolder();
+			if (sourcefolder != null)
+				return javaProject.getPackageFragmentRoot(sourcefolder);
 		}
 		return null;
 	}

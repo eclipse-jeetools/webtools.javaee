@@ -7,7 +7,7 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model;
 
 
 /**
@@ -16,10 +16,11 @@ package org.eclipse.jst.j2ee.ejb.annotations;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public interface ISessionBeanDelegate extends IEnterpriseBeanDelegate{
+public interface IMessageDrivenBeanDelegate extends IEnterpriseBeanDelegate{
 	
 	
-	public String getSessionType();
+	public String getDestinationType();
+	public String getDestinationJndiName();
 	
 
 }

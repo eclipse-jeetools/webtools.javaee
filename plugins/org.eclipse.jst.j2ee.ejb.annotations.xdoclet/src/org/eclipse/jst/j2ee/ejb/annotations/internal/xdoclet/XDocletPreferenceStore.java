@@ -17,7 +17,7 @@
  * <http://www.eteration.com/>.
  ***************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations.xdoclet;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 

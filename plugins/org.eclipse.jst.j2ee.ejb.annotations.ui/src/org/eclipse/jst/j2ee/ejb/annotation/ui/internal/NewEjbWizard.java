@@ -10,6 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
@@ -21,7 +22,6 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 
 public abstract class NewEjbWizard extends WTPWizard implements INewWizard {

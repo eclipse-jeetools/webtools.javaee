@@ -23,6 +23,7 @@ import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -30,7 +31,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.messages.IEJBAnnotationConstants;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
@@ -52,8 +53,6 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 	private Text folderText;
@@ -199,9 +198,6 @@ public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 		dialog.setMessage(IEJBAnnotationConstants.CONTAINER_SELECTION_DIALOG_DESC);
 		dialog.addFilter(filter);
 		dialog.setInput(J2EEUIPlugin.getWorkspace().getRoot());
-		IProject project = model.getTargetProject();
-		if (project != null)
-			dialog.setInitialSelection(project);
 		if (dialog.open() == Window.OK) {
 			Object element = dialog.getFirstResult();
 			try {
@@ -312,7 +308,7 @@ public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 				} else if (element instanceof IFolder) {
 					IFolder folder = (IFolder) element;
 					// only show source folders
-					if (ProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
+					if (JavaProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
 						ret = true;
 					}
 				}

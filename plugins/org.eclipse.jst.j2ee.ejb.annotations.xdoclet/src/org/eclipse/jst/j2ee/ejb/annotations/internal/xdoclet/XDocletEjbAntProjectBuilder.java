@@ -18,9 +18,6 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Logger;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletAnnotationPlugin;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletPreferenceStore;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 
 public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {

@@ -7,28 +7,30 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations.xdoclet;
+package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class XDocletAnnotationPlugin extends AbstractUIPlugin {
+public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
+	
+	public static final String PLUGINID= "org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.ui";
 	//The shared instance.
-	private static XDocletAnnotationPlugin plugin;
+	private static EjbAnnotationsUiPlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
-	public static final String PLUGINID = "org.eclipse.jst.j2ee.ejb.annotations.xdoclet";
+	
 	/**
 	 * The constructor.
 	 */
-	public XDocletAnnotationPlugin() {
+	public EjbAnnotationsUiPlugin() {
 		super();
 		plugin = this;
 	}
@@ -52,7 +54,7 @@ public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static XDocletAnnotationPlugin getDefault() {
+	public static EjbAnnotationsUiPlugin getDefault() {
 		return plugin;
 	}
 
@@ -61,7 +63,7 @@ public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 	 * or 'key' if not found.
 	 */
 	public static String getResourceString(String key) {
-		ResourceBundle bundle = XDocletAnnotationPlugin.getDefault().getResourceBundle();
+		ResourceBundle bundle = EjbAnnotationsUiPlugin.getDefault().getResourceBundle();
 		try {
 			return (bundle != null) ? bundle.getString(key) : key;
 		} catch (MissingResourceException e) {
@@ -70,23 +72,23 @@ public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 	}
 
 	/**
+	 * This gets a .gif from the icons folder.
+	 */
+	public ImageDescriptor getImageDescriptor(String path) {
+		ImageDescriptor imageDescriptor = EjbAnnotationsUiPlugin.imageDescriptorFromPlugin(PLUGINID,path);
+		return imageDescriptor;
+	}
+
+	/**
 	 * Returns the plugin's resource bundle,
 	 */
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletAnnotationPluginResources");
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.ui.EjbAnnotationsUiPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
 		return resourceBundle;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#initializeDefaultPreferences(org.eclipse.jface.preference.IPreferenceStore)
-	 */
-	protected void initializeDefaultPreferences(IPreferenceStore store) {
-		XDocletPreferenceStore.initializeDefaultPreferences(store);
-	}
-	
 }

@@ -14,10 +14,7 @@ import java.util.List;
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
-import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 
@@ -112,7 +109,7 @@ public class MessageDrivenBeanDelegate implements IMessageDrivenBeanDelegate {
 
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate#getDestinationType()
+	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate#getDestinationType()
 	 */
 	public String getDestinationType() {
 		return messageDriven.getDestination().getType().getName();
@@ -121,7 +118,7 @@ public class MessageDrivenBeanDelegate implements IMessageDrivenBeanDelegate {
 
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate#getDestinationJndiName()
+	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate#getDestinationJndiName()
 	 */
 	public String getDestinationJndiName() {
 		return messageDriven.getMessageSelector();

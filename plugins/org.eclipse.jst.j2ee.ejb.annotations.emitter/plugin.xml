@@ -5,7 +5,7 @@
    name="EJB Emitter Plug-in"
    version="1.0.0"
    provider-name="Eteration"
-   class="org.eclipse.jst.j2ee.ejb.annotations.emitter.EjbEmitterPlugin">
+   class="org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitterPlugin">
 
    <runtime>
       <library name="ejbEmitter.jar">

@@ -7,7 +7,7 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model;
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;

@@ -27,7 +27,7 @@ public class ClasspathProvider extends DefaultClasspathProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.DefaultClasspathProvider#getClasspathItems()
+	 * @see org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.internal.emitter.DefaultClasspathProvider#getClasspathItems()
 	 */
 	public List getClasspathItems() {
 		return super.getClasspathItems();

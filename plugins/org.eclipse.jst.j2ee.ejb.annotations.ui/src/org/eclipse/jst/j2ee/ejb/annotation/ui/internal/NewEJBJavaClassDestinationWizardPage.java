@@ -11,13 +11,13 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
+import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class NewEJBJavaClassDestinationWizardPage extends NewJavaClassDestinationWizardPage {
 	public NewEJBJavaClassDestinationWizardPage(WTPOperationDataModel model, String pageName,
@@ -34,11 +34,11 @@ public class NewEJBJavaClassDestinationWizardPage extends NewJavaClassDestinatio
 				boolean ret = false;
 				if (element instanceof IProject) {
 					IProject project = (IProject) element;
-					ret = (EJBNatureRuntime.hasRuntime(project));
+					return ServerTargetHelper.hasJavaNature(project);
 				} else if (element instanceof IFolder) {
 					IFolder folder = (IFolder) element;
 					// only show source folders
-					if (ProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
+					if (JavaProjectUtilities.getSourceContainers(folder.getProject()).contains(folder)) {
 					//if (((NewJavaClassDataModel)model).isSourceFolder(fullPath)) {
 						ret = true;
 					}

@@ -7,14 +7,12 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotation.model;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.Session;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDelegate;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDelegate;
-import org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate;
-import org.eclipse.jst.j2ee.ejb.annotations.ISessionBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.ISessionBeanDelegate;
 
 
 public class BeanFactory {

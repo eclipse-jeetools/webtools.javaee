@@ -10,7 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.messages.IEJBAnnotationConstants;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;

@@ -10,7 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.jst.j2ee.ejb.annotations.IEnterpriseBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IEnterpriseBeanDelegate;
 
 
 public class SessionEjbEmitter extends EjbEmitter {

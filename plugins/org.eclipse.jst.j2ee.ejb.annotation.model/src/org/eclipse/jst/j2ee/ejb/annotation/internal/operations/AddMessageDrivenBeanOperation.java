@@ -8,7 +8,7 @@
  **************************************************************************************************/
 
 
-package org.eclipse.jst.j2ee.ejb.annotation.operations;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -24,14 +24,14 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MessageDrivenDestination;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
-import org.eclipse.jst.j2ee.ejb.annotation.model.BeanFactory;
-import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate;
-import org.eclipse.jst.j2ee.ejb.annotations.classgen.EjbBuilder;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.BeanFactory;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.NewEJBJavaClassDataModel;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.classgen.EjbBuilder;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.MessageDrivenEjbEmitter;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 
@@ -82,7 +82,7 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 		
 		
 		try {
-			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.jst.j2ee.ejb.annotations.emitter.template");
+			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.emitter.template");
 			String builderId = configurationElements[0].getAttribute("builderId");
 			addToEndOfBuildSpec( ejbClassModel.getTargetProject(),  configurationElements[0].getNamespace() + "."+builderId);
 			EjbEmitter ejbEmitter = new MessageDrivenEjbEmitter(configurationElements[0]);

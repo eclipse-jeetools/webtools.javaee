@@ -7,30 +7,25 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations.ui;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-/**
- * The main plugin class to be used in the desktop.
- */
-public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
-	
-	public static final String PLUGINID= "org.eclipse.jst.j2ee.ejb.annotations.ui";
+
+public class EjbEmitterPlugin extends AbstractUIPlugin {
 	//The shared instance.
-	private static EjbAnnotationsUiPlugin plugin;
+	private static EjbEmitterPlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
 	
 	/**
 	 * The constructor.
 	 */
-	public EjbAnnotationsUiPlugin() {
+	public EjbEmitterPlugin() {
 		super();
 		plugin = this;
 	}
@@ -54,7 +49,7 @@ public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static EjbAnnotationsUiPlugin getDefault() {
+	public static EjbEmitterPlugin getDefault() {
 		return plugin;
 	}
 
@@ -63,7 +58,7 @@ public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
 	 * or 'key' if not found.
 	 */
 	public static String getResourceString(String key) {
-		ResourceBundle bundle = EjbAnnotationsUiPlugin.getDefault().getResourceBundle();
+		ResourceBundle bundle = EjbEmitterPlugin.getDefault().getResourceBundle();
 		try {
 			return (bundle != null) ? bundle.getString(key) : key;
 		} catch (MissingResourceException e) {
@@ -72,20 +67,12 @@ public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * This gets a .gif from the icons folder.
-	 */
-	public ImageDescriptor getImageDescriptor(String path) {
-		ImageDescriptor imageDescriptor = EjbAnnotationsUiPlugin.imageDescriptorFromPlugin(PLUGINID,path);
-		return imageDescriptor;
-	}
-
-	/**
 	 * Returns the plugin's resource bundle,
 	 */
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.ui.EjbAnnotationsUiPluginResources");
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.emitter.EjbEmitterPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}

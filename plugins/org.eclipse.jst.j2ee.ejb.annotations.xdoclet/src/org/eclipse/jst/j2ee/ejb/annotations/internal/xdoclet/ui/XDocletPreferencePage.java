@@ -12,15 +12,15 @@
  * For more information on eteration, please see
  * <http://www.eteration.com/>.
  ***************************************************************************/
-package org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ui;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
 
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletPreferenceStore;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletRuntime;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletPreferenceStore;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletRuntime;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;

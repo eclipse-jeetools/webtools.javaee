@@ -12,7 +12,7 @@
  * For more information on eteration, please see
  * <http://www.eteration.com/>.
  ***************************************************************************/
-package org.eclipse.jst.j2ee.ejb.annotations.xdoclet;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
 import java.io.File;
 import java.net.MalformedURLException;

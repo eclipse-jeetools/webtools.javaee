@@ -7,7 +7,7 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotation.model;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

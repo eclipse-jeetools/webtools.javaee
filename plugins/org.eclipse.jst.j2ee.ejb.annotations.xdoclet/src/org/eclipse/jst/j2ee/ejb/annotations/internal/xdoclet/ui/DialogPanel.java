@@ -12,7 +12,7 @@
  * For more information on eteration, please see
  * <http://www.eteration.com/>.
  ***************************************************************************/
-package org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ui;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;

@@ -34,8 +34,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentDescription;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.Logger;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletPreferenceStore;
 
 public class XDocletBuilder extends IncrementalProjectBuilder implements IExecutableExtension {
 
@@ -195,7 +193,7 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements IExecut
 	}
 
 	private static String getBuilderId() {
-		return "org.eclipse.jst.j2ee.ejb.annotations.xdocletbuilder"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.xdocletbuilder"; //$NON-NLS-1$
 	}
 
 	public static IProgressMonitor monitorFor(IProgressMonitor monitor) {

@@ -7,25 +7,28 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotations.emitter;
+package org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-
-public class EjbEmitterPlugin extends AbstractUIPlugin {
+/**
+ * The main plugin class to be used in the desktop.
+ */
+public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 	//The shared instance.
-	private static EjbEmitterPlugin plugin;
+	private static XDocletAnnotationPlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+	public static final String PLUGINID = "org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.xdoclet";
 	/**
 	 * The constructor.
 	 */
-	public EjbEmitterPlugin() {
+	public XDocletAnnotationPlugin() {
 		super();
 		plugin = this;
 	}
@@ -49,7 +52,7 @@ public class EjbEmitterPlugin extends AbstractUIPlugin {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static EjbEmitterPlugin getDefault() {
+	public static XDocletAnnotationPlugin getDefault() {
 		return plugin;
 	}
 
@@ -58,7 +61,7 @@ public class EjbEmitterPlugin extends AbstractUIPlugin {
 	 * or 'key' if not found.
 	 */
 	public static String getResourceString(String key) {
-		ResourceBundle bundle = EjbEmitterPlugin.getDefault().getResourceBundle();
+		ResourceBundle bundle = XDocletAnnotationPlugin.getDefault().getResourceBundle();
 		try {
 			return (bundle != null) ? bundle.getString(key) : key;
 		} catch (MissingResourceException e) {
@@ -72,10 +75,18 @@ public class EjbEmitterPlugin extends AbstractUIPlugin {
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.emitter.EjbEmitterPluginResources");
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.xdoclet.XDocletAnnotationPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
 		return resourceBundle;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#initializeDefaultPreferences(org.eclipse.jface.preference.IPreferenceStore)
+	 */
+	protected void initializeDefaultPreferences(IPreferenceStore store) {
+		XDocletPreferenceStore.initializeDefaultPreferences(store);
+	}
+	
 }

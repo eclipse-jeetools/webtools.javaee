@@ -7,23 +7,29 @@
  * Contributors: Eteration A.S. - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.ejb.annotation.model;
+package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.operations.AddSessionBeanOperation;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 
-public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotationsDataModel {
+public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IAnnotationsDataModel {
+	public static final String DESTINATIONNAME = "MessageDrivenBeanDataModel.DESTINATIONNAME"; //$NON-NLS-1$
+	public static final String DESTINATIONTYPE = "MessageDrivenBeanDataModel.DESTINATIONTYPE"; //$NON-NLS-1$
+
 	public final static String EJB_SUPERCLASS = "java.lang.Object"; //$NON-NLS-1$ 
-	public final static String[] EJB_INTERFACES = {"javax.ejb.SessionBean" //$NON-NLS-1$
+	public final static String[] EJB_INTERFACES = {"javax.ejb.MessageDrivenBean" //$NON-NLS-1$
+													, "javax.jms.MessageListener" //$NON-NLS-1$ 
 	};
-
+	
 	private List interfaceList;
 
 	/*
@@ -32,7 +38,7 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
-		return new AddSessionBeanOperation(this);
+		return new AddMessageDrivenBeanOperation(this);
 	}
 
 	/*
@@ -42,7 +48,10 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
+		addValidBaseProperty(DESTINATIONTYPE);
+		addValidBaseProperty(DESTINATIONNAME);
 	}
+
 
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
@@ -56,7 +65,24 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
+		if (propertyName.equals(DESTINATIONNAME))
+			return validateJndiName(getStringProperty(propertyName));
+		if (propertyName.equals(DESTINATIONTYPE))
+			return validateDestinationType(getStringProperty(propertyName));
 		return super.doValidateProperty(propertyName);
+	}
+
+	private IStatus validateDestinationType(String prop) {
+		// check for empty
+		if (prop == null || prop.trim().length() == 0) {
+			String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_EMPTY;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		if (prop.indexOf("Queue") >= 0 || prop.indexOf("Topic") >= 0) {
+			String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_VALUE;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		return WTPCommonPlugin.OK_STATUS;
 	}
 
 

@@ -5,7 +5,7 @@
    name="EJB Annotation Model Plug-in"
    version="1.0.0"
    provider-name="Eteration"
-   class="org.eclipse.jst.j2ee.ejb.annotation.model.ModelPlugin">
+   class="org.eclipse.jst.j2ee.ejb.annotation.internal.model.ModelPlugin">
 
    <runtime>
       <library name="ejbAnnotationModel.jar">
@@ -30,8 +30,8 @@
 
      <import plugin="org.eclipse.emf.ecore.xmi"/>
      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
-     <import plugin="com.ibm.wtp.emf.workbench"/>
-     <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.jem.workbench"/>
  
    </requires>
 

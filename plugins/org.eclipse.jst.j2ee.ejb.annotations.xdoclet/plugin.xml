@@ -5,7 +5,7 @@
    name="Xdoclet Annotations Plug-in"
    version="1.0.0"
    provider-name="Eteration"
-   class="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletAnnotationPlugin">
+   class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAnnotationPlugin">
 
    <runtime>
       <library name="xdocletAnnotation.jar">
@@ -28,10 +28,10 @@
       <import plugin="org.eclipse.jst.j2ee"/>
       <import plugin="org.eclipse.jst.j2ee.ejb"/>
       <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
-      <import plugin="com.ibm.wtp.common.util"/>
-      <import plugin="com.ibm.wtp.emf.workbench"/>
       <import plugin="org.eclipse.jst.j2ee.web"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.jem.util"/>
    </requires>
 
    <extension point="org.eclipse.core.resources.builders"
@@ -48,13 +48,13 @@
          point="org.eclipse.ui.preferencePages">
      <page
             name="XDoclet"
-             class="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ui.XDocletPreferencePage"
+             class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference">
       </page>
      <page
             name="ejbdoclet"
             category="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference"
-            class="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ui.XDocletEJBPreferencePage"
+            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletEJBPreferencePage"
             id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ejb.preference">
      </page>
    </extension>
@@ -62,6 +62,7 @@
    <extension
          point="org.eclipse.jst.j2ee.ejb.annotations.emitter.template">
       <emitter
+      
             name="XDoclet"
             classpathProvider="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ClasspathProvider"
             builderId="xdocletbuilder"
