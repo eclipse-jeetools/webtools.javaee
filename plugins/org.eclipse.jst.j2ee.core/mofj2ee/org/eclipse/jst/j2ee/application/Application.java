@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.application;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.SecurityRole;
-import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 
 /**
  * The application element is the root element of a J2EE application deployment descriptor.

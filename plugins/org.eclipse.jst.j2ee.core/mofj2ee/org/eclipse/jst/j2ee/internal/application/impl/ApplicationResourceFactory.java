@@ -20,7 +20,6 @@ import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceFactory;
-import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
 
 
 public class ApplicationResourceFactory extends TranslatorResourceFactory {

@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 
 /**
  * The login-config element is used to configure the authentication method that should be used, the realm name that should be used for this application, and the attributes that are needed by the form login

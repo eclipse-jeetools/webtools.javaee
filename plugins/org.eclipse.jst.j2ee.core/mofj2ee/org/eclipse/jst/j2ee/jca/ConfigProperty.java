@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 /**
  * The config property contains a declaration of a single
  * configuration property for a ManagedConnectionFactory instance.

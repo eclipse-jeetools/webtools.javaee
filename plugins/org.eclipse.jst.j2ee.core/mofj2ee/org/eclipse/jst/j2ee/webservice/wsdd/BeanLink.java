@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.webservice.wsdd;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.jsp;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
-import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 
 
 

@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 /**
  * The resource-ref element contains a declaration of application clients's reference to an external resource. It consists of an optional description, the resource factory reference name, the indication of the resource factory type expected by the application client's code, and the type of authentication (bean or container).

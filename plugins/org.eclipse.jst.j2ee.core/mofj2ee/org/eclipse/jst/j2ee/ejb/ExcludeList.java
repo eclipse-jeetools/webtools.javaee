@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 /**
  * The exclude list element defines a set of methods which the Assembler marks to be uncallable. It contains one or more methods.
  * 

@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 /**
  * Specifies the run-as identity to be used for the execution of the methods of an enterprise bean. It contains an optional description, and the name of a security role.
 

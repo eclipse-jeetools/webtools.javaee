@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.webapplication;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 
 
 /**

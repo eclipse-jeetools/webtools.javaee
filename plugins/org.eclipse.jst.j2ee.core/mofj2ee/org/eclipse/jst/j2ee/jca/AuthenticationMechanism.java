@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 
 /**
  * The element authentication-mechanism specifies an authentication mechanism supported by the resource adapter. Note that this support is for the resource adapter and not for the underlying EIS instance. The optional description specifies any resource adapter specific requirement for the support of security contract and authentication mechanism.

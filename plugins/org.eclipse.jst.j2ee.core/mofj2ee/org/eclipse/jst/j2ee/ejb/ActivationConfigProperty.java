@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 /**
  * Specifies a security permission that is required by the resource adapter code.
  * 

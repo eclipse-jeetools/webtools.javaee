@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 /**
  * A semantic grouping of operations that may be performed by a subject.
  * The security-role element contains the declaration of a security role which is used in the security-constraints placed on the web application.

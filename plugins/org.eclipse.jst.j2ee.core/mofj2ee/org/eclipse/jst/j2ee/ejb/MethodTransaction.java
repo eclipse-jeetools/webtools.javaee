@@ -15,7 +15,6 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 /**
  * Specifies how the container must manage transaction scopes for the enterprise bean's method invocations.  It consists of an optional description, a list of method elements, and a transaction attribute.The transaction attribute is to be applied to all the specified methods.
  */

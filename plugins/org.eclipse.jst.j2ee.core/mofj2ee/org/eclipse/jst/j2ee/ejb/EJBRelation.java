@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 /**
  * The ejb-relation element describes a relationship between two entity beans with container managed persistence. An ejb-relation element contains a description; an optional ejb-relation-name element; and exactly two relationship role declarations, defined by the ejb-relationship-roles. The name of the relationship, if specified, is unique within the ejb-jar file.
  * 

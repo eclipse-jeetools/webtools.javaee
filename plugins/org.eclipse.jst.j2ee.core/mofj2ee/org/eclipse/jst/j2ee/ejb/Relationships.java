@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.ejb;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 /**
  * The relationships describes the relationships in which entity beans with container managed persistence participate. The relationships element contains an optional description; and a list of ejb-relation elements, which specify the container managed relationships.
  */

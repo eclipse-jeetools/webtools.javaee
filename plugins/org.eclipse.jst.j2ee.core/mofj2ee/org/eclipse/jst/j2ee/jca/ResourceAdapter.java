@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 /**
  * Specifies information about the resource adapter. The information includes fully-qualified names of class//interfaces required as part of the connector architecture specified contracts, level of transaction support provided, configurable properties for ManagedConnectionFactory instances, one or more authentication mechanisms supported and additional
  * required security permissions.

@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  * The servlet-mapping element defines a mapping between a servlet and a url pattern
  */

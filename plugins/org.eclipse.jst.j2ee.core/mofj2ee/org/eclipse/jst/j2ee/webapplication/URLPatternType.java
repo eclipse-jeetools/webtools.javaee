@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  *  <!-- begin-user-doc -->
  * @deprecated since 4/25/2003 use list on {@link org.eclipse.jst.j2ee.internal.webapplication.WebResourceCollection} 
