@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/20 19:10:16 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/03 18:37:18 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -211,10 +211,12 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	 */
 	public void contributeClasspath(Bundle bundle, String relativePath, int typeFlag, boolean nlsLocalize) {
 		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
-		if (!nlsLocalize || typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
-			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundle(bundle, relativePath), typeFlag);
-		else
+		if (nlsLocalize)
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeAllFromBundleAndFragments(bundle, relativePath), typeFlag);
+		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
 			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath), typeFlag);
+		else
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
 	}
 	
 	
@@ -223,10 +225,12 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	 */
 	public void contributeClasspath(Bundle bundle, IPath relativePath, int typeFlag, boolean nlsLocalize) {
 		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
-		if (!nlsLocalize || typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
-			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundle(bundle, relativePath), typeFlag);
-		else
+		if (nlsLocalize)
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeAllFromBundleAndFragments(bundle, relativePath), typeFlag);
+		else if (typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
 			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath), typeFlag);
+		else
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleOnly(bundle, relativePath), typeFlag);
 	}
 
 	/* (non-Javadoc)

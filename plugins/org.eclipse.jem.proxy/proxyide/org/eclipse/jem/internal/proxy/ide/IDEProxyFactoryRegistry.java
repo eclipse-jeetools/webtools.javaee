@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.ide;
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.7 $  $Date: 2004/10/12 20:20:14 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/03 18:37:18 $ 
  */
 
 import java.net.URL;
@@ -96,7 +96,7 @@ public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core
 public static ClassLoader createSpecialLoader(String pluginName, URL[] otherURLs) {
 	Bundle bundle = pluginName != null ? Platform.getBundle(pluginName) : null;
 	
-	URL[] mustHaveUrls = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(ProxyPlugin.getPlugin().getBundle(), "vm/remotevm.jar"); //$NON-NLS-1$
+	URL[] mustHaveUrls = ProxyPlugin.getPlugin().urlLocalizeAllFromBundleAndFragments(ProxyPlugin.getPlugin().getBundle(), "vm/remotevm.jar"); //$NON-NLS-1$
 	
 	URL[] urls = null;
 	if (otherURLs != null) {

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.42 $  $Date: 2005/02/02 14:19:59 $ 
+ *  $Revision: 1.43 $  $Date: 2005/02/03 18:37:18 $ 
  */
 
 
@@ -88,17 +88,6 @@ public class ProxyPlugin extends Plugin {
 	}	
 
 	/**
-	 * 
-	 * @param pluginDescriptor
-	 * @param filenameWithinPlugin
-	 * @return
-	 * @deprecated see localizeFromPluginDescriptor(Bundle, String) instead.
-	 */
-	public String localizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-		return localizeFromBundle(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
-	}
-
-	/**
 	 * This will take the bundle and file name and make it local and return that
 	 * fully qualified. It will look in fragments, but only returns first found. If there can be multiples use
 	 * the one for bundles and it fragments.
@@ -131,19 +120,15 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public String localizeFromBundle(Bundle bundle, String filenameWithinBundle) {
-		URL url = urlLocalizeFromBundle(bundle, filenameWithinBundle);
+	public String localizeFromBundleOnly(Bundle bundle, String filenameWithinBundle) {
+		URL url = urlLocalizeFromBundleOnly(bundle, filenameWithinBundle);
+		return url != null ? getFileFromURL(url) : "."; //$NON-NLS-1$
+	}
+	public String localizeFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
+		URL url = urlLocalizeFromBundleAndFragments(bundle, filenameWithinBundle);
 		return url != null ? getFileFromURL(url) : "."; //$NON-NLS-1$
 	}
 	
-	/**
-	 * @deprecated see localizeFromPluginDescriptorAndFragments(Bundle, String) instead.
-	 */
-	public String[] localizeFromPluginDescriptorAndFragments(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
-		return localizeFromBundleAndFragments(Platform.getBundle(pluginDescriptor.getUniqueIdentifier()), filenameWithinPlugin);
-	}
-	
-
 	/**
 	 * Just like localizeFromBundle except it will return an array of Strings. It will look for the filename
 	 * within the bundle and any fragments of the bundle. If none are found, an empty array will be returned.
@@ -175,8 +160,8 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public String[] localizeFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
-		URL[] urls = urlLocalizeFromBundleAndFragments(bundle, filenameWithinBundle);
+	public String[] localizeAllFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
+		URL[] urls = urlLocalizeAllFromBundleAndFragments(bundle, filenameWithinBundle);
 		String[] result = new String[urls.length];
 		for (int i = 0; i < urls.length; i++) {
 			result[i] = getFileFromURL(urls[i]);
@@ -191,28 +176,29 @@ public class ProxyPlugin extends Plugin {
 
 	}
 
-	/**
-	 * Like <code>urlLocalizeFromBundleAndFragments(Bundle, String)</code> except takes a path.
-	 * 
-	 * @param bundle
-	 * @param filenameWithinBundle
-	 * @return
-	 * 
-	 * @see #urlLocalizeFromBundle(Bundle, String)
-	 * @since 1.0.0
-	 */
-	public URL[] urlLocalizeFromBundleAndFragments(Bundle bundle, IPath filenameWithinBundle) {
-		Bundle[] fragments = Platform.getFragments(bundle); // See if there are any fragments
-		if (fragments == null || fragments.length == 0) {
-			URL result = urlLocalizeFromBundle(bundle, filenameWithinBundle);
-			return result != null ? new URL[] { result } : new URL[0];
-		} else {
-			return urlLocalizeBundleAndFragments(bundle, fragments, filenameWithinBundle.toString());
+	public URL urlLocalizeFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
+		return urlLocalizeFromBundleAndFragments(bundle, new Path(filenameWithinBundle));
+	}
+	public URL urlLocalizeFromBundleAndFragments(Bundle bundle, IPath filenameWithinBundle) {
+		try {
+			URL pvm = Platform.find(bundle, filenameWithinBundle);
+			if (pvm != null)
+				return Platform.asLocalURL(pvm);
+		} catch (IOException e) {
 		}
+		if (devMode) {
+			URL[] urls = findDevAllFromBundleAndFragments(bundle, filenameWithinBundle.toString());
+			if (urls.length > 0)
+				return urls[0];
+			else
+				return null;
+		} else
+			return null;
 	}
 	
 	/**
 	 * Like <code>localizeFromBundleAndFragments</code> except it returns URL's instead.
+	 * 
 	 * @param bundle
 	 * @param filenameWithinBundle
 	 * @return
@@ -220,14 +206,11 @@ public class ProxyPlugin extends Plugin {
 	 * @see ProxyPlugin#localizeFromBundleAndFragments(Bundle, String)
 	 * @since 1.0.0
 	 */
-	public URL[] urlLocalizeFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
-		Bundle[] fragments = Platform.getFragments(bundle); // See if there are any fragments
-		if (fragments == null || fragments.length == 0) {
-			URL result = urlLocalizeFromBundle(bundle, filenameWithinBundle);
-			return result != null ? new URL[] { result } : new URL[0];
-		} else {
-			return urlLocalizeBundleAndFragments(bundle, fragments, filenameWithinBundle);
-		}
+	public URL[] urlLocalizeAllFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
+		return urlLocalizeAllBundleAndFragments(bundle, Platform.getFragments(bundle), filenameWithinBundle);
+	}
+	public URL[] urlLocalizeAllFromBundleAndFragments(Bundle bundle, IPath filenameWithinBundle) {
+		return urlLocalizeAllBundleAndFragments(bundle, Platform.getFragments(bundle), filenameWithinBundle.toString());
 	}
 	
 	/**
@@ -238,54 +221,24 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	private URL[] urlLocalizeBundleAndFragments(Bundle bundle, Bundle[] fragments, String filenameWithinBundle) {
-		ArrayList urls = new ArrayList(fragments.length + 1);
-		URL url = urlLocalizeFromBundleOnly(bundle, filenameWithinBundle);
+	private URL[] urlLocalizeAllBundleAndFragments(Bundle bundle, Bundle[] fragments, String filenameWithinBundle) {
+
+		ArrayList urls = new ArrayList((fragments == null ? 0 : fragments.length) + 1);
+		URL url = internalUrlLocalizeFromBundleOnly(bundle, filenameWithinBundle);
 		if (url != null)
 			urls.add(url);
-		for (int i = 0; i < fragments.length; i++) {
-			Bundle fragment = fragments[i];
-			url =  urlLocalizeFromBundleOnly(fragment, filenameWithinBundle);
-			if (url != null)
-				urls.add(url);
-			// Also, look through the libraries of the fragment to see if one matches the special path.				
-			// This is where one of the runtime libraries has the fragment id in it. 
-			//  (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments, but this is obsolete).
-			String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
-			try {
-				ManifestElement[] classpaths = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, classpath);
-				if (classpaths != null && classpaths.length > 0) {
-					int extndx = filenameWithinBundle.lastIndexOf('.');
-					String libFile = null;
-					if (extndx != -1)
-						libFile =
-							filenameWithinBundle.substring(0, extndx)
-								+ '.'
-								+ fragment.getSymbolicName()
-								+ filenameWithinBundle.substring(extndx);
-					else
-						libFile = filenameWithinBundle + '.' + fragment.getSymbolicName();
-					for (int j = 0; j < classpaths.length; j++) {
-						IPath cp = new Path(classpaths[j].getValue());
-						// The last segment should be the file name. That is the name we are looking for.
-						if (libFile.equals(cp.lastSegment())) {
-							url = urlLocalizeFromBundleOnly(fragment, classpaths[j].getValue());
-							// Though the actual classpath entry is the file we are looking for.
-							if (url != null)
-								urls.add(url);
-							break;
-						}
-					}
-				}
-			} catch (BundleException e) {
-				getLogger().log(e, Level.INFO);
+		if (fragments != null) {
+			for (int i = 0; i < fragments.length; i++) {
+				Bundle fragment = fragments[i];
+				url = internalUrlLocalizeFromBundleOnly(fragment, filenameWithinBundle);
+				if (url != null)
+					urls.add(url);
 			}
 		}
 		return (URL[]) urls.toArray(new URL[urls.size()]);
 	}
 
 	private static final String PROXYJARS = "proxy.jars";	//$NON-NLS-1$
-	private static final IPath PROXYJARS_PATH = new Path(PROXYJARS); 
 	
 	/**
 	 * @see ProxyPlugin#localizeFromBundle(Bundle, String)
@@ -298,10 +251,55 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public URL urlLocalizeFromBundle(Bundle bundle, String filenameWithinBundle) {
-		return urlLocalizeFromBundle(bundle, new Path(filenameWithinBundle));
+	public URL urlLocalizeFromBundleOnly(Bundle bundle, String filenameWithinBundle) {
+		// If the filenameWithinBundle begins with one of these special characters,
+		// it might be in a fragment.
+		if (filenameWithinBundle.charAt(0) == '$'
+				&& (filenameWithinBundle.regionMatches(true, 0, "$nl$", 0, "$nl$".length())
+						|| filenameWithinBundle.regionMatches(true, 0, "$os$", 0, "$os$".length()) || filenameWithinBundle.regionMatches(true, 0,
+						"$ws$", 0, "$ws$".length())))
+			return urlLocalizeFromBundleAndFragments(bundle, filenameWithinBundle);
+		try {
+			URL pvm = new URL(bundle.getEntry("/"), filenameWithinBundle);
+			pvm = verifyFound(Platform.asLocalURL(pvm));
+			if (pvm != null)
+				return pvm;
+		} catch (IOException e) {
+		}
+		return findDev(bundle, filenameWithinBundle);
+
 	}
 	
+	protected URL internalUrlLocalizeFromBundleOnly(Bundle bundle, String filenameWithinBundle) {
+		try {
+			URL pvm = bundle.getEntry(filenameWithinBundle);
+			if (pvm != null)
+				return Platform.asLocalURL(pvm);
+		} catch (IOException e) {
+		}
+		return findDev(bundle, filenameWithinBundle);		
+		
+	}	
+	
+	private URL verifyFound(URL pvm) throws IOException {
+		if (devMode) {
+			// Need to test if found in devmode. Otherwise we will just assume it is found. If not found on remote and moved to cache, an IOException would be thrown.
+			if (pvm != null) {
+				InputStream ios = null;
+				try {
+					ios = pvm.openStream();
+					if (ios != null)
+						return pvm; // Found it, so return it.
+				} finally {
+					if (ios != null)
+						ios.close();
+				}
+			}
+		} else
+			return pvm;
+		return null;
+	}
+
 	/**
 	 * @see ProxyPlugin#localizeFromBundle(bundle, String)
 	 * 
@@ -313,26 +311,8 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public URL urlLocalizeFromBundle(Bundle bundle, IPath filenameWithinBundle) {					
-		try {
-			URL pvm = Platform.find(bundle, filenameWithinBundle);
-			if (pvm != null)
-				return Platform.asLocalURL(pvm);
-		} catch (IOException e) {
-		}
-
-		return findDev(bundle, filenameWithinBundle.toString());
-	}
-
-	protected URL urlLocalizeFromBundleOnly(Bundle bundle, String filenameWithinBundle) {
-		try {
-			URL pvm = bundle.getEntry(filenameWithinBundle);
-			if (pvm != null)
-				return Platform.asLocalURL(pvm);
-		} catch (IOException e) {
-		}
-
-		return findDev(bundle, filenameWithinBundle);
+	public URL urlLocalizeFromBundleOnly(Bundle bundle, IPath filenameWithinBundle) {					
+		return urlLocalizeFromBundleOnly(bundle, filenameWithinBundle.toString());
 	}
 	
 	private URL findDev(Bundle bundle, String filenameWithinBundle) {
@@ -343,7 +323,7 @@ public class ProxyPlugin extends Plugin {
 			// from Platform.resolve(). We won't be running in dev mode with our entireplugin being in a jar,
 			// or on a separate system.
 			try {
-				URL pvm = Platform.find(bundle, PROXYJARS_PATH);
+				URL pvm = bundle.getEntry(PROXYJARS);
 				if (pvm != null) {
 					InputStream ios = null;
 					try {
@@ -371,7 +351,22 @@ public class ProxyPlugin extends Plugin {
 		return null;
 
 	}
-	
+	private URL[] findDevAllFromBundleAndFragments(Bundle bundle, String filenameWithinBundle) {
+		Bundle [] fragments = Platform.getFragments(bundle);
+		ArrayList urls = new ArrayList((fragments == null ? 0 : fragments.length) + 1);
+		URL url = findDev(bundle, filenameWithinBundle);
+		if (url != null)
+			urls.add(url);
+		if (fragments != null) {
+			for (int i = 0; i < fragments.length; i++) {
+				Bundle fragment = fragments[i];
+				url = findDev(fragment, filenameWithinBundle);
+				if (url != null)
+					urls.add(url);
+			}
+		}
+		return (URL[]) urls.toArray(new URL[urls.size()]);
+	}	
 	/**
 	 * A helper to order the plugins into pre-req order. 
 	 * If A eventually depends on B, then B will be ahead of A in the
@@ -456,16 +451,16 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	public static List getPrereqs(Bundle bundle) {
-		  List l = (List) pluginRequiredMap.get(bundle.getSymbolicName());
-		  if (l==null) {
-		  	BundleSpecification specs[] = Platform.getPlatformAdmin().getState(false).getBundle(bundle.getBundleId()).getRequiredBundles();
-		  	l = new ArrayList (specs.length);		  	
-		  	for (int i = 0; i < specs.length; i++) {
-			  	l.add(Platform.getBundle(specs[i].getName()));
+		List l = (List) pluginRequiredMap.get(bundle.getSymbolicName());
+		if (l == null) {
+			BundleSpecification specs[] = Platform.getPlatformAdmin().getState(false).getBundle(bundle.getBundleId()).getRequiredBundles();
+			l = new ArrayList(specs.length);
+			for (int i = 0; i < specs.length; i++) {
+				l.add(Platform.getBundle(specs[i].getName()));
 			}
-		  	pluginRequiredMap.put(bundle.getSymbolicName(), l);
-		  }
-		  return l;
+			pluginRequiredMap.put(bundle.getSymbolicName(), l);
+		}
+		return l;
 	}
 	
 	private static Map getDependentCounts(boolean activeOnly, Set startingSet, Map prereqsMap) {
@@ -680,7 +675,7 @@ public class ProxyPlugin extends Plugin {
 	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributors"; //$NON-NLS-1$
 	public static final String PI_CONTAINER = "container"; //$NON-NLS-1$
 	public static final String PI_PLUGIN = "plugin"; //$NON-NLS-1$
-	public static final String PI_CLASS = "class"; //$NON-NLS-1$		
+	public static final String PI_CLASS = "class"; //$NON-NLS-1$
 	public static final Map pluginRequiredMap = new HashMap(50);
 	
 	/*
@@ -792,8 +787,8 @@ public class ProxyPlugin extends Plugin {
 		// Now order them so we process in required order.
 		// If it is the first time, we are about to find out many inter-dependencies
 		// notify the cache on a start/end of a transaction so that updates (if new
-		// dependencies) are updated only once		
-		Bundle[] ordered = ProxyPlugin.orderPlugins(bundlesToExtensions.keySet());		
+		// dependencies) are updated only once
+		Bundle[] ordered = ProxyPlugin.orderPlugins(bundlesToExtensions.keySet());
 		result.containerToContributions = new HashMap(ordered.length);
 		result.pluginToContributions = new HashMap(ordered.length);
 		for (int i = 0; i < ordered.length; i++) {
