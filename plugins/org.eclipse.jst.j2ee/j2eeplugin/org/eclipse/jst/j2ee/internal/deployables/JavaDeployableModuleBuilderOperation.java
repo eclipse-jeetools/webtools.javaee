@@ -109,15 +109,14 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		IClasspathEntry[] cpe = javaProj.getRawClasspath();
 		boolean classpathModified = false;
 		for (int i = 0; i < resourceList.size(); i++) {
-			ComponentResource wmr = (ComponentResource)resourceList.get(i); 
-			IPath sourcePath = wmr.getSourcePath();
+			ComponentResource wmr = (ComponentResource)resourceList.get(i);  
 			IResource sourceResource = StructureEdit.getEclipseResource(wmr);
 			// check if it is a java source folder
 			if (javaSourceFolderList.contains(sourceResource)) {
 				// get the classpath entry
 				int index = -1;
 				for (int j = 0; j < cpe.length; j++) {
-					if (cpe[j].getPath().equals(sourcePath)) {
+					if (cpe[j].getPath().equals(sourceResource.getFullPath())) {
 						index = j;
 						break;
 					}
