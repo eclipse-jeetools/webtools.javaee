@@ -49,6 +49,10 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
+/**
+ * @deprecated - This class is deprecated. Use EJBArtifactEdit instead.
+ */
+
 public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureConstants {
 
 	private static final String EJB_PROJECT_21_OVERLAY = "2_1_ovr"; //$NON-NLS-1$
