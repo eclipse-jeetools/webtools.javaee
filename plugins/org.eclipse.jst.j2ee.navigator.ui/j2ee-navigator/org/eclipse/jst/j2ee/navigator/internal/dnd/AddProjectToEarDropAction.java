@@ -94,6 +94,7 @@ public abstract class AddProjectToEarDropAction extends NavigatorDropActionDeleg
 	protected abstract WTPOperationDataModel getDataModel(IProject earProject, IProject projectToAdd);
 
 	protected void doInit() {
+		//default nothing
 	}
 
 	public boolean run(Object source, Object target) {

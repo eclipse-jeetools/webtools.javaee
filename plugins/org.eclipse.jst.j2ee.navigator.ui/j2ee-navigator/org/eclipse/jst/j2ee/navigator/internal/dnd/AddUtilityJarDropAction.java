@@ -38,6 +38,7 @@ public class AddUtilityJarDropAction extends AddProjectToEarDropAction {
 		try {
 			return projectToAdd.hasNature(JavaCore.NATURE_ID);
 		} catch (CoreException e) {
+			//Ignore
 		}
 		return false;
 	}
