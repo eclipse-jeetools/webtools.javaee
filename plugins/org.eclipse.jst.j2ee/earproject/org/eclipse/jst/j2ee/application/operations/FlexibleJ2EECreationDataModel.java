@@ -33,18 +33,18 @@ public abstract class FlexibleJ2EECreationDataModel extends ArtifactEditOperatio
 	 * <code>Boolean.TRUE</code>. If this property is set to <code>Boolean.TRUE</code> then a
 	 * default deployment descriptor and supporting bindings files will be generated.
 	 */
-	public static final String CREATE_DEFAULT_FILES = "FlexibleJ2EEModuleCreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
+	public static final String CREATE_DEFAULT_FILES = "FlexibleJ2EECreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
 	/**
 	 * An optional dataModel propertyName for a <code>Boolean</code> type. The default value is
 	 * <code>Boolean.TRUE</code>. If this property is set to <code>Boolean.TRUE</code> then a
 	 * default deployment descriptor and supporting bindings files will be generated.
 	 */
-	public static final String SHOULD_CREATE_PROJECT = "FlexibleJ2EEModuleCreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
+	public static final String SHOULD_CREATE_PROJECT = "FlexibleJ2EECreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
 
 	/**
 	 * Optional, type String
 	 */
-	public static final String FINAL_PERSPECTIVE = "FlexibleJ2EEModuleCreationDataModel.FINAL_PERSPECTIVE"; //$NON-NLS-1$
+	public static final String FINAL_PERSPECTIVE = "FlexibleJ2EECreationDataModel.FINAL_PERSPECTIVE"; //$NON-NLS-1$
 
 	/**
 	 * An optonal dataModel propertyName for a <code>java.lang.String</code> type. Sets the local
@@ -56,9 +56,10 @@ public abstract class FlexibleJ2EECreationDataModel extends ArtifactEditOperatio
 	 */
 	//public static final String PROJECT_LOCATION = J2EEProjectCreationDataModelPROJECT_LOCATION;
 
-	protected static final String IS_ENABLED = "FlexibleJ2EEModuleCreationDataModel.IS_ENABLED"; //$NON-NLS-1$
+	protected static final String IS_ENABLED = "FlexibleJ2EECreationDataModel.IS_ENABLED"; //$NON-NLS-1$
 
-	private static final String NESTED_MODEL_J2EE_PROJECT_CREATION = "FlexibleJ2EEModuleCreationDataModel.NESTED_MODEL_J2EE_PROJECT_CREATION"; //$NON-NLS-1$
+	private static final String NESTED_MODEL_J2EE_PROJECT_CREATION = "FlexibleJ2EECreationDataModel.NESTED_MODEL_J2EE_PROJECT_CREATION"; //$NON-NLS-1$
+	
 	private J2EEProjectCreationDataModel j2eeProjectDataModel;
 	
 	protected void initValidBaseProperties() {
