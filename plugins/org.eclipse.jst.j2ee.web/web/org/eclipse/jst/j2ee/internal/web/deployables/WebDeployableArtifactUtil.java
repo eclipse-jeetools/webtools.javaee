@@ -39,10 +39,10 @@ import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
-import org.eclipse.jst.server.core.WebResource;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.util.WebResource;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
