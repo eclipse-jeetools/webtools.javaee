@@ -184,6 +184,15 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	
 	/**
+	 * Returns the deployment descriptor type of the EJB module.
+	 * @return int 
+	 */
+	
+	public int getDeploymenyDescriptorType() {
+		return XMLResource.EJB_TYPE;
+	}
+	
+	/**
 	 * <p>
 	 * Creates a deployment descriptor root object (EJBJar) and populates with data. Adds the root
 	 * object to the deployment descriptor resource.

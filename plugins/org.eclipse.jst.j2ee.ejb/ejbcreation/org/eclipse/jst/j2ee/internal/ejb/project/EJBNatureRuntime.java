@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
@@ -146,6 +147,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 		// remove LibCopy Builder to EJB Projects' builder list
 		ProjectUtilities.removeFromBuildSpec(J2EEPlugin.LIBCOPY_BUILDER_ID, project);
 	}
+	
+	/**
+	 * @deprecated
+	 * @return
+	 */
 
 	public boolean ejbXmiResourceExists() {
 		return fileExists(J2EEConstants.EJBJAR_DD_URI);
@@ -166,6 +172,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * Return an editing model used to read EJB resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBArtifactEditForRead(WorkbenchComponent)
+	 * </pre>
 	 */
 	public EJBEditModel getEJBEditModelForRead(Object accessorKey) {
 		return getEJBEditModelForRead(accessorKey, null);
@@ -175,6 +186,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * Return an editing model used to edit EJB resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBArtifactEditForWrite(WorkbenchComponent)
+	 * </pre>
 	 */
 	public EJBEditModel getEJBEditModelForWrite(Object accessorKey) {
 		return getEJBEditModelForWrite(accessorKey, null);
@@ -184,6 +200,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * Return an editing model used to read EJB resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
+	 * @deprecated
+	 *  Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBArtifactEditForRead(WorkbenchComponent)
+	 * </pre>
 	 */
 	public EJBEditModel getEJBEditModelForRead(Object accessorKey, Map params) {
 		return (EJBEditModel) getEditModelForRead(EDIT_MODEL_ID, accessorKey, params);
@@ -193,6 +214,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * Return an editing model used to edit EJB resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
+	 * @deprecated
+	 *  Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBArtifactEditForWrite(WorkbenchComponent)
+	 * </pre>
 	 */
 	public EJBEditModel getEJBEditModelForWrite(Object accessorKey, Map params) {
 		return (EJBEditModel) getEditModelForWrite(EDIT_MODEL_ID, accessorKey, params);
@@ -214,8 +240,12 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 
 	/**
 	 * Return the root object, the ejb-jar, from the ejb-jar.xml DD.
-	 * 
 	 * used for Read-Only Purpose
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBJar()
+	 * </pre>
 	 */
 	public EJBJar getEJBJar() {
 		return ((EJBEditModel) getCacheEditModel()).getEJBJar();
@@ -240,10 +270,17 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	/**
 	 * Important!!! Calling this method increments the use count of this model. When you are done
 	 * accessing the model, call releaseFromRead() casting to a ReferencedResource first!
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBJarXmiResource()
+	 * </pre>
 	 */
 	public Resource getEjbXmiResource() {
 		return getResource(URI.createURI(J2EEConstants.EJBJAR_DD_URI));
 	}
+	
+	
 
 	public IContainer getModuleRoot() {
 		return getSourceFolder();
@@ -258,6 +295,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 
 	/**
 	 * Return the nature's ID.
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.TYPE_ID
+	 * </pre>
 	 */
 	public java.lang.String getNatureID() {
 		return IEJBNatureConstants.NATURE_ID;
@@ -276,6 +318,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * @return boolean
 	 * @param project
 	 *            org.eclipse.core.resources.IProject
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.isValidEJBModule(WorkbenchComponent)
+	 * </pre>
 	 */
 	public static boolean hasRuntime(IProject project) {
 		return hasRuntime(project, IEJBNatureConstants.EJB_NATURE_IDS);
@@ -287,6 +334,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBNatureRuntime
 	 * @param project
 	 *            org.eclipse.core.resources.IProject
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBArtifactEditForRead(WorkbenchComponent)
+	 * </pre>
 	 */
 	public static EJBNatureRuntime getRuntime(IProject project) {
 		return (EJBNatureRuntime) getRuntime(project, IEJBNatureConstants.EJB_NATURE_IDS);
@@ -385,6 +437,11 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	/**
 	 * Returns the project that represents the EJB Client JAR for this module in an EAR, or if no
 	 * client JAR is defined, returns this project.
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		ModuleCore.getDependentModuleCore(URI aModuleUri)
+	 * </pre>
 	 */
 	public IProject getEJBClientJARProject() {
 		IProject p = getDefinedEJBClientJARProject();
@@ -393,15 +450,29 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 
 		return p;
 	}
+	
+	/**
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.hasEJBClientJARProject(IProject)
+	 * </pre>
+	 * @return
+	 */
 
 	public boolean hasEJBClientJARProject() {
 		return getDefinedEJBClientJARProject() != null;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getDeploymentDescriptorRoot()
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getDeploymentDescriptorRoot()
+	 * </pre>
+	 * 
 	 */
 	public EObject getDeploymentDescriptorRoot() {
 		return getEJBJar();
@@ -440,19 +511,30 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 		return J2EEVersionConstants.EJB_2_1_ID;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForRead(java.lang.Object)
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBArtifactEditForRead(WorkbenchComponent aModule)
+	 * </pre>
 	 */
 	public J2EEEditModel getJ2EEEditModelForRead(Object accessorKey) {
 		return getEJBEditModelForRead(accessorKey);
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature#getJ2EEEditModelForWrite(java.lang.Object)
+	 * 
+	 * @deprecated
+	 * Use
+	 * <pre>
+	 * 		EJBArtifactEdit.getEJBArtifactEditForWrite(WorkbenchComponent aModule)
+	 * </pre>
+	 * 
 	 */
 	public J2EEEditModel getJ2EEEditModelForWrite(Object accessorKey) {
 		return getEJBEditModelForWrite(accessorKey);
