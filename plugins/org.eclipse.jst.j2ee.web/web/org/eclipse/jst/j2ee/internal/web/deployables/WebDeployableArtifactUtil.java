@@ -30,7 +30,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
@@ -82,48 +81,58 @@ public class WebDeployableArtifactUtil  {
 			if (obj instanceof Servlet) {
 				String mapping = null;
 				java.util.List mappings = ((Servlet) obj).getMappings();
-				IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
+				//IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
 
 				if (mappings != null && !mappings.isEmpty()) {
 					ServletMapping map = (ServletMapping) mappings.get(0);
 					mapping = map.getUrlPattern();
 				}
 				if (mapping != null) {
-					return new WebResource(getModule(webNature), new Path(mapping));
+					//return new WebResource(getModule(webNature), new Path(mapping));
+					return new WebResource(getModule(resource.getProject()), new Path(mapping));
 				}
 				WebType webType = ((Servlet) obj).getWebType();
+				
+				//To do:Need to rework based on Module
+				/*
 				if (webType.isJspType()) {
 					resource = ((IProject) resource).getFile(webNature.getModuleServerRootName() + "/" + ((JSPType) webType).getJspFile()); //$NON-NLS-1$
 				} else if (webType.isServletType()) {
 					return new WebResource(getModule(webNature), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
 				}
+				*/
 			}
 		}
 		if (resource == null)
 			return null;
 
 		// find deployable
-		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
-		if (webNature == null)
-			return null;
+		//IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(resource.getProject());
+		//if (webNature == null)
+		//	return null;
 
 		if (resource instanceof IProject)
-			return new WebResource(getModule(webNature), new Path("")); //$NON-NLS-1$
+			//return new WebResource(getModule(webNature), new Path("")); //$NON-NLS-1$
+			return new WebResource(getModule(resource.getProject()), new Path("")); //$NON-NLS-1$
 
 		String className = getServletClassName(resource);
 		if (className != null) {
 			String mapping = getServletMapping(resource.getProject(), true, className);
 			if (mapping != null) {
-				return new WebResource(getModule(webNature), new Path(mapping));
+				//return new WebResource(getModule(webNature), new Path(mapping));
+				return new WebResource(getModule(resource.getProject()), new Path(mapping));
 			}
 			// if there is no servlet mapping, provide direct access to the servlet
 			// through the fully qualified class name
-			return new WebResource(getModule(webNature), new Path("servlet/" + className)); //$NON-NLS-1$
+			//return new WebResource(getModule(webNature), new Path("servlet/" + className)); //$NON-NLS-1$
+			return new WebResource(getModule(resource.getProject()), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
 
 		// determine path
-		IPath rootPath = webNature.getRootPublishableFolder().getProjectRelativePath();
+		//To do : work based on module
+		//IPath rootPath = webNature.getRootPublishableFolder().getProjectRelativePath();
+		IPath rootPath =  null;
 		IPath resourcePath = resource.getProjectRelativePath();
 
 		// Check to make sure the resource is under the webApplication directory
@@ -144,10 +153,12 @@ public class WebDeployableArtifactUtil  {
 		if (jspURL != null) {
 			IPath correctJSPPath = jspURL.getFileURL(resource, resourcePath);
 			if (correctJSPPath != null && correctJSPPath.toString().length() > 0)
-				return new WebResource(getModule(webNature), correctJSPPath);
+				//return new WebResource(getModule(webNature), correctJSPPath);
+				return new WebResource(getModule(resource.getProject()), correctJSPPath);
 		}
 		// return Web resource type
-		return new WebResource(getModule(webNature), resourcePath);
+		//return new WebResource(getModule(webNature), resourcePath);
+		return new WebResource(getModule(resource.getProject()), resourcePath);
 	}
 
 	/**
@@ -186,6 +197,22 @@ public class WebDeployableArtifactUtil  {
 		}
 		return null;
 	}
+	
+	protected static IModule getModule(IProject project) {
+		IModule deployable = null;
+
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
+		
+		while (iterator.hasNext()) {
+			Object next = iterator.next();
+			if (next instanceof IModule) {
+				deployable = (IModule) next;
+				if (deployable.getProject().equals(project))
+					return deployable;
+			}
+		}
+		return null;
+	}	
 
 	/**
 	 * If this resource is a servlet, return the class name. If not, return null.

@@ -32,7 +32,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
@@ -177,7 +176,9 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#hasRuntime(org.eclipse.core.resources.IProject)
 	 */
 	public boolean hasRuntime(IProject project) {
-		return J2EEWebNatureRuntimeUtilities.hasJ2EERuntime(project);
+		//return J2EEWebNatureRuntimeUtilities.hasJ2EERuntime(project);
+		//To do: work based on module
+		return false;
 	}
 
 	//    public J2EEImportOperationOLD createImportOperation(IProject

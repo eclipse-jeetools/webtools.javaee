@@ -11,7 +11,6 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.util.ProjectModule;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
@@ -20,12 +19,12 @@ public abstract class WebDeployable extends ProjectModule implements IModule, IW
 
 	public WebDeployable(IProject project) {
 		super(project);
-		setWebNature(getWebNature());
+		//setWebNature(getWebNature());
 	}
 
-	protected IBaseWebNature getWebNature() {
-		return J2EEWebNatureRuntimeUtilities.getRuntime(this.project);
-	}
+//	protected IBaseWebNature getWebNature() {
+//		return J2EEWebNatureRuntimeUtilities.getRuntime(this.project);
+//	}
 
 	public String getFactoryId() {
 		return "com.ibm.wtp.web.server"; //$NON-NLS-1$
@@ -62,6 +61,8 @@ public abstract class WebDeployable extends ProjectModule implements IModule, IW
 	 * @see com.ibm.etools.server.core.util.DeployableProject#getRootFolder()
 	 */
 	public IPath getRootFolder() {
-		return getWebNature().getRootPublishableFolder().getProjectRelativePath();
+		//To Do: Needs  rework based on module
+		//return getWebNature().getRootPublishableFolder().getProjectRelativePath();
+		return null;
 	}
 }
