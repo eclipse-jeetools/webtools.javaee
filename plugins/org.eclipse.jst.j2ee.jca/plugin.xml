@@ -30,6 +30,7 @@
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
 
 

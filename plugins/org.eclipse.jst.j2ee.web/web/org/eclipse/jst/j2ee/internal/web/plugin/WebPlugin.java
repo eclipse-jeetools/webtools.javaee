@@ -43,17 +43,16 @@ import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
 import org.eclipse.jst.j2ee.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.IModuleConstants;
-import org.eclipse.wst.common.modulecore.WTPResourceFactoryRegistry;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
+import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderFactoryRegistry;
+import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 
 /**
  * This is a top-level class of the j2ee plugin.
- * 
- * @see AbstractUIPlugin for additional information on UI plugins
+ *  
  */
 
 public class WebPlugin extends WTPPlugin implements ResourceLocator {
@@ -105,7 +104,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public URL getBaseURL() {
-		return getBundle().getEntry("/");
+		return getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	public Object[] getJ2EEWebProjectMigrationExtensions() {
@@ -157,7 +156,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getBundle().getEntry("/");
+		return getDefault().getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	/**
@@ -176,7 +175,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle != null) {
 			try {
-				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();
+				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();  //$NON-NLS-1$
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {

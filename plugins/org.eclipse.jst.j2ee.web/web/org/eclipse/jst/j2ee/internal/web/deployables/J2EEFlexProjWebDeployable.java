@@ -26,9 +26,9 @@ import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilitie
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
-import org.eclipse.wst.common.modulecore.ModuleUtil;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.util.ModuleCore;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -349,7 +349,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	       
 		
 		IPath path = null;
-	       if ( ModuleUtil.isFlexibleProject(project)) {  
+	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
      	if( wbModule != null ) {   		
      		IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);
      		path = outputContainer.getProjectRelativePath();

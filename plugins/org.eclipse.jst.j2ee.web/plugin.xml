@@ -37,6 +37,7 @@
        <import plugin="org.eclipse.jst.common.annotations.controller"/>
        <import plugin="org.eclipse.jst.common.frameworks"/>
        <import plugin="org.eclipse.debug.ui"/>
+       <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
    
 <!--============================-->

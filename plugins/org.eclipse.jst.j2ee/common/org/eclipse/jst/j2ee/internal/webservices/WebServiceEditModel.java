@@ -165,6 +165,9 @@ public class WebServiceEditModel extends J2EEEditModel {
 		String resourcePath = WS_CLIENT_WEB_INF_PATH;
 		if (projectType == APPCLIENT_PROJECT_WEBSERVICE || projectType == EJB_PROJECT_WEBSERVICE)
 			resourcePath = WS_CLIENT_META_INF_PATH;
-		return (WebServicesResource) getResource(URI.createURI(resourcePath));
+		Resource webServiceResource = getResource(URI.createURI(resourcePath));
+		if(webServiceResource != null && webServiceResource instanceof WebServicesResource)
+			return (WebServicesResource) webServiceResource;
+		return null;
 	}
 }

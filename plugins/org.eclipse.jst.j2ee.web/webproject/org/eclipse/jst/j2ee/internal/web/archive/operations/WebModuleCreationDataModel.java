@@ -35,7 +35,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.modulecore.IModuleConstants;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

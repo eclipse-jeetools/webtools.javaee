@@ -44,6 +44,7 @@
       <import plugin="org.eclipse.jst.common.frameworks"/>
       <import plugin="org.eclipse.wst.wsdl"/>
       <import plugin="org.eclipse.wst.ws.parser"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
 
 

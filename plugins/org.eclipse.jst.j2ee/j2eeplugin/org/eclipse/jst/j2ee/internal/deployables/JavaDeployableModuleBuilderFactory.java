@@ -1,7 +1,7 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderDataModel;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactory;
+import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderDataModel;
+import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderFactory;
 
 public class JavaDeployableModuleBuilderFactory implements DeployableModuleBuilderFactory {
 

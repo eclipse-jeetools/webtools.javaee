@@ -20,9 +20,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.modulecore.IModuleConstants;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleUtil;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.internal.Trace;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
@@ -40,7 +41,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
     protected ArrayList moduleDelegates = new ArrayList();
 
     protected static boolean isFlexableProject(IProject project) {
-        return ModuleUtil.isFlexibleProject(project);
+        return ModuleCoreNature.getModuleCoreNature(project) != null;
     }
 
     public J2EEDeployableFactory() {

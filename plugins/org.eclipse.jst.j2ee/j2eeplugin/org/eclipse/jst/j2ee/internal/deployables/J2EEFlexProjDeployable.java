@@ -14,9 +14,9 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.server.core.IJ2EEModule;
-import org.eclipse.wst.common.modulecore.ModuleUtil;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.util.ModuleCore;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
@@ -49,7 +49,7 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	public IPath getLocation() {
 		
 		IPath path = null;
-	       if ( ModuleUtil.isFlexibleProject(project)) {  
+	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
         	if( wbModule != null ){
         		
         		IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);

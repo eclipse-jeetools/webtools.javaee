@@ -8,8 +8,8 @@ package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.util.ArtifactEdit;
 
 /**
  * @author cbridgha

@@ -37,13 +37,13 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
 import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-import org.eclipse.wst.common.modulecore.IModuleConstants;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
-import org.eclipse.wst.common.modulecore.util.ModuleCore;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 

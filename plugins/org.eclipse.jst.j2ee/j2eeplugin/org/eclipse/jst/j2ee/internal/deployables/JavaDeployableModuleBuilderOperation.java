@@ -24,11 +24,11 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilder;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderDataModel;
-import org.eclipse.wst.common.modulecore.util.ModuleCore;
+import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilder;
+import org.eclipse.wst.common.modulecore.internal.builder.DeployableModuleBuilderDataModel;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -61,8 +61,8 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		// create output container folder if it does not exist
 		IFolder outputContainer = (IFolder)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
 		if(!outputContainer.exists())
-			outputContainer.create(true, true, null);
-		//createFolder(absoluteOCP);
+			createFolder(outputContainer);
+		
 		IPath outputContainerPath = outputContainer.getFullPath();
 
 		// copy resources except the java source folder
@@ -125,6 +125,23 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 	}
 
 	/**
+	 * @param outputContainer
+	 */
+	private void createFolder(IFolder outputContainer) {
+		IContainer parentContainer = outputContainer.getParent();
+		if(parentContainer != null && !parentContainer.exists() && parentContainer.getType() == IResource.FOLDER) {			
+			createFolder((IFolder)outputContainer.getParent());
+		}
+		try {
+			if(!outputContainer.exists())
+				outputContainer.create(true, true, null);
+		} catch (CoreException e) { 
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
 	 * Get resource for given absolute path
 	 * 
 	 * @exception com.ibm.itp.core.api.resources.CoreException
@@ -142,7 +159,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 	 * 
 	 * @exception com.ibm.itp.core.api.resources.CoreException
 	 */
-	public IFolder createFolder(IPath absolutePath) throws CoreException {
+	private IFolder createFolder(IPath absolutePath) throws CoreException {
 		if (absolutePath == null || absolutePath.isEmpty())
 			return null;
 		IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);

@@ -7,8 +7,8 @@
 package org.eclipse.jst.j2ee.internal.web.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.util.ArtifactEdit;
 
 
 /**
