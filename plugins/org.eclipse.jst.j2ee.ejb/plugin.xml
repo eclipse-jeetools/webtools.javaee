@@ -190,6 +190,8 @@
             id="com.ibm.wtp.server.j2ee.ejb5">
       </moduleArtifactAdapter>
    </extension>-->
+   <extension
+         point="org.eclipse.wst.server.ui.moduleArtifactAdapters">
       <moduleArtifactAdapter
             id="com.ibm.wtp.server.j2ee.ejb">
          <enablement>
@@ -230,8 +232,8 @@
            </with>
          </enablement>
       </moduleArtifactAdapter>
-      
-         <extension point="org.eclipse.core.runtime.adapters">
+      </extension>
+      <extension point="org.eclipse.core.runtime.adapters">
          <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IProject">
