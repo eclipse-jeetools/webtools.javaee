@@ -25,6 +25,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
@@ -61,8 +62,6 @@ import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.xml.sax.InputSource;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used for to import Enterprise Applications(from EAR files) into the workspace.

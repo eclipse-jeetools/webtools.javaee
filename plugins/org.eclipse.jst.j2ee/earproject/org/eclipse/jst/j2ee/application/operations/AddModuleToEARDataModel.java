@@ -55,7 +55,7 @@ public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 		AddModuleToEARDataModel model = this;
 		WorkbenchComponent wbComp = (WorkbenchComponent) getProperty(AddArchiveToEARDataModel.ARCHIVE_MODULE);
 		if (wbComp != null && wbComp.getComponentType().getModuleTypeId() == IModuleConstants.JST_WEB_MODULE) {
-			model = AddWebModuleToEARDataModel.createAddWebModuleToEARDataModel(getStringProperty(MODULE_NAME), wbComp);
+			//model = AddWebModuleToEARDataModel.createAddWebModuleToEARDataModel(getStringProperty(MODULE_NAME), wbComp);
 			model.setProperty(AddArchiveToEARDataModel.ARCHIVE_URI, getProperty(ARCHIVE_URI));
 		}
 		return model;

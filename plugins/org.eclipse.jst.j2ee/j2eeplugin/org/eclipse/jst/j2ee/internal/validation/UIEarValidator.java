@@ -394,10 +394,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * Validates utiljar maps
 	 */
 	public void validateUtilJarMaps(WorkbenchComponent workbenchModule) {
-		List utilJarModules = workbenchModule.getReferencedComponents();
+		EARArtifactEdit artifactEdit = null;
+		try {
+		artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(workbenchModule);
+		List utilJarModules = artifactEdit.getWorkbenchUtilModules(workbenchModule);
 		if (!utilJarModules.isEmpty() || !utilJarModules.isEmpty()) {
 			for (int i = 0; i < utilJarModules.size(); i++) {
-
 				UtilityJARMapping aUtilJar = (UtilityJARMapping) utilJarModules.get(i);
 
 				if (aUtilJar != null) {
@@ -416,10 +418,13 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 					}
 				}
 			}
-		}
+		} 
 		validateDuplicateUtilJars(workbenchModule);
 		validateUtilJarNameCollision(workbenchModule);
 		validateUtilJarContainsNoSpaces(workbenchModule);
+		} finally {
+			artifactEdit.dispose();
+		}
 	}// validateUtilJarMaps
 
 	/**

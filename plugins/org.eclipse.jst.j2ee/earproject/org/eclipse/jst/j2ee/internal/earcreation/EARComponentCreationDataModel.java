@@ -13,7 +13,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.application.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
@@ -22,14 +23,13 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class EARComponentCreationDataModel extends J2EEComponentCreationDataModel {
 	
@@ -69,12 +69,22 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 		super.initValidBaseProperties();
 		addValidBaseProperty(J2EE_COMPONENT_LIST);
 	}
+	
+	/**
+	 * @param workbenchComp
+	 */
+	protected void setEARComponentIfJ2EEModuleCreationOnly(WorkbenchComponent workbenchComp, Object propertyValue) {
+	//Overwritting super class method to do nothing for EAR component creation only needed for all other j2ee modules
+	}
+	
+	protected void initNestedModels() {
+	}
 
 	/**
 	 * 
 	 */
-	protected AddModuleToEARDataModel createModuleNestedModel() {
-		return null;
+	protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
+		return new AddComponentToEnterpriseApplicationDataModel();
 	}
 
 	/**
@@ -191,7 +201,8 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 					}
 				}
 			}
-		}
+		} else if(propertyName.equals(NESTED_MODEL_VALIDATION_HOOK))
+            		return OK_STATUS;
 		return super.doValidateProperty(propertyName);
 	}
 

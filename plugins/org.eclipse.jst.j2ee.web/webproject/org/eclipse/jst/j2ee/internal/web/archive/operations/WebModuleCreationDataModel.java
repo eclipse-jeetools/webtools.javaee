@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
@@ -187,9 +188,9 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModelOld {
 		addValidBaseProperty(CONTEXT_ROOT);
 	}
 
-	protected AddModuleToEARDataModel createModuleNestedModel() {
-		return new AddWebModuleToEARDataModel();
-	}
+	//protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
+	//	return new AddComponentToEnterpriseApplicationDataModel();
+	//}
 
 	private Object updateAddToEar() {
 		IRuntime type = getServerTargetDataModel().getRuntimeTarget();

@@ -7,11 +7,14 @@
 package org.eclipse.jst.j2ee.application.operations;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
@@ -20,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
 import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
 
@@ -41,6 +45,11 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
 		metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + J2EEConstants.META_INF), 0, null);
     }
+	
+	public IProject getProject() {
+		String projName = operationDataModel.getStringProperty(EARComponentCreationDataModel.PROJECT_NAME );
+		return ProjectUtilities.getProject( projName );
+	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		String moduleName = (String)operationDataModel.getProperty(EARComponentCreationDataModel.COMPONENT_NAME);
@@ -77,6 +86,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		J2EEComponentCreationDataModel dataModel = (J2EEComponentCreationDataModel) operationDataModel;
 		createAndLinkJ2EEComponents();
+		setupComponentType(IModuleConstants.JST_EAR_MODULE);
 		if (dataModel.getBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
 		}
@@ -86,14 +96,14 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	private void addModulesToEAR(IProgressMonitor monitor) {
 		try{
 			AddComponentToEnterpriseApplicationDataModel dm = new AddComponentToEnterpriseApplicationDataModel();
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
-					getProject().getName());
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, 
-					getOperationDataModel().getProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,
-					getOperationDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST));
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, getProject().getName());
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, getOperationDataModel().getProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+			List modulesList = (List)getOperationDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST);
+			if(modulesList != null && !modulesList.isEmpty()) {
+			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
 			AddComponentToEnterpriseApplicationOperation addModuleOp = (AddComponentToEnterpriseApplicationOperation)dm.getDefaultOperation();
 			addModuleOp.execute(monitor);
+		   }
 		 } catch(Exception e) {
 			 Logger.getLogger().log(e);
 		 }

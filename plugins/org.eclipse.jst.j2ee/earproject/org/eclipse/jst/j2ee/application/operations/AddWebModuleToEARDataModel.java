@@ -23,7 +23,7 @@ import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperatio
 /**
  *
  */
-public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
+public class AddWebModuleToEARDataModel extends AddComponentToEnterpriseApplicationDataModel {
 	
 	/**
 	 * Optional - This is the context root stored with the module in the application.xml.
@@ -99,14 +99,10 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 		return defaultContextRoot;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	private String computeDefaultContextRoot() {
-		WorkbenchComponent wbComp = (WorkbenchComponent)getProperty(ARCHIVE_MODULE);
-		if (wbComp != null)
-			return wbComp.getName().replace(' ', '_');
+		String wbCompName = (String)getProperty(ARCHIVE_MODULE);
+		if (wbCompName != null && wbCompName.length() > 0)
+			return wbCompName.replace(' ', '_');
 		return null;
 	}
 

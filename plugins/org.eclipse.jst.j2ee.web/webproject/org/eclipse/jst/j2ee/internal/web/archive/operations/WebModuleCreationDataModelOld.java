@@ -187,9 +187,9 @@ public class WebModuleCreationDataModelOld extends J2EEModuleCreationDataModelOl
 		addValidBaseProperty(CONTEXT_ROOT);
 	}
 
-	protected AddModuleToEARDataModel createModuleNestedModel() {
-		return new AddWebModuleToEARDataModel();
-	}
+	//protected AddModuleToEARDataModel createModuleNestedModel() {
+	//	return new AddWebModuleToEARDataModel();
+	//}
 
 	private Object updateAddToEar() {
 		IRuntime type = getServerTargetDataModel().getRuntimeTarget();

@@ -18,7 +18,7 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
+import org.eclipse.jst.j2ee.application.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
@@ -102,7 +102,7 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 		} else if (propertyName.equals(COMPONENT_NAME)) {
 			if (!isSet(CONTEXT_ROOT)) {
 				notifyDefaultChange(CONTEXT_ROOT);
-				((AddWebModuleToEARDataModel)getAddModuleToApplicationDataModel()).defaultContextRoot=(String)propertyValue;
+				((AddWebModuleToEARDataModel) getAddModuleToApplicationDataModel()).defaultContextRoot=(String)propertyValue;
 				getAddModuleToApplicationDataModel().notifyDefaultChange(AddWebModuleToEARDataModel.CONTEXT_ROOT);
 			}
 		}
@@ -130,8 +130,8 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 		addValidBaseProperty(CONTEXT_ROOT);
 	}
 
-	protected AddModuleToEARDataModel createModuleNestedModel() {
-		return new AddWebModuleToEARDataModel();
+	protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
+		return  new AddWebModuleToEARDataModel();	
 	}
 
 	private Object updateAddToEar() {
