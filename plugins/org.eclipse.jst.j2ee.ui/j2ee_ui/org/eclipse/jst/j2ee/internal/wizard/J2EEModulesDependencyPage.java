@@ -195,7 +195,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 			classpathList.remove(classEntry);
 		}
 		updateManifest.setProperty(UpdateManifestDataModel.JAR_LIST, classpathList);
-		updateManifest.propertyChanged(new WTPOperationDataModelEvent(updateManifest, UpdateManifestDataModel.JAR_LIST, classpathList, classpathList, WTPOperationDataModelEvent.PROPERTY_CHG));
+		updateManifest.propertyChanged(new WTPOperationDataModelEvent(updateManifest, UpdateManifestDataModel.JAR_LIST, WTPOperationDataModelEvent.PROPERTY_CHG));
 	}
 
 	protected void addResizeListenerToTable() {

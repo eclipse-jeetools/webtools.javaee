@@ -96,7 +96,7 @@ public class UpdateManifestDataModel extends WTPOperationDataModel {
 		super.propertyChanged(event);
 		if (event.getPropertyName().equals(JAR_LIST)) {
 			String text = getClasspathAsString();
-			propertyChanged(new WTPOperationDataModelEvent(this, JAR_LIST_TEXT_UI, text, text, event.getFlag()));
+			propertyChanged(new WTPOperationDataModelEvent(this, JAR_LIST_TEXT_UI, event.getFlag()));
 		}
 	}
 
