@@ -11,12 +11,13 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecorator.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/06 11:28:26 $ 
  */
 
 
 import org.eclipse.jem.java.JavaClass;
 import java.net.URL;
+import java.util.Map;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Bean Decorator</b></em>'.
@@ -384,5 +385,7 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * Return the URL of a 16x16 Color icon
 	 */
 	URL getIconURL();
-
+	
+	Map getStyleDetails();
+	
 }

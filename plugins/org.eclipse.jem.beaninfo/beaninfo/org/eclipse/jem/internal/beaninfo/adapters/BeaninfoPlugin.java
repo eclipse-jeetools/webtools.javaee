@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/24 19:33:46 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/06 11:28:26 $ 
  */
 
 
@@ -34,6 +34,7 @@ public class BeaninfoPlugin extends Plugin {
 	public static final String PI_BEANINFO_OVERRIDES = "overrides";	// ID of the overrides extension point. //$NON-NLS-1$
 	
 	public static final String PI_VARIABLE = "variable";	// <variable> in extension point. //$NON-NLS-1$
+	public static final String PI_CONTAINER = "container"; // <container> in extension point. //$NON-NLS-1$	
 	public static final String PI_PATH = "path";	// <path="..."> in extension point. //$NON-NLS-1$
 	public static final String PI_CONTRIBUTOR = "contributor";	// <contributor ...> or contributor="..." in extension point //$NON-NLS-1$
 
@@ -217,7 +218,7 @@ public class BeaninfoPlugin extends Plugin {
 				IConfigurationElement[] configs = exts[j].getConfigurationElements();
 				for (int k = 0; k < configs.length; k++) {
 					IConfigurationElement iConfigurationElement = configs[k];
-					if (PI_VARIABLE.equals(iConfigurationElement.getName())) {
+					if (PI_VARIABLE.equals(iConfigurationElement.getName()) || PI_CONTAINER.equals(iConfigurationElement.getName())) {
 						boolean hasContributor = iConfigurationElement.getAttributeAsIs(PI_CONTRIBUTOR) != null || iConfigurationElement.getChildren(PI_CONTRIBUTOR).length > 0;
 						String varpathstr = iConfigurationElement.getAttributeAsIs(PI_PATH);
 						if (varpathstr == null)

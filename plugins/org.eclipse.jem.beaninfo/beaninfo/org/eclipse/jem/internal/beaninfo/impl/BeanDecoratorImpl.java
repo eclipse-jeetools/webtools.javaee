@@ -11,14 +11,16 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/06 11:28:26 $ 
  */
 
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.*;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.logging.Level;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -33,12 +35,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.internal.beaninfo.BeanDecorator;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
 import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
 import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
+
+import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Bean Decorator</b></em>'.
@@ -979,5 +985,40 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 			}			
 		}
 		return iconURL;
+	}
+	private Map styleDetails;
+	public Map getStyleDetails(){
+		if(styleDetails == null){
+			styleDetails = new HashMap();
+			try{
+				Iterator featureAttributeValues = getAttributes().iterator();
+				while(featureAttributeValues.hasNext()){
+					FeatureAttributeValue value = (FeatureAttributeValue) featureAttributeValues.next();
+					if(value.getName().equals("SWEET_STYLEBITS")) { // $NON-NLS-1$
+						IArrayBeanProxy outerArray  = (IArrayBeanProxy) value.getValueProxy();
+						for (int i = 0; i < outerArray.getLength(); i++) {
+							IArrayBeanProxy innerArray = (IArrayBeanProxy) outerArray.get(i);
+							// The first element is a String
+							String propertyName = ((IStringBeanProxy)innerArray.get(0)).stringValue();
+							// The next is a three element array of name, initString, and actual value * n for the number of allowble values
+							// Iterate over it to extract the names and strings and turn these into two separate String arrays
+							IArrayBeanProxy triplicateArray = (IArrayBeanProxy)innerArray.get(1);
+							int numberOfValues = triplicateArray.getLength()/3;
+							String[][] namesAndStrings = new String[numberOfValues][2];	
+							for (int j = 0; j < triplicateArray.getLength(); j = j+3) {
+								int index = j/3;
+								namesAndStrings[index][0] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
+								namesAndStrings[index][1] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
+								// Ignore the third value for now as we don't use it because the VE JVM is not the same as the BeanInfo one								
+							}							
+							styleDetails.put(propertyName, namesAndStrings);
+						}
+					}
+				}
+			} catch (ThrowableProxy exc) {
+				EclipseLogger.getLogger().log(exc, Level.WARNING);
+			}
+		}
+		return styleDetails;
 	}
 }

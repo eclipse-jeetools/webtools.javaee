@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.6 $  $Date: 2004/03/04 16:04:46 $ 
+ *  $Revision: 1.7 $  $Date: 2004/03/06 11:28:26 $ 
  */
 
 import java.io.*;
@@ -785,8 +785,9 @@ public class BeaninfoNature implements IProjectNature {
 				// Project entries only have one segment.
 				if (reqProject != null && reqProject.isOpen())
 					contributeClasspathsForProject(controller, reqProject, visitedProjects, null);
-			} else if (kind == IClasspathEntry.CPE_VARIABLE) {
-				// We only handle variables as being registered. 
+			} else if (kind == IClasspathEntry.CPE_VARIABLE || kind == IClasspathEntry.CPE_CONTAINER) {
+				// We only handle variables as being registered.
+				// TODO - Hack to deal with containers for SWT till we get the proper solution
 				if (path == null || path.segmentCount() == 0)
 					return; // No path information to process.
 				// First we handle the generic kind of for just the variable itself (which is segment 0).
@@ -805,19 +806,21 @@ public class BeaninfoNature implements IProjectNature {
 					if (registrations != null)
 						processBeaninfoRegistrations(registrations, controller);
 				}
-			} else if (kind == IClasspathEntry.CPE_CONTAINER) {
-				// KLUDGE TODO For now we can't really handle containers, we will simply hard-code and only handle JRE container to JRE_LIB stuff.
-				if (path == null || path.segmentCount() == 0)
-					return; // No path information to process.
-				if (path.segment(0).equals(JavaRuntime.JRE_CONTAINER)) {
-					if (!visitedVariablepaths.contains(JRE_LIB_VARIABLE_PATH)) {
-						visitedVariablepaths.add(JRE_LIB_VARIABLE_PATH);
-						BeaninfoRegistration[] registrations = BeaninfoPlugin.getPlugin().getRegistrations(JRE_LIB_VARIABLE_PATH);
-						if (registrations != null)
-							processBeaninfoRegistrations(registrations, controller);							
-					}
-				}
-			}
+			} 
+
+//			if (kind == IClasspathEntry.CPE_CONTAINER) {
+//				// KLUDGE TODO For now we can't really handle containers, we will simply hard-code and only handle JRE container to JRE_LIB stuff.
+//				if (path == null || path.segmentCount() == 0)
+//					return; // No path information to process.
+//				if (path.segment(0).equals(JavaRuntime.JRE_CONTAINER)) {
+//					if (!visitedVariablepaths.contains(JRE_LIB_VARIABLE_PATH)) {
+//						visitedVariablepaths.add(JRE_LIB_VARIABLE_PATH);
+//						BeaninfoRegistration[] registrations = BeaninfoPlugin.getPlugin().getRegistrations(JRE_LIB_VARIABLE_PATH);
+//						if (registrations != null)
+//							processBeaninfoRegistrations(registrations, classPaths, controller);							
+//					}
+//				}
+//			}
 		}
 
 		protected void processBeaninfoRegistrations(
