@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: PackagesWorkbookPage.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:20:50 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/10 20:26:31 $ 
  */
 
 import java.util.*;
@@ -87,15 +87,12 @@ public class PackagesWorkbookPage extends BuildSearchBasePage {
 
 	private Control fSWTControl;
 
-	private IWorkspaceRoot fWorkspaceRoot;
-
 	private ListDialogField fSearchPackagesList;
 
 	private IClasspathEntry[] resolvedList;
 	private IClasspathEntry[] rawList;
 
 	public PackagesWorkbookPage(IWorkspaceRoot root, BeaninfoPathsBlock biPathsBlock, List interestedFieldsForEnableControl) {
-		fWorkspaceRoot = root;
 		this.biPathsBlock = biPathsBlock;
 
 		fSWTControl = null;
