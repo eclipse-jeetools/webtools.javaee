@@ -12,6 +12,9 @@ public class AddComponentToEnterpriseApplicationDataModel extends EARArtifactEdi
 	public static final String EAR_MODULE_NAME = "AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME";
 	//Used for adding module componenet to Enterprise Application during module creation
 	public static final String ARCHIVE_MODULE = "AddComponentToEnterpriseApplicationDataModel.ARCHIVE_PROJECT"; //$NON-NLS-1$
+	
+	public static final String EAR_PROJECT_NAME = "AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME";
+	//Used for adding module componenet to Enterprise Application during module creation	
 
 	public AddComponentToEnterpriseApplicationDataModel() {
 		super();
@@ -22,6 +25,7 @@ public class AddComponentToEnterpriseApplicationDataModel extends EARArtifactEdi
 		addValidBaseProperty(MODULE_LIST);
 		addValidBaseProperty(EAR_MODULE_NAME);
 		addValidBaseProperty(ARCHIVE_MODULE);
+		addValidBaseProperty(EAR_PROJECT_NAME);
 	}
 	
 	public WTPOperation getDefaultOperation() {

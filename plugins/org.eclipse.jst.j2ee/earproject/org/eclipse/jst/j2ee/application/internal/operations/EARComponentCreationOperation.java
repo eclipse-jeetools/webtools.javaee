@@ -25,6 +25,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
 import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
+import org.eclipse.emf.common.util.URI;
 
 public class EARComponentCreationOperation extends J2EEComponentCreationOperation {
 	public EARComponentCreationOperation(EARComponentCreationDataModel dataModel) {
@@ -109,4 +110,20 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
+	public URI getComponentHandle(){
+        ModuleCore moduleCore = null;
+
+        try {
+        	EARComponentCreationDataModel dm = (EARComponentCreationDataModel)getOperationDataModel();
+            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
+            WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            return earComp.getHandle();
+
+        } finally {
+            if (null != moduleCore) {
+                moduleCore.dispose();
+            }
+
+        }		
+	}	
 }

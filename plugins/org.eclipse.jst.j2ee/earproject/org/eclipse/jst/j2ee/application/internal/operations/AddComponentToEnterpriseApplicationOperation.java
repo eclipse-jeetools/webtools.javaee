@@ -28,8 +28,12 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 	private void addComponentToEnterpriseApplication(IProgressMonitor monitor) {
 		ModuleCore moduleCore = null;
 		try{
-			moduleCore = ModuleCore.getModuleCoreForWrite(getProject());
+			String earProj = operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME);
+			IProject proj = ProjectUtilities.getProject(earProj);
+			
+			moduleCore = ModuleCore.getModuleCoreForWrite(proj);
 			WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME));
+			
 			AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel)getOperationDataModel();
 			URI runtimeURI = URI.createURI(metaInfFolderDeployPath);
 			List list = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
@@ -49,7 +53,6 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 		       }
 		 }		
 	}
-
 	public IProject getProject() {
 		String projName = operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME );
 		return ProjectUtilities.getProject( projName );

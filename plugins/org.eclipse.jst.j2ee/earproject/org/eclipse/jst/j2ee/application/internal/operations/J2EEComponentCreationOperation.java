@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -41,6 +42,7 @@ import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
@@ -104,11 +106,25 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 		 * @throws InterruptedException
 		 */
 		protected void runAddToEAROperation(J2EEComponentCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+			
+			URI uri = moduleModel.getEarComponentHandle();
+			IProject proj = null;
+			try {
+				proj = ModuleCore.getContainingProject(uri);
+			}
+			catch (UnresolveableURIException e) {
+				Logger.getLogger().log(e);
+			}
+			
+			
 			ModuleCore core = null;
 			try {
 				core = ModuleCore.getModuleCoreForRead(getProject());
 				WorkbenchComponent wc = core.findWorkbenchModuleByDeployName((String)moduleModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
 				AddComponentToEnterpriseApplicationDataModel dm = moduleModel.getAddComponentToEARDataModel();
+				
+				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
+				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, moduleModel.getProject().getName());
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME,wc.getName());
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));
 				List modList = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
@@ -131,12 +147,15 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 		 */
 		protected void createEARComponentIfNecessary(J2EEComponentCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 			EARComponentCreationDataModel earModel = moduleModel.getEarComponentCreationDataModel();
+			
+
 			earModel.setProperty(EARComponentCreationDataModel.COMPONENT_NAME, moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
 			earModel.setProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME, moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));			
 			earModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, moduleModel.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
 			if (!doesEARComponentExist(moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME))) {
 				EARComponentCreationOperation earOp = new EARComponentCreationOperation(earModel);
 				earOp.doRun(monitor);
+				moduleModel.setEarComponentHandle( earOp.getComponentHandle() );
 			}
 		}
 	

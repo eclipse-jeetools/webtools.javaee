@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
@@ -85,6 +86,10 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	private UpdateManifestDataModel jarDependencyDataModel;
 
 	private ClassPathSelection cachedSelection;
+	/**
+	 * This  needs to be set up to ensure that other j2ee component is properly added as dependent component of ear 
+	 */
+	private URI earComponentHandle;
 
 	protected void init() {
 		super.init();
@@ -391,4 +396,10 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	}
 	
 
+	public URI getEarComponentHandle() {
+		return earComponentHandle;
+	}
+	public void setEarComponentHandle(URI earComponentHandle) {
+		this.earComponentHandle = earComponentHandle;
+	}
 }

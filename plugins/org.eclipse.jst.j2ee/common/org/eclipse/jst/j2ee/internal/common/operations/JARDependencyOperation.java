@@ -17,12 +17,17 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
@@ -78,47 +83,108 @@ public class JARDependencyOperation extends WTPOperation {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.operations.HeadlessJ2EEOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
+//	protected final void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+//		JARDependencyDataModel dataModel = (JARDependencyDataModel) operationDataModel;
+//		ClasspathModel model = new ClasspathModel(null);
+//		model.setProject(dataModel.getProject());
+//		//model.setSelectedEARNature(EARNatureRuntime.getRuntime(dataModel.getEARProject()));
+//		try {
+//			int jarManipulationType = dataModel.getIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE);
+//			switch (jarManipulationType) {
+//				case JARDependencyDataModel.JAR_MANIPULATION_ADD : {
+//					List jarList = (List) dataModel.getUpdateManifestDataModel().getProperty(UpdateManifestDataModel.JAR_LIST);
+//					if (!jarList.isEmpty()) {
+//						for (int i = 0; i < jarList.size(); i++) {
+//							String jarName = (String) jarList.get(i);
+//							model.selectDependencyIfNecessary(jarName);
+//						}
+//					} else {
+//						model.selectDependencyIfNecessary(dataModel.getReferencedProject());
+//					}
+//				}
+//					break;
+//				case JARDependencyDataModel.JAR_MANIPULATION_REMOVE : {
+//					List jarList = (List) dataModel.getUpdateManifestDataModel().getProperty(UpdateManifestDataModel.JAR_LIST);
+//					for (int i = 0; i < jarList.size(); i++) {
+//						String jarName = (String) jarList.get(i);
+//						model.removeDependency(jarName);
+//					}
+//				}
+//					break;
+//				case JARDependencyDataModel.JAR_MANIPULATION_INVERT :
+//					ClassPathSelection classPathSelection = model.getClassPathSelection();
+//					if (classPathSelection != null)
+//						classPathSelection.invertClientJARSelection(dataModel.getReferencedProject(), dataModel.getOppositeProject());
+//					break;
+//			}
+//			if (model.isDirty())
+//				saveModel(model, monitor);
+//		} finally {
+//			if (model != null)
+//				model.dispose();
+//			if (monitor != null)
+//				monitor.done();
+//		}
+//	}
+	
 	protected final void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		JARDependencyDataModel dataModel = (JARDependencyDataModel) operationDataModel;
-		ClasspathModel model = new ClasspathModel(null);
-		model.setProject(dataModel.getProject());
-		model.setSelectedEARNature(EARNatureRuntime.getRuntime(dataModel.getEARProject()));
+		
+		IProject proj = dataModel.getProject();
+		IProject refproj = dataModel.getReferencedProject();
+
 		try {
 			int jarManipulationType = dataModel.getIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE);
 			switch (jarManipulationType) {
 				case JARDependencyDataModel.JAR_MANIPULATION_ADD : {
-					List jarList = (List) dataModel.getUpdateManifestDataModel().getProperty(UpdateManifestDataModel.JAR_LIST);
-					if (!jarList.isEmpty()) {
-						for (int i = 0; i < jarList.size(); i++) {
-							String jarName = (String) jarList.get(i);
-							model.selectDependencyIfNecessary(jarName);
-						}
-					} else {
-						model.selectDependencyIfNecessary(dataModel.getReferencedProject());
-					}
+					updateProjectDependency(proj, refproj);
 				}
-					break;
-				case JARDependencyDataModel.JAR_MANIPULATION_REMOVE : {
-					List jarList = (List) dataModel.getUpdateManifestDataModel().getProperty(UpdateManifestDataModel.JAR_LIST);
-					for (int i = 0; i < jarList.size(); i++) {
-						String jarName = (String) jarList.get(i);
-						model.removeDependency(jarName);
-					}
-				}
+				
+				break;
+				case JARDependencyDataModel.JAR_MANIPULATION_REMOVE : 
+
 					break;
 				case JARDependencyDataModel.JAR_MANIPULATION_INVERT :
-					ClassPathSelection classPathSelection = model.getClassPathSelection();
-					if (classPathSelection != null)
-						classPathSelection.invertClientJARSelection(dataModel.getReferencedProject(), dataModel.getOppositeProject());
+
 					break;
 			}
-			if (model.isDirty())
-				saveModel(model, monitor);
 		} finally {
-			if (model != null)
-				model.dispose();
+
 			if (monitor != null)
 				monitor.done();
 		}
+	}	
+	
+	private IClasspathEntry[] getProjectDependency(IProject clientProj){
+		IClasspathEntry projectEntry = JavaCore.newProjectEntry(clientProj.getFullPath(), true);
+			return new IClasspathEntry[]{projectEntry};	
+	}	
+	
+	private void updateProjectDependency(IProject ejbProj, IProject clientProj){
+		
+		IJavaProject javaProject = JavaCore.create( ejbProj );
+		try {
+	
+			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
+			IClasspathEntry[] newEntries = getProjectDependency( clientProj );
+			
+			int oldSize = oldEntries.length;
+			int newSize = newEntries.length;
+			
+			IClasspathEntry[] classpathEnties = new IClasspathEntry[oldSize + newSize];
+			int k = 0;
+			for (int i = 0; i < oldEntries.length; i++) {
+				classpathEnties[i] = oldEntries[i];
+				k++;
+			}
+			for( int j=0; j< newEntries.length; j++){
+				classpathEnties[k] = newEntries[j];
+				k++;
+			}
+			javaProject.setRawClasspath(classpathEnties, null);
+		}
+		catch (JavaModelException e) {
+			Logger.getLogger().logError(e);
+		}		
 	}
 }
