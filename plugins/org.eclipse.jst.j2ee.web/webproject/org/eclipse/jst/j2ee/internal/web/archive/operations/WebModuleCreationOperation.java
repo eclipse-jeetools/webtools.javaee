@@ -157,7 +157,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 		return module;
 	}
 	public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
-		return getProject().getFile(new Path(getWebContentResourcePath() + IPath.SEPARATOR + aModuleRelativePath));
+		return getProject().getFile(new Path(IPath.SEPARATOR + aModuleRelativePath));
 	}
 	
 	public IProject getProject() {
