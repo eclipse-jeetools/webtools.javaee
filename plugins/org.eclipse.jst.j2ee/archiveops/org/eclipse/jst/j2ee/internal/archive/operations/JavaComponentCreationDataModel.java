@@ -14,7 +14,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescript
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-public class JavaComponentCreationDataModel extends ComponentCreationDataModel {
+public abstract class JavaComponentCreationDataModel extends ComponentCreationDataModel {
 
 	/**
 	 * type String
