@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.InitParam;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 
 /**

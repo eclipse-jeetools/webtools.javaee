@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.jst.j2ee.common.CommonFactory;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
@@ -42,6 +41,7 @@ import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
 import org.eclipse.jst.j2ee.common.UseCallerIdentity;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 
 /**

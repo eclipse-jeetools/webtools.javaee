@@ -29,13 +29,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.HTTPMethodType;
 import org.eclipse.jst.j2ee.webapplication.HTTPMethodTypeEnum;
 import org.eclipse.jst.j2ee.webapplication.SecurityConstraint;
 import org.eclipse.jst.j2ee.webapplication.URLPatternType;
 import org.eclipse.jst.j2ee.webapplication.WebResourceCollection;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**

@@ -27,8 +27,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**

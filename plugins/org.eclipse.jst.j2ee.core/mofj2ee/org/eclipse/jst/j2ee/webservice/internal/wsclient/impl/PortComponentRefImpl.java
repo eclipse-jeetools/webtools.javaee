@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 
 
 /**

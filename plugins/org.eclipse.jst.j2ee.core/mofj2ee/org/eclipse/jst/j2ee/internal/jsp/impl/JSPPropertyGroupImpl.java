@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl;
+import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
-import org.eclipse.jst.j2ee.jsp.JspPackage;
 
 
 /**

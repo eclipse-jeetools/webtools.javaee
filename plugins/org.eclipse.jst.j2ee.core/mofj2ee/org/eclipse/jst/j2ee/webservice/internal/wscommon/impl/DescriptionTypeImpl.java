@@ -13,8 +13,8 @@ package org.eclipse.jst.j2ee.webservice.internal.wscommon.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.internal.common.impl.DescriptionImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
-import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 
 
 /**

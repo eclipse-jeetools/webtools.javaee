@@ -27,10 +27,10 @@ import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.ejb.AcknowledgeMode;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MessageDrivenDestination;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**

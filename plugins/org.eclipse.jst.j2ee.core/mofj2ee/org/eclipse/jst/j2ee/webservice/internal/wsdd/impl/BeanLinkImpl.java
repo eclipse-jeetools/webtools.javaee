@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.webservice.internal.wsdd.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 
 /**

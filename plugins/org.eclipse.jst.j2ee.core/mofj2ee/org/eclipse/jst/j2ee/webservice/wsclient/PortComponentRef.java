@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.webservice.wsclient;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 
 /**
  * <!-- begin-user-doc -->

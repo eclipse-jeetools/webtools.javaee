@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientFactory;
-import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.client.ResAuthApplicationType;
+import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 
 /**
  * @generated

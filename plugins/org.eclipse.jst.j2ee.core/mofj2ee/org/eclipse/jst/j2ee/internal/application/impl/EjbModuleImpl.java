@@ -15,9 +15,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.EjbModule;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 
 /**
  * Specifies the URI of a ejb-jar, relative to the top level of the application package.

@@ -35,9 +35,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ConnectorDirecto
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.RarFileDynamicClassLoader;
+import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
-import org.eclipse.jst.j2ee.jca.JcaPackage;
 
 
 /**

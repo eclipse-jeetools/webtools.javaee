@@ -12,12 +12,12 @@
 package org.eclipse.jst.j2ee.internal.model.translator.webservices;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.webservice.WebServiceConstants;
-import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
+import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.wst.common.internal.emf.resource.ConstantAttributeTranslator;
 import org.eclipse.wst.common.internal.emf.resource.GenericTranslator;
 import org.eclipse.wst.common.internal.emf.resource.IDTranslator;

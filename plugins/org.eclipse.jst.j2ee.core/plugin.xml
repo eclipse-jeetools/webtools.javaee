@@ -45,84 +45,84 @@
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="common.xmi"
-            class="org.eclipse.jst.j2ee.common.CommonPackage">
+            class="org.eclipse.jst.j2ee.internal.common.CommonPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="application.xmi"
-            class="org.eclipse.jst.j2ee.application.ApplicationPackage">
+            class="org.eclipse.jst.j2ee.internal.application.ApplicationPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="client.xmi"
-            class="org.eclipse.jst.j2ee.client.ClientPackage">
+            class="org.eclipse.jst.j2ee.internal.client.ClientPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="webapplication.xmi"
-            class="org.eclipse.jst.j2ee.webapplication.WebapplicationPackage">
+            class="org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="ejb.xmi"
-            class="org.eclipse.jst.j2ee.ejb.EjbPackage">
+            class="org.eclipse.jst.j2ee.internal.ejb.EjbPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="jca.xmi"
-            class="org.eclipse.jst.j2ee.jca.JcaPackage">
+            class="org.eclipse.jst.j2ee.internal.jca.JcaPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="jsp.xmi"
-            class="org.eclipse.jst.j2ee.jsp.JspPackage">
+            class="org.eclipse.jst.j2ee.internal.jsp.JspPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="webservice_client.xmi"
-            class="org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage">
+            class="org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="wscommon.xmi"
-            class="org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage">
+            class="org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="wsdd.xmi"
-            class="org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage">
+            class="org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wscommon.xmi"
-            class="org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage">
+            class="org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage">
       </package>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wsdd.xmi"
-            class="org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage">
+            class="org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage">
       </package>
    </extension>
 <!--ArchiveInit-->

@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 

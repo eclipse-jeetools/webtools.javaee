@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.common.EJBLocalRef;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**

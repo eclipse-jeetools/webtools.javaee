@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common;
 
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+
 
 /**
  * <!-- begin-user-doc -->

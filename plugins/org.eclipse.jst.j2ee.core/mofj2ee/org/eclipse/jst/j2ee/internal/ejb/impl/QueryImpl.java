@@ -26,10 +26,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.Query;
 import org.eclipse.jst.j2ee.ejb.QueryMethod;
 import org.eclipse.jst.j2ee.ejb.ReturnTypeMapping;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**

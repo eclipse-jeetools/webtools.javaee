@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 /**
  * Describes a container-managed field. The field element includes an optional description of the field, and the name of the field.
 

@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.impl.JavaRefPackageImpl;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl;
 

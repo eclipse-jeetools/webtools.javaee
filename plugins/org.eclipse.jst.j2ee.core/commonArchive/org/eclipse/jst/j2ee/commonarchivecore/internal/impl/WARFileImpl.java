@@ -44,8 +44,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseLibrary;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseWARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.WarFileDynamicClassLoader;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**

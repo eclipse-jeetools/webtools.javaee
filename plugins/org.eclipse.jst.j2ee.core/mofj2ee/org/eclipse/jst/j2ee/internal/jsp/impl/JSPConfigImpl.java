@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
-import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 
 

@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.wscommon;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
 
 /**
  * <!-- begin-user-doc -->

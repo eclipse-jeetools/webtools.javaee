@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.java.Field;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 /**
  * @generated

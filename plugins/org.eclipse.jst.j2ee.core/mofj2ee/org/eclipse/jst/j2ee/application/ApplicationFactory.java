@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.application;
 
 import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 /**
  * @generated
  */

@@ -13,9 +13,9 @@ package org.eclipse.jst.j2ee.internal.client.util;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 
 
 /**

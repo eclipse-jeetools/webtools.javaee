@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.taglib;
 
 import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 /**
  * @generated
  */

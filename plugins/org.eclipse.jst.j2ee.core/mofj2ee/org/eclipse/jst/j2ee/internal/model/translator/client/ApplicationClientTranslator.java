@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.model.translator.client;
 
-import org.eclipse.jst.j2ee.client.ClientPackage;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.client.ClientPackage;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.model.translator.common.EnvEntryTranslator;
 import org.eclipse.jst.j2ee.internal.model.translator.common.JavaClassTranslator;

@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.jst.j2ee.ejb.EJBMethodCategory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 /**
  * The valid EJB method category names are: EJBHOMEMETHOD, EJBCREATEMETHOD, EJBFINDERMETHOD, EJBREMOTEMETHOD.

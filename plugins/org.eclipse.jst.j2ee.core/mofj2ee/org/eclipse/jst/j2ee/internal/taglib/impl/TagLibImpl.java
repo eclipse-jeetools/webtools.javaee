@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.Function;
 import org.eclipse.jst.j2ee.taglib.JSPTag;
 import org.eclipse.jst.j2ee.taglib.TagLib;
-import org.eclipse.jst.j2ee.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.TldExtension;
 import org.eclipse.jst.j2ee.taglib.Validator;
 

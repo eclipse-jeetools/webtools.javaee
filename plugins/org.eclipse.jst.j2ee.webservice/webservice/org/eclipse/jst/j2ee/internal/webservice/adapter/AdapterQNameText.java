@@ -12,9 +12,9 @@ package org.eclipse.jst.j2ee.internal.webservice.adapter;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyNSURI;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
 import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;

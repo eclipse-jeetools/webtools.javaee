@@ -15,15 +15,15 @@ package org.eclipse.jst.j2ee.internal.model.translator.webapplication;
 
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 import org.eclipse.jst.j2ee.internal.model.translator.common.BooleanTranslator;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
 import org.eclipse.jst.j2ee.internal.model.translator.common.EnvEntryTranslator;
 import org.eclipse.jst.j2ee.internal.model.translator.common.JavaClassTranslator;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.internal.xml.WarDeploymentDescriptorXmlMapperI;
-import org.eclipse.jst.j2ee.jsp.JspPackage;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.wst.common.internal.emf.resource.ConstantAttributeTranslator;
 import org.eclipse.wst.common.internal.emf.resource.GenericTranslator;
 import org.eclipse.wst.common.internal.emf.resource.IDTranslator;

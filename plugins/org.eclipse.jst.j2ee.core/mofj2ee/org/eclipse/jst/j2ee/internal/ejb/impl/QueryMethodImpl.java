@@ -24,11 +24,11 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.jst.j2ee.ejb.Query;
 import org.eclipse.jst.j2ee.ejb.QueryMethod;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 /**
  * @generated

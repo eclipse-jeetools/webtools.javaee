@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 /**
  * The security-identity element specifies whether the caller's security identity is to be used for the execution of the methods of the enterprise bean or whether a specific run-as identity is to be used. It
  * contains an optional description and a specification of the security identity to be used.

@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.internal.common.impl.DescriptionGroupImpl;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.TagFile;
-import org.eclipse.jst.j2ee.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.TldExtension;
 
 

@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.wsclient;
 
 import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 
 /**
  * <!-- begin-user-doc -->

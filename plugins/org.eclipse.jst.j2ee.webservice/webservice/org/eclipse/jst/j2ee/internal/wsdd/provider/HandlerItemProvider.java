@@ -33,9 +33,9 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 /*
  * This class should be merged with HandlerItemProvider in org.eclipse.jst.j2ee.internal.internal.internal.webservice.provider

@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.wscommon;
 
 import org.eclipse.jst.j2ee.common.DisplayName;
+import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.BodyContentType;
 import org.eclipse.jst.j2ee.taglib.Function;
 import org.eclipse.jst.j2ee.taglib.JSPScriptingVariableScope;
@@ -23,7 +24,6 @@ import org.eclipse.jst.j2ee.taglib.JSPVariable;
 import org.eclipse.jst.j2ee.taglib.TagFile;
 import org.eclipse.jst.j2ee.taglib.TagLib;
 import org.eclipse.jst.j2ee.taglib.TaglibFactory;
-import org.eclipse.jst.j2ee.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.TldExtension;
 import org.eclipse.jst.j2ee.taglib.Validator;
 

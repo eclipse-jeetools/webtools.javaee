@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.JNDIEnvRefsGroup;
 import org.eclipse.jst.j2ee.common.SecurityRole;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 
 /**

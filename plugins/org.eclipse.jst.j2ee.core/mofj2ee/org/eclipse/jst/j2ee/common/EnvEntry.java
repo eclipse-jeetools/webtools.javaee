@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.common;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 /**
  * The env-entry element contains the declaration of an application client's environment entries. The declaration consists of an optional description, the name of the environment entry, and an optional value.

@@ -31,12 +31,12 @@ import org.eclipse.jst.j2ee.common.MessageDestination;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.ExcludeList;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 

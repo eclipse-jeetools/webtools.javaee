@@ -13,8 +13,8 @@ package org.eclipse.jst.j2ee.webservice.internal.wsdd.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.internal.common.impl.QNameImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 
 /**

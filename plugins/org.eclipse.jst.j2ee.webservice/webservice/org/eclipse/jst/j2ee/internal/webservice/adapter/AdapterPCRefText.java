@@ -23,8 +23,8 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifySEI;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandModifyText;
 import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.PortComponentRef;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 

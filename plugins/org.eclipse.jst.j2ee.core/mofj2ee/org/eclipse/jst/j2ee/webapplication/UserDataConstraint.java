@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 
 /**
  * The user-data-constraint element is used to indicate how data communicated between the client and container should be protected

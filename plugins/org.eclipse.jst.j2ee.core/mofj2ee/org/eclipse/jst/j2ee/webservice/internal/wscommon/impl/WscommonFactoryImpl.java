@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.webservice.internal.wscommon.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
 import org.eclipse.jst.j2ee.webservice.wscommon.InitParam;
@@ -20,7 +21,6 @@ import org.eclipse.jst.j2ee.webservice.wscommon.PortName;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
-import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 
 
 /**

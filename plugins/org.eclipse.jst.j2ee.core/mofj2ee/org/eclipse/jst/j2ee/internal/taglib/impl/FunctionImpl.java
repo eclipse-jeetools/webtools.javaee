@@ -23,8 +23,8 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.internal.common.impl.DescriptionGroupImpl;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.Function;
-import org.eclipse.jst.j2ee.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.TldExtension;
 
 

@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  * @generated
  * The web-resource-collection element is used to identify a subset of the resources and HTTP methods on those resources within a web application to which a security constraint applies. If no HTTP methods are specified, then the security constraint applies to all HTTP methods.

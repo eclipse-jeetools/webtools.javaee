@@ -12,10 +12,10 @@ package org.eclipse.jst.j2ee.internal.jsp.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
-import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 
 

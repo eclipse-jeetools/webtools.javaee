@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationItemProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;

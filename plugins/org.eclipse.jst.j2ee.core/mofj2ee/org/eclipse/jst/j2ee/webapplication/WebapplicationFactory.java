@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  * @generated
  */

@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.jca;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -24,9 +24,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 import org.eclipse.jst.j2ee.taglib.JSPScriptingVariableScope;
 import org.eclipse.jst.j2ee.taglib.JSPVariable;
-import org.eclipse.jst.j2ee.taglib.TaglibPackage;
 
 
 /**

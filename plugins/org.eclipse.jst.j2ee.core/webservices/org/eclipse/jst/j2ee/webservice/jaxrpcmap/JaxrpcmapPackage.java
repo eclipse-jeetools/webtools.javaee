@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 /**
  * <!-- begin-user-doc -->

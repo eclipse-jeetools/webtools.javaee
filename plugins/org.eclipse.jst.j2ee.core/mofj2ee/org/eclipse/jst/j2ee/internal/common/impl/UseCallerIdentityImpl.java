@@ -17,9 +17,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.common.UseCallerIdentity;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 
 /**

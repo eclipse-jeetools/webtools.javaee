@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.ejb;
  
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 /**
  * @generated
  */

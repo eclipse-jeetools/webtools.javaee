@@ -25,9 +25,9 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.AdminObject;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
-import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.internal.plugin.JCAResourceHandler;
 import org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin;
 

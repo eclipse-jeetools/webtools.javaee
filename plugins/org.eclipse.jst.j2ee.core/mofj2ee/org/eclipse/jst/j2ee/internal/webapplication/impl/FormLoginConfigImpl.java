@@ -19,9 +19,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.FormLoginConfig;
 import org.eclipse.jst.j2ee.webapplication.LoginConfig;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * The form-login-config element specifies the login and error pages that should be used in form based login. If form based authentication is not used, these elements are ignored.

@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  * The auth-constraint element indicates the user roles that should be permitted access to this resource collection. The role used here must appear in a security-role-ref element.
  */

@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  * The security-constraint element is used to associate security constraints with one or more web resource collections
  */

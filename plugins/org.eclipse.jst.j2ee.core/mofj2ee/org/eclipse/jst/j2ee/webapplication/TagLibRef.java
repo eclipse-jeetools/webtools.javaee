@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.webapplication;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 /**
  * The taglib element is used to describe a JSP tag library.
  * @since since J2EE1.4 deprecated, use org.eclipse.jst.j2ee.internal.jsp.TagLibRef

@@ -31,11 +31,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
 import org.eclipse.jst.j2ee.ejb.TransactionAttributeType;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**

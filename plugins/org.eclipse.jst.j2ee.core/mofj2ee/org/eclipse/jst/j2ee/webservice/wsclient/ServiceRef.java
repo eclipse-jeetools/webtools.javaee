@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 import org.eclipse.jst.j2ee.common.QName;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 
 
 /**

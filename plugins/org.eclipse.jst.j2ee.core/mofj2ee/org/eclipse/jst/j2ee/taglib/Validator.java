@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.taglib;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 /**
  * The validator element provides information on an optional validator that can be used to validate the conformance of a JSP page to using this tag library.
 

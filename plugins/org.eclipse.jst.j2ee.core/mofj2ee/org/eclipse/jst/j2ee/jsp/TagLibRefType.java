@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.jsp;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.jsp.JspPackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.LocalEncodingMapping;
 import org.eclipse.jst.j2ee.webapplication.LocalEncodingMappingList;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**

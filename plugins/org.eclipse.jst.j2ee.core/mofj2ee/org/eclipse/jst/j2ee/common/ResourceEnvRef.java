@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.common;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 /**
  * The resource-env-ref element contains a declaration of an enterprise bean's reference to an administered object associated with a resource in the enterprise bean's environment. It consists of an optional description, the resource environment reference name, and an indication of the resource environment reference type expected by the enterprise bean code.

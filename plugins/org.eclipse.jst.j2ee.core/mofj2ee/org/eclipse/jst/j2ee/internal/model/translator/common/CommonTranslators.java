@@ -15,9 +15,9 @@
 package org.eclipse.jst.j2ee.internal.model.translator.common;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.xml.DeploymentDescriptorXmlMapperI;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.wst.common.internal.emf.resource.DependencyTranslator;
 import org.eclipse.wst.common.internal.emf.resource.GenericTranslator;
 import org.eclipse.wst.common.internal.emf.resource.IDTranslator;

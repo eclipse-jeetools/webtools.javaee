@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.ejb;
+package org.eclipse.jst.j2ee.internal.ejb;
 
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -17,7 +17,8 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.ejb.EjbFactory;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 public interface EjbPackage extends EPackage{
 	/**

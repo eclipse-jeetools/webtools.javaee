@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.internal.webapplication.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebType;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * @generated

@@ -18,8 +18,8 @@ import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.IRoleShapeStrategy;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 /**
  * Insert the type's description here.

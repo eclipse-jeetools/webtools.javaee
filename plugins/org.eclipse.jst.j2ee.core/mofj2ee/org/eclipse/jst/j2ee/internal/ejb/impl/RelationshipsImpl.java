@@ -28,8 +28,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.Relationships;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 
 /**

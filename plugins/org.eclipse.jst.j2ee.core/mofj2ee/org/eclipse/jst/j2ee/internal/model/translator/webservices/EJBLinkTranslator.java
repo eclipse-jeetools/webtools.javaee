@@ -13,8 +13,8 @@ package org.eclipse.jst.j2ee.internal.model.translator.webservices;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
 
 

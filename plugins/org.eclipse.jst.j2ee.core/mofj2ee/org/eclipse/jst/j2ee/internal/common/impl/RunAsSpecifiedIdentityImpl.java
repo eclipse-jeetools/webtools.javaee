@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.Identity;
 import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 
 /**

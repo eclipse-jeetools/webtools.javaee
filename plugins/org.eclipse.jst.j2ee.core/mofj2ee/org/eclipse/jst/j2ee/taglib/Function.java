@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.taglib;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
+import org.eclipse.jst.j2ee.internal.taglib.TaglibPackage;
 
 
 /**
