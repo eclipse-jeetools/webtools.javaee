@@ -18,9 +18,15 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
@@ -36,6 +42,45 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
+		//should cache wbmodule when created instead of  searching ?
+        ModuleCore moduleCore = null;
+        WorkbenchComponent wbmodule = null;
+        try {
+            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
+            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EjbComponentCreationDataModel.MODULE_DEPLOY_NAME));
+        } finally {
+            if (null != moduleCore) {
+                moduleCore.dispose();
+            }
+        }		
+
+
+        EJBArtifactEdit ejbEdit = null;
+       	try{
+
+       		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite( wbmodule );
+
+       		String projPath = getProject().getLocation().toOSString();
+       		
+       		projPath += operationDataModel.getProperty( EjbComponentCreationDataModel.DD_FOLDER );
+       		projPath +=IPath.SEPARATOR + J2EEConstants.EJBJAR_DD_SHORT_NAME;
+
+       		
+       		IPath ejbxmlPath = new Path(projPath);
+       		boolean b = ejbxmlPath.isValidPath(ejbxmlPath.toString());
+       		if(ejbEdit != null) {
+       			int moduleVersion = operationDataModel.getIntProperty(EjbComponentCreationDataModel.J2EE_MODULE_VERSION);
+  			
+       			ejbEdit.createModelRoot( getProject(), ejbxmlPath, moduleVersion );
+       		}
+       	}
+       	catch(Exception e){
+            e.printStackTrace();
+       	} finally {
+       		if(ejbEdit != null)
+       			ejbEdit.dispose();
+       	}	
+       	
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -45,7 +90,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected  void addResources( WorkbenchComponent component ){
-		addResource(component, getModuleRelativeFile(getWebContentSourcePath( getModuleName() ), getProject()), getWebContentDeployPath());
+		//addResource(component, getModuleRelativeFile(getMetaInfPath( getModuleName() ), getProject()), getMetaInfPathDeployPath());
 		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());		
 	}
 	
@@ -53,27 +98,27 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	 * @return
 	 */
 	public String getJavaSourceSourcePath(String moduleName) {
-		return "/" + moduleName +"/JavaSource"; //$NON-NLS-1$
+		return "/" + moduleName +"/ejbModule"; //$NON-NLS-1$
 	}
 	
 	/**
 	 * @return
 	 */
 	public String getJavaSourceDeployPath() {
-		return "/WEB-INF/classes"; //$NON-NLS-1$
+		return "/"; //$NON-NLS-1$
 	}
 	
 	/**
 	 * @return
 	 */
-	public String getWebContentSourcePath(String moduleName) {
-		return "/" + moduleName + "/WebContent"; //$NON-NLS-1$
+	public String getMetaInfPath(String moduleName) {
+		return "/" + moduleName; //$NON-NLS-1$
 	}
 	
 	/**
 	 * @return
 	 */
-	public String getWebContentDeployPath() {
+	public String getMetaInfPathDeployPath() {
 		return "/"; //$NON-NLS-1$
 	}
 
@@ -81,8 +126,24 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
 	 */
 	protected void createProjectStructure() throws CoreException {
-		// TODO Auto-generated method stub
+
+		IFolder moduleFolder = getProject().getFolder(  getModuleName() );
+		if (!moduleFolder.exists()) {
+			moduleFolder.create(true, true, null);
+		}
+		IFolder ejbModuleFolder = moduleFolder.getFolder( "ejbModule" );
+		if (!ejbModuleFolder.exists()) {
+			ejbModuleFolder.create(true, true, null);
+		}
 		
+		IFolder metainf = ejbModuleFolder.getFolder(J2EEConstants.META_INF);
+		if (!metainf.exists()) {
+			IFolder parent = metainf.getParent().getFolder(null);
+			if (!parent.exists()) {
+				parent.create(true, true, null);
+			}
+			metainf.create(true, true, null);
+		}
 	} 
 	
 }

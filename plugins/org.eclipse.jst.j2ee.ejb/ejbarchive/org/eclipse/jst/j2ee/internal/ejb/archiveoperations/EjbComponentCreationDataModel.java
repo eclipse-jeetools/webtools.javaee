@@ -16,6 +16,7 @@
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
@@ -24,6 +25,7 @@ import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
@@ -169,9 +171,13 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			return Boolean.TRUE;
 		} else if (propertyName.equals(CREATE_DEFAULT_SESSION_BEAN)) {
 			return Boolean.FALSE;
-		} else {
+		} else if (propertyName.equals(DD_FOLDER)) {
+			return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+		}else if (propertyName.equals(JAVASOURCE_FOLDER)) {
+			return IPath.SEPARATOR + getModuleName()+IPath.SEPARATOR + "ejbModule";
+		}else {
 			return super.getDefaultProperty(propertyName);
-		}
+		}	
 	}
 
 	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
