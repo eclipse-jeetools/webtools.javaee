@@ -152,6 +152,10 @@ public class NewModuleGroup {
 			String newProjectName = projModel.getStringProperty(FlexibleProjectCreationDataModel.PROJECT_NAME);
 			projectNameCombo.add(newProjectName);
 			projectNameCombo.setText(newProjectName);
+			IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
+			IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
+			if (runtime != null)
+				serverTargetText.setText(runtime.getName());
 		}
 	}
 	
@@ -195,11 +199,14 @@ public class NewModuleGroup {
 		serverTargetText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 		serverTargetText.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 		new Label(parent, SWT.NONE);
-		IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
-		if (project !=null) {
-			IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-			if (runtime != null)
-				serverTargetText.setText(runtime.getName());
+		String projectName = projectNameCombo.getText();
+		if (projectName!=null && projectName.length()!=0) {
+			IProject project = ProjectUtilities.getProject(projectName);
+			if (project !=null) {
+				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
+				if (runtime != null)
+					serverTargetText.setText(runtime.getName());
+			}
 		}
 	}
 }
