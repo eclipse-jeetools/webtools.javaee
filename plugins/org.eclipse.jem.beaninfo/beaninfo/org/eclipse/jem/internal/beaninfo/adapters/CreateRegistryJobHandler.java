@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.7 $  $Date: 2004/06/14 16:07:26 $ 
+ *  $Revision: 1.8 $  $Date: 2004/06/16 20:58:31 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -60,14 +60,16 @@ class CreateRegistryJobHandler {
 		Job currentJob = jobManager.currentJob();
 		if (currentJob == null || (!currentJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) && !currentJob.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD))) {
 			// See if autojob is waiting or sleeping.
-			if (isAutoWaiting()) {
+			// Give it up to a second at .2 second intervals to try (i.e. 5 tries)
+			int tries = 5;
+			while (isAutoWaiting() && --tries>0) {
 				try {
 					Thread.sleep(200);	// Wait just .2 seconds to give build a chance to start. If it is still not started, then just go on.
 				} catch (InterruptedException e) {
 				}
-				if (isAutoWaiting())
-					BeaninfoPlugin.getPlugin().getLogger().log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$
 			}
+			if (tries==0)
+				BeaninfoPlugin.getPlugin().getLogger().log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$
 		}
 		
 		jobHandler.processCreateRegistry(nature);

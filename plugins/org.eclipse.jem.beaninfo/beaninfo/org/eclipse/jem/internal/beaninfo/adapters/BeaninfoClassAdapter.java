@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.14 $  $Date: 2004/06/09 22:46:55 $ 
+ *  $Revision: 1.15 $  $Date: 2004/06/16 20:58:31 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -883,15 +883,29 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// to get rid of the decorator and recreate it. If it is not implicit, then
 		// we have to use it as is because the user specified, so it won't become
 		// an indexed if the user did not created it as an index, and visa-versa.
-		if (pd != null && pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT) {
-			// We can't change the type for explicit.
-			indexed = pd instanceof IndexedPropertyDecorator;
-		} else if (
-			pd != null
-				&& pd.isImplicitlyCreated() != FeatureDecorator.NOT_IMPLICIT
-				&& ((indexed && !(pd instanceof IndexedPropertyDecorator)) || (!indexed && pd instanceof IndexedPropertyDecorator))) {
-			prop.getEAnnotations().remove(pd);
-			pd = null;
+		// Also if it is implicit, then we need to unset certain features that may of
+		// been set by a previous reflection which has now become introspected.
+		// When reflected we set the actual fields instead of the letting proxy determine them.
+		if (pd != null) {
+			if (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT) {
+				// We can't change the type for explicit.
+				indexed = pd instanceof IndexedPropertyDecorator;
+			} else {
+				if ((indexed && !(pd instanceof IndexedPropertyDecorator)) || (!indexed && pd instanceof IndexedPropertyDecorator)) {
+					prop.getEAnnotations().remove(pd);
+					pd = null;
+				} else {
+					// It is implicit and could of been reflected, so clear the explict sets.
+					pd.unsetBound();
+					pd.unsetConstrained();
+					pd.eUnset(BeaninfoPackage.eINSTANCE.getPropertyDecorator_ReadMethod());
+					pd.eUnset(BeaninfoPackage.eINSTANCE.getPropertyDecorator_WriteMethod());
+					if (pd instanceof IndexedPropertyDecorator) {
+						pd.eUnset(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedReadMethod());
+						pd.eUnset(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedWriteMethod());
+					}
+				}
+			}
 		}
 
 		int implicit = pd == null ? FeatureDecorator.IMPLICIT_DECORATOR : pd.isImplicitlyCreated();
@@ -1557,6 +1571,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			event = (JavaEvent) b;
 		}
 
+		if (ed != null && ed.isImplicitlyCreated() != FeatureDecorator.NOT_IMPLICIT) {
+			// It is implicit and could of been reflected, so clear the explict sets.
+			ed.unsetUnicast();
+			ed.setAddListenerMethod(null);
+			ed.setRemoveListenerMethod(null);
+			ed.setListenerType(null);
+		}
+		
 		int implicit = ed == null ? FeatureDecorator.IMPLICIT_DECORATOR : FeatureDecorator.NOT_IMPLICIT;
 		if (event == null) {
 			// We will create a new Event.

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.20 $  $Date: 2004/06/11 15:35:03 $ 
+ *  $Revision: 1.21 $  $Date: 2004/06/16 20:58:31 $ 
  */
 
 import java.io.*;
@@ -67,16 +67,14 @@ public class BeaninfoNature implements IProjectNature {
 	private class ResourceTracker implements IResourceChangeListener{
 		public void resourceChanged(IResourceChangeEvent e) {
 			// About to close or delete the project and it is ours, so we need to cleanup.
-			if (e.getType() == IResourceChangeEvent.PRE_CLOSE || e.getType() == IResourceChangeEvent.PRE_DELETE) {
-				// Performance: It has been noted that dres.equals(...) can be slow with the number
-				// of visits done. Checking just the last segment (getName()) first before checking
-				// the entire resource provides faster testing. If the last segment is not equal,
-				// then the entire resource could not be equal.
-				IResource eventResource = e.getResource();
-				if (eventResource.getName().equals(getProject().getName()) && eventResource.equals(getProject())) {
-					cleanup(false);
-					return;
-				}
+			// Performance: It has been noted that dres.equals(...) can be slow with the number
+			// of visits done. Checking just the last segment (getName()) first before checking
+			// the entire resource provides faster testing. If the last segment is not equal,
+			// then the entire resource could not be equal.
+			IResource eventResource = e.getResource();
+			if (eventResource.getName().equals(getProject().getName()) && eventResource.equals(getProject())) {
+				cleanup(false);
+				return;
 			}
 			// Note: the BeaninfoModelSynchronizer takes care of both .classpath and .beaninfoconfig changes
 			// in this project and any required projects.
@@ -306,7 +304,7 @@ public class BeaninfoNature implements IProjectNature {
 					(BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(javaRSet.getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY),
 					JavaCore.create(javaNature.getProject()));
 			resourceTracker = new ResourceTracker();
-			project.getWorkspace().addResourceChangeListener(resourceTracker);
+			project.getWorkspace().addResourceChangeListener(resourceTracker, IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
