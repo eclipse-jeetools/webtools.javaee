@@ -9,6 +9,9 @@
 package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -25,6 +28,7 @@ import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.internal.Module;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -105,4 +109,24 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
         moduleAdapter.setModuleDelegate(moduleDelegate);
         wbModule.eAdapters().add(moduleAdapter);
     }
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+	 */
+	public IModule[] getModules() {
+		int i = 0;
+		ArrayList moduleList = new ArrayList();
+		cacheModules();		
+		 for (Iterator iter = projects.values().iterator(); iter.hasNext();) {
+			IModule[] element = (IModule[]) iter.next();
+			for (int j = 0; j < element.length; j++) {
+				moduleList.add((IModule)element[j]);
+			}
+			
+		}
+		 IModule[] modules = new IModule[moduleList.size()];
+		 moduleList.toArray(modules);
+		return modules;
+		
+	}
 }
