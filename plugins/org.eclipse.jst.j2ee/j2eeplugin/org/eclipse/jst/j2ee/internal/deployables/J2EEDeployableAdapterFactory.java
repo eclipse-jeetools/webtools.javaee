@@ -15,19 +15,18 @@ public class J2EEDeployableAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
 		if (adapterType == IModuleArtifact.class) {
-
-			if (Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact")) {
-				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact");
-			}
 			if (moduleArtifact == null && Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact")) {
 				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact");
 			}
 			if (moduleArtifact == null && Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.jst.j2ee.ejb.internal.deployables.IEJBModuleArtifact")) {
 				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.jst.j2ee.ejb.internal.deployables.IEJBModuleArtifact");
 			}
-			if (moduleArtifact == null && Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.wst.web.internal.deployables.IStaticWebModuleArtifact")) {
-				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.wst.web.internal.deployables.IStaticWebModuleArtifact");
+			if (Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact")) {
+				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact");
 			}
+	/*		if (moduleArtifact == null && Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.wst.web.internal.deployables.IStaticWebModuleArtifact")) {
+				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.wst.web.internal.deployables.IStaticWebModuleArtifact");
+			}*/
 		}
 		return moduleArtifact;
 	}
