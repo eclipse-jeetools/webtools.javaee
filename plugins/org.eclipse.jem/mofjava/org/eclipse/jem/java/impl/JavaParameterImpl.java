@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
  */
 import java.util.Collection;
 
@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EParameterImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;

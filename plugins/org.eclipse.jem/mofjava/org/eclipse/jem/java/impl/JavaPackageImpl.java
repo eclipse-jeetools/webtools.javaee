@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaPackageImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
+ *  $Revision: 1.4 $  $Date: 2004/01/14 00:16:44 $ 
  */
 
 import java.util.Collection;
@@ -29,6 +29,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.jem.java.JavaPackage;
+import org.eclipse.jem.java.JavaRefPackage;
 
 import org.eclipse.jem.java.*;
 

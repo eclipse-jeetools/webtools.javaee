@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
  */
 import java.util.Collection;
 
@@ -23,10 +23,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.EAttributeImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.ETypedElementImpl;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -42,7 +42,7 @@ import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 /**
  * @generated
  */
-public class FieldImpl extends EAttributeImpl implements Field{
+public class FieldImpl extends ETypedElementImpl implements Field{
 
 	/**
 	 * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
@@ -99,6 +99,46 @@ public class FieldImpl extends EAttributeImpl implements Field{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	protected JavaVisibilityKind javaVisibility = JAVA_VISIBILITY_EDEFAULT;
+	/**
+	 * The default value of the '{@link #isTransient() <em>Transient</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTransient()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean TRANSIENT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isTransient() <em>Transient</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isTransient()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean transient_ = TRANSIENT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isVolatile() <em>Volatile</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isVolatile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean VOLATILE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isVolatile() <em>Volatile</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isVolatile()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean volatile_ = VOLATILE_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getInitializer() <em>Initializer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -277,6 +317,48 @@ protected ReadAdaptor getReadAdaptor() {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isTransient() {
+		return transient_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTransient(boolean newTransient) {
+		boolean oldTransient = transient_;
+		transient_ = newTransient;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__TRANSIENT, oldTransient, transient_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isVolatile() {
+		return volatile_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVolatile(boolean newVolatile) {
+		boolean oldVolatile = volatile_;
+		volatile_ = newVolatile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__VOLATILE, oldVolatile, volatile_));
+	}
+
+	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public JavaClass getJavaClass() {
@@ -328,32 +410,16 @@ protected ReadAdaptor getReadAdaptor() {
 				return isRequired() != false;
 			case JavaRefPackage.FIELD__ETYPE:
 				return eType != null;
-			case JavaRefPackage.FIELD__CHANGEABLE:
-				return changeable != CHANGEABLE_EDEFAULT;
-			case JavaRefPackage.FIELD__VOLATILE:
-				return volatile_ != VOLATILE_EDEFAULT;
-			case JavaRefPackage.FIELD__TRANSIENT:
-				return transient_ != TRANSIENT_EDEFAULT;
-			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
-				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
-			case JavaRefPackage.FIELD__DEFAULT_VALUE:
-				return getDefaultValue() != null;
-			case JavaRefPackage.FIELD__UNSETTABLE:
-				return unsettable != UNSETTABLE_EDEFAULT;
-			case JavaRefPackage.FIELD__DERIVED:
-				return derived != DERIVED_EDEFAULT;
-			case JavaRefPackage.FIELD__ECONTAINING_CLASS:
-				return getEContainingClass() != null;
-			case JavaRefPackage.FIELD__ID:
-				return iD != ID_EDEFAULT;
-			case JavaRefPackage.FIELD__EATTRIBUTE_TYPE:
-				return basicGetEAttributeType() != null;
 			case JavaRefPackage.FIELD__FINAL:
 				return final_ != FINAL_EDEFAULT;
 			case JavaRefPackage.FIELD__STATIC:
 				return static_ != STATIC_EDEFAULT;
 			case JavaRefPackage.FIELD__JAVA_VISIBILITY:
 				return javaVisibility != JAVA_VISIBILITY_EDEFAULT;
+			case JavaRefPackage.FIELD__TRANSIENT:
+				return transient_ != TRANSIENT_EDEFAULT;
+			case JavaRefPackage.FIELD__VOLATILE:
+				return volatile_ != VOLATILE_EDEFAULT;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
 				return getJavaClass() != null;
 			case JavaRefPackage.FIELD__INITIALIZER:
@@ -389,27 +455,6 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__ETYPE:
 				setEType((EClassifier)newValue);
 				return;
-			case JavaRefPackage.FIELD__CHANGEABLE:
-				setChangeable(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.FIELD__VOLATILE:
-				setVolatile(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.FIELD__TRANSIENT:
-				setTransient(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
-				setDefaultValueLiteral((String)newValue);
-				return;
-			case JavaRefPackage.FIELD__UNSETTABLE:
-				setUnsettable(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.FIELD__DERIVED:
-				setDerived(((Boolean)newValue).booleanValue());
-				return;
-			case JavaRefPackage.FIELD__ID:
-				setID(((Boolean)newValue).booleanValue());
-				return;
 			case JavaRefPackage.FIELD__FINAL:
 				setFinal(((Boolean)newValue).booleanValue());
 				return;
@@ -418,6 +463,12 @@ protected ReadAdaptor getReadAdaptor() {
 				return;
 			case JavaRefPackage.FIELD__JAVA_VISIBILITY:
 				setJavaVisibility((JavaVisibilityKind)newValue);
+				return;
+			case JavaRefPackage.FIELD__TRANSIENT:
+				setTransient(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.FIELD__VOLATILE:
+				setVolatile(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
 				setJavaClass((JavaClass)newValue);
@@ -455,27 +506,6 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__ETYPE:
 				setEType((EClassifier)null);
 				return;
-			case JavaRefPackage.FIELD__CHANGEABLE:
-				setChangeable(CHANGEABLE_EDEFAULT);
-				return;
-			case JavaRefPackage.FIELD__VOLATILE:
-				setVolatile(VOLATILE_EDEFAULT);
-				return;
-			case JavaRefPackage.FIELD__TRANSIENT:
-				setTransient(TRANSIENT_EDEFAULT);
-				return;
-			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
-				setDefaultValueLiteral(DEFAULT_VALUE_LITERAL_EDEFAULT);
-				return;
-			case JavaRefPackage.FIELD__UNSETTABLE:
-				setUnsettable(UNSETTABLE_EDEFAULT);
-				return;
-			case JavaRefPackage.FIELD__DERIVED:
-				setDerived(DERIVED_EDEFAULT);
-				return;
-			case JavaRefPackage.FIELD__ID:
-				setID(ID_EDEFAULT);
-				return;
 			case JavaRefPackage.FIELD__FINAL:
 				setFinal(FINAL_EDEFAULT);
 				return;
@@ -484,6 +514,12 @@ protected ReadAdaptor getReadAdaptor() {
 				return;
 			case JavaRefPackage.FIELD__JAVA_VISIBILITY:
 				setJavaVisibility(JAVA_VISIBILITY_EDEFAULT);
+				return;
+			case JavaRefPackage.FIELD__TRANSIENT:
+				setTransient(TRANSIENT_EDEFAULT);
+				return;
+			case JavaRefPackage.FIELD__VOLATILE:
+				setVolatile(VOLATILE_EDEFAULT);
 				return;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
 				setJavaClass((JavaClass)null);
@@ -546,10 +582,6 @@ protected ReadAdaptor getReadAdaptor() {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
 					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
-				case JavaRefPackage.FIELD__ECONTAINING_CLASS:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, JavaRefPackage.FIELD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -573,8 +605,6 @@ protected ReadAdaptor getReadAdaptor() {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
 					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.FIELD__ECONTAINING_CLASS:
-					return eBasicSetContainer(null, JavaRefPackage.FIELD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
 				case JavaRefPackage.FIELD__INITIALIZER:
@@ -594,8 +624,6 @@ protected ReadAdaptor getReadAdaptor() {
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case JavaRefPackage.FIELD__ECONTAINING_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					return ((InternalEObject)eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
 				default:
@@ -631,33 +659,16 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__ETYPE:
 				if (resolve) return getEType();
 				return basicGetEType();
-			case JavaRefPackage.FIELD__CHANGEABLE:
-				return isChangeable() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__VOLATILE:
-				return isVolatile() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__TRANSIENT:
-				return isTransient() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
-				return getDefaultValueLiteral();
-			case JavaRefPackage.FIELD__DEFAULT_VALUE:
-				return getDefaultValue();
-			case JavaRefPackage.FIELD__UNSETTABLE:
-				return isUnsettable() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__DERIVED:
-				return isDerived() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__ECONTAINING_CLASS:
-				return getEContainingClass();
-			case JavaRefPackage.FIELD__ID:
-				return isID() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__EATTRIBUTE_TYPE:
-				if (resolve) return getEAttributeType();
-				return basicGetEAttributeType();
 			case JavaRefPackage.FIELD__FINAL:
 				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__STATIC:
 				return isStatic() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__JAVA_VISIBILITY:
 				return getJavaVisibility();
+			case JavaRefPackage.FIELD__TRANSIENT:
+				return isTransient() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.FIELD__VOLATILE:
+				return isVolatile() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
 				return getJavaClass();
 			case JavaRefPackage.FIELD__INITIALIZER:
@@ -679,6 +690,10 @@ protected ReadAdaptor getReadAdaptor() {
 		result.append(static_);
 		result.append(", javaVisibility: ");
 		result.append(javaVisibility);
+		result.append(", transient: ");
+		result.append(transient_);
+		result.append(", volatile: ");
+		result.append(volatile_);
 		result.append(')');
 		return result.toString();
 	}

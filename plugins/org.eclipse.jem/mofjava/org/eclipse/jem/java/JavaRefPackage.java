@@ -11,7 +11,7 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefPackage.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/14 00:16:44 $ 
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -654,12 +654,12 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__EANNOTATIONS = EcorePackage.EATTRIBUTE__EANNOTATIONS;
+	int FIELD__EANNOTATIONS = EcorePackage.ETYPED_ELEMENT__EANNOTATIONS;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FIELD__NAME = EcorePackage.EATTRIBUTE__NAME;
+	int FIELD__NAME = EcorePackage.ETYPED_ELEMENT__NAME;
 	/**
 	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -667,7 +667,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__ORDERED = EcorePackage.EATTRIBUTE__ORDERED;
+	int FIELD__ORDERED = EcorePackage.ETYPED_ELEMENT__ORDERED;
 
 	/**
 	 * The feature id for the '<em><b>Unique</b></em>' attribute.
@@ -676,7 +676,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__UNIQUE = EcorePackage.EATTRIBUTE__UNIQUE;
+	int FIELD__UNIQUE = EcorePackage.ETYPED_ELEMENT__UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
@@ -685,7 +685,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__LOWER_BOUND = EcorePackage.EATTRIBUTE__LOWER_BOUND;
+	int FIELD__LOWER_BOUND = EcorePackage.ETYPED_ELEMENT__LOWER_BOUND;
 
 	/**
 	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
@@ -694,7 +694,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__UPPER_BOUND = EcorePackage.EATTRIBUTE__UPPER_BOUND;
+	int FIELD__UPPER_BOUND = EcorePackage.ETYPED_ELEMENT__UPPER_BOUND;
 
 	/**
 	 * The feature id for the '<em><b>Many</b></em>' attribute.
@@ -703,7 +703,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__MANY = EcorePackage.EATTRIBUTE__MANY;
+	int FIELD__MANY = EcorePackage.ETYPED_ELEMENT__MANY;
 
 	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -712,7 +712,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__REQUIRED = EcorePackage.EATTRIBUTE__REQUIRED;
+	int FIELD__REQUIRED = EcorePackage.ETYPED_ELEMENT__REQUIRED;
 
 	/**
 	 * The feature id for the '<em><b>EType</b></em>' reference.
@@ -721,97 +721,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__ETYPE = EcorePackage.EATTRIBUTE__ETYPE;
-
-	/**
-	 * The feature id for the '<em><b>Changeable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__CHANGEABLE = EcorePackage.EATTRIBUTE__CHANGEABLE;
-
-	/**
-	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__VOLATILE = EcorePackage.EATTRIBUTE__VOLATILE;
-
-	/**
-	 * The feature id for the '<em><b>Transient</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__TRANSIENT = EcorePackage.EATTRIBUTE__TRANSIENT;
-
-	/**
-	 * The feature id for the '<em><b>Default Value Literal</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__DEFAULT_VALUE_LITERAL = EcorePackage.EATTRIBUTE__DEFAULT_VALUE_LITERAL;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__DEFAULT_VALUE = EcorePackage.EATTRIBUTE__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Unsettable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__UNSETTABLE = EcorePackage.EATTRIBUTE__UNSETTABLE;
-
-	/**
-	 * The feature id for the '<em><b>Derived</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__DERIVED = EcorePackage.EATTRIBUTE__DERIVED;
-
-	/**
-	 * The feature id for the '<em><b>EContaining Class</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__ECONTAINING_CLASS = EcorePackage.EATTRIBUTE__ECONTAINING_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int FIELD__ID = EcorePackage.EATTRIBUTE__ID;
-
-	/**
-	 * The feature id for the '<em><b>EAttribute Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIELD__EATTRIBUTE_TYPE = EcorePackage.EATTRIBUTE__EATTRIBUTE_TYPE;
+	int FIELD__ETYPE = EcorePackage.ETYPED_ELEMENT__ETYPE;
 
 	/**
 	 * The feature id for the '<em><b>Final</b></em>' attribute.
@@ -820,7 +730,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__FINAL = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 0;
+	int FIELD__FINAL = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Static</b></em>' attribute.
@@ -829,20 +739,38 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD__STATIC = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 1;
+	int FIELD__STATIC = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FIELD__JAVA_VISIBILITY = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 2;
+	int FIELD__JAVA_VISIBILITY = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 2;
+	/**
+	 * The feature id for the '<em><b>Transient</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__TRANSIENT = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Volatile</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__VOLATILE = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 4;
+
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FIELD__JAVA_CLASS = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 3;
+	int FIELD__JAVA_CLASS = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 5;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	int FIELD__INITIALIZER = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 4;
+	int FIELD__INITIALIZER = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 6;
 	/**
 	 * The number of structural features of the the '<em>Field</em>' class.
 	 * <!-- begin-user-doc -->
@@ -850,7 +778,7 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD_FEATURE_COUNT = EcorePackage.EATTRIBUTE_FEATURE_COUNT + 5;
+	int FIELD_FEATURE_COUNT = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
@@ -1625,7 +1553,7 @@ public interface JavaRefPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.eclipse.jem.java";
+	String eNS_PREFIX = "org.eclipse.jem.internal.java";
 
 	/**
 	 * The singleton instance of the package.
@@ -1755,6 +1683,28 @@ public interface JavaRefPackage extends EPackage{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	EAttribute getField_JavaVisibility();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.java.Field#isTransient <em>Transient</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transient</em>'.
+	 * @see org.eclipse.jem.java.Field#isTransient()
+	 * @see #getField()
+	 * @generated
+	 */
+	EAttribute getField_Transient();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.java.Field#isVolatile <em>Volatile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Volatile</em>'.
+	 * @see org.eclipse.jem.java.Field#isVolatile()
+	 * @see #getField()
+	 * @generated
+	 */
+	EAttribute getField_Volatile();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.

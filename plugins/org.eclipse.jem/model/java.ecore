@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="java"
-    nsURI="java.xmi" nsPrefix="org.eclipse.jem.java">
+    nsURI="java.xmi" nsPrefix="org.eclipse.jem.internal.java">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="documentation" value="Changes to synch up with Java3e:&#xD;&#xA;- deleted JavaElement, BodyElement which didn't add anything useful&#xD;&#xA;- deleted NestedClass and the association which described nesting, contents can be used instead&#xD;&#xA;- deleted extends/extendedBy which is replaced with MOF subtype/supertype&#xD;&#xA;- deleted the clumsy main diagram&#xD;&#xA;- moved the MOF inheritance details to the MOF binding diagram&#xD;&#xA;- deleted &quot;final&quot; on JavaParameter, don't know what that was supposed to be&#xD;&#xA;- deleted the Category junk&#xD;&#xA;- changed the Block-typed attributes on Field, Method, Initializer to be associations to Block&#xD;&#xA;&#xD;&#xA;Outstanding questions/issues:&#xD;&#xA;- JavaParameterKind should go away if we get the base Parameter kind fixed up&#xD;&#xA;"/>
   </eAnnotations>
@@ -163,7 +163,7 @@
         transient="true" eOpposite="#//JavaClass/initializers"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Block"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaParameter" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EParameter ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EModelElement">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaParameter" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EParameter">
     <eOperations name="isArray" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Is this parameter type an array type."/>
@@ -243,7 +243,7 @@
         transient="true" eOpposite="#//JavaClass/methods"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Block"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Field" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EAttribute">
+  <eClassifiers xsi:type="ecore:EClass" name="Field" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//ETypedElement">
     <eOperations name="getContainingJavaClass" eType="#//JavaClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Get the class that this field is within."/>
@@ -257,6 +257,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="static" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="javaVisibility" eType="#//JavaVisibilityKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transient" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="volatile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="javaClass" eType="#//JavaClass"
         transient="true" eOpposite="#//JavaClass/fields"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initializer" eType="#//Block"

@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
  */
 import java.util.List;
 
@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.impl.EcorePackageImpl;
+
 
 import org.eclipse.jem.java.ArrayType;
 import org.eclipse.jem.java.Block;
@@ -350,17 +351,35 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getField_Transient() {
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getField_Volatile() {
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EReference getField_JavaClass() {
-		return (EReference)fieldEClass.getEStructuralFeatures().get(3);
+		return (EReference)fieldEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public EReference getField_Initializer() {
-		return (EReference)fieldEClass.getEStructuralFeatures().get(4);
+		return (EReference)fieldEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -704,6 +723,8 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		createEAttribute(fieldEClass, FIELD__FINAL);
 		createEAttribute(fieldEClass, FIELD__STATIC);
 		createEAttribute(fieldEClass, FIELD__JAVA_VISIBILITY);
+		createEAttribute(fieldEClass, FIELD__TRANSIENT);
+		createEAttribute(fieldEClass, FIELD__VOLATILE);
 		createEReference(fieldEClass, FIELD__JAVA_CLASS);
 		createEReference(fieldEClass, FIELD__INITIALIZER);
 
@@ -766,9 +787,8 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		// Add supertypes to classes
 		javaClassEClass.getESuperTypes().add(theEcorePackage.getEClass());
 		javaParameterEClass.getESuperTypes().add(theEcorePackage.getEParameter());
-		javaParameterEClass.getESuperTypes().add(theEcorePackage.getEModelElement());
 		methodEClass.getESuperTypes().add(theEcorePackage.getEOperation());
-		fieldEClass.getESuperTypes().add(theEcorePackage.getEAttribute());
+		fieldEClass.getESuperTypes().add(theEcorePackage.getETypedElement());
 		commentEClass.getESuperTypes().add(this.getBlock());
 		statementEClass.getESuperTypes().add(this.getBlock());
 		javaPackageEClass.getESuperTypes().add(theEcorePackage.getEPackage());
@@ -905,6 +925,8 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		initEAttribute(getField_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 		initEAttribute(getField_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 		initEAttribute(getField_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getField_Transient(), ecorePackage.getEBoolean(), "transient", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getField_Volatile(), ecorePackage.getEBoolean(), "volatile", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 		initEReference(getField_JavaClass(), this.getJavaClass(), this.getJavaClass_Fields(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 		initEReference(getField_Initializer(), this.getBlock(), null, "initializer", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 

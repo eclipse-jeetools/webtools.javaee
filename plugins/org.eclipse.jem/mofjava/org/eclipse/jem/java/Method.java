@@ -12,10 +12,11 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: Method.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/14 00:16:44 $ 
  */
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EOperation;
+
 /**
  * @generated
  */

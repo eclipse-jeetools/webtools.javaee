@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
  */
 
 import java.util.Collection;
@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 
 import org.eclipse.jem.java.Block;
 import org.eclipse.jem.java.JavaClass;

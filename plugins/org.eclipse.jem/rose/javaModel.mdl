@@ -3319,7 +3319,7 @@
 		    (object Attribute
 			tool       	"Java"
 			name       	"ClassPath"
-			value      	"")
+			value      	";D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\charsets.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\jce.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\jsse.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\rt.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\sunrsasign.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\dnsns.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\ldapsec.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\localedata.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\ext\\sunjce_provider.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\security\\local_policy.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\jre\\lib\\security\\US_export_policy.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\lib\\dt.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\lib\\htmlconverter.jar;D:\\Program Files\\Sun\\jdk1.4.2_02\\lib\\tools.jar")
 		    (object Attribute
 			tool       	"Java"
 			name       	"ReferenceClasspath"

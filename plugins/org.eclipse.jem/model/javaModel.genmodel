@@ -138,6 +138,8 @@
       <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/final"/>
       <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/static"/>
       <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/javaVisibility"/>
+      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/transient"/>
+      <genFeatures ecoreFeature="ecore:EAttribute java.ecore#//Field/volatile"/>
       <genFeatures property="None" notify="false" ecoreFeature="ecore:EReference java.ecore#//Field/javaClass"/>
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference java.ecore#//Field/initializer"/>
       <genOperations ecoreOperation="java.ecore#//Field/getContainingJavaClass"/>

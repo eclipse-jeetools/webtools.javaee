@@ -12,9 +12,8 @@ package org.eclipse.jem.java.util;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefSwitch.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
  */
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
@@ -95,9 +94,9 @@ public class JavaRefSwitch {
 					JavaParameter javaParameter = (JavaParameter)theEObject;
 					Object result = caseJavaParameter(javaParameter);
 					if (result == null) result = caseEParameter(javaParameter);
-					if (result == null) result = caseEModelElement(javaParameter);
 					if (result == null) result = caseETypedElement(javaParameter);
 					if (result == null) result = caseENamedElement(javaParameter);
+					if (result == null) result = caseEModelElement(javaParameter);
 					if (result == null) result = defaultCase(theEObject);
 					return result;
 				}
@@ -114,8 +113,6 @@ public class JavaRefSwitch {
 				case JavaRefPackage.FIELD: {
 					Field field = (Field)theEObject;
 					Object result = caseField(field);
-					if (result == null) result = caseEAttribute(field);
-					if (result == null) result = caseEStructuralFeature(field);
 					if (result == null) result = caseETypedElement(field);
 					if (result == null) result = caseENamedElement(field);
 					if (result == null) result = caseEModelElement(field);
@@ -475,21 +472,6 @@ public class JavaRefSwitch {
 	 * @generated
 	 */
 	public Object caseEStructuralFeature(EStructuralFeature object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EAttribute</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EAttribute</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseEAttribute(EAttribute object) {
 		return null;
 	}
 

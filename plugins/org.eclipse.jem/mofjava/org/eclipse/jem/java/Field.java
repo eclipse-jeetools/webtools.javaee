@@ -12,13 +12,14 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: Field.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/14 00:16:44 $ 
  */
-import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.ETypedElement;
+
 /**
  * @generated
  */
-public interface Field extends EAttribute{
+public interface Field extends ETypedElement {
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -68,6 +69,58 @@ public interface Field extends EAttribute{
 	 * @generated
 	 */
 	void setJavaVisibility(JavaVisibilityKind value);
+
+	/**
+	 * Returns the value of the '<em><b>Transient</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Transient</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Transient</em>' attribute.
+	 * @see #setTransient(boolean)
+	 * @see org.eclipse.jem.java.JavaRefPackage#getField_Transient()
+	 * @model 
+	 * @generated
+	 */
+	boolean isTransient();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.java.Field#isTransient <em>Transient</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Transient</em>' attribute.
+	 * @see #isTransient()
+	 * @generated
+	 */
+	void setTransient(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Volatile</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Volatile</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Volatile</em>' attribute.
+	 * @see #setVolatile(boolean)
+	 * @see org.eclipse.jem.java.JavaRefPackage#getField_Volatile()
+	 * @model 
+	 * @generated
+	 */
+	boolean isVolatile();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.java.Field#isVolatile <em>Volatile</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Volatile</em>' attribute.
+	 * @see #isVolatile()
+	 * @generated
+	 */
+	void setVolatile(boolean value);
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

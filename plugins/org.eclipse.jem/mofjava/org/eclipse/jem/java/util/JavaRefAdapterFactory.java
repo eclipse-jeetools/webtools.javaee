@@ -11,14 +11,13 @@ package org.eclipse.jem.java.util;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefAdapterFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
  */
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
@@ -146,14 +145,11 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 			public Object caseEOperation(EOperation object) {
 				return createEOperationAdapter();
 			}
-			public Object caseEStructuralFeature(EStructuralFeature object) {
-				return createEStructuralFeatureAdapter();
-			}
-			public Object caseEAttribute(EAttribute object) {
-				return createEAttributeAdapter();
-			}
 			public Object caseEPackage(EPackage object) {
 				return createEPackageAdapter();
+			}
+			public Object caseEStructuralFeature(EStructuralFeature object) {
+				return createEStructuralFeatureAdapter();
 			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
@@ -450,20 +446,6 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createEStructuralFeatureAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecore.EAttribute <em>EAttribute</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.emf.ecore.EAttribute
-	 * @generated
-	 */
-	public Adapter createEAttributeAdapter() {
 		return null;
 	}
 

@@ -12,15 +12,15 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaParameter.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/14 00:16:44 $ 
  */
 
-import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EParameter;
+
 /**
  * @generated
  */
-public interface JavaParameter extends EParameter, EModelElement{
+public interface JavaParameter extends EParameter {
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

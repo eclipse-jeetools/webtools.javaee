@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefFactoryImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
+ *  $Revision: 1.4 $  $Date: 2004/01/14 00:16:44 $ 
  */
 import java.util.List;
 
@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -294,7 +295,6 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	public static JavaRefPackage getPackage() {
 		return JavaRefPackage.eINSTANCE;
 	}
-
 	public static JavaRefFactory getActiveFactory() {
 		return JavaRefFactory.eINSTANCE;
 	}
