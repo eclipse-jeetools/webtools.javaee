@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.46 $  $Date: 2005/02/28 17:44:48 $ 
+ *  $Revision: 1.47 $  $Date: 2005/03/01 15:32:29 $ 
  */
 
 
@@ -453,10 +453,13 @@ public class ProxyPlugin extends Plugin {
 		Bundle[] l = (Bundle[]) pluginRequiredMap.get(bundle.getSymbolicName());
 		if (l == null) {
 			BundleSpecification specs[] = Platform.getPlatformAdmin().getState(false).getBundle(bundle.getBundleId()).getRequiredBundles();
-			l = new Bundle[specs.length];
+			ArrayList bundles = new ArrayList(specs.length);
 			for (int i = 0; i < specs.length; i++) {
-				l[i] = Platform.getBundle(specs[i].getName());
+				Bundle b = Platform.getBundle(specs[i].getName());
+				if (b != null)
+					bundles.add(b);
 			}
+			l = (Bundle[]) bundles.toArray(new Bundle[bundles.size()]);
 			pluginRequiredMap.put(bundle.getSymbolicName(), l);
 		}
 		return l;
