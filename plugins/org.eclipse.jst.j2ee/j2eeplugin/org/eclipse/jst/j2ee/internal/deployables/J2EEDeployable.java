@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.server.j2ee.IJ2EEModule;
+import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
