@@ -31,6 +31,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.WebSettings;
 
 /**
@@ -309,11 +310,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
-	public String setContextRoot(String contextRoot) {
-		//TODO return the valid context root for the module
-		return null;
-	}
-	
 	public IContainer getWebContentFolder(){
 		//TODO return the valid context root for the module
 		return null;
@@ -335,6 +331,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
+	public ILibModule[] getLibModules() {
+		//TODO return the appropriate web lib modules
+		return null;
+	}
+	
 	public int getJSPVersion() {
 		int servletVersion = getServletVersion();
 		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
@@ -345,4 +346,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			return J2EEVersionConstants.JSP_2_0_ID;
 	}
 
+	/**
+	 * Returns the root that the server runs off of. In the case of a web project, this is the "Web
+	 * content" folder. For projects created under V4, this is the webApplication folder.
+	 */
+	public IContainer getModuleServerRoot() {
+		//TODO return the module server root
+		return null;
+	}
 }
