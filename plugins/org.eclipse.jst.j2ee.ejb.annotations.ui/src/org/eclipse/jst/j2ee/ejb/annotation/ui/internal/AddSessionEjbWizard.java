@@ -16,8 +16,8 @@ import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.operations.AddSessionBeanOperation;
 import org.eclipse.jst.j2ee.ejb.annotations.ui.EjbAnnotationsUiPlugin;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 

@@ -10,7 +10,7 @@
 package org.eclipse.jst.j2ee.ejb.annotations;
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 /**
  * @author naci

@@ -9,9 +9,11 @@
 
 package org.eclipse.jst.j2ee.ejb.annotations.emitter;
 
-import org.eclipse.ui.plugin.*;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import java.util.*;
 
 
 public class EjbEmitterPlugin extends AbstractUIPlugin {

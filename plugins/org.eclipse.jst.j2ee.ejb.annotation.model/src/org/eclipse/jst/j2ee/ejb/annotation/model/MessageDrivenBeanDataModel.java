@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.operations.AddMessageDrivenBeanOperation;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 

@@ -9,9 +9,11 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.model;
 
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
-import java.util.*;
 
 
 public class ModelPlugin extends Plugin {

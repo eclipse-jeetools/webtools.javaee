@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate;
 import org.eclipse.jst.j2ee.ejb.annotations.classgen.EjbBuilder;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.MessageDrivenEjbEmitter;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 
 

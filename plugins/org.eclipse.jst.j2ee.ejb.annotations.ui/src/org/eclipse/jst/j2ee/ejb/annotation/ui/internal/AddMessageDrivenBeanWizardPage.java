@@ -27,7 +27,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -189,7 +190,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
 		IProject project = null;
-		project = model.getProjectHandle(EditModelOperationDataModel.PROJECT_NAME);
+		project = ProjectCreationDataModel.getProjectHandleFromName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
 		annotationsGroup.setUseAnnotations(true);
 	}

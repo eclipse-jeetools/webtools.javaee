@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 
 
