@@ -7,9 +7,14 @@
       image="eclipse_update_120.jpg">
 
    <license url="%licenseURL">
-      
+      %license
    </license>
 
+   <url>
+      <update label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
+      <discovery label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
+   </url>
+   
    <requires>
       <import feature="org.eclipse.jem"/>
    </requires>
