@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
@@ -86,10 +87,10 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 					IPath path = (IPath)javaOutputPathList.get(j);
 					if (path.isPrefixOf(deployPath) || deployPath.isPrefixOf(path)) {
 						// add a problem marker
-						IResource wtpmoduleFile = project.findMember(".wtpmodules");
+						IResource wtpmoduleFile = project.findMember(".wtpmodules"); //$NON-NLS-1$
 						wtpmoduleFile.deleteMarkers(IMarker.PROBLEM, true, IResource.DEPTH_INFINITE);      
 						IMarker m = wtpmoduleFile.createMarker(IMarker.PROBLEM);
-						String msg = "Nested Java output paths defined in .wtpmodules file are not allowed.";
+						String msg = J2EEPluginResourceHandler.getString("NESTED_JAVA_OUTPUT_ERROR"); //$NON-NLS-1$
 						m.setAttribute(IMarker.MESSAGE, msg);
 						m.setAttribute(IMarker.SEVERITY,IMarker.SEVERITY_ERROR);
 						return;
