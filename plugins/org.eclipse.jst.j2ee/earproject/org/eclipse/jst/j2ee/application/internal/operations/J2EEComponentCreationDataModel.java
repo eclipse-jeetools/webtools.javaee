@@ -13,20 +13,16 @@ import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.debug.ui.IDebugEditorPresentation;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.impl.WTPEntityResolver;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
