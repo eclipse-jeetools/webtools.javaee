@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/04 20:30:21 $ 
  */
 
 
@@ -37,7 +37,7 @@ import org.eclipse.jem.internal.proxy.core.*;
 
 public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 	protected int fServerPort = 0;	// The server port to use when making connections.
-	protected REMCallbackServerThread fCallbackServer;	// The callback server thread for this remote vm.
+	protected REMCallbackRegistry fCallbackServer;	// The callback server thread for this remote vm.
 	protected Stack fConnectionPool = new Stack();	// Stack of free connections.
 	protected static int NUMBER_FREE_CONNECTIONS = 5;	// Number of free connections to keep open.
 	protected IProcess fProcess;	// The process that is the server. If null and fServerPort is not zero, 
@@ -178,34 +178,12 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 	
 	private IDebugEventSetListener processListener = null;
 	
-	
-	/**
-	 * Return the callback server port to use.
-	 * -1 if no callback server.
-	 */
-	public int getCallbackServerPort() {
-		getCallbackRegistry();
-		return fCallbackServerPort;
-	}
-	
 	/**
 	 * Get the CallbackRegistry
 	 */
 	public ICallbackRegistry getCallbackRegistry() {
-		if (fCallbackServer == null) {
-			Object started = new Object();
-			synchronized(started) {
-				fCallbackServer = new REMCallbackServerThread(fName, this, started);
-				fCallbackServerPort = fCallbackServer.getServerPort();
-				if (fCallbackServerPort == -1)
-					return null;	// We couldn't get a port.
-				fCallbackServer.start();
-				try {
-					started.wait(30000);	// Wait for the thread to get the server port up and available.
-				} catch (InterruptedException e) {
-				}
-			}
-		}
+		if (fCallbackServer == null)
+			fCallbackServer = new REMCallbackRegistry(fName, this);
 		return fCallbackServer;
 	}
 	
@@ -274,13 +252,10 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			}
 		}
 	
-		if (fCallbackServer != null)	
-			try {
-				fCallbackServer.requestShutdown();
-				fCallbackServer.join(20000);	// Wait 20 seconds for everything to go down.
-				fCallbackServer = null;				
-			} catch (InterruptedException e) {
-			}
+		if (fCallbackServer != null) {	
+			fCallbackServer.requestShutdown();
+			fCallbackServer = null;				
+		}
 		
 		fConnectionPool.clear();
 		fRegistryController.deregisterRegistry(fRegistryKey);	// De-register this registry.

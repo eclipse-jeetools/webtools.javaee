@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/04 20:30:21 $ 
  */
 
 
@@ -48,19 +48,8 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 			Integer bufSize = Integer.getInteger("proxyvm.bufsize"); //$NON-NLS-1$
 			if (bufSize == null)
 				bufSize = new Integer(16000);
-//			try {
-//				fSocket.setReceiveBufferSize(bufSize.intValue());
-//				fSocket.setSendBufferSize(bufSize.intValue());		
-//			} catch (SocketException e) {
-//			}
-//			if (fSocket.getSendBufferSize() >= bufSize.intValue())
-//				out = new DataOutputStream(fSocket.getOutputStream());	// It took the hint, no need to add another buffer on top.
-//			else
-				out = new DataOutputStream(new BufferedOutputStream(fSocket.getOutputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
-//			if (fSocket.getReceiveBufferSize() >= bufSize.intValue())
-//				in = new DataInputStream(fSocket.getInputStream());	// It took the hint, no need to add another buffer on top.
-//			else
-				in = new DataInputStream(new BufferedInputStream(fSocket.getInputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
+			out = new DataOutputStream(new BufferedOutputStream(fSocket.getOutputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
+			in = new DataInputStream(new BufferedInputStream(fSocket.getInputStream(), bufSize.intValue()));	// It didn't take the hint, so we will buffer it.
 		} catch (IOException e) {
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 			

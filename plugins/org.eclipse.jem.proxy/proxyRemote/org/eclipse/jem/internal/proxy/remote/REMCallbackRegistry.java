@@ -10,37 +10,24 @@ package org.eclipse.jem.internal.proxy.remote;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: REMCallbackServerThread.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $RCSfile: REMCallbackRegistry.java,v $
+ *  $Revision: 1.1 $  $Date: 2004/03/04 20:30:21 $ 
  */
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ICallback;
-import org.eclipse.jem.internal.proxy.core.ICallbackRegistry;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
+import org.eclipse.jem.internal.proxy.core.*;
 
 /**
- * This thread will handle callbacks.
+ * This registry will handle callbacks.
  * It is package protected because no one
  * should access it outside.
- * TODO This should be changed such that the master server thread is contacted instead,
- * and it would forward request to individual registry to process call back request. That
- * way we can get rid of one more thread and socket.
  */
-class REMCallbackServerThread extends Thread implements ICallbackRegistry {
+class REMCallbackRegistry implements ICallbackRegistry {
 	final REMProxyFactoryRegistry fFactory;
 	final String fNamePostfix;
-	ServerSocket fServer;
 	List fThreads = Collections.synchronizedList(new LinkedList());	// List of active callback threads.	
 	
 	HashMap fIdToCallback = new HashMap(5);	// ID to Callback map.
@@ -49,25 +36,12 @@ class REMCallbackServerThread extends Thread implements ICallbackRegistry {
 	IREMMethodProxy fInitializeCallback;
 	IREMBeanProxy fRemoteServer;
 	
-	Object fStarted = null;	// Started semaphore
+	boolean registryOpen = true;
 	
-	// Kludge: Bug in Linux 1.3.xxx of JVM. Closing a socket while the socket is being read/accept will not interrupt the
-	// wait. Need to timeout to the socket read/accept before the socket close will be noticed. This has been fixed
-	// in Linux 1.4. So on Linux 1.3 need to put timeouts in on those sockets that can be separately closed while reading/accepting.
-	static boolean LINUX_1_3 = "linux".equalsIgnoreCase(System.getProperty("os.name")) && System.getProperty("java.version","").startsWith("1.3"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-	
-	public REMCallbackServerThread(String name, REMProxyFactoryRegistry aFactory, Object started) {
-		super("Callback Server Thread-"+name); //$NON-NLS-1$
+	public REMCallbackRegistry(String name, REMProxyFactoryRegistry aFactory) {
 	
 		fFactory = aFactory;
 		fNamePostfix = name;
-		fStarted = started;
-		
-		try {
-			fServer = new ServerSocket(0, 50, InetAddress.getByName("localhost"));	// Create using whatever port is available. //$NON-NLS-1$
-		} catch (IOException e) {
-			return;
-		}	
 		
 		// Now register common proxies.
 		REMStandardBeanTypeProxyFactory typeFactory = (REMStandardBeanTypeProxyFactory) fFactory.getBeanTypeProxyFactory();
@@ -86,57 +60,25 @@ class REMCallbackServerThread extends Thread implements ICallbackRegistry {
 		
 	}
 	
-	/**
-	 * Return the server port this connection server is using.
-	 * Answer -1 if the socket could not be established.
-	 */
-	public int getServerPort() {
-		return fServer != null ? fServer.getLocalPort() : -1;
-	}
 	
-	public void run() {
-		try {
-			if (LINUX_1_3)
-				fServer.setSoTimeout(1000);	// Need to periodically timeout to see if socket closed.
-			synchronized(fStarted) {
-				fStarted.notify();	// Let the caller know the server socket is ready.
-			}
-			fStarted = null;	// So it can be GC'd.
-			
-			while(true) {
-				Socket incoming = null;
-				try {
-					incoming = fServer.accept();
-				} catch (java.io.InterruptedIOException e) {
-					continue;	// Interrupted, try again.
-				}
-				Thread st = new REMCallbackThread(incoming, this, "Callback Thread-"+fNamePostfix, fFactory, fFactory.fNoTimeouts); //$NON-NLS-1$
-				fThreads.add(st);
-				st.start();
-				// Null out locals so they can be GC'd since this is a long running loop.
-				st = null;
-				incoming = null;
-			}
-		} catch (Exception e) {
-		}
-		
-		// We've had an exception, either something really bad, or we were closed,
-		// so go through shutdowns.
-		shutdown();					
+	public boolean createCallback(Socket incoming) {
+		if (registryOpen) {
+			Thread st = new REMCallbackThread(incoming, this, "Callback Thread-"+fNamePostfix, fFactory, fFactory.fNoTimeouts); //$NON-NLS-1$
+			fThreads.add(st);
+			st.start();
+			return true;
+		} else
+			return false;
 	}
 	
 	/**
-	 * Use this to request a shutdown. If the server hasn't even been
-	 * created yet, this will return false.
+	 * Use this to request a shutdown. If the server is already shutdown, this will return false.
 	 */
 	public boolean requestShutdown() {		
-		if (fServer == null)
+		if (registryOpen)
+			shutdown();
+		else
 			return false;
-		// Closing the server socket should cause a break.
-		try {
-			fServer.close();
-		} catch (Exception e) {
-		}
 		return true;
 	}
 	
@@ -148,14 +90,6 @@ class REMCallbackServerThread extends Thread implements ICallbackRegistry {
 	}
 	
 	private void shutdown() {
-		// At this point in time, the remote process has already been shutdown (because this
-		// is called after the process has terminated), so all of the threads should already 
-		// be gone. This will get rid of any outstanding ones and clean up.
-		if (fServer != null)
-			try {
-				fServer.close();	// Close it so that no more requests can be made.
-			} catch (Exception e) {
-			}
 		
 		// Go through each thread and ask it to close. Make a copy of the list so that we
 		// won't get into deadlocks.

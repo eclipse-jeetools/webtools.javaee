@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/04 20:30:21 $ 
  */
 
 import java.io.*;
@@ -82,7 +82,8 @@ public class Commands {
 		// These commands are to the Master Server thread in the IDE.
 		ALIVE = 16,	// Are you alive?
 		REMOTE_STARTED = 17,	// Remote VM has started.
-		GET_CALLBACK_PORT = 18,	// Get the callback port number. Should only be used once per server, it should cache it.
+		ATTACH_CALLBACK = 18,	// Attach to a callback thread on the IDE side. The remote vm will use its socket as the callback socket.
+								// it will return boolean <code>true</code> if attach worked or <code>false</code> if it failed.
 
 		// These are more regular commands. They were historically added after the master server thread commands, so
 		// they are shown here after them and with numbers greater than them.

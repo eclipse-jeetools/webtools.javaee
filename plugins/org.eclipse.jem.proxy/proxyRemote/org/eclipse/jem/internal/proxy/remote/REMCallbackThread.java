@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/04 20:30:21 $ 
  */
 
 import java.io.*;
@@ -32,7 +32,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  */
 class REMCallbackThread extends Thread {
 	final REMConnection fConnection;	// A connection to use
-	final REMCallbackServerThread fServer;
+	final REMCallbackRegistry fServer;
 	final REMStandardBeanProxyFactory fFactory;
 	final REMStandardBeanTypeProxyFactory fTypeFactory;
 	
@@ -43,7 +43,7 @@ class REMCallbackThread extends Thread {
 	// in Linux 1.4. So on Linux 1.3 need to put timeouts in on those sockets that can be separately closed while reading/accepting.
 	static boolean LINUX_1_3 = "linux".equalsIgnoreCase(System.getProperty("os.name")) && System.getProperty("java.version","").startsWith("1.3");	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	
-	public REMCallbackThread(Socket socket, REMCallbackServerThread server, String name, REMProxyFactoryRegistry registry, boolean noTimeouts) {
+	public REMCallbackThread(Socket socket, REMCallbackRegistry server, String name, REMProxyFactoryRegistry registry, boolean noTimeouts) {
 		super(name);
 		
 		fConnection = new REMConnection(socket, true);	// No timeouts since this is a server thread.

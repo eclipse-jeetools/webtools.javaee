@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMMasterServerThread.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/04 20:30:21 $ 
  */
 
 import java.io.*;
@@ -75,14 +75,17 @@ class REMMasterServerThread extends Thread {
 				} catch (NullPointerException e) {
 					continue;	// In Linux 1.3 case masterServerSocket could of gone null between loop test and try block.
 				}
+				boolean close = false;	// process request will tell if socket should be closed. it may be passed onto callback thread instead.
 				try {
-					processRequest(incoming);
+					close = processRequest(incoming);
 				} finally {
-					try {
+					if (close) {
+						try {
 						incoming.close();
 					} catch (IOException e) {
 					}
 				}
+}
 				incoming = null;
 			}
 		} catch (Exception e) {
@@ -108,10 +111,10 @@ class REMMasterServerThread extends Thread {
 		return;
 	}	
 	
-	protected void processRequest(Socket remote) throws IOException {
+	protected boolean processRequest(Socket remote) throws IOException {
 		DataInputStream	in = new DataInputStream(remote.getInputStream());
 		DataOutputStream out = new DataOutputStream(remote.getOutputStream());
-		
+		boolean  close = true;	// flag indicating socket not given over to callback. Don't close the socket when done because callback has it.
 		try {
 			byte cmd = in.readByte();
 			switch (cmd) {
@@ -133,28 +136,32 @@ class REMMasterServerThread extends Thread {
 					out.flush();
 					break;
 					
-				case Commands.GET_CALLBACK_PORT:
+				case Commands.ATTACH_CALLBACK:
 					registryID = in.readInt();
 					registry = registryController.getRegistry(new Integer(registryID));
-					if (registry != null)
-						out.writeInt(registry.getCallbackServerPort());
-					else
-						out.writeInt(-1);
+					if (registry != null) {
+						close = !((REMCallbackRegistry) registry.getCallbackRegistry()).createCallback(remote);	// close if failed, don't close if good.
+						out.writeBoolean(!close);	// if not close, then return it worked.
+					} else
+						out.writeBoolean(false);
 					out.flush();
 					break;
 			}
 		} catch (Exception e) {
 			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));	
 		} finally {
-			try {
-				in.close();
-			} catch (IOException e) {
-			}
-			try {
-				out.close();
-			} catch (IOException e) {
+			if (close) {
+				try {
+					in.close();
+				} catch (IOException e) {
+				}
+				try {
+					out.close();
+				} catch (IOException e) {
+				}
 			}
 		}
+		return close;
 	}
 	
 	private void shutdown() {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/04 20:30:21 $ 
  */
 
 
@@ -39,7 +39,6 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 	private IdentityMap objectToIDMap = new IdentityMap(100);	// Map from object to identity id
 	private HashMap idToObjectMap = new HashMap(100);	// Map from identity id to object
 	
-	protected int fCallbackServerPort = 0;	// Port number of callback server in client vm.
 	protected Stack fCallbackHandlerPool = new Stack();	// Stack of free callback handlers
 	protected static int NUMBER_FREE_CALLBACKS = 5;	// Number of free callback handlers to keep open.
 	
@@ -424,16 +423,13 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 		
 		// Now close the callbacks.
 		synchronized(fCallbackHandlerPool) {
-			if (fCallbackServerPort != 0) {
-				// Now we walk through all of the free handlers and close them properly.
-				Iterator itr = fCallbackHandlerPool.iterator();
-				while (itr.hasNext()) {
-					((CallbackHandler) itr.next()).closeHandler();
-				}
-				
-				fCallbackHandlerPool.clear();
-				fCallbackServerPort = 0;
+			// Now we walk through all of the free handlers and close them properly.
+			Iterator itr = fCallbackHandlerPool.iterator();
+			while (itr.hasNext()) {
+				((CallbackHandler) itr.next()).closeHandler();
 			}
+			
+			fCallbackHandlerPool.clear();
 		}					
 	}
 	
@@ -453,58 +449,15 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 	 * Make a new callback handler
 	 */
 	protected ICallbackHandler createCallbackHandler() {
-
-		if (fCallbackServerPort == 0) {
-			fCallbackServerPort = requestCallbackPort();
-			if (fCallbackServerPort == -1)
-				requestShutdown();	// Shutdown, we don't have a callback port.
-		}
-			
-		// If we have a server port, then the server is probably open. If we don't then this is no server. (i.e. it has been shutdown).			
-		if (fCallbackServerPort != -1) {
-			// We are putting it off into a thread because there are no timeout capabilities on getting a socket.
-			// So we need to allow for that.
-			final Socket[] scArray = new Socket[1];
-			final boolean[] waiting = new boolean[] {true};			
-			Thread doIt = new Thread(new Runnable() {
-				public void run() {
-					try {
-						Socket sc = new Socket("localhost", fCallbackServerPort); //$NON-NLS-1$
-						synchronized (this) {
-							if (waiting[0])
-								scArray[0] = sc;
-							else
-								sc.close();	// We are no longer waiting on this thread so close the socket since no one will use it.
-						}
-						
-					} catch (IOException e) {
-						e.printStackTrace();	// Log why
-					}
-				}
-			});
-			
-			doIt.start();
-			while (true) {
-				try {
-					doIt.join(60000);
-					synchronized (doIt) {
-						waiting[0] = false;	// To let it know we are no longer waiting
-					}					
-					break;
-				} catch (InterruptedException e) {
-				}
-			}
-			
-			if (scArray[0] == null) 
-				return null;	// Couldn't get one, probably server is down.
-
-			CallbackHandler handler = new CallbackHandler(scArray[0], this);
+		Socket callbackSocket = requestCallbackSocket();
+		if (callbackSocket != null) {
+			CallbackHandler handler = new CallbackHandler(callbackSocket, this);
 			if (handler.isConnected())
 				return handler;
 				
 			// Failed, close the socket.
 			try {
-				scArray[0].close();
+				callbackSocket.close();
 			} catch (IOException e) {
 			}
 		}
@@ -518,7 +471,7 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 		CallbackHandler handler = (CallbackHandler) aHandler;
 		if (handler.isConnected())
 			synchronized (fCallbackHandlerPool) {
-				if (fCallbackServerPort != 0 && fCallbackHandlerPool.size() < NUMBER_FREE_CALLBACKS)
+				if (fCallbackHandlerPool.size() < NUMBER_FREE_CALLBACKS)
 					fCallbackHandlerPool.push(handler);
 				else
 					handler.closeHandler();	// We don't need to maintain more than five free connections.
@@ -603,43 +556,48 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 	}
 	
 	/*
-	 * Request the callback server port. -1 if there isn't one.
+	 * Request the callback socket. <code>null</code> if there isn't one.
 	 */
-	private int requestCallbackPort() {
+	private Socket requestCallbackSocket() {
 		Socket socket = getSocket();
 		if (socket != null) {
+			boolean closeSocket = true;
 			try {
 				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 				DataInputStream in = new DataInputStream(socket.getInputStream());
 				
 				try {
-					out.writeByte(Commands.GET_CALLBACK_PORT);
+					out.writeByte(Commands.ATTACH_CALLBACK);
 					out.writeInt(registryKey);
 					out.flush();
-					return in.readInt();
+					closeSocket = !in.readBoolean();
+					return !closeSocket ? socket : null;
 				} finally {
-					try {
-						in.close();
-					} catch (IOException e) {
-					}
-					try {
-						out.close();
-					} catch (IOException e) {
+					if (closeSocket) {
+						try {
+							in.close();
+						} catch (IOException e) {
+						}
+						try {
+							out.close();
+						} catch (IOException e) {
+						}
 					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
-				try {
-					socket.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+				if (closeSocket) {
+					try {
+						socket.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}					
-
 		}
 		
-		return -1;
+		return null;
 	}	
 	
 
