@@ -111,7 +111,7 @@
             name="%web.project_ui_"
             icon="icons/full/ctool16/newwar_wiz.gif"
             category="org.eclipse.wst.web.ui"
-            class="org.eclipse.jst.servlet.ui.WebComponentCreationWizard"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.servlet.ui.WebComponentCreationWizard">
@@ -129,7 +129,7 @@
     <wizard
             name="%WarImportWizard.name"
             icon="icons/full/ctool16/importwar_wiz.gif"
-            class="org.eclipse.jst.servlet.ui.WebModuleImportWizard"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard"
             id="org.eclipse.jst.servlet.ui.WebModuleImportWizard">
          <description>
             %WarImportWizard.description
@@ -146,7 +146,7 @@
     <wizard
             name="%WarexportWizard.name"
             icon="icons/full/ctool16/exportwar_wiz.gif"
-            class="org.eclipse.jst.servlet.ui.WebModuleExportWizard"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleExportWizard"
             id="org.eclipse.jst.servlet.ui.WebModuleExportWizard">
          <description>
             %WarexportWizard.description

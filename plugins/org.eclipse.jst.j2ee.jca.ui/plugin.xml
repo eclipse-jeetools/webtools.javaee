@@ -62,7 +62,7 @@
             name="%connector_module_ui_"
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard">
@@ -80,7 +80,7 @@
       <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/import_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard"
             id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard">
          <description>
             %connector.import.description_ui_
@@ -97,7 +97,7 @@
      <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/export_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard"
             id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard">
          <description>
             %connector.export.description_ui_

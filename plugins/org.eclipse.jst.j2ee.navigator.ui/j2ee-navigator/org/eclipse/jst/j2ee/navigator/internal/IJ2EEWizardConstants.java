@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal;
 
-import org.eclipse.jst.ejb.ui.EJBComponentCreationWizard;
-import org.eclipse.jst.ejb.ui.EJBModuleExportWizard;
-import org.eclipse.jst.ejb.ui.EJBModuleImportWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleExportWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleExportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard;
@@ -20,12 +20,12 @@ import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationExportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizard;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard;
-import org.eclipse.jst.servlet.ui.WebComponentCreationWizard;
-import org.eclipse.jst.servlet.ui.WebModuleExportWizard;
-import org.eclipse.jst.servlet.ui.WebModuleImportWizard;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleExportWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
 
 /**
  * <p>

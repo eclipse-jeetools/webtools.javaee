@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.ejb.ui.EJBModuleImportWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
@@ -41,8 +41,8 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataM
 import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard;
-import org.eclipse.jst.servlet.ui.WebModuleImportWizard;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;

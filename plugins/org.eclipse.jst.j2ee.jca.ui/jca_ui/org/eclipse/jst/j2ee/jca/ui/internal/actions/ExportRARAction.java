@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.jca.ui.internal.actions;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleExportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 

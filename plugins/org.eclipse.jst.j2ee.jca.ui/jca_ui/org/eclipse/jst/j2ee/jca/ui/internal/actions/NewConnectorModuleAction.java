@@ -14,8 +14,8 @@ package org.eclipse.jst.j2ee.jca.ui.internal.actions;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.jca.ui.ConnectorComponentCreationWizard;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorComponentCreationWizard;
 import org.eclipse.ui.IWorkbench;
 
 
