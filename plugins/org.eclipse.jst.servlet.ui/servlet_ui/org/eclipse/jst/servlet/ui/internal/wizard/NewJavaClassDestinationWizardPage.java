@@ -206,7 +206,7 @@ public class NewJavaClassDestinationWizardPage extends WTPWizardPage {
 		dialog.setMessage(IWebWizardConstants.CONTAINER_SELECTION_DIALOG_DESC);
 		dialog.addFilter(filter);
 		dialog.setInput(J2EEUIPlugin.getWorkspace().getRoot());
-		IProject project = model.getTargetProject();
+		IProject project = ((NewJavaClassDataModel)model).getTargetProject();
 		if (project != null)
 			dialog.setInitialSelection(project);
 		if (dialog.open() == Window.OK) {

@@ -18,6 +18,7 @@ package org.eclipse.jst.j2ee.internal.common.operations;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
@@ -95,7 +96,7 @@ public class JARDependencyDataModel extends WTPOperationDataModel {
 	}
 
 	public IProject getEARProject() {
-		return getProjectHandle(EAR_PROJECT_NAME);
+		return  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(EAR_PROJECT_NAME));
 	}
 
 	/**
@@ -110,11 +111,11 @@ public class JARDependencyDataModel extends WTPOperationDataModel {
 	}
 
 	public IProject getReferencedProject() {
-		return getProjectHandle(REFERENCED_PROJECT_NAME);
+		return  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(REFERENCED_PROJECT_NAME));
 	}
 
 	public IProject getOppositeProject() {
-		return getProjectHandle(OPPOSITE_PROJECT_NAME);
+		return  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(OPPOSITE_PROJECT_NAME));
 	}
 
 }

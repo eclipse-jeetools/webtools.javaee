@@ -58,7 +58,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 
 	protected void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.createProject(monitor);
-		J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(operationDataModel.getTargetProject());
+		J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(((WebModuleCreationDataModel)operationDataModel).getTargetProject());
 		nature.getWebSettings().setWebContentName(operationDataModel.getStringProperty(WebModuleCreationDataModel.WEB_CONTENT));
 		nature.getWebSettings().setContextRoot(operationDataModel.getStringProperty(WebModuleCreationDataModel.CONTEXT_ROOT));
 		URIConverter uriConverter = ((ProjectResourceSet) nature.getResourceSet()).getURIConverter();

@@ -306,7 +306,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		}
 		if (PROJECT_NAME.equals(propertyName)) {
 			ProjectCreationDataModel projectDataModel = j2eeArtifactCreationDataModel.getProjectDataModel();
-			IStatus status = validateProjectName(projectDataModel.getStringProperty(ProjectCreationDataModel.PROJECT_NAME));
+			IStatus status = ProjectCreationDataModel.validateProjectName(projectDataModel.getStringProperty(ProjectCreationDataModel.PROJECT_NAME));
 			if (!status.isOK()) {
 				return status;
 			}

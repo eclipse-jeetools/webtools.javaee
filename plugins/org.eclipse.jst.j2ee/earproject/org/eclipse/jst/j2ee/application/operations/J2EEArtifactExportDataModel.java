@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
@@ -72,7 +73,7 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getTargetProject()
 	 */
 	public IProject getTargetProject() {
-		return getProjectHandle(PROJECT_NAME);
+		return ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(PROJECT_NAME));
 	}
 
 	/*
@@ -117,7 +118,7 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 	protected IStatus doValidateProperty(String propertyName) {
 		if (PROJECT_NAME.equals(propertyName)) {
 			String projectName = (String) getProperty(PROJECT_NAME);
-			IStatus status = validateProjectName(projectName);
+			IStatus status = ProjectCreationDataModel.validateProjectName(projectName);
 			if (!status.isOK()) {
 				return status;
 			}

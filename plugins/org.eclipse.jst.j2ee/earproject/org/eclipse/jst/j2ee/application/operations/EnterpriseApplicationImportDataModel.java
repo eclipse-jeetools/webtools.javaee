@@ -52,6 +52,7 @@ import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
@@ -284,7 +285,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 				nestedModel = (J2EEUtilityJarImportDataModel) nestedModels.get(i);
 				nestedModel.setProperty(J2EEUtilityJarImportDataModel.EAR_PROJECT, propertyValue);
 			}
-			IProject project = getProjectHandle(PROJECT_NAME);
+			IProject project =  ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(PROJECT_NAME));
 			if (null != project && project.exists()) {
 				IRuntime target = ServerCore.getProjectProperties(project).getRuntimeTarget();
 				if (null != target) {
@@ -366,7 +367,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			for (int i = 0; i < subProjects.size(); i++) {
 				subDataModel = (J2EEArtifactImportDataModel) subProjects.get(i);
 				tempProjectName = subDataModel.getStringProperty(J2EEArtifactImportDataModel.PROJECT_NAME);
-				IStatus status = validateProjectName(tempProjectName);
+				IStatus status = ProjectCreationDataModel.validateProjectName(tempProjectName);
 				if (!status.isOK()) {
 					return status;
 				}
@@ -745,7 +746,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 		if (null != enabled && !enabled.booleanValue()) {
 			return enabled;
 		} else if (propertyName.equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
-			IProject project = getProjectHandle(PROJECT_NAME);
+			IProject project = ProjectCreationDataModel.getProjectHandleFromName(getStringProperty(PROJECT_NAME));
 			if (null == project || !project.exists()) {
 				return Boolean.TRUE;
 			}

@@ -309,7 +309,7 @@ public class AddArchiveProjectToEAROperation extends EditModelOperation {
 	}
 
 	private IProject getEARProject() {
-		return operationDataModel.getTargetProject();
+		return ((AddArchiveProjectToEARDataModel)operationDataModel).getTargetProject();
 	}
 
 	private Map computeAllDependents() {

@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
@@ -192,7 +193,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 
 	private void handleClassButtonSelected() {
 		getControl().setCursor(new Cursor(getShell().getDisplay(), SWT.CURSOR_WAIT));
-		IProject project = model.getTargetProject();
+		IProject project = ((NewServletClassDataModel)model).getTargetProject();
 		
 		MultiSelectFilteredFileSelectionDialog ms = new MultiSelectFilteredFileSelectionDialog(getShell(), IWebWizardConstants.NEW_SERVLET_WIZARD_WINDOW_TITLE,
 				IWebWizardConstants.CHOOSE_SERVLET_CLASS, JSPEXTENSIONS, false, project);
@@ -247,7 +248,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
 		IProject project = null;
-		project = model.getProjectHandle(EditModelOperationDataModel.PROJECT_NAME);
+		project = ProjectCreationDataModel.getProjectHandleFromName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
 		annotationsGroup.setUseAnnotations(false);
 	}
