@@ -43,7 +43,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
     protected ArrayList moduleDelegates = new ArrayList();
 
     protected static boolean isFlexableProject(IProject project) {
-        return ModuleUtil.isFlexableProject(project);
+        return ModuleUtil.isFlexibleProject(project);
     }
 
     public J2EEDeployableFactory() {
@@ -84,8 +84,8 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
     }
 
     protected void removeModuleProject(IProject project) {
-        if (!isFlexableProject(project)) {
-            super.addModuleProject(project);
+        if (!getProjectModules().containsKey(project)) {
+            super.removeModuleProject(project);
             return;
         }
         try {
@@ -149,7 +149,15 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
     protected void handleProjectChange(IProject project, IResourceDelta delta) {
         if (projects == null)
             cacheModules();
-        super.handleProjectChange(project, delta);
+        if (getProjectModules().containsKey(project)) {
+            if (((delta.getKind() & IResourceDelta.REMOVED) != 0) || !isValidModule(project)) {
+                removeModuleProject(project);
+            }
+        }else {  
+            super.handleProjectChange(project, delta);
+        }
+
+       
     }
 
     public ModuleDelegate getModuleDelegate(IModule module) {
@@ -174,7 +182,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
             modulesArray[i++] = element;
 
         }
-           return modulesArray;
+        return modulesArray;
     }
 
     private IModule[] getALLModules() {

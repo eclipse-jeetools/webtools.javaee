@@ -59,7 +59,7 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	public IPath getLocation() {
 		
 		IPath path = null;
-	       if ( ModuleUtil.isFlexableProject(project)) {  
+	       if ( ModuleUtil.isFlexibleProject(project)) {  
         	if( wbModule != null ){
         		
         		IPath pathProject = project.getLocation();

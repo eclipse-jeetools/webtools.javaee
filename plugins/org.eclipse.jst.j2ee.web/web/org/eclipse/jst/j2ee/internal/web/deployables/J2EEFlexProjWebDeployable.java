@@ -359,7 +359,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	       
 		
 		IPath path = null;
-	       if ( ModuleUtil.isFlexableProject(project)) {  
+	       if ( ModuleUtil.isFlexibleProject(project)) {  
      	if( wbModule != null ){
      		
 
