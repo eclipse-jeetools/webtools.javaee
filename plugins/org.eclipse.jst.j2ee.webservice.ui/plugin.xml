@@ -63,7 +63,7 @@
                		name="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType">
                </objectClass>
                <objectClass
-                     name="org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl">
+                     name="org.eclipse.wst.wsdl.util.WSDLResourceImpl">
                </objectClass>
             </or>
          </enables>
