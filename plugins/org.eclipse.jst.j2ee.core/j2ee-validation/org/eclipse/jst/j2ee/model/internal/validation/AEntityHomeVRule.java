@@ -72,7 +72,7 @@ public abstract class AEntityHomeVRule extends AHomeVRule {
 		}
 		else {
 			if(!returnsComponentInterfaceOrCollection(vc, bean, clazz, method)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{getComponentInterface(bean).getName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{getComponentInterface(bean).getName()}, this);
 				vc.addMessage(message);
 			}
 		}

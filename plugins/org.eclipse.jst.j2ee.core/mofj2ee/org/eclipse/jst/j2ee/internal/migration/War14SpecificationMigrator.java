@@ -47,7 +47,7 @@ public class War14SpecificationMigrator {
 		migrateTabLibs(app);
 		migrateContextParam(app);
 		migrateInitParams(app);
-		return new J2EEMigrationStatus(J2EEMigrationStatus.COMPLETED_OK,(new J2EEMigrationStatus()).format(J2EESpecificationMigrator.DEFAULT_COMPLETED_STATUS_MSG,app.getDisplayName()));
+		return new J2EEMigrationStatus(J2EEMigrationStatus.COMPLETED_OK,(new J2EEMigrationStatus()).format(J2EESpecificationMigrationConstants.DEFAULT_COMPLETED_STATUS_MSG,app.getDisplayName()));
 	}
 	/**
 	 * @param app

@@ -47,7 +47,7 @@ public abstract class ExportStrategyImpl extends ArchiveStrategyImpl implements 
 	 * java.io.InputStream)
 	 */
 	public void preSave(SaveStrategy aSaveStrategy) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException {
-
+		//Default
 	}
 
 	/**

@@ -35,8 +35,8 @@ public XMLResourceFactory() {
  */
 public final Resource createResource(URI uri) {
 	XMLResource resource = primCreateResource(uri);
-	resource.getDefaultSaveOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-    resource.getDefaultSaveOptions().put(XMLResource.OPTION_LINE_WIDTH, new Integer(80));
+	resource.getDefaultSaveOptions().put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
+    resource.getDefaultSaveOptions().put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_LINE_WIDTH, new Integer(80));
     return resource;
 }
 

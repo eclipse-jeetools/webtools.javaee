@@ -136,7 +136,7 @@ public final class CMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 
 		// IWAD4251 = This class must be public. Read section 10.8.2 of the EJB 2.0 specification.
 		if(!clazz.isPublic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2022, IEJBValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2022, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
@@ -148,7 +148,7 @@ public final class CMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 			if ((primKeyFields == null) || (primKeyFields.size() == 0)) {
 				JavaClass primaryKey = cmp.getPrimaryKey(); // don't need to check ValidationRuleUtility.isValidType(primaryKey), because it's already been called in the validateDeploymentDescriptor method
 				String beanName = (cmp.getName() == null) ? "null" : cmp.getName(); //$NON-NLS-1$
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2829, IEJBValidationContext.ERROR, cmp, primaryKey, new String[] { primaryKey.getName(), beanName }, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2829, IEJBValidationContext.ERROR, cmp, primaryKey, new String[] { primaryKey.getName(), beanName }, this);
 				vc.addMessage(message);
 			}
 		}
@@ -181,14 +181,14 @@ public final class CMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 		else {
 			// IWAD4253 = This field must be public. Read section 10.8.1 of the EJB 2.0 specification.
 			if(!ValidationRuleUtility.isPublic(field)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2205, IEJBValidationContext.WARNING, bean, clazz, field, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2205, IEJBValidationContext.WARNING, bean, clazz, field, this);
 				vc.addMessage(message);
 			}
 			
 			Set keyFields = getKeyFields((ContainerManagedEntity)bean);
 			if(!keyFields.contains(field.getName())) {
 				// IWAD4254 = This field is not a <cmp-field>. Read section 10.8.1 of the EJB 2.0 specification.
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2206, IEJBValidationContext.WARNING, bean, clazz, field, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2206, IEJBValidationContext.WARNING, bean, clazz, field, this);
 				vc.addMessage(message);
 			}
 		}

@@ -19,6 +19,7 @@ public class AltResourceRegister {
 	protected static Set registeredURIs = new HashSet();
 
 	protected AltResourceRegister() {
+		//Default
 	}
 
 

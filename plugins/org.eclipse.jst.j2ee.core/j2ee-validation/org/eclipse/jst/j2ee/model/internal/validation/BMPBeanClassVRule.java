@@ -283,7 +283,7 @@ public final class BMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 			  ValidationRuleUtility.isAssignableFrom(retType, key)
 		   )) {
 		   	String keyName = (key == null) ? IEJBValidatorConstants.NULL_PRIMARY_KEY : key.getJavaName();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2407, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{keyName}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2407, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{keyName}, this);
 			vc.addMessage(message);
 		}
 		

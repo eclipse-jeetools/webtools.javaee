@@ -715,7 +715,10 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 		try {
 			res = (XMLResource) moduleFile.getDeploymentDescriptorResource();
 		} catch (ResourceLoadException e) {
-		} catch (FileNotFoundException e) {	}
+			//Ignore
+		} catch (FileNotFoundException e) {	
+			//Ignore
+		}
 		if (res != null)
 			return res.getJ2EEVersionID();
 		return -1;

@@ -77,10 +77,10 @@ public class ObjectInputStreamCustomResolver extends java.io.ObjectInputStream {
 
 		if (className.startsWith("[")) {//$NON-NLS-1$
 
-			Class component;
+			Class component = null;
 			int dimNum;
 
-			for (dimNum = 1; className.charAt(dimNum) == '['; dimNum++);
+			for (dimNum = 1; className.charAt(dimNum) == '['; dimNum++)
 
 			if (className.charAt(dimNum) == 'L') {
 				component = cl.loadClass(className.substring(dimNum + 1, className.length() - 1));

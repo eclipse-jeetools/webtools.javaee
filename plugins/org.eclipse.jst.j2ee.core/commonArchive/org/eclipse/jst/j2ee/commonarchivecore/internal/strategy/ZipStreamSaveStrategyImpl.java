@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.internal.emf.resource.CompatibilityURIConverter;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
 
@@ -105,12 +105,12 @@ public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl implements SaveS
 	 */
 	public void save(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest aManifest) throws SaveFailureException {
 		try {
-			ZipEntry entry = new ZipEntry(ArchiveConstants.MANIFEST_URI);
+			ZipEntry entry = new ZipEntry(J2EEConstants.MANIFEST_URI);
 			getZipOutputStream().putNextEntry(entry);
 			aManifest.write(getZipOutputStream());
 			getZipOutputStream().closeEntry();
 		} catch (IOException iox) {
-			throw new SaveFailureException(ArchiveConstants.MANIFEST_URI, iox);
+			throw new SaveFailureException(J2EEConstants.MANIFEST_URI, iox);
 		}
 	}
 

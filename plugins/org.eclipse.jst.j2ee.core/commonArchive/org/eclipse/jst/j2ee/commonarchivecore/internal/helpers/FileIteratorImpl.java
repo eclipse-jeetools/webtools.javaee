@@ -28,6 +28,7 @@ public class FileIteratorImpl implements FileIterator {
 	 * Insert the method's description here. Creation date: (05/02/01 6:16:52 PM)
 	 */
 	public FileIteratorImpl() {
+		//Default
 	}
 
 	public FileIteratorImpl(List theFiles) {

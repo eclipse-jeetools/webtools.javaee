@@ -14,15 +14,14 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Core EJB Validation rules
@@ -131,7 +130,7 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 
 		EJBJar ejbJar = getEJBJar(vc);
 
-		if(fileName.endsWith(ArchiveConstants.EJBJAR_DD_SHORT_NAME)) {
+		if(fileName.endsWith(J2EEConstants.EJBJAR_DD_SHORT_NAME)) {
 			if(ejbJar.getVersionID() == J2EEVersionConstants.EJB_1_1_ID) {
 				return IValidationRuleList.EJB11_EJBJAR;
 			}

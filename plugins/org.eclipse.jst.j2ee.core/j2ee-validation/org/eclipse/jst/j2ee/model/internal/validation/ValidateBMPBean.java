@@ -470,7 +470,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 			  ValidationRuleUtility.isAssignableFromCollection(returnType, bean) ||
 			  ValidationRuleUtility.isAssignableFromEnumeration(returnType, bean)
 		   )) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2407, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { primaryKey.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2407, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { primaryKey.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}

@@ -30,10 +30,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
@@ -132,7 +132,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	}
 
 	public java.lang.String getDeploymentDescriptorUri() {
-		return ArchiveConstants.EJBJAR_DD_URI;
+		return J2EEConstants.EJBJAR_DD_URI;
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 */
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		EJBJar ejbJar = ((EjbPackage) EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI)).getEjbFactory().createEJBJar();
-		resource.setID(ejbJar, ArchiveConstants.EJBJAR_ID);
+		resource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
 		setDeploymentDescriptorGen(ejbJar);
 		resource.getContents().add(ejbJar);
 

@@ -26,12 +26,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHand
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
@@ -57,6 +57,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	 * The default is to do nothing - subclasses should override as necessary
 	 */
 	public void close() throws java.io.IOException {
+		//Default
 	}
 
 	protected abstract SaveStrategy createNestedSaveStrategy(Archive anArchive) throws java.io.IOException;
@@ -65,6 +66,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	 * The default is to do nothing - subclasses should override as necessary
 	 */
 	public void finish() throws java.io.IOException {
+		//Default
 	}
 
 	/**
@@ -88,7 +90,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	}
 
 	protected boolean isLoadedResourceOrManifest(File aFile) {
-		return getArchive().isMofResourceLoaded(aFile.getURI()) || aFile.getURI().equals(ArchiveConstants.MANIFEST_URI);
+		return getArchive().isMofResourceLoaded(aFile.getURI()) || aFile.getURI().equals(J2EEConstants.MANIFEST_URI);
 	}
 
 	public void save() throws SaveFailureException {
@@ -148,7 +150,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	}
 
 	protected void saveManifest() throws SaveFailureException {
-		if (!shouldSave(ArchiveConstants.MANIFEST_URI))
+		if (!shouldSave(J2EEConstants.MANIFEST_URI))
 			return;
 		ArchiveManifest mf = getArchive().getManifest();
 		if (mf.getManifestVersion() == null || mf.getManifestVersion().equals(""))//$NON-NLS-1$

@@ -124,7 +124,7 @@ public class LooseconfigPackageImpl extends EPackageImpl implements LooseconfigP
 		ApplicationPackageImpl.init();
 
 		// Obtain or create and register interdependencies
-		CommonarchivePackageImpl theCommonarchivePackage = (CommonarchivePackageImpl) (EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI) : CommonarchivePackageImpl.eINSTANCE);
+		CommonarchivePackageImpl theCommonarchivePackage = (CommonarchivePackageImpl) (EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI) : CommonarchivePackage.eINSTANCE);
 
 		// Step 1: create meta-model objects
 		theLooseconfigPackage.createPackageContents();

@@ -28,4 +28,5 @@ import org.eclipse.jst.j2ee.common.QName;
  * @generated
  */
 public interface SOAPHeader extends QName{
-} // SOAPHeader
+// SOAPHeader
+}

@@ -193,7 +193,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		// All fields in the primary key class must be declared as public.
 		if (!ValidationRuleUtility.isPublic(field)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2205, IEJBValidationContext.WARNING, bean, clazz, field, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2205, IEJBValidationContext.WARNING, bean, clazz, field, this);
 			vc.addMessage(message);
 		}
 
@@ -208,7 +208,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 			JavaClass ejbClass = cmp.getEjbClass();
 			ValidationRuleUtility.isValidType(ejbClass);
 			String[] msgParm = { cmp.getName(), cmp.getEjbClass().getName()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2206, IEJBValidationContext.WARNING, bean, clazz, field, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2206, IEJBValidationContext.WARNING, bean, clazz, field, msgParm, this);
 			vc.addMessage(message);
 		}
 	}
@@ -270,7 +270,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 			if ((primKeyFields == null) || (primKeyFields.size() == 0)) {
 				JavaClass primaryKey = cmp.getPrimaryKey(); // don't need to check MOFHelper.isValidType(primaryKey), because it's already been called in the validateDeploymentDescriptor method
 				String beanName = (cmp.getName() == null) ? "null" : cmp.getName(); //$NON-NLS-1$
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2829, IEJBValidationContext.ERROR, bean, primaryKey, new String[] { primaryKey.getName(), beanName }, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2829, IEJBValidationContext.ERROR, bean, primaryKey, new String[] { primaryKey.getName(), beanName }, this);
 				vc.addMessage(message);
 			}
 		}

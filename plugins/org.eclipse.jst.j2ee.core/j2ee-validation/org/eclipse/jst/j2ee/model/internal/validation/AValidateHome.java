@@ -209,12 +209,12 @@ public abstract class AValidateHome extends AValidateEJB {
 		// home interface must inherit javax.ejb.EJBHome.class
 		if (!ValidationRuleUtility.isAssignableFrom(clazz, ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME, bean))) {
 			String[] msgParm = { ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 
 		if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
@@ -311,7 +311,7 @@ public abstract class AValidateHome extends AValidateEJB {
 
 		// The return type for a create method must be the remote interface type.
 		if (!ValidationRuleUtility.isAssignableFrom(method.getReturnType(), remoteIntf)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2402, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntf.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2402, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntf.getName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -406,13 +406,13 @@ public abstract class AValidateHome extends AValidateEJB {
 				ValidationRuleUtility.isValidType(parentHome);
 				if (ValidationRuleUtility.isAssignableFrom(thisHome, parentHome)) {
 					String[] msgParm = new String[] { thisHome.getQualifiedName(), parentHome.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2104, IEJBValidationContext.ERROR, bean, thisHome, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2104, IEJBValidationContext.ERROR, bean, thisHome, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

@@ -23,9 +23,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 
 
 /**
@@ -136,13 +136,13 @@ public class DirectorySaveStrategyImpl extends SaveStrategyImpl implements SaveS
 	 */
 	public void save(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest aManifest) throws SaveFailureException {
 		try {
-			OutputStream out = getUriConverter().createOutputStream(URI.createURI(ArchiveConstants.MANIFEST_URI));
+			OutputStream out = getUriConverter().createOutputStream(URI.createURI(J2EEConstants.MANIFEST_URI));
 			aManifest.write(out);
 			out.close();
 			if (getArchive().getOptions().isReadOnly())
-				setTimestampAfterSaving(ArchiveConstants.MANIFEST_URI);
+				setTimestampAfterSaving(J2EEConstants.MANIFEST_URI);
 		} catch (IOException iox) {
-			throw new SaveFailureException(ArchiveConstants.MANIFEST_URI, iox);
+			throw new SaveFailureException(J2EEConstants.MANIFEST_URI, iox);
 		}
 	}
 

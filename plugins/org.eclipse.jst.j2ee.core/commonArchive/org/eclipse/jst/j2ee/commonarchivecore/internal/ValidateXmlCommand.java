@@ -121,6 +121,7 @@ public class ValidateXmlCommand extends AbstractCommand {
 	 * @see Command
 	 */
 	public void redo() {
+		//Default
 	}
 
 	/**

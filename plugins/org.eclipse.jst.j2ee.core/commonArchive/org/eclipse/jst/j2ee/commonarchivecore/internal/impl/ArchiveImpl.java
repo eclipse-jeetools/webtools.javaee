@@ -50,7 +50,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ReopenException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
@@ -65,6 +64,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipStreamSaveStr
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveFileDynamicClassLoader;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ClasspathUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
@@ -97,7 +97,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	protected SaveFilter saveFilter;
 
 	/** Encoding to be used for all xmi resources and xml dds; defaults to UTF-8 */
-	protected String xmlEncoding = ArchiveConstants.DEFAULT_XML_ENCODING;
+	protected String xmlEncoding = J2EEConstants.DEFAULT_XML_ENCODING;
 
 	/** Custom class loader used to load classes from the archive */
 	protected ClassLoader archiveClassLoader;
@@ -429,6 +429,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 			if (f != null)
 				throw new DuplicateObjectException(CommonArchiveResourceHandler.getString("duplicate_file_EXC_", (new Object[]{getURI(), aUri})), f); //$NON-NLS-1$ = "The archive named {0} already contains a file named {1}"
 		} catch (FileNotFoundException ok) {
+			//Ignore
 		}
 	}
 
@@ -454,6 +455,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 				// time out and throw an exception
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
+				//Ignore
 			}
 		}
 		if (deleteWorked) {
@@ -463,6 +465,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 				try {
 					Thread.sleep(250);
 				} catch (InterruptedException e) {
+					//Ignore
 				}
 			}
 		}
@@ -534,6 +537,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 					aList.add(runEntry);
 					continue;
 				} catch (FileNotFoundException shouldntHappenInRuntime) {
+					//Ignore
 				}
 			}
 			//Otherwise, compute the absolute path of the entry relative to
@@ -753,6 +757,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 					aList.add(dependentJar.getAbsolutePath());
 					continue;
 				} catch (FileNotFoundException shouldntHappenInRuntime) {
+					//Ignore
 				}
 			}
 			//Otherwise, compute the absolute path of the entry relative to
@@ -839,7 +844,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		if (manifest == null) {
 			InputStream in = null;
 			try {
-				in = getInputStream(ArchiveConstants.MANIFEST_URI);
+				in = getInputStream(J2EEConstants.MANIFEST_URI);
 				makeManifest(in);
 			} catch (FileNotFoundException ex) {
 				makeManifest();
@@ -856,6 +861,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 					try {
 						in.close();
 					} catch (IOException iox) {
+						//Ignore
 					}
 			}
 		}
@@ -912,6 +918,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 			try {
 				path = theContainer.getAbsolutePath();
 			} catch (FileNotFoundException ex) {
+				//Ignore
 			}
 			theContainer = theContainer.getLoadingContainer();
 		}
@@ -979,6 +986,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
 	public void initializeAfterOpen() {
+		//Default
 	}
 
 	public void initializeClassLoader() {
@@ -1012,7 +1020,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
 	public boolean isDuplicate(java.lang.String aUri) {
-		return containsFile(aUri) || isMofResourceLoaded(aUri) || ArchiveConstants.MANIFEST_URI.equals(aUri);
+		return containsFile(aUri) || isMofResourceLoaded(aUri) || J2EEConstants.MANIFEST_URI.equals(aUri);
 	}
 
 	/**
@@ -1045,7 +1053,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 			try {
 				String path = ArchiveUtil.getOSUri(getAbsolutePath(), aUri);
 				java.io.File ioFile = new java.io.File(path);
-				if (!ioFile.exists() || (ioFile.isDirectory() && aUri.startsWith(ArchiveConstants.ALT_INF)))
+				if (!ioFile.exists() || (ioFile.isDirectory() && aUri.startsWith(J2EEConstants.ALT_INF)))
 					return false;
 			} catch (IOException ex) {
 				return false;
@@ -1331,6 +1339,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 				if (aSaveStrategy != null)
 					aSaveStrategy.close();
 			} catch (IOException weTried) {
+				//Ignore
 			}
 			if (!fileExisted)
 				aFile.delete();

@@ -49,7 +49,7 @@ public class CMPHelper {
 	public interface CMPFieldExistTester {
 		boolean isExisting(Field aField);
 		boolean isExisting(Method aMethod);
-	};
+	}
 
 	protected CMPHelper() {
 		super();

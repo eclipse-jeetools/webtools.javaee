@@ -16,9 +16,9 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminatorImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 
 
 /**
@@ -32,7 +32,7 @@ public class Ear12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public boolean canImport(Archive anArchive) {
-			return anArchive.containsFile(ArchiveConstants.APPLICATION_DD_URI);
+			return anArchive.containsFile(J2EEConstants.APPLICATION_DD_URI);
 		}
 
 		/**
@@ -43,7 +43,7 @@ public class Ear12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("EAR_File"), ArchiveConstants.APPLICATION_DD_URI); //$NON-NLS-1$ = "EAR File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.getString("EAR_File"), J2EEConstants.APPLICATION_DD_URI); //$NON-NLS-1$ = "EAR File"
 		}
 	}
 

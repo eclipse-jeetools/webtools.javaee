@@ -49,17 +49,17 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 	
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!followAbstractRules(clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2014, IEJBValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2014, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
 		if(!followPublicRules(clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2022, IEJBValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2022, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if(!followFinalRules(clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2015, IEJBValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2015, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
@@ -326,7 +326,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		// IWAD4201 = This method name must not start with "ejb". Read section 10.6.8 of the EJB 2.0 specification.
 		// IWAD4317 = The method name must not start with "ejb". Read section 12.2.7 of the EJB 2.0 specification.
 		if(method.getName().startsWith(IMethodAndFieldConstants.PREFIX_EJB)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2411, IEJBValidationContext.WARNING, bean, clazz, method, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2411, IEJBValidationContext.WARNING, bean, clazz, method, this);		
 			vc.addMessage(message);
 		}
 		
@@ -440,7 +440,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		Iterator eiterator = exceptions.iterator();
 		while(eiterator.hasNext()) {
 			JavaClass exception = (JavaClass)eiterator.next();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2456, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), matchingClazz.getJavaName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2456, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), matchingClazz.getJavaName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -487,13 +487,13 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 				ValidationRuleUtility.isValidType(parentEjbObject);
 				if (!ValidationRuleUtility.isAssignableFrom(thisEjbObject, parentEjbObject)) {
 					String[] msgParm = new String[] { thisEjbObject.getQualifiedName(), parentEjbObject.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2103, IEJBValidationContext.ERROR, bean, thisEjbObject, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2103, IEJBValidationContext.ERROR, bean, thisEjbObject, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

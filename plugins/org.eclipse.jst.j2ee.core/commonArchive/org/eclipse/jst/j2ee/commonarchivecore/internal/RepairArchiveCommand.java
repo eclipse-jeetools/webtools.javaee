@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 
 
 /**
@@ -82,8 +83,8 @@ public class RepairArchiveCommand extends AbstractCommand {
 	protected static java.util.Map getDirectoryNames() {
 		if (directoryNames == null) {
 			directoryNames = new HashMap(6);
-			directoryNames.put(ArchiveConstants.META_INF.toUpperCase(), ArchiveConstants.META_INF);
-			directoryNames.put(ArchiveConstants.WEB_INF.toUpperCase(), ArchiveConstants.WEB_INF);
+			directoryNames.put(J2EEConstants.META_INF.toUpperCase(), J2EEConstants.META_INF);
+			directoryNames.put(J2EEConstants.WEB_INF.toUpperCase(), J2EEConstants.WEB_INF);
 			directoryNames.put(ArchiveConstants.WEBAPP_LIB_URI.toUpperCase(), ArchiveConstants.WEBAPP_LIB_URI);
 			directoryNames.put(ArchiveConstants.WEBAPP_CLASSES_URI.toUpperCase(), ArchiveConstants.WEBAPP_CLASSES_URI);
 		}
@@ -121,6 +122,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 	 * @see com.ibm.etools.common.command.Command
 	 */
 	public void redo() {
+		//Default
 	}
 
 	protected static boolean validateArgs(String[] args) {
@@ -141,6 +143,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 				try {
 					zip.close();
 				} catch (java.io.IOException ex) {
+					//Ignore
 				}
 		}
 		if (!isZip && !file.isDirectory()) {

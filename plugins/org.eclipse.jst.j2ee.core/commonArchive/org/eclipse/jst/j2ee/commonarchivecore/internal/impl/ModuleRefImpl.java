@@ -84,6 +84,7 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 	 * The default is to do nothing; subclasses should override if necessary
 	 */
 	protected void buildComponentList(EList list) {
+		//Default
 	}
 
 	/**
@@ -122,7 +123,9 @@ public class ModuleRefImpl extends EObjectImpl implements ModuleRef, EObject {
 		try {
 			aFile = (ModuleFile) getEarFile().getFile(module.getUri());
 		} catch (FileNotFoundException ex) {
+			//Ignore
 		} catch (ClassCastException ex) {
+			//Ignore
 		}
 		checkType(module, aFile);
 		setModuleFile(aFile);

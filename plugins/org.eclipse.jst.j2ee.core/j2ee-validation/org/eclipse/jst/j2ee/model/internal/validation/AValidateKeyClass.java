@@ -87,7 +87,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 		validateLegalRMIType(vc, bean, clazz);
 
 		if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 	}
@@ -113,7 +113,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 		ValidationRuleUtility.isValidType(clazz);
 
 		if (!ValidationRuleUtility.isLegalRMI_IIOPType(bean, clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2019, IEJBValidationContext.INFO, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2019, IEJBValidationContext.INFO, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}

@@ -62,6 +62,7 @@ public class ClasspathUtil {
 						Manifest manifest = new Manifest(inputStream);
 						manifestPaths = getManifestClassPaths(manifest, f.getParent());
 					} catch (IOException e) {
+						//Ignore
 					} finally {
 						if (null != inputStream) {
 							try {
@@ -80,11 +81,13 @@ public class ClasspathUtil {
 					if (manifest != null)
 						manifestPaths = getManifestClassPaths(manifest, f.getParent());
 				} catch (IOException e) {
+					//Ignore
 				} finally {
 					if (jarFile != null)
 						try {
 							jarFile.close();
 						} catch (IOException ex) {
+							//Ignore
 						}
 				}
 			}
@@ -115,6 +118,7 @@ public class ClasspathUtil {
 		try {
 			f = f.getCanonicalFile();
 		} catch (Exception ex) {
+			//Ignore
 		}
 		return f.getPath();
 	}

@@ -61,7 +61,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.EmptyResourceEx
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ObjectNotFoundException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
@@ -70,6 +69,7 @@ import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.client.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -80,6 +80,7 @@ import org.eclipse.jst.j2ee.internal.jca.impl.ConnectorResourceFactory;
 import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 
 
 /**
@@ -184,7 +185,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString("dd_in_ear_load_EXC_", (new Object[]{aModule.getUri(), getURI()})), e); //$NON-NLS-1$ = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""
 		}
 		String roleName = aRole.getRoleName();
-		SecurityRole copy = (SecurityRole) ArchiveCopyUtility.createCopy(aRole);
+		SecurityRole copy = (SecurityRole) EtoolsCopyUtility.createCopy(aRole);
 		if (aModule.isEjbModule()) {
 			EJBJar ejbJar = (EJBJar) dd;
 			if (ejbJar.containsSecurityRole(roleName))
@@ -207,7 +208,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		Application dd = getDeploymentDescriptor();
 		SecurityRole copy = null;
 		if (!dd.containsSecurityRole(aRole.getRoleName())) {
-			copy = (SecurityRole) ArchiveCopyUtility.createCopy(aRole);
+			copy = (SecurityRole) EtoolsCopyUtility.createCopy(aRole);
 			dd.getSecurityRoles().add(copy);
 		}
 		return copy;
@@ -349,7 +350,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * @see com.ibm.etools.commonarchive.ModuleFile
 	 */
 	public java.lang.String getDeploymentDescriptorUri() {
-		return ArchiveConstants.APPLICATION_DD_URI;
+		return J2EEConstants.APPLICATION_DD_URI;
 	}
 
 	/**
@@ -618,7 +619,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 */
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		Application appl = ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createApplication();
-		resource.setID(appl, ArchiveConstants.APPL_ID);
+		resource.setID(appl, J2EEConstants.APPL_ID);
 		setDeploymentDescriptorGen(appl);
 		resource.getContents().add(appl);
 		return appl;
@@ -712,11 +713,11 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 			if (aModule.isWebModule()) {
 				WebApp dd = getDeploymentDescriptor((WebModule) aModule);
 				if (dd.getSecurityRoleNamed(role.getRoleName()) == null)
-					dd.getSecurityRoles().add(ArchiveCopyUtility.createCopy(role));
+					dd.getSecurityRoles().add(EtoolsCopyUtility.createCopy(role));
 			} else if (aModule.isEjbModule()) {
 				AssemblyDescriptor assembly = getAssemblyDescriptorAddIfNecessary(getDeploymentDescriptor((EjbModule) aModule));
 				if (assembly.getSecurityRoleNamed(role.getRoleName()) == null)
-					assembly.getSecurityRoles().add(ArchiveCopyUtility.createCopy(role));
+					assembly.getSecurityRoles().add(EtoolsCopyUtility.createCopy(role));
 			}
 		} catch (Exception e) {
 			throw new DeploymentDescriptorLoadException(CommonArchiveResourceHandler.getString("dd_in_ear_load_EXC_", (new Object[]{aModule.getUri(), getURI()})), e); //$NON-NLS-1$ = "Exception occurred loading deployment descriptor for module "{0}" in ear file "{1}""

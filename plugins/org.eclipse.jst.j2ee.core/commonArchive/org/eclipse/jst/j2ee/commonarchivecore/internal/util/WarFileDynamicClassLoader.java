@@ -47,6 +47,7 @@ public class WarFileDynamicClassLoader extends ArchiveFileDynamicClassLoader {
 			InputStream in = getWarFile().getInputStream(swizzledName);
 			return ArchiveUtil.inputStreamToBytes(in);
 		} catch (java.io.FileNotFoundException ex) {
+			//Ignore
 		} catch (java.io.IOException ex) {
 			throw new ArchiveRuntimeException(CommonArchiveResourceHandler.getString("io_ex_loading_EXC_", (new Object[]{className})), ex); //$NON-NLS-1$ = "An IO exception occurred loading "
 		}

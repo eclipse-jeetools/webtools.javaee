@@ -91,6 +91,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 				try {
 					zis.close();
 				} catch (IOException ioe) {
+					//Ignore
 				}
 			}
 		}
@@ -136,6 +137,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 				try {
 					zis.close();
 				} catch (IOException iox) {
+					//Ignore
 				}
 			}
 		}
@@ -212,6 +214,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 				try {
 					zis.close();
 				} catch (IOException ioe) {
+					//Ignore
 				}
 			}
 		}

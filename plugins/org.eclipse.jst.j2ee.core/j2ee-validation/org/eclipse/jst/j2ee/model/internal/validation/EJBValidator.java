@@ -19,19 +19,18 @@ import java.util.Set;
 import java.util.logging.Level;
 
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @version 	1.0
@@ -104,7 +103,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		
 		for(int i=0; i<delta.length; i++) {
 			IFileDelta deltaInst = delta[i];
-			if(deltaInst.getFileName().endsWith(ArchiveConstants.EJBJAR_DD_SHORT_NAME)) {
+			if(deltaInst.getFileName().endsWith(J2EEConstants.EJBJAR_DD_SHORT_NAME)) {
 				return true;
 			}
 		}
@@ -248,7 +247,7 @@ public class EJBValidator extends AbstractEJBValidator {
 			// may mean that it needs to be revalidated.	
 			EJBJar ejbJar = (EJBJar)vc.loadModel(EJBValidatorModelEnum.EJB_MODEL);
 			if(ejbJar != null) {
-				Object id = EJBValidationRuleFactory.getFactory().getRuleId(vc, ArchiveConstants.EJBJAR_DD_SHORT_NAME);
+				Object id = EJBValidationRuleFactory.getFactory().getRuleId(vc, J2EEConstants.EJBJAR_DD_SHORT_NAME);
 				if(id == null) {
 					// Log, add "Cannot validate" to task list, and return.
 					logMissingRule(vc, id);
@@ -380,10 +379,10 @@ public class EJBValidator extends AbstractEJBValidator {
 			return;
 		}
 		
-		Object id = EJBValidationRuleFactory.getFactory().getRuleId(vc, ArchiveConstants.EJBJAR_DD_SHORT_NAME);
+		Object id = EJBValidationRuleFactory.getFactory().getRuleId(vc, J2EEConstants.EJBJAR_DD_SHORT_NAME);
 		if(id == null) {
 			// Log, add "Cannot validate" to task list, and return.
-			logMissingRule(vc, ArchiveConstants.EJBJAR_DD_SHORT_NAME);
+			logMissingRule(vc, J2EEConstants.EJBJAR_DD_SHORT_NAME);
 			return;
 		}
 		IValidationRule ejbJarRule = EJBValidationRuleFactory.getFactory().getRule(vc, id);

@@ -43,8 +43,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.EmptyResourceException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveURIConverterImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.xml.GeneralXmlDocumentReader;
@@ -590,6 +590,7 @@ public class ArchiveUtil {
 						try {
 							zip.close();
 						} catch (IOException ignore) {
+							//Ignore
 						}
 				}
 			}
@@ -652,6 +653,7 @@ public class ArchiveUtil {
 				if (in != null)
 					in.close();
 			} catch (IOException ex) {
+				//Ignore
 			}
 		}
 
@@ -659,15 +661,15 @@ public class ArchiveUtil {
 
 	protected static String[] getJ2EE13PublicAndSystemIdFor(ModuleFile moduleFile) {
 		if (moduleFile.isEARFile())
-			return new String[]{ArchiveConstants.APPLICATION_PUBLICID_1_3, ArchiveConstants.APPLICATION_SYSTEMID_1_3};
+			return new String[]{J2EEConstants.APPLICATION_PUBLICID_1_3, J2EEConstants.APPLICATION_SYSTEMID_1_3};
 		else if (moduleFile.isEJBJarFile())
-			return new String[]{ArchiveConstants.EJBJAR_PUBLICID_2_0, ArchiveConstants.EJBJAR_SYSTEMID_2_0};
+			return new String[]{J2EEConstants.EJBJAR_PUBLICID_2_0, J2EEConstants.EJBJAR_SYSTEMID_2_0};
 		else if (moduleFile.isApplicationClientFile())
-			return new String[]{ArchiveConstants.APP_CLIENT_PUBLICID_1_3, ArchiveConstants.APP_CLIENT_SYSTEMID_1_3};
+			return new String[]{J2EEConstants.APP_CLIENT_PUBLICID_1_3, J2EEConstants.APP_CLIENT_SYSTEMID_1_3};
 		else if (moduleFile.isWARFile())
-			return new String[]{ArchiveConstants.WEBAPP_PUBLICID_2_3, ArchiveConstants.WEBAPP_SYSTEMID_2_3};
+			return new String[]{J2EEConstants.WEBAPP_PUBLICID_2_3, J2EEConstants.WEBAPP_SYSTEMID_2_3};
 		else if (moduleFile.isRARFile())
-			return new String[]{ArchiveConstants.CONNECTOR_PUBLICID_1_0, ArchiveConstants.CONNECTOR_SYSTEMID_1_0};
+			return new String[]{J2EEConstants.CONNECTOR_PUBLICID_1_0, J2EEConstants.CONNECTOR_SYSTEMID_1_0};
 		else
 			return null;
 	}
@@ -730,6 +732,7 @@ public class ArchiveUtil {
 				if (in != null)
 					in.close();
 			} catch (IOException ex) {
+				//Ignore
 			}
 		}
 	}
@@ -792,23 +795,23 @@ public class ArchiveUtil {
 	private static int lookupVersion(ModuleFile moduleFile, String schemaName) {
 		int version = -1;
 		if (moduleFile.isEARFile()) {
-			if (schemaName.equals(ArchiveConstants.APPLICATION_SCHEMA_1_4)) {
+			if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_1_4)) {
 				version = J2EEVersionConstants.J2EE_1_4_ID;
 			}
 		} else if (moduleFile.isEJBJarFile()) {
-			if ((schemaName.indexOf(ArchiveConstants.EJBJAR_SCHEMA_2_1_NS)) != -1) {
+			if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_2_1_NS)) != -1) {
 				version = J2EEVersionConstants.EJB_2_1_ID;
 			}
 		} else if (moduleFile.isApplicationClientFile()) {
-			if (schemaName.equals(ArchiveConstants.APP_CLIENT_SCHEMA_1_4)) {
+			if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_1_4)) {
 				version = J2EEVersionConstants.J2EE_1_4_ID;
 			}
 		} else if (moduleFile.isWARFile()) {
-			if (schemaName.equals(ArchiveConstants.WEBAPP_SCHEMA_2_4)) {
+			if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_2_4)) {
 				version = J2EEVersionConstants.WEB_2_4_ID;
 			}
 		} else if (moduleFile.isRARFile()) {
-			if (schemaName.equals(ArchiveConstants.CONNECTOR_SCHEMA_1_5)) {
+			if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_1_5)) {
 				version = J2EEVersionConstants.JCA_1_5_ID;
 			}
 		}
@@ -818,39 +821,39 @@ public class ArchiveUtil {
 	private static int lookupVersion(ModuleFile moduleFile, String publicID, String systemID) {
 		int version = -1;
 		if (moduleFile.isEARFile()) {
-			if (publicID.equals(ArchiveConstants.APPLICATION_PUBLICID_1_3) && systemID.equals(ArchiveConstants.APPLICATION_SYSTEMID_1_3)) {
+			if (publicID.equals(J2EEConstants.APPLICATION_PUBLICID_1_3) && systemID.equals(J2EEConstants.APPLICATION_SYSTEMID_1_3)) {
 				version = J2EEVersionConstants.J2EE_1_3_ID;
-			} else if (publicID.equals(ArchiveConstants.APPLICATION_PUBLICID_1_2) && systemID.equals(ArchiveConstants.APPLICATION_SYSTEMID_1_2)) {
+			} else if (publicID.equals(J2EEConstants.APPLICATION_PUBLICID_1_2) && systemID.equals(J2EEConstants.APPLICATION_SYSTEMID_1_2)) {
 				version = J2EEVersionConstants.J2EE_1_2_ID;
 			} else {
 				version = J2EEVersionConstants.J2EE_1_4_ID;
 			}
 		} else if (moduleFile.isEJBJarFile()) {
-			if (publicID.equals(ArchiveConstants.EJBJAR_PUBLICID_2_0) && systemID.equals(ArchiveConstants.EJBJAR_SYSTEMID_2_0)) {
+			if (publicID.equals(J2EEConstants.EJBJAR_PUBLICID_2_0) && systemID.equals(J2EEConstants.EJBJAR_SYSTEMID_2_0)) {
 				version = J2EEVersionConstants.EJB_2_0_ID;
-			} else if (publicID.equals(ArchiveConstants.EJBJAR_PUBLICID_1_1) && systemID.equals(ArchiveConstants.EJBJAR_SYSTEMID_1_1)) {
+			} else if (publicID.equals(J2EEConstants.EJBJAR_PUBLICID_1_1) && systemID.equals(J2EEConstants.EJBJAR_SYSTEMID_1_1)) {
 				version = J2EEVersionConstants.EJB_1_1_ID;
 			} else {
 				version = J2EEVersionConstants.EJB_2_1_ID;
 			}
 		} else if (moduleFile.isApplicationClientFile()) {
-			if (publicID.equals(ArchiveConstants.APP_CLIENT_PUBLICID_1_3) && systemID.equals(ArchiveConstants.APP_CLIENT_SYSTEMID_1_3)) {
+			if (publicID.equals(J2EEConstants.APP_CLIENT_PUBLICID_1_3) && systemID.equals(J2EEConstants.APP_CLIENT_SYSTEMID_1_3)) {
 				version = J2EEVersionConstants.J2EE_1_3_ID;
-			} else if (publicID.equals(ArchiveConstants.APP_CLIENT_PUBLICID_1_2) && systemID.equals(ArchiveConstants.APP_CLIENT_SYSTEMID_1_2)) {
+			} else if (publicID.equals(J2EEConstants.APP_CLIENT_PUBLICID_1_2) && systemID.equals(J2EEConstants.APP_CLIENT_SYSTEMID_1_2)) {
 				version = J2EEVersionConstants.J2EE_1_2_ID;
 			} else {
 				version = J2EEVersionConstants.J2EE_1_4_ID;
 			}
 		} else if (moduleFile.isWARFile()) {
-			if (publicID.equals(ArchiveConstants.WEBAPP_PUBLICID_2_3) && systemID.equals(ArchiveConstants.WEBAPP_SYSTEMID_2_3)) {
+			if (publicID.equals(J2EEConstants.WEBAPP_PUBLICID_2_3) && systemID.equals(J2EEConstants.WEBAPP_SYSTEMID_2_3)) {
 				version = J2EEVersionConstants.WEB_2_3_ID;
-			} else if (publicID.equals(ArchiveConstants.WEBAPP_PUBLICID_2_2) && systemID.equals(ArchiveConstants.WEBAPP_SYSTEMID_2_2)) {
+			} else if (publicID.equals(J2EEConstants.WEBAPP_PUBLICID_2_2) && systemID.equals(J2EEConstants.WEBAPP_SYSTEMID_2_2)) {
 				version = J2EEVersionConstants.WEB_2_2_ID;
 			} else {
 				version = J2EEVersionConstants.WEB_2_4_ID;
 			}
 		} else if (moduleFile.isRARFile()) {
-			if (publicID.equals(ArchiveConstants.CONNECTOR_PUBLICID_1_0) && systemID.equals(ArchiveConstants.CONNECTOR_SYSTEMID_1_0)) {
+			if (publicID.equals(J2EEConstants.CONNECTOR_PUBLICID_1_0) && systemID.equals(J2EEConstants.CONNECTOR_SYSTEMID_1_0)) {
 				version = J2EEVersionConstants.JCA_1_0_ID;
 			} else {
 				version = J2EEVersionConstants.JCA_1_5_ID;

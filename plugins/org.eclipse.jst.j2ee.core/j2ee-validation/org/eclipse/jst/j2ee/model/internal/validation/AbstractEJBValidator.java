@@ -89,6 +89,7 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	 * @param targets
 	 */
 	protected void preRemoveOldMessages(IEJBValidationContext vc, IFileDelta[] delta, Map targets) throws ValidationException {
+		//Default
 	}
 	/**
 	 * @return
@@ -109,7 +110,8 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	 *      org.eclipse.wst.validation.internal.core.core.IReporter,
 	 *      org.eclipse.wst.validation.internal.core.core.IFileDelta[])
 	 */
-	public void validate(IValidationContext helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {	
+	public void validate(IValidationContext helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
+		//Default
 	}
 	
     public void run(IValidationRule rule, Object targetParent, Object target) throws ValidationException {
@@ -166,6 +168,7 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 		private Object _target = null;
 		
 		public TargetObject() {
+			//Default
 		}
 		
 		public Object getTargetParent() {

@@ -29,7 +29,7 @@ public class J2EEMigrationStatus implements J2EESpecificationMigrationConstants 
 	public static final int WARNING = 3;
 	public static final int ERROR = 4; 
 
-    public static final J2EEMigrationStatus OK_STATUS = new J2EEMigrationStatus(COMPLETED_OK, "");
+    public static final J2EEMigrationStatus OK_STATUS = new J2EEMigrationStatus(COMPLETED_OK, ""); //$NON-NLS-1$
 
 	private static final J2EEMigrationStatus[] EmptyStatusArray = new J2EEMigrationStatus[0];
 
@@ -39,6 +39,7 @@ public class J2EEMigrationStatus implements J2EESpecificationMigrationConstants 
 	private EObject targetObject;
 	
 	J2EEMigrationStatus() {
+		//Default
 	}
 
 	public J2EEMigrationStatus(int aSeverity, String aMessage) {

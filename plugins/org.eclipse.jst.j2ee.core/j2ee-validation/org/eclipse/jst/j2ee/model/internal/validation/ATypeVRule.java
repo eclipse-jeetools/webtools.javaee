@@ -69,7 +69,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 			}
 
 			if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 				vc.addMessage(message);
 			}
 
@@ -413,7 +413,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 					// argument or result. Read section 12.2.2 of the EJB 2.0 specification.
 					// IWAD4043 = Because {0} implements {1}, "this" must not be passed as a method
 					// argument or result. Read section 7.10.2 of the EJB 2.0 specification.
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2040, IEJBValidationContext.INFO, bean, clazz, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2040, IEJBValidationContext.INFO, bean, clazz, this);
 					vc.addMessage(message);
 				}
 			}
@@ -447,9 +447,9 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 					// of the EJB 2.0 specification.
 					// IWAD4286 = This class must implement java.ejb.EntityBean. Read section 12.2.2
 					// of the EJB 2.0 specification.
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, new String[]{superType.getJavaName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, new String[]{superType.getJavaName()}, this);
 					vc.addMessage(message);
-				};
+				}
 			}
 		}
 	}
@@ -461,7 +461,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 	}
 
 	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
 		vc.addMessage(message);
 	}
 
@@ -490,13 +490,13 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 
 		if (fieldOrMethod instanceof Field) {
 			String name = ((Field) fieldOrMethod).getName();
-			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, (Field) fieldOrMethod, new String[]{name, typeName}, this);
+			message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, (Field) fieldOrMethod, new String[]{name, typeName}, this);
 		} else if (fieldOrMethod instanceof Method) {
 			String name = ((Method) fieldOrMethod).getMethodElementSignature();
-			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, (Method) fieldOrMethod, new String[]{name, typeName}, this);
+			message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, (Method) fieldOrMethod, new String[]{name, typeName}, this);
 		} else {
 			String name = ((XMIResource) fieldOrMethod.eResource()).getID(fieldOrMethod);
-			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, new String[]{name, typeName}, this);
+			message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, new String[]{name, typeName}, this);
 		}
 		if (badClazz == null) {
 			Logger logger = vc.getMsgLogger();

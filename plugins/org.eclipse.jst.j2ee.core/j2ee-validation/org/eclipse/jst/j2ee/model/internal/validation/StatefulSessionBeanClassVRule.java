@@ -235,13 +235,13 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 			try {
 				JavaHelpers ss = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean);
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ss)) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2003I, IEJBValidationContext.INFO, bean, bean.getEjbClass(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2003I, IEJBValidationContext.INFO, bean, bean.getEjbClass(), this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { ValidationRuleUtility.getQualifiedName(bean.getEjbClass()), ValidationRuleUtility.getQualifiedName(e.getJavaClass())};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IEJBValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2907, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

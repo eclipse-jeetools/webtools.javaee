@@ -23,4 +23,5 @@ import org.eclipse.jst.j2ee.common.Description;
  * @generated
  */
 public interface DescriptionType extends Description{
-} // DescriptionType
+// DescriptionType
+}

@@ -185,6 +185,7 @@ public class FileDups {
 				if (zip != null)
 					zip.close();
 			} catch (java.io.IOException ignored) {
+				//Ignore
 			}
 		}
 

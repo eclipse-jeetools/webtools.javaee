@@ -160,6 +160,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 					}
 				}
 			} catch (java.io.FileNotFoundException depJarNotInEAR) {
+				//Ignore
 			}
 		}
 		throw new ClassNotFoundException(name);

@@ -297,7 +297,9 @@ public void addWarning(String bundleName, String msgId, String[] msgArgs, Object
 /**
  * Perform any resource cleanup once validation is complete. 
  */
-public void cleanup() {}
+public void cleanup() {
+	//Default
+}
 /**
  * Perform any resource cleanup once validation is complete. If cleanup will
  * take some time, the IValidator should report subtask information to the
@@ -305,7 +307,9 @@ public void cleanup() {}
  * null.
  * @deprecated Use cleanup()
  */
-public void cleanup(IReporter reporter) {}
+public void cleanup(IReporter reporter) {
+	//Default
+}
 /**
  * Returns the name of the Validator, as it should be displayed in the UI.
  * The ValidationBuilder uses this string as input to the IProgressMonitor.
@@ -421,8 +425,8 @@ public String[] getParam1(String string1){
 	 parms[0] = string1;
 	 return parms;
 	 }
-	protected void initialize()
-	{
+	protected void initialize(){
+		//Default
 	}
 /**
  * This is the method which performs the validation on the MOF model.

@@ -51,7 +51,7 @@ public abstract class AKeyClassVRule extends ATypeVRule {
 		// CHKJ2241 = {0} must be a legal Value Type in RMI-IIOP. Read section 10.6.13 of the EJB 2.0 specification.
 		// CHKJ2376 = {0} must be a legal Value Type in RMI-IIOP. Read section 12.2.12 of the EJB 2.0 specification.
 		if(!ValidationRuleUtility.isLegalRMI_IIOPType(bean, clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2019, IEJBValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2019, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 	}

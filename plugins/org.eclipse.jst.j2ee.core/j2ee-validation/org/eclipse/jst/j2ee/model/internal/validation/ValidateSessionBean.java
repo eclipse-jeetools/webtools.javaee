@@ -406,7 +406,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 			 */
 			try {
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean))) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2003E, IEJBValidationContext.ERROR, bean, bean.getEjbClass(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2003E, IEJBValidationContext.ERROR, bean, bean.getEjbClass(), this);
 					vc.addMessage(message);
 				}
 			}
@@ -414,7 +414,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 				String beanClassName = (bean.getEjbClass() == null) ? IEJBValidatorConstants.NULL_BEAN_CLASS : bean.getEjbClass().getJavaName();
 				String eClass = (e.getJavaClass() == null) ? ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION : e.getJavaClass().getJavaName(); // Since only getType throws InvalidInputException, this cannot have been thrown because of the bean class
 				String[] msgParm = { beanClassName, eClass };
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2433, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -433,13 +433,13 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 			 */
 			try {
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean))) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2003I, IEJBValidationContext.INFO, bean, bean.getEjbClass(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2003I, IEJBValidationContext.INFO, bean, bean.getEjbClass(), this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { bean.getEjbClass().getQualifiedName(), e.getJavaClass().getQualifiedName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2907, IEJBValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2907, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -506,7 +506,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		ValidationRuleUtility.isValidTypeHierarchy(bean, remote);
 		if (ValidationRuleUtility.isAssignableFrom(clazz, remote)) {
 			String[] msgParm = {clazz.getQualifiedName(), remote.getQualifiedName()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2040, IEJBValidationContext.INFO, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2040, IEJBValidationContext.INFO, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 

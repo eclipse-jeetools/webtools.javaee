@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseLibrary;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseWARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.WarFileDynamicClassLoader;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -156,7 +157,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	}
 
 	public String getDeploymentDescriptorUri() {
-		return ArchiveConstants.WEBAPP_DD_URI;
+		return J2EEConstants.WEBAPP_DD_URI;
 	}
 
 
@@ -178,7 +179,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
 	public java.util.List getResources() {
-		String[] prefixes = {ArchiveConstants.META_INF, ArchiveConstants.WEB_INF};
+		String[] prefixes = {J2EEConstants.META_INF, J2EEConstants.WEB_INF};
 		return filterFilesWithoutPrefix(prefixes);
 	}
 
@@ -257,7 +258,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 		for (Iterator iter = filesList.iterator(); iter.hasNext();) {
 			File file = (File) iter.next();
 			String aUri = file.getURI();
-			if (aUri.startsWith(ArchiveConstants.WEB_INF) && !aUri.startsWith(ArchiveConstants.WEBAPP_LIB_URI))
+			if (aUri.startsWith(J2EEConstants.WEB_INF) && !aUri.startsWith(ArchiveConstants.WEBAPP_LIB_URI))
 				retFiles.add(file);
 		}
 		return retFiles;
@@ -333,7 +334,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 */
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		WebApp webApp = ((WebapplicationPackage) EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI)).getWebapplicationFactory().createWebApp();
-		resource.setID(webApp, ArchiveConstants.WEBAPP_ID);
+		resource.setID(webApp, J2EEConstants.WEBAPP_ID);
 		setDeploymentDescriptorGen(webApp);
 		resource.getContents().add(webApp);
 		return webApp;

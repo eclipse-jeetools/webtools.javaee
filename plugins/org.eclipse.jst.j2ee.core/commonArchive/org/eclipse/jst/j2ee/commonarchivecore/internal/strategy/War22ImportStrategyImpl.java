@@ -15,9 +15,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.strategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminatorImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 
@@ -28,7 +28,7 @@ public class War22ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
 		public boolean canImport(Archive anArchive) {
-			return anArchive.containsFile(ArchiveConstants.WEBAPP_DD_URI);
+			return anArchive.containsFile(J2EEConstants.WEBAPP_DD_URI);
 		}
 
 		/**
@@ -39,7 +39,7 @@ public class War22ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("WAR_File"), ArchiveConstants.WEBAPP_DD_URI); //$NON-NLS-1$ = "WAR File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.getString("WAR_File"), J2EEConstants.WEBAPP_DD_URI); //$NON-NLS-1$ = "WAR File"
 		}
 
 		public Archive createConvertedArchive() {

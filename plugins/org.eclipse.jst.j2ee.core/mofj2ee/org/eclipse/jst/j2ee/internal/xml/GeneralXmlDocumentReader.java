@@ -301,6 +301,7 @@ public class GeneralXmlDocumentReader
 	        domParser.setAttribute("http://apache.org/xml/features/allow-java-encodings", new Boolean(doAllowJavaEncodings())); //$NON-NLS-1$
 	        domParser.setExpandEntityReferences(true);
 		} catch(IllegalArgumentException e) {
+			//Ignore
 		}
     }
 

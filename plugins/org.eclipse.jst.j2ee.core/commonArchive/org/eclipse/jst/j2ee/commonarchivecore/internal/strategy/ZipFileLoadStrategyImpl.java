@@ -54,6 +54,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 		try {
 			getZipFile().close();
 		} catch (Throwable t) {
+			//Ignore
 		}
 	}
 

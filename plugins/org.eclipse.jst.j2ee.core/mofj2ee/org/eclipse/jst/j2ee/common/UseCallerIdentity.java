@@ -17,6 +17,7 @@ package org.eclipse.jst.j2ee.common;
 
  */
 public interface UseCallerIdentity extends SecurityIdentity{
+	//UseCallerIdentity
 }
 
 

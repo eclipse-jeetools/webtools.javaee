@@ -356,7 +356,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		vc.terminateIfCancelled();
 		if (!isSingleObjectFinder(vc, bean, clazz, method)) {
 			String remoteIntfName = bean.getRemoteInterface().getName(); // Can assume that remote interface isn't null, or isSingleObjectFinder would have thrown an InvalidInputException.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntfName }, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntfName }, this);
 			vc.addMessage(message);
 		}
 	}
@@ -491,7 +491,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 			       ValidationRuleUtility.isAssignableFromEnumeration(returnType, bean) || 
 			       ValidationRuleUtility.isAssignableFrom(returnType, remoteIntf))) {
 				String[] msgParm = { remoteIntf.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

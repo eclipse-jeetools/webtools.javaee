@@ -16,6 +16,7 @@ package org.eclipse.jst.j2ee.application;
 
  */
 public interface JavaClientModule extends Module{
+	//JavaClientModule
 }
 
 

@@ -15,9 +15,9 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.strategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminatorImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.jca.Connector;
 
@@ -29,7 +29,7 @@ public class RarImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
 		public boolean canImport(Archive anArchive) {
-			return anArchive.containsFile(ArchiveConstants.RAR_DD_URI);
+			return anArchive.containsFile(J2EEConstants.RAR_DD_URI);
 		}
 
 		/**
@@ -40,7 +40,7 @@ public class RarImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("RAR_File"), ArchiveConstants.RAR_DD_URI); //$NON-NLS-1$ = "RAR File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.getString("RAR_File"), J2EEConstants.RAR_DD_URI); //$NON-NLS-1$ = "RAR File"
 		}
 
 		public Archive createConvertedArchive() {
@@ -68,7 +68,7 @@ public class RarImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		if (discriminator == null) {
 			discriminator = new Discriminator();
 			// Connectors use their own special entity resolver for now...
-			J2EEXmlDtDEntityResolver.registerDtD(ArchiveConstants.CONNECTOR_SYSTEMID_1_0, "connector_1_0.dtd"); //$NON-NLS-1$
+			J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.CONNECTOR_SYSTEMID_1_0, "connector_1_0.dtd"); //$NON-NLS-1$
 		}
 		return discriminator;
 	}

@@ -209,7 +209,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 			String superTypeName = getEJBInheritanceFileName();
 			if(superTypeName == null)
 			  superTypeName = "unknown super type"; //$NON-NLS-1$
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{superTypeName, bean.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{superTypeName, bean.getName()}, this);
 			vc.addMessage(message);
 			Logger logger = vc.getMsgLogger();
 			if(logger != null && logger.isLoggingLevel(Level.SEVERE)) {
@@ -241,7 +241,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 
 				if ((thisKey == null) || (parentKey == null) || !thisKey.equals(parentKey)) {
 					String[] msgParm = new String[] { bean.getName(), parentKey.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2106, IEJBValidationContext.ERROR, bean, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2106, IEJBValidationContext.ERROR, bean, msgParm, this);
 					vc.addMessage(message);
 				}
 			}

@@ -107,6 +107,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * classes compile. 
 	 */
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+		//Default
 	}
 	
 	/**
@@ -125,7 +126,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
 		vc.removeMessages(clazz);
 	
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
 		vc.addMessage(message);
 	}
 	
@@ -139,7 +140,7 @@ public abstract class AValidateEJB extends AValidationRule {
 		else {
 			msgParm = new String[] {javaClassName}; // MessageUtility will substitute in the name of the field
 		}
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, field, msgParm, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, field, msgParm, this);
 		vc.addMessage(message);
 	}
 	
@@ -153,7 +154,7 @@ public abstract class AValidateEJB extends AValidationRule {
 		else {
 			msgParm = new String[] {javaClassName}; // MessageUtility will substitute in the name of the field
 		}
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, method, msgParm, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, method, msgParm, this);
 		vc.addMessage(message);
 	}
 	
@@ -213,6 +214,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	}
 	
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+		//Default
 	}
 	
 	public final void validateFields(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz)  throws ValidationCancelledException, InvalidInputException, ValidationException {

@@ -28,4 +28,5 @@ import org.eclipse.jst.j2ee.common.QName;
  * @generated
  */
 public interface WSDLPort extends QName{
-} // WSDLPort
+ // WSDLPort
+}

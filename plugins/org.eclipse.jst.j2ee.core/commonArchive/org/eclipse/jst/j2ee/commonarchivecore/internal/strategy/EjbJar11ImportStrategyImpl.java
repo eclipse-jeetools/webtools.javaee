@@ -15,10 +15,10 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.strategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminatorImpl;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 
 
 /**
@@ -28,7 +28,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
 		public boolean canImport(Archive anArchive) {
-			return anArchive.containsFile(ArchiveConstants.EJBJAR_DD_URI);
+			return anArchive.containsFile(J2EEConstants.EJBJAR_DD_URI);
 		}
 
 		/**
@@ -39,7 +39,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("EJB_Jar_File"), ArchiveConstants.EJBJAR_DD_URI); //$NON-NLS-1$ = "EJB Jar File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.getString("EJB_Jar_File"), J2EEConstants.EJBJAR_DD_URI); //$NON-NLS-1$ = "EJB Jar File"
 		}
 
 		public Archive createConvertedArchive() {

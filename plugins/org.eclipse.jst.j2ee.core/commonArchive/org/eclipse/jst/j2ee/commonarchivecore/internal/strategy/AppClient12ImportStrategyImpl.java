@@ -16,9 +16,9 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminatorImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 
 
 /**
@@ -28,7 +28,7 @@ public class AppClient12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
 		public boolean canImport(Archive anArchive) {
-			return anArchive.containsFile(ArchiveConstants.APP_CLIENT_DD_URI);
+			return anArchive.containsFile(J2EEConstants.APP_CLIENT_DD_URI);
 		}
 
 		/**
@@ -39,7 +39,7 @@ public class AppClient12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		}
 
 		public String getUnableToOpenMessage() {
-			return getXmlDDMessage(CommonArchiveResourceHandler.getString("Application_Client_Jar_Fil"), ArchiveConstants.APP_CLIENT_DD_URI); //$NON-NLS-1$ = "Application Client Jar File"
+			return getXmlDDMessage(CommonArchiveResourceHandler.getString("Application_Client_Jar_Fil"), J2EEConstants.APP_CLIENT_DD_URI); //$NON-NLS-1$ = "Application Client Jar File"
 		}
 
 		public Archive createConvertedArchive() {

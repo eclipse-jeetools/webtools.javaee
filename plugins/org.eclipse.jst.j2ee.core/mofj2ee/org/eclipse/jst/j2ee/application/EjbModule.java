@@ -16,6 +16,7 @@ package org.eclipse.jst.j2ee.application;
 
  */
 public interface EjbModule extends Module{
+	//EjbModule
 }
 
 

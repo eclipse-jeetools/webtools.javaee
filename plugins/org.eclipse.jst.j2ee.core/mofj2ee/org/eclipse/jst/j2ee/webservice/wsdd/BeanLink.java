@@ -23,4 +23,5 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface BeanLink extends EObject{
-} // BeanLink
+ // BeanLink
+}

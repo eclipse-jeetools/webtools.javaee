@@ -32,10 +32,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.util.Defaultable;
 import org.eclipse.jst.j2ee.webapplication.FilterMapping;
 import org.eclipse.wst.common.internal.emf.utilities.CopyGroup;
@@ -177,14 +177,16 @@ public class ArchiveCopyUtility extends EtoolsCopyUtility {
 			copy.setManifest(copy(source.getManifest()));
 		} else {
 			try {
-				File manifestToCopy = source.getFile(ArchiveConstants.MANIFEST_URI);
+				File manifestToCopy = source.getFile(J2EEConstants.MANIFEST_URI);
 				if (manifestToCopy != null) {
 					File copiedManifest = (File) getCopy(manifestToCopy);
 					copiedManifest.setLoadingContainer(manifestToCopy.getLoadingContainer());
 					copy.addCopy(copiedManifest);
 				}
 			} catch (FileNotFoundException e) {
+				//Ignore
 			} catch (DuplicateObjectException e) {
+				//Ignore
 			}
 		}
 		retrieveResourcesFromCopy(copy, group);

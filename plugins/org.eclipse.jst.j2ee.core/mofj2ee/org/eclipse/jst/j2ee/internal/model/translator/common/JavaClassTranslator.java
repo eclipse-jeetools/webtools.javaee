@@ -86,7 +86,9 @@ public class JavaClassTranslator extends Translator {
 						Object javaClass = null;
 						try {
 							javaClass = JavaRefFactory.eINSTANCE.reflectType(qualifiedName, rs);
-						} catch (Exception e) {}
+						} catch (Exception e) {
+							//Ignore
+						}
 						if (javaClass != null)
 							return javaClass;
 					}
@@ -102,7 +104,7 @@ public class JavaClassTranslator extends Translator {
 		for (; startIndex < characters.length && characters[startIndex] == '.'; startIndex++);
 		int qualifiedNameEnd = qualifiedName.length() - 1;
 		int endIndex = qualifiedNameEnd;
-		for (; endIndex > -1 && characters[endIndex] == '.'; endIndex--);
+		for (; endIndex > -1 && characters[endIndex] == '.'; endIndex--)
 		if (startIndex == 0 && endIndex == qualifiedNameEnd)
 			return qualifiedName;
 		return qualifiedName.substring(startIndex, endIndex + 1);

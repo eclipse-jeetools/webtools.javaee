@@ -350,6 +350,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 			try {
 				return getDeploymentDescriptorResource();
 			} catch (java.io.FileNotFoundException fnfEx) {
+				//Ignore
 			}
 		}
 		makeDeploymentDescriptor(resource);

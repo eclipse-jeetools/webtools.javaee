@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
@@ -82,7 +82,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 * @see com.ibm.etools.commonarchive.impl.ModuleFileImpl
 	 */
 	public java.lang.String getDeploymentDescriptorUri() {
-		return ArchiveConstants.APP_CLIENT_DD_URI;
+		return J2EEConstants.APP_CLIENT_DD_URI;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 */
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		ApplicationClient aClient = ((ClientPackage) EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI)).getClientFactory().createApplicationClient();
-		resource.setID(aClient, ArchiveConstants.APP_CLIENT_ID);
+		resource.setID(aClient, J2EEConstants.APP_CLIENT_ID);
 		setDeploymentDescriptorGen(aClient);
 		resource.getContents().add(aClient);
 		return aClient;

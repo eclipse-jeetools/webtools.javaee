@@ -18,4 +18,5 @@ import org.eclipse.jst.j2ee.internal.IWrappedException;
  * @see org.eclipse.jst.j2ee.internal.exception.IWrappedException
  */
 public interface IArchiveWrappedException extends IWrappedException {
+	//Default
 }

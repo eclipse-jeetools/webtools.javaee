@@ -130,7 +130,7 @@ public class DescriptionGroupHelper
     }
     else //must be J2EE 1.3 (JSR-109 1.0)
     {
-      values = new String[1];;
+      values = new String[1];
       if (lang)
       {
         //return null since language cannot be specified in J2EE 1.3.
@@ -171,7 +171,7 @@ public class DescriptionGroupHelper
     }
     else //must be J2EE 1.3 (JSR-109 1.0)
     {
-      values = new String[1];;
+      values = new String[1];
       if (lang)
       {
         //return null since language cannot be specified in J2EE 1.3.
@@ -211,7 +211,7 @@ public class DescriptionGroupHelper
     }
     else //must be J2EE 1.3 (JSR-109 1.0)
     {
-      values = new String[1];;
+      values = new String[1];
       if (lang)
       {
         //return null since language cannot be specified in J2EE 1.3.
@@ -583,7 +583,7 @@ public class DescriptionGroupHelper
     }
     else //must be J2EE 1.3 (JSR-109 1.0)
     {
-      values = new String[1];;
+      values = new String[1];
       if (lang)
       {
         //return null since language cannot be specified in J2EE 1.3.
@@ -623,7 +623,7 @@ public class DescriptionGroupHelper
     }
     else //must be J2EE 1.3 (JSR-109 1.0)
     {
-      values = new String[1];;
+      values = new String[1];
       if (lang)
       {
         //return null since language cannot be specified in J2EE 1.3.
@@ -663,7 +663,7 @@ public class DescriptionGroupHelper
     }
     else //must be J2EE 1.3 (JSR-109 1.0)
     {
-      values = new String[1];;
+      values = new String[1];
       if (lang)
       {
         //return null since language cannot be specified in J2EE 1.3.
@@ -703,7 +703,7 @@ public class DescriptionGroupHelper
     }
     else //must be J2EE 1.3 (JSR-109 1.0)
     {
-      values = new String[1];;
+      values = new String[1];
       if (lang)
       {
         //return null since language cannot be specified in J2EE 1.3.
@@ -965,7 +965,7 @@ public class DescriptionGroupHelper
       case DescriptionGroupItem.LARGE_ICON:
         setLargeIcon(webServiceDescription, isJ2EE14, value, setLang);        
         //break;        
-      default:;
+      default:
     }
   }
 
@@ -1178,7 +1178,7 @@ public class DescriptionGroupHelper
       case DescriptionGroupItem.LARGE_ICON:
         setLargeIcon(portComponent, isJ2EE14, value, setLang);        
         //break;        
-      default: ;
+      default: 
     }
   }
 

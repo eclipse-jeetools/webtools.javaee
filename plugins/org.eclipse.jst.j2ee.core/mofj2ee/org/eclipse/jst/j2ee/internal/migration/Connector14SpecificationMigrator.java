@@ -42,7 +42,7 @@ public class Connector14SpecificationMigrator {
 	public J2EEMigrationStatus migrateConnectorTo14(Connector connector) {
 		 migrateResourceAdaptor(connector);
 		 return new J2EEMigrationStatus(J2EEMigrationStatus.COMPLETED_OK,(
-		 	new J2EEMigrationStatus()).format(J2EESpecificationMigrator.DEFAULT_COMPLETED_STATUS_MSG,connector.getDisplayName()));
+		 	new J2EEMigrationStatus()).format(J2EESpecificationMigrationConstants.DEFAULT_COMPLETED_STATUS_MSG,connector.getDisplayName()));
 	}
 	
 	/**

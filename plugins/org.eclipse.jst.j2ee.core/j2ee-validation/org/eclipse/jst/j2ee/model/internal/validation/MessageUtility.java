@@ -42,6 +42,7 @@ public final class MessageUtility {
 	private static MessageUtility inst = null;
 
 	private MessageUtility() {
+		//Default
 	}
 	
 	public static MessageUtility getUtility() {

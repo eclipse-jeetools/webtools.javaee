@@ -23,4 +23,5 @@ import org.eclipse.jst.j2ee.common.DisplayName;
  * @generated
  */
 public interface DisplayNameType extends DisplayName{
-} // DisplayNameType
+// DisplayNameType
+}

@@ -21,6 +21,8 @@ import java.util.logging.Level;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.EjbRefType;
 import org.eclipse.jst.j2ee.common.EnvEntry;
@@ -40,9 +42,6 @@ import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This class checks ejb-jar.xml for errors or potential errors.
@@ -258,11 +257,11 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 		}
 		catch (InvalidInputException exc) {
 			if (bean.eIsSet(EjbPackage.eINSTANCE.getEnterpriseBean_EjbClass())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2802_NAMED, IEJBValidationContext.ERROR, bean, new String[] { bean.getEjbClass().getQualifiedName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2802_NAMED, IEJBValidationContext.ERROR, bean, new String[] { bean.getEjbClass().getQualifiedName()}, this);
 				vc.addMessage(message);
 			}
 			else {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2802_UNNAMED, IEJBValidationContext.ERROR, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2802_UNNAMED, IEJBValidationContext.ERROR, bean, this);
 				vc.addMessage(message);
 			}
 			isValid = false;
@@ -273,11 +272,11 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 		}
 		catch (InvalidInputException exc) {
 			if (bean.eIsSet(EjbPackage.eINSTANCE.getEnterpriseBean_HomeInterface())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2803_NAMED, IEJBValidationContext.ERROR, bean, new String[] { bean.getHomeInterfaceName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2803_NAMED, IEJBValidationContext.ERROR, bean, new String[] { bean.getHomeInterfaceName()}, this);
 				vc.addMessage(message);
 			}
 			else {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2803_UNNAMED, IEJBValidationContext.ERROR, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2803_UNNAMED, IEJBValidationContext.ERROR, bean, this);
 				vc.addMessage(message);
 			}
 			isValid = false;
@@ -288,11 +287,11 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 		}
 		catch (InvalidInputException exc) {
 			if (bean.eIsSet(EjbPackage.eINSTANCE.getEnterpriseBean_RemoteInterface())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2804_NAMED, IEJBValidationContext.ERROR, bean, new String[] { bean.getRemoteInterfaceName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2804_NAMED, IEJBValidationContext.ERROR, bean, new String[] { bean.getRemoteInterfaceName()}, this);
 				vc.addMessage(message);
 			}
 			else {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2804_UNNAMED, IEJBValidationContext.ERROR, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2804_UNNAMED, IEJBValidationContext.ERROR, bean, this);
 				vc.addMessage(message);
 			}
 			isValid = false;
@@ -305,11 +304,11 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			}
 			catch (InvalidInputException exc) {
 				if (((Entity) bean).eIsSet(EjbPackage.eINSTANCE.getEntity_PrimaryKey())) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2810_NAMED, IEJBValidationContext.ERROR, bean, new String[] { ((Entity) bean).getPrimaryKeyName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2810_NAMED, IEJBValidationContext.ERROR, bean, new String[] { ((Entity) bean).getPrimaryKeyName()}, this);
 					vc.addMessage(message);
 				}
 				else {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2810_UNNAMED, IEJBValidationContext.ERROR, bean, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2810_UNNAMED, IEJBValidationContext.ERROR, bean, this);
 					vc.addMessage(message);
 				}
 				isValid = false;
@@ -324,7 +323,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			ContainerManagedEntity cmp = (ContainerManagedEntity) bean;
 			List fields = cmp.getPersistentAttributes();
 			if ((fields == null) || (fields.size() == 0)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2812, IEJBValidationContext.ERROR, bean, new String[] { bean.getEjbClassName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2812, IEJBValidationContext.ERROR, bean, new String[] { bean.getEjbClassName()}, this);
 				vc.addMessage(message);
 				return;
 			}
@@ -349,11 +348,11 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				field = attrib.getField();
 				if (field == null) {
 					if (attrib.getName() != null) {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2811_NAMED, IEJBValidationContext.ERROR, bean, new String[] { attrib.getName(), bean.getEjbClassName()}, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2811_NAMED, IEJBValidationContext.ERROR, bean, new String[] { attrib.getName(), bean.getEjbClassName()}, this);
 						vc.addMessage(message);
 					}
 					else {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2811_UNNAMED, IEJBValidationContext.ERROR, bean, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2811_UNNAMED, IEJBValidationContext.ERROR, bean, this);
 						vc.addMessage(message);
 					}
 					continue;
@@ -371,7 +370,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				}
 				catch (InvalidInputException exc) {
 					// field not identified
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2830, IEJBValidationContext.WARNING, bean, new String[] { field.getName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2830, IEJBValidationContext.WARNING, bean, new String[] { field.getName()}, this);
 					vc.addMessage(message);
 				}
 			}
@@ -392,7 +391,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 					}
 
 					if (!fieldNames.contains(keyField.getName())) {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2831, IEJBValidationContext.WARNING, bean, new String[] { keyField.getName()}, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2831, IEJBValidationContext.WARNING, bean, new String[] { keyField.getName()}, this);
 						vc.addMessage(message);
 					}
 				}
@@ -483,7 +482,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 		*/
 		catch (Throwable exc) {
 			// If there's a problem, proceed with the next bean.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[] { bean.getName() }, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[] { bean.getName() }, this);
 			vc.addMessage(message);
 			Logger logger = vc.getMsgLogger();
 			if (logger != null && logger.isLoggingLevel(Level.SEVERE)) {
@@ -499,7 +498,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 
 		String name = bean.getName();
 		if ((name == null) || (name.equals(""))) { //$NON-NLS-1$
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2801, IEJBValidationContext.ERROR, bean, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2801, IEJBValidationContext.ERROR, bean, this);
 			vc.addMessage(message);
 		}
 	}
@@ -569,7 +568,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 					}
 					if (wrongType) {
 						String[] parms = { namedEjb.getName(), type };
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2835, IEJBValidationContext.INFO, bean, parms, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2835, IEJBValidationContext.INFO, bean, parms, this);
 						vc.addMessage(message);
 					}
 				}
@@ -587,7 +586,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				// Don't duplicate that effort here.
 				String ejbName = ref.getName();
 				if (!ejbName.startsWith("ejb/")) { //$NON-NLS-1$
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2838, IEJBValidationContext.INFO, bean, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2838, IEJBValidationContext.INFO, bean, this);
 					vc.addMessage(message);
 				}
 			}
@@ -643,7 +642,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				envNames.add(envEntry.getName());
 			}
 			else {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2839, IEJBValidationContext.WARNING, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2839, IEJBValidationContext.WARNING, bean, this);
 				vc.addMessage(message);
 			}
 
@@ -651,12 +650,12 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				// 14.2.1.2; type must be one of these types: String, Integer, Boolean, Double, Byte, Short, Long, and Float.
 				int type = envEntry.getType().getValue();
 				if (!((type == EnvEntryType.BOOLEAN) || (type == EnvEntryType.BYTE) || (type == EnvEntryType.DOUBLE) || (type == EnvEntryType.FLOAT) || (type == EnvEntryType.INTEGER) || (type == EnvEntryType.LONG) || (type == EnvEntryType.SHORT) || (type == EnvEntryType.STRING))) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2840, IEJBValidationContext.WARNING, bean, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2840, IEJBValidationContext.WARNING, bean, this);
 					vc.addMessage(message);
 				}
 			}
 			else {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2840, IEJBValidationContext.WARNING, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2840, IEJBValidationContext.WARNING, bean, this);
 				vc.addMessage(message);
 			}
 		}
@@ -665,7 +664,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			Iterator dups = envNames.getDuplicates().iterator();
 			while (dups.hasNext()) {
 				String name = (String) dups.next();
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2841, IEJBValidationContext.WARNING, bean, new String[] { name }, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2841, IEJBValidationContext.WARNING, bean, new String[] { name }, this);
 				vc.addMessage(message);
 			}
 		}
@@ -699,7 +698,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 					// is of the same type as the one used by the bean.
 					if (!ValidationRuleUtility.isAssignableFrom(type.getWrapper(), intfType)) {
 						String[] parms = { namedEjb.getName(), intfType.getName()};
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2836, IEJBValidationContext.INFO, bean, parms, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2836, IEJBValidationContext.INFO, bean, parms, this);
 						vc.addMessage(message);
 					}
 				}
@@ -714,7 +713,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 
 		if (!validType) {
 			String[] parms = { ref.getHome()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2832, IEJBValidationContext.INFO, bean, parms, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2832, IEJBValidationContext.INFO, bean, parms, this);
 			vc.addMessage(message);
 		}
 	}
@@ -728,7 +727,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			// check syntax
 			Entity entityBean = (Entity) bean;
 			if (!(entityBean.isContainerManagedEntity() || entityBean.isBeanManagedEntity())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2809, IEJBValidationContext.ERROR, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2809, IEJBValidationContext.ERROR, bean, this);
 				vc.addMessage(message);
 			}
 		}
@@ -746,7 +745,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 					// 9.4.7.1
 					// user has specified both a prim-key-class and a primkey-field
 					// can't use the CMPAttribute's field's name, because the primitive primary key returned is null
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2828, IEJBValidationContext.ERROR, bean, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2828, IEJBValidationContext.ERROR, bean, this);
 					vc.addMessage(message);
 				}
 			}
@@ -767,7 +766,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			if (!entity.isSetReentrant()) {
 				// Can only test if the reentrant attribute is set, because the model defaults it
 				// to some boolean value if it isn't set.
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2806, IEJBValidationContext.ERROR, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2806, IEJBValidationContext.ERROR, bean, this);
 				vc.addMessage(message);
 			}
 		}
@@ -801,7 +800,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 					// is of the same type as the one used by the bean.
 					if (!ValidationRuleUtility.isAssignableFrom(type.getWrapper(), intfType)) {
 						String[] parms = { namedEjb.getName(), intfType.getName()};
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2837, IEJBValidationContext.INFO, bean, parms, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2837, IEJBValidationContext.INFO, bean, parms, this);
 						vc.addMessage(message);
 					}
 				}
@@ -816,7 +815,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 
 		if (!validType) {
 			String[] parms = { ref.getRemote()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2833, IEJBValidationContext.INFO, bean, parms, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2833, IEJBValidationContext.INFO, bean, parms, this);
 			vc.addMessage(message);
 		}
 	}
@@ -955,7 +954,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				if ((roleName == null) || (roleName.equals(""))) { //$NON-NLS-1$
 					roleName = ""; //$NON-NLS-1$
 					String beanName = (bean.getName() == null) ? "" : bean.getName(); //$NON-NLS-1$
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2822, IEJBValidationContext.WARNING, ref, new String[] { beanName }, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2822, IEJBValidationContext.WARNING, ref, new String[] { beanName }, this);
 					vc.addMessage(message);
 				}
 				else {
@@ -969,12 +968,12 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 
 				if ((areSRolesDefined) && (!isLinkDefined)) {
 					// must have role link defined (15.3.3)
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2823, IEJBValidationContext.WARNING, ref, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2823, IEJBValidationContext.WARNING, ref, this);
 					vc.addMessage(message);
 				}
 				else if ((!areSRolesDefined) && (isLinkDefined)) {
 					// must not have role link defined (15.2.5.3)
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2827, IEJBValidationContext.WARNING, ref, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2827, IEJBValidationContext.WARNING, ref, this);
 					vc.addMessage(message);
 				}
 				else if (areSRolesDefined && isLinkDefined) {
@@ -989,7 +988,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 						}
 					}
 					if (!roleExists) {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2824, IEJBValidationContext.WARNING, ref, new String[] { roleName }, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2824, IEJBValidationContext.WARNING, ref, new String[] { roleName }, this);
 						vc.addMessage(message);
 					}
 				}
@@ -1001,7 +1000,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				List duplicates = roleRefNames.getDuplicates();
 				Iterator iterator = duplicates.iterator();
 				while (iterator.hasNext()) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2820, IEJBValidationContext.WARNING, ((RoleRefWrapper) iterator.next()).getRoleRef(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2820, IEJBValidationContext.WARNING, ((RoleRefWrapper) iterator.next()).getRoleRef(), this);
 					vc.addMessage(message);
 				}
 			}
@@ -1028,7 +1027,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			// check syntax
 			boolean isValidSess = isValidSessionTypeElement(session);
 			if (!isValidSess) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2807, IEJBValidationContext.ERROR, session, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2807, IEJBValidationContext.ERROR, session, this);
 				vc.addMessage(message);
 			}
 		}
@@ -1039,7 +1038,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 			// check syntax
 			Session sessionBean = (Session) bean;
 			if (!isValidTransactionTypeElement(sessionBean)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2808, IEJBValidationContext.ERROR, bean, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2808, IEJBValidationContext.ERROR, bean, this);
 				vc.addMessage(message);
 			}
 		}

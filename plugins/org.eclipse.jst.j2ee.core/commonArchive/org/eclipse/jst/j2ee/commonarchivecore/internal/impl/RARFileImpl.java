@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ConnectorDirecto
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.RarFileDynamicClassLoader;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.Connector;
@@ -144,14 +145,14 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	}
 
 	public String getDeploymentDescriptorUri() {
-		return ArchiveConstants.RAR_DD_URI;
+		return J2EEConstants.RAR_DD_URI;
 	}
 
 	/**
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
 	public java.util.List getResources() {
-		String[] prefixes = {ArchiveConstants.META_INF, ArchiveConstants.WEB_INF};
+		String[] prefixes = {J2EEConstants.META_INF, J2EEConstants.WEB_INF};
 		return filterFilesWithoutPrefix(prefixes);
 	}
 

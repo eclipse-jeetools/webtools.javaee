@@ -31,6 +31,7 @@ public abstract class AbstractEJBValidationRuleFactory {
      * 
      */
     public AbstractEJBValidationRuleFactory() {
+		//Default
     }
 
     protected HashMap _ruleList = null;

@@ -395,7 +395,7 @@ public abstract class AValidateBean extends AValidateEJB {
 	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// The method names can be arbitrary, but they must not start with "ejb" to avoid conflicts with the callback methods used by the EJB architecture.
 		if (method.getName().startsWith(IMethodAndFieldConstants.PREFIX_EJB)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2411, IEJBValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2411, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -482,24 +482,24 @@ public abstract class AValidateBean extends AValidateEJB {
 
 		// For both entity and session beans, the class must be public.
 		if (!clazz.isPublic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2022, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2022, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 
 		// For both entity and session beans, the class must not be abstract.
 		if (clazz.isAbstract()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2014, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2014, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 
 		// For both entity and session beans, the class must not be final.
 		if (clazz.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2015, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2015, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 
 		if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
@@ -582,6 +582,7 @@ public abstract class AValidateBean extends AValidateEJB {
 	}
 	
 	public void validateHelperMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+		//Default
 	}
 	
 	public void validateNoRemoteException(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, String messagePrefix) throws InvalidInputException {
@@ -633,7 +634,7 @@ public abstract class AValidateBean extends AValidateEJB {
 		Iterator eiterator = exceptions.iterator();
 		while(eiterator.hasNext()) {
 			JavaClass exception = (JavaClass)eiterator.next();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2456, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), matchingClazz.getJavaName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2456, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), matchingClazz.getJavaName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -656,13 +657,13 @@ public abstract class AValidateBean extends AValidateEJB {
 				ValidationRuleUtility.isValidType(parentEjbObject);
 				if (!ValidationRuleUtility.isAssignableFrom(thisEjbObject, parentEjbObject)) {
 					String[] msgParm = new String[] { thisEjbObject.getQualifiedName(), parentEjbObject.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2103, IEJBValidationContext.ERROR, bean, thisEjbObject, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2103, IEJBValidationContext.ERROR, bean, thisEjbObject, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

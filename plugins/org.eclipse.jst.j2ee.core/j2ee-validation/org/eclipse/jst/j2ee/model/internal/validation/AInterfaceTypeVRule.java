@@ -53,6 +53,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 	}
 	
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+		//Default
 	}
 	
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {

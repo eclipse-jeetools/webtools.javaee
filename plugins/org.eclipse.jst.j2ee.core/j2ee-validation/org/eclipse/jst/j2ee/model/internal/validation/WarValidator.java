@@ -633,6 +633,7 @@ public void validateErrorPages(EList errorPageList) {
 				}
 			}
 			catch(NumberFormatException exc) {
+				//Ignore
 			}
 		}
 		if ( !valid ) {
@@ -839,7 +840,7 @@ public void validateRefs() {
 				String[] parms = new String[1];
 				parms[0] = ref.getName();
 				addError(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_RES_AUTH_INVALID_23, parms,ref);
-			};
+			}
 
 			// validate res-sharing-scope is allowable value
 			String sharingScope = ref.getResSharingScope().getName();

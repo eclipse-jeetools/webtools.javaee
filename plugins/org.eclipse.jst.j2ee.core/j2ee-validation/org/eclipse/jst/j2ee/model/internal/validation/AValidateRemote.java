@@ -215,12 +215,12 @@ public abstract class AValidateRemote extends AValidateEJB {
 		JavaHelpers javaxEjbObject = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT, bean);
 		if (!ValidationRuleUtility.isAssignableFrom(clazz, javaxEjbObject)) {
 			String[] msgParm = { ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 
 		if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
@@ -258,7 +258,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 		Method beanMethod = ValidationRuleUtility.getMethodExtended(beanClass, remoteMethod, remoteMethod.getName());
 		if (beanMethod == null) {
 			String[] msgParm = { beanClass.getName()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2023, IEJBValidationContext.ERROR, bean, clazz, remoteMethod, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2023, IEJBValidationContext.ERROR, bean, clazz, remoteMethod, msgParm, this);
 			vc.addMessage(message);
 			return;
 		}
@@ -366,13 +366,13 @@ public abstract class AValidateRemote extends AValidateEJB {
 				ValidationRuleUtility.isValidType(parentRemote);
 				if (!ValidationRuleUtility.isAssignableFrom(thisRemote, parentRemote)) {
 					String[] msgParm = new String[] { thisRemote.getQualifiedName(), parentRemote.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2105, IEJBValidationContext.ERROR, bean, thisRemote, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2105, IEJBValidationContext.ERROR, bean, thisRemote, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

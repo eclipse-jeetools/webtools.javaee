@@ -50,6 +50,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 				try {
 					outpath = l.getAbsolutePath();
 				} catch (FileNotFoundException ignore) {
+					//Ignore
 				}
 			}
 		}
@@ -170,6 +171,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 			try {
 				zf = new ZipFile(f);
 			} catch (Exception e) {
+				//Ignore
 			}
 			InputStream in = null;
 			if (zf != null) {
@@ -178,6 +180,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 					try {
 						zf.close();
 					} catch (Exception e) {
+						//Ignore
 					}
 			} else {
 				in = searchDirectory(f, filename);
@@ -252,6 +255,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 		try {
 			url = new URL(uri);
 		} catch (Exception e) {
+			//Ignore
 		}
 		if (url != null)
 			return url;
