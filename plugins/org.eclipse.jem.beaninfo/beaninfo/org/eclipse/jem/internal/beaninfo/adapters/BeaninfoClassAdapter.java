@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.26 $  $Date: 2005/02/04 23:11:53 $ 
+ *  $Revision: 1.27 $  $Date: 2005/02/07 18:18:18 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -623,7 +623,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		IBeanProxy beaninfo = null;
 		try {
 			if (isResourceConnected()) {
-				TimerTests.basicTest.startCumulativeStep(INTROSPECT);
 				// See if are valid kind of class.
 				if (getJavaClass().getKind() == TypeKind.UNDEFINED_LITERAL) {
 					// Not valid, don't let any further introspection occur.
@@ -670,6 +669,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						bca.introspectIfNecessary();
 					}
 
+					TimerTests.basicTest.startCumulativeStep(INTROSPECT);
 					if (retrievedExtensionDocument == RETRIEVED_ROOT_ONLY) {
 						// We need to clear out EVERYTHING because we are coming from an undefined to a defined.
 						// Nothing previous is now valid. (Particularly the root stuff).
@@ -769,10 +769,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 						classEntry = BeanInfoCacheController.INSTANCE.newCache(getJavaClass(), cd, doOperations ? BeanInfoCacheController.REFLECTION_OPERATIONS_CACHE : BeanInfoCacheController.REFLECTION_CACHE);
 						TimerTests.basicTest.stopCumulativeStep(REMOTE_INTROSPECT); 
-					}					
+					}
+					TimerTests.basicTest.stopCumulativeStep(INTROSPECT);
 				}
 				getAdapterFactory().registerIntrospection(getJavaClass().getQualifiedNameForReflection(), this);
-				TimerTests.basicTest.stopCumulativeStep(INTROSPECT);
 			}
 		} finally {
 			if (beaninfo != null) {
