@@ -730,16 +730,16 @@
    		<componentStructuralBuilder 
     	 serverTargetID="default"
      	 componentTypeID="jst.ear"
-    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderDataModel"/>
+    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
    		
    		<componentStructuralBuilder 
     	 serverTargetID="default"
     	 componentTypeID="jst.appclient"
-    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderDataModel"/>
+    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
    		
    		<componentStructuralBuilder 
     	 serverTargetID="default"
     	 componentTypeID="jst.utility"
-    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderDataModel"/>
+    	 componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>
