@@ -191,9 +191,6 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 
-	/**
-	 * @return
-	 */
 	private int getModuleVersion() {
 		return getWebSettings().getModuleVersion();
 	}
