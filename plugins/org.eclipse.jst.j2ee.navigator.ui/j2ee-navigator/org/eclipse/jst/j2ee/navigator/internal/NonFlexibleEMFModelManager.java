@@ -65,8 +65,8 @@ public class NonFlexibleEMFModelManager extends EMFModelManager implements EditM
 		if (editModel != null) {
 			editModel.removeListener(this);
 			editModel.releaseAccess(this);
+			editModel = null;
 		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -122,6 +122,7 @@ public class NonFlexibleEMFModelManager extends EMFModelManager implements EditM
 			if (editModel != null) {
 				editModel.removeListener(this);
 				editModel.releaseAccess(this);
+				editModel = null;
 			}
 		//}
 	}
