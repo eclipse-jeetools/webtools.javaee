@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser.tree;
  *******************************************************************************/
 /*
  *  $RCSfile: ASTParserSuite.java,v $
- *  $Revision: 1.5 $  $Date: 2004/06/02 15:57:16 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/23 18:31:20 $ 
  */
 import junit.extensions.TestSetup;
 import junit.framework.*;
@@ -118,8 +118,12 @@ public class ASTParserSuite extends TestSetup {
 	 * @see junit.extensions.TestSetup#tearDown()
 	 */
 	protected void tearDown() throws Exception {
-		if (registry != null)
+		if (registry != null) {
 			registry.terminateRegistry();
+			Thread.sleep(5000);	// Give it five seconds to REALLY go away. There is a small window between 
+			// terminate request and true shutdown of the remote vm. We return immediately and let a
+			// job wait for the actual true termination.
+		}
 		
 		JavaProjectUtil.deleteProject(JavaProjectUtil.getProject(AST_PROJECT));
 	}
