@@ -9,12 +9,15 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
@@ -48,22 +51,23 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 		IPath absoluteOCP = projectPath.append(outputContainerURI.toString());
 		IFolder outputContainerFolder = createFolder(absoluteOCP);
 
-		// create deployed module folder
-		IPath absoluteDMP = absoluteOCP.append(deployedName);
-		IFolder deployedModuleFolder = createFolder(absoluteDMP);
-
 		// copy resources
 		List resourceList = workbenchModule.getResources();
 		for (int i = 0; i < resourceList.size(); i++) {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
-			URI sourceURI = wmr.getSourcePath();
-			IPath sourcePath = projectPath.append(sourceURI.toString());
-			IResource resource = getWorkspace().getRoot().getFolder(sourcePath);
-			if (resource == null) {
-				resource =  getWorkspace().getRoot().getFile(sourcePath);
-			}
 			URI deployURI = wmr.getDeployedPath();
-			IPath deployPath = absoluteDMP.append(deployURI.toString());
+			IPath deployPath = absoluteOCP.append(deployURI.toString());
+			URI sourceURI = wmr.getSourcePath();
+			IPath sourcePath = new Path(sourceURI.toString());
+			IResource resource = getWorkspace().getRoot().getContainerForLocation(sourcePath);
+			if (resource == null) {
+				resource = getWorkspace().getRoot().getFile(sourcePath);
+			}
+			if (resource == null)
+				continue;
+			IPath parentPath = deployPath.removeLastSegments(1);
+			createFolder(parentPath);
+			
 			resource.copy(deployPath, true, new NullProgressMonitor());
 		}
 	}
@@ -75,6 +79,12 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 	public IFolder createFolder(IPath absolutePath) throws CoreException {
 		if (absolutePath != null && !absolutePath.isEmpty()) {
 			IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
+			// check if the parent is there
+			IContainer parent = folder.getParent();
+			if (!parent.exists()) {
+				if (parent instanceof IFolder)
+					((IFolder)parent).create(true, true, null);
+			}
 			if (!folder.exists())
 				folder.create(true, true, null);
 			return folder;
