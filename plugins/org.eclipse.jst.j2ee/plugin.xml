@@ -43,8 +43,8 @@
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.wst.wsdl"/>
+      <import plugin="org.eclipse.wst.ws.parser"/>
       <import plugin="org.eclipse.jface"/>
-      
    </requires>
 
 
