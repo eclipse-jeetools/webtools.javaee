@@ -8,7 +8,6 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.debug.ui.actions.ILaunchable;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.wst.server.core.IModuleArtifact;
 
 public class WebDeployableArtifactAdapterFactory implements IAdapterFactory {
