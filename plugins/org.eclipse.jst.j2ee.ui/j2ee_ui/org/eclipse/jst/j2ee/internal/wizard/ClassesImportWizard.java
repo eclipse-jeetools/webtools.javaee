@@ -107,6 +107,7 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 				CoreUtility.createFolder((IFolder) res, true, true, null);
 
 			} catch (CoreException e) {
+				//Ignore
 			}
 		}
 
@@ -122,6 +123,7 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 			javaProject.setRawClasspath(newClasspath, null);
 
 		} catch (JavaModelException e) {
+			//Ignore
 		}
 
 		setFolderPath(importedFoldersClass);

@@ -71,4 +71,4 @@ public class ServerTargetComboHelper {
 	public List getValidTargets() {
 		return targets;
 	}
-};
+}

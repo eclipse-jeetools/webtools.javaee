@@ -125,9 +125,11 @@ public class ImportUtil {
 							archiveType |= J2EE14;
 					}
 				} catch (Exception e) {
+					//Ignore
 				}
 
 			} catch (Exception e) {
+				//Ignore
 			}
 			if (archiveType == UNKNOWN && isImportClassType(fileName))
 				archiveType = IMPORTCLASSTYPE;
@@ -152,6 +154,7 @@ public class ImportUtil {
 			else if (anArchive.isEARFile())
 				type = EARFILE;
 		} catch (Exception e) {
+			//Ignore
 		}
 		return type;
 	}

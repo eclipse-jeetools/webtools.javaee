@@ -148,6 +148,7 @@ public class J2EEUIMessages extends Messages {
 		try {
 			resourceBundle = ResourceBundle.getBundle("j2ee_ui"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
+			//Ignore
 		}
 	}
 

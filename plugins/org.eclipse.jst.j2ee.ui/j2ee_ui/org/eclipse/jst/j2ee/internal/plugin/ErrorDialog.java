@@ -134,6 +134,7 @@ public class ErrorDialog extends MessageDialog {
 			baos.flush();
 			text.setText(baos.toString());
 		} catch (IOException e) {
+			//Ignore
 		}
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL | GridData.VERTICAL_ALIGN_FILL | GridData.GRAB_VERTICAL);
 		data.heightHint = text.getLineHeight() * TEXT_LINE_COUNT;
@@ -183,7 +184,6 @@ public class ErrorDialog extends MessageDialog {
 			label.setText(message);
 			GridData data = new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_CENTER);
 			data.widthHint = convertHorizontalDLUsToPixels(IDialogConstants.MINIMUM_MESSAGE_AREA_WIDTH);
-			;
 			label.setLayoutData(data);
 			label.setFont(parent.getFont());
 		}

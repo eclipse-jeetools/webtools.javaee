@@ -109,7 +109,7 @@ public class J2EEDeployAction extends BaseAction {
 			}
 			return false;
 		} catch (RuntimeException e) {
-			System.out.println("Deploy Action recovering from problem verifying enablement.");
+			System.out.println("Deploy Action recovering from problem verifying enablement."); //$NON-NLS-1$
 			e.printStackTrace();
 		}
 		return false;

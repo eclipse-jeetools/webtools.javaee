@@ -81,6 +81,7 @@ public class AvailableModuleProjectsProvider implements IStructuredContentProvid
 			} else if (project.hasNature(JavaCore.NATURE_ID))
 				return true;
 		} catch (CoreException e) {
+			//Ignore
 		}
 		return false;
 	}
@@ -119,6 +120,7 @@ public class AvailableModuleProjectsProvider implements IStructuredContentProvid
 	 *      java.lang.Object, java.lang.Object)
 	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		//do nothing
 	}
 
 	/*
@@ -127,6 +129,7 @@ public class AvailableModuleProjectsProvider implements IStructuredContentProvid
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
 	public void addListener(ILabelProviderListener listener) {
+		//do nothing
 	}
 
 	/*
@@ -145,5 +148,6 @@ public class AvailableModuleProjectsProvider implements IStructuredContentProvid
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
 	public void removeListener(ILabelProviderListener listener) {
+		//do nothing
 	}
 }

@@ -108,7 +108,7 @@ public abstract class AbstractActionDelegate implements org.eclipse.ui.IActionDe
 	 * @deprecated use {@link #primRun(Shell)}
 	 */
 	protected void primRun(IProject project, Shell shell) {
-
+		//Deprecated
 	}
 
 	/**

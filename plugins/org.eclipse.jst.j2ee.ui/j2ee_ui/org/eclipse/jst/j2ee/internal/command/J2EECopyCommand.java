@@ -74,5 +74,6 @@ public class J2EECopyCommand extends AbstractCommand {
 	 * decision also.
 	 */
 	public void redo() {
+		//redo
 	}
 }

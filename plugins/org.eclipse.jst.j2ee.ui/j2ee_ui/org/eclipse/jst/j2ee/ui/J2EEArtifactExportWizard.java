@@ -90,7 +90,7 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 	 * </p>
 	 */
 	protected void doInit() {
-
+		//init
 	}
 
 	/**
@@ -99,6 +99,7 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 	 * </p>
 	 */
 	private void doDispose() {
+		//dispose
 	}
 
 	/**

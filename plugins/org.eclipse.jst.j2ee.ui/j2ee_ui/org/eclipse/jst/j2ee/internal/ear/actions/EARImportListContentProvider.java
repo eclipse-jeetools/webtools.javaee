@@ -30,6 +30,7 @@ public class EARImportListContentProvider implements org.eclipse.jface.viewers.I
 	 * Disposes of this content provider. This is called by the viewer when it is disposed.
 	 */
 	public void dispose() {
+		//dispose
 	}
 
 	/**
@@ -66,5 +67,6 @@ public class EARImportListContentProvider implements org.eclipse.jface.viewers.I
 	 *            the new input element, or <code>null</code> if the viewer does not have an input
 	 */
 	public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
+		//do nothing
 	}
 }

@@ -290,6 +290,7 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 		} catch (InvocationTargetException e) {
 			handleException(e);
 		} catch (InterruptedException e) {
+			//Ignore
 		}
 	}
 

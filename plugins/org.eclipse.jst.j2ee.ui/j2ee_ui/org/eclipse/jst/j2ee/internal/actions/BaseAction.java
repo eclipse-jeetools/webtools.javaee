@@ -35,12 +35,9 @@ import org.eclipse.ui.IWorkbenchWindow;
  */
 public abstract class BaseAction extends Action implements IActionDelegate {
 
-	private final static String ERROR_OCCURRED_TITLE = "!!!!Error";//EJBUIResourceHandler.getString("ERROR_OCCURRED_TITLE");
-	// //$NON-NLS-1$
-	// //$NON-NLS-1$
-	private final static String ERROR_OCCURRED_MESSAGE = "!!@!!Error";//EJBUIResourceHandler.getString("ERROR_OCCURRED_MESSAGE");
-	// //$NON-NLS-1$
-	// //$NON-NLS-1$
+	private final static String ERROR_OCCURRED_TITLE = "!!!!Error"; //$NON-NLS-1$
+
+	private final static String ERROR_OCCURRED_MESSAGE = "!!@!!Error"; //$NON-NLS-1$
 
 	protected IStructuredSelection selection = null;
 
@@ -78,7 +75,7 @@ public abstract class BaseAction extends Action implements IActionDelegate {
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
 	public void dispose() {
-
+		//dispose
 	}
 
 	/*
@@ -87,7 +84,7 @@ public abstract class BaseAction extends Action implements IActionDelegate {
 	 * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
 	 */
 	public void init(IAction action) {
-
+		//init
 	}
 
 

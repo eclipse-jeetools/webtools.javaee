@@ -18,28 +18,19 @@ import org.eclipse.core.internal.boot.PlatformURLConnection;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
-import org.eclipse.jst.j2ee.webapplication.Servlet;
-import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.wst.server.core.internal.ServerPlugin;
 
 
 /**
@@ -128,6 +119,7 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 				else if (anArchive.isEARFile())
 					type = ImportUtil.EARFILE;
 			} catch (Exception e) {
+				//Ignore
 			}
 		} finally {
 			if (anArchive != null)

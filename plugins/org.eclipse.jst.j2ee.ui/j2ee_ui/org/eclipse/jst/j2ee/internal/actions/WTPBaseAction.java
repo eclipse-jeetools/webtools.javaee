@@ -68,7 +68,7 @@ public abstract class WTPBaseAction extends Action implements IActionDelegate2 {
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
 	public void dispose() {
-
+		//dispose
 	}
 
 	/*
@@ -77,7 +77,7 @@ public abstract class WTPBaseAction extends Action implements IActionDelegate2 {
 	 * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
 	 */
 	public void init(IAction action) {
-
+		//init
 	}
 
 

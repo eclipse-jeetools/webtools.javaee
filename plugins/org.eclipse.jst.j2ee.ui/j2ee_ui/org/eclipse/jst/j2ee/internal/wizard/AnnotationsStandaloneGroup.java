@@ -63,6 +63,7 @@ public class AnnotationsStandaloneGroup {
 		}
 
 		public void widgetDefaultSelected(SelectionEvent e) {
+			//do nothing
 		}
 	}
 

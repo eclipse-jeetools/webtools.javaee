@@ -98,6 +98,7 @@ public class ServerEarAndStandaloneGroup {
 				}
 
 				public void widgetDefaultSelected(SelectionEvent e) {
+					//do nothing
 				}
 			});
 
@@ -117,6 +118,7 @@ public class ServerEarAndStandaloneGroup {
 				}
 
 				public void widgetDefaultSelected(SelectionEvent e) {
+					//do nothing
 				}
 
 			});

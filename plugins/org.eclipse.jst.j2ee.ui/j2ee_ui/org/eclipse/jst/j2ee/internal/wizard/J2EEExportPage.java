@@ -168,6 +168,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 	}
 
 	protected void createProjectFilesCheckbox(Composite composite) {
+		//do nothing
 	}
 
 	/**

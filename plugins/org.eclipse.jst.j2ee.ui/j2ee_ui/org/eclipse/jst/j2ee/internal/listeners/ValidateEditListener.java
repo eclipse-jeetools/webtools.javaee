@@ -150,6 +150,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	 * @see IPartListener#partBroughtToTop(IWorkbenchPart)
 	 */
 	public void partBroughtToTop(IWorkbenchPart part) {
+		//do nothing
 	}
 
 	/**
@@ -185,6 +186,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	 * @see IPartListener#partOpened(IWorkbenchPart)
 	 */
 	public void partOpened(IWorkbenchPart part) {
+		//do nothing
 	}
 
 	public IStatus validateState() {

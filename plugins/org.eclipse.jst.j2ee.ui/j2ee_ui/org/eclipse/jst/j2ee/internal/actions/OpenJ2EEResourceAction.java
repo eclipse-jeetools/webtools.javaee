@@ -11,8 +11,6 @@
 package org.eclipse.jst.j2ee.internal.actions;
 
 
-import java.util.List;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -296,15 +294,16 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	/**
 	 * Return the web service file
 	 */
-	private IResource getWebService(IProject p) {
-		List files = ProjectUtilities.getAllProjectFiles(p);
-		for (int i = 0; i < files.size(); i++) {
-			IFile file = (IFile) files.get(i);
-			if (file.getFullPath().toString().endsWith("webservices.xml")) //$NON-NLS-1$
-				return file;
-		}
-		return null;
-	}
+	//TODO webservices remove for M3
+//	private IResource getWebService(IProject p) {
+//		List files = ProjectUtilities.getAllProjectFiles(p);
+//		for (int i = 0; i < files.size(); i++) {
+//			IFile file = (IFile) files.get(i);
+//			if (file.getFullPath().toString().endsWith("webservices.xml")) //$NON-NLS-1$
+//				return file;
+//		}
+//		return null;
+//	}
 
 	/**
 	 * The structured selection has changed in the workbench. Subclasses should override this method

@@ -44,9 +44,8 @@ public class ManifestUIResourceHandler {
 			} catch (MissingResourceException e) {
 				return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
 			}
-		} else {
-			return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
-		}
+		} 
+		return "!" + key + "!";//$NON-NLS-2$//$NON-NLS-1$
 	}
 public static String getString(String key, Object[] args) {
 

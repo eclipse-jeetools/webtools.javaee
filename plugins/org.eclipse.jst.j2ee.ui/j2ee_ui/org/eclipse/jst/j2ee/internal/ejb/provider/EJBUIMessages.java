@@ -75,6 +75,7 @@ public class EJBUIMessages extends Messages {
 		try {
 			resourceBundle = ResourceBundle.getBundle("j2ee_ejb_ui"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
+			//Ignore
 		}
 	}
 

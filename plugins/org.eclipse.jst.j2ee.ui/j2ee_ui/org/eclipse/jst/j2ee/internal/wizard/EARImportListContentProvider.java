@@ -89,8 +89,10 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 	}
 
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		//do nothing
 	}
 
 	public void dispose() {
+		//dispose
 	}
 }

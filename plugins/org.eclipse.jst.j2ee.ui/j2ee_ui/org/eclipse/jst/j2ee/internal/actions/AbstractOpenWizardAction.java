@@ -34,6 +34,7 @@ public abstract class AbstractOpenWizardAction extends org.eclipse.jface.action.
 	private boolean fAcceptEmptySelection;
 
 	protected AbstractOpenWizardAction() {
+		//Default constructor
 	}
 
 	public AbstractOpenWizardAction(IWorkbench workbench, String label, Class[] activatedOnTypes, boolean acceptEmptySelection) {

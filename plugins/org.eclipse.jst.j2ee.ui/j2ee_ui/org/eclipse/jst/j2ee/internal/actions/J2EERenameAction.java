@@ -268,6 +268,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 		} catch (InvocationTargetException e) {
 			handleException(e);
 		} catch (InterruptedException e) {
+			//Ignore
 		}
 	}
 
@@ -313,6 +314,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 				if (runtime != null)
 					runtime.setContextRoot(newContextRoot);
 			} catch (Throwable t) {
+				//Ignore
 			}
 		}
 	}

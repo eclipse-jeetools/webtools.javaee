@@ -139,6 +139,7 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	 * </p>
 	 */
 	protected void doInit() {
+		//init
 	}
 
 	/**
@@ -147,6 +148,7 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	 * </p>
 	 */
 	protected void doDispose() {
+		//dispose
 	}
 
 	/**

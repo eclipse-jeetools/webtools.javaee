@@ -22,8 +22,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class WorkspaceModifyComposedOperation extends org.eclipse.ui.actions.WorkspaceModifyOperation {
-	private final static String copyright = "(c) Copyright IBM Corporation 2001.";//$NON-NLS-1$
-
+	
 	protected List fRunnables;
 
 	public WorkspaceModifyComposedOperation(ISchedulingRule rule) {

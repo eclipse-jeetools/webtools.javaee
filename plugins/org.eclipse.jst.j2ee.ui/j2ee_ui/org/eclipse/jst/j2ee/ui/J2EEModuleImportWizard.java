@@ -148,6 +148,7 @@ public abstract class J2EEModuleImportWizard extends J2EEArtifactImportWizard im
 					importModel.setProperty(J2EEModuleImportDataModel.EAR_PROJECT, targetEARProject.getName());
 			}
 		} catch (Exception e) {
+			//Ignore
 		}
 	}
 

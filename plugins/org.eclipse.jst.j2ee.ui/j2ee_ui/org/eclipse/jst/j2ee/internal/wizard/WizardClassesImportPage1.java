@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -387,6 +386,7 @@ class WizardClassesImportPage1 extends WizardResourceImportPage implements Liste
 			 * @see KeyListener.keyReleased
 			 */
 			public void keyReleased(KeyEvent e) {
+				//do nothing
 			}
 		});
 

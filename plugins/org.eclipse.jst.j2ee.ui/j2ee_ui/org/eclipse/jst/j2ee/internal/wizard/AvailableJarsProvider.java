@@ -47,6 +47,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 *            a label provider listener
 	 */
 	public void addListener(org.eclipse.jface.viewers.ILabelProviderListener listener) {
+		//do nothing
 	}
 
 	/**
@@ -56,6 +57,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * this method is called when the provider is no longer needed.
 	 */
 	public void dispose() {
+		//dispose
 	}
 
 	/**
@@ -201,6 +203,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 *            the new input element, or <code>null</code> if the viewer does not have an input
 	 */
 	public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
+		//do nothing
 	}
 
 	/**
@@ -227,5 +230,6 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 *            a label provider listener
 	 */
 	public void removeListener(org.eclipse.jface.viewers.ILabelProviderListener listener) {
+		//do nothing
 	}
 }

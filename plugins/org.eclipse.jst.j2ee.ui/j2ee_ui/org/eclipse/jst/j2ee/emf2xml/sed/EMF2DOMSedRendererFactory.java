@@ -20,6 +20,7 @@ public class EMF2DOMSedRendererFactory extends RendererFactory {
 	public static final EMF2DOMSedRendererFactory INSTANCE = new EMF2DOMSedRendererFactory();
 
 	public EMF2DOMSedRendererFactory() {
+		//Default constructor
 	}
 
 	/*

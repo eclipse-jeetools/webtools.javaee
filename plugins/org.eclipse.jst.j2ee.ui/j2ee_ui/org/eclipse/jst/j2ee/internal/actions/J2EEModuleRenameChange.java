@@ -73,7 +73,7 @@ public class J2EEModuleRenameChange extends Change {
 	 * @see org.eclipse.ltk.core.refactoring.Change#initializeValidationData(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public void initializeValidationData(IProgressMonitor pm) {
-
+		//Do nothing
 	}
 
 	/*
@@ -108,7 +108,9 @@ public class J2EEModuleRenameChange extends Change {
 			}
 
 		} catch (InvocationTargetException e) {
+			//Ignore
 		} catch (InterruptedException e) {
+			//Ignore
 		}
 		return null;
 	}

@@ -84,6 +84,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 		}
 
 		public void controlMoved(ControlEvent e) {
+			//do nothing
 		}
 
 		public void controlResized(ControlEvent e) {
@@ -195,6 +196,7 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
+				//do nothing
 			}
 		});
 		advancedButton.addListener(SWT.MouseHover, new Listener() {

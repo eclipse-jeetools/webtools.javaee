@@ -74,7 +74,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
 	public void dispose() {
-
+		//Dispose
 	}
 
 	/*
@@ -83,7 +83,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
 	 */
 	public void init(IAction action) {
-
+		//init
 	}
 
 	/*

@@ -196,8 +196,7 @@ public class RenameEARComposite extends Composite implements J2EERenameUIConstan
 		// create the list
 		projectsList = CheckboxTableViewer.newCheckList(radioComposite, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		projectsList.setLabelProvider(createLabelProvider());
-		projectsList.setSorter(new ViewerSorter() {
-		});
+		projectsList.setSorter(new ViewerSorter() {/*viewersorter*/});
 		projectsList.addCheckStateListener(this);
 		// fill the list
 		populateList();
@@ -234,6 +233,7 @@ public class RenameEARComposite extends Composite implements J2EERenameUIConstan
 	protected ITableLabelProvider createLabelProvider() {
 		return new ITableLabelProvider() {
 			public void dispose() {
+				//dispose
 			}
 
 			public Image getColumnImage(Object element, int columnIndex) {
@@ -248,6 +248,7 @@ public class RenameEARComposite extends Composite implements J2EERenameUIConstan
 			}
 
 			public void addListener(ILabelProviderListener listener) {
+				//do nothing
 			}
 
 			public boolean isLabelProperty(Object element, String property) {
@@ -255,6 +256,7 @@ public class RenameEARComposite extends Composite implements J2EERenameUIConstan
 			}
 
 			public void removeListener(ILabelProviderListener listener) {
+				//do nothing
 			}
 		};
 	}

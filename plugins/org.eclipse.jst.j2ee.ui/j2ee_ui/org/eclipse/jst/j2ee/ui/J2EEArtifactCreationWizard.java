@@ -156,6 +156,7 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * </p>
 	 */
 	protected void doInit() {
+		//init
 	}
 
 	/**
@@ -164,6 +165,7 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * </p>
 	 */
 	protected void doDispose() {
+		//dispose
 	}
 
 	/**

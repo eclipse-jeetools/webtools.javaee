@@ -75,5 +75,6 @@ public class WebSettingsStateInputProvider implements ResourceStateInputProvider
 	 * @see ResourceStateInputProvider#cacheNonResourceValidateState(List)
 	 */
 	public void cacheNonResourceValidateState(List arg0) {
+		//Do nothing
 	}
 }

@@ -116,6 +116,7 @@ public abstract class J2EEJavaClassProviderHelper implements IAdaptable {
 		try {
 			J2EEEditorUtility.openInEditor(getJavaClass(), project);
 		} catch (Exception cantOpen) {
+			//Ignore
 		}
 	}
 

@@ -44,6 +44,7 @@ import org.eclipse.swt.graphics.Image;
 public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentProvider, ITableLabelProvider {
 
 	public AvailableUtilJarsAndWebLibProvider() {
+		//Default constructor
 	}
 
 	/*

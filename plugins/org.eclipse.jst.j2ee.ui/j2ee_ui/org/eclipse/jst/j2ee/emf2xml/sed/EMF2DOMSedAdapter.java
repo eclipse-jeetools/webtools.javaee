@@ -167,7 +167,7 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 	}
 
 	protected EMF2DOMAdapter primGetExistingAdapter(Node aNode) {
-		return (EMF2DOMAdapter) ((XMLNode) aNode).getExistingAdapter(EMF2DOMAdapterImpl.ADAPTER_CLASS);
+		return (EMF2DOMAdapter) ((XMLNode) aNode).getExistingAdapter(EMF2DOMAdapter.ADAPTER_CLASS);
 
 	}
 
@@ -317,14 +317,14 @@ public class EMF2DOMSedAdapter extends EMF2DOMAdapterImpl implements INodeAdapte
 	 * Do nothing for SED, we will tolerate anything they add
 	 */
 	protected void handleInvalidMultiNodes(String nodeName) {
-
+		//Do nothing
 	}
 
 	/*
 	 * Do nothing for SED, we will tolerate anything they add
 	 */
 	protected void handleFeatureValueConversionException(FeatureValueConversionException ex) {
-
+		//Do nothing
 	}
 
 

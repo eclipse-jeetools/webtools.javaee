@@ -156,6 +156,7 @@ public class UIProjectUtilities {
 							projects.add(project);
 
 					} catch (CoreException e) {
+						//Ignore
 					}
 				} else
 					projects.add(project);
@@ -198,6 +199,7 @@ public class UIProjectUtilities {
 								projects.add(project);
 
 					} catch (CoreException e) {
+						//Ignore
 					}
 				} else
 					projects.add(project);

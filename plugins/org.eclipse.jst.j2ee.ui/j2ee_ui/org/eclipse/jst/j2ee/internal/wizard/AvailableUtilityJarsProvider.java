@@ -38,6 +38,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 public class AvailableUtilityJarsProvider implements IStructuredContentProvider, ITableLabelProvider {
 
 	public AvailableUtilityJarsProvider() {
+		//default constructor
 	}
 
 	/*
@@ -117,7 +118,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
 	 */
 	public void dispose() {
-
+		//dispose
 	}
 
 	/*
@@ -127,7 +128,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 *      java.lang.Object, java.lang.Object)
 	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-
+		//do nothing
 	}
 
 	/*
@@ -136,6 +137,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
 	public void addListener(ILabelProviderListener listener) {
+		//do nothing
 	}
 
 	/*
@@ -154,7 +156,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
 	public void removeListener(ILabelProviderListener listener) {
-
+		//do nothing
 	}
 
 }

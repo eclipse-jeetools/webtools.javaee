@@ -146,9 +146,11 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 	}
 
 	public void modelResourceDeleted(IStructuredModel model) {
+		//Do nothing
 	}
 
 	public void modelResourceMoved(IStructuredModel oldModel, IStructuredModel newModel) {
+		//Do nothing
 	}
 
 	/**

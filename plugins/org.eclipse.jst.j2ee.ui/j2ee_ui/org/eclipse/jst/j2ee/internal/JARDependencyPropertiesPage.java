@@ -27,7 +27,6 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
@@ -38,7 +37,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.layout.GridData;
@@ -101,14 +99,14 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
 
         IContainer root = null;
         IFile manifestFile = null;
-        J2EENature nature = (J2EENature) J2EENature.getRegisteredRuntime(project);
+        J2EENature nature = J2EENature.getRegisteredRuntime(project);
         if (nature != null)
             root = nature.getEMFRoot();
         else
             root = ProjectUtilities.getSourceFolderOrFirst(project, null);
 
         if (root != null)
-            manifestFile = root.getFile(new Path(ArchiveConstants.MANIFEST_URI));
+            manifestFile = root.getFile(new Path(J2EEConstants.MANIFEST_URI));
 
         if (manifestFile == null || !manifestFile.exists())
             return;
@@ -130,6 +128,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
                 try {
                     in.close();
                 } catch (IOException weTried) {
+                	//Ignore
                 }
             }
         }
@@ -270,9 +269,9 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
     public CheckboxTableViewer createAvailableJARsViewer(Composite parent) {
         int flags = SWT.CHECK | SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI;
 
-        CheckboxTableViewer availableJARsViewer = new CheckboxTableViewer(parent, flags);
+        Table table = new Table(parent,flags);
+        CheckboxTableViewer availableJARsViewer = new CheckboxTableViewer(table);
 
-        Table table = availableJARsViewer.getTable();
         // set up table layout
         TableLayout tableLayout = new org.eclipse.jface.viewers.TableLayout();
         tableLayout.addColumnData(new ColumnWeightData(200, true));
@@ -424,7 +423,7 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         return true;
     }
     protected IHeadlessRunnableWithProgress createBuildPathOperation() {
-        IJavaProject javaProject = J2EEProjectUtilities.getJavaProject(project);
+        IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
         return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
     }
     protected UpdateManifestOperation createManifestOperation() {

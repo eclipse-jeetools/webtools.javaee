@@ -24,7 +24,6 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class UpdateManifestOperation implements org.eclipse.jface.operation.IRunnableWithProgress {
-	private final static String copyright = "(c) Copyright IBM Corporation 2001.";//$NON-NLS-1$
 	protected String projectName;
 	protected String classPathValue;
 	protected boolean replace;

@@ -129,6 +129,7 @@ public class J2EEEditorUtility {
 						return pkgFrags[i];
 				}
 			} catch (JavaModelException e) {
+				//Ignore
 			}
 		}
 		return null;

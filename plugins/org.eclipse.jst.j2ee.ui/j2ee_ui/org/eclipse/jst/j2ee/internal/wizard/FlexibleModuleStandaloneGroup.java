@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
@@ -34,7 +35,7 @@ public class FlexibleModuleStandaloneGroup {
 		spacer.setLayoutData(gd1);
 		// Add annotations checkbox and label
 		useFlexibleProject = new Button(parent, SWT.CHECK);
-		useFlexibleProject.setText("Use flexible project structure");
+		useFlexibleProject.setText(J2EEUIMessages.getResourceString("Flexible_Structure")); //$NON-NLS-1$
 		synchHelper.synchCheckbox(useFlexibleProject, J2EEModuleCreationDataModel.IS_FLEXIBLE_PROJECT, null);
 		
 		GridData gd2 = new GridData(GridData.FILL_HORIZONTAL);
