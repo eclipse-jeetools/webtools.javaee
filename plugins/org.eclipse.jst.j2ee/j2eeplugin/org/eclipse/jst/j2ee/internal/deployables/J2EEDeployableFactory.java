@@ -46,7 +46,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
         super();
     }
 
-    protected void addModuleProject(IProject project) {
+/*    protected void addModuleProject(IProject project) {
         if (!isFlexableProject(project)) {
             super.addModuleProject(project);
             return;
@@ -66,39 +66,36 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
         if (added == null)
             added = new ArrayList(2);
         added.addAll(modules);
-    }
+    }*/
 
-    /**
+/*    *//**
      * @param newModules
-     */
+     *//*
     private void addNewModules(List newModules, List oldModules) {
         for (int i = 0; i < newModules.size(); i++) {
             if (!oldModules.contains(newModules.get(i)))
                 oldModules.add(newModules.get(i));
         }
 
-    }
+    }*/
 
-    protected void removeModuleProject(IProject project) {
-        if (!getProjectModules().containsKey(project)) {
-            super.removeModuleProject(project);
-            return;
-        }
-        try {
-            List modules = (List) getProjectModules().get(project);
-            getProjectModules().remove(project);
-            //modules.remove(module.getId());
-            if (removed == null)
-                removed = new ArrayList(2);
-            removed.addAll(modules);
-        } catch (Exception e) {
-            Trace.trace(Trace.SEVERE, "Error removing module project", e);
-        }
-    }
 
-    private List createModules(IProject project) {
+
+    protected IModule[] createModules(IProject project) {
+    	
+    	// List modules = createModules(nature);
+        ModuleCoreNature nature = null;
+    	 try {
+            nature = (ModuleCoreNature) project.getNature(IModuleConstants.MODULE_NATURE_ID);
+        } catch (CoreException e) {
+            Logger.getLogger().write(e);
+        }
+        List modules = createModules(nature);
+        IModule[] moduleArray = new IModule[modules.size()]; 
+        modules.toArray(moduleArray);
+        
         // TODO Auto-generated method stub
-        return null;
+        return moduleArray;
     }
 
     /**
@@ -144,20 +141,6 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
     public abstract IModule createModule(J2EENature nature);
 
-    protected void handleProjectChange(IProject project, IResourceDelta delta) {
-        if (projects == null)
-            cacheModules();
-        if (getProjectModules().containsKey(project)) {
-            if (((delta.getKind() & IResourceDelta.REMOVED) != 0) || !isValidModule(project)) {
-                removeModuleProject(project);
-            }
-        }else {  
-            super.handleProjectChange(project, delta);
-        }
-
-       
-    }
-
     public ModuleDelegate getModuleDelegate(IModule module) {
         for (Iterator iter = moduleDelegates.iterator(); iter.hasNext();) {
             ModuleDelegate element = (ModuleDelegate) iter.next();
@@ -167,49 +150,6 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
         return null;
     }
 
-    public IModule[] getModules() {
-        if (!getProjectModules().isEmpty()){
-        	cacheModules();
-        	return getALLModules();
-            }
-        if (projects == null)
-            cacheModules();
-        int i = 0;
-        Iterator modules = projects.values().iterator();
-        IModule[] modulesArray = new IModule[projects.values().size()];
-        while (modules.hasNext()) {
-            IModule element = (IModule) modules.next();
-            modulesArray[i++] = element;
+  
 
-        }
-        return modulesArray;
-    }
-
-    private IModule[] getALLModules() {
-        Iterator moduleDelegateIterator = getProjectModules().values().iterator();
-        List modules = new ArrayList();
-        for (Iterator iter = moduleDelegateIterator; iter.hasNext();) {
-            List elements = (List) iter.next();
-            modules.addAll(elements);
-        }
-        int i = 0;
-        Collection nonFlexableProjectModules = projects.values();
-        modules.addAll(nonFlexableProjectModules);
-        IModule[] modules_Array = new IModule[modules.size()];
-        for (int j = 0; j < modules.size(); j++) {
-            IModule element = (IModule) modules.get(i);
-            modules_Array[i++] = element;
-        }
-        return modules_Array;
-    }
-
-    public HashMap getProjectModules() {
-        if (projectModules == null)
-            projectModules = new HashMap();
-        return projectModules;
-    }
-
-    public void setProjectModules(HashMap projectModules) {
-        this.projectModules = projectModules;
-    }
 }

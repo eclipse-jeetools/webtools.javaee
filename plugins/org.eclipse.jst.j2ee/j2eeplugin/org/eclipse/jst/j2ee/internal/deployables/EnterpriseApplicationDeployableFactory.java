@@ -30,10 +30,10 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 																				    * 
 																				    * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
 																				    */
-	public IModule[] getModules() {
+	/*public IModule[] getModules() {
 		return super.getModules();
 	}
-
+*/
 	protected static final String ID = "com.ibm.wtp.server.j2ee.application"; //$NON-NLS-1$
 
 	protected static final IPath[] PATHS = new IPath[]{new Path("META-INF/application.xml"), //$NON-NLS-1$
@@ -96,6 +96,14 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
         // TODO Auto-generated method stub
         return null;
     }
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+	 */
+	public IModule[] getModules() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 

@@ -95,9 +95,9 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 		if (dep == null) {
 			ModuleFactoryDelegate fac = getModuleFactory(nature);
 			if (fac != null) {
-				if (fac instanceof J2EEDeployableFactory) {
+				/*if (fac instanceof J2EEDeployableFactory) {
 					dep = ((J2EEDeployableFactory) fac).getModuleProject(nature.getProject());
-				}
+				}*/
 			}
 		}
 		return dep;
@@ -157,7 +157,7 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 
 	protected ILooseArchive getArchiveDeployable(IProject aProject, LooseArchiveDeployableFactory fact) {
 		try {
-			return (ILooseArchive) fact.getModuleProject(aProject);
+		//	return (ILooseArchive) fact.getModuleProject(aProject);
 		} catch (RuntimeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
