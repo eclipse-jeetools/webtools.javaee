@@ -23,6 +23,8 @@ import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
 import org.eclipse.jst.server.core.IWebModule;
@@ -77,27 +79,110 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
 
     public String getJ2EESpecificationVersion() {
+    	String Version = "1.2"; //$NON-NLS-1$
 
-        return "1.2"; //$NON-NLS-1$
+            WebArtifactEdit webEdit = null;
+           	try{
+           		webEdit = WebArtifactEdit.getWebEditForRead( wbModule );
+           		if(webEdit != null) {
+               		int nVersion = webEdit.getJ2EEVersion();	
+               		switch( nVersion ){
+	    	    		case 12:
+	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_2;	    			
+	    	    			break;
+	    	    		case 13:
+	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_3;
+	    	    			break;
+	    	    		case 14:	
+	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_4;
+	    	    			break;
+	    	    		default:
+	    	    			Version = ModuleCoreNature.J2EE_VERSION_1_2;
+	    	    			break;               			
+               		}
+           		}
+           	}
+           	catch(Exception e){
+                e.printStackTrace();
+           	} finally {
+           		if(webEdit != null)
+           			webEdit.dispose();
+           	}
+  	    
+        return Version;
     }
 
     public String getJSPFileMapping(String jspFile) {
         return null;
     }
 
+    private int getServletVersion(){
+        WebArtifactEdit webEdit = null;
+        int nVersion = 22;
+       	try{
+       		webEdit = WebArtifactEdit.getWebEditForRead( wbModule );
+       		if(webEdit != null) {
+       			nVersion = webEdit.getServletVersion();
+       		}
+       	}	
+      	catch(Exception e){
+            e.printStackTrace();
+       	} finally {
+       		if(webEdit != null)
+       			webEdit.dispose();
+       	}       
+       	return nVersion;
+    }
+    
     public String getJSPSpecificationVersion() {
 
-        return "1.2"; //$NON-NLS-1$
-    }
-
-    public String getServletMapping(String className) {
-        return null;
+    	String ret = "1.2"; //$NON-NLS-1$
+    	int nVersion = getServletVersion();
+       	switch( nVersion ){
+    	
+    		case 22:
+    			ret = ModuleCoreNature.JSP_VERSION_1_1;
+    			break;
+    		case 23:
+    			ret = ModuleCoreNature.JSP_VERSION_1_2;
+    			break;
+    		case 24:	
+    			ret = ModuleCoreNature.JSP_VERSION_2_0;
+    			break;
+      		default:
+    			ret = ModuleCoreNature.JSP_VERSION_1_1;
+    			break;    			
+    	}
+    	return ret; 
     }
 
     public String getServletSpecificationVersion() {
 
-        return "2.3"; //$NON-NLS-1$
+    	String ret = "2.3"; //$NON-NLS-1$
+    	int nVersion = getServletVersion();
+    	switch( nVersion ){
+    	
+    		case 22:
+    			ret = ModuleCoreNature.SERVLET_VERSION_2_2;
+    			break;
+    		case 23:
+    			ret = ModuleCoreNature.SERVLET_VERSION_2_3;
+    			break;
+    		case 24:	
+    			ret = ModuleCoreNature.SERVLET_VERSION_2_4;
+    			break;
+    		default:
+    			ret = ModuleCoreNature.SERVLET_VERSION_2_3;
+    			break;
+    	}
+    	return ret;    	
     }
+
+    
+    public String getServletMapping(String className) {
+        return null;
+    }
+
 
     public boolean isPublishRequired() {
         return false;
@@ -346,8 +431,6 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
 
 	public IPath getRootfolder() {
-	       
-		
 		IPath path = null;
 	       if ( ModuleCoreNature.getModuleCoreNature(project) != null ) {  
      	if( wbModule != null ) {   		
@@ -355,8 +438,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
      		path = outputContainer.getProjectRelativePath();
      	}
      }    
-
-		return rootfolder;
+	return rootfolder;
 	}
 
 }

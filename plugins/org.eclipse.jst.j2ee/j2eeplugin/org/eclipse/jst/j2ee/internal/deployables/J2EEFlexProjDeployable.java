@@ -40,7 +40,7 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
 	}
 
 	public String getJ2EESpecificationVersion() {
-		return "TestVersion";
+		return "1.2";  //$NON-NLS-1$
 	}
 
 	/*
