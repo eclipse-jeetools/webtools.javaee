@@ -26,7 +26,6 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelListener;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
@@ -240,7 +239,7 @@ public final class EnterpriseApplicationCreationDataModel extends J2EEArtifactCr
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getFlag() == WTPOperationDataModelListener.PROPERTY_CHG) {
+		if (event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG) {
 			if (AddArchiveProjectsToEARDataModel.PROJECT_NAME.equals(event.getPropertyName())) {
 				setProperty(PROJECT_NAME, event.getNewValue());
 				return;

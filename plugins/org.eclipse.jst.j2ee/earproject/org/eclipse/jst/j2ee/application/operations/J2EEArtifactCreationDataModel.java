@@ -137,7 +137,7 @@ public abstract class J2EEArtifactCreationDataModel extends EditModelOperationDa
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getFlag() == PROPERTY_CHG) {
+		if (event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG) {
 			WTPOperationDataModel dm = event.getDataModel();
 			if (dm == projectDataModel || dm == serverTargetDataModel) {
 				String prop = event.getPropertyName();

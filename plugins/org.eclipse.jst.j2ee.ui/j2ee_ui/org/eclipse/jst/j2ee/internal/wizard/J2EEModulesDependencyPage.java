@@ -37,7 +37,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelListener;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
@@ -196,7 +195,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 			classpathList.remove(classEntry);
 		}
 		updateManifest.setProperty(UpdateManifestDataModel.JAR_LIST, classpathList);
-		updateManifest.propertyChanged(new WTPOperationDataModelEvent(updateManifest, UpdateManifestDataModel.JAR_LIST, classpathList, classpathList, WTPOperationDataModelListener.PROPERTY_CHG));
+		updateManifest.propertyChanged(new WTPOperationDataModelEvent(updateManifest, UpdateManifestDataModel.JAR_LIST, classpathList, classpathList, WTPOperationDataModelEvent.PROPERTY_CHG));
 	}
 
 	protected void addResizeListenerToTable() {

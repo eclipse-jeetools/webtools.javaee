@@ -32,7 +32,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelListener;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
@@ -162,7 +161,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 
 	public final void notifyUpdatedEARs() {
 		String earProjectName = getStringProperty(EAR_PROJECT_NAME);
-		notifyListeners(EAR_PROJECT_NAME, WTPOperationDataModelListener.VALID_VALUES_CHG, earProjectName, earProjectName);
+		notifyListeners(EAR_PROJECT_NAME, WTPOperationDataModelEvent.VALID_VALUES_CHG, earProjectName, earProjectName);
 	}
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
