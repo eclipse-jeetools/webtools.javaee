@@ -45,8 +45,10 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 		super();
 	}
 
-
-	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
+	 */
+	protected void createProjectStructure() throws CoreException {
 		
 		
 		String moduleName = (String)operationDataModel.getProperty(WebComponentCreationDataModel.MODULE_NAME);
@@ -87,8 +89,9 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 		if (!lib.exists()) {
 			lib.create(true, true, null);
 		}
-
-		
+	}
+	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	
 		//should cache wbmodule when created instead of  searching ?
         ModuleCore moduleCore = null;
         WorkbenchComponent wbmodule = null;
@@ -101,22 +104,17 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
             }
         }		
 
-
         WebArtifactEdit webEdit = null;
        	try{
 
        		webEdit = WebArtifactEdit.getWebArtifactEditForWrite( wbmodule );
        		String projPath = getProject().getLocation().toOSString();
        		//projPath += this.getDeploymentDescriptorFolder() + IPath.SEPARATOR + J2EEConstants.WEBAPP_DD_SHORT_NAME;       		
-
-       		
+	
        		projPath += operationDataModel.getProperty( WebComponentCreationDataModel.DD_FOLDER );
        		projPath +=IPath.SEPARATOR + J2EEConstants.WEBAPP_DD_SHORT_NAME;
 //       		projPath += IPath.SEPARATOR + moduleName + IPath.SEPARATOR + "WebContent" + IPath.SEPARATOR + J2EEConstants.WEB_INF + IPath.SEPARATOR + J2EEConstants.WEBAPP_DD_SHORT_NAME;
 
-       		
-
-       		
        		IPath webxmlPath = new Path(projPath);
        		boolean b = webxmlPath.isValidPath(webxmlPath.toString());
        		if(webEdit != null) {
@@ -130,6 +128,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
        	} finally {
        		if(webEdit != null)
        			webEdit.dispose();
+       		webEdit = null;
        	}					
 	
 	
@@ -172,14 +171,6 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	 */
 	public String getWebContentDeployPath() {
 		return "/"; //$NON-NLS-1$
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
-	 */
-	protected void createProjectStructure() throws CoreException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/* (non-Javadoc)
