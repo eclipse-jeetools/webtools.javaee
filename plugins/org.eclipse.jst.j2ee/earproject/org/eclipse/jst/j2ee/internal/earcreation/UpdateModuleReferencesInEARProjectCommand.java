@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientEditModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientEditModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.XMLResource;

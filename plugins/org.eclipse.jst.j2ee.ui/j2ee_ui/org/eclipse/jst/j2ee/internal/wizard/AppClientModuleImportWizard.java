@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleImportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;

@@ -10,7 +10,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
+import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;

@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 
