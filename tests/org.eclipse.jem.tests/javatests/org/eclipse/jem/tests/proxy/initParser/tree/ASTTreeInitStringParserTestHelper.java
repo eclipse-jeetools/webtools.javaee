@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTTreeInitStringParserTestHelper.java,v $
- *  $Revision: 1.8 $  $Date: 2004/05/20 15:41:56 $ 
+ *  $Revision: 1.9 $  $Date: 2004/08/10 17:52:18 $ 
  */
 package org.eclipse.jem.tests.proxy.initParser.tree;
 
@@ -37,7 +37,7 @@ import org.eclipse.jem.workbench.utility.*;
  */
 public class ASTTreeInitStringParserTestHelper extends AbstractInitStringParserTestHelper {
 
-	private static final String TEMPLATE_CLASS = "public class TEMPLATE '{'\n  public void test() '{'\n    String.valueOf({0});\n  }\n}";
+	private static final String TEMPLATE_CLASS = "public class TEMPLATE '{'\n  public void test() '{'\n    String.valueOf({0});\t// a line comment\n  }\n}";
 	private static final String TEMPLATE_CLASS_IMPORTS = "{0}\npublic class TEMPLATE '{'\n  public void test() '{'\n    String.valueOf({1});\n  }\n}";
 	
 	private IJavaProject project;

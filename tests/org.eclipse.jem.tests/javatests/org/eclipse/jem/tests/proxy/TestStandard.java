@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/04 21:25:31 $ 
+ *  $Revision: 1.4 $  $Date: 2004/08/10 17:52:18 $ 
  */
 import java.io.IOException;
 
@@ -54,7 +54,7 @@ public class TestStandard extends AbstractTestProxy {
 		assertTrue(integerType.isKindOf(objectType));		
 	}
 	
-	public void testInvoke() throws ThrowableProxy {		
+	public void testMethodInvoke() throws ThrowableProxy {		
 		IBeanTypeProxy integerType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"); //$NON-NLS-1$		
 		IMethodProxy mthd = integerType.getMethodProxy("valueOf", "java.lang.String"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertNotNull(mthd);
@@ -71,7 +71,27 @@ public class TestStandard extends AbstractTestProxy {
 			assertEquals("java.lang.IllegalArgumentException", e.getTypeProxy().getTypeName()); //$NON-NLS-1$
 		}						
 	}
-	
+
+	public void testInvoke() throws ThrowableProxy {
+		// Technically invokables should be used for one-shot usage, but here to test the invoke correctly
+		// it will be used twice. This is not an error, just overhead.
+		IBeanTypeProxy integerType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"); //$NON-NLS-1$		
+		IInvokable invokable = integerType.getInvokable("valueOf", "java.lang.String"); //$NON-NLS-1$ //$NON-NLS-2$
+		assertNotNull(invokable);
+		// See if we can invoke methods.
+		IIntegerBeanProxy anInt = (IIntegerBeanProxy) invokable.invoke(null, proxyFactory.createBeanProxyWith("5")); //$NON-NLS-1$
+		assertNotNull(anInt);
+		assertEquals(5, anInt.intValue());
+		// See if invoke with bad type throws the ExceptionProxy.
+		try {
+			invokable.invoke(null, proxyFactory.createBeanProxyWith(5));
+			fail("Exception not thrown like it should of been.");
+		} catch (ThrowableProxy e) {
+			// We should of gotton the exception. See if it is of the correct type.
+			assertEquals("java.lang.IllegalArgumentException", e.getTypeProxy().getTypeName()); //$NON-NLS-1$
+		}						
+	}
+
 	public void testSimpleInitString() throws ThrowableProxy, InstantiationException {
 		IBeanTypeProxy integerType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"); //$NON-NLS-1$				
 		// See if we can create it from an initialization string.
@@ -385,6 +405,27 @@ public class TestStandard extends AbstractTestProxy {
 		assertEquals((byte)254, ((INumberBeanProxy) byteValue).byteValue());
 	}
 	
+	public void testInvokableAccessors() throws ThrowableProxy {
+		IBeanTypeProxy integerType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"); //$NON-NLS-1$				
+		
+		// Test able to access beantype proxy and invoke methods on it. This isn't
+		// the approved way of getting methods, but it tests that method proxies
+		// are created correctly if returned from an invoke method.
+		IBeanTypeProxy classTypeProxy = proxyTypeFactory.getBeanTypeProxy("java.lang.Class"); //$NON-NLS-1$
+		IInvokable getMethodInvokable = classTypeProxy.getInvokable("getMethod", new String[] {"java.lang.String", "[Ljava.lang.Class;"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		// Get the Integer.byteValue() method through an invoke instead of a method factory or bean type.
+		IBeanProxy method = getMethodInvokable.invoke(integerType, new IBeanProxy[] {
+			proxyFactory.createBeanProxyWith("byteValue"), null}); //$NON-NLS-1$
+		assertNotNull(method);
+		assertTrue(method instanceof IMethodProxy);
+		
+		// Now invoke it to see if correct answer comes back.
+		IBeanProxy byteValue = ((IMethodProxy) method).invoke(proxyFactory.createBeanProxyWith(new Integer(254)));
+		assertNotNull(byteValue);
+		assertEquals("byte", byteValue.getTypeProxy().getTypeName()); //$NON-NLS-1$
+		assertEquals((byte)254, ((INumberBeanProxy) byteValue).byteValue());
+	}	
+	
 	public void testCallback() throws ThrowableProxy {
 		System.out.println("--- Starting the callback test ---"); //$NON-NLS-1$
 		IBeanTypeProxy callbackType = proxyTypeFactory.getBeanTypeProxy("org.eclipse.jem.tests.proxy.vm.TestCallback"); //$NON-NLS-1$
@@ -393,8 +434,8 @@ public class TestStandard extends AbstractTestProxy {
 		IBeanProxy callbackProxy = callbackType.newInstance();
 		TestCallback cb = new TestCallback(testObject, registry);
 		registry.getCallbackRegistry().registerCallback(callbackProxy, cb);
-		IMethodProxy start = callbackType.getMethodProxy("start");	//$NON-NLS-1$
-		IMethodProxy stop = callbackType.getMethodProxy("stop");	//$NON-NLS-1$
+		IInvokable start = callbackType.getInvokable("start");	//$NON-NLS-1$
+		IInvokable stop = callbackType.getInvokable("stop");	//$NON-NLS-1$
 		synchronized(testObject) {
 			start.invokeCatchThrowableExceptions(callbackProxy);
 			try {

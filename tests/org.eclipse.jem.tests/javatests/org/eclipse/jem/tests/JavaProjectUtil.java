@@ -11,7 +11,7 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.7 $  $Date: 2004/07/16 15:33:57 $ 
+ *  $Revision: 1.8 $  $Date: 2004/08/10 17:52:18 $ 
  */
 
 
@@ -121,7 +121,7 @@ public class JavaProjectUtil {
 					e.printStackTrace();
 				}
 			}
-		}, project, 0, pm);
+		}, workspace.getRoot(), 0, pm);
 		
 		return project;
 	}
@@ -241,7 +241,7 @@ public class JavaProjectUtil {
 					project.setRawClasspath(newRaw, new SubProgressMonitor(monitor, 100));
 				}
 			}
-		}, project.getProject(), 0, pm);
+		}, workspace.getRoot(), 0, pm);
 	}
 	
 	public static void waitForAutoBuild() throws CoreException {
