@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin
-   id="com.ibm.etools.jem.emf.ecore.utilities"
+   id="com.ibm.etools.emf.ecore.utilities"
    name="Ecore Utilities"
    version="5.1.1"
    provider-name="IBM"

@@ -3,7 +3,7 @@
 	<name>org.eclipse.jem.workbench</name>
 	<comment></comment>
 	<projects>
-		<project>com.ibm.etools.jem.emf.workbench</project>
+		<project>com.ibm.etools.emf.workbench</project>
 		<project>org.eclipse.core.boot</project>
 		<project>org.eclipse.core.resources</project>
 		<project>org.eclipse.core.runtime</project>
