@@ -74,7 +74,7 @@
       <wizard
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/export_ejbjar_wiz.gif"
-            class="org.eclipse.jst.ejb.ui.EJBModuleExportWizard"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleExportWizard"
             id="org.eclipse.jst.ejb.ui.EJBModuleExportWizard">
          <description>
             %ejb.export.description_ui_
@@ -96,7 +96,7 @@
             name="%ejb.project_ui_"
             icon="icons/full/ctool16/newejbprj_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizard"
             id="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard">
          <description>
             %new.ejb.project.description_ui_
@@ -179,7 +179,7 @@
       <wizard
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/import_ejbjar.gif"
-            class="org.eclipse.jst.ejb.ui.EJBModuleImportWizard"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard"
             id="org.eclipse.jst.ejb.ui.EJBModuleImportWizard">
          <description>
             %ejb.import.description_ui_

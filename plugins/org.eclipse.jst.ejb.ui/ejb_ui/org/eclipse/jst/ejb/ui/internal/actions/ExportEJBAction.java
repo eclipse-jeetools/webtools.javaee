@@ -17,7 +17,7 @@
 package org.eclipse.jst.ejb.ui.internal.actions;
 
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.ejb.ui.EJBModuleExportWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleExportWizard;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Shell;

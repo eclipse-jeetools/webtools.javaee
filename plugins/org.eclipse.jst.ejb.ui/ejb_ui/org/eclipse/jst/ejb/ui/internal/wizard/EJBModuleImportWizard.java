@@ -8,9 +8,8 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/ 
-package org.eclipse.jst.ejb.ui;
+package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBImportPage;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleImportOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;

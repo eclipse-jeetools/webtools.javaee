@@ -8,12 +8,10 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/ 
-package org.eclipse.jst.ejb.ui;
+package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBClientCreationWizardPage;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizardPage;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;

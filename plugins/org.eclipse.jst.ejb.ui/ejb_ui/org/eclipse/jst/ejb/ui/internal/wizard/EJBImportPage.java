@@ -16,7 +16,6 @@
  */
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import org.eclipse.jst.ejb.ui.EJBComponentCreationWizard;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
