@@ -119,6 +119,13 @@ public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDa
 		if (propertyName.equals(MANIFEST_FOLDER)) {
 			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
 		}
+		if (propertyName.equals(DD_FOLDER)) {
+			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
+		}		
+		if (propertyName.equals(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER)) {
+			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "connectorModule";
+		}		
+
 		return super.getDefaultProperty(propertyName);
 	}    
 }
