@@ -11,7 +11,7 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:25:46 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/23 22:53:36 $ 
  */
 
 
@@ -23,6 +23,11 @@ import java.net.URL;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
+import org.eclipse.jdt.core.*;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+
+import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 
 /**
  * The purpose of this class is to be a utility for manipulating/populating java projects.
@@ -65,6 +70,56 @@ public class JavaProjectUtil {
 			public void run(IProgressMonitor monitor) throws CoreException {
 				project.create(description, new SubProgressMonitor(monitor, 1000));
 				project.open(new SubProgressMonitor(monitor, 1000));				
+			}
+		}, pm);
+		
+		return project;
+	}
+
+	/**
+	 * Create an empty project in the workspace root. If there is a .project file already there, then use it.
+	 * @param workspace The workspace to create projec in.
+	 * @param projectPath The name of the project. It should only be one segment long, and that will be the name of the project.
+	 * @param pm
+	 * @return The project.
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.0
+	 */
+	public static IProject createEmptyJavaProject(IWorkspace workspace, IPath projectPath, final IProgressMonitor pm) throws CoreException {
+		projectPath = workspace.getRoot().getFullPath().append(projectPath);	// Put it into the workspace relative.
+		File projectFile = new File(projectPath.toFile(), IProjectDescription.DESCRIPTION_FILE_NAME);
+		if (projectFile.exists())
+			return createProject(workspace, projectPath, pm);	// Let it be created normally.
+
+		// create the new project operation
+		final IProject project = workspace.getRoot().getProject(projectPath.lastSegment());		
+		ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {		
+			public void run(IProgressMonitor monitor) throws CoreException {
+				project.create(new SubProgressMonitor(monitor, 1000));
+				project.open(new SubProgressMonitor(monitor, 1000));
+				IProjectDescription description = project.getDescription();
+				String[] natureids = description.getNatureIds();
+				for (int i = 0; i < natureids.length; i++) {
+					if (natureids[i].equals("org.eclipse.jdt.core.javanature"))
+						return;	// Already has nature.
+				}
+				String[] newNatureids = new String[natureids.length+1];
+				newNatureids[0] = "org.eclipse.jdt.core.javanature";
+				System.arraycopy(natureids, 0, newNatureids, 1, natureids.length);
+				description.setNatureIds(newNatureids);
+				project.setDescription(description, new SubProgressMonitor(monitor, 1000));
+				// Need to put out a classfile too. We need a src and a bin directory for the classpath.
+				IFolder sf = project.getFolder("src");
+				sf.create(true, true, new SubProgressMonitor(monitor, 1000));
+				IFolder bf = project.getFolder("bin");
+				bf.create(true, true, new SubProgressMonitor(monitor, 1000));
+				IFile cp = project.getFile(".classpath"); 
+				try {
+					cp.create(getClass().getResource(".classpath").openStream(), true, new SubProgressMonitor(monitor, 1000));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}, pm);
 		
@@ -146,5 +201,46 @@ public class JavaProjectUtil {
 		
 		return result;
 	}
+
+	static int cfSuffix = 0;
+	/**
+	 * Add a path to plugin jar to the java project's class path.
+	 * @param plugin The plugin where the jar is located.
+	 * @param pathToJar Path to the jar within the above plugin
+	 * @param project java project to add to.
+	 * 
+	 * @since 1.0.0
+	 */
+	public static void addPluginJarToPath(Plugin plugin, String pathToJar, final IJavaProject project, IProgressMonitor pm) throws CoreException {
+		final IPath actualPath = new Path(ProxyPlugin.getPlugin().localizeFromPlugin(plugin, pathToJar));
+		if (actualPath.isEmpty())
+			return;	// Didn't exist.
 		
+		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		workspace.run(new IWorkspaceRunnable() {
+			public void run(IProgressMonitor monitor) throws CoreException {		
+				if (actualPath.toFile().isFile()) {
+					// It is a jar, this will be during runtime
+					// Create an external jar entry.
+					IClasspathEntry[] raw = project.getRawClasspath();
+					IClasspathEntry[] newRaw = new IClasspathEntry[raw.length+1];
+					newRaw[raw.length] = JavaCore.newLibraryEntry(actualPath, null, null);
+					System.arraycopy(raw, 0, newRaw, 0, raw.length);
+					project.setRawClasspath(newRaw, new SubProgressMonitor(monitor, 100));
+				} else {
+					// It is a path to class folder, this will be during development time.
+					// But classfolders MUST exist in the workspace. JDT doesn't understand them outside workspace,
+					// so we will link it into the project.
+					IFolder cf = project.getProject().getFolder("linkbin"+(++cfSuffix));
+					cf.createLink(actualPath, 0, new SubProgressMonitor(monitor, 100));
+					// Create class folder entry.
+					IClasspathEntry[] raw = project.getRawClasspath();
+					IClasspathEntry[] newRaw = new IClasspathEntry[raw.length+1];
+					newRaw[raw.length] = JavaCore.newLibraryEntry(cf.getFullPath(), null, null);
+					System.arraycopy(raw, 0, newRaw, 0, raw.length);
+					project.setRawClasspath(newRaw, new SubProgressMonitor(monitor, 100));
+				}
+			}
+		}, pm);
+	}
 }

@@ -11,10 +11,11 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: OverloadingTest.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/23 22:53:36 $ 
  */
 
 /**
+ * Test that correct overloaded method is called.
  * @author jmyers
  *
  * To change the template for this generated type comment go to
@@ -30,19 +31,10 @@ public class OverloadingTest extends AbstractInitParserTestCase {
 		super(name);
 	}
 
-	public void testShort() throws Throwable {
-		testHelper.testInitString("(short) 3", new Short((short) 3));
+	public void testOverloadString() throws Throwable {
+		testHelper.testInitString("new String(\"Frog\")", "Frog");
 	}
-	public void testParen1() throws Throwable {
-		testHelper.testInitString("(new String(\"Frog\")).length()",new Integer(4));
-	}
-	public void testParen2() throws Throwable {
-		testHelper.testInitString("((new String(\"Frog\"))).length()",new Integer(4));
-	}
-	public void testParen2b() throws Throwable {
-		testHelper.testInitString("((new String(\"Frog\")).length())",new Integer(4));
-	}
-	public void testParen3() throws Throwable {
-		testHelper.testInitString("(((new String(\"Frog\")).length()))",new Integer(4));
+	public void testOverloadShort() throws Throwable {
+		testHelper.testInitString("new String((short)3)", "3");
 	}
 }
