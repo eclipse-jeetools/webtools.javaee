@@ -175,8 +175,14 @@ public class XDocletRuntime {
 				String jar = vLibs[i];
 				File libFile = new File(getHome() + File.separator + LIBPATH
 						+ File.separator + jar);
-				if (!libFile.exists())
-					errors.add(new Status(IStatus.ERROR,
+				
+				// This is fo people who change the location of the files
+				// from the original distribution.  It is unncessary but
+				// makes people happy!
+				File libFile2 = new File(getHome() + File.separator + jar);
+				
+				if (!libFile.exists() && !libFile2.exists())
+						errors.add(new Status(IStatus.ERROR,
 							XDocletAnnotationPlugin.PLUGINID, 0,
 							"Could not find library: " + jar, null));
 			}

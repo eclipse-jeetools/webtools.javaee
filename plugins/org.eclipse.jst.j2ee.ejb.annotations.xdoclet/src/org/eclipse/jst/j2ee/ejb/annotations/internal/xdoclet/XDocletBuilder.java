@@ -285,8 +285,9 @@ public class XDocletBuilder extends IncrementalProjectBuilder implements
 	void build(int kind, Map args, IResource resource, IContentType[] types,
 			IProgressMonitor monitor) {
 		if (!monitor.isCanceled() && resource.getType() == IResource.FILE) {
-			XDocletAntProjectBuilder antProjectBuilder= new XDocletAntProjectBuilder();
-			antProjectBuilder.buildUsingAnt(resource, monitor);
+			XDocletAntProjectBuilder antProjectBuilder = XDocletAntProjectBuilder.Factory.newInstance(resource);
+			if( antProjectBuilder != null)
+				antProjectBuilder.buildUsingAnt(resource, monitor);
 
 		}
 	}

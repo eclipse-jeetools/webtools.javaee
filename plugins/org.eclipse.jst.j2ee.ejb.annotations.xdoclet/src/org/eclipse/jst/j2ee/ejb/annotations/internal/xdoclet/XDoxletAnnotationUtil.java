@@ -26,8 +26,10 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 public class XDoxletAnnotationUtil {
 	private static final String XDOCLET_EJB_BEAN_TAG = "@ejb.bean";
+	private static final String XDOCLET_WEB_TAG = "@web";
 	public static class XDocletFinder extends ASTVisitor {
 		boolean isXDocletBean = false;
+		boolean isXDocletWebBean = false;
 	
 		public XDocletFinder(boolean visitDocTags) {
 			super(visitDocTags);
@@ -42,6 +44,9 @@ public class XDoxletAnnotationUtil {
 				if (XDOCLET_EJB_BEAN_TAG.equals(element.getTagName())) {
 					isXDocletBean=true;
 					return false;
+				}else	if (element.getTagName() != null && element.getTagName().startsWith(XDOCLET_WEB_TAG)) {
+					isXDocletWebBean=true;
+					return false;
 				}
 			}
 			return true;
@@ -50,11 +55,11 @@ public class XDoxletAnnotationUtil {
 
 	public static boolean isXDocletAnnotatedResource(IResource resource) {
 		ICompilationUnit compilationUnit = JavaCore.createCompilationUnitFrom((IFile) resource);
-		return isXDocletAnnotatedResource(compilationUnit);
+		return isXDocletAnnotated(compilationUnit);
 	}
 
 	
-	public static boolean isXDocletAnnotatedResource(IJavaElement compilationUnit) {
+	public static boolean isXDocletAnnotatedEjbClass(IJavaElement compilationUnit) {
 		if (compilationUnit != null && compilationUnit.getElementType() == IJavaElement.COMPILATION_UNIT){
 			ASTParser parser = ASTParser.newParser(AST.JLS2);
 			parser.setSource((ICompilationUnit)compilationUnit);
@@ -62,6 +67,28 @@ public class XDoxletAnnotationUtil {
 			XDoxletAnnotationUtil.XDocletFinder docletFinder = new XDoxletAnnotationUtil.XDocletFinder(true);
 			ast.accept(docletFinder);
 			return docletFinder.isXDocletBean;
+		}
+		return false;
+	}
+	public static boolean isXDocletAnnotatedWebClass(IJavaElement compilationUnit) {
+		if (compilationUnit != null && compilationUnit.getElementType() == IJavaElement.COMPILATION_UNIT){
+			ASTParser parser = ASTParser.newParser(AST.JLS2);
+			parser.setSource((ICompilationUnit)compilationUnit);
+			CompilationUnit ast = (CompilationUnit) parser.createAST(null);
+			XDoxletAnnotationUtil.XDocletFinder docletFinder = new XDoxletAnnotationUtil.XDocletFinder(true);
+			ast.accept(docletFinder);
+			return docletFinder.isXDocletWebBean;
+		}
+		return false;
+	}
+	public static boolean isXDocletAnnotated(IJavaElement compilationUnit) {
+		if (compilationUnit != null && compilationUnit.getElementType() == IJavaElement.COMPILATION_UNIT){
+			ASTParser parser = ASTParser.newParser(AST.JLS2);
+			parser.setSource((ICompilationUnit)compilationUnit);
+			CompilationUnit ast = (CompilationUnit) parser.createAST(null);
+			XDoxletAnnotationUtil.XDocletFinder docletFinder = new XDoxletAnnotationUtil.XDocletFinder(true);
+			ast.accept(docletFinder);
+			return docletFinder.isXDocletWebBean || docletFinder.isXDocletBean ;
 		}
 		return false;
 	}
