@@ -1,7 +1,6 @@
-package org.eclipse.jem.internal.proxy.core;
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
@@ -9,9 +8,10 @@ package org.eclipse.jem.internal.proxy.core;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.34 $  $Date: 2004/08/20 19:10:16 $ 
+ *  $Revision: 1.35 $  $Date: 2004/08/27 15:35:20 $ 
  */
 
 
