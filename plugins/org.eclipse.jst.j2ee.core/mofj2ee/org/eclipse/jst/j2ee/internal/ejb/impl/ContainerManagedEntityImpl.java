@@ -1125,8 +1125,9 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getRole(java.lang.String)
 	 */
 	public CommonRelationshipRole getRole(String roleName) {
-		for (int i=0; i<getRoles().size(); i++) {
-			CommonRelationshipRole role = (CommonRelationshipRole) getRoles().get(i);
+		List roles = getRoles();
+		for (int i=0; i<roles.size(); i++) {
+			CommonRelationshipRole role = (CommonRelationshipRole)roles.get(i);
 			if (role.getName().equals(roleName))
 				return role;
 		}
