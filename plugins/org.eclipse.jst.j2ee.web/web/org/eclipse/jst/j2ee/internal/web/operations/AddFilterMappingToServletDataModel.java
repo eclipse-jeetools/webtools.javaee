@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.webapplication.FilterMapping;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -207,16 +208,11 @@ public class AddFilterMappingToServletDataModel extends J2EEModelModifierOperati
 		return names;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ibm.wtp.ejb.operations.CreateEnterpriseBeanDataModel#doGetValidPropertyValues(java.lang.String)
-	 */
-	protected Object[] doGetValidPropertyValues(String propertyName) {
+	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(DISPATCHER_TYPE_NAME))
-			return getValidDispatcherTypeNames();
+			return WTPPropertyDescriptor.createDescriptors(getValidDispatcherTypeNames());
 		if (propertyName.equals(SERVLET_NAME))
-			return getValidServletNames();
-		return super.doGetValidPropertyValues(propertyName);
+			return WTPPropertyDescriptor.createDescriptors(getValidServletNames());
+		return super.doGetValidPropertyDescriptors(propertyName);
 	}
 }
