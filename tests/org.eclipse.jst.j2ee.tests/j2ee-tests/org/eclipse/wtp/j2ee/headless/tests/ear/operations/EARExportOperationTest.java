@@ -9,7 +9,7 @@ package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 import junit.framework.Test;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.OperationTestCase;

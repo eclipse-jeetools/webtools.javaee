@@ -6,14 +6,14 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.plugin;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.eclipse.core.runtime.Path;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * @author jsholl

@@ -12,7 +12,7 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBImportOperationTest;

@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.project.creation.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 

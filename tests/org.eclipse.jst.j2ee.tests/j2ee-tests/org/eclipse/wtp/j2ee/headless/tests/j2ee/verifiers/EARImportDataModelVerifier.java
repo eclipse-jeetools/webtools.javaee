@@ -9,9 +9,9 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 
 /**

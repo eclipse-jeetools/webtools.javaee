@@ -13,9 +13,9 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.tests.OperationTestCase;
 
 

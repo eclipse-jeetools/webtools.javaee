@@ -6,7 +6,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author Administrator

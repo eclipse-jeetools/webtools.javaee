@@ -7,15 +7,15 @@
 package org.eclipse.jst.j2ee.tests.modulecore;
 
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.eclipse.core.runtime.Path;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.J2EEFlexibleProjectCreationOperationTest;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * To change the template for this generated type comment go to

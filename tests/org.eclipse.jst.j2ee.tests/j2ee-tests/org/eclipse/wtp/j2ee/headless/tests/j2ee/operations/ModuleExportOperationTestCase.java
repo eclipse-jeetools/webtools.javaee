@@ -8,14 +8,12 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientExportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBExportOperationTest;

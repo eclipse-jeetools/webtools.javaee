@@ -1,7 +1,7 @@
 package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
-import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;

@@ -8,7 +8,7 @@ package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.OperationTestCase;
