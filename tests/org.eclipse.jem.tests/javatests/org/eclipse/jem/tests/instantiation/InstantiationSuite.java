@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationSuite.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/02 15:57:16 $ 
+ *  $Revision: 1.7 $  $Date: 2004/06/14 16:07:28 $ 
  */
 import java.net.URL;
 
@@ -76,6 +76,7 @@ public class InstantiationSuite extends TestSetup {
 				zipPaths);
 		assertNotNull(projects[0]);
 		assertNotNull(projects[1]);
+		JavaProjectUtil.waitForAutoBuild();
 		System.out.println("-- Data initialized --"); //$NON-NLS-1$
 
 		BeaninfoNature nature = BeaninfoNature.getRuntime(projects[0]);

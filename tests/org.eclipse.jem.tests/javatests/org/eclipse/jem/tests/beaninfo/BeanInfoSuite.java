@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoSuite.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/02 15:57:16 $ 
+ *  $Revision: 1.7 $  $Date: 2004/06/14 16:07:28 $ 
  */
 import java.net.URL;
 
@@ -79,6 +79,7 @@ public class BeanInfoSuite extends TestSetup {
 		assertNotNull(projects[0]);
 		assertNotNull(projects[1]);
 		assertNotNull(projects[2]);
+		JavaProjectUtil.waitForAutoBuild();
 		System.out.println("-- Data initialized --"); //$NON-NLS-1$
 
 		BeaninfoNature nature = BeaninfoNature.getRuntime(projects[0]);

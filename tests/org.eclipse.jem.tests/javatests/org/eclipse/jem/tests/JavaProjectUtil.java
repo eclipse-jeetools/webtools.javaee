@@ -11,7 +11,7 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.4 $  $Date: 2004/06/02 15:57:16 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/14 16:07:28 $ 
  */
 
 
@@ -23,9 +23,11 @@ import java.net.URL;
 import org.eclipse.ant.core.AntRunner;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.jdt.core.*;
 import org.osgi.framework.Bundle;
 
+import org.eclipse.jem.internal.proxy.core.ProxyMessages;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 
 /**
@@ -241,5 +243,18 @@ public class JavaProjectUtil {
 				}
 			}
 		}, project.getProject(), 0, pm);
+	}
+	
+	public static void waitForAutoBuild() throws CoreException {
+		IJobManager jobManager = Platform.getJobManager();
+		if (jobManager.find(ResourcesPlugin.FAMILY_AUTO_BUILD).length > 0) {
+			try {						
+				jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new NullProgressMonitor());
+			} catch (InterruptedException e) {
+				throw new CoreException(
+						new Status(IStatus.ERROR, JavaTestsPlugin.getPlugin().getBundle().getSymbolicName(), IStatus.ERROR, "", e)); //$NON-NLS-1$
+			}
+		}
+
 	}
 }

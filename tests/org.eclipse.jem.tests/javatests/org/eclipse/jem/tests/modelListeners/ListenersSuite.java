@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.modelListeners;
  *******************************************************************************/
 /*
  *  $RCSfile: ListenersSuite.java,v $
- *  $Revision: 1.1 $  $Date: 2004/06/09 22:47:00 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/14 16:07:28 $ 
  */
 import java.net.URL;
 
@@ -74,6 +74,7 @@ public class ListenersSuite extends TestSetup {
 				zipPaths);
 		assertNotNull(projects[0]);
 		assertNotNull(projects[1]);
+		JavaProjectUtil.waitForAutoBuild();
 		System.out.println("-- Data initialized --"); //$NON-NLS-1$
 
 	}

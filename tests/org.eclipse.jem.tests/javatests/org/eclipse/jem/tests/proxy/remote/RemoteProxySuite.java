@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: RemoteProxySuite.java,v $
- *  $Revision: 1.4 $  $Date: 2004/06/02 15:57:16 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/14 16:07:28 $ 
  */
 import java.net.URL;
 
@@ -105,6 +105,7 @@ public class RemoteProxySuite extends TestSetup {
 				.getFile();
 		IProject[] projects = JavaProjectUtil.importProjects(new String[] { TEST_PROJECT_NAME }, new String[] { zipPath });
 		assertNotNull(projects[0]);
+		JavaProjectUtil.waitForAutoBuild();		
 		project = projects[0];
 		System.out.println("-- Data initialized --"); //$NON-NLS-1$
 
