@@ -206,6 +206,15 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 		return super.doValidateProperty(propertyName);
 	}
 
+	protected boolean doSetProperty(String propertyName, Object propertyValue) {
+		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
+
+		if (propertyName.equals(COMPONENT_NAME)){
+			setProperty(COMPONENT_DEPLOY_NAME, getStringProperty(COMPONENT_NAME));
+		} 
+		return returnValue;
+	}
+
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		super.propertyChanged(event);
 	}
