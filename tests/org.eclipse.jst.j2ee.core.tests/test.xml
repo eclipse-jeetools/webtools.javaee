@@ -32,6 +32,13 @@
    	  <property name="plugin-path" value="${eclipse-home}/plugins/${plugin-name}"/>
    	  <property name="extraVMargs" value="${extraVMargs}"/>
     </ant>
+    <ant target="core-test" antfile="${library-file}" dir="${eclipse-home}">
+      <property name="data-dir" value="${jst-folder}"/>
+      <property name="plugin-name" value="${plugin-name}"/>
+      <property name="classname" value="org.eclipse.jst.j2ee.core.api.test.AutomatedAPIBVT" />
+   	  <property name="plugin-path" value="${eclipse-home}/plugins/${plugin-name}"/>
+   	  <property name="extraVMargs" value="${extraVMargs}"/>
+    </ant>
   </target>
 
   <!-- This target holds code to cleanup the testing environment after -->

@@ -4,7 +4,9 @@
  * To change this generated comment go to 
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-package org.eclipse.jst.j2ee.archive.emftests;
+package org.eclipse.jst.j2ee.core.api.test;
+
+import org.eclipse.jst.j2ee.core.tests.api.AllAPITest;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -13,21 +15,19 @@ import junit.framework.TestSuite;
  * To change this generated comment go to 
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class AllTests {
+public class AllCoreAPITests {
 
     public static Test suite() {
-        TestSuite suite = new TestSuite("Test for Common Archive and EMF Tests");
+        TestSuite suite = new TestSuite("Test for J2EE Core Api Test");
         //$JUnit-BEGIN$
-
-		suite.addTest(AllDOMTests.suite());
-		suite.addTest(AllSAXTests.suite());
+		suite.addTest(AllAPITest.suite());
 
 		//$JUnit-END$
 		return suite;
 	}
 	
 	public static void main(java.lang.String[] args) {
-		junit.textui.TestRunner.main(new String[] { AllTests.class.getName() });
+		junit.textui.TestRunner.main(new String[] { AllCoreAPITests.class.getName() });
 	}
 
 }
