@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JDKAdaptor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/07/16 15:31:10 $ 
+ *  $Revision: 1.4 $  $Date: 2004/07/27 15:01:13 $ 
  */
 
 import java.lang.reflect.Array;
@@ -206,24 +206,52 @@ public abstract class JDKAdaptor extends JavaReflectionAdaptor {
 	}
 	public Class getType(String qualifiedName) {
 		// Try for a primitive type ("int","char",etc.) first
-		Class result = getPrimitiveType(qualifiedName);
-		if (result == null) {
+		Class primType = getPrimitiveType(qualifiedName);
+		if (primType == null) {
+			// Changed for defect #212147 botp@ausaix19.austin.ibm.com@7630 system.
+			//
+			// Search only one of the following classloaders (the first one that exists) in this order. If not found
+			// in a classloader, it will not roll-over to another class loader. This is to avoid problems where a
+			// class may exist in more than one classloader. You get errors when this happens due to one class that
+			// was found in only one classloader that refers to another class that was found in both classloaders.
+			// They don't match when trying to reflect later.
+			// 1) Alternate classloader (if exists)
+			// 2) Thread context classloader (if exists)
+			// 3) System classloader (if exists)
+			// 4) Class.forName().
+			if (getAlternateClassLoader() != null) {
+				try {
+					return getAlternateClassLoader().loadClass(qualifiedName);
+				} catch (ClassNotFoundException cnf2) {
+					return null;
+				}
+			}
+			
 			ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 			if (contextClassLoader != null) {
 				try {
-					result = Thread.currentThread().getContextClassLoader().loadClass(qualifiedName);
+					return contextClassLoader.loadClass(qualifiedName);
 				} catch (ClassNotFoundException e) {
+					return null;
 				}
 			}
-			if (result == null) {
+			
+			ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+			if (systemClassLoader != null) {
 				try {
-					result = loadFromAlternateClassLoader(qualifiedName);
-				} catch (ClassNotFoundException e2) {
-					result = null;
+					return systemClassLoader.loadClass(qualifiedName);
+				} catch (ClassNotFoundException e) {
+					return null;
 				}
 			}
-		}
-		return result;
+			
+			try {
+				return Class.forName(qualifiedName);
+			} catch (ClassNotFoundException e) {
+				return null;
+			}
+		} else
+			return primType;
 	}
 	/*
 	 * Utility routine to paper over array type names
@@ -250,26 +278,6 @@ public abstract class JDKAdaptor extends JavaReflectionAdaptor {
 		return type.getName();
 	}
 
-	protected Class loadFromAlternateClassLoader(String qualifiedName) throws ClassNotFoundException {
-		// Changed for defect #212147 botp@ausaix19.austin.ibm.com@7630 system.
-		if (getAlternateClassLoader() != null) {
-			try {
-				return getAlternateClassLoader().loadClass(qualifiedName);
-			} catch (ClassNotFoundException cnf2) {
-				ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-				if (systemClassLoader != null) {
-					ClassLoader parent = getAlternateClassLoader().getParent();					
-					while (parent != null) {
-						if (parent == systemClassLoader)
-							throw cnf2;	// We've already tried the system class loader. Go no further.
-						parent = parent.getParent();
-					}
-					return systemClassLoader.loadClass(qualifiedName);
-				}
-			}
-		}
-		return Class.forName(qualifiedName);
-	}
 	/*****************************************************************************
 	* Method to convert the textual form of a primitive type into its Class object
 	*
