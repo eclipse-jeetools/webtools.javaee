@@ -26,10 +26,8 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 /**
- * @author jsholl
- * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ * @deprecated
+ * @see org.eclipse.jst.common.jdt.internal.integration.IJavaProjectCreationProperties
  */
 public class JavaProjectCreationDataModel extends ProjectCreationDataModel {
 
