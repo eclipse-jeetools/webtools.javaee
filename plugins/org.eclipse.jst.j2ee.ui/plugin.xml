@@ -588,6 +588,27 @@
                value="org.eclipse.jst.j2ee.ejb.EJBNature">
          </filter>
       </page>
+<!-- =========== org.eclipse.jst.j2ee.internal.JARDependencyProperties============ -->
+         <page
+            objectClass="org.eclipse.core.resources.IProject"
+            name="%jar.dependencies.props_ui_"
+            class="org.eclipse.jst.j2ee.internal.JARDependencyPropertiesPage"
+            id="JARDependenciesPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.jdt.core.javanature">
+         </filter>
+      </page>
+      <page
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            name="%jar.dependencies.props_ui_"
+            class="org.eclipse.jst.j2ee.internal.JARDependencyPropertiesPage"
+            id="JARDependenciesPropertiesPage">
+         <filter
+               name="nature"
+               value="org.eclipse.jdt.core.javanature">
+         </filter>
+      </page>
    </extension>
   
 
