@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.j2ee" id="SpecializedModuleImport" name="SpecializedModuleImport"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="SpecializedModuleImport" name="SpecializedModuleImport"/>
       </appInfo>
       <documentation>
          This extension point gives the ability to treat a jar file which is not an ejb jar file as an ejb jar file during ejb jar import.

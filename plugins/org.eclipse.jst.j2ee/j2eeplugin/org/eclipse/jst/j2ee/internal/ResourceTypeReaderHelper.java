@@ -46,7 +46,7 @@ public class ResourceTypeReaderHelper {
 	public static final int RESOURCE_REF = 0;
 	public static final int RESOURCE_ENV_REF = 1;
 
-	private static final String[] EXTENSION_POINTS = {"com.ibm.wtp.j2ee.resourceRefType", "com.ibm.wtp.j2ee.resourceEnvRefType"};//$NON-NLS-1$ //$NON-NLS-2$
+	private static final String[] EXTENSION_POINTS = {"org.eclipse.jst.j2ee.resourceRefType", "org.eclipse.jst.j2ee.resourceEnvRefType"};//$NON-NLS-1$ //$NON-NLS-2$
 
 	public static String[] getAllReferences(int refType, String serverTargetID, boolean isEJBJar, String[] baseItems) {
 		String extensionPointLocal = EXTENSION_POINTS[refType];

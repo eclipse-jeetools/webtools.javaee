@@ -15,7 +15,7 @@
          <sequence>
             <element ref="dictionaryExtension"/>
          </sequence>
-         <attribute name="point" type="string" use="default" value="com.ibm.wtp.j2ee.GeneratorDictionaryExtension">
+         <attribute name="point" type="string" use="default" value="org.eclipse.jst.j2ee.GeneratorDictionaryExtension">
             <annotation>
                <documentation>
                   

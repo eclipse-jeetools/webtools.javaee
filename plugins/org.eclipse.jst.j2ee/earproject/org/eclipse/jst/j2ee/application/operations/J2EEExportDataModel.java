@@ -57,7 +57,6 @@ public abstract class J2EEExportDataModel extends WTPOperationDataModel {
 		super.init();
 	}
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -191,7 +190,7 @@ public abstract class J2EEExportDataModel extends WTPOperationDataModel {
 		return OK_STATUS;
 	}
 
-	public boolean checkForExistingFileResource(String fileName) {
+	private boolean checkForExistingFileResource(String fileName) {
 		if (!getBooleanProperty(J2EEExportDataModel.OVERWRITE_EXISTING)) {
 			java.io.File externalFile = new java.io.File(fileName);
 			if (externalFile != null && externalFile.exists())
@@ -213,7 +212,7 @@ public abstract class J2EEExportDataModel extends WTPOperationDataModel {
 	/**
 	 * Populate the resource name combo with connector projects that are not encrypted.
 	 */
-	protected Object[] getValidProjectNames() {
+	private Object[] getValidProjectNames() {
 		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
 		List projectsWithNature = new ArrayList();
 
@@ -226,16 +225,6 @@ public abstract class J2EEExportDataModel extends WTPOperationDataModel {
 
 		return ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()]));
 	}
-
-	//	private boolean archiveExistsOnFile() {
-	//		String archiveName = (String) getProperty(ARCHIVE_DESTINATION);
-	//
-	//		if (archiveName != null && archiveName.length() > 0) {
-	//			java.io.File file = new java.io.File(archiveName);
-	//			return file.exists() && !file.isDirectory();
-	//		} else
-	//			return false;
-	//	}
 
 	protected abstract String getModuleExtension();
 

@@ -27,14 +27,14 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 public class J2EEPreferences {
 
 	public interface Keys {
-		final static String J2EE_WEB_CONTENT = "com.ibm.wtp.j2ee.preference.j2eeWebContentName"; //$NON-NLS-1$
-		final static String STATIC_WEB_CONTENT = "com.ibm.wtp.j2ee.preference.staticWebContentName"; //$NON-NLS-1$
-		final static String JAVA_SOURCE = "com.ibm.wtp.j2ee.preference.javaSourceName"; //$NON-NLS-1$
-		final static String SERVER_TARGET_SUPPORT = "com.ibm.wtp.j2ee.preference.servertargetsupport"; //$NON-NLS-1$
-		final static String CREATE_EJB_CLIENT_JAR = "com.ibm.wtp.j2ee.preference.createClientJar"; //$NON-NLS-1$
-		final static String J2EE_VERSION = "com.ibm.wtp.j2ee.ui.preference.j2eeVersion"; //$NON-NLS-1$
-		final static String EJB_CLIENT_JAR_CP_COMPATIBILITY = "com.ibm.wtp.j2ee.preference.clientjar.cp.compatibility"; //$NON-NLS-1$
-		final static String INCREMENTAL_DEPLOYMENT_SUPPORT = "com.ibm.wtp.j2ee.ui.preference.incrementalDeployment"; //$NON-NLS-1$
+		final static String J2EE_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.j2eeWebContentName"; //$NON-NLS-1$
+		final static String STATIC_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.staticWebContentName"; //$NON-NLS-1$
+		final static String JAVA_SOURCE = "org.eclipse.jst.j2ee.preference.javaSourceName"; //$NON-NLS-1$
+		final static String SERVER_TARGET_SUPPORT = "org.eclipse.jst.j2ee.preference.servertargetsupport"; //$NON-NLS-1$
+		final static String CREATE_EJB_CLIENT_JAR = "org.eclipse.jst.j2ee.preference.createClientJar"; //$NON-NLS-1$
+		final static String J2EE_VERSION = "org.eclipse.jst.j2ee.ui.preference.j2eeVersion"; //$NON-NLS-1$
+		final static String EJB_CLIENT_JAR_CP_COMPATIBILITY = "org.eclipse.jst.j2ee.preference.clientjar.cp.compatibility"; //$NON-NLS-1$
+		final static String INCREMENTAL_DEPLOYMENT_SUPPORT = "org.eclipse.jst.j2ee.ui.preference.incrementalDeployment"; //$NON-NLS-1$
 
 
 	}

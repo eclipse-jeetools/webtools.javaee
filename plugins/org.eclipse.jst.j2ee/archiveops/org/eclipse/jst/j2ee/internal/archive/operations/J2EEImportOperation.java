@@ -1,18 +1,16 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 /*
  * Created on Dec 3, 2003
  * 
- * To change the template for this generated file go to Window - Preferences -
- * Java - Code Generation - Code and Comments
+ * To change the template for this generated file go to Window - Preferences - Java - Code
+ * Generation - Code and Comments
  */
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
@@ -28,8 +26,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
@@ -40,12 +38,6 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
-/**
- * @author jsholl
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
- */
 public abstract class J2EEImportOperation extends WTPOperation {
 	public J2EEImportOperation(J2EEImportDataModel model) {
 		super(model);
@@ -68,8 +60,8 @@ public abstract class J2EEImportOperation extends WTPOperation {
 				project.delete(true, true, new NullProgressMonitor());
 			}
 		}
-		if (!model.getJ2eeProjectCreationDataModel().getTargetProject().exists()) {
-			createModuleProject(model.getJ2eeProjectCreationDataModel(), monitor);
+		if (!model.getJ2eeArtifactCreationDataModel().getTargetProject().exists()) {
+			createModuleProject(model.getJ2eeArtifactCreationDataModel(), monitor);
 		}
 		if (model.getBooleanProperty(J2EEImportDataModel.BINARY)) {
 			BinaryProjectHelper binaryHelper = new BinaryProjectHelper();
@@ -81,13 +73,13 @@ public abstract class J2EEImportOperation extends WTPOperation {
 	}
 
 	protected void addServerTarget(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		J2EEProjectCreationDataModel projModel = ((J2EEImportDataModel) operationDataModel).getJ2eeProjectCreationDataModel();
+		J2EEArtifactCreationDataModel projModel = ((J2EEImportDataModel) operationDataModel).getJ2eeArtifactCreationDataModel();
 		ServerTargetDataModel servModel = projModel.getServerTargetDataModel();
 		ServerTargetOperation serverTargetOperation = new ServerTargetOperation(servModel);
 		serverTargetOperation.doRun(monitor);
 	}
 
-	protected abstract void createModuleProject(J2EEProjectCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
+	protected abstract void createModuleProject(J2EEArtifactCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
 	/**
 	 * Creates the appropriate save strategy. Subclases should overwrite this method to create the
@@ -112,7 +104,7 @@ public abstract class J2EEImportOperation extends WTPOperation {
 			if (model.isSet(J2EEImportDataModel.SAVE_FILTER)) {
 				moduleFile.setSaveFilter((SaveFilter) model.getProperty(J2EEImportDataModel.SAVE_FILTER));
 			}
-			J2EESaveStrategyImpl aStrategy = (J2EESaveStrategyImpl) createSaveStrategy(model.getJ2eeProjectCreationDataModel().getTargetProject());
+			J2EESaveStrategyImpl aStrategy = (J2EESaveStrategyImpl) createSaveStrategy(model.getJ2eeArtifactCreationDataModel().getTargetProject());
 			aStrategy.setProgressMonitor(monitor);
 			aStrategy.setIncludeProjectMetaFiles(model.getBooleanProperty(J2EEImportDataModel.PRESERVE_PROJECT_METADATA));
 			aStrategy.setShouldIncludeImportedClasses(!model.getBooleanProperty(J2EEImportDataModel.PRESERVE_PROJECT_METADATA));
@@ -121,7 +113,7 @@ public abstract class J2EEImportOperation extends WTPOperation {
 			modifyStrategy(aStrategy);
 			moduleFile.save(aStrategy);
 			if (model.getBooleanProperty(J2EEImportDataModel.PRESERVE_PROJECT_METADATA)) {
-				ProjectUtilities.forceClasspathReload(model.getJ2eeProjectCreationDataModel().getTargetProject());
+				ProjectUtilities.forceClasspathReload(model.getJ2eeArtifactCreationDataModel().getTargetProject());
 			}
 		} catch (OverwriteHandlerException oe) {
 			throw new InterruptedException();

@@ -31,7 +31,7 @@ public abstract class J2EEModuleImportDataModel extends J2EEImportDataModel {
 		addValidBaseProperty(EXTENDED_IMPORT_FACTORY);
 	}
 
-	protected int getModuleSpecVersion() {
+	private int getModuleSpecVersion() {
 		if (!isSet(EXTENDED_IMPORT_FACTORY)) {
 			return ArchiveUtil.getFastSpecVersion(getModuleFile());
 		}
@@ -42,11 +42,11 @@ public abstract class J2EEModuleImportDataModel extends J2EEImportDataModel {
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		if (propertyName.equals(PROJECT_NAME)) {
 			IProject project = getProjectHandleFromName((String) propertyValue);
-			j2eeProjectCreationDataModel.setBooleanProperty(J2EEProjectCreationDataModel.IS_ENABLED, null == project || !project.exists());
+			getJ2EEModuleCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModel.IS_ENABLED, null == project || !project.exists());
 		}
 		boolean doSet = super.doSetProperty(propertyName, propertyValue);
 		if (doSet && (propertyName.equals(J2EEImportDataModel.FILE_NAME) || (propertyName.equals(J2EEImportDataModel.FILE)))) {
-			J2EEModuleCreationDataModel moduleDM = (J2EEModuleCreationDataModel) j2eeProjectCreationDataModel;
+			J2EEModuleCreationDataModel moduleDM = getJ2EEModuleCreationDataModel();
 			if (getModuleFile() != null) {
 				moduleDM.setIntProperty(J2EEModuleCreationDataModel.J2EE_VERSION, getModuleSpecVersion());
 				notifyValidValuesChange(PROJECT_NAME);
@@ -54,7 +54,7 @@ public abstract class J2EEModuleImportDataModel extends J2EEImportDataModel {
 		} else if (propertyName.equals(PROJECT_NAME)) {
 			IProject project = getProject();
 			if (null != project && project.exists()) {
-				String[] requiredNatures = (String[]) j2eeProjectCreationDataModel.projectDataModel.getProperty(ProjectCreationDataModel.PROJECT_NATURES);
+				String[] requiredNatures = (String[]) getJ2EEModuleCreationDataModel().getProjectDataModel().getProperty(ProjectCreationDataModel.PROJECT_NATURES);
 				if (null != requiredNatures) {
 					try {
 						for (int i = 0; i < requiredNatures.length; i++) {
@@ -72,21 +72,19 @@ public abstract class J2EEModuleImportDataModel extends J2EEImportDataModel {
 					setBooleanProperty(ADD_TO_EAR, false);
 				}
 			}
-			j2eeProjectCreationDataModel.setBooleanProperty(J2EEProjectCreationDataModel.IS_ENABLED, null == project || !project.exists());
+			getJ2EEModuleCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModel.IS_ENABLED, null == project || !project.exists());
 		} else if (propertyName.equals(PRESERVE_PROJECT_METADATA)) {
-			JavaProjectCreationDataModel jdm = ((J2EEModuleCreationDataModel) j2eeProjectCreationDataModel).getJavaProjectCreationDataModel();
+			JavaProjectCreationDataModel jdm = getJ2EEModuleCreationDataModel().getJavaProjectCreationDataModel();
 			jdm.setBooleanProperty(JavaProjectCreationDataModel.CREATE_SOURCE_FOLDERS, !getBooleanProperty(BINARY));
 		}
 		return doSet;
 	}
 
-
-
-	public J2EEModuleCreationDataModel getJ2EEModuleCreationDataModel() {
-		return (J2EEModuleCreationDataModel) j2eeProjectCreationDataModel;
+	public final J2EEModuleCreationDataModel getJ2EEModuleCreationDataModel() {
+		return (J2EEModuleCreationDataModel) getJ2eeArtifactCreationDataModel();
 	}
 
-	protected int getJ2EEVersion() {
-		return ((J2EEModuleCreationDataModel) j2eeProjectCreationDataModel).getJ2EEVersion();
+	protected final int getJ2EEVersion() {
+		return getJ2EEModuleCreationDataModel().getJ2EEVersion();
 	}
 }

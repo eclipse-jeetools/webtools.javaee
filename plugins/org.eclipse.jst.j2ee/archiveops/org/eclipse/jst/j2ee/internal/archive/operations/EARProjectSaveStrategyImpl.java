@@ -74,7 +74,7 @@ public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements EARP
 		project = dataModel.getProject();
 		setArchive(model.getEARFile());
 		includeProjectMetaFiles = model.getBooleanProperty(EARImportDataModel.PRESERVE_PROJECT_METADATA);
-		overwriteHandler = model.getOverwriteHandler();
+		overwriteHandler = (IOverwriteHandler)model.getProperty(EARImportDataModel.OVERWRITE_HANDLER);
 		if (null != overwriteHandler) {
 			overwriteHandler.setEarSaveStrategy(this);
 		}

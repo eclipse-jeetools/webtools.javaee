@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.j2ee" id="TargetRuntimeExtHandler" name="TargetRuntimeExtensionHandler"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="TargetRuntimeExtHandler" name="TargetRuntimeExtensionHandler"/>
       </appInfo>
       <documentation>
          Here is a sample of this extension
@@ -11,7 +11,7 @@
 &lt;extension
          id=&quot;TargetRuntimeExtension&quot;
          name=&quot;TargetRuntimeExtensionHandler&quot;
-         point=&quot;com.ibm.wtp.j2ee.TargetRuntimeExtension&quot;&gt;
+         point=&quot;org.eclipse.jst.j2ee.TargetRuntimeExtension&quot;&gt;
       &lt;targetRuntimeExtensionHandler
             groupID=&quot;IBM&quot;&gt;
          &lt;run
@@ -27,7 +27,7 @@
          <sequence>
             <element ref="targetRuntimeExtensionHandler"/>
          </sequence>
-         <attribute name="point" type="string" use="default" value="com.ibm.wtp.j2ee.TargetRuntimeExtension">
+         <attribute name="point" type="string" use="default" value="org.eclipse.jst.j2ee.TargetRuntimeExtension">
             <annotation>
                <documentation>
                   

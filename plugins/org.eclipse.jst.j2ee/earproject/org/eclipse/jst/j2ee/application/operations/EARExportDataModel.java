@@ -14,7 +14,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
-public class EARExportDataModel extends J2EEExportDataModel {
+public final class EARExportDataModel extends J2EEExportDataModel {
 
 	/*
 	 * (non-Javadoc)

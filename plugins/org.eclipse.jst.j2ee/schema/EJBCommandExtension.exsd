@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.j2ee" id="EJBCommandExtension" name="EJBCommandExtension"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="EJBCommandExtension" name="EJBCommandExtension"/>
       </appInfo>
       <documentation>
          Mainly used to overwrite delete and update commands for ejb&apos;s. For eg the extension was used to overwrite delete bean command.

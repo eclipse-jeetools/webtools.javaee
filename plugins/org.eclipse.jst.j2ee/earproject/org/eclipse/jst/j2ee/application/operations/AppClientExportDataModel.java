@@ -13,10 +13,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.AppClientExportOperation
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
-
-
-public class AppClientExportDataModel extends J2EEModuleExportDataModel {
-
+public final class AppClientExportDataModel extends J2EEModuleExportDataModel {
 
 	public WTPOperation getDefaultOperation() {
 		return new AppClientExportOperation(this);
@@ -37,5 +34,4 @@ public class AppClientExportDataModel extends J2EEModuleExportDataModel {
 	protected String getWrongProjectTypeString(String projectName) {
 		return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_APP_CLIENT, new Object[]{projectName});
 	}
-
 }

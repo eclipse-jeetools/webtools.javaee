@@ -60,7 +60,7 @@ import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.xml.sax.InputSource;
 
-public class EARImportDataModel extends J2EEImportDataModel implements IAnnotationsDataModel {
+public final class EARImportDataModel extends J2EEImportDataModel implements IAnnotationsDataModel {
 	/**
 	 * Optional, type Boolean, default true, This flag is set to allow the EAR project to be
 	 * imported or not. If it is not imported, it is still possible for the nested projects (moduel &
@@ -98,13 +98,13 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 	 * Optional. This is a list of data models. This list must contain all non-utilty projects in
 	 * the ear to be imported
 	 */
-	protected static final String MODULE_MODELS_LIST = "EARImportDataModel.MODULE_MODELS_LIST"; //$NON-NLS-1$
+	private static final String MODULE_MODELS_LIST = "EARImportDataModel.MODULE_MODELS_LIST"; //$NON-NLS-1$
 
 	/**
 	 * Optional. This is a list of data models. This list must contain all utility jars selected to
 	 * be imported
 	 */
-	protected static final String UTILITY_MODELS_LIST = "EARImportDataModel.UTILITY_MODELS_LIST"; //$NON-NLS-1$
+	private static final String UTILITY_MODELS_LIST = "EARImportDataModel.UTILITY_MODELS_LIST"; //$NON-NLS-1$
 
 	/**
 	 * This is only to force validation for the nested projects; do not set.
@@ -198,9 +198,9 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 			setProperty(MODULE_MODELS_LIST, getModuleModels());
 			setBooleanProperty(PRESERVE_PROJECT_METADATA, false);
 			setProperty(UTILITY_LIST, null);
-			EARProjectCreationDataModel earProjectModel = (EARProjectCreationDataModel) j2eeProjectCreationDataModel;
+			J2EEApplicationCreationDataModel earProjectModel = (J2EEApplicationCreationDataModel) getJ2eeArtifactCreationDataModel();
 			if (getModuleFile() != null) {
-				earProjectModel.setIntProperty(EARProjectCreationDataModel.EAR_VERSION, ArchiveUtil.getFastSpecVersion(getModuleFile()));
+				earProjectModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, ArchiveUtil.getFastSpecVersion(getModuleFile()));
 			}
 			notifyValidValuesChange(PROJECT_NAME);
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
@@ -230,8 +230,8 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 			J2EEImportDataModel nestedModel = null;
 			for (int i = 0; i < projectModels.size(); i++) {
 				nestedModel = (J2EEImportDataModel) projectModels.get(i);
-				if (nestedModel.getJ2eeProjectCreationDataModel() instanceof J2EEModuleCreationDataModel)
-					((J2EEModuleCreationDataModel) nestedModel.getJ2eeProjectCreationDataModel()).setProperty(J2EEModuleCreationDataModel.USE_ANNOTATIONS, propertyValue);
+				if (nestedModel.getJ2eeArtifactCreationDataModel() instanceof J2EEModuleCreationDataModel)
+					((J2EEModuleCreationDataModel) nestedModel.getJ2eeArtifactCreationDataModel()).setProperty(J2EEModuleCreationDataModel.USE_ANNOTATIONS, propertyValue);
 			}
 		} else if (MODULE_MODELS_LIST.equals(propertyName)) {
 			List newList = new ArrayList();
@@ -274,7 +274,7 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 		return list;
 	}
 
-	public List getAllUtilitiesExceptEJBClients(EARFile earFile) {
+	private List getAllUtilitiesExceptEJBClients(EARFile earFile) {
 		List clientList = (List) getProperty(EJB_CLIENT_LIST);
 		List list = getAllUtilities(earFile);
 		for (int i = list.size() - 1; i > -1; i--) {
@@ -313,13 +313,6 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 
 	protected boolean forceResetOnPreserveMetaData() {
 		return false;
-	}
-
-	public boolean isValid() {
-		if (!super.isValid()) {
-			return false;
-		}
-		return true;
 	}
 
 	protected IStatus doValidateProperty(String propertyName) {
@@ -385,8 +378,8 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 		for (int i = 0; null != projects && i < projects.size(); i++) {
 			model = (J2EEImportDataModel) projects.get(i);
 			IPath newPath = new Path(property);
-			newPath = newPath.append((String) model.getProperty(J2EEProjectCreationDataModel.PROJECT_NAME));
-			model.setProperty(J2EEProjectCreationDataModel.PROJECT_LOCATION, newPath.toOSString());
+			newPath = newPath.append((String) model.getProperty(J2EEArtifactCreationDataModel.PROJECT_NAME));
+			model.setProperty(J2EEArtifactCreationDataModel.PROJECT_LOCATION, newPath.toOSString());
 		}
 	}
 
@@ -396,10 +389,10 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 			model = (J2EEImportDataModel) projects.get(i);
 			if (isSet(NESTED_MODULE_ROOT)) {
 				IPath newPath = new Path((String) getProperty(NESTED_MODULE_ROOT));
-				newPath = newPath.append((String) model.getProperty(J2EEProjectCreationDataModel.PROJECT_NAME));
-				model.setProperty(J2EEProjectCreationDataModel.PROJECT_LOCATION, newPath.toOSString());
+				newPath = newPath.append((String) model.getProperty(J2EEArtifactCreationDataModel.PROJECT_NAME));
+				model.setProperty(J2EEArtifactCreationDataModel.PROJECT_LOCATION, newPath.toOSString());
 			} else {
-				model.setProperty(J2EEProjectCreationDataModel.PROJECT_LOCATION, null);
+				model.setProperty(J2EEArtifactCreationDataModel.PROJECT_LOCATION, null);
 			}
 		}
 	}
@@ -464,7 +457,7 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 				J2EEUtilityJarImportDataModel model = new J2EEUtilityJarImportDataModel();
 				model.setProperty(J2EEUtilityJarImportDataModel.FILE, currentArchive);
 				model.setProperty(J2EEUtilityJarImportDataModel.EAR_PROJECT, getStringProperty(PROJECT_NAME));
-				model.getJ2eeProjectCreationDataModel().setBooleanProperty(J2EEProjectCreationDataModel.ADD_SERVER_TARGET, false);
+				model.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModel.ADD_SERVER_TARGET, false);
 				model.setProperty(PRESERVE_PROJECT_METADATA, getProperty(PRESERVE_PROJECT_METADATA));
 				model.setProperty(OVERWRITE_PROJECT, getProperty(OVERWRITE_NESTED_PROJECTS));
 				utilityModels.add(model);
@@ -496,7 +489,7 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 	}
 
 	private List getModuleModels() {
-		if (moduleFile == null)
+		if (getArchiveFile() == null)
 			return Collections.EMPTY_LIST;
 		List moduleFiles = getEARFile().getModuleFiles();
 		List moduleModels = new ArrayList();
@@ -609,8 +602,8 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 		return moduleModels;
 	}
 
-	protected J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel() {
-		return new EARProjectCreationDataModel();
+	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
+		return new J2EEApplicationCreationDataModel();
 	}
 
 	protected int getType() {
@@ -618,13 +611,13 @@ public class EARImportDataModel extends J2EEImportDataModel implements IAnnotati
 	}
 
 	protected boolean openArchive(String uri) throws OpenFailureException {
-		moduleFile = CommonarchiveFactory.eINSTANCE.openEARFile(getArchiveOptions(), uri);
-		if (moduleFile == null)
+		setArchiveFile(CommonarchiveFactory.eINSTANCE.openEARFile(getArchiveOptions(), uri));
+		if (getArchiveFile() == null)
 			return false;
 		return true;
 	}
 
-	public EARFile getEARFile() {
+	public final EARFile getEARFile() {
 		return (EARFile) getModuleFile();
 	}
 

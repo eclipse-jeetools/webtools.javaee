@@ -20,8 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
@@ -42,7 +42,7 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	 * 
 	 * @deprecated
 	 */
-	public static final String APP_CLIENT_DEV_ACTIVITY_ID = "com.ibm.wtp.j2ee.application.client.development"; //$NON-NLS-1$
+	public static final String APP_CLIENT_DEV_ACTIVITY_ID = "org.eclipse.jst.j2ee.application.client.development"; //$NON-NLS-1$
 	/**
 	 * This activity no longer exists use ENTERPRISE_JAVA instead
 	 * 
@@ -121,7 +121,7 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	 * @param model
 	 */
 	private void createAppClientModuleProject(J2EEModuleCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		AppClientProjectCreationOperation op = new AppClientProjectCreationOperation((AppClientProjectCreationDataModel) model);
+		AppClientModuleCreationOperation op = new AppClientModuleCreationOperation((AppClientModuleCreationDataModel) model);
 		op.doRun(monitor);
 		WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
 

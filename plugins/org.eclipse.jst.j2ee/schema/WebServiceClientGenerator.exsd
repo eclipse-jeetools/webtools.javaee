@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.j2ee" id="WebServiceClientGenerator" name="WebServiceClientGenerator"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="WebServiceClientGenerator" name="WebServiceClientGenerator"/>
       </appInfo>
       <documentation>
          Extended by WAS or axis in generating web service client specific artifacts.

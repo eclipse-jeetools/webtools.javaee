@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.j2ee" id="resourceRefType" name="Resource Ref Type"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="resourceRefType" name="Resource Ref Type"/>
       </appInfo>
       <documentation>
          This extension point is used to add types to the drop down options available when creating or modifying Resource References for a Application Client or EJB Project.

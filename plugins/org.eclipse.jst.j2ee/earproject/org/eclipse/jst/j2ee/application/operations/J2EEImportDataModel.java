@@ -31,7 +31,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
@@ -98,10 +97,11 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 	/**
 	 * Extended attributes
 	 */
-	public static final String SERVER_TARGET_ID = J2EEProjectCreationDataModel.SERVER_TARGET_ID;
-	protected J2EEProjectCreationDataModel j2eeProjectCreationDataModel;
-	protected Archive moduleFile;
-	protected OpenFailureException cachedOpenFailureException = null;
+	public static final String SERVER_TARGET_ID = J2EEArtifactCreationDataModel.SERVER_TARGET_ID;
+	
+	private J2EEArtifactCreationDataModel j2eeArtifactCreationDataModel;
+	private Archive archiveFile;
+	private OpenFailureException cachedOpenFailureException = null;
 
 	/*
 	 * (non-Javadoc)
@@ -127,10 +127,10 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 
 	protected void initNestedModels() {
 		super.initNestedModels();
-		j2eeProjectCreationDataModel = createJ2EEProjectCreationDataModel();
-		j2eeProjectCreationDataModel.setBooleanProperty(J2EEProjectCreationDataModel.CREATE_DEFAULT_FILES, false);
-		j2eeProjectCreationDataModel.addListener(this);
-		addNestedModel(NESTED_MODEL_J2EE_PROJECT_CREATION, j2eeProjectCreationDataModel);
+		j2eeArtifactCreationDataModel = createJ2EEProjectCreationDataModel();
+		j2eeArtifactCreationDataModel.setBooleanProperty(J2EEArtifactCreationDataModel.CREATE_DEFAULT_FILES, false);
+		j2eeArtifactCreationDataModel.addListener(this);
+		addNestedModel(NESTED_MODEL_J2EE_PROJECT_CREATION, j2eeArtifactCreationDataModel);
 	}
 
 	protected Object getDefaultProperty(String propertyName) {
@@ -140,7 +140,7 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 		if (propertyName.equals(PRESERVE_PROJECT_METADATA) || propertyName.equals(OVERWRITE_PROJECT) || propertyName.equals(DELETE_BEFORE_OVERWRITE_PROJECT)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(PROJECT_NAME)) {
-			return j2eeProjectCreationDataModel.getProperty(J2EEProjectCreationDataModel.PROJECT_NAME);
+			return j2eeArtifactCreationDataModel.getProperty(J2EEArtifactCreationDataModel.PROJECT_NAME);
 		} else if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(URI_FOR_MODULE_MAPPING)) {
@@ -167,7 +167,7 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 		if (propertyName.equals(FILE)) {
 			setProperty(FILE_NAME, null);
 			super.doSetProperty(propertyName, propertyValue);
-			moduleFile = (Archive) propertyValue;
+			archiveFile = (Archive) propertyValue;
 			updateDefaultProjectName();
 			return true;
 		}
@@ -216,9 +216,9 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 		//            updateDefaultProjectName();
 		//        }
 		if (propertyName.equals(PROJECT_NAME)) {
-			j2eeProjectCreationDataModel.setProperty(J2EEProjectCreationDataModel.PROJECT_NAME, propertyValue);
-		} else if (propertyName.equals(SAVE_FILTER) && moduleFile != null) {
-			moduleFile.setSaveFilter(getSaveFilter());
+			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModel.PROJECT_NAME, propertyValue);
+		} else if (propertyName.equals(SAVE_FILTER) && archiveFile != null) {
+			archiveFile.setSaveFilter(getSaveFilter());
 		}
 		if (doSet) {
 			if (FILE_NAME.equals(propertyName)) {
@@ -241,8 +241,8 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 	}
 
 	private void updateDefaultProjectName() {
-		if (null != moduleFile && getBooleanProperty(DEFAULT_PROJECT_NAME)) {
-			Path path = new Path(moduleFile.getURI());
+		if (null != archiveFile && getBooleanProperty(DEFAULT_PROJECT_NAME)) {
+			Path path = new Path(archiveFile.getURI());
 			String defaultProjectName = path.segment(path.segmentCount() - 1);
 			if (defaultProjectName.indexOf(".") > 0) { //$NON-NLS-1$
 				defaultProjectName = defaultProjectName.substring(0, defaultProjectName.indexOf(".")); //$NON-NLS-1$
@@ -254,7 +254,7 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 					defaultProjectName = baseName + Integer.toString(i);
 				}
 			}
-			j2eeProjectCreationDataModel.setProperty(J2EEProjectCreationDataModel.PROJECT_NAME, defaultProjectName);
+			j2eeArtifactCreationDataModel.setProperty(J2EEArtifactCreationDataModel.PROJECT_NAME, defaultProjectName);
 			notifyDefaultChange(PROJECT_NAME);
 			setBooleanProperty(DEFAULT_PROJECT_NAME, true);
 		}
@@ -262,24 +262,24 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 
 	private boolean handleArchiveSetup(String fileName) throws OpenFailureException {
 		boolean archiveStatus = true;
-		if (moduleFile != null) {
-			moduleFile.close();
-			moduleFile = null;
+		if (archiveFile != null) {
+			archiveFile.close();
+			archiveFile = null;
 		}
 		String uri = getStringProperty(FILE_NAME);
 		if (!archiveExistsOnFile())
 			return false;
 		archiveStatus = openArchive(uri);
-		moduleFile.setSaveFilter(getSaveFilter());
+		archiveFile.setSaveFilter(getSaveFilter());
 		return archiveStatus;
 	}
 
 	protected abstract boolean openArchive(String uri) throws OpenFailureException;
 
-	protected boolean closeModuleFile() {
-		if (null != moduleFile) {
-			moduleFile.close();
-			moduleFile = null;
+	private boolean closeModuleFile() {
+		if (null != archiveFile) {
+			archiveFile.close();
+			archiveFile = null;
 		}
 		return true;
 	}
@@ -294,13 +294,14 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 			return OK_STATUS;
 		}
 		if (PROJECT_NAME.equals(propertyName)) {
-			IStatus status = validateProjectName(j2eeProjectCreationDataModel.projectDataModel.getStringProperty(ProjectCreationDataModel.PROJECT_NAME));
+			ProjectCreationDataModel projectDataModel = j2eeArtifactCreationDataModel.getProjectDataModel();
+			IStatus status = validateProjectName(projectDataModel.getStringProperty(ProjectCreationDataModel.PROJECT_NAME));
 			if (!status.isOK()) {
 				return status;
 			}
-			IProject project = j2eeProjectCreationDataModel.projectDataModel.getProject();
+			IProject project = projectDataModel.getProject();
 			if (null != project && !project.exists() || !getBooleanProperty(OVERWRITE_PROJECT)) {
-				status = j2eeProjectCreationDataModel.projectDataModel.validateDataModel();
+				status = projectDataModel.validateDataModel();
 				if (!status.isOK()) {
 					status = WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString("EARImportDataModel_UI_3", new Object[]{project.getName()}));//$NON-NLS-1$
 				}
@@ -308,7 +309,7 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 			}
 			if (!getBooleanProperty(DELETE_BEFORE_OVERWRITE_PROJECT)) {
 				//now we have an existing project we are going to overwrite
-				String[] natures = (String[]) j2eeProjectCreationDataModel.projectDataModel.getProperty(ProjectCreationDataModel.PROJECT_NATURES);
+				String[] natures = (String[]) projectDataModel.getProperty(ProjectCreationDataModel.PROJECT_NATURES);
 				for (int i = 0; null != natures && i < natures.length; i++) {
 					try {
 						if (!project.hasNature(natures[i])) {
@@ -345,7 +346,7 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 		return 0;
 	}
 
-	protected abstract J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel();
+	protected abstract J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel();
 
 	/*
 	 * @see XMLResource#APP_CLIENT_TYPE
@@ -356,8 +357,8 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 	 */
 	protected abstract int getType();
 
-	public J2EEProjectCreationDataModel getJ2eeProjectCreationDataModel() {
-		return j2eeProjectCreationDataModel;
+	public final J2EEArtifactCreationDataModel getJ2eeArtifactCreationDataModel() {
+		return j2eeArtifactCreationDataModel;
 	}
 
 	private boolean archiveExistsOnFile() {
@@ -375,35 +376,35 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 		super.dispose();
 	}
 
-	public Archive getArchiveFile() {
-		return moduleFile;
+	protected final void setArchiveFile(Archive archiveFile){
+		this.archiveFile = archiveFile;
+	}
+	
+	public final Archive getArchiveFile() {
+		return archiveFile;
 	}
 
-	public ModuleFile getModuleFile() {
-		return (ModuleFile) moduleFile;
+	public final ModuleFile getModuleFile() {
+		return (ModuleFile) archiveFile;
 	}
 
 	public IProject getProject() {
-		return j2eeProjectCreationDataModel.getTargetProject();
+		return j2eeArtifactCreationDataModel.getTargetProject();
 	}
 
-	protected ArchiveOptions getArchiveOptions() {
+	protected final ArchiveOptions getArchiveOptions() {
 		ArchiveOptions opts = new ArchiveOptions();
 		opts.setIsReadOnly(true);
 		return opts;
 	}
 
-	public IOverwriteHandler getOverwriteHandler() {
-		return (IOverwriteHandler) getProperty(OVERWRITE_HANDLER);
-	}
-
-	public SaveFilter getSaveFilter() {
+	private SaveFilter getSaveFilter() {
 		return (SaveFilter) getProperty(SAVE_FILTER);
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getDataModel().equals(j2eeProjectCreationDataModel) && event.getPropertyName().equals(J2EEProjectCreationDataModel.PROJECT_NAME)) {
-			setProperty(PROJECT_NAME, j2eeProjectCreationDataModel.getStringProperty(J2EEProjectCreationDataModel.PROJECT_NAME));
+		if (event.getDataModel().equals(j2eeArtifactCreationDataModel) && event.getPropertyName().equals(J2EEArtifactCreationDataModel.PROJECT_NAME)) {
+			setProperty(PROJECT_NAME, j2eeArtifactCreationDataModel.getStringProperty(J2EEArtifactCreationDataModel.PROJECT_NAME));
 			setBooleanProperty(DEFAULT_PROJECT_NAME, false);
 		}
 		super.propertyChanged(event);
@@ -417,7 +418,7 @@ public abstract class J2EEImportDataModel extends WTPOperationDataModel {
 			int j2eeVersion = getJ2EEVersion();
 			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 			ArrayList projectList = new ArrayList();
-			String[] natureIds = (String[]) j2eeProjectCreationDataModel.projectDataModel.getProperty(ProjectCreationDataModel.PROJECT_NATURES);
+			String[] natureIds = (String[]) j2eeArtifactCreationDataModel.getProjectDataModel().getProperty(ProjectCreationDataModel.PROJECT_NATURES);
 			String j2eeNatureID = null;
 			for (int j = 0; null == j2eeNatureID && j < natureIds.length; j++) {
 				if (IEARNatureConstants.NATURE_ID.equals(natureIds[j]) || IEJBNatureConstants.NATURE_ID.equals(natureIds[j]) || IWebNatureConstants.J2EE_NATURE_ID.equals(natureIds[j]) || IConnectorNatureConstants.NATURE_ID.equals(natureIds[j]) || IApplicationClientNatureConstants.NATURE_ID.equals(natureIds[j])) {

@@ -38,14 +38,7 @@ import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationOperation;
 
-
-/**
- * @author jsholl
- * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
-public abstract class J2EEModuleCreationOperation extends J2EEProjectCreationOperation {
+public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOperation {
 
 	public J2EEModuleCreationOperation(J2EEModuleCreationDataModel dataModel) {
 		super(dataModel);
@@ -70,12 +63,12 @@ public abstract class J2EEModuleCreationOperation extends J2EEProjectCreationOpe
 
 	public static void linkToEARIfNecessary(J2EEModuleCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		if (moduleModel.getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
-			EARProjectCreationDataModel earModel = moduleModel.getEarProjectCreationDataModel();
+			J2EEApplicationCreationDataModel earModel = moduleModel.getApplicationCreationDataModel();
 			if (!earModel.getTargetProject().exists()) {
-				EARProjectCreationOperation earOp = new EARProjectCreationOperation(earModel);
+				J2EEApplicationCreationOperation earOp = new J2EEApplicationCreationOperation(earModel);
 				earOp.doRun(monitor);
 			}
-			AddArchiveProjectToEARDataModel addModuleModel = moduleModel.getAddModuleToEARDataModel();
+			AddArchiveProjectToEARDataModel addModuleModel = moduleModel.getAddModuleToApplicationDataModel();
 			AddArchiveProjectToEAROperation addModuleOp = new AddArchiveProjectToEAROperation(addModuleModel);
 			addModuleOp.doRun(monitor);
 		}

@@ -1,18 +1,16 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 /*
  * Created on Nov 5, 2003
  * 
- * To change the template for this generated file go to Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and
- * Comments
+ * To change the template for this generated file go to Window&gt;Preferences&gt;Java&gt;Code
+ * Generation&gt;Code and Comments
  */
 package org.eclipse.jst.j2ee.application.operations;
 
@@ -41,13 +39,7 @@ import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-/**
- * @author jsholl
- * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
-public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDataModel implements IAnnotationsDataModel {
+public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDataModel implements IAnnotationsDataModel {
 
 	/**
 	 * type Integer
@@ -66,7 +58,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	/**
 	 * type Boolean, default false
 	 */
-	public static final String ADD_TO_EAR = "J2EEModuleCreationDataModel.EAR_CREATE"; //$NON-NLS-1$
+	public static final String ADD_TO_EAR = "J2EEModuleCreationDataModel.ADD_TO_EAR"; //$NON-NLS-1$
 
 	/**
 	 * type String
@@ -77,7 +69,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 
 	public static String JAR_LIST_TEXT_UI = UpdateManifestDataModel.JAR_LIST_TEXT_UI;
 
-	private static final String NESTED_MODEL_EAR_CREATION = "J2EEModuleCreationDataModel.NESTED_MODEL_EAR_CREATION"; //$NON-NLS-1$
+	private static final String NESTED_MODEL_APPLICATION_CREATION = "J2EEModuleCreationDataModel.NESTED_MODEL_APPLICATION_CREATION"; //$NON-NLS-1$
 
 	private static final String NESTED_MODEL_ADD_TO_EAR = "J2EEModuleCreationDataModel.NESTED_MODEL_ADD_TO_EAR"; //$NON-NLS-1$
 
@@ -88,18 +80,20 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	 */
 	public static final String UI_SHOW_EAR_SECTION = "J2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION"; //$NON-NLS-1$
 
-	protected EARProjectCreationDataModel earProjectCreationDataModel;
+	private J2EEApplicationCreationDataModel applicationCreationDataModel;
 
-	protected AddModuleToEARDataModel addModuleToEARDataModel;
+	private AddModuleToEARDataModel addModuleToEARDataModel;
 
-	protected UpdateManifestDataModel jarDependencyDataModel;
+	private UpdateManifestDataModel jarDependencyDataModel;
+
+	private String J2EENatureID;
 
 	protected void init() {
 		super.init();
-		getJavaProjectCreationDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{j2eeNatureID});
+		getJavaProjectCreationDataModel().setProperty(ProjectCreationDataModel.PROJECT_NATURES, new String[]{J2EENatureID});
 		//set it so it pushes it down to ServerTargeting
 		setProperty(J2EE_MODULE_VERSION, getDefaultProperty(J2EE_MODULE_VERSION));
-		earProjectCreationDataModel.addListener(this);
+		applicationCreationDataModel.addListener(this);
 	}
 
 	protected void initValidBaseProperties() {
@@ -115,8 +109,8 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 
 	protected void initNestedModels() {
 		super.initNestedModels();
-		earProjectCreationDataModel = new EARProjectCreationDataModel();
-		addNestedModel(NESTED_MODEL_EAR_CREATION, earProjectCreationDataModel);
+		applicationCreationDataModel = new J2EEApplicationCreationDataModel();
+		addNestedModel(NESTED_MODEL_APPLICATION_CREATION, applicationCreationDataModel);
 		addModuleToEARDataModel = createModuleNestedModel();
 		if (addModuleToEARDataModel != null)
 			addNestedModel(NESTED_MODEL_ADD_TO_EAR, addModuleToEARDataModel);
@@ -137,15 +131,20 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 			return Boolean.TRUE;
 		} else if (propertyName.equals(USE_ANNOTATIONS)) {
 			return Boolean.FALSE;
-		} else
+		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			return getDefaultJ2EEModuleVersion();
+		} else {
 			return super.getDefaultProperty(propertyName);
+		}
 	}
 
-	protected String getDefaultEARName(String baseName) {
+	protected abstract Integer getDefaultJ2EEModuleVersion();
+	
+	private String getDefaultEARName(String baseName) {
 		return baseName + "EAR"; //TODO //$NON-NLS-1$
 	}
 
-	public void notifyUpdatedEARs() {
+	public final void notifyUpdatedEARs() {
 		String earProjectName = getStringProperty(EAR_PROJECT_NAME);
 		notifyListeners(EAR_PROJECT_NAME, WTPOperationDataModelListener.VALID_VALUES_CHG, earProjectName, earProjectName);
 	}
@@ -159,8 +158,8 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 						setNotificationEnabled(false);
 					}
 					String earProjectName = getDefaultEARName((String) propertyValue);
-					earProjectCreationDataModel.setProperty(EARProjectCreationDataModel.PROJECT_NAME, earProjectName);
-					getAddModuleToEARDataModel().setProperty(AddModuleToEARDataModel.PROJECT_NAME, earProjectName);
+					applicationCreationDataModel.setProperty(J2EEApplicationCreationDataModel.PROJECT_NAME, earProjectName);
+					getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.PROJECT_NAME, earProjectName);
 				} finally {
 					if (disableNotification) {
 						setNotificationEnabled(true);
@@ -180,8 +179,8 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 				}
 			}
 			if (shouldModifyServerTarget) {
-				serverTargetDataModel.setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
-				earProjectCreationDataModel.setIntProperty(EARProjectCreationDataModel.EAR_VERSION, j2eeVersion);
+				getServerTargetDataModel().setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
+				applicationCreationDataModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, j2eeVersion);
 			}
 			notifyUpdatedEARs();
 			return true;
@@ -193,19 +192,19 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		}
 		if (propertyName.equals(EAR_PROJECT_NAME)) {
 			if (checkForNewEARProjectName((String) propertyValue))
-				earProjectCreationDataModel.enableValidation();
+				applicationCreationDataModel.enableValidation();
 			else
-				earProjectCreationDataModel.disableValidation();
-			earProjectCreationDataModel.setProperty(EARProjectCreationDataModel.PROJECT_NAME, propertyValue);
-			getAddModuleToEARDataModel().setProperty(AddModuleToEARDataModel.PROJECT_NAME, propertyValue);
+				applicationCreationDataModel.disableValidation();
+			applicationCreationDataModel.setProperty(J2EEApplicationCreationDataModel.PROJECT_NAME, propertyValue);
+			getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.PROJECT_NAME, propertyValue);
 		} else if (PROJECT_LOCATION.equals(propertyName)) {
-			projectDataModel.setProperty(ProjectCreationDataModel.PROJECT_LOCATION, propertyValue);
+			getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_LOCATION, propertyValue);
 		}
 
 
 		if (propertyName.equals(PROJECT_NAME)) {
 			IProject project = getTargetProject();
-			getAddModuleToEARDataModel().setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, project);
+			getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, project);
 			if (!isSet(EAR_PROJECT_NAME)) {
 				String earProjectName = getStringProperty(EAR_PROJECT_NAME);
 				notifyListeners(EAR_PROJECT_NAME, earProjectName, earProjectName);
@@ -232,7 +231,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		return true;
 	}
 
-	protected void synchUPServerTargetWithEAR() {
+	private void synchUPServerTargetWithEAR() {
 		if (getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
 			String earProjectName = getStringProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME);
 			IProject earProject = getProjectHandleFromName(earProjectName);
@@ -240,8 +239,8 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 				EARNatureRuntime earNature = EARNatureRuntime.getRuntime(earProject);
 				if (earNature != null) {
 					int j2eeVersion = earNature.getJ2EEVersion();
-					serverTargetDataModel.setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
-					earProjectCreationDataModel.setIntProperty(EARProjectCreationDataModel.EAR_VERSION, j2eeVersion);
+					getServerTargetDataModel().setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
+					applicationCreationDataModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, j2eeVersion);
 					IRuntime target = ServerCore.getProjectProperties(earProject).getRuntimeTarget();
 					if (null != target) {
 						setProperty(SERVER_TARGET_ID, target.getId());
@@ -251,14 +250,14 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 
 			} else {
 				int j2eeVersion = getJ2EEVersion();
-				serverTargetDataModel.setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
-				earProjectCreationDataModel.setIntProperty(EARProjectCreationDataModel.EAR_VERSION, j2eeVersion);
+				getServerTargetDataModel().setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
+				applicationCreationDataModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, j2eeVersion);
 				notifyUpdatedEARs();
 			}
 		} else {
 			int j2eeVersion = getJ2EEVersion();
-			serverTargetDataModel.setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
-			earProjectCreationDataModel.setIntProperty(EARProjectCreationDataModel.EAR_VERSION, j2eeVersion);
+			getServerTargetDataModel().setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);
+			applicationCreationDataModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, j2eeVersion);
 			notifyUpdatedEARs();
 		}
 		notifyEnablementChange(SERVER_TARGET_ID);
@@ -295,29 +294,29 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	/**
 	 * @return
 	 */
-	public EARProjectCreationDataModel getEarProjectCreationDataModel() {
-		return earProjectCreationDataModel;
+	public final J2EEApplicationCreationDataModel getApplicationCreationDataModel() {
+		return applicationCreationDataModel;
 	}
 
-	/**
-	 * @return
-	 */
-	public AddModuleToEARDataModel getAddModuleToEARDataModel() {
+	protected final AddModuleToEARDataModel getAddModuleToApplicationDataModel() {
 		return addModuleToEARDataModel;
 	}
 
-	public JavaProjectCreationDataModel getJavaProjectCreationDataModel() {
+	public final JavaProjectCreationDataModel getJavaProjectCreationDataModel() {
 		return (JavaProjectCreationDataModel) getProjectDataModel();
 	}
 
-	public void initProjectModel() {
-		projectDataModel = new JavaProjectCreationDataModel();
+	protected void initProjectModel() {
+		setProjectDataModel(new JavaProjectCreationDataModel());
 	}
 
-	protected String j2eeNatureID;
 
-	public String getJ2EENatureID() {
-		return j2eeNatureID;
+	protected final void setJ2EENatureID(String J2EENatureID){
+		this.J2EENatureID = J2EENatureID;
+	}
+	
+	public final String getJ2EENatureID() {
+		return J2EENatureID;
 	}
 
 	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
@@ -350,7 +349,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		return super.doGetValidPropertyDescriptors(propertyName);
 	}
 
-	public int getJ2EEVersion() {
+	public final int getJ2EEVersion() {
 		return convertModuleVersionToJ2EEVersion(getIntProperty(J2EE_MODULE_VERSION));
 	}
 
@@ -360,13 +359,13 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		} else if (J2EE_MODULE_VERSION.equals(propertyName)) {
 			return validateJ2EEModuleVersionProperty();
 		} else if (NESTED_MODEL_VALIDATION_HOOK.equals(propertyName)) {
-			IStatus status = serverTargetDataModel.validateProperty(ServerTargetDataModel.RUNTIME_TARGET_ID);
+			IStatus status = getServerTargetDataModel().validateProperty(ServerTargetDataModel.RUNTIME_TARGET_ID);
 			if (!status.isOK()) {
 				return status;
 			}
 			if (getBooleanProperty(ADD_TO_EAR)) {
-				status = earProjectCreationDataModel.validateProperty(ServerTargetDataModel.RUNTIME_TARGET_ID);
-				if (!status.isOK() || serverTargetDataModel.getRuntimeTarget() != earProjectCreationDataModel.getServerTargetDataModel().getRuntimeTarget()) {
+				status = applicationCreationDataModel.validateProperty(ServerTargetDataModel.RUNTIME_TARGET_ID);
+				if (!status.isOK() || getServerTargetDataModel().getRuntimeTarget() != applicationCreationDataModel.getServerTargetDataModel().getRuntimeTarget()) {
 					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR));
 				}
 			}
@@ -375,21 +374,15 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		return super.doValidateProperty(propertyName);
 	}
 
-	/**
-	 * @return
-	 */
-	protected IStatus validateJ2EEModuleVersionProperty() {
+	private IStatus validateJ2EEModuleVersionProperty() {
 		int j2eeVersion = getIntProperty(J2EE_MODULE_VERSION);
 		if (j2eeVersion == -1)
 			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.J2EE_SPEC_LEVEL_NOT_FOUND));
 		return OK_STATUS;
 	}
 
-	/**
-	 * @return
-	 */
-	protected IStatus validateEARProjectNameProperty() {
-		IProject earProject = earProjectCreationDataModel.getTargetProject();
+	private IStatus validateEARProjectNameProperty() {
+		IProject earProject = applicationCreationDataModel.getTargetProject();
 		if (null != earProject && earProject.exists()) {
 			if (earProject.isOpen()) {
 				try {
@@ -397,7 +390,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 					if (earNature == null) {
 						return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_NOT_EAR, new Object[]{earProject.getName()}));
 					} else if (earNature.getJ2EEVersion() < getJ2EEVersion()) {
-						String earVersion = EARProjectCreationDataModel.getEARVersionString(earNature.getJ2EEVersion());
+						String earVersion = J2EEApplicationCreationDataModel.getVersionString(earNature.getJ2EEVersion());
 						return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.INCOMPATABLE_J2EE_VERSIONS, new Object[]{earProject.getName(), earVersion}));
 					}
 					return OK_STATUS;
@@ -415,9 +408,9 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 				}
 			}
 		}
-		IStatus status = earProjectCreationDataModel.validateProperty(EARProjectCreationDataModel.PROJECT_NAME);
+		IStatus status = applicationCreationDataModel.validateProperty(J2EEApplicationCreationDataModel.PROJECT_NAME);
 		if (status.isOK()) {
-			status = earProjectCreationDataModel.validateProperty(EARProjectCreationDataModel.PROJECT_LOCATION);
+			status = applicationCreationDataModel.validateProperty(J2EEApplicationCreationDataModel.PROJECT_LOCATION);
 		}
 		return status;
 	}
@@ -433,15 +426,15 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	/**
 	 * @return
 	 */
-	public UpdateManifestDataModel getUpdateManifestDataModel() {
+	public final UpdateManifestDataModel getUpdateManifestDataModel() {
 		return jarDependencyDataModel;
 	}
 
 	private ClassPathSelection cachedSelection;
 
-	public ClassPathSelection getClassPathSelection() {
+	public final ClassPathSelection getClassPathSelection() {
 		boolean createNew = false;
-		if (null == cachedSelection || !getEarProjectCreationDataModel().getTargetProject().getName().equals(cachedSelection.getEARFile().getURI())) {
+		if (null == cachedSelection || !getApplicationCreationDataModel().getTargetProject().getName().equals(cachedSelection.getEARFile().getURI())) {
 			createNew = true;
 		}
 		// close an existing cachedSelection
@@ -452,7 +445,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 		}
 
 		if (createNew && getTargetProject() != null) {
-			cachedSelection = ClasspathSelectionHelper.createClasspathSelection(getTargetProject(), getModuleExtension(), getEarProjectCreationDataModel().getTargetProject(), getModuleType());
+			cachedSelection = ClasspathSelectionHelper.createClasspathSelection(getTargetProject(), getModuleExtension(), getApplicationCreationDataModel().getTargetProject(), getModuleType());
 		}
 		return cachedSelection;
 	}
@@ -472,12 +465,12 @@ public abstract class J2EEModuleCreationDataModel extends J2EEProjectCreationDat
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		super.propertyChanged(event);
 		if (event.getDataModel() == getServerTargetDataModel() && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
-			earProjectCreationDataModel.setProperty(event.getPropertyName(), event.getNewValue());
+			applicationCreationDataModel.setProperty(event.getPropertyName(), event.getNewValue());
 			notifyListeners(NESTED_MODEL_VALIDATION_HOOK, null, null);
-		} else if (event.getDataModel() == earProjectCreationDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(EARProjectCreationDataModel.PROJECT_NAME)) {
+		} else if (event.getDataModel() == applicationCreationDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(J2EEApplicationCreationDataModel.PROJECT_NAME)) {
 			synchUPServerTargetWithEAR();
 		} else if (event.getDataModel() == addModuleToEARDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(AddModuleToEARDataModel.PROJECT_NAME)) {
-			earProjectCreationDataModel.setProperty(EARProjectCreationDataModel.PROJECT_NAME, event.getNewValue());
+			applicationCreationDataModel.setProperty(J2EEApplicationCreationDataModel.PROJECT_NAME, event.getNewValue());
 		}
 	}
 

@@ -26,11 +26,11 @@ import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddUtilityProjectToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.EARProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.EARProjectCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEApplicationCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -75,7 +75,7 @@ public class EARImportOperation extends J2EEImportOperation {
 				}
 			}
 			if (!project.exists()) {
-				createModuleProject(model.getJ2eeProjectCreationDataModel(), monitor);
+				createModuleProject(model.getJ2eeArtifactCreationDataModel(), monitor);
 			}
 			try {
 				monitor.beginTask(EARArchiveOpsResourceHandler.getString("IMPORTING_EAR_FILE_UI_"), model.getEARFile().getFiles().size()); //$NON-NLS-1$
@@ -250,8 +250,8 @@ public class EARImportOperation extends J2EEImportOperation {
 		}
 	}
 
-	protected void createModuleProject(J2EEProjectCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EARProjectCreationOperation earProjectOp = new EARProjectCreationOperation((EARProjectCreationDataModel) model);
+	protected void createModuleProject(J2EEArtifactCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		J2EEApplicationCreationOperation earProjectOp = new J2EEApplicationCreationOperation((J2EEApplicationCreationDataModel) model);
 		earProjectOp.run(monitor);
 	}
 

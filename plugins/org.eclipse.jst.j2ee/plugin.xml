@@ -399,19 +399,19 @@
       <functionGroup
             initializerClassName="org.eclipse.jst.j2ee.internal.plugin.J2EEGroupInitializer"
             name="J2EE Core tools"
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             priority="0"
             description="J2EE Core tools">
       </functionGroup>
       <functionGroupPatternBinding
-            functionGroupID="com.ibm.wtp.j2ee"
-            pattern="com.ibm.wtp.j2ee.*">
+            functionGroupID="org.eclipse.jst.j2ee"
+            pattern="org.eclipse.jst.j2ee.*">
       </functionGroupPatternBinding>
    </extension>
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.common.internal.provider.CommonItemProviderAdapterFactory"
             packageURI="common.xmi"
             id="org.eclipse.jst.j2ee.common.internal.provider.CommonItemProviderAdapterFactory">
@@ -420,28 +420,28 @@
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.application.provider.ApplicationItemProviderAdapterFactory"
             packageURI="application.xmi"
-            id="com.ibm.wtp.j2ee.application.provider.ApplicationItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.application.provider.ApplicationItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.provider.ClientItemProviderAdapterFactory"
             packageURI="client.xmi"
-            id="com.ibm.wtp.j2ee.client.provider.ClientItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.client.provider.ClientItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.provider.ModulemapItemProviderAdapterFactory"
             packageURI="modulemap.xmi"
-            id="com.ibm.wtp.j2ee.ear.modulemap.provider.ModulemapItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.ear.modulemap.provider.ModulemapItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension

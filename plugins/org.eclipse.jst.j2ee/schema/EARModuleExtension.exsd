@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.j2ee" id="EARModuleExtension" name="EARModuleExtension"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="EARModuleExtension" name="EARModuleExtension"/>
       </appInfo>
       <documentation>
          The api&apos;s for EJB, JCA and Web modules are defined in plugins separate from J2EE plugin. Those plugins have dependencies on the J2EE plugin, but not vice versa. In order for code defined within the J2EE plugin to access api&apos;s in these modules we need this extension point.

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.ibm.wtp.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.ibm.wtp.j2ee" id="DeployerExtension" name="J2EEDeployerExtension"/>
+         <meta.schema plugin="org.eclipse.jst.j2ee" id="DeployerExtension" name="J2EEDeployerExtension"/>
       </appInfo>
       <documentation>
          The extension point gives the ability to extend deployer operations on J2EE artifacts, for eg, EJB deployment and Webservices deployment. Registration of the deployer is based on module type and server target.
