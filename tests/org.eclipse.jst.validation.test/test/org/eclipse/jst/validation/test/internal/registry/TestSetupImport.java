@@ -101,7 +101,8 @@ public class TestSetupImport {
 				entry.setText("TestSetup for " + dir + " was unsuccessful."); //$NON-NLS-1$ //$NON-NLS-2$
 				logger.write(Level.SEVERE, entry);
 			}
-			return imported;
+			
 		}
+		return imported;
 	}
 }

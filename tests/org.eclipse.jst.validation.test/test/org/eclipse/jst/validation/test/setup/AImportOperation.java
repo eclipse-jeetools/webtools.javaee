@@ -101,8 +101,8 @@ public abstract class AImportOperation implements IImportOperation {
 				entry.setText("AImportOperation for " + projectName + " was unsuccessful."); //$NON-NLS-1$ //$NON-NLS-2$
 				logger.write(Level.SEVERE, entry);
 			}
-			return imported;
 		}
+		return imported;
 	}
 	
 	protected abstract IProject createNewProject(IProgressMonitor monitor, String projectName, File inputFile);

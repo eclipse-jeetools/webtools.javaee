@@ -301,9 +301,7 @@ public final class BVTRunner {
 			}
 			passed = false;
 		}
-		finally {
-			return passed;
-		}
+		return passed;
 	}
 
 	public boolean setupTests(IBuffer buffer, boolean verbose) {
@@ -377,8 +375,8 @@ public final class BVTRunner {
 				entry.setText("Test setup for " + tmdName + " was unsuccessful."); //$NON-NLS-1$ //$NON-NLS-2$
 				logger.write(Level.SEVERE, entry);
 			}
-			return imported;
 		}
+		return imported;
 	}
 
 	/**

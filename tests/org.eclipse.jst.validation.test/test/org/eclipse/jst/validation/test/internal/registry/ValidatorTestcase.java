@@ -313,8 +313,9 @@ public class ValidatorTestcase implements ITestcaseMetaData {
 			end = System.currentTimeMillis();
 			buffer.addElapsedTime(ValidationTypeEnum.ASYNC_NAME, (end - start));
 			buffer.write("Total time for validator " + getValidatorMetaData().getValidatorDisplayName() + " of project " + project.getName() + " in asynchronous mode was " + (end - start) + " milliseconds."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			return passed;
+			
 		}
+		return passed;
 	}
 
 	/**
@@ -381,101 +382,100 @@ public class ValidatorTestcase implements ITestcaseMetaData {
 
 	private boolean validateChangeAndCompare(IBuffer buffer, IProject project, int ifileDeltaType, String subTaskName) throws BVTValidationException, CoreException {
 		boolean passed = true;
-		try {
-			ValidatorMetaData[] vmds = new ValidatorMetaData[]{getValidatorMetaData()};
-			
-			ValidatorSubsetOperation noForkOpOrig = new ValidatorSubsetOperation(project, true, false);
-			noForkOpOrig.setValidators(getValidatorMetaData().getValidatorNames());
-			noForkOpOrig.run(buffer.getProgressMonitor());
-	
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation noForkOpChanged = new ValidatorSubsetOperation(project, vmds, getResources(project), ifileDeltaType, false, false); // false = do not force if there's no deltas to validate
-			noForkOpChanged.run(buffer.getProgressMonitor());
-	
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation forkOpOrig = new ValidatorSubsetOperation(project, true, true);
-			forkOpOrig.setValidators(getValidatorMetaData().getValidatorNames());
-			forkOpOrig.run(buffer.getProgressMonitor());
-	
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation forkOpChanged = new ValidatorSubsetOperation(project, vmds,  getResources(project), ifileDeltaType, false, true); // false = do not force if there's no deltas to validate
-			forkOpChanged.run(buffer.getProgressMonitor());
-			
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation noForkOp2Orig = new ValidatorSubsetOperation(project, true, false);
-			noForkOp2Orig.setValidators(getValidatorMetaData().getValidatorNames());
-			noForkOp2Orig.run(buffer.getProgressMonitor());
-	
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation noForkOp2Changed = new ValidatorSubsetOperation(project, vmds,  getResources(project), ifileDeltaType, false, false); // false = do not force if there's no deltas to validate
-			noForkOp2Changed.run(buffer.getProgressMonitor());
-	
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation forkOp2Orig = new ValidatorSubsetOperation(project, true, true);
-			forkOp2Orig.setValidators(getValidatorMetaData().getValidatorNames());
-			forkOp2Orig.run(buffer.getProgressMonitor());
-			
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation forkOp2Changed = new ValidatorSubsetOperation(project, vmds,  getResources(project), ifileDeltaType, false, true); // false = do not force if there's no deltas to validate
-			forkOp2Changed.run(buffer.getProgressMonitor());
-	
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation forkOp3Orig = new ValidatorSubsetOperation(project, true, true);
-			forkOp3Orig.setValidators(getValidatorMetaData().getValidatorNames());
-			forkOp3Orig.run(buffer.getProgressMonitor());
-			
-			if(buffer.getProgressMonitor().isCanceled()) {
-				return false;
-			}
-	
-			ValidatorSubsetOperation forkOp3Changed = new ValidatorSubsetOperation(project, vmds, getResources(project), ifileDeltaType, false, true); // false = do not force if there's no deltas to validate
-			forkOp3Changed.run(buffer.getProgressMonitor());
-			
-			// Wait until all of the threads have complete.
-			buffer.getProgressMonitor().subTask("Waiting for all forked threads to finish..."); //$NON-NLS-1$
-			while(!VThreadManager.getManager().isDone() && !buffer.getProgressMonitor().isCanceled()) {}
-			if(buffer.getProgressMonitor().isCanceled()) {
-				buffer.getProgressMonitor().subTask("Comparison cancelled. Performing cleanup."); //$NON-NLS-1$
-				return false;
-			}
-			buffer.getProgressMonitor().subTask("All threads are complete. Beginning the comparison."); //$NON-NLS-1$
-			
-			// Compare
-			IMarker[] markers = TaskListUtility.getValidationTasks(project, getValidatorMetaData().getValidatorNames());
-	
-			// Now compare the IProject's result to the expected TestcaseMetaData result.
-			// Don't write _passed = _passed && get...
-			// When the _passed == false, then java didn't bother running the test.
-			passed = BVTRunner.singleton().verify(buffer, getName(), subTaskName, project, getMessages(ValidationTypeEnum.RUN_VALIDATION), markers);
-			
-			ResourcesPlugin.getWorkspace().deleteMarkers(markers);
+		
+		ValidatorMetaData[] vmds = new ValidatorMetaData[]{getValidatorMetaData()};
+		
+		ValidatorSubsetOperation noForkOpOrig = new ValidatorSubsetOperation(project, true, false);
+		noForkOpOrig.setValidators(getValidatorMetaData().getValidatorNames());
+		noForkOpOrig.run(buffer.getProgressMonitor());
+
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
 		}
-		finally {
-			return passed;
+
+		ValidatorSubsetOperation noForkOpChanged = new ValidatorSubsetOperation(project, vmds, getResources(project), ifileDeltaType, false, false); // false = do not force if there's no deltas to validate
+		noForkOpChanged.run(buffer.getProgressMonitor());
+
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
 		}
+
+		ValidatorSubsetOperation forkOpOrig = new ValidatorSubsetOperation(project, true, true);
+		forkOpOrig.setValidators(getValidatorMetaData().getValidatorNames());
+		forkOpOrig.run(buffer.getProgressMonitor());
+
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
+		}
+
+		ValidatorSubsetOperation forkOpChanged = new ValidatorSubsetOperation(project, vmds,  getResources(project), ifileDeltaType, false, true); // false = do not force if there's no deltas to validate
+		forkOpChanged.run(buffer.getProgressMonitor());
+		
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
+		}
+
+		ValidatorSubsetOperation noForkOp2Orig = new ValidatorSubsetOperation(project, true, false);
+		noForkOp2Orig.setValidators(getValidatorMetaData().getValidatorNames());
+		noForkOp2Orig.run(buffer.getProgressMonitor());
+
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
+		}
+
+		ValidatorSubsetOperation noForkOp2Changed = new ValidatorSubsetOperation(project, vmds,  getResources(project), ifileDeltaType, false, false); // false = do not force if there's no deltas to validate
+		noForkOp2Changed.run(buffer.getProgressMonitor());
+
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
+		}
+
+		ValidatorSubsetOperation forkOp2Orig = new ValidatorSubsetOperation(project, true, true);
+		forkOp2Orig.setValidators(getValidatorMetaData().getValidatorNames());
+		forkOp2Orig.run(buffer.getProgressMonitor());
+		
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
+		}
+
+		ValidatorSubsetOperation forkOp2Changed = new ValidatorSubsetOperation(project, vmds,  getResources(project), ifileDeltaType, false, true); // false = do not force if there's no deltas to validate
+		forkOp2Changed.run(buffer.getProgressMonitor());
+
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
+		}
+
+		ValidatorSubsetOperation forkOp3Orig = new ValidatorSubsetOperation(project, true, true);
+		forkOp3Orig.setValidators(getValidatorMetaData().getValidatorNames());
+		forkOp3Orig.run(buffer.getProgressMonitor());
+		
+		if(buffer.getProgressMonitor().isCanceled()) {
+			return false;
+		}
+
+		ValidatorSubsetOperation forkOp3Changed = new ValidatorSubsetOperation(project, vmds, getResources(project), ifileDeltaType, false, true); // false = do not force if there's no deltas to validate
+		forkOp3Changed.run(buffer.getProgressMonitor());
+		
+		// Wait until all of the threads have complete.
+		buffer.getProgressMonitor().subTask("Waiting for all forked threads to finish..."); //$NON-NLS-1$
+		while(!VThreadManager.getManager().isDone() && !buffer.getProgressMonitor().isCanceled()) {}
+		if(buffer.getProgressMonitor().isCanceled()) {
+			buffer.getProgressMonitor().subTask("Comparison cancelled. Performing cleanup."); //$NON-NLS-1$
+			return false;
+		}
+		buffer.getProgressMonitor().subTask("All threads are complete. Beginning the comparison."); //$NON-NLS-1$
+		
+		// Compare
+		IMarker[] markers = TaskListUtility.getValidationTasks(project, getValidatorMetaData().getValidatorNames());
+
+		// Now compare the IProject's result to the expected TestcaseMetaData result.
+		// Don't write _passed = _passed && get...
+		// When the _passed == false, then java didn't bother running the test.
+		passed = BVTRunner.singleton().verify(buffer, getName(), subTaskName, project, getMessages(ValidationTypeEnum.RUN_VALIDATION), markers);
+		
+		ResourcesPlugin.getWorkspace().deleteMarkers(markers);
+	
+		return passed;
+		
 	}
 }
