@@ -23,9 +23,10 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.osgi.framework.Bundle;
 
 /**
  * All of the information in a single tagSpec tag, including the enclosing handler.
@@ -36,11 +37,8 @@ public class TagSpec {
 	 * Handle to the descriptor of the plugin that declared the completion information for this tag,
 	 * if any.
 	 */
-	IPluginDescriptor declaringPlugin;
 
-	protected ResourceBundle resourceBundle;
-
-	private boolean attemptedToFindResourceBundle = false;
+	protected Bundle bundle;
 
 	private AttributeValuesHelper validValuesHelper;
 	private TagsetDescriptor tagsetDescriptor;
@@ -247,40 +245,18 @@ public class TagSpec {
 	}
 
 	/**
-	 * @return Returns the declaringPlugin.
-	 */
-	public IPluginDescriptor getDeclaringPlugin() {
-		return declaringPlugin;
-	}
-
-	/**
 	 * @param declaringPlugin
 	 *            The declaringPlugin to set.
 	 */
-	protected void setDeclaringPlugin(IPluginDescriptor declaringPlugin) {
-		this.declaringPlugin = declaringPlugin;
+	protected void setBundle(Bundle bundle) {
+		this.bundle = bundle;
 	}
 
 	/**
 	 * @return Returns the resourceBundle.
 	 */
-	public ResourceBundle getResourceBundle() {
-		if (resourceBundle == null && !attemptedToFindResourceBundle) {
-			attemptedToFindResourceBundle = true;
-			IPluginDescriptor plugin = getDeclaringPlugin();
-			if (plugin != null)
-				resourceBundle = plugin.getResourceBundle();
-		}
-		return resourceBundle;
-	}
-
-	/**
-	 * @param resourceBundle
-	 *            The resourceBundle to set.
-	 */
-	public void setResourceBundle(ResourceBundle resourceBundle) {
-		attemptedToFindResourceBundle = false;
-		this.resourceBundle = resourceBundle;
+	public Bundle getBundle() {
+		return bundle;
 	}
 
 	/**
@@ -315,6 +291,10 @@ public class TagSpec {
 
 	public void setHelpKey(String helpKey) {
 		this.helpKey = helpKey;
+	}
+	
+	public ResourceBundle getResourceBundle() {
+		return Platform.getResourceBundle(getBundle());
 	}
 
 	public String lookupTagHelp() throws MissingResourceException {

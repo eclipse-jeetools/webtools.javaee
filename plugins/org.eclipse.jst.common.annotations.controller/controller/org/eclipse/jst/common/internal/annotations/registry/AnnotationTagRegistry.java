@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -277,10 +277,10 @@ public class AnnotationTagRegistry {
 		}
 
 		IExtension[] exts = xp.getExtensions();
-		IPluginDescriptor desc = null;
 		for (int i = 0; i < exts.length; i++) {
 			IConfigurationElement[] elems = exts[i].getConfigurationElements();
-			desc = exts[i].getDeclaringPluginDescriptor();
+			Bundle bundle = Platform.getBundle(exts[i].getNamespace());
+			String identifier = exts[i].getUniqueIdentifier();
 
 			IConfigurationElement elem = null;
 			String tagName = null;
@@ -296,7 +296,7 @@ public class AnnotationTagRegistry {
 				tagName = elem.getAttribute("tagName"); //$NON-NLS-1$
 				scope = elem.getAttribute("scope"); //$NON-NLS-1$
 				if (isNullOrEmpty(tagSet) || isNullOrEmpty(tagName) || isNullOrEmpty(scope)) {
-					Logger.getLogger().log(AnnotationsControllerResources.getString("AnnotationTagRegistry.10", new Object[]{desc.getUniqueIdentifier()})); //$NON-NLS-1$ //$NON-NLS-2$
+					Logger.getLogger().log(AnnotationsControllerResources.getString("AnnotationTagRegistry.10", new Object[]{identifier})); //$NON-NLS-1$ //$NON-NLS-2$
 					continue;
 				}
 				fullTagName = tagSet + "." + tagName; //$NON-NLS-1$
@@ -309,7 +309,7 @@ public class AnnotationTagRegistry {
 				if (tagAttribs.containsKey(key)) {
 					Logger.getLogger().log(AnnotationsControllerResources.getString("AnnotationTagRegistry.0") + tagName + "'."); //$NON-NLS-1$ //$NON-NLS-2$
 				} else {
-					tagInf.declaringPlugin = desc;
+					tagInf.bundle = bundle;
 					tagAttribs.put(key, tagInf);
 				}
 			}
@@ -366,7 +366,7 @@ public class AnnotationTagRegistry {
 
 				if (tagInf != null) {
 					ts.setAttributes(tagInf.attributes);
-					ts.setDeclaringPlugin(tagInf.declaringPlugin);
+					ts.setBundle(tagInf.bundle);
 				}
 			}
 		}
@@ -438,7 +438,7 @@ public class AnnotationTagRegistry {
 
 		private List attributes;
 
-		private IPluginDescriptor declaringPlugin;
+		private Bundle bundle;
 
 		private String scope;
 
