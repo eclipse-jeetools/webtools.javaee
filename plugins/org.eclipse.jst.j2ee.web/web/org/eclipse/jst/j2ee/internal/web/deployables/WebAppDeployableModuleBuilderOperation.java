@@ -81,9 +81,8 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 			IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
 			// check if the parent is there
 			IContainer parent = folder.getParent();
-			if (!parent.exists()) {
-				if (parent instanceof IFolder)
-					((IFolder)parent).create(true, true, null);
+			if (parent != null && !parent.exists() && (parent instanceof IFolder)) {
+				((IFolder)parent).create(true, true, null);
 			}
 			if (!folder.exists())
 				folder.create(true, true, null);
