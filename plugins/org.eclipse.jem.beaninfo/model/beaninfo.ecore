@@ -31,14 +31,27 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
-        eType="#//FeatureAttributeValue" containment="true"/>
+        eType="#//FeatureAttributeMapEntry" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureAttributeValue">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EObject"
-        containment="true"/>
+        unsettable="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This is the value as an EObject. This is used to return typically the IJavaInstance representing the value."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueJava" eType="ecore:EDataType ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EJavaObject"
+        transient="true" unsettable="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This is where the value is just a java object. Not an EObject. Sometimes it is easier to have this instead. This attribute is transient and won't be serialized."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueProxy" eType="ecore:EDataType ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EJavaObject"
-        transient="true" unsettable="true"/>
+        transient="true" unsettable="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This is the proxy of the value from a BeanInfo on the remote vm. It is typed to EJavaObject because we don't want to prereq the java instanctiation stuff. It is transient."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BeanDecorator" eSuperTypes="#//FeatureDecorator">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mergeSuperProperties" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -165,5 +178,10 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Event from Introspection/Reflection."/>
     </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureAttributeMapEntry" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//FeatureAttributeValue"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

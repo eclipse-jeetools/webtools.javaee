@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/07 14:33:09 $ 
+ *  $Revision: 1.6 $  $Date: 2004/03/08 21:25:33 $ 
  */
 
 
@@ -19,7 +19,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.logging.Level;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -40,11 +39,6 @@ import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
-
-import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Bean Decorator</b></em>'.
@@ -967,19 +961,15 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	private boolean hasQueriedIconURL;
 	public URL getIconURL(){
 		if (!hasQueriedIconURL){
-			Iterator featureAttributeValues = getAttributes().iterator();
-			while(featureAttributeValues.hasNext()){
-				FeatureAttributeValue value = (FeatureAttributeValue) featureAttributeValues.next();
-				if (value.getName().equals("ICON_COLOR_16x16_URL")){ //$NON-NLS-1$
-					// Get the value
-					String urlString = ((IStringBeanProxy)value.getValueProxy()).stringValue();
-					try {
-						hasQueriedIconURL = true;
-						iconURL = new URL(urlString);
-					} catch (MalformedURLException exc ) {
-						EclipseLogger.getLogger().log(exc, Level.WARNING);
-					}
-					break;					
+			FeatureAttributeValue value = (FeatureAttributeValue) getAttributes().get("ICON_COLOR_16x16_URL");	//$NON-NLS-1$
+			if (value != null && value.isSetValueProxy()){ 
+				// Get the value
+				String urlString = ((IStringBeanProxy)value.getValueProxy()).stringValue();
+				try {
+					hasQueriedIconURL = true;
+					iconURL = new URL(urlString);
+				} catch ( MalformedURLException exc ) {
+					BeaninfoPlugin.getPlugin().getLogger().log(exc, Level.INFO);
 				}
 			}			
 		}
@@ -990,35 +980,33 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 		if(styleDetails == null){
 			styleDetails = new HashMap();
 			try{
-				Iterator featureAttributeValues = getAttributes().iterator();
-				while(featureAttributeValues.hasNext()){
-					FeatureAttributeValue value = (FeatureAttributeValue) featureAttributeValues.next();
-					if(value.getName().equals("SWEET_STYLEBITS")) { // $NON-NLS-1$
-						IArrayBeanProxy outerArray  = (IArrayBeanProxy) value.getValueProxy();
-						for (int i = 0; i < outerArray.getLength(); i++) {
-							IArrayBeanProxy innerArray = (IArrayBeanProxy) outerArray.get(i);
-							// The first element is a String
-							String propertyName = ((IStringBeanProxy)innerArray.get(0)).stringValue();
-							// The next is a three element array of name, initString, and actual value * n for the number of allowble values
-							// Iterate over it to extract the names and strings and turn these into two separate String arrays
-							IArrayBeanProxy triplicateArray = (IArrayBeanProxy)innerArray.get(1);
-							int numberOfValues = triplicateArray.getLength()/3;
-							String[] names = new String[numberOfValues];
-							String[] initStrings = new String[numberOfValues];
-							Integer[] values = new Integer[numberOfValues]; 
-							for (int j = 0; j < triplicateArray.getLength(); j = j+3) {
-								int index = j/3;
-								names[index] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
-								initStrings[index] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
-								values[index] = new Integer(((IIntegerBeanProxy)triplicateArray.get(j+2)).intValue());
-							}							
-							styleDetails.put(propertyName, new Object[] { names, initStrings, values});
-						}
+				FeatureAttributeValue value = (FeatureAttributeValue) getAttributes().get("SWEET_STYLEBITS");
+				if(value != null && value.isSetValueProxy()) {
+					IArrayBeanProxy outerArray  = (IArrayBeanProxy) value.getValueProxy();
+					for (int i = 0; i < outerArray.getLength(); i++) {
+						IArrayBeanProxy innerArray = (IArrayBeanProxy) outerArray.get(i);
+						// The first element is a String
+						String propertyName = ((IStringBeanProxy)innerArray.get(0)).stringValue();
+						// The next is a three element array of name, initString, and actual value * n for the number of allowble values
+						// Iterate over it to extract the names and strings and turn these into two separate String arrays
+						IArrayBeanProxy triplicateArray = (IArrayBeanProxy)innerArray.get(1);
+						int numberOfValues = triplicateArray.getLength()/3;
+						String[] names = new String[numberOfValues];
+						String[] initStrings = new String[numberOfValues];
+						Integer[] values = new Integer[numberOfValues]; 
+						for (int j = 0; j < triplicateArray.getLength(); j = j+3) {
+							int index = j/3;
+							names[index] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
+							initStrings[index] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
+							values[index] = new Integer(((IIntegerBeanProxy)triplicateArray.get(j+2)).intValue());
+						}							
+						styleDetails.put(propertyName, new Object[] { names, initStrings, values});
 					}
 				}
 			} catch (ThrowableProxy exc) {
-				EclipseLogger.getLogger().log(exc, Level.WARNING);
+				BeaninfoPlugin.getPlugin().getLogger().log(exc, Level.WARNING);
 			}
+
 		}
 		return styleDetails;
 	}

@@ -11,21 +11,35 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:11:59 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/08 21:25:33 $ 
  */
 
+
+import java.util.Collection;
 
 import java.util.*;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
+import org.eclipse.jem.internal.beaninfo.EventSetDecorator;
+import org.eclipse.jem.internal.beaninfo.MethodProxy;
+
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.Method;
 
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
@@ -948,14 +962,10 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * defined in a static final constants EVENTADAPTERCLASS = "eventAdapterClass";
 	 */	
 	public JavaClass getEventAdapterClass(){
-		
-		Iterator iter = getAttributes().iterator();
-		while(iter.hasNext()){
-			FeatureAttributeValue featureAttribute = (FeatureAttributeValue)iter.next();
-			if ( EventSetDecorator.EVENTADAPTERCLASS.equals(featureAttribute.getName()) ){
-				String adapterClassName = ((IStringBeanProxy)featureAttribute.getValueProxy()).stringValue();
-				return (JavaClass) Utilities.getJavaClass(adapterClassName,eResource().getResourceSet());
-			} 
+		FeatureAttributeValue featureAttribute = (FeatureAttributeValue)getAttributes().get(EventSetDecorator.EVENTADAPTERCLASS);
+		if (featureAttribute != null && featureAttribute.isSetValueProxy()) {
+			String adapterClassName = ((IStringBeanProxy)featureAttribute.getValueProxy()).stringValue();
+			return (JavaClass) Utilities.getJavaClass(adapterClassName,eResource().getResourceSet()); 
 		}
 		return null;	
 	}

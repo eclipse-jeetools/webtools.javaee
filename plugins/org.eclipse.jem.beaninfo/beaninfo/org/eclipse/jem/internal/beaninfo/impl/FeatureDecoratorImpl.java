@@ -11,16 +11,16 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureDecoratorImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/08 21:25:33 $ 
  */
 
 
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EAnnotationImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoFactory;
@@ -284,14 +284,14 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 
 
 	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAttributes()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList attributes = null;
+	protected EMap attributes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -317,11 +317,11 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 		return proxy != null ? proxy.isValid() : false;
 	}
 			
-	public EList getAttributes() {
+	public EMap getAttributes() {
 		if (!isAttributesExplicit()) {
 			if (validProxy(fFeatureProxy) && !retrievedAttributes) {
 				retrievedAttributes = true;
-				List attribs = this.getAttributesGen();				
+				EMap attribs = this.getAttributesGen();				
 				
 				IMethodProxy getValue = BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getValueProxy();
 				try {				
@@ -360,12 +360,17 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 								} 
 
 							} else {
-								// Create the entry, which is FeatureAttribute with the key
-								// being the attribute name and the value being the (as a proxy) being the value.
-								FeatureAttributeValue fv = BeaninfoFactory.eINSTANCE.createFeatureAttributeValue();
-								fv.setName(attrName.stringValue());
+								// See if entry already exists, if not create. If it does, and there wasn't a value proxy
+								// previously set, then ignore it (because came from an override). If previously set, then
+								// set with new one.
+								String key = attrName.stringValue();
+								FeatureAttributeValue fv = (FeatureAttributeValue) attribs.get(key);
+								if (fv == null)
+									fv = BeaninfoFactory.eINSTANCE.createFeatureAttributeValue();
+								else if (!fv.isSetValueProxy())
+									continue;
 								fv.setValueProxy(attrValue);
-								attribs.add(fv);
+								attribs.put(key, fv);
 							}
 						} catch (ThrowableProxy e) {
 						}
@@ -827,9 +832,9 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getAttributesGen() {
+	public EMap getAttributesGen() {
 		if (attributes == null) {
-			attributes = new EObjectContainmentEList(FeatureAttributeValue.class, this, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES);
+			attributes = new EcoreEMap(BeaninfoPackage.eINSTANCE.getFeatureAttributeMapEntry(), FeatureAttributeMapEntryImpl.class, this, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES);
 		}
 		return attributes;
 	}

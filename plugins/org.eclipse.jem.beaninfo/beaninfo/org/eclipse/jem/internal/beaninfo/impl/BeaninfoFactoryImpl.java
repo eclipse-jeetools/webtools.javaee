@@ -11,8 +11,10 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoFactoryImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/08 21:25:33 $ 
  */
+
+import java.util.Map;
 
 import org.eclipse.jem.internal.beaninfo.*;
 
@@ -57,6 +59,7 @@ public class BeaninfoFactoryImpl extends EFactoryImpl implements BeaninfoFactory
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR: return createIndexedPropertyDecorator();
 			case BeaninfoPackage.METHOD_PROXY: return createMethodProxy();
 			case BeaninfoPackage.BEAN_EVENT: return createBeanEvent();
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY: return (EObject)createFeatureAttributeMapEntry();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -178,6 +181,16 @@ public class BeaninfoFactoryImpl extends EFactoryImpl implements BeaninfoFactory
 	public BeanEvent createBeanEvent() {
 		BeanEventImpl beanEvent = new BeanEventImpl();
 		return beanEvent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry createFeatureAttributeMapEntry() {
+		FeatureAttributeMapEntryImpl featureAttributeMapEntry = new FeatureAttributeMapEntryImpl();
+		return featureAttributeMapEntry;
 	}
 
 }

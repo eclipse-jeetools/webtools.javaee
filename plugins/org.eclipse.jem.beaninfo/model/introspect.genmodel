@@ -5,7 +5,7 @@
     editDirectory="/org.eclipse.jem.beaninfo.edit/src" editorDirectory="/org.eclipse.jem.beaninfo.editor/src"
     modelPluginID="" modelName="Beaninfo" editPluginClass="org.eclipse.jem.internal.beaninfo.provider.BeaninfoEditPlugin"
     editorPluginClass="org.eclipse.jem.internal.beaninfo.presentation.BeaninfoEditorPlugin"
-    updateClasspath="false" usedGenPackages="../../org.eclipse.jem/model/javaModel.genmodel#//java ../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore">
+    updateClasspath="false" usedGenPackages="../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore ../../org.eclipse.jem/model/javaModel.genmodel#//java">
   <foreignModel>..\rose\introspect.mdl</foreignModel>
   <foreignModel>WorkspaceRoot</foreignModel>
   <foreignModel>../..</foreignModel>
@@ -24,8 +24,8 @@
       <genOperations ecoreOperation="beaninfo.ecore#//FeatureDecorator/getName"/>
     </genClasses>
     <genClasses ecoreClass="beaninfo.ecore#//FeatureAttributeValue">
-      <genFeatures ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureAttributeValue/name"/>
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference beaninfo.ecore#//FeatureAttributeValue/value"/>
+      <genFeatures ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureAttributeValue/valueJava"/>
       <genFeatures ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureAttributeValue/valueProxy"/>
     </genClasses>
     <genClasses ecoreClass="beaninfo.ecore#//BeanDecorator">
@@ -74,5 +74,9 @@
       <genFeatures ecoreFeature="ecore:EReference beaninfo.ecore#//MethodProxy/method"/>
     </genClasses>
     <genClasses ecoreClass="beaninfo.ecore#//BeanEvent"/>
+    <genClasses ecoreClass="beaninfo.ecore#//FeatureAttributeMapEntry">
+      <genFeatures ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureAttributeMapEntry/key"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference beaninfo.ecore#//FeatureAttributeMapEntry/value"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

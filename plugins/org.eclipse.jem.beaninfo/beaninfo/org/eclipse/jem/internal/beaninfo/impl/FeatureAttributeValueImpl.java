@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeValueImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/08 21:25:33 $ 
  */
 
 
@@ -33,8 +33,8 @@ import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getValueJava <em>Value Java</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl#getValueProxy <em>Value Proxy</em>}</li>
  * </ul>
  * </p>
@@ -45,25 +45,6 @@ import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
 
 public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAttributeValue{
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
-	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -73,6 +54,44 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 */
 	protected EObject value = null;
 	
+	/**
+	 * This is true if the Value containment reference has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean valueESet = false;
+
+	/**
+	 * The default value of the '{@link #getValueJava() <em>Value Java</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueJava()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Object VALUE_JAVA_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getValueJava() <em>Value Java</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueJava()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object valueJava = VALUE_JAVA_EDEFAULT;
+
+	/**
+	 * This is true if the Value Java attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean valueJavaESet = false;
+
 	/**
 	 * The default value of the '{@link #getValueProxy() <em>Value Proxy</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -124,27 +143,6 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EObject getValue() {
 		return value;
 	}
@@ -157,8 +155,10 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	public NotificationChain basicSetValue(EObject newValue, NotificationChain msgs) {
 		EObject oldValue = value;
 		value = newValue;
+		boolean oldValueESet = valueESet;
+		valueESet = true;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE, oldValue, newValue);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE, oldValue, newValue, !oldValueESet);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -179,8 +179,104 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 			msgs = basicSetValue(newValue, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE, newValue, newValue));
+		else {
+			boolean oldValueESet = valueESet;
+			valueESet = true;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE, newValue, newValue, !oldValueESet));
+    	}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicUnsetValue(NotificationChain msgs) {
+		EObject oldValue = value;
+		value = null;
+		boolean oldValueESet = valueESet;
+		valueESet = false;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE, oldValue, null, oldValueESet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetValue() {
+		if (value != null) {
+			NotificationChain msgs = null;
+			msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE, null, msgs);
+			msgs = basicUnsetValue(msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else {
+			boolean oldValueESet = valueESet;
+			valueESet = false;
+			if (eNotificationRequired())
+				eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE, null, null, oldValueESet));
+    	}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetValue() {
+		return valueESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getValueJava() {
+		return valueJava;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValueJava(Object newValueJava) {
+		Object oldValueJava = valueJava;
+		valueJava = newValueJava;
+		boolean oldValueJavaESet = valueJavaESet;
+		valueJavaESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA, oldValueJava, valueJava, !oldValueJavaESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetValueJava() {
+		Object oldValueJava = valueJava;
+		boolean oldValueJavaESet = valueJavaESet;
+		valueJava = VALUE_JAVA_EDEFAULT;
+		valueJavaESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA, oldValueJava, VALUE_JAVA_EDEFAULT, oldValueJavaESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetValueJava() {
+		return valueJavaESet;
 	}
 
 	/**
@@ -192,7 +288,7 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
-					return basicSetValue(null, msgs);
+					return basicUnsetValue(msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -207,10 +303,10 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
-				return getName();
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
 				return getValue();
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA:
+				return getValueJava();
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
 				return getValueProxy();
 		}
@@ -224,11 +320,11 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
-				setName((String)newValue);
-				return;
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
 				setValue((EObject)newValue);
+				return;
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA:
+				setValueJava((Object)newValue);
 				return;
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
 				setValueProxy((Object)newValue);
@@ -244,11 +340,11 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
-				setValue((EObject)null);
+				unsetValue();
+				return;
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA:
+				unsetValueJava();
 				return;
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
 				unsetValueProxy();
@@ -264,10 +360,10 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE:
-				return value != null;
+				return isSetValue();
+			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA:
+				return isSetValueJava();
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY:
 				return isSetValueProxy();
 		}
@@ -283,8 +379,8 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
+		result.append(" (valueJava: ");
+		if (valueJavaESet) result.append(valueJava); else result.append("<unset>");
 		result.append(", valueProxy: ");
 		if (valueProxyESet) result.append(valueProxy); else result.append("<unset>");
 		result.append(')');
@@ -300,12 +396,18 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 		return valueProxy;
 	}
 
+	public void setValueProxy(Object newValueProxy) {
+		unsetValue();
+		unsetValueJava();
+		setValueProxyGen(newValueProxy);
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValueProxy(Object newValueProxy) {
+	public void setValueProxyGen(Object newValueProxy) {
 		Object oldValueProxy = valueProxy;
 		valueProxy = newValueProxy;
 		boolean oldValueProxyESet = valueProxyESet;
@@ -314,12 +416,20 @@ public class FeatureAttributeValueImpl extends EObjectImpl implements FeatureAtt
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY, oldValueProxy, valueProxy, !oldValueProxyESet));
 	}
 
+	public void unsetValueProxy() {
+		if (isSetValueProxy()) {
+			unsetValue();
+			unsetValueJava();
+		}
+		unsetValueProxyGen();
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void unsetValueProxy() {
+	public void unsetValueProxyGen() {
 		Object oldValueProxy = valueProxy;
 		boolean oldValueProxyESet = valueProxyESet;
 		valueProxy = VALUE_PROXY_EDEFAULT;

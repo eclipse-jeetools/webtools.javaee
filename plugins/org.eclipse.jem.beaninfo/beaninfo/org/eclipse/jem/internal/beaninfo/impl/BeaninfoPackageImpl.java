@@ -11,8 +11,10 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/08 21:25:33 $ 
  */
+
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -115,6 +117,13 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	private EClass beanEventEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass featureAttributeMapEntryEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -171,8 +180,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		isInited = true;
 
 		// Initialize simple dependencies
-		JavaRefPackageImpl.init();
 		EcorePackageImpl.init();
+		JavaRefPackageImpl.init();
 
 		// Obtain or create and register interdependencies
 
@@ -586,8 +595,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureAttributeValue_Name() {
-		return (EAttribute)featureAttributeValueEClass.getEStructuralFeatures().get(0);
+	public EReference getFeatureAttributeValue_Value() {
+		return (EReference)featureAttributeValueEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -595,8 +604,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeatureAttributeValue_Value() {
-		return (EReference)featureAttributeValueEClass.getEStructuralFeatures().get(1);
+	public EAttribute getFeatureAttributeValue_ValueJava() {
+		return (EAttribute)featureAttributeValueEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -639,8 +648,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		createEReference(featureDecoratorEClass, FEATURE_DECORATOR__ATTRIBUTES);
 
 		featureAttributeValueEClass = createEClass(FEATURE_ATTRIBUTE_VALUE);
-		createEAttribute(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__NAME);
 		createEReference(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__VALUE);
+		createEAttribute(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA);
 		createEAttribute(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY);
 
 		beanDecoratorEClass = createEClass(BEAN_DECORATOR);
@@ -688,6 +697,10 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		createEReference(methodProxyEClass, METHOD_PROXY__METHOD);
 
 		beanEventEClass = createEClass(BEAN_EVENT);
+
+		featureAttributeMapEntryEClass = createEClass(FEATURE_ATTRIBUTE_MAP_ENTRY);
+		createEAttribute(featureAttributeMapEntryEClass, FEATURE_ATTRIBUTE_MAP_ENTRY__KEY);
+		createEReference(featureAttributeMapEntryEClass, FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE);
 	}
 
 	/**
@@ -738,13 +751,13 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		initEAttribute(getFeatureDecorator_Preferred(), ecorePackage.getEBoolean(), "preferred", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 		initEAttribute(getFeatureDecorator_MergeIntrospection(), ecorePackage.getEBoolean(), "mergeIntrospection", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 		initEAttribute(getFeatureDecorator_AttributesExplicit(), ecorePackage.getEBoolean(), "attributesExplicit", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getFeatureDecorator_Attributes(), this.getFeatureAttributeValue(), null, "attributes", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getFeatureDecorator_Attributes(), this.getFeatureAttributeMapEntry(), null, "attributes", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(featureDecoratorEClass, ecorePackage.getEString(), "getName");
 
 		initEClass(featureAttributeValueEClass, FeatureAttributeValue.class, "FeatureAttributeValue", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getFeatureAttributeValue_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getFeatureAttributeValue_Value(), theEcorePackage.getEObject(), null, "value", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getFeatureAttributeValue_Value(), theEcorePackage.getEObject(), null, "value", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureAttributeValue_ValueJava(), theEcorePackage.getEJavaObject(), "valueJava", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 		initEAttribute(getFeatureAttributeValue_ValueProxy(), theEcorePackage.getEJavaObject(), "valueProxy", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(beanDecoratorEClass, BeanDecorator.class, "BeanDecorator", !IS_ABSTRACT, !IS_INTERFACE);
@@ -795,6 +808,10 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 
 		initEClass(beanEventEClass, BeanEvent.class, "BeanEvent", !IS_ABSTRACT, !IS_INTERFACE);
 
+		initEClass(featureAttributeMapEntryEClass, Map.Entry.class, "FeatureAttributeMapEntry", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getFeatureAttributeMapEntry_Key(), ecorePackage.getEString(), "key", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getFeatureAttributeMapEntry_Value(), this.getFeatureAttributeValue(), null, "value", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+
 		// Create resource
 		createResource(eNS_URI);
 	}
@@ -841,6 +858,33 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 */
 	public EClass getBeanEvent() {
 		return beanEventEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFeatureAttributeMapEntry() {
+		return featureAttributeMapEntryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureAttributeMapEntry_Key() {
+		return (EAttribute)featureAttributeMapEntryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFeatureAttributeMapEntry_Value() {
+		return (EReference)featureAttributeMapEntryEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**

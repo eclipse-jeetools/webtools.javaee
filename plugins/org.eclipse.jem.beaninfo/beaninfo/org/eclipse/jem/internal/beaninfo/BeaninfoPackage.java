@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPackage.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/08 21:25:33 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -273,7 +273,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT = EcorePackage.EANNOTATION_FEATURE_COUNT + 7;
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -290,21 +290,22 @@ public interface BeaninfoPackage extends EPackage{
 	int FEATURE_DECORATOR_FEATURE_COUNT = EcorePackage.EANNOTATION_FEATURE_COUNT + 9;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ATTRIBUTE_VALUE__NAME = 0;
-	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_ATTRIBUTE_VALUE__VALUE = 1;
+	int FEATURE_ATTRIBUTE_VALUE__VALUE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value Java</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA = 1;
 
 	/**
 	 * The feature id for the '<em><b>Value Proxy</b></em>' attribute.
@@ -445,7 +446,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int BEAN_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -647,7 +648,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -852,7 +853,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int METHOD_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1006,7 +1007,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1160,7 +1161,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1366,7 +1367,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT = PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT;
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1753,6 +1754,44 @@ public interface BeaninfoPackage extends EPackage{
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeMapEntryImpl <em>Feature Attribute Map Entry</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeMapEntryImpl
+	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getFeatureAttributeMapEntry()
+	 * @generated
+	 */
+	int FEATURE_ATTRIBUTE_MAP_ENTRY = 10;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_ATTRIBUTE_MAP_ENTRY__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE = 1;
+
+	/**
+	 * The number of structural features of the the '<em>Feature Attribute Map Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_ATTRIBUTE_MAP_ENTRY_FEATURE_COUNT = 2;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator <em>Feature Decorator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1840,10 +1879,10 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getFeatureDecorator_MergeIntrospection();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getAttributes <em>Attributes</em>}'.
+	 * Returns the meta object for the map '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getAttributes <em>Attributes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
+	 * @return the meta object for the map '<em>Attributes</em>'.
 	 * @see org.eclipse.jem.internal.beaninfo.FeatureDecorator#getAttributes()
 	 * @see #getFeatureDecorator()
 	 * @generated
@@ -2228,17 +2267,6 @@ public interface BeaninfoPackage extends EPackage{
 	EClass getFeatureAttributeValue();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getName()
-	 * @see #getFeatureAttributeValue()
-	 * @generated
-	 */
-	EAttribute getFeatureAttributeValue_Name();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2248,6 +2276,17 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getFeatureAttributeValue_Value();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueJava <em>Value Java</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value Java</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueJava()
+	 * @see #getFeatureAttributeValue()
+	 * @generated
+	 */
+	EAttribute getFeatureAttributeValue_ValueJava();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2311,6 +2350,39 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getBeanEvent();
+
+	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Feature Attribute Map Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Feature Attribute Map Entry</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyType="java.lang.String" valueType="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue" valueContainment="true" 
+	 * @generated
+	 */
+	EClass getFeatureAttributeMapEntry();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getFeatureAttributeMapEntry()
+	 * @generated
+	 */
+	EAttribute getFeatureAttributeMapEntry_Key();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getFeatureAttributeMapEntry()
+	 * @generated
+	 */
+	EReference getFeatureAttributeMapEntry_Value();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#isListenerMethodsExplicit <em>Listener Methods Explicit</em>}'.

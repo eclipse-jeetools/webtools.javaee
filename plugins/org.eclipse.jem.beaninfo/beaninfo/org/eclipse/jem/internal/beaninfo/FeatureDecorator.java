@@ -11,11 +11,11 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureDecorator.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/08 21:25:33 $ 
  */
 
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.jem.internal.proxy.core.IBeanProxy;
@@ -435,20 +435,21 @@ public interface FeatureDecorator extends EAnnotation{
 	void setMergeIntrospection(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue}.
+	 * Returns the value of the '<em><b>Attributes</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Attributes</em>' containment reference list.
+	 * @return the value of the '<em>Attributes</em>' map.
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_Attributes()
-	 * @model type="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue" containment="true"
+	 * @model mapType="org.eclipse.jem.internal.beaninfo.FeatureAttributeMapEntry" keyType="java.lang.String" valueType="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue"
 	 * @generated
 	 */
-	EList getAttributes();
+	EMap getAttributes();
 
 	/**
 	 * <!-- begin-user-doc -->
