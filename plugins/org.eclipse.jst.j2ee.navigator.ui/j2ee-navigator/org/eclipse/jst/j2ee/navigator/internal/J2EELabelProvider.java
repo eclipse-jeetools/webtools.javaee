@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
+import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.navigator.views.ICommonLabelProvider;
@@ -143,6 +144,9 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * @return
 	 */
 	public Image getImage(Object element) {
+
+		if(element instanceof J2EEJavaClassProviderHelper)
+			return ((J2EEJavaClassProviderHelper) element).getImage();
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getImage(element);
 		return null;
@@ -153,6 +157,8 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * @return
 	 */
 	public String getText(Object element) {
+		if(element instanceof J2EEJavaClassProviderHelper)
+			return ((J2EEJavaClassProviderHelper) element).getText();
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getText(element);
 		return null;

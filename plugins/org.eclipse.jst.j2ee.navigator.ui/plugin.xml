@@ -447,7 +447,8 @@
                         value="org.eclipse.jst.j2ee.jca.ConnectorNature">
                   </objectState>
                </or>
-            </and>            
+            </and>      
+            <objectClass name="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper" />      
             </or>
          </enables>
          
