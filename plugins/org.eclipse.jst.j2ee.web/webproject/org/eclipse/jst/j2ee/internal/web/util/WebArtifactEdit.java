@@ -364,7 +364,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	public IFolder getLibraryFolder() {
 		IFolder webInfFolder = (IFolder)getWebInfFolder();
-		IPath libFolderPath = webInfFolder.getFullPath().append(IWebNatureConstants.LIBRARY_DIRECTORY);
 		IFolder libFolder = (IFolder)webInfFolder.findMember(IWebNatureConstants.LIBRARY_DIRECTORY);
 		return libFolder;
 	}
