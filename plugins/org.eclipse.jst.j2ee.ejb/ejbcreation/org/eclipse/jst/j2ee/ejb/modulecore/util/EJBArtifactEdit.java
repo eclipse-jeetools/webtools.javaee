@@ -15,11 +15,11 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 
 /**
  * <p>
@@ -137,8 +137,8 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 		if (jar != null)
 			clientJAR = jar.getEjbClientJar();
 		if (clientJAR != null) {	
-			ModuleCore mc = ModuleCore.getModuleCoreForRead(project);
-			WorkbenchComponent module = mc.findWorkbenchModuleByDeployName(clientJAR);
+			StructureEdit mc = StructureEdit.getStructureEditForRead(project);
+			WorkbenchComponent module = mc.findComponentByName(clientJAR);
 		}
 	}
 	
@@ -214,7 +214,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 			EJBJar ejbJar = (EJBJar)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
-				ejbJar.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				ejbJar.setDisplayName(StructureEdit.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
@@ -255,7 +255,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	public static EJBArtifactEdit getEJBArtifactEditForRead(WorkbenchComponent aModule) {
 		try {
 			if (isValidEJBModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new EJBArtifactEdit(nature, aModule, true);
 			}
@@ -287,7 +287,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	public static EJBArtifactEdit getEJBArtifactEditForWrite(WorkbenchComponent aModule) {
 		try {
 			if (isValidEJBModule(aModule)) {
-				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
+				IProject project = StructureEdit.getContainingProject(aModule);
 				ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
 				return new EJBArtifactEdit(nature, aModule, false);
 			}
@@ -307,7 +307,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_EJB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getComponentTypeId()))
 			return false;
 		return true;
 	}

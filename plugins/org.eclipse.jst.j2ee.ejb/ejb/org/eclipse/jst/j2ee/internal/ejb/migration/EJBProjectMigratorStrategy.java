@@ -27,12 +27,12 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMappingImpl;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.project.J2EESettings;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.DependencyType;
+import org.eclipse.wst.common.componentcore.internal.Property;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
 import org.eclipse.wst.common.internal.migration.plugin.MigrationPlugin;
-import org.eclipse.wst.common.modulecore.DependencyType;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.Property;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 
 
@@ -214,7 +214,7 @@ public class EJBProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public Property createProperty(String name, String value) {
-		Property property = ModuleCoreFactory.eINSTANCE.createProperty();
+		Property property = ComponentcoreFactory.eINSTANCE.createProperty();
 		property.setName(name);
 		property.setValue(value);
 		return property;

@@ -2,8 +2,8 @@ package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
 
 public class EJBEditAdapterFactory implements IAdapterFactory {
 

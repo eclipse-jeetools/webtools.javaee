@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -30,14 +31,15 @@ import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
-import org.eclipse.wst.common.modulecore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 
 public class EJBClientComponentCreationOperation extends JavaUtilityComponentCreationOperation {
 
@@ -73,16 +75,16 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		URI uri = dm.getEarComponentHandle();
 		IProject proj = null;
 		try {
-			proj = ModuleCore.getContainingProject(uri);
+			proj = StructureEdit.getContainingProject(uri);
 		}
 		catch (UnresolveableURIException e) {
 			Logger.getLogger().log(e);
 		}
 		
-		ModuleCore core = null;
+		StructureEdit core = null;
 		try {
-			core = ModuleCore.getModuleCoreForRead(dm.getProject());
-			WorkbenchComponent wc = core.findWorkbenchModuleByDeployName(dm.getComponentDeployName());
+			core = StructureEdit.getStructureEditForRead(dm.getProject());
+			WorkbenchComponent wc = core.findComponentByName(dm.getComponentDeployName());
 
 			
 			AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel = new AddComponentToEnterpriseApplicationDataModel();;
@@ -109,11 +111,11 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 
 		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
 		
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		List list = new ArrayList();
 		try{
-			moduleCore = ModuleCore.getModuleCoreForRead(dm.getProject());
-			WorkbenchComponent wc = moduleCore.findWorkbenchModuleByDeployName(dm.getComponentDeployName());
+			moduleCore = StructureEdit.getStructureEditForRead(dm.getProject());
+			WorkbenchComponent wc = moduleCore.findComponentByName(dm.getComponentDeployName());
 			
 			list.add(wc);			
 		} finally {
@@ -126,19 +128,19 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		String ejbProjString = dm.getEJBProjectName();
 		IProject ejbProj = ProjectUtilities.getProject( ejbProjString );
 			
-		ModuleCore ejbModuleCore = null;
+		StructureEdit ejbModuleCore = null;
 		WorkbenchComponent ejbComp = null;
 		try{
-			ejbModuleCore = ModuleCore.getModuleCoreForWrite(ejbProj);
-			ejbComp = ejbModuleCore.findWorkbenchModuleByDeployName(dm.getEJBDeployName());
-			URI runtimeURI = URI.createURI(metaInfFolderDeployPath);
+			ejbModuleCore = StructureEdit.getStructureEditForWrite(ejbProj);
+			ejbComp = ejbModuleCore.findComponentByName(dm.getEJBDeployName());
+			IPath runtimePath = new Path(metaInfFolderDeployPath);
 		
 			if (list != null && list.size() > 0) {
 				for (int i = 0; i < list.size(); i++) {
-					ReferencedComponent rc = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
+					ReferencedComponent rc = ComponentcoreFactory.eINSTANCE.createReferencedComponent();
 					WorkbenchComponent workbenchComp= (WorkbenchComponent)list.get(i);
 					rc.setHandle(workbenchComp.getHandle());
-					rc.setRuntimePath(runtimeURI);
+					rc.setRuntimePath(runtimePath);
 					ejbComp.getReferencedComponents().add(rc);
 				}
 			}
@@ -164,13 +166,13 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 
 		IProject ejbProject = ProjectUtilities.getProject( ejbprojectName );
 		
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 		IFile manifestmf = null;
 		try{
-			moduleCore = ModuleCore.getModuleCoreForRead(ejbProject);
-			WorkbenchComponent ejbwc = moduleCore.findWorkbenchModuleByDeployName(ejbComponentDeployName);
-			ejbwc = moduleCore.findWorkbenchModuleByDeployName(ejbComponentDeployName);
-			IVirtualContainer component = ModuleCore.createContainer( ejbProject, ejbwc.getName());
+			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
+			WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
+			ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
+			IVirtualComponent component = ComponentCore.createComponent( ejbProject, ejbwc.getName());
 			IVirtualFile vf = component.getFile( new Path("/META-INF/MANIFEST.MF"));
 			manifestmf = vf.getUnderlyingFile();
 		}finally {
@@ -210,12 +212,12 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		String ejbComponentDeployName = dm.getEJBDeployName();
 		String clientDeployName  = dm.getComponentDeployName();
 		
-		ModuleCore moduleCore = null;
+		StructureEdit moduleCore = null;
 
 		try{
-			moduleCore = ModuleCore.getModuleCoreForRead(ejbProject);
-			WorkbenchComponent ejbwc = moduleCore.findWorkbenchModuleByDeployName(ejbComponentDeployName);
-			ejbwc = moduleCore.findWorkbenchModuleByDeployName(ejbComponentDeployName);
+			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
+			WorkbenchComponent ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
+			ejbwc = moduleCore.findComponentByName(ejbComponentDeployName);
 			
             EJBArtifactEdit ejbEdit = null;
            	try{

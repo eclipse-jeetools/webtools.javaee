@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
+import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 public class EJBArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {
 

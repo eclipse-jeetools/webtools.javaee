@@ -23,11 +23,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
+import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
-import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 	public NewModuleGroup newModuleGroup = null;
@@ -131,17 +131,15 @@ public class EJBClientComponentCreationWizardPage extends WTPWizardPage {
 		try {
 			if (module != null) {
 				edit = EJBArtifactEdit.getEJBArtifactEditForRead(module);
-				if (edit != null && edit.hasEJBClientJARProject(ModuleCore.getContainingProject(module.getHandle())))
+				if (edit != null && edit.hasEJBClientJARProject(StructureEdit.getContainingProject(module)))
 					enableAllSections(false);
 				} else
-					enableAllSections(true);
-		} catch(UnresolveableURIException e) {
-				Logger.getLogger().logError(e);
-		  } finally {
-			  if(edit != null)
-				  edit.dispose();
+					enableAllSections(true); 
+		} finally {
+			if(edit != null)
+				edit.dispose();
 				  
-		  }
+		}
 	}
 	
 	private void enableAllSections(boolean state) {
