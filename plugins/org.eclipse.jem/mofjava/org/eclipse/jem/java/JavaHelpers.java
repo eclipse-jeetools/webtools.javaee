@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaHelpers.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/18 19:46:41 $ 
  */
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -39,8 +39,31 @@ public interface JavaHelpers extends EClass {
 	static final String PRIM_INTEGER_NAME = "int";
 	static final String PRIM_LONG_NAME = "long";
 	static final String PRIM_SHORT_NAME = "short";
+	/**
+	 * Get the qualified name (with using '.' for inner classes). Will return the name if primitive too (e.g. "boolean")
+	 * Note: This should of been get the simple name and not the qualifed name, but it is too late and has been established
+	 * as the API. Use <code>getSimpleName()</code> instead if you want the name not qualified.
+	 * @return the qualified name of the type.
+	 * @see JavaHelpers#getSimpleName()
+	 * @since 1.0.0
+	 */
 	public String getJavaName();
+	/**
+	 * Get the simple name. This is the name of the primitive, or if a class, the name without the package. And if it is an
+	 * inner class, it will use '.' instead of '$'. If you want the simple name for reflection (i.e. with '$') use <code>getName()</code>.
+	 * @return the simple name (no package) of the type.
+	 * 
+	 * @since 1.0.0
+	 */
+	public String getSimpleName();
 	public JavaDataType getPrimitive();
+	/**
+	 * To be used by people that need to get the qualified name. This would use '.' for inner classes
+	 * and include the package name.
+	 * @return the qualified name, including package.
+	 * 
+	 * @since 1.0.0
+	 */	
 	public String getQualifiedName();
 	public JavaClass getWrapper();
 	public boolean isArray();
@@ -48,14 +71,22 @@ public interface JavaHelpers extends EClass {
 	 * Can an object of the passed in class be assigned to an
 	 * object of this class? In other words is this class a
 	 * supertype of the passed in class, or is it superinterface
-	 * of it? Or in the case of primitives, are they the same.
+	 * of it? Or in the case of primitives, are they the same. 
+	 * @param aClass
+	 * @return <code>true</code> if assignable from the given class.
+	 * 
+	 * @since 1.0.0
 	 */
 	public boolean isAssignableFrom(EClassifier aClass);
 	public boolean isPrimitive();
-	
+
 	/**
-	 * To be used by people that need to get the qualified name used for reflection.
+	 * To be used by people that need to get the qualified name used for reflection. This would use '$' instead of '.' for inner classes
+	 * and include the package name.
 	 * Typically bean info would need to use something like this.
+	 * @return the qualified name, use '$' for inner classes
+	 * 
+	 * @since 1.0.0
 	 */
 	public String getQualifiedNameForReflection() ;	
 }

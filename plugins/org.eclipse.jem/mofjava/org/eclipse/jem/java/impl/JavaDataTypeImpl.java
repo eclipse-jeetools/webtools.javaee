@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaDataTypeImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/18 19:46:41 $ 
  */
 
 import java.util.Collection;
@@ -69,14 +69,15 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 			return CHAR_ZERO;
 		return ZERO;
 	}
-	/**
-	 * (JavaHelpers)javaName - return the String which represents the Java name for this type
-	 */
 	public String getJavaName() {
 		return getName();
 	}
 	public JavaDataType getPrimitive() {
 		return this;
+	}
+	
+	public String getSimpleName() {
+		return getName();
 	}
 	public String getQualifiedName() {
 		return getJavaName();

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2004/06/18 18:11:04 $ 
+ *  $Revision: 1.8 $  $Date: 2004/06/18 19:46:29 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -432,6 +432,13 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 		return getQualifiedName();
 	}
 
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaHelpers#getSimpleName()
+	 */
+	public String getSimpleName() {
+		return primGetName().replace('$', '.');
+	}
 	/**
 	 * getJavaPackage. This is a derived relationship, so we must implement it here to get the EPackage that this object is contained in.
 	 */
@@ -536,10 +543,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 		if (result == null && eIsProxy()) {
 			JavaURL url = new JavaURL(eProxyURI().toString());
 			result = url.getClassName();
-			if (result != null)
-				result = result.replace('$', '.');
 		}
-		return result.replace('$', '.');
+		return result;
 	}
 
 	/**
