@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/04 16:53:00 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -24,8 +24,6 @@ import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
-
-import org.eclipse.jem.internal.proxy.remote.IRemoteProxyConstants;
  
 /**
  * This is the used to launch the proxy registries.
@@ -106,7 +104,7 @@ public class ProxyLaunchSupport {
 		}
 		
 		if (config == null) {
-			ILaunchConfigurationWorkingCopy configwc = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurationType(IRemoteProxyConstants.LOCAL_LAUNCH_TYPE).newInstance(null, DebugPlugin.getDefault().getLaunchManager().generateUniqueLaunchConfigurationNameFrom("LocalProxy_"+project.getName()));
+			ILaunchConfigurationWorkingCopy configwc = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurationType(IProxyConstants.LOCAL_LAUNCH_TYPE).newInstance(null, DebugPlugin.getDefault().getLaunchManager().generateUniqueLaunchConfigurationNameFrom("LocalProxy_"+project.getName()));
 			configwc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName()); 
 			config = configwc;
 		}

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IProxyConstants.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/04 16:53:00 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
  
@@ -25,6 +25,14 @@ public interface IProxyConstants {
 	 * Launch group id for proxy launch configurations.
 	 */	
 	public static final String ID_PROXY_LAUNCH_GROUP = "org.eclipse.jem.proxy";
+	
+	/**
+	 * Launch configuration type for local proxy. It is local in that it is on the same machine, but a different
+	 * VM then the one running the IDE. 
+	 * 
+	 * It here because this is the default config type when no launch config specified for a project.
+	 */
+	public static final String LOCAL_LAUNCH_TYPE = "org.eclipse.jem.proxy.LocalProxyLaunchConfigurationType";
 	
 	/**
 	 * Attribute on Proxy Launch Configuration:
@@ -57,4 +65,5 @@ public interface IProxyConstants {
 	 * It is here only because external developer's launch configurations will need to be able to access this.
 	 */
 	public static final String ATTRIBUTE_VM_TITLE = "org.eclipse.jem.proxy.vmtitle";
+
 }
