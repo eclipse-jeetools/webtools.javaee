@@ -34,7 +34,7 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 
 
 	 protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-	        super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
+	        super.execute(monitor);
 	    }
 
 

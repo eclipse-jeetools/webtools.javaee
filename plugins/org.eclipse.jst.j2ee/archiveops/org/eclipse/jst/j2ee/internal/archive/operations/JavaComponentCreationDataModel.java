@@ -48,4 +48,12 @@ public class JavaComponentCreationDataModel extends ComponentCreationDataModel {
 		return ".jar"; //$NON-NLS-1$
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel#getValidComponentVersionDescriptors()
+	 */
+	protected WTPPropertyDescriptor[] getValidComponentVersionDescriptors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
