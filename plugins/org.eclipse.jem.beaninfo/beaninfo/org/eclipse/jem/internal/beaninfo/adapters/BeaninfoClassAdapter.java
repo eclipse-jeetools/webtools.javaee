@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.8 $  $Date: 2004/04/19 15:37:43 $ 
+ *  $Revision: 1.9 $  $Date: 2004/04/21 19:46:44 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -993,6 +993,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				continue; // Statics/constructors don't participate as properties
 			if (mthd.getName().startsWith("get")) { //$NON-NLS-1$
 				String name = java.beans.Introspector.decapitalize(mthd.getName().substring(3));
+				if (name.length() == 0)
+					continue;	// Had get(...) and not getXXX(...) so not a getter.
 				PropertyInfo propInfo = (PropertyInfo) props.get(name);
 				if (propInfo == null) {
 					propInfo = new PropertyInfo();
@@ -1002,6 +1004,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					propInfo.setGetter(mthd, false);
 			} else if (mthd.getName().startsWith("is")) { //$NON-NLS-1$
 				String name = java.beans.Introspector.decapitalize(mthd.getName().substring(2));
+				if (name.length() == 0)
+					continue;	// Had is(...) and not isXXX(...) so not a getter.				
 				PropertyInfo propInfo = (PropertyInfo) props.get(name);
 				if (propInfo == null) {
 					propInfo = new PropertyInfo();
@@ -1011,6 +1015,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					propInfo.setGetter(mthd, true);
 			} else if (mthd.getName().startsWith("set")) { //$NON-NLS-1$
 				String name = java.beans.Introspector.decapitalize(mthd.getName().substring(3));
+				if (name.length() == 0)
+					continue;	// Had set(...) and not setXXX(...) so not a setter.				
 				PropertyInfo propInfo = (PropertyInfo) props.get(name);
 				if (propInfo == null) {
 					propInfo = new PropertyInfo();
