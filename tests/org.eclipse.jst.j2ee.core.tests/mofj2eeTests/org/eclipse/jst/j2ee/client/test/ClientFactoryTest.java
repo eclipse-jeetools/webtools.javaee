@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.client.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientFactory;
@@ -13,6 +15,7 @@ public class ClientFactoryTest extends TestCase {
 	}
     public void test_ClientFactory() {
         ClientFactory tmpClientFactory = getInstance();
+        assertNotNull(tmpClientFactory);
     }
 
    
@@ -30,5 +33,11 @@ public class ClientFactoryTest extends TestCase {
         retValue = objClientFactory.getClientPackage();
         assertNotNull(retValue);
     }
+	/**
+	 * @return
+	 */
+	public static Test suite() {
+		return new TestSuite(ClientFactoryTest.class);
+	}
 
 }
