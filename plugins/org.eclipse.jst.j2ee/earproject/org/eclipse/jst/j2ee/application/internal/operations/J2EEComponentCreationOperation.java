@@ -18,7 +18,6 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.ICommand;
@@ -109,21 +108,13 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 			try {
 				core = ModuleCore.getModuleCoreForRead(getProject());
 				WorkbenchComponent wc = core.findWorkbenchModuleByDeployName((String)moduleModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-				AddComponentToEnterpriseApplicationDataModel dm = moduleModel.addComponentToEARDataModel;
+				AddComponentToEnterpriseApplicationDataModel dm = moduleModel.getAddComponentToEARDataModel();
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME,wc.getName());
-				
-				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));
-				
-//				String earModuleName = moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME);
-//				if(earModuleName.endsWith("ear"))
-//					dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
-//				else
-//					dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));
-				
-				List modulesList = new ArrayList();
-				modulesList.add(wc);
-				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
-				AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(moduleModel.addComponentToEARDataModel);
+				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));
+				List modList = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
+				modList.add(wc);
+				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modList);
+				AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
 				addModuleOp.doRun(monitor);
 			} finally {
 				if(core != null)
