@@ -6,7 +6,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
@@ -131,7 +131,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public FlexibleProjectCreationWizardPage(J2EEProjectCreationDataModel model, String pageName) {
+	public FlexibleProjectCreationWizardPage(FlexibleProjectCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.FLEXIBLE_PROJECT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.FLEXIBLE_PROJECT_MAIN_PG_DESC));
@@ -161,7 +161,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	}
 
 	protected void createProjectNameGroup(Composite parent) {
-		projectNameGroup = new NewFlexibleProjectGroup(parent, SWT.NULL, (J2EEProjectCreationDataModel)model);
+		projectNameGroup = new NewFlexibleProjectGroup(parent, SWT.NULL, (FlexibleProjectCreationDataModel)model);
 	}
 
 	/**
@@ -268,7 +268,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), ((J2EEProjectCreationDataModel) model).getServerTargetDataModel());
+				FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), ((FlexibleProjectCreationDataModel) model).getServerTargetDataModel());
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
@@ -285,7 +285,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEProjectCreationDataModel.PROJECT_NAME, J2EEProjectCreationDataModel.PROJECT_LOCATION, J2EEProjectCreationDataModel.SERVER_TARGET_ID};
+		return new String[]{FlexibleProjectCreationDataModel.PROJECT_NAME, FlexibleProjectCreationDataModel.PROJECT_LOCATION, FlexibleProjectCreationDataModel.SERVER_TARGET_ID};
 	}
 
 	public static boolean launchNewRuntimeWizard(Shell shell, J2EEProjectServerTargetDataModel model) {

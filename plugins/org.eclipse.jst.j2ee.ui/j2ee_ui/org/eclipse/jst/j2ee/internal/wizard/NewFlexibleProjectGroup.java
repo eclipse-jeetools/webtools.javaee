@@ -8,7 +8,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.io.File;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
 
 public class NewFlexibleProjectGroup {
-	private J2EEProjectCreationDataModel model;
+	private FlexibleProjectCreationDataModel model;
 	public Text projectNameField = null;
 	protected Text locationPathField = null;
 	protected Button browseButton = null;
@@ -40,7 +40,7 @@ public class NewFlexibleProjectGroup {
 	 * @param parent
 	 * @param style
 	 */
-	public NewFlexibleProjectGroup(Composite parent, int style, J2EEProjectCreationDataModel model) {
+	public NewFlexibleProjectGroup(Composite parent, int style, FlexibleProjectCreationDataModel model) {
 		this.model = model;
 		synchHelper = new WTPDataModelSynchHelper(model);
 		buildComposites(parent);
@@ -70,7 +70,7 @@ public class NewFlexibleProjectGroup {
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		projectNameField.setLayoutData(data);
 		new Label(parent, SWT.NONE); // pad
-		synchHelper.synchText(projectNameField, J2EEProjectCreationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
+		synchHelper.synchText(projectNameField, FlexibleProjectCreationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class NewFlexibleProjectGroup {
 			}
 		});
 		browseButton.setEnabled(true);
-		synchHelper.synchText(locationPathField, J2EEProjectCreationDataModel.PROJECT_LOCATION, null);
+		synchHelper.synchText(locationPathField, FlexibleProjectCreationDataModel.PROJECT_LOCATION, null);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class NewFlexibleProjectGroup {
 	protected void handleLocationBrowseButtonPressed() {
 		DirectoryDialog dialog = new DirectoryDialog(locationPathField.getShell());
 		dialog.setMessage(defDirDialogLabel);
-		String dirName = model.getStringProperty(J2EEProjectCreationDataModel.PROJECT_LOCATION);
+		String dirName = model.getStringProperty(FlexibleProjectCreationDataModel.PROJECT_LOCATION);
 		if ((dirName != null) && (dirName.length() != 0)) {
 			File path = new File(dirName);
 			if (path.exists()) {
@@ -115,7 +115,7 @@ public class NewFlexibleProjectGroup {
 		}
 		String selectedDirectory = dialog.open();
 		if (selectedDirectory != null) {
-			model.setProperty(J2EEProjectCreationDataModel.PROJECT_LOCATION, selectedDirectory);
+			model.setProperty(FlexibleProjectCreationDataModel.PROJECT_LOCATION, selectedDirectory);
 		}
 	}
 
