@@ -241,4 +241,8 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 		}
 		return getApplicationClientXmiResource().getRootObject();
 	}
+	public EObject createModelRoot(int version) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

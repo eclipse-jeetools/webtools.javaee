@@ -20,6 +20,10 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	
+	public EObject createModelRoot(int version) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	/**
 	 * <p>
 	 * Identifier used to link ConnectorArtifactEdit to a ConnectorEditAdapterFactory {@see
