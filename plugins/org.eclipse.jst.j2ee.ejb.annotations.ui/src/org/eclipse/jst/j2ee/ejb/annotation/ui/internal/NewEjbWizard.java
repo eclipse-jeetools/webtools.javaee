@@ -10,17 +10,19 @@
 package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
+import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 
 
@@ -64,11 +66,11 @@ public abstract class NewEjbWizard extends WTPWizard implements INewWizard {
 			project = ProjectUtilities.getProject(selection.getFirstElement());
 		}
 		if (project == null) {
-			IProject[] projects = ProjectUtilities.getAllProjects();
-			EJBNatureRuntime nature = null;
+			IProject[] projects = JavaProjectUtilities.getAllProjects();
 			for (int i = 0; i < projects.length; i++) {
-				nature = EJBNatureRuntime.getRuntime(projects[i]);
-				if (nature != null) {
+				ModuleCore core = ModuleCore.getModuleCoreForRead(projects[i]);
+				WorkbenchComponent[] components = core.findWorkbenchModuleByType(EJBArtifactEdit.TYPE_ID);
+				if (components != null && components.length > 0) {
 					project = projects[i];
 					break;
 				}

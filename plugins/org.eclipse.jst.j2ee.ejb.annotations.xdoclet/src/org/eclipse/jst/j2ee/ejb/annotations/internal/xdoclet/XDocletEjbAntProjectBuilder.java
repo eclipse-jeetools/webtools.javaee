@@ -11,6 +11,7 @@ import java.util.Properties;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -18,7 +19,11 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
+import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.wst.common.modulecore.ComponentResource;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 
@@ -70,8 +75,32 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			url = Platform.asLocalURL(url);
 			File file = new File(url.getFile());
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
-			EJBNatureRuntime runtime = EJBNatureRuntime.getRuntime(javaProject.getProject());
-			properties.put("ejb.spec.version", runtime.getModuleVersionText()); //$NON-NLS-1$
+			ModuleCore  core= ModuleCore.getModuleCoreForRead(javaProject.getProject());
+			WorkbenchComponent ejbModule = null;
+			URI sourcePath = URI.createURI(resource.getFullPath().toString());
+			ComponentResource[] moduleResources = core.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+			for (int i = 0; i < moduleResources.length; i++) {
+				ComponentResource moduleResource = moduleResources[i];
+				if (moduleResource != null)
+					ejbModule = moduleResource.getComponent();
+				if (ejbModule != null)
+					break;
+			}
+			
+			EJBArtifactEdit ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbModule);
+			int j2eeVersion = 0;
+			if (ejbEdit != null) {
+				j2eeVersion = ejbEdit.getJ2EEVersion();
+			}
+			
+			String ejbLevel = J2EEVersionConstants.VERSION_2_0_TEXT;
+			if (j2eeVersion == J2EEVersionConstants.J2EE_1_3_ID)
+				ejbLevel = J2EEVersionConstants.VERSION_2_0_TEXT;
+			else if (j2eeVersion == J2EEVersionConstants.J2EE_1_4_ID)
+				ejbLevel = J2EEVersionConstants.VERSION_2_1_TEXT;
+
+			
+			properties.put("ejb.spec.version", ejbLevel); //$NON-NLS-1$
 			properties.put("java.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			properties.put("project.class.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			properties.put("project.path", ""); //$NON-NLS-1$ //$NON-NLS-2$

@@ -49,6 +49,7 @@
       <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
 
 <!--================================-->

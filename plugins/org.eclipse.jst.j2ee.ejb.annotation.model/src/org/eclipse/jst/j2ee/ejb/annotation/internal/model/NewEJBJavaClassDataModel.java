@@ -15,14 +15,12 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
