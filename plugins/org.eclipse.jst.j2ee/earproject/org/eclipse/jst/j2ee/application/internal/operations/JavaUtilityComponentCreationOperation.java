@@ -42,11 +42,15 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	}
 
 
-	 protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	 protected void execute(String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 	 	JavaComponentCreationDataModel dm = (JavaComponentCreationDataModel)operationDataModel;
 	    super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
 		createManifest(monitor);
 	    addSrcFolderToProject();
+	 }
+	 
+	 protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	    execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
 	 }
   
 	protected void createComponent() {
@@ -57,8 +61,8 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 			component.commit();
 			//create and link javaSource Source Folder
 			IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
-			javaSourceFolder.createLink(new Path("/" + dm.getComponentName()), 0, null);	
-				    	
+			javaSourceFolder.createLink(new Path("/" + dm.getJavaSourceFolder()), 0, null);
+			
 			//create and link META-INF folder
 			IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
 			metaInfFolder.createLink(new Path("/" + dm.getComponentName() + "/" + J2EEConstants.META_INF), 0, null);
