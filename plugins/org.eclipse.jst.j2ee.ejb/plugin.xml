@@ -192,9 +192,10 @@
       </moduleArtifactAdapter>
    </extension>-->
    <extension
-         point="org.eclipse.wst.server.ui.moduleArtifactAdapters">
+         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
       <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ejb">
+            id="com.ibm.wtp.server.j2ee.ejb"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
              <adapt type="org.eclipse.jst.j2ee.ejb.EJBJar"/>
@@ -202,7 +203,8 @@
          </enablement>
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ejb2">
+            id="com.ibm.wtp.server.j2ee.ejb2"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
              <adapt type="org.eclipse.jst.j2ee.ejb.EnterpriseBean"/>
@@ -210,7 +212,8 @@
          </enablement>
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ejb3">
+            id="com.ibm.wtp.server.j2ee.ejb3"
+             class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
              <adapt type="org.eclipse.jdt.core.ICompilationUnit"/>
@@ -218,7 +221,8 @@
          </enablement>
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ejb4">
+            id="com.ibm.wtp.server.j2ee.ejb4"
+             class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
              <adapt type="org.eclipse.core.resources.IFile"/>
@@ -226,7 +230,8 @@
          </enablement>
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ejb5">
+            id="com.ibm.wtp.server.j2ee.ejb5"
+             class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory">
          <enablement>
            <with variable="selection">
              <adapt type="org.eclipse.core.resources.IProject"/>
@@ -238,28 +243,26 @@
          <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IProject">
-            <adapter type="org.eclipse.jst.j2ee.ejb.internal.deployables.IEJBModuleArtifact"/>
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jdt.core.ICompilationUnit">
-            <adapter type="org.eclipse.jst.j2ee.ejb.internal.deployables.IEJBModuleArtifact"/>
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type="org.eclipse.jst.j2ee.ejb.internal.deployables.IEJBModuleArtifact"/>
+            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean">
-             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableArtifactAdapterFactory"
              adaptableType=" org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
-             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
              <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
        </factory>    
    </extension>
