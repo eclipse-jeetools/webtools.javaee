@@ -11,15 +11,13 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/22 23:49:02 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/20 19:10:17 $ 
  */
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.*;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -69,46 +67,68 @@ public class IDERegistration {
 		IProgressMonitor pm)
 		throws CoreException {
 
-		String[] classPaths = null;
+		URL[] classPaths = null;
 		IJavaProject javaProject = null;
 		if (project != null) {
 			javaProject = JavaCore.create(project);
 			// Add in the paths for the project	 	
-			classPaths = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
+			classPaths = ProxyLaunchSupport.convertStringPathsToURL(JavaRuntime.computeDefaultRuntimeClassPath(javaProject));
 		} else
-			classPaths = new String[0];
+			classPaths = new URL[0];
 
 		final IJavaProject jp = javaProject;
 
 		// Add in any classpaths the contributors want to add.
 		if (contributors != null) {
-			ProxyLaunchSupport.LaunchInfo launchInfo = new ProxyLaunchSupport.LaunchInfo();
-			launchInfo.configInfo.javaProject = jp;
-			LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(classPaths, new String[3][], launchInfo);
+			final ProxyLaunchSupport.LaunchInfo launchInfo = new ProxyLaunchSupport.LaunchInfo();
+			contributors = ProxyLaunchSupport.fillInLaunchInfo(contributors, launchInfo, jp.getElementName());
+			final LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(classPaths, new URL[3][], launchInfo);
+			final IConfigurationContributor[] contribs = contributors;
 			for (int i = 0; i < contributors.length; i++) {
-				contributors[i].initialize(launchInfo.getConfigInfo());
+				final int ii = i;
+				// Run in safe mode so that anything happens we don't go away.
+				Platform.run(new ISafeRunnable() {
+					public void handleException(Throwable exception) {
+						// Don't need to do anything. Platform.run logs it for me.
+					}
+
+					public void run() throws Exception {
+						contribs[ii].initialize(launchInfo.getConfigInfo());
+					}
+				});				
 			}			
 			for (int i = 0; i < contributors.length; i++) {
-				contributors[i].contributeClasspaths(controller);
+				final int ii = i;
+				// Run in safe mode so that anything happens we don't go away.
+				Platform.run(new ISafeRunnable() {
+					public void handleException(Throwable exception) {
+						// Don't need to do anything. Platform.run logs it for me.
+					}
+
+					public void run() throws Exception {
+						contribs[ii].contributeClasspaths(controller);
+					}
+				});				
 			}
 			classPaths = controller.getFinalClasspath();
 		}
 
-		URL[] othersURLs = new URL[classPaths.length];
-		for (int i = 0; i < othersURLs.length; i++) {
-			String path = (String) classPaths[i];
-			// These are paths to file system, so just put "file:" on front to turn into URL.
-			try {
-				othersURLs[i] = new URL("file:" + path);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-		}
-		ProxyFactoryRegistry registry = createIDEProxyFactoryRegistry(vmName, pluginName, othersURLs);
+		final ProxyFactoryRegistry registry = createIDEProxyFactoryRegistry(vmName, pluginName, classPaths);
 		// Contribute to the registry from contributors.
 		if (contributors != null) {
+			final IConfigurationContributor[] contribs = contributors;
 			for (int i = 0; i < contributors.length; i++) {
-				contributors[i].contributeToRegistry(registry);
+				final int ii = i;
+				// Run in safe mode so that anything happens we don't go away.
+				Platform.run(new ISafeRunnable() {
+					public void handleException(Throwable exception) {
+						// Don't need to do anything. Platform.run logs it for me.
+					}
+
+					public void run() throws Exception {
+						contribs[ii].contributeToRegistry(registry);
+					}
+				});	
 			}
 		}
 

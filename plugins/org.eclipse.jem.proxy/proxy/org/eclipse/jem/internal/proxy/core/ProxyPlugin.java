@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.33 $  $Date: 2004/08/16 21:00:08 $ 
+ *  $Revision: 1.34 $  $Date: 2004/08/20 19:10:16 $ 
  */
 
 
@@ -193,7 +193,26 @@ public class ProxyPlugin extends Plugin {
 
 	}
 
-
+	/**
+	 * Like <code>urlLocalizeFromBundleAndFragments(Bundle, String)</code> except takes a path.
+	 * 
+	 * @param bundle
+	 * @param filenameWithinBundle
+	 * @return
+	 * 
+	 * @see #urlLocalizeFromBundle(Bundle, String)
+	 * @since 1.0.0
+	 */
+	public URL[] urlLocalizeFromBundleAndFragments(Bundle bundle, IPath filenameWithinBundle) {
+		Bundle[] fragments = Platform.getFragments(bundle); // See if there are any fragments
+		if (fragments == null || fragments.length == 0) {
+			URL result = urlLocalizeFromBundle(bundle, filenameWithinBundle);
+			return result != null ? new URL[] { result } : new URL[0];
+		} else {
+			return urlLocalizeBundleAndFragments(bundle, fragments, filenameWithinBundle.toString());
+		}
+	}
+	
 	/**
 	 * Like <code>localizeFromBundleAndFragments</code> except it returns URL's instead.
 	 * @param bundle
@@ -209,52 +228,64 @@ public class ProxyPlugin extends Plugin {
 			URL result = urlLocalizeFromBundle(bundle, filenameWithinBundle);
 			return result != null ? new URL[] { result } : new URL[0];
 		} else {
-			ArrayList urls = new ArrayList(fragments.length + 1);
-			URL url = urlLocalizeFromBundleOnly(bundle, filenameWithinBundle);
-			if (url != null)
-				urls.add(url);
-			for (int i = 0; i < fragments.length; i++) {
-				Bundle fragment = fragments[i];
-				url =  urlLocalizeFromBundleOnly(fragment, filenameWithinBundle);
-				if (url != null)
-					urls.add(url);
-				// Also, look through the libraries of the fragment to see if one matches the special path.				
-				// This is where one of the runtime libraries has the fragment id in it. 
-				//  (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments, but this is obsolete).
-				String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
-				try {
-					ManifestElement[] classpaths = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, classpath);
-					if (classpaths != null && classpaths.length > 0) {
-						int extndx = filenameWithinBundle.lastIndexOf('.');
-						String libFile = null;
-						if (extndx != -1)
-							libFile =
-								filenameWithinBundle.substring(0, extndx)
-									+ '.'
-									+ fragment.getSymbolicName()
-									+ filenameWithinBundle.substring(extndx);
-						else
-							libFile = filenameWithinBundle + '.' + fragment.getSymbolicName();
-						for (int j = 0; j < classpaths.length; j++) {
-							IPath cp = new Path(classpaths[j].getValue());
-							// The last segment should be the file name. That is the name we are looking for.
-							if (libFile.equals(cp.lastSegment())) {
-								url = urlLocalizeFromBundleOnly(fragment, classpaths[j].getValue());
-								// Though the actual classpath entry is the file we are looking for.
-								if (url != null)
-									urls.add(url);
-								break;
-							}
-						}
-					}
-				} catch (BundleException e) {
-					getLogger().log(e, Level.INFO);
-				}
-			}
-			return (URL[]) urls.toArray(new URL[urls.size()]);
+			return urlLocalizeBundleAndFragments(bundle, fragments, filenameWithinBundle);
 		}
 	}
 	
+	/**
+	 * @param bundle
+	 * @param filenameWithinBundle
+	 * @param fragments
+	 * @return
+	 * 
+	 * @since 1.0.0
+	 */
+	private URL[] urlLocalizeBundleAndFragments(Bundle bundle, Bundle[] fragments, String filenameWithinBundle) {
+		ArrayList urls = new ArrayList(fragments.length + 1);
+		URL url = urlLocalizeFromBundleOnly(bundle, filenameWithinBundle);
+		if (url != null)
+			urls.add(url);
+		for (int i = 0; i < fragments.length; i++) {
+			Bundle fragment = fragments[i];
+			url =  urlLocalizeFromBundleOnly(fragment, filenameWithinBundle);
+			if (url != null)
+				urls.add(url);
+			// Also, look through the libraries of the fragment to see if one matches the special path.				
+			// This is where one of the runtime libraries has the fragment id in it. 
+			//  (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments, but this is obsolete).
+			String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
+			try {
+				ManifestElement[] classpaths = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, classpath);
+				if (classpaths != null && classpaths.length > 0) {
+					int extndx = filenameWithinBundle.lastIndexOf('.');
+					String libFile = null;
+					if (extndx != -1)
+						libFile =
+							filenameWithinBundle.substring(0, extndx)
+								+ '.'
+								+ fragment.getSymbolicName()
+								+ filenameWithinBundle.substring(extndx);
+					else
+						libFile = filenameWithinBundle + '.' + fragment.getSymbolicName();
+					for (int j = 0; j < classpaths.length; j++) {
+						IPath cp = new Path(classpaths[j].getValue());
+						// The last segment should be the file name. That is the name we are looking for.
+						if (libFile.equals(cp.lastSegment())) {
+							url = urlLocalizeFromBundleOnly(fragment, classpaths[j].getValue());
+							// Though the actual classpath entry is the file we are looking for.
+							if (url != null)
+								urls.add(url);
+							break;
+						}
+					}
+				}
+			} catch (BundleException e) {
+				getLogger().log(e, Level.INFO);
+			}
+		}
+		return (URL[]) urls.toArray(new URL[urls.size()]);
+	}
+
 	private static final String PROXYJARS = "proxy.jars";	//$NON-NLS-1$
 	private static final IPath PROXYJARS_PATH = new Path(PROXYJARS); 
 	

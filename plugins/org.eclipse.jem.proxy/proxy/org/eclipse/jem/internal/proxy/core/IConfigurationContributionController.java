@@ -11,11 +11,14 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IConfigurationContributionController.java,v $
- *  $Revision: 1.5 $  $Date: 2004/06/02 15:57:12 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/20 19:10:17 $ 
  */
+
+import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.osgi.framework.Bundle;
 ;
@@ -90,9 +93,21 @@ public interface IConfigurationContributionController {
 	 * @param classpath
 	 * @param typeFlag One of <code>APPEND_USER_CLASSPATH</code>, <code>APPEND_BOOT_CLASSPATH</code>, <code>PREPEND_BOOT_CLASSPATH</code>, or <code>APPEND_JAVA_LIBRARY_PATH</code>.
 	 * 
+	 * @deprecated use contributeClasspath(URL, int) instead.
+	 * @see #contributeClasspath(URL, int)
 	 * @since 1.0.0
 	 */
 	public void contributeClasspath(String classpath, int typeFlag);
+	
+	/**
+	 * Add an external file/folder to the classpath. The type flag tells where to add it.
+	 * 
+	 * @param classpathURL
+	 * @param typeFlag One of <code>APPEND_USER_CLASSPATH</code>, <code>APPEND_BOOT_CLASSPATH</code>, <code>PREPEND_BOOT_CLASSPATH</code>, or <code>APPEND_JAVA_LIBRARY_PATH</code>.
+	 * 
+	 * @since 1.0.0
+	 */
+	public void contributeClasspath(URL classpathURL, int typeFlag);	
 	
 	/**
 	 * Add an external files/folders to the classpath. The type flag tells where to add it.
@@ -100,10 +115,22 @@ public interface IConfigurationContributionController {
 	 * @param classpaths
 	 * @param typeFlag One of <code>APPEND_USER_CLASSPATH</code>, <code>APPEND_BOOT_CLASSPATH</code>, <code>PREPEND_BOOT_CLASSPATH</code>, or <code>APPEND_JAVA_LIBRARY_PATH</code>.
 	 * 
+	 * @deprecated use contributeClasspath(URL[], int) instead.
+	 * @see #contributeClasspath(URL[], int)
 	 * @since 1.0.0
 	 */
 	public void contributeClasspath(String[] classpaths, int typeFlag);	
-			
+
+	/**
+	 * Add an external files/folders to the classpath. The type flag tells where to add it.
+	 * 
+	 * @param classpathURLs
+	 * @param typeFlag One of <code>APPEND_USER_CLASSPATH</code>, <code>APPEND_BOOT_CLASSPATH</code>, <code>PREPEND_BOOT_CLASSPATH</code>, or <code>APPEND_JAVA_LIBRARY_PATH</code>.
+	 * 
+	 * @since 1.0.0
+	 */
+	public void contributeClasspath(URL[] classpathURLs, int typeFlag);	
+	
 	/**
 	 * Add a file/folder from a plugin in the running Eclipse to the classpath. The type flag tells where to add it.
 	 * In development mode it will find the bin class files instead if proxy.jars is setup correctly.
@@ -134,5 +161,18 @@ public interface IConfigurationContributionController {
 	 * @since 1.0.0
 	 */
 	public void contributeClasspath(Bundle bundle, String relativePath, int typeFlag, boolean nlsLocalize);	
+	
+	/**
+	 * Same as contributeClasspath(Bundle, String, int, boolean) except an IPath can be used as the relative path.
+	 * 
+	 * @param bundle
+	 * @param relativePath
+	 * @param typeFlag
+	 * @param nlsLocalize
+	 * 
+	 * @see #contributeClasspath(Bundle, String, int, boolean)
+	 * @since 1.0.0
+	 */
+	public void contributeClasspath(Bundle bundle, IPath relativePath, int typeFlag, boolean nlsLocalize);	
 	
 }

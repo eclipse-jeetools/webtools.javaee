@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.22 $  $Date: 2004/08/04 22:24:52 $ 
+ *  $Revision: 1.23 $  $Date: 2004/08/20 19:10:13 $ 
  */
 
 import java.io.*;
@@ -893,12 +893,12 @@ public class BeaninfoNature implements IProjectNature {
 				if (cp instanceof IProject)
 					controller.contributeProject((IProject) cp);
 				else if (cp instanceof String)
-					controller.contributeClasspath((String) cp, IConfigurationContributionController.APPEND_USER_CLASSPATH);
+					controller.contributeClasspath(ProxyLaunchSupport.convertStringPathToURL((String) cp), IConfigurationContributionController.APPEND_USER_CLASSPATH);
 				else if (cp instanceof IPath) {
 					IPath path = (IPath) cp;
 					Bundle bundle = Platform.getBundle(path.segment(0));
 					if (bundle != null)
-						controller.contributeClasspath(bundle, path.removeFirstSegments(1).toString(), IConfigurationContributionController.APPEND_USER_CLASSPATH, true);
+						controller.contributeClasspath(bundle, path.removeFirstSegments(1), IConfigurationContributionController.APPEND_USER_CLASSPATH, true);
 				}
 			}
 

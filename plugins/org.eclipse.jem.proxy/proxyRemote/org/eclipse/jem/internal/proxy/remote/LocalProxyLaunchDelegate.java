@@ -7,12 +7,13 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.11 $ $Date: 2004/06/02 19:59:11 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.12 $ $Date: 2004/08/20 19:10:16 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.text.MessageFormat;
@@ -104,8 +105,13 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		pm.worked(100);
 		
 		// Now let's get the classpaths created through the contributors.
-		String[] classpath = getClasspath(configuration);
-		String[][] bootpathInfo = getBootpathExt(vmAttributesMap);
+		URL[] classpath = ProxyLaunchSupport.convertStringPathsToURL(getClasspath(configuration));
+		String[][] bootpathInfoStrings = getBootpathExt(vmAttributesMap);
+		URL[][] bootpathInfo = new URL[][]{
+				ProxyLaunchSupport.convertStringPathsToURL(bootpathInfoStrings[0]),
+				ProxyLaunchSupport.convertStringPathsToURL(bootpathInfoStrings[1]),
+				ProxyLaunchSupport.convertStringPathsToURL(bootpathInfoStrings[2]),
+		};
 		ProxyLaunchSupport.LaunchInfo launchInfo = ProxyLaunchSupport.getInfo(launchKey);
 		final IConfigurationContributor[] contributors = launchInfo.contributors;
 		final LocalFileConfigurationContributorController controller =
@@ -134,12 +140,12 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		if (bootpathInfo[0] != controller.getFinalPrependBootpath()) {
 		    if (vmAttributesMap == null)
 		        vmAttributesMap = new HashMap(2);
-		    vmAttributesMap.put(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_PREPEND, bootpathInfo[0]);
+		    vmAttributesMap.put(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_PREPEND, ProxyLaunchSupport.convertURLsToStrings(bootpathInfo[0]));
 		}
 		if (bootpathInfo[2] != controller.getFinalAppendBootpath()) {
 		    if (vmAttributesMap == null)
 		        vmAttributesMap = new HashMap(2);
-		    vmAttributesMap.put(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_APPEND, bootpathInfo[2]);
+		    vmAttributesMap.put(IJavaLaunchConfigurationConstants.ATTR_BOOTPATH_APPEND, ProxyLaunchSupport.convertURLsToStrings(bootpathInfo[2]));
 		}
 
 		// check for cancellation
@@ -149,7 +155,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 
 		// Create VM config
 		VMRunnerConfiguration runConfig =
-			new VMRunnerConfiguration("org.eclipse.jem.internal.proxy.vm.remote.RemoteVMApplication", classpath); //$NON-NLS-1$
+			new VMRunnerConfiguration("org.eclipse.jem.internal.proxy.vm.remote.RemoteVMApplication", ProxyLaunchSupport.convertURLsToStrings(classpath)); //$NON-NLS-1$
 
 		REMProxyFactoryRegistry registry = new REMProxyFactoryRegistry(ProxyRemoteUtil.getRegistryController(), name);
 		Integer registryKey = registry.getRegistryKey();

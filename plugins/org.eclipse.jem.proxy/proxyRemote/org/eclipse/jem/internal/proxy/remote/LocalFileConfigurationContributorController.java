@@ -10,14 +10,16 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.5 $  $Date: 2004/06/02 15:57:12 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/20 19:10:16 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
+import java.net.URL;
 import java.util.*;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -31,40 +33,40 @@ import org.eclipse.jem.internal.proxy.core.*;
  * @since 1.0.0
  */
 public class LocalFileConfigurationContributorController implements IConfigurationContributionController {
-
-	private String[] classpathInfo;
-	private String[][] bootpathInfo;
+	
+	private URL[] classpathInfo;
+	private URL[][] bootpathInfo;
 	private List classpath;
 	private List prependBootpath;
 	private List appendBootpath;
 	private List javaLibraryPath;
 	private ProxyLaunchSupport.LaunchInfo launchInfo;
 	
-	public LocalFileConfigurationContributorController(String[] classpathInfo, String[][] bootpathInfo, ProxyLaunchSupport.LaunchInfo launchInfo) {
+	public LocalFileConfigurationContributorController(URL[] classpathInfo, URL[][] bootpathInfo, ProxyLaunchSupport.LaunchInfo launchInfo) {
 		this.classpathInfo = classpathInfo;
 		this.bootpathInfo = bootpathInfo;
 		this.launchInfo = launchInfo;
 	}
 	
-	public String[] getFinalClasspath() {
+	public URL[] getFinalClasspath() {
 		if (classpath == null)
 			return classpathInfo;
 		else
-			return (String[]) classpath.toArray(new String[classpath.size()]);
+			return (URL[]) classpath.toArray(new URL[classpath.size()]);
 	}
 
-	public String[] getFinalPrependBootpath() {
+	public URL[] getFinalPrependBootpath() {
 		if (prependBootpath == null)
 			return bootpathInfo[0];
 		else
-			return (String[]) prependBootpath.toArray(new String[prependBootpath.size()]);
+			return (URL[]) prependBootpath.toArray(new URL[prependBootpath.size()]);
 	}
 	
-	public String[] getFinalAppendBootpath() {
+	public URL[] getFinalAppendBootpath() {
 		if (appendBootpath == null)
 			return bootpathInfo[2];
 		else
-			return (String[]) prependBootpath.toArray(new String[appendBootpath.size()]);
+			return (URL[]) prependBootpath.toArray(new URL[appendBootpath.size()]);
 	}	
 
 	public List getFinalJavaLibraryPath() {
@@ -126,7 +128,7 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	protected void addLocations(List toList, IRuntimeClasspathEntry[] entries) {
 		for (int i = 0; i < entries.length; i++) {
 			IRuntimeClasspathEntry entry = entries[i];
-			String location = entry.getLocation();
+			URL location = ProxyLaunchSupport.convertStringPathToURL(entry.getLocation());
 			if (location != null && !toList.contains(location))
 				toList.add(location);
 		}
@@ -170,29 +172,38 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(java.lang.String, int)
 	 */
 	public void contributeClasspath(String classpath, int typeFlag) {
+		contributeClasspath(ProxyLaunchSupport.convertStringPathToURL(classpath), typeFlag);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(java.net.URL, int)
+	 */
+	public void contributeClasspath(URL classpathURL, int typeFlag) {
+		if (classpathURL == null)
+			return;
 		switch (typeFlag) {
 			case PREPEND_BOOT_CLASSPATH:
-				if (!getPrependBootpath().contains(classpath))
-					getPrependBootpath().add(classpath);
+				if (!getPrependBootpath().contains(classpathURL))
+					getPrependBootpath().add(classpathURL);
 				break;
 			case PREPEND_USER_CLASSPATH:
-				if (!getClasspath().contains(classpath))
-					getClasspath().add(0, classpath);
+				if (!getClasspath().contains(classpathURL))
+					getClasspath().add(0, classpathURL);
 				break;
 			case APPEND_USER_CLASSPATH:
-				if (!getClasspath().contains(classpath))					
-					getClasspath().add(classpath);
+				if (!getClasspath().contains(classpathURL))					
+					getClasspath().add(classpathURL);
 				break;				
 			case APPEND_BOOT_CLASSPATH:
-				if (!getAppendBootpath().contains(classpath))					
-					getAppendBootpath().add(classpath);
+				if (!getAppendBootpath().contains(classpathURL))					
+					getAppendBootpath().add(classpathURL);
 				break;
 			case APPEND_JAVA_LIBRARY_PATH:
-				if (!getJavaLibraryPath().contains(classpath))					
-					getJavaLibraryPath().add(classpath);
+				if (!getJavaLibraryPath().contains(classpathURL))					
+					getJavaLibraryPath().add(classpathURL);
 				break;
 		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -201,30 +212,52 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	public void contributeClasspath(Bundle bundle, String relativePath, int typeFlag, boolean nlsLocalize) {
 		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
 		if (!nlsLocalize || typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
-			contributeClasspath(ProxyPlugin.getPlugin().localizeFromBundle(bundle, relativePath), typeFlag);
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundle(bundle, relativePath), typeFlag);
 		else
-			contributeClasspath(ProxyPlugin.getPlugin().localizeFromBundleAndFragments(bundle, relativePath), typeFlag);
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath), typeFlag);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(org.osgi.framework.Bundle, org.eclipse.core.runtime.IPath, int, boolean)
+	 */
+	public void contributeClasspath(Bundle bundle, IPath relativePath, int typeFlag, boolean nlsLocalize) {
+		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
+		if (!nlsLocalize || typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundle(bundle, relativePath), typeFlag);
+		else
+			contributeClasspath(ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(bundle, relativePath), typeFlag);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(java.lang.String[], int)
 	 */
 	public void contributeClasspath(String[] classpaths, int typeFlag) {
+		contributeClasspath(ProxyLaunchSupport.convertStringPathsToURL(classpaths), typeFlag);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(java.net.URL[], int)
+	 */
+	public void contributeClasspath(URL[] classpathURLs, int typeFlag) {
+		if (classpathURLs == null)
+			return;
 		switch (typeFlag) {
 			case PREPEND_BOOT_CLASSPATH:
-				addAll(getPrependBootpath(), classpaths, -1);
+				addAll(getPrependBootpath(), classpathURLs, -1);
 				break;
 			case PREPEND_USER_CLASSPATH:
-				addAll(getClasspath(), classpaths, 0);
+				addAll(getClasspath(), classpathURLs, 0);
 				break;
 			case APPEND_USER_CLASSPATH:
-				addAll(getClasspath(), classpaths, -1);
+				addAll(getClasspath(), classpathURLs, -1);
 				break;				
 			case APPEND_BOOT_CLASSPATH:
-				addAll(getAppendBootpath(), classpaths, -1);
+				addAll(getAppendBootpath(), classpathURLs, -1);
 				break;
 			case APPEND_JAVA_LIBRARY_PATH:
-				addAll(getJavaLibraryPath(), classpaths, -1);
+				addAll(getJavaLibraryPath(), classpathURLs, -1);
 				break;
 		}
 	}

@@ -10,10 +10,13 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.12 $  $Date: 2004/08/10 17:52:10 $ 
+ *  $Revision: 1.13 $  $Date: 2004/08/20 19:10:17 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -375,69 +378,7 @@ public class ProxyLaunchSupport {
 		}
 		
 		String projectName = configwc.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, (String) null);
-		if (projectName != null) {
-			projectName = projectName.trim();
-			if (projectName.length() > 0) {
-				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-				IJavaProject javaProject = JavaCore.create(project);
-				if (javaProject != null && javaProject.exists()) {
-					launchInfo.configInfo.javaProject = javaProject;
-					launchInfo.configInfo.containerIds = new HashMap(5);
-					launchInfo.configInfo.containers = new HashMap(5);
-					launchInfo.configInfo.pluginIds = new HashMap(5);
-					launchInfo.configInfo.projectPaths = new HashMap(5);
-					ProxyPlugin.getPlugin().getIDsFound(javaProject, launchInfo.configInfo.containerIds, launchInfo.configInfo.containers, launchInfo.configInfo.pluginIds, launchInfo.configInfo.projectPaths);					
-					if (!launchInfo.configInfo.containerIds.isEmpty() || !launchInfo.configInfo.containers.isEmpty() || !launchInfo.configInfo.pluginIds.isEmpty()) {
-						List computedContributors = new ArrayList(launchInfo.configInfo.containerIds.size()+launchInfo.configInfo.containers.size()+launchInfo.configInfo.pluginIds.size());
-						// Note: We don't care about the visibility business here. For contributors to proxy it means
-						// some classes in the projects/plugins/etc. need configuration whether they are visible or not.
-						// This is because even though not visible, some other visible class may instantiate it. So it
-						// needs the configuration.
-						// First handle explicit classpath containers that implement IConfigurationContributor
-						for (Iterator iter = launchInfo.configInfo.containers.keySet().iterator(); iter.hasNext();) {
-							IClasspathContainer container = (IClasspathContainer) iter.next();
-							if (container instanceof IConfigurationContributor)
-								computedContributors.add(container);
-						}
-						
-						// Second add in contributors that exist for a container id.
-						for (Iterator iter = launchInfo.configInfo.containerIds.keySet().iterator(); iter.hasNext();) {
-							String containerid = (String) iter.next();
-							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerConfigurations(containerid);
-							if (contributors != null)
-								for (int i = 0; i < contributors.length; i++) {
-									Object contributor = contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
-									if (contributor instanceof IConfigurationContributor)
-										computedContributors.add(contributor);
-								}
-						}
-						
-						// Finally add in contributors that exist for a plugin id.
-						for (Iterator iter = launchInfo.configInfo.pluginIds.keySet().iterator(); iter.hasNext();) {
-							String pluginId = (String) iter.next();
-							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getPluginConfigurations(pluginId);
-							if (contributors != null)
-								for (int i = 0; i < contributors.length; i++) {
-									Object contributor = contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
-									if (contributor instanceof IConfigurationContributor)
-										computedContributors.add(contributor);
-								}
-						}
-						
-						// Now turn into array
-						if (!computedContributors.isEmpty()) {
-							IConfigurationContributor[] newContribs = new IConfigurationContributor[aContribs.length+computedContributors.size()];
-							System.arraycopy(aContribs, 0, newContribs, 0, aContribs.length);
-							IConfigurationContributor[] cContribs = (IConfigurationContributor[]) computedContributors.toArray(new IConfigurationContributor[computedContributors.size()]);
-							System.arraycopy(cContribs, 0, newContribs, aContribs.length, cContribs.length);
-							aContribs = newContribs;
-						}
-					}
-				}
-			}
-		}
-		
-		launchInfo.contributors = aContribs;
+		aContribs = fillInLaunchInfo(aContribs, launchInfo, projectName);
 		
 		try {		
 			configwc.setAttribute(IProxyConstants.ATTRIBUTE_LAUNCH_KEY, launchKey);
@@ -506,6 +447,87 @@ public class ProxyLaunchSupport {
 		return launchInfo.resultRegistry;
 	}
 	
+	/**
+	 * Fill in the launch info config info and contribs. The contribs sent in may be expanded due to extension
+	 * points and a new one created. Either the expanded copy or the original (if no change) will be stored in
+	 * the launchinfo and returned from this call.
+	 * 
+	 * @param aContribs
+	 * @param launchInfo
+	 * @param projectName
+	 * @return a modified aContribs if any change was made to it.
+	 * @throws JavaModelException
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.0
+	 */
+	public static IConfigurationContributor[] fillInLaunchInfo(IConfigurationContributor[] aContribs, LaunchInfo launchInfo, String projectName) throws JavaModelException, CoreException {
+		if (projectName != null) {
+			projectName = projectName.trim();
+			if (projectName.length() > 0) {
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+				IJavaProject javaProject = JavaCore.create(project);
+				if (javaProject != null && javaProject.exists()) {
+					launchInfo.configInfo.javaProject = javaProject;
+					launchInfo.configInfo.containerIds = new HashMap(5);
+					launchInfo.configInfo.containers = new HashMap(5);
+					launchInfo.configInfo.pluginIds = new HashMap(5);
+					launchInfo.configInfo.projectPaths = new HashMap(5);
+					ProxyPlugin.getPlugin().getIDsFound(javaProject, launchInfo.configInfo.containerIds, launchInfo.configInfo.containers, launchInfo.configInfo.pluginIds, launchInfo.configInfo.projectPaths);					
+					if (!launchInfo.configInfo.containerIds.isEmpty() || !launchInfo.configInfo.containers.isEmpty() || !launchInfo.configInfo.pluginIds.isEmpty()) {
+						List computedContributors = new ArrayList(launchInfo.configInfo.containerIds.size()+launchInfo.configInfo.containers.size()+launchInfo.configInfo.pluginIds.size());
+						// Note: We don't care about the visibility business here. For contributors to proxy it means
+						// some classes in the projects/plugins/etc. need configuration whether they are visible or not.
+						// This is because even though not visible, some other visible class may instantiate it. So it
+						// needs the configuration.
+						// First handle explicit classpath containers that implement IConfigurationContributor
+						for (Iterator iter = launchInfo.configInfo.containers.keySet().iterator(); iter.hasNext();) {
+							IClasspathContainer container = (IClasspathContainer) iter.next();
+							if (container instanceof IConfigurationContributor)
+								computedContributors.add(container);
+						}
+						
+						// Second add in contributors that exist for a container id.
+						for (Iterator iter = launchInfo.configInfo.containerIds.keySet().iterator(); iter.hasNext();) {
+							String containerid = (String) iter.next();
+							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerConfigurations(containerid);
+							if (contributors != null)
+								for (int i = 0; i < contributors.length; i++) {
+									Object contributor = contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
+									if (contributor instanceof IConfigurationContributor)
+										computedContributors.add(contributor);
+								}
+						}
+						
+						// Finally add in contributors that exist for a plugin id.
+						for (Iterator iter = launchInfo.configInfo.pluginIds.keySet().iterator(); iter.hasNext();) {
+							String pluginId = (String) iter.next();
+							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getPluginConfigurations(pluginId);
+							if (contributors != null)
+								for (int i = 0; i < contributors.length; i++) {
+									Object contributor = contributors[i].createExecutableExtension(ProxyPlugin.PI_CLASS);
+									if (contributor instanceof IConfigurationContributor)
+										computedContributors.add(contributor);
+								}
+						}
+						
+						// Now turn into array
+						if (!computedContributors.isEmpty()) {
+							IConfigurationContributor[] newContribs = new IConfigurationContributor[aContribs.length+computedContributors.size()];
+							System.arraycopy(aContribs, 0, newContribs, 0, aContribs.length);
+							IConfigurationContributor[] cContribs = (IConfigurationContributor[]) computedContributors.toArray(new IConfigurationContributor[computedContributors.size()]);
+							System.arraycopy(cContribs, 0, newContribs, aContribs.length, cContribs.length);
+							aContribs = newContribs;
+						}
+					}
+				}
+			}
+		}
+		
+		launchInfo.contributors = aContribs;
+		return aContribs;
+	}
+
 	/*
 	 * Run the build. If the original launch was in the UI thread, this will
 	 * be called under control of an IProgressService so that it is in a separate
@@ -594,6 +616,71 @@ public class ProxyLaunchSupport {
 		return (LaunchInfo) LAUNCH_INFO.get(key);
 	}
 	
+	/**
+	 * Convert the string path into a valid url.
+	 * @param path
+	 * @return the url or <code>null</code> if not convertable (i.e. not well-formed).
+	 * 
+	 * @since 1.0.0
+	 */
+	public static URL convertStringPathToURL(String path) {
+		try {
+			return path != null ? new File(path).toURL() : null;
+		} catch (MalformedURLException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Convert the string paths into a valid urls.
+	 * 
+	 * @param paths
+	 * @return the urls or <code>null</code> if paths is null. Any path not convertable (i.e. not well-formed) will not be in the final list.
+	 * So this means the result length may be smaller than the paths length.
+	 * 
+	 * @since 1.0.0
+	 */
+	public static URL[] convertStringPathsToURL(String[] paths) {
+		if (paths != null) {
+			URL[] result = new URL[paths.length];
+			int nextURL = 0;
+			for (int i = 0; i < paths.length; i++) {
+				URL url = convertStringPathToURL(paths[i]);
+				if (url != null)
+					result[nextURL++] = url;   
+			}
+			if (nextURL == 0)
+				return null;	// None were found.
+			
+			if (nextURL != result.length) {
+				URL[] nr = new URL[nextURL];
+				System.arraycopy(result, 0, nr, 0, nr.length);
+				result = nr;
+			}
+			return result;
+		} else
+			return null;
+	}
+
+	/**
+	 * Convert the urls to string array. It is assumed the urls are in file protocol. 
+	 * @param urls
+	 * @return string paths or <code>null</code> if urls is <code>null</code>. Any <code>null</code> entry of urls will result in 
+	 * a corresponding <code>null</code> in the strings.
+	 * 
+	 * @since 1.0.0
+	 */
+	public static String[] convertURLsToStrings(URL[] urls) {
+		if (urls != null) {
+			String[] strings = new String[urls.length];
+			for (int i = 0; i < urls.length; i++) {
+				strings[i] = urls[i] != null ? urls[i].getFile() : null;
+			}
+			return strings;
+		} else
+			return null;
+	}
+
 	/* (non-Javadoc)
 	 * Local contributor used to make sure that certain jars are in the path.
 	 * 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.4 $  $Date: 2004/06/14 16:07:27 $ 
+ *  $Revision: 1.5 $  $Date: 2004/08/20 19:10:17 $ 
  */
 
 import java.net.URL;
@@ -43,14 +43,19 @@ public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core
 	private static class IDESpecialClassLoader extends URLClassLoader {
 		
 		private Bundle bundle;
-		/**
-		 * @param urls
-		 * 
-		 * @since 1.0.0
-		 */
+		// This is the bundle that contains the IDE Eclipse code.
+		// This must be checked first because there are IDE specific stuff that is used on the "remote vm" too and
+		// so must be common.
+		private Bundle ideBundle;	 
+
 		public IDESpecialClassLoader(URL[] urls, Bundle bundle) {
-			super(urls);
+			super(urls, null);
+			ideBundle = ProxyPlugin.getPlugin().getBundle();
 			this.bundle = bundle;
+		}
+		
+		public IDESpecialClassLoader(URL[] urls) {
+			this(urls, null);
 		}
 		
 		/* (non-Javadoc)
@@ -58,17 +63,27 @@ public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core
 		 */
 		protected Class findClass(String name) throws ClassNotFoundException {
 			try {
-				return bundle.loadClass(name);
+				return ideBundle.loadClass(name);
 			} catch (ClassNotFoundException e) {
+				if (bundle != null) {
+					try {
+						return bundle.loadClass(name);
+					} catch (ClassNotFoundException e1) {
+					}
+				}
 				return super.findClass(name);
 			}
 		}
 		
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.ClassLoader#findResource(java.lang.String)
 		 */
 		public URL findResource(String name) {
-			URL r = bundle.getResource(name); 
+			URL r = ideBundle.getResource(name);
+			if (r == null && bundle != null)
+				r = bundle.getResource(name);
 			return r != null ? r : super.findResource(name);
 		}
 }
@@ -79,7 +94,7 @@ public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core
  * needed by IDE Proxy to work.
  */	
 public static ClassLoader createSpecialLoader(String pluginName, URL[] otherURLs) {
-	Bundle bundle = Platform.getBundle(pluginName);
+	Bundle bundle = pluginName != null ? Platform.getBundle(pluginName) : null;
 	
 	URL[] mustHaveUrls = ProxyPlugin.getPlugin().urlLocalizeFromBundleAndFragments(ProxyPlugin.getPlugin().getBundle(), "vm/remotevm.jar"); //$NON-NLS-1$
 	
@@ -91,7 +106,7 @@ public static ClassLoader createSpecialLoader(String pluginName, URL[] otherURLs
 	} else 
 		urls = mustHaveUrls;
 		
-	return bundle != null ? new IDESpecialClassLoader(urls, bundle) : new URLClassLoader(urls);
+	return bundle != null ? new IDESpecialClassLoader(urls, bundle) : new IDESpecialClassLoader(urls);
 }
 
 public IDEProxyFactoryRegistry(String aName, ClassLoader loader) {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/20 19:10:13 $ 
  */
 
 
@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.*;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -155,6 +156,11 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 * @ordered
 	 */
 	protected Method addListenerMethod = null;
+	
+	// The add listener method is cached because this is called very often in ve processing.
+	private boolean hasCachedAddListenerMethod;
+	protected Method cachedAddListenerMethod;
+	
 	/**
 	 * The cached value of the '{@link #getListenerMethods() <em>Listener Methods</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -317,11 +323,24 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		return unicastESet;
 	}
 
-	public Method getAddListenerMethod() {	
+	public Method getAddListenerMethod() {
+		if (hasCachedAddListenerMethod) {
+			if (cachedAddListenerMethod == null || !cachedAddListenerMethod.eIsProxy())
+				return cachedAddListenerMethod;
+			else {
+				// It has gone stale, resolve it again (may go null this time).
+				cachedAddListenerMethod = (Method) EcoreUtil.resolve(cachedAddListenerMethod, this);
+				if (cachedAddListenerMethod.eIsProxy()) {
+					cachedAddListenerMethod = null;	// Still not found, so just go to not have one.
+				}
+			}
+		}
+		
 		if (!eIsSet(BeaninfoPackage.eINSTANCE.getEventSetDecorator_AddListenerMethod()))
 			if (validProxy(fFeatureProxy)) {
 				try {
-					return Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getAddListenerMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
+					hasCachedAddListenerMethod = true;
+					return cachedAddListenerMethod = Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getAddListenerMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
 				} catch (ThrowableProxy e) {
 				}
 			}
@@ -952,6 +971,11 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			this.getListenerMethodsGen().clear();
 			retrievedListenerMethods = retrievedListenerMethodsSuccessful = false;
 		}
+		
+		if (hasCachedAddListenerMethod) {
+			hasCachedAddListenerMethod = false;
+			cachedAddListenerMethod = null;
+		}
 		super.setDescriptorProxy(descriptorProxy);
 	}	
 
@@ -969,4 +993,5 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		}
 		return null;	
 	}
+	
 }
