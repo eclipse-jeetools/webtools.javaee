@@ -25,8 +25,6 @@
       <import plugin="org.eclipse.jdt.debug.ui"/>
       <import plugin="com.ibm.wtp.common.util"/>
       <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.osgi"/>
    </requires>
 
 
@@ -72,8 +70,8 @@
                label="%Action.proxyLaunch"
                pulldown="true"
                icon="icons/full/ctool16/run_exc.gif"
-               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchToolbarDelegate"
                tooltip="%Action.proxyLaunchTip"
+               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchToolbarDelegate"
                toolbarPath="org.eclipse.debug.ui.launchActionSet/proxyLaunch"
                id="org.eclipse.jem.ui.proxy.ProxyLaunchToolbarDelegateAction">
          </action>
@@ -97,8 +95,8 @@
          <action
                label="%Action.proxyLaunch"
                icon="icons/full/ctool16/run_exc.gif"
-               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchMenuDelegate"
                tooltip="%Action.proxyLaunchTip"
+               class="org.eclipse.jem.internal.ui.proxy.ProxyLaunchMenuDelegate"
                menubarPath="org.eclipse.ui.run/"
                id="org.eclipse.jem.ui.proxy.ProxyLaunchMenuDelegateAction">
          </action>

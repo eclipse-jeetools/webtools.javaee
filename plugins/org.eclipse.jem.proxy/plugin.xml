@@ -39,9 +39,6 @@
       <import plugin="org.eclipse.debug.core" export="true"/>
       <import plugin="com.ibm.wtp.common.util"/>
       <import plugin="org.eclipse.pde.core"/>
-      <import plugin="org.eclipse.core.runtime.compatibility"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.osgi"/>
    </requires>
 
 
