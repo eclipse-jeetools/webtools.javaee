@@ -76,7 +76,7 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 		TransactionType transactionType =TransactionType.CONTAINER_LITERAL;
 		if(tType.equals(TransactionType.BEAN_LITERAL.getName()))
 			transactionType = TransactionType.BEAN_LITERAL;
-		mdBean.setTransactionType(TransactionType.BEAN_LITERAL);
+		mdBean.setTransactionType(transactionType);
 		
 		IMessageDrivenBeanDelegate delegate =BeanFactory.getDelegate(mdBean, ejbModel);
 		

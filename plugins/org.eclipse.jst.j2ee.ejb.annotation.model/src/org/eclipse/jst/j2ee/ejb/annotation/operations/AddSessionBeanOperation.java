@@ -70,7 +70,7 @@ public class AddSessionBeanOperation extends WTPOperation {
 		TransactionType transactionType =TransactionType.CONTAINER_LITERAL;
 		if(tType.equals(TransactionType.BEAN_LITERAL.getName()))
 			transactionType = TransactionType.BEAN_LITERAL;
-		sessionBean.setTransactionType(TransactionType.BEAN_LITERAL);
+		sessionBean.setTransactionType(transactionType);
 
 		
 		ISessionBeanDelegate delegate =BeanFactory.getDelegate(sessionBean, ejbModel);
