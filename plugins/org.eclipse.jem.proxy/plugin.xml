@@ -36,52 +36,23 @@
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.debug.core"/>
-      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.debug.core" export="true"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="com.ibm.wtp.common"/>
    </requires>
 
 
-<!-- This extension point is used to register for each
-        VMTypes which Proxy implementation should be used.
-        
-        -"awt" is a parm to the implementation, value is either
-         "y" or "n". If "y" then AWT will be registered for proxy
-         usage. Default is "y").
-         
-        -"vmtypeid" is a parm giving the id of the VMType that this implementation
-         supports.
-         
-        -"vmname" is a parm to use if there is a specific name of that VMType
-         that this registration supports. If not specfied, then this registration
-         will be used for all of this type that are not explicitly registered.
-         
-        The registration class must implement org.eclipse.jem.internal.proxy.IRegistration.
-        
-        There can only be more than one implementation element per extension element.
-        Each will be treated as an indiviual implementation.
-         
-        For example:
-          <extension point="org.eclipse.jem.internal.proxy.proxyimplementations">
-            <implementation
-                 awt="y"
-                 vmtypeid="org.eclipse.jdt.internal.ui.launcher.StandardVMType">
-              <registration class="org.eclipse.jem.internal.proxy.remote.ProxyRegistration"/>
-            </implementation>
-          </extension>
-   -->
-   <extension-point id="proxyimplementations" name="Proxy Implementations"/>
+   <extension-point id="contributor" name="Proxy Configuration Contributor" schema="schema/contributor.exsd"/>
 
    <extension
-         point="org.eclipse.jem.proxy.proxyimplementations">
-      <implementation
-            vmtypeid="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType"
-            awt="y">
-         <registration
-               class="org.eclipse.jem.internal.proxy.remote.ProxyRegistration">
-         </registration>
-      </implementation>
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            name="%Launch.localProxy"
+            delegate="org.eclipse.jem.internal.proxy.remote.LocalProxyLaunchDelegate"
+            category="org.eclipse.jem.proxy"
+            modes="run"
+            id="org.eclipse.jem.proxy.LocalProxyLaunchConfigurationType">
+      </launchConfigurationType>
    </extension>
 
 </plugin>

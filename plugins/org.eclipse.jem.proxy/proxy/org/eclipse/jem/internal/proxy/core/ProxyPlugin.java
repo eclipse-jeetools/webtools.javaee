@@ -11,23 +11,26 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.6 $  $Date: 2004/02/24 19:33:52 $ 
+ *  $Revision: 1.7 $  $Date: 2004/03/04 16:14:04 $ 
  */
 
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.*;
 import java.util.logging.Level;
 
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.internal.plugins.PluginRegistry;
-import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.*;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.*;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.launching.*;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.debug.core.*;
+import org.eclipse.jdt.core.*;
+import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.*;
 
@@ -57,17 +60,8 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	private static ProxyPlugin PROXY_PLUGIN = null;
-
-	public static final String DEBUG_DEV = "/dev"; //$NON-NLS-1$
+		
 	// If this is set to true, then in development mode and it will try for proxy jars in directories.
-
-	public static final String IMPLEMENTATIONS_EXT_PI = "proxyimplementations"; //$NON-NLS-1$
-	public static final String IMPLEMENTATIONS_VMTYPE_ID = "vmtypeid"; //$NON-NLS-1$
-	public static final String IMPLEMENTATIONS_VMNAME = "vmname"; //$NON-NLS-1$
-	public static final String IMPLEMENTATIONS_AWT = "awt"; //$NON-NLS-1$
-	public static final String IMPLEMENTATIONS_REGISTRATION = "registration"; //$NON-NLS-1$
-	public static final  String ENVIRONMENT_VARIABLE = "environment_variable";	//$NON-NLS-1$
-	
 	private boolean devMode;
 	
 	private ListenerList shutdownListeners;
@@ -91,108 +85,7 @@ public class ProxyPlugin extends Plugin {
 		if (logger == null)
 			logger = EclipseLogger.getEclipseLogger(this);
 		return logger;
-	}
-	
-
-	/**
-	 * Start a Proxy implementation.
-	 */
-	public ProxyFactoryRegistry startImplementation(
-		IProject project,
-		String vmTitle,
-		IConfigurationContributor[] aContribs,
-		IProgressMonitor pm)
-		throws CoreException {
-		// Need to find the correct Registration to use.
-
-		IJavaProject javaProject = JavaCore.create(project);
-		if (javaProject == null) {
-			getLogger().log(
-				new Status(
-					IStatus.WARNING,
-					getDescriptor().getUniqueIdentifier(),
-					0,
-					MessageFormat.format(
-						ProxyMessages.getString(ProxyMessages.NOT_JAVA_PROJECT),
-						new Object[] { project.getName()}),
-					null));
-			return null;
-		}
-		JavaRuntime.getVMInstallTypes(); // Needed to force initialization of VM types.
-		IVMInstall vm = JavaRuntime.getVMInstall(javaProject);
-		if (vm == null)
-			vm = JavaRuntime.getDefaultVMInstall();
-		String vmTypeID = vm.getVMInstallType().getId();
-		String vmName = vm.getName();
-		if (javaProject == null) {
-			getLogger().log(
-				new Status(
-					IStatus.WARNING,
-					getDescriptor().getUniqueIdentifier(),
-					0,
-					MessageFormat.format(
-						ProxyMessages.getString(ProxyMessages.NO_VM),
-						new Object[] { project.getName()}),
-					null));
-			return null;
-		}
-
-		// Try to find the configuration element from the extension point "org.eclipse.jem.proxy.proxyImplementations"
-		// that matchs the VM we will be using.
-		IExtensionPoint xp = getDescriptor().getExtensionPoint(IMPLEMENTATIONS_EXT_PI);
-		if (xp != null) {
-			IConfigurationElement defaultImplementation = null;
-			IConfigurationElement matchedImplementation = null;
-			IExtension[] extensions = xp.getExtensions();
-			for (int i = 0; matchedImplementation == null && i < extensions.length; i++) {
-				IConfigurationElement[] ces = extensions[i].getConfigurationElements();
-				for (int j = 0; j < ces.length; j++) {
-					IConfigurationElement ce = ces[i];
-					String evmTypeID = ce.getAttributeAsIs(IMPLEMENTATIONS_VMTYPE_ID);
-					if (vmTypeID.equals(evmTypeID)) {
-						String evmName = ce.getAttributeAsIs(IMPLEMENTATIONS_VMNAME);
-						if (evmName == null)
-							if (defaultImplementation == null) {
-								defaultImplementation = ce; // Found a default
-								break;
-							} else
-								;
-						else if (evmName.equals(vmName)) {
-							matchedImplementation = ce; // Found a match
-							break;
-						}
-					}
-				}
-			}
-
-			if (matchedImplementation == null)
-				matchedImplementation = defaultImplementation; // Use the default.
-			if (matchedImplementation != null) {
-				// We have an implementation.
-				String awtParm = matchedImplementation.getAttributeAsIs(IMPLEMENTATIONS_AWT);
-				boolean attachAWT = awtParm == null || awtParm.equals("y"); //$NON-NLS-1$
-				IRegistration reg =
-					(IRegistration) matchedImplementation.createExecutableExtension(
-						IMPLEMENTATIONS_REGISTRATION);
-				IConfigurationContributor[] contribs =
-					new IConfigurationContributor[1 + (aContribs != null ? aContribs.length : 0)];
-				contribs[0] = new ProxyContributor();
-				if (aContribs != null)
-					System.arraycopy(aContribs, 0, contribs, 1, aContribs.length);
-				return reg.startImplementation(contribs, attachAWT, project, vmTitle, pm);
-			}
-		}
-		getLogger().log(
-			new Status(
-				IStatus.WARNING,
-				getDescriptor().getUniqueIdentifier(),
-				0,
-				MessageFormat.format(
-					ProxyMessages.getString(ProxyMessages.NO_IMPLEMENTATION),
-					new Object[] { project.getName()}),
-				null));
-		return null;
-	}
+	}	
 
 	/**
 	 * See localizeFromPluginDescriptor...
@@ -206,7 +99,7 @@ public class ProxyPlugin extends Plugin {
 	 * This will take the plugin and file name and make it local and return that
 	 * fully qualified. It will not take fragments into account.
 	 * 
-	 * If the .options file has the org.eclipse.jem.internal.proxy.core/dev=true then we are in development and it will pick it up from the path
+	 * If we are in development and it will pick it up from the path
 	 * that is listed in the proxy.jars file located in the plugin passed in. This allows development code to be
 	 * used in place of the actual runtime jars. If the runtime jars are found,
 	 * they will be used.
@@ -271,11 +164,10 @@ public class ProxyPlugin extends Plugin {
 
 		// TODO Need to switch to OSGi API when stable. This will not pick up non-legacy Bundles.
 		try {
-			Bundle[] fragments = pluginDescriptor.getPlugin().getBundle().getFragments(); // See if there are any fragments
+			Bundle[] fragments = Platform.getFragments(pluginDescriptor.getPlugin().getBundle()); // See if there are any fragments
 			if (fragments == null || fragments.length == 0) {
 				URL result = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
-				return result != null ? new URL[] { result }
-				: new URL[0];
+				return result != null ? new URL[] { result } : new URL[0];
 			} else {
 				ArrayList urls = new ArrayList(fragments.length + 1);
 				URL url = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
@@ -336,30 +228,28 @@ public class ProxyPlugin extends Plugin {
 		}
 	}
 	
+	private static final IPath PROXYJARS_PATH = new Path("proxy.jars");
 	/**
 	 * See localizeFromPluginDescriptor...
 	 * This is just a helper to return a url instead.
 	 */		
-	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {			
-		return urlLocalize(pluginDescriptor.getInstallURL(), filenameWithinPlugin, false);
-	}
-	
-	private URL urlLocalize(URL installURL, String filenameWithinPlugin, boolean mustExist) {			
-		
+	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {					
 		try {
-			URL pvm =
-				Platform.asLocalURL(
-					new URL(installURL, filenameWithinPlugin));
-			if (devMode || mustExist) {
-				// Need to test if found in devmode. Otherwise we will just assume it is found, or test if mustTest is true. If not found on remote to cache, an IOException would be thrown.
-				InputStream ios = null;
-				try {
-					ios = pvm.openStream();
-					if (ios != null)
-						return pvm;	// Found it, so return it.
-				} finally {
-					if (ios != null)
-						ios.close();
+			URL pvm = pluginDescriptor.find(new Path(filenameWithinPlugin));
+			if (pvm != null)
+				pvm = Platform.asLocalURL(pvm);
+			if (devMode) {
+				// Need to test if found in devmode. Otherwise we will just assume it is found. If not found on remote and moved to cache, an IOException would be thrown.
+				if (pvm != null) {
+					InputStream ios = null;
+					try {
+						ios = pvm.openStream();
+						if (ios != null)
+							return pvm; // Found it, so return it.
+					} finally {
+						if (ios != null)
+							ios.close();
+					}
 				}
 			} else
 				return pvm;
@@ -367,24 +257,30 @@ public class ProxyPlugin extends Plugin {
 		}
 
 		if (devMode) {
-			// Got this far and in dev mode means it wasn't found, so we'll try for development style
+			// Got this far and in dev mode means it wasn't found, so we'll try for development style.
+			// It is assumed that in dev mode, we are running with the IDE as local and any 
+			// build outputs will be local so local file protocol will be returned
+			// from Platform.resolve(). We won't be running in dev mode with our entireplugin being in a jar,
+			// or on a separate system.
 			try {
-				URL pvm = new URL(installURL, "proxy.jars"); //$NON-NLS-1$
-				InputStream ios = null;
-				try {
-					ios = pvm.openStream();
-					Properties props = new Properties();
-					props.load(ios);
-					String pathString = props.getProperty(filenameWithinPlugin);
-					if (pathString != null) {
-						IPath path = new Path(Platform.resolve(installURL).getFile());
-						path = path.removeLastSegments(1);	// Move up one level to workspace root of development workspace.
-						path = path.append(pathString);
-						return new URL("file", null, path.toString()); //$NON-NLS-1$
+				URL pvm = pluginDescriptor.find(PROXYJARS_PATH);
+				if (pvm != null) {
+					InputStream ios = null;
+					try {
+						ios = pvm.openStream();
+						Properties props = new Properties();
+						props.load(ios);
+						String pathString = props.getProperty(filenameWithinPlugin);
+						if (pathString != null) {
+							IPath path = new Path(Platform.resolve(pluginDescriptor.getInstallURL()).getFile());
+							path = path.removeLastSegments(1); // Move up one level to workspace root of development workspace.
+							path = path.append(pathString);
+							return new URL("file", null, path.toString()); //$NON-NLS-1$
+						}
+					} finally {
+						if (ios != null)
+							ios.close();
 					}
-				} finally {
-					if (ios != null)
-						ios.close();
 				}
 			} catch (IOException e) {
 			}
@@ -393,30 +289,12 @@ public class ProxyPlugin extends Plugin {
 		return null; // Nothing found
 	}
 
-	class ProxyContributor implements IConfigurationContributor {
-		public void contributeClasspaths(List classPaths, IClasspathContributionController controller) {
-			// Add the required jars to the end of the classpath.
-			controller.contributeClasspath(
-				localizeFromPlugin(ProxyPlugin.this, "proxycommon.jar"), //$NON-NLS-1$
-				classPaths,
-				-1);
-			controller.contributeClasspath(
-				urlLocalizeFromPluginDescriptorAndFragments(ProxyPlugin.this.getDescriptor(), "initparser.jar"), //$NON-NLS-1$
-				classPaths,
-				-1);
-		}
-		public void contributeToConfiguration(VMRunnerConfiguration config) {
-		}
-		public void contributeToRegistry(ProxyFactoryRegistry registry) {
-		}
-	}
-
 	/**
 	 * A helper to order the plugin descriptors into pre-req order. 
 	 * If A eventually depends on B, then B will be ahead of A in the
 	 * list of plugins. (I.e. B is a pre-req somewhere of A).
 	 *  
-	 * @param pluginDescriptorsToOrder - IPluginDescriptors of interest. The results will have these in there correct order.
+	 * @param pluginDescriptorsToOrder - IPluginDescriptors of interest. The results will have these in thiee correct order.
 	 * @return An array of the IPluginDescriptors in there order from no prereqs in set to the leaves.
 	 * 
 	 * @since 1.0.0
@@ -492,29 +370,7 @@ public class ProxyPlugin extends Plugin {
 		}
 		return dependents;
 	}
-	
-	public static Process exec(String[] cmdLine, File workingDirectory, String[] environmentProperties) throws CoreException {
-		// This was copied from DebugPlugin so we need to check back with this for correct exception handling
-		// For the JVE we need control over the environment properties, hence the extra argument 
-		Process p= null;
-		try {
-
-			if (workingDirectory == null) {
-				p= Runtime.getRuntime().exec(cmdLine, environmentProperties);
-			} else {
-				p= Runtime.getRuntime().exec(cmdLine, environmentProperties, workingDirectory);
-			}
-		} catch (IOException e) {
-				if (p != null) {
-					p.destroy();
-				}
-				throw new CoreException(null);	//TODO exception handling
-		} catch (NoSuchMethodError e) {
-			//TODO exception handling			
-		}
-		return p;
-	}	
-	
+		
 	/**
 	 * Add a shutdown listener
 	 * @param listener
@@ -538,10 +394,109 @@ public class ProxyPlugin extends Plugin {
 			shutdownListeners.remove(listener);
 	}
 	
+	private ILaunchConfigurationListener launchListener = new ILaunchConfigurationListener() {
+		public void launchConfigurationAdded(ILaunchConfiguration configuration) {
+			try {
+				if (!configuration.isWorkingCopy() && IProxyConstants.ID_PROXY_LAUNCH_GROUP.equals(configuration.getCategory()))
+					startCleanupJob();
+			} catch (Exception e) {
+			}
+		}
+
+		public void launchConfigurationChanged(ILaunchConfiguration configuration) {
+			try {
+				if (!configuration.isWorkingCopy() && IProxyConstants.ID_PROXY_LAUNCH_GROUP.equals(configuration.getCategory()))
+					startCleanupJob();
+			} catch (Exception e) {
+			}
+		}
+
+		public void launchConfigurationRemoved(ILaunchConfiguration configuration) {
+			try {
+				// On delete you can't tell the category or anything because all of that info has already removed.
+				if (!configuration.isWorkingCopy())
+					startCleanupJob();
+			} catch (Exception e) {
+			}
+		}
+	};
+	
+	private Job cleanupJob = new Job("Clean up default proxy launch configurations.") {
+		{
+			setSystem(true);	// So it doesn't show up in progress monitor. No need to interrupt user.
+			setPriority(Job.SHORT);	// A quick running job.
+		}
+		protected IStatus run(IProgressMonitor monitor) {
+			synchronized (this) {
+				if (monitor.isCanceled())
+					return Status.CANCEL_STATUS;
+			}
+			// all we want to do is find out if any launch configurations (from proxy launch group) exist for
+			// a project. If they don't, then unset the project's property. If they do, and the property is not
+			// set, then set it to NOT_SET to indicate not set, but there are some configs for it.
+			// We just gather the project names that have launch configurations.
+			try {
+				Set projectNames = new HashSet();
+				ILaunchConfiguration[] configs = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurations();
+				for (int i = 0; i < configs.length; i++) {
+					if (IProxyConstants.ID_PROXY_LAUNCH_GROUP.equals(configs[i].getCategory())
+						&& (ProxyLaunchSupport.ATTR_PRIVATE == null || !configs[i].getAttribute(ProxyLaunchSupport.ATTR_PRIVATE, false)))
+						projectNames.add(configs[i].getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, ""));
+				}
+
+				IJavaModel model = JavaCore.create(ResourcesPlugin.getWorkspace().getRoot());
+				IJavaElement[] children = model.getChildren();
+				int cancelCount = 10;
+				for (int j = 0; j < children.length; j++) {
+					if (children[j].getElementType() == IJavaElement.JAVA_PROJECT) {
+						if (--cancelCount <= 0)
+							synchronized (this) {
+								cancelCount = 10;	// Rest for next set of ten.
+								// Checking on every 10 projects because they may be many projects, while only few configs.
+								// This way it will stop sooner.
+								if (monitor.isCanceled())
+									return Status.CANCEL_STATUS;
+							}						
+						IProject p = ((IJavaProject) children[j]).getProject();
+						if (projectNames.contains(p.getName())) {
+							// This project has a launch config. If it has a setting, then do nothing, else need to put on not set. 
+							if (p.getPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION) == null)
+								p.getProject().setPersistentProperty(
+									ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION,
+									ProxyLaunchSupport.NOT_SET);
+						} else {
+							// This project has no launch configs. Remove any setting if it exists.
+							p.setPersistentProperty(ProxyLaunchSupport.PROPERTY_LAUNCH_CONFIGURATION, (String) null);
+						}
+					}
+				}
+				return Status.OK_STATUS;
+			} catch (CoreException e) {
+				return e.getStatus();
+			}
+		}
+	};
+	
+	private void startCleanupJob() {
+		cleanupJob.cancel();	// Stop what we are doing.
+		cleanupJob.schedule(1000l);	// Schedule to start in one second.
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.runtime.Plugin#startup()
+	 */
+	public void startup() throws CoreException {
+		super.startup();
+		DebugPlugin.getDefault().getLaunchManager().addLaunchConfigurationListener(launchListener);
+		startCleanupJob();
+	}
+
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.runtime.Plugin#shutdown()
 	 */
 	public void shutdown() throws CoreException {
+		DebugPlugin.getDefault().getLaunchManager().removeLaunchConfigurationListener(launchListener);
+		cleanupJob.cancel();	// Stop what we are doing.		
 		if (shutdownListeners != null) {
 			Object[] listeners = shutdownListeners.getListeners();
 			for (int i = 0; i < listeners.length; i++) {
@@ -550,5 +505,165 @@ public class ProxyPlugin extends Plugin {
 		}
 		super.shutdown();
 	}
+	
+	public static final String PI_CONFIGURATION_CONTRIBUTION = "org.eclipse.jem.proxy.contributor";
+	public static final String PI_CONTAINER = "container";
+	public static final String PI_PLUGIN = "plugin";
+	public static final String PI_CLASS = "class";
+	
+	/*
+	 * Map of container id's to their ordered array of contribution config elements.
+	 */
+	protected Map containerToContributions = null;
+	/*
+	 * Map of plugin id's to their ordered array of contribution config elements.
+	 */
+	protected Map pluginToContributions = null;
+	
+	/**
+	 * Return the plugin ordered array of configuration elements for the given container, or <code>null</code> if not contributed.
+	 * 
+	 * @param containerid
+	 * @return Array of configuration elements or <code>null</code> if this container has no contributions.
+	 * 
+	 * @since 1.0.0
+	 */
+	public IConfigurationElement[] getContainerConfigurations(String containerid) {
+		if (containerToContributions == null)
+			processContributionExtensionPoint();
+		return (IConfigurationElement[]) containerToContributions.get(containerid);
+	}
 
+	/**
+	 * Return the plugin ordered array of configuration elements for the given plugin, or <code>null</code> if not contributed.
+	 * 
+	 * @param pluginid
+	 * @return Array of configuration elements or <code>null</code> if this plugin has no contributions.
+	 * 
+	 * @since 1.0.0
+	 */
+	public IConfigurationElement[] getPluginConfigurations(String pluginid) {
+		if (pluginToContributions == null)
+			processContributionExtensionPoint();
+		return (IConfigurationElement[]) pluginToContributions.get(pluginid);
+	}
+	
+	protected void processContributionExtensionPoint() {
+		// We are processing this once because it is accessed often (once per vm per project).
+		// This can add up so we get it together once here.
+		IExtensionPoint extp = getDescriptor().getExtensionPoint(PI_CONFIGURATION_CONTRIBUTION);
+		if (extp == null) {
+			containerToContributions = Collections.EMPTY_MAP;
+			pluginToContributions = Collections.EMPTY_MAP;
+			return;
+		}
+		
+		IExtension[] extensions = extp.getExtensions();
+		// Need to be in plugin order so that first ones processed have no dependencies on others.
+		HashMap pluginDescriptorsToExtensions = new HashMap(extensions.length);
+		for (int i = 0; i < extensions.length; i++) {
+			IPluginDescriptor desc = extensions[i].getDeclaringPluginDescriptor();
+			IExtension[] ext = (IExtension[]) pluginDescriptorsToExtensions.get(desc);
+			if (ext == null)
+				pluginDescriptorsToExtensions.put(desc, new IExtension[] {extensions[i]});
+			else {
+				// More than one extension defined in this plugin.
+				IExtension[] newExt = new IExtension[ext.length + 1];
+				System.arraycopy(ext, 0, newExt, 0, ext.length);
+				newExt[newExt.length-1] = extensions[i];
+				pluginDescriptorsToExtensions.put(desc, newExt);
+			}
+		}
+		
+		// Now order them so we process in required order.
+		IPluginDescriptor[] ordered = ProxyPlugin.orderPlugins(pluginDescriptorsToExtensions.keySet());
+		containerToContributions = new HashMap(ordered.length);
+		pluginToContributions = new HashMap(ordered.length);
+		for (int i = 0; i < ordered.length; i++) {
+			IExtension[] exts = (IExtension[]) pluginDescriptorsToExtensions.get(ordered[i]);
+			for (int j = 0; j < exts.length; j++) {
+				IConfigurationElement[] configs = exts[j].getConfigurationElements();
+				// Technically we expect the config elements to have a name of "contributor", but since that
+				// is all that can be there, we will ignore it. The content is what is important.
+				for (int k = 0; k < configs.length; k++) {
+					String container = configs[k].getAttributeAsIs(PI_CONTAINER);
+					if (container != null) {
+						List contributions = (List) containerToContributions.get(container);
+						if (contributions == null) {
+							contributions = new ArrayList(1);
+							containerToContributions.put(container, contributions);
+						}
+						contributions.add(configs[k]);
+					}
+					String plugin = configs[k].getAttributeAsIs(PI_PLUGIN);
+					if (plugin != null) {
+						List contributions = (List) pluginToContributions.get(plugin);
+						if (contributions == null) {
+							contributions = new ArrayList(1);
+							pluginToContributions.put(plugin, contributions);
+						}
+						contributions.add(configs[k]);
+					}
+				}
+			} 
+		}
+		
+		// Now go through and turn all of the contribution lists into arrays.
+		for (Iterator iter = containerToContributions.entrySet().iterator(); iter.hasNext();) {
+			Map.Entry entry = (Map.Entry) iter.next();
+			entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
+		}
+		for (Iterator iter = pluginToContributions.entrySet().iterator(); iter.hasNext();) {
+			Map.Entry entry = (Map.Entry) iter.next();
+			entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
+		}
+	}
+	
+	/**
+	 * For the given java project, return the set of container paths and plugins found. The set entries will be of type IClasspathContainer.
+	 * For example if <code>/SWT_CONTAINER/subpath1</code> is found in the projects path (or from required projects), then
+	 * the container id will be added to the set. They come from the raw classpath entries of the projects.
+	 * <p>
+	 * It also finds all classpath containers that implement <code>org.eclipse.jem.internal.proxy.core.IConfigurationContributor</code> so
+	 * that they can also be called.  
+	 * 
+	 * @param jproject
+	 * @param containerIds This set will be filled in with container ids (type is <code>java.lang.String</code>) that are found in the projects build path.
+	 * @param containers This set will be filled in with classpath containers found that implement <code>org.eclipse.jem.internal.proxy.core.IConfigurationContributor</code> that are found in the projects build path.
+	 * 
+	 * @since 1.0.0
+	 */
+	public void getContainersFound(IJavaProject jproject, Set containerIds, Set containers) throws JavaModelException {
+		expandProject(JavaCore.newProjectEntry(jproject.getProject().getFullPath()), containerIds, containers, new HashSet(1));
+	}
+	
+	private void expandProject(IClasspathEntry projectEntry, Set containerIds, Set containers, Set expandedProjects) throws JavaModelException {
+		expandedProjects.add(projectEntry);
+		IPath projectPath = projectEntry.getPath();
+		IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath.lastSegment());
+		if (res == null)
+			return;	// Not exist so don't delve into it.
+		IJavaProject project = (IJavaProject)JavaCore.create(res);
+		if (project == null || !project.exists() || !project.getProject().isOpen())
+			return;	// Not exist as a java project or not open, so don't delve into it.
+
+		IClasspathEntry[] entries = project.getRawClasspath();
+		for (int i = 0; i < entries.length; i++) {
+			IClasspathEntry entry = entries[i];
+			switch (entry.getEntryKind()) {
+				case IClasspathEntry.CPE_PROJECT:
+					if (!expandedProjects.contains(entry))
+						expandProject(entry, containerIds, containers, expandedProjects);
+					break;
+				case IClasspathEntry.CPE_CONTAINER:
+					IClasspathContainer container = JavaCore.getClasspathContainer(entry.getPath(), project);
+					if (container instanceof IConfigurationContributor)
+						containers.add(container);
+					containerIds.add(entry.getPath().segment(0));
+					break;
+				default:
+					break;
+			}
+		}		
+	}
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/04 16:14:04 $ 
  */
 
 
@@ -44,7 +44,7 @@ public final class REMStandardBeanProxyFactory implements IStandardBeanProxyFact
 	//
 	// This map will be used as synchronize object also for access to it.
 	//
-	// There will be a low priority thread that will occasionally process the GC'd objects
+	// There will be a low priority job that will occasionally process the GC'd objects
 	// and remove them from the queue and the remote vm. It will not remove during lockedTransactions.
 	//
 	// NOTE: Certain proxies never get added to the map. They are the

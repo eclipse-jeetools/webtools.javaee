@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackServerThread.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/04 16:14:04 $ 
  */
 
 import java.io.IOException;
@@ -33,6 +33,9 @@ import org.eclipse.jem.internal.proxy.common.remote.Commands;
  * This thread will handle callbacks.
  * It is package protected because no one
  * should access it outside.
+ * TODO This should be changed such that the master server thread is contacted instead,
+ * and it would forward request to individual registry to process call back request. That
+ * way we can get rid of one more thread and socket.
  */
 class REMCallbackServerThread extends Thread implements ICallbackRegistry {
 	final REMProxyFactoryRegistry fFactory;

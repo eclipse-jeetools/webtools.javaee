@@ -11,35 +11,48 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IConfigurationContributor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/04 16:14:04 $ 
  */
 
 
-import java.util.List;
-
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.launching.VMRunnerConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+
+
 /**
- * This interface is used to contribute to the classpath that will be
- * used to start a remote vm. In addition it allows contributions
- * to the VMRunnerConfiguration and to the registry. 
+ * This interface is used to contribute to the configuration that will be
+ * used to start a proxy registry. 
+ * 
+ * @since 1.0.0
  */
 public interface IConfigurationContributor {
 	/**
-	 * Contribute classpaths to the list of classpaths that is passed in.
-	 * Must use the controller to add to the classpaths.
+	 * Contribute to the classpath. The controller is used to do the actual contribution.
+	 * 
+	 * @param controller
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.0
 	 */
-	public void contributeClasspaths(List classpaths, IClasspathContributionController controller) throws CoreException;
+	public void contributeClasspaths(IConfigurationContributionController controller) throws CoreException;
+
+	/**
+	 * Contribute updates to the configuration. It will be called before the launch has started.
+	 * 
+	 * @param config
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.0
+	 */
+	public void contributeToConfiguration(ILaunchConfigurationWorkingCopy config) throws CoreException;
 	
 	/**
-	 * Contribute to the VMRunnerConfiguration. This allows
-	 * the addition/modification of the arguments for example.
-	 * It will be called after system updates are made to the configuration.
-	 */
-	public void contributeToConfiguration(VMRunnerConfiguration config);
-	
-	/**
-	 * Contribute to the registry once it has been initialized.
+	 * Contribute to the registry (or interact with the remote vm) after the registry has been
+	 * created.
+	 * 
+	 * @param registry
+	 * 
+	 * @since 1.0.0
 	 */
 	public void contributeToRegistry(ProxyFactoryRegistry registry);
 }

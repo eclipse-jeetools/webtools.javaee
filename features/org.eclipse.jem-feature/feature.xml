@@ -14,21 +14,17 @@
       <update label="%updateSiteName" url="http://update.eclipse.org/updates"/>
    </url>
 
+   <includes
+         id="com.ibm.wtp.emf.integration"
+         version="1.0.0"/>
+
    <requires>
       <import feature="org.eclipse.jdt" version="3.0.0" match="compatible"/>
       <import feature="org.eclipse.emf" version="2.0.0" match="compatible"/>
    </requires>
-   
-   <includes id="com.ibm.wtp.emf.integration" version="1.0.0" />    
 
    <plugin
          id="org.eclipse.jem.beaninfo"
-         download-size="0"
-         install-size="0"
-         version="1.0.0"/>
-
-   <plugin
-         id="org.eclipse.jem.beaninfo.ui"
          download-size="0"
          install-size="0"
          version="1.0.0"/>
@@ -56,5 +52,11 @@
          download-size="0"
          install-size="0"
          version="3.0.0.1"/>
+
+   <plugin
+         id="org.eclipse.jem.ui"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"/>
 
 </feature>

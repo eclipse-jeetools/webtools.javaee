@@ -11,58 +11,57 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMRegistryController.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/19 22:50:35 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/04 16:14:04 $ 
  */
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.Job;
+
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 
 /**
  * This class is a controller for all of the registries.
- * It's main purpose is so that it can be separate from the
- * plugin structure so that eventually can run outside of the IDE.
  * @author richkulp
  */
 public class REMRegistryController {
 	
 	private Map fActiveRegistries = new HashMap();
+	private static final long CLEANUP_INTERVAL = 60000l;	// The interval between clean up job execution.
 	
 	// Thread to clean up GC'd proxies. Runs as a daemon at the lowest priority
-	private boolean goingDown = false;
-	private Thread processQueueThread = new Thread(new Runnable() {
-		public void run() {
-			do {			
-				if (Thread.interrupted())
-					continue; // Get to clean uninterrupted state.
-				try {
-					Thread.sleep(60000); // Sleep until interrupted or 60 seconds to process the queue again.
-					REMProxyFactoryRegistry[] registries = null;
-					synchronized (fActiveRegistries) {
-						// This list may be updated by others, so we need to make a copy
-						// or else we could get a failure.
-						registries = 
-							(REMProxyFactoryRegistry[]) fActiveRegistries.values().toArray(
-								new REMProxyFactoryRegistry[fActiveRegistries.size()]);
-					}
-					for (int i = 0; i < registries.length; i++) {
-						try {
-							((REMStandardBeanProxyFactory) registries[i].getBeanProxyFactory()).processQueue();					
-						} catch (RuntimeException e) {
-							// When debugging, getBeanProxyFactory can throw exception because it hasn't been initialized
-							// yet when the thread wakes up, though the registry has been registered. It has to do with it 
-							// can take significant time for the user to start up the debugger, and during that time this
-							// thread could kick in.
-						}
-					}
-					
-				} catch (InterruptedException e) {
+	private Job processQueueJob= new Job(ProxyRemoteMessages.getString("CleanupJob.title")) {
+		public IStatus run(IProgressMonitor m) {
+				REMProxyFactoryRegistry[] registries = null;
+				synchronized (fActiveRegistries) {
+					// This list may be updated by others, so we need to make a copy
+					// or else we could get a failure.
+					registries = 
+						(REMProxyFactoryRegistry[]) fActiveRegistries.values().toArray(
+							new REMProxyFactoryRegistry[fActiveRegistries.size()]);
 				}
-			} while (!goingDown);
+				for (int i = 0; i < registries.length; i++) {
+					try {
+						((REMStandardBeanProxyFactory) registries[i].getBeanProxyFactory()).processQueue();					
+					} catch (RuntimeException e) {
+						// When debugging, getBeanProxyFactory can throw exception because it hasn't been initialized
+						// yet when the thread wakes up, though the registry has been registered. It has to do with it 
+						// can take significant time for the user to start up the debugger, and during that time this
+						// thread could kick in.
+					}
+				}
+			synchronized(this) {
+				if (!m.isCanceled())
+					this.schedule(CLEANUP_INTERVAL);	// Schedule to start again in one minute.
+			}
+			return Status.OK_STATUS;
 		}
 
-	}, "Remote VM Cleanup GC'd Proxies Thread"); //$NON-NLS-1$	
+	}; //$NON-NLS-1$	
 	
 	public REMRegistryController() {
 
@@ -80,9 +79,9 @@ public class REMRegistryController {
 		masterThread = new REMMasterServerThread(this);
 		masterThread.start();
 
-		processQueueThread.setPriority(Thread.MIN_PRIORITY);
-		processQueueThread.setDaemon(true);
-		processQueueThread.start();
+		processQueueJob.setSystem(true);	// So that it won't show processing in process view. Not of interest to general users.
+		processQueueJob.setPriority(Job.SHORT);
+		processQueueJob.schedule(CLEANUP_INTERVAL);
 
 	}
 	
@@ -135,8 +134,9 @@ public class REMRegistryController {
 	 */
 	void shutdown() {
 		
-		goingDown = true;
-		processQueueThread.interrupt();
+		synchronized(processQueueJob) {
+			processQueueJob.cancel();
+		}
 			
 		REMProxyFactoryRegistry[] registries = null;
 		synchronized (fActiveRegistries) {
@@ -159,7 +159,7 @@ public class REMRegistryController {
 		}
 		
 		try {
-			processQueueThread.join(5000);	// Wait 5 secs for it stop.
+			processQueueJob.join();
 		} catch(InterruptedException e) {
 		}
 		

@@ -4,8 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>com.ibm.wtp.common</project>
-		<project>org.eclipse.core.boot</project>
-		<project>org.eclipse.core.runtime</project>
 		<project>org.eclipse.core.runtime.compatibility</project>
 		<project>org.eclipse.emf.ecore.xmi</project>
 		<project>org.eclipse.osgi</project>

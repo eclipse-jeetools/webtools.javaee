@@ -11,12 +11,11 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/14 18:37:14 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/04 16:14:04 $ 
  */
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -27,11 +26,12 @@ import org.eclipse.jdt.launching.JavaRuntime;
 
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.ide.awt.IDERegisterAWT;
+import org.eclipse.jem.internal.proxy.remote.LocalFileConfigurationContributorController;
 /**
  * This is the registration class for starting an IDERemote VM.
  */
 
-public class IDERegistration implements IRegistration {
+public class IDERegistration {
 	
 	public static ProxyFactoryRegistry startAnImplementation(
 		IConfigurationContributor[] contributors,
@@ -69,69 +69,29 @@ public class IDERegistration implements IRegistration {
 		IProgressMonitor pm)
 		throws CoreException {
 
-		ArrayList classPaths = null;
+		String[] classPaths = null;
 		IJavaProject javaProject = null;
 		if (project != null) {
 			javaProject = JavaCore.create(project);
 			// Add in the paths for the project	 	
-			classPaths = new ArrayList(Arrays.asList(JavaRuntime.computeDefaultRuntimeClassPath(javaProject)));
+			classPaths = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
 		} else
-			classPaths = new ArrayList();
+			classPaths = new String[0];
 
 		final IJavaProject jp = javaProject;
-		IClasspathContributionController controller = new IClasspathContributionController() {
-			
-			public IJavaProject getJavaProject() {
-				return jp;
-			}
-			
-			public void contributeProject(IProject project, List classpaths, int insertBeforeIndex) throws CoreException {
-				List projectPaths = new ArrayList(Arrays.asList(JavaRuntime.computeDefaultRuntimeClassPath(JavaCore.create(project))));
-				// Now we need to add to the list of paths, but we don't want to add dups.
-				Iterator itr2 = projectPaths.iterator();
-				while (itr2.hasNext()) {
-					Object path = itr2.next();
-					if (classpaths.contains(path))
-						itr2.remove(); // Don't add it
-				}
-				if (insertBeforeIndex == -1)
-					classpaths.addAll(projectPaths);
-				else
-					classpaths.addAll(insertBeforeIndex, projectPaths);
-			}
-
-			public void contributeClasspath(String classpath, List classpaths, int insertBeforeIndex) {
-				if (!classpaths.contains(classpath))
-					if (insertBeforeIndex == -1)
-						classpaths.add(classpath);
-					else
-						classpaths.add(insertBeforeIndex, classpath);
-			}
-
-			public void contributeClasspath(String[] classpathsToAdd, List classpaths, int insertBeforeIndex) {
-				for (int i = 0; i < classpathsToAdd.length; i++) {
-					contributeClasspath(classpathsToAdd[i], classpaths, insertBeforeIndex);
-				}
-			}
-
-			public void contributeClasspath(URL[] classpathsURLs, List classpaths, int insertBeforeIndex) {
-				for (int i = 0; i < classpathsURLs.length; i++) {
-					contributeClasspath(classpathsURLs[i].getFile(), classpaths, insertBeforeIndex);
-				}
-			}
-
-		};
 
 		// Add in any classpaths the contributors want to add.
 		if (contributors != null) {
+			LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(jp, classPaths, new String[3][]);
 			for (int i = 0; i < contributors.length; i++) {
-				contributors[i].contributeClasspaths(classPaths, controller);
+				contributors[i].contributeClasspaths(controller);
 			}
+			classPaths = controller.getFinalClasspath();
 		}
 
-		URL[] othersURLs = new URL[classPaths.size()];
+		URL[] othersURLs = new URL[classPaths.length];
 		for (int i = 0; i < othersURLs.length; i++) {
-			String path = (String) classPaths.get(i);
+			String path = (String) classPaths[i];
 			// These are paths to file system, so just put "file:" on front to turn into URL.
 			try {
 				othersURLs[i] = new URL("file:" + path);
