@@ -258,7 +258,7 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 
 	protected IModelManager getModelManager() {
 		if (modelManager == null)
-			modelManager = StructuredModelManager.getInstance().getModelManager();
+			modelManager = StructuredModelManager.getModelManager();
 		return modelManager;
 	}
 
