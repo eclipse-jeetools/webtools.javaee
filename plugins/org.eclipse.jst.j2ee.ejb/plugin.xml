@@ -129,12 +129,6 @@
          <run
                class="org.eclipse.jst.j2ee.model.internal.validation.EJBValidator">
          </run>
-         <migrate>
-            <validator
-                  to="org.eclipse.jst.j2ee.model.internal.validation.EJBValidator"
-                  from="org.eclipse.wst.validation.internal.core.ejb.DDValidator">
-            </validator>
-         </migrate>
       </validator>
    </extension>
    <extension
