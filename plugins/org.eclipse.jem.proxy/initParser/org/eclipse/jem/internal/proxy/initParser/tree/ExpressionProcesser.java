@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionProcesser.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/04/16 18:31:37 $ 
  */
 package org.eclipse.jem.internal.proxy.initParser.tree;
 
@@ -432,7 +432,7 @@ public class ExpressionProcesser {
 		else if (bean instanceof Short)
 			return Short.TYPE;
 		else
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(bean != null ? bean.getClass().getName() : "null");
 	}
 	
 
