@@ -42,7 +42,7 @@ public class EJBClientCreationWizard extends WTPWizard {
 	 * 
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new EJBClientCreationWizardPage((EJBClientProjectDataModel) model, PAGE_ONE));
 	}
 
@@ -69,7 +69,7 @@ public class EJBClientCreationWizard extends WTPWizard {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new EJBClientJarCreationOperation((EJBClientProjectDataModel) model);
 	}
 }

@@ -71,7 +71,7 @@ public final class EJBModuleImportWizard extends J2EEModuleImportWizard {
 	 * Adds an {@link EJBImportPage} as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		addPage(new EJBImportPage((J2EEModuleImportDataModel)getModel(), MAIN_PG));
 	}
 

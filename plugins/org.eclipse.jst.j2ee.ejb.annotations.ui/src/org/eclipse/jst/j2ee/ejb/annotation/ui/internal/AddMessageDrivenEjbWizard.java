@@ -63,14 +63,14 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	/* (non-Javadoc)
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
 	 */
-	protected WTPOperation createOperation() {
+	protected WTPOperation createBaseOperation() {
 		return new AddMessageDrivenBeanOperation((MessageDrivenBeanDataModel)model) ;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
-	public void addPages() {
+	public void doAddPages() {
 		AddMessageDrivenBeanWizardPage page1 = new AddMessageDrivenBeanWizardPage((MessageDrivenBeanDataModel) model, PAGE_ONE);
 		page1.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 		addPage(page1);
