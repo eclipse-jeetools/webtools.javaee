@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.jem.tests"
+      label="%featureName"
+      version="0.5.0"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description>
+      %description
+   </description>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.jem"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.jem.tests"
+         download-size="0"
+         install-size="0"
+         version="0.5.0"/>
+
+</feature>
