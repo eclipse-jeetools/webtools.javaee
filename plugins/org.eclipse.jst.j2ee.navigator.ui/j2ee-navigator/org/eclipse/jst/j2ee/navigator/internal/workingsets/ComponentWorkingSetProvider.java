@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jst.common.navigator.internal.ui.workingsets.ICommonWorkingSetProvider;
-import org.eclipse.jst.common.navigator.internal.ui.workingsets.WorkingSetModel;
 import org.eclipse.ui.IWorkingSet;
 
 /**
@@ -57,9 +56,9 @@ public class ComponentWorkingSetProvider implements ICommonWorkingSetProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.common.navigator.internal.ui.workingsets.IWorkingSetProvider#init(org.eclipse.jst.common.navigator.internal.ui.workingsets.WorkingSetModel)
 	 */
-	public void init(WorkingSetModel workingSetModel) {
-		// TODO Auto-generated method stub
+//	public void init(WorkingSetModel workingSetModel) {
+//		// TODO Auto-generated method stub
 
-	}
+//	}
 
 }
