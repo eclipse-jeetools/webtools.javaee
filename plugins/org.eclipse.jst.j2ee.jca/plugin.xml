@@ -37,7 +37,7 @@
 <!--============================-->
 <!-- Connector Project Nature Contributions -->
 <!--============================-->
-   <extension
+<!-- <extension
          id="ConnectorNature"
          name="Connector Nature"
          point="org.eclipse.core.resources.natures">
@@ -46,14 +46,14 @@
                class="org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime">
          </run>
       </runtime>
-   </extension>
+    </extension> -->
 <!-- Register the nature id with the AbstractJavaMOFNature -->
-   <extension
+<!-- <extension
          point="com.ibm.wtp.emf.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.jca.ConnectorNature">
       </nature>
-   </extension>
+   </extension> -->
    <extension
          id="editModel.jca"
          name="Connector Edit Model"
