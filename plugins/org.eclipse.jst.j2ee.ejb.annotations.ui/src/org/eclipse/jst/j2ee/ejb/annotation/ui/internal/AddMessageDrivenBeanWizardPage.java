@@ -190,7 +190,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
 		IProject project = null;
-		project = ProjectCreationDataModel.getProjectHandleFromName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
+		project = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
 		annotationsGroup.setUseAnnotations(true);
 	}
