@@ -14,7 +14,6 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -23,6 +22,7 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
+import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
@@ -35,7 +35,6 @@ import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.web.internal.operation.ILibModule;
-import org.eclipse.wst.web.internal.operation.WebSettings;
 
 /**
  * <p>
@@ -401,5 +400,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		else
 			return J2EEVersionConstants.VERSION_2_0_TEXT;	
 		
+	}
+
+	public IFolder getLibraryFolder() {
+		IFolder webInfFolder = (IFolder)getWebInfFolder();
+		IFolder libFolder = (IFolder)webInfFolder.getFolder(IWebNatureConstants.LIBRARY_DIRECTORY);
+		return libFolder;
+	}
+	
+	public void setLibModules(ILibModule[] libModules) {
+		//TODO we need an edit model for write to do it.
 	}
 }
