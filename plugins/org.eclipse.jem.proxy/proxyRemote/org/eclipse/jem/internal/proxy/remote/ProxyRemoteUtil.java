@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyRemoteUtil.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/22 23:49:02 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/18 17:55:51 $ 
  */
 
 
@@ -33,7 +33,7 @@ public class ProxyRemoteUtil {
 	/**
 	 * Return the registry controller.
 	 */
-	public static REMRegistryController getRegistryController() {
+	public synchronized static REMRegistryController getRegistryController() {
 		return pluginRegistryController != null ? pluginRegistryController : (pluginRegistryController = new REMRegistryController());
 	}
 	

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMRegistryController.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/18 17:55:51 $ 
  */
 
 import java.util.HashMap;
@@ -30,14 +30,14 @@ import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
  */
 public class REMRegistryController {
 	
-	private Map fActiveRegistries = new HashMap();
+	private Map fActiveRegistries = new HashMap();	// Access to this must be sync(REMRegistryController)
 	private static final long CLEANUP_INTERVAL = 60000l;	// The interval between clean up job execution.
 	
 	// Thread to clean up GC'd proxies. Runs as a daemon at the lowest priority
 	private Job processQueueJob= new Job(ProxyRemoteMessages.getString("CleanupJob.title")) {
 		public IStatus run(IProgressMonitor m) {
 				REMProxyFactoryRegistry[] registries = null;
-				synchronized (fActiveRegistries) {
+				synchronized (REMRegistryController.this) {
 					// This list may be updated by others, so we need to make a copy
 					// or else we could get a failure.
 					registries = 
@@ -91,7 +91,7 @@ public class REMRegistryController {
 	 */
 	synchronized Integer registerRegistry(REMProxyFactoryRegistry registry) {
 			
-		Integer hashcode = new Integer(registry.hashCode());
+		Integer hashcode = new Integer(registry.hashCode());		
 		while (true) {
 			REMProxyFactoryRegistry existing = (REMProxyFactoryRegistry) fActiveRegistries.get(hashcode);
 			if (existing == null)
@@ -139,7 +139,7 @@ public class REMRegistryController {
 		}
 			
 		REMProxyFactoryRegistry[] registries = null;
-		synchronized (fActiveRegistries) {
+		synchronized (this) {
 			// This list will be updated in the terminateRegistry, so we need to make a copy
 			// or else we get a failure.
 			registries = 
