@@ -73,6 +73,18 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	}
 	
+	/**
+	 * <p>
+	 * Creates an instance facade for the given {@see ArtifactEditModel}
+	 * </p>
+	 * 
+	 * @param aNature
+	 *            A non-null {@see ModuleCoreNature}for an accessible project
+	 * @param aModule
+	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
+	 *            {@see ModuleCoreNature}
+	 */
+	
 	
 	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule,
 			boolean toAccessAsReadOnly) {
