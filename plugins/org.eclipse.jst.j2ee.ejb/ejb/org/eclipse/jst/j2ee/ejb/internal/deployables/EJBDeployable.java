@@ -72,9 +72,7 @@ public class EJBDeployable extends J2EEDeployable implements IEJBModule {
 		return getEJBNature().getJ2EEVersionText();
 	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
-     */
+
     public IStatus validate(IProgressMonitor monitor) {
         // TODO Auto-generated method stub
         return null;
