@@ -55,7 +55,8 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		
 		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
-		createProjectIfNecessary(dm.getComponentName());
+		//createProjectIfNecessary(dm.getComponentName());
+		createProjectIfNecessary(dm.getStringProperty(EJBClientComponentDataModel.PROJECT_NAME));
 		
 		super.execute(IModuleConstants.JST_UTILITY_MODULE, monitor);
 		
@@ -243,9 +244,13 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
         
 		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
 		if( dm.getBooleanProperty(EJBClientComponentDataModel.CREATE_PROJECT)){
-			FlexibleJavaProjectCreationDataModel dataModel = new FlexibleJavaProjectCreationDataModel();
-		    dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, name);
-			dataModel.getDefaultOperation().run(null);
+			//check if project exists
+			IProject proj = ProjectUtilities.getProject(name);
+			if( !proj.exists() ){
+				FlexibleJavaProjectCreationDataModel dataModel = new FlexibleJavaProjectCreationDataModel();
+			    dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, name);
+				dataModel.getDefaultOperation().run(null);
+			}	
 		}
 	}
 		

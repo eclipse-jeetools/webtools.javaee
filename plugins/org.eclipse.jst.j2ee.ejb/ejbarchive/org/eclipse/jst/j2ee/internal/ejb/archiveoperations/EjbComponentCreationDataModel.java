@@ -43,7 +43,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
  */
 public class EjbComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
-	public static final String CREATE_CLIENT = "EJBModuleCreationDataModel.IS_CLIENT"; //$NON-NLS-1$
+	public static final String CREATE_CLIENT = "EJBModuleCreationDataModel.CREATE_CLIENT"; //$NON-NLS-1$
 	public static final String CREATE_DEFAULT_SESSION_BEAN = "EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN"; //$NON-NLS-1$
 	/**
 	 * type boolean
@@ -96,6 +96,9 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 				setProperty(USE_ANNOTATIONS, Boolean.FALSE);
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CREATE_CLIENT)) {
+			setProperty(CREATE_CLIENT_PROJ, propertyValue);
+			//getNestedEJBClientComponentDataModel().setProperty(EJBClientComponentDataModel.CREATE_PROJECT, propertyValue);
+
 			if (getBooleanProperty(CREATE_CLIENT)) {
 				getNestedEJBClientComponentDataModel().enableValidation();
 			} else {
@@ -115,7 +118,11 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			
 		}else if(propertyName.equals(CREATE_CLIENT_PROJ)){
 			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.CREATE_PROJECT, propertyValue);
-			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
+			if(propertyValue.equals(Boolean.TRUE)){
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, ejbClientComponentDataModel.getComponentName());
+			}else{
+				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
+			}
 			
 		}else if (getBooleanProperty(CREATE_CLIENT)) {
 			
