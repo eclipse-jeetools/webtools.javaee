@@ -14,6 +14,7 @@
  */
 package org.eclipse.jst.j2ee.application.operations;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
@@ -324,6 +325,11 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 //ToDo:			
 //			applicationCreationDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, event.getProperty());
 		}
+	}
+
+	public String getModuleName() {
+		
+		return getStringProperty(MODULE_NAME);
 	}
 
 }
