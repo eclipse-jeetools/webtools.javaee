@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 import java.io.*;
@@ -34,7 +34,7 @@ class REMCallbackThread extends Thread {
 	final REMStandardBeanProxyFactory fFactory;
 	final REMStandardBeanTypeProxyFactory fTypeFactory;
 	
-	Class fObjectArrayClass = (new Object[0]).getClass();	// Need to test if something is of this type.
+
 	
 	// Kludge: Bug in Linux 1.3.xxx of JVM. Closing a socket while the socket is being read/accept will not interrupt the
 	// wait. Need to timeout to the socket read/accept before the socket close will be noticed. This has been fixed
@@ -60,6 +60,16 @@ class REMCallbackThread extends Thread {
 		}
 	}
 	
+	
+	/*
+	 * Return the IREMConnection associated with this callback. Used by
+	 * the connection server to return this connection for any requests 
+	 * made on this thread.
+	 * <package-protected> so that only remote proxy can access.
+	 */
+	IREMConnection getConnection() {
+		return fConnection;
+	}
 	
 	public void run() {
 
@@ -132,60 +142,78 @@ class REMCallbackThread extends Thread {
 							// Now perform the callback.
 							cb = fServer.getRegisteredCallback(callID);
 							if (cb != null) {
-								// Callback still registered
-								if (isProxies)
-									if (((Object[])parm).length == 1)
-										result = cb.calledBack(msgID, (IBeanProxy) ((Object[]) parm)[0]);
+								// Callback still registered. If proxies, then if first entry is just a proxy,
+								// then we are sending only one. A convienence factor for callbacks.
+								// If not a single entry of IBeanProxy, then send whole array.
+								try {
+									if (isProxies)
+										if (((Object[]) parm).length == 1 && (((Object[]) parm)[0] == null || ((Object[]) parm)[0] instanceof IBeanProxy))
+											result = cb.calledBack(msgID, (IBeanProxy) ((Object[]) parm)[0]);
+										else
+											result = cb.calledBack(msgID, (Object[]) parm);
 									else
-										result = cb.calledBack(msgID, (Object[]) parm);
-								else if (parm == null)
-									result = cb.calledBack(msgID, (IBeanProxy) parm);
-								else
-									; // As of yet don't handle calling back with constants.
-								// We only accept null, IREMBeanProxies, and Object[].
-								valueObject.set();
-								if (result instanceof IREMBeanProxy)
-									((IREMBeanProxy)result).renderBean(valueObject);
-								else if (fObjectArrayClass.isInstance(result)) {
-									class Retriever implements Commands.ValueRetrieve {
-										int index=0;
-										Object[] array;
-										Commands.ValueObject worker = new Commands.ValueObject();
-										
-										
-										public Retriever(Object[] anArray) {
-											array = anArray;
-										}
-										
-										public Commands.ValueObject nextValue() {
-											if (index < array.length) {
-												Object retParm = array[index++];
-												if (retParm != null)
-													if (retParm instanceof IREMBeanProxy)
-														((IREMBeanProxy) retParm).renderBean(worker);
-													else if (retParm instanceof TransmitableArray) {
-														// It is another array, create a new retriever.
-														worker.setArrayIDS(new Retriever(((TransmitableArray) retParm).array), ((TransmitableArray) retParm).array.length, ((TransmitableArray) retParm).componentTypeID);
-													} else {
-														// It's an object. Need to get bean type so that we can send it.
-														IREMBeanProxy type = (IREMBeanProxy) fTypeFactory.getBeanTypeProxy(retParm.getClass().getName());
-														if (type == null)
-															throw new IllegalArgumentException();
-														int classID = type.getID().intValue();
-														worker.setAsObject(retParm, classID);
-													}
-												else
-													worker.set();
-												return worker;
-											} else
-												return null;
-										}
-									};
+										result = cb.calledBack(msgID, parm);
+									// We only accept null, IREMBeanProxies, and Object[], where
+									// contents of Object[] are bean proxies.
+									valueObject.set();
+									if (result instanceof IREMBeanProxy)
+										 ((IREMBeanProxy) result).renderBean(valueObject);
+									else if (result instanceof Object[]) {
+										class Retriever implements Commands.ValueRetrieve {
+											int index = 0;
+											Object[] array;
+											Commands.ValueObject worker = new Commands.ValueObject();
+
+											public Retriever(Object[] anArray) {
+												array = anArray;
+											}
+
+											public Commands.ValueObject nextValue() {
+												if (index < array.length) {
+													Object retParm = array[index++];
+													if (retParm != null)
+														if (retParm instanceof IREMBeanProxy)
+															 ((IREMBeanProxy) retParm).renderBean(worker);
+														else if (retParm instanceof TransmitableArray) {
+															// It is another array, create a new
+															// retriever.
+															worker.setArrayIDS(
+																new Retriever(((TransmitableArray) retParm).array),
+																((TransmitableArray) retParm).array.length,
+																((TransmitableArray) retParm).componentTypeID);
+														} else {
+															// It's an object. Need to get bean
+															// type so that we can send it.
+															IREMBeanProxy type =
+																(IREMBeanProxy) fTypeFactory.getBeanTypeProxy(retParm.getClass().getName());
+															if (type == null)
+																throw new IllegalArgumentException();
+															int classID = type.getID().intValue();
+															worker.setAsObject(retParm, classID);
+														}
+													else
+														worker.set();
+													return worker;
+												} else
+													return null;
+											}
+										};
+
+										valueObject.setArrayIDS(
+											new Retriever((Object[]) result),
+											((Object[]) result).length,
+											Commands.OBJECT_CLASS);
+									}
 									
-									valueObject.setArrayIDS(new Retriever((Object[])result), ((Object[])result).length, Commands.OBJECT_CLASS);	// Create Object[].
-								}								
+									Commands.sendCallbackDoneCommand(out, valueObject);
+								} catch (RuntimeException e) {
+									// Something happened, we'll just send back Void.TYPE
+									// so that remote side can continue.
+									valueObject.set(Void.TYPE, Commands.CLASS_CLASS);
+									Commands.sendCallbackDoneCommand(out, valueObject);
+									throw e;
+								}
 							}
-							Commands.sendCallbackDoneCommand(out, valueObject);
 						} finally {
 							parm = null;	// Clear out for GC to work
 							result = null;

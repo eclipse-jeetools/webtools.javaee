@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 
@@ -212,13 +212,16 @@ public void releaseProxy(IBeanProxy proxy) {
  * In that case it has already been de-registered.
  */
 private void releaseID(int anID) {
-	IREMConnection connect = fRegistry.getFreeConnection();
-	if (connect != null) 
+	try {
+		IREMConnection connect = fRegistry.getFreeConnection();
 		try {
 			connect.releaseID(anID);
 		} finally {
 			fRegistry.returnConnection(connect);
 		}
+	} catch (IllegalStateException e) {
+		// Couldn't get connection, don't bother with a release.
+	}
 }
 
 /**
@@ -235,65 +238,64 @@ IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy) throws ThrowableProxy {
  * Package protected so only REMBeanTypeProxies can create instances. 
  */
 IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy, String initializationString)
-	throws ThrowableProxy, CommandException, ClassCastException, InstantiationException {
+	throws ThrowableProxy, CommandException, ClassCastException, InstantiationException, IllegalStateException {
 	IREMConnection connect = fRegistry.getFreeConnection();
-	if (connect != null) {
-		startTransaction();
-		// Starting a transaction, we will be getting id's back and need to get data in a separate step, so we need to group it in a transaction.
+	startTransaction();
+	// Starting a transaction, we will be getting id's back and need to get data in a separate step, so we need to group it in a transaction.
+	try {
+		Commands.ValueObject newInstanceData = null;
 		try {
-			Commands.ValueObject newInstanceData = null;
-			try {
-				newInstanceData = getNewInstanceData(aTypeProxy, initializationString, connect);
-			} catch (CommandErrorException e) {
-				switch (e.getErrorCode()) {
-					case Commands.CLASS_CAST_EXCEPTION:
-						// The result was not of the correct type.
-						throw new ClassCastException(
-							MessageFormat.format(ProxyRemoteMessages.getString("Classcast_EXC_"), new Object[] {extractFirstLine(initializationString), aTypeProxy.getTypeName()})); //$NON-NLS-1$
-					case Commands.CANNOT_EVALUATE_STRING:
-						// Want to log the exception that caused it to not evaluate.
-						// Don't need to log this side, just log the RemoteVM side of the trace.
-						java.io.StringWriter s = new java.io.StringWriter();
-						java.io.PrintWriter w = new java.io.PrintWriter(s);
-						((ThrowableProxy) e.getErrorObject()).printProxyStackTrace(w);
-						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
-						throw new InstantiationException(
-							MessageFormat.format(ProxyRemoteMessages.getString("Instantiate_EXC_"), new Object[] {extractFirstLine(initializationString)})); //$NON-NLS-1$
-					default:
-						throw e; //$NON-NLS-1$
-				}
-			} catch (CommandException e) {
-				if (e.isRecoverable()) {
-					ProxyPlugin.getPlugin().getMsgLogger().log( 
-						new Status(
-							IStatus.WARNING,
-							ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
-							0,
-							"", //$NON-NLS-1$
-							e));
-				} else {
-					// It failed in the command, try again.
-					fRegistry.closeConnection(connect);
-					connect = fRegistry.getFreeConnection();
-					try {
-						newInstanceData = getNewInstanceData(aTypeProxy, initializationString, connect);
-					} catch (CommandException eAgain) {
-						// It failed again. Close this connection and don't let it be returned.
-						fRegistry.closeConnection(connect);
-						connect = null; // This is so that it won't be returned.
-					}
-				}
-			} finally {
-				if (connect != null)
-					fRegistry.returnConnection(connect);
+			newInstanceData = getNewInstanceData(aTypeProxy, initializationString, connect);
+		} catch (CommandErrorException e) {
+			switch (e.getErrorCode()) {
+				case Commands.CLASS_CAST_EXCEPTION:
+					// The result was not of the correct type.
+					throw new ClassCastException(
+						MessageFormat.format(ProxyRemoteMessages.getString("Classcast_EXC_"), new Object[] {extractFirstLine(initializationString), aTypeProxy.getTypeName()})); //$NON-NLS-1$
+				case Commands.CANNOT_EVALUATE_STRING:
+					// Want to log the exception that caused it to not evaluate.
+					// Don't need to log this side, just log the RemoteVM side of the trace.
+					java.io.StringWriter s = new java.io.StringWriter();
+					java.io.PrintWriter w = new java.io.PrintWriter(s);
+					((ThrowableProxy) e.getErrorObject()).printProxyStackTrace(w);
+					ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
+					throw new InstantiationException(
+						MessageFormat.format(ProxyRemoteMessages.getString("Instantiate_EXC_"), new Object[] {extractFirstLine(initializationString)})); //$NON-NLS-1$
+				default:
+					throw e; //$NON-NLS-1$
 			}
-
-			if (newInstanceData != null)
-				return getBeanProxy(newInstanceData); // Turn it into a proxy
+		} catch (CommandException e) {
+			if (e.isRecoverable()) {
+				ProxyPlugin.getPlugin().getMsgLogger().log( 
+					new Status(
+						IStatus.WARNING,
+						ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+						0,
+						"", //$NON-NLS-1$
+						e));
+			} else {
+				// It failed in the command, try again.
+				fRegistry.closeConnection(connect);
+				connect = null;
+				connect = fRegistry.getFreeConnection();
+				try {
+					newInstanceData = getNewInstanceData(aTypeProxy, initializationString, connect);
+				} catch (CommandException eAgain) {
+					// It failed again. Close this connection and don't let it be returned.
+					fRegistry.closeConnection(connect);
+					connect = null; // This is so that it won't be returned.
+				}
+			}
 		} finally {
-			stopTransaction();	// Now we can release the transaction.
+			if (connect != null)
+				fRegistry.returnConnection(connect);
 		}
-}
+
+		if (newInstanceData != null)
+			return getBeanProxy(newInstanceData); // Turn it into a proxy
+	} finally {
+		stopTransaction();	// Now we can release the transaction.
+	}
 
 return null;
 }
@@ -390,37 +392,35 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 
 			// Not found, need to try to recreate it.
 			IREMConnection connect = fRegistry.getFreeConnection();
-			if (connect != null)
-				try {
-					getObjectInstanceData(connect, value.objectID, value); // Go and get the data
-				} catch (CommandErrorException e) {
-					if (e.isRecoverable()) {
-						ProxyPlugin.getPlugin().getMsgLogger().log(
-							new Status(
-								IStatus.WARNING,
-								ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
-								0,
-								"", //$NON-NLS-1$
-								e));
-						return null;
-					} else {
-						// Try one more time.
+			try {
+				getObjectInstanceData(connect, value.objectID, value); // Go and get the data
+			} catch (CommandErrorException e) {
+				if (e.isRecoverable()) {
+					ProxyPlugin.getPlugin().getMsgLogger().log(
+						new Status(
+							IStatus.WARNING,
+							ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
+							0,
+							"", //$NON-NLS-1$
+							e));
+					return null;
+				} else {
+					// Try one more time.
+					fRegistry.closeConnection(connect);
+					connect = null;
+					connect = fRegistry.getFreeConnection();
+					try {
+						getObjectInstanceData(connect, value.objectID, value); // Go and get the data
+					} catch (CommandErrorException eAgain) {
 						fRegistry.closeConnection(connect);
 						connect = null;
-						connect = fRegistry.getFreeConnection();
-						if (connect != null)
-							try {
-								getObjectInstanceData(connect, value.objectID, value); // Go and get the data
-							} catch (CommandErrorException eAgain) {
-								fRegistry.closeConnection(connect);
-								connect = null;
-								throw eAgain;
-							}
+						throw eAgain;
 					}
-				} finally {
-					if (connect != null)
-						fRegistry.returnConnection(connect);
 				}
+			} finally {
+				if (connect != null)
+					fRegistry.returnConnection(connect);
+			}
 
 			return getBeanProxy(value); // Now process it to create the new data.
 			

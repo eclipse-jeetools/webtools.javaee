@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: CallbackHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 import java.net.Socket;
@@ -129,6 +129,7 @@ class CallbackHandler extends ConnectionHandler implements ICallbackHandler {
 		}
 	};
 		
+	private static final Object[] NULL_SENT = new Object[1];
 	/**
 	 * Callback, but send the parm as IDs so that proxies
 	 * will be created for the objects and can be referenced.
@@ -138,7 +139,7 @@ class CallbackHandler extends ConnectionHandler implements ICallbackHandler {
 	public Object callbackWithParms(int callbackID, int msgID, Object[] parms) throws CommandException {
 		try {
 			if (parms == null)
-				return callbackAsConstants(callbackID, msgID, null);
+				parms = NULL_SENT;
 				
 			Commands.ValueObject v = new Commands.ValueObject();
 							

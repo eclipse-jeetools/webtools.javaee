@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -48,7 +48,6 @@ public class REMExpression extends Expression {
 		} catch (IOException e) {
 			connection.close();
 			ProxyPlugin.getPlugin().getMsgLogger().log(e);
-			markInvalid();
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
 	}

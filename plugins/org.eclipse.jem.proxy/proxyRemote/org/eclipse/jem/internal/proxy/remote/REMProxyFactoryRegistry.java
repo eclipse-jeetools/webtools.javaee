@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 
@@ -233,7 +233,11 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 				
 			// Now we terminate the server.
 			if (closeCon == null)
-				closeCon = getFreeConnection();	// There weren't any free connections, so get a new one so that we can close it.
+				try {
+					closeCon = getFreeConnection();	// There weren't any free connections, so get a new one so that we can close it.
+				} catch (IllegalStateException e) {
+					// Do nothing, don't want to stop termination just because we can't get a connection.
+				}
 			if (closeCon != null)
 				closeCon.terminateServer();	// We got a connection to terminate (process may of terminated early, so we would not have a conn then).
 			fConnectionPool.clear();
@@ -291,9 +295,24 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 	}
 	
 	/**
-	 * Return a free connection
+	 * Get a free connection
+	 * @return
+	 * @throws IllegalStateException - Thrown if a connection cannot be created.
+	 * 
+	 * @since 1.0.0
 	 */
-	public IREMConnection getFreeConnection() {
+	public IREMConnection getFreeConnection() throws IllegalStateException {
+		Thread thread = Thread.currentThread();
+		if (thread instanceof REMCallbackThread) {
+			// The current thread is a call back thread, so just reuse the connection.
+			// This way any calls out to the remote vm will be on same thread as callback caller
+			// on remote vm because that thread is waiting on this connection for commands.
+			IREMConnection c = ((REMCallbackThread) thread).getConnection();
+			if (c.isConnected())
+				return c;
+			else
+				throw new IllegalStateException("Callback connection is not working.");
+		}
 		synchronized(fConnectionPool) {
 			if (!fConnectionPool.isEmpty())
 				return (IREMConnection) fConnectionPool.pop();
@@ -302,11 +321,16 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		}
 	}
 	
+
 	/**
 	 * Make a new connection.
+	 * @return
+	 * @throws IllegalStateException - Thrown if connection cannot be created.
+	 * 
+	 * @since 1.0.0
 	 */
-	protected IREMConnection createConnection() {
-		// If we have a server port, then the server is probably open. If we don't then this is no server.
+	protected IREMConnection createConnection() throws IllegalStateException {
+		// If we have a server port, then the server is probably open. If we don't then there is no server.
 		if (fServerPort != 0) {
 			// We are putting it off into a thread because there are no timeout capabilities on getting a socket.
 			// So we need to allow for that.
@@ -343,7 +367,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			if (scArray[0] == null)  {
 				// Log where we are at so we can know where it was we down.
 				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", new RuntimeException("Connection creation failed.")));	//$NON-NLS-1$
-				return null;	// Couldn't get one, probably server is down.
+				throw new IllegalStateException("Could not create a socket connection to remote vm.");	// Couldn't get one, probably server is down.
 			}
 
 			REMConnection connection = new REMConnection(scArray[0], fNoTimeouts);
@@ -357,20 +381,27 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			}
 		} else
 			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "No Server to retrieve a connection.", null));	///$NON-NLS-1$
-		return null;
+		
+		throw new IllegalStateException("Could not create a socket connection to remote vm.");
 	}
 		 
 	/**
 	 * Free the connection
 	 */
 	public void returnConnection(IREMConnection connection) {
-		if (connection.isConnected())
-			synchronized (fConnectionPool) {
-				if (fConnectionPool.size() < NUMBER_FREE_CONNECTIONS)
-					fConnectionPool.push(connection);
-				else
-					connection.close();	// We don't need to maintain more than five free connections.
+		if (connection.isConnected()) {
+			Thread thread = Thread.currentThread();
+			if (!(thread instanceof REMCallbackThread) || ((REMCallbackThread) thread).getConnection() != connection) {
+				// We are not a callback thread, or we are but the connection is not for the thread, then the connection
+				// can be returned.
+				synchronized (fConnectionPool) {
+					if (fConnectionPool.size() < NUMBER_FREE_CONNECTIONS)
+						fConnectionPool.push(connection);
+					else
+						connection.close();	// We don't need to maintain more than five free connections.
+				}
 			}
+		}
 	}
 	
 	/**

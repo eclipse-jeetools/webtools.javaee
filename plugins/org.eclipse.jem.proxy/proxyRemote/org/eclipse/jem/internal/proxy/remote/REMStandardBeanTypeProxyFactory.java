@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 
@@ -283,27 +283,23 @@ private synchronized IREMBeanTypeProxy getBeanTypeProxy(String typeName, IREMCon
 	}
 	
 	IREMConnection connect = inConnect != null ? inConnect : fFactoryRegistry.getFreeConnection();
-	if (connect != null) {
-		if (inConnect == null)
-			fBeanFactory.startTransaction();	// Start a transation.
-		try {
-			return createBeanTypeProxy(typeName, connect);
-		} catch (CommandException e) {
-			if (inConnect == null) {
-				// Need to close the connection, not return it.
-				fFactoryRegistry.closeConnection(connect);
-				connect = null;	// So that it won't be returned.
-			}
-			throw e;	// Pass it on up
-		} finally {
-			if (inConnect == null)
-				fBeanFactory.stopTransaction();
-			if (inConnect == null && connect != null)
-				fFactoryRegistry.returnConnection(connect);
+	if (inConnect == null)
+		fBeanFactory.startTransaction();	// Start a transation.
+	try {
+		return createBeanTypeProxy(typeName, connect);
+	} catch (CommandException e) {
+		if (inConnect == null) {
+			// Need to close the connection, not return it.
+			fFactoryRegistry.closeConnection(connect);
+			connect = null;	// So that it won't be returned.
 		}
+		throw e;	// Pass it on up
+	} finally {
+		if (inConnect == null)
+			fBeanFactory.stopTransaction();
+		if (inConnect == null && connect != null)
+			fFactoryRegistry.returnConnection(connect);
 	}
-		
-	return null;
 }
 
 /*
@@ -403,32 +399,29 @@ protected String getJNIFormatName(String classname) {
  */
 IREMBeanTypeProxy createBeanTypeProxy(Integer classID) {
 	IREMConnection connect = fFactoryRegistry.getFreeConnection();	
-	if (connect != null) {
-		try {
-			return createBeanTypeProxy(classID, connect);
-		} catch (CommandException e) {
-			if (e.isRecoverable()) {
-				// It is recoverable, print message, keep connection live and return it.
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
-			} else {
-				// Try again, close connection, get a new one.
+	try {
+		return createBeanTypeProxy(classID, connect);
+	} catch (CommandException e) {
+		if (e.isRecoverable()) {
+			// It is recoverable, print message, keep connection live and return it.
+			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+		} else {
+			// Try again, close connection, get a new one.
+			fFactoryRegistry.closeConnection(connect);
+			connect = null;
+			connect = fFactoryRegistry.getFreeConnection();
+			try {
+				return createBeanTypeProxy(classID, connect);
+			} catch (CommandException eAgain) {
+				// Failed again. Close connection, don't return it.
+				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
 				fFactoryRegistry.closeConnection(connect);
 				connect = null;
-				connect = fFactoryRegistry.getFreeConnection();
-				if (connect != null)
-					try {
-						return createBeanTypeProxy(classID, connect);
-					} catch (CommandException eAgain) {
-						// Failed again. Close connection, don't return it.
-						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
-						fFactoryRegistry.closeConnection(connect);
-						connect = null;
-					}
 			}
-		} finally {
-			if (connect != null)
-				fFactoryRegistry.returnConnection(connect);
 		}
+	} finally {
+		if (connect != null)
+			fFactoryRegistry.returnConnection(connect);
 	}
 	return null;
 }

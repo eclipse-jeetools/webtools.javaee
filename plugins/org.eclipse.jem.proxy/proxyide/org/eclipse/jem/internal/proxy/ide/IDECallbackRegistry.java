@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDECallbackRegistry.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 import java.io.*;
@@ -89,14 +89,18 @@ Object vmCallback(int aCallbackID ,int aMsgID, Object[] parms){
 	// Find the bean proxy that registered with the ID
 	ICallback ideCallback = (ICallback) fCallbackIDToCallback.get(new Integer(aCallbackID));
 	Object callbackResult = null;
-	if ( parms == null ) {
-		callbackResult = ideCallback.calledBack(aMsgID,(IBeanProxy)null);
-	} else if ( parms.length == 1 ) {
+	if ( parms.length == 1 ) {
 		callbackResult = ideCallback.calledBack(aMsgID,(IBeanProxy)parms[0]);
 	} else {
 		callbackResult = ideCallback.calledBack(aMsgID,parms);
 	}
 	return callbackResult;
+}
+
+Object vmCallback(int aCallbackID ,int aMsgID, Object parm){
+	// Find the bean proxy that registered with the ID
+	ICallback ideCallback = (ICallback) fCallbackIDToCallback.get(new Integer(aCallbackID));
+	return ideCallback.calledBack(aMsgID,parm);
 }
 
 public void deregisterCallback(IBeanProxy aBeanProxy){

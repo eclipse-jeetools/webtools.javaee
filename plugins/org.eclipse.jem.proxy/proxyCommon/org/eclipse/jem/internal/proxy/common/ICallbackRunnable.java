@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.proxy.common;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,8 +10,9 @@ package org.eclipse.jem.internal.proxy.common;
  *******************************************************************************/
 /*
  *  $RCSfile: ICallbackRunnable.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
+package org.eclipse.jem.internal.proxy.common;
 
 /**
  * Users would implement this as a runnable to 

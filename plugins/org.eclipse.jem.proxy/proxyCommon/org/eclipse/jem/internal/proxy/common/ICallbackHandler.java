@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common;
  *******************************************************************************/
 /*
  *  $RCSfile: ICallbackHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 /**
@@ -20,6 +20,31 @@ package org.eclipse.jem.internal.proxy.common;
  * callbacks.
  */
 public interface ICallbackHandler {
+
+	/**
+	 * Callback, but send the parm as an object, ie. it must
+	 * be nothing but constants, e.g. String, Integer, or an
+	 * array of constants. Constants should not be things like
+	 * regular objects. This is because only standard java.lang
+	 * type constants can be assured to be available on the other
+	 * client. Also you don't want to send big objects. It must
+	 * be constants that don't need to be sent back for any reason
+	 * since their identity will be lost in the transfer.
+	 *
+	 * This should be used if there are no parms (i.e. it is null).
+	 * 
+	 * To send big objects, use the callback stream.
+	 * 
+	 * @param callbackID
+	 * @param msgID
+	 * @param parm
+	 * @return
+	 * @throws CommandException
+	 * 
+	 * @see IVMServer#requestStream(int, int)
+	 * @since 1.0.0
+	 */
+	public Object callbackAsConstants(int callbackID, int msgID, Object parm) throws CommandException;
 
 	/**
 	 * Callback to registered client.

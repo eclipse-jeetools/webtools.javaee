@@ -11,12 +11,12 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEVMServer.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
+import java.io.OutputStream;
+
 import org.eclipse.jem.internal.proxy.common.*;
-import org.eclipse.jem.internal.proxy.core.*;
-import java.io.*;
 
 public class IDEVMServer implements IVMServer {
 	
@@ -34,17 +34,39 @@ public Object doCallback(ICallbackRunnable aRunnable){
 			public Object callbackWithParms(int callbackID, int msgID, Object[] parms){
 				// We are running in the same IDE so just call the registry directly
 				// although we must convert the parms to bean proxies
-				IBeanProxy[] proxyParms = null;
+				Object[] proxyParms = null;
 				// If we have any parms then convert them to bean proxies
 				if ( parms != null ) {
-					proxyParms = new IBeanProxy[parms.length];
+					proxyParms = new Object[parms.length];
 					for ( int i=0;i<parms.length;i++){
-						proxyParms[i] = fBeanProxyFactory.createIDEBeanProxyWith(parms[i]);		
+						Object p = parms[i];
+						proxyParms[i] = createNextParm(p);
 					}
 				}
 				return fCallbackRegistry.vmCallback(callbackID,msgID,proxyParms);
 			}
+
+			private Object createNextParm(Object p) {
+				if (!(p instanceof ICallbackHandler.TransmitableArray)) {
+					return fBeanProxyFactory.createIDEBeanProxyWith(p);
+				} else {
+					Object[] array = ((ICallbackHandler.TransmitableArray) p).getArray();
+					Object[] parm = new Object[array.length];
+					for (int i = 0; i < array.length; i++) {
+						parm[i] = createNextParm(array[i]);
+					}
+					return parm;
+				}
+			}
+			
+			/* (non-Javadoc)
+			 * @see org.eclipse.jem.internal.proxy.common.ICallbackHandler#callbackAsConstants(int, int, java.lang.Object)
+			 */
+			public Object callbackAsConstants(int callbackID, int msgID, Object parm) throws CommandException {
+				return fCallbackRegistry.vmCallback(callbackID,msgID,parm);
+			}
 		});
+		
 	} catch ( CommandException exc ) {
 		return null;	
 	}

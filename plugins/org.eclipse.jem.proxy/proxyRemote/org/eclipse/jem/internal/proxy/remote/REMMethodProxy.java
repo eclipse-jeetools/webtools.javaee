@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMMethodProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/04 21:25:37 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -120,95 +120,91 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 
 	public IBeanProxy invokeWithParms(IBeanProxy subject, final Object[] parms) throws ThrowableProxy {
 		IREMConnection connect = fFactory.getFreeConnection();
-		if (connect != null) {
-			REMStandardBeanProxyFactory proxyFactory = (REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory();
-			proxyFactory.startTransaction(); // This is definately a transaction, so start it.
+		REMStandardBeanProxyFactory proxyFactory = (REMStandardBeanProxyFactory) fFactory.getBeanProxyFactory();
+		proxyFactory.startTransaction(); // This is definately a transaction, so start it.
+		try {
+			Commands.ValueObject subjectValue = new Commands.ValueObject();
+			if (subject != null)
+				 ((IREMBeanProxy) subject).renderBean(subjectValue);
+
+			Commands.ValueObject parmsValue = new Commands.ValueObject();
+
+			if (parms != null) {
+				// Have a local definition of the retriever so that the retriever can create
+				// another one of itself if necessary.
+				final IStandardBeanTypeProxyFactory typeFactory = fFactory.getBeanTypeProxyFactory();
+
+				class Retriever implements Commands.ValueRetrieve {
+					int index = 0;
+					Object[] array;
+					Commands.ValueObject worker = new Commands.ValueObject();
+
+					public Retriever(Object[] anArray) {
+						array = anArray;
+					}
+
+					public Commands.ValueObject nextValue() {
+						if (index < array.length) {
+							Object parm = array[index++];
+							if (parm != null)
+								if (parm instanceof IREMBeanProxy)
+									 ((IREMBeanProxy) parm).renderBean(worker);
+								else if (parm instanceof TransmitableArray) {
+									// It is another array, create a new retriever.
+									worker.setArrayIDS(
+										new Retriever(((TransmitableArray) parm).array),
+										((TransmitableArray) parm).array.length,
+										((TransmitableArray) parm).componentTypeID);
+								} else {
+									// It's an object. Need to get bean type so that we can send it.
+									IREMBeanProxy type = (IREMBeanProxy) typeFactory.getBeanTypeProxy(parm.getClass().getName());
+									if (type == null)
+										throw new IllegalArgumentException();
+									int classID = type.getID().intValue();
+									worker.setAsObject(parm, classID);
+								}
+							else
+								worker.set();
+							return worker;
+						} else
+							return null;
+					}
+				};
+
+				parmsValue.setArrayIDS(new Retriever(parms), parms.length, Commands.OBJECT_CLASS); // Create Object[].
+			}
+
+			Commands.ValueObject returnValue = new Commands.ValueObject();
 			try {
-				Commands.ValueObject subjectValue = new Commands.ValueObject();
-				if (subject != null)
-					 ((IREMBeanProxy) subject).renderBean(subjectValue);
-
-				Commands.ValueObject parmsValue = new Commands.ValueObject();
-
-				if (parms != null) {
-					// Have a local definition of the retriever so that the retriever can create
-					// another one of itself if necessary.
-					final IStandardBeanTypeProxyFactory typeFactory = fFactory.getBeanTypeProxyFactory();
-
-					class Retriever implements Commands.ValueRetrieve {
-						int index = 0;
-						Object[] array;
-						Commands.ValueObject worker = new Commands.ValueObject();
-
-						public Retriever(Object[] anArray) {
-							array = anArray;
-						}
-
-						public Commands.ValueObject nextValue() {
-							if (index < array.length) {
-								Object parm = array[index++];
-								if (parm != null)
-									if (parm instanceof IREMBeanProxy)
-										 ((IREMBeanProxy) parm).renderBean(worker);
-									else if (parm instanceof TransmitableArray) {
-										// It is another array, create a new retriever.
-										worker.setArrayIDS(
-											new Retriever(((TransmitableArray) parm).array),
-											((TransmitableArray) parm).array.length,
-											((TransmitableArray) parm).componentTypeID);
-									} else {
-										// It's an object. Need to get bean type so that we can send it.
-										IREMBeanProxy type = (IREMBeanProxy) typeFactory.getBeanTypeProxy(parm.getClass().getName());
-										if (type == null)
-											throw new IllegalArgumentException();
-										int classID = type.getID().intValue();
-										worker.setAsObject(parm, classID);
-									}
-								else
-									worker.set();
-								return worker;
-							} else
-								return null;
-						}
-					};
-
-					parmsValue.setArrayIDS(new Retriever(parms), parms.length, Commands.OBJECT_CLASS); // Create Object[].
-				}
-
-				Commands.ValueObject returnValue = new Commands.ValueObject();
-				try {
-					invoke(connect, proxyFactory, subjectValue, parmsValue, returnValue);
-					return proxyFactory.getBeanProxy(returnValue);
-				} catch (CommandException e) {
-					if (!e.isRecoverable()) {
-						// Close the connection and try again.
+				invoke(connect, proxyFactory, subjectValue, parmsValue, returnValue);
+				return proxyFactory.getBeanProxy(returnValue);
+			} catch (CommandException e) {
+				if (!e.isRecoverable()) {
+					// Close the connection and try again.
+					fFactory.closeConnection(connect);
+					connect = null;
+					connect = fFactory.getFreeConnection();
+					try {
+						invoke(connect, proxyFactory, subjectValue, parmsValue, returnValue);
+						return proxyFactory.getBeanProxy(returnValue);
+					} catch (CommandException eAgain) {
+						// Failed again. Just close and print trace.
 						fFactory.closeConnection(connect);
 						connect = null;
-						connect = fFactory.getFreeConnection();
-						if (connect != null)
-							try {
-								invoke(connect, proxyFactory, subjectValue, parmsValue, returnValue);
-								return proxyFactory.getBeanProxy(returnValue);
-							} catch (CommandException eAgain) {
-								// Failed again. Just close and print trace.
-								fFactory.closeConnection(connect);
-								connect = null;
-								ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
-								return null;
-							}
-					} else {
-						// A recoverable error, print trace and return
-						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
 						return null;
 					}
+				} else {
+					// A recoverable error, print trace and return
+					ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+					return null;
 				}
-			} finally {
-				proxyFactory.stopTransaction();
-				if (connect != null)
-					fFactory.returnConnection(connect);
 			}
+		} finally {
+			proxyFactory.stopTransaction();
+			if (connect != null)
+				fFactory.returnConnection(connect);
 		}
-		return null;
 	}
 
 	private void invoke(
