@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanInfoContributor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/04 12:58:28 $ 
+ *  $Revision: 1.4 $  $Date: 2004/10/07 22:13:08 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -37,6 +37,10 @@ public interface IBeanInfoContributor {
 	
 	/**
 	 * Return the BeanInfoEntry contributions that are needed.
+	 * <p>
+	 * This will be called by BeanInfo when it determines that this contributor is applicable 
+	 * for the current project being processed. BeaninfoEntry's define the BeanInfo jars and search paths to use.
+	 * 
 	 * @param info
 	 * @return BeanInfo contributions or <code>null</code> if none to contribute.
 	 * 
@@ -47,9 +51,13 @@ public interface IBeanInfoContributor {
 	/**
 	 * For the given package path run the override contributions through the runnable.
 	 * <p>
-	 * Implementations must call the runnable for each override file that is to be applied to the incoming class.
-	 * You can either call the method that passes in a string pointing to a directory where your override file is
-	 * located (i.e. <code>overrideFileName.override</code> where "overrideFileName" is the name passed.
+	 * This will be called by BeanInfo when it determines that this
+	 * contributor is applicable for the current project being processed.
+	 * <p>
+	 * Implementations must call the runnable (the argument <code>runnable</code>) for each override file that is to be applied to the incoming class.
+	 * You can either call the run method that passes in a string pointing to a directory where your override file is
+	 * located (i.e. <code>overrideFileName.override</code> where "overrideFileName" is the name passed. Or you can call the run method that 
+	 * takes a Resource that is already loaded (and maybe modified or created locally).
 	 * 
 	 * @param packagePath
 	 * @param overrideFileName the overrideFileName that the overrides is for. This can be used in very special cases to provide 
