@@ -8,16 +8,8 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 4, 2003
- * 
- * To change the template for this generated file go to Window>Preferences>Java>Code Generation>Code and Comments
- */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
@@ -34,8 +26,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
 
 /**
@@ -49,7 +39,6 @@ public class ServerEarAndStandaloneGroup {
 	private Button addToEAR;
 	private J2EEComponentCreationDataModel model;
 	private WTPDataModelSynchHelper synchHelper;
-	
 	private Composite parentComposite;
 
 	/**
@@ -62,6 +51,10 @@ public class ServerEarAndStandaloneGroup {
 		buildComposites(parent);
 	}
 
+	/**
+	 * 
+	 * @param parent
+	 */
 	public void buildComposites(Composite parent) {
 		createEarAndStandaloneComposite(parent);
 	}
@@ -118,54 +111,19 @@ public class ServerEarAndStandaloneGroup {
 
 			});
 
-			IProject project = getCurrentProject();
-			if (project != null)
-				model.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, project.getName());
 			Control[] deps = new Control[]{earLabel, newEAR};
 			synchHelper.synchCombo(earCombo, J2EEComponentCreationDataModel.EAR_MODULE_NAME, deps);
-
 		}
-
-	}
-
-	/**
-	 * @return
-	 */
-	private IProject getCurrentProject() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
-		if (window == null)
-			return null;
-		ISelection selection = window.getSelectionService().getSelection();
-		if (selection == null)
-			return null;
-		if (!(selection instanceof StructuredSelection))
-			return null;
-		StructuredSelection stucturedSelection = (StructuredSelection) selection;
-		Object obj = stucturedSelection.getFirstElement();
-		if (obj instanceof IProject) {
-			//IProject project = (IProject) obj;
-			//TODO
-			//this will need to be updated when Ear Creation is converted to the flexible project structure i.e
-			// moduleType "j2ee.ear", please mimic the same function in EarnatureRuntime.getAllEarProjectsInWorkbench()
-			//List ears = EARNatureRuntime.getAllEARProjectsInWorkbench();
-			//if (ears.contains(project))
-			//	return project;
-		}
-
-
-		return null;
 	}
 
 	/**
 	 *  
 	 */
 	protected void handleAddToEarSelection() {
-
 		boolean selection = addToEAR.getSelection();
 		earLabel.setEnabled(selection);
 		earCombo.setEnabled(selection);
 		newEAR.setEnabled(selection);
-
 	}
 
 	/**
@@ -179,7 +137,6 @@ public class ServerEarAndStandaloneGroup {
 		EARComponentCreationWizard earWizard = new EARComponentCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
-			//moduleModel.notifyUpdatedEARs();
 			moduleModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(J2EECreationDataModel.MODULE_NAME));
 		}
 	}

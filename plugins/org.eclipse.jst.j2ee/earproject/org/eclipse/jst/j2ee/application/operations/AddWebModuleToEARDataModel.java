@@ -8,91 +8,70 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Nov 26, 2003
- * 
- * To change the template for this generated file go to Window>Preferences>Java>Code Generation>Code and Comments
- */
+
 package org.eclipse.jst.j2ee.application.operations;
 
 import java.util.StringTokenizer;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 
 /**
- * @author DABERG
- * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
+ *
  */
 public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	
-	public String defaultContextRoot = "";
-	/**
-	 * (non-Javadoc)
-	 *  * @deprecated - This method is deprecated module must be passed
-	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultArchiveURI()
-	 */
-	public static AddWebModuleToEARDataModel createAddWebModuleToEARDataModel(String earProjectName, IProject moduleProject) {
-		AddWebModuleToEARDataModel model = new AddWebModuleToEARDataModel();
-		model.setProperty(AddWebModuleToEARDataModel.PROJECT_NAME, earProjectName);
-		//model.setProperty(AddWebModuleToEARDataModel.ARCHIVE_PROJECT, moduleProject);
-		return model;
-	}
-	public static AddWebModuleToEARDataModel createAddWebModuleToEARDataModel(String earModuleName, WorkbenchComponent module) {
-		AddWebModuleToEARDataModel model = new AddWebModuleToEARDataModel();
-		model.setProperty(AddModuleToEARDataModel.MODULE_NAME, earModuleName);
-		model.setProperty(AddModuleToEARDataModel.ARCHIVE_MODULE, module);
-		return model;
-	}
 	/**
 	 * Optional - This is the context root stored with the module in the application.xml.
 	 */
 	public static final String CONTEXT_ROOT = "AddWebModuleToEARDataModel.CONTEXT_ROOT"; //$NON-NLS-1$
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#initValidBaseProperties()
+	 */
+	public String defaultContextRoot = ""; //$NON-NLS-1$
+	
+	/**
+	 * 
+	 * @param earModuleName
+	 * @param module
+	 * @return
+	 */
+	public static AddWebModuleToEARDataModel createAddWebModuleToEARDataModel(String earModuleName, WorkbenchComponent module) {
+		AddWebModuleToEARDataModel model = new AddWebModuleToEARDataModel();
+		model.setProperty(ArtifactEditOperationDataModel.MODULE_NAME, earModuleName);
+		model.setProperty(AddArchiveToEARDataModel.ARCHIVE_MODULE, module);
+		return model;
+	}
+	
+	/**
+	 * 
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
 		addValidBaseProperty(CONTEXT_ROOT);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultURIExtension()
 	 */
 	protected String getDefaultURIExtension() {
 		return "war"; //$NON-NLS-1$
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddModuleToEARDataModel#isWebModuleArchive()
 	 */
 	public boolean isWebModuleArchive() {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
-	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean notify = super.doSetProperty(propertyName, propertyValue);
@@ -101,10 +80,8 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 		return notify;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.AddArchiveProjectToEARDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CONTEXT_ROOT))
@@ -112,23 +89,20 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 		return super.getDefaultProperty(propertyName);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private String getDefaultContextRoot() {
+		if (defaultContextRoot.equals("")) //$NON-NLS-1$
+			return computeDefaultContextRoot();
 		return defaultContextRoot;
-//		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
-//		if (archiveProj == null || !J2EENature.hasRuntime(archiveProj, IWebNatureConstants.J2EE_NATURE_ID))
-//			return computeDefaultContextRoot();
-//		EARNatureRuntime earNature = J2EEProjectUtilities.getFirstReferencingEARProject(archiveProj);
-//		if (earNature != null) {
-//			WebModule webModule = (WebModule) earNature.getModule(archiveProj);
-//			if (webModule != null) {
-//				String root = webModule.getContextRoot();
-//				if (root != null && root.length() > 0)
-//					return root;
-//			}
-//		}
-//		return computeDefaultContextRoot();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private String computeDefaultContextRoot() {
 		WorkbenchComponent wbComp = (WorkbenchComponent)getProperty(ARCHIVE_MODULE);
 		if (wbComp != null)
@@ -136,51 +110,40 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 		return null;
 	}
 
+	/**
+	 * 
+	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (CONTEXT_ROOT.equals(propertyName)) {
-			//how to get context root?
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));
 		}
 		return super.doValidateProperty(propertyName);
 	}
 
-	//TODO: must implement validation
+	/**
+	 * 
+	 * @param contextRoot
+	 * @return
+	 */
 	public IStatus validateContextRoot(String contextRoot) {
-
-		if (contextRoot == null)
-			return null;
-
-		String name = contextRoot;
-		if (name.equals("") || name == null) { //$NON-NLS-1$
-			//  this was added because the error message shouldnt be shown initially. It should be
-			// shown only if context
-			// root field is edited to
+		if (contextRoot.equals("") || contextRoot == null) { //$NON-NLS-1$
 			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString("Context_Root_cannot_be_empty_2", new Object[]{contextRoot}), null); //$NON-NLS-1$
 		}
-
-		if (name.trim().equals(name)) {
-			StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
+		else if (contextRoot.trim().equals(contextRoot)) {
+			StringTokenizer stok = new StringTokenizer(contextRoot, "."); //$NON-NLS-1$
 			while (stok.hasMoreTokens()) {
 				String token = stok.nextToken();
 				for (int i = 0; i < token.length(); i++) {
 					if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
-						if (Character.isWhitespace(token.charAt(i))) {
-							//Removed because context roots can contain white space
-							//errorMessage =
-							//	ResourceHandler.getString("_Context_root_cannot_conta_UI_");//$NON-NLS-1$
-							// = " Context
-							// root cannot contain whitespaces."
-						} else {
-							return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString("The_character_is_invalid_in_a_context_root", new Object[]{(new Character(token.charAt(i))).toString()}), //$NON-NLS-1$
-										null);
-						}
+						Object[] invalidChar = new Object[]{(new Character(token.charAt(i))).toString()};
+						String errorStatus = ProjectSupportResourceHandler.getString("The_character_is_invalid_in_a_context_root",invalidChar); //$NON-NLS-1$
+						return J2EEPlugin.newErrorStatus(errorStatus, null);
 					}
 				}
 			}
-		} // en/ end of if(name.trim
+		} 
 		else
 			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString("Names_cannot_begin_or_end_with_whitespace_5", new Object[]{contextRoot}), null); //$NON-NLS-1$
-
 		return OK_STATUS;
 	}
 }

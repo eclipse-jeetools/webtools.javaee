@@ -108,7 +108,8 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 					archiveProject = importModel.getProject();
 					if (archiveProject.exists()) {
 						if (importModel instanceof J2EEModuleImportDataModel) {
-							addArchiveProjectToEARDataModel = AddModuleToEARDataModel.createAddToEARDataModel(earProject.getName(), archiveProject).getAppropriateDataModel();
+							//TODO initialize data model
+							//addArchiveProjectToEARDataModel = AddModuleToEARDataModel.createAddToEARDataModel(earProject.getName(), archiveProject).getAppropriateDataModel();
 							addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI, importModel.getStringProperty(J2EEArtifactImportDataModel.URI_FOR_MODULE_MAPPING));
 							addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, synchServerTarget);
 							if (addArchiveProjectToEARDataModel.isProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT) && importModel.isProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {

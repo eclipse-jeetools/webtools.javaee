@@ -1,16 +1,18 @@
-/*
- * Created on Mar 17, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+/** Copyright (c) 2003, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.earcreation;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
@@ -27,12 +29,18 @@ import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+
 public class EARComponentCreationDataModel extends J2EEComponentCreationDataModel {
+	
 	/**
 	 * Requred. This must be a list of WorkbenchComponent. 
 	 */
 	public static final String J2EE_COMPONENT_LIST = "EARComponentCreationDataModel.J2EE_COMPONENT_LIST"; //$NON-NLS-1$
 
+	/**
+	 * 
+	 */
 	public WTPOperation getDefaultOperation() {
 		return new EARComponentCreationOperation(this);
 	}
@@ -54,37 +62,36 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 		}
 	}
 
-
-	protected void init() {
-		super.init();
-	}
-
-	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		return super.doSetProperty(propertyName, propertyValue);
-	}
-
+	/**
+	 * 
+	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
 		addValidBaseProperty(J2EE_COMPONENT_LIST);
 	}
 
+	/**
+	 * 
+	 */
 	protected AddModuleToEARDataModel createModuleNestedModel() {
 		return null;
 	}
 
-	private Object updateAddToEar() {
-		return null;
-	}
-
+	/**
+	 * 
+	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(DD_FOLDER)) {
-			return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "META_INF";
+			return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "META_INF"; //$NON-NLS-1$
 		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.FALSE;
 		}
 		return super.getDefaultProperty(propertyName);
 	}		
 
+	/**
+	 * 
+	 */
 	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
 		if (propertyName.equals(J2EE_MODULE_VERSION)) {
 			Integer propertyValue = (Integer) getProperty(propertyName);
@@ -106,6 +113,9 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 		return super.doGetPropertyDescriptor(propertyName);
 	}
 
+	/**
+	 * 
+	 */
 	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		WTPPropertyDescriptor[] descriptors = null;
@@ -136,6 +146,9 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 		return descriptors;
 	}
 
+	/**
+	 * 
+	 */
 	protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
 		return moduleVersion;
 	}
@@ -172,7 +185,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 				if (runtime != null) {
 					IRuntimeType type = runtime.getRuntimeType();
 					String typeId = type.getId();
-					if (typeId.startsWith("org.eclipse.jst.server.tomcat")) {
+					if (typeId.startsWith("org.eclipse.jst.server.tomcat")) { //$NON-NLS-1$
 						String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
 						return WTPCommonPlugin.createErrorStatus(msg);
 					}

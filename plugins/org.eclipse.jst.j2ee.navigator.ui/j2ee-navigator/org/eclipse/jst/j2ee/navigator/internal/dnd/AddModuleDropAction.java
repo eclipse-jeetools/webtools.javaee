@@ -35,7 +35,8 @@ public class AddModuleDropAction extends AddProjectToEarDropAction {
 	}
 
 	protected WTPOperationDataModel getDataModel(IProject earProject, IProject projectToAdd) {
-		return AddModuleToEARDataModel.createAddToEARDataModel(earProject.getName(), projectToAdd);
+		//TODO fix up to use module
+		return AddModuleToEARDataModel.createAddToEARDataModel(null,null);
 	}
 
 }

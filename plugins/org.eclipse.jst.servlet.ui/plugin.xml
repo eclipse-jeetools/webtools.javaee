@@ -195,31 +195,22 @@
             type="new"
             wizardId="org.eclipse.jst.servlet.ui.WebModuleCreationWizard">
          <enablement>
-         <or>
+           <or>
                <objectClass
 	                  name="org.eclipse.core.resources.IWorkspaceRoot">
 	           </objectClass>
                <and>
-            	   <objectClass
-                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
-               	   </objectClass>
-               	   <objectState
-                        name="projectNature"
-                        value="org.eclipse.jst.j2ee.web.WebNature">
-                  </objectState>
-                </and>
-                <and>
                    <objectClass
 	                     name="org.eclipse.core.resources.IProject">
 	               </objectClass>
 	               <or>
 	                  <objectState
 	                        name="projectNature"
-	                        value="org.eclipse.jst.j2ee.EARNature">
+	                        value="org.eclipse.jdt.core.javanature">
 	                  </objectState>
 	               </or> 
-                </and> 
-                <objectClass
+               </and> 
+               <objectClass
                  name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
            	   </objectClass>
            	   <objectClass

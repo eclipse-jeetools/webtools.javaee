@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
@@ -39,6 +41,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
@@ -87,6 +91,10 @@ public class NewModuleGroup {
 		createModuleGroup(parent);
 	}
 	
+	/**
+	 * 
+	 *
+	 */
 	private void initializeProjectList() {
 		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
 		List items = new ArrayList();
@@ -105,10 +113,16 @@ public class NewModuleGroup {
 			names[i]= (String) items.get(i);
 		}
 		projectNameCombo.setItems(names);
-		if (names.length>0) {
+		
+		IProject selectedProject = getSelectedProject();
+		if (selectedProject!=null) {
+			projectNameCombo.setText(selectedProject.getName());
+			model.setProperty(J2EECreationDataModel.PROJECT_NAME,selectedProject.getName());
+		}
+		else if (names.length>0) {
 			projectNameCombo.setText(names[0]);
 			model.setProperty(J2EECreationDataModel.PROJECT_NAME,names[0]);
-		}
+		}	
 	}
 
 	/**
@@ -144,6 +158,27 @@ public class NewModuleGroup {
 		synchHelper.synchCombo(projectNameCombo, J2EECreationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
 	}
 	
+	/**
+	 * @return
+	 */
+	private IProject getSelectedProject() {
+		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		ISelection selection = window.getSelectionService().getSelection();
+		if (selection == null)
+			return null;
+		StructuredSelection stucturedSelection = (StructuredSelection) selection;
+		Object obj = stucturedSelection.getFirstElement();
+		if (obj instanceof IProject)
+			return (IProject) obj;
+		return null;
+	}
+	
+	/**
+	 * 
+	 *
+	 */
 	private void handleNewProjectSelected() {
 		FlexibleJavaProjectCreationDataModel projModel = new FlexibleJavaProjectCreationDataModel();
 		FlexibleProjectCreationWizard newProjectWizard = new FlexibleProjectCreationWizard(projModel);
@@ -159,6 +194,10 @@ public class NewModuleGroup {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param parent
+	 */
 	private void createModuleGroup(Composite parent) {
 		GridData data = new GridData();
 		// Add the module name label
@@ -171,9 +210,12 @@ public class NewModuleGroup {
 		moduleNameText.setLayoutData(data);
 		synchHelper.synchText(moduleNameText,J2EECreationDataModel.MODULE_NAME,new Control[] {});
 		new Label(parent,SWT.NONE);
-		
 	}
 
+	/**
+	 * 
+	 *
+	 */
 	public void dispose() {
 		if (synchHelper != null) {
 			if (model != null)
@@ -183,10 +225,19 @@ public class NewModuleGroup {
 		model = null;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getProjectName() {
 		return projectNameCombo.getText();
 	}
 	
+	/**
+	 * 
+	 * @param parent
+	 * @param hSpan
+	 */
 	public void addSeperator(Composite parent, int hSpan) {
 		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -194,6 +245,10 @@ public class NewModuleGroup {
 		separator.setLayoutData(gd);
 	}
 	
+	/**
+	 * 
+	 * @param parent
+	 */
 	protected void createServerTargetComposite(Composite parent) {
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
