@@ -340,7 +340,7 @@ public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		super.propertyChanged(event);
-		if (event.getDataModel() == getAddModuleToApplicationDataModel() && event.getPropertyName().equals(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
+		if (event.getDataModel() == getAddModuleToApplicationDataModel() && event.getPropertyName().equals(AddWebModuleToEARDataModel.CONTEXT_ROOT) && event.getDataModel().isSet(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
 			setProperty(CONTEXT_ROOT, event.getProperty());
 		}
 	}
