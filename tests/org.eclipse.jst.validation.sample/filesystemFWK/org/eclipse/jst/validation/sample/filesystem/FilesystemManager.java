@@ -1,4 +1,4 @@
-package org.eclipse.wst.validation.sample.filesystem;
+package org.eclipse.jst.validation.sample.filesystem;
 /*
  * Licensed Material - Property of IBM 
  * (C) Copyright IBM Corp. 2002, 2003 - All Rights Reserved. 
@@ -45,7 +45,7 @@ public class FilesystemManager {
 		// in .xml files, in a configuration file, etc., that the framework would read
 		// to find the installed validators.
 		try {
-			_loaders.add(new FilesystemLoader(new String[]{".properties"}, loadHelper("org.eclipse.jst.validation.sample.filesystemimpl.FilesystemPropertiesHelper"), loadValidator("org.eclipse.wst.validation.sample.PropertiesValidator"))); //$NON-NLS-1$  //$NON-NLS-2$ //$NON-NLS-3$
+			_loaders.add(new FilesystemLoader(new String[]{".properties"}, loadHelper("org.eclipse.jst.validation.sample.filesystemimpl.FilesystemPropertiesHelper"), loadValidator("org.eclipse.jst.validation.sample.PropertiesValidator"))); //$NON-NLS-1$  //$NON-NLS-2$ //$NON-NLS-3$
 		}
 		catch(IllegalArgumentException exc) {
 			exc.printStackTrace();

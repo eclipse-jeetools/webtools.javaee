@@ -29,11 +29,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.jst.validation.sample.PModelEnum;
+import org.eclipse.jst.validation.sample.filesystem.IFilesystemHelper;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
 import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.sample.filesystem.IFilesystemHelper;
 import org.eclispe.wst.validation.internal.core.FileDelta;
 
 /**

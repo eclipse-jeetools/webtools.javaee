@@ -1,4 +1,4 @@
-package org.eclipse.wst.validation.sample.filesystem;
+package org.eclipse.jst.validation.sample.filesystem;
 /*
  * Licensed Material - Property of IBM 
  * (C) Copyright IBM Corp. 2002, 2003 - All Rights Reserved. 
