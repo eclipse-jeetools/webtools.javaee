@@ -485,7 +485,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ValidatorManager.setResourceUtilClass(ResourceUtil.class);
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new EarEditAdapterFactory(), ArtifactEditModel.class);
-		registerDeployableModuleFactory(IModuleConstants.JAVA_UTIL_MODULE);
+		registerDeployableModuleFactory(IModuleConstants.JST_UTILITY_MODULE);
 	}
 	/**
      * 
