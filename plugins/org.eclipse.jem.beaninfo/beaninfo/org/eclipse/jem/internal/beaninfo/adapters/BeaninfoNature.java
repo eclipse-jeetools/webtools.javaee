@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.25 $  $Date: 2004/10/01 21:24:01 $ 
+ *  $Revision: 1.26 $  $Date: 2004/11/19 21:17:40 $ 
  */
 
 import java.io.*;
@@ -95,6 +95,7 @@ public class BeaninfoNature implements IProjectNature {
 	 * Get the runtime nature for the project, create it if necessary.
 	 */
 	public static BeaninfoNature getRuntime(IProject project) throws CoreException {
+		JavaEMFNature.createRuntime(project);	// Must force JAVAEMFNature creation first before we try to get ours. There is a chicken/egg problem if we let our nature try to get JavaEMFNature during setProject.
 		if (project.hasNature(NATURE_ID))
 			return (BeaninfoNature) project.getNature(NATURE_ID);
 		else
