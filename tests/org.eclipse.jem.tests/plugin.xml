@@ -28,5 +28,15 @@
       <import plugin="org.eclipse.debug.core"/>
    </requires>
 
+   <extension
+         point="org.eclipse.jem.beaninfo.registrations">
+      <registration
+            container="org.eclipse.jdt.launching.JRE_CONTAINER">
+         <override
+               package="org.eclipse.jem.tests.beaninfo"
+               path="testdata/overrides/beaninfo">
+         </override>
+      </registration>
+	</extension>
 
 </plugin>

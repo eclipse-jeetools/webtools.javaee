@@ -11,7 +11,7 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/27 15:33:39 $ 
+ *  $Revision: 1.8 $  $Date: 2004/11/19 21:17:04 $ 
  */
 
 import java.util.Iterator;
@@ -24,8 +24,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
 
@@ -602,5 +604,27 @@ public class TestStandard extends AbstractBeanInfoTestCase {
 		PropertyDecorator pd = Utilities.getPropertyDecorator(ea);
 		assertNotNull(pd);
 		assertTrue(pd.isBound());
+	}
+	
+	public void testOverridesFile() {
+		// Test that override files get applied correctly.
+		JavaClass testOverride = (JavaClass) rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo#TestOverrides"), true); //$NON-NLS-1$
+		assertNotNull(testOverride);
+		EStructuralFeature xyz = testOverride.getEStructuralFeature("xyz");
+		assertNotNull(xyz);
+		// Test that it has the correct type so that we know it was reflected correctly.
+		assertEquals(rset.getEObject(URI.createURI("java:/#int"), true), xyz.getEType());
+		
+		// Test that we have the annotation we added.
+		assertNotNull(xyz.getEAnnotation("Override Annotation"));
+	}
+	
+	public void test79083() {
+		// Test bug 79083: Null ETypes from overrides that didn't have a reflection to give it the type. BeanInfo should make it EObject type.
+		JavaClass testOverride = (JavaClass) rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo#TestOverrides"), true); //$NON-NLS-1$
+		assertNotNull(testOverride);
+		EStructuralFeature test79083 = testOverride.getEStructuralFeature("test79083");
+		assertNotNull(test79083);
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), test79083.getEType());
 	}
 }
