@@ -351,6 +351,9 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 		versionCombo.setLayoutData(gridData);
 		Control[] deps = new Control[]{label};
 		synchHelper.synchCombo(versionCombo, versionProp, deps);
+		String[] items = versionCombo.getItems();
+		if (items != null && items.length > 0)
+			versionCombo.select(items.length - 1);
 		new Label(parent, SWT.NONE); //pad
 	}
 	
