@@ -275,7 +275,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		sHelper.getDataModel().addListener(new WTPOperationDataModelListener() {
 			public void propertyChanged(WTPOperationDataModelEvent event) {
 				if (event.getPropertyName().equals(J2EEArtifactImportDataModel.OVERWRITE_PROJECT)) {
-					delete.setEnabled(((Boolean) event.getNewValue()).booleanValue());
+					delete.setEnabled(((Boolean) event.getProperty()).booleanValue());
 				} else if (event.getPropertyName().equals(J2EEArtifactImportDataModel.PROJECT_NAME)) {
 					IProject aProject = ((J2EEArtifactImportDataModel) event.getDataModel()).getProject();
 					boolean exists = null != aProject && aProject.exists();

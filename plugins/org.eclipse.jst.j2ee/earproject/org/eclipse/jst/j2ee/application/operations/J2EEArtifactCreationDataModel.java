@@ -142,7 +142,7 @@ public abstract class J2EEArtifactCreationDataModel extends EditModelOperationDa
 			if (dm == projectDataModel || dm == serverTargetDataModel) {
 				String prop = event.getPropertyName();
 				if (prop.equals(ProjectCreationDataModel.PROJECT_NAME) || prop.equals(ServerTargetDataModel.PROJECT_NAME)) {
-					setProperty(PROJECT_NAME, event.getNewValue()); //setting on outer will synch
+					setProperty(PROJECT_NAME, event.getProperty()); //setting on outer will synch
 					// all others
 					return;
 				}

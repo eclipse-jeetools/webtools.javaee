@@ -491,12 +491,12 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		super.propertyChanged(event);
 		if (event.getDataModel() == getServerTargetDataModel() && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID)) {
-			applicationCreationDataModel.setProperty(event.getPropertyName(), event.getNewValue());
+			applicationCreationDataModel.setProperty(event.getPropertyName(), event.getProperty());
 			notifyListeners(NESTED_MODEL_VALIDATION_HOOK, null, null);
 		} else if (event.getDataModel() == applicationCreationDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(EnterpriseApplicationCreationDataModel.PROJECT_NAME)) {
 			synchUPServerTargetWithEAR();
 		} else if (event.getDataModel() == addModuleToEARDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(AddModuleToEARDataModel.PROJECT_NAME)) {
-			applicationCreationDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, event.getNewValue());
+			applicationCreationDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, event.getProperty());
 		}
 	}
 

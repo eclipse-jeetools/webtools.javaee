@@ -241,7 +241,7 @@ public final class EnterpriseApplicationCreationDataModel extends J2EEArtifactCr
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		if (event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG) {
 			if (AddArchiveProjectsToEARDataModel.PROJECT_NAME.equals(event.getPropertyName())) {
-				setProperty(PROJECT_NAME, event.getNewValue());
+				setProperty(PROJECT_NAME, event.getProperty());
 				return;
 			}
 		}

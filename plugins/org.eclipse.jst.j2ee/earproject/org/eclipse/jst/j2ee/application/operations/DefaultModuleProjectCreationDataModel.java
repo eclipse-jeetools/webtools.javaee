@@ -266,7 +266,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 				propertyName = APPCLIENT_PROJECT_NAME;
 			}
 			if (null != propertyName) {
-				setProperty(propertyName, event.getNewValue());
+				setProperty(propertyName, event.getProperty());
 				return;
 			}
 		}

@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.ContextRootUpdateOperation;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebContentNameUpdateOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 
 /**
  * @version 1.0
