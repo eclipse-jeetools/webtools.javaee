@@ -57,9 +57,10 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 	} 
 
 	protected boolean requiresFullUpdate(IResourceDelta delta) {
+		// TODO figure out context root change to update the tag libs
 		// If the context root is updated, a full refresh is required.
-		if (delta != null)
-			return delta.getResource().getFullPath().equals(getWTPModuleFile());
+		//if (delta != null)
+		//	return delta.getResource().getFullPath().equals(getWTPModuleFile());
 		return false;
 	}
 
@@ -161,17 +162,6 @@ public class WebTaglibRegistry extends AbstractTaglibRegistry {
 		results.addAll(Arrays.asList(this.libModuleLocator.search(this.project)));
 		results.addAll(Arrays.asList(this.serverTargetLocator.search(this.project)));
 		return results;
-	}
-	
-	protected IPath getWTPModuleFile() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return webEdit.getWTPModuleFile().getProjectRelativePath(); 
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
 	}
 	
 	protected IPath getWebDeploymentDescriptorPath() {

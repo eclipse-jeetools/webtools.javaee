@@ -51,7 +51,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * WebEditAdapterFactory} stored in an AdapterManger (@see AdapterManager)
 	 * </p>
 	 */
-
 	public static final Class ADAPTER_TYPE = WebArtifactEdit.class;
 
 	/**
@@ -59,7 +58,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * Identifier used to group and query common artifact edits.
 	 * </p>
 	 */
-
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
 
 	/**
@@ -155,7 +153,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @param anArtifactEditModel
 	 */
-
 	public WebArtifactEdit(ArtifactEditModel model) {
 		super(model);
 
@@ -172,8 +169,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 *            A non-null {@see WorkbenchModule}pointing to a module from the given
 	 *            {@see ModuleCoreNature}
 	 */
-
-
 	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchModule aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
@@ -216,7 +211,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return Resource
 	 *  
 	 */
-
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 	}
@@ -229,12 +223,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return an integer representation of a module version
 	 *  
 	 */
-
-
 	public int getServletVersion() {
 		return ((WebAppResource)getDeploymentDescriptorResource()).getModuleVersionID();
 	}
-
 
 	/**
 	 * <p>
@@ -250,7 +241,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-
 	protected void addWebAppIfNecessary(XMLResource aResource) {
 
 		if (aResource != null && aResource.getContents().isEmpty()) {
@@ -288,25 +278,14 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		}
 	}
 	
-	public String getServerContextRoot() {
-		//TODO return the valid context root for the module
-		return null;
-	}
-	
-	public void setServerContextRoot(String contextRoot) {
-		//TODO set the new context root on the module
-	}
-	
-	public IFile getWTPModuleFile() {
-		//TODO return the WTPModuleFile path
-		return null;
-	}
-	
-	public ILibModule[] getLibModules() {
-		//TODO return the appropriate web lib modules
-		return null;
-	}
-	
+	/**
+	 * This method returns the integer representation for the JSP specification level associated with
+	 * the J2EE version for this workbench module.  This method will not return null and returns 20
+	 * as default.
+	 * @see WebArtifactEdit#getServletVersion()
+	 * 
+	 * @return an integer representation of the JSP level
+	 */
 	public int getJSPVersion() {
 		int servletVersion = getServletVersion();
 		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
@@ -317,13 +296,35 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			return J2EEVersionConstants.JSP_2_0_ID;
 	}
 	
+	/**
+	 * This method returns the full path to the deployment descriptor resource for the associated
+	 * workbench module.  This method may return null.
+	 * 
+	 * @see WebArtifactEdit#getDeploymentDescriptorResource()
+	 * 
+	 * @return the full IPath for the deployment descriptor resource
+	 */
 	public IPath getDeploymentDescriptorPath() {
 		IFile file = WorkbenchResourceHelper.getFile(getDeploymentDescriptorResource());
 		if (file!=null)
 			return file.getFullPath();
 		return null;
 	}
-
+	
+	public String getServerContextRoot() {
+		//TODO return the valid context root for the module
+		return null;
+	}
+	
+	public void setServerContextRoot(String contextRoot) {
+		//TODO set the new context root on the module
+	}
+	
+	public ILibModule[] getLibModules() {
+		//TODO return the appropriate web lib modules
+		return null;
+	}
+	
 	public void setLibModules(ILibModule[] libModules) {
 		//TODO we need an edit model for write to do it.
 	}
