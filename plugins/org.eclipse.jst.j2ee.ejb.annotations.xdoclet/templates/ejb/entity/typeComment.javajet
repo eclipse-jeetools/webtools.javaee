@@ -1,0 +1,88 @@
+<%@ jet package="com.objectlearn.gmf.templates.entity" class="TypeCommentGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.EntityBean com.objectlearn.lomboz.xml.lomboz.FieldMapping  com.sun.java.xml.ns.j2ee.EntityBeanType   com.sun.java.xml.ns.j2ee.FullyQualifiedClassType"%>
+<% DocumentRoot root = (DocumentRoot)argument;
+   EntityBean leb = (EntityBean) root.getEjb().getEntity();
+   EntityBeanType eb = leb.getEntityEjb();
+   boolean isCMP = "Container".equals(eb.getPersistenceType().getValue());
+   String ejbName = eb.getEjbClass().getUnqualifiedClassName();
+   if(ejbName.endsWith("Bean") ){
+      ejbName = ejbName.substring(0,ejbName.length()-4);
+   }else if(ejbName.endsWith("Ejb") ){
+      ejbName = ejbName.substring(0,ejbName.length()-3);
+   }
+   
+   String primaryKeyType = "java.lang.String";
+   int pkCount=0;
+   boolean isComposite = false;
+   boolean createCompositeKey = false;
+   if( isCMP ) { 
+       FullyQualifiedClassType pkClassType = eb.getPrimKeyClass();
+       if(pkClassType != null && pkClassType.getValue() != null && pkClassType.getValue().length() > 0 )
+          primaryKeyType = pkClassType.getValue();
+	   Iterator fieldMappings = leb.getFieldMappings().iterator();
+	   String pkType = "";
+	   while(fieldMappings.hasNext()){
+	      FieldMapping mapping = (FieldMapping) fieldMappings.next();
+	      if(mapping.isPrimaryKey()){
+	        pkType = mapping.getFieldType().getValue();
+	        pkCount++;
+	      }
+	   }
+       isComposite = pkCount > 1;
+       if(!isComposite )
+         primaryKeyType = pkType;
+       else if(pkClassType == null || pkClassType.getValue() == null || pkClassType.getValue().length() < 1 ){
+		   createCompositeKey = true;
+		   primaryKeyType = eb.getEjbClass().getValue()+".PrimaryKey";
+       }else if(pkClassType != null && pkClassType.getValue() != null ){
+           if(primaryKeyType.equals(eb.getEjbClass().getValue()+".PrimaryKey") )
+              createCompositeKey = true;
+       }
+   }
+%>
+   
+/**
+ *
+ * <!-- begin-user-doc -->
+ * You can insert your documentation for '<em><b><%=eb.getEjbClass().getUnqualifiedClassName()%></b></em>'.
+ * <!-- end-user-doc -->
+ *
+ <!--  begin-lomboz-definition -->
+ <%= root.asString() %>
+ <!--  end-lomboz-definition -->
+ *
+ * <!-- begin-xdoclet-definition -->
+<% if( isCMP ) { %>
+ * @ejb.bean name="<%=ejbName%>"
+ *	jndi-name="<%=eb.getEjbName()%>"
+ *	type="CMP"<%if(eb.getPrimkeyField() != null ){%>
+ *  primkey-field="<%= eb.getPrimkeyField().getValue() %>"<%}%> 
+ *  schema="<%= eb.getAbstractSchemaName().getValue() %>" 
+ *  cmp-version="<%= eb.getCmpVersion().getValue() %>"
+ *  data-source="<%=leb.getDataSourceName()%>"
+ * 
+ *  @ejb.persistence 
+ *   table-name="<%=leb.getTableName()%>" 
+ * 
+ * @ejb.finder 
+ *    query="SELECT OBJECT(a) FROM <%= eb.getAbstractSchemaName().getValue() %> as a"  
+ *    signature="java.util.Collection findAll()"  
+ *
+ * @ejb.pk class="<%= primaryKeyType %>"
+ * <!-- end-xdoclet-definition -->
+ * @generated
+ **/
+
+<% } else { %>
+
+
+
+/**
+ * @ejb.bean name="<%=ejbName%>"
+ *	jndi-name="<%=eb.getEjbName()%>"
+ *	type="BMP"
+ * 
+ * <!-- end-xdoclet-defintion -->
+ * @generated
+ **/
+
+<% } %>

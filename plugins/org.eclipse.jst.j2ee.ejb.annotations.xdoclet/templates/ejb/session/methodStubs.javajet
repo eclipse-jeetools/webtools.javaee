@@ -1,0 +1,16 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.session" class="MethodGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.*"%>
+<%  ISessionBeanDelegate session  = (ISessionBeanDelegate)argument; %>
+
+/** 
+ *
+ * <!-- begin-xdoclet-definition --> 
+ * @ejb.interface-method view-type="remote"
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ *
+ * //TODO: Must provide implementation for bean method stub
+ */
+public String foo(String param)
+{
+ 	return null;
+}

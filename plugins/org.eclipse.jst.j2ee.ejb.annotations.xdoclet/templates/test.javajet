@@ -1,0 +1,21 @@
+<%@ jet package="translated" class="HelloWorld" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.sun.java.xml.ns.j2ee.SessionBeanType"%>
+
+
+<% DocumentRoot root = (DocumentRoot)argument;
+
+Iterator sessionBeans = root.getEjb().getSession().iterator();
+while (sessionBeans.hasNext()) {
+	SessionBeanType sb = (SessionBeanType) sessionBeans.next();
+%>
+/**
+ * @author Lomboz Auto-generated
+ *
+<%= " * @lomboz.sessionbean.name " +sb.getEjbName().getValue() %>
+<%= " * @lomboz.sessionbean.class " +sb.getEjbClass() %>
+<%= " * @lomboz.sessionbean.displayname " +sb.getDisplayName() %>
+
+<%
+}
+%>
+
+*/

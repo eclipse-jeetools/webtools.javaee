@@ -1,0 +1,131 @@
+<%@ jet package="com.objectlearn.gmf.templates.entity" class="MethodGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.EntityBean com.objectlearn.lomboz.xml.lomboz.FieldMapping  com.sun.java.xml.ns.j2ee.EntityBeanType com.sun.java.xml.ns.j2ee.FullyQualifiedClassType "%>
+<% DocumentRoot root = (DocumentRoot)argument;
+   EntityBean leb = (EntityBean) root.getEjb().getEntity();
+   EntityBeanType eb = leb.getEntityEjb();
+   boolean isCMP = "Container".equals(eb.getPersistenceType().getValue());
+   
+   String primaryKeyType = "java.lang.String";
+   int pkCount=0;
+   boolean isComposite = false;
+   boolean createCompositeKey = false;
+   if( isCMP ) { 
+       FullyQualifiedClassType pkClassType = eb.getPrimKeyClass();
+       if(pkClassType != null && pkClassType.getValue() != null && pkClassType.getValue().length() > 0 )
+          primaryKeyType = pkClassType.getValue();
+	   Iterator fieldMappings = leb.getFieldMappings().iterator();
+	   String pkType = "";
+	   while(fieldMappings.hasNext()){
+	      FieldMapping mapping = (FieldMapping) fieldMappings.next();
+	      if(mapping.isPrimaryKey()){
+	        pkType = mapping.getFieldType().getValue();
+	        pkCount++;
+	      }
+	   }
+       isComposite = pkCount > 1;
+       if(!isComposite )
+         primaryKeyType = pkType;
+       else if(pkClassType == null || pkClassType.getValue() == null || pkClassType.getValue().length() < 1 ){
+		   createCompositeKey = true;
+		   primaryKeyType = eb.getEjbClass().getValue()+".PrimaryKey";
+       }else if(pkClassType != null && pkClassType.getValue() != null ){
+           if(primaryKeyType.equals(eb.getEjbClass().getValue()+".PrimaryKey") )
+              createCompositeKey = true;
+       }
+   }
+%>
+
+/**
+ *
+ * <!-- begin-user-doc -->
+ * The  ejbCreate method.
+ * <!-- end-user-doc -->
+ *
+ * <!-- begin-xdoclet-definition --> 
+ * @ejb.create-method 
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ */
+public <%= primaryKeyType %> ejbCreate() throws javax.ejb.CreateException {
+	// EJB 2.0 spec says return null for CMP ejbCreate methods.
+	// TODO: YOU MUST INITIALIZE THE FIELDS FOR THE BEAN HERE. 
+	// setMyField("Something"); 
+	// begin-user-code
+	return null;
+	// end-user-code
+}
+
+/**
+ * <!-- begin-user-doc -->
+ * The container invokes this method immediately after it calls ejbCreate.
+ * <!-- end-user-doc -->
+ * 
+ * @generated
+ */
+public void ejbPostCreate() throws javax.ejb.CreateException {
+	// begin-user-code
+	// end-user-code
+}
+	
+<% if( isCMP ) { 
+   Iterator fieldMappings = leb.getFieldMappings().iterator();
+   while(fieldMappings.hasNext()){
+      FieldMapping mapping = (FieldMapping) fieldMappings.next();
+
+%>
+
+/**
+*
+*
+* <!-- begin-user-doc -->
+* CMP Field <%= mapping.getFieldName().getValue() %>
+*
+* Returns the <%= mapping.getFieldName().getValue() %>
+* @return the <%= mapping.getFieldName().getValue() %>
+* 
+* <!-- end-user-doc -->
+*
+* <!-- begin-xdoclet-definition --> 
+*
+* @ejb.persistent-field 
+* @ejb.persistence
+*    column-name="<%= mapping.getColumnName().getValue() %>"
+*     jdbc-type="<%= mapping.getJdbcType().getValue() %>"
+*     sql-type="<%= mapping.getSqlType().getValue() %>"
+*     read-only="<%= mapping.isReadOnly() %>"
+* <%= (mapping.isPrimaryKey() ? "@ejb.pk-field" : "" ) %> 
+*
+* @ejb.interface-method
+* 
+* <!-- end-xdoclet-definition --> 
+* @generated
+*/
+<%
+			String methodName = mapping.getFieldName().getValue();
+			methodName = Character.toUpperCase(methodName.charAt(0)) + methodName.substring(1,methodName.length());
+
+%>
+public abstract <%= mapping.getFieldType().getValue() %> get<%= methodName %>();
+
+
+/**
+* <!-- begin-user-doc -->
+* Sets the <%= mapping.getFieldName().getValue() %>
+* 
+* @param <%= mapping.getFieldType().getValue() %> the new <%= mapping.getFieldName().getValue() %> value
+* <!-- end-user-doc -->
+* 
+* <!-- begin-xdoclet-definition --> 
+* @ejb.interface-method
+* <!-- end-xdoclet-definition -->
+* @generated 
+*/
+public abstract void set<%= methodName %>(<%= mapping.getFieldType().getValue() %> <%= mapping.getFieldName().getValue() %>);
+
+
+
+<% 
+}
+}
+%>
+
+

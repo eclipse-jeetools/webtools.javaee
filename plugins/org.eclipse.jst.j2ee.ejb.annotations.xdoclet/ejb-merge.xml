@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merge:options 
+	  indent="  "  
+	  braceStyle="matching"  
+	  block="\s*@\s*generated\s*NOT\s*\n"
+      xmlns:merge="http://www.eclipse.org/org/eclipse/emf/codegen/jmerge/Options">
+
+
+	<merge:dictionaryPattern
+	   name="generatedMember" 
+	   select="Member/getComment" 
+	   match="\s*@\s*(gen)erated\s*\n"/>
+
+
+	<merge:dictionaryPattern
+	   name="modifiedMember" 
+	   select="Member/getComment" 
+	   match="\s*@\s*(modify)\s*\n"/>
+
+
+
+	<merge:pull 
+	   targetMarkup="^gen$"
+	   sourceGet="Method/getBody"
+	   sourceTransfer="(\s*//\s*begin-user-code.*?//\s*end-user-code\s*)\n"
+	   targetPut="Method/setBody"/>
+
+	<!-- copy comments except between the begin-user-doc
+	     and end-user-doc tags -->
+	<merge:pull 
+	  sourceMarkup="^gen$"
+	  sourceGet="Member/getComment"
+	  sourceTransfer="(\s*&lt;!--\s*begin-user-doc.*?end-user-doc\s*-->\s*)"
+	  targetMarkup="^gen$"
+	  targetPut="Member/setComment"/>
+
+
+
+	<!-- Requests generator to replace the complete comment -->
+	<merge:pull 
+	  sourceMarkup="^gen$"
+	  sourceGet="Member/getComment"
+	  targetMarkup="^modify$"
+	  targetPut="Member/setComment"/>
+
+    <merge:pull 
+      sourceGet="Member/getFlags"
+      targetMarkup="^gen$"
+      targetPut="Member/setFlags"/>
+
+    <merge:pull 
+      sourceGet="Initializer/getBody"
+      targetMarkup="^gen$"
+      targetPut="Initializer/setBody"/>
+
+    <merge:pull 
+      sourceGet="Type/getSuperclass"
+      targetMarkup="^gen$"
+      targetPut="Type/setSuperclass"/>
+
+    <merge:pull 
+      sourceGet="Type/getSuperInterfaces"
+      sourceTransfer="(\s*@\s*extends|\s*@\s*implements)(.*?)\n"
+      targetMarkup="^gen$"
+      targetPut="Type/addSuperInterface"/>
+
+    <merge:pull 
+      sourceGet="Field/getType"
+      targetMarkup="^gen$"
+      targetPut="Field/setType"/>
+    <merge:pull 
+      sourceGet="Field/getInitializer"
+      targetMarkup="^gen$"
+      targetPut="Field/setInitializer"/>
+
+    <merge:pull 
+      sourceGet="Method/getReturnType"
+      targetMarkup="^gen$"
+      targetPut="Method/setReturnType"/>
+    <merge:pull 
+      sourceGet="Method/getExceptions"
+      targetMarkup="^gen$"
+      targetPut="Method/addException"/>
+ 
+ 
+ 
+    <!-- if there are generated code fragments that are not in the 
+         new generated code remove them. Usefule when renaming methods/fields -->
+    <merge:sweep markup="^gen$" select="Member"/>
+    <merge:sweep markup="^gen$" select="Type"/>
+ 
+</merge:options>

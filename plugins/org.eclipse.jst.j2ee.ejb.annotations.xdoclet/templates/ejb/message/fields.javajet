@@ -1,0 +1,10 @@
+<%@ jet package="com.objectlearn.gmf.templates.messageDriven" class="MethodGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.sun.java.xml.ns.j2ee.MethodType com.sun.java.xml.ns.j2ee.JavaTypeType"%>
+
+/** 
+* <!-- begin-user-doc -->
+* <!-- end-user-doc -->
+* The context for the message-driven bean, set by the EJB container. 
+* @generated
+*/
+private javax.ejb.MessageDrivenContext messageContext = null;
+

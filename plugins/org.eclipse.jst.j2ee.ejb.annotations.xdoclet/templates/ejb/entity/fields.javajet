@@ -1,0 +1,6 @@
+<%@ jet package="com.objectlearn.gmf.templates.entity" class="FieldGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.EntityBean com.objectlearn.lomboz.xml.lomboz.FieldMapping  com.sun.java.xml.ns.j2ee.EntityBeanType"%>
+<% DocumentRoot root = (DocumentRoot)argument;
+   EntityBean leb = (EntityBean) root.getEjb().getEntity();
+   EntityBeanType eb = leb.getEntityEjb();
+   boolean isCMP = "Container".equals(eb.getPersistenceType().getValue());
+%>

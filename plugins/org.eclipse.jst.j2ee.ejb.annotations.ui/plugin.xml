@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.j2ee.ejb.annotations.ui"
+   name="EJB Annotations Ui Plug-in"
+   version="1.0.0"
+   provider-name="Eteration"
+   class="org.eclipse.jst.j2ee.ejb.annotations.ui.EjbAnnotationsUiPlugin">
+
+   <runtime>
+      <library name="ejbAnnotationsUi.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+ 
+     <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.jdt.core"/>
+ 
+      <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.wst.common.frameworks.ui"/>
+      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
+      <import plugin="org.eclipse.wst.common.navigator.workbench"/>
+      <import plugin="org.eclipse.wst.common.migration"/>
+      <import plugin="org.eclipse.wst.server.ui"/>
+      <import plugin="org.eclipse.wst.server.core"/>
+      <import plugin="org.eclipse.wst.common.emf"/>
+ 
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.ui.ide"/>
+ 
+
+      <import plugin="org.eclipse.jst.j2ee"/>
+      <import plugin="org.eclipse.jst.j2ee.core"/>
+      <import plugin="org.eclipse.jst.j2ee.ui" />
+      <import plugin="org.eclipse.jst.common.frameworks"/>
+      <import plugin="org.eclipse.jst.common.annotations.controller"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb.annotation.model"/>
+ 
+ 
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="com.ibm.wtp.emf.workbench"/>
+   </requires>
+
+<!--================================-->
+<!-- EJB Creation Wizard Contributions   -->
+<!--================================-->
+
+   <extension
+         id="org.eclipse.jst.j2ee.ejb.ui.wizards"
+         point="org.eclipse.ui.newWizards">
+       <category
+            name="EJB"
+            id="org.eclipse.jst.ejb.ui">
+      </category>
+      <wizard
+            name="%ejb.createbean_ui_"
+            icon="icons/full/ctool16/newejb_wiz.gif"
+            category="%ejb.category_ui_"
+            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard"
+            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
+         <description>
+            %new.ejb.description_ui_
+         </description>
+      </wizard>
+   </extension>
+   
+    <extension
+         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
+          <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
+         <enablement>
+         <or>
+            <and>
+            	<or>
+                  <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+	               <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+               </or>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+      </extension> 
+  
+</plugin>

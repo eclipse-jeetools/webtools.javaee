@@ -1,0 +1,19 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.session" class="TypeCommentGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.*"%>
+<%  ISessionBeanDelegate session  = (ISessionBeanDelegate)argument; %>
+/**
+ *
+ * <!-- begin-user-doc -->
+ * A generated session bean
+ * <!-- end-user-doc -->
+ * *
+ * <!-- begin-xdoclet-definition --> 
+ * @ejb.bean name="<%=session.getSimpleClassName() %>"	
+ *           description="<%=session.getDescription()%>"
+ *           display-name="<%=session.getDisplayName()%>"
+ *           jndi-name="<%=session.getJndiName()%>"
+ *           type="<%=session.getSessionType() %>" 
+ *           transaction-type="<%= session.getTransactionType()%>"
+ * 
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ */

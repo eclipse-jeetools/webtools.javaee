@@ -1,4 +1,4 @@
 bin
-*.folder
+temp.folder
 *.jar
-*.xml
+build.xml

@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.emitter">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.emitter" id="emitter" name="emitter"/>
+      </appInfo>
+      <documentation>
+         This extension point allows vendors and developers to provide their templates for ejb code generation using the Lomboz emitter framework.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="emitter"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="emitter">
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="classpathProvider" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="builderId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+          <attribute name="ejbIntrospector" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="mergeController" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="sessionTemplates" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="entityTemplates" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="messageTemplates" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         Eclipse version 3.1 - In preparation for WebTools Platform project
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         &lt;extension point=&quot;com.objectlearn.j2ee.gmf.emitter&quot;&gt;
+   &lt;emitter 
+         name=&quot;xdoclet&quot;
+         classpathProvider=&quot;org.emitter.path.MyEmitterClasspathPorvider&quot;
+         builderId=&quot;org.emitter.path.MyEmitterBuilder&quot;
+         sessionTemplates=&quot;templates/ejb/session&quot;
+         entityTemplates=&quot;templates/ejb/entity&quot;
+         messageTemplates=&quot;templates/ejb/message&quot;
+         
+         /&gt;
+   &lt;/extension&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         ClasspathProviders registered using this extension point must implement com.objectlearn.j2ee.gmf.emitter.IEmitterClasspathPorvider  interface
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         WTP comes with an XDoclet EJB emitter implementation
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) 2004 Eteration Bilisim A.S.
+      </documentation>
+   </annotation>
+
+</schema>

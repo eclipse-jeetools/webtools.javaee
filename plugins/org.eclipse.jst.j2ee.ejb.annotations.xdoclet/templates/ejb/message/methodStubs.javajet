@@ -1,0 +1,68 @@
+<%@ jet package="com.objectlearn.gmf.templates.messageDriven" class="MethodGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.MessageDrivenBean com.sun.java.xml.ns.j2ee.MessageDrivenBeanType com.sun.java.xml.ns.j2ee.MessageDestinationType"%>
+<% DocumentRoot root = (DocumentRoot)argument;
+   MessageDrivenBean     lmdb = (MessageDrivenBean) root.getEjb().getMessageDriven();
+   MessageDrivenBeanType mdb = (MessageDrivenBeanType) lmdb.getMessageDrivenEjb();
+   MessageDestinationType destination = (MessageDestinationType) lmdb.getMessageDestination();
+   String destinationType = mdb.getMessageDestinationType().getValue();
+   boolean isQueue = "javax.jms.Queue".equals(destinationType);
+%>
+/** 
+ * Required method for container to set context.
+ * @generated 
+ */
+public void setMessageDrivenContext(javax.ejb.MessageDrivenContext messageContext) 
+   throws javax.ejb.EJBException { 
+        this.messageContext = messageContext;
+}
+
+
+/** 
+ * Required creation method for message-driven beans. 
+ *
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ *
+ * <!-- begin-xdoclet-definition -->
+ * @ejb.create-method 
+ * <!-- end-xdoclet-definition -->
+ * @generated
+ */ 
+public void ejbCreate() { 
+	//no specific action required for message-driven beans 
+}
+
+
+/** 
+ * Required removal method for message-driven beans. 
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated
+ */ 
+public void ejbRemove() { 
+	messageContext = null; 
+}
+ 
+
+/** 
+ * This method implements the business logic for the EJB. 
+ * 
+ * <p>Make sure that the business logic accounts for asynchronous message processing. 
+ * For example, it cannot be assumed that the EJB receives messages in the order they were 
+ * sent by the client. Instance pooling within the container means that messages are not 
+ * received or processed in a sequential order, although individual onMessage() calls to 
+ * a given message-driven bean instance are serialized. 
+ * 
+ * <p>The <code>onMessage()</code> method is required, and must take a single parameter 
+ * of type javax.jms.Message. The throws clause (if used) must not include an application 
+ * exception. Must not be declared as final or static. 
+ *
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated
+ */ 
+public void onMessage(javax.jms.Message message) { 
+    // begin-user-code
+    System.out.println("Message Driven Bean got message " + message); 
+    // TODO:  do business logic here 
+    // end-user-code
+} 

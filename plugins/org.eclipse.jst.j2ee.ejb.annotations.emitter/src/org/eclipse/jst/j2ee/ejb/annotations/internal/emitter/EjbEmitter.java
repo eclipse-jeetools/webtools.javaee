@@ -1,0 +1,129 @@
+/***************************************************************************************************
+ * Copyright (c) 2005 Eteration A.S. and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: Eteration A.S. - initial API and implementation
+ **************************************************************************************************/
+
+package org.eclipse.jst.j2ee.ejb.annotations.internal.emitter;
+import java.util.Iterator;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.codegen.jet.JETEmitter;
+import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.jst.j2ee.ejb.annotations.IEnterpriseBeanDelegate;
+
+public abstract class EjbEmitter {
+	public static final String CLASSPATHPROVIDER = "classpathProvider";
+	public static final String JAVACLASSPATHVARIABLEPREFIX = "LOMBOZEMITTER";
+	public static final String EJBEMITTERPROJECT = ".LombozEjbEmitter";
+	protected IConfigurationElement emitterConfig;
+	protected IEmitterClasspathProvider classpathProvider;
+	protected String base;
+	protected IProgressMonitor monitor;
+	public EjbEmitter(IConfigurationElement emitterConfig)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException {
+		this.emitterConfig = emitterConfig;
+		String pluginDescriptor = emitterConfig.getDeclaringExtension().getNamespace();
+		
+		org.osgi.framework.Bundle bundle = Platform.getBundle(pluginDescriptor);
+		Class c = bundle.loadClass(emitterConfig
+				.getAttribute(CLASSPATHPROVIDER));
+		classpathProvider = (IEmitterClasspathProvider) c.newInstance();
+		base = bundle.getEntry("/").toString();
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
+				EJBEMITTERPROJECT);
+		IProgressMonitor monitor = new NullProgressMonitor();
+		project.delete(true, true, monitor);
+	}
+	public abstract String emitTypeComment(IEnterpriseBeanDelegate enterpriseBean)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+	public abstract String emitTypeStub(IEnterpriseBeanDelegate enterpriseBean)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+	public abstract String emitInterfaceMethods(IEnterpriseBeanDelegate enterpriseBean)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+	public abstract String emitFields(IEnterpriseBeanDelegate enterpriseBean)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, CoreException;
+	/**
+	 * @param uri
+	 * @return @throws
+	 *         JETException
+	 */
+	protected JETEmitter createJetEmitter(String uri) throws JETException {
+		JETEmitter emitter = new JETEmitter(uri, this.getClass()
+				.getClassLoader());
+		emitter.setProjectName(EJBEMITTERPROJECT);
+		Iterator iterator = classpathProvider.getClasspathItems().iterator();
+		int count = 0;
+		while (iterator.hasNext()) {
+			String cpItem = (String) iterator.next();
+			emitter.addVariable(JAVACLASSPATHVARIABLEPREFIX + count++, cpItem);
+		}
+		return emitter;
+	}
+	public String generate(String templatesBase, String template,
+			IEnterpriseBeanDelegate enterpriseBean) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException, CoreException {
+		String uri = base + templatesBase + template;
+		String result = "";
+		IProgressMonitor monitor = this.getMonitor();
+		JETEmitter emitter = createJetEmitter(uri);
+		result = emitter.generate(monitor, new Object[]{enterpriseBean});
+		return result;
+	}
+	/**
+	 * @return Returns the monitor.
+	 */
+	public IProgressMonitor getMonitor() {
+		if (monitor == null) {
+			monitor = new IProgressMonitor() {
+				private boolean cancelled = false;
+				public void beginTask(String name, int totalWork) {
+					System.out.println(this.getClass() + " Progress ("
+							+ totalWork + "): " + name);
+				}
+				public void done() {
+				}
+				public void internalWorked(double work) {
+				}
+				public boolean isCanceled() {
+					return cancelled;
+				}
+				public void setCanceled(boolean value) {
+					cancelled = value;
+				}
+				public void setTaskName(String name) {
+					System.out.println(this.getClass() + " Progress Task("
+							+ name + "): ");
+				}
+				public void subTask(String name) {
+					System.out.println(this.getClass() + " Progress SubTask("
+							+ name + "): ");
+				}
+				public void worked(int work) {
+				}
+			};
+		}
+		return monitor;
+	}
+	/**
+	 * @param monitor
+	 *            The monitor to set.
+	 */
+	public void setMonitor(IProgressMonitor monitor) {
+		this.monitor = monitor;
+	}
+}

@@ -1,0 +1,9 @@
+<%@ jet package="com.objectlearn.gmf.templates.messageDriven" class="TypeStubGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.MessageDrivenBean com.sun.java.xml.ns.j2ee.MessageDrivenBeanType com.sun.java.xml.ns.j2ee.MessageDestinationType"%>
+<% DocumentRoot root = (DocumentRoot)argument;
+   MessageDrivenBean     lmdb = (MessageDrivenBean) root.getEjb().getMessageDriven();
+   MessageDrivenBeanType mdb = (MessageDrivenBeanType) lmdb.getMessageDrivenEjb();
+%>
+
+public class <%=mdb.getEjbClass().getUnqualifiedClassName()%> implements javax.ejb.MessageDrivenBean, javax.jms.MessageListener
+{
+}
