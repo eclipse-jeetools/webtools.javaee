@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.proxy.remote;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.3 $ $Date: 2004/02/06 20:43:52 $
+ * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.4 $ $Date: 2004/02/11 16:03:41 $
  */
 
 import java.io.IOException;
@@ -340,14 +340,14 @@ public class ProxyRegistration implements IRegistration {
 		if (!autobuilding) {
 			// We are not autobuilding. So kick off a build right here and
 			// wait for it.
-			ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, pm);
+			ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, pm);			
 		} else {
 			Job[] build = Platform.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
 			if (build.length == 1) {
-				if (build[0].getState() == Job.RUNNING || build[0].getState() == Job.WAITING) {
+				if (build[0].getState() == Job.RUNNING || build[0].getState() == Job.WAITING || build[0].getState() == Job.SLEEPING) {
 					pm.beginTask(ProxyRemoteMessages.getString("ProxyRemoteWaitForBuild"), 100); //$NON-NLS-1$
-					try {
-						build[0].join();
+					try {						
+						build[0].join();						
 					} catch (InterruptedException e) {
 						throw new CoreException(
 							new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), IStatus.ERROR, "", e)); //$NON-NLS-1$

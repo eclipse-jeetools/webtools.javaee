@@ -97,6 +97,30 @@
          </attribute>
       </complexType>
    </element>
+   <element name="functionGroupPatternBinding">
+      <annotation>
+         <documentation>
+            This element allows one to bind function groups to patterns.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="functionGroupID" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The unique identifier of the function group to bind.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="pattern" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The pattern to be bound. Patterns are regular expressions which match unique identifiers.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+   
 
    <annotation>
       <appInfo>

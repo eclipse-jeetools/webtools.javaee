@@ -81,11 +81,23 @@
    </element>
 
    <element name="editModelResource">
+      <annotation>
+         <documentation>
+            This is an individual contribution of a resource to the edit model.  If more than one instance of the same URI is registered against an edit model id, the resource is still only loaded once.
+         </documentation>
+      </annotation>
       <complexType>
          <attribute name="URI" type="string" use="required">
             <annotation>
                <documentation>
                   The URI of the resource relative to the root container from which EMF resources are loaded.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="autoload" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  Indicator which determines whether this resource should be autoloaded when the edit model is created, or when an IFile corresponding to this resource is added.
                </documentation>
             </annotation>
          </attribute>

@@ -19,6 +19,7 @@
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.apache.xerces"/>
       <import plugin="org.eclipse.wtp.common"/>
+      <import plugin="org.eclipse.core.runtime.compatibility"/>
    </requires>
 
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/11 16:03:34 $ 
  */
 
 
@@ -56,7 +56,14 @@ public class BeaninfoPlugin extends Plugin {
 	
 	// Map of registered beaninfos, mapped key is path, value is BeaninfoRegistration[].
 	// It is allowed to have more than one. They will be concatenated together when used.
-	private HashMap beaninfos = new HashMap();
+	private Map beaninfos = null;
+	private Map getBeaninfoRegistrations() {
+		if (beaninfos == null) {
+			beaninfos = new HashMap(30);
+			processRegistrationExtensionPoint();
+		}
+		return beaninfos;
+	}
 	
 	// Corresponding arrays, that map one to the other.
 	// Fragments is the array of package fragments, as paths (per plugin), that are registered.
@@ -73,6 +80,8 @@ public class BeaninfoPlugin extends Plugin {
 		
 		protected OverridePathSearch(IPath packagePath) {
 			this.packagePath = packagePath;
+			if (fragments == null)
+				processOverridesExtensionPoint();
 		}
 		
 		/**
@@ -137,7 +146,7 @@ public class BeaninfoPlugin extends Plugin {
 	 * the variable's path to share the same beaninfo registration information.
 	 */
 	public void registerBeaninfoRegistration(IPath path, BeaninfoRegistration registration) {
-		BeaninfoRegistration[] registered = (BeaninfoRegistration[]) beaninfos.get(path);
+		BeaninfoRegistration[] registered = (BeaninfoRegistration[]) getBeaninfoRegistrations().get(path);
 		if (registered == null)
 			registered = new BeaninfoRegistration[] {registration};
 		else {
@@ -147,7 +156,7 @@ public class BeaninfoPlugin extends Plugin {
 			registered[old.length] = registration;
 		}
 		
-		beaninfos.put(path, registered);
+		getBeaninfoRegistrations().put(path, registered);
 	}
 	
 	/**
@@ -158,7 +167,7 @@ public class BeaninfoPlugin extends Plugin {
 	 * the variable's path to share the same beaninfo registration information.
 	 */	
 	public void registerBeaninfoRegistration(IPath path, BeaninfoRegistration[] registrations) {
-		BeaninfoRegistration[] registered = (BeaninfoRegistration[]) beaninfos.get(path);
+		BeaninfoRegistration[] registered = (BeaninfoRegistration[]) getBeaninfoRegistrations().get(path);
 		if (registered == null) {
 			registered = new BeaninfoRegistration[registrations.length];
 			System.arraycopy(registrations, 0, registered, 0, registrations.length);
@@ -169,24 +178,14 @@ public class BeaninfoPlugin extends Plugin {
 			System.arraycopy(registrations, 0, registered, old.length, registrations.length);
 		}
 		
-		beaninfos.put(path, registered);
+		getBeaninfoRegistrations().put(path, registered);
 	}
 	
 	/**
 	 * Return the registrations for a specified path. Return null if not registered.
 	 */
 	public BeaninfoRegistration[] getRegistrations(IPath path) {
-		return (BeaninfoRegistration[]) beaninfos.get(path);
-	}
-
-	/*
-	 * @see Plugin#startup()
-	 */
-	public void startup() throws CoreException {
-		super.startup();
-		
-		processRegistrationExtensionPoint();
-		processOverridesExtensionPoint();
+		return (BeaninfoRegistration[]) getBeaninfoRegistrations().get(path);
 	}
 
 	protected void processRegistrationExtensionPoint() {
@@ -195,24 +194,24 @@ public class BeaninfoPlugin extends Plugin {
 		HashMap registrations = new HashMap();
 		IExtension[] extensions = getDescriptor().getExtensionPoint(PI_BEANINFO_REGISTRATIONS).getExtensions();
 		// Need to be in plugin order so that first ones processed have no dependencies on others.
-		HashMap pluginsToExtensions = new HashMap(extensions.length);
+		HashMap pluginDescriptorsToExtensions = new HashMap(extensions.length);
 		for (int i = 0; i < extensions.length; i++) {
 			IPluginDescriptor desc = extensions[i].getDeclaringPluginDescriptor();
-			IExtension[] ext = (IExtension[]) pluginsToExtensions.get(desc);
+			IExtension[] ext = (IExtension[]) pluginDescriptorsToExtensions.get(desc);
 			if (ext == null)
-				pluginsToExtensions.put(desc, new IExtension[] {extensions[i]});
+				pluginDescriptorsToExtensions.put(desc, new IExtension[] {extensions[i]});
 			else {
 				// More than one extension defined in this plugin.
 				IExtension[] newExt = new IExtension[ext.length + 1];
 				System.arraycopy(ext, 0, newExt, 0, ext.length);
 				newExt[newExt.length-1] = extensions[i];
-				pluginsToExtensions.put(desc, newExt);
+				pluginDescriptorsToExtensions.put(desc, newExt);
 			}
 		}
 		
-		IPluginDescriptor[] ordered = ProxyPlugin.orderPlugins(pluginsToExtensions.keySet());
+		IPluginDescriptor[] ordered = ProxyPlugin.orderPlugins(pluginDescriptorsToExtensions.keySet());
 		for (int i = 0; i < ordered.length; i++) {
-			IExtension[] exts = (IExtension[]) pluginsToExtensions.get(ordered[i]);
+			IExtension[] exts = (IExtension[]) pluginDescriptorsToExtensions.get(ordered[i]);
 			for (int j = 0; j < exts.length; j++) {			
 				IConfigurationElement[] configs = exts[j].getConfigurationElements();
 				for (int k = 0; k < configs.length; k++) {
@@ -259,28 +258,28 @@ public class BeaninfoPlugin extends Plugin {
 		// Read in the registration information from the extensions.
 		IExtension[] extensions = getDescriptor().getExtensionPoint(PI_BEANINFO_OVERRIDES).getExtensions();
 		// Need to be in plugin order so that first ones processed have no dependencies on others.
-		HashMap pluginsToExtensions = new HashMap(extensions.length);
+		HashMap pluginDescriptorsToExtensions = new HashMap(extensions.length);
 		for (int i = 0; i < extensions.length; i++) {
 			IPluginDescriptor desc = extensions[i].getDeclaringPluginDescriptor();
-			IExtension[] ext = (IExtension[]) pluginsToExtensions.get(desc);
+			IExtension[] ext = (IExtension[]) pluginDescriptorsToExtensions.get(desc);
 			if (ext == null)
-				pluginsToExtensions.put(desc, new IExtension[] {extensions[i]});
+				pluginDescriptorsToExtensions.put(desc, new IExtension[] {extensions[i]});
 			else {
 				// More than one extension defined in this plugin.
 				IExtension[] newExt = new IExtension[ext.length + 1];
 				System.arraycopy(ext, 0, newExt, 0, ext.length);
 				newExt[newExt.length-1] = extensions[i];
-				pluginsToExtensions.put(desc, newExt);
+				pluginDescriptorsToExtensions.put(desc, newExt);
 			}
 		}
 		
 		// Now order them so we process in required order.
 		HashMap overrideMap = new HashMap();	// Working override map per plugin
-		IPluginDescriptor[] ordered = ProxyPlugin.orderPlugins(pluginsToExtensions.keySet());
+		IPluginDescriptor[] ordered = ProxyPlugin.orderPlugins(pluginDescriptorsToExtensions.keySet());
 		fragments = new IPath[ordered.length][];
 		paths = new String[ordered.length][][];
 		for (int i = 0; i < ordered.length; i++) {
-			IExtension[] exts = (IExtension[]) pluginsToExtensions.get(ordered[i]);
+			IExtension[] exts = (IExtension[]) pluginDescriptorsToExtensions.get(ordered[i]);
 			overrideMap.clear();
 			for (int j = 0; j < exts.length; j++) {			
 				IConfigurationElement[] configs = exts[j].getConfigurationElements();

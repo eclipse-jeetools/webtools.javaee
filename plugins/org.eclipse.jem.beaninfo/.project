@@ -15,6 +15,7 @@
 		<project>org.eclipse.jem</project>
 		<project>org.eclipse.jem.proxy</project>
 		<project>org.eclipse.jem.workbench</project>
+		<project>org.eclipse.osgi</project>
 		<project>org.eclipse.wtp.emf.workbench</project>
 	</projects>
 	<buildSpec>

@@ -11,27 +11,25 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/19 22:50:35 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/11 16:03:41 $ 
  */
 
 
 import java.io.*;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.*;
 
 import org.eclipse.core.boot.BootLoader;
-import org.eclipse.core.internal.plugins.IPluginVisitor;
 import org.eclipse.core.internal.plugins.PluginRegistry;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.model.*;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.*;
+import org.eclipse.osgi.util.ManifestElement;
+import org.osgi.framework.*;
+
 import org.eclipse.jem.internal.core.EclipseLogMsgLogger;
 import org.eclipse.jem.internal.core.MsgLogger;
 
@@ -76,7 +74,7 @@ public class ProxyPlugin extends Plugin {
 	public ProxyPlugin(IPluginDescriptor pluginDescriptor) {
 		super(pluginDescriptor);
 		PROXY_PLUGIN = this;
-		devMode = BootLoader.inDevelopmentMode();
+		devMode = BootLoader.inDevelopmentMode();	// TODO need to get rid of this, they use system properties. Not sure if set though.
 		
 	}
 
@@ -270,49 +268,70 @@ public class ProxyPlugin extends Plugin {
 	 */
 	public URL[] urlLocalizeFromPluginDescriptorAndFragments(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
 
-		PluginFragmentModel[] fragments = ((PluginDescriptorModel) pluginDescriptor).getFragments();	// See if there are any fragments
-		if (fragments == null || fragments.length == 0) {
-			URL result = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
-			return result != null ? new URL[] {result} : new URL[0];
-		} else {
-			ArrayList urls = new ArrayList(fragments.length+1);
-			URL url = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
-			if (url != null)
-				urls.add(url);
-			for (int i=0; i<fragments.length; i++) {
-				PluginFragmentModel fragment = fragments[i];
-				url = urlLocalizeFromFragment(fragment, filenameWithinPlugin);
+		// TODO Need to switch to OSGi API when stable. This will not pick up non-legacy Bundles.
+		try {
+			Bundle[] fragments = pluginDescriptor.getPlugin().getBundle().getFragments(); // See if there are any fragments
+			if (fragments == null || fragments.length == 0) {
+				URL result = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
+				return result != null ? new URL[] { result }
+				: new URL[0];
+			} else {
+				ArrayList urls = new ArrayList(fragments.length + 1);
+				URL url = urlLocalizeFromPluginDescriptor(pluginDescriptor, filenameWithinPlugin);
 				if (url != null)
 					urls.add(url);
-				// Also, look through the libraries of the fragment to see if one matches the special path.
-				LibraryModel[] libraries = fragment.getRuntime();
-				if (libraries != null && libraries.length > 0) {
-					int extndx = filenameWithinPlugin.lastIndexOf('.');
-					String libFile = null;
-					if (extndx != -1)
-						libFile = filenameWithinPlugin.substring(0, extndx) + '.' + fragment.getId() + filenameWithinPlugin.substring(extndx);
-					else
-						libFile = filenameWithinPlugin + '.' + fragment.getId();
-					for (int j = 0; j < libraries.length; j++) {
-						if (libFile.equals(libraries[j].getName())) {
-							url = urlLocalizeFromFragment(fragment, libFile);
-							if (url != null)
-								urls.add(url);
-							break;
-						}	
-					}	
+				for (int i = 0; i < fragments.length; i++) {
+					Bundle fragment = fragments[i];
+					try {
+						url = fragment.getEntry(filenameWithinPlugin);
+						if (url != null)
+							urls.add(url);
+					} catch (IOException e) {
+						// skip it.
+					}
+					// Also, look through the libraries of the fragment to see if one matches the special path.				
+					// This is where one of the runtime libraries has the fragment id in it. 
+					// TODO This needs to be completely relooked at when we have a stable OSGi API. Not sure how
+					// this will work with that. (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments
+					String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
+					try {
+						ManifestElement[] classpaths = ManifestElement.parseClassPath(classpath);
+						if (classpaths != null && classpaths.length > 0) {
+							int extndx = filenameWithinPlugin.lastIndexOf('.');
+							String libFile = null;
+							if (extndx != -1)
+								libFile =
+									filenameWithinPlugin.substring(0, extndx)
+										+ '.'
+										+ fragment.getBundleId()
+										+ filenameWithinPlugin.substring(extndx);
+							else
+								libFile = filenameWithinPlugin + '.' + fragment.getBundleId();
+							for (int j = 0; j < classpaths.length; j++) {
+								IPath cp = new Path(classpaths[j].getValue());
+								// The last segment should be the file name. That is the name we are looking for.
+								if (libFile.equals(cp.lastSegment())) {
+									try {
+										url = fragment.getEntry(classpaths[j].getValue());
+										// Though the actual classpath entry is the file we are looking for.
+										if (url != null)
+											urls.add(url);
+										break;
+									} catch (IOException e) {
+										// Ignore it if i/o error.
+									}
+								}
+							}
+						}
+					} catch (BundleException e) {
+						ProxyPlugin.getPlugin().getMsgLogger().log(e, MsgLogger.LOG_INFO);
+					}
 				}
+				return (URL[]) urls.toArray(new URL[urls.size()]);
 			}
-			return (URL[]) urls.toArray(new URL[urls.size()]);
-		}
-	}
-	
-	private URL urlLocalizeFromFragment(PluginFragmentModel fragmentDescriptor, String filenameWithinPlugin) {
-		try {
-			URL installURL = new URL("platform:/fragment/"+ fragmentDescriptor.toString() + "/");	// Could change in future, but they hid getInstallURL from fragment model. //$NON-NLS-1$ //$NON-NLS-2$
-			return urlLocalize(installURL, filenameWithinPlugin, true);	// Fragments need to be tested because they may not exist.
-		} catch (MalformedURLException e) {
-			return null;
+		} catch (CoreException e) {
+			ProxyPlugin.getPlugin().getMsgLogger().log(e, MsgLogger.LOG_INFO);
+			return new URL[0];
 		}
 	}
 	
@@ -390,28 +409,85 @@ public class ProxyPlugin extends Plugin {
 		public void contributeToRegistry(ProxyFactoryRegistry registry) {
 		}
 	}
-	
+
 	/**
 	 * A helper to order the plugin descriptors into pre-req order. 
 	 * If A eventually depends on B, then B will be ahead of A in the
 	 * list of plugins. (I.e. B is a pre-req somewhere of A).
+	 *  
+	 * @param pluginDescriptorsToOrder - IPluginDescriptors of interest. The results will have these in there correct order.
+	 * @return An array of the IPluginDescriptors in there order from no prereqs in set to the leaves.
+	 * 
+	 * @since 1.0.0
 	 */
-	public static IPluginDescriptor[] orderPlugins(final Set pluginsToOrder) {
-		// Use the internal method in PluginRegistry to do this. If we ever loose this, made to come up with a different way.
+	public static IPluginDescriptor[] orderPlugins(final Set pluginDescriptorsToOrder) {
 		PluginRegistry registry = (PluginRegistry) Platform.getPluginRegistry();
-		final int[] ndx = new int[] {pluginsToOrder.size()};
-		final IPluginDescriptor[] result = new IPluginDescriptor[ndx[0]];
-		IPluginVisitor visitor = new IPluginVisitor() {
-			/**
-			 * @see org.eclipse.core.internal.plugins.IPluginVisitor#visit(IPluginDescriptor)
-			 */
-			public void visit(IPluginDescriptor descriptor) {
-				if (pluginsToOrder.contains(descriptor))
-					result[--ndx[0]] = descriptor;
+		int ndx = pluginDescriptorsToOrder.size();
+		IPluginDescriptor[] result = new IPluginDescriptor[ndx];
+		Map dependents = getDependentCounts(false);	// We want the inactive ones too. That way have complete order. They can be ignored later if necessary.
+		// keep iterating until all have been visited. This will actually find them in reverse order from what we
+		// want, i.e. it will find the leaves first. So we will build result array in reverse order.
+		while (!dependents.isEmpty()) {
+			// loop over the dependents list.  For each entry, if there are no dependents, visit
+			// the plugin and remove it from the list.  Make a copy of the keys so we don't end up
+			// with concurrent accesses (since we are deleting the values as we go)
+			Iterator pds = dependents.entrySet().iterator();
+			while (pds.hasNext()) {
+				Map.Entry entry = (Map.Entry) pds.next();
+				IPluginDescriptor descriptor = (IPluginDescriptor) entry.getKey() ;
+				int[] count = (int[]) entry.getValue();
+				if (count != null && count[0] <= 0) {
+					if (pluginDescriptorsToOrder.contains(descriptor))
+						result[--ndx] = descriptor;
+					pds.remove();
+					// decrement the dependent count for all of the prerequisites.
+					IPluginPrerequisite[] requires = descriptor.getPluginPrerequisites();
+					int reqSize = (requires == null) ? 0 : requires.length;
+					for (int j = 0; j < reqSize; j++) {
+						String id = requires[j].getUniqueIdentifier();
+						IPluginDescriptor prereq = registry.getPluginDescriptor(id);
+						int[] countPrereq = (int[]) dependents.get(prereq);
+						if (countPrereq != null)
+							--countPrereq[0];
+					}
+				}
 			}
-		};
-		registry.accept(visitor, false);
+		}
 		return result;
+	}
+	
+	
+	private static Map getDependentCounts(boolean activeOnly) {
+		// TODO This needs to move to OSGi format when that API becomes stable. Currently this cannot handle
+		// plugins that are totally OSGi and not legacy.
+		IPluginRegistry registry = Platform.getPluginRegistry();
+		IPluginDescriptor[] descriptors = Platform.getPluginRegistry().getPluginDescriptors();
+		int descSize = (descriptors == null) ? 0 : descriptors.length;
+		Map dependents = new HashMap(descSize);
+		// build a table of all dependent counts.  The table is keyed by descriptor and
+		// the value the integer number of dependent plugins.
+		for (int i = 0; i < descSize; i++) {
+			if (activeOnly && !descriptors[i].isPluginActivated())
+				continue;
+			// ensure there is an entry for this descriptor (otherwise it will not be visited)
+			int[] entry = (int[]) dependents.get(descriptors[i]);
+			if (entry == null)
+				dependents.put(descriptors[i], new int[1]);
+			IPluginPrerequisite[] requires = descriptors[i].getPluginPrerequisites();
+			int reqSize = (requires == null ? 0 : requires.length);
+			for (int j = 0; j < reqSize; j++) {
+				String id = requires[j].getUniqueIdentifier();
+				IPluginDescriptor prereq = registry.getPluginDescriptor(id);
+				if (prereq == null || activeOnly && !prereq.isPluginActivated())
+					continue;
+				entry = (int[]) dependents.get(prereq);
+				if (entry == null)
+					dependents.put(prereq, new int[] {1});
+				else
+					++entry[0];
+			}
+		}
+		return dependents;
 	}
 	
 	public static Process exec(String[] cmdLine, File workingDirectory, String[] environmentProperties) throws CoreException {
