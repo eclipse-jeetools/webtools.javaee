@@ -17,6 +17,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 public abstract class AbstractOpenWizardWorkbenchAction extends AbstractOpenWizardAction implements org.eclipse.ui.IWorkbenchWindowActionDelegate {
 	protected AbstractOpenWizardWorkbenchAction() {
+		//Default
 	}
 
 	public AbstractOpenWizardWorkbenchAction(IWorkbench workbench, String label, Class[] activatedOnTypes, boolean acceptEmptySelection) {
