@@ -46,5 +46,12 @@ public class RARExportOperationTest extends ModuleExportOperationTestCase {
 	protected ModuleImportOperationTestCase getImportTestCase() { 
 		return new RARImportOperationTest("");
 	}
+	
+	/**
+	 * @return
+	 */
+	public String getModuleExportFileExt() {
+		return ".rar";
+	}
 
 }

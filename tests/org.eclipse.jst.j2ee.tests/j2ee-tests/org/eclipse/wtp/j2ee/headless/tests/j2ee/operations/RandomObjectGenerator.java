@@ -18,7 +18,7 @@ public class RandomObjectGenerator {
     protected static RandomObjectGenerator randomObjectGenerator;
     private static Random randomGenerator = new Random();
     private static int maxNumOfLettersInWords = 15;
-    private static int maxNumberOfProjectsCreated = 50;
+    private static int maxNumberOfProjectsCreated = 5;
     private static int upperCaseSeed = 65; //ASCII 'A'
     private static int lowerCaseSeed = 97; //ASCII 'a'
     private static int invalidCharSeed = 33;

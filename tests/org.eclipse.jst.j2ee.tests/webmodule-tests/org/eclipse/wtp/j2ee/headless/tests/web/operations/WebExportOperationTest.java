@@ -61,5 +61,12 @@ public class WebExportOperationTest extends ModuleExportOperationTestCase {
 	protected ModuleImportOperationTestCase getImportTestCase() {
 		return new WebImportOperationTest("");
 	}
+	
+	/**
+	 * @return
+	 */
+	public String getModuleExportFileExt() {
+		return ".war";
+	}
 
 }

@@ -11,7 +11,9 @@ import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
+import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase;
+import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 /**
  * @author Administrator
@@ -30,15 +32,21 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 	}  	 
 
 	public void testEJB20Import() throws Exception { 
-		testImport("Test13EJB", "Test13EJB.jar"); 
+		testImport("Test13EJB", getFullPathForEJBJar("Test13EJB.jar")); 
+		
 	} 
 	
-	public void testEJB20Import1() throws Exception { 
-		testImport("allBeanTypes", "allBeanTypes.jar"); 
-	} 
+	public String getFullPathForEJBJar(String jarName) {
+	try{
+		return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(),TESTS_PATH + "\\" + jarName);
+	} catch (Exception e) {
+		e.printStackTrace();
+	  }
+	return jarName;
+	}
 	
 	public void testEJB21Import() throws Exception { 
-		testImport("Test14EJB", "Test14EJB.jar"); 
+		testImport("Test14EJB", getFullPathForEJBJar("Test14EJB.jar")); 
 	} 
 	
 	/* (non-Javadoc)

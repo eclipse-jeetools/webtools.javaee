@@ -50,7 +50,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     public void testNoAddToEAR() throws Exception {
         J2EEModuleCreationDataModel dataModel = getProjectCreationDataModel();
         dataModel.setProperty(J2EEModuleCreationDataModel.PROJECT_NAME, "SimpleEJB");
-        dataModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
+        dataModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, false);
         dataModel.setProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME, "SimpleEAR");
         runAndVerify(dataModel);
     }

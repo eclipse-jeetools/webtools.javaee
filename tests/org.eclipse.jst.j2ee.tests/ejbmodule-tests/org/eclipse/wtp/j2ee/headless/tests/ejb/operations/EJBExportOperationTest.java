@@ -42,5 +42,7 @@ public class EJBExportOperationTest extends ModuleExportOperationTestCase {
 	protected ModuleImportOperationTestCase getImportTestCase() {
 		return new EJBImportOperationTest("");
 	}
+	
+	
 
 }

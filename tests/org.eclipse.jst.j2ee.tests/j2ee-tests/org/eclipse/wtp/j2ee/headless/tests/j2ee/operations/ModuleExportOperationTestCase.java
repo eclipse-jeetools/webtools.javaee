@@ -159,7 +159,14 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 
 	public String getFileName(String baseName) {
 		StringBuffer result = new StringBuffer(baseName);
-		result.append((exportSourceFiles) ? "_withSource" : "_withoutSource").append(".jar");
+		result.append((exportSourceFiles) ? "_withSource" : "_withoutSource").append(getModuleExportFileExt());
 		return result.toString();
+	}
+
+	/**
+	 * @return
+	 */
+	public String getModuleExportFileExt() {
+		return ".jar";
 	}
 }

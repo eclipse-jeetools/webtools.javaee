@@ -35,22 +35,22 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         ProjectUtility.verifyProject(dataModel.getTargetProject().getName(), true);
         EJBEditModel editModel = null;
         Object key = new Object();
+        EJBNatureRuntime ejbRuntime = EJBNatureRuntime.getRuntime(dataModel.getTargetProject());
         try {
-        	EJBNatureRuntime eRuntime = EJBNatureRuntime.getRuntime(dataModel.getTargetProject());
-           // EMFWorkbenchContext emfWorkbenchContext = WorkbenchResourceHelper.createEMFContext(dataModel.getTargetProject(), null);
-            editModel = (EJBEditModel)eRuntime.getEditModelForRead(dataModel.getStringProperty(EditModelOperationDataModel.EDIT_MODEL_ID), key);
+            editModel = (EJBEditModel)ejbRuntime.getEditModelForRead(dataModel.getStringProperty(EditModelOperationDataModel.EDIT_MODEL_ID), key);
             XMLResource dd = editModel.getDeploymentDescriptorResource();
             Assert.assertNotNull("Deployment Descriptor Null", dd);
         } finally {
             editModel.releaseAccess(key);
         }
         if (dataModel.getBooleanProperty(EJBModuleCreationDataModel.ADD_TO_EAR)) {
-            IProject earProject = dataModel.getTargetProject();
+            EARNatureRuntime[] earRuntimes = ejbRuntime.getReferencingEARProjects();
+            IProject earProject = earRuntimes[0].getProject();
             EAREditModel earEditModel = null;
             try {
                 Assert.assertTrue("EAR doesn't exist:", earProject.exists());
                 EARNatureRuntime runtime = EARNatureRuntime.getRuntime(earProject);
-                earEditModel = (EAREditModel) runtime.getEarEditModelForRead(key);
+                earEditModel = (EAREditModel) earRuntimes[0].getEarEditModelForRead(key);
                 earEditModel.getModuleMapping(dataModel.getTargetProject());
                 //TODO
             } finally {

@@ -11,6 +11,8 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -78,6 +80,8 @@ public abstract class OperationTestCase extends TestCase {
     }
 
     public static void verifyValidDataModel(WTPOperationDataModel dataModel) {
+    	 if(dataModel instanceof WebModuleExportDataModel )
+        	System.out.print("");
         IStatus status = dataModel.validateDataModel();
         if (!status.isOK()) {
             Assert.assertTrue("DataModel is invalid operation will not run:" + status.getMessage(), false);
