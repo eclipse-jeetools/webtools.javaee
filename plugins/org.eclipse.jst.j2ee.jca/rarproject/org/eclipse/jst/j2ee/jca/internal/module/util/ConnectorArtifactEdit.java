@@ -106,7 +106,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addConnectorIfNecessary(getConnectorXmiResource());
+		addConnectorIfNecessary(getConnectorXmiResource(), null);
 		return (EObject) contents.get(0);
 	}
 	
@@ -124,7 +124,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addConnectorIfNecessary(XMLResource aResource) {
+	protected void addConnectorIfNecessary(XMLResource aResource, Integer version) {
 
 		if (aResource != null && aResource.getContents().isEmpty()) {
 			Connector connector = JcaFactory.eINSTANCE.createConnector();
@@ -132,6 +132,8 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				connector.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				if(version != null)
+				    connector.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(connector, J2EEConstants.CONNECTOR_ID);
@@ -245,10 +247,15 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public EObject createModelRoot() {
-		if(getConnectorXmiResource() == null) {
-			 addConnectorIfNecessary(getConnectorXmiResource());
-		}
-		return getConnectorXmiResource().getRootObject();
+	    return createModelRoot(null);
 	}
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
+     */
+    public EObject createModelRoot(Integer version) {
+	    addConnectorIfNecessary((ConnectorResource)getDeploymentDescriptorResource(), version);
+		return ((ConnectorResource)getDeploymentDescriptorResource()).getRootObject();
+    }
+
 
 }

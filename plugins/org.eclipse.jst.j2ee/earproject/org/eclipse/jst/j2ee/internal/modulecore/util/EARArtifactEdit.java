@@ -13,17 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -227,18 +223,24 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @param aModule
 	 *            A non-null pointing to a {@see XMLResource}
+	 * @param version
+	 * 			Version to be set on resource....if null default is taken
 	 * 
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addApplicationIfNecessary(XMLResource aResource) {
-
-		if (aResource != null && aResource.getContents().isEmpty()) {
-			Application application = ApplicationFactory.eINSTANCE.createApplication();
-			aResource.getContents().add(application);
+	protected void addApplicationIfNecessary(XMLResource aResource, Integer version) {
+	    if (aResource != null) {
+		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
+		        Application newApp = ApplicationFactory.eINSTANCE.createApplication();
+				aResource.getContents().add(newApp);
+		    } 
+		    Application application = (Application)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				application.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				if(version != null)
+				    application.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(application, J2EEConstants.APPL_ID);
@@ -271,56 +273,15 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
 	public EObject createModelRoot() {
-		return null;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
-	 */
-	public EObject createModelRoot(String moduleName, int version) {
-		URI moduleURI = getArtifactEditModel().getModuleURI();
-		String uriString = moduleName + IPath.SEPARATOR + ArchiveConstants.APPLICATION_DD_URI;
-		URI uri = URI.createURI(uriString);
-		XMLResource resource = (XMLResource)getArtifactEditModel().createResource(uri);
-		Application app = ApplicationPackage.eINSTANCE.getApplicationFactory().createApplication();
-		app.setDisplayName(moduleName);
-		resource.getContents().add(app);
-		resource.setID(app, ArchiveConstants.APPL_ID);
-		resource.setJ2EEVersionID(version);
-		try {
-			resource.saveIfNecessary();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return getApplicationXmiResource().getRootObject();
+	    return createModelRoot(null);
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
+	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
 	 */
-	public EObject createModelRoot(int version) {
-	    // TODO Auto-generated method stub
-	    return null;
+	public EObject createModelRoot(Integer version) {
+	    addApplicationIfNecessary((ApplicationResource)getDeploymentDescriptorResource(), version);
+		return ((ApplicationResource)getDeploymentDescriptorResource()).getRootObject();
 	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.common.modulecore.IEditModelHandler#save(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public void save(IProgressMonitor aMonitor) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.common.modulecore.IEditModelHandler#saveIfNecessary(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public void saveIfNecessary(IProgressMonitor aMonitor) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	/**
 	 * @param WorkbenchComponent
 	 * @return - a list of util modules referred by a given j2ee module

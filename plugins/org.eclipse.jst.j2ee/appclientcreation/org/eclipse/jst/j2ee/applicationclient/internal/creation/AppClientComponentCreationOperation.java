@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientArtifactEdit;
@@ -22,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
 import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
@@ -39,16 +41,29 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
 		appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/appClientModule"), 0, null);
 		
 		//create and link META-INF folder
-		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + "appClientModule" + "/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
-		metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + "appClientModule" + "/"  + J2EEConstants.META_INF), 0, null);
+    	IVirtualFolder metaInfFolder = appClientModuleFolder.getFolder(J2EEConstants.META_INF);
+    	metaInfFolder.create(true, true, null);	
     }
     
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         
         AppClientArtifactEdit artifactEdit = null;
+		//should cache wbmodule when created instead of  searching ?
+        ModuleCore moduleCore = null;
+        WorkbenchComponent wbmodule = null;
         try {
-
-            //TODO: create dd
+            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
+            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(AppClientComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+        } finally {
+            if (null != moduleCore) {
+                moduleCore.dispose();
+            }
+        }	
+        
+       	try{
+       	    artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbmodule);
+       	 	artifactEdit.createModelRoot((Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION));
+       	 	artifactEdit.save(monitor);
             
         	AppClientComponentCreationDataModel dataModel = (AppClientComponentCreationDataModel) operationDataModel;
             if (dataModel.getBooleanProperty(AppClientComponentCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
@@ -60,10 +75,11 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
                 //mainClassDataModel.getDefaultOperation().run(monitor);
                 //dataModel.getUpdateManifestDataModel().setProperty(UpdateManifestDataModel.MAIN_CLASS, mainClassDataModel.getProperty(NewJavaClassDataModel.CLASS_NAME));
             }
-        } finally {
+        } catch(Exception e){
+       		Logger.getLogger().logError(e);
+       	} finally {
             if (artifactEdit != null)
                 artifactEdit.dispose();
-            artifactEdit = null;
         }
     }
     

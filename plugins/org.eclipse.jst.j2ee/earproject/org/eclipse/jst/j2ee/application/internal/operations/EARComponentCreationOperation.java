@@ -9,7 +9,6 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -22,7 +21,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
 import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
@@ -42,8 +40,11 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
         IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
         component.commit();
 		//create and link META-INF folder
-		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
-		metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + J2EEConstants.META_INF), 0, null);
+		IVirtualFolder root = component.getFolder(new Path("/")); //$NON-NLS-1$		
+		root.createLink(new Path("/" + getModuleName()), 0, null);
+		
+    	IVirtualFolder metaInfFolder = root.getFolder(J2EEConstants.META_INF);
+    	metaInfFolder.create(true, true, null);
     }
 	
 	public IProject getProject() {
@@ -52,34 +53,21 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		String moduleName = (String)operationDataModel.getProperty(EARComponentCreationDataModel.COMPONENT_NAME);
-		IFolder moduleFolder = getProject().getFolder(moduleName);
-		if (!moduleFolder.exists()) {
-			moduleFolder.create(true, true, null);
-		}
-		
-		//should cache wbmodule when created instead of  searching ?
         ModuleCore moduleCore = null;
-        EARArtifactEdit edit = null;
+        EARArtifactEdit earEdit = null;
         try {
         	EARComponentCreationDataModel dm = (EARComponentCreationDataModel)getOperationDataModel();
             moduleCore = ModuleCore.getModuleCoreForWrite(getProject());
-            WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(
-            		operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-       		edit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
-       		int versionId = ((ComponentCreationDataModel)getOperationDataModel()).getIntProperty(ComponentCreationDataModel.COMPONENT_VERSION);
-       		edit.createModelRoot(getModuleName(), versionId);
-       		// set version to WorkbenchComponent
-       		String versionText = J2EEVersionUtil.getJ2EETextVersion(versionId);
-       		earComp.getComponentType().setVersion(versionText);
-			// save
-			moduleCore.saveIfNecessary(null); 
+            WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
+            earEdit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
+            earEdit.createModelRoot((Integer)operationDataModel.getProperty(EARComponentCreationDataModel.J2EE_VERSION));
+            earEdit.save(monitor);
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
             }
-       		if (edit != null)
-       			edit.dispose();
+       		if (earEdit != null)
+       		    earEdit.dispose();
         }		
 	}
 

@@ -129,5 +129,5 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
 	 * @return an EObject
 	 */
 	
-	public abstract EObject createModelRoot(int version);
+	public abstract EObject createModelRoot(Integer version);
 }

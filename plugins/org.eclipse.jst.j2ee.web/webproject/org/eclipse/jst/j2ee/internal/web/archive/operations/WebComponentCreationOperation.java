@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -52,18 +51,22 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
     	IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
     	component.commit();
     	//create and link javaSource Source Folder
-    	IVirtualFolder javaSourceFolder = component.getFolder(new Path("/" + "WebContent" + "/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$		
+    	IVirtualFolder javaSourceFolder = component.getFolder(new Path("/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$		
     	javaSourceFolder.createLink(new Path("/" + getModuleName() + "/JavaSource"), 0, null);
     	
-    	//create and link META-INF folder
-    	IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + "WebContent" + "/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
-    	metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + "WebContent" + "/" + J2EEConstants.META_INF), 0, null);
+    	//create and link META-INF and WEB-INF folder
+    	IVirtualFolder webContent = component.getFolder(new Path("/")); //$NON-NLS-1$		
+    	webContent.createLink(new Path("/" + getModuleName() + "/" + "WebContent" ), 0, null);
     	
-    	//create and link WEB-INF folder
-    	IVirtualFolder webInfFolder = component.getFolder(new Path("/" + "WebContent" + "/" + J2EEConstants.WEB_INF)); //$NON-NLS-1$	
-    	webInfFolder.createLink(new Path("/" + getModuleName() + "/" + "WebContent" + "/" +  J2EEConstants.WEB_INF), 0, null);
+    	IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
+    	webInfFolder.create(true, true, null);
+    	
+    	IVirtualFolder metaInfFolder = webContent.getFolder(J2EEConstants.META_INF);
+    	metaInfFolder.create(true, true, null);
 
-		IVirtualFolder lib = webInfFolder.getFolder("lib"); //$NON-NLS-1$
+    	IVirtualFolder webLib = webInfFolder.getFolder("lib");
+    	webLib.create(true, true, null);
+    	//webLib.create();
     }
     
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -82,20 +85,9 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 
         WebArtifactEdit webEdit = null;
        	try{
-
-       		webEdit = WebArtifactEdit.getWebArtifactEditForWrite( wbmodule );
-       		String projPath = getProject().getLocation().toOSString();
-	
-       		projPath += operationDataModel.getProperty( WebComponentCreationDataModel.DD_FOLDER );
-       		projPath +=IPath.SEPARATOR + J2EEConstants.WEBAPP_DD_SHORT_NAME;
-
-       		IPath webxmlPath = new Path(projPath);
-       		boolean b = webxmlPath.isValidPath(webxmlPath.toString());
-       		if(webEdit != null) {
-       			int moduleVersion = operationDataModel.getIntProperty(WebComponentCreationDataModel.COMPONENT_VERSION);
-  			
-           		webEdit.createModelRoot( getProject(), webxmlPath, moduleVersion );
-       		}
+       		webEdit = WebArtifactEdit.getWebArtifactEditForWrite(wbmodule);
+       		webEdit.createModelRoot((Integer)operationDataModel.getProperty(WebComponentCreationDataModel.JSP_VERSION));
+       		webEdit.save(monitor);
        	}
        	catch(Exception e){
        		Logger.getLogger().logError(e);

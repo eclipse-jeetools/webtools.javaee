@@ -77,7 +77,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addAppClientIfNecessary(getApplicationClientXmiResource());
+		addAppClientIfNecessary(getApplicationClientXmiResource(), null);
 		return (EObject) contents.get(0);
 	}
 	
@@ -105,7 +105,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addAppClientIfNecessary(XMLResource aResource) {
+	protected void addAppClientIfNecessary(XMLResource aResource, Integer version) {
 
 		if (aResource != null && aResource.getContents().isEmpty()) {
 			ApplicationClient appClient = ClientFactory.eINSTANCE.createApplicationClient();
@@ -113,6 +113,8 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				appClient.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				if(version != null)
+				    appClient.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(appClient, J2EEConstants.APP_CLIENT_ID);
@@ -236,13 +238,13 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public EObject createModelRoot() {
-		if(getApplicationClientXmiResource() == null) {
-			 addAppClientIfNecessary(getApplicationClientXmiResource());
-		}
-		return getApplicationClientXmiResource().getRootObject();
+	    return createModelRoot(null);
 	}
-	public EObject createModelRoot(int version) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
+     */
+    public EObject createModelRoot(Integer version) {
+	    addAppClientIfNecessary((ApplicationClientResource)getDeploymentDescriptorResource(), version);
+		return ((ApplicationClientResource)getDeploymentDescriptorResource()).getRootObject();
+    }
 }

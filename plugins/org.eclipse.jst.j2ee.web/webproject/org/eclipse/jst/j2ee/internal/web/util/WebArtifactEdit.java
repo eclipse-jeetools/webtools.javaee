@@ -8,21 +8,12 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.internal.resources.Folder;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -37,12 +28,11 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.util.EclipseResourceAdapter;
 
 
 
@@ -214,7 +204,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
+		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource(), null);
 		return (EObject) contents.get(0);
 	}
 
@@ -252,18 +242,24 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @param aModule
 	 *            A non-null pointing to a {@see XMLResource}
+	 * @param version
+	 * 			Version to be set on resource....if null default is taken
 	 * 
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addWebAppIfNecessary(XMLResource aResource) {
-
-		if (aResource != null ) {
-
-			WebApp  webApp = (WebApp)aResource.getContents().get( 0 );
+	protected void addWebAppIfNecessary(XMLResource aResource, Integer version) {
+		if (aResource != null) {
+		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
+		        WebApp webAppNew = WebapplicationFactory.eINSTANCE.createWebApp();
+				aResource.getContents().add(webAppNew);
+		    } 
+		    WebApp webApp = (WebApp)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				webApp.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				if(version != null)
+				    webApp.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 				//Ignore
 			}
@@ -290,11 +286,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
 			file.setWelcomeFile("default.jsp"); //$NON-NLS-1$
 			files.add(file);
-		}
-		try{
-			aResource.saveIfNecessary();
-		}catch(Exception e){
-			e.printStackTrace();
+			
+			try{
+				aResource.saveIfNecessary();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -342,53 +339,22 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot() {
-		if(getDeploymentDescriptorResource() == null) {
-			 addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
-		}
+	    return createModelRoot(null);
+	}
+	/**
+	 * This method will retrieve the web app resource, create it if necessary, add get the root object, set version
+	 * the web app out of that web app resource.  It will create the web app instance if need be, and add
+	 * it to the web resource.  Then, it returns the web app object as the model root.  This method will
+	 * not return null.
+	 * 
+	 * @see EnterpriseArtifactEdit#createModelRoot()
+	 * 
+	 * @return the eObject instance of the model root
+	 */
+	public EObject createModelRoot(Integer version) {
+	    addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource(), version);
 		return ((WebAppResource)getDeploymentDescriptorResource()).getRootObject();
 	}
-	
-	public void createModelRoot(IProject project, IPath path, int moduleVersion ) {
-		
-		File file = null;
-		file = new File(path.toOSString());
-		
-		try{
-			FileOutputStream out = new FileOutputStream(file);
-			PrintStream p = null;
-			p = new PrintStream( out );
-			
-			
-			p.println( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
-			if( moduleVersion == 22 ){
-				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN\" \"http://java.sun.com/j2ee/dtds/web-app_2_2.dtd\">");
-				p.println("<web-app></web-app>");
-			}			
-			if( moduleVersion == 23 ){
-				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN\" \"http://java.sun.com/dtd/web-app_2_3.dtd\">");
-				p.println("<web-app></web-app>");
-			}
-			if( moduleVersion == 24 ){
-				p.println( "<web-app  version=\"2.4\" xmlns=\"http://java.sun.com/xml/ns/j2ee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd\"></web-app>");
-			}	
-
-			p.close();					
-
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-
-		try{
-			project.refreshLocal(IResource.DEPTH_INFINITE, null);
-		}catch(CoreException e){
-			e.printStackTrace();
-		}
-
-		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
-	}
-	
-
-	
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib
 	 * folder of the deployed path of the module.  It will not return null.
@@ -455,9 +421,5 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public void setServerContextRoot(String contextRoot) {
 		//TODO set the new context root on the module, needs to be added to the model
-	}
-	public EObject createModelRoot(int version) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
