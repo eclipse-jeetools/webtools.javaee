@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoProperties.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/14 18:36:32 $ 
  */
 
 
@@ -22,6 +22,6 @@ package org.eclipse.jem.internal.beaninfo.adapters;
 
 public interface BeaninfoProperties {
 	public static final String
-		INTROSPECTFAILED = "%INTROSPECT_FAILED_EXC_ Introspection failed on class \"{0}.\""; //$NON-NLS-1$
+		INTROSPECTFAILED = "%INTROSPECT_FAILED_EXC_ Introspection failed on class \"{0}.\" msg=\"{1}.\""; //$NON-NLS-1$
 
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/14 18:36:32 $ 
  */
 
 import java.io.*;
@@ -118,7 +118,7 @@ public class BeaninfoNature implements IProjectNature {
 					0,
 					MessageFormat.format(
 						BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(BeaninfoProperties.INTROSPECTFAILED),
-						new Object[] { project.getName()}),
+						new Object[] { project.getName(), "Invalid project"}),
 					null));
 
 		addNatureToProject(project, NATURE_ID);
@@ -194,7 +194,10 @@ public class BeaninfoNature implements IProjectNature {
 				// will also be loaded into this resourceset. So to find it we need to go in here and try.
 				//
 				// However, if not found we won't go and try to load the resource. That could load in the wrong place.
-				return getResourceSet().getResource(uri, false);
+				// TODO Because of a bug in XMLHandler.getPackageFromURI(), it doesn't use getResource(...,true) and it tries instead
+				// to use uri inputstream to load the package when not found. This bypasses our special create resource and so
+				// packages are not automatically created. So we need to do load on demand here instead if it is a java protocol.
+				return getResourceSet().getResource(uri, JavaXMIFactoryImpl.SCHEME.equals(uri.scheme()));
 			}
 
 			public Resource createResource(ResourceSet originatingResourceSet, URI uri) {

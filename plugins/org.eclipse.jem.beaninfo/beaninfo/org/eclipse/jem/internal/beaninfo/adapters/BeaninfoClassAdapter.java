@@ -11,10 +11,11 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:11:59 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/14 18:36:32 $ 
  */
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.util.*;
@@ -400,7 +401,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						0,
 						MessageFormat.format(
 							BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(BeaninfoProperties.INTROSPECTFAILED),
-							new Object[] { getJavaClass().getJavaName()}),
+							new Object[] { getJavaClass().getJavaName(), ""}),
 						e));
 			}
 		}
@@ -458,7 +459,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 											MessageFormat.format(
 												BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(
 													BeaninfoProperties.INTROSPECTFAILED),
-												new Object[] { getJavaClass().getJavaName()}),
+												new Object[] { getJavaClass().getJavaName(), ""}),
 											e));
 								}
 							} else {
@@ -471,8 +472,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 										MessageFormat.format(
 											BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(
 												BeaninfoProperties.INTROSPECTFAILED),
-											new Object[] { getJavaClass().getJavaName()}),
-										new ExceptionInInitializerError(targetType.getInitializationError())));
+											new Object[] { getJavaClass().getJavaName(), targetType.getInitializationError()}),
+										null));
 							}
 						} else {
 							// The class itself could not be found. Just log it, but treat as no proxy.
@@ -483,7 +484,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 									0,
 									MessageFormat.format(
 										BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(BeaninfoProperties.INTROSPECTFAILED),
-										new Object[] { getJavaClass().getJavaName()}),
+										new Object[] { getJavaClass().getJavaName(), "Class not found"}),
 									null));
 						}
 					}
@@ -540,7 +541,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				} catch (WrappedException e) {
 					// FileNotFoundException is ok
 					if (!(e.exception() instanceof FileNotFoundException)) {
-						if (e.exception() instanceof CoreException
+						if (e.exception() instanceof IOException && e.getMessage() == null)
+							;	// TODO remove this when bugzilla fixed so that throws FileNotFound again. https://bugs.eclipse.org/bugs/show_bug.cgi?id=51649
+						else if (e.exception() instanceof CoreException
 							&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
 							// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
 						} else {
