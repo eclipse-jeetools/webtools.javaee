@@ -451,16 +451,17 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	public Service getWSDLServiceForWebService(WebServiceDescription webService) {
 		Service service = null;
 		WSDLResourceImpl wsdl = getWSDLResource(webService);
-		if (wsdl == null)
-			return service;
+		if (wsdl == null) return service;
 		Definition definition = wsdl.getDefinition();
-		if (definition == null)
-			return service;
+		if (definition == null) return service;
 		Map services = definition.getServices();
-		if (services.isEmpty())
-			return service;
-		PortComponent portComp = (PortComponent) webService.getPortComponents().get(0);
-		return getService(portComp);
+		if (services.isEmpty()) return service;
+		PortComponent portComp = null;
+		if (webService.getPortComponents()!=null && webService.getPortComponents().size()>0) {
+			portComp = (PortComponent) webService.getPortComponents().get(0);
+			return getService(portComp);
+		}
+		return service;
 	}
 
 	public WSDLResourceImpl getWSDLResource(Service wsdlService) {
