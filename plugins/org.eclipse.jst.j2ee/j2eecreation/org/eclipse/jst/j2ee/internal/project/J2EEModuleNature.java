@@ -183,9 +183,11 @@ public abstract class J2EEModuleNature extends J2EENature {
 	public void initializeFromInfo(IJavaProjectInfo info) throws CoreException {
 		//super.initializeFromInfo(info);
 		J2EEJavaProjectInfo j2eeInfo = (J2EEJavaProjectInfo) info;
-		J2EESettings settings = getJ2EESettings();
-		settings.setModuleVersion(j2eeInfo.getModuleVersion());
-		settings.write();
+		
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		J2EESettings settings = getJ2EESettings();
+//		settings.setModuleVersion(j2eeInfo.getModuleVersion());
+//		settings.write();
 
 		ProjectUtilities.updateClasspath(j2eeInfo.getJavaProject()); //lsr - no monitor, do not
 		// update resources

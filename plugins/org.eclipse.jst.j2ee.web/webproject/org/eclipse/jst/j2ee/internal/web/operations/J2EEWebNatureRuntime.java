@@ -43,16 +43,19 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreURIConverter;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
-import org.eclipse.wst.web.internal.operation.WebSettings;
+//import org.eclipse.wst.web.internal.operation.WebSettings;
 
 import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
@@ -98,7 +101,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	protected String[] featureIds = null;
 	protected int fVersion = -1;
 	private int fWebNatureType = -1;
-	protected WebSettings fWebSettings;
+	//protected WebSettings fWebSettings;
 
 	/*
 	 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -361,20 +364,38 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 */
 	public String getContextRoot() {
 		if (contextRoot == null || contextRoot.equals("")) {
-			WebSettings settings = getWebSettings();
-			contextRoot = settings.getContextRoot();
+//			WebSettings settings = getWebSettings();
+//			contextRoot = settings.getContextRoot();
+			
+			ArtifactEdit artifact = null;
+			WebArtifactEdit webEdit = null;
+
+			try{
+				artifact = ModuleCore.getFirstArtifactEditForRead( project );
+				webEdit = ( WebArtifactEdit )artifact;
+	       		if(webEdit != null) {
+	       			contextRoot = webEdit.getServerContextRoot();
+	       		}			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				if( webEdit != null )
+					webEdit.dispose();
+			}		
+			
+
 			if (contextRoot == null)
 				contextRoot = getProject().getName();
 		}
 		return contextRoot;
 	}
 
-	public WebSettings getWebSettings() {
-		if (fWebSettings == null) {
-			fWebSettings = new WebSettings(getProject());
-		}
-		return fWebSettings;
-	}
+//	public WebSettings getWebSettings() {
+//		if (fWebSettings == null) {
+//			fWebSettings = new WebSettings(getProject());
+//		}
+//		return fWebSettings;
+//	}
 
 	public IContainer getCSSFolder() {
 		return getProject().getFolder(getBasicWebModulePath().append(IWebNatureConstants.CSS_DIRECTORY));
@@ -414,18 +435,21 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * v5.0.1 and later, this is configurable per project by the user.
 	 */
 	public String getModuleServerRootName() {
-		String name = getWebSettings().getWebContentName();
-		if (name == null) {
-			name = J2EEPlugin.getDefault().getJ2EEPreferences().getJ2EEWebContentFolderName();
-			if (name == null || name.length() == 0)
-				name = IWebNatureConstants.WEB_MODULE_DIRECTORY_;
-		}
-		return name;
+//		String name = getWebSettings().getWebContentName();
+//		if (name == null) {
+//			name = J2EEPlugin.getDefault().getJ2EEPreferences().getJ2EEWebContentFolderName();
+//			if (name == null || name.length() == 0)
+//				name = IWebNatureConstants.WEB_MODULE_DIRECTORY_;
+//		}
+//		return name;
+		return "";  //To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead
 	}
 
 	public void setModuleServerRootName(String name) throws CoreException {
-		getWebSettings().setWebContentName(name);
-		getWebSettings().write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		getWebSettings().setWebContentName(name);
+//		getWebSettings().write();
+
 	}
 
 	/**
@@ -551,17 +575,19 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	}
 
 	public IPath getBasicWebModulePath() {
-		WebSettings webSettings = getWebSettings();
-		String name = webSettings.getWebContentName();
-		if (name == null) {
-			int version = getVersion();
-			// If created in V5 or beyond
-			if (version != -1 && version >= 500)
-				return IWebNatureConstants.WEB_MODULE_PATH_;
-
-			return IWebNatureConstants.WEB_MODULE_PATH_V4;
-		}
-		return new Path(name);
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		WebSettings webSettings = getWebSettings();
+//		String name = webSettings.getWebContentName();
+//		if (name == null) {
+//			int version = getVersion();
+//			// If created in V5 or beyond
+//			if (version != -1 && version >= 500)
+//				return IWebNatureConstants.WEB_MODULE_PATH_;
+//
+//			return IWebNatureConstants.WEB_MODULE_PATH_V4;
+//		}
+//		return new Path(name);
+		return new Path("");
 	}
 
 	public IPath getWebModulePath() {
@@ -575,8 +601,10 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 */
 	public int getWebNatureType() {
 		if (fWebNatureType == -1) {
-			WebSettings settings = getWebSettings();
-			String strType = settings.getProjectType();
+//			To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead			
+//			WebSettings settings = getWebSettings();
+//			String strType = settings.getProjectType();
+			String strType = PROJECTTYPE_J2EE_VALUE;
 			if (strType != null) {
 				if (strType.equalsIgnoreCase(PROJECTTYPE_J2EE_VALUE))
 					fWebNatureType = IWebNatureConstants.J2EE_WEB_PROJECT;
@@ -610,7 +638,9 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	public int getVersion() {
 		if (fVersion == -1) {
 			try {
-				String versionString = getWebSettings().getVersion();
+//				To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead				
+//				String versionString = getWebSettings().getVersion();
+				String versionString = "22";
 				if (versionString != null)
 					fVersion = Integer.parseInt(versionString);
 			} catch (NumberFormatException e) {
@@ -627,8 +657,9 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * when it becomes necessary to distinguish a new version from a prior version.
 	 */
 	public void setVersion(String newVersion) throws CoreException {
-		getWebSettings().setVersion(newVersion);
-		getWebSettings().write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		getWebSettings().setVersion(newVersion);
+//		getWebSettings().write();
 		fVersion = -1;
 	}
 
@@ -682,10 +713,11 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	public void initializeFromInfo(WebProjectInfo info) throws org.eclipse.core.runtime.CoreException {
 		int natureType = info.getWebProjectType();
 		fWebNatureType = natureType;
-		WebSettings webSettings = getWebSettings();
-		webSettings.setProjectType(convertNatureTypeToString(natureType));
-		webSettings.setWebContentName(info.getWebContentName());
-		webSettings.write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		WebSettings webSettings = getWebSettings();
+//		webSettings.setProjectType(convertNatureTypeToString(natureType));
+//		webSettings.setWebContentName(info.getWebContentName());
+//		webSettings.write();
 		super.initializeFromInfo(info);
 	}
 
@@ -720,9 +752,10 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	}
 
 	public void removeFeatureId(String featureId) throws CoreException {
-		WebSettings webSettings = getWebSettings();
-		webSettings.removeFeatureId(featureId);
-		webSettings.write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		WebSettings webSettings = getWebSettings();
+//		webSettings.removeFeatureId(featureId);
+//		webSettings.write();
 	}
 
 	//    /*
@@ -739,8 +772,9 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	//        fWebNatureType = -1;
 	//    }
 	public void setContextRoot(String newContextRoot) throws CoreException {
-		getWebSettings().setContextRoot(newContextRoot);
-		getWebSettings().write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		getWebSettings().setContextRoot(newContextRoot);
+//		getWebSettings().write();
 		contextRoot = newContextRoot;
 	}
 
@@ -804,8 +838,9 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 *            boolean
 	 */
 	public void setWebNatureType(int natureType) throws CoreException {
-		getWebSettings().setProjectType(convertNatureTypeToString(natureType));
-		getWebSettings().write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		getWebSettings().setProjectType(convertNatureTypeToString(natureType));
+//		getWebSettings().write();
 		fWebNatureType = natureType;
 	}
 
@@ -904,18 +939,20 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 		if (jspLevel != null && jspLevel.equals(level))
 			return;
 		String tJspLevel = null;
-		WebSettings webSettings = getWebSettings();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		WebSettings webSettings = getWebSettings();
 		if (JSPLEVEL_1_1.equals(level)) {
-			webSettings.setJSPLevel(JSPLEVEL_1_1);
+//			webSettings.setJSPLevel(JSPLEVEL_1_1);
 			tJspLevel = JSPLEVEL_1_1;
 		} else if (JSPLEVEL_1_2.equals(level)) {
-			webSettings.setJSPLevel(JSPLEVEL_1_2);
+//			webSettings.setJSPLevel(JSPLEVEL_1_2);
 			tJspLevel = JSPLEVEL_1_2;
 		} else if (JSPLEVEL_2_0.equals(level)) {
-			webSettings.setJSPLevel(JSPLEVEL_2_0);
+//			webSettings.setJSPLevel(JSPLEVEL_2_0);
 			tJspLevel = JSPLEVEL_2_0;
 		}
-		webSettings.write();
+//		webSettings.write();
+		
 		jspLevel = tJspLevel;
 	}
 
@@ -954,8 +991,9 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 */
 	public ILibModule[] getLibModules() {
 		if (libModules == null) {
-			WebSettings settings = getWebSettings();
-			libModules = settings.getLibModules();
+//			To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead			
+//			WebSettings settings = getWebSettings();
+//			libModules = settings.getLibModules();
 			if (libModules == null)
 				libModules = new ILibModule[0];
 		}
@@ -966,24 +1004,27 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * @see IJ2EEWebNature#setLibModules(ILibModule[])
 	 */
 	public void setLibModules(ILibModule[] libModules) throws CoreException {
-		WebSettings webSettings = getWebSettings();
-		webSettings.setLibModules(libModules);
-		webSettings.write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		WebSettings webSettings = getWebSettings();
+//		webSettings.setLibModules(libModules);
+//		webSettings.write();
 		this.libModules = libModules;
 	}
 
 	public String[] getFeatureIds() {
-		WebSettings settings = getWebSettings();
-		featureIds = settings.getFeatureIds();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		WebSettings settings = getWebSettings();
+//		featureIds = settings.getFeatureIds();
 		if (featureIds == null)
 			featureIds = new String[0];
 		return featureIds;
 	}
 
 	public void setFeatureIds(String[] featureIds) throws CoreException {
-		WebSettings webSettings = getWebSettings();
-		webSettings.setFeatureIds(featureIds);
-		webSettings.write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		WebSettings webSettings = getWebSettings();
+//		webSettings.setFeatureIds(featureIds);
+//		webSettings.write();
 	}
 
 	/**

@@ -35,7 +35,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.BinaryProjectHelper;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
-import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
+//import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -97,8 +97,8 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 		//J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
 		//webNature.getWebSettings().write();
 		//project.getFile(webNature.getWebSettingsPath()).refreshLocal(0, monitor);
-		WebSettingsMigrator migrator = new WebSettingsMigrator();
-		migrator.migrate(project);
+		//WebSettingsMigrator migrator = new WebSettingsMigrator();
+		//migrator.migrate(project);
 		if (!model.getJ2eeArtifactCreationDataModel().getBooleanProperty(J2EEArtifactCreationDataModel.ADD_SERVER_TARGET))
 			addServerTarget(monitor);
 	}

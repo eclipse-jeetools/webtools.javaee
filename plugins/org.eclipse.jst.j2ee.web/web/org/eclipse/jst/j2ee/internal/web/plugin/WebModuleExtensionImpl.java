@@ -38,7 +38,7 @@ import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.web.internal.operation.WebSettings;
+
 
 
 public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements WebModuleExtension {
@@ -186,10 +186,23 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 
 	public String getContentFolder(IProject project, IFile webSettingsFile) {
 		String contentFolder = null;
-		WebSettings webSettings = new WebSettings(project, webSettingsFile);
-		if (webSettings != null) {
-			contentFolder = webSettings.getWebContentName();
+		
+//		WebSettings webSettings = new WebSettings(project, webSettingsFile);
+//		if (webSettings != null) {
+//			contentFolder = webSettings.getWebContentName();
+//		}
+		//To do: Needs work here, no content folder exists now
+		WebArtifactEdit webEdit = null;
+		try{
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+       		if(webEdit != null) {
+		            		
+       		}			
+		} finally {
+			if( webEdit != null )
+				webEdit.dispose();
 		}
+		
 		return contentFolder;
 	}
 
