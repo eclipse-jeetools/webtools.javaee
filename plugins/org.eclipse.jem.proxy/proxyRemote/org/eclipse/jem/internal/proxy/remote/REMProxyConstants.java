@@ -1,19 +1,5 @@
-package org.eclipse.jem.internal.proxy.remote;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.core.IFieldProxy;
-import org.eclipse.jem.internal.proxy.core.IInvokable;
-import org.eclipse.jem.internal.proxy.core.IMethodProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
-
 /*******************************************************************************
- * Copyright (c)  2001, 2003 IBM Corporation and others.
+ * Copyright (c)  2005 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,14 +10,32 @@ import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyConstants.java,v $
- *  $Revision: 1.1 $  $Date: 2005/02/08 11:41:25 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/08 19:57:03 $ 
  */
+package org.eclipse.jem.internal.proxy.remote;
+
+import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.eclipse.jem.internal.proxy.core.IBeanProxy;
+import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
+import org.eclipse.jem.internal.proxy.core.IFieldProxy;
+import org.eclipse.jem.internal.proxy.core.IInvokable;
+import org.eclipse.jem.internal.proxy.core.IMethodProxy;
+import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
+
+
 
 
 /**
  * MethodProxyConstants is a cache of IMethodProxies to avoid repeated lookup
  * and thereby avoid the relatively expensive java.lang.reflect calls to repeatedly
  * lookup method by name
+ * 
+ * @since 1.1.0
  */
 public class REMProxyConstants {
 
@@ -39,6 +43,145 @@ public class REMProxyConstants {
 	private Map classCache = new HashMap(80);
 	private Map invokablesCache = new HashMap(80);	
 	private Map fieldsCache = new HashMap(80);
+	
+	/*
+	 * Used as the key to the methodCache and invokablesCache when there are parms.
+	 * It allows the parms to be either strings or IBeanTypeProxies without the
+	 * overhead of creating complicated strings.
+	 * 
+	 * It will compare method name and each individual parm name without fluffing
+	 * up a string and building it up.
+	 * 
+	 * For no parm methods, just the name of the method as a string will be the key.
+	 * 
+	 * @since 1.1.0
+	 */
+	private abstract static class MethodKey {
+		public String methodName;
+		public MethodKey(String methodName) {
+			this.methodName = methodName;
+		}
+				
+		protected abstract boolean compareParms(IBeanTypeProxy[] parms);
+		protected abstract boolean compareParms(String[] parms);
+		
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode()
+		 */
+		public int hashCode() {
+			return methodName.hashCode();
+		}
+	}
+	
+	private static class MethodKeyStringParms extends MethodKey {
+		public String[] parmNames;
+		
+		public MethodKeyStringParms(String methodName, String[] parmNames) {
+			super(methodName);
+			this.parmNames = parmNames;
+		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			try {
+				return ((MethodKey) obj).compareParms(parmNames);
+			} catch (ClassCastException e) {
+				return false;
+			}
+		}
+		
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#hashCode()
+		 */
+		public int hashCode() {
+			int h = super.hashCode();
+			for (int i = 0; i < parmNames.length; i++) {
+				h += parmNames[i].hashCode();
+			}
+			return h;
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#compareParms(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+		 */
+		protected boolean compareParms(IBeanTypeProxy[] parms) {
+			if (parms.length != parmNames.length)
+				return false;
+			for (int i = 0; i < parms.length; i++) {
+				if (!parms[i].getTypeName().equals(parmNames[i]))
+					return false;
+			}
+			return true;
+		}
+		
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#compareParms(java.lang.String[])
+		 */
+		protected boolean compareParms(String[] parms) {
+			return Arrays.equals(parms, parmNames);
+		}
+	}
+	
+	private static class MethodKeyProxyParms extends MethodKey {
+		public IBeanTypeProxy[] parmTypes;
+		
+		public MethodKeyProxyParms(String methodName, IBeanTypeProxy[] parmTypes) {
+			super(methodName);
+			this.parmTypes = parmTypes;
+		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			try {
+				return ((MethodKey) obj).compareParms(parmTypes);
+			} catch (ClassCastException e) {
+				return false;
+			}
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#hashCode()
+		 */
+		public int hashCode() {
+			int h = super.hashCode();
+			for (int i = 0; i < parmTypes.length; i++) {
+				h += parmTypes[i].getTypeName().hashCode();
+			}
+			return h;
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#compareParms(org.eclipse.jem.internal.proxy.core.IBeanTypeProxy[])
+		 */
+		protected boolean compareParms(String[] parms) {
+			if (parms.length != parmTypes.length)
+				return false;
+			for (int i = 0; i < parms.length; i++) {
+				if (!parmTypes[i].getTypeName().equals(parms[i]))
+					return false;
+			}
+			return true;
+		}
+		
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.remote.REMProxyConstants.MethodKey#compareParms(java.lang.String[])
+		 */
+		protected boolean compareParms(IBeanTypeProxy[] parms) {
+			return Arrays.equals(parms, parmTypes);
+		}		
+	}
 	
 	public static REMProxyConstants getConstants(ProxyFactoryRegistry aRegistry){
 		REMProxyConstants constants = (REMProxyConstants) aRegistry.getConstants(REGISTRY_KEY);
@@ -51,87 +194,98 @@ public class REMProxyConstants {
 		return constants;
 	}
 	
-	static int remMethodCount = 0;
-	static int uniqueMethodCount = 0;	
-	static int remInvokableCount = 0;
-	static int uniqueInvokableCount = 0;
-	static int invokeInvokeCount = 0;
-	static int methodProxyInvokeCount = 0;
-	static int remFieldCount = 0;
-	static int uniqueFieldCount = 0;
-	static int remConstructorCalled = 0;
-	static HashMap methodCountMap = new HashMap();
-	static HashMap fieldCountMap = new HashMap();	
-	static HashMap fieldSetCountMap = new HashMap();	
+	static int REMMETHODCOUNT = 0;
+	static int UNIQUEMETHODCOUNT = 0;	
+	static int REMINVOKABLECOUNT = 0;
+	static int UNIQUEINVOKABLECOUNT = 0;
+	static int INVOKEINVOKECOUNT = 0;
+	static int METHODPROXYINVOKECOUNT = 0;
+	static int REMFIELDCOUNT = 0;
+	static int UNIQUEFIELDCOUNT = 0;
+	static int REMCONSTRUCTORCALLED = 0;
+	static HashMap METHODCOUNTMAP;
+	static HashMap FIELDCOUNTMAP;	 
+	static HashMap FIELDSETCOUNTMAP;
+	static boolean GATHER_COUNTS;
+	
+	/**
+	 * Set if counts should be gathered.
+	 * 
+	 * @param gatherCounts
+	 * 
+	 * @since 1.1.0
+	 */
+	public static void setGatherCounts(boolean gatherCounts) {
+		if (gatherCounts != GATHER_COUNTS) {
+			reset();
+			if (gatherCounts) {
+				if (METHODCOUNTMAP == null) {
+					METHODCOUNTMAP = new HashMap();
+					FIELDCOUNTMAP = new HashMap();
+					FIELDSETCOUNTMAP = new HashMap();
+				}
+			}
+			GATHER_COUNTS = gatherCounts;
+		}
+	}
+	
 	
 	public static void reset(){
-		remMethodCount = uniqueMethodCount = remInvokableCount = uniqueInvokableCount = remConstructorCalled =
-			methodProxyInvokeCount = invokeInvokeCount = remFieldCount = uniqueFieldCount = 0;
-		methodCountMap = new HashMap();
-		fieldCountMap = new HashMap();
-		fieldSetCountMap = new HashMap();
+		REMMETHODCOUNT = UNIQUEMETHODCOUNT = REMINVOKABLECOUNT = UNIQUEINVOKABLECOUNT = REMCONSTRUCTORCALLED = METHODPROXYINVOKECOUNT = INVOKEINVOKECOUNT = REMFIELDCOUNT = UNIQUEFIELDCOUNT = 0;
+		if (GATHER_COUNTS) {
+			METHODCOUNTMAP.clear();
+			FIELDCOUNTMAP.clear();
+			FIELDSETCOUNTMAP.clear();
+		}
 	}
 	
 	public static void println(){
 		
-		System.out.println("--------------------------------------------------");		
-		System.out.println("Method proxies invokes = " + methodProxyInvokeCount);
-		System.out.println("Invoke invokes = " + invokeInvokeCount);
-		System.out.println("..................................................");		
-		System.out.println("Methods retrieved = " + remMethodCount + "(" + uniqueMethodCount + ")");
-		System.out.println("Invokes retrieved = " + remInvokableCount + "(" + uniqueInvokableCount + ")");
-		System.out.println("Fields retrieved = " + remFieldCount + "(" + uniqueFieldCount + ")");
-		System.out.println("Constructor calls = " + remConstructorCalled);
-		System.out.println("--------------------------------------------------");		
-		System.out.println("-Count of methods invoked-------------------------");
-		System.out.println("--------------------------------------------------");		
-		
-		HashSet set = new HashSet();
-		Iterator keys = methodCountMap.keySet().iterator();
-		while(keys.hasNext()){
-			set.add(keys.next());
+		if (GATHER_COUNTS) {
+			System.out.println("--------------------------------------------------");
+			System.out.println("Method proxies invokes = " + METHODPROXYINVOKECOUNT);
+			System.out.println("Invoke invokes = " + INVOKEINVOKECOUNT);
+			System.out.println("..................................................");
+			System.out.println("Methods retrieved = " + REMMETHODCOUNT + "(" + UNIQUEMETHODCOUNT + ")");
+			System.out.println("Invokes retrieved = " + REMINVOKABLECOUNT + "(" + UNIQUEINVOKABLECOUNT + ")");
+			System.out.println("Fields retrieved = " + REMFIELDCOUNT + "(" + UNIQUEFIELDCOUNT + ")");
+			System.out.println("Constructor calls = " + REMCONSTRUCTORCALLED);
+			System.out.println("--------------------------------------------------");
+			System.out.println("-Count of methods invoked-------------------------");
+			System.out.println("--------------------------------------------------");
+
+			// Collate the methods called
+			Iterator entries = METHODCOUNTMAP.entrySet().iterator();
+			while (entries.hasNext()) {
+				Map.Entry entry = (Entry) entries.next();
+				REMMethodProxy methodProxy = (REMMethodProxy) entry.getKey();
+				System.out.println(methodProxy.getClassType().getTypeName() + "," + methodProxy.getName() + "," + entry.getValue());
+			}
+
+			System.out.println("--------------------------------------------------");
+			System.out.println("-Count of fields get called ----------------------");
+			System.out.println("--------------------------------------------------");
+
+			// Collate the fields accessed
+			entries = FIELDCOUNTMAP.entrySet().iterator();
+			while (entries.hasNext()) {
+				Map.Entry entry = (Entry) entries.next();
+				REMFieldProxy fieldProxy = (REMFieldProxy) entry.getKey();
+				System.out.println(fieldProxy.toBeanString() + "," + entry.getValue());
+			}
+
+			System.out.println("--------------------------------------------------");
+			System.out.println("-Count of fields set called ----------------------");
+			System.out.println("--------------------------------------------------");
+
+			// Collate the fields set
+			entries = FIELDSETCOUNTMAP.entrySet().iterator();
+			while (entries.hasNext()) {
+				Map.Entry entry = (Entry) entries.next();
+				REMFieldProxy fieldProxy = (REMFieldProxy) entry.getKey();
+				System.out.println(fieldProxy.toBeanString() + "," + entry.getValue());
+			} 
 		}
-	
-		// Collate the methods called
-		keys = set.iterator();
-		while(keys.hasNext()){
-			REMMethodProxy methodProxy = (REMMethodProxy)keys.next();
-			System.out.println(methodProxy.getClassType().getTypeName() + "," + methodProxy.getName() + "," + methodCountMap.get(methodProxy));
-		}
-		
-		System.out.println("--------------------------------------------------");		
-		System.out.println("-Count of fields get called ----------------------");
-		System.out.println("--------------------------------------------------");		
-		
-		set = new HashSet();
-		keys = fieldCountMap.keySet().iterator();
-		while(keys.hasNext()){
-			set.add(keys.next());
-		}
-		
-		// Collate the fields accessed
-		keys = set.iterator();
-		while(keys.hasNext()){
-			REMFieldProxy fieldProxy = (REMFieldProxy)keys.next();
-			System.out.println(fieldProxy.toBeanString() + "," + fieldCountMap.get(fieldProxy));
-		}		
-		
-		System.out.println("--------------------------------------------------");		
-		System.out.println("-Count of fields set called ----------------------");
-		System.out.println("--------------------------------------------------");		
-		
-		set = new HashSet();
-		keys = fieldSetCountMap.keySet().iterator();
-		while(keys.hasNext()){
-			set.add(keys.next());
-		}
-		
-		// Collate the fields set
-		keys = set.iterator();
-		while(keys.hasNext()){
-			REMFieldProxy fieldProxy = (REMFieldProxy)keys.next();
-			System.out.println(fieldProxy.toBeanString() + "," + fieldSetCountMap.get(fieldProxy));
-		}				
 		
 	}
 	
@@ -142,23 +296,24 @@ public class REMProxyConstants {
  */ 
 	public IMethodProxy getMethodProxy(IBeanTypeProxy aBeanTypeProxy, String methodName, String[] parmTypes){
 
-		remMethodCount++;		
+		REMMETHODCOUNT++;		
 		// The classCache map is keyed by the BeanTypeProxy and holds a further map of cache'd methods
 		Map methods = getMethods(aBeanTypeProxy);
 		
 		// The syntax of the key is methodName(parmType1,parmType2)
-		String key = null; 
-		if(parmTypes == null){
+		Object key = null; 
+		if(parmTypes == null || parmTypes.length == 0){
 			key = methodName;
 		} else {
-			key = getKey(methodName, parmTypes);
+			key = new MethodKeyStringParms(methodName, parmTypes);
 		}
 		
 		// Lookup the cache'd method proxy
 		IMethodProxy result = (IMethodProxy) methods.get(key);
-		if(result != null) return result;
+		// Do we have it, and is still valid (in case someone did a release on it).
+		if(result != null && result.isValid()) return result;
 		
-		uniqueMethodCount++;
+		UNIQUEMETHODCOUNT++;
 		// Get the method proxy and cache this before returning it
 		REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) aBeanTypeProxy.getProxyFactoryRegistry().getMethodProxyFactory();
 		result = proxyFactory.getMethodProxy((IREMBeanTypeProxy)aBeanTypeProxy,methodName,parmTypes);
@@ -209,21 +364,21 @@ private Map getFields(IBeanTypeProxy aBeanTypeProxy) {
  */ 
 	public IInvokable getInvokable(IBeanTypeProxy aBeanTypeProxy, String invokableName, String[] parmTypeNames){
 		
-		remInvokableCount++;
+		REMINVOKABLECOUNT++;
 		// The classCache map is keyed by the BeanTypeProxy and holds a further map of cache'd methods
 		Map invokables = getInvokables(aBeanTypeProxy);	
 		
-		String key = null; 
-		if(parmTypeNames == null){
+		Object key = null; 
+		if(parmTypeNames == null || parmTypeNames.length == 0){
 			key = invokableName;
 		} else {
-			key = getKey(invokableName, parmTypeNames);
+			key = new MethodKeyStringParms(invokableName, parmTypeNames);
 		}			
 		
 		IInvokable result = (IInvokable) invokables.get(key);
 		if(result != null) return result;
 		
-		uniqueInvokableCount++;
+		UNIQUEINVOKABLECOUNT++;
 		// Get the method proxy and cache this before returning it
 		// Get the method proxy and cache this before returning it
 		REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) aBeanTypeProxy.getProxyFactoryRegistry().getMethodProxyFactory();
@@ -239,21 +394,21 @@ private Map getFields(IBeanTypeProxy aBeanTypeProxy) {
 	 */ 
 		public IInvokable getInvokable(IBeanTypeProxy aBeanTypeProxy, String invokableName, IBeanTypeProxy[] parmTypes){
 			
-			remInvokableCount++;
+			REMINVOKABLECOUNT++;
 			// The classCache map is keyed by the BeanTypeProxy and holds a further map of cache'd methods
 			Map invokables = getInvokables(aBeanTypeProxy);	
 			
-			String key = null; 
-			if(parmTypes == null){
+			Object key = null; 
+			if(parmTypes == null || parmTypes.length == 0){
 				key = invokableName;
 			} else {
-				key = getKey(invokableName, getParmTypeNames(parmTypes));
+				key = new MethodKeyProxyParms(invokableName, parmTypes);
 			}			
 			
 			IInvokable result = (IInvokable) invokables.get(key);
 			if(result != null) return result;
 			
-			uniqueInvokableCount++;
+			UNIQUEINVOKABLECOUNT++;
 			// Get the method proxy and cache this before returning it
 			// Get the method proxy and cache this before returning it
 			REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) aBeanTypeProxy.getProxyFactoryRegistry().getMethodProxyFactory();
@@ -269,22 +424,22 @@ private Map getFields(IBeanTypeProxy aBeanTypeProxy) {
  */ 
 	public IMethodProxy getMethodProxy(IBeanTypeProxy aBeanTypeProxy, String methodName, IBeanTypeProxy[] parmTypes){
 		
-		remMethodCount++;		
+		REMMETHODCOUNT++;		
 		// The classCache map is keyed by the BeanTypeProxy and holds a further map of cache'd methods
 		Map methods = getMethods(aBeanTypeProxy);	
 				
-		String key = null; 
-		if(parmTypes == null){
+		Object key = null; 
+		if(parmTypes == null || parmTypes.length == 0){
 			key = methodName;
 		} else {
-			key = getKey(methodName, getParmTypeNames(parmTypes));
+			key = new MethodKeyProxyParms(methodName, parmTypes);
 		}	
 		
 		// Lookup the cache'd method proxy
 		IMethodProxy result = (IMethodProxy) methods.get(key);
 		if(result != null) return result;
 		
-		uniqueMethodCount++;
+		UNIQUEMETHODCOUNT++;
 		// Get the method proxy and cache this before returning it
 		// Get the method proxy and cache this before returning it
 		REMMethodProxyFactory proxyFactory = (REMMethodProxyFactory) aBeanTypeProxy.getProxyFactoryRegistry().getMethodProxyFactory();
@@ -293,67 +448,43 @@ private Map getFields(IBeanTypeProxy aBeanTypeProxy) {
 		return result;				
 	}
 
- /**
-  * @return array of Strings for fully qualified type names
-  * @param parmTypes Array of bean proxy types
-  */
-private String[] getParmTypeNames(IBeanTypeProxy[] parmTypes) {
-	//	The syntax of the key is methodName(parmType1,parmType2)
-	String[] parmTypeNames = new String[parmTypes.length];
-	for (int i = 0; i < parmTypes.length; i++) {
-		parmTypeNames[i] = parmTypes[i].getFormalTypeName();
-	}
-	return parmTypeNames;
-}
-	/**
-	 * @param methodName
-	 * @param parmTypes
-	 * @return
-	 */
-	private static String getKey(String methodName, String[] parmTypes) {
-		String key;
-		StringBuffer keyBuffer = new StringBuffer();
-		keyBuffer.append(methodName);
-		keyBuffer.append('(');
-		for (int i = 0; i < parmTypes.length; i++) {
-			keyBuffer.append(parmTypes[i]);
-			if(i < parmTypes.length - 1) keyBuffer.append(',');
-		}
-		keyBuffer.append(')');
-		key = keyBuffer.toString();
-		return key;
-	}
 
 	/**
 	 * @param proxy
 	 */
 	static void methodInvoked(REMMethodProxy proxy) {
 	
-		Integer count = (Integer)methodCountMap.get(proxy);
-		if(count == null){
-			methodCountMap.put(proxy,new Integer(1));
-		} else {
-			methodCountMap.put(proxy, new Integer(count.intValue() + 1));
+		if (GATHER_COUNTS) {
+			Integer count = (Integer) METHODCOUNTMAP.get(proxy);
+			if (count == null) {
+				METHODCOUNTMAP.put(proxy, new Integer(1));
+			} else {
+				METHODCOUNTMAP.put(proxy, new Integer(count.intValue() + 1));
+			}
 		}
 	}
 
 	static void fieldGetInvoked(IBeanProxy proxy) {
 
-		Integer count = (Integer)fieldCountMap.get(proxy);
-		if(count == null){
-			fieldCountMap.put(proxy,new Integer(1));
-		} else {
-			fieldCountMap.put(proxy, new Integer(count.intValue() + 1));
+		if (GATHER_COUNTS) {
+			Integer count = (Integer) FIELDCOUNTMAP.get(proxy);
+			if (count == null) {
+				FIELDCOUNTMAP.put(proxy, new Integer(1));
+			} else {
+				FIELDCOUNTMAP.put(proxy, new Integer(count.intValue() + 1));
+			} 
 		}		
 	}
 
 	static void fieldSetInvoked(IBeanProxy proxy, IBeanProxy value) {
 
-		Integer count = (Integer)fieldSetCountMap.get(proxy);
-		if(count == null){
-			fieldSetCountMap.put(proxy,new Integer(1));
-		} else {
-			fieldSetCountMap.put(proxy, new Integer(count.intValue() + 1));
+		if (GATHER_COUNTS) {
+			Integer count = (Integer) FIELDSETCOUNTMAP.get(proxy);
+			if (count == null) {
+				FIELDSETCOUNTMAP.put(proxy, new Integer(1));
+			} else {
+				FIELDSETCOUNTMAP.put(proxy, new Integer(count.intValue() + 1));
+			} 
 		}				
 	}
 
@@ -364,15 +495,15 @@ private String[] getParmTypeNames(IBeanTypeProxy[] parmTypes) {
 	 */
 	public IFieldProxy getFieldProxy(REMAbstractBeanTypeProxy aBeanTypeProxy, String fieldName) {
 
-		remFieldCount++;		
+		REMFIELDCOUNT++;		
 		// The field map is keyed by the BeanTypeProxy and holds a further map of cache'd fields
 		Map fields = getFields(aBeanTypeProxy);	
 				
 		// Lookup the cache'd Field proxy
 		IFieldProxy result = (IFieldProxy) fields.get(fieldName);
-		if(result != null) return result;
+		if(result != null && result.isValid()) return result;
 		
-		uniqueFieldCount++;
+		UNIQUEFIELDCOUNT++;
 		
 		result = (IFieldProxy) REMStandardBeanProxyConstants.getConstants(aBeanTypeProxy.getProxyFactoryRegistry()).getClassGetField().invokeCatchThrowableExceptions(
 				aBeanTypeProxy,
