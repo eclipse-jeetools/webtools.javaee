@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejbbnd:EJBJarBinding xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ejbbnd="ejbbnd.xmi" xmlns:ejb="ejb.xmi" xmlns:common="common.xmi" xmi:id="ejb-jar_ID_Bnd" currentBackendId="CLOUDSCAPE_V50_1">
+  <ejbJar href="META-INF/ejb-jar.xml#ejb-jar_ID"/>
+  <ejbBindings xmi:id="ContainerManagedEntity_1_Bnd" jndiName="AppProfileSample-AccountHome">
+    <enterpriseBean xmi:type="ejb:ContainerManagedEntity" href="META-INF/ejb-jar.xml#ContainerManagedEntity_1"/>
+  </ejbBindings>
+  <ejbBindings xmi:id="EnterpriseBeanBinding_1" jndiName="AppProfileSample-AccountManagerHome">
+    <enterpriseBean xmi:type="ejb:Session" href="META-INF/ejb-jar.xml#Session_1"/>
+    <ejbRefBindings xmi:id="EjbRefBinding_1" jndiName="AppProfileSample-AccountHome">
+      <bindingEjbRef xmi:type="common:EJBLocalRef" href="META-INF/ejb-jar.xml#EJBLocalRef_1"/>
+    </ejbRefBindings>
+  </ejbBindings>
+  <defaultCMPConnectionFactory xmi:id="CMPConnectionFactoryBinding_2" jndiName="eis/jdbc/AppProfileSampleDB_CMP" resAuth="Per_Connection_Factory"/>
+</ejbbnd:EJBJarBinding>

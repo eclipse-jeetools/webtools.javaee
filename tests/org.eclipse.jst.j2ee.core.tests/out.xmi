@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.jem.internal.java:JavaClass xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.jem.internal.java="java.xmi" name="A" kind="CLASS" public="true">
+  <eSuperTypes href="java:/java.lang#Object"/>
+  <implementsInterfaces href="java:/com.ibm.etools.java.stressSample#IA"/>
+  <fields name="anA" eType="/"/>
+  <fields name="aB">
+    <eType xsi:type="org.eclipse.jem.internal.java:JavaClass" href="java:/com.ibm.etools.java.stressSample#B"/>
+  </fields>
+  <fields name="bees">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/com.ibm.etools.java.stressSample#B[]"/>
+  </fields>
+  <fields name="bees_and_bees">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/com.ibm.etools.java.stressSample#B[][]"/>
+  </fields>
+  <fields name="ints">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#int[]"/>
+  </fields>
+  <fields name="ints2">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#int[][]"/>
+  </fields>
+  <fields name="ints3">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#int[][][]"/>
+  </fields>
+  <fields name="chars">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#char[]"/>
+  </fields>
+  <fields name="floats">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#float[]"/>
+  </fields>
+  <fields name="cools">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#boolean[]"/>
+  </fields>
+  <fields name="doubles">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#double[]"/>
+  </fields>
+  <fields name="longs">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#long[]"/>
+  </fields>
+  <fields name="shorts">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#short[]"/>
+  </fields>
+  <fields name="bytes">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#byte[]"/>
+  </fields>
+  <fields name="testString" final="true" static="true">
+    <eType xsi:type="org.eclipse.jem.internal.java:JavaClass" href="java:/java.lang#String"/>
+    <initializer source="&quot;testing&quot;" name="testString_block"/>
+  </fields>
+  <methods name="doAllPrimitives">
+    <eType xsi:type="org.eclipse.jem.internal.java:JavaDataType" href="java:/#void"/>
+    <parameters name="arg0">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#int[]"/>
+    </parameters>
+    <parameters name="arg1">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#int[][]"/>
+    </parameters>
+    <parameters name="arg2">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#int[][][]"/>
+    </parameters>
+    <parameters name="arg3">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#char[]"/>
+    </parameters>
+    <parameters name="arg4">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#float[]"/>
+    </parameters>
+    <parameters name="arg5">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#boolean[]"/>
+    </parameters>
+    <parameters name="arg6">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#double[]"/>
+    </parameters>
+    <parameters name="arg7">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#long[]"/>
+    </parameters>
+    <parameters name="arg8">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#short[]"/>
+    </parameters>
+    <parameters name="arg9">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#byte[]"/>
+    </parameters>
+  </methods>
+  <methods name="doSomething">
+    <eType xsi:type="org.eclipse.jem.internal.java:JavaClass" href="java:/com.ibm.etools.java.stressSample#C"/>
+  </methods>
+  <methods name="getBytes">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#byte[]"/>
+  </methods>
+  <methods name="getChar">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#char[]"/>
+  </methods>
+  <methods name="getFloats">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#float[]"/>
+  </methods>
+  <methods name="getInts">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#int[]"/>
+  </methods>
+  <methods name="getLongs">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#long[]"/>
+  </methods>
+  <methods name="getShorts">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/#short[]"/>
+  </methods>
+  <methods name="returnAs">
+    <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/com.ibm.etools.java.stressSample#A[]"/>
+    <parameters name="arg0">
+      <eType xsi:type="org.eclipse.jem.internal.java:ArrayType" href="java:/com.ibm.etools.java.stressSample#C[]"/>
+    </parameters>
+  </methods>
+  <methods name="A" constructor="true"/>
+</org.eclipse.jem.internal.java:JavaClass>

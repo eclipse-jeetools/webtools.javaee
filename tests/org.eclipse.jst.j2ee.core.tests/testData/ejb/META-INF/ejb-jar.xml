@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+
+   <ejb-jar id="ejb-jar_ID">
+      <display-name>AppProfileSampleEJBModule</display-name>
+      <enterprise-beans>
+         <entity id="ContainerManagedEntity_1">
+            <ejb-name>Account</ejb-name>
+            <home>com.ibm.websphere.samples.appprofile.accountmanagementejb.AccountHome</home>
+            <remote>com.ibm.websphere.samples.appprofile.accountmanagementejb.Account</remote>
+            <local-home>com.ibm.websphere.samples.appprofile.accountmanagementejb.LocalAccountHome</local-home>
+            <local>com.ibm.websphere.samples.appprofile.accountmanagementejb.LocalAccount</local>
+            <ejb-class>com.ibm.websphere.samples.appprofile.accountmanagementejb.AccountBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.String</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>Account</abstract-schema-name>
+            <cmp-field id="Account_accountid">
+               <field-name>accountid</field-name>
+            </cmp-field>
+            <cmp-field id="Account_type">
+               <field-name>type</field-name>
+            </cmp-field>
+            <cmp-field id="Account_balance">
+               <field-name>balance</field-name>
+            </cmp-field>
+            <cmp-field id="Account_apr">
+               <field-name>apr</field-name>
+            </cmp-field>
+            <primkey-field>accountid</primkey-field>
+            <query id="Query_1">
+               <query-method id="QueryMethod_1">
+                  <method-name>findLargeAccounts</method-name>
+                  <method-params>
+                     <method-param>double</method-param>
+                  </method-params>
+               </query-method>
+               <ejb-ql>SELECT OBJECT(a) FROM Account a WHERE a.balance >= ?1</ejb-ql>
+            </query>
+            <query id="Query_2">
+               <query-method id="QueryMethod_2">
+                  <method-name>findByAccountId</method-name>
+                  <method-params>
+                     <method-param>java.lang.String</method-param>
+                  </method-params>
+               </query-method>
+               <ejb-ql>SELECT OBJECT(a) FROM Account a WHERE a.accountid  = ?1</ejb-ql>
+            </query>
+            <query id="Query_3">
+               <query-method id="QueryMethod_3">
+                  <method-name>findAllAccounts</method-name>
+                  <method-params>
+                     <method-param></method-param>
+                  </method-params>
+               </query-method>
+               <ejb-ql>SELECT OBJECT(a) FROM Account a</ejb-ql>
+            </query>
+         </entity>
+         <session id="Session_1">
+            <display-name>AccountManager</display-name>
+            <ejb-name>AccountManager</ejb-name>
+            <home>com.ibm.websphere.samples.appprofile.accountmanagementejb.AccountManagerHome</home>
+            <remote>com.ibm.websphere.samples.appprofile.accountmanagementejb.AccountManager</remote>
+            <ejb-class>com.ibm.websphere.samples.appprofile.accountmanagementejb.AccountManagerBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <ejb-local-ref id="EJBLocalRef_1">
+               <ejb-ref-name>ejb/AppProfileSample-AccountHome</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>com.ibm.websphere.samples.appprofile.accountmanagementejb.LocalAccountHome</local-home>
+               <local>com.ibm.websphere.samples.appprofile.accountmanagementejb.LocalAccount</local>
+               <ejb-link>Account</ejb-link>
+            </ejb-local-ref>
+         </session>
+      </enterprise-beans>
+   </ejb-jar>

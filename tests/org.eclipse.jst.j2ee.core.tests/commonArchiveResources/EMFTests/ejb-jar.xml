@@ -1,0 +1,1864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+
+   <ejb-jar id="ejb-jar_ID">
+      <description>description_0</description>
+      <display-name>displayName_0</display-name>
+      <small-icon>smallIcon_0</small-icon>
+      <large-icon>largeIcon_0</large-icon>
+      <enterprise-beans>
+         <entity id="Entity_1051639788645">
+            <description>description_0</description>
+            <display-name>displayName_0</display-name>
+            <small-icon>smallIcon_0</small-icon>
+            <large-icon>largeIcon_0</large-icon>
+            <ejb-name>name_0</ejb-name>
+            <home>java.util.List</home>
+            <remote>java.sql.Data</remote>
+            <local-home>java.lang.Integer</local-home>
+            <local>java.lang.String</local>
+            <ejb-class>java.util.HashTable</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.util.HashTable</prim-key-class>
+            <reentrant>True</reentrant>
+            <env-entry id="EnvEntry_1051639788695">
+               <description>description_0</description>
+               <env-entry-name>name_0</env-entry-name>
+               <env-entry-type>java.lang.String</env-entry-type>
+               <env-entry-value>value_0</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788705">
+               <description>description_1</description>
+               <env-entry-name>name_1</env-entry-name>
+               <env-entry-type>java.lang.Integer</env-entry-type>
+               <env-entry-value>value_1</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788706">
+               <description>description_2</description>
+               <env-entry-name>name_2</env-entry-name>
+               <env-entry-type>java.lang.Boolean</env-entry-type>
+               <env-entry-value>value_2</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788707">
+               <description>description_3</description>
+               <env-entry-name>name_3</env-entry-name>
+               <env-entry-type>java.lang.Double</env-entry-type>
+               <env-entry-value>value_3</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788715">
+               <description>description_4</description>
+               <env-entry-name>name_4</env-entry-name>
+               <env-entry-type>java.lang.Byte</env-entry-type>
+               <env-entry-value>value_4</env-entry-value>
+            </env-entry>
+            <ejb-ref id="EjbRef_1051639788725">
+               <description>description_0</description>
+               <ejb-ref-name>name_0</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_0</home>
+               <remote>remote_0</remote>
+               <ejb-link>link_0</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788726">
+               <description>description_1</description>
+               <ejb-ref-name>name_1</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_1</home>
+               <remote>remote_1</remote>
+               <ejb-link>link_1</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788727">
+               <description>description_2</description>
+               <ejb-ref-name>name_2</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_2</home>
+               <remote>remote_2</remote>
+               <ejb-link>link_2</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788728">
+               <description>description_3</description>
+               <ejb-ref-name>name_3</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_3</home>
+               <remote>remote_3</remote>
+               <ejb-link>link_3</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788729">
+               <description>description_4</description>
+               <ejb-ref-name>name_4</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_4</home>
+               <remote>remote_4</remote>
+               <ejb-link>link_4</ejb-link>
+            </ejb-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788745">
+               <description>description_5</description>
+               <ejb-ref-name>name_5</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_5</local-home>
+               <local>remote_5</local>
+               <ejb-link>link_5</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788746">
+               <description>description_6</description>
+               <ejb-ref-name>name_6</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_6</local-home>
+               <local>remote_6</local>
+               <ejb-link>link_6</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788747">
+               <description>description_7</description>
+               <ejb-ref-name>name_7</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_7</local-home>
+               <local>remote_7</local>
+               <ejb-link>link_7</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788748">
+               <description>description_8</description>
+               <ejb-ref-name>name_8</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_8</local-home>
+               <local>remote_8</local>
+               <ejb-link>link_8</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788749">
+               <description>description_9</description>
+               <ejb-ref-name>name_9</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_9</local-home>
+               <local>remote_9</local>
+               <ejb-link>link_9</ejb-link>
+            </ejb-local-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788775">
+               <description>description_0</description>
+               <role-name>name_0</role-name>
+               <role-link>link_0</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788776">
+               <description>description_1</description>
+               <role-name>name_1</role-name>
+               <role-link>link_1</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788777">
+               <description>description_2</description>
+               <role-name>name_2</role-name>
+               <role-link>link_2</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788778">
+               <description>description_3</description>
+               <role-name>name_3</role-name>
+               <role-link>link_3</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788779">
+               <description>description_4</description>
+               <role-name>name_4</role-name>
+               <role-link>link_4</role-link>
+            </security-role-ref>
+            <security-identity>
+               <description>description_0</description>
+               <run-as id="RunAsSpecifiedIdentity_1051639788775">
+                  <description>description_0</description>
+                  <role-name>roleName_0</role-name>
+               </run-as>
+            </security-identity>
+            <resource-ref id="ResourceRef_1051639788785">
+               <description>description_0</description>
+               <res-ref-name>name_0</res-ref-name>
+               <res-type>type_0</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788786">
+               <description>description_1</description>
+               <res-ref-name>name_1</res-ref-name>
+               <res-type>type_1</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788787">
+               <description>description_2</description>
+               <res-ref-name>name_2</res-ref-name>
+               <res-type>type_2</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788788">
+               <description>description_3</description>
+               <res-ref-name>name_3</res-ref-name>
+               <res-type>type_3</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788795">
+               <description>description_4</description>
+               <res-ref-name>name_4</res-ref-name>
+               <res-type>type_4</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788805">
+               <description>description_0</description>
+               <resource-env-ref-name>name_0</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.Integer</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788806">
+               <description>description_1</description>
+               <resource-env-ref-name>name_1</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.String</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788807">
+               <description>description_2</description>
+               <resource-env-ref-name>name_2</resource-env-ref-name>
+               <resource-env-ref-type>java.util.HashTable</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788808">
+               <description>description_3</description>
+               <resource-env-ref-name>name_3</resource-env-ref-name>
+               <resource-env-ref-type>java.util.List</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788809">
+               <description>description_4</description>
+               <resource-env-ref-name>name_4</resource-env-ref-name>
+               <resource-env-ref-type>java.sql.Data</resource-env-ref-type>
+            </resource-env-ref>
+         </entity>
+         <entity id="Entity_1051639788805">
+            <description>description_1</description>
+            <display-name>displayName_1</display-name>
+            <small-icon>smallIcon_1</small-icon>
+            <large-icon>largeIcon_1</large-icon>
+            <ejb-name>name_1</ejb-name>
+            <home>java.sql.Data</home>
+            <remote>java.lang.Integer</remote>
+            <local-home>java.lang.String</local-home>
+            <local>java.util.HashTable</local>
+            <ejb-class>java.util.List</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.util.List</prim-key-class>
+            <reentrant>False</reentrant>
+            <env-entry id="EnvEntry_1051639788805">
+               <description>description_5</description>
+               <env-entry-name>name_5</env-entry-name>
+               <env-entry-type>java.lang.Short</env-entry-type>
+               <env-entry-value>value_5</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788815">
+               <description>description_6</description>
+               <env-entry-name>name_6</env-entry-name>
+               <env-entry-type>java.lang.Long</env-entry-type>
+               <env-entry-value>value_6</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788816">
+               <description>description_7</description>
+               <env-entry-name>name_7</env-entry-name>
+               <env-entry-type>java.lang.Float</env-entry-type>
+               <env-entry-value>value_7</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788817">
+               <description>description_8</description>
+               <env-entry-name>name_8</env-entry-name>
+               <env-entry-type>java.lang.Character</env-entry-type>
+               <env-entry-value>value_8</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788818">
+               <description>description_9</description>
+               <env-entry-name>name_9</env-entry-name>
+               <env-entry-type>java.lang.String</env-entry-type>
+               <env-entry-value>value_9</env-entry-value>
+            </env-entry>
+            <ejb-ref id="EjbRef_1051639788815">
+               <description>description_10</description>
+               <ejb-ref-name>name_10</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_10</home>
+               <remote>remote_10</remote>
+               <ejb-link>link_10</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788816">
+               <description>description_11</description>
+               <ejb-ref-name>name_11</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_11</home>
+               <remote>remote_11</remote>
+               <ejb-link>link_11</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788817">
+               <description>description_12</description>
+               <ejb-ref-name>name_12</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_12</home>
+               <remote>remote_12</remote>
+               <ejb-link>link_12</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788818">
+               <description>description_13</description>
+               <ejb-ref-name>name_13</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_13</home>
+               <remote>remote_13</remote>
+               <ejb-link>link_13</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788819">
+               <description>description_14</description>
+               <ejb-ref-name>name_14</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_14</home>
+               <remote>remote_14</remote>
+               <ejb-link>link_14</ejb-link>
+            </ejb-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788815">
+               <description>description_15</description>
+               <ejb-ref-name>name_15</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_15</local-home>
+               <local>remote_15</local>
+               <ejb-link>link_15</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788816">
+               <description>description_16</description>
+               <ejb-ref-name>name_16</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_16</local-home>
+               <local>remote_16</local>
+               <ejb-link>link_16</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788817">
+               <description>description_17</description>
+               <ejb-ref-name>name_17</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_17</local-home>
+               <local>remote_17</local>
+               <ejb-link>link_17</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788818">
+               <description>description_18</description>
+               <ejb-ref-name>name_18</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_18</local-home>
+               <local>remote_18</local>
+               <ejb-link>link_18</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788819">
+               <description>description_19</description>
+               <ejb-ref-name>name_19</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_19</local-home>
+               <local>remote_19</local>
+               <ejb-link>link_19</ejb-link>
+            </ejb-local-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788825">
+               <description>description_5</description>
+               <role-name>name_5</role-name>
+               <role-link>link_5</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788826">
+               <description>description_6</description>
+               <role-name>name_6</role-name>
+               <role-link>link_6</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788827">
+               <description>description_7</description>
+               <role-name>name_7</role-name>
+               <role-link>link_7</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788828">
+               <description>description_8</description>
+               <role-name>name_8</role-name>
+               <role-link>link_8</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788829">
+               <description>description_9</description>
+               <role-name>name_9</role-name>
+               <role-link>link_9</role-link>
+            </security-role-ref>
+            <security-identity>
+               <description>description_1</description>
+               <use-caller-identity id="UseCallerIdentity_1051639788825"></use-caller-identity>
+            </security-identity>
+            <resource-ref id="ResourceRef_1051639788825">
+               <description>description_5</description>
+               <res-ref-name>name_5</res-ref-name>
+               <res-type>type_5</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788826">
+               <description>description_6</description>
+               <res-ref-name>name_6</res-ref-name>
+               <res-type>type_6</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788827">
+               <description>description_7</description>
+               <res-ref-name>name_7</res-ref-name>
+               <res-type>type_7</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788828">
+               <description>description_8</description>
+               <res-ref-name>name_8</res-ref-name>
+               <res-type>type_8</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788829">
+               <description>description_9</description>
+               <res-ref-name>name_9</res-ref-name>
+               <res-type>type_9</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788825">
+               <description>description_5</description>
+               <resource-env-ref-name>name_5</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.String</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788826">
+               <description>description_6</description>
+               <resource-env-ref-name>name_6</resource-env-ref-name>
+               <resource-env-ref-type>java.util.HashTable</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788827">
+               <description>description_7</description>
+               <resource-env-ref-name>name_7</resource-env-ref-name>
+               <resource-env-ref-type>java.util.List</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788828">
+               <description>description_8</description>
+               <resource-env-ref-name>name_8</resource-env-ref-name>
+               <resource-env-ref-type>java.sql.Data</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788829">
+               <description>description_9</description>
+               <resource-env-ref-name>name_9</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.Integer</resource-env-ref-type>
+            </resource-env-ref>
+         </entity>
+         <entity id="ContainerManagedEntity_1051639788825">
+            <description>description_2</description>
+            <display-name>displayName_2</display-name>
+            <small-icon>smallIcon_2</small-icon>
+            <large-icon>largeIcon_2</large-icon>
+            <ejb-name>name_2</ejb-name>
+            <home>java.lang.Integer</home>
+            <remote>java.lang.String</remote>
+            <local-home>java.util.HashTable</local-home>
+            <local>java.util.List</local>
+            <ejb-class>java.sql.Data</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.sql.Data</prim-key-class>
+            <reentrant>True</reentrant>
+            <cmp-version>2.0</cmp-version>
+            <abstract-schema-name>abstractSchemaName_0</abstract-schema-name>
+            <cmp-field id="CMPAttribute_1051639788845">
+               <field-name>name_3</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1051639788846">
+               <field-name>name_4</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1051639788847">
+               <field-name>name_5</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1051639788848">
+               <field-name>name_6</field-name>
+            </cmp-field>
+            <cmp-field id="CMPAttribute_1051639788849">
+               <field-name>name_7</field-name>
+            </cmp-field>
+            <env-entry id="EnvEntry_1051639788885">
+               <description>description_10</description>
+               <env-entry-name>name_10</env-entry-name>
+               <env-entry-type>java.lang.Integer</env-entry-type>
+               <env-entry-value>value_10</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788886">
+               <description>description_11</description>
+               <env-entry-name>name_11</env-entry-name>
+               <env-entry-type>java.lang.Boolean</env-entry-type>
+               <env-entry-value>value_11</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788887">
+               <description>description_12</description>
+               <env-entry-name>name_12</env-entry-name>
+               <env-entry-type>java.lang.Double</env-entry-type>
+               <env-entry-value>value_12</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788888">
+               <description>description_13</description>
+               <env-entry-name>name_13</env-entry-name>
+               <env-entry-type>java.lang.Byte</env-entry-type>
+               <env-entry-value>value_13</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788889">
+               <description>description_14</description>
+               <env-entry-name>name_14</env-entry-name>
+               <env-entry-type>java.lang.Short</env-entry-type>
+               <env-entry-value>value_14</env-entry-value>
+            </env-entry>
+            <ejb-ref id="EjbRef_1051639788885">
+               <description>description_20</description>
+               <ejb-ref-name>name_20</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_20</home>
+               <remote>remote_20</remote>
+               <ejb-link>link_20</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788886">
+               <description>description_21</description>
+               <ejb-ref-name>name_21</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_21</home>
+               <remote>remote_21</remote>
+               <ejb-link>link_21</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788887">
+               <description>description_22</description>
+               <ejb-ref-name>name_22</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_22</home>
+               <remote>remote_22</remote>
+               <ejb-link>link_22</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788888">
+               <description>description_23</description>
+               <ejb-ref-name>name_23</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_23</home>
+               <remote>remote_23</remote>
+               <ejb-link>link_23</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788889">
+               <description>description_24</description>
+               <ejb-ref-name>name_24</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_24</home>
+               <remote>remote_24</remote>
+               <ejb-link>link_24</ejb-link>
+            </ejb-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788895">
+               <description>description_25</description>
+               <ejb-ref-name>name_25</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_25</local-home>
+               <local>remote_25</local>
+               <ejb-link>link_25</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788896">
+               <description>description_26</description>
+               <ejb-ref-name>name_26</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_26</local-home>
+               <local>remote_26</local>
+               <ejb-link>link_26</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788897">
+               <description>description_27</description>
+               <ejb-ref-name>name_27</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_27</local-home>
+               <local>remote_27</local>
+               <ejb-link>link_27</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788898">
+               <description>description_28</description>
+               <ejb-ref-name>name_28</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_28</local-home>
+               <local>remote_28</local>
+               <ejb-link>link_28</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788899">
+               <description>description_29</description>
+               <ejb-ref-name>name_29</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_29</local-home>
+               <local>remote_29</local>
+               <ejb-link>link_29</ejb-link>
+            </ejb-local-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788895">
+               <description>description_10</description>
+               <role-name>name_10</role-name>
+               <role-link>link_10</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788896">
+               <description>description_11</description>
+               <role-name>name_11</role-name>
+               <role-link>link_11</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788897">
+               <description>description_12</description>
+               <role-name>name_12</role-name>
+               <role-link>link_12</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788898">
+               <description>description_13</description>
+               <role-name>name_13</role-name>
+               <role-link>link_13</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788899">
+               <description>description_14</description>
+               <role-name>name_14</role-name>
+               <role-link>link_14</role-link>
+            </security-role-ref>
+            <security-identity>
+               <description>description_2</description>
+               <run-as id="RunAsSpecifiedIdentity_1051639788895">
+                  <description>description_1</description>
+                  <role-name>roleName_1</role-name>
+               </run-as>
+            </security-identity>
+            <resource-ref id="ResourceRef_1051639788895">
+               <description>description_10</description>
+               <res-ref-name>name_10</res-ref-name>
+               <res-type>type_10</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788896">
+               <description>description_11</description>
+               <res-ref-name>name_11</res-ref-name>
+               <res-type>type_11</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788897">
+               <description>description_12</description>
+               <res-ref-name>name_12</res-ref-name>
+               <res-type>type_12</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788898">
+               <description>description_13</description>
+               <res-ref-name>name_13</res-ref-name>
+               <res-type>type_13</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788905">
+               <description>description_14</description>
+               <res-ref-name>name_14</res-ref-name>
+               <res-type>type_14</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788905">
+               <description>description_10</description>
+               <resource-env-ref-name>name_10</resource-env-ref-name>
+               <resource-env-ref-type>java.util.HashTable</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788906">
+               <description>description_11</description>
+               <resource-env-ref-name>name_11</resource-env-ref-name>
+               <resource-env-ref-type>java.util.List</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788907">
+               <description>description_12</description>
+               <resource-env-ref-name>name_12</resource-env-ref-name>
+               <resource-env-ref-type>java.sql.Data</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788908">
+               <description>description_13</description>
+               <resource-env-ref-name>name_13</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.Integer</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788909">
+               <description>description_14</description>
+               <resource-env-ref-name>name_14</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.String</resource-env-ref-type>
+            </resource-env-ref>
+            <query id="Query_1051639788936">
+               <description>description_0</description>
+               <query-method id="QueryMethod_1051639788936">
+                  <method-name>name_55</method-name>
+                  <method-params>
+                  </method-params>
+               </query-method>
+               <result-type-mapping>Remote</result-type-mapping>
+               <ejb-ql>ejbQL_0</ejb-ql>
+            </query>
+            <query id="Query_1051639788937">
+               <description>description_1</description>
+               <query-method id="QueryMethod_1051639788937">
+                  <method-name>name_56</method-name>
+                  <method-params>
+                     <method-param>parms_66</method-param>
+                  </method-params>
+               </query-method>
+               <result-type-mapping>Local</result-type-mapping>
+               <ejb-ql>ejbQL_1</ejb-ql>
+            </query>
+            <query id="Query_1051639788938">
+               <description>description_2</description>
+               <query-method id="QueryMethod_1051639788938">
+                  <method-name>name_57</method-name>
+                  <method-params>
+                     <method-param>parms_67</method-param>
+                     <method-param>parms_68</method-param>
+                  </method-params>
+               </query-method>
+               <result-type-mapping>Remote</result-type-mapping>
+               <ejb-ql>ejbQL_2</ejb-ql>
+            </query>
+            <query id="Query_1051639788939">
+               <description>description_3</description>
+               <query-method id="QueryMethod_1051639788939">
+                  <method-name>name_58</method-name>
+                  <method-params>
+                     <method-param>parms_69</method-param>
+                     <method-param>parms_70</method-param>
+                     <method-param>parms_71</method-param>
+                  </method-params>
+               </query-method>
+               <result-type-mapping>Local</result-type-mapping>
+               <ejb-ql>ejbQL_3</ejb-ql>
+            </query>
+            <query id="Query_1051639788940">
+               <description>description_4</description>
+               <query-method id="QueryMethod_1051639788940">
+                  <method-name>name_59</method-name>
+                  <method-params>
+                  </method-params>
+               </query-method>
+               <result-type-mapping>Remote</result-type-mapping>
+               <ejb-ql>ejbQL_4</ejb-ql>
+            </query>
+         </entity>
+         <session id="Session_1051639788946">
+            <description>description_3</description>
+            <display-name>displayName_3</display-name>
+            <small-icon>smallIcon_3</small-icon>
+            <large-icon>largeIcon_3</large-icon>
+            <ejb-name>name_8</ejb-name>
+            <home>java.lang.String</home>
+            <remote>java.util.HashTable</remote>
+            <local-home>java.util.List</local-home>
+            <local>java.sql.Data</local>
+            <ejb-class>java.lang.Integer</ejb-class>
+            <session-type>Stateful</session-type>
+            <transaction-type>Bean</transaction-type>
+            <env-entry id="EnvEntry_1051639788946">
+               <description>description_15</description>
+               <env-entry-name>name_15</env-entry-name>
+               <env-entry-type>java.lang.Long</env-entry-type>
+               <env-entry-value>value_15</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788947">
+               <description>description_16</description>
+               <env-entry-name>name_16</env-entry-name>
+               <env-entry-type>java.lang.Float</env-entry-type>
+               <env-entry-value>value_16</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788948">
+               <description>description_17</description>
+               <env-entry-name>name_17</env-entry-name>
+               <env-entry-type>java.lang.Character</env-entry-type>
+               <env-entry-value>value_17</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788949">
+               <description>description_18</description>
+               <env-entry-name>name_18</env-entry-name>
+               <env-entry-type>java.lang.String</env-entry-type>
+               <env-entry-value>value_18</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788950">
+               <description>description_19</description>
+               <env-entry-name>name_19</env-entry-name>
+               <env-entry-type>java.lang.Integer</env-entry-type>
+               <env-entry-value>value_19</env-entry-value>
+            </env-entry>
+            <ejb-ref id="EjbRef_1051639788946">
+               <description>description_30</description>
+               <ejb-ref-name>name_30</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_30</home>
+               <remote>remote_30</remote>
+               <ejb-link>link_30</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788947">
+               <description>description_31</description>
+               <ejb-ref-name>name_31</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_31</home>
+               <remote>remote_31</remote>
+               <ejb-link>link_31</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788948">
+               <description>description_32</description>
+               <ejb-ref-name>name_32</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_32</home>
+               <remote>remote_32</remote>
+               <ejb-link>link_32</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788949">
+               <description>description_33</description>
+               <ejb-ref-name>name_33</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_33</home>
+               <remote>remote_33</remote>
+               <ejb-link>link_33</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788950">
+               <description>description_34</description>
+               <ejb-ref-name>name_34</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_34</home>
+               <remote>remote_34</remote>
+               <ejb-link>link_34</ejb-link>
+            </ejb-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788946">
+               <description>description_35</description>
+               <ejb-ref-name>name_35</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_35</local-home>
+               <local>remote_35</local>
+               <ejb-link>link_35</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788947">
+               <description>description_36</description>
+               <ejb-ref-name>name_36</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_36</local-home>
+               <local>remote_36</local>
+               <ejb-link>link_36</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788948">
+               <description>description_37</description>
+               <ejb-ref-name>name_37</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_37</local-home>
+               <local>remote_37</local>
+               <ejb-link>link_37</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788949">
+               <description>description_38</description>
+               <ejb-ref-name>name_38</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_38</local-home>
+               <local>remote_38</local>
+               <ejb-link>link_38</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788950">
+               <description>description_39</description>
+               <ejb-ref-name>name_39</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_39</local-home>
+               <local>remote_39</local>
+               <ejb-link>link_39</ejb-link>
+            </ejb-local-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788946">
+               <description>description_15</description>
+               <role-name>name_15</role-name>
+               <role-link>link_15</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788947">
+               <description>description_16</description>
+               <role-name>name_16</role-name>
+               <role-link>link_16</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788948">
+               <description>description_17</description>
+               <role-name>name_17</role-name>
+               <role-link>link_17</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788949">
+               <description>description_18</description>
+               <role-name>name_18</role-name>
+               <role-link>link_18</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788950">
+               <description>description_19</description>
+               <role-name>name_19</role-name>
+               <role-link>link_19</role-link>
+            </security-role-ref>
+            <security-identity>
+               <description>description_3</description>
+               <use-caller-identity id="UseCallerIdentity_1051639788946"></use-caller-identity>
+            </security-identity>
+            <resource-ref id="ResourceRef_1051639788946">
+               <description>description_15</description>
+               <res-ref-name>name_15</res-ref-name>
+               <res-type>type_15</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788947">
+               <description>description_16</description>
+               <res-ref-name>name_16</res-ref-name>
+               <res-type>type_16</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788948">
+               <description>description_17</description>
+               <res-ref-name>name_17</res-ref-name>
+               <res-type>type_17</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788949">
+               <description>description_18</description>
+               <res-ref-name>name_18</res-ref-name>
+               <res-type>type_18</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788956">
+               <description>description_19</description>
+               <res-ref-name>name_19</res-ref-name>
+               <res-type>type_19</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788956">
+               <description>description_15</description>
+               <resource-env-ref-name>name_15</resource-env-ref-name>
+               <resource-env-ref-type>java.util.List</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788957">
+               <description>description_16</description>
+               <resource-env-ref-name>name_16</resource-env-ref-name>
+               <resource-env-ref-type>java.sql.Data</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788958">
+               <description>description_17</description>
+               <resource-env-ref-name>name_17</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.Integer</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788959">
+               <description>description_18</description>
+               <resource-env-ref-name>name_18</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.String</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788960">
+               <description>description_19</description>
+               <resource-env-ref-name>name_19</resource-env-ref-name>
+               <resource-env-ref-type>java.util.HashTable</resource-env-ref-type>
+            </resource-env-ref>
+         </session>
+         <entity id="Entity_1051639788956">
+            <description>description_4</description>
+            <display-name>displayName_4</display-name>
+            <small-icon>smallIcon_4</small-icon>
+            <large-icon>largeIcon_4</large-icon>
+            <ejb-name>name_9</ejb-name>
+            <home>java.lang.String</home>
+            <remote>java.util.HashTable</remote>
+            <local-home>java.util.List</local-home>
+            <local>java.sql.Data</local>
+            <ejb-class>java.lang.Integer</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>False</reentrant>
+            <env-entry id="EnvEntry_1051639788956">
+               <description>description_20</description>
+               <env-entry-name>name_20</env-entry-name>
+               <env-entry-type>java.lang.Boolean</env-entry-type>
+               <env-entry-value>value_20</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788957">
+               <description>description_21</description>
+               <env-entry-name>name_21</env-entry-name>
+               <env-entry-type>java.lang.Double</env-entry-type>
+               <env-entry-value>value_21</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788958">
+               <description>description_22</description>
+               <env-entry-name>name_22</env-entry-name>
+               <env-entry-type>java.lang.Byte</env-entry-type>
+               <env-entry-value>value_22</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788959">
+               <description>description_23</description>
+               <env-entry-name>name_23</env-entry-name>
+               <env-entry-type>java.lang.Short</env-entry-type>
+               <env-entry-value>value_23</env-entry-value>
+            </env-entry>
+            <env-entry id="EnvEntry_1051639788960">
+               <description>description_24</description>
+               <env-entry-name>name_24</env-entry-name>
+               <env-entry-type>java.lang.Long</env-entry-type>
+               <env-entry-value>value_24</env-entry-value>
+            </env-entry>
+            <ejb-ref id="EjbRef_1051639788956">
+               <description>description_40</description>
+               <ejb-ref-name>name_40</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_40</home>
+               <remote>remote_40</remote>
+               <ejb-link>link_40</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788957">
+               <description>description_41</description>
+               <ejb-ref-name>name_41</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_41</home>
+               <remote>remote_41</remote>
+               <ejb-link>link_41</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788958">
+               <description>description_42</description>
+               <ejb-ref-name>name_42</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_42</home>
+               <remote>remote_42</remote>
+               <ejb-link>link_42</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788959">
+               <description>description_43</description>
+               <ejb-ref-name>name_43</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <home>home_43</home>
+               <remote>remote_43</remote>
+               <ejb-link>link_43</ejb-link>
+            </ejb-ref>
+            <ejb-ref id="EjbRef_1051639788960">
+               <description>description_44</description>
+               <ejb-ref-name>name_44</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <home>home_44</home>
+               <remote>remote_44</remote>
+               <ejb-link>link_44</ejb-link>
+            </ejb-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788956">
+               <description>description_45</description>
+               <ejb-ref-name>name_45</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_45</local-home>
+               <local>remote_45</local>
+               <ejb-link>link_45</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788957">
+               <description>description_46</description>
+               <ejb-ref-name>name_46</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_46</local-home>
+               <local>remote_46</local>
+               <ejb-link>link_46</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788958">
+               <description>description_47</description>
+               <ejb-ref-name>name_47</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_47</local-home>
+               <local>remote_47</local>
+               <ejb-link>link_47</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788959">
+               <description>description_48</description>
+               <ejb-ref-name>name_48</ejb-ref-name>
+               <ejb-ref-type>Session</ejb-ref-type>
+               <local-home>home_48</local-home>
+               <local>remote_48</local>
+               <ejb-link>link_48</ejb-link>
+            </ejb-local-ref>
+            <ejb-local-ref id="EJBLocalRef_1051639788960">
+               <description>description_49</description>
+               <ejb-ref-name>name_49</ejb-ref-name>
+               <ejb-ref-type>Entity</ejb-ref-type>
+               <local-home>home_49</local-home>
+               <local>remote_49</local>
+               <ejb-link>link_49</ejb-link>
+            </ejb-local-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788956">
+               <description>description_20</description>
+               <role-name>name_20</role-name>
+               <role-link>link_20</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788957">
+               <description>description_21</description>
+               <role-name>name_21</role-name>
+               <role-link>link_21</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788958">
+               <description>description_22</description>
+               <role-name>name_22</role-name>
+               <role-link>link_22</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788959">
+               <description>description_23</description>
+               <role-name>name_23</role-name>
+               <role-link>link_23</role-link>
+            </security-role-ref>
+            <security-role-ref id="SecurityRoleRef_1051639788960">
+               <description>description_24</description>
+               <role-name>name_24</role-name>
+               <role-link>link_24</role-link>
+            </security-role-ref>
+            <security-identity>
+               <description>description_4</description>
+               <run-as id="RunAsSpecifiedIdentity_1051639788956">
+                  <description>description_2</description>
+                  <role-name>roleName_2</role-name>
+               </run-as>
+            </security-identity>
+            <resource-ref id="ResourceRef_1051639788957">
+               <description>description_20</description>
+               <res-ref-name>name_20</res-ref-name>
+               <res-type>type_20</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788958">
+               <description>description_21</description>
+               <res-ref-name>name_21</res-ref-name>
+               <res-type>type_21</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788959">
+               <description>description_22</description>
+               <res-ref-name>name_22</res-ref-name>
+               <res-type>type_22</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788960">
+               <description>description_23</description>
+               <res-ref-name>name_23</res-ref-name>
+               <res-type>type_23</res-type>
+               <res-auth>Application</res-auth>
+               <res-sharing-scope>Unshareable</res-sharing-scope>
+            </resource-ref>
+            <resource-ref id="ResourceRef_1051639788961">
+               <description>description_24</description>
+               <res-ref-name>name_24</res-ref-name>
+               <res-type>type_24</res-type>
+               <res-auth>Container</res-auth>
+               <res-sharing-scope>Shareable</res-sharing-scope>
+            </resource-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788961">
+               <description>description_20</description>
+               <resource-env-ref-name>name_20</resource-env-ref-name>
+               <resource-env-ref-type>java.util.List</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788962">
+               <description>description_21</description>
+               <resource-env-ref-name>name_21</resource-env-ref-name>
+               <resource-env-ref-type>java.sql.Data</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788963">
+               <description>description_22</description>
+               <resource-env-ref-name>name_22</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.Integer</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788964">
+               <description>description_23</description>
+               <resource-env-ref-name>name_23</resource-env-ref-name>
+               <resource-env-ref-type>java.lang.String</resource-env-ref-type>
+            </resource-env-ref>
+            <resource-env-ref id="ResourceEnvRef_1051639788965">
+               <description>description_24</description>
+               <resource-env-ref-name>name_24</resource-env-ref-name>
+               <resource-env-ref-type>java.util.HashTable</resource-env-ref-type>
+            </resource-env-ref>
+         </entity>
+      </enterprise-beans>
+      <relationships id="Relationships_1051639788956">
+         <description>description_0</description>
+         <ejb-relation id="EJBRelation_1051639788996">
+            <description>description_0</description>
+            <ejb-relation-name>name_0</ejb-relation-name>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639788996">
+               <description>description_0</description>
+               <ejb-relationship-role-name>roleName_0</ejb-relationship-role-name>
+               <multiplicity>One</multiplicity>
+               <cascade-delete></cascade-delete>
+               <relationship-role-source id="RoleSource_1051639788996">
+                  <description>description_0</description>
+                  <ejb-name>name_0</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639788996">
+                  <description>description_0</description>
+                  <cmr-field-name>name_10</cmr-field-name>
+                  <cmr-field-type>java.lang.String</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639788997">
+               <description>description_1</description>
+               <ejb-relationship-role-name>roleName_1</ejb-relationship-role-name>
+               <multiplicity>Many</multiplicity>
+               <relationship-role-source id="RoleSource_1051639788997">
+                  <description>description_1</description>
+                  <ejb-name>name_1</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639788997">
+                  <description>description_1</description>
+                  <cmr-field-name>name_11</cmr-field-name>
+                  <cmr-field-type>java.util.HashTable</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+         </ejb-relation>
+         <ejb-relation id="EJBRelation_1051639788997">
+            <description>description_1</description>
+            <ejb-relation-name>name_1</ejb-relation-name>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639788998">
+               <description>description_5</description>
+               <ejb-relationship-role-name>roleName_5</ejb-relationship-role-name>
+               <multiplicity>Many</multiplicity>
+               <relationship-role-source id="RoleSource_1051639788998">
+                  <description>description_5</description>
+                  <ejb-name>name_1</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639788998">
+                  <description>description_5</description>
+                  <cmr-field-name>name_15</cmr-field-name>
+                  <cmr-field-type>java.lang.String</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639788999">
+               <description>description_6</description>
+               <ejb-relationship-role-name>roleName_6</ejb-relationship-role-name>
+               <multiplicity>One</multiplicity>
+               <cascade-delete></cascade-delete>
+               <relationship-role-source id="RoleSource_1051639788999">
+                  <description>description_6</description>
+                  <ejb-name>name_2</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639788999">
+                  <description>description_6</description>
+                  <cmr-field-name>name_16</cmr-field-name>
+                  <cmr-field-type>java.util.HashTable</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+         </ejb-relation>
+         <ejb-relation id="EJBRelation_1051639789006">
+            <description>description_2</description>
+            <ejb-relation-name>name_2</ejb-relation-name>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639789006">
+               <description>description_10</description>
+               <ejb-relationship-role-name>roleName_10</ejb-relationship-role-name>
+               <multiplicity>One</multiplicity>
+               <cascade-delete></cascade-delete>
+               <relationship-role-source id="RoleSource_1051639789006">
+                  <description>description_10</description>
+                  <ejb-name>name_2</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639789006">
+                  <description>description_10</description>
+                  <cmr-field-name>name_20</cmr-field-name>
+                  <cmr-field-type>java.lang.String</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639789007">
+               <description>description_11</description>
+               <ejb-relationship-role-name>roleName_11</ejb-relationship-role-name>
+               <multiplicity>Many</multiplicity>
+               <relationship-role-source id="RoleSource_1051639789007">
+                  <description>description_11</description>
+                  <ejb-name>name_9</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639789007">
+                  <description>description_11</description>
+                  <cmr-field-name>name_21</cmr-field-name>
+                  <cmr-field-type>java.util.HashTable</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+         </ejb-relation>
+         <ejb-relation id="EJBRelation_1051639789007">
+            <description>description_3</description>
+            <ejb-relation-name>name_3</ejb-relation-name>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639789008">
+               <description>description_15</description>
+               <ejb-relationship-role-name>roleName_15</ejb-relationship-role-name>
+               <multiplicity>Many</multiplicity>
+               <relationship-role-source id="RoleSource_1051639789008">
+                  <description>description_15</description>
+                  <ejb-name>name_9</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639789008">
+                  <description>description_15</description>
+                  <cmr-field-name>name_25</cmr-field-name>
+                  <cmr-field-type>java.lang.String</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639789009">
+               <description>description_16</description>
+               <ejb-relationship-role-name>roleName_16</ejb-relationship-role-name>
+               <multiplicity>One</multiplicity>
+               <cascade-delete></cascade-delete>
+               <relationship-role-source id="RoleSource_1051639789009">
+                  <description>description_16</description>
+                  <ejb-name>name_0</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639789009">
+                  <description>description_16</description>
+                  <cmr-field-name>name_26</cmr-field-name>
+                  <cmr-field-type>java.util.HashTable</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+         </ejb-relation>
+         <ejb-relation id="EJBRelation_1051639789008">
+            <description>description_4</description>
+            <ejb-relation-name>name_4</ejb-relation-name>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639789010">
+               <description>description_20</description>
+               <ejb-relationship-role-name>roleName_20</ejb-relationship-role-name>
+               <multiplicity>One</multiplicity>
+               <cascade-delete></cascade-delete>
+               <relationship-role-source id="RoleSource_1051639789010">
+                  <description>description_20</description>
+                  <ejb-name>name_0</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639789010">
+                  <description>description_20</description>
+                  <cmr-field-name>name_30</cmr-field-name>
+                  <cmr-field-type>java.lang.String</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+            <ejb-relationship-role id="EJBRelationshipRole_1051639789011">
+               <description>description_21</description>
+               <ejb-relationship-role-name>roleName_21</ejb-relationship-role-name>
+               <multiplicity>Many</multiplicity>
+               <relationship-role-source id="RoleSource_1051639789011">
+                  <description>description_21</description>
+                  <ejb-name>name_1</ejb-name>
+               </relationship-role-source>
+               <cmr-field id="CMRField_1051639789011">
+                  <description>description_21</description>
+                  <cmr-field-name>name_31</cmr-field-name>
+                  <cmr-field-type>java.util.HashTable</cmr-field-type>
+               </cmr-field>
+            </ejb-relationship-role>
+         </ejb-relation>
+      </relationships>
+      <assembly-descriptor id="AssemblyDescriptor_1051639789016">
+         <security-role id="SecurityRole_1051639789036">
+            <description>description_0</description>
+            <role-name>roleName_0</role-name>
+         </security-role>
+         <security-role id="SecurityRole_1051639789037">
+            <description>description_1</description>
+            <role-name>roleName_1</role-name>
+         </security-role>
+         <security-role id="SecurityRole_1051639789046">
+            <description>description_2</description>
+            <role-name>roleName_2</role-name>
+         </security-role>
+         <security-role id="SecurityRole_1051639789047">
+            <description>description_3</description>
+            <role-name>roleName_3</role-name>
+         </security-role>
+         <security-role id="SecurityRole_1051639789048">
+            <description>description_4</description>
+            <role-name>roleName_4</role-name>
+         </security-role>
+         <method-permission id="MethodPermission_1051639789056">
+            <description>description_0</description>
+            <method id="MethodElement_1051639789106">
+               <description>description_0</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_0</method-name>
+            </method>
+            <method id="MethodElement_1051639789107">
+               <description>description_1</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_1</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789108">
+               <description>description_2</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_2</method-name>
+               <method-params>
+                  <method-param>parms_0</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789109">
+               <description>description_3</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_3</method-name>
+               <method-params>
+                  <method-param>parms_1</method-param>
+                  <method-param>parms_2</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789110">
+               <description>description_4</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_4</method-name>
+               <method-params>
+                  <method-param>parms_3</method-param>
+                  <method-param>parms_4</method-param>
+                  <method-param>parms_5</method-param>
+               </method-params>
+            </method>
+         </method-permission>
+         <method-permission id="MethodPermission_1051639789116">
+            <description>description_1</description>
+            <method id="MethodElement_1051639789116">
+               <description>description_5</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_5</method-name>
+            </method>
+            <method id="MethodElement_1051639789117">
+               <description>description_6</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_6</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789118">
+               <description>description_7</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_7</method-name>
+               <method-params>
+                  <method-param>parms_6</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789119">
+               <description>description_8</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_8</method-name>
+               <method-params>
+                  <method-param>parms_7</method-param>
+                  <method-param>parms_8</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789120">
+               <description>description_9</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_9</method-name>
+               <method-params>
+                  <method-param>parms_9</method-param>
+                  <method-param>parms_10</method-param>
+                  <method-param>parms_11</method-param>
+               </method-params>
+            </method>
+         </method-permission>
+         <method-permission id="MethodPermission_1051639789117">
+            <description>description_2</description>
+            <method id="MethodElement_1051639789121">
+               <description>description_10</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_10</method-name>
+            </method>
+            <method id="MethodElement_1051639789122">
+               <description>description_11</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_11</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789123">
+               <description>description_12</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_12</method-name>
+               <method-params>
+                  <method-param>parms_12</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789124">
+               <description>description_13</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_13</method-name>
+               <method-params>
+                  <method-param>parms_13</method-param>
+                  <method-param>parms_14</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789125">
+               <description>description_14</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_14</method-name>
+               <method-params>
+                  <method-param>parms_15</method-param>
+                  <method-param>parms_16</method-param>
+                  <method-param>parms_17</method-param>
+               </method-params>
+            </method>
+         </method-permission>
+         <method-permission id="MethodPermission_1051639789126">
+            <description>description_3</description>
+            <method id="MethodElement_1051639789126">
+               <description>description_15</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_15</method-name>
+            </method>
+            <method id="MethodElement_1051639789127">
+               <description>description_16</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_16</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789128">
+               <description>description_17</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_17</method-name>
+               <method-params>
+                  <method-param>parms_18</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789129">
+               <description>description_18</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_18</method-name>
+               <method-params>
+                  <method-param>parms_19</method-param>
+                  <method-param>parms_20</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789130">
+               <description>description_19</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_19</method-name>
+               <method-params>
+                  <method-param>parms_21</method-param>
+                  <method-param>parms_22</method-param>
+                  <method-param>parms_23</method-param>
+               </method-params>
+            </method>
+         </method-permission>
+         <method-permission id="MethodPermission_1051639789127">
+            <description>description_4</description>
+            <method id="MethodElement_1051639789131">
+               <description>description_20</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_20</method-name>
+            </method>
+            <method id="MethodElement_1051639789132">
+               <description>description_21</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_21</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789133">
+               <description>description_22</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_22</method-name>
+               <method-params>
+                  <method-param>parms_24</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789134">
+               <description>description_23</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_23</method-name>
+               <method-params>
+                  <method-param>parms_25</method-param>
+                  <method-param>parms_26</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789135">
+               <description>description_24</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_24</method-name>
+               <method-params>
+                  <method-param>parms_27</method-param>
+                  <method-param>parms_28</method-param>
+                  <method-param>parms_29</method-param>
+               </method-params>
+            </method>
+         </method-permission>
+         <container-transaction id="MethodTransaction_1051639789146">
+            <description>description_0</description>
+            <method id="MethodElement_1051639789146">
+               <description>description_25</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_25</method-name>
+            </method>
+            <method id="MethodElement_1051639789147">
+               <description>description_26</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_26</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789148">
+               <description>description_27</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_27</method-name>
+               <method-params>
+                  <method-param>parms_30</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789149">
+               <description>description_28</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_28</method-name>
+               <method-params>
+                  <method-param>parms_31</method-param>
+                  <method-param>parms_32</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789150">
+               <description>description_29</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_29</method-name>
+               <method-params>
+                  <method-param>parms_33</method-param>
+                  <method-param>parms_34</method-param>
+                  <method-param>parms_35</method-param>
+               </method-params>
+            </method>
+            <trans-attribute>NotSupported</trans-attribute>
+         </container-transaction>
+         <container-transaction id="MethodTransaction_1051639789147">
+            <description>description_1</description>
+            <method id="MethodElement_1051639789151">
+               <description>description_30</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_30</method-name>
+            </method>
+            <method id="MethodElement_1051639789152">
+               <description>description_31</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_31</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789153">
+               <description>description_32</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_32</method-name>
+               <method-params>
+                  <method-param>parms_36</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789154">
+               <description>description_33</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_33</method-name>
+               <method-params>
+                  <method-param>parms_37</method-param>
+                  <method-param>parms_38</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789156">
+               <description>description_34</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_34</method-name>
+               <method-params>
+                  <method-param>parms_39</method-param>
+                  <method-param>parms_40</method-param>
+                  <method-param>parms_41</method-param>
+               </method-params>
+            </method>
+            <trans-attribute>Supports</trans-attribute>
+         </container-transaction>
+         <container-transaction id="MethodTransaction_1051639789156">
+            <description>description_2</description>
+            <method id="MethodElement_1051639789157">
+               <description>description_35</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_35</method-name>
+            </method>
+            <method id="MethodElement_1051639789158">
+               <description>description_36</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_36</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789159">
+               <description>description_37</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_37</method-name>
+               <method-params>
+                  <method-param>parms_42</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789160">
+               <description>description_38</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_38</method-name>
+               <method-params>
+                  <method-param>parms_43</method-param>
+                  <method-param>parms_44</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789161">
+               <description>description_39</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_39</method-name>
+               <method-params>
+                  <method-param>parms_45</method-param>
+                  <method-param>parms_46</method-param>
+                  <method-param>parms_47</method-param>
+               </method-params>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+         </container-transaction>
+         <container-transaction id="MethodTransaction_1051639789157">
+            <description>description_3</description>
+            <method id="MethodElement_1051639789162">
+               <description>description_40</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_40</method-name>
+            </method>
+            <method id="MethodElement_1051639789163">
+               <description>description_41</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_41</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789164">
+               <description>description_42</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_42</method-name>
+               <method-params>
+                  <method-param>parms_48</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789165">
+               <description>description_43</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_43</method-name>
+               <method-params>
+                  <method-param>parms_49</method-param>
+                  <method-param>parms_50</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789166">
+               <description>description_44</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_44</method-name>
+               <method-params>
+                  <method-param>parms_51</method-param>
+                  <method-param>parms_52</method-param>
+                  <method-param>parms_53</method-param>
+               </method-params>
+            </method>
+            <trans-attribute>RequiresNew</trans-attribute>
+         </container-transaction>
+         <container-transaction id="MethodTransaction_1051639789158">
+            <description>description_4</description>
+            <method id="MethodElement_1051639789167">
+               <description>description_45</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_45</method-name>
+            </method>
+            <method id="MethodElement_1051639789168">
+               <description>description_46</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_46</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789169">
+               <description>description_47</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_47</method-name>
+               <method-params>
+                  <method-param>parms_54</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789170">
+               <description>description_48</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_48</method-name>
+               <method-params>
+                  <method-param>parms_55</method-param>
+                  <method-param>parms_56</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789171">
+               <description>description_49</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_49</method-name>
+               <method-params>
+                  <method-param>parms_57</method-param>
+                  <method-param>parms_58</method-param>
+                  <method-param>parms_59</method-param>
+               </method-params>
+            </method>
+            <trans-attribute>Mandatory</trans-attribute>
+         </container-transaction>
+         <exclude-list id="ExcludeList_1051639789166">
+            <description>description_0</description>
+            <method id="MethodElement_1051639789172">
+               <description>description_50</description>
+               <ejb-name>name_0</ejb-name>
+               <method-name>name_50</method-name>
+            </method>
+            <method id="MethodElement_1051639789176">
+               <description>description_51</description>
+               <ejb-name>name_1</ejb-name>
+               <method-intf>Remote</method-intf>
+               <method-name>name_51</method-name>
+               <method-params>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789177">
+               <description>description_52</description>
+               <ejb-name>name_2</ejb-name>
+               <method-intf>Home</method-intf>
+               <method-name>name_52</method-name>
+               <method-params>
+                  <method-param>parms_60</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789178">
+               <description>description_53</description>
+               <ejb-name>name_8</ejb-name>
+               <method-intf>Local</method-intf>
+               <method-name>name_53</method-name>
+               <method-params>
+                  <method-param>parms_61</method-param>
+                  <method-param>parms_62</method-param>
+               </method-params>
+            </method>
+            <method id="MethodElement_1051639789179">
+               <description>description_54</description>
+               <ejb-name>name_9</ejb-name>
+               <method-intf>LocalHome</method-intf>
+               <method-name>name_54</method-name>
+               <method-params>
+                  <method-param>parms_63</method-param>
+                  <method-param>parms_64</method-param>
+                  <method-param>parms_65</method-param>
+               </method-params>
+            </method>
+         </exclude-list>
+      </assembly-descriptor>
+      <ejb-client-jar>ejbClientJar_0</ejb-client-jar>
+   </ejb-jar>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE connector PUBLIC "-//Sun Microsystems, Inc.//DTD Connector 1.0//EN" "http://java.sun.com/dtd/connector_1_0.dtd">
+
+   <connector id="Connector_ID">
+      <display-name>displayName_0</display-name>
+      <description>description_0</description>
+      <icon>
+         <small-icon>smallIcon_0</small-icon>
+         <large-icon>largeIcon_0</large-icon>
+      </icon>
+      <vendor-name>vendorName_0</vendor-name>
+      <spec-version>1.0</spec-version>
+      <eis-type>eisType_0</eis-type>
+      <version>1.0</version>
+      <license>
+         <description>description_0</description>
+         <license-required>true</license-required>
+      </license>
+      <resourceadapter id="ResourceAdapter_1051639769087">
+         <managedconnectionfactory-class>managedConnectionFactoryClass_0</managedconnectionfactory-class>
+         <connectionfactory-interface>connectionFactoryInterface_0</connectionfactory-interface>
+         <connectionfactory-impl-class>connectionFactoryImplClass_0</connectionfactory-impl-class>
+         <connection-interface>connectionInterface_0</connection-interface>
+         <connection-impl-class>connectionImplClass_0</connection-impl-class>
+         <transaction-support>NoTransaction</transaction-support>
+         <config-property id="ConfigProperty_1051639769127">
+            <description>description_0</description>
+            <config-property-name>name_0</config-property-name>
+            <config-property-type>type_0</config-property-type>
+            <config-property-value>value_0</config-property-value>
+         </config-property>
+         <config-property id="ConfigProperty_1051639769128">
+            <description>description_1</description>
+            <config-property-name>name_1</config-property-name>
+            <config-property-type>type_1</config-property-type>
+            <config-property-value>value_1</config-property-value>
+         </config-property>
+         <config-property id="ConfigProperty_1051639769129">
+            <description>description_2</description>
+            <config-property-name>name_2</config-property-name>
+            <config-property-type>type_2</config-property-type>
+            <config-property-value>value_2</config-property-value>
+         </config-property>
+         <config-property id="ConfigProperty_1051639769130">
+            <description>description_3</description>
+            <config-property-name>name_3</config-property-name>
+            <config-property-type>type_3</config-property-type>
+            <config-property-value>value_3</config-property-value>
+         </config-property>
+         <config-property id="ConfigProperty_1051639769131">
+            <description>description_4</description>
+            <config-property-name>name_4</config-property-name>
+            <config-property-type>type_4</config-property-type>
+            <config-property-value>value_4</config-property-value>
+         </config-property>
+         <authentication-mechanism id="AuthenticationMechanism_1051639769147">
+            <description>description_0</description>
+            <authentication-mechanism-type>BasicPassword</authentication-mechanism-type>
+            <credential-interface>credentialInterface_0</credential-interface>
+         </authentication-mechanism>
+         <authentication-mechanism id="AuthenticationMechanism_1051639769148">
+            <description>description_1</description>
+            <authentication-mechanism-type>Kerbv5</authentication-mechanism-type>
+            <credential-interface>credentialInterface_1</credential-interface>
+         </authentication-mechanism>
+         <authentication-mechanism id="AuthenticationMechanism_1051639769149">
+            <description>description_2</description>
+            <authentication-mechanism-type>BasicPassword</authentication-mechanism-type>
+            <credential-interface>credentialInterface_2</credential-interface>
+         </authentication-mechanism>
+         <authentication-mechanism id="AuthenticationMechanism_1051639769150">
+            <description>description_3</description>
+            <authentication-mechanism-type>Kerbv5</authentication-mechanism-type>
+            <credential-interface>credentialInterface_3</credential-interface>
+         </authentication-mechanism>
+         <authentication-mechanism id="AuthenticationMechanism_1051639769151">
+            <description>description_4</description>
+            <authentication-mechanism-type>BasicPassword</authentication-mechanism-type>
+            <credential-interface>credentialInterface_4</credential-interface>
+         </authentication-mechanism>
+         <reauthentication-support>true</reauthentication-support>
+         <security-permission id="SecurityPermission_1051639769167">
+            <description>description_0</description>
+            <security-permission-spec>specification_0</security-permission-spec>
+         </security-permission>
+         <security-permission id="SecurityPermission_1051639769177">
+            <description>description_1</description>
+            <security-permission-spec>specification_1</security-permission-spec>
+         </security-permission>
+         <security-permission id="SecurityPermission_1051639769178">
+            <description>description_2</description>
+            <security-permission-spec>specification_2</security-permission-spec>
+         </security-permission>
+         <security-permission id="SecurityPermission_1051639769179">
+            <description>description_3</description>
+            <security-permission-spec>specification_3</security-permission-spec>
+         </security-permission>
+         <security-permission id="SecurityPermission_1051639769180">
+            <description>description_4</description>
+            <security-permission-spec>specification_4</security-permission-spec>
+         </security-permission>
+      </resourceadapter>
+   </connector>

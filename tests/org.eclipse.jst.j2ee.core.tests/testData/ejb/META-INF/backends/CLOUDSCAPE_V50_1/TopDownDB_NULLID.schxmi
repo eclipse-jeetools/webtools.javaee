@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RDBSchema:RDBSchema xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:RDBSchema="RDBSchema.xmi" xmi:id="NULLID" name="NULLID">
+  <database href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB.dbxmi#TopDownDB"/>
+  <tables xmi:type="RDBSchema:RDBTable" href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID_ACCOUNT.tblxmi#ACCOUNT"/>
+</RDBSchema:RDBSchema>

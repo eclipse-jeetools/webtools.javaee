@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+<ejb-jar id="ejb-jar_ID">
+	<display-name>LooseEAREjb</display-name>
+	<enterprise-beans>
+		<entity id="CMP1">
+			<ejb-name>CMP1</ejb-name>
+			<local-home>ejbs.CMP1LocalHome</local-home>
+			<local>ejbs.CMP1Local</local>
+			<ejb-class>ejbs.CMP1Bean</ejb-class>
+			<persistence-type>Container</persistence-type>
+			<prim-key-class>ejbs.CMP1Key</prim-key-class>
+			<reentrant>False</reentrant>
+			<cmp-version>2.x</cmp-version>
+			<abstract-schema-name>CMP1</abstract-schema-name>
+			<cmp-field>
+				<field-name>id</field-name>
+			</cmp-field>
+		</entity>
+		<entity id="CMP2">
+			<ejb-name>CMP2</ejb-name>
+			<local-home>ejbs.CMP2LocalHome</local-home>
+			<local>ejbs.CMP2Local</local>
+			<ejb-class>ejbs.CMP2Bean</ejb-class>
+			<persistence-type>Container</persistence-type>
+			<prim-key-class>ejbs.CMP2Key</prim-key-class>
+			<reentrant>False</reentrant>
+			<cmp-version>2.x</cmp-version>
+			<abstract-schema-name>CMP2</abstract-schema-name>
+			<cmp-field>
+				<field-name>id</field-name>
+			</cmp-field>
+		</entity>
+	</enterprise-beans>
+</ejb-jar>

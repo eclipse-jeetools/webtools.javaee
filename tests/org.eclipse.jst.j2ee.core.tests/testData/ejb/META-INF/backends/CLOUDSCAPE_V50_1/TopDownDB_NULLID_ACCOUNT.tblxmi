@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RDBSchema:RDBTable xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:RDBSchema="RDBSchema.xmi" xmi:id="ACCOUNT" name="ACCOUNT" primaryKey="PK_ACCOUNT">
+  <database href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB.dbxmi#TopDownDB"/>
+  <schema href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID.schxmi#NULLID"/>
+  <columns xmi:type="RDBSchema:RDBColumn" xmi:id="ACCOUNTID" name="ACCOUNTID">
+    <type xmi:type="RDBSchema:SQLCharacterStringType" xmi:id="SQLCharacterStringType_1079123516977" length="250">
+      <originatingType xmi:type="RDBSchema:SQLCharacterStringType" href="JavatoCLOUDSCAPE_V50TypeMaps.xmi#SQLCharacterStringType_250"/>
+    </type>
+  </columns>
+  <columns xmi:type="RDBSchema:RDBColumn" xmi:id="TYPE1" name="TYPE1">
+    <type xmi:type="RDBSchema:SQLExactNumeric" xmi:id="SQLExactNumeric_1079123516977">
+      <originatingType xmi:type="RDBSchema:SQLExactNumeric" href="CLOUDSCAPE_V50_Primitives.xmi#SQLExactNumeric_1"/>
+    </type>
+  </columns>
+  <columns xmi:type="RDBSchema:RDBColumn" xmi:id="BALANCE" name="BALANCE">
+    <type xmi:type="RDBSchema:SQLApproximateNumeric" xmi:id="SQLApproximateNumeric_1079123516977">
+      <originatingType xmi:type="RDBSchema:SQLApproximateNumeric" href="CLOUDSCAPE_V50_Primitives.xmi#SQLApproximateNumeric_1"/>
+    </type>
+  </columns>
+  <columns xmi:type="RDBSchema:RDBColumn" xmi:id="APR" name="APR">
+    <type xmi:type="RDBSchema:SQLApproximateNumeric" xmi:id="SQLApproximateNumeric_1079123516978">
+      <originatingType xmi:type="RDBSchema:SQLApproximateNumeric" href="CLOUDSCAPE_V50_Primitives.xmi#SQLApproximateNumeric_1"/>
+    </type>
+  </columns>
+  <namedGroup xmi:type="RDBSchema:SQLReference" xmi:id="PK_ACCOUNT" name="PK_ACCOUNT" members="ACCOUNTID" constraint="SQLConstraint_1079123516977"/>
+  <constraints xmi:id="SQLConstraint_1079123516977" name="PK_ACCOUNT" type="PRIMARYKEY" primaryKey="PK_ACCOUNT"/>
+</RDBSchema:RDBTable>

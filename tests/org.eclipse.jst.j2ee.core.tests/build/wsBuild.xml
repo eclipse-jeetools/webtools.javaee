@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+	<!ENTITY baseBuild SYSTEM "file:../../wsBuildDef.xml">
+]>
+
+<project name="buildPlugin" default="build" basedir="./..">
+
+<!-- include the common xml build file -->
+&baseBuild;
+
+<target name="build" depends="prepare" if="plugin.id">
+
+    <antcall target="unzipsrcjar"> <param name="jarname" value="commonArchiveTests"/> </antcall>
+    <antcall target="unzipsrcjar"> <param name="jarname" value="modelTests"/> </antcall>
+    <antcall target="unzipsrcjar"> <param name="jarname" value="javaTests"/> </antcall>
+
+    <mkdir dir= "${plugin.build.directory}/commonbld"/>
+    <javac failonerror="false" destdir="${plugin.build.directory}/commonbld" includeAntRuntime="false">
+        <src path="${plugin.src.directory}/commonArchiveTests"/>
+        <src path="${plugin.src.directory}/modelTests"/>
+        <src path="${plugin.src.directory}/javaTests"/>
+        <bootclasspath path="${bootclasspath}"/>
+        <classpath path="${plugin.classpath}"/>
+    </javac>
+
+	<antcall target="buildjar">
+		<param name="jarname" value="commonArchiveTests"/>
+		<param name="jarclasspath" value="${plugin.classpath};${plugin.build.directory}/commonbld"/>
+	</antcall>
+	<antcall target="buildjar">
+		<param name="jarname" value="modelTests"/>
+		<param name="jarclasspath" value="${plugin.classpath};${plugin.build.directory}/commonbld"/>
+	</antcall>
+	<antcall target="buildjar">
+		<param name="jarname" value="javaTests"/>
+		<param name="jarclasspath" value="${plugin.classpath};${plugin.build.directory}/commonbld"/>
+	</antcall>
+
+</target>
+</project>
+

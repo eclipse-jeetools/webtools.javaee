@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 1.1//EN" "http://java.sun.com/j2ee/dtds/ejb-jar_1_1.dtd">
+<ejb-jar id="ejb-jar_ID">
+	<display-name>LooseEAREjb</display-name>
+	<enterprise-beans>
+		<entity id="MyCMP">
+			<ejb-name>MyCMP</ejb-name>
+			<home>com.ibm.test.ejb.MyCMPHome</home>
+			<remote>com.ibm.test.ejb.MyCMP</remote>
+			<ejb-class>com.ibm.test.ejb.MyCMPBean</ejb-class>
+			<persistence-type>Container</persistence-type>
+			<prim-key-class>com.ibm.test.ejb.MyCMPKey</prim-key-class>
+			<reentrant>False</reentrant>
+			<cmp-field>
+				<field-name>k1</field-name>
+			</cmp-field>
+		</entity>
+	</enterprise-beans>
+</ejb-jar>

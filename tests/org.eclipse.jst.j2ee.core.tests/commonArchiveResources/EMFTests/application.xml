@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd">
+
+   <application id="Application_ID">
+      <icon>
+         <small-icon>smallIcon_0</small-icon>
+         <large-icon>largeIcon_0</large-icon>
+      </icon>
+      <display-name>displayName_0</display-name>
+      <description>description_0</description>
+      <module id="JavaClientModule_1051639778160">
+         <java>uri_0</java>
+         <alt-dd>altDD_0</alt-dd>
+      </module>
+      <module id="EjbModule_1051639778160">
+         <ejb>uri_1</ejb>
+         <alt-dd>altDD_1</alt-dd>
+      </module>
+      <module id="WebModule_1051639778160">
+         <web>
+            <web-uri>uri_2</web-uri>
+            <context-root>contextRoot_0</context-root>
+         </web>
+         <alt-dd>altDD_2</alt-dd>
+      </module>
+      <module id="ConnectorModule_1051639778160">
+         <connector>uri_3</connector>
+         <alt-dd>altDD_3</alt-dd>
+      </module>
+      <module id="JavaClientModule_1051639778161">
+         <java>uri_4</java>
+         <alt-dd>altDD_4</alt-dd>
+      </module>
+      <security-role id="SecurityRole_1051639778170">
+         <description>description_0</description>
+         <role-name>roleName_0</role-name>
+      </security-role>
+      <security-role id="SecurityRole_1051639778190">
+         <description>description_1</description>
+         <role-name>roleName_1</role-name>
+      </security-role>
+      <security-role id="SecurityRole_1051639778191">
+         <description>description_2</description>
+         <role-name>roleName_2</role-name>
+      </security-role>
+      <security-role id="SecurityRole_1051639778192">
+         <description>description_3</description>
+         <role-name>roleName_3</role-name>
+      </security-role>
+      <security-role id="SecurityRole_1051639778193">
+         <description>description_4</description>
+         <role-name>roleName_4</role-name>
+      </security-role>
+   </application>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.j2ee.core.tests"
+   name="J2EE Core Tests Component"
+   version="1.0.0"
+   provider-name="IBM"
+   class="">
+
+
+   <runtime>
+      <library name="tests.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.junit"/>
+      <import plugin="org.eclipse.jst.j2ee.core"/>
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.wst.common.emf"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.core.resources"/>
+
+   </requires>
+
+
+   <extension
+         point="org.eclipse.wst.common.tests.collector.suites">
+      <suite
+            suiteName="J2EE Core BVT"
+            suiteClass="org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVTEclipse">
+      </suite>
+   </extension>
+
+</plugin>

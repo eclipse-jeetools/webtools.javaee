@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejbrdbmapping:EjbRdbDocumentRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:RDBSchema="RDBSchema.xmi" xmlns:ejb="ejb.xmi" xmlns:ejbrdbmapping="ejbrdbmapping.xmi" xmlns:Mapping="Mapping.xmi" xmi:id="EjbRdbDocumentRoot_1079123516907" topToBottom="true" commandStack="&lt;collection>&lt;command-creation-record>&lt;class name=&quot;com.ibm.etools.ejbrdbmapping.command.TopDownEjbJarCommand&quot;/>&lt;command-parameter>&lt;ref-object href=&quot;platform:/resource/b63748ba/ejbModule/META-INF/ejb-jar.xml#ejb-jar_ID&quot;/>&lt;null/>&lt;collection>&lt;string value=&quot;TopDownDB&quot;/>&lt;null/>&lt;int value=&quot;18&quot;/>&lt;hashtable>&lt;/hashtable>&lt;hashtable>&lt;/hashtable>&lt;boolean value=&quot;false&quot;/>&lt;boolean value=&quot;false&quot;/>&lt;/collection>&lt;null/>&lt;int value=&quot;-1&quot;/>&lt;/command-parameter>&lt;/command-creation-record>&lt;/collection>">
+  <helper xmi:type="ejbrdbmapping:RdbSchemaProperies" xmi:id="RdbSchemaProperies_1079123516907" primitivesDocument="CLOUDSCAPE_V50"/>
+  <nested xmi:type="ejbrdbmapping:RDBEjbMapper" xmi:id="RDBEjbMapper_1079123516907">
+    <helper xmi:type="ejbrdbmapping:PrimaryTableStrategy" xmi:id="PrimaryTableStrategy_1079123516907">
+      <table href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID_ACCOUNT.tblxmi#ACCOUNT"/>
+    </helper>
+    <nested xmi:type="ejbrdbmapping:RDBEjbFieldMapper" xmi:id="RDBEjbFieldMapper_1079123516907">
+      <inputs xmi:type="ejb:CMPAttribute" href="META-INF/ejb-jar.xml#Account_accountid"/>
+      <outputs xmi:type="RDBSchema:RDBColumn" href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID_ACCOUNT.tblxmi#ACCOUNTID"/>
+      <typeMapping href="JavatoCLOUDSCAPE_V50TypeMaps.xmi#String-VARCHAR"/>
+    </nested>
+    <nested xmi:type="ejbrdbmapping:RDBEjbFieldMapper" xmi:id="RDBEjbFieldMapper_1079123516908" optimistic="true">
+      <inputs xmi:type="ejb:CMPAttribute" href="META-INF/ejb-jar.xml#Account_type"/>
+      <outputs xmi:type="RDBSchema:RDBColumn" href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID_ACCOUNT.tblxmi#TYPE1"/>
+      <typeMapping href="JavatoCLOUDSCAPE_V50TypeMaps.xmi#int-INTEGER"/>
+    </nested>
+    <nested xmi:type="ejbrdbmapping:RDBEjbFieldMapper" xmi:id="RDBEjbFieldMapper_1079123516909" optimistic="true">
+      <inputs xmi:type="ejb:CMPAttribute" href="META-INF/ejb-jar.xml#Account_balance"/>
+      <outputs xmi:type="RDBSchema:RDBColumn" href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID_ACCOUNT.tblxmi#BALANCE"/>
+      <typeMapping href="JavatoCLOUDSCAPE_V50TypeMaps.xmi#double-DOUBLE"/>
+    </nested>
+    <nested xmi:type="ejbrdbmapping:RDBEjbFieldMapper" xmi:id="RDBEjbFieldMapper_1079123516910" optimistic="true">
+      <inputs xmi:type="ejb:CMPAttribute" href="META-INF/ejb-jar.xml#Account_apr"/>
+      <outputs xmi:type="RDBSchema:RDBColumn" href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID_ACCOUNT.tblxmi#APR"/>
+      <typeMapping href="JavatoCLOUDSCAPE_V50TypeMaps.xmi#double-DOUBLE"/>
+    </nested>
+    <inputs xmi:type="ejb:ContainerManagedEntity" href="META-INF/ejb-jar.xml#ContainerManagedEntity_1"/>
+    <outputs xmi:type="RDBSchema:RDBTable" href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB_NULLID_ACCOUNT.tblxmi#ACCOUNT"/>
+  </nested>
+  <inputs xmi:type="ejb:EJBJar" href="META-INF/ejb-jar.xml#ejb-jar_ID"/>
+  <outputs xmi:type="RDBSchema:RDBDatabase" href="META-INF/backends/CLOUDSCAPE_V50_1/TopDownDB.dbxmi#TopDownDB"/>
+  <typeMapping xmi:type="Mapping:MappingRoot" href="JavatoCLOUDSCAPE_V50TypeMaps.xmi#Java_to_CLOUDSCAPE_V50_TypeMaps"/>
+</ejbrdbmapping:EjbRdbDocumentRoot>

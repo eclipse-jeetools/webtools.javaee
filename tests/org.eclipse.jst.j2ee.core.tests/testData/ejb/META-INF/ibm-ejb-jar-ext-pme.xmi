@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmeext:PMEEJBJarExtension xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:appprofileejbext="http://www.ibm.com/websphere/appserver/schemas/5.0/appprofileejbext.xmi" xmlns:ejbext="ejbext.xmi" xmlns:ejb="ejb.xmi" xmlns:pmeext="http://www.ibm.com/websphere/appserver/schemas/5.0/pmeext.xmi" xmi:id="PMEEJBJarExtension_1">
+  <appProfileEJBJarExtension xmi:id="AppProfileEJBJarExtension_1">
+    <applicationProfiles xmi:id="EJBModuleProfile_1" name="Read-only" description="This profile will apply a read-only access-intent policy to the multifinder for the Account entity bean.">
+      <appliedAccessIntents xmi:id="AppliedAccessIntent_1072828753424" name="com.ibm.websphere.ejbquery.Default" description="All methods of the Account bean are set for read only." accessIntentName="wsPessimisticRead">
+        <methodElements xmi:id="MethodElement_1072828753424" type="Unspecified">
+          <enterpriseBean xmi:type="ejb:ContainerManagedEntity" href="META-INF/ejb-jar.xml#ContainerManagedEntity_1"/>
+        </methodElements>
+      </appliedAccessIntents>
+      <tasks xmi:id="Task_1071093415784" name="getLargeAccounts" description="This task will be used by AccountManager session bean for read-only intent."/>
+    </applicationProfiles>
+    <ejbJarExtension href="META-INF/ibm-ejb-jar-ext.xmi#ejb-jar_ID_Ext"/>
+    <definedAccessIntentPolicies xmi:id="DefinedAccessIntentPolicy_1" name="PessimisticUpdate - Increment 10" description="This is a custom policy that keeps all the attributes of wsPessimisiticUpdate except for collection increment, which is set to 10.">
+      <accessIntentEntries xmi:type="ejbext:PessimisticUpdate" xmi:id="PessimisticUpdate_1072824290817"/>
+      <accessIntentEntries xmi:type="ejbext:CollectionIncrement" xmi:id="CollectionIncrement_1072824290817" collectionIncrement="10"/>
+      <accessIntentEntries xmi:type="ejbext:ResourceManagerPreFetchIncrement" xmi:id="ResourceManagerPreFetchIncrement_1072824290817" preFetchIncrement="0"/>
+      <accessIntentEntries xmi:type="ejbext:TransactionScope" xmi:id="TransactionScope_1072824290817"/>
+    </definedAccessIntentPolicies>
+    <runAsTasks xmi:id="RunAsTask_2" name="getLargeAcounts">
+      <taskRunAsKind xmi:type="appprofileejbext:RunAsSpecifiedTask" xmi:id="RunAsSpecifiedTask_2">
+        <task xmi:id="Task_5" name="getLargeAccounts" description="for viewing account data only"/>
+      </taskRunAsKind>
+      <methodElements xmi:id="MethodElement_3" name="getLargeAccounts" parms="double " type="Remote">
+        <enterpriseBean xmi:type="ejb:Session" href="META-INF/ejb-jar.xml#Session_1"/>
+      </methodElements>
+    </runAsTasks>
+    <appProfileComponentExtensions xmi:id="AppProfileComponentExtension_1">
+      <componentExtension xmi:type="ejbext:SessionExtension" href="META-INF/ibm-ejb-jar-ext.xmi#SessionExtension_1"/>
+    </appProfileComponentExtensions>
+    <appProfileComponentExtensions xmi:id="AppProfileComponentExtension_2">
+      <componentExtension xmi:type="ejbext:ContainerManagedEntityExtension" href="META-INF/ibm-ejb-jar-ext.xmi#ContainerManagedEntity_1_Ext"/>
+    </appProfileComponentExtensions>
+  </appProfileEJBJarExtension>
+</pmeext:PMEEJBJarExtension>
