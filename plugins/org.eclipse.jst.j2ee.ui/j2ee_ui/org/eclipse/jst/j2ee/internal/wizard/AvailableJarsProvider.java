@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
-import org.eclipse.jst.j2ee.application.operations.ClasspathElement;
+import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
+import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.frameworks.internal.ui.OverlayIcon;

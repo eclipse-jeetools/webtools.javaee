@@ -29,8 +29,8 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -45,7 +45,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 
 /**
  * @author cbridgha

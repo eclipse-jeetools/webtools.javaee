@@ -15,11 +15,11 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**

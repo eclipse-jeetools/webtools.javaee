@@ -14,16 +14,16 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import org.eclipse.jem.util.logger.proxy.Logger;

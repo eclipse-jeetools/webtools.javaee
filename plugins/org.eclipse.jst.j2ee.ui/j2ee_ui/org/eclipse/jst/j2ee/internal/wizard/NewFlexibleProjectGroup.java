@@ -8,7 +8,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.io.File;
 
-import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
 
 public class NewFlexibleProjectGroup {
 	private FlexibleProjectCreationDataModel model;

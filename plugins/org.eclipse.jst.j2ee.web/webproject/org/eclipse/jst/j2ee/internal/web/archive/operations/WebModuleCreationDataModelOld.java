@@ -21,10 +21,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -32,14 +32,12 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This dataModel is used for to create Web Modules.

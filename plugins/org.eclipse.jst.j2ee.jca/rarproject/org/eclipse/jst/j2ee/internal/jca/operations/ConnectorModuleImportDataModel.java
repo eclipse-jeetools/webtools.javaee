@@ -10,16 +10,15 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
  * This dataModel is used for to import Connector Modules (from RAR files) into the workspace.

@@ -11,14 +11,14 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IImportWizard;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * <p>

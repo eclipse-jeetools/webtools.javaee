@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -49,13 +51,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.ComponentResource;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class J2EERenameAction extends SelectionDispatchAction implements J2EERenameUIConstants {
 

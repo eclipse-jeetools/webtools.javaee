@@ -20,12 +20,11 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.internal.plugin.JavaEMFNature;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.internal.operations.AWorkbenchHelper;
 import org.eclipse.wst.validation.plugin.ValidationPlugin;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

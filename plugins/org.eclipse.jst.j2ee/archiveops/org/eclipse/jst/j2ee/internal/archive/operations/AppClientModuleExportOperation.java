@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.jst.j2ee.application.operations.AppClientModuleExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;

@@ -18,9 +18,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 
-import org.eclipse.jst.j2ee.ejb.EJBJar;
-
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.ejb.EJBJar;
 
 /**
  * To change the template for this generated type comment go to

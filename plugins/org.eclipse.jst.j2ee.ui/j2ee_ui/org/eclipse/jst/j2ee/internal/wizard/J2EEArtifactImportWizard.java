@@ -16,14 +16,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.internal.DelegateConfigurationElement;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 /**
  * <p>
@@ -121,7 +121,7 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	 * wizard completes.
 	 * </p>
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizard#dispose()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
 	 */
 	public final void dispose() {
 		super.dispose();

@@ -10,9 +10,6 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;

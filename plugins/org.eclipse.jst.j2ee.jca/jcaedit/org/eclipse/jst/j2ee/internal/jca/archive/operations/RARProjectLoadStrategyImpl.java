@@ -25,6 +25,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
@@ -34,9 +36,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
-
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * Class defines the loading mechanism for RAR projects.

@@ -21,7 +21,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.wst.common.frameworks.internal.operation.extensionui.IActionWTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operation.extensionui.WTPOperationDataModelUICreator;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author mdelder

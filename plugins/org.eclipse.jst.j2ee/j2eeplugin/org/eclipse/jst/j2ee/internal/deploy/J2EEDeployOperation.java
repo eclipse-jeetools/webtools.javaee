@@ -27,17 +27,16 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emf.utilities.CommandContext;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author cbridgha

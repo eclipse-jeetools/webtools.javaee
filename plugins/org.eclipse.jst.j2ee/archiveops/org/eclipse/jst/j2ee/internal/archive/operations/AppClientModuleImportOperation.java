@@ -19,10 +19,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 public class AppClientModuleImportOperation extends J2EEArtifactImportOperation {

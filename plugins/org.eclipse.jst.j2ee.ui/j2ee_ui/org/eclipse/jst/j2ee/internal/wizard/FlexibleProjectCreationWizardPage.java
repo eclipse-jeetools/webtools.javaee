@@ -6,7 +6,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModel;
@@ -30,8 +30,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;

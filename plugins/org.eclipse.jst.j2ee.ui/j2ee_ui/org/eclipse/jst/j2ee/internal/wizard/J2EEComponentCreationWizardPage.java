@@ -16,8 +16,9 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
@@ -40,13 +41,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
-
 import org.eclipse.wst.server.ui.ServerUIUtil;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 
 public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {

@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
@@ -25,9 +27,6 @@ import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Validate the WebSphere-specific implementation of non-spec features, such

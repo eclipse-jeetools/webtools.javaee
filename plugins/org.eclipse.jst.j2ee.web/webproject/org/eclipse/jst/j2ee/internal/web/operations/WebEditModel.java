@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;

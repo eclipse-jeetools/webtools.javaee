@@ -27,15 +27,15 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 public abstract class J2EEArtifactImportOperation extends WTPOperation {
 	public J2EEArtifactImportOperation(J2EEArtifactImportDataModel model) {

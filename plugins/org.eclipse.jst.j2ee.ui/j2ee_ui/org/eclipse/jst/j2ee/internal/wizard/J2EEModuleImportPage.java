@@ -15,8 +15,8 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.help.WorkbenchHelp;
 

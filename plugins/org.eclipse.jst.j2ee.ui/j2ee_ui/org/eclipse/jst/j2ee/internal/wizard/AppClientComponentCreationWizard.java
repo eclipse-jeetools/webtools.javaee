@@ -7,15 +7,15 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.INewWizard;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 public class AppClientComponentCreationWizard extends J2EEComponentCreationWizard implements IExecutableExtension, INewWizard {
 	

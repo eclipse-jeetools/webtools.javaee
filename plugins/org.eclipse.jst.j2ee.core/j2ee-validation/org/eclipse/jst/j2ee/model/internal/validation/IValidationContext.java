@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.model.internal.validation;
 
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
 import org.eclipse.wst.validation.core.MessageLimitException;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 public interface IValidationContext {
 	public static final int ERROR = IMessage.HIGH_SEVERITY;

@@ -9,8 +9,6 @@
 package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
@@ -28,10 +27,6 @@ import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.internal.Module;
-import org.eclipse.wst.server.core.model.ModuleDelegate;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 public class WebDeployableFactory extends J2EEDeployableFactory {
 	private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$

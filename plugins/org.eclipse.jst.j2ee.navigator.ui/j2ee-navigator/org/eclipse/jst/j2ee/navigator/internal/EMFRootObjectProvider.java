@@ -18,10 +18,9 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.SWTException;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @author Admin

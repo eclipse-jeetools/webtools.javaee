@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.AppClientModuleExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleExportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.ui.IExportWizard;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * <p>

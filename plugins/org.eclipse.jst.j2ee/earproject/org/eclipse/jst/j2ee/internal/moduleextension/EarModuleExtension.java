@@ -16,9 +16,9 @@
  */
 package org.eclipse.jst.j2ee.internal.moduleextension;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.archive.operations.ImportOption;
 
 

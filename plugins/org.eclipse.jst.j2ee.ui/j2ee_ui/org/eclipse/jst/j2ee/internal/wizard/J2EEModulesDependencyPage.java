@@ -17,10 +17,10 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
-import org.eclipse.jst.j2ee.application.operations.ClasspathElement;
-import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
+import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -36,8 +36,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /*

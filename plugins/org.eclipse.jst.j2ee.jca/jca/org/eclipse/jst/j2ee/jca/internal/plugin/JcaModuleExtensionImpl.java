@@ -14,9 +14,9 @@
  */
 package org.eclipse.jst.j2ee.jca.internal.plugin;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperation;

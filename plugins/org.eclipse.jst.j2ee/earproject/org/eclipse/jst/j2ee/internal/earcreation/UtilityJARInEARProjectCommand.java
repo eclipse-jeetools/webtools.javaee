@@ -15,12 +15,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public abstract class UtilityJARInEARProjectCommand extends AbstractCommand {
 	protected EAREditModel editModel;

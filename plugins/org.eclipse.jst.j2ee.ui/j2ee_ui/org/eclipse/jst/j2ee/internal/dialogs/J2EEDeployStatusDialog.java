@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.swt.SWT;
@@ -33,8 +34,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @author sagarwal

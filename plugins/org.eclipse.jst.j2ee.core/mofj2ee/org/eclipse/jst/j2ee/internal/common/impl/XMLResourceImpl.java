@@ -19,8 +19,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
+import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceImpl;
 import org.xml.sax.EntityResolver;
 

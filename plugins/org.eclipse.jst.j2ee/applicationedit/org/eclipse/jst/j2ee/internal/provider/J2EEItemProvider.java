@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ItemProvider;
-
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class J2EEItemProvider extends ItemProvider implements IAdaptable {

@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.ear.actions;
 
 
-import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
+import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 
 /**
  * Insert the type's description here. Creation date: (8/22/2001 2:27:24 PM)

@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
@@ -54,8 +55,6 @@ import org.eclipse.jst.j2ee.internal.common.impl.J2EEResouceFactorySaxRegistry;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryDomRegistry;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Abstact implementer off which and load strategy may subclass

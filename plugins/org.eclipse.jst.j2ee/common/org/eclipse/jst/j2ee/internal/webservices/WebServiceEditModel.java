@@ -23,6 +23,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
@@ -33,9 +35,6 @@ import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 
 /**
  * @author jlanuti

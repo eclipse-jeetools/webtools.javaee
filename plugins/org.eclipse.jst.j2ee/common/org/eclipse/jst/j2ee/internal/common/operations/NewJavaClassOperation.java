@@ -34,18 +34,17 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * NewJavaClassOperation is a WTP operation that is used to create a default instance of a new java class
  * based on the input and properties set in the NewJavaClassDataModel.  
- * @see org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel
+ * @see org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel
  * 
  * It is a subclass of WTPOperation and clients can invoke this operation as is or it may be subclassed to
  * add additional or modify behaviour.  The execute() method can be extended to drive this behaviour.
- * @see org.eclipse.wst.common.frameworks.operations.WTPOperation
+ * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperation
  * 
  * The new java class is generated through the use of adding a series of static tokens defined within to
  * an ongoing string buffer.

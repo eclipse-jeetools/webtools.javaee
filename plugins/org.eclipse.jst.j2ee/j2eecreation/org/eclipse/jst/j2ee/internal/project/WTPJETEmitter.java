@@ -62,7 +62,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
-
 import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**

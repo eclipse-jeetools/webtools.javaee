@@ -12,14 +12,13 @@ package org.eclipse.jst.j2ee.internal.xml;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 /**
  * Insert the type's description here.
  * Creation date: (4/11/2001 11:58:50 AM)

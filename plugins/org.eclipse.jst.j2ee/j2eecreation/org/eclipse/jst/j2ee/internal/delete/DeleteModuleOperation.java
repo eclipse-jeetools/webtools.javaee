@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveModuleFromEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ComposedEditModel;

@@ -18,8 +18,8 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactExportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;

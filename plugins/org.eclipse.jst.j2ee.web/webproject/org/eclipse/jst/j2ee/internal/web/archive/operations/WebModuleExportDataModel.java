@@ -10,10 +10,10 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
 

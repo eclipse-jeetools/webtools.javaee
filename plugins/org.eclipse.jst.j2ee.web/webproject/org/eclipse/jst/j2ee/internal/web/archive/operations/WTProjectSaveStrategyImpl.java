@@ -26,6 +26,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
@@ -36,10 +39,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EESaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
-
-import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
-import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * @author: Kevin Bauer

@@ -29,10 +29,10 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectsToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
@@ -43,7 +43,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**

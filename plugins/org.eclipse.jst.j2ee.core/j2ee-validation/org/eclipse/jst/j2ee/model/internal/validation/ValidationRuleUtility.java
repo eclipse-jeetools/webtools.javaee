@@ -29,6 +29,8 @@ import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.java.JavaVisibilityKind;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CMRField;
@@ -44,9 +46,6 @@ import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.impl.LocalModelledPersistentAttributeFilter;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @version 	1.0

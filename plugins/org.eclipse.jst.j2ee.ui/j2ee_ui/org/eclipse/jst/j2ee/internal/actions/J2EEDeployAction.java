@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
@@ -33,8 +34,6 @@ import org.eclipse.ui.progress.IProgressService;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationJobAdapter;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author cbridgha

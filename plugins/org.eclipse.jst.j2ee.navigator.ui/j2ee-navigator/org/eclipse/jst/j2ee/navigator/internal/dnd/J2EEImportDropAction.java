@@ -17,18 +17,18 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
@@ -46,10 +46,10 @@ import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
-import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
 import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
 import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
-import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
 
 /**
  * @author jsholl

@@ -11,10 +11,10 @@
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author mdelder

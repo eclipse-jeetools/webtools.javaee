@@ -27,7 +27,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;

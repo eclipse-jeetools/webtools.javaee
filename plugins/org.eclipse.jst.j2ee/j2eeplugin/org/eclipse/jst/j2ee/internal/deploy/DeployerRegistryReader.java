@@ -21,10 +21,9 @@ import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.jem.util.RegistryReader;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
-
-import org.eclipse.jem.util.RegistryReader;
 
 /**
  * @author cbridgha

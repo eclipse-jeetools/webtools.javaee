@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.locator.WebProjectTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.locator.WebXMLTaglibLocator;
@@ -31,8 +32,6 @@ import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibLocator;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryListener;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

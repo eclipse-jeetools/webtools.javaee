@@ -54,12 +54,11 @@ import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceFactory
 import org.eclipse.jst.j2ee.internal.client.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderFactory;
-import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtensionRegistry;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
-import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;

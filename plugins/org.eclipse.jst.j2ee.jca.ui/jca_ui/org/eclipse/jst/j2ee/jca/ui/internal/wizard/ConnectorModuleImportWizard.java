@@ -10,15 +10,15 @@
  *******************************************************************************/ 
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportWizard;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public final class ConnectorModuleImportWizard extends J2EEModuleImportWizard {
 	 * the value of {@link J2EEModuleImportDataModel#ADD_TO_EAR} to <b>true</b>
 	 * </p>
 	 *  
-	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizard#createDefaultModel()
+	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		ConnectorModuleImportDataModel aModel = new ConnectorModuleImportDataModel();

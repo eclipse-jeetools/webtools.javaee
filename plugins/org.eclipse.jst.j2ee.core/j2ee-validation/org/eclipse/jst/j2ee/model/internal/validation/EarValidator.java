@@ -25,6 +25,7 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
@@ -57,8 +58,6 @@ import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 
 /**

@@ -27,7 +27,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.swt.graphics.Image;

@@ -18,12 +18,11 @@ import java.util.logging.Level;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.ValidationException;
-
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * @version 	1.0

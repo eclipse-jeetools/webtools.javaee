@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactExportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
@@ -43,7 +43,7 @@ import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 public final class EnterpriseApplicationExportOperation extends WTPOperation {

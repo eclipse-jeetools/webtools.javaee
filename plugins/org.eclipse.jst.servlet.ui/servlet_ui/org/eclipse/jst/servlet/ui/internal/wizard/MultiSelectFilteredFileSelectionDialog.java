@@ -26,12 +26,14 @@ import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
 import org.eclipse.jdt.internal.ui.util.StringMatcher;
 import org.eclipse.jdt.internal.ui.wizards.TypedElementSelectionValidator;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jst.j2ee.internal.dialogs.FilteredFileSelectionDialog;
+import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.jst.j2ee.internal.dialogs.TypedFileViewerFilter;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppEditResourceHandler;
@@ -54,11 +56,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
-import org.eclipse.jst.j2ee.internal.dialogs.TwoArrayQuickSorter;
 import org.eclipse.ui.part.PageBook;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here.

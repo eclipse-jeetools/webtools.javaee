@@ -23,14 +23,14 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
-import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
-import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
-import org.eclipse.jst.j2ee.application.operations.UpdateManifestOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 public class JARDependencyOperation extends WTPOperation {
@@ -43,7 +43,7 @@ public class JARDependencyOperation extends WTPOperation {
 			return;
 		validateEdit(model);
 		monitor.beginTask("", 2); //$NON-NLS-1$
-		org.eclipse.jst.j2ee.application.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
+		org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
 		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
 		mfOperation.run(new SubProgressMonitor(monitor, 1));
 		buildPathOperation.run(new SubProgressMonitor(monitor, 1));
@@ -65,7 +65,7 @@ public class JARDependencyOperation extends WTPOperation {
 		return new UpdateJavaBuildPathOperation(javaProject, model.getClassPathSelection());
 	}
 
-	private org.eclipse.jst.j2ee.application.operations.UpdateManifestOperation createManifestOperation(ClasspathModel model) {
+	private org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation createManifestOperation(ClasspathModel model) {
 		UpdateManifestDataModel updateManifestDataModel = new UpdateManifestDataModel();
 		updateManifestDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, model.getProject().getName());
 		updateManifestDataModel.setBooleanProperty(UpdateManifestDataModel.MERGE, false);

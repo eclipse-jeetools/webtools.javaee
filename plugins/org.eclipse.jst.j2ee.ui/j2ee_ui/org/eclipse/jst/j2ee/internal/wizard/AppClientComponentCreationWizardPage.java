@@ -6,15 +6,15 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 public class AppClientComponentCreationWizardPage extends J2EEComponentCreationWizardPage {

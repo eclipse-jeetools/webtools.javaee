@@ -17,7 +17,7 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;

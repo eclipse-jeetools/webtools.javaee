@@ -16,9 +16,10 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
@@ -39,9 +40,7 @@ import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
-import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
 
 /**

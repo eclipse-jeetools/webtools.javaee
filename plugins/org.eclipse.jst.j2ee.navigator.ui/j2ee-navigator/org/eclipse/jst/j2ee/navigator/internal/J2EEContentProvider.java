@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -33,8 +34,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.navigator.views.CommonViewer;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * <p>

@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.helpers;
 
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 /**
  * Object used for saving an archive with only a subset of its files. By default all files are

@@ -18,6 +18,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
@@ -29,8 +30,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * This class parses tld files and produces TLDs, and Tags, and Attributes

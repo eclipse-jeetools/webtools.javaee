@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.common.XMLResource;

@@ -24,6 +24,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppItemProvider;
 import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
@@ -33,8 +34,6 @@ import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author jlanuti

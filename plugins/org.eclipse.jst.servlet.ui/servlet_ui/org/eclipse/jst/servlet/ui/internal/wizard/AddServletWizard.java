@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.web.operations.AddServletOperation;
-import org.eclipse.jst.j2ee.web.operations.NewServletClassDataModel;
+import org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation;
+import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**

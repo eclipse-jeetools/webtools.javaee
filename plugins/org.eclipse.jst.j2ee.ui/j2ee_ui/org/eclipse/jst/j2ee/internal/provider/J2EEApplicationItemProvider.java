@@ -22,6 +22,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
@@ -30,8 +32,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EENotificationImpl;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class J2EEApplicationItemProvider extends ApplicationItemProvider implements IAdaptable {
 

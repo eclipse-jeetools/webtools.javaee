@@ -19,8 +19,8 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOpe
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /*
  * Licensed Material - Property of IBM (C) Copyright IBM Corp. 2000, 2002 - All

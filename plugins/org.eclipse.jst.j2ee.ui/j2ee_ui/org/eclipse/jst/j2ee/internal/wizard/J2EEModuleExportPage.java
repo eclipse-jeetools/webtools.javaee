@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactExportDataModel;
 
 
 /**

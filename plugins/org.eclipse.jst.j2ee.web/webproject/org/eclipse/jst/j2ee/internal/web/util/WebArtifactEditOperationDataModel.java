@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.util;
 
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 public class WebArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {

@@ -22,6 +22,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jst.j2ee.ejb.Session;
@@ -40,8 +41,6 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  * @author jlanuti

@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.ui.IWorkbench;

@@ -18,9 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
-
 import org.eclipse.jem.util.RegistryReader;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 /**
  * @author vijayb

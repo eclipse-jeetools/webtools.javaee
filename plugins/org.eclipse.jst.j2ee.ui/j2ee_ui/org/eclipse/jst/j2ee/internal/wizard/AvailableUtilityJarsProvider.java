@@ -25,9 +25,9 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarListImportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModel;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author vijayb

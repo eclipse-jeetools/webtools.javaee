@@ -18,13 +18,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
-import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-
 import org.eclipse.jem.util.emf.workbench.EMFWorkbenchContextBase;
 import org.eclipse.jem.util.emf.workbench.IEMFContextContributor;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
+import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public abstract class AbstractEditModelOwner implements IEMFContextContributor {
 	protected IFile fInputFile;
