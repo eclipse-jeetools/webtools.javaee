@@ -594,12 +594,12 @@ class WizardClassesImportPage1 extends WizardResourceImportPage implements Liste
 	}
 
 	// need the following private stuff just because the DataTransferMessages class is not public!
-	private static final String RESOURCE_BUNDLE = "org.eclipse.ui.wizards.datatransfer.messages"; //$NON-NLS-1$
-	private static ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
+	//private static final String RESOURCE_BUNDLE = "org.eclipse.ui.wizards.datatransfer.messages"; //$NON-NLS-1$
+	//private static ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
 
 	private static String getString(String key) {
 		try {
-			return bundle.getString(key);
+			return J2EEUIMessages.getResourceString(key);
 		} catch (MissingResourceException e) {
 			return key;
 		}

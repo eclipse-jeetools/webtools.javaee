@@ -156,17 +156,19 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 	}
 
 	public void addPages() {
-		super.addPages();
-
-		//mainPage = new WizardClassesImportMainPage("id"); //$NON-NLS-1$
-		mainPage = new WizardClassesImportMainPage("id", fileNames); //$NON-NLS-1$
-		page1 = new WizardClassesImportPage1(workbench, selection, importedClassesPath, fileNames);
-
-		page1.setWizard(this);
-
-		if (fileNames == null || fileNames.size() == 0)
-			addPage(mainPage);
-		addPage(page1);
+		try {
+			super.addPages();
+			mainPage = new WizardClassesImportMainPage("id", fileNames); //$NON-NLS-1$
+			mainPage.setWizard(this);
+			if (fileNames == null || fileNames.size() == 0)
+				addPage(mainPage);
+			page1 = new WizardClassesImportPage1(workbench, selection, importedClassesPath, fileNames);
+			page1.setWizard(this);
+			addPage(page1);
+		} catch (Throwable ex){
+			ex.printStackTrace();
+		}
+		
 
 	}
 
