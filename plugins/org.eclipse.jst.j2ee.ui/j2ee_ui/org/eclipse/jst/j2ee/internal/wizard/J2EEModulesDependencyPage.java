@@ -89,7 +89,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		composite.setLayout(layout);
 		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P3);
 		Label projectLabel = new Label(composite, SWT.NONE);
-		projectLabel.setText(WorkbenchMessages.getString("WizardNewProjectCreationPage.nameLabel")); //$NON-NLS-1$
+		projectLabel.setText(WorkbenchMessages.NewProject_title); //$NON-NLS-1$
 		Text projectText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
 		synchHelper.synchText(projectText, ArtifactEditOperationDataModel.PROJECT_NAME, null);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);

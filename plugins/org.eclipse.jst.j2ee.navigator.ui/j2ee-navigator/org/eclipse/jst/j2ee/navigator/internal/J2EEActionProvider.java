@@ -60,7 +60,7 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 		openAction = new OpenJ2EEResourceAction();
 		renameAction = new J2EERenameAction(viewPart.getViewSite(), viewPart.getViewSite().getShell());
 
-		genericDelete = new WTPOptionalOperationAction(WTPGenericActionIds.DELETE, WorkbenchMessages.getString("Workbench.delete")); //$NON-NLS-1$
+		genericDelete = new WTPOptionalOperationAction(WTPGenericActionIds.DELETE, WorkbenchMessages.Workbench_delete); //$NON-NLS-1$
 		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
 		genericDelete.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
 		genericDelete.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED));
