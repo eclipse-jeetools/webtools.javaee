@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -18,10 +19,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderOperation;
+
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author jialin
@@ -39,55 +45,111 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 	 * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+
+		// preparation
 		WebAppDeployableModuleBuilderDataModel dataModel = (WebAppDeployableModuleBuilderDataModel) operationDataModel;
 		ModuleStructuralModel moduleModel = (ModuleStructuralModel)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.MODULE_STRUCTURAL_MODEL);
 		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.WORKBENCH_MODULE);
 		String deployedName = workbenchModule.getDeployedName();
-
+		IProject project = moduleModel.getProject();
+		IPath projectPath = project.getFullPath();
+		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);
+		List javaSourceFolderList = ProjectUtilities.getSourceContainers(project);
+		
 		// create output container folder if it does not exist
-		IPath projectPath = moduleModel.getProject().getFullPath();
 		URI outputContainerURI = (URI)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
 		IPath absoluteOCP = projectPath.append(outputContainerURI.toString());
 		IFolder outputContainerFolder = createFolder(absoluteOCP);
 
-		// copy resources
+		// copy resources except the java source folder
 		List resourceList = workbenchModule.getResources();
 		for (int i = 0; i < resourceList.size(); i++) {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
-			URI deployURI = wmr.getDeployedPath();
-			IPath deployPath = absoluteOCP.append(deployURI.toString());
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
-			IResource resource = getWorkspace().getRoot().getFolder(sourcePath);
-			if (resource == null || !(resource instanceof IFolder)) {
-				resource = getWorkspace().getRoot().getFile(sourcePath);
-			}
-			if (resource == null)
+			IResource sourceResource = getResource(sourcePath);
+			if (sourceResource == null)
 				continue;
+			// check if it is a java source folder
+			if (javaSourceFolderList.contains(sourceResource)) 
+				continue;
+			// create parent folders for deploy folder if not exist
+			URI deployURI = wmr.getDeployedPath();
+			IPath deployPath = absoluteOCP.append(deployURI.toString());
 			IPath parentPath = deployPath.removeLastSegments(1);
 			createFolder(parentPath);
-			resource.copy(deployPath, true, new NullProgressMonitor());
+			// check if the deployPath exists, if so, delete it
+			IResource deployResource = getResource(deployPath);
+			if (deployResource != null && deployResource.exists())
+				deployResource.delete(true, new NullProgressMonitor());
+			sourceResource.copy(deployPath, true, new NullProgressMonitor());
 		}
+
+		// set Java specific output path, do it after resource copy
+		IClasspathEntry[] cpe = javaProj.getRawClasspath();
+		boolean classpathModified = false;
+		for (int i = 0; i < resourceList.size(); i++) {
+			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
+			URI sourceURI = wmr.getSourcePath();
+			IPath sourcePath = new Path(sourceURI.toString());
+			IResource sourceResource = getResource(sourcePath);
+			// check if it is a java source folder
+			if (javaSourceFolderList.contains(sourceResource)) {
+				// get the classpath entry
+				int index = -1;
+				for (int j = 0; j < cpe.length; j++) {
+					if (cpe[j].getPath().equals(sourcePath)) {
+						index = j;
+						break;
+					}
+				}
+				IPath classFilesPath = absoluteOCP.append("/WebContent/WEB-INF/classes");
+				createFolder(classFilesPath);
+				IPath relativeClassFilesPath = classFilesPath.makeRelative();
+				IPath oldClassFilesPath = ((ClasspathEntry)cpe[index]).specificOutputLocation;
+				IPath oldRelativeClassFilesPath = null;
+				if (oldClassFilesPath != null)
+					oldRelativeClassFilesPath = oldClassFilesPath.makeRelative();
+				if (!relativeClassFilesPath.equals(oldRelativeClassFilesPath)) {
+					((ClasspathEntry)cpe[index]).specificOutputLocation = classFilesPath;
+					classpathModified = true;
+				}
+			}
+		}
+		if (classpathModified)
+			javaProj.setRawClasspath(cpe, new NullProgressMonitor());
+	}
+	
+	/**
+	 * Get resource for given absolute path
+	 * 
+	 * @exception com.ibm.itp.core.api.resources.CoreException
+	 */
+	private IResource getResource(IPath absolutePath) throws CoreException {
+		IResource resource = null;
+		if (absolutePath != null && !absolutePath.isEmpty()) {
+			resource = getWorkspace().getRoot().getFolder(absolutePath);
+			if (resource == null || !(resource instanceof IFolder)) {
+				resource = getWorkspace().getRoot().getFile(absolutePath);
+			}
+		}
+		return resource;
 	}
 	/**
-	 * Create a folder relative to the project based on aProjectRelativePath
+	 * Create a folder for given absolute path
 	 * 
 	 * @exception com.ibm.itp.core.api.resources.CoreException
 	 */
 	public IFolder createFolder(IPath absolutePath) throws CoreException {
-		if (absolutePath != null && !absolutePath.isEmpty()) {
-			IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
-			// check if the parent is there
-			IContainer parent = folder.getParent();
-			if (parent != null && !parent.exists() && (parent instanceof IFolder)) {
-				((IFolder)parent).create(true, true, null);
-			}
-			if (!folder.exists())
-				folder.create(true, true, null);
-			return folder;
-		}
-		return null;
+		if (absolutePath == null || absolutePath.isEmpty())
+			return null;
+		IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
+		// check if the parent is there
+		IContainer parent = folder.getParent();
+		if (parent != null && !parent.exists() && (parent instanceof IFolder))
+			createFolder(parent.getFullPath());
+		if (!folder.exists())
+			folder.create(true, true, new NullProgressMonitor());
+		return folder;
 	}
-
-
 }
