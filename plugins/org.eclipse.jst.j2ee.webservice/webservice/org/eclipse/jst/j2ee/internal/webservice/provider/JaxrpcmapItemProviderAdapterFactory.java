@@ -26,7 +26,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jst.j2ee.webservice.jaxrpcmap.util.JaxrpcmapAdapterFactory;
+import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.util.JaxrpcmapAdapterFactory;
 
 
 /**
