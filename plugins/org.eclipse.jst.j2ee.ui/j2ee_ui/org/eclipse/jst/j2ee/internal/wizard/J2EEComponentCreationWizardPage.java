@@ -202,13 +202,13 @@ public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#enter()
 	 */
 	protected void enter() {
-		if (advancedControlsBuilt) {
-			if (isFirstTimeToPage)
-				initializeAdvancedController();
-			if (isWindows) {
-				advancedController.setShellSizeForAdvanced();
-			}
-		}
+//		if (advancedControlsBuilt) {
+//			if (isFirstTimeToPage)
+//				initializeAdvancedController();
+//			if (isWindows) {
+//				advancedController.setShellSizeForAdvanced();
+//			}
+//		}
 		super.enter();
 	}
 
@@ -222,7 +222,7 @@ public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#exit()
 	 */
 	protected void exit() {
-		if (advancedControlsBuilt && isWindows) {
+		if (advancedControlsBuilt && isWindows && advancedController!=null) {
 			advancedController.resetOriginalShellSize();
 		}
 		super.exit();
@@ -337,8 +337,16 @@ public abstract class J2EEComponentCreationWizardPage extends WTPWizardPage {
 			showAdvanced = !showAdvanced;
 			advancedComposite.setVisible(showAdvanced);
 			setAdvancedLabelText();
-			if (setSize && isWindows)
+			if (setSize && isWindows) {
+				if (advancedControlsBuilt) {
+					if (advancedController == null)
+						initializeAdvancedController();
+					if (isWindows) {
+						advancedController.setShellSizeForAdvanced();
+					}
+				}
 				advancedController.setShellSizeForAdvanced();
+			}	
 		}
 	}
 
