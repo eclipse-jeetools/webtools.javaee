@@ -27,6 +27,9 @@
       <import plugin="org.eclipse.jst.j2ee.tests"/>
       <import plugin="org.eclipse.jst.j2ee"/>
       <import plugin="org.eclipse.wst.server.core"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
       
    </requires>
 
