@@ -361,13 +361,17 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			
 			p.println( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
 			if( moduleVersion == 22 ){
-				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN\" \"http://java.sun.com/dtd/web-app_2_2.dtd\">");				
+				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN\" \"http://java.sun.com/dtds/web-app_2_2.dtd\">");
+				p.println("<web-app></web-app>");
 			}			
 			if( moduleVersion == 23 ){
-				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN\" \"http://java.sun.com/dtd/web-app_2_3.dtd\">");				
+				p.println("<!DOCTYPE web-app PUBLIC \"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN\" \"http://java.sun.com/dtd/web-app_2_3.dtd\">");
+				p.println("<web-app></web-app>");
 			}
+			if( moduleVersion == 24 ){
+				p.println( "<web-app  version=\"2.4\" xmlns=\"http://java.sun.com/xml/ns/j2ee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd\"></web-app>");
+			}	
 
-			p.println("<web-app></web-app>");
 			p.close();					
 
 		}catch(IOException e){
