@@ -32,12 +32,14 @@ public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
 	 * @see org.eclipse.jface.viewers.IOpenListener#open(org.eclipse.jface.viewers.OpenEvent)
 	 */
 	public void open(OpenEvent event) {
+		if (event == null)
+			return;
 		StructuredSelection selection = (StructuredSelection)event.getSelection();
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
-		Object selectedObject = selection.getFirstElement();
-		if (selectedObject == null)
+		if (selection == null || selection.getFirstElement()==null)
 			return;
-		else if (selectedObject instanceof ServiceImplBean)
+		Object selectedObject = selection.getFirstElement();
+		if (selectedObject instanceof ServiceImplBean || serviceHelper==null)
 			return;
 		else if (serviceHelper.isWSDLResource(selectedObject)) {
 			Resource wsdl = (Resource) selectedObject;
