@@ -11,9 +11,11 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: AbstractBeanInfoTestCase.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:33:39 $ 
+ *  $Revision: 1.7 $  $Date: 2004/11/12 23:11:09 $ 
  */
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -25,6 +27,9 @@ import org.eclipse.jem.internal.beaninfo.FeatureDecorator;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
+import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.IArrayBeanProxy;
+import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 import org.eclipse.jem.tests.JavaProjectUtil;
 
 import org.eclipse.jem.java.JavaClass;
@@ -62,20 +67,33 @@ public abstract class AbstractBeanInfoTestCase extends TestCase {
 		assertNotNull(nature);
 		rset = nature.getResourceSet();
 		assertNotNull(rset);
+		// We also want to remove any beaninfos from the search path that aren't from testing so that we don't get any weird side-effects.
+		ProxyFactoryRegistry registry = nature.getRegistry();
+		IArrayBeanProxy sp = Utilities.getBeanInfoSearchPath(registry);
+		// remove any that don't start with org.eclipse.jem.tests.
+		int len = sp.getLength();
+		for (int i = 0; i < len; i++) {
+			String path = ((IStringBeanProxy) sp.get(i)).stringValue();
+			if (!path.startsWith("org.eclipse.jem.tests"))
+				Utilities.removeBeanInfoPath(registry, path);
+		}
 	}
 	
 	protected int objFeatures, objNonProperties;	// Object features count and Object non-properties count. This is only initialized as needed.
+	protected Set objFeaturesSet;
 	/**
 	 * To initialize the objFeatures and objNonProperties counts when necessary. Not needed for all tests.
 	 */
 	protected void objFeaturesSetup() {
 		// Get the number of features that java.lang.Object has:
 		JavaClass objClass = (JavaClass) rset.getEObject(URI.createURI("java:/java.lang#Object"), true); //$NON-NLS-1$
+		objFeaturesSet = new HashSet();
 		objFeatures = objClass.getProperties().size();
 		// Find the number of always inherited properties.
 		objNonProperties = 0;
 		for (Iterator itr0 = objClass.getProperties().iterator(); itr0.hasNext();) {
 			EStructuralFeature p = (EStructuralFeature) itr0.next();
+			objFeaturesSet.add(p);
 			PropertyDecorator pd = Utilities.getPropertyDecorator(p);
 			if ( pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()))
 				objNonProperties++;

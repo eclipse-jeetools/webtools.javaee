@@ -11,15 +11,21 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: TestReflection.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:33:39 $ 
+ *  $Revision: 1.6 $  $Date: 2004/11/12 23:11:09 $ 
  */
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.JavaEvent;
 import org.eclipse.jem.java.TypeKind;
 
 /**
@@ -95,4 +101,84 @@ public class TestReflection extends AbstractBeanInfoTestCase {
 		assertEquals("TestInner$Inner", pdType.getName()); 
 		assertSame(TypeKind.CLASS_LITERAL, pdType.getKind());
 	}
+	
+	private List getRealProps(List props) {
+		int size = props.size();
+		List newList = new ArrayList(size);
+		for (int i=0; i<size; i++) {
+			EStructuralFeature f = (EStructuralFeature) props.get(i);
+			if (Utilities.getPropertyDecorator(f) != null)
+				newList.add(f);
+		}
+		return newList;
+	}
+	
+	public void testInterfacePropertyReflection() {
+		// Test the reflection of interfaces with multiple extends on them so that properities are correct.
+		JavaClass testPropClass =
+			(JavaClass) rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo.test#NotTopGuy"), true); //$NON-NLS-1$
+
+		assertTrue(testPropClass.isInterface());
+		
+		// Test that we don't pick up the extends stuff
+		List props = getRealProps(testPropClass.getProperties());
+		// Forgot there may be non-properties properties.
+		assertEquals(1, props.size());
+		assertEquals("number", ((EStructuralFeature) props.get(0)).getName());
+		
+		// Test that we pick up the extends stuff
+		props = getRealProps(testPropClass.getAllProperties());
+		assertEquals(3, props.size());
+		List validNames = Arrays.asList(new String[] {"number", "object", "integer"});
+		for (Iterator itr = props.iterator(); itr.hasNext();) {
+			EStructuralFeature feature = (EStructuralFeature) itr.next();
+			assertTrue("Extra feature:"+feature.getName(), validNames.contains(feature.getName()));
+		}
+	}
+	
+	public void testInterfaceEventReflection() {
+		// Test the reflection of interfaces with multiple extends on them so that events are correct.
+		JavaClass testEventClass =
+			(JavaClass) rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo.test#NotTopGuy"), true); //$NON-NLS-1$
+
+		assertTrue(testEventClass.isInterface());
+		
+		// Test that we don't pick up the extends stuff
+		List events = testEventClass.getEvents();
+		assertTrue(events.isEmpty());
+		
+		// Test that we pick up the extends stuff
+		events = testEventClass.getAllEvents();
+		assertEquals(1, events.size());
+		assertEquals("test1ClassEvent", ((JavaEvent) events.get(0)).getName());
+	}
+	
+	public void testInterfaceOperationsReflection() {
+		// Test the reflection of interfaces with multiple extends on them so that properities are correct.
+		JavaClass testOpClass =
+			(JavaClass) rset.getEObject(URI.createURI("java:/org.eclipse.jem.tests.beaninfo.test#NotTopGuy"), true); //$NON-NLS-1$
+
+		assertTrue(testOpClass.isInterface());
+		
+		// Test that we don't pick up the extends stuff
+		List ops = testOpClass.getEOperations();
+		assertEquals(2, ops.size());
+		List validNames = Arrays.asList(new String[] {"getNumber", "setNumber"});
+		for (Iterator itr = ops.iterator(); itr.hasNext();) {
+			EOperation op = (EOperation) itr.next();
+			assertTrue("Extra operation:"+op.getName(), validNames.contains(op.getName()));
+		}
+		
+		
+		// Test that we pick up the extends stuff
+		ops = testOpClass.getEAllOperations();
+		assertEquals(8, ops.size());
+		validNames = Arrays.asList(new String[] {"getNumber", "setNumber", "getObject", "setObject", "getInteger", "setInteger", "addTest1ClassEventListener", "removeTest1ClassEventListener"});
+		for (Iterator itr = ops.iterator(); itr.hasNext();) {
+			EOperation op = (EOperation) itr.next();
+			assertTrue("Extra operation:"+op.getName(), validNames.contains(op.getName()));
+		}
+	}
+	
+	
 }

@@ -1,0 +1,4 @@
+getActionCommand
+getLabel
+setActionCommand
+setLabel
