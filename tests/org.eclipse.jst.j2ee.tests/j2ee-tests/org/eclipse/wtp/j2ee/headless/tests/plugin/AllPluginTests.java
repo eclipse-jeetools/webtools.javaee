@@ -39,11 +39,11 @@ public class AllPluginTests extends TestSuite {
     }
     
     public static IRuntime createJONASRuntime()  {
-    	String s = "D:/JOnAS-4.3.2";
+    	String s = "D:/JOnAS-4.3.2/lib";
     	if (s == null || s.length() == 0)
     		return null;
     	try {
-    		IRuntimeType rt = ServerCore.findRuntimeType("the jonas plugin name to be entered here");
+    		IRuntimeType rt = ServerCore.findRuntimeType("org.eclipse.jst.server.core.runtimeType");
     		IRuntimeWorkingCopy wc = rt.createRuntime(null, null);
     		wc.setLocation(new Path(s));
     		return wc.save(true, null);

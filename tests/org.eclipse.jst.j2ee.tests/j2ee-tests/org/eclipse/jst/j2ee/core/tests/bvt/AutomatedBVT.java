@@ -14,7 +14,7 @@ import junit.textui.TestRunner;
 
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests;
+import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
 
 /**
@@ -57,12 +57,7 @@ public class AutomatedBVT extends TestSuite {
 
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for org.eclipse.jst.j2ee.test.bvt");
-        //$JUnit-BEGIN$
-        //TODO: Make the Archive Test Work
-       // suite.addTest(AllArchiveTestsJava.suite());
-        suite.addTest(AllTests.suite());
-        //suite.addTest(AllJavaTestsJava.suite());
-        //$JUnit-END$
+        suite.addTest(AllPluginTests.suite());
         return suite;
     }
 }

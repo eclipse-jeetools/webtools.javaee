@@ -7,18 +7,17 @@
 package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBImportOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.RARImportOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
@@ -33,10 +32,8 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 	protected boolean isBinary = false;
 	protected boolean overwriteProject = false;
 	protected boolean dataModelShouldBeValid = true;
-	
+	public  String TESTS_PATH;
 
-	public final String TESTS_PATH;
-	public static final String VALID_SERVER_TARGET_ID_VALUE = "org.acme.target.test";
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite();
@@ -47,13 +44,10 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		return suite;
 	}
 
-	public ModuleImportOperationTestCase(String name) {
+	public ModuleImportOperationTestCase(String name)  {
 		super(name);
-		String relativeImportTestsPath = "TestData" + File.separator + getDirectory() + File.separator;
-		URL fullImportTestsPath = HeadlessTestsPlugin.getDefault().find(new Path(relativeImportTestsPath));
-		TESTS_PATH = fullImportTestsPath.getPath();
+		TESTS_PATH = "TestData" + File.separator + getDirectory() + File.separator;
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -72,9 +66,9 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 	public void testImport(String projectName, String filename) throws Exception {
 
 		J2EEModuleImportDataModel dataModel = getModelInstance();
-		dataModel.setProperty(J2EEModuleImportDataModel.FILE_NAME, TESTS_PATH + filename);
+		dataModel.setProperty(J2EEModuleImportDataModel.FILE_NAME, filename);
 		dataModel.setProperty(J2EEModuleImportDataModel.PROJECT_NAME, projectName);
-		dataModel.setProperty(J2EEModuleImportDataModel.SERVER_TARGET_ID, VALID_SERVER_TARGET_ID_VALUE);
+		dataModel.setProperty(J2EEModuleImportDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
 		// TODO revisit once refactorings are completed
 		//dataModel.setBooleanProperty(J2EEImportDataModel.CREATE_BINARY_PROJECT, isBinary);
 		dataModel.setBooleanProperty(J2EEModuleImportDataModel.OVERWRITE_PROJECT, overwriteProject);
@@ -95,7 +89,7 @@ public abstract class ModuleImportOperationTestCase extends OperationTestCase {
 		List projects = getImportableArchiveFileNames();
 		for (int i = 0; i < projects.size(); i++) {
 			String jarName =  projects.get(i).toString(); 
-			String projectName = jarName.substring(0, jarName.length()-4);
+			String projectName = jarName.substring(jarName.lastIndexOf('\\') + 1,jarName.length()-4);
 			testImport(projectName, jarName);
 		}
 	} 

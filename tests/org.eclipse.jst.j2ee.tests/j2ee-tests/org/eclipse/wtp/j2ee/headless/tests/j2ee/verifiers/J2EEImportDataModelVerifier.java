@@ -45,10 +45,7 @@ public class J2EEImportDataModelVerifier extends DataModelVerifier {
 			 * serverTargetId != null
 			 */
 			else 
-				Assert.assertEquals(
-					"The actual server target should match the model's server target.",
-					serverTargetId,
-					stt.getRuntimeType().getId());
+				Assert.assertEquals("The actual server target should match the model's server target.",serverTargetId,stt.getName());
 		}
 
 	}
