@@ -34,6 +34,9 @@ public class JCAUIPlugin extends AbstractUIPlugin {
 		plugin = this;
 	}
 	
+	public JCAUIPlugin() {
+		
+	}
 
 	/**
 	 * Returns the shared instance.

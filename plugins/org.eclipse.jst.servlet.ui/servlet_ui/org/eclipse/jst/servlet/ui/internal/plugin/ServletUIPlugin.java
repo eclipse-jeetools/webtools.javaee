@@ -34,6 +34,10 @@ public class ServletUIPlugin extends AbstractUIPlugin {
 		plugin = this;
 	}
 	
+	public ServletUIPlugin() {
+		
+	}
+	
 
 	/**
 	 * Returns the shared instance.
