@@ -10,17 +10,21 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoAdapterMessages.java,v $
- *  $Revision: 1.1 $  $Date: 2004/05/24 23:23:31 $ 
+ *  $Revision: 1.2 $  $Date: 2004/05/25 14:05:30 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
+/**
+ * 
+ * 
+ * @since 1.0.0
+ */
 public class BeanInfoAdapterMessages {
 
-	private static final String BUNDLE_NAME = "org.eclipse.jem.internal.beaninfo.adapter.messages";	//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.jem.internal.beaninfo.adapters.messages";	//$NON-NLS-1$
 
 	// Keys for messages/strings within the resource bundle.
 	static public final String
