@@ -25,7 +25,7 @@ public class J2EEVersionUtil {
 			case J2EEVersionConstants.SERVLET_2_4:
 				return J2EEVersionConstants.VERSION_2_4_TEXT;
 			}
-			return "";	
+			return "";	//$NON-NLS-1$
 			
 		}
 		
@@ -44,7 +44,7 @@ public class J2EEVersionUtil {
 				case J2EEVersionConstants.EJB_2_1_ID:
 					return J2EEVersionConstants.VERSION_2_1_TEXT;
 				}
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		
 		
@@ -57,7 +57,7 @@ public class J2EEVersionUtil {
 					return J2EEVersionConstants.VERSION_1_5_TEXT;
 				
 			}
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		
 		public static String getJ2EETextVersion(int aVersion){
