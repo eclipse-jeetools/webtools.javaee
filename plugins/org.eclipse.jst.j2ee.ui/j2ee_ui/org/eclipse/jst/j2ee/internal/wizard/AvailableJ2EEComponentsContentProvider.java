@@ -64,7 +64,7 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 				for (int j = 0; j < ejbComps.length; j++) {
 					String version = ejbComps[j].getComponentType().getVersion();
 					int versionID = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(version);
-					if (versionID < j2eeVersion)
+					if (versionID <= j2eeVersion)
 						validCompList.add(ejbComps[j]);
 				}
 				WorkbenchComponent[] webComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_WEB_MODULE);
