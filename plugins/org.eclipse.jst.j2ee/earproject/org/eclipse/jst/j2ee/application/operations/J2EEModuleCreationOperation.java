@@ -41,6 +41,7 @@ import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationOperat
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 
 public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOperation {
 	/**
@@ -92,8 +93,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 		javaProjectOperation.doRun(monitor);
 		updateClasspath(projectModel);
 		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
-		J2EENature nature = (J2EENature) dataModel.getProjectDataModel().getProject().getNature(dataModel.getJ2EENatureID());
-		setVersion(nature, monitor);
+		//setVersion(nature, monitor);
 		addServerTarget(monitor);
 	}
 
@@ -139,9 +139,10 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 		}
 	}
 
-	protected void setVersion(J2EENature nature, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	protected void setVersion(WorkbenchModule module, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
-		nature.setModuleVersion(dataModel.getIntProperty(J2EEModuleCreationDataModel.J2EE_MODULE_VERSION));
+		//TODO set module version?
+		//module.setModuleVersion(dataModel.getIntProperty(J2EEModuleCreationDataModel.J2EE_MODULE_VERSION));
 	}
 
 

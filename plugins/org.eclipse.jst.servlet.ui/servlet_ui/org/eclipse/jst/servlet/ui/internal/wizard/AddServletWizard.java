@@ -19,6 +19,9 @@ import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 
 /**
  * New servlet wizard
@@ -50,7 +53,14 @@ public class AddServletWizard extends NewWebWizard {
 		model.setProperty(NewJavaClassDataModel.SUPERCLASS, NewServletClassDataModel.SERVLET_SUPERCLASS);
 		model.setProperty(NewJavaClassDataModel.INTERFACES, ((NewServletClassDataModel)model).getServletInterfaces());
 		
-		IProject project = getDefaultWebProject();
+		WorkbenchModule workbenchModule = getDefaultWebModule();
+		//TODO set the workbench module on the data model
+		IProject project = null;
+		try {
+			ModuleCore.getContainingProject(workbenchModule.getHandle());
+		} catch(UnresolveableURIException e) {
+			//Ignore
+		}
 		if (project != null)
 		    model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
 		return model;

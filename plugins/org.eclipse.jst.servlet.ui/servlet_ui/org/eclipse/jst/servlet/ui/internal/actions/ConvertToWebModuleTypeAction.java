@@ -18,12 +18,13 @@ import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -83,21 +84,6 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	}
 
 	/**
-	 * make sure a web project is selected.
-	 */
-	public boolean isValidProject(IProject aProject)
-	{
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(aProject);
-			return webEdit!=null;
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-	}
-
-	/**
 	 * selectionChanged method comment.
 	 */
 	public void selectionChanged(IAction action, ISelection selection)
@@ -120,10 +106,15 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 
 		fSelection = (IStructuredSelection) selection;
 
-		Object selectedProject = fSelection.getFirstElement();
-		if( !(selectedProject instanceof IProject) ) return false;
-
-		project = (IProject) selectedProject;
-		return isValidProject(project);
+		Object selectedObject = fSelection.getFirstElement();
+		if( !(selectedObject instanceof WorkbenchModule) ) 
+			return false;
+		//TODO need to make sure set input of module
+		try {
+			project = ModuleCore.getContainingProject(((WorkbenchModule)selectedObject).getHandle());
+		} catch (UnresolveableURIException e) {
+			return false;
+		}
+		return true;
 	}
 }

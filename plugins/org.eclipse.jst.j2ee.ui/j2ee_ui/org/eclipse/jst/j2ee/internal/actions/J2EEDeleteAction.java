@@ -52,8 +52,8 @@ import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.actions.DeleteResourceAction;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -157,7 +157,13 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	}
 
 	protected boolean isJ2EEModule(Object o) {
-		return CommonUtil.isDeploymentDescriptorRoot(o, false) || isJ2EEProject(o);
+		if (o instanceof WorkbenchModule) {
+			WorkbenchModule module = (WorkbenchModule) o;
+			String moduleType = module.getModuleType().getModuleTypeId();
+			//TODO need to add connector, app client, ear, ejb client
+			return moduleType.equals(IModuleConstants.JST_WEB_MODULE) || moduleType.equals(IModuleConstants.JST_EJB_MODULE);
+		}
+		return CommonUtil.isDeploymentDescriptorRoot(o, false);
 	}
 
 	protected boolean isApplication(Object o) {
@@ -368,26 +374,6 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 				updateSelection(selection);
 			}
 		}
-	}
-
-	protected boolean isJ2EEProject(Object o) {
-		boolean retVal = false;
-		if (o instanceof JavaProject) {
-			o = ((JavaProject) o).getProject();
-		}
-		if (o instanceof IProject) {
-			IProject project = (IProject) o;
-			ArtifactEdit edit = null;
-			try {
-				edit = ModuleCore.getFirstArtifactEditForRead(project);
-				if (edit!= null)
-					retVal = true;
-			} finally {
-				if (edit!=null)
-					edit.dispose();
-			}
-		}
-		return retVal;
 	}
 
 	protected boolean isJ2EEApplicationProject(Object o) {

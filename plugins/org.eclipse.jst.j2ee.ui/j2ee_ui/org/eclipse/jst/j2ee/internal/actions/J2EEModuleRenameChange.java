@@ -19,25 +19,19 @@ package org.eclipse.jst.j2ee.internal.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
-import org.eclipse.jst.j2ee.internal.rename.RenameUtilityJarMetadataOperation;
-import org.eclipse.jst.j2ee.internal.rename.UpdateWebContextRootMetadataOperation;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
 
 
 /**
@@ -49,10 +43,10 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 public class J2EEModuleRenameChange extends Change {
 
 	private String newName;
-	private IProject target;
+	private WorkbenchModule target;
 	private boolean renameDependencies;
 
-	public J2EEModuleRenameChange(IProject target, String newName, boolean renameDependencies) {
+	public J2EEModuleRenameChange(WorkbenchModule target, String newName, boolean renameDependencies) {
 		this.target = target;
 		this.newName = newName;
 		this.renameDependencies = renameDependencies;
@@ -98,17 +92,14 @@ public class J2EEModuleRenameChange extends Change {
 			RenameModuleOperation renameOp = new RenameModuleOperation(getRenameOptions());
 			renameOp.run(pm);
 
-			IProject newTarget = ResourcesPlugin.getWorkspace().getRoot().getProject(this.newName);
-			if (newTarget.isAccessible()) {
-				String contextRoot = getServerContextRoot(newTarget);
-				//if (webNature != null) {
-					//new UpdateWebContextRootMetadataOperation(newTarget, webNature.getContextRoot()).run(pm);
-				if(contextRoot.equals("") == false){ //$NON-NLS-1$
-					new UpdateWebContextRootMetadataOperation(newTarget, contextRoot).run(pm);
-				} else if (J2EENature.getRegisteredRuntime(newTarget) == null)
-					new RenameUtilityJarMetadataOperation(this.target, newTarget).run(pm);
-			}
-
+			//String contextRoot = getServerContextRoot();
+			// TODO fix up rename and context root operations
+			//if (webNature != null) {
+				//new UpdateWebContextRootMetadataOperation(newTarget, webNature.getContextRoot()).run(pm);
+//			if(contextRoot.equals("") == false){ //$NON-NLS-1$
+//				new UpdateWebContextRootMetadataOperation(target, contextRoot).run(pm);
+//			} else if (J2EENature.getRegisteredRuntime(target) == null)
+//				new RenameUtilityJarMetadataOperation(target, newTarget).run(pm);
 		} catch (InvocationTargetException e) {
 			//Ignore
 		} catch (InterruptedException e) {
@@ -117,10 +108,10 @@ public class J2EEModuleRenameChange extends Change {
 		return null;
 	}
 	
-	protected String getServerContextRoot(IProject project) {
+	protected String getServerContextRoot() {
 		WebArtifactEdit webEdit = null;
 		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			webEdit = WebArtifactEdit.getWebArtifactEditForRead(target);
        		if (webEdit != null)
        			return webEdit.getServerContextRoot();			
 		} finally {
@@ -137,7 +128,8 @@ public class J2EEModuleRenameChange extends Change {
 		RenameOptions options = new RenameOptions();
 		options.setNewName(this.newName);
 		options.setSelectedProjects(Collections.singletonList(this.target));
-		options.setIsEARRename(EARNatureRuntime.getRuntime(this.target) != null);
+		// TODO check module type for EAR type
+		//options.setIsEARRename(EARNatureRuntime.getRuntime(this.target) != null);
 		options.setRenameModuleDependencies(this.renameDependencies);
 		options.setRenameModules(true);
 		options.setRenameProjects(false);

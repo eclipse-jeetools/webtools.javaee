@@ -11,6 +11,9 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -20,8 +23,11 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -68,30 +74,53 @@ public abstract class NewWebWizard extends WTPWizard implements INewWizard {
 		createDefaultModel();
 	}
 
-	protected IProject getDefaultWebProject() {
+	protected WorkbenchModule getDefaultWebModule() {
 		IProject project = null;
 		IStructuredSelection selection = getCurrentSelection();
 		if (selection != null && selection.getFirstElement() != null) {
-			project = ProjectUtilities.getProject(selection.getFirstElement());
-		}
-		if (project == null) {
-			IProject[] projects = ProjectUtilities.getAllProjects();
-			ArtifactEdit edit = null;
-			for (int i = 0; i < projects.length; i++) {
-				//TODO this assumes only web projects and one module per project for now
-				try {
-					edit = ModuleCore.getFirstArtifactEditForRead(projects[i]);
-					if (edit != null) {
-						project = projects[i];
-						break;
-					}
-				} finally {
-					if (edit != null)
-						edit.dispose();
+			Object selectedObject = selection.getFirstElement();
+			if (selectedObject instanceof WorkbenchModule)
+				return (WorkbenchModule) selectedObject;
+			project = ProjectUtilities.getProject(selectedObject);
+			URI uri = null;
+			if (selectedObject instanceof Resource)
+				uri = ((Resource)selectedObject).getURI();
+			if (selectedObject instanceof EObject)
+				uri = ((EObject)selectedObject).eResource().getURI();
+			if (uri == null)
+				return null;
+			ModuleCore moduleCore = null;
+			WorkbenchModule module = null;
+			try {
+				moduleCore = ModuleCore.getModuleCoreForRead(project);
+				WorkbenchModuleResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
+				for (int i=0; i<resources.length; i++) {
+					module = resources[i].getModule();
+					if (module != null)
+						return module;
 				}
+			} catch(UnresolveableURIException e) {
+				//Ignore
+			} finally {
+				if (moduleCore != null)
+					moduleCore.dispose();
 			}
 		}
-		return project;
+		
+		IProject[] projects = ProjectUtilities.getAllProjects();
+		ModuleCore moduleCore = null;
+		for (int i = 0; i < projects.length; i++) {
+			try {
+				moduleCore = ModuleCore.getModuleCoreForRead(projects[i]);
+				WorkbenchModule[] modules = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_WEB_MODULE);
+				if (modules.length>0)
+					return modules[0];
+			} finally {
+				if (moduleCore != null)
+					moduleCore.dispose();
+			}
+		}
+		return null;
 	}
 
 	protected IStructuredSelection getCurrentSelection() {

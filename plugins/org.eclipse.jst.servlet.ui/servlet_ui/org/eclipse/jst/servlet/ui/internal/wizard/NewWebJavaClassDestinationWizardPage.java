@@ -11,13 +11,12 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -34,16 +33,10 @@ public class NewWebJavaClassDestinationWizardPage extends NewJavaClassDestinatio
 		return new ViewerFilter() {
 			public boolean select(Viewer viewer, Object parent, Object element) {
 				boolean ret = false;
-				if (element instanceof IProject) {
-					WebArtifactEdit webEdit = null;
-					try {
-						IProject project = (IProject) element;
-						webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-						ret = webEdit!=null;
-					} finally {
-						if (webEdit != null)
-							webEdit.dispose();
-					}
+				if (element instanceof WorkbenchModule) {
+					WorkbenchModule module = (WorkbenchModule) element;
+					String moduleType = module.getModuleType().getModuleTypeId();
+					return moduleType.equals(IModuleConstants.JST_WEB_MODULE);
 				} else if (element instanceof IFolder) {
 					IFolder folder = (IFolder) element;
 					// only show source folders

@@ -520,8 +520,8 @@ public class WebPropertiesUtil {
 	}
 	
 	public static IFolder getModuleServerRoot(IProject project) {
-		//TODO needs to be implemented
-		return null;
+		//TODO need to implement module server root properly
+		return project.getFolder("WebContent");
 	}
 	
 	public static IFolder getWebLibFolder(IProject project) {
