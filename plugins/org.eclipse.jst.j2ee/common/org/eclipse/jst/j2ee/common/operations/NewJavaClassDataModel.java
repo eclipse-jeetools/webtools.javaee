@@ -387,6 +387,9 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EMPTY);
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
+		// In default case of Object, return OK right away
+		if (superclassName.equals("java.lang.Object")) //$NON-NLS-1$
+			return WTPCommonPlugin.OK_STATUS;
 		// Ensure the unqualified java class name of the superclass is valid
 		String className = superclassName;
 		int index = superclassName.lastIndexOf("."); //$NON-NLS-1$
