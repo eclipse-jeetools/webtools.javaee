@@ -92,19 +92,19 @@ public class ModuleStructuralModelTest extends TestCase {
 	 * 
 	 */
 	public void testResourceTree() throws Exception {
-		ModuleStructuralModel structuralModel = null;
+		ModuleCore moduleCore = null; 
 		try {
 			/* We need to find the project */
-			structuralModel = ModuleCore.getModuleStructuralModelForRead(ModuleCore.getContainingProject(getWebModuleURI()), this);
-			ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
-			WorkbenchModule module = editUtility.getWorkbenchModules()[0];
+			moduleCore = ModuleCore.getModuleCoreForRead(ModuleCore.getContainingProject(getWebModuleURI()));
+			
+			WorkbenchModule module = moduleCore.getWorkbenchModules()[0];
 			ResourceTreeRoot root = ModuleCore.getSourceResourceTreeRoot(module);
-			WorkbenchModuleResource[] resources = root.findModuleResources(URI.createURI("/MyModulesProject/WebContent/WEB-INF/web.xml"));
+			WorkbenchModuleResource[] resources = root.findModuleResources(URI.createURI("/"+getWebModuleAndLocalWebLibModuleProjectName()+"/WebContent/WEB-INF/web.xml"));
 			System.out.println(resources[0] != null ? resources[0].getSourcePath().toString() : "NOT FOUND");
 
 		} finally {
-			if (structuralModel != null)
-				structuralModel.releaseAccess(this);
+			if (moduleCore != null)
+				moduleCore.dispose();
 		}
 
 	}
@@ -161,16 +161,14 @@ public class ModuleStructuralModelTest extends TestCase {
 		/* Determine if the URI is for a resource or binary module */
 
 		if (PlatformURLModuleConnection.RESOURCE_MODULE.equals(segments[0])) {
-			ModuleStructuralModel structuralModel = null;
+			ModuleCore moduleCore = null;
 			try {
-				/* We need to find the project */
-				structuralModel = ModuleCore.getModuleStructuralModelForRead(ModuleCore.getContainingProject(uri), this);
-				ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
-				WorkbenchModuleResource[] resource = editUtility.findWorkbenchModuleResourceByDeployPath(uri);
+				moduleCore = ModuleCore.getModuleCoreForRead(ModuleCore.getContainingProject(uri)); 
+				WorkbenchModuleResource[] resource = moduleCore.findWorkbenchModuleResourceByDeployPath(uri);
 				System.out.println(resource != null ? resource[0].getSourcePath().toString() : "NOT FOUND");
 			} finally {
-				if (structuralModel != null)
-					structuralModel.releaseAccess(this);
+				if (moduleCore != null)
+					moduleCore.dispose();
 			}
 		} else if (PlatformURLModuleConnection.BINARY_MODULE.equals(segments[0])) {
 
@@ -197,13 +195,10 @@ public class ModuleStructuralModelTest extends TestCase {
 	}
 
 	public void setupContent() throws Exception {
-
-		ModuleStructuralModel webModuleAndLocalWebLibraryStructuralModel = null;
-		ModuleStructuralModel remoteWebLibraryStructuralModel = null;
+		ModuleCore localModuleCore = null;
 		try {
 			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI());
-			webModuleAndLocalWebLibraryStructuralModel = ModuleCore.getModuleStructuralModelForWrite(containingProject, this);
-			ModuleCore localModuleCore = (ModuleCore) webModuleAndLocalWebLibraryStructuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
+			localModuleCore = ModuleCore.getModuleCoreForWrite(containingProject); 
 
 			createLocalModules(localModuleCore);
 
@@ -215,13 +210,11 @@ public class ModuleStructuralModelTest extends TestCase {
 			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getLocalWebLibraryModuleURI());
 			addDependentModule(webModule, URI.createURI("WEB-INF/lib"), getRemoteWebLibraryModuleURI());
 
-			webModuleAndLocalWebLibraryStructuralModel.saveIfNecessary(this);
+			localModuleCore.saveIfNecessary(null);
 
 		} finally {
-			if (webModuleAndLocalWebLibraryStructuralModel != null)
-				webModuleAndLocalWebLibraryStructuralModel.releaseAccess(this);
-			if (remoteWebLibraryStructuralModel != null)
-				remoteWebLibraryStructuralModel.releaseAccess(this);
+			if (localModuleCore != null)
+				localModuleCore.dispose();
 		}
 
 	}
