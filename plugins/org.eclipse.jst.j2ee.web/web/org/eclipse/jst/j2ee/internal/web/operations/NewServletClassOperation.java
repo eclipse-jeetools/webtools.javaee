@@ -18,10 +18,15 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IMethod;
@@ -49,7 +54,9 @@ import com.ibm.wtp.common.logger.proxy.Logger;
 public class NewServletClassOperation extends NewJavaClassOperation {
 	protected static final String TO_STRING = "toString"; //$NON-NLS-1$
 	protected EditModel editModel = null;
-
+	public static final String TEMPLATE_EMITTER = "org.eclipse.jst.j2ee.ejb.annotations.emitter.template"; //$NON-NLS-1$
+	public static final String BUILDER_ID = "builderId"; //$NON-NLS-1$
+	
 	/**
 	 * @param dataModel
 	 */
@@ -180,6 +187,37 @@ public class NewServletClassOperation extends NewJavaClassOperation {
 			if (controller != null)
 				controller.process(aFile);
 			((J2EEEditModel)this.editModel).getWorkingCopy(cu, true); //Track CU.
+		}
+		addAnnotationsBuilder();
+	}
+	
+	private void addAnnotationsBuilder() {
+		try {
+			NewServletClassDataModel dataModel = (NewServletClassDataModel) operationDataModel;
+			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(TEMPLATE_EMITTER);
+			String builderID = configurationElements[0].getNamespace() + "."+ configurationElements[0].getAttribute(BUILDER_ID); //$NON-NLS-1$
+			IProject project = dataModel.getTargetProject(); 
+			IProjectDescription description = project.getDescription();
+			ICommand[] commands = description.getBuildSpec();
+			boolean found = false;
+			for (int i = 0; i < commands.length; ++i) {
+				if (commands[i].getBuilderName().equals(builderID)) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				ICommand command = description.newCommand();
+				command.setBuilderName(builderID);
+				ICommand[] newCommands = new ICommand[commands.length + 1];
+				System.arraycopy(commands, 0, newCommands, 0, commands.length);
+				newCommands[commands.length] = command;
+				IProjectDescription desc = project.getDescription();
+				desc.setBuildSpec(newCommands);
+				project.setDescription(desc, null);
+			}
+		} catch (Exception e) {
+			//Ignore
 		}
 	}
 

@@ -64,9 +64,31 @@ public class AddServletOperation extends ModelModifierOperation {
 	}
 
 	private void generateHelpers(ModelModifier amodifier, NewServletClassDataModel model, String qualifiedClassName, boolean isServletType) {
+		//Set up servlet
+		Servlet servlet = createServlet(qualifiedClassName, isServletType);
+		
+		// Set up helper for servlet
+		setUpServletHelper(amodifier, servlet);
+
+		// set up helpers for InitParam
+		List initParamList = (List) model.getProperty(NewServletClassDataModel.INIT_PARAM);
+		if (initParamList != null) {
+			setUpInitParams(initParamList,servlet);
+		}
+
+		// set up helper for URL mappings
+		List urlMappingList = (List) model.getProperty(NewServletClassDataModel.URL_MAPPINGS);
+		if (urlMappingList != null) {
+			setUpURLMappings(urlMappingList, servlet);
+		}
+	}
+	
+	private Servlet createServlet(String qualifiedClassName, boolean isServletType) {
 		// Get values from data model
+		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
 		String displayName = model.getStringProperty(NewServletClassDataModel.DISPLAY_NAME);
 		String description = model.getStringProperty(NewServletClassDataModel.DESCRIPTION);
+		
 		// Set up Servlet
 		Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
 		servlet.setDisplayName(displayName);
@@ -81,68 +103,72 @@ public class AddServletOperation extends ModelModifierOperation {
 			jspType.setJspFile(qualifiedClassName);
 			servlet.setWebType(jspType);
 		}
-		// Set up helper for servlet
+		return servlet;
+	}
+	
+	private void setUpServletHelper(ModelModifier amodifier, Servlet servlet) {
+		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
 		WebApp webApp = (WebApp) model.getDeploymentDescriptorRoot();
 		ModifierHelper helper = new ModifierHelper();
 		helper.setOwner(webApp);
 		helper.setFeature(WebapplicationPackage.eINSTANCE.getWebApp_Servlets());
 		helper.setValue(servlet);
 		amodifier.addHelper(helper);
-
-		// set up helpers for InitParam
-		List initParamList = (List) model.getProperty(NewServletClassDataModel.INIT_PARAM);
-		if (initParamList != null) {
-			int nP = initParamList.size();
-			if (webApp.getJ2EEVersionID() >= J2EEVersionConstants.J2EE_1_4_ID) {
-				for (int iP = 0; iP < nP; iP++) {
-					String[] stringArray = (String[]) initParamList.get(iP);
-					ParamValue param = CommonFactory.eINSTANCE.createParamValue();
-					param.setName(stringArray[0]);
-					param.setValue(stringArray[1]);
-					Description descriptionObj = CommonFactory.eINSTANCE.createDescription();
-					descriptionObj.setValue(stringArray[2]);
-					param.getDescriptions().add(descriptionObj);
-					param.setDescription(stringArray[2]);
-					// servlet.getInitParams().add(param);
-					ModifierHelper ipHelper = new ModifierHelper();
-					ipHelper.setOwner(servlet);
-					ipHelper.setFeature(WebapplicationPackage.eINSTANCE.getServlet_InitParams());
-					ipHelper.setValue(param);
-					modifier.addHelper(ipHelper);
-				}
-			} else {
-				for (int iP = 0; iP < nP; iP++) {
-					String[] stringArray = (String[]) initParamList.get(iP);
-					InitParam ip = WebapplicationFactory.eINSTANCE.createInitParam();
-					ip.setParamName(stringArray[0]);
-					ip.setParamValue(stringArray[1]);
-					ip.setDescription(stringArray[2]);
-					// servlet.getParams().add(ip);
-					ModifierHelper ipHelper = new ModifierHelper();
-					ipHelper.setOwner(servlet);
-					ipHelper.setFeature(WebapplicationPackage.eINSTANCE.getServlet_Params());
-					ipHelper.setValue(ip);
-					modifier.addHelper(ipHelper);
-				}
+	}
+	
+	private void setUpInitParams(List initParamList, Servlet servlet) {
+		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
+		WebApp webApp = (WebApp) model.getDeploymentDescriptorRoot();
+		int nP = initParamList.size();
+		if (webApp.getJ2EEVersionID() >= J2EEVersionConstants.J2EE_1_4_ID) {
+			for (int iP = 0; iP < nP; iP++) {
+				String[] stringArray = (String[]) initParamList.get(iP);
+				ParamValue param = CommonFactory.eINSTANCE.createParamValue();
+				param.setName(stringArray[0]);
+				param.setValue(stringArray[1]);
+				Description descriptionObj = CommonFactory.eINSTANCE.createDescription();
+				descriptionObj.setValue(stringArray[2]);
+				param.getDescriptions().add(descriptionObj);
+				param.setDescription(stringArray[2]);
+				// servlet.getInitParams().add(param);
+				ModifierHelper ipHelper = new ModifierHelper();
+				ipHelper.setOwner(servlet);
+				ipHelper.setFeature(WebapplicationPackage.eINSTANCE.getServlet_InitParams());
+				ipHelper.setValue(param);
+				modifier.addHelper(ipHelper);
+			}
+		} else {
+			for (int iP = 0; iP < nP; iP++) {
+				String[] stringArray = (String[]) initParamList.get(iP);
+				InitParam ip = WebapplicationFactory.eINSTANCE.createInitParam();
+				ip.setParamName(stringArray[0]);
+				ip.setParamValue(stringArray[1]);
+				ip.setDescription(stringArray[2]);
+				// servlet.getParams().add(ip);
+				ModifierHelper ipHelper = new ModifierHelper();
+				ipHelper.setOwner(servlet);
+				ipHelper.setFeature(WebapplicationPackage.eINSTANCE.getServlet_Params());
+				ipHelper.setValue(ip);
+				modifier.addHelper(ipHelper);
 			}
 		}
-
-		// set up helper for URL mappings
-		List urlMappingList = (List) model.getProperty(NewServletClassDataModel.URL_MAPPINGS);
-		if (urlMappingList != null) {
-			int nM = urlMappingList.size();
-			for (int iM = 0; iM < nM; iM++) {
-				String[] stringArray = (String[]) urlMappingList.get(iM);
-				ServletMapping mapping = WebapplicationFactory.eINSTANCE.createServletMapping();
-				mapping.setServlet(servlet);
-				mapping.setName(servlet.getServletName());
-				mapping.setUrlPattern(stringArray[0]);
-				ModifierHelper urlHelper = new ModifierHelper();
-				urlHelper.setOwner(webApp);
-				urlHelper.setFeature(WebapplicationPackage.eINSTANCE.getWebApp_ServletMappings());
-				urlHelper.setValue(mapping);
-				modifier.addHelper(urlHelper);
-			}
+	}
+	
+	private void setUpURLMappings(List urlMappingList, Servlet servlet) {
+		NewServletClassDataModel model = (NewServletClassDataModel) this.operationDataModel;
+		WebApp webApp = (WebApp) model.getDeploymentDescriptorRoot();
+		int nM = urlMappingList.size();
+		for (int iM = 0; iM < nM; iM++) {
+			String[] stringArray = (String[]) urlMappingList.get(iM);
+			ServletMapping mapping = WebapplicationFactory.eINSTANCE.createServletMapping();
+			mapping.setServlet(servlet);
+			mapping.setName(servlet.getServletName());
+			mapping.setUrlPattern(stringArray[0]);
+			ModifierHelper urlHelper = new ModifierHelper();
+			urlHelper.setOwner(webApp);
+			urlHelper.setFeature(WebapplicationPackage.eINSTANCE.getWebApp_ServletMappings());
+			urlHelper.setValue(mapping);
+			modifier.addHelper(urlHelper);
 		}
 	}
 

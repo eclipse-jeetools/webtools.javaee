@@ -250,7 +250,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 		IProject project = null;
 		project = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
-		annotationsGroup.setUseAnnotations(false);
+		annotationsGroup.setUseAnnotations(true);
 	}
 
 	public String getDisplayName() {
