@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.16 $  $Date: 2004/05/24 23:23:31 $ 
+ *  $Revision: 1.17 $  $Date: 2004/06/02 19:42:39 $ 
  */
 
 import java.io.*;
@@ -57,8 +57,8 @@ public class BeaninfoNature implements IProjectNature {
 	public static final String NATURE_ID = BeaninfoPlugin.PI_BEANINFO_PLUGINID + ".BeanInfoNature"; //$NON-NLS-1$
 	public static final String P_BEANINFO_SEARCH_PATH = ".beaninfoConfig"; //$NON-NLS-1$
 	
-	public static final QualifiedName CONFIG_INFO_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "CONFIG_INFO");
-	public static final QualifiedName BEANINFO_CONTRIBUTORS_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "BEANINFO_CONTRIBUTORS");
+	public static final QualifiedName CONFIG_INFO_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "CONFIG_INFO"); //$NON-NLS-1$
+	public static final QualifiedName BEANINFO_CONTRIBUTORS_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "BEANINFO_CONTRIBUTORS"); //$NON-NLS-1$
 
 	private ResourceTracker resourceTracker;
 	// This class listens for changes to the beaninfo paths file, and if changed it marks all stale
@@ -139,7 +139,7 @@ public class BeaninfoNature implements IProjectNature {
 					0,
 					MessageFormat.format(
 						BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
-						new Object[] { project.getName(), "Invalid project"}),
+						new Object[] { project.getName(), BeanInfoAdapterMessages.getString("BeaninfoNature.InvalidProject")}), //$NON-NLS-1$
 					null));
 
 		addNatureToProject(project, NATURE_ID);
@@ -626,7 +626,7 @@ public class BeaninfoNature implements IProjectNature {
 				computedSearchPath = new ArrayList(3);	// We will be gathering this info.
 		}
 		
-		private static final String PI_CLASS = "class";
+		private static final String PI_CLASS = "class"; //$NON-NLS-1$
 		
 		/* (non-Javadoc)
 		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributor#initialize(org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo)

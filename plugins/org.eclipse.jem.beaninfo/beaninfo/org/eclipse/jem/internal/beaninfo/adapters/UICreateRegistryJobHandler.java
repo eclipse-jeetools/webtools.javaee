@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: UICreateRegistryJobHandler.java,v $
- *  $Revision: 1.1 $  $Date: 2004/04/20 21:15:27 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/02 19:42:39 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -46,7 +46,7 @@ class UICreateRegistryJobHandler extends CreateRegistryJobHandler {
 			else {
 				// We are not in the UI thread, so farm it off to a job to syncit.
 				// Use it as a job so that if it takes long enough, the progress view will be shown.
-				Job createJob = new Job("Start Beaninfo registry") {
+				Job createJob = new Job(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry")) { //$NON-NLS-1$
 					protected IStatus run(final IProgressMonitor monitor) {
 						display.syncExec(new Runnable() {
 							public void run() {

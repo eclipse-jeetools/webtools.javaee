@@ -11,7 +11,7 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: InheritanceCycleException.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/02 19:41:38 $ 
  */
 import java.text.MessageFormat;
 
@@ -24,7 +24,7 @@ import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class InheritanceCycleException extends Exception {
-	private static String MSG_PATTERN = ResourceHandler.getString("Java_Inh_Cycle_ERROR_");
+	private static String MSG_PATTERN = ResourceHandler.getString("Java_Inh_Cycle_ERROR_");//$NON-NLS-1$
 
 	/**
 	 * 

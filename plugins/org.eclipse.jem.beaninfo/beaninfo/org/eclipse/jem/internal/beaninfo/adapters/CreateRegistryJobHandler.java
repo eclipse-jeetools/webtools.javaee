@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:31 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/02 19:42:39 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -33,7 +33,7 @@ class CreateRegistryJobHandler {
 					try {
 						// There is a UI, it may not be active, but bring in UICreateRegistryJobHandler to do the
 						// actual work since it can reference the UI.
-						jobHandler = (CreateRegistryJobHandler) Class.forName("org.eclipse.jem.internal.beaninfo.adapters.UICreateRegistryJobHandler").newInstance();
+						jobHandler = (CreateRegistryJobHandler) Class.forName("org.eclipse.jem.internal.beaninfo.adapters.UICreateRegistryJobHandler").newInstance(); //$NON-NLS-1$
 					} catch (InstantiationException e) {
 						jobHandler = new CreateRegistryJobHandler();
 					} catch (IllegalAccessException e) {

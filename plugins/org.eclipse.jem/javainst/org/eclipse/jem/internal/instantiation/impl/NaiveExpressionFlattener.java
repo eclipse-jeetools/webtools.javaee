@@ -10,10 +10,11 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.5 $  $Date: 2004/05/20 13:01:21 $ 
+ *  $Revision: 1.6 $  $Date: 2004/06/02 19:41:38 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.eclipse.jem.internal.instantiation.*;
@@ -74,7 +75,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 */
 	public boolean visit(PTArrayCreation node) {
 		String type = handleQualifiedName(node.getType());
-		buffer.append("new ");
+		buffer.append("new "); //$NON-NLS-1$
 		int ob = type.indexOf('[');
 		buffer.append(type.substring(0, ob));
 		int realdims = 0;
@@ -89,7 +90,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 			buffer.append(']');
 		}
 		for (int i=dims.size(); i < realdims; i++) {
-			buffer.append("[]");
+			buffer.append("[]"); //$NON-NLS-1$
 		}
 		
 		if (node.getInitializer() != null) {
@@ -108,7 +109,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 		List exp = node.getExpressions();
 		for (int i = 0; i < exp.size(); i++) {
 			if (i != 0)
-				buffer.append(", ");
+				buffer.append(", "); //$NON-NLS-1$
 			((PTExpression) exp.get(i)).accept(this);
 		}
 		buffer.append('}');
@@ -119,7 +120,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTBooleanLiteral)
 	 */
 	public boolean visit(PTBooleanLiteral node) {
-		buffer.append(node.isBooleanValue() ? "true" : "false");
+		buffer.append(node.isBooleanValue() ? "true" : "false"); //$NON-NLS-1$ //$NON-NLS-2$
 		return false;
 	}
 
@@ -129,7 +130,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	public boolean visit(PTCastExpression node) {
 		buffer.append('(');
 		buffer.append(handleQualifiedName(node.getType()));
-		buffer.append(") ");
+		buffer.append(") "); //$NON-NLS-1$
 		node.getExpression().accept(this);
 		return false;
 	}
@@ -146,13 +147,13 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTClassInstanceCreation)
 	 */
 	public boolean visit(PTClassInstanceCreation node) {
-		buffer.append("new ");
+		buffer.append("new "); //$NON-NLS-1$
 		buffer.append(handleQualifiedName(node.getType()));
 		buffer.append('(');
 		List args = node.getArguments();
 		for (int i = 0; i < args.size(); i++) {
 			if (i != 0)
-				buffer.append(", ");
+				buffer.append(", "); //$NON-NLS-1$
 			((PTExpression) args.get(i)).accept(this);
 		}
 		buffer.append(')');
@@ -164,9 +165,9 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 */
 	public boolean visit(PTConditionalExpression node) {
 		node.getCondition().accept(this);
-		buffer.append(" ? ");
+		buffer.append(" ? "); //$NON-NLS-1$
 		node.getTrue().accept(this);
-		buffer.append(" : ");
+		buffer.append(" : "); //$NON-NLS-1$
 		node.getFalse().accept(this);
 		return false;
 	}
@@ -206,7 +207,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 */
 	public boolean visit(PTInstanceof node) {
 		node.getOperand().accept(this);
-		buffer.append(" instanceof ");
+		buffer.append(" instanceof "); //$NON-NLS-1$
 		buffer.append(handleQualifiedName(node.getType()));
 		return false;
 	}
@@ -215,9 +216,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTInvalidExpression)
 	 */
 	public boolean visit(PTInvalidExpression node) {
-		buffer.append(" invalid: \"");
-		buffer.append(node.getMessage());
-		buffer.append("\"");
+		buffer.append(MessageFormat.format(InstantiationImplMessages.getString("NaiveExpressionFlattener.InvalidExpression"), new Object[]{node.getMessage()})); //$NON-NLS-1$
 		return false;
 	}
 
@@ -235,7 +234,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 		List args = node.getArguments();
 		for (int i = 0; i < args.size(); i++) {
 			if (i != 0)
-				buffer.append(", ");
+				buffer.append(", "); //$NON-NLS-1$
 			((PTExpression) args.get(i)).accept(this);
 		}
 		buffer.append(')');
@@ -254,7 +253,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTNullLiteral)
 	 */
 	public boolean visit(PTNullLiteral node) {
-		buffer.append("null");
+		buffer.append("null"); //$NON-NLS-1$
 		return false;
 	}
 
@@ -297,7 +296,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTThisLiteral)
 	 */
 	public boolean visit(PTThisLiteral node) {
-		buffer.append("this");
+		buffer.append("this"); //$NON-NLS-1$
 		return false;
 	}
 
@@ -306,7 +305,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 */
 	public boolean visit(PTTypeLiteral node) {
 		buffer.append(handleQualifiedName(node.getType()));
-		buffer.append(".class");
+		buffer.append(".class"); //$NON-NLS-1$
 		return false;
 	}
 	

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.12 $  $Date: 2004/05/24 23:23:31 $ 
+ *  $Revision: 1.13 $  $Date: 2004/06/02 19:42:39 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -401,7 +401,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						0,
 						MessageFormat.format(
 							BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
-							new Object[] { getJavaClass().getJavaName(), ""}),
+							new Object[] { getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
 						e));
 			}
 		}
@@ -458,7 +458,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 											0,
 											MessageFormat.format(
 												BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
-												new Object[] { getJavaClass().getJavaName(), ""}),
+												new Object[] { getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
 											e));
 								}
 							} else {
@@ -482,7 +482,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 									0,
 									MessageFormat.format(
 										BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
-										new Object[] { getJavaClass().getJavaName(), "Class not found"}),
+										new Object[] { getJavaClass().getJavaName(), BeanInfoAdapterMessages.getString("BeaninfoClassAdapter.ClassNotFound")}), //$NON-NLS-1$
 									null));
 						}
 					}
