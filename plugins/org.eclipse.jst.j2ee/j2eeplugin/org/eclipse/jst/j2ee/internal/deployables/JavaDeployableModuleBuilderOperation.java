@@ -13,6 +13,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -25,6 +26,8 @@ import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderDataModel;
+import org.eclipse.wst.common.modulecore.util.ModuleCore;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -47,17 +50,17 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 
 		// preparation
 		JavaDeployableModuleBuilderDataModel dataModel = (JavaDeployableModuleBuilderDataModel) operationDataModel;
-		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.WORKBENCH_MODULE);
-		String deployedName = workbenchModule.getDeployedName();
-		IProject project = (IProject)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.PROJECT);
+		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(DeployableModuleBuilderDataModel.WORKBENCH_MODULE);
+		
+		IProject project = (IProject)dataModel.getProperty(DeployableModuleBuilderDataModel.PROJECT);
 		IPath projectPath = project.getFullPath();
 		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);
 		List javaSourceFolderList = ProjectUtilities.getSourceContainers(project);
 		
 		// create output container folder if it does not exist
-		URI outputContainerURI = (URI)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
+		URI outputContainerURI = (URI)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
 		IPath absoluteOCP = projectPath.append(outputContainerURI.toString());
-		IFolder outputContainerFolder = createFolder(absoluteOCP);
+		createFolder(absoluteOCP);
 
 		// copy resources except the java source folder
 		List resourceList = workbenchModule.getResources();
@@ -65,7 +68,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
-			IResource sourceResource = getResource(sourcePath);
+			IResource sourceResource =  ModuleCore.getResource(wmr);
 			if (sourceResource == null)
 				continue;
 			// check if it is a java source folder
@@ -90,7 +93,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
 			URI sourceURI = wmr.getSourcePath();
 			IPath sourcePath = new Path(sourceURI.toString());
-			IResource sourceResource = getResource(sourcePath);
+			IResource sourceResource = ModuleCore.getResource(wmr);
 			// check if it is a java source folder
 			if (javaSourceFolderList.contains(sourceResource)) {
 				// get the classpath entry
@@ -121,7 +124,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		if (classpathModified)
 			javaProj.setRawClasspath(cpe, new NullProgressMonitor());
 	}
-	
+
 	/**
 	 * Get resource for given absolute path
 	 * 
@@ -129,14 +132,12 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 	 */
 	private IResource getResource(IPath absolutePath) throws CoreException {
 		IResource resource = null;
-		if (absolutePath != null && !absolutePath.isEmpty()) {
-			resource = getWorkspace().getRoot().getFolder(absolutePath);
-			if (resource == null || !(resource instanceof IFolder)) {
-				resource = getWorkspace().getRoot().getFile(absolutePath);
-			}
-		}
+		if (absolutePath != null && !absolutePath.isEmpty()) 
+			resource = ResourcesPlugin.getWorkspace().getRoot().findMember(absolutePath);
 		return resource;
 	}
+
+	 
 	/**
 	 * Create a folder for given absolute path
 	 * 

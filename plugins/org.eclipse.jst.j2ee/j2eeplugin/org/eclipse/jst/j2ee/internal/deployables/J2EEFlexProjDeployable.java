@@ -66,7 +66,7 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
         		String sPath = pathProject.toString();
         		URI uri = ModuleCore.getOutputContainerRoot(wbModule);
         		String sURI = uri.toString();
-        		String absolutePath = sPath + "/"+sURI;
+        		String absolutePath = sPath + IPath.SEPARATOR + sURI;
         		path = new Path( absolutePath );
         	}
         }    
