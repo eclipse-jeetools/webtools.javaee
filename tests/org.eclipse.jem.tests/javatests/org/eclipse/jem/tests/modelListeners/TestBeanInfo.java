@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestBeanInfo.java,v $
- *  $Revision: 1.1 $  $Date: 2004/06/09 22:47:00 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/11 15:35:04 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -133,7 +133,7 @@ public class TestBeanInfo extends TestListeners {
 	 */
 	protected void setupAddClass() {
 		super.setupAddClass();
-		factory.setTestCases(new int[0], new Object[0]);				
+		factory.setTestCases(new int[] {TestBeaninfoAdapterFactory.MARK_STALE_INTROSPECTION_PLUS_INNER}, new Object[] {new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass", Boolean.TRUE}});				
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setupDeleteClassWithWorkingCopy()

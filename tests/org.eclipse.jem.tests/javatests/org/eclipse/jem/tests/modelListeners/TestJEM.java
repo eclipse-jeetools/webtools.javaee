@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestJEM.java,v $
- *  $Revision: 1.1 $  $Date: 2004/06/09 22:47:00 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/11 15:35:04 $ 
  */
 package org.eclipse.jem.tests.modelListeners;
 
@@ -95,21 +95,21 @@ public class TestJEM extends TestListeners {
 	 */
 	protected void setupAddClass() {
 		super.setupAddClass();
-		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.DISASSOCIATE_SOURCE_PLUS_INNER_NOTIFY}, new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass"});				
+		factory.setTestCases(new int[0], new Object[0]);				
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setupDeleteClassWithWorkingCopy()
 	 */
 	protected void setupDeleteClassWithWorkingCopy() throws JavaModelException {
 		super.setupDeleteClassWithWorkingCopy();
-		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.FLUSH_REFLECTION_PLUS_INNER_NO_NOTIFICATION, TestJavaJDOMAdapterFactory.DISASSOCIATE_SOURCE_PLUS_INNER_NOTIFY}, new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass", "org.eclipse.jem.tests.beaninfo.NewClass"});		
+		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.FLUSH_REFLECTION_PLUS_INNER_NO_NOTIFICATION, TestJavaJDOMAdapterFactory.DISASSOCIATE_SOURCE_PLUS_INNER_NOTIFY}, new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass", new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass", Boolean.FALSE}});		
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setUpDeleteClassNoWorkingCopy()
 	 */
 	protected void setUpDeleteClassNoWorkingCopy() throws JavaModelException {
 		super.setUpDeleteClassNoWorkingCopy();
-		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.DISASSOCIATE_SOURCE_PLUS_INNER_NOTIFY}, new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass"});		
+		factory.setTestCases(new int[] {TestJavaJDOMAdapterFactory.DISASSOCIATE_SOURCE_PLUS_INNER_NOTIFY}, new Object[] {new Object[] {"org.eclipse.jem.tests.beaninfo.NewClass", Boolean.FALSE}});		
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.tests.modelListeners.TestListeners#setUpAddPackage()
