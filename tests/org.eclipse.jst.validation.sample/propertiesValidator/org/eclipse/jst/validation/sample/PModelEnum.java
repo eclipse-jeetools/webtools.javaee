@@ -22,7 +22,7 @@ package org.eclipse.jst.validation.sample;
 /**
  * This class contains the constants that uniquely identify each
  * model that the Properties Validator's helper must load. All of
- * these models must be supported by the IHelper implementation
+ * these models must be supported by the IValidationContext implementation
  * or the helper cannot be used to support the Properties Validator.
  */
 public interface PModelEnum {

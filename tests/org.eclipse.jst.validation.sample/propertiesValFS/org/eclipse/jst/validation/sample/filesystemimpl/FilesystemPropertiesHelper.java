@@ -37,7 +37,7 @@ import org.eclipse.wst.validation.sample.filesystem.IFilesystemHelper;
 import org.eclispe.wst.validation.internal.core.FileDelta;
 
 /**
- * This class is the IHelper implementation, used by the PropertiesValidator,
+ * This class is the IValidationContext implementation, used by the PropertiesValidator,
  * when the validator is run in the filesystem validation framework.
  */
 public class FilesystemPropertiesHelper implements IFilesystemHelper {
@@ -46,14 +46,14 @@ public class FilesystemPropertiesHelper implements IFilesystemHelper {
 	}
 
 	/**
-	 * @see com.ibm.etools.validation.core.IHelper#loadModel(String)
+	 * @see com.ibm.etools.validation.core.IValidationContext#loadModel(String)
 	 */
 	public Object loadModel(String symbolicName) {
 		return (Object) loadModel(symbolicName, null);
 	}
 
 	/**
-	 * @see com.ibm.etools.validation.core.IHelper#loadModel(String, Object[])
+	 * @see com.ibm.etools.validation.core.IValidationContext#loadModel(String, Object[])
 	 */
 	public Object loadModel(String symbolicName, Object[] parm) {
 		if ((symbolicName == null) || (symbolicName.equals(""))) { //$NON-NLS-1$

@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IMessageAccess;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.operations.IMessageAccess;
 
 /**
  * This class is the file system specific implementation of an incremental IReporter.
@@ -66,9 +66,9 @@ public class IncrementalReporter implements IReporter {
 	}
 
 	/**
-	 * @see IReporter#getMessageAccess()
+	 * @see IReporter#getMessages()
 	 */
-	public IMessageAccess getMessageAccess() {
+	public List getMessages() {
 		return null;
 	}
 

@@ -25,7 +25,7 @@ import java.util.logging.Level;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.IValidationConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
@@ -47,9 +47,9 @@ public class PropertiesValidator implements IValidator {
 	}
 
 	/*
-	 * @see IValidator#validate(IHelper, IReporter, IFileDelta[])
+	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
 	 */
-	public void validate(IHelper helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
 		if((changedFiles == null) || (changedFiles.length == 0)) {
 			changedFiles = (IFileDelta[])helper.loadModel(PModelEnum.ALL_PROPERTIES_FILES);
 		}

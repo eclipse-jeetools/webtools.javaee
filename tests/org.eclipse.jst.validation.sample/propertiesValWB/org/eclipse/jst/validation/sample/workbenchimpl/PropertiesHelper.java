@@ -42,7 +42,7 @@ import org.eclipse.wst.validation.internal.operations.AWorkbenchHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchFileDelta;
 
 /**
- * This class implements the WebSphere Studio IHelper for the 
+ * This class implements the WebSphere Studio IValidationContext for the 
  * Properties Validator.
  */
 public class PropertiesHelper extends AWorkbenchHelper {

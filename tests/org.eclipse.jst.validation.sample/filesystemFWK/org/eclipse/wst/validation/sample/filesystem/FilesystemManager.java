@@ -116,7 +116,7 @@ public class FilesystemManager {
 	
 	/**
 	 * Given an array of IFileDelta instances, return an array
-	 * of the IValidator instances, with their associated IHelper instances,
+	 * of the IValidator instances, with their associated IValidationContext instances,
 	 * that validate these particular delta instances.
 	 */
 	public FilesystemLoader[] getLoaders(IFileDelta[] deltas) {
@@ -140,7 +140,7 @@ public class FilesystemManager {
 	}
 	
 	/**
-	 * Given an IValidator instance, return the IHelper instance that the
+	 * Given an IValidator instance, return the IValidationContext instance that the
 	 * IValidator uses to load information from the filesystem validation
 	 * framework environment.
 	 */
@@ -182,7 +182,7 @@ public class FilesystemManager {
 	
 	/**
 	 * Return an array of all FilesystemLoader instances. Each loader has
-	 * one IValidator and one IHelper.
+	 * one IValidator and one IValidationContext.
 	 */
 	public FilesystemLoader[] getAllLoaders() {
 		FilesystemLoader[] result = new FilesystemLoader[_loaders.size()];

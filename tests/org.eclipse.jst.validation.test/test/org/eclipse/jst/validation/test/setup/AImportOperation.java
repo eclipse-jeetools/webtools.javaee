@@ -13,7 +13,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.internal.util.BVTValidationUtility;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
-import org.eclipse.wst.validation.plugin.ValidationPlugin;
+import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 /**
  * Abstract class that provides some of the functionality required to create

@@ -9,7 +9,7 @@ import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.setup.IImportOperation;
-import org.eclipse.wst.validation.plugin.ValidationPlugin;
+import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 /**
  * This class holds the metadata needed to import an .ear or

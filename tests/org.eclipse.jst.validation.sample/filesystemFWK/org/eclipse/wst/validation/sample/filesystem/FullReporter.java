@@ -19,10 +19,12 @@ package org.eclipse.wst.validation.sample.filesystem;
  * 
  */
 
+import java.util.List;
+
 import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IMessageAccess;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.operations.IMessageAccess;
 
 /**
  * This reporter is used when full validation is needed. It doesn't cache
@@ -53,9 +55,9 @@ public class FullReporter implements IReporter {
 	}
 	
 	/**
-	 * @see IReporter#getMessageAccess()
+	 * @see IReporter#getMessages()
 	 */
-	public IMessageAccess getMessageAccess() {
+	public List getMessages() {
 		// this reporter does not support message access 
 		return null;
 	}

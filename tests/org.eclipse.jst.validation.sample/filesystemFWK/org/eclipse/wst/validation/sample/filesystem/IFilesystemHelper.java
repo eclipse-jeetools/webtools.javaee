@@ -19,14 +19,14 @@ package org.eclipse.wst.validation.sample.filesystem;
  * 
  */
 
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 
 /**
  * To integrate a validator into this framework, an implementation of this
- * IHelper must be provided.
+ * IValidationContext must be provided.
  */
-public interface IFilesystemHelper extends IHelper {
+public interface IFilesystemHelper extends IValidationContext {
 	/**
 	 * Return the fully-qualified name of the file which the IMessage is reported against.
 	 */

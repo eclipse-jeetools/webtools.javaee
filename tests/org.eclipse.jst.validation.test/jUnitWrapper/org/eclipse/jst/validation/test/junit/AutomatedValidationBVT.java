@@ -14,7 +14,6 @@ package org.eclipse.jst.validation.test.junit;
  */
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 import junit.framework.Test;
@@ -35,15 +34,15 @@ public class AutomatedValidationBVT extends TestSuite {
 
     public static String baseDirectory = null;
     
-//    static {
-//        try {
-//            Bundle plugin = Platform.getBundle("org.eclipse.jst.validation.test");
-//            URL url = plugin.getEntry("/");
-//        	AutomatedValidationBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "validationResources" + File.separatorChar;
-//		} catch (Exception e) { 
-//			System.err.println("Using working directory since a workspace URL could not be located.");
-//		} 
-//    }
+    static {
+        try {
+            IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.validation.test");
+            URL url = pluginDescriptor.getInstallURL(); 
+        	AutomatedValidationBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "validationResources" + File.separatorChar;
+		} catch (Exception e) { 
+			System.err.println("Using working directory since a workspace URL could not be located.");
+		} 
+    }
 
     public static int unimplementedMethods;
 
@@ -56,18 +55,7 @@ public class AutomatedValidationBVT extends TestSuite {
     }
 
     public AutomatedValidationBVT() {
-		
-
-		super();
-		IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.validation.test");
-        URL url = pluginDescriptor.getInstallURL();
-        try {
-        	AutomatedValidationBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "validationResources" + File.separatorChar;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+        super();
         TestSuite suite = (TestSuite) AutomatedValidationBVT.suite();
         for (int i = 0; i < suite.testCount(); i++) {
             addTest(suite.testAt(i));
@@ -76,7 +64,7 @@ public class AutomatedValidationBVT extends TestSuite {
 
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for org.eclipse.jst.validation.test");
-        suite.addTest(new BVTSuite());
+        suite.addTest(BVTSuite.suite());
         return suite;
     }
 }
