@@ -195,7 +195,6 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
            	}
            	catch(Exception e){
            		Logger.getLogger().logError(e);
-           		e.printStackTrace();
            	} finally {
            		if(ejbEdit != null)
            			ejbEdit.dispose();
