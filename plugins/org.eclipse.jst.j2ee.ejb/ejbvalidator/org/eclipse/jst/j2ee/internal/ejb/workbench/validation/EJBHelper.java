@@ -578,10 +578,10 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		// projectResources is cleaned up before it's removed.
 		// That is, if _projectResources is not null, then this
 		// helper has been initialized with an IProject before. The
-		// initialization occurs every time this IHelper is retrieved
+		// initialization occurs every time this IValidationContext is retrieved
 		// from the ValidationRegistryReader.
 		//
-		// After this IHelper is retrieved, validation may or may not be
+		// After this IValidationContext is retrieved, validation may or may not be
 		// performed with it. For example, if the properties page is brought
 		// up by the user, this helper will be retrieved in order to enable,
 		// or disable, the EJB Validator. If validation has not run with this
