@@ -1,0 +1,22 @@
+ * @ejb.home
+ <% if (model.hasRemoteClient()) { %>
+ * 	remote-class="<%=model.getRemoteHome()%>"
+ <% } %>
+ <% if (model.hasLocalClient()) { %>
+ *	local-class="<%=model.getLocalHome()%>"
+ <% } %>
+ *
+ * @ejb.interface
+ <% if (model.hasRemoteClient()) { %>
+ * 	remote-class="<%=model.getRemote()%>"
+     <% String extensions = model.getRemoteExtends();
+ 	   if (extensions != null && extensions.length() > 0) { %>
+ *  extends="<%=extensions%>"<%
+    }
+  } if (model.hasLocalClient()) { %>
+ *	local-class="<%=model.getLocal()%>"
+     <% String extensions = model.getLocalExtends();
+ 	   if (extensions != null && extensions.length() > 0) { %>
+ *  local-extends="<%=extensions%>"
+<% }
+  } %>

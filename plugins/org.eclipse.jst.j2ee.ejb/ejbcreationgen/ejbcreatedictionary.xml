@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<ejbcreationDictionary>
+
+  <generator name= "SessionGenerator"    code="com.ibm.etools.ejb.codegen.SessionGenerator"/>
+  <generator name= "EntityGenerator"     code="com.ibm.etools.ejb.codegen.EntityGenerator"/>
+  <generator name= "CMPEntityGenerator"  code="com.ibm.etools.ejb.codegen.CMPEntityGenerator"/>
+
+  <generator name= "SessionRemoteInterfaceCU"  code="com.ibm.etools.ejb.codegen.SessionRemoteInterfaceCU"/>
+  <generator name= "SessionServiceEndpointInterfaceCU"  code="com.ibm.etools.ejb.codegen.SessionServiceEndpointInterfaceCU"/>
+  <generator name= "SessionHomeInterfaceCU"  code="com.ibm.etools.ejb.codegen.SessionHomeInterfaceCU"/>
+  <generator name= "SessionBeanClassCU"  code="com.ibm.etools.ejb.codegen.SessionBeanClassCU"/>
+  
+  <generator name= "EntityRemoteInterfaceCU"  code="com.ibm.etools.ejb.codegen.EntityRemoteInterfaceCU"/>
+  <generator name= "EntityHomeInterfaceCU"  code="com.ibm.etools.ejb.codegen.EntityHomeInterfaceCU"/>
+  <generator name= "EntityBeanClassCU"  code="com.ibm.etools.ejb.codegen.EntityBeanClassCU"/>
+  <generator name= "EntityKeyClassCU"  code="com.ibm.etools.ejb.codegen.EntityKeyClassCU"/>
+  
+  <generator name= "CMPEntityRemoteInterfaceCU"  code="com.ibm.etools.ejb.codegen.CMPEntityRemoteInterfaceCU"/>
+  <generator name= "CMPEntityHomeInterfaceCU"  code="com.ibm.etools.ejb.codegen.CMPEntityHomeInterfaceCU"/>
+  <generator name= "CMPEntityBeanClassCU"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanClassCU"/>
+  <generator name= "CMPEntityKeyClassCU"  code="com.ibm.etools.ejb.codegen.CMPEntityKeyClassCU"/>
+  
+  <!-- Local CU Generators -->
+  <generator name= "SessionLocalInterfaceCU"  code="com.ibm.etools.ejb20.codegen.SessionLocalInterfaceCU"/>
+  <generator name= "SessionLocalHomeInterfaceCU"  code="com.ibm.etools.ejb20.codegen.SessionLocalHomeInterfaceCU"/>
+  <generator name= "EntityLocalInterfaceCU"  code="com.ibm.etools.ejb20.codegen.EntityLocalInterfaceCU"/>
+  <generator name= "EntityLocalHomeInterfaceCU"  code="com.ibm.etools.ejb20.codegen.EntityLocalHomeInterfaceCU"/>
+  
+  <generator name= "SessionRemoteInterface"  code="com.ibm.etools.ejb.codegen.EnterpriseBeanClientInterface"/>
+  <generator name= "SessionServiceEndpointInterface"  code="com.ibm.etools.ejb.codegen.SessionServiceEndpointInterface"/>
+  <generator name= "SessionHomeInterface"  code="com.ibm.etools.ejb.codegen.SessionHomeInterface"/>
+  <generator name= "SessionBeanClass"  code="com.ibm.etools.ejb.codegen.SessionBeanClass"/>
+
+  <generator name= "EntityRemoteInterface"  code="com.ibm.etools.ejb.codegen.EntityRemoteInterface"/>
+  <generator name= "EntityHomeInterface"  code="com.ibm.etools.ejb.codegen.EntityHomeInterface"/>
+  <generator name= "EntityBeanClass"  code="com.ibm.etools.ejb.codegen.EntityBeanClass"/>
+  <generator name= "EntityKeyClass"  code="com.ibm.etools.ejb.codegen.EntityKeyClass"/>
+
+  <!-- Local Type Generators -->
+  <generator name= "SessionLocalInterface"  code="com.ibm.etools.ejb20.codegen.SessionLocalInterface"/>
+  <generator name= "SessionLocalHomeInterface"  code="com.ibm.etools.ejb20.codegen.SessionLocalHomeInterface"/>
+  <generator name= "EntityLocalInterface"  code="com.ibm.etools.ejb20.codegen.EntityLocalInterface"/>
+  <generator name= "EntityLocalHomeInterface"  code="com.ibm.etools.ejb20.codegen.EntityLocalHomeInterface"/>
+
+  <generator name= "CMPEntityRemoteInterface"  code="com.ibm.etools.ejb.codegen.CMPEntityRemoteInterface"/>
+  <generator name= "CMPEntityHomeInterface"  code="com.ibm.etools.ejb.codegen.CMPEntityHomeInterface"/>
+  <generator name= "CMPEntityBeanClass"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanClass"/>
+  <generator name= "CMPEntityKeyClass"  code="com.ibm.etools.ejb.codegen.EntityKeyClass"/>
+
+  <generator name= "EntityAttribute"  code="com.ibm.etools.ejb.codegen.EntityAttributeGenerator"/>
+  <generator name= "EntityAttributeField"  code="com.ibm.etools.ejb.codegen.EntityAttributeField"/>
+  <generator name= "EntityAttributeGetter"  code="com.ibm.etools.ejb.codegen.EntityAttributeGetter"/>
+  <generator name= "EntityAttributeSetter"  code="com.ibm.etools.ejb.codegen.EntityAttributeSetter"/>
+
+  <generator name= "EntityAttributeRemoveFromKey"  code="com.ibm.etools.ejb.codegen.EntityAttributeRemoveFromKeyGenerator"/>
+	
+  <!-- Client View Generators -->
+  <generator name= "EJBMethodGroupGenerator" code="com.ibm.etools.ejb.codegen.EJBMethodGroupGenerator"/>
+  <generator name= "EJBLocalClientMethodGenerator" code="com.ibm.etools.ejb.codegen.EJBLocalClientMethodGenerator"/>
+  <generator name= "EJBRemoteClientMethodGenerator" code="com.ibm.etools.ejb.codegen.EJBRemoteClientMethodGenerator"/>
+  <generator name= "EJBServiceEndpointClientMethodGenerator" code="com.ibm.etools.ejb.codegen.EJBServiceEndpointClientMethodGenerator"/>
+ 
+  <!-- Unimplemented method  Generators -->
+  <generator name= "EJBMethodGenerator" code="com.ibm.etools.ejb.codegen.EJBMethodGenerator"/>
+  <generator name= "UnimplementedMethodGroupGenerator" code="com.ibm.etools.ejb.codegen.UnimplementedMethodGroupGenerator"/>
+
+/**
+ * Shared Enterprise Bean member generators
+ */
+  <generator name= "EjbSuidField"  code="com.ibm.etools.ejb.codegen.EjbSuidField"/>
+
+/**
+ * Session home interface member generators
+ */
+  <generator name= "SessionHomeCreate"  code="com.ibm.etools.ejb.codegen.SessionHomeCreate"/>
+  <!-- Local member generators -->
+  <generator name= "SessionLocalHomeCreate"  code="com.ibm.etools.ejb20.codegen.SessionLocalHomeCreate"/>
+
+/**
+ * Session bean class member generators
+ */
+  <generator name= "SessionBeanContextField"  code="com.ibm.etools.ejb.codegen.SessionBeanContextField"/>
+  <generator name= "SessionBeanContextGetter"  code="com.ibm.etools.ejb.codegen.SessionBeanContextGetter"/>
+  <generator name= "SessionBeanContextSetter"  code="com.ibm.etools.ejb.codegen.SessionBeanContextSetter"/>
+  <generator name= "SessionBeanEjbActivate"  code="com.ibm.etools.ejb.codegen.SessionBeanEjbActivate"/>
+  <generator name= "SessionBeanEjbCreate"  code="com.ibm.etools.ejb.codegen.SessionBeanEjbCreate"/>
+  <generator name= "SessionBeanEjbPassivate"  code="com.ibm.etools.ejb.codegen.SessionBeanEjbPassivate"/>
+  <generator name= "SessionBeanEjbRemove"  code="com.ibm.etools.ejb.codegen.SessionBeanEjbRemove"/>
+    
+/**
+ * Entity home interface member generators
+ */
+  <generator name= "EntityHomeCreate"  code="com.ibm.etools.ejb.codegen.EntityHomeCreate"/>
+  <generator name= "EntityHomeFindByPrimaryKey"  code="com.ibm.etools.ejb.codegen.EntityHomeFindByPrimaryKey"/>
+  
+  <!-- Local member generators -->
+  <generator name= "EntityLocalHomeCreate"  code="com.ibm.etools.ejb20.codegen.EntityLocalHomeCreate"/>
+  <generator name= "EntityLocalHomeFindByPrimaryKey"  code="com.ibm.etools.ejb20.codegen.EntityLocalHomeFindByPrimaryKey"/>
+
+/**
+ * CMP entity home interface member generators
+ */
+  <generator name= "CMPEntityHomeCreate" code="com.ibm.etools.ejb.codegen.EntityHomeCreate"/>
+  <generator name= "CMPEntityHomeSpecializedCreate" code="com.ibm.etools.ejb.codegen.EntityHomeSpecializedCreate"/>
+  <generator name= "CMPEntityHomeFindByPrimaryKey" code="com.ibm.etools.ejb.codegen.EntityHomeFindByPrimaryKey"/>
+
+/**
+ * Entity bean class member generators
+ */
+  <generator name= "EntityBeanContextField"  code="com.ibm.etools.ejb.codegen.EntityBeanContextField"/>
+  <generator name= "EntityBeanContextGetter"  code="com.ibm.etools.ejb.codegen.EntityBeanContextGetter"/>
+  <generator name= "EntityBeanContextSetter"  code="com.ibm.etools.ejb.codegen.EntityBeanContextSetter"/>
+  <generator name= "EntityBeanContextUnset"  code="com.ibm.etools.ejb.codegen.EntityBeanContextUnset"/>
+  <generator name= "EntityBeanEjbActivate"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbActivate"/>
+  <generator name= "EntityBeanEjbCreate"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbCreate"/>
+  <generator name= "EntityBeanEjbFindByPrimaryKey"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbFindByPrimaryKey"/>
+  <generator name= "EntityBeanEjbLoad"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbLoad"/>
+  <generator name= "EntityBeanEjbPassivate"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbPassivate"/>
+  <generator name= "EntityBeanEjbPostCreate"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbPostCreate"/>
+  <generator name= "EntityBeanEjbRemove"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbRemove"/>
+  <generator name= "EntityBeanEjbStore"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbStore"/>
+  <generator name= "EntityBeanEjbCreateMB"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbCreateMB"/>
+  <generator name= "EntityBeanSpecializedEjbCreateMB" code="com.ibm.etools.ejb.codegen.EntityBeanSpecializedEjbCreateMB"/>
+  
+/**
+ * Entity key class member generators
+ */
+  <generator name= "EntityKeyDefaultCtor"  code="com.ibm.etools.ejb.codegen.EntityKeyDefaultCtor"/>
+  <generator name= "EntityKeyFeatureCtor"  code="com.ibm.etools.ejb.codegen.EntityKeyFeatureCtor"/>
+  <generator name= "EntityKeyEquals"  code="com.ibm.etools.ejb.codegen.EntityKeyEquals"/>
+  <generator name= "EntityKeyHashCode"  code="com.ibm.etools.ejb.codegen.EntityKeyHashCode"/>
+
+/**
+ * Container Managed Entity bean class member generators
+ */
+  <generator name= "CMPEntityBeanContextField"  code="com.ibm.etools.ejb.codegen.EntityBeanContextField"/>
+  <generator name= "CMPEntityBeanContextGetter"  code="com.ibm.etools.ejb.codegen.EntityBeanContextGetter"/>
+  <generator name= "CMPEntityBeanContextSetter"  code="com.ibm.etools.ejb.codegen.EntityBeanContextSetter"/>
+  <generator name= "CMPEntityBeanContextUnset"  code="com.ibm.etools.ejb.codegen.EntityBeanContextUnset"/>
+  <generator name= "CMPEntityBeanEjbActivate"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbActivate"/>
+  <generator name= "CMPEntityBeanEjbCreate"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanEjbCreate"/>
+  <generator name= "CMPEntityBeanSpecializedEjbCreate"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanSpecializedEjbCreate"/>
+  <generator name= "CMPEntityBeanEjbLoad"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbLoad"/>
+  <generator name= "CMPEntityBeanEjbPassivate"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbPassivate"/>
+  <generator name= "CMPEntityBeanEjbPostCreate"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanEjbPostCreate"/>
+  <generator name= "CMPEntityBeanSpecializedEjbPostCreate"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanSpecializedEjbPostCreate"/>
+  <generator name= "CMPEntityBeanEjbRemove"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbRemove"/>
+  <generator name= "CMPEntityBeanEjbStore"  code="com.ibm.etools.ejb.codegen.EntityBeanEjbStore"/>
+
+  <generator name= "CMPEntityBeanEjbCreateMB" code="com.ibm.etools.ejb.codegen.CMPEntityBeanEjbCreateMB"/>
+  <generator name= "CMPEntityBeanEjbPostCreateMB" code="com.ibm.etools.ejb.codegen.CMPEntityBeanEjbPostCreateMB"/>
+
+</ejbcreationDictionary>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejb/"/>
+	<classpathentry kind="src" path="ejbedit/"/>
+	<classpathentry kind="src" path="ejbcreationgen/"/>
+	<classpathentry kind="src" path="ejbcreation/"/>
+	<classpathentry kind="src" path="ejbarchive/"/>
+	<classpathentry kind="src" path="ejbvalidator/"/>
+	<classpathentry kind="src" path="property_files"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

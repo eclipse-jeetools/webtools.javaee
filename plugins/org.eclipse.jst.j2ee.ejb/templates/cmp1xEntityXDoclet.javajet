@@ -1,0 +1,42 @@
+<%@ jet package="com.ibm.wtp.ejb" 
+	imports="com.ibm.wtp.ejb.operations.* java.util.* com.ibm.etools.ejb.creation.*" 
+	class="CMP1xEntityBeanTemplate" %> 
+	
+<%@ include file="cmpHeader.template" %> 
+public class <%=model.getSimpleBeanClassName()%> <% if (model.getQualifiedSuperBeanClassName() != "") { %>extends <%=model.getQualifiedSuperBeanClassName()%> <% } %>implements EntityBean {
+<%@ include file="basicEntityMembers.template" %>
+	
+ 	/**
+	 * ejbCreate
+	 */
+	public <%=model.getKeyClassName()%> ejbCreate() throws CreateException {
+		return null;
+	}
+	/**
+	 * ejbPostCreate
+	 */
+	public void ejbPostCreate() throws CreateException {
+	}
+	
+<% 
+     	Iterator fields = model.getCMPFields().iterator();
+     	CMPField field = null;
+     	while (fields.hasNext()) {
+     		field = (CMPField)fields.next(); 
+     		String sfx = field.methodSuffix();
+%>     		
+    /**
+	 * Get accessor for persistent attribute: <%= field.getName() %>
+	 */
+    public abstract <%= field.getTypeSignature() %> get<%=sfx%>();
+    
+    /**
+	 * Set accessor for persistent attribute: <%= field.getName() %>
+	 */
+    public abstract void set<%=sfx%>(<%=field.getTypeSignature()%> new<%=sfx%>);
+
+<%	 } %>
+	
+
+	
+}

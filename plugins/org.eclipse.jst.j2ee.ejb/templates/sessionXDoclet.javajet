@@ -1,0 +1,62 @@
+<%@ jet package="com.ibm.wtp.ejb" imports="com.ibm.wtp.ejb.operations.*" class="SessionBeanTemplate" %> 
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+package <%=model.getBeanClassPackageName()%>;
+import javax.ejb.SessionBean;
+import javax.ejb.SessionContext;
+import javax.ejb.CreateException;
+
+/**
+ * Bean implementation class for Session Bean: <%=model.getBeanName()%>
+ *
+ * @ejb.bean
+ *	name="<%=model.getBeanName()%>"
+ *	type="<%=model.getSessionType()%>"
+<% if (model.hasRemoteClient()) {%>
+ *	jndi-name="<%=model.getJndiName()%>"
+<% }
+   if (model.hasLocalClient()) {%>
+ *	local-jndi-name="<%=model.getJndiName()%>"
+ <% }
+   if (model.is2x()) { %>
+ *	view-type="<%=model.getViewType()%>"
+ <% } %>
+ *	transaction-type="<%=model.getTransactionType()%>"
+ *
+<%@ include file="interfaces.template" %>
+ *
+ */
+public class <%=model.getSimpleBeanClassName()%> <% if (model.getQualifiedSuperBeanClassName() != "") { %>extends <%=model.getQualifiedSuperBeanClassName()%> <% } %>implements SessionBean {
+	private SessionContext mySessionCtx;
+	/**
+	 * getSessionContext
+	 */
+	public SessionContext getSessionContext() {
+		return mySessionCtx;
+	}
+	/**
+	 * setSessionContext
+	 */
+	public void setSessionContext(SessionContext ctx) {
+		mySessionCtx = ctx;
+	}
+	/**
+	 * ejbCreate
+	 */
+	public void ejbCreate() throws CreateException {
+	}
+	/**
+	 * ejbActivate
+	 */
+	public void ejbActivate() {
+	}
+	/**
+	 * ejbPassivate
+	 */
+	public void ejbPassivate() {
+	}
+	/**
+	 * ejbRemove
+	 */
+	public void ejbRemove() {
+	}
+}

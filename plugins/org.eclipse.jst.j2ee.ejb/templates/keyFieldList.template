@@ -1,0 +1,11 @@
+<%	fields = model.getCMPFields().iterator();
+ 	isFirst = true;
+ 	while (fields.hasNext()) {
+ 		field = (CMPField)fields.next();
+ 		if (field.isIsKey()) {
+ 			if (isFirst) 
+				isFirst = false;
+			else { 
+			%>, <% } %><%=field.getTypeSignature()%> <%=field.getName()%><%			
+ 		}
+ 	}%>

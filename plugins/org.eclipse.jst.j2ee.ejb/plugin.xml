@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.j2ee.ejb"
+   name="EJB component Plug-in"
+   description="This plugin is a non-ui plugin that provides the core functions for Enterprise Java Beans. Some of the main functions provided by this plugin are are EJB creation modification and deletion, EJB jar Import and Export. The EJBEditModel exists in this plugin"
+   version="1.0.0"
+   provider-name="IBM"
+   class="org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin">
+
+   <runtime>
+      <library name="runtime/ejb.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.jst.j2ee"/>
+      <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="com.ibm.wtp.emf.workbench"/>
+      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jst.j2ee.core"/>
+      <import plugin="org.eclipse.wst.validation"/>
+      <import plugin="org.eclipse.wst.common.emf"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
+      <import plugin="org.eclipse.wst.validation.mof"/>
+      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.wst.server.core"/>
+      <import plugin="org.eclipse.jst.server.core"/>
+      <import plugin="org.eclipse.emf.codegen"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.wst.common.annotations.controller"/>
+      <import plugin="org.eclipse.wst.common.jdt.integration"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+   </requires>
+
+
+<!--============================-->
+<!-- EJB Codegen Ext Handler    -->
+<!--============================-->
+   <extension-point id="EJBCodegenHandler" name="EJB Codegen Extension Handler" schema="schema/EJBCodegenHandler.exsd"/>
+   <extension-point id="DeleteDeployCode" name="DeleteDeployCode" schema="schema/DeleteDeployCode.exsd"/>
+   <extension-point id="BackendMigration" name="BackendMigration" schema="schema/BackendMigration.exsd"/>
+   <extension-point id="Delete11Relationships" name="Delete11Relationships" schema="schema/Delete11Relationships.exsd"/>
+
+<!--============================-->
+<!-- EJB 1.1 Nature             -->
+<!--============================-->
+<!--============================-->
+<!-- EJB Project Nature Contributions                           -->
+<!--============================-->
+   <extension
+         id="EJBNature"
+         name="EJB Properties"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime">
+         </run>
+      </runtime>
+   </extension>
+<!-- Register the nature id with the AbstractJavaMOFNature -->
+   <extension
+         point="com.ibm.wtp.emf.workbench.nature_registration">
+      <nature
+            id="org.eclipse.jst.j2ee.ejb.EJBNature">
+      </nature>
+   </extension>
+   <extension
+         id="editModel.ejb"
+         name="EJB Edit Model"
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="com.ibm.wtp.ejb.editModel"
+            factoryClass="org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModelFactory">
+         <editModelResource
+               URI="META-INF/ejb-jar.xml">
+         </editModelResource>
+         <editModelResource
+               URI="META-INF/webservicesclient.xml">
+         </editModelResource>
+      </editModel>
+   </extension>
+   <extension
+         id="EJBModuleExtension"
+         name="EJBModuleExtension"
+         point="org.eclipse.jst.j2ee.EARModuleExtension">
+      <earModuleExtension
+            extensionClass="org.eclipse.jst.j2ee.ejb.plugin.EjbModuleExtensionImpl">
+      </earModuleExtension>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
+      <adapterFactory
+            functionGroupID="com.ibm.wtp.j2ee"
+            className="org.eclipse.jst.j2ee.internal.ejb.provider.EjbItemProviderAdapterFactory"
+            packageURI="ejb.xmi"
+            id="com.ibm.wtp.j2ee.ejb.provider.EjbItemProviderAdapterFactory">
+      </adapterFactory>
+   </extension>
+<!-- ====================================================== -->
+<!-- EJB Validator Extension		                        -->
+<!-- ====================================================== -->
+   <extension
+         id="EJBValidator"
+         name="%EJB_VALIDATOR"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <projectNature
+               id="org.eclipse.jst.j2ee.ejb.EJBNature">
+         </projectNature>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="ejb-jar.xml">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.class">
+         </filter>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.java">
+         </filter>
+         <helper
+               class="org.eclipse.jst.j2ee.internal.ejb.workbench.validation.EJBHelper">
+         </helper>
+         <dependentValidator
+               depValValue="true">
+         </dependentValidator>
+         <run
+               class="org.eclipse.jst.j2ee.model.validation.EJBValidator">
+         </run>
+         <migrate>
+            <validator
+                  to="org.eclipse.jst.j2ee.model.validation.EJBValidator"
+                  from="org.eclipse.wst.validation.core.ejb.DDValidator">
+            </validator>
+         </migrate>
+      </validator>
+   </extension>
+<!-- ==================================================================== -->
+<!-- Purpose: Define adapters for EJB resources                   -->
+<!-- Extension point: com.ibm.etools.server.core.moduleObjectAdapters -->
+<!-- ==================================================================== -->
+   <extension
+         point="org.eclipse.wst.server.core.moduleObjectAdapters">
+      <moduleObjectAdapter
+            objectClass="org.eclipse.jst.j2ee.ejb.EJBJar"
+            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ejb">
+      </moduleObjectAdapter>
+      <moduleObjectAdapter
+            objectClass="org.eclipse.jst.j2ee.ejb.EnterpriseBean"
+            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ejb2">
+      </moduleObjectAdapter>
+      <moduleObjectAdapter
+            objectClass="org.eclipse.core.resources.IProject"
+            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ejb3">
+      </moduleObjectAdapter>
+      <moduleObjectAdapter
+            objectClass="org.eclipse.core.resources.IFile"
+            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ejb4">
+      </moduleObjectAdapter>
+      <moduleObjectAdapter
+            objectClass="org.eclipse.jdt.core.ICompilationUnit"
+            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            id="com.ibm.wtp.server.j2ee.ejb5">
+      </moduleObjectAdapter>
+   </extension>
+<!-- =============================================================== -->
+<!-- Purpose: Define the default module project factory          -->
+<!-- Extension point: org.eclipse.wst.server.core.moduleFactories -->
+<!-- =============================================================== -->
+   <extension
+         point="org.eclipse.wst.server.core.moduleFactories">
+      <moduleFactory
+            projects="true"
+            index="10"
+            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableFactory"
+            id="com.ibm.wtp.server.ejb">
+         <moduleType
+               versions="1.2, 1.3, 1.4"
+               types="j2ee.ejb">
+         </moduleType>
+      </moduleFactory>
+   </extension>
+<!-- icon="icons/full/obj16/11_ejbjar_deploy.gif" -->
+   <extension
+         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.operations.EJBProjectCreationOperation"
+            id="org.eclipse.jst.j2ee.ejb.operations.EJBProjectCreationOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarExportOperation"
+            id="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarExportOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarImportOperation"
+            id="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarImportOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarCreationOperation"
+            id="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarCreationOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.operations.EJBClientJARRemovalOperation"
+            id="org.eclipse.jst.j2ee.ejb.operations.EJBClientJARRemovalOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateMessageDrivenBeanOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateMessageDrivenBeanOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateSessionBeanOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateSessionBeanOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateCMPBeanOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateCMPBeanOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateEntityBeanOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateEntityBeanOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.operations.RemoveRelationshipDataModelOperation"
+            id="org.eclipse.jst.j2ee.ejb.operations.RemoveRelationshipDataModelOperation">
+      </extendableOperation>
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarFileMoveOperation"
+            id="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarFileMoveOperation">
+      </extendableOperation>
+   </extension>
+
+	<extension
+        point="org.eclipse.ui.ide.resourceFilters">
+        <filter
+            pattern=".JETEmitters"
+            selected="true">
+        </filter>        
+        <filter
+            pattern="gen"
+            selected="true">
+        </filter>
+    </extension>
+</plugin>

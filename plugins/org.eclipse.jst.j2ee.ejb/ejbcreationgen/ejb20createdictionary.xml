@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ejbcreationDictionary>
+  <include href="ejbcreatedictionary.xml"/>
+  <generator name= "CMP20EntityGenerator"  code="com.ibm.etools.ejb20.codegen.CMP20EntityGenerator"/>
+  <generator name= "CMP20EntityLocalInterfaceCU"  code="com.ibm.etools.ejb20.codegen.CMP20EntityLocalInterfaceCU"/>
+  <generator name= "CMP20EntityLocalHomeInterfaceCU"  code="com.ibm.etools.ejb20.codegen.CMP20EntityLocalHomeInterfaceCU"/>
+  <generator name= "CMP20EntityBeanClassCU"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanClassCU"/>
+  <generator name= "CMP20EntityLocalInterface"  code="com.ibm.etools.ejb20.codegen.CMP20EntityLocalInterface"/>
+  <generator name= "CMP20EntityLocalHomeInterface"  code="com.ibm.etools.ejb20.codegen.CMP20EntityLocalHomeInterface"/>
+  <generator name= "CMP20EntityBeanClass"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanClass"/>
+  <generator name= "Entity20Attribute"  code="com.ibm.etools.ejb20.codegen.Entity20AttributeGenerator"/>
+  <generator name= "Entity20AttributeGetter"  code="com.ibm.etools.ejb20.codegen.Entity20AttributeGetter"/>
+  <generator name= "Entity20AttributeSetter"  code="com.ibm.etools.ejb20.codegen.Entity20AttributeSetter"/>
+
+/**
+ * CMP entity home interface member generators
+ */
+  <generator name= "EntityLocalHomeCreate"  code="com.ibm.etools.ejb20.codegen.EntityLocalHomeCreate"/>
+  <generator name= "EntityLocalHomeFindByPrimaryKey"  code="com.ibm.etools.ejb20.codegen.EntityLocalHomeFindByPrimaryKey"/>
+
+
+/**
+ * Container Managed Entity bean class member generators -- ENtityBean callbacks
+ */
+  <generator name= "CMP20FlatKeyRoleHomeCreate"  code="com.ibm.etools.ejb20.codegen.CMP20FlatKeyRoleHomeCreate"/>
+  <generator name= "CMP20EntityBeanEjbActivate"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanEjbActivate"/>
+  <generator name= "CMP20EntityBeanEjbLoad"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanEjbLoad"/>
+  <generator name= "CMP20EntityBeanEjbPassivate"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanEjbPassivate"/>
+  <generator name= "CMP20EntityBeanEjbCreate"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanEjbCreate"/>
+  <generator name= "CMP20EntityBeanFlatKeyRoleEjbCreate"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanFlatKeyRoleEjbCreate"/>
+  <generator name= "CMP20EntityBeanEjbPostCreate"  code="com.ibm.etools.ejb.codegen.CMPEntityBeanEjbPostCreate"/>
+  <generator name= "CMP20EntityBeanFlatKeyRoleEjbPostCreate"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanFlatKeyRoleEjbPostCreate"/>
+  <generator name= "CMP20EntityBeanEjbRemove"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanEjbRemove"/>
+  <generator name= "CMP20EntityBeanEjbStore"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanEjbStore"/>
+    
+  <generator name= "CMPEntityBeanEjbPostCreateMB" code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanEjbPostCreateMB"/>
+  <generator name= "EntityBeanEjbCreateMB"  code="com.ibm.etools.ejb20.codegen.EntityBean20EjbCreateMB"/>
+  <generator name= "CMP20EntityBeanFlatKeyRoleEjbCreateMB"  code="com.ibm.etools.ejb20.codegen.CMP20EntityBeanFlatKeyRoleEjbCreateMB"/>
+ 
+/**
+ * Container Managed Entity bean class member generators -- role methods
+ */
+  <generator name= "CMP20EntityBeanRoleGroupGenerator" code="com.ibm.etools.ejb20.association.codegen.CMP20EntityBeanRoleGroupGenerator"/>
+  <generator name= "CMP20EntityBeanRoleGetter" code="com.ibm.etools.ejb20.association.codegen.CMP20EntityBeanRoleGetter"/>
+  <generator name= "CMP20EntityBeanRoleSetter" code="com.ibm.etools.ejb20.association.codegen.CMP20EntityBeanRoleSetter"/>
+  <generator name= "CMP20EntityBeanRoleManyGetter" code="com.ibm.etools.ejb20.association.codegen.CMP20EntityBeanRoleManyGetter"/>
+  <generator name= "CMP20EntityBeanRoleManySetter" code="com.ibm.etools.ejb20.association.codegen.CMP20EntityBeanRoleManySetter"/>  
+  <generator name= "CMP20EntityBeanRoleKeyGetter" code="com.ibm.etools.ejb20.association.codegen.CMP20EntityBeanRoleKeyGetter"/>
+  
+  <!-- MDB Generators -->
+  
+  <generator name= "MessageDrivenGenerator"  code="com.ibm.etools.ejb20.codegen.MessageDrivenGenerator"/>
+  <generator name= "MessageDrivenBeanClassCU"  code="com.ibm.etools.ejb20.codegen.MessageDrivenBeanClassCU"/>
+  <generator name= "MessageDrivenBeanClass"  code="com.ibm.etools.ejb20.codegen.MessageDrivenBeanClass"/>
+ 
+  <generator name= "MessageDrivenEjbCreate"  code="com.ibm.etools.ejb20.codegen.MessageDrivenEjbCreate"/>
+  <generator name= "MessageDrivenEjbRemove"  code="com.ibm.etools.ejb20.codegen.MessageDrivenEjbRemove"/>
+  <generator name= "MessageDrivenOnMessage"  code="com.ibm.etools.ejb20.codegen.MessageDrivenOnMessage"/>
+  <generator name= "MessageDrivenContextField"  code="com.ibm.etools.ejb20.codegen.MessageDrivenContextField"/>
+  <generator name= "MessageDrivenContextGetter"  code="com.ibm.etools.ejb20.codegen.MessageDrivenContextGetter"/>
+  <generator name= "MessageDrivenContextSetter"  code="com.ibm.etools.ejb20.codegen.MessageDrivenContextSetter"/>
+/**
+* Container Managed Entity bean class member generators
+*/
+	<generator name= "CMPEntityBeanLinkField" code="com.ibm.etools.ejb.association.ws.ext.codegen.CMPEntityBeanLinkField"/>
+	<generator name= "CMPEntityBeanLinkGetter" code="com.ibm.etools.ejb.association.ws.ext.codegen.CMPEntityBeanLinkGetter"/>
+	<generator name= "CMPEntityBeanRoleGetter" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleGetter"/>
+	<generator name= "CMPEntityBeanRoleManyGetter" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleManyGetter"/>
+	<generator name= "CMPEntityBeanRoleSetter" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleSetter"/>
+	<generator name= "CMPEntityBeanRoleKeyGetter" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleKeyGetter"/>
+	<generator name= "CMPEntityBeanRoleKeyHydratorMB" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleKeyHydratorMB"/>
+	<generator name= "CMPEntityBeanRoleKeySetter" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleKeySetter"/>
+	<generator name= "CMPEntityBeanRoleKeySetterMB" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleKeySetterMB"/>
+	<generator name= "CMPEntityBeanRolePrivateSetter" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRolePrivateSetter"/>
+	<generator name= "CMPEntityBeanRoleSecondarySetter" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleSecondarySetter"/>
+	<generator name= "CMPEntityBeanRoleSecondaryAdd" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleSecondaryAdd"/>
+	<generator name= "CMPEntityBeanRoleSecondaryRemove" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleSecondaryRemove"/>
+	<generator name= "CMPEntityBeanRoleAdd" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleAdd"/>
+	<generator name= "CMPEntityBeanRoleRemove" code="com.ibm.etools.ejb.association.codegen.CMPEntityBeanRoleRemove"/>
+	
+</ejbcreationDictionary>

@@ -1,0 +1,36 @@
+/*******************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.jst.j2ee.internal.ejb.project;
+
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+
+
+
+/**
+ * Implementors of this interface answer one of the prescribed return codes when asked whether to
+ * overwrite a certain path string (which could represent a resource path, a file system path, etc)
+ */
+public interface IOverwriteQuery {
+	public static final String CANCEL = EJBCreationResourceHandler.getString("CANCEL_UI_"); //$NON-NLS-1$
+	public static final String NO = EJBCreationResourceHandler.getString("NO_UI_"); //$NON-NLS-1$
+	public static final String YES = EJBCreationResourceHandler.getString("YES_UI_"); //$NON-NLS-1$
+	public static final String ALL = EJBCreationResourceHandler.getString("ALL_UI_"); //$NON-NLS-1$
+
+	/**
+	 * Answer one of the interface's prescribed responses indicating whether the entity represented
+	 * by the passed String should be overwritten
+	 * 
+	 * @return String
+	 * @param pathString
+	 *            java.lang.String
+	 */
+	String queryOverwrite(String pathString);
+}
