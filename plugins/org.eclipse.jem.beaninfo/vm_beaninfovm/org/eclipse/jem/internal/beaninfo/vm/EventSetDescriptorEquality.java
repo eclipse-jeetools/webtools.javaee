@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: EventSetDescriptorEquality.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2003/10/31 20:16:34 $ 
  */
 
 import java.beans.*;
@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
  */
 public class EventSetDescriptorEquality extends FeatureDescriptorEquality {
 	
-	static {
+	static void INIT() {
 		try {
 			MAP_EQUALITY.put(EventSetDescriptor.class, (EventSetDescriptorEquality.class).getConstructor(new Class[] {EventSetDescriptor.class}));
 		} catch (NoSuchMethodException e) {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureDescriptorEquality.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2003/10/31 20:16:34 $ 
  */
 
 import java.beans.*;
@@ -44,13 +44,13 @@ public class FeatureDescriptorEquality {
 			MAP_EQUALITY.put(FeatureDescriptor.class, (FeatureDescriptorEquality.class).getConstructor(new Class[] {FeatureDescriptor.class}));
 		} catch (NoSuchMethodException e) {
 		}
-		// Need to reference the others to bring them
-		MAP_EQUALITY.get(BeanDescriptorEquality.class);
-		MAP_EQUALITY.get(EventSetDescriptorEquality.class);		
-		MAP_EQUALITY.get(IndexedPropertyDescriptorEquality.class);
-		MAP_EQUALITY.get(MethodDescriptorEquality.class);		
-		MAP_EQUALITY.get(ParameterDescriptorEquality.class);
-		MAP_EQUALITY.get(PropertyDescriptorEquality.class);
+		// Need to set up the others.
+		BeanDescriptorEquality.INIT();
+		EventSetDescriptorEquality.INIT();		
+		IndexedPropertyDescriptorEquality.INIT();
+		MethodDescriptorEquality.INIT();		
+		ParameterDescriptorEquality.INIT();
+		PropertyDescriptorEquality.INIT();
 	}
 			
 	/**

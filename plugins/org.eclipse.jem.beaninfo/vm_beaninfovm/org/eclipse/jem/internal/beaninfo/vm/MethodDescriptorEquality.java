@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodDescriptorEquality.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2003/10/31 20:16:34 $ 
  */
 
 import java.beans.*;
@@ -21,7 +21,7 @@ import java.util.*;
  */
 public class MethodDescriptorEquality extends FeatureDescriptorEquality {
 	
-	static {
+	static void INIT() {
 		try {
 			MAP_EQUALITY.put(MethodDescriptor.class, (MethodDescriptorEquality.class).getConstructor(new Class[] {MethodDescriptor.class}));
 		} catch (NoSuchMethodException e) {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: ParameterDescriptorEquality.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2003/10/31 20:16:34 $ 
  */
 
 import java.beans.*;
@@ -20,7 +20,7 @@ import java.beans.*;
  */
 public class ParameterDescriptorEquality extends FeatureDescriptorEquality {
 	
-	static {
+	static void INIT() {
 		try {
 			MAP_EQUALITY.put(ParameterDescriptor.class, (ParameterDescriptorEquality.class).getConstructor(new Class[] {ParameterDescriptor.class}));
 		} catch (NoSuchMethodException e) {
