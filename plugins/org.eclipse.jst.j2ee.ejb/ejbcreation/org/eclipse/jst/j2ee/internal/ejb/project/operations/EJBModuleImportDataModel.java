@@ -11,17 +11,16 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportFactory;
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportRegistry;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBModuleImportOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
  * This dataModel is used for to import EJB Modules (from EJB Jar files) into the workspace.
