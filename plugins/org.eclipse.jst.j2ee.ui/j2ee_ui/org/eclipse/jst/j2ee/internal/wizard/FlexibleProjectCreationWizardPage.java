@@ -32,6 +32,9 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.server.ui.ServerUIUtil;
+
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 	private static final boolean isWindows = SWT.getPlatform().toLowerCase().startsWith("win"); //$NON-NLS-1$
@@ -287,23 +290,22 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 
 	public static boolean launchNewRuntimeWizard(Shell shell, J2EEProjectServerTargetDataModel model) {
 		WTPPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
-//		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, model.computeTypeId(), model.computeVersionId());
-//		if (isOK && model != null) {
-//			model.notifyValidValuesChange(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
-//			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
-//			Object[] preAddition = new Object[preAdditionDescriptors.length];
-//			for (int i = 0; i < preAddition.length; i++) {
-//				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
-//			}
-//			Object[] postAddition = new Object[postAdditionDescriptors.length];
-//			for (int i = 0; i < postAddition.length; i++) {
-//				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
-//			}
-//			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
-//			if (newAddition != null)
-//				model.setProperty(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID, newAddition);
-//		}
-//		return isOK;
-		return true;
+		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");
+		if (isOK && model != null) {
+			model.notifyValidValuesChange(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
+			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
+			Object[] preAddition = new Object[preAdditionDescriptors.length];
+			for (int i = 0; i < preAddition.length; i++) {
+				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
+			}
+			Object[] postAddition = new Object[postAdditionDescriptors.length];
+			for (int i = 0; i < postAddition.length; i++) {
+				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
+			}
+			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);
+			if (newAddition != null)
+				model.setProperty(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID, newAddition);
+		}
+		return isOK;
 	}
 }
