@@ -12,18 +12,17 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
+import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
 
 
 public class ConnectorComponentCreationOperation extends J2EEComponentCreationOperation {
@@ -32,27 +31,21 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
         super(dataModel);
     }
 
-
-    protected void createProjectStructure() throws CoreException {
-		IFolder moduleFolder = getProject().getFolder(  getModuleName() );
-		if (!moduleFolder.exists()) {
-			moduleFolder.create(true, true, null);
-		}
-		IFolder ejbModuleFolder = moduleFolder.getFolder( "connectorModule" );
-		if (!ejbModuleFolder.exists()) {
-			ejbModuleFolder.create(true, true, null);
-		}
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
+     */
+    protected void createAndLinkJ2EEComponents() throws CoreException {
+		IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
+        component.commit();
+		//create and link connectorModule Source Folder
+		IVirtualFolder connectorModuleFolder = component.getFolder(new Path("/connectorModule")); //$NON-NLS-1$		
+		connectorModuleFolder.createLink(new Path("/" + getModuleName() + "/connectorModule"), 0, null);
 		
-		IFolder metainf = ejbModuleFolder.getFolder(J2EEConstants.META_INF);
-		if (!metainf.exists()) {
-			IFolder parent = metainf.getParent().getFolder(null);
-			if (!parent.exists()) {
-				parent.create(true, true, null);
-			}
-			metainf.create(true, true, null);
-		}
+		//create and link META-INF folder
+		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + "connectorModule" + "/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
+		metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + "connectorModule" + "/"  + J2EEConstants.META_INF), 0, null);
     }
-    
+
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 //        ConnectorEditModel model = (ConnectorEditModel) editModel;
 //		IFolder metainf = model.getConnectorNature().getEMFRoot().getFolder(new Path(J2EEConstants.META_INF));
@@ -100,29 +93,6 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
     protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
         super.execute(IModuleConstants.JST_CONNECTOR_MODULE, monitor);
     }
-    
-    protected void addResources(WorkbenchComponent component) {
-        addResource(component, getModuleRelativeFile(getContentSourcePath(), getProject()), getContentDeployPath());
-		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());	
-    }
-
-    public String getJavaSourceSourcePath() {
-        return "/" +getModuleName() +  "/connectorModule"; //$NON-NLS-1$
-    }
-
-    public String getJavaSourceDeployPath() {
-        return "/connectorModule/"; //$NON-NLS-1$
-    }
-
-    public String getContentSourcePath() {
-        return "/" +getModuleName() + "/connectorModule/META-INF"; //$NON-NLS-1$
-    }
-
-    public String getContentDeployPath() {
-        return "/connectorModule/META-INF"; //$NON-NLS-1$
-    }
-
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
@@ -130,4 +100,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
 		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getJCATextVersion(version);
 	}
+
+
+
 }

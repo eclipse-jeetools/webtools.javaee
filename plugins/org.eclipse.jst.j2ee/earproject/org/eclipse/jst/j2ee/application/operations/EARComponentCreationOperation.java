@@ -10,17 +10,18 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
-import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
+import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
 
 public class EARComponentCreationOperation extends J2EEComponentCreationOperation {
 	public EARComponentCreationOperation(EARComponentCreationDataModel dataModel) {
@@ -30,6 +31,16 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	public EARComponentCreationOperation() {
 		super();
 	}
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
+     */
+    protected void createAndLinkJ2EEComponents() throws CoreException {
+        IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
+        component.commit();
+		//create and link META-INF folder
+		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
+		metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + J2EEConstants.META_INF), 0, null);
+    }
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		String moduleName = (String)operationDataModel.getProperty(EARComponentCreationDataModel.COMPONENT_NAME);
@@ -52,11 +63,6 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
        		// set version to WorkbenchComponent
        		String versionText = J2EEVersionUtil.getJ2EETextVersion(versionId);
        		earComp.getComponentType().setVersion(versionText);
-			// specify module source folder, and deploy path
-			IPath metaInfPath = new Path("META-INF"); //$NON-NLS-1$
-		    IFolder metaInfFolder = moduleFolder.getFolder(metaInfPath); //$NON-NLS-1$
-		    String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
-		    addResource(earComp, metaInfFolder, metaInfFolderDeployPath);
 			// save
 			moduleCore.saveIfNecessary(null); 
         } finally {
@@ -70,8 +76,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		J2EEComponentCreationDataModel dataModel = (J2EEComponentCreationDataModel) operationDataModel;
-		createProjectStructure();
-		createComponent(IModuleConstants.JST_EAR_MODULE, monitor);
+		createAndLinkJ2EEComponents();
 		if (dataModel.getBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
 		}
@@ -95,12 +100,6 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
     
 	protected  void addResources(WorkbenchComponent component ){
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
-	 */
-	protected void createProjectStructure() throws CoreException {
 	}
 
 	/* (non-Javadoc)

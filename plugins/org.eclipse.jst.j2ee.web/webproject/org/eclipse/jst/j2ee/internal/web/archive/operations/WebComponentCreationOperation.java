@@ -17,13 +17,13 @@
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
@@ -35,6 +35,8 @@ import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.Property;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
+import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
 
 public class WebComponentCreationOperation extends J2EEComponentCreationOperation {
 	public WebComponentCreationOperation(WebComponentCreationDataModel dataModel) {
@@ -43,53 +45,27 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 
 	public WebComponentCreationOperation() {
 		super();
-	}
+	}    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
+     */
+    protected void createAndLinkJ2EEComponents() throws CoreException {
+    	IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
+    	component.commit();
+    	//create and link javaSource Source Folder
+    	IVirtualFolder javaSourceFolder = component.getFolder(new Path("/" + "WebContent" + "/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$		
+    	javaSourceFolder.createLink(new Path("/" + getModuleName() + "/JavaSource"), 0, null);
+    	
+    	//create and link META-INF folder
+    	IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + "WebContent" + "/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
+    	metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + "WebContent" + "/" + J2EEConstants.META_INF), 0, null);
+    	
+    	//create and link WEB-INF folder
+    	IVirtualFolder webInfFolder = component.getFolder(new Path("/" + "WebContent" + "/" + J2EEConstants.WEB_INF)); //$NON-NLS-1$	
+    	webInfFolder.createLink(new Path("/" + getModuleName() + "/" + "WebContent" + "/" +  J2EEConstants.WEB_INF), 0, null);
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
-	 */
-	protected void createProjectStructure() throws CoreException {
-		
-		
-		String moduleName = (String)operationDataModel.getProperty(WebComponentCreationDataModel.COMPONENT_NAME);
-
-		
-		IFolder moduleFolder = getProject().getFolder( moduleName );
-
-		if (!moduleFolder.exists()) {
-			moduleFolder.create(true, true, null);
-		}
-
-		IFolder javaSourceFolder = moduleFolder.getFolder( "JavaSource" );
-		if (!javaSourceFolder.exists()) {
-			javaSourceFolder.create(true, true, null);
-		}
-		
-		IFolder webContentFolder = moduleFolder.getFolder( "WebContent" );
-		if (!webContentFolder.exists()) {
-			webContentFolder.create(true, true, null); 
-		}
-		
-		IFolder metainf = webContentFolder.getFolder(J2EEConstants.META_INF);
-		if (!metainf.exists()) {
-			IFolder parent = metainf.getParent().getFolder(null);
-			if (!parent.exists()) {
-				parent.create(true, true, null);
-			}
-			metainf.create(true, true, null);
-		}
-		
-		
-		IFolder webinf = webContentFolder.getFolder(J2EEConstants.WEB_INF);
-		if (!webinf.exists()) {
-			webinf.create(true, true, null);
-		}
-		
-		IFolder lib = webinf.getFolder("lib"); //$NON-NLS-1$
-		if (!lib.exists()) {
-			lib.create(true, true, null);
-		}
-	}
+		IVirtualFolder lib = webInfFolder.getFolder("lib"); //$NON-NLS-1$
+    }
+    
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 	
 		//should cache wbmodule when created instead of  searching ?
@@ -128,47 +104,10 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
        			webEdit.dispose();
        		webEdit = null;
        	}					
-	
-	
-	
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		
 		super.execute( IModuleConstants.JST_WEB_MODULE, monitor );
-	}
-	
-	protected  void addResources( WorkbenchComponent component ){
-		addResource(component, getModuleRelativeFile(getWebContentSourcePath(), getProject()), getWebContentDeployPath());
-		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());		
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJavaSourceSourcePath() {
-		return "/" + getModuleName() +"/JavaSource"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJavaSourceDeployPath() {
-		return "/WEB-INF/classes"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getWebContentSourcePath() {
-		return "/" + getModuleName() + "/WebContent"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getWebContentDeployPath() {
-		return "/"; //$NON-NLS-1$
 	}
 
 	/* (non-Javadoc)
@@ -179,13 +118,13 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 		return J2EEVersionUtil.getServletTextVersion(version);
 
 	}
-	
-	protected void addProperties(WorkbenchComponent module){
+	protected List getProperties() {
+	    List newProps = new ArrayList();
 	    Property prop = ModuleCoreFactory.eINSTANCE.createProperty();
 	    prop.setName(J2EEConstants.CONTEXTROOT);
 	    prop.setValue(operationDataModel.getStringProperty(WebComponentCreationDataModel.CONTEXT_ROOT));
-	    EList list = module.getComponentType().getProperties();
-	    list.add(prop);
-	}	
-	
+	    newProps.add(prop);
+	    return newProps;
+	}
+
 }
