@@ -42,7 +42,6 @@
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
-      <import plugin="org.eclipse.debug.ui"/>
    </requires>
 
 
@@ -493,7 +492,8 @@
             id="com.ibm.wtp.server.j2ee.ear3">
       </moduleArtifactAdapter>
    </extension> -->
-   
+   <extension
+         point="org.eclipse.wst.server.ui.moduleArtifactAdapters">
     <moduleArtifactAdapter
           id="com.ibm.wtp.server.j2ee.ear1">
          <enablement>
@@ -520,6 +520,7 @@
            </with>
          </enablement>
       </moduleArtifactAdapter>
+     </extension>
       
        <extension point="org.eclipse.core.runtime.adapters">
          <factory
