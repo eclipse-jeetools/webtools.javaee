@@ -206,7 +206,7 @@ public class FilesystemManager {
 			}
 			
 			for(int i=0; i<fileExtensions.length; i++) {
-				if(delta.getFileName().endsWith(fileExtensions[i])) {
+				if(delta.getFileName().endsWith(fileExtensions[i]) && (delta.getDeltaType() == IFileDelta.ADDED || delta.getDeltaType() == IFileDelta.CHANGED || delta.getDeltaType() == IFileDelta.DELETED)) {
 					tempLoaders[count++] = loader;
 				}
 			}
