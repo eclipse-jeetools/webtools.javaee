@@ -33,11 +33,13 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.WebXMLTaglibInfo;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.webapplication.TagLibRef;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
@@ -107,80 +109,90 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 			return EMPTY_TAGLIBINFO_ARRAY;
 
 		ArrayList results = new ArrayList();
-		WebApp webApp = getWebDeploymentDescriptorRoot();
-		if (webApp == null)
-			return EMPTY_TAGLIBINFO_ARRAY;
-
-		List taglibs = new ArrayList();
-		if (webApp.getVersionID() >= J2EEVersionConstants.WEB_2_4_ID) {
-			JSPConfig config = webApp.getJspConfig();
-			if (config != null)
-				taglibs = config.getTagLibs();
-		} else {
-			taglibs = webApp.getTagLibs();
-		}
-
-		for (Iterator iter = taglibs.iterator(); iter.hasNext();) {
-			TagLibRef taglibRef13;
-			TagLibRefType taglibRef14;
-			String uri;
-			String taglibLocation;
+		WebArtifactEdit webEdit = null;
+		try {
+			WebApp webApp = null;
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
+		
+			if (webApp == null)
+				return EMPTY_TAGLIBINFO_ARRAY;
+	
+			List taglibs = new ArrayList();
 			if (webApp.getVersionID() >= J2EEVersionConstants.WEB_2_4_ID) {
-				taglibRef14 = (TagLibRefType) iter.next();
-				uri = taglibRef14.getTaglibURI();
-				taglibLocation = taglibRef14.getTaglibLocation();
+				JSPConfig config = webApp.getJspConfig();
+				if (config != null)
+					taglibs = config.getTagLibs();
 			} else {
-				taglibRef13 = (TagLibRef) iter.next();
-				uri = taglibRef13.getTaglibURI();
-				taglibLocation = taglibRef13.getTaglibLocation();
+				taglibs = webApp.getTagLibs();
 			}
-
-			IPath projectRelativeLocation = new Path(taglibLocation);
-			IPath webModuleRelativeLocation = getWebAppRelativePath(taglibLocation);
-			if (webModuleRelativeLocation != null) {
-				projectRelativeLocation = getServerRoot().append(webModuleRelativeLocation);
-			}
-			WebXMLTaglibInfo taglibInfo = null;
-			IFile locationFile = findWebAppRelativeFile(webModuleRelativeLocation);
-			boolean isLocationResolved = true;
-			if (hasJarExtension(taglibLocation)) {
-				if (locationFile == null) {
-					// If the location file is null it means that the file could not
-					// be found in this project, check to see if it is referencing
-					// a TLD in a lib module
-					IResource resource = findLibModuleRelativeFile(webModuleRelativeLocation);
-					if (resource == null || !resource.exists()) {
-						// Go ahead and create an entry which cannot be resolved
-						// Only the /META-INF/taglib.tld file can be specified in web.xml
-						isLocationResolved = false;
-						taglibInfo = (WebXMLTaglibInfo) createTaglibForJar(uri, projectRelativeLocation, new Path("META-INF/taglib.tld")); //$NON-NLS-1$
+	
+			for (Iterator iter = taglibs.iterator(); iter.hasNext();) {
+				TagLibRef taglibRef13;
+				TagLibRefType taglibRef14;
+				String uri;
+				String taglibLocation;
+				if (webApp.getVersionID() >= J2EEVersionConstants.WEB_2_4_ID) {
+					taglibRef14 = (TagLibRefType) iter.next();
+					uri = taglibRef14.getTaglibURI();
+					taglibLocation = taglibRef14.getTaglibLocation();
+				} else {
+					taglibRef13 = (TagLibRef) iter.next();
+					uri = taglibRef13.getTaglibURI();
+					taglibLocation = taglibRef13.getTaglibLocation();
+				}
+	
+				IPath projectRelativeLocation = new Path(taglibLocation);
+				IPath webModuleRelativeLocation = getWebAppRelativePath(taglibLocation);
+				if (webModuleRelativeLocation != null) {
+					projectRelativeLocation = getServerRoot().append(webModuleRelativeLocation);
+				}
+				WebXMLTaglibInfo taglibInfo = null;
+				IFile locationFile = findWebAppRelativeFile(webModuleRelativeLocation);
+				boolean isLocationResolved = true;
+				if (hasJarExtension(taglibLocation)) {
+					if (locationFile == null) {
+						// If the location file is null it means that the file could not
+						// be found in this project, check to see if it is referencing
+						// a TLD in a lib module
+						IResource resource = findLibModuleRelativeFile(webModuleRelativeLocation);
+						if (resource == null || !resource.exists()) {
+							// Go ahead and create an entry which cannot be resolved
+							// Only the /META-INF/taglib.tld file can be specified in web.xml
+							isLocationResolved = false;
+							taglibInfo = (WebXMLTaglibInfo) createTaglibForJar(uri, projectRelativeLocation, new Path("META-INF/taglib.tld")); //$NON-NLS-1$
+						} else {
+							locationFile = (IFile) resource;
+							taglibInfo = (WebXMLTaglibInfo) createTaglibForLibModuleJar(uri, projectRelativeLocation, resource);
+							setPrefix(taglibInfo, locationFile);
+						}
 					} else {
-						locationFile = (IFile) resource;
-						taglibInfo = (WebXMLTaglibInfo) createTaglibForLibModuleJar(uri, projectRelativeLocation, resource);
+						isLocationResolved = true;
+						// Only the /META-INF/taglib.tld file can be specified in web.xml
+						taglibInfo = (WebXMLTaglibInfo) createTaglibForJar(uri, projectRelativeLocation, new Path("META-INF/taglib.tld")); //$NON-NLS-1$
 						setPrefix(taglibInfo, locationFile);
 					}
 				} else {
-					isLocationResolved = true;
-					// Only the /META-INF/taglib.tld file can be specified in web.xml
-					taglibInfo = (WebXMLTaglibInfo) createTaglibForJar(uri, projectRelativeLocation, new Path("META-INF/taglib.tld")); //$NON-NLS-1$
+					if (locationFile == null)
+						isLocationResolved = false;
+					taglibInfo = (WebXMLTaglibInfo) createTaglibForTLD(uri, projectRelativeLocation);
 					setPrefix(taglibInfo, locationFile);
+	
 				}
-			} else {
-				if (locationFile == null)
-					isLocationResolved = false;
-				taglibInfo = (WebXMLTaglibInfo) createTaglibForTLD(uri, projectRelativeLocation);
-				setPrefix(taglibInfo, locationFile);
-
+				if (taglibInfo != null) {
+					taglibInfo.setIsWebXMLEntry(true);
+					taglibInfo.setWebXMLLocation(new Path(taglibLocation));
+					taglibInfo.setIsLocationResolved(isLocationResolved);
+					// If the location cannot be resolved, set the taglibInfo to be invalid
+					if (!isLocationResolved)
+						taglibInfo.setIsValid(false);
+					results.add(taglibInfo);
+				}
 			}
-			if (taglibInfo != null) {
-				taglibInfo.setIsWebXMLEntry(true);
-				taglibInfo.setWebXMLLocation(new Path(taglibLocation));
-				taglibInfo.setIsLocationResolved(isLocationResolved);
-				// If the location cannot be resolved, set the taglibInfo to be invalid
-				if (!isLocationResolved)
-					taglibInfo.setIsValid(false);
-				results.add(taglibInfo);
-			}
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
 		}
 		return (ITaglibInfo[]) results.toArray(new ITaglibInfo[results.size()]);
 	}
