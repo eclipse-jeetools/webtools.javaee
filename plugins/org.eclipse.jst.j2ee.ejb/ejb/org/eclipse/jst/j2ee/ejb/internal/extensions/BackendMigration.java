@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.ejb.internal.extensions;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.migration.J2EEMigrationStatus;
+import org.eclipse.jst.j2ee.internal.migration.J2EEMigrationStatus;
 
 
 /**

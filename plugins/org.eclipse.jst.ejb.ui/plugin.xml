@@ -225,13 +225,13 @@
 	               </or> 
                 </and> 
                 <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
            	   </objectClass>
            	    <objectClass
                  name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
            	   </objectClass>
            	  <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
            	   </objectClass>
             </or>
          </enablement>
@@ -267,19 +267,19 @@
 	               </or> 
                 </and> 
         	   <objectClass
-                 name="org.eclipse.jst.j2ee.ejb.impl.EJBJarImpl">
+                 name="org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
            	   </objectClass>
            	   <objectClass
                  name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
            	   </objectClass>
            	   <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
            	   </objectClass>
            	    <objectClass
                  name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
            	   </objectClass>
            	  <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
            	   </objectClass>
            	   
             </or>
@@ -308,7 +308,7 @@
                </or>
             </and>  
             <objectClass
-                 name="org.eclipse.jst.j2ee.ejb.impl.EJBJarImpl">
+                 name="org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
            	 </objectClass>        
            	  <objectClass
                  name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">
@@ -323,7 +323,7 @@
          <enablement>
             <or>
               <objectClass
-                 name="org.eclipse.jst.j2ee.ejb.impl.EJBJarImpl">
+                 name="org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl">
            	 </objectClass> 
            	 <objectClass
                  name="org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider">

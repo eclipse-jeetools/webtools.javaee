@@ -29,8 +29,8 @@ import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.ejb.impl.ModelledPersistentAttributeFilter;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.ejb.impl.ModelledPersistentAttributeFilter;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
