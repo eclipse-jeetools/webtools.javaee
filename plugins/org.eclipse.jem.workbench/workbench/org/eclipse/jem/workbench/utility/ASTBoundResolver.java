@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTBoundResolver.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/04 21:36:32 $ 
+ *  $Revision: 1.5 $  $Date: 2004/09/10 22:40:35 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -107,5 +107,13 @@ public class ASTBoundResolver extends ParseTreeCreationFromAST.Resolver {
 			name.insert(0, '.').insert(0, packageBinding.getName());
 		}
 		return name.toString();
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST.Resolver#resolveThis()
+	 */
+	public PTExpression resolveThis() throws InvalidExpressionException {
+		return InstantiationFactory.eINSTANCE.createPTThisLiteral();
 	}
 }

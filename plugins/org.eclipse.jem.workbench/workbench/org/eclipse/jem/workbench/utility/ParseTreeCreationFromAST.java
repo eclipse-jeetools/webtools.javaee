@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.9 $  $Date: 2004/06/04 23:26:40 $ 
+ *  $Revision: 1.10 $  $Date: 2004/09/10 22:40:35 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -77,6 +77,17 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		 * @since 1.0.0
 		 */
 		public abstract String resolveType(Type type) throws InvalidExpressionException;
+		
+		/**
+		 * This is for resolving "this" literal. It should either return a PTThisLiteral, if it
+		 * can't do resolve, or some PTExpression that can resolve to "this" for evaluation.
+		 * 
+		 * @return If resolvable, a PTExpression, else a PTThisLiteral if not resolvable.
+		 * @throws InvalidExpressionException
+		 * 
+		 * @since 1.0.0
+		 */
+		public abstract PTExpression resolveThis() throws InvalidExpressionException;
 		
 		/**
 		 * Resolve the type specified as a Name. It may be a simple name or it may be
@@ -527,7 +538,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.ThisExpression)
 	 */
 	public boolean visit(ThisExpression node) {
-		expression = InstantiationFactory.eINSTANCE.createPTThisLiteral();
+		expression = resolver.resolveThis();
 		return false;	
 	}
 
