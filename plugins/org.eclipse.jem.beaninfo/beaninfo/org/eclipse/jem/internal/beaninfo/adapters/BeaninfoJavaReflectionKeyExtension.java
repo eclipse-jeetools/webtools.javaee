@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoJavaReflectionKeyExtension.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/05 23:11:22 $ 
  */
 
 import java.util.Iterator;
@@ -85,8 +85,7 @@ public class BeaninfoJavaReflectionKeyExtension implements IJavaReflectionKeyExt
 							if (javaclass != null) {
 								// This is just a hack until we can get ID situation straightened out.
 								// Need to cause introspection of the attributes and references.
-								javaclass.getEAttributes();
-								javaclass.getEReferences();
+								javaclass.getEStructuralFeatures();
 								Object result = reflectionKey.primGet(key);	// See if it now got added as an id.
 								if (result == null) {
 									// Well, it could of been added by the diff merge, which as of now can't handle ids.
