@@ -13,7 +13,6 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard;
-import org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard;
 import org.eclipse.ui.IWorkbench;
 
 
