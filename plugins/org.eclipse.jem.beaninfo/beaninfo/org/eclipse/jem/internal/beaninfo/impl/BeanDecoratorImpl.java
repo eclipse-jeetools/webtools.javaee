@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/06 18:38:37 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/07 14:33:09 $ 
  */
 
 
@@ -35,11 +35,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.internal.beaninfo.BeanDecorator;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.internal.proxy.core.*;
-
+import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
+import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
+import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 
 import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**
@@ -973,9 +976,8 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 					try {
 						hasQueriedIconURL = true;
 						iconURL = new URL(urlString);
-					} catch ( MalformedURLException exc ) {
-						// TODO Log correctly
-						exc.printStackTrace();
+					} catch (MalformedURLException exc ) {
+						EclipseLogger.getLogger().log(exc, Level.WARNING);
 					}
 					break;					
 				}
@@ -1001,14 +1003,16 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 							// Iterate over it to extract the names and strings and turn these into two separate String arrays
 							IArrayBeanProxy triplicateArray = (IArrayBeanProxy)innerArray.get(1);
 							int numberOfValues = triplicateArray.getLength()/3;
-							String[][] namesAndStrings = new String[numberOfValues][2];	
+							String[] names = new String[numberOfValues];
+							String[] initStrings = new String[numberOfValues];
+							Integer[] values = new Integer[numberOfValues]; 
 							for (int j = 0; j < triplicateArray.getLength(); j = j+3) {
 								int index = j/3;
-								namesAndStrings[index][0] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
-								namesAndStrings[index][1] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
-								// Ignore the third value for now as we don't use it because the VE JVM is not the same as the BeanInfo one								
+								names[index] = ((IStringBeanProxy)triplicateArray.get(j)).stringValue();
+								initStrings[index] = ((IStringBeanProxy)triplicateArray.get(j+1)).stringValue();
+								values[index] = new Integer(((IIntegerBeanProxy)triplicateArray.get(j+2)).intValue());
 							}							
-							styleDetails.put(propertyName, namesAndStrings);
+							styleDetails.put(propertyName, new Object[] { names, initStrings, values});
 						}
 					}
 				}
