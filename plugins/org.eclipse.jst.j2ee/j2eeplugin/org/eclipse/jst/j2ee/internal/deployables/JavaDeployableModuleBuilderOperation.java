@@ -22,10 +22,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
-import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderOperation;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -35,7 +35,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class JavaDeployableModuleBuilderOperation extends DeployableModuleBuilderOperation {
+public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 	
 	public JavaDeployableModuleBuilderOperation(JavaDeployableModuleBuilderDataModel dataModel) {
 		super(dataModel);
