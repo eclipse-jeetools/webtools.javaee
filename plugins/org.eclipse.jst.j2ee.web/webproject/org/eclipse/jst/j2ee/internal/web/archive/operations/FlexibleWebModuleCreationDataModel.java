@@ -312,4 +312,10 @@ public class FlexibleWebModuleCreationDataModel extends FlexibleJ2EEModuleCreati
 		} //else if (event.getDataModel() == getServerTargetDataModel() && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID) && event.getDataModel().isSet(ServerTargetDataModel.RUNTIME_TARGET_ID))
 			//setProperty(ADD_TO_EAR, updateAddToEar());
 	}
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
+     */
+    protected String getModuleID() {
+        return IModuleConstants.JST_CONNECTOR_MODULE;
+    }
 }

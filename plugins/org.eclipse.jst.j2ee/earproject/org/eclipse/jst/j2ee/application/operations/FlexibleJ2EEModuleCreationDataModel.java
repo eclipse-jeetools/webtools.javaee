@@ -14,13 +14,9 @@
  */
 package org.eclipse.jst.j2ee.application.operations;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * This dataModel is a common super class used for to create Flexibile Modules.
@@ -31,20 +27,6 @@ import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * @since WTP 1.0
  */
 public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECreationDataModel implements IAnnotationsDataModel {
-
-	/**
-	 * type Integer
-	 */
-	public static final String J2EE_MODULE_VERSION = "FlexibleJ2EEModuleCreationDataModel.J2EE_MODULE_VERSION"; //$NON-NLS-1$
-
-	/**
-	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
-	 * version to its corresponding highest module version supported by the J2EE version and set the
-	 * J2EE_MODULE_VERSION property.
-	 * 
-	 * type Integer
-	 */
-	public static final String J2EE_VERSION = "FlexibleJ2EEModuleCreationDataModel.J2EE_VERSION"; //$NON-NLS-1$
 
 	/**
 	 * type Boolean, default false
@@ -79,15 +61,10 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 
 	protected void init() {
 		super.init();
-
-		setProperty(J2EE_MODULE_VERSION, getDefaultProperty(J2EE_MODULE_VERSION));
-
 	}
 
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
-		addValidBaseProperty(J2EE_MODULE_VERSION);
-		addValidBaseProperty(J2EE_VERSION);
 		addValidBaseProperty(EAR_MODULE_NAME);
 		addValidBaseProperty(ADD_TO_EAR);
 		addValidBaseProperty(USE_ANNOTATIONS);
@@ -97,7 +74,6 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 
 	protected void initNestedModels() {
 		super.initNestedModels();
-		
 		addModuleToEARDataModel = createModuleNestedModel();
 		if (addModuleToEARDataModel != null)
 			addNestedModel(NESTED_MODEL_ADD_TO_EAR, addModuleToEARDataModel);
@@ -114,29 +90,19 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 			return Boolean.FALSE;
 		} else if (propertyName.equals(USE_ANNOTATIONS)) {
 			return Boolean.FALSE;
-		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
-			return getDefaultJ2EEModuleVersion();
-		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
+		}  else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.TRUE;
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}
 	}
 
-	protected abstract Integer getDefaultJ2EEModuleVersion();
-
-
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		if (propertyName.equals(PROJECT_NAME)) {
-			//should  use MODULE_NAME?
+			
 		}
 		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
 
-		if (propertyName.equals(J2EE_VERSION)) {
-			Integer modVersion = convertJ2EEVersionToModuleVersion((Integer) propertyValue);
-			setProperty(J2EE_MODULE_VERSION, modVersion);
-			return false;
-		}
 		if (propertyName.equals(EAR_MODULE_NAME)) {
 			getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.PROJECT_NAME, propertyValue);
 		} 
@@ -172,27 +138,13 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 		}
 		return enabled;
 	}
-
-	/**
-	 * Subclasses should override to convert the j2eeVersion to a module version id. By default we
-	 * return the j2eeVersion which is fine if no conversion is necessary.
-	 * 
-	 * @param integer
-	 * @return
-	 */
-	protected Integer convertJ2EEVersionToModuleVersion(Integer j2eeVersion) {
-		return j2eeVersion;
-	}
-
-
+	
 	protected final AddModuleToEARDataModel getAddModuleToApplicationDataModel() {
 		return addModuleToEARDataModel;
 	}
 
 	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
-		if (propertyName.equals(J2EE_MODULE_VERSION)) {
-			return getValidJ2EEModuleVersionDescriptors();
-		} else if (propertyName.equals(EAR_MODULE_NAME)) {
+		if (propertyName.equals(EAR_MODULE_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 			
 			//To do: change logic to  get the ear modules
@@ -222,25 +174,11 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 		return super.doGetValidPropertyDescriptors(propertyName);
 	}
 
-	public final int getJ2EEVersion() {
-		return convertModuleVersionToJ2EEVersion(getIntProperty(J2EE_MODULE_VERSION));
-	}
-
 	protected IStatus doValidateProperty(String propertyName) {
 		if (EAR_MODULE_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateEARModuleNameProperty();
-		} else if (J2EE_MODULE_VERSION.equals(propertyName)) {
-			return validateJ2EEModuleVersionProperty();
 		} 
-
 		return super.doValidateProperty(propertyName);
-	}
-
-	private IStatus validateJ2EEModuleVersionProperty() {
-		int j2eeVersion = getIntProperty(J2EE_MODULE_VERSION);
-		if (j2eeVersion == -1)
-			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.J2EE_SPEC_LEVEL_NOT_FOUND));
-		return OK_STATUS;
 	}
 
 	private IStatus validateEARModuleNameProperty() {
@@ -278,14 +216,6 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 		IStatus status = null;
 		return status;
 	}
-
-	protected abstract WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors();
-
-	protected abstract int convertModuleVersionToJ2EEVersion(int moduleVersion);
-
-	protected abstract EClass getModuleType();
-
-	protected abstract String getModuleExtension();
 
 	/**
 	 * @return

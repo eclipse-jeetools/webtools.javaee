@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * This dataModel is used for to create Application Client Modules.
@@ -90,6 +91,12 @@ public class FlexibleAppClientCreationDataModel extends FlexibleJ2EEModuleCreati
 
     public WTPOperation getDefaultOperation() {
         return new FlexibleAppClientModuleCreationOperation(this);
+    }
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
+     */
+    protected String getModuleID() {
+        return IModuleConstants.JST_APPCLIENT_MODULE;
     }
 
 }

@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * @author dfholt
@@ -110,5 +111,12 @@ public class FlexibleConnectorModuleCreationDataModel extends FlexibleJ2EEModule
 
     public WTPOperation getDefaultOperation() {
         return new FlexibleConnectorModuleCreationOperation(this);
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
+     */
+    protected String getModuleID() {
+        return IModuleConstants.JST_CONNECTOR_MODULE;
     }
 }

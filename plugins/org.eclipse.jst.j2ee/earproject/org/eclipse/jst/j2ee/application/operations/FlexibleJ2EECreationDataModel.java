@@ -10,15 +10,28 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.operations;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.server.core.IModuleType;
+import org.eclipse.wst.server.core.IProjectProperties;
+import org.eclipse.wst.server.core.IRuntimeType;
+import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.ProjectProperties;
+import org.eclipse.wst.server.core.util.ServerAdapter;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * This dataModel is a common super class used for creation of WTP Modules.
@@ -30,6 +43,7 @@ import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * @since WTP 1.0
  */
 public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataModel {
+    
     /**
      * Required
      */
@@ -67,10 +81,31 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
     public static final String FINAL_PERSPECTIVE = "FlexibleJ2EECreationDataModel.FINAL_PERSPECTIVE"; //$NON-NLS-1$
 
     protected static final String IS_ENABLED = "FlexibleJ2EECreationDataModel.IS_ENABLED"; //$NON-NLS-1$
+	/**
+	 * type Integer
+	 */
+	public static final String J2EE_MODULE_VERSION = "FlexibleJ2EEModuleCreationDataModel.J2EE_MODULE_VERSION"; //$NON-NLS-1$
+	/**
+	 * type Integer
+	 */
+	public static final String AVAIL_J2EE_MODULE_VERSION = "FlexibleJ2EEModuleCreationDataModel.AVAIL_J2EE_MODULE_VERSION"; //$NON-NLS-1$
 
-    private static final String NESTED_MODEL_J2EE_PROJECT_CREATION = "FlexibleJ2EECreationDataModel.NESTED_MODEL_J2EE_PROJECT_CREATION"; //$NON-NLS-1$
-
-
+	/**
+	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
+	 * version to its corresponding highest module version supported by the J2EE version and set the
+	 * J2EE_MODULE_VERSION property.
+	 * 
+	 * type Integer
+	 */
+	public static final String J2EE_VERSION = "FlexibleJ2EEModuleCreationDataModel.J2EE_VERSION"; //$NON-NLS-1$
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel#init()
+     */
+    protected void init() {
+        super.init();
+		setProperty(J2EE_MODULE_VERSION, getDefaultProperty(J2EE_MODULE_VERSION));
+    }
+    
     protected void initValidBaseProperties() {
         addValidBaseProperty(PROJECT_NAME);
         addValidBaseProperty(MODULE_NAME);
@@ -78,6 +113,9 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
         addValidBaseProperty(CREATE_DEFAULT_FILES);
         addValidBaseProperty(IS_ENABLED);
         addValidBaseProperty(FINAL_PERSPECTIVE);
+		addValidBaseProperty(J2EE_MODULE_VERSION);
+		addValidBaseProperty(AVAIL_J2EE_MODULE_VERSION);
+		addValidBaseProperty(J2EE_VERSION);
         super.initValidBaseProperties();
     }
 
@@ -94,13 +132,32 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
 
     protected boolean doSetProperty(String propertyName, Object propertyValue) {
         super.doSetProperty(propertyName, propertyValue);
-        if (EditModelOperationDataModel.PROJECT_NAME.equals(propertyName)) {
+        if (PROJECT_NAME.equals(propertyName)) {
+            IProject project = ProjectUtilities.getProject(propertyValue);
+            IProjectProperties projProperties = ServerCore.getProjectProperties(project);
+            String[] validModuleVersions = getServerVersions(getModuleID(), projProperties.getRuntimeTarget().getRuntimeType());
+            setProperty(AVAIL_J2EE_MODULE_VERSION, validModuleVersions);
         } else if (IS_ENABLED.equals(propertyName)) {
             notifyEnablementChange(PROJECT_NAME);
-        }
+        } else if (propertyName.equals(J2EE_VERSION)) {
+			Integer modVersion = convertJ2EEVersionToModuleVersion((Integer) propertyValue);
+			setProperty(J2EE_MODULE_VERSION, modVersion);
+			return false;
+		}
         return true;
     }
-
+    
+	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			return getValidJ2EEModuleVersionDescriptors();
+		}
+		return super.doGetValidPropertyDescriptors(propertyName);
+	}
+	
+	public final int getJ2EEVersion() {
+		return convertModuleVersionToJ2EEVersion(getIntProperty(J2EE_MODULE_VERSION));
+	}
+	
     protected IStatus doValidateProperty(String propertyName) {
         if (propertyName.equals(MODULE_NAME)) {
             IStatus status = OK_STATUS;
@@ -115,14 +172,25 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
 
         } else if (propertyName.equals(NESTED_MODEL_VALIDATION_HOOK)) {
             return OK_STATUS;
-        }
+        }  else if (J2EE_MODULE_VERSION.equals(propertyName)) {
+			return validateJ2EEModuleVersionProperty();
+		} 
         return super.doValidateProperty(propertyName);
     }
-
+    
+	private IStatus validateJ2EEModuleVersionProperty() {
+		int j2eeVersion = getIntProperty(J2EE_MODULE_VERSION);
+		if (j2eeVersion == -1)
+			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.J2EE_SPEC_LEVEL_NOT_FOUND));
+		return OK_STATUS;
+	}
+	
     protected Object getDefaultProperty(String propertyName) {
         if (propertyName.equals(CREATE_DEFAULT_FILES) || propertyName.equals(IS_ENABLED)) {
             return Boolean.TRUE;
-        }
+        } else if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			return getDefaultJ2EEModuleVersion();
+		}
         return super.getDefaultProperty(propertyName);
     }
 
@@ -130,5 +198,56 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
         if (propertyName.equals(FINAL_PERSPECTIVE))
             return true;
         return super.isResultProperty(propertyName);
+    }
+	/**
+	 * Subclasses should override to convert the j2eeVersion to a module version id. By default we
+	 * return the j2eeVersion which is fine if no conversion is necessary.
+	 * 
+	 * @param integer
+	 * @return
+	 */
+	protected Integer convertJ2EEVersionToModuleVersion(Integer j2eeVersion) {
+		return j2eeVersion;
+	}
+	
+	protected abstract WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors();
+
+	protected abstract int convertModuleVersionToJ2EEVersion(int moduleVersion);
+
+	protected abstract EClass getModuleType();
+
+	protected abstract String getModuleExtension();
+	
+	protected abstract Integer getDefaultJ2EEModuleVersion();
+	
+	protected abstract String getModuleID();
+	
+	public static String[] getServerVersions(String moduleID, IRuntimeType type) {
+        List list = new ArrayList();
+        if (type == null)
+            return null;
+        IModuleType[] moduleTypes = type.getModuleTypes();
+        if (moduleTypes != null) {
+            int size = moduleTypes.length;
+            for (int i = 0; i < size; i++) {
+                IModuleType moduleType = moduleTypes[i];
+                if (matches(moduleType.getId(), moduleID)) {
+                    list.add(moduleType.getVersion());
+                }
+
+            }
+        }
+        String[] versions = null;
+        if (!list.isEmpty()) {
+            versions = new String[list.size()];
+            list.toArray(versions);
+        }
+        return versions;
+    }
+
+    private static boolean matches(String a, String b) {
+        if (a == null || b == null || "*".equals(a) || "*".equals(b) || a.startsWith(b) || b.startsWith(a))
+            return true;
+        return false;
     }
 }
