@@ -149,7 +149,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 		return getWebSettings().getVersion();
 	}
 
-	public Property[] getProperites(String componentName) {		
+	public Property[] getProperties(String componentName) {		
 		String contextRootName = getWebSettings().getContextRoot();
 		String jspLevel =  getWebSettings().getJSPLevel();
 		String[] featureIDs = getWebSettings().getFeatureIds();
