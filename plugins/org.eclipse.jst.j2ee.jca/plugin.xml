@@ -123,6 +123,15 @@
          </moduleType>
       </moduleFactory>
    </extension>
-
-<!-- icon="icons/full/obj16/connection_obj.gif" -->
+   
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="jst.connector"
+            factoryClass="org.eclipse.wst.common.modulecore.internal.impl.ArtifactEditModelFactory">
+         <editModelResource
+               autoload="false"
+               URI="META-INF/connector.xml"/>
+      </editModel>
+   </extension>
 </plugin>

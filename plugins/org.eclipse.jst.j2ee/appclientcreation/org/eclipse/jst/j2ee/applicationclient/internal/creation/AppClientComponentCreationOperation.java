@@ -37,7 +37,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
 		IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
 		component.commit();
 		//create and link appClientModule Source Folder
-		IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/appClientModule")); //$NON-NLS-1$		
+		IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
 		appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/appClientModule"), 0, null);
 		
 		//create and link META-INF folder
