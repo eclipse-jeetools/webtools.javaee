@@ -31,11 +31,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -400,8 +398,10 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 	public IContainer getModuleContainer() {
 
 		try {
-			IBaseWebNature wnr = J2EEWebNatureRuntimeUtilities.getRuntime(project);
-			return wnr.getRootPublishableFolder();
+//			IBaseWebNature wnr = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+//			return wnr.getRootPublishableFolder();
+			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			return webArtifactEdit.getModuleServerRoot();
 		} catch (Exception e) {
 			throw new ArchiveRuntimeException(e.getMessage(), e);
 		}
@@ -411,9 +411,10 @@ public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.arc
 	 * save method comment.
 	 */
 	public WorkbenchURIConverter getProjectURIConverter() {
-		IBaseWebNature wnr = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+//		IBaseWebNature wnr = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 		projectURIConverter = new WorkbenchURIConverterImpl(project);
-		projectURIConverter.addInputContainer(wnr.getRootPublishableFolder());
+		projectURIConverter.addInputContainer(webArtifactEdit.getModuleServerRoot());
 		return projectURIConverter;
 
 	}
