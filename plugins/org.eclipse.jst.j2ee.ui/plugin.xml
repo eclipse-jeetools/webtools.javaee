@@ -526,31 +526,9 @@
                value="org.eclipse.jst.j2ee.EARNature">
          </filter>
       </page>
-      <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
-            adaptable="true"
-            name="%j2ee"
-            class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
-            id="J2EEPropertiesPage">
-         <filter
-               name="nature"
-               value="org.eclipse.jst.j2ee.EARNature">
-         </filter>
-      </page>
 <!-- =========== org.eclipse.jst.j2ee.internal.web.WebNature ============ -->
       <page
             objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            name="%j2ee"
-            class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
-            id="J2EEPropertiesPage">
-         <filter
-               name="nature"
-               value="org.eclipse.jst.j2ee.web.WebNature">
-         </filter>
-      </page>
-      <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
@@ -572,17 +550,6 @@
                value="org.eclipse.jst.j2ee.jca.ConnectorNature">
          </filter>
       </page>
-      <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
-            adaptable="true"
-            name="%j2ee"
-            class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
-            id="J2EEPropertiesPage">
-         <filter
-               name="nature"
-               value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-         </filter>
-      </page>
 <!-- =========== org.eclipse.jst.j2ee.ApplicationClientNature ============ -->
       <page
             objectClass="org.eclipse.core.resources.IProject"
@@ -595,31 +562,9 @@
                value="org.eclipse.jst.j2ee.ApplicationClientNature">
          </filter>
       </page>
-      <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
-            adaptable="true"
-            name="%j2ee"
-            class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
-            id="J2EEPropertiesPage">
-         <filter
-               name="nature"
-               value="org.eclipse.jst.j2ee.internal.ApplicationClientNature">
-         </filter>
-      </page>
 <!-- =========== org.eclipse.jst.j2ee.internal.ejb.EJBNature ============ -->
       <page
             objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            name="%j2ee"
-            class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
-            id="J2EEPropertiesPage">
-         <filter
-               name="nature"
-               value="org.eclipse.jst.j2ee.ejb.EJBNature">
-         </filter>
-      </page>
-      <page
-            objectClass="org.eclipse.jdt.core.IJavaProject"
             adaptable="true"
             name="%j2ee"
             class="org.eclipse.jst.j2ee.internal.J2EEPropertiesPage"
