@@ -128,6 +128,8 @@ public class J2EEUIMessages extends Messages {
 	public static final String EAR_COMPONENT_WIZ_TITLE = "EARComponentCreationWizard.title"; //$NON-NLS-1$
 	public static final String EAR_COMPONENT_MAIN_PG_TITLE = "EARComponentCreationWizard.mainPage.title"; //$NON-NLS-1$
 	public static final String EAR_COMPONENT_MAIN_PG_DESC = "EARComponentCreationWizard.mainPage.desc"; //$NON-NLS-1$
+	public static final String EAR_COMPONENT_SECOND_PG_TITLE = "EARComponentCreationWizard.secondPage.title"; //$NON-NLS-1$
+	public static final String EAR_COMPONENT_SECOND_PG_DESC = "EARComponentCreationWizard.secondPage.desc"; //$NON-NLS-1$
 	
 	private static final J2EEUIMessages INSTANCE = new J2EEUIMessages();
 
