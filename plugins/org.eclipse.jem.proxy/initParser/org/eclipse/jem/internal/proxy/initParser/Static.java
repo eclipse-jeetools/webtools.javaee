@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: Static.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2003/11/11 16:27:43 $ 
  */
 
 
@@ -97,6 +97,10 @@ protected void checkForValidType(){
 				writer.write(type.getName());
 				typeWriter = writer;
 			} catch ( ClassNotFoundException exc1 ) {}
+		} catch ( NoClassDefFoundError exc ) {
+			// A mismatch in some way. Found a class, probably different case. One possibility
+			// is found a class, but this was really a package. So class and package with same name
+			// but different case caused this to occur. [46376].
 		}
 	
 }
