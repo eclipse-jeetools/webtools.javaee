@@ -13,9 +13,9 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
@@ -31,7 +31,7 @@ import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
-import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
 public class NewJ2EEComponentSelectionPage extends WTPWizardPage {
 	private Button defaultModulesButton;

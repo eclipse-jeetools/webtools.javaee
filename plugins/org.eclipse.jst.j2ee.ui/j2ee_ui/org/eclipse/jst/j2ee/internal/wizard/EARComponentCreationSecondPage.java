@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectsToEARDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -31,7 +31,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
 /**
  * @author jialin
@@ -88,7 +88,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		gData.widthHint = 200;
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
-		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.J2EE_MODULE_VERSION);
+		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION);
 		AvailableJ2EEComponentsContentProvider provider = new AvailableJ2EEComponentsContentProvider(j2eeVersion);
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
@@ -228,7 +228,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		String earName = model.getStringProperty(EARComponentCreationDataModel.EAR_MODULE_NAME);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME, earName);
 		// ear j2ee version
-		int j2eeVersion = model.getIntProperty(EARComponentCreationDataModel.J2EE_MODULE_VERSION);
+		int j2eeVersion = model.getIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION);
 		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.J2EE_VERSION, new Integer(j2eeVersion));
 		return defaultModel;
 	}

@@ -6,14 +6,14 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.DefaultJ2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 
 /*
  * Created on Mar 23, 2005
@@ -376,7 +376,7 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 		J2EEComponentCreationDataModel modModule = getNestedModel(flag);
 		if (modModule != null) {
 			String compName = ensureUniqueProjectName(name);
-			modModule.setProperty(J2EEComponentCreationDataModel.MODULE_NAME, compName);
+			modModule.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME, compName);
 		}
 	}
 
@@ -427,7 +427,7 @@ public class DefaultJ2EEComponentCreationDataModel extends WTPOperationDataModel
 	private void setNestedComponentName(int flag, String compName) {
 		J2EEComponentCreationDataModel model = getNestedModel(flag);
 		if (model != null) {
-			model.setProperty(J2EEComponentCreationDataModel.MODULE_NAME, compName);
+			model.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME, compName);
 		}
 	}
 

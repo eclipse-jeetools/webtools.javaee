@@ -14,9 +14,9 @@ import org.eclipse.jst.j2ee.application.operations.DefaultJ2EEComponentCreationO
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 
 public class DefaultJ2EEComponentCreationWizard extends WTPWizard {
 	private static final String SELECTION_PG = "selection"; //$NON-NLS-1$
