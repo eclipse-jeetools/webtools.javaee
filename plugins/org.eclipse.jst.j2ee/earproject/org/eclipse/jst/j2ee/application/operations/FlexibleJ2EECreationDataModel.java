@@ -88,7 +88,7 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
 	/**
 	 * type Integer
 	 */
-	public static final String AVAIL_J2EE_MODULE_VERSION = "FlexibleJ2EEModuleCreationDataModel.AVAIL_J2EE_MODULE_VERSION"; //$NON-NLS-1$
+	public static final String VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME = "FlexibleJ2EEModuleCreationDataModel.VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME"; //$NON-NLS-1$
 
 	/**
 	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
@@ -114,7 +114,7 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
         addValidBaseProperty(IS_ENABLED);
         addValidBaseProperty(FINAL_PERSPECTIVE);
 		addValidBaseProperty(J2EE_MODULE_VERSION);
-		addValidBaseProperty(AVAIL_J2EE_MODULE_VERSION);
+		addValidBaseProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME);
 		addValidBaseProperty(J2EE_VERSION);
         super.initValidBaseProperties();
     }
@@ -136,7 +136,7 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
             IProject project = ProjectUtilities.getProject(propertyValue);
             IProjectProperties projProperties = ServerCore.getProjectProperties(project);
             String[] validModuleVersions = getServerVersions(getModuleID(), projProperties.getRuntimeTarget().getRuntimeType());
-            setProperty(AVAIL_J2EE_MODULE_VERSION, validModuleVersions);
+            setProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME, validModuleVersions);
         } else if (IS_ENABLED.equals(propertyName)) {
             notifyEnablementChange(PROJECT_NAME);
         } else if (propertyName.equals(J2EE_VERSION)) {
