@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.15 $  $Date: 2004/11/22 22:23:05 $ 
+ *  $Revision: 1.16 $  $Date: 2004/12/06 18:46:06 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -31,6 +31,8 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.temp.VETimerTests;
+
+import com.ibm.wtp.common.util.PerformanceMonitorUtil;
  
 /**
  * This is the used to launch the proxy registries.
@@ -350,6 +352,8 @@ public class ProxyLaunchSupport {
 			pm = new NullProgressMonitor();
 		String stepId = "Pre-launch VM ( " + vmTitle + " )";
 		VETimerTests.basicTest.startStep(stepId);
+		if (vmTitle.equals("Beaninfo"))
+			PerformanceMonitorUtil.getMonitor().snapshot(125);
 		final ILaunchConfigurationWorkingCopy configwc = config.getWorkingCopy();
 		
 		pm.beginTask("", 400);
@@ -459,6 +463,8 @@ public class ProxyLaunchSupport {
 		}	
 		
 		pm.done();
+		if (vmTitle.equals("Beaninfo"))
+			PerformanceMonitorUtil.getMonitor().snapshot(126);
 		VETimerTests.basicTest.stopStep(stepId);
 		return launchInfo.resultRegistry;
 	}
