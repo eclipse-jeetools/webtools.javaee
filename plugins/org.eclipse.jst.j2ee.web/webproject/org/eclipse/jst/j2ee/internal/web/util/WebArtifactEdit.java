@@ -144,7 +144,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_WEB_MODULE type */
-		if (!TYPE_ID.equals(aModule.getModuleType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
 			return false;
 		return true;
 	}
@@ -339,7 +339,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public ReferencedComponent[] getLibModules() {
 		List result = new ArrayList();
-		List dependentModules = module.getModules();
+		List dependentModules = module.getReferencedComponents();
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml base path
 		for (int i=0; i<dependentModules.size(); i++) {
 			ReferencedComponent child = (ReferencedComponent) dependentModules.get(i);
@@ -368,8 +368,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		if (libModules==null)
 			return;
 		for (int i=0; i<libModules.length; i++) {
-			if (!module.getModules().contains(libModules[i]))
-				module.getModules().add(libModules[i]);
+			if (!module.getReferencedComponents().contains(libModules[i]))
+				module.getReferencedComponents().add(libModules[i]);
 		}
 	}
 	

@@ -160,19 +160,19 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	}
 
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
+		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();		
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
 		module.setHandle(aHandle);  
 		module.setDeployedName(aDeployedName);  
-		ComponentType type = ModuleCoreFactory.eINSTANCE.createModuleType();
+		ComponentType type = ModuleCoreFactory.eINSTANCE.createComponentType();
 		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
-		module.setModuleType(type);
-		theModules.getWorkbenchModules().add(module);
+		module.setComponentType(type);
+		theModules.getComponents().add(module);
 		return module;
 	}
 

@@ -159,7 +159,7 @@ public class J2EEDeleteAction extends SelectionDispatchAction implements J2EEDel
 	protected boolean isJ2EEModule(Object o) {
 		if (o instanceof WorkbenchComponent) {
 			WorkbenchComponent module = (WorkbenchComponent) o;
-			String moduleType = module.getModuleType().getModuleTypeId();
+			String moduleType = module.getComponentType().getModuleTypeId();
 			//TODO need to add connector, app client, ear, ejb client
 			return moduleType.equals(IModuleConstants.JST_WEB_MODULE) || moduleType.equals(IModuleConstants.JST_EJB_MODULE);
 		}

@@ -213,7 +213,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_Connector_MODULE type */
-		if (!TYPE_ID.equals(aModule.getModuleType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
 			return false;
 		return true;
 	}

@@ -230,7 +230,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_ApplicationClient_MODULE type */
-		if (!TYPE_ID.equals(aModule.getModuleType().getModuleTypeId()))
+		if (!TYPE_ID.equals(aModule.getComponentType().getModuleTypeId()))
 			return false;
 		return true;
 	}

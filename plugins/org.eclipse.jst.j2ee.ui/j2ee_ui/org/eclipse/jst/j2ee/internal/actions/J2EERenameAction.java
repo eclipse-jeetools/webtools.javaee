@@ -175,7 +175,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 						URI uri = obj.eResource().getURI();
 						ComponentResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
 						for (int i=0; i<resources.length; i++) {
-							module = resources[i].getModule();
+							module = resources[i].getComponent();
 							if (module !=null)
 								break;
 						}

@@ -57,8 +57,8 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
         try {
         	ModuleCoreNature moduleCoreNature = ModuleCoreNature.getModuleCoreNature(project);
         	moduleStructureModel = moduleCoreNature.getModuleStructuralModelForRead(this);
-            ProjectComponents module = (ProjectComponents) moduleStructureModel.getPrimaryRootObject();
-            EList workBenchModules = module.getWorkbenchModules();
+            ProjectComponents components = (ProjectComponents) moduleStructureModel.getPrimaryRootObject();
+            EList workBenchModules = components.getComponents();
             modules = createModuleDelegates(workBenchModules, project);
 
         } catch (Exception e) {

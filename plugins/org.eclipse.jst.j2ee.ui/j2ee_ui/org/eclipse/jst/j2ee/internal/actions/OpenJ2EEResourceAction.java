@@ -297,7 +297,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				ComponentResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
 				WorkbenchComponent module = null;
 				for (int i=0; i<resources.length; i++) {
-					module = resources[i].getModule();
+					module = resources[i].getComponent();
 					if (module != null)
 						break;
 				}
