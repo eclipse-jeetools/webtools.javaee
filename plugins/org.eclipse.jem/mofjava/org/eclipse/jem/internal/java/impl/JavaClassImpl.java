@@ -11,16 +11,15 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
-import java.util.AbstractSequentialList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -349,20 +348,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 			eAllOperations = ia.getEAllOperations();
 		return eAllOperations;
 	}
-	
 		
-	public EList getEAttributes() {
-		IIntrospectionAdapter adapter = getIntrospectionAdapter();
-		if (adapter != null)
-			return adapter.getEAttributes();
-		return super.getEAttributes();
-	}
-	
-	public EList getEAttributesGen() {
-		// An internal method for returning actual wo fluffing up.
-		return super.getEAttributes();
-	}
-	
 	public EList getEOperations() {
 		IIntrospectionAdapter adapter = getIntrospectionAdapter();
 		if (adapter != null)
@@ -383,17 +369,18 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 		return super.getEAnnotations();
 	}
 
-	public EList getEReferences() {
+	public EList getEStructuralFeatures() {
 		IIntrospectionAdapter adapter = getIntrospectionAdapter();
 		if (adapter != null)
-			return adapter.getEReferences();
-		return super.getEReferences();
+			return adapter.getEStructuralFeatures();
+		return super.getEStructuralFeatures();
 	}
 	
-	public EList getEReferencesGen() {
+	public EList getEStructuralFeaturesGen() {
 		// An internal method for returning actual wo fluffing up.
-		return super.getEReferences();
-	}	
+		return super.getEStructuralFeatures();
+	}
+	
 	/**
 	 * Return an Iterator on the implemntsInferface List if this
 	 * is an interface class or on the super List if it is a class.
@@ -1132,7 +1119,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	{
 		if (declaringClass != null && declaringClass.eIsProxy()) {
 			JavaClass oldDeclaringClass = declaringClass;
-			declaringClass = (JavaClass)EcoreUtil.resolve(declaringClass, this);
+			declaringClass = (JavaClass)eResolveProxy((InternalEObject)declaringClass);
 			if (declaringClass != oldDeclaringClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.JAVA_CLASS__DECLARING_CLASS, oldDeclaringClass, declaringClass));
@@ -1186,12 +1173,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 		return declaredClasses;
 	}
 
-	protected EList properties;
 	public EList getProperties() {
-		if (properties == null) {
-			properties = new PropertiesEList();
-		}
-		return properties;
+		return getEStructuralFeatures();	// As of EMF 2.0, local properties are the local features. Used to be a merge of eattributes and ereferences.
 	}
 	
 	public EList getEvents() {
@@ -1269,9 +1252,9 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 			case JavaRefPackage.JAVA_CLASS__EALL_REFERENCES:
 				return !getEAllReferences().isEmpty();
 			case JavaRefPackage.JAVA_CLASS__EREFERENCES:
-				return eReferences != null && !eReferences.isEmpty();
+				return !getEReferences().isEmpty();
 			case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-				return eAttributes != null && !eAttributes.isEmpty();
+				return !getEAttributes().isEmpty();
 			case JavaRefPackage.JAVA_CLASS__EALL_CONTAINMENTS:
 				return !getEAllContainments().isEmpty();
 			case JavaRefPackage.JAVA_CLASS__EALL_OPERATIONS:
@@ -1282,6 +1265,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 				return !getEAllSuperTypes().isEmpty();
 			case JavaRefPackage.JAVA_CLASS__EID_ATTRIBUTE:
 				return getEIDAttribute() != null;
+			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
+				return eStructuralFeatures != null && !eStructuralFeatures.isEmpty();
 			case JavaRefPackage.JAVA_CLASS__KIND:
 				return kind != KIND_EDEFAULT;
 			case JavaRefPackage.JAVA_CLASS__PUBLIC:
@@ -1344,13 +1329,9 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 				getEOperations().clear();
 				getEOperations().addAll((Collection)newValue);
 				return;
-			case JavaRefPackage.JAVA_CLASS__EREFERENCES:
-				getEReferences().clear();
-				getEReferences().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-				getEAttributes().clear();
-				getEAttributes().addAll((Collection)newValue);
+			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
+				getEStructuralFeatures().clear();
+				getEStructuralFeatures().addAll((Collection)newValue);
 				return;
 			case JavaRefPackage.JAVA_CLASS__KIND:
 				setKind((TypeKind)newValue);
@@ -1431,11 +1412,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 			case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
 				getEOperations().clear();
 				return;
-			case JavaRefPackage.JAVA_CLASS__EREFERENCES:
-				getEReferences().clear();
-				return;
-			case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-				getEAttributes().clear();
+			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
+				getEStructuralFeatures().clear();
 				return;
 			case JavaRefPackage.JAVA_CLASS__KIND:
 				setKind(KIND_EDEFAULT);
@@ -1620,16 +1598,15 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	public JavaPackage getJavaPackageGen()
 	{
 		JavaPackage javaPackage = basicGetJavaPackage();
-		return javaPackage == null ? null : (JavaPackage)EcoreUtil.resolve(javaPackage, this);
+		return javaPackage == null ? null : (JavaPackage)eResolveProxy((InternalEObject)javaPackage);
 	}
 
-	/**
+	/*
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated modifiable
 	 */
 	public JavaPackage basicGetJavaPackage() {
-		return null;
+		return getJavaPackage();
 	}
 	/**
 	 * <!-- begin-user-doc -->
@@ -1648,6 +1625,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 					return eBasicSetContainer(otherEnd, JavaRefPackage.JAVA_CLASS__EPACKAGE, msgs);
 				case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
 					return ((InternalEList)getEOperations()).basicAdd(otherEnd, msgs);
+				case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
+					return ((InternalEList)getEStructuralFeatures()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.JAVA_CLASS__FIELDS:
 					return ((InternalEList)getFields()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.JAVA_CLASS__METHODS:
@@ -1684,10 +1663,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 					return eBasicSetContainer(null, JavaRefPackage.JAVA_CLASS__EPACKAGE, msgs);
 				case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
 					return ((InternalEList)getEOperations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__EREFERENCES:
-					return ((InternalEList)getEReferences()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_CLASS__EATTRIBUTES:
-					return ((InternalEList)getEAttributes()).basicRemove(otherEnd, msgs);
+				case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
+					return ((InternalEList)getEStructuralFeatures()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.JAVA_CLASS__FIELDS:
 					return ((InternalEList)getFields()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.JAVA_CLASS__METHODS:
@@ -1771,6 +1748,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 				return getEAllSuperTypes();
 			case JavaRefPackage.JAVA_CLASS__EID_ATTRIBUTE:
 				return getEIDAttribute();
+			case JavaRefPackage.JAVA_CLASS__ESTRUCTURAL_FEATURES:
+				return getEStructuralFeatures();
 			case JavaRefPackage.JAVA_CLASS__KIND:
 				return getKind();
 			case JavaRefPackage.JAVA_CLASS__PUBLIC:
@@ -1828,305 +1807,5 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 */
 	public void setReflected(boolean aBoolean) {
 		hasReflected = aBoolean;
-	}
-	
-	/**
-	 * A special EList that merges together both EAttributes and EReferences without
-	 * actually creating a copy of them.
-	 */
-	private class PropertiesEList extends AbstractSequentialList implements EList {
-
-		/**
-		 * @see org.eclipse.emf.common.util.EList#move(int, Object)
-		 */
-		public void move(int newPosition, Object object) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see org.eclipse.emf.common.util.EList#move(int, int)
-		 */
-		public Object move(int newPosition, int oldPosition) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.Collection#size()
-		 */
-		public int size() {
-			return getEAttributes().size()+getEReferences().size();
-		}
-
-		/**
-		 * @see java.util.Collection#isEmpty()
-		 */
-		public boolean isEmpty() {
-			return getEAttributes().isEmpty() && getEReferences().isEmpty();
-		}
-
-		/**
-		 * @see java.util.Collection#contains(Object)
-		 */
-		public boolean contains(Object o) {
-			return getEAttributes().contains(o) || getEReferences().contains(o);
-		}
-
-		/**
-		 * @see java.util.Collection#toArray()
-		 */
-		public Object[] toArray() {
-			Object[] a = getEAttributes().toArray();
-			Object[] r = getEReferences().toArray();
-			Object[] p = new Object[a.length+r.length];
-			System.arraycopy(a, 0, p, 0, a.length);
-			System.arraycopy(r, 0, p, a.length, r.length);
-			return p;
-		}
-
-		/**
-		 * @see java.util.Collection#toArray(Object[])
-		 */
-		public Object[] toArray(Object[] p) {
-			int size = size();
-    	    if (p.length < size)
-        	    p = (Object[])java.lang.reflect.Array.newInstance(
-                                p.getClass().getComponentType(), size);	
-                                		
-			Object[] a = getEAttributes().toArray();
-			Object[] r = getEReferences().toArray();
-			System.arraycopy(a, 0, p, 0, a.length);
-			System.arraycopy(r, 0, p, a.length, r.length);
-			
-			if (p.length > size)
-				p[size] = null;
-							
-			return p;
-		}
-
-		/**
-		 * @see java.util.Collection#add(Object)
-		 */
-		public boolean add(Object o) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.Collection#remove(Object)
-		 */
-		public boolean remove(Object o) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.Collection#addAll(Collection)
-		 */
-		public boolean addAll(Collection c) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.List#addAll(int, Collection)
-		 */
-		public boolean addAll(int index, Collection c) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.Collection#removeAll(Collection)
-		 */
-		public boolean removeAll(Collection c) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.Collection#retainAll(Collection)
-		 */
-		public boolean retainAll(Collection c) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.Collection#clear()
-		 */
-		public void clear() {
-			throw new UnsupportedOperationException();
-		}
-
-
-		/**
-		 * @see java.util.List#get(int)
-		 */
-		public Object get(int index) {
-			int asize = getEAttributes().size();	// Cause introspection and get size.
-			return (index < asize) ? eAttributes.get(index) : getEReferences().get(index-asize); 
-		}
-
-		/**
-		 * @see java.util.List#set(int, Object)
-		 */
-		public Object set(int index, Object element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.List#add(int, Object)
-		 */
-		public void add(int index, Object element) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.List#remove(int)
-		 */
-		public Object remove(int index) {
-			throw new UnsupportedOperationException();
-		}
-
-		/**
-		 * @see java.util.List#indexOf(Object)
-		 */
-		public int indexOf(Object o) {
-			int n = getEAttributes().indexOf(o);
-			if (n == -1) {
-				n = getEReferences().indexOf(o);
-				if (n != -1)
-					n += eAttributes.size();
-			}
-			return n;
-		}
-
-		/**
-		 * @see java.util.List#lastIndexOf(Object)
-		 */
-		public int lastIndexOf(Object o) {
-			int n = getEReferences().lastIndexOf(o);
-			if (n == -1)
-				n = getEAttributes().lastIndexOf(o);
-			else {
-				n += getEAttributes().size();
-			}
-			return n;
-		}
-		
-		private class PropertiesListIterator implements ListIterator {
-			
-			private ListIterator currentItr;
-			private ListIterator nextItr;
-			
-			private boolean attrType;
-			private boolean switchIt;
-			
-			public PropertiesListIterator(int index) {
-				if (index >= getEAttributes().size()) {
-					attrType = false;
-					currentItr = getEReferences().listIterator(index-eAttributes.size());
-				} else {
-					attrType = true;
-					currentItr = eAttributes.listIterator(index);
-				}
-			}
-			/**
-			 * @see java.util.Iterator#hasNext()
-			 */
-			public boolean hasNext() {
-				if (attrType) {
-					if (currentItr.hasNext())
-						return true;
-					switchIt = true;
-					if (nextItr == null)
-						nextItr = getEReferences().listIterator();
-					return nextItr.hasNext();
-				} else {
-					return currentItr.hasNext();
-				} 						
-			}
-
-			/**
-			 * @see java.util.Iterator#next()
-			 */
-			public Object next() {
-				if (switchIt) {
-					switchIt = false;
-					ListIterator t = currentItr;
-					currentItr = nextItr;
-					nextItr = t;
-					attrType = false;
-				}  
-				return currentItr.next();
-			}
-
-			/**
-			 * @see java.util.ListIterator#hasPrevious()
-			 */
-			public boolean hasPrevious() {
-				if (!attrType) {
-					if (currentItr.hasPrevious())
-						return true;
-					switchIt = true;
-					if (nextItr == null)
-						nextItr = getEAttributes().listIterator(eAttributes.size());
-					return nextItr.hasPrevious();
-				} else {
-					return currentItr.hasPrevious();
-				} 						
-			}
-
-			/**
-			 * @see java.util.ListIterator#previous()
-			 */
-			public Object previous() {
-				if (switchIt) {
-					switchIt = false;
-					ListIterator t = currentItr;
-					currentItr = nextItr;
-					nextItr = t;
-					attrType = true;
-				}  
-				return currentItr.previous();
-			}
-
-			/**
-			 * @see java.util.ListIterator#nextIndex()
-			 */
-			public int nextIndex() {
-				return attrType ? currentItr.nextIndex() : currentItr.nextIndex()+eAttributes.size();
-			}
-
-			/**
-			 * @see java.util.ListIterator#previousIndex()
-			 */
-			public int previousIndex() {
-				return attrType ? currentItr.previousIndex() : currentItr.previousIndex()+eAttributes.size();
-			}
-
-			/**
-			 * @see java.util.Iterator#remove()
-			 */
-			public void remove() {
-				throw new UnsupportedOperationException();				
-			}
-
-			/**
-			 * @see java.util.ListIterator#set(Object)
-			 */
-			public void set(Object o) {
-				throw new UnsupportedOperationException();				
-			}
-
-			/**
-			 * @see java.util.ListIterator#add(Object)
-			 */
-			public void add(Object o) {
-				throw new UnsupportedOperationException();				
-			}
-		}
-
-		/**
-		 * @see java.util.List#listIterator(int)
-		 */
-		public ListIterator listIterator(int index) {
-			return new PropertiesListIterator(index);
-		}
-		
 	}
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPackageImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -171,8 +171,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackageImpl.init();
 		JavaRefPackageImpl.init();
+		EcorePackageImpl.init();
 
 		// Obtain or create and register interdependencies
 
@@ -200,7 +200,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_DisplayName() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(0);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_ShortDescription() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(1);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_Category() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(2);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_Expert() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(3);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_Hidden() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(4);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -245,7 +245,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_Preferred() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(5);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -254,7 +254,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_MergeIntrospection() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(6);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -263,7 +263,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getFeatureDecorator_Attributes() {
-		return (EReference)featureDecoratorEClass.getEReferences().get(0);
+		return (EReference)featureDecoratorEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -281,7 +281,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getEventSetDecorator_InDefaultEventSet() {
-		return (EAttribute)eventSetDecoratorEClass.getEAttributes().get(0);
+		return (EAttribute)eventSetDecoratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -290,7 +290,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getEventSetDecorator_Unicast() {
-		return (EAttribute)eventSetDecoratorEClass.getEAttributes().get(1);
+		return (EAttribute)eventSetDecoratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -299,7 +299,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getEventSetDecorator_AddListenerMethod() {
-		return (EReference)eventSetDecoratorEClass.getEReferences().get(0);
+		return (EReference)eventSetDecoratorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -308,7 +308,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getEventSetDecorator_ListenerMethods() {
-		return (EReference)eventSetDecoratorEClass.getEReferences().get(1);
+		return (EReference)eventSetDecoratorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -317,7 +317,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getEventSetDecorator_ListenerType() {
-		return (EReference)eventSetDecoratorEClass.getEReferences().get(2);
+		return (EReference)eventSetDecoratorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -326,7 +326,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getEventSetDecorator_RemoveListenerMethod() {
-		return (EReference)eventSetDecoratorEClass.getEReferences().get(3);
+		return (EReference)eventSetDecoratorEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -344,7 +344,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getMethodProxy_Method() {
-		return (EReference)methodProxyEClass.getEReferences().get(0);
+		return (EReference)methodProxyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -362,7 +362,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getPropertyDecorator_Bound() {
-		return (EAttribute)propertyDecoratorEClass.getEAttributes().get(0);
+		return (EAttribute)propertyDecoratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -371,7 +371,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getPropertyDecorator_Constrained() {
-		return (EAttribute)propertyDecoratorEClass.getEAttributes().get(1);
+		return (EAttribute)propertyDecoratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -380,7 +380,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getPropertyDecorator_DesignTime() {
-		return (EAttribute)propertyDecoratorEClass.getEAttributes().get(2);
+		return (EAttribute)propertyDecoratorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -389,7 +389,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getPropertyDecorator_AlwaysIncompatible() {
-		return (EAttribute)propertyDecoratorEClass.getEAttributes().get(3);
+		return (EAttribute)propertyDecoratorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -398,7 +398,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getPropertyDecorator_FilterFlags() {
-		return (EAttribute)propertyDecoratorEClass.getEAttributes().get(4);
+		return (EAttribute)propertyDecoratorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -407,7 +407,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getPropertyDecorator_PropertyEditorClass() {
-		return (EReference)propertyDecoratorEClass.getEReferences().get(0);
+		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -416,7 +416,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getPropertyDecorator_ReadMethod() {
-		return (EReference)propertyDecoratorEClass.getEReferences().get(1);
+		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -425,7 +425,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getPropertyDecorator_WriteMethod() {
-		return (EReference)propertyDecoratorEClass.getEReferences().get(2);
+		return (EReference)propertyDecoratorEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -443,7 +443,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getIndexedPropertyDecorator_IndexedReadMethod() {
-		return (EReference)indexedPropertyDecoratorEClass.getEReferences().get(0);
+		return (EReference)indexedPropertyDecoratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -452,7 +452,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getIndexedPropertyDecorator_IndexedWriteMethod() {
-		return (EReference)indexedPropertyDecoratorEClass.getEReferences().get(1);
+		return (EReference)indexedPropertyDecoratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -470,7 +470,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getBeanDecorator_MergeSuperProperties() {
-		return (EAttribute)beanDecoratorEClass.getEAttributes().get(0);
+		return (EAttribute)beanDecoratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -479,7 +479,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getBeanDecorator_MergeSuperBehaviors() {
-		return (EAttribute)beanDecoratorEClass.getEAttributes().get(1);
+		return (EAttribute)beanDecoratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -488,7 +488,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getBeanDecorator_MergeSuperEvents() {
-		return (EAttribute)beanDecoratorEClass.getEAttributes().get(2);
+		return (EAttribute)beanDecoratorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -497,7 +497,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getBeanDecorator_IntrospectProperties() {
-		return (EAttribute)beanDecoratorEClass.getEAttributes().get(3);
+		return (EAttribute)beanDecoratorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -506,7 +506,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getBeanDecorator_IntrospectBehaviors() {
-		return (EAttribute)beanDecoratorEClass.getEAttributes().get(4);
+		return (EAttribute)beanDecoratorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -515,7 +515,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getBeanDecorator_IntrospectEvents() {
-		return (EAttribute)beanDecoratorEClass.getEAttributes().get(5);
+		return (EAttribute)beanDecoratorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -524,7 +524,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getBeanDecorator_CustomizerClass() {
-		return (EReference)beanDecoratorEClass.getEReferences().get(0);
+		return (EReference)beanDecoratorEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -542,7 +542,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getMethodDecorator_ParmsExplicit() {
-		return (EAttribute)methodDecoratorEClass.getEAttributes().get(0);
+		return (EAttribute)methodDecoratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -551,7 +551,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getMethodDecorator_ParameterDescriptors() {
-		return (EReference)methodDecoratorEClass.getEReferences().get(0);
+		return (EReference)methodDecoratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -569,7 +569,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getParameterDecorator_Name() {
-		return (EAttribute)parameterDecoratorEClass.getEAttributes().get(0);
+		return (EAttribute)parameterDecoratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -587,7 +587,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureAttributeValue_Name() {
-		return (EAttribute)featureAttributeValueEClass.getEAttributes().get(0);
+		return (EAttribute)featureAttributeValueEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -596,7 +596,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getFeatureAttributeValue_Value() {
-		return (EReference)featureAttributeValueEClass.getEReferences().get(0);
+		return (EReference)featureAttributeValueEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -640,8 +640,8 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 
 		featureAttributeValueEClass = createEClass(FEATURE_ATTRIBUTE_VALUE);
 		createEAttribute(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__NAME);
-		createEAttribute(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY);
 		createEReference(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__VALUE);
+		createEAttribute(featureAttributeValueEClass, FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY);
 
 		beanDecoratorEClass = createEClass(BEAN_DECORATOR);
 		createEAttribute(beanDecoratorEClass, BEAN_DECORATOR__MERGE_SUPER_PROPERTIES);
@@ -730,68 +730,68 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(featureDecoratorEClass, FeatureDecorator.class, "FeatureDecorator", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getFeatureDecorator_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureDecorator_ShortDescription(), ecorePackage.getEString(), "shortDescription", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureDecorator_Category(), ecorePackage.getEString(), "category", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureDecorator_Expert(), ecorePackage.getEBoolean(), "expert", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureDecorator_Hidden(), ecorePackage.getEBoolean(), "hidden", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureDecorator_Preferred(), ecorePackage.getEBoolean(), "preferred", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureDecorator_MergeIntrospection(), ecorePackage.getEBoolean(), "mergeIntrospection", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureDecorator_AttributesExplicit(), ecorePackage.getEBoolean(), "attributesExplicit", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getFeatureDecorator_Attributes(), this.getFeatureAttributeValue(), null, "attributes", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getFeatureDecorator_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureDecorator_ShortDescription(), ecorePackage.getEString(), "shortDescription", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureDecorator_Category(), ecorePackage.getEString(), "category", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureDecorator_Expert(), ecorePackage.getEBoolean(), "expert", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureDecorator_Hidden(), ecorePackage.getEBoolean(), "hidden", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureDecorator_Preferred(), ecorePackage.getEBoolean(), "preferred", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureDecorator_MergeIntrospection(), ecorePackage.getEBoolean(), "mergeIntrospection", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureDecorator_AttributesExplicit(), ecorePackage.getEBoolean(), "attributesExplicit", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getFeatureDecorator_Attributes(), this.getFeatureAttributeValue(), null, "attributes", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(featureDecoratorEClass, ecorePackage.getEString(), "getName");
 
 		initEClass(featureAttributeValueEClass, FeatureAttributeValue.class, "FeatureAttributeValue", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getFeatureAttributeValue_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getFeatureAttributeValue_ValueProxy(), theEcorePackage.getEJavaObject(), "valueProxy", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getFeatureAttributeValue_Value(), theEcorePackage.getEObject(), null, "value", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getFeatureAttributeValue_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getFeatureAttributeValue_Value(), theEcorePackage.getEObject(), null, "value", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getFeatureAttributeValue_ValueProxy(), theEcorePackage.getEJavaObject(), "valueProxy", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(beanDecoratorEClass, BeanDecorator.class, "BeanDecorator", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getBeanDecorator_MergeSuperProperties(), ecorePackage.getEBoolean(), "mergeSuperProperties", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getBeanDecorator_MergeSuperBehaviors(), ecorePackage.getEBoolean(), "mergeSuperBehaviors", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getBeanDecorator_MergeSuperEvents(), ecorePackage.getEBoolean(), "mergeSuperEvents", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getBeanDecorator_IntrospectProperties(), ecorePackage.getEBoolean(), "introspectProperties", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getBeanDecorator_IntrospectBehaviors(), ecorePackage.getEBoolean(), "introspectBehaviors", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getBeanDecorator_IntrospectEvents(), ecorePackage.getEBoolean(), "introspectEvents", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getBeanDecorator_DoBeaninfo(), ecorePackage.getEBoolean(), "doBeaninfo", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getBeanDecorator_CustomizerClass(), theJavaRefPackage.getJavaClass(), null, "customizerClass", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getBeanDecorator_MergeSuperProperties(), ecorePackage.getEBoolean(), "mergeSuperProperties", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getBeanDecorator_MergeSuperBehaviors(), ecorePackage.getEBoolean(), "mergeSuperBehaviors", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getBeanDecorator_MergeSuperEvents(), ecorePackage.getEBoolean(), "mergeSuperEvents", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getBeanDecorator_IntrospectProperties(), ecorePackage.getEBoolean(), "introspectProperties", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getBeanDecorator_IntrospectBehaviors(), ecorePackage.getEBoolean(), "introspectBehaviors", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getBeanDecorator_IntrospectEvents(), ecorePackage.getEBoolean(), "introspectEvents", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getBeanDecorator_DoBeaninfo(), ecorePackage.getEBoolean(), "doBeaninfo", "true", 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getBeanDecorator_CustomizerClass(), theJavaRefPackage.getJavaClass(), null, "customizerClass", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(eventSetDecoratorEClass, EventSetDecorator.class, "EventSetDecorator", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getEventSetDecorator_InDefaultEventSet(), ecorePackage.getEBoolean(), "inDefaultEventSet", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getEventSetDecorator_Unicast(), ecorePackage.getEBoolean(), "unicast", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getEventSetDecorator_ListenerMethodsExplicit(), ecorePackage.getEBoolean(), "listenerMethodsExplicit", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getEventSetDecorator_AddListenerMethod(), theJavaRefPackage.getMethod(), null, "addListenerMethod", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getEventSetDecorator_ListenerMethods(), this.getMethodProxy(), null, "listenerMethods", null, 1, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getEventSetDecorator_ListenerType(), theJavaRefPackage.getJavaClass(), null, "listenerType", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getEventSetDecorator_RemoveListenerMethod(), theJavaRefPackage.getMethod(), null, "removeListenerMethod", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getEventSetDecorator_InDefaultEventSet(), ecorePackage.getEBoolean(), "inDefaultEventSet", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getEventSetDecorator_Unicast(), ecorePackage.getEBoolean(), "unicast", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getEventSetDecorator_ListenerMethodsExplicit(), ecorePackage.getEBoolean(), "listenerMethodsExplicit", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getEventSetDecorator_AddListenerMethod(), theJavaRefPackage.getMethod(), null, "addListenerMethod", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getEventSetDecorator_ListenerMethods(), this.getMethodProxy(), null, "listenerMethods", null, 1, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getEventSetDecorator_ListenerType(), theJavaRefPackage.getJavaClass(), null, "listenerType", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getEventSetDecorator_RemoveListenerMethod(), theJavaRefPackage.getMethod(), null, "removeListenerMethod", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(methodDecoratorEClass, MethodDecorator.class, "MethodDecorator", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getMethodDecorator_ParmsExplicit(), ecorePackage.getEBoolean(), "parmsExplicit", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getMethodDecorator_ParameterDescriptors(), this.getParameterDecorator(), null, "parameterDescriptors", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getMethodDecorator_ParmsExplicit(), ecorePackage.getEBoolean(), "parmsExplicit", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getMethodDecorator_ParameterDescriptors(), this.getParameterDecorator(), null, "parameterDescriptors", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(parameterDecoratorEClass, ParameterDecorator.class, "ParameterDecorator", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getParameterDecorator_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getParameterDecorator_Parameter(), theJavaRefPackage.getJavaParameter(), null, "parameter", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getParameterDecorator_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getParameterDecorator_Parameter(), theJavaRefPackage.getJavaParameter(), null, "parameter", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(propertyDecoratorEClass, PropertyDecorator.class, "PropertyDecorator", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPropertyDecorator_Bound(), ecorePackage.getEBoolean(), "bound", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getPropertyDecorator_Constrained(), ecorePackage.getEBoolean(), "constrained", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getPropertyDecorator_DesignTime(), ecorePackage.getEBoolean(), "designTime", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getPropertyDecorator_AlwaysIncompatible(), ecorePackage.getEBoolean(), "alwaysIncompatible", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getPropertyDecorator_FilterFlags(), ecorePackage.getEString(), "filterFlags", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getPropertyDecorator_PropertyEditorClass(), theJavaRefPackage.getJavaClass(), null, "propertyEditorClass", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getPropertyDecorator_ReadMethod(), theJavaRefPackage.getMethod(), null, "readMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getPropertyDecorator_WriteMethod(), theJavaRefPackage.getMethod(), null, "writeMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getPropertyDecorator_Bound(), ecorePackage.getEBoolean(), "bound", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPropertyDecorator_Constrained(), ecorePackage.getEBoolean(), "constrained", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPropertyDecorator_DesignTime(), ecorePackage.getEBoolean(), "designTime", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPropertyDecorator_AlwaysIncompatible(), ecorePackage.getEBoolean(), "alwaysIncompatible", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPropertyDecorator_FilterFlags(), ecorePackage.getEString(), "filterFlags", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPropertyDecorator_PropertyEditorClass(), theJavaRefPackage.getJavaClass(), null, "propertyEditorClass", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPropertyDecorator_ReadMethod(), theJavaRefPackage.getMethod(), null, "readMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPropertyDecorator_WriteMethod(), theJavaRefPackage.getMethod(), null, "writeMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(propertyDecoratorEClass, theEcorePackage.getEClassifier(), "getPropertyType");
 
 		initEClass(indexedPropertyDecoratorEClass, IndexedPropertyDecorator.class, "IndexedPropertyDecorator", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getIndexedPropertyDecorator_IndexedReadMethod(), theJavaRefPackage.getMethod(), null, "indexedReadMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getIndexedPropertyDecorator_IndexedWriteMethod(), theJavaRefPackage.getMethod(), null, "indexedWriteMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEReference(getIndexedPropertyDecorator_IndexedReadMethod(), theJavaRefPackage.getMethod(), null, "indexedReadMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getIndexedPropertyDecorator_IndexedWriteMethod(), theJavaRefPackage.getMethod(), null, "indexedWriteMethod", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(methodProxyEClass, MethodProxy.class, "MethodProxy", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getMethodProxy_Method(), theJavaRefPackage.getMethod(), null, "method", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEReference(getMethodProxy_Method(), theJavaRefPackage.getMethod(), null, "method", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(beanEventEClass, BeanEvent.class, "BeanEvent", !IS_ABSTRACT, !IS_INTERFACE);
 
@@ -804,7 +804,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getBeanDecorator_DoBeaninfo() {
-		return (EAttribute)beanDecoratorEClass.getEAttributes().get(6);
+		return (EAttribute)beanDecoratorEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -813,7 +813,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureAttributeValue_ValueProxy() {
-		return (EAttribute)featureAttributeValueEClass.getEAttributes().get(1);
+		return (EAttribute)featureAttributeValueEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -822,7 +822,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EReference getParameterDecorator_Parameter() {
-		return (EReference)parameterDecoratorEClass.getEReferences().get(0);
+		return (EReference)parameterDecoratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -831,7 +831,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getFeatureDecorator_AttributesExplicit() {
-		return (EAttribute)featureDecoratorEClass.getEAttributes().get(7);
+		return (EAttribute)featureDecoratorEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -849,7 +849,7 @@ public class BeaninfoPackageImpl extends EPackageImpl implements BeaninfoPackage
 	 * @generated
 	 */
 	public EAttribute getEventSetDecorator_ListenerMethodsExplicit() {
-		return (EAttribute)eventSetDecoratorEClass.getEAttributes().get(2);
+		return (EAttribute)eventSetDecoratorEClass.getEStructuralFeatures().get(2);
 	}
 
 }

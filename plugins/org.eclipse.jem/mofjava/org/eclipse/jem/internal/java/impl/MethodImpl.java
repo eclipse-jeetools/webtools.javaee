@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.1.4.1 $  $Date: 2003/12/10 21:38:14 $ 
+ *  $Revision: 1.1.4.2 $  $Date: 2003/12/16 19:29:35 $ 
  */
 
 import java.util.Collection;
@@ -663,7 +663,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	{
 		if (source != null && source.eIsProxy()) {
 			Block oldSource = source;
-			source = (Block)EcoreUtil.resolve(source, this);
+			source = (Block)eResolveProxy((InternalEObject)source);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.METHOD__SOURCE, oldSource, source));
@@ -705,6 +705,18 @@ public class MethodImpl extends EOperationImpl implements Method{
 				return eAnnotations != null && !eAnnotations.isEmpty();
 			case JavaRefPackage.METHOD__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case JavaRefPackage.METHOD__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
+			case JavaRefPackage.METHOD__UNIQUE:
+				return unique != UNIQUE_EDEFAULT;
+			case JavaRefPackage.METHOD__LOWER_BOUND:
+				return lowerBound != LOWER_BOUND_EDEFAULT;
+			case JavaRefPackage.METHOD__UPPER_BOUND:
+				return upperBound != UPPER_BOUND_EDEFAULT;
+			case JavaRefPackage.METHOD__MANY:
+				return isMany() != false;
+			case JavaRefPackage.METHOD__REQUIRED:
+				return isRequired() != false;
 			case JavaRefPackage.METHOD__ETYPE:
 				return eType != null;
 			case JavaRefPackage.METHOD__ECONTAINING_CLASS:
@@ -751,6 +763,18 @@ public class MethodImpl extends EOperationImpl implements Method{
 				return;
 			case JavaRefPackage.METHOD__NAME:
 				setName((String)newValue);
+				return;
+			case JavaRefPackage.METHOD__ORDERED:
+				setOrdered(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__UNIQUE:
+				setUnique(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.METHOD__LOWER_BOUND:
+				setLowerBound(((Integer)newValue).intValue());
+				return;
+			case JavaRefPackage.METHOD__UPPER_BOUND:
+				setUpperBound(((Integer)newValue).intValue());
 				return;
 			case JavaRefPackage.METHOD__ETYPE:
 				setEType((EClassifier)newValue);
@@ -813,6 +837,18 @@ public class MethodImpl extends EOperationImpl implements Method{
 				return;
 			case JavaRefPackage.METHOD__NAME:
 				setName(NAME_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__LOWER_BOUND:
+				setLowerBound(LOWER_BOUND_EDEFAULT);
+				return;
+			case JavaRefPackage.METHOD__UPPER_BOUND:
+				setUpperBound(UPPER_BOUND_EDEFAULT);
 				return;
 			case JavaRefPackage.METHOD__ETYPE:
 				setEType((EClassifier)null);
@@ -996,6 +1032,18 @@ public class MethodImpl extends EOperationImpl implements Method{
 				return getEAnnotations();
 			case JavaRefPackage.METHOD__NAME:
 				return getName();
+			case JavaRefPackage.METHOD__ORDERED:
+				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__UNIQUE:
+				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__LOWER_BOUND:
+				return new Integer(getLowerBound());
+			case JavaRefPackage.METHOD__UPPER_BOUND:
+				return new Integer(getUpperBound());
+			case JavaRefPackage.METHOD__MANY:
+				return isMany() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.METHOD__REQUIRED:
+				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.METHOD__ETYPE:
 				if (resolve) return getEType();
 				return basicGetEType();

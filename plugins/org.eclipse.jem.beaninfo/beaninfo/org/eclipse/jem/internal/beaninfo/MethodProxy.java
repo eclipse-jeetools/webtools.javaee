@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 
@@ -23,6 +23,10 @@ import org.eclipse.jem.internal.java.Method;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Method Proxy</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * This is just a wrapper of a java Method. It allows access to the method but doesn't duplicate the interface for it.
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:

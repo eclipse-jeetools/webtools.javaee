@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: TypeKind.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +24,9 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * A representation of the literals of the enumeration '<em><b>Type Kind</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * UNDEFINED=1 CLASS=2 INTERFACE=3 EXCEPTION=4
+ * <!-- end-model-doc -->
  * @see org.eclipse.jem.internal.java.JavaRefPackage#getTypeKind()
  * @model
  * @generated

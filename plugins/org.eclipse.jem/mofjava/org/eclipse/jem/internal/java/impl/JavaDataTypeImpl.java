@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaDataTypeImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 
 import java.util.Collection;
@@ -151,6 +151,8 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 					return eBasicSetContainer(otherEnd, JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE, msgs);
 				case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
 					return ((InternalEList)getEOperations()).basicAdd(otherEnd, msgs);
+				case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
+					return ((InternalEList)getEStructuralFeatures()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -175,10 +177,8 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 					return eBasicSetContainer(null, JavaRefPackage.JAVA_DATA_TYPE__EPACKAGE, msgs);
 				case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
 					return ((InternalEList)getEOperations()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__EREFERENCES:
-					return ((InternalEList)getEReferences()).basicRemove(otherEnd, msgs);
-				case JavaRefPackage.JAVA_DATA_TYPE__EATTRIBUTES:
-					return ((InternalEList)getEAttributes()).basicRemove(otherEnd, msgs);
+				case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
+					return ((InternalEList)getEStructuralFeatures()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -250,6 +250,8 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 				return getEAllSuperTypes();
 			case JavaRefPackage.JAVA_DATA_TYPE__EID_ATTRIBUTE:
 				return getEIDAttribute();
+			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
+				return getEStructuralFeatures();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -286,13 +288,9 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 				getEOperations().clear();
 				getEOperations().addAll((Collection)newValue);
 				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__EREFERENCES:
-				getEReferences().clear();
-				getEReferences().addAll((Collection)newValue);
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__EATTRIBUTES:
-				getEAttributes().clear();
-				getEAttributes().addAll((Collection)newValue);
+			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
+				getEStructuralFeatures().clear();
+				getEStructuralFeatures().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -327,11 +325,8 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 			case JavaRefPackage.JAVA_DATA_TYPE__EOPERATIONS:
 				getEOperations().clear();
 				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__EREFERENCES:
-				getEReferences().clear();
-				return;
-			case JavaRefPackage.JAVA_DATA_TYPE__EATTRIBUTES:
-				getEAttributes().clear();
+			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
+				getEStructuralFeatures().clear();
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -370,9 +365,9 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 			case JavaRefPackage.JAVA_DATA_TYPE__EALL_REFERENCES:
 				return !getEAllReferences().isEmpty();
 			case JavaRefPackage.JAVA_DATA_TYPE__EREFERENCES:
-				return eReferences != null && !eReferences.isEmpty();
+				return !getEReferences().isEmpty();
 			case JavaRefPackage.JAVA_DATA_TYPE__EATTRIBUTES:
-				return eAttributes != null && !eAttributes.isEmpty();
+				return !getEAttributes().isEmpty();
 			case JavaRefPackage.JAVA_DATA_TYPE__EALL_CONTAINMENTS:
 				return !getEAllContainments().isEmpty();
 			case JavaRefPackage.JAVA_DATA_TYPE__EALL_OPERATIONS:
@@ -383,6 +378,8 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 				return !getEAllSuperTypes().isEmpty();
 			case JavaRefPackage.JAVA_DATA_TYPE__EID_ATTRIBUTE:
 				return getEIDAttribute() != null;
+			case JavaRefPackage.JAVA_DATA_TYPE__ESTRUCTURAL_FEATURES:
+				return eStructuralFeatures != null && !eStructuralFeatures.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

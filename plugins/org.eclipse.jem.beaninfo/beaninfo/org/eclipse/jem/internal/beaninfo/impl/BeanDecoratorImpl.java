@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 
@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeanDecorator;
@@ -919,7 +918,7 @@ public class BeanDecoratorImpl extends FeatureDecoratorImpl implements BeanDecor
 	public JavaClass getCustomizerClassGen() {
 		if (customizerClass != null && customizerClass.eIsProxy()) {
 			JavaClass oldCustomizerClass = customizerClass;
-			customizerClass = (JavaClass)EcoreUtil.resolve(customizerClass, this);
+			customizerClass = (JavaClass)eResolveProxy((InternalEObject)customizerClass);
 			if (customizerClass != oldCustomizerClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.BEAN_DECORATOR__CUSTOMIZER_CLASS, oldCustomizerClass, customizerClass));

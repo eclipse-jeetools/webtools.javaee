@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import java.util.List;
 
@@ -223,7 +223,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getJavaClass_Kind()
 	{
-		return (EAttribute)javaClassEClass.getEAttributes().get(0);
+		return (EAttribute)javaClassEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -233,7 +233,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getJavaClass_Public()
 	{
-		return (EAttribute)javaClassEClass.getEAttributes().get(1);
+		return (EAttribute)javaClassEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -243,7 +243,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getJavaClass_Final()
 	{
-		return (EAttribute)javaClassEClass.getEAttributes().get(2);
+		return (EAttribute)javaClassEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -251,7 +251,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_ImplementsInterfaces()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(0);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_ClassImport()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(1);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_PackageImports()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(2);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -275,7 +275,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_Fields()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(3);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -283,7 +283,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_Methods()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(4);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -291,7 +291,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_Initializers()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(5);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -299,7 +299,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_DeclaringClass()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(7);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -307,7 +307,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_DeclaredClasses()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(6);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -315,7 +315,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_JavaPackage()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(8);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -323,7 +323,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_Events()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(9);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -331,7 +331,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaClass_AllEvents()
 	{
-		return (EReference)javaClassEClass.getEReferences().get(10);
+		return (EReference)javaClassEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -349,7 +349,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getField_Final()
 	{
-		return (EAttribute)fieldEClass.getEAttributes().get(0);
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -359,7 +359,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getField_Static()
 	{
-		return (EAttribute)fieldEClass.getEAttributes().get(1);
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -367,7 +367,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getField_JavaVisibility()
 	{
-		return (EAttribute)fieldEClass.getEAttributes().get(2);
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -375,7 +375,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getField_JavaClass()
 	{
-		return (EReference)fieldEClass.getEReferences().get(0);
+		return (EReference)fieldEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -383,7 +383,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getField_Initializer()
 	{
-		return (EReference)fieldEClass.getEReferences().get(1);
+		return (EReference)fieldEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -401,7 +401,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getMethod_Abstract()
 	{
-		return (EAttribute)methodEClass.getEAttributes().get(0);
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -411,7 +411,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getMethod_Native()
 	{
-		return (EAttribute)methodEClass.getEAttributes().get(1);
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -421,7 +421,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getMethod_Synchronized()
 	{
-		return (EAttribute)methodEClass.getEAttributes().get(2);
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -431,7 +431,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getMethod_Final()
 	{
-		return (EAttribute)methodEClass.getEAttributes().get(3);
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -441,7 +441,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getMethod_Constructor()
 	{
-		return (EAttribute)methodEClass.getEAttributes().get(4);
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -451,7 +451,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getMethod_Static()
 	{
-		return (EAttribute)methodEClass.getEAttributes().get(5);
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -459,7 +459,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getMethod_JavaVisibility()
 	{
-		return (EAttribute)methodEClass.getEAttributes().get(6);
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -467,7 +467,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getMethod_Parameters()
 	{
-		return (EReference)methodEClass.getEReferences().get(0);
+		return (EReference)methodEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -475,7 +475,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getMethod_JavaExceptions()
 	{
-		return (EReference)methodEClass.getEReferences().get(1);
+		return (EReference)methodEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -483,7 +483,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getMethod_JavaClass()
 	{
-		return (EReference)methodEClass.getEReferences().get(2);
+		return (EReference)methodEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -491,7 +491,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getMethod_Source()
 	{
-		return (EReference)methodEClass.getEReferences().get(3);
+		return (EReference)methodEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -509,7 +509,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getJavaParameter_Final()
 	{
-		return (EAttribute)javaParameterEClass.getEAttributes().get(0);
+		return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -517,7 +517,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getJavaParameter_ParameterKind()
 	{
-		return (EAttribute)javaParameterEClass.getEAttributes().get(1);
+		return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -533,7 +533,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getArrayType_ArrayDimensions()
 	{
-		return (EAttribute)arrayTypeEClass.getEAttributes().get(0);
+		return (EAttribute)arrayTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -541,7 +541,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getArrayType_ComponentType()
 	{
-		return (EReference)arrayTypeEClass.getEReferences().get(0);
+		return (EReference)arrayTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -573,7 +573,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getJavaPackage_JavaClasses()
 	{
-		return (EReference)javaPackageEClass.getEReferences().get(0);
+		return (EReference)javaPackageEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -589,7 +589,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getBlock_Source()
 	{
-		return (EAttribute)blockEClass.getEAttributes().get(0);
+		return (EAttribute)blockEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -597,7 +597,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getBlock_Name()
 	{
-		return (EAttribute)blockEClass.getEAttributes().get(1);
+		return (EAttribute)blockEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -605,7 +605,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getBlock_Contents()
 	{
-		return (EReference)blockEClass.getEReferences().get(0);
+		return (EReference)blockEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -637,7 +637,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EAttribute getInitializer_IsStatic()
 	{
-		return (EAttribute)initializerEClass.getEAttributes().get(0);
+		return (EAttribute)initializerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -645,7 +645,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getInitializer_JavaClass()
 	{
-		return (EReference)initializerEClass.getEReferences().get(0);
+		return (EReference)initializerEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -653,7 +653,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 */
 	public EReference getInitializer_Source()
 	{
-		return (EReference)initializerEClass.getEReferences().get(1);
+		return (EReference)initializerEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -841,20 +841,20 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(javaClassEClass, JavaClass.class, "JavaClass", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getJavaClass_Kind(), this.getTypeKind(), "kind", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getJavaClass_Public(), ecorePackage.getEBoolean(), "public", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getJavaClass_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getJavaClass_ImplementsInterfaces(), this.getJavaClass(), null, "implementsInterfaces", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_ClassImport(), this.getJavaClass(), null, "classImport", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_PackageImports(), this.getJavaPackage(), null, "packageImports", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_Fields(), this.getField(), this.getField_JavaClass(), "fields", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_Methods(), this.getMethod(), this.getMethod_JavaClass(), "methods", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_Initializers(), this.getInitializer(), this.getInitializer_JavaClass(), "initializers", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_DeclaredClasses(), this.getJavaClass(), this.getJavaClass_DeclaringClass(), "declaredClasses", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_DeclaringClass(), this.getJavaClass(), this.getJavaClass_DeclaredClasses(), "declaringClass", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_JavaPackage(), this.getJavaPackage(), this.getJavaPackage_JavaClasses(), "javaPackage", null, 0, 1, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_Events(), this.getJavaEvent(), null, "events", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getJavaClass_AllEvents(), this.getJavaEvent(), null, "allEvents", null, 0, -1, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getJavaClass_Kind(), this.getTypeKind(), "kind", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getJavaClass_Public(), ecorePackage.getEBoolean(), "public", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getJavaClass_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_ImplementsInterfaces(), this.getJavaClass(), null, "implementsInterfaces", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_ClassImport(), this.getJavaClass(), null, "classImport", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_PackageImports(), this.getJavaPackage(), null, "packageImports", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_Fields(), this.getField(), this.getField_JavaClass(), "fields", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_Methods(), this.getMethod(), this.getMethod_JavaClass(), "methods", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_Initializers(), this.getInitializer(), this.getInitializer_JavaClass(), "initializers", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_DeclaredClasses(), this.getJavaClass(), this.getJavaClass_DeclaringClass(), "declaredClasses", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_DeclaringClass(), this.getJavaClass(), this.getJavaClass_DeclaredClasses(), "declaringClass", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_JavaPackage(), this.getJavaPackage(), this.getJavaPackage_JavaClasses(), "javaPackage", null, 0, 1, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_Events(), this.getJavaEvent(), null, "events", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getJavaClass_AllEvents(), this.getJavaEvent(), null, "allEvents", null, 0, -1, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(javaClassEClass, ecorePackage.getEBoolean(), "isNested");
 
@@ -914,13 +914,13 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		addEParameter(op, this.getJavaClass(), "javaclass");
 
 		initEClass(initializerEClass, Initializer.class, "Initializer", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getInitializer_IsStatic(), ecorePackage.getEBooleanObject(), "isStatic", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getInitializer_JavaClass(), this.getJavaClass(), this.getJavaClass_Initializers(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getInitializer_Source(), this.getBlock(), null, "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getInitializer_IsStatic(), ecorePackage.getEBooleanObject(), "isStatic", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getInitializer_JavaClass(), this.getJavaClass(), this.getJavaClass_Initializers(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getInitializer_Source(), this.getBlock(), null, "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(javaParameterEClass, JavaParameter.class, "JavaParameter", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getJavaParameter_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getJavaParameter_ParameterKind(), this.getJavaParameterKind(), "parameterKind", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
+		initEAttribute(getJavaParameter_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getJavaParameter_ParameterKind(), this.getJavaParameterKind(), "parameterKind", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(javaParameterEClass, ecorePackage.getEBoolean(), "isArray");
 
@@ -931,17 +931,17 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		addEOperation(javaParameterEClass, ecorePackage.getEString(), "getQualifiedName");
 
 		initEClass(methodEClass, Method.class, "Method", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getMethod_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getMethod_Native(), ecorePackage.getEBoolean(), "native", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getMethod_Synchronized(), ecorePackage.getEBoolean(), "synchronized", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getMethod_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getMethod_Constructor(), ecorePackage.getEBoolean(), "constructor", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getMethod_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getMethod_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getMethod_Parameters(), this.getJavaParameter(), null, "parameters", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getMethod_JavaExceptions(), this.getJavaClass(), null, "javaExceptions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getMethod_JavaClass(), this.getJavaClass(), this.getJavaClass_Methods(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getMethod_Source(), this.getBlock(), null, "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getMethod_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getMethod_Native(), ecorePackage.getEBoolean(), "native", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getMethod_Synchronized(), ecorePackage.getEBoolean(), "synchronized", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getMethod_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getMethod_Constructor(), ecorePackage.getEBoolean(), "constructor", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getMethod_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getMethod_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getMethod_Parameters(), this.getJavaParameter(), null, "parameters", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getMethod_JavaExceptions(), this.getJavaClass(), null, "javaExceptions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getMethod_JavaClass(), this.getJavaClass(), this.getJavaClass_Methods(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getMethod_Source(), this.getBlock(), null, "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(methodEClass, this.getJavaClass(), "getContainingJavaClass");
 
@@ -965,35 +965,35 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		addEOperation(methodEClass, ecorePackage.getEBoolean(), "isVoid");
 
 		initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getField_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getField_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getField_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getField_JavaClass(), this.getJavaClass(), this.getJavaClass_Fields(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
-		initEReference(getField_Initializer(), this.getBlock(), null, "initializer", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getField_Final(), ecorePackage.getEBoolean(), "final", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getField_Static(), ecorePackage.getEBoolean(), "static", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getField_JavaVisibility(), this.getJavaVisibilityKind(), "javaVisibility", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getField_JavaClass(), this.getJavaClass(), this.getJavaClass_Fields(), "javaClass", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getField_Initializer(), this.getBlock(), null, "initializer", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(fieldEClass, this.getJavaClass(), "getContainingJavaClass");
 
 		addEOperation(fieldEClass, ecorePackage.getEBoolean(), "isArray");
 
 		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getBlock_Source(), ecorePackage.getEString(), "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEAttribute(getBlock_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getBlock_Contents(), this.getBlock(), null, "contents", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getBlock_Source(), ecorePackage.getEString(), "source", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getBlock_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getBlock_Contents(), this.getBlock(), null, "contents", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(commentEClass, Comment.class, "Comment", !IS_ABSTRACT, !IS_INTERFACE);
 
 		initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE);
 
 		initEClass(javaPackageEClass, JavaPackage.class, "JavaPackage", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getJavaPackage_JavaClasses(), this.getJavaClass(), this.getJavaClass_JavaPackage(), "javaClasses", null, 0, -1, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEReference(getJavaPackage_JavaClasses(), this.getJavaClass(), this.getJavaClass_JavaPackage(), "javaClasses", null, 0, -1, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(javaDataTypeEClass, JavaDataType.class, "JavaDataType", !IS_ABSTRACT, !IS_INTERFACE);
 
 		addEOperation(javaDataTypeEClass, ecorePackage.getEString(), "getDefaultValueString");
 
 		initEClass(arrayTypeEClass, ArrayType.class, "ArrayType", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getArrayType_ArrayDimensions(), ecorePackage.getEInt(), "arrayDimensions", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE);
-		initEReference(getArrayType_ComponentType(), theEcorePackage.getEClassifier(), null, "componentType", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE);
+		initEAttribute(getArrayType_ArrayDimensions(), ecorePackage.getEInt(), "arrayDimensions", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getArrayType_ComponentType(), theEcorePackage.getEClassifier(), null, "componentType", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		addEOperation(arrayTypeEClass, this.getJTypeJavaHelpers(), "getFinalComponentType");
 

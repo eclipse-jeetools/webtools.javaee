@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:33:53 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:09 $ 
  */
 import java.util.Map;
 
@@ -102,10 +102,13 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 			if (!getParentType().isBinary()) {
 				String source = getFieldInitializerSourceWithoutComments();
 				if (source != null && source.length() != 0) {
-					int equalsPos = source.indexOf("="); //$NON-NLS-1$
+					int equalsPos = source.indexOf('=');//$NON-NLS-1$
+					int endPos = source.indexOf(',');//$NON-NLS-1$
+					if (endPos == -1)
+						endPos = source.length() - 1;
 					if (equalsPos != -1) {
-						// Copy from after "=" to before ";"
-						result = source.substring(equalsPos + 1, source.length() - 1);
+						// Copy from after "=" to before ";" or ","
+						result = source.substring(equalsPos + 1, endPos);
 						result = result.trim();
 					}
 				}

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: ParameterDecorator.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 
@@ -35,7 +35,7 @@ import org.eclipse.jem.internal.java.JavaParameter;
  */
 
 
-public interface ParameterDecorator extends FeatureDecorator {
+public interface ParameterDecorator extends FeatureDecorator{
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -44,6 +44,9 @@ public interface ParameterDecorator extends FeatureDecorator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name is explicit here because unlike the other feature decorators, the name does not come from the object being decorated.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getParameterDecorator_Name()
@@ -70,6 +73,9 @@ public interface ParameterDecorator extends FeatureDecorator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The JavaParameter that this ParameterDecorator is decorating. Can't use eDecorates in this.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Parameter</em>' reference.
 	 * @see #setParameter(JavaParameter)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getParameterDecorator_Parameter()

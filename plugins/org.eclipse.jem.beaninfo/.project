@@ -4,10 +4,16 @@
 	<comment></comment>
 	<projects>
 		<project>com.ibm.etools.emf.event</project>
+		<project>com.ibm.etools.emf.workbench</project>
 		<project>org.apache.xerces</project>
 		<project>org.eclipse.core.boot</project>
+		<project>org.eclipse.core.resources</project>
 		<project>org.eclipse.core.runtime</project>
+		<project>org.eclipse.emf.ecore</project>
+		<project>org.eclipse.emf.ecore.xmi</project>
 		<project>org.eclipse.jdt.core</project>
+		<project>org.eclipse.jdt.launching</project>
+		<project>org.eclipse.jem</project>
 		<project>org.eclipse.jem.proxy</project>
 		<project>org.eclipse.jem.workbench</project>
 	</projects>

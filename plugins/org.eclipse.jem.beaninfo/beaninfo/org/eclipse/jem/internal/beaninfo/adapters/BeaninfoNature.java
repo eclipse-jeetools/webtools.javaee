@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:28:47 $ 
  */
 
 import java.io.*;
@@ -248,7 +248,7 @@ public class BeaninfoNature implements IProjectNature {
 
 		try {
 			// The nature has been started for this project, need to setup the introspection process now.
-			IJavaMOFNature javaNature = JavaMOFNatureRuntime.createRuntime(fProject);
+			JavaEMFNature javaNature = JavaEMFNature.createRuntime(fProject);
 			JavaInit.init();
 			if (fReflectionKeyExtension == null) {
 				// Register the reflection key extension.
@@ -256,7 +256,7 @@ public class BeaninfoNature implements IProjectNature {
 				JavaXMIFactoryImpl.INSTANCE.registerReflectionKeyExtension(fReflectionKeyExtension);
 			}
 
-			javaRSet = javaNature.getContext();
+			javaRSet = javaNature.getResourceSet();
 			Init.initialize(javaRSet, new IBeaninfoSupplier() {
 				public ProxyFactoryRegistry getRegistry() {
 					return BeaninfoNature.this.getRegistry();
@@ -273,7 +273,7 @@ public class BeaninfoNature implements IProjectNature {
 			fSynchronizer =
 				new BeaninfoModelSynchronizer(
 					(BeaninfoAdapterFactory) EcoreUtil.getAdapterFactory(javaRSet.getAdapterFactories(), IIntrospectionAdapter.ADAPTER_KEY),
-					((AbstractJavaMOFNatureRuntime) javaNature).getJavaProject());
+					JavaCore.create(javaNature.getProject()));
 			resourceTracker = new ResourceTracker();
 			project.getWorkspace().addResourceChangeListener(resourceTracker);
 		} catch (CoreException e) {

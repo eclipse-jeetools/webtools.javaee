@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import java.util.Collection;
 
@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EAttributeImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -323,20 +324,10 @@ protected ReadAdaptor getReadAdaptor() {
 				return eAnnotations != null && !eAnnotations.isEmpty();
 			case JavaRefPackage.FIELD__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.FIELD__ETYPE:
-				return eType != null;
-			case JavaRefPackage.FIELD__CHANGEABLE:
-				return changeable != CHANGEABLE_EDEFAULT;
-			case JavaRefPackage.FIELD__VOLATILE:
-				return volatile_ != VOLATILE_EDEFAULT;
-			case JavaRefPackage.FIELD__TRANSIENT:
-				return transient_ != TRANSIENT_EDEFAULT;
+			case JavaRefPackage.FIELD__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
 			case JavaRefPackage.FIELD__UNIQUE:
 				return unique != UNIQUE_EDEFAULT;
-			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
-				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
-			case JavaRefPackage.FIELD__DEFAULT_VALUE:
-				return getDefaultValue() != null;
 			case JavaRefPackage.FIELD__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case JavaRefPackage.FIELD__UPPER_BOUND:
@@ -345,8 +336,22 @@ protected ReadAdaptor getReadAdaptor() {
 				return isMany() != false;
 			case JavaRefPackage.FIELD__REQUIRED:
 				return isRequired() != false;
+			case JavaRefPackage.FIELD__ETYPE:
+				return eType != null;
+			case JavaRefPackage.FIELD__CHANGEABLE:
+				return changeable != CHANGEABLE_EDEFAULT;
+			case JavaRefPackage.FIELD__VOLATILE:
+				return volatile_ != VOLATILE_EDEFAULT;
+			case JavaRefPackage.FIELD__TRANSIENT:
+				return transient_ != TRANSIENT_EDEFAULT;
+			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
+				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
+			case JavaRefPackage.FIELD__DEFAULT_VALUE:
+				return getDefaultValue() != null;
 			case JavaRefPackage.FIELD__UNSETTABLE:
 				return unsettable != UNSETTABLE_EDEFAULT;
+			case JavaRefPackage.FIELD__DERIVED:
+				return derived != DERIVED_EDEFAULT;
 			case JavaRefPackage.FIELD__ECONTAINING_CLASS:
 				return getEContainingClass() != null;
 			case JavaRefPackage.FIELD__ID:
@@ -380,6 +385,18 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__NAME:
 				setName((String)newValue);
 				return;
+			case JavaRefPackage.FIELD__ORDERED:
+				setOrdered(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.FIELD__UNIQUE:
+				setUnique(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.FIELD__LOWER_BOUND:
+				setLowerBound(((Integer)newValue).intValue());
+				return;
+			case JavaRefPackage.FIELD__UPPER_BOUND:
+				setUpperBound(((Integer)newValue).intValue());
+				return;
 			case JavaRefPackage.FIELD__ETYPE:
 				setEType((EClassifier)newValue);
 				return;
@@ -392,20 +409,14 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__TRANSIENT:
 				setTransient(((Boolean)newValue).booleanValue());
 				return;
-			case JavaRefPackage.FIELD__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
-				return;
 			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
 				setDefaultValueLiteral((String)newValue);
 				return;
-			case JavaRefPackage.FIELD__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
-				return;
-			case JavaRefPackage.FIELD__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
-				return;
 			case JavaRefPackage.FIELD__UNSETTABLE:
 				setUnsettable(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.FIELD__DERIVED:
+				setDerived(((Boolean)newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__ID:
 				setID(((Boolean)newValue).booleanValue());
@@ -441,6 +452,18 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case JavaRefPackage.FIELD__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
+				return;
+			case JavaRefPackage.FIELD__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
+				return;
+			case JavaRefPackage.FIELD__LOWER_BOUND:
+				setLowerBound(LOWER_BOUND_EDEFAULT);
+				return;
+			case JavaRefPackage.FIELD__UPPER_BOUND:
+				setUpperBound(UPPER_BOUND_EDEFAULT);
+				return;
 			case JavaRefPackage.FIELD__ETYPE:
 				setEType((EClassifier)null);
 				return;
@@ -453,20 +476,14 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__TRANSIENT:
 				setTransient(TRANSIENT_EDEFAULT);
 				return;
-			case JavaRefPackage.FIELD__UNIQUE:
-				setUnique(UNIQUE_EDEFAULT);
-				return;
 			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
 				setDefaultValueLiteral(DEFAULT_VALUE_LITERAL_EDEFAULT);
 				return;
-			case JavaRefPackage.FIELD__LOWER_BOUND:
-				setLowerBound(LOWER_BOUND_EDEFAULT);
-				return;
-			case JavaRefPackage.FIELD__UPPER_BOUND:
-				setUpperBound(UPPER_BOUND_EDEFAULT);
-				return;
 			case JavaRefPackage.FIELD__UNSETTABLE:
 				setUnsettable(UNSETTABLE_EDEFAULT);
+				return;
+			case JavaRefPackage.FIELD__DERIVED:
+				setDerived(DERIVED_EDEFAULT);
 				return;
 			case JavaRefPackage.FIELD__ID:
 				setID(ID_EDEFAULT);
@@ -545,6 +562,10 @@ protected ReadAdaptor getReadAdaptor() {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
 					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
+				case JavaRefPackage.FIELD__ECONTAINING_CLASS:
+					if (eContainer != null)
+						msgs = eBasicRemoveFromContainer(msgs);
+					return eBasicSetContainer(otherEnd, JavaRefPackage.FIELD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -569,6 +590,8 @@ protected ReadAdaptor getReadAdaptor() {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
 					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
+				case JavaRefPackage.FIELD__ECONTAINING_CLASS:
+					return eBasicSetContainer(null, JavaRefPackage.FIELD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
 				case JavaRefPackage.FIELD__INITIALIZER:
@@ -589,6 +612,8 @@ protected ReadAdaptor getReadAdaptor() {
 	{
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
+				case JavaRefPackage.FIELD__ECONTAINING_CLASS:
+					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					return ((InternalEObject)eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
 				default:
@@ -610,6 +635,18 @@ protected ReadAdaptor getReadAdaptor() {
 				return getEAnnotations();
 			case JavaRefPackage.FIELD__NAME:
 				return getName();
+			case JavaRefPackage.FIELD__ORDERED:
+				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.FIELD__UNIQUE:
+				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.FIELD__LOWER_BOUND:
+				return new Integer(getLowerBound());
+			case JavaRefPackage.FIELD__UPPER_BOUND:
+				return new Integer(getUpperBound());
+			case JavaRefPackage.FIELD__MANY:
+				return isMany() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.FIELD__REQUIRED:
+				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__ETYPE:
 				if (resolve) return getEType();
 				return basicGetEType();
@@ -619,22 +656,14 @@ protected ReadAdaptor getReadAdaptor() {
 				return isVolatile() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__TRANSIENT:
 				return isTransient() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__UNIQUE:
-				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__DEFAULT_VALUE_LITERAL:
 				return getDefaultValueLiteral();
 			case JavaRefPackage.FIELD__DEFAULT_VALUE:
 				return getDefaultValue();
-			case JavaRefPackage.FIELD__LOWER_BOUND:
-				return new Integer(getLowerBound());
-			case JavaRefPackage.FIELD__UPPER_BOUND:
-				return new Integer(getUpperBound());
-			case JavaRefPackage.FIELD__MANY:
-				return isMany() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.FIELD__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__UNSETTABLE:
 				return isUnsettable() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.FIELD__DERIVED:
+				return isDerived() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__ECONTAINING_CLASS:
 				return getEContainingClass();
 			case JavaRefPackage.FIELD__ID:

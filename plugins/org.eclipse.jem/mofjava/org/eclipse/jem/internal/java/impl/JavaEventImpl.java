@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaEventImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:35 $ 
  */
 import java.util.Collection;
 
@@ -19,6 +19,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -67,6 +68,10 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
 					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
+				case JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS:
+					if (eContainer != null)
+						msgs = eBasicRemoveFromContainer(msgs);
+					return eBasicSetContainer(otherEnd, JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -87,11 +92,30 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
 					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
+				case JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS:
+					return eBasicSetContainer(null, JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
 		return eBasicSetContainer(null, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
+		if (eContainerFeatureID >= 0) {
+			switch (eContainerFeatureID) {
+				case JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS:
+					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.ECLASS__ESTRUCTURAL_FEATURES, EClass.class, msgs);
+				default:
+					return eDynamicBasicRemoveFromContainer(msgs);
+			}
+		}
+		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -106,6 +130,18 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 				return getEAnnotations();
 			case JavaRefPackage.JAVA_EVENT__NAME:
 				return getName();
+			case JavaRefPackage.JAVA_EVENT__ORDERED:
+				return isOrdered() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_EVENT__UNIQUE:
+				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
+				return new Integer(getLowerBound());
+			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
+				return new Integer(getUpperBound());
+			case JavaRefPackage.JAVA_EVENT__MANY:
+				return isMany() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_EVENT__REQUIRED:
+				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.JAVA_EVENT__ETYPE:
 				if (resolve) return getEType();
 				return basicGetEType();
@@ -115,22 +151,14 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 				return isVolatile() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.JAVA_EVENT__TRANSIENT:
 				return isTransient() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_EVENT__UNIQUE:
-				return isUnique() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL:
 				return getDefaultValueLiteral();
 			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE:
 				return getDefaultValue();
-			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
-				return new Integer(getLowerBound());
-			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
-				return new Integer(getUpperBound());
-			case JavaRefPackage.JAVA_EVENT__MANY:
-				return isMany() ? Boolean.TRUE : Boolean.FALSE;
-			case JavaRefPackage.JAVA_EVENT__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.JAVA_EVENT__UNSETTABLE:
 				return isUnsettable() ? Boolean.TRUE : Boolean.FALSE;
+			case JavaRefPackage.JAVA_EVENT__DERIVED:
+				return isDerived() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS:
 				return getEContainingClass();
 		}
@@ -152,6 +180,18 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 			case JavaRefPackage.JAVA_EVENT__NAME:
 				setName((String)newValue);
 				return;
+			case JavaRefPackage.JAVA_EVENT__ORDERED:
+				setOrdered(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_EVENT__UNIQUE:
+				setUnique(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
+				setLowerBound(((Integer)newValue).intValue());
+				return;
+			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
+				setUpperBound(((Integer)newValue).intValue());
+				return;
 			case JavaRefPackage.JAVA_EVENT__ETYPE:
 				setEType((EClassifier)newValue);
 				return;
@@ -164,20 +204,14 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 			case JavaRefPackage.JAVA_EVENT__TRANSIENT:
 				setTransient(((Boolean)newValue).booleanValue());
 				return;
-			case JavaRefPackage.JAVA_EVENT__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
-				return;
 			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL:
 				setDefaultValueLiteral((String)newValue);
 				return;
-			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
-				return;
-			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
-				return;
 			case JavaRefPackage.JAVA_EVENT__UNSETTABLE:
 				setUnsettable(((Boolean)newValue).booleanValue());
+				return;
+			case JavaRefPackage.JAVA_EVENT__DERIVED:
+				setDerived(((Boolean)newValue).booleanValue());
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -197,6 +231,18 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 			case JavaRefPackage.JAVA_EVENT__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case JavaRefPackage.JAVA_EVENT__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_EVENT__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
+				setLowerBound(LOWER_BOUND_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
+				setUpperBound(UPPER_BOUND_EDEFAULT);
+				return;
 			case JavaRefPackage.JAVA_EVENT__ETYPE:
 				setEType((EClassifier)null);
 				return;
@@ -209,20 +255,14 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 			case JavaRefPackage.JAVA_EVENT__TRANSIENT:
 				setTransient(TRANSIENT_EDEFAULT);
 				return;
-			case JavaRefPackage.JAVA_EVENT__UNIQUE:
-				setUnique(UNIQUE_EDEFAULT);
-				return;
 			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL:
 				setDefaultValueLiteral(DEFAULT_VALUE_LITERAL_EDEFAULT);
 				return;
-			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
-				setLowerBound(LOWER_BOUND_EDEFAULT);
-				return;
-			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
-				setUpperBound(UPPER_BOUND_EDEFAULT);
-				return;
 			case JavaRefPackage.JAVA_EVENT__UNSETTABLE:
 				setUnsettable(UNSETTABLE_EDEFAULT);
+				return;
+			case JavaRefPackage.JAVA_EVENT__DERIVED:
+				setDerived(DERIVED_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -240,20 +280,10 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 				return eAnnotations != null && !eAnnotations.isEmpty();
 			case JavaRefPackage.JAVA_EVENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaRefPackage.JAVA_EVENT__ETYPE:
-				return eType != null;
-			case JavaRefPackage.JAVA_EVENT__CHANGEABLE:
-				return changeable != CHANGEABLE_EDEFAULT;
-			case JavaRefPackage.JAVA_EVENT__VOLATILE:
-				return volatile_ != VOLATILE_EDEFAULT;
-			case JavaRefPackage.JAVA_EVENT__TRANSIENT:
-				return transient_ != TRANSIENT_EDEFAULT;
+			case JavaRefPackage.JAVA_EVENT__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__UNIQUE:
 				return unique != UNIQUE_EDEFAULT;
-			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL:
-				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
-			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE:
-				return getDefaultValue() != null;
 			case JavaRefPackage.JAVA_EVENT__LOWER_BOUND:
 				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__UPPER_BOUND:
@@ -262,8 +292,22 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 				return isMany() != false;
 			case JavaRefPackage.JAVA_EVENT__REQUIRED:
 				return isRequired() != false;
+			case JavaRefPackage.JAVA_EVENT__ETYPE:
+				return eType != null;
+			case JavaRefPackage.JAVA_EVENT__CHANGEABLE:
+				return changeable != CHANGEABLE_EDEFAULT;
+			case JavaRefPackage.JAVA_EVENT__VOLATILE:
+				return volatile_ != VOLATILE_EDEFAULT;
+			case JavaRefPackage.JAVA_EVENT__TRANSIENT:
+				return transient_ != TRANSIENT_EDEFAULT;
+			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE_LITERAL:
+				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
+			case JavaRefPackage.JAVA_EVENT__DEFAULT_VALUE:
+				return getDefaultValue() != null;
 			case JavaRefPackage.JAVA_EVENT__UNSETTABLE:
 				return unsettable != UNSETTABLE_EDEFAULT;
+			case JavaRefPackage.JAVA_EVENT__DERIVED:
+				return derived != DERIVED_EDEFAULT;
 			case JavaRefPackage.JAVA_EVENT__ECONTAINING_CLASS:
 				return getEContainingClass() != null;
 		}

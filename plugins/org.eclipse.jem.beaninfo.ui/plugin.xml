@@ -2,7 +2,7 @@
 <plugin
    id="org.eclipse.jem.beaninfo.ui"
    name="%pluginName"
-   version="0.5.0"
+   version="1.0.0"
    provider-name="%providerName"
    class="org.eclipse.jem.internal.beaninfo.ui.BeaninfoUIPlugin">
 
@@ -19,6 +19,7 @@
       <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.jem"/>
    </requires>
 
 
@@ -49,10 +50,10 @@
          point="org.eclipse.ui.editors">
       <editor
             name="%Editors.OverrideEditor"
-            icon="icons/full/obj16/file_obj.gif"
             extensions="override"
-            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            icon="icons/full/obj16/file_obj.gif"
             class="org.eclipse.ui.editors.text.TextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             id="org.eclipse.jem.beaninfo.OverrideEditor">
       </editor>
    </extension>

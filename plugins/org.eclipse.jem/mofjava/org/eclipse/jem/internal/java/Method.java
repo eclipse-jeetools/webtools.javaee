@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.java;
  *******************************************************************************/
 /*
  *  $RCSfile: Method.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.1.4.1 $  $Date: 2003/12/16 19:29:34 $ 
  */
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EOperation;
@@ -213,6 +213,9 @@ public interface Method extends EOperation{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Set the return type
+	 * <!-- end-model-doc -->
 	 * @model parameters="org.eclipse.jem.internal.java.JTypeJavaHelpers"
 	 * @generated
 	 */
@@ -253,6 +256,9 @@ public interface Method extends EOperation{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Set the isGenerated flag.
+	 * <!-- end-model-doc -->
 	 * @model 
 	 * @generated
 	 */

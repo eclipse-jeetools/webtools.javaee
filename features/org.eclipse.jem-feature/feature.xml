@@ -2,16 +2,12 @@
 <feature
       id="org.eclipse.jem"
       label="%featureName"
-      version="0.5.0"
+      version="1.0.0"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
-   <description>
-      %description
-   </description>
-
    <license url="%licenseURL">
-      %license
+      
    </license>
 
    <url>
@@ -19,56 +15,62 @@
    </url>
 
    <requires>
-      <import feature="org.eclipse.jdt" version="2.1.1" match="compatible"/>
-      <import feature="org.eclipse.emf" version="1.1.1" match="compatible"/>
+      <import feature="org.eclipse.jdt" version="3.0.0" match="compatible"/>
+      <import feature="org.eclipse.emf" version="2.0.0" match="compatible"/>
    </requires>
 
    <plugin
          id="org.eclipse.jem.beaninfo"
          download-size="0"
          install-size="0"
-         version="0.5.0"/>
+         version="1.0.0"/>
 
    <plugin
          id="org.eclipse.jem.beaninfo.ui"
          download-size="0"
          install-size="0"
-         version="0.5.0"/>
+         version="1.0.0"/>
 
    <plugin
          id="org.eclipse.jem.proxy"
          download-size="0"
          install-size="0"
-         version="0.5.0"/>
+         version="1.0.0"/>
 
    <plugin
          id="org.eclipse.jem"
          download-size="0"
          install-size="0"
-         version="0.5.0"/>
+         version="1.0.0"/>
 
    <plugin
          id="org.eclipse.jem.workbench"
          download-size="0"
          install-size="0"
-         version="0.5.0"/>
+         version="1.0.0"/>
 
    <plugin
          id="com.ibm.etools.emf.ecore.utilities"
          download-size="0"
          install-size="0"
-         version="5.1.1"/>
+         version="0.5.0"/>
 
    <plugin
          id="com.ibm.etools.emf.event"
          download-size="0"
          install-size="0"
-         version="2.0.0.1"/>
+         version="3.0.0.1"/>
 
    <plugin
          id="com.ibm.etools.emf.workbench"
          download-size="0"
          install-size="0"
-         version="5.1.1.1"/>
+         version="0.5.0"/>
+         
+   <plugin
+         id="org.eclipse.wtp.common"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"/>         
 
 </feature>
