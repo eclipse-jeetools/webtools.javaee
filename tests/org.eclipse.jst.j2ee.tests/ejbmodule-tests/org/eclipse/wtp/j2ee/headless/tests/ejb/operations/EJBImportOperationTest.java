@@ -28,13 +28,17 @@ public class EJBImportOperationTest extends ModuleImportOperationTestCase {
 	public EJBImportOperationTest(String name) {
 		super(name);
 	}  	 
-	
-	public void testAutoworld() throws Exception {
-		testImport("Autoworld", "auto.jar");
-	}
 
-	public void testMinibank() throws Exception { 
-		testImport("Minibank", "MinibankEJB.jar"); 
+	public void testEJB20Import() throws Exception { 
+		testImport("Test13EJB", "Test13EJB.jar"); 
+	} 
+	
+	public void testEJB20Import1() throws Exception { 
+		testImport("allBeanTypes", "allBeanTypes.jar"); 
+	} 
+	
+	public void testEJB21Import() throws Exception { 
+		testImport("Test14EJB", "Test14EJB.jar"); 
 	} 
 	
 	/* (non-Javadoc)

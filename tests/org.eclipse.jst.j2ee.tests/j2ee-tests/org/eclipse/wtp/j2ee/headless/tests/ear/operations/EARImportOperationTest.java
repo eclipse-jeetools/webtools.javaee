@@ -61,7 +61,7 @@ public class EARImportOperationTest extends OperationTestCase {
     public void testEARImportRootLocation() throws Exception {
     	EnterpriseApplicationImportDataModel importModel = null;
         String projectName = "AuctionEAR";
-        String earName = getFullTestDataPath("TestData" + fileSep + "Auction" + fileSep + "Auction.ear");
+        String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test14EJBEAR.ear");
         try {
             importModel = new EnterpriseApplicationImportDataModel();
             importModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, projectName);

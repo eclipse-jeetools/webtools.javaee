@@ -46,15 +46,16 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         }
         if (dataModel.getBooleanProperty(EJBModuleCreationDataModel.ADD_TO_EAR)) {
             IProject earProject = dataModel.getTargetProject();
-            EAREditModel ear = null;
+            EAREditModel earEditModel = null;
             try {
                 Assert.assertTrue("EAR doesn't exist:", earProject.exists());
                 EARNatureRuntime runtime = EARNatureRuntime.getRuntime(earProject);
-                //ear = (EAREditModel) emfWorkbenchContext.getEditModelForRead(IEARNatureConstants.EDIT_MODEL_ID, key);
-                ear.getModuleMapping(dataModel.getTargetProject());
+                earEditModel = (EAREditModel) runtime.getEarEditModelForRead(key);
+                earEditModel.getModuleMapping(dataModel.getTargetProject());
                 //TODO
             } finally {
-                ear.releaseAccess(key);
+            if(earEditModel != null)
+            	earEditModel.releaseAccess(key);
             }
         }
     }

@@ -51,23 +51,23 @@ public class EARExportOperationTest extends OperationTestCase {
         runAndVerify(model);
     }
 
-    public void testEARExport() throws Exception {
-        String projectName = "AuctionEAR";
-        String earName = "TestData" + fileSep + "Auction" + fileSep + "Auction.ear";
+    public void testEAR12Export() throws Exception {
+        String projectName = "Test12WEBEJBEAR";
+        String earName = "TestData" + fileSep + "EARImportTests" + fileSep + "Test12WEBEJBEAR.ear";
         EARImportOperationTest.load(projectName, earName);
-        exportEARProject("AuctionEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("ExpAuctionWithoutSource.ear"), false);
+        exportEARProject("Test12WEBEJBEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("ExpAuctionWithoutSource.ear"), false);
     }
     public void testEARExportWithMetaData() throws Exception {
-        String projectName = "UtilityJarTestEAR";
-        String earName = "TestData" + fileSep + "ExportTests" + fileSep + "UtilityJarTestEAR.ear";
+        String projectName = "Test14WEBEJBEARWithMetaData.ear";
+        String earName = "TestData" + fileSep + "EARImportTests" + fileSep + "Test14WEBEJBEARWithMetaData.ear";
         EARImportOperationTest.load(projectName, earName);
-        exportEARProject("UtilityJarTestEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("UtilityJarTestEARWithMetaData.ear"), true);
+        exportEARProject("UtilityJarTestEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("Test14WEBEJBEARWithMetaData.ear"), true);
     }
     public void testEARExportWithSource() throws Exception {
-        String projectName = "AuctionEAR";
-        String earName = "TestData" + fileSep + "Auction" + fileSep + "Auction.ear";
+        String projectName = "Test14WEBEJBEAR";
+        String earName = "TestData" + fileSep + "Auction" + fileSep + "Test14WEBEJBEAR.ear";
         EARImportOperationTest.load(projectName, earName);
-        exportEARProject("AuctionEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("ExpAuctionWithSource.ear"), true);
+        exportEARProject("Test14WEBEJBEAR", J2EEPlugin.getWorkspace().getRoot().getLocation().append("Test14WEBEJBEAR.ear"), true);
     }
 
 }
