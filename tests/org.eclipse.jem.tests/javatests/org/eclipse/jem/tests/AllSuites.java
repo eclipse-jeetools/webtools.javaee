@@ -11,10 +11,11 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: AllSuites.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/09 22:47:00 $ 
  */
 import org.eclipse.jem.tests.beaninfo.BeanInfoSuite;
 import org.eclipse.jem.tests.instantiation.InstantiationSuite;
+import org.eclipse.jem.tests.modelListeners.ListenersSuite;
 import org.eclipse.jem.tests.proxy.ide.IDEProxySuite;
 import org.eclipse.jem.tests.proxy.initParser.InitParserSuite;
 import org.eclipse.jem.tests.proxy.remote.RemoteProxySuite;
@@ -30,6 +31,7 @@ public class AllSuites extends TestSuite {
 		IDEProxySuite.class,
 		BeanInfoSuite.class,
 		InstantiationSuite.class,
+		ListenersSuite.class,
 		                                 } ;
 	public static String pkgName = "Java EMF Model jUnit Test Suite" ;
     
