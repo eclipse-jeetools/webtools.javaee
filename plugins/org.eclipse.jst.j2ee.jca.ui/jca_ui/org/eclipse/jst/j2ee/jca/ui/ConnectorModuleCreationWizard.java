@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationOp
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectCreationPage;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleCreationPage;
 import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
 import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
 import org.eclipse.ui.INewWizard;
@@ -107,11 +107,11 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Adds a {@link JCAProjectCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG}.
+	 * Adds a {@link ConnectorModuleCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG}.
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new JCAProjectCreationPage(getSpecificDataModel(), MAIN_PG));
+		addPage(new ConnectorModuleCreationPage(getSpecificDataModel(), MAIN_PG));
 		super.doAddPages();
 	}
 

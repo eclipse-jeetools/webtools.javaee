@@ -8,35 +8,25 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Nov 7, 2003
- *
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
-
-/**
- * @author jsholl
- * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
-public class JCAProjectCreationPage extends J2EEModuleCreationPage {
+public class ConnectorModuleCreationPage extends J2EEModuleCreationPage {
 
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	public JCAProjectCreationPage(ConnectorComponentCreationDataModel model, String pageName) {
+	public ConnectorModuleCreationPage(ConnectorComponentCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_TITLE));
 		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_DESC));
@@ -45,6 +35,10 @@ public class JCAProjectCreationPage extends J2EEModuleCreationPage {
 
 	protected String getVersionLabel() {
 		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_VERSION_LBL);
+	}
+	//TODO: utility to handle additions
+	protected String[] getValidationPropertyNames() {
+		return new String[]{J2EECreationDataModel.PROJECT_NAME, J2EECreationDataModel.MODULE_NAME, J2EECreationDataModel.J2EE_MODULE_VERSION, WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEComponentCreationDataModel.ADD_TO_EAR};
 	}
 
 	/**

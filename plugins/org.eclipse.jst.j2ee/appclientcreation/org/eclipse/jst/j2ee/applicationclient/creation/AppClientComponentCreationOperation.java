@@ -12,17 +12,15 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
@@ -39,14 +37,9 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
         
         AppClientArtifactEdit artifactEdit = null;
         try {
-            WorkbenchComponent wbModule = getWorkbenchModule();
-            artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbModule);
-            IProject rootProject = getDataModel().getTargetProject();
-            URI metainfURI = URI.createURI(rootProject.getName() + IPath.SEPARATOR + getModuleName() + ".jar");
-            IPath absMetaRoot = JavaProjectUtilities.getJavaProjectOutputAbsoluteLocation(rootProject).append(metainfURI.toString());
-            createFolder(absMetaRoot);
 
-            artifactEdit.getDeploymentDescriptorRoot();
+            //TODO: create dd
+            
             AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel) operationDataModel;
             if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
                 NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
@@ -67,10 +60,23 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
      * 
      */
     protected void createProjectStructure() throws CoreException {
-        IProject rootProject = getProject();
-        URI metainfURI = URI.createURI(IPath.SEPARATOR + getModuleName() + ".jar" + IPath.SEPARATOR + "appClientModule" + IPath.SEPARATOR + "META-INF");
-        IPath absMetaRoot = rootProject.getLocation().append(metainfURI.toString());
-        createFolder(absMetaRoot);
+		IFolder moduleFolder = getProject().getFolder(  getModuleName() );
+		if (!moduleFolder.exists()) {
+			moduleFolder.create(true, true, null);
+		}
+		IFolder ejbModuleFolder = moduleFolder.getFolder( "appClientModule" );
+		if (!ejbModuleFolder.exists()) {
+			ejbModuleFolder.create(true, true, null);
+		}
+		
+		IFolder metainf = ejbModuleFolder.getFolder(J2EEConstants.META_INF);
+		if (!metainf.exists()) {
+			IFolder parent = metainf.getParent().getFolder(null);
+			if (!parent.exists()) {
+				parent.create(true, true, null);
+			}
+			metainf.create(true, true, null);
+		}
     }
 
 
@@ -100,7 +106,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
      * @return
      */
     public String getJavaSourceSourcePath() {
-        return "/appClientModule"; //$NON-NLS-1$
+        return "/" +getModuleName()+ "/appClientModule"; //$NON-NLS-1$
     }
 
     /**
@@ -114,7 +120,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
      * @return
      */
     public String getContentSourcePath() {
-        return "/appClientModule/META-INF"; //$NON-NLS-1$
+        return "/" +getModuleName()+ "/appClientModule/META-INF"; //$NON-NLS-1$
     }
 
     /**

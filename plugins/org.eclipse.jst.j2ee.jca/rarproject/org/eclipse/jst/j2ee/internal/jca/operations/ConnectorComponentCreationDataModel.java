@@ -19,12 +19,6 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-/**
- * @author dfholt
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
     /* (non-Javadoc)

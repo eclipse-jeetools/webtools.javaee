@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -19,6 +20,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
@@ -32,10 +34,23 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
 
 
     protected void createProjectStructure() throws CoreException {
-        IProject rootProject = getProject();
-        URI metainfURI = URI.createURI(IPath.SEPARATOR + getModuleName() + ".rar" + IPath.SEPARATOR + "connectorModule" + IPath.SEPARATOR + "META-INF");
-        IPath absMetaRoot = rootProject.getLocation().append(metainfURI.toString());
-        createFolder(absMetaRoot);
+		IFolder moduleFolder = getProject().getFolder(  getModuleName() );
+		if (!moduleFolder.exists()) {
+			moduleFolder.create(true, true, null);
+		}
+		IFolder ejbModuleFolder = moduleFolder.getFolder( "connectorModule" );
+		if (!ejbModuleFolder.exists()) {
+			ejbModuleFolder.create(true, true, null);
+		}
+		
+		IFolder metainf = ejbModuleFolder.getFolder(J2EEConstants.META_INF);
+		if (!metainf.exists()) {
+			IFolder parent = metainf.getParent().getFolder(null);
+			if (!parent.exists()) {
+				parent.create(true, true, null);
+			}
+			metainf.create(true, true, null);
+		}
     }
     
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -92,7 +107,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
     }
 
     public String getJavaSourceSourcePath() {
-        return "/connectorModule"; //$NON-NLS-1$
+        return "/" +getModuleName() +  "/connectorModule"; //$NON-NLS-1$
     }
 
     public String getJavaSourceDeployPath() {
@@ -100,7 +115,7 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
     }
 
     public String getContentSourcePath() {
-        return "/connectorModule/META-INF"; //$NON-NLS-1$
+        return "/" +getModuleName() + "/connectorModule/META-INF"; //$NON-NLS-1$
     }
 
     public String getContentDeployPath() {
