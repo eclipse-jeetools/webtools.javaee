@@ -12,19 +12,19 @@ import java.util.List;
 
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportFactory;
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportRegistry;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarImportOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
-public class EJBJarImportDataModel extends J2EEModuleImportDataModel {
+public final class EJBJarImportDataModel extends J2EEModuleImportDataModel {
 
-	protected J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel() {
-		EJBProjectCreationDataModel m = new EJBProjectCreationDataModel();
-		m.setProperty(EJBProjectCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
+	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
+		EJBModuleCreationDataModel m = new EJBModuleCreationDataModel();
+		m.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
 		return m;
 	}
 
@@ -35,19 +35,19 @@ public class EJBJarImportDataModel extends J2EEModuleImportDataModel {
 	protected boolean openArchive(String uri) throws OpenFailureException {
 		OpenFailureException cachedException = null;
 		try {
-			moduleFile = CommonarchiveFactory.eINSTANCE.openEJBJarFile(getArchiveOptions(), uri);
+			setArchiveFile(CommonarchiveFactory.eINSTANCE.openEJBJarFile(getArchiveOptions(), uri));
 		} catch (OpenFailureException e) {
 			cachedException = e;
 		}
-		if (moduleFile == null) {
+		if (getArchiveFile() == null) {
 			List extendedFactories = ExtendedImportRegistry.getInstance().getFactories(ExtendedImportRegistry.EJB_TYPE);
-			for (int i = 0; null == moduleFile && i < extendedFactories.size(); i++) {
+			for (int i = 0; null == getArchiveFile() && i < extendedFactories.size(); i++) {
 				ExtendedImportFactory factory = (ExtendedImportFactory) extendedFactories.get(i);
-				moduleFile = factory.openArchive(getArchiveOptions(), uri);
+				setArchiveFile(factory.openArchive(getArchiveOptions(), uri));
 				setProperty(EJBJarImportDataModel.EXTENDED_IMPORT_FACTORY, factory);
 			}
 		}
-		if (moduleFile == null) {
+		if (getArchiveFile() == null) {
 			if (cachedException != null) {
 				throw cachedException;
 			}

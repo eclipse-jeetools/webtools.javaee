@@ -30,8 +30,8 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBJarImportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
@@ -138,7 +138,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
 	 */
 	public J2EEModuleCreationOperation createProjectCreationOperation(J2EEModuleCreationDataModel dataModel) {
-		return new EJBProjectCreationOperation((EJBProjectCreationDataModel) dataModel);
+		return new EJBModuleCreationOperation((EJBModuleCreationDataModel) dataModel);
 	}
 
 	/*
@@ -147,15 +147,15 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
 	public J2EEModuleCreationDataModel createProjectDataModel() {
-		EJBProjectCreationDataModel model = new EJBProjectCreationDataModel();
+		EJBModuleCreationDataModel model = new EJBModuleCreationDataModel();
 
 		//Added this property so Application Creation Wizard, will not create a
 		//EJB client jar, when a EJB module is created.
-		model.setProperty(EJBProjectCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
+		model.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
 
 		//Override the default to not create a default session bean.
 		//This is necessary when creating a default EJB project from an EAR project wizard.
-		model.setProperty(EJBProjectCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, Boolean.FALSE);
+		model.setProperty(EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, Boolean.FALSE);
 		return model;
 	}
 
@@ -185,7 +185,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	public J2EEModuleCreationOperation createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == ImportOption.EJB_CLIENT) {
 			J2EEModuleCreationDataModel model = (J2EEModuleCreationDataModel) option.getModel();
-			model.setProperty(EJBProjectCreationDataModel.CREATE_CLIENT, Boolean.TRUE);
+			model.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.TRUE);
 			return createProjectCreationOperation(model);
 		}
 		return super.createProjectCreationOperation(option);

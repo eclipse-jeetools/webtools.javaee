@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBCodegenHandlerExtens
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.IEJBCodegenHandler;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.emf.utilities.EtoolsCopyUtility;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
@@ -242,7 +242,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	protected void executeCodegenCommandIfNecessary() {
 		if (!J2EEPlugin.hasDevelopmentRole()) {
 			// Check if this is the Default Session Command
-			if (!((this instanceof CreateSessionCommand) && ((CreateSessionCommand) this).getName().equals(EJBProjectCreationOperation.DEFAULT_SESSION_BEAN_NAME)))
+			if (!((this instanceof CreateSessionCommand) && ((CreateSessionCommand) this).getName().equals(EJBModuleCreationOperation.DEFAULT_SESSION_BEAN_NAME)))
 				return;
 		}
 		checkCancelled();
