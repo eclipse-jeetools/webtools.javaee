@@ -22,7 +22,9 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
@@ -144,7 +146,6 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 
 		if (propertyName.equals(EAR_MODULE_NAME)) {
 			earComponentHandle = computeEARHandle((String)propertyValue);
-			setEARDeployNameProperty(propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
 			if (!isSet(EAR_MODULE_NAME)) 
 				notifyDefaultChange(EAR_MODULE_NAME);
@@ -162,20 +163,23 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		return returnValue;
 	}
 
-	private URI computeEARHandle(String earDeployName){
-		 ModuleCore mc = null;
-		 try {
-			IProject flexProject = getProject();
-			if(flexProject != null) { 
-				mc = ModuleCore.getModuleCoreForRead(getProject());
-				WorkbenchComponent wc = mc.findWorkbenchModuleByDeployName(earDeployName);
-				return wc.getHandle();
-			}	
-			
-		 }finally {
-			if(mc != null)
-				mc.dispose();			
-		 }
+	private URI computeEARHandle(String earHandle){
+		URI uri = URI.createURI(earHandle);
+		
+		if( uri != null ){
+			boolean isValidURI = false;
+			try {
+				isValidURI = ModuleURIUtil.ensureValidFullyQualifiedModuleURI(uri);
+				String deployeName = ModuleURIUtil.getDeployedName(uri);
+				setEARDeployNameProperty(deployeName);
+			}
+			catch (UnresolveableURIException e) {
+			}
+			if(isValidURI){
+				earComponentHandle = uri;
+				return earComponentHandle;
+			}
+		}
 		return null;		
 	}
 	
@@ -218,43 +222,64 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		}
 		if (propertyName.equals(EAR_MODULE_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
-		 ModuleCore mc = null;
-		 try {
-			IProject flexProject = getProject();
-			if(flexProject != null) { 
-			mc = ModuleCore.getModuleCoreForRead(getProject());
-			WorkbenchComponent[] components = mc.getWorkbenchModules();
-			ArrayList earModuleList = new ArrayList();
-			int earVersion = 0;
-			for (int i = 0; i < components.length; i++) {
-				EARArtifactEdit earArtifactEdit = null;
-				try {
-					WorkbenchComponent wc = (WorkbenchComponent)components[i];
-					if(wc.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {  
-						earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(wc);
-					    if(j2eeVersion <= earArtifactEdit.getJ2EEVersion())
-						   earModuleList.add(wc.getName());
-						}
-					} finally {
-						if(earArtifactEdit != null)
-							earArtifactEdit.dispose();
-					}
-				   
-			   }
-			WTPPropertyDescriptor[] descriptors = new WTPPropertyDescriptor[earModuleList.size()];
-			for (int i = 0; i < descriptors.length; i++) {
-				descriptors[i] = new WTPPropertyDescriptor(earModuleList.get(i));
-			}
-			return descriptors;
-		   }
-		 } finally {
-			 if(mc != null)
-				 mc.dispose();
-		 }
-	  }
+			return getEARPropertyDescriptor(j2eeVersion);			
+		}	
 	  return super.doGetValidPropertyDescriptors(propertyName);
 	}
 	
+	
+	 private WTPPropertyDescriptor[] getEARPropertyDescriptor(int j2eeVersion){
+	 	
+		 ModuleCore mc = null;
+		 ArrayList earDescriptorList = new ArrayList();
+		 
+		 IProject[] projs = ProjectUtilities.getAllProjects();
+		 
+		 for( int index=0; index< projs.length; index++){
+		 	IProject  flexProject = projs[index];
+			 try {
+				if(flexProject != null) { 
+					mc = ModuleCore.getModuleCoreForRead(flexProject);
+					if( mc != null ){
+						WorkbenchComponent[] components = mc.getWorkbenchModules();
+		
+						int earVersion = 0;
+						for (int i = 0; i < components.length; i++) {
+							EARArtifactEdit earArtifactEdit = null;
+							try {
+								WorkbenchComponent wc = (WorkbenchComponent)components[i];
+								if(wc.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {  
+									earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(wc);
+								    if(j2eeVersion <= earArtifactEdit.getJ2EEVersion()){
+								    	WTPPropertyDescriptor desc = new WTPPropertyDescriptor(wc.getHandle().toString(), wc.getName());
+								    	earDescriptorList.add(desc);
+								    }
+								}
+							} finally {
+									if(earArtifactEdit != null)
+										earArtifactEdit.dispose();
+							}
+							   
+						}
+					}
+				}
+			 } finally {
+				 if(mc != null)
+					 mc.dispose();
+			 }
+		 }
+		WTPPropertyDescriptor[] descriptors = new WTPPropertyDescriptor[earDescriptorList.size()];
+		for (int i = 0; i < descriptors.length; i++) {
+			WTPPropertyDescriptor desc = (WTPPropertyDescriptor)earDescriptorList.get(i);
+			descriptors[i] = new WTPPropertyDescriptor(desc.getPropertyValue(), desc.getPropertyDescription() );
+		}
+		return descriptors;		 
+		 
+	  }	 	
+	 	
+	
+		
+		
 	public IProject getProject() {
 		String projName = getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME );
 		if(projName != null && projName.length() > 0)

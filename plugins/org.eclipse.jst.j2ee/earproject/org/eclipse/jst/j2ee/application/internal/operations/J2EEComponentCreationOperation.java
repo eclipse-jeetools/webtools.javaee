@@ -44,6 +44,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperation;
 import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
 
@@ -152,22 +153,45 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 			earModel.setProperty(EARComponentCreationDataModel.COMPONENT_NAME, moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
 			earModel.setProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME, moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));			
 			earModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, moduleModel.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
-			if (!doesEARComponentExist(moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME))) {
+			if (!doesEARComponentExist()) {
 				EARComponentCreationOperation earOp = new EARComponentCreationOperation(earModel);
 				earOp.doRun(monitor);
 				moduleModel.setEarComponentHandle( earOp.getComponentHandle() );
 			}
 		}
 	
-		public  boolean doesEARComponentExist(String earComponentName) {
-			ModuleCore moduleCore = null;
-			try{
-				moduleCore = ModuleCore.getModuleCoreForRead(getProject());
-				return (moduleCore.findWorkbenchModuleByDeployName(earComponentName) != null);
-			} finally {
-				if(moduleCore != null)
-					moduleCore.dispose();
+		public  boolean doesEARComponentExist() {
+			J2EEComponentCreationDataModel model = (J2EEComponentCreationDataModel)operationDataModel;
+			URI uri = model.getEarComponentHandle();
+			
+			boolean isValidURI = false;
+			try {
+				if( uri != null )
+					isValidURI = ModuleURIUtil.ensureValidFullyQualifiedModuleURI(uri);
+			}catch (UnresolveableURIException e) {
+
 			}
+			if( isValidURI ){
+				IProject proj = null;
+				try {
+					proj = ModuleCore.getContainingProject(uri);
+					
+					ModuleCore moduleCore = null;
+					try{
+						moduleCore = ModuleCore.getModuleCoreForRead(proj);
+						if((moduleCore.findWorkbenchModuleByModuleURI(uri)) != null ){
+							return true;
+						}
+					} finally {
+						if(moduleCore != null)
+							moduleCore.dispose();
+					}				
+				}
+				catch (UnresolveableURIException e) {
+					Logger.getLogger().log(e);
+				}
+			}
+			return false;			
 		}
 		
 		public IProject getProject() {
