@@ -11,14 +11,16 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jst.j2ee.application.internal.operations.AddArchiveProjectsToEARDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectsToEARDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -29,8 +31,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 
 /**
  * @author jialin
@@ -87,7 +88,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		gData.widthHint = 200;
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
-		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION);
+		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.J2EE_MODULE_VERSION);
 		AvailableJ2EEComponentsContentProvider provider = new AvailableJ2EEComponentsContentProvider(j2eeVersion);
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
@@ -156,7 +157,6 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		gd.heightHint = 22;
 		gd.widthHint = 120;
 		newModuleButton.setLayoutData(gd);
-		newModuleButton.setEnabled(false);
 	}
 
 	/**
@@ -177,27 +177,27 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 	 *  
 	 */
 	private void handleNewModuleButtonPressed() {
-//		DefaultModuleProjectCreationDataModel aModel = createNewModuleModel();
-//		DefaultModuleProjectCreationWizard wizard = new DefaultModuleProjectCreationWizard(aModel);
-//		WizardDialog dialog = new WizardDialog(getShell(), wizard);
-//		dialog.create();
-//		if (dialog.open() != IDialogConstants.CANCEL_ID) {
-//			setNewModules(aModel);
+		DefaultJ2EEComponentCreationDataModel aModel = createNewModuleModel();
+		DefaultJ2EEComponentCreationWizard wizard = new DefaultJ2EEComponentCreationWizard(aModel);
+		WizardDialog dialog = new WizardDialog(getShell(), wizard);
+		dialog.create();
+		if (dialog.open() != IDialogConstants.CANCEL_ID) {
+			setNewModules(aModel);
 //			refreshModules();
-//		}
+		}
 //		validatePage();
 	}
 
 	/**
 	 * @param model
 	 */
-	private void setNewModules(DefaultModuleProjectCreationDataModel defaultModel) {
-		List newProjects = new ArrayList();
+	private void setNewModules(DefaultJ2EEComponentCreationDataModel defaultModel) {
+		List newModules = new ArrayList();
 //		collectNewProjects(defaultModel, newProjects);
-		AddArchiveProjectsToEARDataModel modModel = ((EnterpriseApplicationCreationDataModel) model).getAddModulesToEARDataModel();
-		List selectedProjects = (List) modModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST);
-		newProjects.addAll(selectedProjects);
-		modModel.setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, newProjects);
+//		AddArchiveProjectsToEARDataModel modModel = ((EnterpriseApplicationCreationDataModel) model).getAddModulesToEARDataModel();
+//		List selectedProjects = (List) modModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST);
+//		newProjects.addAll(selectedProjects);
+//		modModel.setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, newProjects);
 	}
 
 	/**
@@ -219,14 +219,17 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 //		}
 //	}
 
-	private DefaultModuleProjectCreationDataModel createNewModuleModel() {
-		DefaultModuleProjectCreationDataModel defaultModel = new DefaultModuleProjectCreationDataModel();
-		String earName = model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME);
-		Object j2eeVersion = model.getProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION);
-//		Object serverTargetID = model.getStringProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID);
-		defaultModel.setProperty(DefaultModuleProjectCreationDataModel.BASE_NAME, earName);
-		defaultModel.setProperty(DefaultModuleProjectCreationDataModel.J2EE_VERSION, j2eeVersion);
-//		defaultModel.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID, serverTargetID);
+	private DefaultJ2EEComponentCreationDataModel createNewModuleModel() {
+		DefaultJ2EEComponentCreationDataModel defaultModel = new DefaultJ2EEComponentCreationDataModel();
+		// transfer properties, project name
+		String projectName = model.getStringProperty(EARComponentCreationDataModel.PROJECT_NAME);
+		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.PROJECT_NAME, projectName);
+		// ear component name
+		String earName = model.getStringProperty(EARComponentCreationDataModel.EAR_MODULE_NAME);
+		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.EAR_COMPONENT_NAME, earName);
+		// ear j2ee version
+		int j2eeVersion = model.getIntProperty(EARComponentCreationDataModel.J2EE_MODULE_VERSION);
+		defaultModel.setProperty(DefaultJ2EEComponentCreationDataModel.J2EE_VERSION, new Integer(j2eeVersion));
 		return defaultModel;
 	}
 
@@ -267,7 +270,8 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#enter()
 	 */
 	protected void enter() {
-		moduleProjectsViewer.setInput(ResourcesPlugin.getWorkspace().getRoot());
+		IWorkspaceRoot input = ResourcesPlugin.getWorkspace().getRoot();
+		moduleProjectsViewer.setInput(input);
 		super.enter();
 	}
 
