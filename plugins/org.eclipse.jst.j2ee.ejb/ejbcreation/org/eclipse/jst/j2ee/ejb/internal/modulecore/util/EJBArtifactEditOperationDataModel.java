@@ -11,8 +11,6 @@
 package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
-import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 public class EJBArtifactEditOperationDataModel extends ArtifactEditOperationDataModel {
@@ -24,7 +22,7 @@ public class EJBArtifactEditOperationDataModel extends ArtifactEditOperationData
         return new EJBArtifactEditOperation(this);
     }
     
-    private ArtifactEdit getArtifactEditForRead(WorkbenchComponent module) {
-        return EJBArtifactEdit.getEJBArtifactEditForRead(module);
+    public EJBArtifactEdit getEJBArtifactEditForRead() {
+        return EJBArtifactEdit.getEJBArtifactEditForRead(getWorkbenchModule());
     }
 }
