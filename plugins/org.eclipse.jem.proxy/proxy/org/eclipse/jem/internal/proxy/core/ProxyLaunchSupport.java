@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.18 $  $Date: 2005/01/10 19:26:48 $ 
+ *  $Revision: 1.19 $  $Date: 2005/01/10 19:43:57 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -30,8 +30,8 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.osgi.framework.Bundle;
 
-import org.eclipse.jem.util.PerformanceMonitorUtil;
 import org.eclipse.jem.util.TimerTests;
+import org.eclipse.jem.util.PerformanceMonitorUtil;
 
  
 /**
@@ -449,7 +449,7 @@ public class ProxyLaunchSupport {
 					}
 
 					public void run() throws Exception {
-						String stepid = "contribute to registry for " + contribs[ii].getClass();
+//						String stepid = "contribute to registry for " + contribs[ii].getClass();
 //						TimerTests.basicTest.startStep(stepid);
 						contribs[ii].contributeToRegistry(reg);
 //						TimerTests.basicTest.stopStep(stepid);
