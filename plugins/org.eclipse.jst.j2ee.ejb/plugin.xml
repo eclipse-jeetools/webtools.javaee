@@ -123,6 +123,9 @@
          <dependentValidator
                depValValue="true">
          </dependentValidator>
+         <markerId
+               markerIdValue="EJBValidatorMarker">
+         </markerId>
          <run
                class="org.eclipse.jst.j2ee.model.internal.validation.EJBValidator">
          </run>
@@ -133,6 +136,32 @@
             </validator>
          </migrate>
       </validator>
+   </extension>
+   <extension
+         id="EJBValidatorMarker"
+         name="%EJB_VALIDATION_PROBLEMMARKER_NAME"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.wst.validation.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+      <attribute
+            name="owner">
+      </attribute>
+      <attribute
+            name="validationSeverity">
+      </attribute>
+      <attribute
+            name="targetObject">
+      </attribute>
+      <attribute
+            name="groupName">
+      </attribute>
+      <attribute
+            name="messageId">
+      </attribute>
    </extension>
 <!-- ==================================================================== -->
 <!-- Purpose: Define adapters for EJB resources                   -->
