@@ -11,7 +11,7 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jst.ejb.ui.EJBModuleCreationWizard;
+import org.eclipse.jst.ejb.ui.EJBComponentCreationWizard;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -37,7 +37,7 @@ public class NewEJBModuleAction extends AbstractOpenWizardWorkbenchAction {
 	}
 
 	protected Wizard createWizard() {
-		return new EJBModuleCreationWizard();
+		return new EJBComponentCreationWizard();
 	}
 
 	protected boolean shouldAcceptElement(Object obj) {

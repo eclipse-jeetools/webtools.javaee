@@ -17,14 +17,14 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-public class EJBModuleCreationPage extends J2EEModuleCreationPage {
+public class EJBComponentCreationWizardPage extends J2EEComponentCreationWizardPage {
 	protected Button addClient;
 	protected AnnotationsStandaloneGroup annotationsGroup;
 
@@ -34,7 +34,7 @@ public class EJBModuleCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBModuleCreationPage(EjbComponentCreationDataModel model, String pageName) {
+	public EJBComponentCreationWizardPage(EjbComponentCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_TITLE));
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_PROJECT_MAIN_PG_DESC));

@@ -13,14 +13,14 @@ package org.eclipse.jst.ejb.ui;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBClientCreationWizardPage;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleCreationPage;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentCreationWizardPage;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
-import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
+import org.eclipse.jst.j2ee.ui.J2EEComponentCreationWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
@@ -30,7 +30,7 @@ import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
  * (EJB) module structures in Eclipse Projects.
  * </p>
  */
-public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
+public final class EJBComponentCreationWizard extends J2EEComponentCreationWizard {
 	
 	/**
 	 * <p>
@@ -38,7 +38,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * internal purposes and activities management.
 	 * </p>
 	 */
-	public static final String WIZARD_ID = EJBModuleCreationWizard.class.getName();
+	public static final String WIZARD_ID = EJBComponentCreationWizard.class.getName();
 	
 	/**
 	 * <p>
@@ -57,7 +57,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * operation will be created as needed.
 	 * </p>
 	 */
-	public EJBModuleCreationWizard() {
+	public EJBComponentCreationWizard() {
 		super();
 	}
 
@@ -68,7 +68,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public EJBModuleCreationWizard(EjbComponentCreationDataModel model) {
+	public EJBComponentCreationWizard(EjbComponentCreationDataModel model) {
 		super(model);
 	}
 
@@ -156,12 +156,12 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Adds a {@link EJBModuleCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG} 
+	 * Adds a {@link EJBComponentCreationWizardPage} as the {@link J2EEComponentCreationWizard#MAIN_PG} 
 	 * and a {@link EJBClientCreationWizardPage} as the {@link #CLIENT_PG}.
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new EJBModuleCreationPage(getSpecificDataModel(), MAIN_PG));
+		addPage(new EJBComponentCreationWizardPage(getSpecificDataModel(), MAIN_PG));
 		clientPage = new EJBClientCreationWizardPage(getSpecificDataModel().getNestedEJBClientComponentDataModel(), CLIENT_PG);
 		addPage(clientPage);
 		super.doAddPages();

@@ -96,8 +96,8 @@
             name="%ejb.project_ui_"
             icon="icons/full/ctool16/newejbprj_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard"
-            id="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
+            class="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard"
+            id="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard">
          <description>
             %new.ejb.project.description_ui_
          </description>
@@ -194,7 +194,7 @@
          <!-- EJB New -->
         <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
+            wizardId="org.eclipse.jst.ejb.ui.EJBComponentCreationWizard">
          <enablement>
            <or>
                <objectClass
