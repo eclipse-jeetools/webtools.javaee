@@ -49,7 +49,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         WorkbenchComponent wbmodule = null;
         try {
             moduleCore = ModuleCore.getModuleCoreForRead(getProject());
-            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EjbComponentCreationDataModel.MODULE_DEPLOY_NAME));
+            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(EjbComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
@@ -68,7 +68,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
        		IPath ejbxmlPath = new Path(projPath);
        		boolean b = ejbxmlPath.isValidPath(ejbxmlPath.toString());
        		if(ejbEdit != null) {
-       			int moduleVersion = operationDataModel.getIntProperty(EjbComponentCreationDataModel.J2EE_MODULE_VERSION);
+       			int moduleVersion = operationDataModel.getIntProperty(EjbComponentCreationDataModel.COMPONENT_VERSION);
        			ejbEdit.createModelRoot( getProject(), ejbxmlPath, moduleVersion );
        		}
        	}
@@ -136,7 +136,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
 	protected String getVersion() {
-		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.J2EE_MODULE_VERSION);
+		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getEJBTextVersion(version);
 	} 
 	

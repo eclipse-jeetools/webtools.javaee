@@ -8,14 +8,14 @@
  **************************************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.NewProjectGroup;
+import org.eclipse.jst.j2ee.internal.wizard.NewModuleGroup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -23,17 +23,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
-import org.eclipse.jem.util.logger.proxy.Logger;
-
 public class EJBClientCreationWizardPage extends WTPWizardPage {
-	public NewProjectGroup newProjectGroup = null;
+	public NewModuleGroup newModuleGroup = null;
 	protected EJBJar selProject = null;
 	private Label selectedProjectLabel;
 	private Text selectedProjectName;
@@ -95,7 +92,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 		selectedProjectName = new Text(newComposite, SWT.NULL);
 		selectedProjectName.setLayoutData(data);
 		selectedProjectName.setEditable(false);
-		synchHelper.synchText(selectedProjectName, EJBClientProjectDataModel.EJB_PROJECT_NAME, new Control[]{selectedProjectLabel});
+		synchHelper.synchText(selectedProjectName, EJBClientComponentDataModel.EJB_COMPONENT_NAME, new Control[]{selectedProjectLabel});
 
 		setSpacer(newComposite);
 
@@ -107,7 +104,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 		clientJarURI = new Text(newComposite, SWT.BORDER);
 		clientJarURI.setEditable(true);
 		clientJarURI.setLayoutData(data);
-		synchHelper.synchText(clientJarURI, EJBClientProjectDataModel.CLIENT_PROJECT_URI, new Control[]{clientJarURILabel});
+		synchHelper.synchText(clientJarURI, EJBClientComponentDataModel.CLIENT_COMPONENT_URI, new Control[]{clientJarURILabel});
 	}
 
 	protected void createNewJ2EEModuleGroup(Composite parent) {
@@ -115,8 +112,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 3;
 		newComposite.setLayout(layout);
-
-		newProjectGroup = new NewProjectGroup(newComposite, SWT.NULL, ((EJBClientProjectDataModel) model).getNestedJavaProjectCreationDM());
+		newModuleGroup = new NewModuleGroup(newComposite, SWT.NULL, (EJBClientComponentDataModel) model);
 	}
 
 	private void setSpacer(Composite composite) {
@@ -134,7 +130,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 		try {
 			if (module != null) {
 				edit = EJBArtifactEdit.getEJBArtifactEditForRead(module);
-				if (edit != null && edit.hasEJBClientJARProject(ModuleCore.getContainingProject(module.getHandle())));
+				if (edit != null && edit.hasEJBClientJARProject(ModuleCore.getContainingProject(module.getHandle())))
 					enableAllSections(false);
 				} else
 					enableAllSections(true);
@@ -160,7 +156,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EJBClientProjectDataModel.EJB_PROJECT_NAME, EJBClientProjectDataModel.CLIENT_PROJECT_URI, ProjectCreationDataModel.PROJECT_NAME, ProjectCreationDataModel.PROJECT_LOCATION};
+		return new String[]{EJBClientComponentDataModel.EJB_COMPONENT_NAME, EJBClientComponentDataModel.CLIENT_COMPONENT_URI };
 	}
 
 	/*
@@ -174,8 +170,8 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 
 
 	public void dispose() {
-		if (newProjectGroup != null)
-			newProjectGroup.dispose();
+		if (newModuleGroup != null)
+			newModuleGroup.dispose();
 		super.dispose();
 	}
 }

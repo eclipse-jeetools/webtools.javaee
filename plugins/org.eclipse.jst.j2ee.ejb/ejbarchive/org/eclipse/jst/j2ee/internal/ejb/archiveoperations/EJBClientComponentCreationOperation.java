@@ -55,6 +55,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class EJBClientComponentCreationOperation extends WTPOperation {
@@ -115,9 +116,9 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 	}
 
 	protected void initialize() {
-		ejbModule = ejbClientDataModel.getStringProperty(EJBClientComponentDataModel.EJB_MODULE_NAME);
-		clientModuleName = ejbClientDataModel.getStringProperty(EJBClientComponentDataModel.CLIENT_MODULE_NAME);
-		clientJARRelativeURI = ejbClientDataModel.getStringProperty(EJBClientComponentDataModel.CLIENT_MODULE_URI);
+		ejbModule = ejbClientDataModel.getStringProperty(EJBClientComponentDataModel.EJB_COMPONENT_NAME);
+		clientModuleName = ejbClientDataModel.getStringProperty(ComponentCreationDataModel.COMPONENT_NAME);
+		clientJARRelativeURI = ejbClientDataModel.getStringProperty(EJBClientComponentDataModel.CLIENT_COMPONENT_URI);
 		//clientModulePath = ejbClientDataModel.getNestedJavaProjectCreationDM().getStringProperty(ProjectCreationDataModel.PROJECT_LOCATION);
 		if (ejbModule == null)
 			return;
@@ -201,18 +202,13 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 			createComponent( IModuleConstants.JST_EJB_MODULE, aMonitor);
 		}
 		catch (CoreException e) {
-			Logger.getLogger().logError(e);;
-		}
-		catch (InvocationTargetException e) {
 			Logger.getLogger().logError(e);
 		}
-		catch (InterruptedException e) {
-			Logger.getLogger().logError(e);
-		}
+		
 	}
 	
 	protected  void createProjectStructure() throws CoreException{
-		IFolder moduleFolder = getProject().getFolder( ejbClientDataModel.getStringProperty(EJBClientComponentDataModel.CLIENT_MODULE_NAME));
+		IFolder moduleFolder = getProject().getFolder( ejbClientDataModel.getStringProperty(ComponentCreationDataModel.COMPONENT_NAME));
 		if (!moduleFolder.exists()) {
 			moduleFolder.create(true, true, null);
 		}
@@ -222,7 +218,7 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 		}		
 	}
 	
-	protected void createComponent( String moduletype, IProgressMonitor monitor ) throws CoreException, InvocationTargetException, InterruptedException {
+	protected void createComponent( String moduletype, IProgressMonitor aMonitor )  {
     	ModuleCore moduleCore = null;
 		try {
 			IProject containingProject = getProject();
@@ -239,7 +235,7 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 	}
 	
 	protected IProject getProject() {
-		String projName = operationDataModel.getStringProperty(EJBClientComponentDataModel.PROJECT_NAME );
+		String projName = operationDataModel.getStringProperty(ComponentCreationDataModel.PROJECT_NAME );
 		return ProjectUtilities.getProject( projName );
 	}
 	
@@ -265,7 +261,7 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 	}	
 	
 	protected String getVersion() {
-		int version = operationDataModel.getIntProperty(EJBClientComponentDataModel.J2EE_MODULE_VERSION);
+		int version = operationDataModel.getIntProperty(ComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getEJBTextVersion(version);
 	}
 	
@@ -277,7 +273,7 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 	 * @return
 	 */
 	private String getModuleDeployName() {
-		return (String)operationDataModel.getProperty(EJBClientComponentDataModel.MODULE_DEPLOY_NAME);
+		return (String)operationDataModel.getProperty(ComponentCreationDataModel.COMPONENT_DEPLOY_NAME);
 	}
 
 	protected  void addResources( WorkbenchComponent component ){
@@ -546,7 +542,7 @@ public class EJBClientComponentCreationOperation extends WTPOperation {
 	}
 
 	private void moveOutgoingJARDependencies() throws InvocationTargetException, InterruptedException {
-
+		//TODO
 	}
 
 

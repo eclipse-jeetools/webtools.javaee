@@ -8,49 +8,31 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
-import java.util.Collection;
-
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class EJBClientComponentDataModel extends WTPOperationDataModel {
+public class EJBClientComponentDataModel extends ComponentCreationDataModel {
 	
 	/**
 	 * Required, type String
 	 */		
-	public static final String PROJECT_NAME = "EJBClientComponentDataModel.PROJECT_NAME"; 
-	/**
-	 * Required, type String
-	 */		
 
-	public static final String EJB_MODULE_NAME = "EJBClientComponentDataModel.EJB_MODULE_NAME"; //$NON-NLS-1$
+	public static final String EJB_COMPONENT_NAME = "EJBClientComponentDataModel.EJB_MODULE_NAME"; //$NON-NLS-1$
 	/**
 	 * Optional, type String
 	 */		
 
-	public static final String CLIENT_MODULE_NAME = "EJBClientComponentDataModel.CLIENT_MODULE_NAME"; //$NON-NLS-1$
-	
 	/**
 	 * Required, type String
 	 */
-	public static final String CLIENT_MODULE_URI = "EJBClientComponentDataModel.CLIENT_MODULE_URI"; //$NON-NLS-1$	
-	
-	/**
-	 * Required, type String
-	 */	
-	public static final String MODULE_DEPLOY_NAME = "EJBClientComponentDataModel.MODULE_DEPLOY_NAME";//$NON-NLS-1$
-	
-	public static final String J2EE_MODULE_VERSION = "EJBClientComponentDataModel.J2EE_MODULE_VERSION";	//$NON-NLS-1$
-
+	public static final String CLIENT_COMPONENT_URI = "EJBClientComponentDataModel.CLIENT_COMPONENT_URI"; //$NON-NLS-1$
 
 	/**
 	 * Optional, type boolean
@@ -59,8 +41,6 @@ public class EJBClientComponentDataModel extends WTPOperationDataModel {
 
 	private static final String NESTED_MODEL_JAVA_CREATION = "EJBClientComponentDataModel.NESTED_MODEL_JAVA_CREATION"; //$NON-NLS-1$
 
-	public static final String USE_ANNOTATIONS = "EJBClientComponentDataModel.USE_ANNOTATIONS"; //$NON-NLS-1$
-	
 	/**
 	 * type String
 	 */
@@ -94,15 +74,11 @@ public class EJBClientComponentDataModel extends WTPOperationDataModel {
 	 * @see org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
-		addValidBaseProperty(PROJECT_NAME);
-		addValidBaseProperty(EJB_MODULE_NAME);
-		addValidBaseProperty(CLIENT_MODULE_NAME);
-		addValidBaseProperty(CLIENT_MODULE_URI);
-		addValidBaseProperty(MODULE_DEPLOY_NAME);
-		addValidBaseProperty(J2EE_MODULE_VERSION);
+		addValidBaseProperty(EJB_COMPONENT_NAME);
+		addValidBaseProperty(CLIENT_COMPONENT_URI);
 		addValidBaseProperty(DELETE_WHEN_FINISHED);
-		addValidBaseProperty(USE_ANNOTATIONS);
 		addValidBaseProperty(JAVASOURCE_FOLDER);
+		addValidBaseProperty(NESTED_MODEL_JAVA_CREATION);
 		super.initValidBaseProperties();
 	}
 
@@ -113,10 +89,6 @@ public class EJBClientComponentDataModel extends WTPOperationDataModel {
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		boolean hadDefaultProjectName = false;
-		if (propertyName.equals(CLIENT_MODULE_NAME)) {
-			setProperty(CLIENT_MODULE_NAME, propertyValue );
-		}
 		boolean retVal = super.doSetProperty(propertyName, propertyValue);
 		return retVal;
 	}
@@ -135,29 +107,25 @@ public class EJBClientComponentDataModel extends WTPOperationDataModel {
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(CLIENT_MODULE_NAME)) {
+		if (propertyName.equals(COMPONENT_NAME)) {
 			return getDefaultClientModuleName();
 		}
-		if (propertyName.equals(CLIENT_MODULE_URI)) {
-			return getStringProperty(CLIENT_MODULE_NAME).trim().replace(' ', '_') + ".jar"; //$NON-NLS-1$
+		if (propertyName.equals(CLIENT_COMPONENT_URI)) {
+			return getStringProperty(COMPONENT_NAME).trim().replace(' ', '_') + ".jar"; //$NON-NLS-1$
 		} else if (propertyName.equals(DELETE_WHEN_FINISHED))
 			return Boolean.TRUE;
 		
-		if(propertyName.equals(MODULE_DEPLOY_NAME)){
-			return getStringProperty(CLIENT_MODULE_NAME)+".jar";
+		if(propertyName.equals(COMPONENT_DEPLOY_NAME)){
+			return getStringProperty(COMPONENT_NAME)+".jar";
 		}
 		if( propertyName.equals(JAVASOURCE_FOLDER)){
-			return getStringProperty(CLIENT_MODULE_NAME)+"/"+"ejbModule"; //$NON-NLS-1$ //$NON-NLS-2$
+			return getStringProperty(COMPONENT_NAME)+"/"+"ejbModule"; //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		return super.getDefaultProperty(propertyName);
 	}
 
-	private IWorkspace getWorkspace() {
-		return ResourcesPlugin.getWorkspace();
-	}
-
 	private String getDefaultClientModuleName() {
-		String ejbModuleName = getStringProperty(EJB_MODULE_NAME);
+		String ejbModuleName = getStringProperty(EJB_COMPONENT_NAME);
 		String moduleName = ejbModuleName + "Client"; //$NON-NLS-1$
 		return moduleName;
 	}
@@ -173,16 +141,16 @@ public class EJBClientComponentDataModel extends WTPOperationDataModel {
 		}
 		IStatus status = super.doValidateProperty(propertyName);
 		if (status.isOK()) {
-			if ( propertyName.equals(CLIENT_MODULE_NAME)) {
-				String ejbModuleName = getStringProperty(EJB_MODULE_NAME);
-				String clientModuleName = getStringProperty(CLIENT_MODULE_NAME);
+			if ( propertyName.equals(COMPONENT_NAME)) {
+				String ejbModuleName = getStringProperty(EJB_COMPONENT_NAME);
+				String clientModuleName = getStringProperty(COMPONENT_NAME);
 				if (ejbModuleName.equals(clientModuleName)) {
 					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
 				} else if (!CoreFileSystemLibrary.isCaseSensitive() && ejbModuleName.equalsIgnoreCase(clientModuleName)) {
 					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
 				}
 			}
-			if (propertyName.equals(CLIENT_MODULE_URI)) {
+			if (propertyName.equals(CLIENT_COMPONENT_URI)) {
 				status = validateClientJarUri();
 			}
 		}
@@ -191,7 +159,7 @@ public class EJBClientComponentDataModel extends WTPOperationDataModel {
 
 
 	public IStatus validateClientJarUri() {
-		String clientJarURI = getStringProperty(CLIENT_MODULE_URI);
+		String clientJarURI = getStringProperty(CLIENT_COMPONENT_URI);
 		if (clientJarURI == null || clientJarURI.trim().length() == 0)
 			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString("CLIENT_JAR_URI_NOT_RESOLVE_UI_"), null); //$NON-NLS-1$
 	
@@ -229,5 +197,29 @@ public class EJBClientComponentDataModel extends WTPOperationDataModel {
 
 	public boolean hasExistingClientJar(){
 		return false;
+	}
+
+	protected String getComponentExtension() {
+		return ".jar";
+	}
+
+	protected String getComponentID() {
+		//TODO
+		return null;
+	}
+
+	protected EClass getComponentType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	protected Integer getDefaultComponentVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	protected WTPPropertyDescriptor[] getValidComponentVersionDescriptors() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

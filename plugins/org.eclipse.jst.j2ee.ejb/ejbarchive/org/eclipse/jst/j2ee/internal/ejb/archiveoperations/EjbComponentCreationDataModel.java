@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceH
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -57,7 +58,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	/**
 	 * @return Returns the default J2EE spec level based on the Global J2EE Preference
 	 */
-	protected Integer getDefaultJ2EEModuleVersion() {
+	protected Integer getDefaultComponentVersion() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		switch (highestJ2EEPref) {
 			case (J2EEVersionConstants.J2EE_1_4_ID) :
@@ -88,12 +89,11 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			}
 			notifyEnablementChange(CREATE_CLIENT);
 		} else if (propertyName.equals(USE_ANNOTATIONS)) {
-			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.USE_ANNOTATIONS, propertyValue);
 			if (((Boolean) propertyValue).booleanValue()) {
-				notifyEnablementChange(J2EE_MODULE_VERSION);
+				notifyEnablementChange(COMPONENT_VERSION);
 			} else
-				notifyEnablementChange(J2EE_MODULE_VERSION);
-		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
+				notifyEnablementChange(COMPONENT_VERSION);
+		} else if (propertyName.equals(COMPONENT_VERSION)) {
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				setProperty(USE_ANNOTATIONS, Boolean.FALSE);
 			notifyEnablementChange(USE_ANNOTATIONS);
@@ -103,11 +103,11 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			} else {
 				getNestEJBClientComponentDM().disableValidation();
 			}
-		}else if (propertyName.equals(MODULE_NAME)) {
-			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_MODULE_NAME, propertyValue);
+		}else if (propertyName.equals(COMPONENT_NAME)) {
+			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_COMPONENT_NAME, propertyValue);
 		}else if (getBooleanProperty(CREATE_CLIENT)) {
 			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)) {
-				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
+				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
 			}
 		}
 		return doSet;
@@ -176,7 +176,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	}
 
 	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
-		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+		if (propertyName.equals(COMPONENT_VERSION)) {
 			Integer propertyValue = (Integer) getProperty(propertyName);
 			String description = null;
 			switch (propertyValue.intValue()) {
@@ -198,7 +198,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(NESTED_MODEL_VALIDATION_HOOK)) {
 			if (getBooleanProperty(CREATE_CLIENT)) {
-				String clientName = ejbClientComponentDataModel.getStringProperty(EJBClientComponentDataModel.CLIENT_MODULE_NAME);
+				String clientName = ejbClientComponentDataModel.getStringProperty(ComponentCreationDataModel.COMPONENT_NAME);
 				String moduleName = getStringProperty(PROJECT_NAME);
 				if (clientName.equals(moduleName)) {
 					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
@@ -225,7 +225,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		return super.doValidateProperty(propertyName);
 	}
 
-	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
+	protected WTPPropertyDescriptor[] getValidComponentVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
@@ -278,11 +278,11 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
 	 */
-	protected EClass getModuleType() {
+	protected EClass getComponentType() {
 		return CommonarchiveFactoryImpl.getPackage().getEJBJarFile();
 	}
 
-	protected String getModuleExtension() {
+	protected String getComponentExtension() {
 		return ".jar"; //$NON-NLS-1$
 	}
 
@@ -297,7 +297,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
      */
-    protected String getModuleID() {
+    protected String getComponentID() {
         return IModuleConstants.JST_EJB_MODULE;
     }
 }
