@@ -82,10 +82,13 @@ public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate 
 		return null;
 	}
 
-	protected void handleProjectChange(IProject project, IResourceDelta delta) {
-		if (projects == null)
-			cacheModules();
-		super.handleProjectChange(project, delta);
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#createModules(org.eclipse.core.resources.IProject)
+	 */
+	protected IModule[] createModules(IProject project) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

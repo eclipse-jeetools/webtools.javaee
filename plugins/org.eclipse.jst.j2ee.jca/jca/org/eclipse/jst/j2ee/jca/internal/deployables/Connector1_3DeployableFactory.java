@@ -73,4 +73,12 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
         return null;
     }
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+	 */
+	public IModule[] getModules() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
