@@ -88,10 +88,14 @@
 <!-- New EJB Module Wizard -->
    <extension
          point="org.eclipse.ui.newWizards">
+       <category
+            name="EJB"
+            id="org.eclipse.jst.ejb.ui">
+      </category>
       <wizard
             name="%ejb.project_ui_"
             icon="icons/full/ctool16/newejbprj_wiz.gif"
-            category="org.eclipse.jst.j2ee.internal"
+            category="org.eclipse.jst.ejb.ui"
             class="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard"
             id="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
          <description>
