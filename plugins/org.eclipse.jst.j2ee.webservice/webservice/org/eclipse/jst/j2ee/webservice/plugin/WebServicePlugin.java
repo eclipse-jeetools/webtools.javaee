@@ -25,7 +25,7 @@ import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.wst.common.framework.WTPPlugin;
+import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 
 
 /**

@@ -24,8 +24,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.IEJBModelExtenderProvider;
-import org.eclispe.wst.common.framework.enablement.Identifiable;
-import org.eclispe.wst.common.framework.enablement.IdentifiableComparator;
+import org.eclispe.wst.common.frameworks.internal.enablement.Identifiable;
+import org.eclispe.wst.common.frameworks.internal.enablement.IdentifiableComparator;
 
 import com.ibm.wtp.common.RegistryReader;
 import com.ibm.wtp.common.logger.proxy.Logger;
