@@ -15,11 +15,18 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
+import java.util.List;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard;
@@ -34,8 +41,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author cbridgha
@@ -123,11 +134,39 @@ public class ServerEarAndStandaloneGroup {
 
 			});
 
+			IProject project = getCurrentProject();
+			if (project != null)
+				model.setProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME, project.getName());
 			Control[] deps = new Control[]{earLabel, newEAR};
 			synchHelper.synchCombo(earCombo, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, deps);
 
 		}
 
+	}
+
+	/**
+	 * @return
+	 */
+	private IProject getCurrentProject() {
+		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		if (window == null)
+			return null;
+		ISelection selection = window.getSelectionService().getSelection();
+		if (selection == null)
+			return null;
+		StructuredSelection stucturedSelection = (StructuredSelection) selection;
+		Object obj = stucturedSelection.getFirstElement();
+		if (obj instanceof IProject) {
+			IProject project = (IProject) obj;
+			//this will need to be updated when Ear Creation is converted to the flexible project structure i.e
+			// moduleType "j2ee.ear", please mimic the same function in EarnatureRuntime.getAllEarProjectsInWorkbench()
+			List ears = EARNatureRuntime.getAllEARProjectsInWorkbench();
+			if (ears.contains(project))
+				return project;
+		}
+
+
+		return null;
 	}
 
 	/**
