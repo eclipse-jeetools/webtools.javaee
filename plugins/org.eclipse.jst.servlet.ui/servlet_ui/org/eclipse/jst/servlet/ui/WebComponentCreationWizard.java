@@ -16,7 +16,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
-import org.eclipse.jst.j2ee.ui.J2EEComponentCreationWizard;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.jst.servlet.ui.internal.wizard.WebComponentCreationWizardPage;
 import org.eclipse.ui.INewWizard;

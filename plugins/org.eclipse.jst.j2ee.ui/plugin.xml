@@ -99,7 +99,7 @@
             name="%flexible.project_ui_"
             icon="icons/full/ctool16/newear_wiz.gif"
             category="org.eclipse.jdt.ui.java"
-            class="org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.FlexibleProjectCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard"
@@ -176,7 +176,7 @@
          </selection>
       </wizard> 
       <wizard
-            class="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizard"
             icon="icons/jar_obj.gif"
             name="%utility_jar_import_wizard"
             id="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard">

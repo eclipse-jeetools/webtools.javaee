@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.application.operations.AppClientModuleExportDataMode
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleExportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.ui.J2EEArtifactExportWizard;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;

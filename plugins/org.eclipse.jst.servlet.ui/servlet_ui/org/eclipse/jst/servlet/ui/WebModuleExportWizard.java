@@ -14,7 +14,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportOperation;
-import org.eclipse.jst.j2ee.ui.J2EEArtifactExportWizard;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactExportWizard;
 import org.eclipse.jst.servlet.ui.internal.wizard.WARExportPage;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;

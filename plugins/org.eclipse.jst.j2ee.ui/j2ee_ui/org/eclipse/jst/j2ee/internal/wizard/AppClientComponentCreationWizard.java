@@ -13,8 +13,6 @@ import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreatio
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
-import org.eclipse.jst.j2ee.ui.J2EEComponentCreationWizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;

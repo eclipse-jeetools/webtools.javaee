@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.ui;
+package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -16,7 +16,6 @@ import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataMode
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEModulesDependencyPage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
@@ -32,7 +31,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
  * on how to extend this class.
  * </p>
  * 
- * @see org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard
+ * @see org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard
  */
 public abstract class J2EEComponentCreationWizard extends J2EEArtifactCreationWizard {
 

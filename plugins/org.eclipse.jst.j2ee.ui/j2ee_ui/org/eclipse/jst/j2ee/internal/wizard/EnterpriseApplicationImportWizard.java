@@ -16,7 +16,6 @@ import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationImp
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.ui.J2EEArtifactImportWizard;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;

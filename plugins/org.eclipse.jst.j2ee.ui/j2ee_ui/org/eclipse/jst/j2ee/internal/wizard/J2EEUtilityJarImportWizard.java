@@ -8,12 +8,10 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.ui;
+package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarListImportDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportPage;
-import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportTypePage;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
