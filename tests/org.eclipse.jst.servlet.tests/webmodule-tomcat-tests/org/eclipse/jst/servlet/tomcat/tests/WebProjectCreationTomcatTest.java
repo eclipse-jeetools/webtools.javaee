@@ -4,7 +4,7 @@
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
-package org.eclipse.jst.web.tomcat.tests;
+package org.eclipse.jst.servlet.tomcat.tests;
 import junit.framework.Test;
 import junit.framework.TestCase;
 

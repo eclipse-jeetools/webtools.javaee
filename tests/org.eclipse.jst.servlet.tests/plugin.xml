@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin
-   id="org.eclipse.jst.j2ee.servlet.tests"
-   name="org.eclipse.jst.j2ee.servlet.tests"
+   id="org.eclipse.jst.servlet.tests"
+   name="org.eclipse.jst.servlet.tests"
    version="1.0.0"
    provider-name="IBM"
-   class="org.eclipse.jst.j2ee.servlet.tests.ServletTestsPlugin">
+   class="org.eclipse.jst.servlet.tests.ServletTestsPlugin">
 
    <runtime>
       <library name="tests.jar">

@@ -4,7 +4,7 @@
  * To change this generated comment go to 
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-package org.eclipse.jst.j2ee.servlet.tests.bvt;
+package org.eclipse.jst.servlet.tests.bvt;
 
 import java.net.URL;
 
@@ -14,7 +14,7 @@ import junit.textui.TestRunner;
 
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jst.web.tomcat.tests.AllTomcatTests;
+import org.eclipse.jst.servlet.tomcat.tests.AllTomcatTests;
 
 
 /**
@@ -29,7 +29,7 @@ public class AutomatedBVT extends TestSuite {
     
     static {
         try {
-            IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.j2ee.servlet.tests");
+            IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.servlet.tests");
             URL url = pluginDescriptor.getInstallURL(); 
         	AutomatedBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "TestData"+ java.io.File.separatorChar;
 		} catch (Exception e) { 
@@ -56,12 +56,8 @@ public class AutomatedBVT extends TestSuite {
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite("Test for org.eclipse.jst.j2ee.servlet.tests.bvt");
-        //$JUnit-BEGIN$
-        //TODO: Make the Archive Test Work
-       // suite.addTest(AllArchiveTestsJava.suite());
+        TestSuite suite = new TestSuite("Test for org.eclipse.jst.servlet.tests.bvt");
         suite.addTest(AllTomcatTests.suite());
-        //$JUnit-END$
         return suite;
     }
 }

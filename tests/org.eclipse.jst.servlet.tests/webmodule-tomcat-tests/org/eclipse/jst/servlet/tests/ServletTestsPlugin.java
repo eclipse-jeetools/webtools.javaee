@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.servlet.tests;
+package org.eclipse.jst.servlet.tests;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
@@ -63,7 +63,7 @@ public class ServletTestsPlugin extends Plugin {
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.servlet.tests.ServletTestsPluginResources");
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.servlet.tests.ServletTestsPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
