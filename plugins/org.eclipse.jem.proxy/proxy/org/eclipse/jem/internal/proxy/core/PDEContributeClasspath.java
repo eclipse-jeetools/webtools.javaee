@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PDEContributeClasspath.java,v $
- *  $Revision: 1.1 $  $Date: 2004/11/01 21:43:18 $ 
+ *  $Revision: 1.2 $  $Date: 2004/11/01 21:52:37 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -23,7 +23,6 @@ import java.util.logging.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.pde.core.plugin.*;
 import org.eclipse.pde.internal.core.*;
