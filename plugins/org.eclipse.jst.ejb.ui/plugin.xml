@@ -40,7 +40,29 @@
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
    </requires>
 
-
+<!-- ====================================================== -->
+<!--                                                        -->
+<!-- Purpose: Extension for the J2EE ACtion Sets            -->
+<!-- Extension point: org.eclipse.ui.actionSets             -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.ui.actionSets">
+<!--EJB.UI extension Contribution-->
+      <actionSet
+            label="EJB"
+            description="%ejb.action.set.description"
+            visible="false"
+            id="org.eclipse.jst.j2ee.J2eeMainActionSet3">
+         <action
+               label="%create.ejb.project_ui_"
+               icon="icons/full/ctool16/newejbprj_wiz.gif"
+               tooltip="%create.ejb.project_ui_"
+               class="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProjectAction"
+               toolbarPath="J2EEMain2"
+               id="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProject">
+         </action>
+      </actionSet>
+   </extension>
 <!--================================-->
 <!-- Project Wizard Contributions   -->
 <!--================================-->
