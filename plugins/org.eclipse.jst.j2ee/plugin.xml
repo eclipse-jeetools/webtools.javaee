@@ -89,9 +89,9 @@
 <!-- Application Client J2EE 1.2 Nature             -->
 <!--============================-->
 <!--============================-->
-<!-- Application Client Project Nature Contributions    -->
+<!-- Application Client Project Nature Contributions - commented out for Flex project support - vkb -->
 <!--============================-->
-   <extension
+  <!-- <extension
          id="ApplicationClientNature"
          name="Application Client Properties"
          point="org.eclipse.core.resources.natures">
@@ -100,22 +100,22 @@
                class="org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime">
          </run>
       </runtime>
-   </extension>
+   </extension> -->
 <!-- Register the nature id with the EMFNature -->
-   <extension
+   <!-- <extension
          point="com.ibm.wtp.emf.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.ApplicationClientNature">
       </nature>
-   </extension>
+   </extension> -->
 <!--============================-->
 <!-- Ear J2EE 12 Nature                -->
 <!--============================-->
 <!--============================-->
-<!-- EAR Project Nature Contributions                -->
+<!-- EAR Project Nature Contributions-commented out for Flex project support - vkb -->
 <!--============================-->
 
-   <extension
+  <!-- <extension
          id="EARNature"
          name="EAR Properties"
          point="org.eclipse.core.resources.natures">
@@ -124,7 +124,7 @@
                class="org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime">
          </run>
       </runtime>
-   </extension>
+   </extension> -->
 
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
@@ -137,12 +137,12 @@
       </editModel>
    </extension>
 <!-- Register the nature id with the EMFNature -->
-   <extension
+   <!-- <extension
          point="com.ibm.wtp.emf.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.EARNature">
       </nature>
-   </extension>
+   </extension> -->
 <!--===================================================-->
 <!-- Register known J2EE DTDs and XSDs for XML editor  -->
 <!-- DTD and XSD Contributions                         -->
