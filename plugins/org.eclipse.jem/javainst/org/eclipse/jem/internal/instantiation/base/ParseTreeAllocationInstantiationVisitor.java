@@ -10,9 +10,9 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeAllocationInstantiationVisitor.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/06 20:46:11 $ 
+ *  $Revision: 1.1 $  $Date: 2004/03/07 18:34:16 $ 
  */
-package org.eclipse.jem.workbench.utility;
+package org.eclipse.jem.internal.instantiation.base;
 
 import java.util.List;
 
@@ -25,9 +25,6 @@ import org.eclipse.jem.internal.proxy.initParser.tree.IExpressionConstants.NoExp
 /**
  * This is the standard parse visitor for instantiating a bean proxy from a java parse tree allocation.
  * It can be reused, but is not thread-safe.
- * 
- * TODO Temporary here until we get logger moved to wtp.common, then remove org.eclipse.jem prereq from proxy and
- * add optional prereq from jem to proxy.
  * 
  * @since 1.0.0
  */
