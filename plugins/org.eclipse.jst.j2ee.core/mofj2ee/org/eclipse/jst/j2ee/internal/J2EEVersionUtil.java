@@ -72,6 +72,6 @@ public class J2EEVersionUtil {
 					return J2EEVersionConstants.VERSION_1_4_TEXT;				
 				
 			}
-			return "";
+			return "";//$NON-NLS-1$
 		}		
 }

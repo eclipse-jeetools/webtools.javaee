@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -43,7 +44,9 @@ import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
+import org.eclipse.wst.common.modulecore.Property;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.impl.PropertyImpl;
 
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -124,12 +127,18 @@ public abstract class J2EEComponentCreationOperation extends J2EECreationOperati
 		}
 		
 		protected abstract String getVersion();
+		protected void addProperties(WorkbenchComponent module){
+			return;
+		}
+		
 		private void addContent(ProjectComponents projectModules, String moduletype) {
 
 		    WorkbenchComponent module = addWorkbenchModule(projectModules, getModuleDeployName(), 
 		    			moduletype, createModuleURI()); //$NON-NLS-1$
 	
 		    module.getComponentType().setVersion(getVersion());
+		    addProperties(module);
+
 		    addResources( module );
 		}		
 		

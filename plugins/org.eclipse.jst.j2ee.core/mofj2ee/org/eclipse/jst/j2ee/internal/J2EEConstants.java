@@ -95,6 +95,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	/** "WEB-INF/ibm-web-bnd.xmi"											*/
 	/** Doc type for web app deployment descriptors */
 	String WEBAPP_DOCTYPE 				= 	"web-app"; //$NON-NLS-1$
+	String CONTEXTROOT 					= "context-root"; //$NON-NLS-1$
 	String WEBAPP_PUBLICID_2_2		=   "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"; //$NON-NLS-1$
 	String WEBAPP_PUBLICID_2_3		=   "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"; //$NON-NLS-1$
 	String WEBAPP_SYSTEMID_2_2		= 	"http://java.sun.com/j2ee/dtds/web-app_2_2.dtd"; //$NON-NLS-1$
