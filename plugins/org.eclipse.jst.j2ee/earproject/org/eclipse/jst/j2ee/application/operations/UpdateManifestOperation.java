@@ -18,12 +18,16 @@ package org.eclipse.jst.j2ee.application.operations;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
@@ -43,11 +47,19 @@ public class UpdateManifestOperation extends WTPOperation {
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		UpdateManifestDataModel dataModel = (UpdateManifestDataModel) operationDataModel;
-		IProject p = dataModel.getProject();
+		IProject project = dataModel.getProject();
 
+
+		String manifestFolder = dataModel.getStringProperty(UpdateManifestDataModel.MANIFEST_FOLDER);
+		IContainer container = project.getFolder( manifestFolder );
+		IFile file = container.getFile( new Path(J2EEConstants.MANIFEST_SHORT_NAME));
+		
+		
+		
 		String classPathValue = dataModel.getClasspathAsString();
 		try {
-			ArchiveManifest mf = J2EEProjectUtilities.readManifest(p);
+			ArchiveManifest mf = J2EEProjectUtilities.readManifest(file);
+			
 			if (mf == null)
 				mf = new ArchiveManifestImpl();
 			mf.addVersionIfNecessary();
@@ -60,7 +72,7 @@ public class UpdateManifestOperation extends WTPOperation {
 				mf.setMainClass(dataModel.getStringProperty(UpdateManifestDataModel.MAIN_CLASS));
 			}
 
-			J2EEProjectUtilities.writeManifest(p, mf);
+			J2EEProjectUtilities.writeManifest(file, mf);
 		} catch (java.io.IOException ex) {
 			throw new WFTWrappedException(ex);
 		}

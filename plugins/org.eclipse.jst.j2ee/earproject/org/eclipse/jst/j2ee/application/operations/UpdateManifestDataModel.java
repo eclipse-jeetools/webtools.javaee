@@ -58,6 +58,12 @@ public class UpdateManifestDataModel extends WTPOperationDataModel {
 	 * String, no default.
 	 */
 	public static final String MAIN_CLASS = "UpdateManifestDataModel.MAIN_CLASS"; //$NON-NLS-1$
+	
+	/**
+	 * String, no default.
+	 */
+	public static final String MANIFEST_FOLDER = "UpdateManifestDataModel.MANIFEST_FOLDER"; //$NON-NLS-1$
+	
 
 	/*
 	 * (non-Javadoc)
@@ -79,6 +85,7 @@ public class UpdateManifestDataModel extends WTPOperationDataModel {
 		addValidBaseProperty(JAR_LIST_TEXT_UI);
 		addValidBaseProperty(MERGE);
 		addValidBaseProperty(MAIN_CLASS);
+		addValidBaseProperty(MANIFEST_FOLDER);
 	}
 
 	protected Object getDefaultProperty(String propertyName) {

@@ -238,6 +238,29 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		return runtime.getJARUri(project);
 	}
 
+	public static ArchiveManifest readManifest(IFile aFile) {
+
+		InputStream in = null;
+		try {
+
+			if (aFile == null || !aFile.exists())
+				return null;
+			in = aFile.getContents();
+			return new ArchiveManifestImpl(in);
+		} catch (Exception ex) {
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+			return null;
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException weTried) {
+				}
+			}
+		}
+	}
+
+	
 	public static ArchiveManifest readManifest(IProject p) {
 
 		InputStream in = null;
@@ -281,6 +304,15 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			out.close();
 		}
 	}
+	
+	public static void writeManifest(IFile aFile, ArchiveManifest manifest) throws java.io.IOException {
+		if (aFile != null) {
+			OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
+			manifest.writeSplittingClasspath(out);
+			out.close();
+		}
+	}
+	
 
 	public static String getUtilityJARUriInFirstEAR(IProject project) {
 		EARNatureRuntime[] earNatures = getReferencingEARProjects(project);
