@@ -44,6 +44,9 @@
       <import plugin="org.eclipse.wst.common.modulecore"/>
       <import plugin="org.eclipse.jst.j2ee.webservices.ui"/>
    </requires>
+   
+   <extension-point id="componentWorkingSet" name="Component Working Set" schema="schema/componentWorkingSet.exsd"/>
+   
    	
 <!--============================-->
 <!-- J2EE Filters               -->
@@ -499,6 +502,80 @@
 			</enablement>
       </actionProvider>
    </extension>
+   <!-- =========================================================================== -->
+<!-- Component Working Set                                                            -->
+<!-- =========================================================================== -->
+   <extension
+         point="org.eclipse.ui.workingSets">
+      <workingSet
+            name="Component"
+             updaterClass="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetUpdater"
+             icon="icons\J2EEPerspective.gif"
+             id="org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage">
+      </workingSet>
+   </extension>
+   
+      <extension
+            point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
+             <componentWorkingSet
+             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
+                  typeId = "jst.ejb"
+                  icon = "icons\ejbgroup_obj.gif"
+                  label = "Ejb Projects">
+             </componentWorkingSet>
+      </extension>
+      <extension 
+       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
+      		<componentWorkingSet
+             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
+                  typeId = "jst.web"
+                  icon = "icons\webgroup_obj.gif"
+                  label = "Web Projects">
+             </componentWorkingSet>
+      </extension>
+      <extension 
+       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
+      		  <componentWorkingSet
+             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
+                  typeId = "jst.ear"
+                  icon = "icons\eargroup_obj.gif"
+                  label = "Ear Projects">
+             </componentWorkingSet>
+      </extension>
+      
+      <extension 
+       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
+      		  <componentWorkingSet
+             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
+                  typeId = "jst.appclient"
+                  icon = "icons\appclientgroup_obj.gif"
+                  label = "Application Client Projects">
+             </componentWorkingSet>
+      </extension>
+      
+      <extension 
+       		point="org.eclipse.jst.j2ee.navigator.ui.componentWorkingSet">
+      		  <componentWorkingSet
+             	  id = "org.eclipse.jst.j2ee.navigator.ui.ComponentWorkingSetPage"
+                  typeId = "jst.connector"
+                  icon = "icons\connectorgroup_obj.gif"
+                  label = "Connector Projects">
+             </componentWorkingSet>
+      </extension>
+      
+      <extension
+            point="org.eclipse.jst.common.navigator.java.workingSetProviders">
+            <workingSetProviders
+            	class="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetProvider">
+            </workingSetProviders>
+      </extension>
+       <extension
+       	point="org.eclipse.ui.elementFactories">
+	    <factory
+	          class="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"
+	          id="org.eclipse.jst.j2ee.navigator.internal.workingsets.ComponentWorkingSetFactory"/>
+	 </extension>  
+     
 </plugin>
 
 

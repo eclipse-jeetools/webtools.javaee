@@ -20,6 +20,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class J2EENavigatorPlugin extends AbstractUIPlugin {
 	//The shared instance.
 	private static J2EENavigatorPlugin plugin;
+	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.navigator.ui"; //$NON-NLS-1$
+
 
 	/**
 	 * The constructor.
