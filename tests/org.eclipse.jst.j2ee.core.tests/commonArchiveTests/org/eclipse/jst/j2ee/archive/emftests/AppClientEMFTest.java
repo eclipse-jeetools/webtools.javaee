@@ -79,7 +79,7 @@ public class AppClientEMFTest extends GeneralEMFPopulationTest {
         //Compare
         String curDir = AutomatedBVT.baseDirectory;
         String exampleDeploymentDesURI = curDir + "EMFTestNoID/application-client.xml";
-        String curDeploymentDesURI = curDir + "testOutput/TestAppEAR/fooApp/META-INF/application-client.xml";
+        String curDeploymentDesURI = curDir + "testOutput/TestAppEAR/fooAPP/META-INF/application-client.xml";
 		setIgnoreAtt(ignorableAttributes());
 		compareContentsIgnoreWhitespace(curDeploymentDesURI, exampleDeploymentDesURI, null);
     }
@@ -128,7 +128,7 @@ public class AppClientEMFTest extends GeneralEMFPopulationTest {
     
     
 	public void getApp14Client() throws DuplicateObjectException, OpenFailureException {
-		String in = AutomatedBVT.baseDirectory + "testOutput/TestAppEAR14/fooApp";
+		String in = AutomatedBVT.baseDirectory + "testOutput/TestAppEAR14/fooAPP";
 		appClientFile14 = getArchiveFactory().openApplicationClientFile(in);
 	}
     

@@ -64,13 +64,13 @@ public class AppClientEMFEditTest extends GeneralEMFEditingTest {
 		setVersion(VERSION_1_3);
 		setModuleType(APP_CLIENT);
         editRoot(DD.getRootObject());
-
-        String out = "EditTests/EMFModelCreationTests/EditAppEAR";
+        String curDir = AutomatedBVT.baseDirectory;
+        String out = curDir + "testOutput/EMFModelCreationTests/EditAppEAR";
         appClientFile.extractTo(out, Archive.EXPAND_ALL);
         appClientFile.close();
 
         //Compare
-        String curDir = AutomatedBVT.baseDirectory;
+        
         String exampleDeploymentDesURI = curDir + "EMFTests/application-client.xml";
         String curDeploymentDesURI = curDir + out + "/AppClientfoo/META-INF/application-client.xml";
 		setIgnoreAtt(ignorableAttributes());

@@ -68,13 +68,14 @@ public class EarEMFEditTest extends GeneralEMFEditingTest {
 		setVersion(VERSION_1_3);
 		setModuleType(APPICATION); 
         editRoot(DD.getRootObject());
-
-        String out = "EditOutput/EMFModelCreationTests/EditEAR";
+        String curDir = AutomatedBVT.baseDirectory;
+        
+        String out = curDir +"testOutput/EditOutput/EMFModelCreationTests/EditEAR";
         earFile.extractTo(out, Archive.EXPAND_ALL);
         earFile.close();
 
         //Compare work in progress
-        String curDir = AutomatedBVT.baseDirectory;
+       
         String exampleDeploymentDesURI = curDir + "EMFTests/application.xml";
         String curDeploymentDesURI = curDir + out + "/META-INF/application.xml";
         //compareContents(curDeploymentDesURI, exampleDeploymentDesURI);

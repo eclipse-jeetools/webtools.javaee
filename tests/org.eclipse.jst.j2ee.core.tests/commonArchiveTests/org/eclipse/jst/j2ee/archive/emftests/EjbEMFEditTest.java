@@ -97,14 +97,14 @@ public class EjbEMFEditTest extends GeneralEMFEditingTest {
 		setVersion(VERSION_1_3);
 		setModuleType(EJB); 
         editRoot(DD.getRootObject());
-
-        String out = "testOutput/EMFModelCreationTests/EditEjbEAR";
+        String curDir = AutomatedBVT.baseDirectory;
+        String out = curDir + "testOutput/EMFModelCreationTests/EditEjbEAR";
         ejbFile.extractTo(out, Archive.EXPAND_ALL);
         ejbFile.close();
         
         
         //Compare work in progress
-        String curDir = AutomatedBVT.baseDirectory;
+        
         String exampleDeploymentDesURI = null;
         if (RendererFactory.getDefaultRendererFactory() == EMF2SAXRendererFactory.INSTANCE){
             exampleDeploymentDesURI = curDir + "EMFTests/ejb-jar2-0sax.xml";

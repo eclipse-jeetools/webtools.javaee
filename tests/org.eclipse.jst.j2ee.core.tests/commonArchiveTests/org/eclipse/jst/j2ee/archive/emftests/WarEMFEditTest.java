@@ -74,13 +74,13 @@ public class WarEMFEditTest extends GeneralEMFEditingTest {
 		setVersion(VERSION_1_3);
 		setModuleType(WEB); 
         editRoot(DD.getRootObject());
-
-        String out = "editOutput/EMFModelCreationTests/EditWarEAR";
+        String curDir = AutomatedBVT.baseDirectory;
+        String out = curDir + "testOutput/EMFModelCreationTests/EditWarEAR";
         warFile.extractTo(out, Archive.EXPAND_ALL);
         warFile.close();
 
         //Compare work in progress
-        String curDir = AutomatedBVT.baseDirectory;
+       
         String exampleDeploymentDesURI = curDir + "EMFTests/web.xml";
         String curDeploymentDesURI = curDir + out + "/fooWAR/WEB-INF/web.xml";
         //compareContents(curDeploymentDesURI, exampleDeploymentDesURI);

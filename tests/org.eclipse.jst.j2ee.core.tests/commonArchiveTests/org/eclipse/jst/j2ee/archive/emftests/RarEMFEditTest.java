@@ -62,13 +62,14 @@ public class RarEMFEditTest extends GeneralEMFEditingTest {
        	setVersion(VERSION_1_3);
        	setModuleType(CONNECTOR);       
         editRoot(DD.getRootObject());
-
-        String out = "editOutput/EMFModelCreationTests/EditRarEAR";
+        String curDir = AutomatedBVT.baseDirectory;
+        
+        String out = curDir + "testOutput/EMFModelCreationTests/EditRarEAR";
         rarFile.extractTo(out, Archive.EXPAND_ALL);
         rarFile.close();
 
         //Compare work in progress
-        String curDir = AutomatedBVT.baseDirectory;
+        
         String exampleDeploymentDesURI = curDir + "EMFTests/ra.xml";
         String curDeploymentDesURI = curDir + out + "/fooRAR/META-INF/ra.xml";
         //compareContents(curDeploymentDesURI, exampleDeploymentDesURI);
