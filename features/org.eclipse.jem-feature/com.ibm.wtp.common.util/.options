@@ -1,3 +1,0 @@
-com.ibm.wtp.common.util/debug/logtrace=false
-com.ibm.wtp.common.util/debug/logtracefile=false
-com.ibm.wtp.common.util/debug/loglevel=WARNING
