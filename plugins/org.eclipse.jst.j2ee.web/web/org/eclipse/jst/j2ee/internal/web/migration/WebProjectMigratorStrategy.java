@@ -15,6 +15,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
+import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
+import org.eclipse.wst.common.modulecore.Property;
+import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreFactoryImpl;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.web.internal.operation.WebSettings;
 
@@ -24,6 +27,9 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 
 	protected IProject project;
 	protected static String JAVA_SOURCE = "JavaSource";
+	protected static String CONTEXT_ROOT = "ContextRoot";
+	protected static String JSP_LEVEL = "JSPLevel";
+	protected static String FEATURE_ID = "FeatureID";
 	protected static String JAVA_SOURCE_DEPLOY_PATH_NAME = "/WEB-INF/classes";
 
 	protected WebSettings fWebSettings;
@@ -96,11 +102,6 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 
-	public String getComponentType(String componentName) {
-		return IModuleConstants.JST_WEB_MODULE;
-	}
-
-
 	public void setCurrentProject(IProject aProject) {
 		project = aProject;
 	}
@@ -138,5 +139,39 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 
 	public IResource[] getExcludedResources(String componentName, int type) {
 		return null;
+	}
+
+	public String getComponentTypeName(String componentName) {
+		return IModuleConstants.JST_WEB_MODULE;
+	}
+
+	public String getComponetTypeVersion(String componentName) {	
+		return getWebSettings().getVersion();
+	}
+
+	public Property[] getProperites(String componentName) {		
+		String contextRootName = getWebSettings().getContextRoot();
+		String jspLevel =  getWebSettings().getJSPLevel();
+		String[] featureIDs = getWebSettings().getFeatureIds();
+	    Property[] properties = new Property[featureIDs.length + 2];
+	    properties[0] = createProperty(CONTEXT_ROOT, contextRootName);
+	    properties[1] = createProperty(JSP_LEVEL, contextRootName);
+	    for (int i = 2; i < featureIDs.length + 2; i++) {
+	    	properties[i] = createProperty(FEATURE_ID,featureIDs[i - 2]);
+			
+		}
+		return properties;
+	}
+	
+	public Property createProperty(String name, String value){	
+		Property property = ModuleCoreFactory.eINSTANCE.createProperty();
+		property.setName(name);
+		property.setValue(value);
+		return property;
+	}
+
+
+	public void postMigrateStrategy() {
+
 	}
 }
