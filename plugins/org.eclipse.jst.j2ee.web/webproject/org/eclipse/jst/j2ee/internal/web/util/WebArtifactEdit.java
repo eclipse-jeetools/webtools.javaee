@@ -309,6 +309,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
+	public String getContentName(){
+		//TODO return the valid context root for the module
+		return null;
+		
+	}
+	
 	public IContainer getWebInfFolder() {
 		//TODO return the valid web info folder for the module
 		return null;
