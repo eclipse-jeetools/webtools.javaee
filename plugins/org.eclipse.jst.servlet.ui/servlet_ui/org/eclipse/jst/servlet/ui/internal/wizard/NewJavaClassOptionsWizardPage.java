@@ -11,9 +11,16 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.search.IJavaSearchConstants;
+import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.internal.ui.dialogs.TypeSelectionDialog;
+import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -23,7 +30,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -35,8 +44,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author jialin
@@ -313,17 +325,22 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 * Browse for a new Super Interface Class
 	 */
 	protected void handleInterfaceAddButtonSelected() {
-		// TODO fix add interface dialog
-		// IProject project = model.getTargetProject();
-		// SuperInterfaceSelectionDialog dialog = new
-		// SuperInterfaceSelectionDialog(
-		// getShell(),
-		// (IRunnableContext)Workbench.getInstance().getActiveWorkbenchWindow(),interfaceViewer,
-		// ProjectUtilities.getJavaProject(project));
-		// dialog.setTitle(IWebWizardConstants.INTERFACE_SELECTION_DIALOG_TITLE);
-		// dialog.open();
-		// List valueList = (List)interfaceViewer.getInput();
-		// model.setProperty(NewJavaClassDataModel.INTERFACES, valueList);
+		IProject project = model.getTargetProject();
+		IRunnableContext context = Workbench.getInstance().getActiveWorkbenchWindow();
+		IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
+		// this eliminates the non-exported classpath entries
+		final IJavaSearchScope scope = TypeSearchEngine.createJavaSearchScopeForAProject(javaProject, true, true);
+		TypeSelectionDialog dialog = new TypeSelectionDialog(getShell(),context,IJavaSearchConstants.INTERFACE, scope);
+		dialog.setTitle(IWebWizardConstants.INTERFACE_SELECTION_DIALOG_TITLE);
+		if (dialog.open() == Window.OK) {
+			IType type = (IType) dialog.getFirstResult();
+			String superclassFullPath = ""; //$NON-NLS-1$
+			if (type != null)
+				superclassFullPath = type.getFullyQualifiedName();
+			interfaceViewer.add(superclassFullPath);
+		}
+		List valueList = Arrays.asList(interfaceViewer.getList().getItems());
+		model.setProperty(NewJavaClassDataModel.INTERFACES, valueList);
 	}
 
 	/**
@@ -331,12 +348,16 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 */
 	protected void handleInterfaceRemoveButtonSelected() {
 		IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();
-		if (!selection.isEmpty()) {
-			List valueList = (List) interfaceViewer.getInput();
-			Iterator iterator = selection.iterator();
-			while (iterator.hasNext()) {
-				Object next = iterator.next();
-				valueList.remove(next);
+		List items = selection.toList();
+		if (!items.isEmpty()) {
+			Object array[] = interfaceViewer.getList().getItems();
+			List valueList = new ArrayList();
+			
+			for (int i = 0; i < array.length; i++) {
+				valueList.add(array[i]);
+			}
+			for (int i=0; i<items.size(); i++) {
+				valueList.remove(items.get(i));
 			}
 			interfaceViewer.setInput(valueList);
 			model.setProperty(NewJavaClassDataModel.INTERFACES, valueList);
