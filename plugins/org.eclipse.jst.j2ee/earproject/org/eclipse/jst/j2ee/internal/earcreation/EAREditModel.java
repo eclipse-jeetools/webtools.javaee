@@ -35,7 +35,7 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.EARProjectMap;
@@ -45,7 +45,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.frameworks.internal.SaveFailedException;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 
 /**
@@ -137,7 +136,7 @@ public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	 * @return ApplicationResource
 	 */
 	public ApplicationResource getApplicationXmiResource() {
-		return (ApplicationResource) getResource(ArchiveConstants.APPLICATION_DD_URI_OBJ);
+		return (ApplicationResource) getResource(J2EEConstants.APPLICATION_DD_URI_OBJ);
 	}// getApplicationXmiResource
 
 	/**
@@ -263,6 +262,7 @@ public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 		try {
 			res = getOrCreateResource(MODULE_MAP_URI_OBJ);
 		} catch (WrappedException e) {
+			//Ignore
 		}
 		if (res == null)
 			return null;
@@ -489,7 +489,7 @@ public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 		XMLResource res = (XMLResource) makeEarXmiResource();
 		Application app = ApplicationPackage.eINSTANCE.getApplicationFactory().createApplication();
 		res.getContents().add(app);
-		res.setID(app, ArchiveConstants.APPL_ID);
+		res.setID(app, J2EEConstants.APPL_ID);
 		res.setJ2EEVersionID(getEARNature().getJ2EEVersion());
 		app.setDisplayName(getProject().getName());
 		return res;
@@ -501,7 +501,7 @@ public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	 * @return Resource
 	 */
 	public Resource makeEarXmiResource() {
-		return createResource(ArchiveConstants.APPLICATION_DD_URI_OBJ);
+		return createResource(J2EEConstants.APPLICATION_DD_URI_OBJ);
 	}// makeEarXmiResource
 
 	/**
@@ -531,7 +531,7 @@ public class EAREditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 
 		Application app = ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createApplication();
 		app.setDisplayName(getProject().getName());
-		((XMIResource) app.eResource()).setID(app, ArchiveConstants.APPL_ID);
+		((XMIResource) app.eResource()).setID(app, J2EEConstants.APPL_ID);
 		deploymentDescriptor.getContents().add(app);
 		return deploymentDescriptor;
 	}// makeRoot

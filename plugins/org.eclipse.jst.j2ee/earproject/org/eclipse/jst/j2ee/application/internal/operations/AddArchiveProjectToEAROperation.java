@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.application.Module;
@@ -39,7 +40,6 @@ import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.AddModuleToEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveModuleFromEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperation;
@@ -47,12 +47,9 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
 
 public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 
@@ -237,7 +234,7 @@ public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 	 * @param model
 	 */
 	private void updateUtilProject(AddUtilityProjectToEARDataModel model, IProgressMonitor aMonitor) {
-		WorkbenchComponent wbComp = (WorkbenchComponent) model.getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_MODULE);
+		WorkbenchComponent wbComp = (WorkbenchComponent) model.getProperty(AddArchiveToEARDataModel.ARCHIVE_MODULE);
 		IProject proj = ((AddArchiveToEARDataModel)operationDataModel).getProjectForGivenComponent(wbComp);
 		if (proj != null && J2EEProjectUtilities.getFirstReferencingEARProject(proj) == null) {
 			createManifest(model, aMonitor);
@@ -309,7 +306,7 @@ public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 	}
 
 	private IProject getArchiveProject() {
-	    WorkbenchComponent wbComp = (WorkbenchComponent) operationDataModel.getProperty(AddUtilityProjectToEARDataModel.ARCHIVE_MODULE);
+	    WorkbenchComponent wbComp = (WorkbenchComponent) operationDataModel.getProperty(AddArchiveToEARDataModel.ARCHIVE_MODULE);
 		return ((AddArchiveToEARDataModel)operationDataModel).getProjectForGivenComponent(wbComp);
 	}
 

@@ -25,7 +25,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.EnvEntry;
 import org.eclipse.jst.j2ee.internal.common.CommonEditResourceHandler;
@@ -70,7 +69,6 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 			super.getPropertyDescriptors(object);
 
 			CommonPackage pkg = CommonPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//

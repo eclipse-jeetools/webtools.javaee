@@ -25,7 +25,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
 import org.eclipse.jst.j2ee.common.EjbRef;
@@ -71,7 +70,6 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 			super.getPropertyDescriptors(object);
 
 			CommonPackage pkg = CommonPackage.eINSTANCE;
-			;
 
 			// This is for the name feature.
 			//

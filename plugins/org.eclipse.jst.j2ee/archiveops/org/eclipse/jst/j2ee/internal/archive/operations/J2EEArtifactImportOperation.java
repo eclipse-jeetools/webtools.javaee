@@ -27,14 +27,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
@@ -73,7 +70,7 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 	}
 
 	protected void addServerTarget(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		J2EEComponentCreationDataModel projModel = ((J2EEArtifactImportDataModel) operationDataModel).getJ2eeArtifactCreationDataModel();
+		//J2EEComponentCreationDataModel projModel = ((J2EEArtifactImportDataModel) operationDataModel).getJ2eeArtifactCreationDataModel();
 //		ServerTargetDataModel servModel = projModel.getServerTargetDataModel();
 //		ServerTargetOperation serverTargetOperation = new ServerTargetOperation(servModel);
 //		serverTargetOperation.doRun(monitor);
@@ -88,6 +85,7 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 	protected abstract SaveStrategy createSaveStrategy(IProject project);
 
 	protected void modifyStrategy(SaveStrategy saveStrat) {
+		//Default
 	}
 
 	/**
@@ -161,6 +159,7 @@ public abstract class J2EEArtifactImportOperation extends WTPOperation {
 			getOperationDataModel().dispose();
 			super.dispose(pm);
 		} catch (RuntimeException re) {
+			//Ignore
 		}
 	}
 }

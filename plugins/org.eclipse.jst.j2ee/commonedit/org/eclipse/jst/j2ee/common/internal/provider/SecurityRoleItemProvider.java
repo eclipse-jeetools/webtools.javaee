@@ -25,16 +25,12 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.internal.common.CommonEditResourceHandler;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
-
-
-;
 
 /**
  * This is the item provider adpater for a {@link com.ibm.etools.common.SecurityRole}object.
@@ -70,7 +66,6 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 			super.getPropertyDescriptors(object);
 
 			CommonPackage pkg = CommonPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//

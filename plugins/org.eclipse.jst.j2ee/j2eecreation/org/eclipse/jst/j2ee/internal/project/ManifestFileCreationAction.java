@@ -10,16 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.project;
 
-
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
-
-
 
 public class ManifestFileCreationAction {
 

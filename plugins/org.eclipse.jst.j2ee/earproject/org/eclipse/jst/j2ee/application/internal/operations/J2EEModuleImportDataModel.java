@@ -8,13 +8,7 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
-import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 
 /**
  * This dataModel is a common super class used to import J2EE Modules.
@@ -86,7 +80,7 @@ public abstract class J2EEModuleImportDataModel extends J2EEArtifactImportDataMo
 	}
 
 	public final J2EEComponentCreationDataModel getJ2EEModuleCreationDataModel() {
-		return (J2EEComponentCreationDataModel) getJ2eeArtifactCreationDataModel();
+		return getJ2eeArtifactCreationDataModel();
 	}
 
 	protected final int getJ2EEVersion() {

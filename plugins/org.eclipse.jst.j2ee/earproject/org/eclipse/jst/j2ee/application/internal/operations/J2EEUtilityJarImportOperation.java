@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
@@ -43,7 +42,7 @@ public class J2EEUtilityJarImportOperation extends WTPOperation {
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		J2EEUtilityJarImportDataModel dataModel = (J2EEUtilityJarImportDataModel) operationDataModel;
-		if (dataModel.getBooleanProperty(J2EEUtilityJarImportDataModel.OVERWRITE_PROJECT)) {
+		if (dataModel.getBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT)) {
 			IProject project = dataModel.getProject();
 			if (project.exists()) {
 				project.delete(true, true, new NullProgressMonitor());
@@ -58,7 +57,7 @@ public class J2EEUtilityJarImportOperation extends WTPOperation {
 		IProject javaProject = dataModel.getProject();
 		Archive jarFile = dataModel.getArchiveFile();
 
-		if (dataModel.getBooleanProperty(J2EEUtilityJarImportDataModel.PRESERVE_PROJECT_METADATA)) {
+		if (dataModel.getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA)) {
 			BinaryProjectHelper binaryHelper = new BinaryProjectHelper();
 			binaryHelper.importArchiveAsBinary(dataModel.getArchiveFile(), dataModel.getProject(), monitor);
 			try {

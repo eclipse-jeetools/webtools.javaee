@@ -10,21 +10,18 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.internal.resources.ProjectDescription;
 import org.eclipse.core.internal.resources.ProjectDescriptionReader;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -32,18 +29,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.xml.sax.InputSource;
 
 /**
@@ -137,7 +129,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	protected void initNestedModels() {
 		super.initNestedModels();
 		j2eeArtifactCreationDataModel = createJ2EEProjectCreationDataModel();
-		j2eeArtifactCreationDataModel.setBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES, false);
+		j2eeArtifactCreationDataModel.setBooleanProperty(ComponentCreationDataModel.CREATE_DEFAULT_FILES, false);
 		j2eeArtifactCreationDataModel.addListener(this);
 		addNestedModel(NESTED_MODEL_J2EE_PROJECT_CREATION, j2eeArtifactCreationDataModel);
 	}
@@ -187,14 +179,16 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 
 		if (propertyName.equals(PRESERVE_PROJECT_METADATA) && forceResetOnPreserveMetaData()) {
 			if (getBooleanProperty(PRESERVE_PROJECT_METADATA) && null != getArchiveFile()) {
-				if (getArchiveFile().containsFile(ProjectDescription.DESCRIPTION_FILE_NAME)) {
+				if (getArchiveFile().containsFile(IProjectDescription.DESCRIPTION_FILE_NAME)) {
 					try {
-						File dotProject = getArchiveFile().getFile(ProjectDescription.DESCRIPTION_FILE_NAME);
+						File dotProject = getArchiveFile().getFile(IProjectDescription.DESCRIPTION_FILE_NAME);
 						ProjectDescriptionReader reader = new ProjectDescriptionReader();
 						ProjectDescription description = reader.read(new InputSource(dotProject.getInputStream()));
 						setProperty(PROJECT_NAME, description.getName());
 					} catch (FileNotFoundException e) {
+						//Ignore
 					} catch (IOException e) {
+						//Ignore
 					}
 				}
 			}
@@ -225,7 +219,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		//            updateDefaultProjectName();
 		//        }
 		if (propertyName.equals(PROJECT_NAME)) {
-			j2eeArtifactCreationDataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, propertyValue);
+			j2eeArtifactCreationDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, propertyValue);
 		} else if (propertyName.equals(SAVE_FILTER) && archiveFile != null) {
 			archiveFile.setSaveFilter(getSaveFilter());
 		}
@@ -266,7 +260,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 					defaultProjectName = baseName + Integer.toString(i);
 				}
 			}
-			j2eeArtifactCreationDataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, defaultProjectName);
+			j2eeArtifactCreationDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, defaultProjectName);
 			notifyDefaultChange(PROJECT_NAME);
 			setBooleanProperty(DEFAULT_PROJECT_NAME, true);
 		}
@@ -407,14 +401,15 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getDataModel().equals(j2eeArtifactCreationDataModel) && event.getPropertyName().equals(J2EEComponentCreationDataModel.PROJECT_NAME)) {
-			setProperty(PROJECT_NAME, j2eeArtifactCreationDataModel.getStringProperty(J2EEComponentCreationDataModel.PROJECT_NAME));
+		if (event.getDataModel().equals(j2eeArtifactCreationDataModel) && event.getPropertyName().equals(ComponentCreationDataModel.PROJECT_NAME)) {
+			setProperty(PROJECT_NAME, j2eeArtifactCreationDataModel.getStringProperty(ComponentCreationDataModel.PROJECT_NAME));
 			setBooleanProperty(DEFAULT_PROJECT_NAME, false);
 		}
 		super.propertyChanged(event);
 	}
 
 	public void extractHandled(List newList, boolean addModels) {
+		//Default
 	}
 
 	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {

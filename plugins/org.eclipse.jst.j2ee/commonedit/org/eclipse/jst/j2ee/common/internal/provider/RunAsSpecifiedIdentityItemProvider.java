@@ -19,8 +19,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -33,11 +31,6 @@ import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
 import org.eclipse.jst.j2ee.internal.common.CommonEditResourceHandler;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-
-
-;
-
-
 
 /**
  * This is the item provider adpater for a {@link com.ibm.etools.common.RunAsSpecifiedIdentity}
@@ -59,7 +52,6 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 			super.getPropertyDescriptors(object);
 
 			CommonPackage pkg = CommonPackage.eINSTANCE;
-			;
 
 			// This is for the identity feature.
 			//
