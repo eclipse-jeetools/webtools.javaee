@@ -36,9 +36,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /*

@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**

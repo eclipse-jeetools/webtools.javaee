@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.common.operations;
 
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 
 /**

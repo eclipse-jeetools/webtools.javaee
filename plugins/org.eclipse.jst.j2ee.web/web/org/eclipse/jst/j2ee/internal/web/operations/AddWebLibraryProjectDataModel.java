@@ -24,7 +24,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;

@@ -15,7 +15,7 @@ import org.eclipse.jst.j2ee.application.operations.J2EEModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorModuleExportOperation;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 
 /**
  * @author cbridgha

@@ -26,8 +26,8 @@ import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.FilterMapping;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**

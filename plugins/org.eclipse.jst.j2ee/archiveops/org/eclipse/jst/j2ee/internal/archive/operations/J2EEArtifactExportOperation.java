@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

@@ -20,8 +20,8 @@ import org.eclipse.jst.j2ee.internal.wizard.EARImportOptionsPage;
 import org.eclipse.jst.j2ee.internal.wizard.EARImportPage;
 import org.eclipse.jst.j2ee.internal.wizard.EARImportProjectsPage;
 import org.eclipse.ui.IImportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 /**
  * <p>

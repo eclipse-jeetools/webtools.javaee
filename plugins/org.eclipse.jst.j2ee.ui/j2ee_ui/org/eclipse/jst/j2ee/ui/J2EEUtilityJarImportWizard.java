@@ -15,8 +15,8 @@ import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarListImportDataM
 import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportPage;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportTypePage;
 import org.eclipse.ui.IImportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 
 /**

@@ -35,7 +35,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 import com.ibm.wtp.common.logger.proxy.Logger;

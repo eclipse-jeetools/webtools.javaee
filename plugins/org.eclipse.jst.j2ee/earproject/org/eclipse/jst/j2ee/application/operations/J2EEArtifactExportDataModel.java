@@ -21,8 +21,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 

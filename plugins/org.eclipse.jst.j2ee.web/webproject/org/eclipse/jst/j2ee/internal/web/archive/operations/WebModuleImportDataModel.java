@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.web.internal.operation.WebSettings;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 

@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;

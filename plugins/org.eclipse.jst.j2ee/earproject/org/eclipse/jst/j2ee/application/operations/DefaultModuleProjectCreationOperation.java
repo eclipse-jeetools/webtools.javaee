@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.moduleextension.EarModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
 import org.eclipse.wst.common.frameworks.internal.activities.WTPActivityBridge;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 
 /**

@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 import org.eclipse.jst.j2ee.webapplication.TagLibRef;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**

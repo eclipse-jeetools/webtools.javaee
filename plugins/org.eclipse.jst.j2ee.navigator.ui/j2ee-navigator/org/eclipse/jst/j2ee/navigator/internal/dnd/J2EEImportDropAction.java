@@ -46,7 +46,7 @@ import org.eclipse.jst.servlet.ui.WebModuleImportWizard;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
 import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
 import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;

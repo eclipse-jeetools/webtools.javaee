@@ -36,12 +36,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelListener;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelListener;
+import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**

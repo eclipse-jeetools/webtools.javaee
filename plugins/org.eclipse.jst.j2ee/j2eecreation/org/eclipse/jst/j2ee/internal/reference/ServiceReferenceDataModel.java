@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.webservices.WebServicesClientDataHelper;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 

@@ -17,8 +17,8 @@ import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEExportPage;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -29,7 +29,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * </p>
  * <p>
  * Subclasses must provide the methods that are required by
- * {@link org.eclipse.wst.common.frameworks.internal.ui.WTPWizard}.
+ * {@link org.eclipse.wst.common.frameworks.ui.WTPWizard}.
  * </p>
  * <p>
  * Optionally, subclasses may also override the following methods:
@@ -140,7 +140,7 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 	 * wizard completes.
 	 * </p>
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
+	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizard#dispose()
 	 */
 	public final void dispose() {
 		super.dispose();

@@ -22,8 +22,8 @@ import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 
 /**
  * <p>
@@ -121,7 +121,7 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	 * wizard completes.
 	 * </p>
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
+	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizard#dispose()
 	 */
 	public final void dispose() {
 		super.dispose();

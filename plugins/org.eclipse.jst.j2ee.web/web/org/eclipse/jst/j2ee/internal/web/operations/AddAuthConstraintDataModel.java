@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 import java.util.Collections;
 
 import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 /**
  * @author jialin

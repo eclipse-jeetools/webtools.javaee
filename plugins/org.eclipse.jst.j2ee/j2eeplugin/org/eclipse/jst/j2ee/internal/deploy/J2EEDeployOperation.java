@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.wst.common.emf.utilities.CommandContext;
 import org.eclipse.wst.common.emf.utilities.ICommand;
 import org.eclipse.wst.common.emf.utilities.ICommandContext;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 

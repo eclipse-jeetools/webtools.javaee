@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
 
 /**

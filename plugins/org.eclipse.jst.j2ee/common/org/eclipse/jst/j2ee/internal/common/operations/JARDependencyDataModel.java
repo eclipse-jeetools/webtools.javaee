@@ -18,8 +18,8 @@ package org.eclipse.jst.j2ee.internal.common.operations;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 
 /**

@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 
 /**

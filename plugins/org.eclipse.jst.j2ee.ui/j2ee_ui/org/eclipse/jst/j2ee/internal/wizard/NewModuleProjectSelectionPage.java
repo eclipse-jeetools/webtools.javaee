@@ -40,7 +40,7 @@ import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 import org.eclipse.ui.wizards.IWizardRegistry;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
-import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

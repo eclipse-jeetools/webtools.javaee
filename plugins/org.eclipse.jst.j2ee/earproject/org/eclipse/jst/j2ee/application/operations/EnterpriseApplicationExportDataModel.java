@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.jst.j2ee.internal.archive.operations.EnterpriseApplicationExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

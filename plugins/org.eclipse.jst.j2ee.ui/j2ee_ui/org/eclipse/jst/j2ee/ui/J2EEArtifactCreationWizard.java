@@ -29,7 +29,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 /**
  * <p>
@@ -47,7 +47,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#canFinish()}
  * <li>
  * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#createBaseOperation()}
- * <li>{@link org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#createDefaultModel()}
+ * <li>{@link org.eclipse.wst.common.frameworks.ui.WTPWizard#createDefaultModel()}
  * </ul>
  * </p>
  * <p>
@@ -121,7 +121,7 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * wizard completes.
 	 * </p>
 	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
+	 * @see org.eclipse.wst.common.frameworks.ui.WTPWizard#dispose()
 	 */
 	public final void dispose() {
 		super.dispose();

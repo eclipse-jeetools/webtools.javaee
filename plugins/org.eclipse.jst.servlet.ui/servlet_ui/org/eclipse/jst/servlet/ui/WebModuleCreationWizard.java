@@ -20,8 +20,8 @@ import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectCreationPage;
 import org.eclipse.ui.INewWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 /**
  * <p>

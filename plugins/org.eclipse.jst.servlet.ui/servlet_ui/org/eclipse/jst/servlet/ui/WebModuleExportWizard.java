@@ -17,8 +17,8 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportOpera
 import org.eclipse.jst.j2ee.ui.J2EEArtifactExportWizard;
 import org.eclipse.jst.servlet.ui.internal.wizard.WARExportPage;
 import org.eclipse.ui.IExportWizard;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
 /**
  * <p>
