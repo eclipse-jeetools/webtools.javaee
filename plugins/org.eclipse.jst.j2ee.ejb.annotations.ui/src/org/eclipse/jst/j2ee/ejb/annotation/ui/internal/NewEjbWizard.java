@@ -66,13 +66,18 @@ public abstract class NewEjbWizard extends WTPWizard implements INewWizard {
 			IProject[] projects = ProjectUtilities.getAllProjects();
 			for (int i = 0; i < projects.length; i++) {
 				StructureEdit core = null;
-				core = StructureEdit.getStructureEditForRead(projects[i]);
-				WorkbenchComponent[] components = core.findComponentsByType(EJBArtifactEdit.TYPE_ID);
-				if (components != null && components.length > 0) {
-					project = projects[i];
-					if (core != null)
+				try {
+					core = StructureEdit.getStructureEditForRead(projects[i]);
+					if(core != null) {
+						WorkbenchComponent[] components = core.findComponentsByType(EJBArtifactEdit.TYPE_ID);
+						if (components != null && components.length > 0) {
+							project = projects[i];
+							break;
+						}
+					}
+				} finally {
+					if(core != null)
 						core.dispose();
-					break;
 				}
 			}
 		}
