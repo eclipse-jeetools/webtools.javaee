@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.operations;
 
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

@@ -8,7 +8,6 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.reference;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;

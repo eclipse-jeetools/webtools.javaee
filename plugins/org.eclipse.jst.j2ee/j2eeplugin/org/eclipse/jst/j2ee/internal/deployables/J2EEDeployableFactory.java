@@ -14,8 +14,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.model.ModuleDelegate;
-import org.eclipse.wst.server.core.util.ProjectModule;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
 /**

@@ -11,8 +11,6 @@
 package org.eclipse.jst.j2ee.applicationclient.creation;
 
 
-import java.util.Map;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;

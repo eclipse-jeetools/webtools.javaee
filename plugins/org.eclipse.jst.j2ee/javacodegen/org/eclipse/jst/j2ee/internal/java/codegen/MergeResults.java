@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.java.codegen;
 
 
 import org.eclipse.jdt.core.IMember;
-import org.eclipse.jdt.core.jdom.IDOMMethod;
 import org.eclipse.jst.j2ee.internal.codegen.AnalysisResult;
 
 

@@ -18,7 +18,6 @@ package org.eclipse.jst.j2ee.internal.project;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;

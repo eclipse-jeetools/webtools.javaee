@@ -29,7 +29,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.codegen.AnalysisResult;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
-import org.eclipse.jst.j2ee.internal.codegen.IBaseGenerator;
 import org.eclipse.jst.j2ee.internal.codegen.IGenerationBuffer;
 import org.eclipse.jst.j2ee.internal.codegen.Navigator;
 

@@ -31,7 +31,6 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.internal.ResourceManager;
 
 /**

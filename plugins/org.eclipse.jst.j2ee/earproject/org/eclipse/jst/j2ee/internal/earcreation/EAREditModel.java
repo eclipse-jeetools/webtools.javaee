@@ -44,7 +44,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.frameworks.internal.SaveFailedException;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

@@ -17,7 +17,6 @@
 package org.eclipse.jst.j2ee.internal.common.operations;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperationDataModel;
 import org.eclipse.wst.server.core.IRuntime;
