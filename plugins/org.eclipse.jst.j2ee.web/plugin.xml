@@ -14,6 +14,7 @@
    </runtime>
    <requires>
       <import plugin="org.eclipse.jst.j2ee"/>
+      <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.wst.server.core"/>
       <import plugin="org.eclipse.jst.server.core"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
@@ -167,34 +168,108 @@
 <!-- Extension point: org.eclipse.etools.server.core.moduleObjectAdapters -->
 <!-- Purpose: Define adapters for EJB and Web resources                   -->
 <!-- ==================================================================== -->
-   <extension
-         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
-      <moduleArtifactAdapter
+      <extension
+         point="org.eclipse.wst.server.ui.moduleArtifactAdapters">
+     <!--    <moduleArtifactAdapter
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             objectClass="org.eclipse.jst.j2ee.internal.webapplication.WebApp"
             id="org.eclipse.jst.web.server.webresource">
+      </moduleArtifactAdapter> -->
+          <moduleArtifactAdapter
+            id="org.eclipse.jst.web.server.webresource">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.j2ee.webapplication.WebApp"/>
+           </with>
+         </enablement>
       </moduleArtifactAdapter>
-      <moduleArtifactAdapter
+   
+     <!-- <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.internal.webapplication.Servlet"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="org.eclipse.jst.web.server.webresource2">
-      </moduleArtifactAdapter>
+      </moduleArtifactAdapter>-->
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.web.server.webresource2">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.server.j2ee.Servlet"/>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
+      <!--  </moduleArtifactAdapter>
             <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IProject"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="org.eclipse.jst.web.server.webresource3">
-      </moduleArtifactAdapter>
-      <moduleArtifactAdapter
+      </moduleArtifactAdapter>-->
+      
+       <moduleArtifactAdapter
+            id="org.eclipse.jst.web.server.webresource3">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IProject"/>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>     
+      <!--   <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IFile"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="corg.eclipse.jst.web.server.webresource4">
-      </moduleArtifactAdapter>
-      <moduleArtifactAdapter
+      </moduleArtifactAdapter>-->
+        <moduleArtifactAdapter
+            id="org.eclipse.jst.web.server.webresource4">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IFile"/>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
+         
+     <!-- <moduleArtifactAdapter
             objectClass="org.eclipse.jdt.core.ICompilationUnit"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="org.eclipse.jst.web.server.webresource5">
-      </moduleArtifactAdapter>
+      </moduleArtifactAdapter>-->
+      
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.web.server.webresource5">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jdt.core.ICompilationUnit"/>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
    </extension>
+   
+   <extension point="org.eclipse.core.runtime.adapters">
+         <factory
+             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IProject">
+            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+        </factory>
+        <factory
+             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
+            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+        </factory>
+        <factory
+             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IFile">
+            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+       </factory>
+       <factory
+             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.j2ee.internal.webapplication.Servlet">
+            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+       </factory>
+       <factory
+             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
+             adaptableType=" org.eclipse.jst.j2ee.internal.webapplication.WebApp">
+            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+       </factory>     
+   </extension>
+   
 <!-- =============================================================== -->
 <!-- Extension point: com.ibm.etools.server.core.moduleFactories -->
 <!-- Purpose: Define the default module project factory          -->

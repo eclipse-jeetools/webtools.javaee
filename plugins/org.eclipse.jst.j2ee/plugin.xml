@@ -463,7 +463,7 @@
 <!-- Extension point: com.ibm.etools.server.core.deployableObjectAdapters -->
 <!-- ==================================================================== -->
    
-   <extension
+  <!--  <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
       <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.application.Application"
@@ -480,7 +480,7 @@
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ear3">
       </moduleArtifactAdapter>
-   </extension>
+   </extension> -->
 <!-- =============================================================== -->
 <!-- Purpose: Define the default deployable project factory          -->
 <!-- Extension point: com.ibm.etools.server.core.deployableFactories -->

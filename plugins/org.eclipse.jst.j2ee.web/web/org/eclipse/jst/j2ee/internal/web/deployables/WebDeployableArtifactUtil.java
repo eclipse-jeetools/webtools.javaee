@@ -43,7 +43,6 @@ import org.eclipse.jst.server.j2ee.WebResource;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -52,20 +51,20 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * @version 1.0
  * @author
  */
-public class WebDeployableObjectAdapter extends ModuleArtifactAdapterDelegate {
+public class WebDeployableArtifactUtil  {
 	private final static String[] extensionsToExclude = new String[]{"sql", "xmi"}; //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * Constructor for WebDeployableObjectAdapter.
 	 */
-	public WebDeployableObjectAdapter() {
+	public WebDeployableArtifactUtil() {
 		super();
 	}
 
 	/*
 	 * @see IDeployableObjectAdapterDelegate#getDeployableObject(Object)
 	 */
-	public IModuleArtifact getModuleObject(Object obj) {
+	public static IModuleArtifact getModuleObject(Object obj) {
 		IResource resource = null;
 		if (obj instanceof IResource)
 			resource = (IResource) obj;
@@ -155,7 +154,7 @@ public class WebDeployableObjectAdapter extends ModuleArtifactAdapterDelegate {
 	 * @param resource
 	 * @return boolean
 	 */
-	private boolean shouldExclude(IResource resource) {
+	private static boolean shouldExclude(IResource resource) {
 		String fileExt = resource.getFileExtension();
 
 		// Exclude files of certain extensions
@@ -167,7 +166,7 @@ public class WebDeployableObjectAdapter extends ModuleArtifactAdapterDelegate {
 		return false;
 	}
 
-	protected IModule getModule(IBaseWebNature nature) {
+	protected static IModule getModule(IBaseWebNature nature) {
 		IModule deployable = nature.getModule();
 		if (deployable != null)
 			return deployable;

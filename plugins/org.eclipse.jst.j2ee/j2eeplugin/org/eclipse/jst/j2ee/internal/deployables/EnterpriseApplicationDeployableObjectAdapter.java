@@ -19,14 +19,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
-import org.eclipse.wst.server.core.IModuleArtifactAdapter;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * Creates the Object adapter for ear projects.
  */
-public class EnterpriseApplicationDeployableObjectAdapter implements IModuleArtifactAdapter {
+public class EnterpriseApplicationDeployableObjectAdapter  {
 
 	/**
 	 * Constructor for EnterpriseApplicationDeployableObjectAdapter.
