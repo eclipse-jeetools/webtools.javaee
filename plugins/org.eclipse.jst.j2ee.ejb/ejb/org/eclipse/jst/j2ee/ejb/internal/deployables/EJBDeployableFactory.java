@@ -61,7 +61,6 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
 				moduleList.add(module);
 				moduleDelegate.initialize(module);
-				//adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
 			} catch (Exception e) {
 				Logger.getLogger().write(e);
 			} finally {

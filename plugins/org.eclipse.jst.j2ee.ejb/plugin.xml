@@ -909,5 +909,40 @@
 			</mapping>
 		</natureMapping>
 	</extension>
+	   <extension
+         point="org.eclipse.wst.common.migration.migrator">
+      <migrator
+            className="org.eclipse.wst.common.internal.migration.ComponentMigrator"
+            id="org.eclipse.wst.common.internal.migration.ComponentMigrator">
+             <enablement>
+			  <projectNature natureID="com.ibm.wtp.ejb.EJBNature"/>		                          
+         </enablement>
+      </migrator>
+   </extension>
+       <extension
+          point="org.eclipse.wst.common.migration.migratorStrategy">
+       <migratorStrategy
+             className="org.eclipse.jst.j2ee.internal.ejb.migration.EJBProjectMigratorStrategy"
+             id="org.eclipse.jst.j2ee.internal.ejb.migration.EJBProjectMigratorStrategy.ID">
+          <enablement>
+			  <projectNature natureID="com.ibm.wtp.ejb.EJBNature"/>
+          </enablement>
+       </migratorStrategy>
+    </extension>
+        <extension
+		id="NatureMappings"
+		name="Module Core Nature Mappings"
+		point="org.eclipse.wst.common.migration.natureMapping">
+		<natureMapping>
+			<mapping
+				position="first"
+				name="Nature Mapping"
+				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+				<alias
+					value="com.ibm.wtp.ejb.EJBNature">
+				</alias>
+			</mapping>
+		</natureMapping>
+	</extension>
        
 </plugin>
