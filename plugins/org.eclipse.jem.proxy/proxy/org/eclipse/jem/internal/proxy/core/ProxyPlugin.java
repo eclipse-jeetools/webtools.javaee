@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.27 $  $Date: 2004/06/17 22:26:25 $ 
+ *  $Revision: 1.28 $  $Date: 2004/07/16 15:00:22 $ 
  */
 
 
@@ -204,18 +204,17 @@ public class ProxyPlugin extends Plugin {
 			return result != null ? new URL[] { result } : new URL[0];
 		} else {
 			ArrayList urls = new ArrayList(fragments.length + 1);
-			URL url = urlLocalizeFromBundle(bundle, filenameWithinBundle);
+			URL url = urlLocalizeFromBundleOnly(bundle, filenameWithinBundle);
 			if (url != null)
 				urls.add(url);
 			for (int i = 0; i < fragments.length; i++) {
 				Bundle fragment = fragments[i];
-				url = fragment.getEntry(filenameWithinBundle);
+				url =  urlLocalizeFromBundleOnly(fragment, filenameWithinBundle);
 				if (url != null)
 					urls.add(url);
 				// Also, look through the libraries of the fragment to see if one matches the special path.				
 				// This is where one of the runtime libraries has the fragment id in it. 
-				// TODO This needs to be completely relooked at when we have a stable OSGi API. Not sure how
-				// this will work with that. (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments
+				//  (As for why we are doing this, look at the comment for localizeFromPluginDescriptorAndFragments, but this is obsolete).
 				String classpath = (String) fragment.getHeaders().get(Constants.BUNDLE_CLASSPATH);
 				try {
 					ManifestElement[] classpaths = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, classpath);
@@ -226,15 +225,15 @@ public class ProxyPlugin extends Plugin {
 							libFile =
 								filenameWithinBundle.substring(0, extndx)
 									+ '.'
-									+ fragment.getBundleId()
+									+ fragment.getSymbolicName()
 									+ filenameWithinBundle.substring(extndx);
 						else
-							libFile = filenameWithinBundle + '.' + fragment.getBundleId();
+							libFile = filenameWithinBundle + '.' + fragment.getSymbolicName();
 						for (int j = 0; j < classpaths.length; j++) {
 							IPath cp = new Path(classpaths[j].getValue());
 							// The last segment should be the file name. That is the name we are looking for.
 							if (libFile.equals(cp.lastSegment())) {
-								url = fragment.getEntry(classpaths[j].getValue());
+								url = urlLocalizeFromBundleOnly(fragment, classpaths[j].getValue());
 								// Though the actual classpath entry is the file we are looking for.
 								if (url != null)
 									urls.add(url);
@@ -250,7 +249,8 @@ public class ProxyPlugin extends Plugin {
 		}
 	}
 	
-	private static final IPath PROXYJARS_PATH = new Path("proxy.jars"); //$NON-NLS-1$
+	private static final String PROXYJARS = "proxy.jars";	//$NON-NLS-1$
+	private static final IPath PROXYJARS_PATH = new Path(PROXYJARS); 
 	
 	/**
 	 * @see ProxyPlugin#localizeFromBundle(Bundle, String)
@@ -281,26 +281,49 @@ public class ProxyPlugin extends Plugin {
 	public URL urlLocalizeFromBundle(Bundle bundle, IPath filenameWithinBundle) {					
 		try {
 			URL pvm = Platform.find(bundle, filenameWithinBundle);
+			pvm = verifyFound(pvm);
 			if (pvm != null)
-				pvm = Platform.asLocalURL(pvm);
-			if (devMode) {
-				// Need to test if found in devmode. Otherwise we will just assume it is found. If not found on remote and moved to cache, an IOException would be thrown.
-				if (pvm != null) {
-					InputStream ios = null;
-					try {
-						ios = pvm.openStream();
-						if (ios != null)
-							return pvm; // Found it, so return it.
-					} finally {
-						if (ios != null)
-							ios.close();
-					}
-				}
-			} else
 				return pvm;
 		} catch (IOException e) {
 		}
 
+		return findDev(bundle, filenameWithinBundle.toString());
+	}
+
+	protected URL urlLocalizeFromBundleOnly(Bundle bundle, String filenameWithinBundle) {
+		try {
+			URL pvm = bundle.getEntry(filenameWithinBundle);
+			pvm = verifyFound(pvm);
+			if (pvm != null)
+				return pvm;
+		} catch (IOException e) {
+		}
+
+		return findDev(bundle, filenameWithinBundle);
+	}
+	
+	private URL verifyFound(URL pvm) throws IOException {
+		if (pvm != null)
+			pvm = Platform.asLocalURL(pvm);
+		if (devMode) {
+			// Need to test if found in devmode. Otherwise we will just assume it is found. If not found on remote and moved to cache, an IOException would be thrown.
+			if (pvm != null) {
+				InputStream ios = null;
+				try {
+					ios = pvm.openStream();
+					if (ios != null)
+						return pvm; // Found it, so return it.
+				} finally {
+					if (ios != null)
+						ios.close();
+				}
+			}
+		} else
+			return pvm;
+		return null;
+	}
+	
+	private URL findDev(Bundle bundle, String filenameWithinBundle) {
 		if (devMode) {
 			// Got this far and in dev mode means it wasn't found, so we'll try for development style.
 			// It is assumed that in dev mode, we are running with the IDE as local and any 
@@ -332,10 +355,11 @@ public class ProxyPlugin extends Plugin {
 			} catch (IOException e) {
 			}
 		}
+		
+		return null;
 
-		return null; // Nothing found
 	}
-
+	
 	/**
 	 * A helper to order the plugins into pre-req order. 
 	 * If A eventually depends on B, then B will be ahead of A in the
