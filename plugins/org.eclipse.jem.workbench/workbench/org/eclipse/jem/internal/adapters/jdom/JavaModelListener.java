@@ -11,16 +11,13 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaModelListener.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/09 22:47:06 $ 
+ *  $Revision: 1.4 $  $Date: 2004/08/04 21:36:32 $ 
  */
 
 import java.util.*;
 
 import org.eclipse.core.resources.*;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
 
 /**
@@ -152,7 +149,7 @@ protected void processJavaElementChanged(IPackageFragmentRoot element, IJavaElem
 protected void processJavaElementChanged(IType element, IJavaElementDelta delta) {
 	// override to implement specific behavior
 }
-private static final IPath CLASSPATH_PATH = new Path(".classpath");
+
 protected boolean isClassPathChange(IJavaElementDelta delta) {
 	int flags = delta.getFlags();
 	return (delta.getKind() == IJavaElementDelta.CHANGED && ((flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) != 0) || ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) != 0) || ((flags & IJavaElementDelta.F_REORDER) != 0));
@@ -164,6 +161,8 @@ protected boolean isClassPathChange(IJavaElementDelta delta) {
  * @return boolean
  */
 protected boolean isClasspathResourceChange(IJavaElementDelta delta) {
+	if ((delta.getFlags() & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0)
+		return true;
 	IResourceDelta[] resources = delta.getResourceDeltas();
 	if (resources == null)
 		return false;
@@ -171,7 +170,7 @@ protected boolean isClasspathResourceChange(IJavaElementDelta delta) {
 	for (int i = 0; i < resources.length; i++) {
 		if (resources[i].getKind() == IResourceDelta.CHANGED) {
 			path = resources[i].getProjectRelativePath();
-			if (path.equals(CLASSPATH_PATH) || isAlsoClasspathChange(path))
+			if (isAlsoClasspathChange(path))
 				return true;
 		}
 	}
@@ -209,6 +208,11 @@ protected boolean isInClasspath(IJavaProject javaProject) {
  */
 protected abstract IJavaProject getJavaProject();
 
+/*
+ * test to see if the testProject is in the classpath (including from any referenced projects) of the target project.
+ * Keep track of those already visited so as not to visit again.
+ * TODO This should be made private.
+ */
 protected boolean isInClasspath(IJavaProject testProject, IJavaProject targetProject, boolean isFirstLevel, Set visited) {
 	if (visited.contains(targetProject))
 		return false;
@@ -241,6 +245,11 @@ protected boolean isInClasspath(IJavaProject testProject, IJavaProject targetPro
 	return isInClasspath(testProject, projects, false, visited);
 }
 
+/*
+ * See if the testProject is in the classpath of any of the list of projects or in any project that an entry
+ * in the list may of visited.
+ * TODO This should be made private.
+ */
 protected boolean isInClasspath(IJavaProject testProject, List someJavaProjects, boolean isFirstLevel, Set visited) {
 	if (someJavaProjects == null)
 		return false;

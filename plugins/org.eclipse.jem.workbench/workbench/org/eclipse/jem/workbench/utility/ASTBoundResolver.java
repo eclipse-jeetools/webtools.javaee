@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTBoundResolver.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/04 18:38:39 $ 
+ *  $Revision: 1.4 $  $Date: 2004/08/04 21:36:32 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -86,7 +86,7 @@ public class ASTBoundResolver extends ParseTreeCreationFromAST.Resolver {
 		return (binding != null) ? getTypeName(binding) : null; 
 	}
 	
-	private String getTypeName(ITypeBinding typeBinding) {
+	protected String getTypeName(ITypeBinding typeBinding) {
 		StringBuffer name;
 		if (typeBinding.isArray()) {
 			name= new StringBuffer(getTypeName(typeBinding.getElementType()));
