@@ -133,6 +133,15 @@ public class J2EEUIMessages extends Messages {
 	public static final String APPCLIENT_COMPONENT_WIZ_TITLE = "AppClientComponentCreationWizard.title"; //$NON-NLS-1$
 	public static final String APPCLIENT_COMPONENT_MAIN_PG_TITLE = "AppClientComponentCreationWizard.mainPage.title"; //$NON-NLS-1$
 	public static final String APPCLIENT_COMPONENT_MAIN_PG_DESC = "AppClientComponentCreationWizard.mainPage.desc"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_WIZ_TITLE = "DefaultJ2EEComponentCreationWizard.title"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_PAGE_TITLE = "DefaultJ2EEComponentCreationWizard.page.title"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_PAGE_DESC = "DefaultJ2EEComponentCreationWizard.page.desc"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_PAGE_EJB_MODULE_LBL = "DefaultJ2EEComponentCreationWizard.page.label.ejb"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_PAGE_WEB_MODULE_LBL = "DefaultJ2EEComponentCreationWizard.page.label.web"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_PAGE_JCA_MODULE_LBL = "DefaultJ2EEComponentCreationWizard.page.label.jca"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_PAGE_APPCLIENT_MODULE_LBL = "DefaultJ2EEComponentCreationWizard.page.label.appclient"; //$NON-NLS-1$
+	public static final String DEFAULT_COMPONENT_PAGE_NEW_MOD_SEL_PG_DEF_BTN = "DefaultJ2EEComponentCreationWizard.page.button.select"; //$NON-NLS-1$
+	
 	
 	private static final J2EEUIMessages INSTANCE = new J2EEUIMessages();
 
