@@ -25,7 +25,7 @@
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.swt"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.jst.common.annotations.core"/>
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
    </requires>

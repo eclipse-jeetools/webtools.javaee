@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.navigator.internal.plugin;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -25,8 +24,8 @@ public class J2EENavigatorPlugin extends AbstractUIPlugin {
 	/**
 	 * The constructor.
 	 */
-	public J2EENavigatorPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public J2EENavigatorPlugin() {
+		super();
 		plugin = this;
 	}
 

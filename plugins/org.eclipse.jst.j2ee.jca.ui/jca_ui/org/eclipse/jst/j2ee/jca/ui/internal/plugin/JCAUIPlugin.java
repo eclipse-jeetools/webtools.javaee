@@ -8,7 +8,6 @@ package org.eclipse.jst.j2ee.jca.ui.internal.plugin;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -28,13 +27,9 @@ public class JCAUIPlugin extends AbstractUIPlugin {
 	/**
 	 * The constructor.
 	 */
-	public JCAUIPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
-		plugin = this;
-	}
-	
 	public JCAUIPlugin() {
-		//Default constructor
+		super();
+		plugin = this;
 	}
 
 	/**

@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -47,8 +46,8 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 	/**
 	 * The constructor.
 	 */
-	public J2EEUIPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public J2EEUIPlugin() {
+		super();
 		plugin = this;
 	}
 
@@ -80,7 +79,7 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getDescriptor().getInstallURL();
+		return getDefault().getBundle().getEntry("/");
 	}
 
 	public static String getArchiveDefaultProjectName(Archive anArchive) {
@@ -235,7 +234,7 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 	 * @return
 	 */
 	private URL getImageURL(String key) {
-		return J2EEPlugin.getImageURL(key, getDescriptor());
+		return J2EEPlugin.getImageURL(key, getBundle());
 	}
 
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {

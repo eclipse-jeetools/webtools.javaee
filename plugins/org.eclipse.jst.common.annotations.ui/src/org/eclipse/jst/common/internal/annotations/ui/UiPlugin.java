@@ -13,7 +13,6 @@ package org.eclipse.jst.common.internal.annotations.ui;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -28,8 +27,8 @@ public class UiPlugin extends AbstractUIPlugin {
 	/**
 	 * The constructor.
 	 */
-	public UiPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public UiPlugin() {
+		super();
 		plugin = this;
 		try {
 			resourceBundle = ResourceBundle.getBundle("org.eclipse.wst.common.internal.annotations.ui.UiPluginResources"); //$NON-NLS-1$

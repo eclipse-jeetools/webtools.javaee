@@ -21,11 +21,11 @@ import java.net.URL;
 import java.text.MessageFormat;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.osgi.framework.BundleContext;
 
 
 /**
@@ -46,8 +46,8 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * @param descriptor
 	 */
-	public WebServicePlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public WebServicePlugin() {
+		super();
 		if (singleton == null)
 			singleton = this;
 
@@ -70,7 +70,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 */
 	public static ImageDescriptor getImageDescriptor(String name) {
 		try {
-			URL installURL = singleton.getDescriptor().getInstallURL();
+			URL installURL = getInstance().getBundle().getEntry("/");;
 			URL imageURL = new URL(installURL, name);
 			return ImageDescriptor.createFromURL(imageURL);
 		} catch (MalformedURLException e) {
@@ -99,7 +99,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 * @return The locale-specific message.
 	 */
 	public static String getMessage(String key) {
-		return singleton.getDescriptor().getResourceString(key);
+		return Platform.getResourceString(getInstance().getBundle(), key);
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 
 	public String getPluginInstallLocation() {
 		try {
-			return Platform.resolve(getDescriptor().getInstallURL()).getFile();
+			return Platform.resolve(getInstance().getBundle().getEntry("/")).getFile();
 		} catch (Throwable t) {
 			return null;
 		}
@@ -202,8 +202,8 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 * @throws CoreException
 	 *             If this plugin fails to start.
 	 */
-	public void startup() throws CoreException {
-		super.startup();
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 * @throws CoreException
 	 *             If this plugin fails to shutdown.
 	 */
-	public void shutdown() throws CoreException {
-		super.shutdown();
+	public void stop(BundleContext context) throws Exception {
+		super.stop(context);
 	}
 }

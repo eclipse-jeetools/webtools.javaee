@@ -9,10 +9,9 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.core.internal.plugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
+import org.osgi.framework.BundleContext;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.logger.proxyrender.DefaultPluginTraceRenderer;
@@ -36,13 +35,13 @@ public class J2EECorePlugin extends Plugin {
 	/**
 	 * @param descriptor
 	 */
-	public J2EECorePlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public J2EECorePlugin() {
+		super();
 		if (inst==null) inst = this;
 	}
 	
-	public void startup() throws CoreException {
-		super.startup();
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
 		IEJBModelExtenderManager.INSTANCE.setProvider(EclipseEJBModelExtenderProvider.getInstance());
 	}
 	

@@ -22,14 +22,12 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -48,7 +46,8 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.IModuleConstants;
 import org.eclipse.wst.common.modulecore.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
-import org.eclipse.wst.common.modulecore.util.ArtifactEditAdapterFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 
 /**
@@ -60,7 +59,7 @@ import org.eclipse.wst.common.modulecore.util.ArtifactEditAdapterFactory;
 public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	// Default instance of the receiver
 	private static WebPlugin inst;
-	protected final IPath iconsFolder = new Path(getDescriptor().getInstallURL().getFile()).append("icons"); //$NON-NLS-1$
+	protected final IPath iconsFolder = new Path(Platform.getBundle(PLUGIN_ID).getEntry("icons").getPath()); //$NON-NLS-1$
 	// Links View part of the plugin
 	//public static final String LINKS_BUILDER_ID =
 	// "com.ibm.etools.links.management.linksbuilder";//$NON-NLS-1$
@@ -89,8 +88,8 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * Create the J2EE plugin and cache its default instance
 	 */
-	public WebPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public WebPlugin() {
+		super();
 		if (inst == null)
 			inst = this;
 	}
@@ -106,13 +105,13 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public URL getBaseURL() {
-		return getDescriptor().getInstallURL();
+		return getBundle().getEntry("/");
 	}
 
 	public Object[] getJ2EEWebProjectMigrationExtensions() {
 
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(getDescriptor().getUniqueIdentifier(), "J2EEWebProjectMigrationExtension"); //$NON-NLS-1$
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		IExtensionPoint pct = registry.getExtensionPoint(getBundle().getSymbolicName(), "J2EEWebProjectMigrationExtension"); //$NON-NLS-1$
 
 		IExtension[] extension = pct.getExtensions();
 		List ret = new Vector();
@@ -141,7 +140,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	 * This gets a .gif from the icons folder.
 	 */
 	public Object getImage(String key) {
-		return J2EEPlugin.getImageURL(key, getDescriptor());
+		return J2EEPlugin.getImageURL(key, getBundle());
 	}
 
 	public static IPath getInstallLocation() {
@@ -158,7 +157,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getDescriptor().getInstallURL();
+		return getDefault().getBundle().getEntry("/");
 	}
 
 	/**
@@ -173,11 +172,11 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	 * d:\installdir\plugin)
 	 */
 	public static IPath getPluginLocation(String pluginId) {
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IPluginDescriptor pd = registry.getPluginDescriptor(pluginId);
-		if (pd != null) {
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		Bundle bundle = Platform.getBundle(pluginId);
+		if (bundle != null) {
 			try {
-				IPath installPath = new Path(pd.getInstallURL().toExternalForm()).removeTrailingSeparator();
+				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {
@@ -265,7 +264,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public String getString(String key) {
-		return getDescriptor().getResourceBundle().getString(key);
+		return Platform.getResourceString(getBundle(), key);
 	}
 
 	/*
@@ -298,8 +297,8 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 
 
 
-	public void shutdown() throws CoreException {
-		super.shutdown();
+	public void stop(BundleContext context) throws Exception {
+		super.stop(context);
 		if (this.taglibRegistryManager != null)
 			this.taglibRegistryManager.dispose();
 
@@ -311,8 +310,8 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		return new TaglibRegistryManager();
 	}
 
-	public void startup() throws CoreException {
-		super.startup();
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
 		// register the listener for link refactoring of moved/renamed files
 		// add listener for web content changes
 		addWebContentListener();

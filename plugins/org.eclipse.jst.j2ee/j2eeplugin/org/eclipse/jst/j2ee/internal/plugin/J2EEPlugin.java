@@ -19,6 +19,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
@@ -32,9 +33,8 @@ import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -61,6 +61,8 @@ import org.eclipse.wst.common.modulecore.IModuleConstants;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 import com.ibm.wtp.common.UIContextDetermination;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -76,13 +78,15 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	private static J2EEPlugin inst;
 	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee"; //$NON-NLS-1$
 	public static final String UI_PLUGIN_ID = "org.eclipse.jst.j2ee.ui"; //$NON-NLS-1$
-	protected final IPath iconsFolder = new Path(getDescriptor().getInstallURL().getFile()).append("icons"); //$NON-NLS-1$
+	protected final IPath iconsFolder = new Path(Platform.getBundle(PLUGIN_ID).getEntry("icons").getPath()); //$NON-NLS-1$
 	// LibDir Change Listener
 	public static final String LIBDIRCHANGE_BUILDER_ID = "org.eclipse.jst.j2ee.web.LibDirBuilder"; //$NON-NLS-1$
 	// LibCopy builder ID
 	public static final String LIBCOPY_BUILDER_ID = PLUGIN_ID + ".LibCopyBuilder"; //$NON-NLS-1$
 	// Validation part of the plugin
 	public static final String VALIDATION_BUILDER_ID = ValidationPlugin.VALIDATION_BUILDER_ID; // plugin
+	private static final String KEY_PREFIX = "%"; //$NON-NLS-1$
+	private static final String KEY_DOUBLE_PREFIX = "%%"; //$NON-NLS-1$	
 	// id
 	// of
 	// the
@@ -115,10 +119,15 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * Create the J2EE plugin and cache its default instance
 	 */
-	public J2EEPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public J2EEPlugin() {
+		super();
 		if (inst == null)
 			inst = this;
+		try {
+			resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee"); //$NON-NLS-1$
+		} catch (MissingResourceException x) {
+			resourceBundle = null;
+		}
 	}
 
 	/**
@@ -155,14 +164,14 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public URL getBaseURL() {
-		return getDescriptor().getInstallURL();
+		return getBundle().getEntry("/");
 	}
 
 
 	public Object[] getJ2EEWebProjectMigrationExtensions() {
 
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(getDescriptor().getUniqueIdentifier(), "J2EEWebProjectMigrationExtension"); //$NON-NLS-1$
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		IExtensionPoint pct = registry.getExtensionPoint("J2EEWebProjectMigrationExtension"); //$NON-NLS-1$
 		List ret = new Vector();
 		if (pct != null) {
 			IExtension[] extension = pct.getExtensions();
@@ -189,8 +198,8 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 
 	public EditModel getExtendedEditModel(String editModelKey) {
 
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(getDescriptor().getUniqueIdentifier(), "EditModelExtension"); //$NON-NLS-1$
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		IExtensionPoint pct = registry.getExtensionPoint("EditModelExtension"); //$NON-NLS-1$
 
 		IExtension[] extension = pct.getExtensions();
 		for (int l = 0; l < extension.length; ++l) {
@@ -219,8 +228,8 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		if (fextendedEditModels != null)
 			return fextendedEditModels;
 		List editModels = new ArrayList();
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IExtensionPoint pct = registry.getExtensionPoint(getDescriptor().getUniqueIdentifier(), "EditModelExtension"); //$NON-NLS-1$
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		IExtensionPoint pct = registry.getExtensionPoint("EditModelExtension"); //$NON-NLS-1$
 
 		IExtension[] extension = pct.getExtensions();
 		for (int l = 0; l < extension.length; ++l) {
@@ -248,15 +257,15 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * This gets a .gif from the icons folder.
 	 */
-	public static URL getImageURL(String key, IPluginDescriptor descriptor) {
+	public static URL getImageURL(String key, Bundle bundle) {
 		String gif = "/" + key + ".gif"; //$NON-NLS-1$ //$NON-NLS-2$
 		IPath path = null;
 		for (int i = 0; i < ICON_DIRS.length; i++) {
 			path = new Path(ICON_DIRS[i]).append(gif);
-			if (descriptor.find(path) == null)
+			if (Platform.find(bundle,path) == null)
 				continue;
 			try {
-				return new URL(descriptor.getInstallURL(), path.toString());
+				return new URL( bundle.getEntry("/"), path.toString());
 			} catch (MalformedURLException exception) {
 				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Load_Image_Error_", new Object[]{key})); //$NON-NLS-1$
 				exception.printStackTrace();
@@ -270,7 +279,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * This gets a .gif from the icons folder.
 	 */
 	public Object getImage(String key) {
-		return getImageURL(key, getDescriptor());
+		return getImageURL(key,this.getBundle());
 	}
 
 	public static IPath getInstallLocation() {
@@ -287,7 +296,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getDescriptor().getInstallURL();
+		return getDefault().getBundle().getEntry("/");
 	}
 
 	protected static JavaModel getJavaModel() {
@@ -337,11 +346,11 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * d:\installdir\plugin)
 	 */
 	public static IPath getPluginLocation(String pluginId) {
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IPluginDescriptor pd = registry.getPluginDescriptor(pluginId);
-		if (pd != null) {
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		Bundle bundle = Platform.getBundle(pluginId);
+		if (bundle != null) {
 			try {
-				IPath installPath = new Path(pd.getInstallURL().toExternalForm()).removeTrailingSeparator();
+				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {
@@ -405,7 +414,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 */
 	public String getString(String key) {
 		try {
-			return getDescriptor().getResourceBundle().getString(key);
+			return Platform.getResourceString(getBundle(), key);
 		} catch (MissingResourceException ex) {
 			//TODO Don't throw error - just show unresolved key
 			//Logger.getLogger().logError(ex);
@@ -470,12 +479,12 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 * org.eclipse.wst.common.frameworks.internal.logger.proxy.Logger.getLogger(PLUGIN_ID).setTraceMode(
 	 * ml.getMsgLoggerConfig().get(LoggerStateHashKeys.LEVEL).equals(Level.getLevelName(Level.FINEST))); }
 	 */
-	public void shutdown() throws CoreException {
-		super.shutdown();
+	public void stop(BundleContext bundle) throws Exception {
+		super.stop(bundle);
 	}
 
-	public void startup() throws CoreException {
-		super.startup();
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
 		//Have to do the next line immediately to fix timing problems with factory registration
 		ArchiveInit.init(false);
 		//ModuleMaps are the maps from modules in an ear project to the j2ee projects for the
@@ -518,7 +527,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 */
 	public static boolean hasDevelopmentRole() {
 		if (HAS_DEV_ROLE == null) {
-			IPluginDescriptor desc = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.j2ee.assembly"); //$NON-NLS-1$
+			Bundle desc = Platform.getBundle("org.eclipse.jst.j2ee.assembly"); //$NON-NLS-1$
 			HAS_DEV_ROLE = desc != null ? Boolean.FALSE : Boolean.TRUE;
 		}
 		return HAS_DEV_ROLE.booleanValue();

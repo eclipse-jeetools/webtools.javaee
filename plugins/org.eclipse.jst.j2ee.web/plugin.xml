@@ -27,7 +27,7 @@
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.jem.workbench"/>
-      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.migration"/>
