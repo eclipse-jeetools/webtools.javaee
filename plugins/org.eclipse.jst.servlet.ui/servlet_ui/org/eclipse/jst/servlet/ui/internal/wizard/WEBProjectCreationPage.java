@@ -17,8 +17,8 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
@@ -33,8 +33,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelListener;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
 /**
@@ -80,17 +78,7 @@ public class WEBProjectCreationPage extends J2EEModuleCreationPage {
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		contextRootNameField.setLayoutData(data);
 		synchHelper.synchText(contextRootNameField, WebModuleCreationDataModel.CONTEXT_ROOT, new Control[]{contextRootLabel});
-
-		getWebProjectCreationDataModel().addListener(new WTPOperationDataModelListener() {
-			public void propertyChanged(WTPOperationDataModelEvent event) {
-				if (event.getPropertyName().equals(J2EEModuleCreationDataModel.ADD_TO_EAR)) {
-					boolean addToEAR = getWebProjectCreationDataModel().getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR);
-					contextRootLabel.setEnabled(addToEAR);
-					contextRootNameField.setEnabled(addToEAR);
-				}
-			}
-		});
-
+		
 		createAnnotationsGroup(advanced);
 		
 		createFlexibleProjectGroup(advanced);
