@@ -45,7 +45,7 @@
             category="org.eclipse.jst.servlet.ui"
             class="org.eclipse.jst.servlet.ui.WebModuleCreationWizard"
             project="true"
-            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.servlet.ui.WebModuleCreationWizard">
          <description>
             %new.web.project.description_ui_
