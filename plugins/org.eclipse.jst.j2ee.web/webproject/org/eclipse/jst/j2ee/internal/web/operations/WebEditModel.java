@@ -14,8 +14,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
@@ -97,7 +97,7 @@ public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 	}
 
 	public Resource makeDeploymentDescriptorWithRoot() {
-		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) createResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
+		org.eclipse.jst.j2ee.internal.common.XMLResource res = (org.eclipse.jst.j2ee.internal.common.XMLResource) createResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
 		//TODO need to verify moduleVersion()
 		res.setModuleVersionID(getJ2EEVersion());
 		addWebAppIfNecessary(res);

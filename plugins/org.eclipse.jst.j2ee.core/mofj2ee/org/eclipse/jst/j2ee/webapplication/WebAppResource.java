@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.webapplication;
 
-import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 /**
  * @author schacher

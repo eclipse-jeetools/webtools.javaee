@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.common.impl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
-import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 
 /**

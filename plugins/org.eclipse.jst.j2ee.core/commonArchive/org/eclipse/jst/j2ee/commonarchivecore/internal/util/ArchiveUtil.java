@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl;
 import org.eclipse.jem.java.JavaURL;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -47,6 +46,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.EmptyResourceEx
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveURIConverterImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.xml.GeneralXmlDocumentReader;
 import org.eclipse.jst.j2ee.internal.xml.XmlDocumentReader;
 import org.w3c.dom.Document;

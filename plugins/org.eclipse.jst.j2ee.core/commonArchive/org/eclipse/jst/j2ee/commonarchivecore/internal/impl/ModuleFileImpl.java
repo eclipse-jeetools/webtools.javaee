@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -34,6 +33,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ExportStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 
 /**

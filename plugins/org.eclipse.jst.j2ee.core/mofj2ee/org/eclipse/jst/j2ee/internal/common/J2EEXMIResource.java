@@ -8,9 +8,10 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.common;
+package org.eclipse.jst.j2ee.internal.common;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResourceImpl;
 

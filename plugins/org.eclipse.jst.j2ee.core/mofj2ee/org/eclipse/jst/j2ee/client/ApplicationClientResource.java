@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.client;
 
-import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 public interface ApplicationClientResource extends XMLResource {
 public ApplicationClient getApplicationClient() ;

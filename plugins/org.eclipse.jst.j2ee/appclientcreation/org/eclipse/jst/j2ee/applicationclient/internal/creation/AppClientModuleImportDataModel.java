@@ -15,10 +15,10 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreat
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientModuleImportOperation;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**

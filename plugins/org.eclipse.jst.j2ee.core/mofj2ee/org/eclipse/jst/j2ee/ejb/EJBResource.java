@@ -14,7 +14,7 @@
  */
 package org.eclipse.jst.j2ee.ejb;
 
-import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 /**
  * @author schacher

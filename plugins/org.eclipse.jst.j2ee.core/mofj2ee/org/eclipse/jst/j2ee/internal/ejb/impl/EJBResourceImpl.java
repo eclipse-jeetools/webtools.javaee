@@ -15,11 +15,11 @@
 package org.eclipse.jst.j2ee.internal.ejb.impl;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.model.translator.ejb.EJBJarTranslator;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;

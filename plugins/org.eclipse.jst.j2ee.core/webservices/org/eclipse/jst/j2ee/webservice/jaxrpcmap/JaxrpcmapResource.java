@@ -11,7 +11,7 @@
 
 package org.eclipse.jst.j2ee.webservice.jaxrpcmap;
 
-import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 public interface JaxrpcmapResource extends XMLResource
 {

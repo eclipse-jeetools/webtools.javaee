@@ -11,7 +11,7 @@
 
 package org.eclipse.jst.j2ee.webservice.wsdd;
 
-import org.eclipse.jst.j2ee.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 
 public interface WsddResource extends XMLResource
 {

@@ -13,9 +13,9 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.internal.operations.DefaultModuleProjectCreationOperation;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEEditModel;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
@@ -95,7 +95,7 @@ public class ConnectorEditModel extends J2EEEditModel {
 	 * @return Resource
 	 */
 	public Resource makeDeploymentDescriptorWithRoot() {
-		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) makeConnectorXmiResource();
+		org.eclipse.jst.j2ee.internal.common.XMLResource res = (org.eclipse.jst.j2ee.internal.common.XMLResource) makeConnectorXmiResource();
 		Connector connector = JcaPackage.eINSTANCE.getJcaFactory().createConnector();
 		res.getContents().add(connector);
 		res.setID(connector, J2EEConstants.CONNECTOR_ID);

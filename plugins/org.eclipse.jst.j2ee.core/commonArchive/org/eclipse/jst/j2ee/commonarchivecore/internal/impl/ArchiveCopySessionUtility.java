@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopySession;
 import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 

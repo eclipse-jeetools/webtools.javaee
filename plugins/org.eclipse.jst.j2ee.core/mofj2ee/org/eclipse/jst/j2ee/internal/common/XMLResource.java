@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.common;
+package org.eclipse.jst.j2ee.internal.common;
 
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
