@@ -17,7 +17,7 @@ public class ConnectorProjectCreationOperationTest extends ModuleProjectCreation
     /* (non-Javadoc)
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
-    public J2EEComponentCreationDataModel getProjectCreationDataModel() {
+    public J2EEComponentCreationDataModel getComponentCreationDataModel() {
         return new ConnectorComponentCreationDataModel();
     }
  

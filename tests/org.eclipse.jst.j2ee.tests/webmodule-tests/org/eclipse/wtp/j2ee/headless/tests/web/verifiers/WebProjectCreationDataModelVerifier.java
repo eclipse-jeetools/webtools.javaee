@@ -17,6 +17,7 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreation
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
 
@@ -33,12 +34,13 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
      */
     public void verifyProjectCreationDataModel(J2EEComponentCreationDataModel model) {
         WebComponentCreationDataModel dataModel = (WebComponentCreationDataModel) model;
-        ProjectUtility.verifyProject(dataModel.getTargetProject().getName(), true);
         Object key = new Object();
 		WebArtifactEdit webEdit = null;
+		
         try {
+			ComponentHandle handle = ComponentHandle.create(dataModel.getTargetProject(),dataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_NAME));
 			Object dd = null;
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(dataModel.getTargetProject());
+			webEdit = (WebArtifactEdit) WebArtifactEdit.getArtifactEditForRead(handle);
        		if(webEdit != null) 
        			dd = (WebApp) webEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);

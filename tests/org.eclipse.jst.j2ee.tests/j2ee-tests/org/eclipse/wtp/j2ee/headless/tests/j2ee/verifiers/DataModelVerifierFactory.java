@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jst.j2ee.application.internal.operations.AppClientModuleExportDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
@@ -24,6 +26,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBExportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBImportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers.EJBProjectCreationDataModelVerifier;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifier.FlexibleProjectCreationDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.jca.verifiers.JCAExportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.jca.verifiers.JCAImportDataModelVerifier;
 import org.eclipse.wtp.j2ee.headless.tests.web.verifiers.WebExportDataModelVerifier;
@@ -85,6 +88,8 @@ public class DataModelVerifierFactory {
 			dataModelVerifiersMap.put(EjbComponentCreationDataModel.class.getName(), EJBProjectCreationDataModelVerifier.class.getName());
 			dataModelVerifiersMap.put(AppClientComponentCreationDataModel.class.getName(),AppClientProjectCreationDataModelVerifier.class.getName());
 			
+			dataModelVerifiersMap.put(FlexibleProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
+			dataModelVerifiersMap.put(FlexibleJavaProjectCreationDataModel.class.getName(),FlexibleProjectCreationDataModelVerifier.class.getName());
 		}
 		
 		return dataModelVerifiersMap;

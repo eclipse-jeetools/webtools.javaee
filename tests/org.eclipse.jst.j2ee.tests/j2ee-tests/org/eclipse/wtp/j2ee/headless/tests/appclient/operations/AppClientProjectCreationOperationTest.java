@@ -27,7 +27,7 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
         return new SimpleTestSuite(AppClientProjectCreationOperationTest.class);
     }
 
-    public J2EEComponentCreationDataModel getProjectCreationDataModel() {
+    public J2EEComponentCreationDataModel getComponentCreationDataModel() {
         return new AppClientComponentCreationDataModel();
     }
 
