@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/10 17:52:10 $ 
+ *  $Revision: 1.8 $  $Date: 2004/08/16 17:53:52 $ 
  */
 
 
@@ -20,20 +20,21 @@ import java.net.Socket;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
+
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
-import org.eclipse.jem.internal.proxy.common.remote.CommandErrorException;
-import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.Commands.*;
-import org.eclipse.jem.internal.proxy.common.remote.Commands.GetClassIDReturn;
-import org.eclipse.jem.internal.proxy.common.remote.Commands.GetClassReturn;
+import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
+
+import com.ibm.wtp.common.util.TimerTests;
 /**
  * The default implementation of the connection.
  *
  * It uses the property "proxyvm.bufsize" to determine the buffer size to use. If not specified, it uses the system default
  */
 public class REMConnection implements IREMConnection, IREMExpressionConnection {
+	public final static String INVOKE_STEP = "Invoke";
+	public final static String INVOKE_METHOD_STEP = "Invoke Method";
 	protected Socket fSocket = null;
 	protected DataInputStream in = null;
 	protected DataOutputStream out = null;
@@ -192,7 +193,9 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	public void invokeMethod(int methodID, Commands.ValueObject invokeOn, Commands.ValueObject parms, Commands.ValueObject returnValue) throws CommandException {
 		if (isConnected()) {
 			// It's simple, just pass onto Commands.
+			TimerTests.basicTest.startCumlativeStep(INVOKE_METHOD_STEP);
 			Commands.sendInvokeMethodCommand(out, in, methodID, invokeOn, parms, returnValue);
+			TimerTests.basicTest.stopCumulativeStep(INVOKE_METHOD_STEP);
 		}			
 	}
 	
@@ -203,7 +206,9 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 			ValueObject returnValue) throws CommandException {
 		if (isConnected()) {
 			// It's simple, just pass onto Commands.
+			TimerTests.basicTest.startCumlativeStep(INVOKE_STEP);
 			Commands.sendInvokeMethodCommand(out, in, classType, methodName, parmTypes, invokeOn, parms, returnValue);
+			TimerTests.basicTest.stopCumulativeStep(INVOKE_STEP);
 		}			
 	}
 	
