@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
@@ -368,5 +369,21 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		if (file!=null)
 			return file.getFullPath();
 		return null;
+	}
+	
+	public IFolder getSourceFolder(){
+		IFolder srcFolder = null;
+		return srcFolder;
+	}
+	
+	public String getModuleVersionText(){
+		int servletVersion = getServletVersion();
+		
+		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
+			return J2EEVersionConstants.VERSION_2_2_TEXT;
+		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
+			return J2EEVersionConstants.VERSION_2_3_TEXT;
+		else
+			return J2EEVersionConstants.VERSION_2_4_TEXT;
 	}
 }
