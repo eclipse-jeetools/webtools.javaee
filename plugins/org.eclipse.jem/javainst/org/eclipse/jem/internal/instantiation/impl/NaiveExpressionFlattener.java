@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/03 22:26:27 $ 
+ *  $Revision: 1.4 $  $Date: 2004/05/10 18:12:54 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 
@@ -108,7 +108,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 		List exp = node.getExpressions();
 		for (int i = 0; i < exp.size(); i++) {
 			if (i != 0)
-				buffer.append(',');
+				buffer.append(", ");
 			((PTExpression) exp.get(i)).accept(this);
 		}
 		buffer.append('}');
@@ -152,7 +152,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 		List args = node.getArguments();
 		for (int i = 0; i < args.size(); i++) {
 			if (i != 0)
-				buffer.append(',');
+				buffer.append(", ");
 			((PTExpression) args.get(i)).accept(this);
 		}
 		buffer.append(')');
@@ -235,7 +235,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 		List args = node.getArguments();
 		for (int i = 0; i < args.size(); i++) {
 			if (i != 0)
-				buffer.append(',');
+				buffer.append(", ");
 			((PTExpression) args.get(i)).accept(this);
 		}
 		buffer.append(')');
