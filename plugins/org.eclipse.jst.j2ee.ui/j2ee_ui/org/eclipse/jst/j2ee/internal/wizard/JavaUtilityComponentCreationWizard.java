@@ -39,7 +39,7 @@ public class JavaUtilityComponentCreationWizard extends DataModelWizard implemen
 	}
 
 	public void doAddPages() {
-		addPage(new JavaUtilityComponentCreationWizardPage(model, JavaUtilityComponentCreationWizardPage.PAGE_NAME));
+		addPage(new JavaUtilityComponentCreationWizardPage(getDataModel(), JavaUtilityComponentCreationWizardPage.PAGE_NAME));
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.ui.DataModelWizard#getDefaultProvider()
