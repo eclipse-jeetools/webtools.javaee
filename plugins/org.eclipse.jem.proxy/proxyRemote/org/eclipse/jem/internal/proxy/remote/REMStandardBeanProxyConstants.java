@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanProxyConstants.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/04/20 09:01:20 $ 
  */
 
 
@@ -39,6 +39,7 @@ public final class REMStandardBeanProxyConstants {
 	
 	private IMethodProxy fClassNewInstance;
 	private IMethodProxy fClassGetField;
+	private IMethodProxy fClassGetDeclaredField;	
 	private IMethodProxy fClassGetConstructor;
 	private IMethodProxy fClassIsAssignableFrom;
 	
@@ -404,5 +405,13 @@ public IMethodProxy getArrayHelperSet() {
 		fArrayHelperSet = fRegistry.getMethodProxyFactory().getMethodProxy("org.eclipse.jem.internal.proxy.vm.remote.ArrayHelper", "set", new String[] {"java.lang.Object", "[I", "java.lang.Object"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	return fArrayHelperSet;
 }
+
+
+public IMethodProxy getClassGetDeclaredField() {
+
+	if (fClassGetDeclaredField == null)
+			fClassGetDeclaredField = fRegistry.getMethodProxyFactory().getMethodProxy("java.lang.Class", "getDeclaredField", new String[] {"java.lang.String"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return fClassGetDeclaredField;
+	}
 
 }

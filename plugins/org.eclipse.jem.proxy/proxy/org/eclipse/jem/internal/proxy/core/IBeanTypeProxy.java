@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/04/20 09:01:20 $ 
  */
 
 
@@ -36,6 +36,11 @@ public IConstructorProxy getConstructorProxy(IBeanTypeProxy[] argumentTypes);
  * Creation date: (12/3/99 2:25:07 PM)
  */
 public IFieldProxy getFieldProxy(String fieldName);
+/**
+ * Return the declared fieldproxy on the receiver with the specified  name
+ */
+public IFieldProxy getDeclaredFieldProxy(String fieldName);
+
 /**
  * Return the method proxy on the receiver with the specified  name and no arguments
  * Creation date: (12/3/99 2:25:07 PM)

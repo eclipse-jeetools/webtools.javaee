@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.4 $  $Date: 2004/04/20 09:01:20 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -129,6 +129,14 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 			return null;
 		}
 	}
+	/**
+	 * Construct an REMFieldProxy and return it
+	 */
+	public IFieldProxy getDeclaredFieldProxy(String fieldName) {
+		return (IFieldProxy) REMStandardBeanProxyConstants.getConstants(fRegistry).getClassGetDeclaredField().invokeCatchThrowableExceptions(
+			this,
+			fRegistry.getBeanProxyFactory().createBeanProxyWith(fieldName));
+	}	
 	/**
 	 * Construct an REMFieldProxy and return it
 	 */

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBeanTypeProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.4 $  $Date: 2004/04/20 09:01:20 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -127,6 +127,15 @@ public IBeanTypeProxy getSuperBeanTypeProxy(){
 public IFieldProxy getFieldProxy(String fieldName){
 	try {
 		Field field = fClass.getField(fieldName);
+		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFieldProxy(field);
+	} catch ( NoSuchFieldException exc ) {
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
+		return null;
+	}
+}
+public IFieldProxy getDeclaredFieldProxy(String fieldName){
+	try {
+		Field field = fClass.getDeclaredField(fieldName);
 		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFieldProxy(field);
 	} catch ( NoSuchFieldException exc ) {
 		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
