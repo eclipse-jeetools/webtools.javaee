@@ -8,12 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Apr 29, 2004
- *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
+
 package org.eclipse.jst.j2ee.internal.webservice;
 
 import java.net.URL;
@@ -22,16 +17,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
+import org.eclipse.ui.browser.IWebBrowser;
+import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.wst.internet.webbrowser.WebBrowser;
 
 /**
  * @author jlanuti
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
  */
 public class OpenExternalWSDLAction extends AbstractOpenAction {
 
@@ -47,7 +41,9 @@ public class OpenExternalWSDLAction extends AbstractOpenAction {
 
 	public void run() {
 		try {
-			WebBrowser.openURL(new URL(uri), WebBrowser.LOCATION_BAR | WebBrowser.BUTTON_BAR, null);
+			IWorkbenchBrowserSupport browserSupport = WebServiceUIPlugin.getDefault().getWorkbench().getBrowserSupport(); 
+			IWebBrowser browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR | IWorkbenchBrowserSupport.NAVIGATION_BAR,"WSDL","",""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			browser.openURL(new URL(uri));
 		} catch (Exception e) {
 			//Ignore
 		}
