@@ -19,7 +19,6 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
@@ -49,12 +48,12 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
         component.commit();
 		//create and link ejbModule Source Folder
-		IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/ejbModule")); //$NON-NLS-1$		
-		appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null);
+		IVirtualFolder ejbModule = component.getFolder(new Path("/")); //$NON-NLS-1$		
+		ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null);
 		
 		//create and link META-INF folder
-		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + "ejbModule" + "/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
-		metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + "ejbModule" + "/"  + J2EEConstants.META_INF), 0, null);
+    	IVirtualFolder metaInfFolder = ejbModule.getFolder(J2EEConstants.META_INF);
+    	metaInfFolder.create(true, true, null);
     } 
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -73,19 +72,9 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 
         EJBArtifactEdit ejbEdit = null;
        	try{
-
        		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite( wbmodule );
-       		String projPath = getProject().getLocation().toOSString();
-   		
-       		projPath += operationDataModel.getProperty( EjbComponentCreationDataModel.DD_FOLDER );
-       		projPath +=IPath.SEPARATOR + J2EEConstants.EJBJAR_DD_SHORT_NAME;
-       		
-       		IPath ejbxmlPath = new Path(projPath);
-       		boolean b = ejbxmlPath.isValidPath(ejbxmlPath.toString());
-       		if(ejbEdit != null) {
-       			int moduleVersion = operationDataModel.getIntProperty(EjbComponentCreationDataModel.COMPONENT_VERSION);
-       			ejbEdit.createModelRoot( getProject(), ejbxmlPath, moduleVersion );
-       		}
+       		ejbEdit.createModelRoot((Integer)operationDataModel.getProperty(EjbComponentCreationDataModel.COMPONENT_VERSION));
+       		ejbEdit.save(monitor);
        	}
        	catch(Exception e){
             e.printStackTrace();

@@ -1,15 +1,8 @@
 package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -186,7 +179,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addEJBJarIfNecessary(getEJBJarXmiResource());
+		addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource(), null);
 		return (EObject) contents.get(0);
 	}
 	
@@ -209,32 +202,34 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @param aModule
 	 *            A non-null pointing to a {@see XMLResource}
-	 * 
+	 * @param version
+	 * 			Version to be set on resource....if null default is taken
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addEJBJarIfNecessary(XMLResource aResource) {
-
-		if (aResource != null && aResource.getContents().isEmpty()) {
-			EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
-			aResource.getContents().add(ejbJar);
-		}
-		if (aResource != null ) {
+	protected void addEJBJarIfNecessary(XMLResource aResource, Integer version) {
+		if (aResource != null) {
+		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
+				EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
+				aResource.getContents().add(ejbJar);
+		    }
 			EJBJar ejbJar = (EJBJar)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				ejbJar.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+				if(version != null)
+				    ejbJar.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
 			//TODO add more mandatory elements
-		}
-		try {
-			aResource.saveIfNecessary();
-		}
-		catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				aResource.saveIfNecessary();
+			}
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -322,58 +317,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public EObject createModelRoot() {
-		if(getEJBJarXmiResource() == null) {
-			 addEJBJarIfNecessary(getEJBJarXmiResource());
-		}
-		return getEJBJarXmiResource().getRootObject();
-	}
-	
-	public void createModelRoot(IProject project, IPath path, int moduleVersion ) {
-		
-		File file = null;
-		file = new File(path.toOSString());
-		
-		try{
-			FileOutputStream out = new FileOutputStream(file);
-			PrintStream p = null;
-			p = new PrintStream( out );
-			
-			
-			p.println( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" );
-			if( moduleVersion == 11 ){
-				p.println("<!DOCTYPE ejb-jar PUBLIC \"-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 1.1//EN\" \"http://java.sun.com/j2ee/dtds/ejb-jar_1_1.dtd\">");
-				p.println("<ejb-jar id=\"ejb-jar_ID\">");
-				p.println("<display-name>Test");
-				p.println("</display-name>");				
-				p.println("</ejb-jar>");
-				//p.println("<ejb-jar id=\"ejb-jar_ID\"><display-name></display-name><enterprise-beans></enterprise-beans><ejb-client-jar> </ejb-client-jar></ejb-jar>");
-				
-			}			
-			if( moduleVersion == 20 ){
-				p.println("<!DOCTYPE ejb-jar PUBLIC \"-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN\" \"http://java.sun.com/dtd/ejb-jar_2_0.dtd\">");
-				p.println("<ejb-jar id=\"ejb-jar_ID\"><display-name></display-name></ejb-jar>");
-			}
-			if( moduleVersion == 21 ){
-				p.println( "<ejb-jar id=\"ejb-jar_ID\" version=\"2.1\" xmlns=\"http://java.sun.com/xml/ns/j2ee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd\"></ejb-jar>");
-			}	
-
-			p.close();					
-
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-
-		try{
-			project.refreshLocal(IResource.DEPTH_INFINITE, null);
-		}catch(CoreException e){
-			e.printStackTrace();
-		}
-
-		getDeploymentDescriptorRoot();
+	    return createModelRoot(null);
 	}
 			
-	public EObject createModelRoot(int version) {
-		// TODO Auto-generated method stub
-		return null;
+	public EObject createModelRoot(Integer version) {
+	    addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource(), version);
+		return ((EJBResource)getDeploymentDescriptorResource()).getRootObject();
 	}
 }
