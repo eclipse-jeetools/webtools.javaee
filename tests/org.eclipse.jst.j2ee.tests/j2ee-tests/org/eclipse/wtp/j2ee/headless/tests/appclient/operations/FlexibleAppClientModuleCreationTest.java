@@ -13,8 +13,7 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.tests.OperationTestCase;
@@ -37,8 +36,8 @@ public class FlexibleAppClientModuleCreationTest extends OperationTestCase {
     }
 
     public void createProject(String projectName) throws Exception {
-        J2EEJavaProjectCreationDataModel dataModel = getProjectCreationDataModel();
-        dataModel.setProperty(J2EEProjectCreationDataModel.PROJECT_NAME, projectName);
+        FlexibleJavaProjectCreationDataModel dataModel = getProjectCreationDataModel();
+        dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, projectName);
         WTPOperation op = dataModel.getDefaultOperation();
         op.run(null);
     }
@@ -49,8 +48,8 @@ public class FlexibleAppClientModuleCreationTest extends OperationTestCase {
         runAndVerify(dataModel);
     }
     
-    public J2EEJavaProjectCreationDataModel getProjectCreationDataModel(){
-		return new J2EEJavaProjectCreationDataModel();
+    public FlexibleJavaProjectCreationDataModel getProjectCreationDataModel(){
+		return new FlexibleJavaProjectCreationDataModel();
     }
     public AppClientComponentCreationDataModel getFlexibleAppClientModuleCreation(){
 		return new AppClientComponentCreationDataModel();

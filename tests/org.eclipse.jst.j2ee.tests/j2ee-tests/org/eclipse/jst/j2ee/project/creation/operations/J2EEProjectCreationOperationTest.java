@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.project.creation.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 
@@ -29,13 +29,13 @@ public class J2EEProjectCreationOperationTest extends OperationTestCase {
      * @param string
      */
     private void createSimpleJavaProject(String projectName) throws Exception{
-    	J2EEJavaProjectCreationDataModel dataModel = new J2EEJavaProjectCreationDataModel();
-        dataModel.setProperty(J2EEJavaProjectCreationDataModel.PROJECT_NAME, projectName);
+    	FlexibleJavaProjectCreationDataModel dataModel = new FlexibleJavaProjectCreationDataModel();
+        dataModel.setProperty(FlexibleJavaProjectCreationDataModel.PROJECT_NAME, projectName);
         runAndVerify(dataModel);
     }
     public static void createSimpleProject(String projectName) throws Exception {
-    	J2EEProjectCreationDataModel dataModel = new J2EEProjectCreationDataModel();
-        dataModel.setProperty(J2EEProjectCreationDataModel.PROJECT_NAME, projectName);
+    	FlexibleProjectCreationDataModel dataModel = new FlexibleProjectCreationDataModel();
+        dataModel.setProperty(FlexibleProjectCreationDataModel.PROJECT_NAME, projectName);
         runAndVerify(dataModel);
     }
 }
