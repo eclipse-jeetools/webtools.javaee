@@ -945,4 +945,11 @@
 		</natureMapping>
 	</extension>
        
+    <!-- Component Structural builders -->    
+    <extension point="org.eclipse.wst.common.modulecore.ComponentStructuralBuilder">
+   		<componentStructuralBuilder 
+    	serverTargetID="default"
+    	componentTypeID="jst.ejb"
+    	componentStructuralBuilderDataModel="org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderDataModel"/>
+	</extension>
 </plugin>
