@@ -66,14 +66,14 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 					String version = ejbComps[j].getComponentType().getVersion();
 					int versionID = convertEJBVersionStringToJ2EEVersionID(version);
 					if (versionID < j2eeVersion)
-						validCompList.add(appClientComps[j]);
+						validCompList.add(ejbComps[j]);
 				}
 				WorkbenchComponent[] webComps = moduleCore.findWorkbenchModuleByType(IModuleConstants.JST_WEB_MODULE);
 				for (int j = 0; j < webComps.length; j++) {
 					String version = webComps[j].getComponentType().getVersion();
 					int versionID = convertWebVersionStringToJ2EEVersionID(version);
 //					if (versionID < j2eeVersion)
-						validCompList.add(appClientComps[j]);
+						validCompList.add(webComps[j]);
 				}
 			} catch (CoreException e) {
 				// TODO Auto-generated catch block
@@ -114,6 +114,12 @@ public class AvailableJ2EEComponentsContentProvider implements IStructuredConten
 	}
 	
 	private int convertEJBVersionStringToJ2EEVersionID(String version) {		
+		if (version.equals(J2EEVersionConstants.VERSION_1_1_TEXT))
+			return J2EEVersionConstants.J2EE_1_2_ID;
+		if (version.equals(J2EEVersionConstants.VERSION_2_0_TEXT))
+			return J2EEVersionConstants.J2EE_1_3_ID;
+		if (version.equals(J2EEVersionConstants.VERSION_2_1_TEXT))
+			return J2EEVersionConstants.J2EE_1_4_ID;
 		return Integer.MAX_VALUE;
 	}
 	

@@ -29,6 +29,10 @@ import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 public class EARComponentCreationDataModel extends J2EEComponentCreationDataModel {
+	/**
+	 * Requred. This must be a list of WorkbenchComponent. 
+	 */
+	public static final String J2EE_COMPONENT_LIST = "EARComponentCreationDataModel.J2EE_COMPONENT_LIST"; //$NON-NLS-1$
 
 	public WTPOperation getDefaultOperation() {
 		return new EARComponentCreationOperation(this);
@@ -62,6 +66,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
+		addValidBaseProperty(J2EE_COMPONENT_LIST);
 	}
 
 	protected AddModuleToEARDataModel createModuleNestedModel() {

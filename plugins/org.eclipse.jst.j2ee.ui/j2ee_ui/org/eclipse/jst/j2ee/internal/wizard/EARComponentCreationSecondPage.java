@@ -12,12 +12,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectsToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
@@ -31,7 +29,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 
@@ -93,12 +90,12 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.J2EE_MODULE_VERSION);
 		AvailableJ2EEComponentsContentProvider provider = new AvailableJ2EEComponentsContentProvider(j2eeVersion);
 		moduleProjectsViewer.setContentProvider(provider);
-		moduleProjectsViewer.setLabelProvider(new WorkbenchLabelProvider());
+		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
 		setCheckedItemsFromModel();
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				if (!ignoreCheckedState) {
-					getModulesModel().setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, getCheckedElementsAsList());
+					((EARComponentCreationDataModel)getModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
 				}
 			}
 		});
@@ -159,6 +156,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		gd.heightHint = 22;
 		gd.widthHint = 120;
 		newModuleButton.setLayoutData(gd);
+		newModuleButton.setEnabled(false);
 	}
 
 	/**
@@ -179,15 +177,15 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 	 *  
 	 */
 	private void handleNewModuleButtonPressed() {
-		DefaultModuleProjectCreationDataModel aModel = createNewModuleModel();
-		DefaultModuleProjectCreationWizard wizard = new DefaultModuleProjectCreationWizard(aModel);
-		WizardDialog dialog = new WizardDialog(getShell(), wizard);
-		dialog.create();
-		if (dialog.open() != IDialogConstants.CANCEL_ID) {
-			setNewModules(aModel);
-			refreshModules();
-		}
-		validatePage();
+//		DefaultModuleProjectCreationDataModel aModel = createNewModuleModel();
+//		DefaultModuleProjectCreationWizard wizard = new DefaultModuleProjectCreationWizard(aModel);
+//		WizardDialog dialog = new WizardDialog(getShell(), wizard);
+//		dialog.create();
+//		if (dialog.open() != IDialogConstants.CANCEL_ID) {
+//			setNewModules(aModel);
+//			refreshModules();
+//		}
+//		validatePage();
 	}
 
 	/**
@@ -239,7 +237,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(false);
-			getModulesModel().setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, null);
+			((EARComponentCreationDataModel)getModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, null);
 		} finally {
 			ignoreCheckedState = false;
 		}
@@ -252,7 +250,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		ignoreCheckedState = true;
 		try {
 			moduleProjectsViewer.setAllChecked(true);
-			getModulesModel().setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, getCheckedElementsAsList());
+			((EARComponentCreationDataModel)getModel()).setProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST, getCheckedElementsAsList());
 		} finally {
 			ignoreCheckedState = false;
 		}
