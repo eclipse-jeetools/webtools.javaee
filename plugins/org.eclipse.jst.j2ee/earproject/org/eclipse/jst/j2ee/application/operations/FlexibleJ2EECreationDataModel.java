@@ -33,17 +33,17 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
     /**
      * Required
      */
-    public static final String PROJECT_NAME = "ArtifactEditOperationDataModel.PROJECT_NAME"; //$NON-NLS-1$
+    public static final String PROJECT_NAME = "FlexibleJ2EECreationDataModel.PROJECT_NAME"; //$NON-NLS-1$
 
     /**
      * Required
      */
-    public static final String MODULE_NAME = "ArtifactEditOperationDataModel.MODULE_NAME"; //$NON-NLS-1$
+    public static final String MODULE_NAME = "FlexibleJ2EECreationDataModel.MODULE_NAME"; //$NON-NLS-1$
 	/**
 	 * Required
 	 */	
 	
-	public static final String MODULE_DEPLOY_NAME = "ArtifactEditOperationDataModel.MODULE_DEPLOY_NAME"; //$NON-NLS-1$
+	public static final String MODULE_DEPLOY_NAME = "FlexibleJ2EECreationDataModel.MODULE_DEPLOY_NAME"; //$NON-NLS-1$
 	
     /**
      * An optional dataModel propertyName for a <code>Boolean</code> type. The
@@ -74,6 +74,7 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
     protected void initValidBaseProperties() {
         addValidBaseProperty(PROJECT_NAME);
         addValidBaseProperty(MODULE_NAME);
+        addValidBaseProperty(MODULE_DEPLOY_NAME);
         addValidBaseProperty(CREATE_DEFAULT_FILES);
         addValidBaseProperty(IS_ENABLED);
         addValidBaseProperty(FINAL_PERSPECTIVE);

@@ -44,6 +44,8 @@ import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperatio
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
+
 public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
 	public FlexibleWebModuleCreationOperation(FlexibleWebModuleCreationDataModel dataModel) {
 		super(dataModel);
@@ -57,10 +59,10 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		
 		
-		String moduleName = (String)operationDataModel.getProperty(ArtifactEditOperationDataModel.MODULE_NAME);
-		String projName = operationDataModel.getTargetProject().getName();
+		String moduleName = (String)operationDataModel.getProperty(FlexibleWebModuleCreationDataModel.MODULE_NAME);
 
-		IFolder moduleFolder = operationDataModel.getTargetProject().getFolder( moduleName );
+		
+		IFolder moduleFolder = getProject().getFolder( moduleName );
 
 		if (!moduleFolder.exists()) {
 			moduleFolder.create(true, true, null);
@@ -99,8 +101,8 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
         ModuleCore moduleCore = null;
         WorkbenchComponent wbmodule = null;
         try {
-            moduleCore = ModuleCore.getModuleCoreForRead(operationDataModel.getTargetProject());
-            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(ArtifactEditOperationDataModel.MODULE_DEPLOY_NAME));
+            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
+            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(FlexibleWebModuleCreationDataModel.MODULE_DEPLOY_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();

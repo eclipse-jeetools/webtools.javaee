@@ -41,6 +41,8 @@ import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
+
 public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECreationOperation {
 	/**
 	 * name of the template emitter to be used to generate the deployment descriptor from the tags
@@ -111,8 +113,10 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 			}     
 		}
 		public IProject getProject() {
-			FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
-			return dataModel.getTargetProject();
+			String projName = operationDataModel.getStringProperty(FlexibleJ2EEModuleCreationDataModel.PROJECT_NAME );
+			return ProjectUtilities.getProject( projName );
+			//FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
+			//return dataModel.getTargetProject();
 		}
 		
 		private void addContent(ProjectComponents projectModules, String moduletype) {
