@@ -15,8 +15,6 @@ import junit.textui.TestRunner;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jst.j2ee.archive.emftests.AllTests;
-import org.eclipse.jst.j2ee.archive.test.AllArchiveTestsJava;
-import org.eclipse.jst.j2ee.java.testing.AllJavaTestsJava;
 
 
 /**
