@@ -32,11 +32,11 @@ import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectData
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleExtensionImpl;
+import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
-import org.eclipse.jst.j2ee.moduleextension.EjbModuleExtension;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
