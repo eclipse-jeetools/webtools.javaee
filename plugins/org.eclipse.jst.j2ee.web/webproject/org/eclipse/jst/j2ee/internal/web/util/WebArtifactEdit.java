@@ -146,7 +146,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	/***********************************************************************************************
 	 * <p>
-	 * Creates a deployment decriptor root object (WebApp) and populates with data. Adds the root
+	 * Creates a deployment descriptor root object (WebApp) and populates with data. Adds the root
 	 * object to the deployment descriptor resource.
 	 * </p>
 	 * 
@@ -155,7 +155,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aModule
 	 *            A non-null pointing to a XMLResource (@see XMLResource) 
 	 *            
-	 * Note: This method is typically used for JUNIT.  
 	 * </p>
 	 */
 
