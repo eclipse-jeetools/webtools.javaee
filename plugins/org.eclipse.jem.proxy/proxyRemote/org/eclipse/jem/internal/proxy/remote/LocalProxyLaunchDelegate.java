@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.12 $ $Date: 2004/08/20 19:10:16 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.13 $ $Date: 2004/08/23 14:03:15 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -214,10 +214,11 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 				appendTo.append(File.pathSeparatorChar);	// Plus a separator so we can append
 			} else 
 				appendTo = new StringBuffer("-Djava.library.path="); //$NON-NLS-1$
-			for (int i = 0; i < javaLibPaths.size(); i++) {
+			String [] libPaths = ProxyLaunchSupport.convertURLsToStrings((URL[]) javaLibPaths.toArray(new URL[javaLibPaths.size()]));
+			for (int i = 0; i < libPaths.length; i++) {
 				if (i != 0)
 					appendTo.append(File.pathSeparator);
-				appendTo.append((String) javaLibPaths.get(i));
+				appendTo.append(libPaths[i]);
 			}
 			if (existingLibpaths != -1)
 				cvmArgs[extraArgs+existingLibpaths] = appendTo.toString();
