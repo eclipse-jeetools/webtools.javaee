@@ -16,7 +16,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
 

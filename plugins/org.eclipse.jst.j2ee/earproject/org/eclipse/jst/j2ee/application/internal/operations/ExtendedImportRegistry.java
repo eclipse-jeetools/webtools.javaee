@@ -12,7 +12,7 @@
  * Created on Jun 21, 2004 
  * @author jsholl
  */
-package org.eclipse.jst.j2ee.application.operations;
+package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
 import java.util.List;

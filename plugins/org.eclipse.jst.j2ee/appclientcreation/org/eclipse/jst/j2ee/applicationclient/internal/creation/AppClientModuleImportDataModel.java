@@ -6,7 +6,7 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.applicationclient.creation;
+package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -15,7 +15,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreat
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;

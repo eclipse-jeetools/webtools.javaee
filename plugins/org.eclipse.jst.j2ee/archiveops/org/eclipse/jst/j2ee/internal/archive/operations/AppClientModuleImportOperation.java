@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectC
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 public class AppClientModuleImportOperation extends J2EEArtifactImportOperation {

@@ -21,7 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 

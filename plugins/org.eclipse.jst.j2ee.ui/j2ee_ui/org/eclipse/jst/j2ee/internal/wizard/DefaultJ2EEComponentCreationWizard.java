@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.application.operations.DefaultJ2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.application.internal.operations.DefaultJ2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;

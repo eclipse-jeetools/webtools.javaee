@@ -6,7 +6,7 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.applicationclient.creation;
+package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
 
 
