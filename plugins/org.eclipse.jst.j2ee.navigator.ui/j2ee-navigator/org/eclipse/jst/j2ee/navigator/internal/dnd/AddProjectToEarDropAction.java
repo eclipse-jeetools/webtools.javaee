@@ -8,12 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Jun 9, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,7 +27,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 import org.eclipse.wst.common.navigator.internal.views.NavigatorPlugin;
 import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
 import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
-import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropAdapter;
+import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
 
 /**
  * @author jsholl
@@ -45,7 +39,7 @@ public abstract class AddProjectToEarDropAction extends NavigatorDropActionDeleg
 		super();
 	}
 
-	public boolean validateDrop(NavigatorDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+	public boolean validateDrop(CommonNavigatorDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
 		if (LocalSelectionTransfer.getInstance().isSupportedType(transferType) || PluginTransfer.getInstance().isSupportedType(transferType)) {
 			IProject earProject = (IProject) AdaptabilityUtility.getAdapter(target, IProject.class);
 			if (null == earProject || !earProject.isAccessible()) {
@@ -108,7 +102,7 @@ public abstract class AddProjectToEarDropAction extends NavigatorDropActionDeleg
 		return false;
 	}
 
-	public boolean run(NavigatorDropAdapter dropAdapter, Object source, Object target) {
+	public boolean run(CommonNavigatorDropAdapter dropAdapter, Object source, Object target) {
 		return run(source, target);
 	}
 

@@ -45,7 +45,7 @@
    	
 <!--============================-->
 <!-- J2EE Filters               -->
-<!--============================-->   
+<!--============================  
    <extension
          point="org.eclipse.wst.common.navigator.views.navigatorContent">
       <navigatorContent
@@ -83,17 +83,25 @@
                   </objectState>
                </or>
             </and>
-			<objectClass name="org.eclipse.jst.j2ee.client.ApplicationClient" /> 
-			<objectClass name="org.eclipse.jst.j2ee.jca.Connector" /> 
-			<objectClass name="org.eclipse.jst.j2ee.ejb.EJBJar" /> 
-			<objectClass name="org.eclipse.jst.j2ee.webapplication.WebApp" /> 
-            <objectClass name="org.eclipse.jst.j2ee.ejb.EnterpriseBean" />
-            <objectClass name="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider" />
-            <objectClass name="org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper" />
             </or>
          </enables>
+         <emfEnablement>
+         	<package uri="org.eclipse.emf.ecore.resource" />
+         	<package uri="common.xmi" />         	
+         	<package uri="application.xmi" />         	         	
+         	<package uri="client.xmi" />         	         	
+         	<package uri="modulemap.xmi" />           	
+         	<package uri="ejb.xmi" />                 	
+         	<package uri="jca.xmi" />                 	
+         	<package uri="webapplication.xmi" />                 	
+         	<package uri="jsp.xmi" />                 	
+         	<package uri="wsdd.xmi" />                 	
+         	<package uri="webservice_client.xmi" />           	         	
+         	<package uri="wscommon.xmi" />  
+         </emfEnablement>
       </navigatorContent>
    </extension>
+   -->  
    <extension
          id="EARGroup"
          point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
@@ -396,5 +404,65 @@
          </dropEnablement>
       </dropHandler>
    </extension>
-
+   
+   <!-- Experimental -->
+   <extension
+         point="org.eclipse.wst.common.navigator.views.navigatorContent">
+      <navigatorContent
+            name="Experimental J2EE"
+            priority="5"
+            icon="icons/J2EEPerspective.gif" 
+            contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
+            labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"
+            id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent.experimental">
+         <enables>
+         <or>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IProject">
+               </objectClass>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.EARNature">
+                  </objectState>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
+                  </objectState>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
+                  </objectState>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.web.WebNature">
+                  </objectState>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enables>
+         
+         <emfEnablement>
+         	<package uri="org.eclipse.emf.ecore.resource" />
+         	<package uri="common.xmi" />         	
+         	<package uri="application.xmi" />         	         	
+         	<package uri="client.xmi" />         	         	
+         	<package uri="modulemap.xmi" />           	
+         	<package uri="ejb.xmi" />                 	
+         	<package uri="jca.xmi" />                 	
+         	<package uri="webapplication.xmi" />                 	
+         	<package uri="jsp.xmi" />                 	
+         	<package uri="wsdd.xmi" />                 	
+         	<package uri="webservice_client.xmi" />           	         	
+         	<package uri="wscommon.xmi" />  
+         </emfEnablement>
+      </navigatorContent>
+   </extension>
 </plugin>
+
+

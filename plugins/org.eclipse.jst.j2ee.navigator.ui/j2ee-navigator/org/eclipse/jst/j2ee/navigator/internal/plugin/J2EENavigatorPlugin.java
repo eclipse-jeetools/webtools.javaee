@@ -23,21 +23,14 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class J2EENavigatorPlugin extends AbstractUIPlugin {
 	//The shared instance.
-	private static J2EENavigatorPlugin plugin;
-	//Resource bundle.
-	private ResourceBundle resourceBundle;
+	private static J2EENavigatorPlugin plugin; 
 
 	/**
 	 * The constructor.
 	 */
 	public J2EENavigatorPlugin(IPluginDescriptor descriptor) {
 		super(descriptor);
-		plugin = this;
-		try {
-			resourceBundle = ResourceBundle.getBundle("org.eclipse.jst.j2ee.internal.internal.internal.ui.navigator.plugin.J2EENavigatorPluginResources"); //$NON-NLS-1$
-		} catch (MissingResourceException x) {
-			resourceBundle = null;
-		}
+		plugin = this; 
 	}
 
 	/**
@@ -52,24 +45,5 @@ public class J2EENavigatorPlugin extends AbstractUIPlugin {
 	 */
 	public static IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
-	}
-
-	/**
-	 * Returns the string from the plugin's resource bundle, or 'key' if not found.
-	 */
-	public static String getResourceString(String key) {
-		ResourceBundle bundle = J2EENavigatorPlugin.getDefault().getResourceBundle();
-		try {
-			return (bundle != null ? bundle.getString(key) : key);
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
-
-	/**
-	 * Returns the plugin's resource bundle,
-	 */
-	public ResourceBundle getResourceBundle() {
-		return resourceBundle;
 	}
 }

@@ -25,8 +25,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jst.common.navigator.internal.actions.NewWizardActionGroup;
-import org.eclipse.jst.common.navigator.internal.actions.WizardActionGroup;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
@@ -52,6 +50,8 @@ import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPGenericActionIds;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPOptionalOperationAction;
+import org.eclipse.wst.common.navigator.internal.actions.NewWizardActionGroup;
+import org.eclipse.wst.common.navigator.internal.actions.WizardActionGroup;
 import org.eclipse.wst.common.navigator.internal.views.actions.CommonEditActionGroup;
 
 /**

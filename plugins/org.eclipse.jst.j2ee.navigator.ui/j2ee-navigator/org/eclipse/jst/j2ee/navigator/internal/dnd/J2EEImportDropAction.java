@@ -49,7 +49,7 @@ import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.common.navigator.internal.views.dnd.IDropValidator;
 import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropActionDelegate;
-import org.eclipse.wst.common.navigator.internal.views.dnd.NavigatorDropAdapter;
+import org.eclipse.wst.common.navigator.internal.views.dnd.CommonNavigatorDropAdapter;
 
 /**
  * @author jsholl
@@ -71,7 +71,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 		return false;
 	}
 
-	public boolean validateDrop(NavigatorDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
+	public boolean validateDrop(CommonNavigatorDropAdapter dropAdapter, Object target, int operation, TransferData transferType) {
 		if (FileTransfer.getInstance().isSupportedType(transferType)) {
 			String[] sourceNames = (String[]) FileTransfer.getInstance().nativeToJava(transferType);
 			if (sourceNames == null || sourceNames.length != 1) { //only handle one file for now
@@ -179,10 +179,10 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.dnd.NavigatorDropActionDelegate#run(org.eclipse.wst.common.navigator.internal.views.navigator.dnd.NavigatorDropAdapter,
+	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.dnd.NavigatorDropActionDelegate#run(org.eclipse.wst.common.navigator.internal.views.navigator.dnd.CommonNavigatorDropAdapter,
 	 *      java.lang.Object, java.lang.Object)
 	 */
-	public boolean run(NavigatorDropAdapter dropAdapter, Object source, Object target) {
+	public boolean run(CommonNavigatorDropAdapter dropAdapter, Object source, Object target) {
 		TransferData currentTransfer = dropAdapter.getCurrentTransfer();
 		if (FileTransfer.getInstance().isSupportedType(currentTransfer)) {
 			final String[] fileNames = (String[]) source;
