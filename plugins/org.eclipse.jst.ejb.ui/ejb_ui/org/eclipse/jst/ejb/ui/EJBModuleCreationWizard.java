@@ -17,7 +17,7 @@ import org.eclipse.jst.ejb.ui.internal.wizard.EJBProjectCreationPage;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
@@ -84,7 +84,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return Returns the specific operation data model for the creation of J2EE EJB modules
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		EJBModuleCreationDataModelOld aModel = new EJBModuleCreationDataModelOld();
+		EJBModuleCreationDataModel aModel = new EJBModuleCreationDataModel();
 		aModel.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
 		return aModel;
 	}
@@ -175,7 +175,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return true if the parent Wizard class is ready and EJB Client Creation settings are complete
 	 */
 	public boolean canFinish() {
-		if (!getSpecificDataModel().getBooleanProperty(EJBModuleCreationDataModelOld.CREATE_CLIENT)) {
+		if (!getSpecificDataModel().getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT)) {
 			clientPage.setPageComplete(true);
 		}
 		return super.canFinish();
@@ -194,7 +194,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return true if the client page should be skipped (based on the value of {@see EJBProjectCreationDataModel#CREATE_CLIENT}.
 	 */
 	protected final boolean shouldSkipClientPage() {
-		return !getSpecificDataModel().getBooleanProperty(EJBModuleCreationDataModelOld.CREATE_CLIENT);
+		return !getSpecificDataModel().getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT);
 	}
  
 	private EjbComponentCreationDataModel getSpecificDataModel() {

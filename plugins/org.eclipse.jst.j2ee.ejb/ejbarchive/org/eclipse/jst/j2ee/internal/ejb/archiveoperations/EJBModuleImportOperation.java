@@ -24,8 +24,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 public class EJBModuleImportOperation extends J2EEArtifactImportOperation {
@@ -35,7 +35,7 @@ public class EJBModuleImportOperation extends J2EEArtifactImportOperation {
 	}
 
 	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EJBModuleCreationOperationOld op = new EJBModuleCreationOperationOld((EJBModuleCreationDataModelOld) model);
+		EJBModuleCreationOperation op = new EJBModuleCreationOperation((EJBModuleCreationDataModel) model);
 		op.run(monitor);
 	}
 

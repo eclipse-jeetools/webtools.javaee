@@ -70,8 +70,8 @@ public final class EJBModuleImportDataModel extends J2EEModuleImportDataModel {
 
 
 	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		EJBModuleCreationDataModelOld m = new EJBModuleCreationDataModelOld();
-		m.setProperty(EJBModuleCreationDataModelOld.CREATE_CLIENT, Boolean.FALSE);
+		EJBModuleCreationDataModel m = new EJBModuleCreationDataModel();
+		m.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
 		return m;
 	}
 
