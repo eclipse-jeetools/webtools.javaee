@@ -11,26 +11,19 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.9 $  $Date: 2005/01/24 13:40:02 $ 
+ *  $Revision: 1.10 $  $Date: 2005/01/25 13:43:47 $ 
  */
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
-
 import org.eclipse.jem.internal.instantiation.JavaAllocation;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.ve.internal.cde.emf.FeatureValueProvider;
-import org.eclipse.ve.internal.cde.emf.FeatureValueProvider.Visitor;
 
 /**
  * This is the default instance for java model objects.
@@ -52,6 +45,7 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 	}
 	/** Visit the argument with all of the set features in an optimized fashion 
 	 */
+	private final static Object NIL = EStructuralFeatureImpl.InternalSettingDelegateSingle.NIL;
 	public void visitSetFeatures(Visitor aVisitor) {
 		
 		JavaObjectInstancePropertiesHolder settings = (JavaObjectInstancePropertiesHolder) eProperties(); 
@@ -62,7 +56,7 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 				Object propertyValue = setPropertyValues[i];
 				if(propertyValue != null){					
 					// null is handle by a placeholder
-					if (propertyValue == EStructuralFeatureImpl.InternalSettingDelegateSingle.NIL)
+					if (propertyValue == NIL)
 						propertyValue = null;					 
 					aVisitor.isSet(
 							(EStructuralFeature) settings.getAllStructuralFeatures().get(i),
