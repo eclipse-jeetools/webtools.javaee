@@ -58,7 +58,7 @@
             category="org.eclipse.jst.ejb.ui"
             class="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard"
             project="true"
-            finalPerspective=""
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
          <description>
             %new.ejb.project.description_ui_

@@ -15,6 +15,7 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
@@ -43,11 +44,11 @@ public class EJBProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
-	public String getModuleFolderName() {
+	public IContainer getModuleContainer() {
 
 		try {
 			EJBNatureRuntime enr = EJBNatureRuntime.getRuntime(project);
-			return enr.getModuleServerRoot().getName();
+			return enr.getModuleServerRoot();
 		} catch (Exception e) {
 			throw new ArchiveRuntimeException(EJBArchiveOpsResourceHandler.getString("ARCHIVE_OPERATION_ErroOccured"), e);} //$NON-NLS-1$
 	}

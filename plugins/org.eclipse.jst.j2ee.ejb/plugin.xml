@@ -147,31 +147,31 @@
 <!-- ==================================================================== -->
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
-      <moduleObjectAdapter
+      <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.internal.ejb.EJBJar"
             class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean"
             class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb2">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IProject"
             class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb3">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IFile"
             class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb4">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.jdt.core.ICompilationUnit"
             class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb5">
-      </moduleObjectAdapter>
+      </moduleArtifactAdapter>
    </extension>
 <!-- =============================================================== -->
 <!-- Purpose: Define the default module project factory          -->
@@ -181,7 +181,6 @@
          point="org.eclipse.wst.server.core.moduleFactories">
       <moduleFactory
             projects="true"
-            index="10"
             class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableFactory"
             id="com.ibm.wtp.server.ejb">
          <moduleType
