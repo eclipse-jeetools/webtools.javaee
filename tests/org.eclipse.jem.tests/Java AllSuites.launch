@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<launchConfiguration type="org.eclipse.pde.junit.launchconfig">
-    <booleanAttribute key="org.eclipse.pde.junit.DELETE_WORKSPACE" value="true"/>
-    <stringAttribute key="org.eclipse.debug.ui.target_debug_perspective" value="perspective_default"/>
-    <stringAttribute key="org.eclipse.debug.ui.target_run_perspective" value="perspective_none"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.eclipse.jem.tests"/>
-    <stringAttribute key="org.eclipse.pde.junitWORKSPACE_LOCATION" value="/runtime-junit-test-workspace"/>
-    <stringAttribute key="org.eclipse.pde.junit.APPLICATION_NAME" value="org.eclipse.pde.junit.coretestapplication"/>
-    <stringAttribute key="org.eclipse.debug.core.source_locator_id" value="org.eclipse.jdt.debug.ui.javaSourceLocator"/>
-    <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
-    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os win32 -ws win32 -arch x86"/>
-    <stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value=""/>
-    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.jem.tests.AllSuites"/>
-    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xj9"/>
+<launchConfiguration type="org.eclipse.pde.ui.JunitLaunchConfig">
+<booleanAttribute key="clearws" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.jem.tests.AllSuites"/>
+<booleanAttribute key="tracing" value="false"/>
+<stringAttribute key="vmargs" value=""/>
+<booleanAttribute key="default" value="true"/>
+<stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value=""/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
+<stringAttribute key="progargs" value="-os win32 -ws win32 -arch x86 -nl en_US"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.eclipse.jem.tests"/>
+<booleanAttribute key="askclear" value="true"/>
+<stringAttribute key="org.eclipse.debug.core.source_locator_id" value="org.eclipse.jdt.debug.ui.javaSourceLocator"/>
+<stringAttribute key="application" value="org.eclipse.pde.junit.runtime.coretestapplication"/>
+<stringAttribute key="location0" value="D:\runtime-junit-test-workspace"/>
 </launchConfiguration>
