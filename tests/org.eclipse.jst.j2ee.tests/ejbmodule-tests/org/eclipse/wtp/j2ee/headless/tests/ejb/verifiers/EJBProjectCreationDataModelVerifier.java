@@ -13,6 +13,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
+import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
@@ -46,7 +47,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 			Object dd = null;
 			ejbEdit = (EJBArtifactEdit) EJBArtifactEdit.getEJBArtifactEditForRead(handle);
        		if(ejbEdit != null) 
-       			dd = (ApplicationClient) ejbEdit.getDeploymentDescriptorRoot();
+       			dd = (EJBJar) ejbEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);
         } finally {
 			if( ejbEdit != null )
