@@ -200,21 +200,30 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 
-	public boolean isReferencedComponent(String componentName) {
+	public boolean hasReferencedComponent(String componentName) {
 		return false;
 	}
 
-	public String getReferencedComponentName(String componentName) {
 
+	public String[] getReferencedComponentNames(String componentName) {
 		return null;
 	}
 
 
-	public String getReferencedComponentURI(String componentName) {
+	public DependencyType getDependancyType(String referencedComponentName, String componentName) {
 		return null;
 	}
 
-	public DependencyType getDependancyType(String componentName) {
+
+	public IPath getReferencedComponentHandleURI(String referencedComponentName, String componentName) {
+		return null;
+	}
+
+	public IPath getReferencedComponentRuntimeType(String referencedComponentName, String componentName) {
+		return null;
+	}
+
+	public IProject[] getRequiredProjectsForMigration() {
 		return null;
 	}
 }
