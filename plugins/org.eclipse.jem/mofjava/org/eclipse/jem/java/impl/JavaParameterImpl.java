@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.Collection;
 
@@ -81,8 +81,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getJavaParameter();
 	}
 
@@ -107,8 +106,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public boolean isFinal()
-	{
+	public boolean isFinal() {
 		return final_;
 	}
 
@@ -117,8 +115,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFinal(boolean newFinal)
-	{
+	public void setFinal(boolean newFinal) {
 		boolean oldFinal = final_;
 		final_ = newFinal;
 		if (eNotificationRequired())
@@ -128,8 +125,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public JavaParameterKind getParameterKind()
-	{
+	public JavaParameterKind getParameterKind() {
 		return parameterKind;
 	}
 
@@ -138,8 +134,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParameterKind(JavaParameterKind newParameterKind)
-	{
+	public void setParameterKind(JavaParameterKind newParameterKind) {
 		JavaParameterKind oldParameterKind = parameterKind;
 		parameterKind = newParameterKind == null ? PARAMETER_KIND_EDEFAULT : newParameterKind;
 		if (eNotificationRequired())
@@ -149,8 +144,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -183,8 +177,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -221,8 +214,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -258,8 +250,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public String toString()
-	{
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
@@ -276,8 +267,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
@@ -300,8 +290,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
@@ -320,8 +309,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs)
-	{
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.JAVA_PARAMETER__EOPERATION:
@@ -338,8 +326,7 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_PARAMETER__EANNOTATIONS:
 				return getEAnnotations();

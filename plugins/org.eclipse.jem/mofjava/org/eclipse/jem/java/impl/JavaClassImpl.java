@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 
 import java.util.ArrayList;
@@ -242,8 +242,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getJavaClass();
 	}
 
@@ -1016,8 +1015,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setKind(TypeKind newKind)
-	{
+	public void setKind(TypeKind newKind) {
 		TypeKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
@@ -1034,8 +1032,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPublic(boolean newPublic)
-	{
+	public void setPublic(boolean newPublic) {
 		boolean oldPublic = public_;
 		public_ = newPublic;
 		if (eNotificationRequired())
@@ -1045,8 +1042,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public boolean isFinal()
-	{
+	public boolean isFinal() {
 		return final_;
 	}
 
@@ -1055,8 +1051,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFinal(boolean newFinal)
-	{
+	public void setFinal(boolean newFinal) {
 		boolean oldFinal = final_;
 		final_ = newFinal;
 		if (eNotificationRequired())
@@ -1068,8 +1063,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeKind getKindGen()
-	{
+	public TypeKind getKindGen() {
 		return kind;
 	}
 
@@ -1078,8 +1072,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isPublicGen()
-	{
+	public boolean isPublicGen() {
 		return public_;
 	}
 
@@ -1097,8 +1090,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDeclaringClass(JavaClass newDeclaringClass)
-	{
+	public void setDeclaringClass(JavaClass newDeclaringClass) {
 		if (newDeclaringClass != declaringClass) {
 			NotificationChain msgs = null;
 			if (declaringClass != null)
@@ -1117,8 +1109,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JavaClass getDeclaringClass()
-	{
+	public JavaClass getDeclaringClass() {
 		if (declaringClass != null && declaringClass.eIsProxy()) {
 			JavaClass oldDeclaringClass = declaringClass;
 			declaringClass = (JavaClass)eResolveProxy((InternalEObject)declaringClass);
@@ -1135,8 +1126,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JavaClass basicGetDeclaringClass()
-	{
+	public JavaClass basicGetDeclaringClass() {
 		return declaringClass;
 	}
 
@@ -1145,8 +1135,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDeclaringClass(JavaClass newDeclaringClass, NotificationChain msgs)
-	{
+	public NotificationChain basicSetDeclaringClass(JavaClass newDeclaringClass, NotificationChain msgs) {
 		JavaClass oldDeclaringClass = declaringClass;
 		declaringClass = newDeclaringClass;
 		if (eNotificationRequired()) {
@@ -1167,8 +1156,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getDeclaredClassesGen()
-	{
+	public EList getDeclaredClassesGen() {
 		if (declaredClasses == null) {
 			declaredClasses = new EObjectWithInverseResolvingEList(JavaClass.class, this, JavaRefPackage.JAVA_CLASS__DECLARED_CLASSES, JavaRefPackage.JAVA_CLASS__DECLARING_CLASS);
 		}
@@ -1191,8 +1179,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getEventsGen()
-	{
+	public EList getEventsGen() {
 		if (events == null) {
 			events = new EObjectContainmentEList(JavaEvent.class, this, JavaRefPackage.JAVA_CLASS__EVENTS);
 		}
@@ -1226,8 +1213,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -1304,8 +1290,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -1390,8 +1375,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -1535,8 +1519,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getClassImportGen()
-	{
+	public EList getClassImportGen() {
 		if (classImport == null) {
 			classImport = new EObjectResolvingEList(JavaClass.class, this, JavaRefPackage.JAVA_CLASS__CLASS_IMPORT);
 		}
@@ -1560,8 +1543,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getPackageImportsGen()
-	{
+	public EList getPackageImportsGen() {
 		if (packageImports == null) {
 			packageImports = new EObjectResolvingEList(JavaPackage.class, this, JavaRefPackage.JAVA_CLASS__PACKAGE_IMPORTS);
 		}
@@ -1573,8 +1555,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getFieldsGen()
-	{
+	public EList getFieldsGen() {
 		if (fields == null) {
 			fields = new EObjectContainmentWithInverseEList(Field.class, this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaRefPackage.FIELD__JAVA_CLASS);
 		}
@@ -1586,8 +1567,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getMethodsGen()
-	{
+	public EList getMethodsGen() {
 		if (methods == null) {
 			methods = new EObjectContainmentWithInverseEList(Method.class, this, JavaRefPackage.JAVA_CLASS__METHODS, JavaRefPackage.METHOD__JAVA_CLASS);
 		}
@@ -1597,8 +1577,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public JavaPackage getJavaPackageGen()
-	{
+	public JavaPackage getJavaPackageGen() {
 		JavaPackage javaPackage = basicGetJavaPackage();
 		return javaPackage == null ? null : (JavaPackage)eResolveProxy((InternalEObject)javaPackage);
 	}
@@ -1615,8 +1594,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
@@ -1655,8 +1633,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
@@ -1691,8 +1668,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs)
-	{
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.JAVA_CLASS__EPACKAGE:
@@ -1709,8 +1685,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_CLASS__EANNOTATIONS:
 				return getEAnnotations();
@@ -1789,8 +1764,7 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public String toStringGen()
-	{
+	public String toStringGen() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

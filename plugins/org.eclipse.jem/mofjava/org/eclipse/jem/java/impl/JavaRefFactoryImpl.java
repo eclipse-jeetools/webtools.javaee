@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefFactoryImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.List;
 
@@ -44,8 +44,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject create(EClass eClass)
-	{
+	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JavaRefPackage.JAVA_CLASS: return createJavaClass();
 			case JavaRefPackage.INITIALIZER: return createInitializer();
@@ -68,8 +67,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object createFromString(EDataType eDataType, String initialValue)
-	{
+	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case JavaRefPackage.TYPE_KIND:
 				return TypeKind.get(initialValue);
@@ -91,8 +89,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertToString(EDataType eDataType, Object instanceValue)
-	{
+	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case JavaRefPackage.TYPE_KIND:
 				return instanceValue == null ? null : instanceValue.toString();
@@ -160,8 +157,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public Method createMethod()
-	{
+	public Method createMethod() {
 		MethodImpl method = new MethodImpl();
 		return method;
 	}
@@ -169,8 +165,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public JavaClass createJavaClass()
-	{
+	public JavaClass createJavaClass() {
 		JavaClassImpl javaClass = new JavaClassImpl();
 		return javaClass;
 	}
@@ -178,8 +173,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public Field createField()
-	{
+	public Field createField() {
 		FieldImpl field = new FieldImpl();
 		return field;
 	}
@@ -187,8 +181,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public Block createBlock()
-	{
+	public Block createBlock() {
 		BlockImpl block = new BlockImpl();
 		return block;
 	}
@@ -196,8 +189,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public Comment createComment()
-	{
+	public Comment createComment() {
 		CommentImpl comment = new CommentImpl();
 		return comment;
 	}
@@ -205,8 +197,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public Statement createStatement()
-	{
+	public Statement createStatement() {
 		StatementImpl statement = new StatementImpl();
 		return statement;
 	}
@@ -214,8 +205,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public Initializer createInitializer()
-	{
+	public Initializer createInitializer() {
 		InitializerImpl initializer = new InitializerImpl();
 		return initializer;
 	}
@@ -223,8 +213,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public JavaParameter createJavaParameter()
-	{
+	public JavaParameter createJavaParameter() {
 		JavaParameterImpl javaParameter = new JavaParameterImpl();
 		return javaParameter;
 	}
@@ -232,8 +221,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public ArrayType createArrayType()
-	{
+	public ArrayType createArrayType() {
 		ArrayTypeImpl arrayType = new ArrayTypeImpl();
 		return arrayType;
 	}
@@ -243,8 +231,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JavaHelpers createJTypeJavaHelpersFromString(EDataType eDataType, String initialValue)
-	{
+	public JavaHelpers createJTypeJavaHelpersFromString(EDataType eDataType, String initialValue) {
 		return (JavaHelpers)super.createFromString(eDataType, initialValue);
 	}
 
@@ -253,8 +240,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertJTypeJavaHelpersToString(EDataType eDataType, Object instanceValue)
-	{
+	public String convertJTypeJavaHelpersToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 
@@ -263,8 +249,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List createJTypeListFromString(EDataType eDataType, String initialValue)
-	{
+	public List createJTypeListFromString(EDataType eDataType, String initialValue) {
 		return (List)super.createFromString(eDataType, initialValue);
 	}
 
@@ -273,16 +258,14 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertJTypeListToString(EDataType eDataType, Object instanceValue)
-	{
+	public String convertJTypeListToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public JavaDataType createJavaDataType()
-	{
+	public JavaDataType createJavaDataType() {
 		JavaDataTypeImpl javaDataType = new JavaDataTypeImpl();
 		return javaDataType;
 	}
@@ -290,8 +273,7 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public JavaPackage createJavaPackage()
-	{
+	public JavaPackage createJavaPackage() {
 		JavaPackageImpl javaPackage = new JavaPackageImpl();
 		return javaPackage;
 	}
@@ -299,16 +281,14 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public JavaRefPackage getJavaRefPackage()
-	{
+	public JavaRefPackage getJavaRefPackage() {
 		return (JavaRefPackage)getEPackage();
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public static JavaRefPackage getPackage()
-	{
+	public static JavaRefPackage getPackage() {
 		return JavaRefPackage.eINSTANCE;
 	}
   public static JavaRefFactory getActiveFactory()

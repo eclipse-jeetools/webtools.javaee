@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 
 import java.util.Collection;
@@ -83,8 +83,7 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getArrayType();
 	}
 
@@ -169,16 +168,14 @@ public boolean isExistingType() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public int getArrayDimensions()
-	{
+	public int getArrayDimensions() {
 		return arrayDimensions;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void setArrayDimensions(int newArrayDimensions)
-	{
+	public void setArrayDimensions(int newArrayDimensions) {
 		int oldArrayDimensions = arrayDimensions;
 		arrayDimensions = newArrayDimensions;
 		if (eNotificationRequired())
@@ -188,8 +185,7 @@ public boolean isExistingType() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -270,8 +266,7 @@ public boolean isExistingType() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -362,8 +357,7 @@ public boolean isExistingType() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -441,8 +435,7 @@ public boolean isExistingType() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public String toString()
-	{
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
@@ -455,8 +448,7 @@ public boolean isExistingType() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public EClassifier getComponentTypeGen()
-	{
+	public EClassifier getComponentTypeGen() {
 		if (componentType != null && componentType.eIsProxy()) {
 			EClassifier oldComponentType = componentType;
 			componentType = (EClassifier)eResolveProxy((InternalEObject)componentType);
@@ -473,8 +465,7 @@ public boolean isExistingType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClassifier basicGetComponentType()
-	{
+	public EClassifier basicGetComponentType() {
 		return componentType;
 	}
 
@@ -483,8 +474,7 @@ public boolean isExistingType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setComponentType(EClassifier newComponentType)
-	{
+	public void setComponentType(EClassifier newComponentType) {
 		EClassifier oldComponentType = componentType;
 		componentType = newComponentType;
 		if (eNotificationRequired())
@@ -496,8 +486,7 @@ public boolean isExistingType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
@@ -536,8 +525,7 @@ public boolean isExistingType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
@@ -572,8 +560,7 @@ public boolean isExistingType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs)
-	{
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.ARRAY_TYPE__EPACKAGE:
@@ -590,8 +577,7 @@ public boolean isExistingType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.ARRAY_TYPE__EANNOTATIONS:
 				return getEAnnotations();

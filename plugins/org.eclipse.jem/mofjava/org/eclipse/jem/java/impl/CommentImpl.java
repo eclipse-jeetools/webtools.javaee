@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: CommentImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 
 import java.util.Collection;
@@ -39,8 +39,7 @@ public class CommentImpl extends BlockImpl implements Comment{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getComment();
 	}
 
@@ -49,8 +48,7 @@ public class CommentImpl extends BlockImpl implements Comment{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.COMMENT__CONTENTS:
@@ -67,8 +65,7 @@ public class CommentImpl extends BlockImpl implements Comment{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.COMMENT__SOURCE:
 				return getSource();
@@ -85,8 +82,7 @@ public class CommentImpl extends BlockImpl implements Comment{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.COMMENT__SOURCE:
 				setSource((String)newValue);
@@ -107,8 +103,7 @@ public class CommentImpl extends BlockImpl implements Comment{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.COMMENT__SOURCE:
 				setSource(SOURCE_EDEFAULT);
@@ -128,8 +123,7 @@ public class CommentImpl extends BlockImpl implements Comment{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.COMMENT__SOURCE:
 				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);

@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BlockImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 
 import java.util.Collection;
@@ -86,24 +86,21 @@ public class BlockImpl extends EObjectImpl implements Block{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getBlock();
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public String getSource()
-	{
+	public String getSource() {
 		return source;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void setSource(String newSource)
-	{
+	public void setSource(String newSource) {
 		String oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
@@ -113,16 +110,14 @@ public class BlockImpl extends EObjectImpl implements Block{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void setName(String newName)
-	{
+	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
@@ -132,8 +127,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public EList getContents()
-	{
+	public EList getContents() {
 		if (contents == null) {
 			contents = new EObjectContainmentEList(Block.class, this, JavaRefPackage.BLOCK__CONTENTS);
 		}
@@ -145,8 +139,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.BLOCK__CONTENTS:
@@ -163,8 +156,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.BLOCK__SOURCE:
 				return getSource();
@@ -179,8 +171,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.BLOCK__SOURCE:
 				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
@@ -195,8 +186,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.BLOCK__SOURCE:
 				setSource((String)newValue);
@@ -215,8 +205,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.BLOCK__SOURCE:
 				setSource(SOURCE_EDEFAULT);
@@ -234,8 +223,7 @@ public class BlockImpl extends EObjectImpl implements Block{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public String toString()
-	{
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.Collection;
 
@@ -117,8 +117,7 @@ public class FieldImpl extends EAttributeImpl implements Field{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getField();
 	}
 
@@ -223,16 +222,14 @@ protected ReadAdaptor getReadAdaptor() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public JavaVisibilityKind getJavaVisibilityGen()
-	{
+  public JavaVisibilityKind getJavaVisibilityGen() {
 		return javaVisibility;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public boolean isFinalGen()
-	{
+	public boolean isFinalGen() {
 		return final_;
 	}
 
@@ -241,8 +238,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFinal(boolean newFinal)
-	{
+	public void setFinal(boolean newFinal) {
 		boolean oldFinal = final_;
 		final_ = newFinal;
 		if (eNotificationRequired())
@@ -252,8 +248,7 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public boolean isStaticGen()
-	{
+	public boolean isStaticGen() {
 		return static_;
 	}
 
@@ -262,8 +257,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStatic(boolean newStatic)
-	{
+	public void setStatic(boolean newStatic) {
 		boolean oldStatic = static_;
 		static_ = newStatic;
 		if (eNotificationRequired())
@@ -275,8 +269,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setJavaVisibility(JavaVisibilityKind newJavaVisibility)
-	{
+	public void setJavaVisibility(JavaVisibilityKind newJavaVisibility) {
 		JavaVisibilityKind oldJavaVisibility = javaVisibility;
 		javaVisibility = newJavaVisibility == null ? JAVA_VISIBILITY_EDEFAULT : newJavaVisibility;
 		if (eNotificationRequired())
@@ -286,8 +279,7 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public JavaClass getJavaClass()
-	{
+	public JavaClass getJavaClass() {
 		if (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS) return null;
 		return (JavaClass)eContainer;
 	}
@@ -297,8 +289,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setJavaClass(JavaClass newJavaClass)
-	{
+	public void setJavaClass(JavaClass newJavaClass) {
 		if (newJavaClass != eContainer || (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS && newJavaClass != null)) {
 			if (EcoreUtil.isAncestor(this, newJavaClass))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -317,8 +308,7 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.FIELD__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -375,8 +365,7 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.FIELD__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -443,8 +432,7 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.FIELD__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -510,8 +498,7 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public Block getInitializerGen()
-	{
+	public Block getInitializerGen() {
 		return initializer;
 	}
 
@@ -520,8 +507,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetInitializer(Block newInitializer, NotificationChain msgs)
-	{
+	public NotificationChain basicSetInitializer(Block newInitializer, NotificationChain msgs) {
 		Block oldInitializer = initializer;
 		initializer = newInitializer;
 		if (eNotificationRequired()) {
@@ -536,8 +522,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInitializer(Block newInitializer)
-	{
+	public void setInitializer(Block newInitializer) {
 		if (newInitializer != initializer) {
 			NotificationChain msgs = null;
 			if (initializer != null)
@@ -556,8 +541,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
@@ -584,8 +568,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
@@ -608,8 +591,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs)
-	{
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.FIELD__ECONTAINING_CLASS:
@@ -628,8 +610,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.FIELD__EANNOTATIONS:
 				return getEAnnotations();
@@ -688,8 +669,7 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public String toStringGen()
-	{
+	public String toStringGen() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

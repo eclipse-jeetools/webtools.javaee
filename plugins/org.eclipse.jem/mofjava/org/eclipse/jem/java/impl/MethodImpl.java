@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 
 import java.util.Collection;
@@ -222,8 +222,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getMethod();
 	}
 
@@ -232,8 +231,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isAbstractGen()
-	{
+  public boolean isAbstractGen() {
 		return abstract_;
 	}
 
@@ -242,8 +240,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setAbstract(boolean newAbstract)
-	{
+  public void setAbstract(boolean newAbstract) {
 		boolean oldAbstract = abstract_;
 		abstract_ = newAbstract;
 		if (eNotificationRequired())
@@ -255,8 +252,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isNativeGen()
-	{
+  public boolean isNativeGen() {
 		return native_;
 	}
 
@@ -265,8 +261,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setNative(boolean newNative)
-	{
+  public void setNative(boolean newNative) {
 		boolean oldNative = native_;
 		native_ = newNative;
 		if (eNotificationRequired())
@@ -278,8 +273,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSynchronizedGen()
-	{
+  public boolean isSynchronizedGen() {
 		return synchronized_;
 	}
 
@@ -288,8 +282,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setSynchronized(boolean newSynchronized)
-	{
+  public void setSynchronized(boolean newSynchronized) {
 		boolean oldSynchronized = synchronized_;
 		synchronized_ = newSynchronized;
 		if (eNotificationRequired())
@@ -301,8 +294,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isFinalGen()
-	{
+  public boolean isFinalGen() {
 		return final_;
 	}
 
@@ -311,8 +303,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setFinal(boolean newFinal)
-	{
+  public void setFinal(boolean newFinal) {
 		boolean oldFinal = final_;
 		final_ = newFinal;
 		if (eNotificationRequired())
@@ -324,8 +315,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isConstructorGen()
-	{
+  public boolean isConstructorGen() {
 		return constructor;
 	}
 
@@ -334,8 +324,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setConstructor(boolean newConstructor)
-	{
+  public void setConstructor(boolean newConstructor) {
 		boolean oldConstructor = constructor;
 		constructor = newConstructor;
 		if (eNotificationRequired())
@@ -347,8 +336,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isStaticGen()
-	{
+  public boolean isStaticGen() {
 		return static_;
 	}
 
@@ -357,8 +345,7 @@ public class MethodImpl extends EOperationImpl implements Method{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setStatic(boolean newStatic)
-	{
+  public void setStatic(boolean newStatic) {
 		boolean oldStatic = static_;
 		static_ = newStatic;
 		if (eNotificationRequired())
@@ -607,8 +594,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public JavaVisibilityKind getJavaVisibilityGen()
-	{
+	public JavaVisibilityKind getJavaVisibilityGen() {
 		return javaVisibility;
 	}
 
@@ -617,8 +603,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setJavaVisibility(JavaVisibilityKind newJavaVisibility)
-	{
+	public void setJavaVisibility(JavaVisibilityKind newJavaVisibility) {
 		JavaVisibilityKind oldJavaVisibility = javaVisibility;
 		javaVisibility = newJavaVisibility == null ? JAVA_VISIBILITY_EDEFAULT : newJavaVisibility;
 		if (eNotificationRequired())
@@ -628,8 +613,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public JavaClass getJavaClass()
-	{
+	public JavaClass getJavaClass() {
 		if (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS) return null;
 		return (JavaClass)eContainer;
 	}
@@ -639,8 +623,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setJavaClass(JavaClass newJavaClass)
-	{
+	public void setJavaClass(JavaClass newJavaClass) {
 		if (newJavaClass != eContainer || (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS && newJavaClass != null)) {
 			if (EcoreUtil.isAncestor(this, newJavaClass))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -659,8 +642,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public Block getSource()
-	{
+	public Block getSource() {
 		if (source != null && source.eIsProxy()) {
 			Block oldSource = source;
 			source = (Block)eResolveProxy((InternalEObject)source);
@@ -677,8 +659,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Block basicGetSource()
-	{
+	public Block basicGetSource() {
 		return source;
 	}
 
@@ -687,8 +668,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(Block newSource)
-	{
+	public void setSource(Block newSource) {
 		Block oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
@@ -698,8 +678,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.METHOD__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -754,8 +733,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.METHOD__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -829,8 +807,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.METHOD__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -899,8 +876,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public String toString()
-	{
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
@@ -925,8 +901,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public EList getParametersGen()
-	{
+	public EList getParametersGen() {
 		if (parameters == null) {
 			parameters = new EObjectContainmentEList(JavaParameter.class, this, JavaRefPackage.METHOD__PARAMETERS);
 		}
@@ -936,8 +911,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public EList getJavaExceptionsGen()
-	{
+	public EList getJavaExceptionsGen() {
 		if (javaExceptions == null) {
 			javaExceptions = new EObjectResolvingEList(JavaClass.class, this, JavaRefPackage.METHOD__JAVA_EXCEPTIONS);
 		}
@@ -949,8 +923,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.METHOD__EANNOTATIONS:
@@ -979,8 +952,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.METHOD__EANNOTATIONS:
@@ -1005,8 +977,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs)
-	{
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
@@ -1025,8 +996,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.METHOD__EANNOTATIONS:
 				return getEAnnotations();

@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.List;
 
@@ -172,8 +172,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 		   /**
 		 * @generated This field/method will be replaced during code generation.
 		 */
-	private JavaRefPackageImpl()
-	{
+	private JavaRefPackageImpl() {
 		super(eNS_URI, JavaRefFactory.eINSTANCE);
 	}
 
@@ -187,8 +186,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public static JavaRefPackage init()
-	{
+	public static JavaRefPackage init() {
 		if (isInited) return (JavaRefPackage)EPackage.Registry.INSTANCE.get(JavaRefPackage.eNS_URI);
 
 		// Obtain or create and register package.
@@ -213,16 +211,14 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getJavaClass()
-	{
+	public EClass getJavaClass() {
 		return javaClassEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getJavaClass_Kind()
-	{
+	public EAttribute getJavaClass_Kind() {
 		return (EAttribute)javaClassEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -231,8 +227,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJavaClass_Public()
-	{
+	public EAttribute getJavaClass_Public() {
 		return (EAttribute)javaClassEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -241,104 +236,91 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJavaClass_Final()
-	{
+	public EAttribute getJavaClass_Final() {
 		return (EAttribute)javaClassEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_ImplementsInterfaces()
-	{
+	public EReference getJavaClass_ImplementsInterfaces() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_ClassImport()
-	{
+	public EReference getJavaClass_ClassImport() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_PackageImports()
-	{
+	public EReference getJavaClass_PackageImports() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_Fields()
-	{
+	public EReference getJavaClass_Fields() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_Methods()
-	{
+	public EReference getJavaClass_Methods() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_Initializers()
-	{
+	public EReference getJavaClass_Initializers() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_DeclaringClass()
-	{
+	public EReference getJavaClass_DeclaringClass() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_DeclaredClasses()
-	{
+	public EReference getJavaClass_DeclaredClasses() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_JavaPackage()
-	{
+	public EReference getJavaClass_JavaPackage() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_Events()
-	{
+	public EReference getJavaClass_Events() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaClass_AllEvents()
-	{
+	public EReference getJavaClass_AllEvents() {
 		return (EReference)javaClassEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getField()
-	{
+	public EClass getField() {
 		return fieldEClass;
 	}
 
@@ -347,8 +329,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getField_Final()
-	{
+	public EAttribute getField_Final() {
 		return (EAttribute)fieldEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -357,40 +338,35 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getField_Static()
-	{
+	public EAttribute getField_Static() {
 		return (EAttribute)fieldEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getField_JavaVisibility()
-	{
+	public EAttribute getField_JavaVisibility() {
 		return (EAttribute)fieldEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getField_JavaClass()
-	{
+	public EReference getField_JavaClass() {
 		return (EReference)fieldEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getField_Initializer()
-	{
+	public EReference getField_Initializer() {
 		return (EReference)fieldEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getMethod()
-	{
+	public EClass getMethod() {
 		return methodEClass;
 	}
 
@@ -399,8 +375,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMethod_Abstract()
-	{
+	public EAttribute getMethod_Abstract() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -409,8 +384,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMethod_Native()
-	{
+	public EAttribute getMethod_Native() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -419,8 +393,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMethod_Synchronized()
-	{
+	public EAttribute getMethod_Synchronized() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -429,8 +402,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMethod_Final()
-	{
+	public EAttribute getMethod_Final() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -439,8 +411,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMethod_Constructor()
-	{
+	public EAttribute getMethod_Constructor() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -449,56 +420,49 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMethod_Static()
-	{
+	public EAttribute getMethod_Static() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getMethod_JavaVisibility()
-	{
+	public EAttribute getMethod_JavaVisibility() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getMethod_Parameters()
-	{
+	public EReference getMethod_Parameters() {
 		return (EReference)methodEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getMethod_JavaExceptions()
-	{
+	public EReference getMethod_JavaExceptions() {
 		return (EReference)methodEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getMethod_JavaClass()
-	{
+	public EReference getMethod_JavaClass() {
 		return (EReference)methodEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getMethod_Source()
-	{
+	public EReference getMethod_Source() {
 		return (EReference)methodEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getJavaParameter()
-	{
+	public EClass getJavaParameter() {
 		return javaParameterEClass;
 	}
 
@@ -507,200 +471,175 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJavaParameter_Final()
-	{
+	public EAttribute getJavaParameter_Final() {
 		return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getJavaParameter_ParameterKind()
-	{
+	public EAttribute getJavaParameter_ParameterKind() {
 		return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getArrayType()
-	{
+	public EClass getArrayType() {
 		return arrayTypeEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getArrayType_ArrayDimensions()
-	{
+	public EAttribute getArrayType_ArrayDimensions() {
 		return (EAttribute)arrayTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getArrayType_ComponentType()
-	{
+	public EReference getArrayType_ComponentType() {
 		return (EReference)arrayTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getJavaDataType()
-	{
+	public EClass getJavaDataType() {
 		return javaDataTypeEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getJavaEvent()
-	{
+	public EClass getJavaEvent() {
 		return javaEventEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getJavaPackage()
-	{
+	public EClass getJavaPackage() {
 		return javaPackageEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getJavaPackage_JavaClasses()
-	{
+	public EReference getJavaPackage_JavaClasses() {
 		return (EReference)javaPackageEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getBlock()
-	{
+	public EClass getBlock() {
 		return blockEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getBlock_Source()
-	{
+	public EAttribute getBlock_Source() {
 		return (EAttribute)blockEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getBlock_Name()
-	{
+	public EAttribute getBlock_Name() {
 		return (EAttribute)blockEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getBlock_Contents()
-	{
+	public EReference getBlock_Contents() {
 		return (EReference)blockEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getComment()
-	{
+	public EClass getComment() {
 		return commentEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getStatement()
-	{
+	public EClass getStatement() {
 		return statementEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EClass getInitializer()
-	{
+	public EClass getInitializer() {
 		return initializerEClass;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EAttribute getInitializer_IsStatic()
-	{
+	public EAttribute getInitializer_IsStatic() {
 		return (EAttribute)initializerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getInitializer_JavaClass()
-	{
+	public EReference getInitializer_JavaClass() {
 		return (EReference)initializerEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EReference getInitializer_Source()
-	{
+	public EReference getInitializer_Source() {
 		return (EReference)initializerEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EEnum getJavaVisibilityKind()
-	{
+	public EEnum getJavaVisibilityKind() {
 		return javaVisibilityKindEEnum;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EEnum getJavaParameterKind()
-	{
+	public EEnum getJavaParameterKind() {
 		return javaParameterKindEEnum;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EEnum getTypeKind()
-	{
+	public EEnum getTypeKind() {
 		return typeKindEEnum;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EDataType getJTypeList()
-	{
+	public EDataType getJTypeList() {
 		return jTypeListEDataType;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public EDataType getJTypeJavaHelpers()
-	{
+	public EDataType getJTypeJavaHelpers() {
 		return jTypeJavaHelpersEDataType;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public JavaRefFactory getJavaRefFactory()
-	{
+	public JavaRefFactory getJavaRefFactory() {
 		return (JavaRefFactory)getEFactoryInstance();
 	}
 
@@ -718,8 +657,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void createPackageContents()
-	{
+	public void createPackageContents() {
 		if (isCreated) return;
 		isCreated = true;
 
@@ -813,8 +751,7 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void initializePackageContents()
-	{
+	public void initializePackageContents() {
 		if (isInitialized) return;
 		isInitialized = true;
 

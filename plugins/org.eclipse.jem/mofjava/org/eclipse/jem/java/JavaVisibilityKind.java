@@ -11,7 +11,7 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaVisibilityKind.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -164,8 +164,7 @@ public final class JavaVisibilityKind extends AbstractEnumerator
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public static JavaVisibilityKind get(String name)
-	{
+  public static JavaVisibilityKind get(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			JavaVisibilityKind result = VALUES_ARRAY[i];
 			if (result.toString().equals(name)) {
@@ -181,8 +180,7 @@ public final class JavaVisibilityKind extends AbstractEnumerator
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public static JavaVisibilityKind get(int value)
-	{
+  public static JavaVisibilityKind get(int value) {
 		switch (value) {
 			case PUBLIC: return PUBLIC_LITERAL;
 			case PRIVATE: return PRIVATE_LITERAL;
@@ -198,8 +196,7 @@ public final class JavaVisibilityKind extends AbstractEnumerator
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  private JavaVisibilityKind(int value, String name)
-	{
+  private JavaVisibilityKind(int value, String name) {
 		super(value, name);
 	}
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: TypeKind.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -161,8 +161,7 @@ public final class TypeKind extends AbstractEnumerator
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public static TypeKind get(String name)
-	{
+  public static TypeKind get(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			TypeKind result = VALUES_ARRAY[i];
 			if (result.toString().equals(name)) {
@@ -178,8 +177,7 @@ public final class TypeKind extends AbstractEnumerator
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public static TypeKind get(int value)
-	{
+  public static TypeKind get(int value) {
 		switch (value) {
 			case UNDEFINED: return UNDEFINED_LITERAL;
 			case CLASS: return CLASS_LITERAL;
@@ -195,8 +193,7 @@ public final class TypeKind extends AbstractEnumerator
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  private TypeKind(int value, String name)
-	{
+  private TypeKind(int value, String name) {
 		super(value, name);
 	}
 

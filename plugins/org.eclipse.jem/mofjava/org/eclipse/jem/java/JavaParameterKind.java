@@ -12,7 +12,7 @@ package org.eclipse.jem.java;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaParameterKind.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -161,8 +161,7 @@ public final class JavaParameterKind extends AbstractEnumerator
    * <!-- end-user-doc --> 
 	 * @generated
 	 */
-  public static JavaParameterKind get(String name)
-	{
+  public static JavaParameterKind get(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			JavaParameterKind result = VALUES_ARRAY[i];
 			if (result.toString().equals(name)) {
@@ -178,8 +177,7 @@ public final class JavaParameterKind extends AbstractEnumerator
    * <!-- end-user-doc --> 
 	 * @generated
 	 */
-  public static JavaParameterKind get(int value)
-	{
+  public static JavaParameterKind get(int value) {
 		switch (value) {
 			case IN: return IN_LITERAL;
 			case OUT: return OUT_LITERAL;
@@ -195,8 +193,7 @@ public final class JavaParameterKind extends AbstractEnumerator
    * <!-- end-user-doc --> 
 	 * @generated
 	 */
-  private JavaParameterKind(int value, String name)
-	{
+  private JavaParameterKind(int value, String name) {
 		super(value, name);
 	}
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.java.util;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefAdapterFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -57,8 +57,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JavaRefAdapterFactory()
-	{
+	public JavaRefAdapterFactory() {
 		if (modelPackage == null) {
 			modelPackage = JavaRefPackage.eINSTANCE;
 		}
@@ -72,8 +71,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-	public boolean isFactoryForType(Object object)
-	{
+	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
 		}
@@ -170,8 +168,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-	public Adapter createAdapter(Notifier target)
-	{
+	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
 
@@ -186,8 +183,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.JavaClass
 	 * @generated
 	 */
-	public Adapter createJavaClassAdapter()
-	{
+	public Adapter createJavaClassAdapter() {
 		return null;
 	}
 
@@ -201,8 +197,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.Initializer
 	 * @generated
 	 */
-	public Adapter createInitializerAdapter()
-	{
+	public Adapter createInitializerAdapter() {
 		return null;
 	}
 
@@ -216,8 +211,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.JavaParameter
 	 * @generated
 	 */
-	public Adapter createJavaParameterAdapter()
-	{
+	public Adapter createJavaParameterAdapter() {
 		return null;
 	}
 
@@ -231,8 +225,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.Method
 	 * @generated
 	 */
-	public Adapter createMethodAdapter()
-	{
+	public Adapter createMethodAdapter() {
 		return null;
 	}
 
@@ -246,8 +239,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.Field
 	 * @generated
 	 */
-	public Adapter createFieldAdapter()
-	{
+	public Adapter createFieldAdapter() {
 		return null;
 	}
 
@@ -261,8 +253,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.Block
 	 * @generated
 	 */
-	public Adapter createBlockAdapter()
-	{
+	public Adapter createBlockAdapter() {
 		return null;
 	}
 
@@ -276,8 +267,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.Comment
 	 * @generated
 	 */
-	public Adapter createCommentAdapter()
-	{
+	public Adapter createCommentAdapter() {
 		return null;
 	}
 
@@ -291,8 +281,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.Statement
 	 * @generated
 	 */
-	public Adapter createStatementAdapter()
-	{
+	public Adapter createStatementAdapter() {
 		return null;
 	}
 
@@ -306,8 +295,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.JavaPackage
 	 * @generated
 	 */
-	public Adapter createJavaPackageAdapter()
-	{
+	public Adapter createJavaPackageAdapter() {
 		return null;
 	}
 
@@ -321,8 +309,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.JavaDataType
 	 * @generated
 	 */
-	public Adapter createJavaDataTypeAdapter()
-	{
+	public Adapter createJavaDataTypeAdapter() {
 		return null;
 	}
 
@@ -336,8 +323,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.ArrayType
 	 * @generated
 	 */
-	public Adapter createArrayTypeAdapter()
-	{
+	public Adapter createArrayTypeAdapter() {
 		return null;
 	}
 
@@ -351,8 +337,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.jem.java.JavaEvent
 	 * @generated
 	 */
-	public Adapter createJavaEventAdapter()
-	{
+	public Adapter createJavaEventAdapter() {
 		return null;
 	}
 
@@ -366,8 +351,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EModelElement
 	 * @generated
 	 */
-	public Adapter createEModelElementAdapter()
-	{
+	public Adapter createEModelElementAdapter() {
 		return null;
 	}
 
@@ -381,8 +365,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.ENamedElement
 	 * @generated
 	 */
-	public Adapter createENamedElementAdapter()
-	{
+	public Adapter createENamedElementAdapter() {
 		return null;
 	}
 
@@ -396,8 +379,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EClassifier
 	 * @generated
 	 */
-	public Adapter createEClassifierAdapter()
-	{
+	public Adapter createEClassifierAdapter() {
 		return null;
 	}
 
@@ -411,8 +393,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EClass
 	 * @generated
 	 */
-	public Adapter createEClassAdapter()
-	{
+	public Adapter createEClassAdapter() {
 		return null;
 	}
 
@@ -426,8 +407,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.ETypedElement
 	 * @generated
 	 */
-	public Adapter createETypedElementAdapter()
-	{
+	public Adapter createETypedElementAdapter() {
 		return null;
 	}
 
@@ -441,8 +421,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EParameter
 	 * @generated
 	 */
-	public Adapter createEParameterAdapter()
-	{
+	public Adapter createEParameterAdapter() {
 		return null;
 	}
 
@@ -456,8 +435,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EOperation
 	 * @generated
 	 */
-	public Adapter createEOperationAdapter()
-	{
+	public Adapter createEOperationAdapter() {
 		return null;
 	}
 
@@ -471,8 +449,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EStructuralFeature
 	 * @generated
 	 */
-	public Adapter createEStructuralFeatureAdapter()
-	{
+	public Adapter createEStructuralFeatureAdapter() {
 		return null;
 	}
 
@@ -486,8 +463,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EAttribute
 	 * @generated
 	 */
-	public Adapter createEAttributeAdapter()
-	{
+	public Adapter createEAttributeAdapter() {
 		return null;
 	}
 
@@ -501,8 +477,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @see org.eclipse.emf.ecore.EPackage
 	 * @generated
 	 */
-	public Adapter createEPackageAdapter()
-	{
+	public Adapter createEPackageAdapter() {
 		return null;
 	}
 
@@ -514,8 +489,7 @@ public class JavaRefAdapterFactory extends AdapterFactoryImpl
 	 * @return the new adapter.
 	 * @generated
 	 */
-	public Adapter createEObjectAdapter()
-	{
+	public Adapter createEObjectAdapter() {
 		return null;
 	}
 

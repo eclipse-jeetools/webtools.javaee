@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaEventImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import java.util.Collection;
 
@@ -42,8 +42,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JavaEventImpl()
-	{
+	protected JavaEventImpl() {
 		super();
 	}
 
@@ -52,8 +51,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EClass eStaticClass()
-	{
+	protected EClass eStaticClass() {
 		return JavaRefPackage.eINSTANCE.getJavaEvent();
 	}
 
@@ -62,8 +60,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
@@ -86,8 +83,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs)
-	{
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
@@ -123,8 +119,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve)
-	{
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
 				return getEAnnotations();
@@ -170,8 +165,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue)
-	{
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -222,8 +216,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature)
-	{
+	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
 				getEAnnotations().clear();
@@ -273,8 +266,7 @@ public abstract class JavaEventImpl extends EStructuralFeatureImpl implements Ja
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature)
-	{
+	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.JAVA_EVENT__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();

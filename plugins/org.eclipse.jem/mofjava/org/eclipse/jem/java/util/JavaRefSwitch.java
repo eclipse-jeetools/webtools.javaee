@@ -12,7 +12,7 @@ package org.eclipse.jem.java.util;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefSwitch.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
  */
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -58,8 +58,7 @@ public class JavaRefSwitch {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JavaRefSwitch()
-	{
+	public JavaRefSwitch() {
 		if (modelPackage == null) {
 			modelPackage = JavaRefPackage.eINSTANCE;
 		}
@@ -72,8 +71,7 @@ public class JavaRefSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject)
-	{
+	public Object doSwitch(EObject theEObject) {
 		EClass theEClass = theEObject.eClass();
 		if (theEClass.eContainer() == modelPackage) {
 			switch (theEClass.getClassifierID()) {
@@ -191,8 +189,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJavaClass(JavaClass object)
-	{
+	public Object caseJavaClass(JavaClass object) {
 		return null;
 	}
 
@@ -207,8 +204,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInitializer(Initializer object)
-	{
+	public Object caseInitializer(Initializer object) {
 		return null;
 	}
 
@@ -223,8 +219,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJavaParameter(JavaParameter object)
-	{
+	public Object caseJavaParameter(JavaParameter object) {
 		return null;
 	}
 
@@ -239,8 +234,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMethod(Method object)
-	{
+	public Object caseMethod(Method object) {
 		return null;
 	}
 
@@ -255,8 +249,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseField(Field object)
-	{
+	public Object caseField(Field object) {
 		return null;
 	}
 
@@ -271,8 +264,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseBlock(Block object)
-	{
+	public Object caseBlock(Block object) {
 		return null;
 	}
 
@@ -287,8 +279,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseComment(Comment object)
-	{
+	public Object caseComment(Comment object) {
 		return null;
 	}
 
@@ -303,8 +294,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseStatement(Statement object)
-	{
+	public Object caseStatement(Statement object) {
 		return null;
 	}
 
@@ -319,8 +309,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJavaPackage(JavaPackage object)
-	{
+	public Object caseJavaPackage(JavaPackage object) {
 		return null;
 	}
 
@@ -335,8 +324,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJavaDataType(JavaDataType object)
-	{
+	public Object caseJavaDataType(JavaDataType object) {
 		return null;
 	}
 
@@ -351,8 +339,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseArrayType(ArrayType object)
-	{
+	public Object caseArrayType(ArrayType object) {
 		return null;
 	}
 
@@ -367,8 +354,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJavaEvent(JavaEvent object)
-	{
+	public Object caseJavaEvent(JavaEvent object) {
 		return null;
 	}
 
@@ -383,8 +369,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEModelElement(EModelElement object)
-	{
+	public Object caseEModelElement(EModelElement object) {
 		return null;
 	}
 
@@ -399,8 +384,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseENamedElement(ENamedElement object)
-	{
+	public Object caseENamedElement(ENamedElement object) {
 		return null;
 	}
 
@@ -415,8 +399,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEClassifier(EClassifier object)
-	{
+	public Object caseEClassifier(EClassifier object) {
 		return null;
 	}
 
@@ -431,8 +414,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEClass(EClass object)
-	{
+	public Object caseEClass(EClass object) {
 		return null;
 	}
 
@@ -447,8 +429,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseETypedElement(ETypedElement object)
-	{
+	public Object caseETypedElement(ETypedElement object) {
 		return null;
 	}
 
@@ -463,8 +444,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEParameter(EParameter object)
-	{
+	public Object caseEParameter(EParameter object) {
 		return null;
 	}
 
@@ -479,8 +459,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEOperation(EOperation object)
-	{
+	public Object caseEOperation(EOperation object) {
 		return null;
 	}
 
@@ -495,8 +474,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEStructuralFeature(EStructuralFeature object)
-	{
+	public Object caseEStructuralFeature(EStructuralFeature object) {
 		return null;
 	}
 
@@ -511,8 +489,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEAttribute(EAttribute object)
-	{
+	public Object caseEAttribute(EAttribute object) {
 		return null;
 	}
 
@@ -527,8 +504,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEPackage(EPackage object)
-	{
+	public Object caseEPackage(EPackage object) {
 		return null;
 	}
 
@@ -543,8 +519,7 @@ public class JavaRefSwitch {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object)
-	{
+	public Object defaultCase(EObject object) {
 		return null;
 	}
 
