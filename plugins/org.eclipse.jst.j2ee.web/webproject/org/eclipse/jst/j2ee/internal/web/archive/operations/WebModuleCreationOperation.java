@@ -39,8 +39,6 @@ import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 import org.eclipse.wst.common.modulecore.IModuleConstants;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
@@ -116,32 +114,35 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
      * 
      */
     private void createInitialWTPModulesFile() {
-		ModuleStructuralModel structuralModel = null;
+    	ModuleCore moduleCore = null;
 		try {
 			IProject containingProject = getProject();
-			ModuleCoreNature moduleCoreNature = (ModuleCoreNature) containingProject.getNature(ModuleCoreNature.MODULE_NATURE_ID);
-			structuralModel = moduleCoreNature.getModuleStructuralModelForWrite(this);
-			structuralModel.prepareProjectModulesIfNecessary();
-			ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
-			ProjectModules projectModules = editUtility.getProjectModules();
+			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
+			moduleCore.prepareProjectModulesIfNecessary(); 
+			ProjectModules projectModules = moduleCore.getProjectModules();
 			addContent(projectModules);
-			structuralModel.saveIfNecessary(this);
-		} catch(CoreException ex) {
-		    ex.printStackTrace();
+			moduleCore.saveIfNecessary(null); 
 		} finally {
-			if(structuralModel != null)
-				structuralModel.releaseAccess(this);
+			if(moduleCore != null)
+				moduleCore.dispose();
 		}     
     }
 	/**
 	 * @param projectModules
 	 */
 	private void addContent(ProjectModules projectModules) {
-	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleName()+".war", URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName()));		
+	    WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleName()+".war", createModuleURI()); //$NON-NLS-1$
 		addResource(webModule, getModuleRelativeFile(getWebContentSourcePath(), getProject()), getWebContentDeployPath());
 		addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());
 	}
 	
+	/**
+	 * @return
+	 */
+	private URI createModuleURI() {
+		return URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+getModuleName()+".war"); //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
 	public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
 		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();		
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
@@ -150,8 +151,8 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 	}
 	public WorkbenchModule addWorkbenchModule(ProjectModules theModules, String aDeployedName, URI aHandle) {
 		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
-		module.setDeployedName(aDeployedName);  
 		module.setHandle(aHandle);  
+		module.setDeployedName(aDeployedName);  
 		ModuleType type = ModuleCoreFactory.eINSTANCE.createModuleType();
 		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
 		module.setModuleType(type);
