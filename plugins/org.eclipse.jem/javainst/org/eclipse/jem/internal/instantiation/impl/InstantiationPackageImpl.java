@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/01/19 22:50:15 $ 
+ *  $Revision: 1.5 $  $Date: 2004/01/23 22:53:22 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -25,38 +25,38 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 
-import org.eclipse.jem.internal.instantiation.ArrayAccess;
-import org.eclipse.jem.internal.instantiation.ArrayCreation;
-import org.eclipse.jem.internal.instantiation.ArrayInitializer;
-import org.eclipse.jem.internal.instantiation.BooleanLiteral;
-import org.eclipse.jem.internal.instantiation.Cast;
-import org.eclipse.jem.internal.instantiation.CharacterLiteral;
-import org.eclipse.jem.internal.instantiation.ClassInstanceCreation;
-import org.eclipse.jem.internal.instantiation.ConditionalExpression;
-import org.eclipse.jem.internal.instantiation.Expression;
-import org.eclipse.jem.internal.instantiation.FieldAccess;
+import org.eclipse.jem.internal.instantiation.PTArrayAccess;
+import org.eclipse.jem.internal.instantiation.PTArrayCreation;
+import org.eclipse.jem.internal.instantiation.PTArrayInitializer;
+import org.eclipse.jem.internal.instantiation.PTBooleanLiteral;
+import org.eclipse.jem.internal.instantiation.PTCastExpression;
+import org.eclipse.jem.internal.instantiation.PTCharacterLiteral;
+import org.eclipse.jem.internal.instantiation.PTClassInstanceCreation;
+import org.eclipse.jem.internal.instantiation.PTConditionalExpression;
+import org.eclipse.jem.internal.instantiation.PTExpression;
+import org.eclipse.jem.internal.instantiation.PTFieldAccess;
 import org.eclipse.jem.internal.instantiation.ImplicitAllocation;
-import org.eclipse.jem.internal.instantiation.InfixExpression;
-import org.eclipse.jem.internal.instantiation.InfixOperator;
+import org.eclipse.jem.internal.instantiation.PTInfixExpression;
+import org.eclipse.jem.internal.instantiation.PTInfixOperator;
 import org.eclipse.jem.internal.instantiation.InitStringAllocation;
-import org.eclipse.jem.internal.instantiation.Instanceof;
+import org.eclipse.jem.internal.instantiation.PTInstanceof;
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
 import org.eclipse.jem.internal.instantiation.InstantiationPackage;
-import org.eclipse.jem.internal.instantiation.InvalidExpression;
+import org.eclipse.jem.internal.instantiation.PTInvalidExpression;
 import org.eclipse.jem.internal.instantiation.JavaAllocation;
 
-import org.eclipse.jem.internal.instantiation.MethodInvocation;
-import org.eclipse.jem.internal.instantiation.Name;
-import org.eclipse.jem.internal.instantiation.NullLiteral;
-import org.eclipse.jem.internal.instantiation.NumberLiteral;
-import org.eclipse.jem.internal.instantiation.ParenthesizedExpression;
+import org.eclipse.jem.internal.instantiation.PTMethodInvocation;
+import org.eclipse.jem.internal.instantiation.PTName;
+import org.eclipse.jem.internal.instantiation.PTNullLiteral;
+import org.eclipse.jem.internal.instantiation.PTNumberLiteral;
+import org.eclipse.jem.internal.instantiation.PTParenthesizedExpression;
 import org.eclipse.jem.internal.instantiation.ParseTreeAllocation;
 
-import org.eclipse.jem.internal.instantiation.PrefixExpression;
-import org.eclipse.jem.internal.instantiation.PrefixOperator;
-import org.eclipse.jem.internal.instantiation.StringLiteral;
-import org.eclipse.jem.internal.instantiation.ThisLiteral;
-import org.eclipse.jem.internal.instantiation.TypeLiteral;
+import org.eclipse.jem.internal.instantiation.PTPrefixExpression;
+import org.eclipse.jem.internal.instantiation.PTPrefixOperator;
+import org.eclipse.jem.internal.instantiation.PTStringLiteral;
+import org.eclipse.jem.internal.instantiation.PTThisLiteral;
+import org.eclipse.jem.internal.instantiation.PTTypeLiteral;
 
 import org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance;
 import org.eclipse.jem.internal.instantiation.base.IJavaInstance;
@@ -116,168 +116,168 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass expressionEClass = null;
+	private EClass ptExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass arrayAccessEClass = null;
+	private EClass ptArrayAccessEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass arrayCreationEClass = null;
+	private EClass ptArrayCreationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass arrayInitializerEClass = null;
+	private EClass ptArrayInitializerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass booleanLiteralEClass = null;
+	private EClass ptBooleanLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass castEClass = null;
+	private EClass ptCastExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass characterLiteralEClass = null;
+	private EClass ptCharacterLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass classInstanceCreationEClass = null;
+	private EClass ptClassInstanceCreationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass conditionalExpressionEClass = null;
+	private EClass ptConditionalExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass fieldAccessEClass = null;
+	private EClass ptFieldAccessEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass infixExpressionEClass = null;
+	private EClass ptInfixExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass instanceofEClass = null;
+	private EClass ptInstanceofEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass methodInvocationEClass = null;
+	private EClass ptMethodInvocationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass nameEClass = null;
+	private EClass ptNameEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass nullLiteralEClass = null;
+	private EClass ptNullLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass numberLiteralEClass = null;
+	private EClass ptNumberLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass parenthesizedExpressionEClass = null;
+	private EClass ptParenthesizedExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass prefixExpressionEClass = null;
+	private EClass ptPrefixExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass stringLiteralEClass = null;
+	private EClass ptStringLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass thisLiteralEClass = null;
+	private EClass ptThisLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass typeLiteralEClass = null;
+	private EClass ptTypeLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass invalidExpressionEClass = null;
+	private EClass ptInvalidExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum infixOperatorEEnum = null;
+	private EEnum ptInfixOperatorEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum prefixOperatorEEnum = null;
+	private EEnum ptPrefixOperatorEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -442,8 +442,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExpression() {
-		return expressionEClass;
+	public EClass getPTExpression() {
+		return ptExpressionEClass;
 	}
 
 	/**
@@ -451,8 +451,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getArrayAccess() {
-		return arrayAccessEClass;
+	public EClass getPTArrayAccess() {
+		return ptArrayAccessEClass;
 	}
 
 	/**
@@ -460,8 +460,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getArrayAccess_Array() {
-		return (EReference)arrayAccessEClass.getEStructuralFeatures().get(0);
+	public EReference getPTArrayAccess_Array() {
+		return (EReference)ptArrayAccessEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -469,8 +469,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getArrayAccess_Indexes() {
-		return (EReference)arrayAccessEClass.getEStructuralFeatures().get(1);
+	public EReference getPTArrayAccess_Indexes() {
+		return (EReference)ptArrayAccessEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -478,8 +478,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getArrayCreation() {
-		return arrayCreationEClass;
+	public EClass getPTArrayCreation() {
+		return ptArrayCreationEClass;
 	}
 
 	/**
@@ -487,8 +487,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getArrayCreation_Type() {
-		return (EAttribute)arrayCreationEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTArrayCreation_Type() {
+		return (EAttribute)ptArrayCreationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -496,8 +496,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getArrayCreation_Dimensions() {
-		return (EReference)arrayCreationEClass.getEStructuralFeatures().get(1);
+	public EReference getPTArrayCreation_Dimensions() {
+		return (EReference)ptArrayCreationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -505,8 +505,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getArrayCreation_Initializer() {
-		return (EReference)arrayCreationEClass.getEStructuralFeatures().get(2);
+	public EReference getPTArrayCreation_Initializer() {
+		return (EReference)ptArrayCreationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -514,8 +514,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getArrayInitializer() {
-		return arrayInitializerEClass;
+	public EClass getPTArrayInitializer() {
+		return ptArrayInitializerEClass;
 	}
 
 	/**
@@ -523,8 +523,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getArrayInitializer_Expressions() {
-		return (EReference)arrayInitializerEClass.getEStructuralFeatures().get(0);
+	public EReference getPTArrayInitializer_Expressions() {
+		return (EReference)ptArrayInitializerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -532,8 +532,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getBooleanLiteral() {
-		return booleanLiteralEClass;
+	public EClass getPTBooleanLiteral() {
+		return ptBooleanLiteralEClass;
 	}
 
 	/**
@@ -541,8 +541,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBooleanLiteral_BooleanValue() {
-		return (EAttribute)booleanLiteralEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTBooleanLiteral_BooleanValue() {
+		return (EAttribute)ptBooleanLiteralEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -550,8 +550,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCast() {
-		return castEClass;
+	public EClass getPTCastExpression() {
+		return ptCastExpressionEClass;
 	}
 
 	/**
@@ -559,8 +559,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCast_Type() {
-		return (EAttribute)castEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTCastExpression_Type() {
+		return (EAttribute)ptCastExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -568,8 +568,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCast_Expression() {
-		return (EReference)castEClass.getEStructuralFeatures().get(1);
+	public EReference getPTCastExpression_Expression() {
+		return (EReference)ptCastExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -577,8 +577,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCharacterLiteral() {
-		return characterLiteralEClass;
+	public EClass getPTCharacterLiteral() {
+		return ptCharacterLiteralEClass;
 	}
 
 	/**
@@ -586,8 +586,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCharacterLiteral_EscapedValue() {
-		return (EAttribute)characterLiteralEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTCharacterLiteral_EscapedValue() {
+		return (EAttribute)ptCharacterLiteralEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -595,8 +595,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCharacterLiteral_CharValue() {
-		return (EAttribute)characterLiteralEClass.getEStructuralFeatures().get(1);
+	public EAttribute getPTCharacterLiteral_CharValue() {
+		return (EAttribute)ptCharacterLiteralEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -604,8 +604,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getClassInstanceCreation() {
-		return classInstanceCreationEClass;
+	public EClass getPTClassInstanceCreation() {
+		return ptClassInstanceCreationEClass;
 	}
 
 	/**
@@ -613,8 +613,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getClassInstanceCreation_Type() {
-		return (EAttribute)classInstanceCreationEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTClassInstanceCreation_Type() {
+		return (EAttribute)ptClassInstanceCreationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -622,8 +622,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClassInstanceCreation_Arguments() {
-		return (EReference)classInstanceCreationEClass.getEStructuralFeatures().get(1);
+	public EReference getPTClassInstanceCreation_Arguments() {
+		return (EReference)ptClassInstanceCreationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -631,8 +631,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getConditionalExpression() {
-		return conditionalExpressionEClass;
+	public EClass getPTConditionalExpression() {
+		return ptConditionalExpressionEClass;
 	}
 
 	/**
@@ -640,8 +640,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConditionalExpression_Condition() {
-		return (EReference)conditionalExpressionEClass.getEStructuralFeatures().get(0);
+	public EReference getPTConditionalExpression_Condition() {
+		return (EReference)ptConditionalExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -649,8 +649,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConditionalExpression_True() {
-		return (EReference)conditionalExpressionEClass.getEStructuralFeatures().get(1);
+	public EReference getPTConditionalExpression_True() {
+		return (EReference)ptConditionalExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -658,8 +658,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConditionalExpression_False() {
-		return (EReference)conditionalExpressionEClass.getEStructuralFeatures().get(2);
+	public EReference getPTConditionalExpression_False() {
+		return (EReference)ptConditionalExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -667,8 +667,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFieldAccess() {
-		return fieldAccessEClass;
+	public EClass getPTFieldAccess() {
+		return ptFieldAccessEClass;
 	}
 
 	/**
@@ -676,8 +676,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFieldAccess_Receiver() {
-		return (EReference)fieldAccessEClass.getEStructuralFeatures().get(0);
+	public EReference getPTFieldAccess_Receiver() {
+		return (EReference)ptFieldAccessEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -685,8 +685,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFieldAccess_Field() {
-		return (EAttribute)fieldAccessEClass.getEStructuralFeatures().get(1);
+	public EAttribute getPTFieldAccess_Field() {
+		return (EAttribute)ptFieldAccessEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -694,8 +694,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getInfixExpression() {
-		return infixExpressionEClass;
+	public EClass getPTInfixExpression() {
+		return ptInfixExpressionEClass;
 	}
 
 	/**
@@ -703,8 +703,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInfixExpression_LeftOperand() {
-		return (EReference)infixExpressionEClass.getEStructuralFeatures().get(0);
+	public EReference getPTInfixExpression_LeftOperand() {
+		return (EReference)ptInfixExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -712,8 +712,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getInfixExpression_Operator() {
-		return (EAttribute)infixExpressionEClass.getEStructuralFeatures().get(1);
+	public EAttribute getPTInfixExpression_Operator() {
+		return (EAttribute)ptInfixExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -721,8 +721,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInfixExpression_RightOperand() {
-		return (EReference)infixExpressionEClass.getEStructuralFeatures().get(2);
+	public EReference getPTInfixExpression_RightOperand() {
+		return (EReference)ptInfixExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -730,8 +730,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInfixExpression_ExtendedOperands() {
-		return (EReference)infixExpressionEClass.getEStructuralFeatures().get(3);
+	public EReference getPTInfixExpression_ExtendedOperands() {
+		return (EReference)ptInfixExpressionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -739,8 +739,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getInstanceof() {
-		return instanceofEClass;
+	public EClass getPTInstanceof() {
+		return ptInstanceofEClass;
 	}
 
 	/**
@@ -748,8 +748,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInstanceof_Operand() {
-		return (EReference)instanceofEClass.getEStructuralFeatures().get(0);
+	public EReference getPTInstanceof_Operand() {
+		return (EReference)ptInstanceofEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -757,8 +757,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getInstanceof_Type() {
-		return (EAttribute)instanceofEClass.getEStructuralFeatures().get(1);
+	public EAttribute getPTInstanceof_Type() {
+		return (EAttribute)ptInstanceofEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -766,8 +766,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getMethodInvocation() {
-		return methodInvocationEClass;
+	public EClass getPTMethodInvocation() {
+		return ptMethodInvocationEClass;
 	}
 
 	/**
@@ -775,8 +775,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMethodInvocation_Receiver() {
-		return (EReference)methodInvocationEClass.getEStructuralFeatures().get(0);
+	public EReference getPTMethodInvocation_Receiver() {
+		return (EReference)ptMethodInvocationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -784,8 +784,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMethodInvocation_Name() {
-		return (EAttribute)methodInvocationEClass.getEStructuralFeatures().get(1);
+	public EAttribute getPTMethodInvocation_Name() {
+		return (EAttribute)ptMethodInvocationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -793,8 +793,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMethodInvocation_Arguments() {
-		return (EReference)methodInvocationEClass.getEStructuralFeatures().get(2);
+	public EReference getPTMethodInvocation_Arguments() {
+		return (EReference)ptMethodInvocationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -802,8 +802,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getName_() {
-		return nameEClass;
+	public EClass getPTName() {
+		return ptNameEClass;
 	}
 
 	/**
@@ -811,8 +811,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getName_Name() {
-		return (EAttribute)nameEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTName_Name() {
+		return (EAttribute)ptNameEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -820,8 +820,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getNullLiteral() {
-		return nullLiteralEClass;
+	public EClass getPTNullLiteral() {
+		return ptNullLiteralEClass;
 	}
 
 	/**
@@ -829,8 +829,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getNumberLiteral() {
-		return numberLiteralEClass;
+	public EClass getPTNumberLiteral() {
+		return ptNumberLiteralEClass;
 	}
 
 	/**
@@ -838,8 +838,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNumberLiteral_Token() {
-		return (EAttribute)numberLiteralEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTNumberLiteral_Token() {
+		return (EAttribute)ptNumberLiteralEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -847,8 +847,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getParenthesizedExpression() {
-		return parenthesizedExpressionEClass;
+	public EClass getPTParenthesizedExpression() {
+		return ptParenthesizedExpressionEClass;
 	}
 
 	/**
@@ -856,8 +856,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getParenthesizedExpression_Expression() {
-		return (EReference)parenthesizedExpressionEClass.getEStructuralFeatures().get(0);
+	public EReference getPTParenthesizedExpression_Expression() {
+		return (EReference)ptParenthesizedExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -865,8 +865,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPrefixExpression() {
-		return prefixExpressionEClass;
+	public EClass getPTPrefixExpression() {
+		return ptPrefixExpressionEClass;
 	}
 
 	/**
@@ -874,8 +874,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPrefixExpression_Operator() {
-		return (EAttribute)prefixExpressionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTPrefixExpression_Operator() {
+		return (EAttribute)ptPrefixExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -883,8 +883,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPrefixExpression_Expression() {
-		return (EReference)prefixExpressionEClass.getEStructuralFeatures().get(1);
+	public EReference getPTPrefixExpression_Expression() {
+		return (EReference)ptPrefixExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -892,8 +892,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getStringLiteral() {
-		return stringLiteralEClass;
+	public EClass getPTStringLiteral() {
+		return ptStringLiteralEClass;
 	}
 
 	/**
@@ -901,8 +901,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStringLiteral_EscapedValue() {
-		return (EAttribute)stringLiteralEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTStringLiteral_EscapedValue() {
+		return (EAttribute)ptStringLiteralEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -910,8 +910,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStringLiteral_LiteralValue() {
-		return (EAttribute)stringLiteralEClass.getEStructuralFeatures().get(1);
+	public EAttribute getPTStringLiteral_LiteralValue() {
+		return (EAttribute)ptStringLiteralEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -919,8 +919,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getThisLiteral() {
-		return thisLiteralEClass;
+	public EClass getPTThisLiteral() {
+		return ptThisLiteralEClass;
 	}
 
 	/**
@@ -928,8 +928,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTypeLiteral() {
-		return typeLiteralEClass;
+	public EClass getPTTypeLiteral() {
+		return ptTypeLiteralEClass;
 	}
 
 	/**
@@ -937,8 +937,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTypeLiteral_Type() {
-		return (EAttribute)typeLiteralEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTTypeLiteral_Type() {
+		return (EAttribute)ptTypeLiteralEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -946,8 +946,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getInvalidExpression() {
-		return invalidExpressionEClass;
+	public EClass getPTInvalidExpression() {
+		return ptInvalidExpressionEClass;
 	}
 
 	/**
@@ -955,8 +955,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getInvalidExpression_Message() {
-		return (EAttribute)invalidExpressionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getPTInvalidExpression_Message() {
+		return (EAttribute)ptInvalidExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -964,8 +964,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getInfixOperator() {
-		return infixOperatorEEnum;
+	public EEnum getPTInfixOperator() {
+		return ptInfixOperatorEEnum;
 	}
 
 	/**
@@ -973,8 +973,8 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getPrefixOperator() {
-		return prefixOperatorEEnum;
+	public EEnum getPTPrefixOperator() {
+		return ptPrefixOperatorEEnum;
 	}
 
 	/**
@@ -1041,89 +1041,89 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		parseTreeAllocationEClass = createEClass(PARSE_TREE_ALLOCATION);
 		createEReference(parseTreeAllocationEClass, PARSE_TREE_ALLOCATION__EXPRESSION);
 
-		expressionEClass = createEClass(EXPRESSION);
+		ptExpressionEClass = createEClass(PT_EXPRESSION);
 
-		arrayAccessEClass = createEClass(ARRAY_ACCESS);
-		createEReference(arrayAccessEClass, ARRAY_ACCESS__ARRAY);
-		createEReference(arrayAccessEClass, ARRAY_ACCESS__INDEXES);
+		ptArrayAccessEClass = createEClass(PT_ARRAY_ACCESS);
+		createEReference(ptArrayAccessEClass, PT_ARRAY_ACCESS__ARRAY);
+		createEReference(ptArrayAccessEClass, PT_ARRAY_ACCESS__INDEXES);
 
-		arrayCreationEClass = createEClass(ARRAY_CREATION);
-		createEAttribute(arrayCreationEClass, ARRAY_CREATION__TYPE);
-		createEReference(arrayCreationEClass, ARRAY_CREATION__DIMENSIONS);
-		createEReference(arrayCreationEClass, ARRAY_CREATION__INITIALIZER);
+		ptArrayCreationEClass = createEClass(PT_ARRAY_CREATION);
+		createEAttribute(ptArrayCreationEClass, PT_ARRAY_CREATION__TYPE);
+		createEReference(ptArrayCreationEClass, PT_ARRAY_CREATION__DIMENSIONS);
+		createEReference(ptArrayCreationEClass, PT_ARRAY_CREATION__INITIALIZER);
 
-		arrayInitializerEClass = createEClass(ARRAY_INITIALIZER);
-		createEReference(arrayInitializerEClass, ARRAY_INITIALIZER__EXPRESSIONS);
+		ptArrayInitializerEClass = createEClass(PT_ARRAY_INITIALIZER);
+		createEReference(ptArrayInitializerEClass, PT_ARRAY_INITIALIZER__EXPRESSIONS);
 
-		booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
-		createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__BOOLEAN_VALUE);
+		ptBooleanLiteralEClass = createEClass(PT_BOOLEAN_LITERAL);
+		createEAttribute(ptBooleanLiteralEClass, PT_BOOLEAN_LITERAL__BOOLEAN_VALUE);
 
-		castEClass = createEClass(CAST);
-		createEAttribute(castEClass, CAST__TYPE);
-		createEReference(castEClass, CAST__EXPRESSION);
+		ptCastExpressionEClass = createEClass(PT_CAST_EXPRESSION);
+		createEAttribute(ptCastExpressionEClass, PT_CAST_EXPRESSION__TYPE);
+		createEReference(ptCastExpressionEClass, PT_CAST_EXPRESSION__EXPRESSION);
 
-		characterLiteralEClass = createEClass(CHARACTER_LITERAL);
-		createEAttribute(characterLiteralEClass, CHARACTER_LITERAL__ESCAPED_VALUE);
-		createEAttribute(characterLiteralEClass, CHARACTER_LITERAL__CHAR_VALUE);
+		ptCharacterLiteralEClass = createEClass(PT_CHARACTER_LITERAL);
+		createEAttribute(ptCharacterLiteralEClass, PT_CHARACTER_LITERAL__ESCAPED_VALUE);
+		createEAttribute(ptCharacterLiteralEClass, PT_CHARACTER_LITERAL__CHAR_VALUE);
 
-		classInstanceCreationEClass = createEClass(CLASS_INSTANCE_CREATION);
-		createEAttribute(classInstanceCreationEClass, CLASS_INSTANCE_CREATION__TYPE);
-		createEReference(classInstanceCreationEClass, CLASS_INSTANCE_CREATION__ARGUMENTS);
+		ptClassInstanceCreationEClass = createEClass(PT_CLASS_INSTANCE_CREATION);
+		createEAttribute(ptClassInstanceCreationEClass, PT_CLASS_INSTANCE_CREATION__TYPE);
+		createEReference(ptClassInstanceCreationEClass, PT_CLASS_INSTANCE_CREATION__ARGUMENTS);
 
-		conditionalExpressionEClass = createEClass(CONDITIONAL_EXPRESSION);
-		createEReference(conditionalExpressionEClass, CONDITIONAL_EXPRESSION__CONDITION);
-		createEReference(conditionalExpressionEClass, CONDITIONAL_EXPRESSION__TRUE);
-		createEReference(conditionalExpressionEClass, CONDITIONAL_EXPRESSION__FALSE);
+		ptConditionalExpressionEClass = createEClass(PT_CONDITIONAL_EXPRESSION);
+		createEReference(ptConditionalExpressionEClass, PT_CONDITIONAL_EXPRESSION__CONDITION);
+		createEReference(ptConditionalExpressionEClass, PT_CONDITIONAL_EXPRESSION__TRUE);
+		createEReference(ptConditionalExpressionEClass, PT_CONDITIONAL_EXPRESSION__FALSE);
 
-		fieldAccessEClass = createEClass(FIELD_ACCESS);
-		createEReference(fieldAccessEClass, FIELD_ACCESS__RECEIVER);
-		createEAttribute(fieldAccessEClass, FIELD_ACCESS__FIELD);
+		ptFieldAccessEClass = createEClass(PT_FIELD_ACCESS);
+		createEReference(ptFieldAccessEClass, PT_FIELD_ACCESS__RECEIVER);
+		createEAttribute(ptFieldAccessEClass, PT_FIELD_ACCESS__FIELD);
 
-		infixExpressionEClass = createEClass(INFIX_EXPRESSION);
-		createEReference(infixExpressionEClass, INFIX_EXPRESSION__LEFT_OPERAND);
-		createEAttribute(infixExpressionEClass, INFIX_EXPRESSION__OPERATOR);
-		createEReference(infixExpressionEClass, INFIX_EXPRESSION__RIGHT_OPERAND);
-		createEReference(infixExpressionEClass, INFIX_EXPRESSION__EXTENDED_OPERANDS);
+		ptInfixExpressionEClass = createEClass(PT_INFIX_EXPRESSION);
+		createEReference(ptInfixExpressionEClass, PT_INFIX_EXPRESSION__LEFT_OPERAND);
+		createEAttribute(ptInfixExpressionEClass, PT_INFIX_EXPRESSION__OPERATOR);
+		createEReference(ptInfixExpressionEClass, PT_INFIX_EXPRESSION__RIGHT_OPERAND);
+		createEReference(ptInfixExpressionEClass, PT_INFIX_EXPRESSION__EXTENDED_OPERANDS);
 
-		instanceofEClass = createEClass(INSTANCEOF);
-		createEReference(instanceofEClass, INSTANCEOF__OPERAND);
-		createEAttribute(instanceofEClass, INSTANCEOF__TYPE);
+		ptInstanceofEClass = createEClass(PT_INSTANCEOF);
+		createEReference(ptInstanceofEClass, PT_INSTANCEOF__OPERAND);
+		createEAttribute(ptInstanceofEClass, PT_INSTANCEOF__TYPE);
 
-		methodInvocationEClass = createEClass(METHOD_INVOCATION);
-		createEReference(methodInvocationEClass, METHOD_INVOCATION__RECEIVER);
-		createEAttribute(methodInvocationEClass, METHOD_INVOCATION__NAME);
-		createEReference(methodInvocationEClass, METHOD_INVOCATION__ARGUMENTS);
+		ptMethodInvocationEClass = createEClass(PT_METHOD_INVOCATION);
+		createEReference(ptMethodInvocationEClass, PT_METHOD_INVOCATION__RECEIVER);
+		createEAttribute(ptMethodInvocationEClass, PT_METHOD_INVOCATION__NAME);
+		createEReference(ptMethodInvocationEClass, PT_METHOD_INVOCATION__ARGUMENTS);
 
-		nameEClass = createEClass(NAME);
-		createEAttribute(nameEClass, NAME__NAME);
+		ptNameEClass = createEClass(PT_NAME);
+		createEAttribute(ptNameEClass, PT_NAME__NAME);
 
-		nullLiteralEClass = createEClass(NULL_LITERAL);
+		ptNullLiteralEClass = createEClass(PT_NULL_LITERAL);
 
-		numberLiteralEClass = createEClass(NUMBER_LITERAL);
-		createEAttribute(numberLiteralEClass, NUMBER_LITERAL__TOKEN);
+		ptNumberLiteralEClass = createEClass(PT_NUMBER_LITERAL);
+		createEAttribute(ptNumberLiteralEClass, PT_NUMBER_LITERAL__TOKEN);
 
-		parenthesizedExpressionEClass = createEClass(PARENTHESIZED_EXPRESSION);
-		createEReference(parenthesizedExpressionEClass, PARENTHESIZED_EXPRESSION__EXPRESSION);
+		ptParenthesizedExpressionEClass = createEClass(PT_PARENTHESIZED_EXPRESSION);
+		createEReference(ptParenthesizedExpressionEClass, PT_PARENTHESIZED_EXPRESSION__EXPRESSION);
 
-		prefixExpressionEClass = createEClass(PREFIX_EXPRESSION);
-		createEAttribute(prefixExpressionEClass, PREFIX_EXPRESSION__OPERATOR);
-		createEReference(prefixExpressionEClass, PREFIX_EXPRESSION__EXPRESSION);
+		ptPrefixExpressionEClass = createEClass(PT_PREFIX_EXPRESSION);
+		createEAttribute(ptPrefixExpressionEClass, PT_PREFIX_EXPRESSION__OPERATOR);
+		createEReference(ptPrefixExpressionEClass, PT_PREFIX_EXPRESSION__EXPRESSION);
 
-		stringLiteralEClass = createEClass(STRING_LITERAL);
-		createEAttribute(stringLiteralEClass, STRING_LITERAL__ESCAPED_VALUE);
-		createEAttribute(stringLiteralEClass, STRING_LITERAL__LITERAL_VALUE);
+		ptStringLiteralEClass = createEClass(PT_STRING_LITERAL);
+		createEAttribute(ptStringLiteralEClass, PT_STRING_LITERAL__ESCAPED_VALUE);
+		createEAttribute(ptStringLiteralEClass, PT_STRING_LITERAL__LITERAL_VALUE);
 
-		thisLiteralEClass = createEClass(THIS_LITERAL);
+		ptThisLiteralEClass = createEClass(PT_THIS_LITERAL);
 
-		typeLiteralEClass = createEClass(TYPE_LITERAL);
-		createEAttribute(typeLiteralEClass, TYPE_LITERAL__TYPE);
+		ptTypeLiteralEClass = createEClass(PT_TYPE_LITERAL);
+		createEAttribute(ptTypeLiteralEClass, PT_TYPE_LITERAL__TYPE);
 
-		invalidExpressionEClass = createEClass(INVALID_EXPRESSION);
-		createEAttribute(invalidExpressionEClass, INVALID_EXPRESSION__MESSAGE);
+		ptInvalidExpressionEClass = createEClass(PT_INVALID_EXPRESSION);
+		createEAttribute(ptInvalidExpressionEClass, PT_INVALID_EXPRESSION__MESSAGE);
 
 		// Create enums
-		infixOperatorEEnum = createEEnum(INFIX_OPERATOR);
-		prefixOperatorEEnum = createEEnum(PREFIX_OPERATOR);
+		ptInfixOperatorEEnum = createEEnum(PT_INFIX_OPERATOR);
+		ptPrefixOperatorEEnum = createEEnum(PT_PREFIX_OPERATOR);
 	}
 
 	/**
@@ -1158,27 +1158,27 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		initStringAllocationEClass.getESuperTypes().add(this.getJavaAllocation());
 		implicitAllocationEClass.getESuperTypes().add(this.getJavaAllocation());
 		parseTreeAllocationEClass.getESuperTypes().add(this.getJavaAllocation());
-		arrayAccessEClass.getESuperTypes().add(this.getExpression());
-		arrayCreationEClass.getESuperTypes().add(this.getExpression());
-		arrayInitializerEClass.getESuperTypes().add(this.getExpression());
-		booleanLiteralEClass.getESuperTypes().add(this.getExpression());
-		castEClass.getESuperTypes().add(this.getExpression());
-		characterLiteralEClass.getESuperTypes().add(this.getExpression());
-		classInstanceCreationEClass.getESuperTypes().add(this.getExpression());
-		conditionalExpressionEClass.getESuperTypes().add(this.getExpression());
-		fieldAccessEClass.getESuperTypes().add(this.getExpression());
-		infixExpressionEClass.getESuperTypes().add(this.getExpression());
-		instanceofEClass.getESuperTypes().add(this.getExpression());
-		methodInvocationEClass.getESuperTypes().add(this.getExpression());
-		nameEClass.getESuperTypes().add(this.getExpression());
-		nullLiteralEClass.getESuperTypes().add(this.getExpression());
-		numberLiteralEClass.getESuperTypes().add(this.getExpression());
-		parenthesizedExpressionEClass.getESuperTypes().add(this.getExpression());
-		prefixExpressionEClass.getESuperTypes().add(this.getExpression());
-		stringLiteralEClass.getESuperTypes().add(this.getExpression());
-		thisLiteralEClass.getESuperTypes().add(this.getExpression());
-		typeLiteralEClass.getESuperTypes().add(this.getExpression());
-		invalidExpressionEClass.getESuperTypes().add(this.getExpression());
+		ptArrayAccessEClass.getESuperTypes().add(this.getPTExpression());
+		ptArrayCreationEClass.getESuperTypes().add(this.getPTExpression());
+		ptArrayInitializerEClass.getESuperTypes().add(this.getPTExpression());
+		ptBooleanLiteralEClass.getESuperTypes().add(this.getPTExpression());
+		ptCastExpressionEClass.getESuperTypes().add(this.getPTExpression());
+		ptCharacterLiteralEClass.getESuperTypes().add(this.getPTExpression());
+		ptClassInstanceCreationEClass.getESuperTypes().add(this.getPTExpression());
+		ptConditionalExpressionEClass.getESuperTypes().add(this.getPTExpression());
+		ptFieldAccessEClass.getESuperTypes().add(this.getPTExpression());
+		ptInfixExpressionEClass.getESuperTypes().add(this.getPTExpression());
+		ptInstanceofEClass.getESuperTypes().add(this.getPTExpression());
+		ptMethodInvocationEClass.getESuperTypes().add(this.getPTExpression());
+		ptNameEClass.getESuperTypes().add(this.getPTExpression());
+		ptNullLiteralEClass.getESuperTypes().add(this.getPTExpression());
+		ptNumberLiteralEClass.getESuperTypes().add(this.getPTExpression());
+		ptParenthesizedExpressionEClass.getESuperTypes().add(this.getPTExpression());
+		ptPrefixExpressionEClass.getESuperTypes().add(this.getPTExpression());
+		ptStringLiteralEClass.getESuperTypes().add(this.getPTExpression());
+		ptThisLiteralEClass.getESuperTypes().add(this.getPTExpression());
+		ptTypeLiteralEClass.getESuperTypes().add(this.getPTExpression());
+		ptInvalidExpressionEClass.getESuperTypes().add(this.getPTExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(iJavaDataTypeInstanceEClass, IJavaDataTypeInstance.class, "IJavaDataTypeInstance", IS_ABSTRACT, IS_INTERFACE);
@@ -1197,115 +1197,115 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		initEReference(getImplicitAllocation_Feature(), theEcorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
 		initEClass(parseTreeAllocationEClass, ParseTreeAllocation.class, "ParseTreeAllocation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getParseTreeAllocation_Expression(), this.getExpression(), null, "expression", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getParseTreeAllocation_Expression(), this.getPTExpression(), null, "expression", null, 1, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(expressionEClass, Expression.class, "Expression", IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(ptExpressionEClass, PTExpression.class, "PTExpression", IS_ABSTRACT, !IS_INTERFACE);
 
-		initEClass(arrayAccessEClass, ArrayAccess.class, "ArrayAccess", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getArrayAccess_Array(), this.getExpression(), null, "array", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getArrayAccess_Indexes(), this.getExpression(), null, "indexes", null, 1, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptArrayAccessEClass, PTArrayAccess.class, "PTArrayAccess", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTArrayAccess_Array(), this.getPTExpression(), null, "array", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTArrayAccess_Indexes(), this.getPTExpression(), null, "indexes", null, 1, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(arrayCreationEClass, ArrayCreation.class, "ArrayCreation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getArrayCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getArrayCreation_Dimensions(), this.getExpression(), null, "dimensions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getArrayCreation_Initializer(), this.getArrayInitializer(), null, "initializer", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptArrayCreationEClass, PTArrayCreation.class, "PTArrayCreation", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTArrayCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTArrayCreation_Dimensions(), this.getPTExpression(), null, "dimensions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTArrayCreation_Initializer(), this.getPTArrayInitializer(), null, "initializer", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(arrayInitializerEClass, ArrayInitializer.class, "ArrayInitializer", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getArrayInitializer_Expressions(), this.getExpression(), null, "expressions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptArrayInitializerEClass, PTArrayInitializer.class, "PTArrayInitializer", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTArrayInitializer_Expressions(), this.getPTExpression(), null, "expressions", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getBooleanLiteral_BooleanValue(), ecorePackage.getEBoolean(), "booleanValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptBooleanLiteralEClass, PTBooleanLiteral.class, "PTBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTBooleanLiteral_BooleanValue(), ecorePackage.getEBoolean(), "booleanValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(castEClass, Cast.class, "Cast", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getCast_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getCast_Expression(), this.getExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptCastExpressionEClass, PTCastExpression.class, "PTCastExpression", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTCastExpression_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTCastExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(characterLiteralEClass, CharacterLiteral.class, "CharacterLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getCharacterLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getCharacterLiteral_CharValue(), ecorePackage.getEChar(), "charValue", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptCharacterLiteralEClass, PTCharacterLiteral.class, "PTCharacterLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTCharacterLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPTCharacterLiteral_CharValue(), ecorePackage.getEChar(), "charValue", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(classInstanceCreationEClass, ClassInstanceCreation.class, "ClassInstanceCreation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getClassInstanceCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getClassInstanceCreation_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptClassInstanceCreationEClass, PTClassInstanceCreation.class, "PTClassInstanceCreation", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTClassInstanceCreation_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTClassInstanceCreation_Arguments(), this.getPTExpression(), null, "arguments", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(conditionalExpressionEClass, ConditionalExpression.class, "ConditionalExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getConditionalExpression_Condition(), this.getExpression(), null, "condition", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getConditionalExpression_True(), this.getExpression(), null, "true", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getConditionalExpression_False(), this.getExpression(), null, "false", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptConditionalExpressionEClass, PTConditionalExpression.class, "PTConditionalExpression", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTConditionalExpression_Condition(), this.getPTExpression(), null, "condition", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTConditionalExpression_True(), this.getPTExpression(), null, "true", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTConditionalExpression_False(), this.getPTExpression(), null, "false", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(fieldAccessEClass, FieldAccess.class, "FieldAccess", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getFieldAccess_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getFieldAccess_Field(), ecorePackage.getEString(), "field", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptFieldAccessEClass, PTFieldAccess.class, "PTFieldAccess", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTFieldAccess_Receiver(), this.getPTExpression(), null, "receiver", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPTFieldAccess_Field(), ecorePackage.getEString(), "field", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(infixExpressionEClass, InfixExpression.class, "InfixExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getInfixExpression_LeftOperand(), this.getExpression(), null, "leftOperand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getInfixExpression_Operator(), this.getInfixOperator(), "operator", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getInfixExpression_RightOperand(), this.getExpression(), null, "rightOperand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getInfixExpression_ExtendedOperands(), this.getExpression(), null, "extendedOperands", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptInfixExpressionEClass, PTInfixExpression.class, "PTInfixExpression", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTInfixExpression_LeftOperand(), this.getPTExpression(), null, "leftOperand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPTInfixExpression_Operator(), this.getPTInfixOperator(), "operator", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTInfixExpression_RightOperand(), this.getPTExpression(), null, "rightOperand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTInfixExpression_ExtendedOperands(), this.getPTExpression(), null, "extendedOperands", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(instanceofEClass, Instanceof.class, "Instanceof", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getInstanceof_Operand(), this.getExpression(), null, "operand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getInstanceof_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptInstanceofEClass, PTInstanceof.class, "PTInstanceof", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTInstanceof_Operand(), this.getPTExpression(), null, "operand", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPTInstanceof_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(methodInvocationEClass, MethodInvocation.class, "MethodInvocation", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getMethodInvocation_Receiver(), this.getExpression(), null, "receiver", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getMethodInvocation_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getMethodInvocation_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptMethodInvocationEClass, PTMethodInvocation.class, "PTMethodInvocation", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTMethodInvocation_Receiver(), this.getPTExpression(), null, "receiver", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPTMethodInvocation_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTMethodInvocation_Arguments(), this.getPTExpression(), null, "arguments", null, 0, -1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(nameEClass, Name.class, "Name", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getName_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptNameEClass, PTName.class, "PTName", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTName_Name(), ecorePackage.getEString(), "name", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(nullLiteralEClass, NullLiteral.class, "NullLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(ptNullLiteralEClass, PTNullLiteral.class, "PTNullLiteral", !IS_ABSTRACT, !IS_INTERFACE);
 
-		initEClass(numberLiteralEClass, NumberLiteral.class, "NumberLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getNumberLiteral_Token(), ecorePackage.getEString(), "token", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptNumberLiteralEClass, PTNumberLiteral.class, "PTNumberLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTNumberLiteral_Token(), ecorePackage.getEString(), "token", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(parenthesizedExpressionEClass, ParenthesizedExpression.class, "ParenthesizedExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEReference(getParenthesizedExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptParenthesizedExpressionEClass, PTParenthesizedExpression.class, "PTParenthesizedExpression", !IS_ABSTRACT, !IS_INTERFACE);
+		initEReference(getPTParenthesizedExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(prefixExpressionEClass, PrefixExpression.class, "PrefixExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getPrefixExpression_Operator(), this.getPrefixOperator(), "operator", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEReference(getPrefixExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptPrefixExpressionEClass, PTPrefixExpression.class, "PTPrefixExpression", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTPrefixExpression_Operator(), this.getPTPrefixOperator(), "operator", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEReference(getPTPrefixExpression_Expression(), this.getPTExpression(), null, "expression", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getStringLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
-		initEAttribute(getStringLiteral_LiteralValue(), ecorePackage.getEString(), "literalValue", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptStringLiteralEClass, PTStringLiteral.class, "PTStringLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTStringLiteral_EscapedValue(), ecorePackage.getEString(), "escapedValue", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEAttribute(getPTStringLiteral_LiteralValue(), ecorePackage.getEString(), "literalValue", null, 0, 1, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(thisLiteralEClass, ThisLiteral.class, "ThisLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEClass(ptThisLiteralEClass, PTThisLiteral.class, "PTThisLiteral", !IS_ABSTRACT, !IS_INTERFACE);
 
-		initEClass(typeLiteralEClass, TypeLiteral.class, "TypeLiteral", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getTypeLiteral_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptTypeLiteralEClass, PTTypeLiteral.class, "PTTypeLiteral", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTTypeLiteral_Type(), ecorePackage.getEString(), "type", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
-		initEClass(invalidExpressionEClass, InvalidExpression.class, "InvalidExpression", !IS_ABSTRACT, !IS_INTERFACE);
-		initEAttribute(getInvalidExpression_Message(), ecorePackage.getEString(), "message", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
+		initEClass(ptInvalidExpressionEClass, PTInvalidExpression.class, "PTInvalidExpression", !IS_ABSTRACT, !IS_INTERFACE);
+		initEAttribute(getPTInvalidExpression_Message(), ecorePackage.getEString(), "message", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED);
 
 		// Initialize enums and add enum literals
-		initEEnum(infixOperatorEEnum, InfixOperator.class, "InfixOperator");
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.TIMES_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.DIVIDE_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.REMAINDER_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.PLUS_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.MINUS_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.LEFT_SHIFT_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.RIGHT_SHIFT_SIGNED_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.RIGHT_SHIFT_UNSIGNED_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.LESS_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.GREATER_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.LESS_EQUALS_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.GREATER_EQUALS_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.EQUALS_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.NOT_EQUALS_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.XOR_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.AND_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.OR_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.CONDITIONAL_ADD_LITERAL);
-		addEEnumLiteral(infixOperatorEEnum, InfixOperator.CONDITIONAL_OR_LITERAL);
+		initEEnum(ptInfixOperatorEEnum, PTInfixOperator.class, "PTInfixOperator");
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.TIMES_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.DIVIDE_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.REMAINDER_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.PLUS_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.MINUS_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.LEFT_SHIFT_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.RIGHT_SHIFT_SIGNED_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.RIGHT_SHIFT_UNSIGNED_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.LESS_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.GREATER_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.LESS_EQUALS_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.GREATER_EQUALS_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.EQUALS_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.NOT_EQUALS_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.XOR_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.AND_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.OR_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.CONDITIONAL_ADD_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.CONDITIONAL_OR_LITERAL);
 
-		initEEnum(prefixOperatorEEnum, PrefixOperator.class, "PrefixOperator");
-		addEEnumLiteral(prefixOperatorEEnum, PrefixOperator.PLUS_LITERAL);
-		addEEnumLiteral(prefixOperatorEEnum, PrefixOperator.MINUS_LITERAL);
-		addEEnumLiteral(prefixOperatorEEnum, PrefixOperator.COMPLEMENT_LITERAL);
-		addEEnumLiteral(prefixOperatorEEnum, PrefixOperator.NOT_LITERAL);
+		initEEnum(ptPrefixOperatorEEnum, PTPrefixOperator.class, "PTPrefixOperator");
+		addEEnumLiteral(ptPrefixOperatorEEnum, PTPrefixOperator.PLUS_LITERAL);
+		addEEnumLiteral(ptPrefixOperatorEEnum, PTPrefixOperator.MINUS_LITERAL);
+		addEEnumLiteral(ptPrefixOperatorEEnum, PTPrefixOperator.COMPLEMENT_LITERAL);
+		addEEnumLiteral(ptPrefixOperatorEEnum, PTPrefixOperator.NOT_LITERAL);
 
 		// Create resource
 		createResource(eNS_URI);

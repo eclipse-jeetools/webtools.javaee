@@ -10,11 +10,10 @@ package org.eclipse.jem.internal.instantiation.impl;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ParseTreeAllocationImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/23 22:53:21 $ 
+ *  $RCSfile: PTPrefixExpressionImpl.java,v $
+ *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:22 $ 
  */
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
@@ -23,24 +22,47 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.jem.internal.instantiation.*;
 import org.eclipse.jem.internal.instantiation.PTExpression;
 import org.eclipse.jem.internal.instantiation.InstantiationPackage;
-import org.eclipse.jem.internal.instantiation.ParseTreeAllocation;
+import org.eclipse.jem.internal.instantiation.PTPrefixExpression;
+import org.eclipse.jem.internal.instantiation.PTPrefixOperator;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Parse Tree Allocation</b></em>'.
+ * An implementation of the model object '<em><b>Prefix Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.impl.ParseTreeAllocationImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.impl.PTPrefixExpressionImpl#getOperator <em>Operator</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.impl.PTPrefixExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ParseTreeAllocationImpl extends JavaAllocationImpl implements ParseTreeAllocation {
+public class PTPrefixExpressionImpl extends PTExpressionImpl implements PTPrefixExpression {
+	/**
+	 * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOperator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final PTPrefixOperator OPERATOR_EDEFAULT = PTPrefixOperator.PLUS_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getOperator() <em>Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOperator()
+	 * @generated
+	 * @ordered
+	 */
+	protected PTPrefixOperator operator = OPERATOR_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -56,7 +78,7 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ParseTreeAllocationImpl() {
+	protected PTPrefixExpressionImpl() {
 		super();
 	}
 
@@ -66,7 +88,28 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return InstantiationPackage.eINSTANCE.getParseTreeAllocation();
+		return InstantiationPackage.eINSTANCE.getPTPrefixExpression();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PTPrefixOperator getOperator() {
+		return operator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOperator(PTPrefixOperator newOperator) {
+		PTPrefixOperator oldOperator = operator;
+		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.PT_PREFIX_EXPRESSION__OPERATOR, oldOperator, operator));
 	}
 
 	/**
@@ -87,7 +130,7 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 		PTExpression oldExpression = expression;
 		expression = newExpression;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION, oldExpression, newExpression);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION, oldExpression, newExpression);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -102,14 +145,14 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 		if (newExpression != expression) {
 			NotificationChain msgs = null;
 			if (expression != null)
-				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION, null, msgs);
+				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION, null, msgs);
 			if (newExpression != null)
-				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION, null, msgs);
+				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION, null, msgs);
 			msgs = basicSetExpression(newExpression, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION, newExpression, newExpression));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION, newExpression, newExpression));
 	}
 
 	/**
@@ -120,7 +163,7 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION:
+				case InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION:
 					return basicSetExpression(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
@@ -136,7 +179,9 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION:
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__OPERATOR:
+				return getOperator();
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION:
 				return getExpression();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -149,7 +194,10 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION:
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__OPERATOR:
+				setOperator((PTPrefixOperator)newValue);
+				return;
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION:
 				setExpression((PTExpression)newValue);
 				return;
 		}
@@ -163,7 +211,10 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION:
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__OPERATOR:
+				setOperator(OPERATOR_EDEFAULT);
+				return;
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION:
 				setExpression((PTExpression)null);
 				return;
 		}
@@ -177,17 +228,29 @@ public class ParseTreeAllocationImpl extends JavaAllocationImpl implements Parse
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.PARSE_TREE_ALLOCATION__EXPRESSION:
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__OPERATOR:
+				return operator != OPERATOR_EDEFAULT;
+			case InstantiationPackage.PT_PREFIX_EXPRESSION__EXPRESSION:
 				return expression != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
-		return getExpression() != null ? getExpression().toString() : super.toString();
+		return super.toString();	// Really want toString to be final at PTExpression, but EMF doesn't allow it.
 	}
 
-} //ParseTreeAllocationImpl
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.impl.ExpressionImpl#accept0(org.eclipse.jem.internal.instantiation.ParseVisitor)
+	 */
+	protected void accept0(ParseVisitor visitor) {
+		boolean visitChildren = visitor.visit(this);
+		if (visitChildren) {
+			// visit children in normal left to right reading order
+			acceptChild(visitor, getExpression());
+		}
+		visitor.endVisit(this);
+	}
+
+} //PrefixExpressionImpl

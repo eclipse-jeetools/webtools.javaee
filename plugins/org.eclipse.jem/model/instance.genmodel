@@ -11,32 +11,32 @@
   <foreignModel>../..</foreignModel>
   <genPackages prefix="Instantiation" basePackage="org.eclipse.jem.internal" adapterFactory="false"
       ecorePackage="instance.ecore#/">
-    <genEnums ecoreEnum="instance.ecore#//InfixOperator">
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/TIMES"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/DIVIDE"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/REMAINDER"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/PLUS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/MINUS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/LEFT_SHIFT"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/RIGHT_SHIFT_SIGNED"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/RIGHT_SHIFT_UNSIGNED"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/LESS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/GREATER"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/LESS_EQUALS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/GREATER_EQUALS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/EQUALS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/NOT_EQUALS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/XOR"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/AND"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/OR"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/CONDITIONAL_ADD"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//InfixOperator/CONDITIONAL_OR"/>
+    <genEnums ecoreEnum="instance.ecore#//PTInfixOperator">
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/TIMES"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/DIVIDE"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/REMAINDER"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/PLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/LEFT_SHIFT"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/RIGHT_SHIFT_SIGNED"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/RIGHT_SHIFT_UNSIGNED"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/LESS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/GREATER"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/LESS_EQUALS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/GREATER_EQUALS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/EQUALS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/NOT_EQUALS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/XOR"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/CONDITIONAL_ADD"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/CONDITIONAL_OR"/>
     </genEnums>
-    <genEnums ecoreEnum="instance.ecore#//PrefixOperator">
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PrefixOperator/PLUS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PrefixOperator/MINUS"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PrefixOperator/COMPLEMENT"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PrefixOperator/NOT"/>
+    <genEnums ecoreEnum="instance.ecore#//PTPrefixOperator">
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTPrefixOperator/PLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTPrefixOperator/MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTPrefixOperator/COMPLEMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTPrefixOperator/NOT"/>
     </genEnums>
     <genClasses ecoreClass="instance.ecore#//IJavaDataTypeInstance"/>
     <genClasses ecoreClass="instance.ecore#//IJavaInstance"/>
@@ -52,82 +52,82 @@
     <genClasses ecoreClass="instance.ecore#//ParseTreeAllocation">
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ParseTreeAllocation/expression"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//Expression"/>
-    <genClasses ecoreClass="instance.ecore#//ArrayAccess">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ArrayAccess/array"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ArrayAccess/indexes"/>
+    <genClasses ecoreClass="instance.ecore#//PTExpression"/>
+    <genClasses ecoreClass="instance.ecore#//PTArrayAccess">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTArrayAccess/array"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTArrayAccess/indexes"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//ArrayCreation">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//ArrayCreation/type"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ArrayCreation/dimensions"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ArrayCreation/initializer"/>
+    <genClasses ecoreClass="instance.ecore#//PTArrayCreation">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTArrayCreation/type"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTArrayCreation/dimensions"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTArrayCreation/initializer"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//ArrayInitializer">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ArrayInitializer/expressions"/>
+    <genClasses ecoreClass="instance.ecore#//PTArrayInitializer">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTArrayInitializer/expressions"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//BooleanLiteral">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//BooleanLiteral/booleanValue"/>
+    <genClasses ecoreClass="instance.ecore#//PTBooleanLiteral">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTBooleanLiteral/booleanValue"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//Cast">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//Cast/type"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//Cast/expression"/>
+    <genClasses ecoreClass="instance.ecore#//PTCastExpression">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTCastExpression/type"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTCastExpression/expression"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//CharacterLiteral">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//CharacterLiteral/escapedValue"/>
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//CharacterLiteral/charValue"/>
+    <genClasses ecoreClass="instance.ecore#//PTCharacterLiteral">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTCharacterLiteral/escapedValue"/>
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTCharacterLiteral/charValue"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//ClassInstanceCreation">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//ClassInstanceCreation/type"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ClassInstanceCreation/arguments"/>
+    <genClasses ecoreClass="instance.ecore#//PTClassInstanceCreation">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTClassInstanceCreation/type"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTClassInstanceCreation/arguments"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//ConditionalExpression">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ConditionalExpression/condition"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ConditionalExpression/true"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ConditionalExpression/false"/>
+    <genClasses ecoreClass="instance.ecore#//PTConditionalExpression">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTConditionalExpression/condition"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTConditionalExpression/true"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTConditionalExpression/false"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//FieldAccess">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//FieldAccess/receiver"/>
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//FieldAccess/field"/>
+    <genClasses ecoreClass="instance.ecore#//PTFieldAccess">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTFieldAccess/receiver"/>
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTFieldAccess/field"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//InfixExpression">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//InfixExpression/leftOperand"/>
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//InfixExpression/operator"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//InfixExpression/rightOperand"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//InfixExpression/extendedOperands"/>
+    <genClasses ecoreClass="instance.ecore#//PTInfixExpression">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTInfixExpression/leftOperand"/>
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTInfixExpression/operator"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTInfixExpression/rightOperand"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTInfixExpression/extendedOperands"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//Instanceof">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//Instanceof/operand"/>
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//Instanceof/type"/>
+    <genClasses ecoreClass="instance.ecore#//PTInstanceof">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTInstanceof/operand"/>
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTInstanceof/type"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//MethodInvocation">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//MethodInvocation/receiver"/>
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//MethodInvocation/name"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//MethodInvocation/arguments"/>
+    <genClasses ecoreClass="instance.ecore#//PTMethodInvocation">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTMethodInvocation/receiver"/>
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTMethodInvocation/name"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTMethodInvocation/arguments"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//Name">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//Name/name"/>
+    <genClasses ecoreClass="instance.ecore#//PTName">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTName/name"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//NullLiteral"/>
-    <genClasses ecoreClass="instance.ecore#//NumberLiteral">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//NumberLiteral/token"/>
+    <genClasses ecoreClass="instance.ecore#//PTNullLiteral"/>
+    <genClasses ecoreClass="instance.ecore#//PTNumberLiteral">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTNumberLiteral/token"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//ParenthesizedExpression">
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//ParenthesizedExpression/expression"/>
+    <genClasses ecoreClass="instance.ecore#//PTParenthesizedExpression">
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTParenthesizedExpression/expression"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//PrefixExpression">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PrefixExpression/operator"/>
-      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PrefixExpression/expression"/>
+    <genClasses ecoreClass="instance.ecore#//PTPrefixExpression">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTPrefixExpression/operator"/>
+      <genFeatures property="None" children="true" ecoreFeature="ecore:EReference instance.ecore#//PTPrefixExpression/expression"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//StringLiteral">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//StringLiteral/escapedValue"/>
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//StringLiteral/literalValue"/>
+    <genClasses ecoreClass="instance.ecore#//PTStringLiteral">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTStringLiteral/escapedValue"/>
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTStringLiteral/literalValue"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//ThisLiteral"/>
-    <genClasses ecoreClass="instance.ecore#//TypeLiteral">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//TypeLiteral/type"/>
+    <genClasses ecoreClass="instance.ecore#//PTThisLiteral"/>
+    <genClasses ecoreClass="instance.ecore#//PTTypeLiteral">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTTypeLiteral/type"/>
     </genClasses>
-    <genClasses ecoreClass="instance.ecore#//InvalidExpression">
-      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//InvalidExpression/message"/>
+    <genClasses ecoreClass="instance.ecore#//PTInvalidExpression">
+      <genFeatures ecoreFeature="ecore:EAttribute instance.ecore#//PTInvalidExpression/message"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

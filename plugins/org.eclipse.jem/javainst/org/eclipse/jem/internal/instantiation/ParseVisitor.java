@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseVisitor.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/19 22:50:15 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/23 22:53:21 $ 
  */
 package org.eclipse.jem.internal.instantiation;
  
@@ -112,7 +112,7 @@ public class ParseVisitor {
 	 * @param node
 	 *            the node to visit
 	 */
-	public void preVisit(Expression node) {
+	public void preVisit(PTExpression node) {
 		// default implementation: do nothing
 	}
 
@@ -125,135 +125,135 @@ public class ParseVisitor {
 	 * @param node
 	 *            the node to visit
 	 */
-	public void postVisit(Expression node) {
+	public void postVisit(PTExpression node) {
 		// default implementation: do nothing
 	}
 
-	public boolean visit(ArrayAccess node) {
+	public boolean visit(PTArrayAccess node) {
 		return true;
 	}
-	public boolean visit(ArrayCreation node) {
+	public boolean visit(PTArrayCreation node) {
 		return true;
 	}
-	public boolean visit(ArrayInitializer node) {
+	public boolean visit(PTArrayInitializer node) {
 		return true;
 	}
-	public boolean visit(BooleanLiteral node) {
+	public boolean visit(PTBooleanLiteral node) {
 		return true;
 	}
-	public boolean visit(Cast node) {
+	public boolean visit(PTCastExpression node) {
 		return true;
 	}
-	public boolean visit(CharacterLiteral node) {
+	public boolean visit(PTCharacterLiteral node) {
 		return true;
 	}
-	public boolean visit(ClassInstanceCreation node) {
+	public boolean visit(PTClassInstanceCreation node) {
 		return true;
 	}
-	public boolean visit(ConditionalExpression node) {
+	public boolean visit(PTConditionalExpression node) {
 		return true;
 	}
-	public boolean visit(FieldAccess node) {
+	public boolean visit(PTFieldAccess node) {
 		return true;
 	}
-	public boolean visit(InfixExpression node) {
+	public boolean visit(PTInfixExpression node) {
 		return true;
 	}
-	public boolean visit(Instanceof node) {
+	public boolean visit(PTInstanceof node) {
 		return true;
 	}
-	public boolean visit(InvalidExpression node) {
+	public boolean visit(PTInvalidExpression node) {
 		return true;
 	}
-	public boolean visit(MethodInvocation node) {
+	public boolean visit(PTMethodInvocation node) {
 		return true;
 	}
-	public boolean visit(Name node) {
+	public boolean visit(PTName node) {
 		return true;
 	}
-	public boolean visit(NullLiteral node) {
+	public boolean visit(PTNullLiteral node) {
 		return true;
 	}
-	public boolean visit(NumberLiteral node) {
+	public boolean visit(PTNumberLiteral node) {
 		return true;
 	}
-	public boolean visit(ParenthesizedExpression node) {
+	public boolean visit(PTParenthesizedExpression node) {
 		return true;
 	}
-	public boolean visit(PrefixExpression node) {
+	public boolean visit(PTPrefixExpression node) {
 		return true;
 	}
-	public boolean visit(StringLiteral node) {
+	public boolean visit(PTStringLiteral node) {
 		return true;
 	}
-	public boolean visit(ThisLiteral node) {
+	public boolean visit(PTThisLiteral node) {
 		return true;
 	}
-	public boolean visit(TypeLiteral node) {
+	public boolean visit(PTTypeLiteral node) {
 		return true;
 	}
 
-	public void endVisit(ArrayAccess node) {
+	public void endVisit(PTArrayAccess node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(ArrayCreation node) {
+	public void endVisit(PTArrayCreation node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(ArrayInitializer node) {
+	public void endVisit(PTArrayInitializer node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(BooleanLiteral node) {
+	public void endVisit(PTBooleanLiteral node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(Cast node) {
+	public void endVisit(PTCastExpression node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(CharacterLiteral node) {
+	public void endVisit(PTCharacterLiteral node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(ClassInstanceCreation node) {
+	public void endVisit(PTClassInstanceCreation node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(ConditionalExpression node) {
+	public void endVisit(PTConditionalExpression node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(FieldAccess node) {
+	public void endVisit(PTFieldAccess node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(InfixExpression node) {
+	public void endVisit(PTInfixExpression node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(Instanceof node) {
+	public void endVisit(PTInstanceof node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(InvalidExpression node) {
+	public void endVisit(PTInvalidExpression node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(MethodInvocation node) {
+	public void endVisit(PTMethodInvocation node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(Name node) {
+	public void endVisit(PTName node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(NullLiteral node) {
+	public void endVisit(PTNullLiteral node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(NumberLiteral node) {
+	public void endVisit(PTNumberLiteral node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(ParenthesizedExpression node) {
+	public void endVisit(PTParenthesizedExpression node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(PrefixExpression node) {
+	public void endVisit(PTPrefixExpression node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(StringLiteral node) {
+	public void endVisit(PTStringLiteral node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(ThisLiteral node) {
+	public void endVisit(PTThisLiteral node) {
 		// default implementation: do nothing
 	}
-	public void endVisit(TypeLiteral node) {
+	public void endVisit(PTTypeLiteral node) {
 		// default implementation: do nothing
 	}
 }

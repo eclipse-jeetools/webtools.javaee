@@ -11,8 +11,10 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationFactoryImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/01/19 22:50:15 $ 
+ *  $Revision: 1.5 $  $Date: 2004/01/23 22:53:21 $ 
  */
+
+import java.util.List;
 
 import org.eclipse.jem.internal.instantiation.*;
 
@@ -49,27 +51,27 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 			case InstantiationPackage.INIT_STRING_ALLOCATION: return createInitStringAllocation();
 			case InstantiationPackage.IMPLICIT_ALLOCATION: return createImplicitAllocation();
 			case InstantiationPackage.PARSE_TREE_ALLOCATION: return createParseTreeAllocation();
-			case InstantiationPackage.ARRAY_ACCESS: return createArrayAccess();
-			case InstantiationPackage.ARRAY_CREATION: return createArrayCreation();
-			case InstantiationPackage.ARRAY_INITIALIZER: return createArrayInitializer();
-			case InstantiationPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
-			case InstantiationPackage.CAST: return createCast();
-			case InstantiationPackage.CHARACTER_LITERAL: return createCharacterLiteral();
-			case InstantiationPackage.CLASS_INSTANCE_CREATION: return createClassInstanceCreation();
-			case InstantiationPackage.CONDITIONAL_EXPRESSION: return createConditionalExpression();
-			case InstantiationPackage.FIELD_ACCESS: return createFieldAccess();
-			case InstantiationPackage.INFIX_EXPRESSION: return createInfixExpression();
-			case InstantiationPackage.INSTANCEOF: return createInstanceof();
-			case InstantiationPackage.METHOD_INVOCATION: return createMethodInvocation();
-			case InstantiationPackage.NAME: return createName();
-			case InstantiationPackage.NULL_LITERAL: return createNullLiteral();
-			case InstantiationPackage.NUMBER_LITERAL: return createNumberLiteral();
-			case InstantiationPackage.PARENTHESIZED_EXPRESSION: return createParenthesizedExpression();
-			case InstantiationPackage.PREFIX_EXPRESSION: return createPrefixExpression();
-			case InstantiationPackage.STRING_LITERAL: return createStringLiteral();
-			case InstantiationPackage.THIS_LITERAL: return createThisLiteral();
-			case InstantiationPackage.TYPE_LITERAL: return createTypeLiteral();
-			case InstantiationPackage.INVALID_EXPRESSION: return createInvalidExpression();
+			case InstantiationPackage.PT_ARRAY_ACCESS: return createPTArrayAccess();
+			case InstantiationPackage.PT_ARRAY_CREATION: return createPTArrayCreation();
+			case InstantiationPackage.PT_ARRAY_INITIALIZER: return createPTArrayInitializer();
+			case InstantiationPackage.PT_BOOLEAN_LITERAL: return createPTBooleanLiteral();
+			case InstantiationPackage.PT_CAST_EXPRESSION: return createPTCastExpression();
+			case InstantiationPackage.PT_CHARACTER_LITERAL: return createPTCharacterLiteral();
+			case InstantiationPackage.PT_CLASS_INSTANCE_CREATION: return createPTClassInstanceCreation();
+			case InstantiationPackage.PT_CONDITIONAL_EXPRESSION: return createPTConditionalExpression();
+			case InstantiationPackage.PT_FIELD_ACCESS: return createPTFieldAccess();
+			case InstantiationPackage.PT_INFIX_EXPRESSION: return createPTInfixExpression();
+			case InstantiationPackage.PT_INSTANCEOF: return createPTInstanceof();
+			case InstantiationPackage.PT_METHOD_INVOCATION: return createPTMethodInvocation();
+			case InstantiationPackage.PT_NAME: return createPTName();
+			case InstantiationPackage.PT_NULL_LITERAL: return createPTNullLiteral();
+			case InstantiationPackage.PT_NUMBER_LITERAL: return createPTNumberLiteral();
+			case InstantiationPackage.PT_PARENTHESIZED_EXPRESSION: return createPTParenthesizedExpression();
+			case InstantiationPackage.PT_PREFIX_EXPRESSION: return createPTPrefixExpression();
+			case InstantiationPackage.PT_STRING_LITERAL: return createPTStringLiteral();
+			case InstantiationPackage.PT_THIS_LITERAL: return createPTThisLiteral();
+			case InstantiationPackage.PT_TYPE_LITERAL: return createPTTypeLiteral();
+			case InstantiationPackage.PT_INVALID_EXPRESSION: return createPTInvalidExpression();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -82,10 +84,10 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case InstantiationPackage.INFIX_OPERATOR:
-				return InfixOperator.get(initialValue);
-			case InstantiationPackage.PREFIX_OPERATOR:
-				return PrefixOperator.get(initialValue);
+			case InstantiationPackage.PT_INFIX_OPERATOR:
+				return PTInfixOperator.get(initialValue);
+			case InstantiationPackage.PT_PREFIX_OPERATOR:
+				return PTPrefixOperator.get(initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -98,9 +100,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case InstantiationPackage.INFIX_OPERATOR:
+			case InstantiationPackage.PT_INFIX_OPERATOR:
 				return instanceValue == null ? null : instanceValue.toString();
-			case InstantiationPackage.PREFIX_OPERATOR:
+			case InstantiationPackage.PT_PREFIX_OPERATOR:
 				return instanceValue == null ? null : instanceValue.toString();
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -142,9 +144,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArrayAccess createArrayAccess() {
-		ArrayAccessImpl arrayAccess = new ArrayAccessImpl();
-		return arrayAccess;
+	public PTArrayAccess createPTArrayAccess() {
+		PTArrayAccessImpl ptArrayAccess = new PTArrayAccessImpl();
+		return ptArrayAccess;
 	}
 
 	/**
@@ -152,9 +154,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArrayCreation createArrayCreation() {
-		ArrayCreationImpl arrayCreation = new ArrayCreationImpl();
-		return arrayCreation;
+	public PTArrayCreation createPTArrayCreation() {
+		PTArrayCreationImpl ptArrayCreation = new PTArrayCreationImpl();
+		return ptArrayCreation;
 	}
 
 	/**
@@ -162,9 +164,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ArrayInitializer createArrayInitializer() {
-		ArrayInitializerImpl arrayInitializer = new ArrayInitializerImpl();
-		return arrayInitializer;
+	public PTArrayInitializer createPTArrayInitializer() {
+		PTArrayInitializerImpl ptArrayInitializer = new PTArrayInitializerImpl();
+		return ptArrayInitializer;
 	}
 
 	/**
@@ -172,9 +174,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BooleanLiteral createBooleanLiteral() {
-		BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
-		return booleanLiteral;
+	public PTBooleanLiteral createPTBooleanLiteral() {
+		PTBooleanLiteralImpl ptBooleanLiteral = new PTBooleanLiteralImpl();
+		return ptBooleanLiteral;
 	}
 
 	/**
@@ -182,9 +184,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Cast createCast() {
-		CastImpl cast = new CastImpl();
-		return cast;
+	public PTCastExpression createPTCastExpression() {
+		PTCastExpressionImpl ptCastExpression = new PTCastExpressionImpl();
+		return ptCastExpression;
 	}
 
 	/**
@@ -192,9 +194,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CharacterLiteral createCharacterLiteral() {
-		CharacterLiteralImpl characterLiteral = new CharacterLiteralImpl();
-		return characterLiteral;
+	public PTCharacterLiteral createPTCharacterLiteral() {
+		PTCharacterLiteralImpl ptCharacterLiteral = new PTCharacterLiteralImpl();
+		return ptCharacterLiteral;
 	}
 
 	/**
@@ -202,9 +204,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ClassInstanceCreation createClassInstanceCreation() {
-		ClassInstanceCreationImpl classInstanceCreation = new ClassInstanceCreationImpl();
-		return classInstanceCreation;
+	public PTClassInstanceCreation createPTClassInstanceCreation() {
+		PTClassInstanceCreationImpl ptClassInstanceCreation = new PTClassInstanceCreationImpl();
+		return ptClassInstanceCreation;
 	}
 
 	/**
@@ -212,9 +214,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConditionalExpression createConditionalExpression() {
-		ConditionalExpressionImpl conditionalExpression = new ConditionalExpressionImpl();
-		return conditionalExpression;
+	public PTConditionalExpression createPTConditionalExpression() {
+		PTConditionalExpressionImpl ptConditionalExpression = new PTConditionalExpressionImpl();
+		return ptConditionalExpression;
 	}
 
 	/**
@@ -222,9 +224,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FieldAccess createFieldAccess() {
-		FieldAccessImpl fieldAccess = new FieldAccessImpl();
-		return fieldAccess;
+	public PTFieldAccess createPTFieldAccess() {
+		PTFieldAccessImpl ptFieldAccess = new PTFieldAccessImpl();
+		return ptFieldAccess;
 	}
 
 	/**
@@ -232,9 +234,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InfixExpression createInfixExpression() {
-		InfixExpressionImpl infixExpression = new InfixExpressionImpl();
-		return infixExpression;
+	public PTInfixExpression createPTInfixExpression() {
+		PTInfixExpressionImpl ptInfixExpression = new PTInfixExpressionImpl();
+		return ptInfixExpression;
 	}
 
 	/**
@@ -242,9 +244,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Instanceof createInstanceof() {
-		InstanceofImpl instanceof_ = new InstanceofImpl();
-		return instanceof_;
+	public PTInstanceof createPTInstanceof() {
+		PTInstanceofImpl ptInstanceof = new PTInstanceofImpl();
+		return ptInstanceof;
 	}
 
 	/**
@@ -252,9 +254,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MethodInvocation createMethodInvocation() {
-		MethodInvocationImpl methodInvocation = new MethodInvocationImpl();
-		return methodInvocation;
+	public PTMethodInvocation createPTMethodInvocation() {
+		PTMethodInvocationImpl ptMethodInvocation = new PTMethodInvocationImpl();
+		return ptMethodInvocation;
 	}
 
 	/**
@@ -262,9 +264,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Name createName() {
-		NameImpl name = new NameImpl();
-		return name;
+	public PTName createPTName() {
+		PTNameImpl ptName = new PTNameImpl();
+		return ptName;
 	}
 
 	/**
@@ -272,9 +274,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NullLiteral createNullLiteral() {
-		NullLiteralImpl nullLiteral = new NullLiteralImpl();
-		return nullLiteral;
+	public PTNullLiteral createPTNullLiteral() {
+		PTNullLiteralImpl ptNullLiteral = new PTNullLiteralImpl();
+		return ptNullLiteral;
 	}
 
 	/**
@@ -282,9 +284,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NumberLiteral createNumberLiteral() {
-		NumberLiteralImpl numberLiteral = new NumberLiteralImpl();
-		return numberLiteral;
+	public PTNumberLiteral createPTNumberLiteral() {
+		PTNumberLiteralImpl ptNumberLiteral = new PTNumberLiteralImpl();
+		return ptNumberLiteral;
 	}
 
 	/**
@@ -292,9 +294,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ParenthesizedExpression createParenthesizedExpression() {
-		ParenthesizedExpressionImpl parenthesizedExpression = new ParenthesizedExpressionImpl();
-		return parenthesizedExpression;
+	public PTParenthesizedExpression createPTParenthesizedExpression() {
+		PTParenthesizedExpressionImpl ptParenthesizedExpression = new PTParenthesizedExpressionImpl();
+		return ptParenthesizedExpression;
 	}
 
 	/**
@@ -302,9 +304,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PrefixExpression createPrefixExpression() {
-		PrefixExpressionImpl prefixExpression = new PrefixExpressionImpl();
-		return prefixExpression;
+	public PTPrefixExpression createPTPrefixExpression() {
+		PTPrefixExpressionImpl ptPrefixExpression = new PTPrefixExpressionImpl();
+		return ptPrefixExpression;
 	}
 
 	/**
@@ -312,9 +314,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StringLiteral createStringLiteral() {
-		StringLiteralImpl stringLiteral = new StringLiteralImpl();
-		return stringLiteral;
+	public PTStringLiteral createPTStringLiteral() {
+		PTStringLiteralImpl ptStringLiteral = new PTStringLiteralImpl();
+		return ptStringLiteral;
 	}
 
 	/**
@@ -322,9 +324,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ThisLiteral createThisLiteral() {
-		ThisLiteralImpl thisLiteral = new ThisLiteralImpl();
-		return thisLiteral;
+	public PTThisLiteral createPTThisLiteral() {
+		PTThisLiteralImpl ptThisLiteral = new PTThisLiteralImpl();
+		return ptThisLiteral;
 	}
 
 	/**
@@ -332,9 +334,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeLiteral createTypeLiteral() {
-		TypeLiteralImpl typeLiteral = new TypeLiteralImpl();
-		return typeLiteral;
+	public PTTypeLiteral createPTTypeLiteral() {
+		PTTypeLiteralImpl ptTypeLiteral = new PTTypeLiteralImpl();
+		return ptTypeLiteral;
 	}
 
 	/**
@@ -342,9 +344,9 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InvalidExpression createInvalidExpression() {
-		InvalidExpressionImpl invalidExpression = new InvalidExpressionImpl();
-		return invalidExpression;
+	public PTInvalidExpression createPTInvalidExpression() {
+		PTInvalidExpressionImpl ptInvalidExpression = new PTInvalidExpressionImpl();
+		return ptInvalidExpression;
 	}
 
 	/**
@@ -382,6 +384,213 @@ public class InstantiationFactoryImpl extends EFactoryImpl implements Instantiat
 		InitStringAllocation alloc = createInitStringAllocation();
 		alloc.setInitString(initString);
 		return alloc;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createParseTreeAllocation(org.eclipse.jem.internal.instantiation.PTExpression)
+	 */
+	public ParseTreeAllocation createParseTreeAllocation(PTExpression expression) {
+		ParseTreeAllocation a = createParseTreeAllocation();
+		a.setExpression(expression);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTArrayAccess(org.eclipse.jem.internal.instantiation.PTExpression, java.util.List)
+	 */
+	public PTArrayAccess createPTArrayAccess(PTExpression array, List indexes) {
+		PTArrayAccess a = createPTArrayAccess();
+		a.setArray(array);
+		a.getIndexes().addAll(indexes);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTArrayCreation(java.lang.String, java.util.List, org.eclipse.jem.internal.instantiation.PTArrayInitializer)
+	 */
+	public PTArrayCreation createPTArrayCreation(String type, List dimensions, PTArrayInitializer initializer) {
+		PTArrayCreation a = createPTArrayCreation();
+		a.setType(type);
+		if (dimensions != null)
+			a.getDimensions().addAll(dimensions);
+		a.setInitializer(initializer);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTArrayInitializer(java.util.List)
+	 */
+	public PTArrayInitializer createPTArrayInitializer(List expressions) {
+		PTArrayInitializer a = createPTArrayInitializer();
+		if (expressions != null)
+			a.getExpressions().addAll(expressions);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTBooleanLiteral(boolean)
+	 */
+	public PTBooleanLiteral createPTBooleanLiteral(boolean booleanValue) {
+		PTBooleanLiteral a = createPTBooleanLiteral();
+		a.setBooleanValue(booleanValue);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTCastExpression(java.lang.String, org.eclipse.jem.internal.instantiation.PTExpression)
+	 */
+	public PTCastExpression createPTCastExpression(String type, PTExpression expression) {
+		PTCastExpression a = createPTCastExpression();
+		a.setType(type);
+		a.setExpression(expression);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTCharacterLiteral(java.lang.String)
+	 */
+	public PTCharacterLiteral createPTCharacterLiteral(String escapedValue) {
+		PTCharacterLiteral a = createPTCharacterLiteral();
+		a.setEscapedValue(escapedValue);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTClassInstanceCreation(java.lang.String, java.util.List)
+	 */
+	public PTClassInstanceCreation createPTClassInstanceCreation(String type, List arguments) {
+		PTClassInstanceCreation a = createPTClassInstanceCreation();
+		a.setType(type);
+		if (arguments != null)
+			a.getArguments().addAll(arguments);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTConditionalExpression(org.eclipse.jem.internal.instantiation.PTExpression, org.eclipse.jem.internal.instantiation.PTExpression, org.eclipse.jem.internal.instantiation.PTExpression)
+	 */
+	public PTConditionalExpression createPTConditionalExpression(
+		PTExpression condition,
+		PTExpression trueExpressoin,
+		PTExpression falseExpression) {
+		PTConditionalExpression a = createPTConditionalExpression();
+		a.setCondition(condition);
+		a.setTrue(trueExpressoin);
+		a.setFalse(falseExpression);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTFieldAccess(org.eclipse.jem.internal.instantiation.PTExpression, java.lang.String)
+	 */
+	public PTFieldAccess createPTFieldAccess(PTExpression receiver, String field) {
+		PTFieldAccess a = createPTFieldAccess();
+		a.setReceiver(receiver);
+		a.setField(field);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTInfixExpression(org.eclipse.jem.internal.instantiation.PTExpression, org.eclipse.jem.internal.instantiation.PTInfixOperator, org.eclipse.jem.internal.instantiation.PTExpression, java.util.List)
+	 */
+	public PTInfixExpression createPTInfixExpression(
+		PTExpression leftOperand,
+		PTInfixOperator operator,
+		PTExpression rightOperand,
+		List extendedOperands) {
+		PTInfixExpression a = createPTInfixExpression();
+		a.setLeftOperand(leftOperand);
+		a.setOperator(operator);
+		a.setRightOperand(rightOperand);
+		if (extendedOperands != null)
+			a.getExtendedOperands().addAll(extendedOperands);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTInstanceof(org.eclipse.jem.internal.instantiation.PTExpression, java.lang.String)
+	 */
+	public PTInstanceof createPTInstanceof(PTExpression operand, String type) {
+		PTInstanceof a = createPTInstanceof();
+		a.setOperand(operand);
+		a.setType(type);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTInvalidExpression(java.lang.String)
+	 */
+	public PTInvalidExpression createPTInvalidExpression(String message) {
+		PTInvalidExpression a = createPTInvalidExpression();
+		a.setMessage(message);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTMethodInvocation(org.eclipse.jem.internal.instantiation.PTExpression, java.lang.String, java.util.List)
+	 */
+	public PTMethodInvocation createPTMethodInvocation(PTExpression receiver, String name, List arguments) {
+		PTMethodInvocation a = createPTMethodInvocation();
+		a.setReceiver(receiver);
+		a.setName(name);
+		if (arguments != null)
+			a.getArguments().addAll(arguments);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTName(java.lang.String)
+	 */
+	public PTName createPTName(String name) {
+		PTName a = createPTName();
+		a.setName(name);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTNumberLiteral(java.lang.String)
+	 */
+	public PTNumberLiteral createPTNumberLiteral(String token) {
+		PTNumberLiteral a = createPTNumberLiteral();
+		a.setToken(token);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTParenthesizedExpression(org.eclipse.jem.internal.instantiation.PTExpression)
+	 */
+	public PTParenthesizedExpression createPTParenthesizedExpression(PTExpression expression) {
+		PTParenthesizedExpression a = createPTParenthesizedExpression();
+		a.setExpression(expression);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTPrefixExpression(org.eclipse.jem.internal.instantiation.PTPrefixOperator, org.eclipse.jem.internal.instantiation.PTExpression)
+	 */
+	public PTPrefixExpression createPTPrefixExpression(PTPrefixOperator operator, PTExpression expression) {
+		PTPrefixExpression a = createPTPrefixExpression();
+		a.setOperator(operator);
+		a.setExpression(expression);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTStringLiteral(java.lang.String)
+	 */
+	public PTStringLiteral createPTStringLiteral(String escapeLiteral) {
+		PTStringLiteral a = createPTStringLiteral();
+		a.setEscapedValue(escapeLiteral);
+		return a;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationFactory#createPTTypeLiteral(java.lang.String)
+	 */
+	public PTTypeLiteral createPTTypeLiteral(String type) {
+		PTTypeLiteral a = createPTTypeLiteral();
+		a.setType(type);
+		return a;
 	}
 
 } //InstantiationFactoryImpl

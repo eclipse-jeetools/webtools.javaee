@@ -11,8 +11,10 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/19 22:50:15 $ 
+ *  $Revision: 1.4 $  $Date: 2004/01/23 22:53:21 $ 
  */
+
+import java.util.List;
 
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.EFactory;
@@ -64,193 +66,396 @@ public interface InstantiationFactory extends EFactory{
 	ParseTreeAllocation createParseTreeAllocation();
 
 	/**
-	 * Returns a new object of class '<em>Array Access</em>'.
+	 * Utility to create a parse tree allocation with an expression.
+	 * 
+	 * @param expression
+	 * @return The new parse tree allocation.
+	 * 
+	 * @since 1.0.0
+	 */
+	ParseTreeAllocation createParseTreeAllocation(PTExpression expression);
+	
+	/**
+	 * Returns a new object of class '<em>PT Array Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Array Access</em>'.
+	 * @return a new object of class '<em>PT Array Access</em>'.
 	 * @generated
 	 */
-	ArrayAccess createArrayAccess();
+	PTArrayAccess createPTArrayAccess();
 
 	/**
-	 * Returns a new object of class '<em>Array Creation</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Array Creation</em>'.
-	 * @generated
+	 * Utility to create a new array access with the array and indexes.
+	 * 
+	 * @param array
+	 * @param indexes list of index expressions
+	 * @return The new array access.
+	 * 
+	 * @since 1.0.0
 	 */
-	ArrayCreation createArrayCreation();
+	PTArrayAccess createPTArrayAccess(PTExpression array, List indexes);
 
 	/**
-	 * Returns a new object of class '<em>Array Initializer</em>'.
+	 * Returns a new object of class '<em>PT Array Creation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Array Initializer</em>'.
+	 * @return a new object of class '<em>PT Array Creation</em>'.
 	 * @generated
 	 */
-	ArrayInitializer createArrayInitializer();
+	PTArrayCreation createPTArrayCreation();
 
 	/**
-	 * Returns a new object of class '<em>Boolean Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Boolean Literal</em>'.
-	 * @generated
+	 * Utility to create an array creation with the type, dimensions, and initializer.
+	 * 
+	 * @param type The type, e.g. <code>java.lang.String</code>.
+	 * @param dimensions The dimension expressions, <code>null</code> if no dimension expressions.
+	 * @param initializer The initializer, <code>null</code> if no initializer.
+	 * @return The new array creation.
+	 * 
+	 * @since 1.0.0
 	 */
-	BooleanLiteral createBooleanLiteral();
+	PTArrayCreation createPTArrayCreation(String type, List dimensions, PTArrayInitializer initializer);
 
 	/**
-	 * Returns a new object of class '<em>Cast</em>'.
+	 * Returns a new object of class '<em>PT Array Initializer</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Cast</em>'.
+	 * @return a new object of class '<em>PT Array Initializer</em>'.
 	 * @generated
 	 */
-	Cast createCast();
+	PTArrayInitializer createPTArrayInitializer();
 
 	/**
-	 * Returns a new object of class '<em>Character Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Character Literal</em>'.
-	 * @generated
+	 * Utility to create an array initilizer with initialize expessions.
+	 * @param expressions The list of expressions, <code>null</code> if empty array initializer.
+	 * @return The new array initializer.
+	 * 
+	 * @since 1.0.0
 	 */
-	CharacterLiteral createCharacterLiteral();
+	PTArrayInitializer createPTArrayInitializer(List expressions);
 
 	/**
-	 * Returns a new object of class '<em>Class Instance Creation</em>'.
+	 * Returns a new object of class '<em>PT Boolean Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Class Instance Creation</em>'.
+	 * @return a new object of class '<em>PT Boolean Literal</em>'.
 	 * @generated
 	 */
-	ClassInstanceCreation createClassInstanceCreation();
+	PTBooleanLiteral createPTBooleanLiteral();
 
 	/**
-	 * Returns a new object of class '<em>Conditional Expression</em>'.
+	 * Utility to create a boolean literal with a given value.
+	 * @param booleanValue
+	 * @return The new boolean literal.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTBooleanLiteral createPTBooleanLiteral(boolean booleanValue);
+	
+	/**
+	 * Returns a new object of class '<em>PT Cast Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Conditional Expression</em>'.
+	 * @return a new object of class '<em>PT Cast Expression</em>'.
 	 * @generated
 	 */
-	ConditionalExpression createConditionalExpression();
+	PTCastExpression createPTCastExpression();
 
 	/**
-	 * Returns a new object of class '<em>Field Access</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Field Access</em>'.
-	 * @generated
+	 * Utility to create a new cast expression.
+	 * 
+	 * @param type The type of the expression, e.g. <code>short</code> or <code>java.lang.String</code>
+	 * @param expression The expression being cast.
+	 * @return The new cast expression.
+	 * 
+	 * @since 1.0.0
 	 */
-	FieldAccess createFieldAccess();
+	PTCastExpression createPTCastExpression(String type, PTExpression expression);
 
 	/**
-	 * Returns a new object of class '<em>Infix Expression</em>'.
+	 * Returns a new object of class '<em>PT Character Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Infix Expression</em>'.
+	 * @return a new object of class '<em>PT Character Literal</em>'.
 	 * @generated
 	 */
-	InfixExpression createInfixExpression();
+	PTCharacterLiteral createPTCharacterLiteral();
 
 	/**
-	 * Returns a new object of class '<em>Instanceof</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Instanceof</em>'.
-	 * @generated
+	 * Utility to create a new character literal.
+	 * @param escapedValue The escaped value to use.
+	 * @return The new character literal.
+	 * 
+	 * @since 1.0.0
 	 */
-	Instanceof createInstanceof();
+	PTCharacterLiteral createPTCharacterLiteral(String escapedValue);	
 
 	/**
-	 * Returns a new object of class '<em>Method Invocation</em>'.
+	 * Returns a new object of class '<em>PT Class Instance Creation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Method Invocation</em>'.
+	 * @return a new object of class '<em>PT Class Instance Creation</em>'.
 	 * @generated
 	 */
-	MethodInvocation createMethodInvocation();
+	PTClassInstanceCreation createPTClassInstanceCreation();
 
 	/**
-	 * Returns a new object of class '<em>Name</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Name</em>'.
-	 * @generated
+	 * Utility to create a new class instance creation.
+	 * 
+	 * @param type The type of the class, e.g. <code>java.lang.String</code>.
+	 * @param arguments The list of expressions for arguments, or <code>null</code> for no args.
+	 * @return The new class instance creation.
+	 * 
+	 * @since 1.0.0
 	 */
-	Name createName();
+	PTClassInstanceCreation createPTClassInstanceCreation(String type, List arguments);
 
 	/**
-	 * Returns a new object of class '<em>Null Literal</em>'.
+	 * Returns a new object of class '<em>PT Conditional Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Null Literal</em>'.
+	 * @return a new object of class '<em>PT Conditional Expression</em>'.
 	 * @generated
 	 */
-	NullLiteral createNullLiteral();
+	PTConditionalExpression createPTConditionalExpression();
 
 	/**
-	 * Returns a new object of class '<em>Number Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Number Literal</em>'.
-	 * @generated
+	 * Utility to create a new conditional expression with the condition and true/false expressions.
+	 * 
+	 * @param condition
+	 * @param trueExpressoin
+	 * @param falseExpression
+	 * @return
+	 * 
+	 * @since 1.0.0
 	 */
-	NumberLiteral createNumberLiteral();
+	PTConditionalExpression createPTConditionalExpression(PTExpression condition, PTExpression trueExpressoin, PTExpression falseExpression);
 
 	/**
-	 * Returns a new object of class '<em>Parenthesized Expression</em>'.
+	 * Returns a new object of class '<em>PT Field Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Parenthesized Expression</em>'.
+	 * @return a new object of class '<em>PT Field Access</em>'.
 	 * @generated
 	 */
-	ParenthesizedExpression createParenthesizedExpression();
+	PTFieldAccess createPTFieldAccess();
 
 	/**
-	 * Returns a new object of class '<em>Prefix Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Prefix Expression</em>'.
-	 * @generated
+	 * Utility to create a new field access with receiver and field name.
+	 * @param receiver The receiver expression, or <code>null</code> if none.
+	 * @param field The field name.
+	 * @return The new field access.
+	 * 
+	 * @since 1.0.0
 	 */
-	PrefixExpression createPrefixExpression();
+	PTFieldAccess createPTFieldAccess(PTExpression receiver, String field);	
 
 	/**
-	 * Returns a new object of class '<em>String Literal</em>'.
+	 * Returns a new object of class '<em>PT Infix Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>String Literal</em>'.
+	 * @return a new object of class '<em>PT Infix Expression</em>'.
 	 * @generated
 	 */
-	StringLiteral createStringLiteral();
+	PTInfixExpression createPTInfixExpression();
 
 	/**
-	 * Returns a new object of class '<em>This Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>This Literal</em>'.
-	 * @generated
+	 * Utility to create a new infix expression with the left/right/extended operands and the operator.
+	 * @param leftOperand
+	 * @param operator
+	 * @param rightOperand
+	 * @param extendedOperands The list of extended operands, or <code>null</code> if no extended operands.
+	 * @return
+	 * 
+	 * @since 1.0.0
 	 */
-	ThisLiteral createThisLiteral();
+	PTInfixExpression createPTInfixExpression(PTExpression leftOperand, PTInfixOperator operator, PTExpression rightOperand, List extendedOperands);
 
 	/**
-	 * Returns a new object of class '<em>Type Literal</em>'.
+	 * Returns a new object of class '<em>PT Instanceof</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Literal</em>'.
+	 * @return a new object of class '<em>PT Instanceof</em>'.
 	 * @generated
 	 */
-	TypeLiteral createTypeLiteral();
+	PTInstanceof createPTInstanceof();
 
 	/**
-	 * Returns a new object of class '<em>Invalid Expression</em>'.
+	 * Utility to create a new instance of with an operand and a type.
+	 * @param operand
+	 * @param type
+	 * @return The new instance of.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTInstanceof createPTInstanceof(PTExpression operand, String type);
+
+	/**
+	 * Returns a new object of class '<em>PT Method Invocation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Invalid Expression</em>'.
+	 * @return a new object of class '<em>PT Method Invocation</em>'.
 	 * @generated
 	 */
-	InvalidExpression createInvalidExpression();
+	PTMethodInvocation createPTMethodInvocation();
+
+	/**
+	 * Utility to create a new method invocation with a receiver, name, and arguments.
+	 * 
+	 * @param receiver The receiver expression, or <code>null</code> if no receiver.
+	 * @param name The name of the method.
+	 * @param arguments The list of argument expressions, or <code>null</code> if no arguments.
+	 * @return The new method invocation.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTMethodInvocation createPTMethodInvocation(PTExpression receiver, String name, List arguments);
+
+	/**
+	 * Returns a new object of class '<em>PT Name</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Name</em>'.
+	 * @generated
+	 */
+	PTName createPTName();
+
+	/**
+	 * Utility to create a new name with the name.
+	 * 
+	 * @param name
+	 * @return The new name.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTName createPTName(String name);
+
+	/**
+	 * Returns a new object of class '<em>PT Null Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Null Literal</em>'.
+	 * @generated
+	 */
+	PTNullLiteral createPTNullLiteral();
+
+	/**
+	 * Returns a new object of class '<em>PT Number Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Number Literal</em>'.
+	 * @generated
+	 */
+	PTNumberLiteral createPTNumberLiteral();
+
+	/**
+	 * Utility to create a new number literal with the token.
+	 * @param token
+	 * @return The new number literal.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTNumberLiteral createPTNumberLiteral(String token);
+
+	/**
+	 * Returns a new object of class '<em>PT Parenthesized Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Parenthesized Expression</em>'.
+	 * @generated
+	 */
+	PTParenthesizedExpression createPTParenthesizedExpression();
+
+	/**
+	 * Utility to create a new parenthesized expression with the expression.
+	 * @param expression The expression that is in the parenthesis.
+	 * @return The new parenthesized expression.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTParenthesizedExpression createPTParenthesizedExpression(PTExpression expression);
+
+	/**
+	 * Returns a new object of class '<em>PT Prefix Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Prefix Expression</em>'.
+	 * @generated
+	 */
+	PTPrefixExpression createPTPrefixExpression();
+
+	/**
+	 * Utility to create a new prefix expression given an operator and expression.
+	 * @param operator
+	 * @param expression
+	 * @return The new prefix expression.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTPrefixExpression createPTPrefixExpression(PTPrefixOperator operator, PTExpression expression);
+
+	/**
+	 * Returns a new object of class '<em>PT String Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT String Literal</em>'.
+	 * @generated
+	 */
+	PTStringLiteral createPTStringLiteral();
+
+	/**
+	 * Utility to create a new string literal given the escaped literal string.
+	 * @param escapeLiteral
+	 * @return The new string literal.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTStringLiteral createPTStringLiteral(String escapeLiteral);
+
+	/**
+	 * Returns a new object of class '<em>PT This Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT This Literal</em>'.
+	 * @generated
+	 */
+	PTThisLiteral createPTThisLiteral();
+
+	/**
+	 * Returns a new object of class '<em>PT Type Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Type Literal</em>'.
+	 * @generated
+	 */
+	PTTypeLiteral createPTTypeLiteral();
+
+	/**
+	 * Utility to create a new type literal given the type.
+	 * @param type
+	 * @return The new type literal.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTTypeLiteral createPTTypeLiteral(String type);
+
+	/**
+	 * Returns a new object of class '<em>PT Invalid Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PT Invalid Expression</em>'.
+	 * @generated
+	 */
+	PTInvalidExpression createPTInvalidExpression();
+
+	/**
+	 * Utility to create a new invalid expression with a message.
+	 * @param message
+	 * @return The new invalid expression.
+	 * 
+	 * @since 1.0.0
+	 */
+	PTInvalidExpression createPTInvalidExpression(String message);
 
 	/**
 	 * Returns a new object of class '<em>Implicit Allocation</em>' as
