@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
-import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
@@ -52,7 +51,9 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
        		edit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
        		int versionId = ((J2EECreationDataModel)getOperationDataModel()).getIntProperty(J2EECreationDataModel.J2EE_MODULE_VERSION);
        		edit.createModelRoot(versionId);
-       		ComponentType type = earComp.getComponentType();
+       		// set version to WorkbenchComponent
+       		String versionText = J2EEVersionUtil.getJ2EETextVersion(versionId);
+       		earComp.getComponentType().setVersion(versionText);
 			// specify module source folder, and deploy path
 			IPath metaInfPath = new Path("META-INF"); //$NON-NLS-1$
 		    IFolder metaInfFolder = moduleFolder.getFolder(metaInfPath); //$NON-NLS-1$
@@ -82,7 +83,12 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		super.execute( IModuleConstants.JST_EAR_MODULE, monitor );
+		J2EEComponentCreationDataModel dataModel = (J2EEComponentCreationDataModel) operationDataModel;
+		createProjectStructure();
+		createComponent(IModuleConstants.JST_EAR_MODULE, monitor);
+		if (dataModel.getBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES)) {
+			createDeploymentDescriptor(monitor);
+		}
 	}
     
 	protected  void addResources(WorkbenchComponent component ){
