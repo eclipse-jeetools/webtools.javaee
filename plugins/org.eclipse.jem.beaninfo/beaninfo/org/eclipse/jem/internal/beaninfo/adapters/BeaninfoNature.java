@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.11 $  $Date: 2004/03/24 15:07:44 $ 
+ *  $Revision: 1.12 $  $Date: 2004/03/26 23:08:09 $ 
  */
 
 import java.io.*;
@@ -625,16 +625,16 @@ public class BeaninfoNature implements IProjectNature {
 										(String) entry.getKey());
 								if (contributors != null) {
 									for (int i = 0; i < contributors.length; i++) {
-									try {
-										Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
-										if (contributor instanceof IBeanInfoContributor)
-											contributorsList.add(contributor);
-									} catch (CoreException e) {
-										BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+										try {
+											Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
+											if (contributor instanceof IBeanInfoContributor)
+												contributorsList.add(contributor);
+										} catch (CoreException e) {
+											BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+										}
 									}
 								}
 							}
-}
 						}						
 					}
 					
@@ -817,8 +817,10 @@ public class BeaninfoNature implements IProjectNature {
 			IConfigurationContributionController controller,
 			IJavaProject javaProject)
 			throws CoreException {
-			for (int i = 0; i < entries.length; i++)
-				processBeaninfoEntry(entries[i], controller, javaProject);
+			if (entries != null) {
+				for (int i = 0; i < entries.length; i++)
+					processBeaninfoEntry(entries[i], controller, javaProject);
+			}
 		}
 
 		protected void processBeaninfoEntry(

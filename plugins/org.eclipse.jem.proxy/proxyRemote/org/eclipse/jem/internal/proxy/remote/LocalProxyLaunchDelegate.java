@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.3 $ $Date: 2004/03/22 23:49:02 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.4 $ $Date: 2004/03/26 23:07:45 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -71,7 +71,8 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		if (name.indexOf('"') != -1)
 			name = name.replace('"', '\'');
 
-		pm.beginTask(MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteLaunchVM"), new Object[] { name }), 500); //$NON-NLS-1$
+		pm.beginTask("", 500); //$NON-NLS-1$
+		pm.subTask(MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteLaunchVM"), new Object[] { name }));
 		// check for cancellation
 		if (pm.isCanceled())
 			return;

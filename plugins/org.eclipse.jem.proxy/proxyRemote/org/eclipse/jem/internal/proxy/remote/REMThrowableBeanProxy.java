@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMThrowableBeanProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/26 23:07:45 $ 
  */
 
 
@@ -49,7 +49,7 @@ public class REMThrowableBeanProxy extends ThrowableProxy implements IREMBeanPro
 	public boolean equals(Object anObject) {
 		if (super.equals(anObject))
 			return true;	// Identity
-		if (anObject instanceof IBeanProxy && !(anObject instanceof IREMConstantBeanProxy))
+		if (anObject instanceof IBeanProxy && !(anObject instanceof IREMConstantBeanProxy) && fFactory.isValid() && ((IBeanProxy) anObject).getProxyFactoryRegistry() == fFactory)
 			try {
 				// The other is a bean proxy and is not a constant one, let the server do the check.
 				return ((IBooleanBeanProxy) REMStandardBeanProxyConstants.getConstants(fFactory).getObjectEquals().invoke(this, (IBeanProxy) anObject)).booleanValue();

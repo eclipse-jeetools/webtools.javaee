@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/22 23:49:02 $ 
+ *  $Revision: 1.6 $  $Date: 2004/03/26 23:07:45 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -285,7 +285,8 @@ public class ProxyLaunchSupport {
 		// See if build needed or waiting or inprogress, if so, wait for it to complete. We've
 		// decided
 		// too difficult to determine if build would affect us or not, so just wait.
-		pm.beginTask(ProxyMessages.getString("ProxyLaunch"), 400);
+		pm.beginTask("", 400);
+		pm.subTask(ProxyMessages.getString("ProxyLaunch"));
 		handleBuild(new SubProgressMonitor(pm, 100));
 				
 		if (aContribs != null) {
@@ -442,9 +443,10 @@ public class ProxyLaunchSupport {
 			ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, pm);			
 		} else {
 			Job[] build = Platform.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
+			pm.beginTask("", 100);
 			if (build.length == 1) {
 				if (build[0].getState() == Job.RUNNING || build[0].getState() == Job.WAITING || build[0].getState() == Job.SLEEPING) {
-					pm.beginTask(ProxyMessages.getString("ProxyWaitForBuild"), 100); //$NON-NLS-1$
+					pm.subTask(ProxyMessages.getString("ProxyWaitForBuild"));
 					try {						
 						build[0].join();						
 					} catch (InterruptedException e) {
@@ -452,7 +454,7 @@ public class ProxyLaunchSupport {
 								new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), IStatus.ERROR, "", e)); //$NON-NLS-1$
 					}
 				}
-			}
+			} 
 			pm.done();
 		}
 	}

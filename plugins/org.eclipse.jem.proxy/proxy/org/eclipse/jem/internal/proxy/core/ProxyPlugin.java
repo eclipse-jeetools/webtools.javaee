@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.13 $  $Date: 2004/03/23 19:21:30 $ 
+ *  $Revision: 1.14 $  $Date: 2004/03/26 23:07:45 $ 
  */
 
 
@@ -780,14 +780,18 @@ public class ProxyPlugin extends Plugin {
 		IPluginImport[] imports = plugin.getImports();
 		for (int i = 0; i < imports.length; i++) {
 			IPluginImport pi = imports[i];
-			if (pluginIds.containsKey(pi.getId()))
-				continue;	// save time actually going for it. we already processed it.
-			pluginIds.put(plugin.getId(), first || (visible && pi.isReexported()) ? Boolean.TRUE : Boolean.FALSE);			
+			Boolean piValue = (Boolean) pluginIds.get(pi.getId());
+			boolean importVisible = first || (visible && pi.isReexported());
+			if (piValue != null && (!importVisible || !piValue.booleanValue()))
+				continue;	// we already processed it, this time not visible, or this time visible and was previously visible.
+			// Now either first time, or it was there before, but now visible, but this time it is visible.
+			// We want it to become visible in that case. 
+			pluginIds.put(pi.getId(), importVisible ? Boolean.TRUE : Boolean.FALSE);			
 			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
 				pi.getVersion(),
 				pi.getMatch());
 			if (pb != null)
-				expandPlugin(pb, pluginIds, visible && pi.isReexported(), false);
+				expandPlugin(pb, pluginIds, importVisible, false);
 		}
 	}
 }

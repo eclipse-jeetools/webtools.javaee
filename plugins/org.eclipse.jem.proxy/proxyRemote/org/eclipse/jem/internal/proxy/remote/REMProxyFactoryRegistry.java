@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.5 $  $Date: 2004/03/04 20:30:21 $ 
+ *  $Revision: 1.6 $  $Date: 2004/03/26 23:07:45 $ 
  */
 
 
@@ -369,7 +369,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			} catch (IOException e) {
 			}
 		} else
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "No Server to retrieve a connection.", null));	///$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "No Server to retrieve a connection.", null));	///$NON-NLS-1$
 		
 		throw new IllegalStateException("Could not create a socket connection to remote vm.");
 	}
