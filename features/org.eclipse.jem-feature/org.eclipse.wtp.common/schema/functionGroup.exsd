@@ -12,9 +12,10 @@
 
    <element name="extension">
       <complexType>
-         <sequence>
+         <choice>
             <element ref="functionGroup" minOccurs="1" maxOccurs="unbounded"/>
-         </sequence>
+            <element ref="functionGroupPatternBinding" minOccurs="1" maxOccurs="unbounded"/>
+         </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
@@ -97,6 +98,7 @@
          </attribute>
       </complexType>
    </element>
+
    <element name="functionGroupPatternBinding">
       <annotation>
          <documentation>
@@ -120,7 +122,6 @@
          </attribute>
       </complexType>
    </element>
-   
 
    <annotation>
       <appInfo>

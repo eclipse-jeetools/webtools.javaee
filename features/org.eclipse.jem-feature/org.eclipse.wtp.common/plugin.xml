@@ -53,7 +53,7 @@
       <uiContextSensitiveClass
             context="Headless"
             key="org.eclipse.wtp.common.EnablementDetermination"
-            className="org.eclipse.wtp.common.EnablementDetermination">
+            className="org.eclipse.wtp.internal.enablement.EnablementManager">
       </uiContextSensitiveClass>
    </extension>
 
