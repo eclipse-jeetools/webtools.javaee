@@ -492,58 +492,6 @@
             id="com.ibm.wtp.server.j2ee.ear3">
       </moduleArtifactAdapter>
    </extension> -->
-   <extension
-         point="org.eclipse.wst.server.ui.moduleArtifactAdapters">
-    <moduleArtifactAdapter
-          id="com.ibm.wtp.server.j2ee.ear1">
-         <enablement>
-           <with variable="selection">
-             <adapt type="org.eclipse.jst.j2ee.application.Application"/>
-           </with>
-         </enablement>
-      </moduleArtifactAdapter>
-   
-     <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ear2">
-         <enablement>
-           <with variable="selection">
-             <adapt type="org.eclipse.core.resources.IProject"/>
-           </with>
-         </enablement>
-      </moduleArtifactAdapter>
-      
-      <moduleArtifactAdapter
-            id="com.ibm.wtp.server.j2ee.ear3">
-         <enablement>
-           <with variable="selection">
-             <adapt type="org.eclipse.core.resources.IFile"/>
-           </with>
-         </enablement>
-      </moduleArtifactAdapter>
-     </extension>
-      
-       <extension point="org.eclipse.core.runtime.adapters">
-         <factory
-             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IProject">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
-        </factory>
-        <factory
-             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
-        </factory>
-        <factory
-             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
-       </factory>
-    
-  
-   </extension>
-   
-   
-   
 <!-- =============================================================== -->
 <!-- Purpose: Define the default deployable project factory          -->
 <!-- Extension point: com.ibm.etools.server.core.deployableFactories -->
