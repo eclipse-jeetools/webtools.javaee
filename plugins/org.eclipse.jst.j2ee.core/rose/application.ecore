@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="application"
-    nsURI="application.xmi" nsPrefix="com.ibm.etools.application">
+    nsURI="application.xmi" nsPrefix="org.eclipse.jst.j2ee.application">
   <eClassifiers xsi:type="ecore:EClass" name="Application" eSuperTypes="common.ecore#//CompatibilityDescriptionGroup">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The applicationType defines the structure of the&#xD;&#xA;application."/>

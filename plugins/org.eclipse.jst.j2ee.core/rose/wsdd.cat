@@ -11,7 +11,7 @@
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"basePackage"
-	    value      	(value Text "com.ibm.etools.webservice"))
+	    value      	(value Text "org.eclipse.jst.j2ee.webservice"))
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"prefix"

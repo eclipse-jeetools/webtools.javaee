@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ejb"
-    nsURI="ejb.xmi" nsPrefix="com.ibm.etools.ejb">
+    nsURI="ejb.xmi" nsPrefix="org.eclipse.jst.j2ee.ejb">
   <eClassifiers xsi:type="ecore:EClass" name="ContainerManagedEntity" eSuperTypes="#//Entity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="2.x">
@@ -259,7 +259,7 @@
     <eLiterals name="LocalHome" value="4"/>
     <eLiterals name="ServiceEndpoint" value="5"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CMPAttribute" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EAttribute">
+  <eClassifiers xsi:type="ecore:EClass" name="CMPAttribute" eSuperTypes="../../org.eclipse.emf.ecore/src-ecore/model/Ecore.ecore#//EAttribute">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Describes a container-managed field. The field element includes an optional description of the field, and the name of the field.&#xD;&#xA;"/>
     </eAnnotations>

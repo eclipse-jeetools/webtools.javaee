@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="wscommon"
-    nsURI="wscommon.xmi" nsPrefix="com.ibm.etools.webservice.wscommon">
+    nsURI="wscommon.xmi" nsPrefix="org.eclipse.jst.j2ee.webservice.wscommon">
   <eClassifiers xsi:type="ecore:EClass" name="InitParam">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="paramName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="paramValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

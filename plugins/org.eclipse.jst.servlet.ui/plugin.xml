@@ -36,16 +36,16 @@
          point="org.eclipse.ui.newWizards">
       <category
             name="%web.category_ui_"
-            id="org.eclipse.jst.servlet.ui.internal">
+            id="org.eclipse.jst.servlet.ui">
       </category>
       <wizard
             name="%web.project_ui_"
             icon="icons/full/ctool16/newwar_wiz.gif"
-            category="org.eclipse.jst.servlet.ui.internal"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard"
+            category="org.eclipse.jst.servlet.ui"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
-            id="org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard">
+            id="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleCreationWizard">
          <description>
             %new.web.project.description_ui_
          </description>
@@ -112,7 +112,7 @@
    
       <objectContribution
             objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.internal.ui.navigator.webProjectActions">
+            id="org.eclipse.jst.j2ee.internal.ui.navigator.webProjectActions">
          <action
                label="%WarImportWizard.name"
                icon="icons/full/ctool16/importwar_wiz.gif"
@@ -141,7 +141,7 @@
    <extension
          point="org.eclipse.wst.common.frameworks.ui.extendableWizard">
       <extendableWizard
-            id="org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectWizard">
+            id="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleCreationWizard">
       </extendableWizard>
    </extension>
       

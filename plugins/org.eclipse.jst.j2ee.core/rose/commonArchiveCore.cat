@@ -11,7 +11,7 @@
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"basePackage"
-	    value      	(value Text "com.ibm.etools.j2ee"))
+	    value      	(value Text "org.eclipse.jst.j2ee"))
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"prefix"
@@ -376,7 +376,7 @@
 		(object Attribute
 		    tool       	"Ecore"
 		    name       	"basePackage"
-		    value      	(value Text "com.ibm.etools.j2ee.commonarchivecore"))
+		    value      	(value Text "org.eclipse.jst.j2ee.commonarchivecore"))
 		(object Attribute
 		    tool       	"Ecore"
 		    name       	"nsURI"

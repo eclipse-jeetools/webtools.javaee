@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <genmodel:GenModel xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.ibm.etools.j2ee.core/commonArchive"
-    editDirectory="/com.ibm.etools.j2ee.core.edit/src" editorDirectory="/com.ibm.etools.j2ee.core.editor/src"
-    modelPluginID="com.ibm.etools.j2ee.core" modelName="CommonArchive" editPluginClass="org.eclipse.j2ee.commonarchivecore.provider.CommonArchiveEditPlugin"
+  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jst.j2ee.core/commonArchive"
+    editDirectory="/org.eclipse.jst.j2ee.core.edit/src" editorDirectory="/org.eclipse.jst.j2ee.core.editor/src"
+    modelPluginID="org.eclipse.jst.j2ee.core" modelName="CommonArchive" editPluginClass="org.eclipse.j2ee.commonarchivecore.provider.CommonArchiveEditPlugin"
     editorPluginClass="org.eclipse.j2ee.commonarchivecore.presentation.CommonArchiveEditorPlugin"
-    usedGenPackages="../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore j2ee.genmodel#//wsclient j2ee.genmodel#//common j2ee.genmodel#//webapplication j2ee.genmodel#//ejb j2ee.genmodel#//jsp j2ee.genmodel#//application j2ee.genmodel#//client j2ee.genmodel#//jca ../../org.eclipse.jem/model/javaModel.genmodel#//java">
+    usedGenPackages="../../org.eclipse.emf.ecore/src-ecore/model/Ecore.genmodel#//ecore j2ee.genmodel#//wsclient j2ee.genmodel#//common j2ee.genmodel#//webapplication j2ee.genmodel#//ejb j2ee.genmodel#//jsp j2ee.genmodel#//application j2ee.genmodel#//client j2ee.genmodel#//jca ../../org.eclipse.jem/model/javaModel.genmodel#//java">
   <foreignModel>commonArchive.mdl</foreignModel>
   <foreignModel>WORKSPACE_ROOT</foreignModel>
   <foreignModel>../..</foreignModel>
-  <genPackages prefix="Commonarchive" basePackage="com.ibm.etools.j2ee" ecorePackage="commonarchivecore.ecore#/">
+  <genPackages prefix="Commonarchive" basePackage="org.eclipse.jst.j2ee" ecorePackage="commonarchivecore.ecore#/">
     <genClasses ecoreClass="commonarchivecore.ecore#//File">
       <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/URI"/>
       <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/lastModified"/>
@@ -51,7 +51,7 @@
     <genClasses ecoreClass="commonarchivecore.ecore#//WebModuleRef"/>
     <genClasses ecoreClass="commonarchivecore.ecore#//ClientModuleRef"/>
     <genClasses ecoreClass="commonarchivecore.ecore#//ConnectorModuleRef"/>
-    <nestedGenPackages prefix="Looseconfig" basePackage="com.ibm.etools.j2ee.commonarchivecore"
+    <nestedGenPackages prefix="Looseconfig" basePackage="org.eclipse.jst.j2ee.commonarchivecore"
         ecorePackage="commonarchivecore.ecore#//looseconfig">
       <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseApplication">
         <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseApplication/looseArchives"/>
@@ -76,7 +76,7 @@
         <genFeatures property="None" children="true" ecoreFeature="ecore:EReference commonarchivecore.ecore#//looseconfig/LooseWARFile/looseLibs"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="Commonarchive" basePackage="com.ibm.etools.j2ee" ecorePackage="commonarchivecore.ecore#/">
+    <nestedGenPackages prefix="Commonarchive" basePackage="org.eclipse.jst.j2ee" ecorePackage="commonarchivecore.ecore#/">
       <genClasses ecoreClass="commonarchivecore.ecore#//File" labelFeature="#//commonarchivecore/commonarchivecore/File/URI">
         <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/URI"/>
         <genFeatures ecoreFeature="ecore:EAttribute commonarchivecore.ecore#//File/lastModified"/>
@@ -118,7 +118,7 @@
       <genClasses ecoreClass="commonarchivecore.ecore#//WebModuleRef"/>
       <genClasses ecoreClass="commonarchivecore.ecore#//ClientModuleRef"/>
       <genClasses ecoreClass="commonarchivecore.ecore#//ConnectorModuleRef"/>
-      <nestedGenPackages prefix="Looseconfig" basePackage="com.ibm.etools.j2ee.commonarchivecore"
+      <nestedGenPackages prefix="Looseconfig" basePackage="org.eclipse.jst.j2ee.commonarchivecore"
           ecorePackage="commonarchivecore.ecore#//looseconfig">
         <genClasses ecoreClass="commonarchivecore.ecore#//looseconfig/LooseApplication"
             labelFeature="#//commonarchivecore/commonarchivecore/looseconfig/LooseArchive/uri">

@@ -11,13 +11,13 @@
 package org.eclipse.jst.j2ee.model.internal.validation;
 
 
-import org.eclipse.wst.validation.internal.core.IHelper;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.IReporter;
-import org.eclipse.wst.validation.internal.core.IValidator;
-import org.eclipse.wst.validation.internal.core.Message;
-import org.eclipse.wst.validation.internal.core.MessageFilter;
-import org.eclipse.wst.validation.internal.core.MessageLimitException;
+import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.IReporter;
+import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.core.Message;
+import org.eclipse.wst.validation.core.MessageFilter;
+import org.eclipse.wst.validation.core.MessageLimitException;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;

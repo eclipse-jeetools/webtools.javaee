@@ -34,10 +34,10 @@
             name="%jca.project_ui_"
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectWizard">
+            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleCreationWizard">
          <description>
             %new.jca.project.description_ui_
          </description>

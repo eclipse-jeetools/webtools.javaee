@@ -22,10 +22,10 @@ import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
-import org.eclipse.wst.validation.internal.core.IFileDelta;
-import org.eclipse.wst.validation.internal.core.IHelper;
-import org.eclipse.wst.validation.internal.core.IReporter;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IFileDelta;
+import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IReporter;
+import org.eclipse.wst.validation.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
@@ -103,7 +103,7 @@ public class UIWarValidator extends WarValidator {
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
-	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.internal.core.ValidationException {
+	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.core.ValidationException {
 		setWarHelper((UIWarHelper) inHelper);
 
 		IProject proj = ((IWorkbenchHelper) inHelper).getProject();

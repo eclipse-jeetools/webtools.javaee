@@ -148,7 +148,7 @@ public class ServerEarAndStandaloneGroup {
 		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, moduleModel.getProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME));
 		earModel.setProperty(J2EEProjectCreationDataModel.SERVER_TARGET_ID, moduleModel.getProperty(J2EEProjectCreationDataModel.SERVER_TARGET_ID));
 		earModel.setBooleanProperty(EARProjectCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
-		ApplicationProjectWizard earWizard = new ApplicationProjectWizard(earModel);
+		J2EEApplicationCreationWizard earWizard = new J2EEApplicationCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
 			moduleModel.notifyUpdatedEARs();

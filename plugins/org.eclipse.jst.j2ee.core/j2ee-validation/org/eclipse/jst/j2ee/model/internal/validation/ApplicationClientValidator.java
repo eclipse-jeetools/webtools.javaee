@@ -16,13 +16,13 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
-import org.eclipse.wst.validation.internal.core.IFileDelta;
-import org.eclipse.wst.validation.internal.core.IHelper;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.IReporter;
-import org.eclipse.wst.validation.internal.core.Message;
-import org.eclipse.wst.validation.internal.core.SeverityEnum;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IFileDelta;
+import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.IReporter;
+import org.eclipse.wst.validation.core.Message;
+import org.eclipse.wst.validation.core.SeverityEnum;
+import org.eclipse.wst.validation.core.ValidationException;
 
 
 

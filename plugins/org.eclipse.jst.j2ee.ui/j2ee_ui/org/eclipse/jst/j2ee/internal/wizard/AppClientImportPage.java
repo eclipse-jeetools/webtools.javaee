@@ -83,7 +83,7 @@ public class AppClientImportPage extends J2EEModuleImportPage {
 	}
 
 	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new AppClientProjectWizard((AppClientProjectCreationDataModel) aModel);
+		return new AppClientModuleCreationWizard((AppClientProjectCreationDataModel) aModel);
 	}
 
 	private AppClientImportDataModel getAppClientDataModel() {

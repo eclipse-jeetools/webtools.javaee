@@ -65,7 +65,7 @@ public interface IJ2EEUIContextIds {
 	public static final String EXPORT_APPCLIENT_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".APPCLIENT_EXPORT_APPCLIENT_WIZARD_PAGE1"; //$NON-NLS-1$
 
 	//Delete Enterprise Bean Dialog
-	public static final String DELETE_ENTERPRISE_BEAN_DIALOG = "com.ibm.wtp.generic.Delete"; //$NON-NLS-1$
+	public static final String DELETE_ENTERPRISE_BEAN_DIALOG = "org.eclipse.wst.common.generic.Delete"; //$NON-NLS-1$
 
 	//Add Jar Wizard
 	public static final String ADD_JAR_WIZARD_P1 = J2EEUIPlugin.PLUGIN_ID + ".EJB_ADDJAR_PAGE1"; //$NON-NLS-1$

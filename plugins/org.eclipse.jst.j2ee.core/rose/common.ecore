@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="common"
-    nsURI="common.xmi" nsPrefix="com.ibm.etools.j2ee.common">
+    nsURI="common.xmi" nsPrefix="org.eclipse.jst.j2ee.j2ee.common">
   <eClassifiers xsi:type="ecore:EClass" name="EjbRef">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The ejb-refType is used by ejb-ref elements for the&#xD;&#xA;declaration of a reference to an enterprise bean's home. The&#xD;&#xA;declaration consists of:&#xD;&#xA;&#xD;&#xA;    - an optional description&#xD;&#xA;    - the EJB reference name used in the code of&#xD;&#xA;      the Deployment Component that's referencing the enterprise&#xD;&#xA;      bean&#xD;&#xA;    - the expected type of the referenced enterprise bean&#xD;&#xA;    - the expected home and remote interfaces of the referenced&#xD;&#xA;      enterprise bean&#xD;&#xA;    - optional ejb-link information, used to specify the&#xD;&#xA;      referenced enterprise bean"/>

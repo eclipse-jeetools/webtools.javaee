@@ -23,12 +23,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
-import org.eclipse.wst.validation.internal.core.IFileDelta;
-import org.eclipse.wst.validation.internal.core.IHelper;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.IReporter;
-import org.eclipse.wst.validation.internal.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IFileDelta;
+import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.IReporter;
+import org.eclipse.wst.validation.core.MessageLimitException;
+import org.eclipse.wst.validation.core.ValidationException;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;

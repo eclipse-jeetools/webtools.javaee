@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="wsdd"
-    nsURI="wsdd.xmi" nsPrefix="com.ibm.etools.webservice.wsdd">
+    nsURI="wsdd.xmi" nsPrefix="org.eclipse.jst.j2ee.webservice.wsdd">
   <eClassifiers xsi:type="ecore:EClass" name="WebServices" eSuperTypes="common.ecore#//CompatibilityDescriptionGroup">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The webservices element is the root element for the web services deployment descriptor.  It specifies the set of Web service descriptions that are to be deployed into the J2EE Application Server and the dependencies they have on container resources and services.&#xD;&#xA;"/>

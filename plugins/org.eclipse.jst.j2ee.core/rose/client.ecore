@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="client"
-    nsURI="client.xmi" nsPrefix="com.ibm.etools.client">
+    nsURI="client.xmi" nsPrefix="org.eclipse.jst.j2ee.client">
   <eClassifiers xsi:type="ecore:EClass" name="ApplicationClient" eSuperTypes="common.ecore#//CompatibilityDescriptionGroup">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The application-client element is the root element of an application client deployment descriptor.  The application client deployment descriptor describes the EJB components and external resources referenced by the application client.&#xD;&#xA;"/>

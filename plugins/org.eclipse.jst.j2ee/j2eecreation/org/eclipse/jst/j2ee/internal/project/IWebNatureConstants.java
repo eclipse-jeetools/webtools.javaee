@@ -29,8 +29,8 @@ public interface IWebNatureConstants {
 	String PORTLET_NATURE_ID = "com.ibm.etools.portal.tools.PortletProjectNature"; //$NON-NLS-1$
 	String STRUTS_NATURE_ID = "com.ibm.etools.struts.StrutsNature";//$NON-NLS-1$
 	String JSF_NATURE_ID = "com.ibm.etools.jsf.JSFNature";//$NON-NLS-1$
-	public static final String EDIT_MODEL_ID = "com.ibm.wtp.web.editModel"; //$NON-NLS-1$
-	String WEB_SERVICE_EDIT_MODEL_ID = "com.ibm.wtp.webservice.web.editModel"; //$NON-NLS-1$
+	public static final String EDIT_MODEL_ID = "org.eclipse.jst.web.editModel"; //$NON-NLS-1$
+	String WEB_SERVICE_EDIT_MODEL_ID = "org.eclipse.jst.webservice.web.editModel"; //$NON-NLS-1$
 	String DEFAULT_AUTO_INVOKER_PATH = "servlet"; //$NON-NLS-1$
 	String DEFAULT_FILE_PATH = ""; //$NON-NLS-1$
 

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <genmodel:GenModel xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.ibm.etools.j2ee.core/src"
-    editDirectory="/com.ibm.etools.j2ee.core.edit/src" editorDirectory="/com.ibm.etools.j2ee.core.editor/src"
-    modelPluginID="com.ibm.etools.j2ee.core" modelName="Webservice" editPluginClass="com.ibm.etools.webservice.wsdd.provider.WebserviceEditPlugin"
-    editorPluginClass="com.ibm.etools.webservice.wsdd.presentation.WebserviceEditorPlugin"
-    usedGenPackages="j2ee.genmodel#//common ../../org.eclipse.jem/model/javaModel.genmodel#//java j2ee.genmodel#//wsclient ../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore">
+  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jst.j2ee.core/src"
+    editDirectory="/org.eclipse.jst.j2ee.core.edit/src" editorDirectory="/org.eclipse.jst.j2ee.core.editor/src"
+    modelPluginID="org.eclipse.jst.j2ee.core" modelName="Webservice" editPluginClass="org.eclipse.jst.j2ee.webservice.wsdd.provider.WebserviceEditPlugin"
+    editorPluginClass="org.eclipse.jst.j2ee.webservice.wsdd.presentation.WebserviceEditorPlugin"
+    usedGenPackages="j2ee.genmodel#//common ../../org.eclipse.jem/model/javaModel.genmodel#//java j2ee.genmodel#//wsclient ../../org.eclipse.emf.ecore/src-ecore/model/Ecore.genmodel#//ecore">
   <foreignModel>webservice-j2ee.mdl</foreignModel>
   <foreignModel>WORKSPACE_ROOT</foreignModel>
   <foreignModel>../..</foreignModel>
-  <genPackages prefix="Wsdd" basePackage="com.ibm.etools.webservice" ecorePackage="wsdd.ecore#/">
+  <genPackages prefix="Wsdd" basePackage="org.eclipse.jst.j2ee.webservice" ecorePackage="wsdd.ecore#/">
     <genClasses ecoreClass="wsdd.ecore#//WebServices">
       <genFeatures ecoreFeature="ecore:EAttribute wsdd.ecore#//WebServices/description"/>
       <genFeatures ecoreFeature="ecore:EAttribute wsdd.ecore#//WebServices/displayName"/>
@@ -69,7 +69,7 @@
     </genClasses>
     <genClasses ecoreClass="wsdd.ecore#//BeanLink"/>
   </genPackages>
-  <genPackages prefix="Wscommon" basePackage="com.ibm.etools.webservice" ecorePackage="wscommon.ecore#/">
+  <genPackages prefix="Wscommon" basePackage="org.eclipse.jst.j2ee.webservice" ecorePackage="wscommon.ecore#/">
     <genClasses ecoreClass="wscommon.ecore#//InitParam">
       <genFeatures ecoreFeature="ecore:EAttribute wscommon.ecore#//InitParam/paramName"/>
       <genFeatures ecoreFeature="ecore:EAttribute wscommon.ecore#//InitParam/paramValue"/>

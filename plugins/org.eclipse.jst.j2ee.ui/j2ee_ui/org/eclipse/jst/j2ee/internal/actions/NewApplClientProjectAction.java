@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.internal.actions;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.wizard.AppClientProjectWizard;
+import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleCreationWizard;
 import org.eclipse.ui.IWorkbench;
 
 
@@ -33,7 +33,7 @@ public class NewApplClientProjectAction extends AbstractOpenWizardWorkbenchActio
 	}
 
 	protected Wizard createWizard() {
-		return new AppClientProjectWizard();
+		return new AppClientModuleCreationWizard();
 	}
 
 	protected boolean shouldAcceptElement(Object obj) {

@@ -97,22 +97,22 @@
 	    (object Class_Category "wscommon"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\wscommon.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\wscommon.cat"
 		quid       	"3E15B4C0016F")
 	    (object Class_Category "jaxrpcmap"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\jaxrpcmap.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\jaxrpcmap.cat"
 		quid       	"3E161FA90266")
 	    (object Class_Category "wsdd"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\wsdd.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\wsdd.cat"
 		quid       	"3E109EAD0319")
 	    (object Class_Category "common"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\common.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\common.cat"
 		quid       	"38C08F0F038D")
 	    (object Class_Category "java"
 		is_unit    	TRUE
@@ -122,27 +122,27 @@
 	    (object Class_Category "ecore"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\org.eclipse.emf.ecore\\src\\model\\org.eclipse.emf.Ecore.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.emf.ecore\\src-ecore\\model\\org.eclipse.emf.Ecore.cat"
 		quid       	"39A5ED04004E")
 	    (object Class_Category "ejb"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\ejbschema.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\ejbschema.cat"
 		quid       	"3780E272032D")
 	    (object Class_Category "webapplication"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\webapplication.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\webapplication.cat"
 		quid       	"38C076D603DD")
 	    (object Class_Category "wsclient"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\webservices_client_1_0.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\webservices_client_1_0.cat"
 		quid       	"3E4D2F4B02AA")
 	    (object Class_Category "jsp"
 		is_unit    	TRUE
 		is_loaded  	FALSE
-		file_name  	"$WORKSPACE_ROOT\\com.ibm.etools.j2ee.core\\rose\\jsp_2_0.cat"
+		file_name  	"$WORKSPACE_ROOT\\org.eclipse.jst.j2ee.core\\rose\\jsp_2_0.cat"
 		quid       	"3E4D4F69036B"))
 	logical_presentations 	(list unit_reference_list
 	    (object ClassDiagram "Main"

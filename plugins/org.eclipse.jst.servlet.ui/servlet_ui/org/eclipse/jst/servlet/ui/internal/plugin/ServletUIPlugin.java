@@ -21,6 +21,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class ServletUIPlugin extends AbstractUIPlugin {
+	
+	public static final String PLUGIN_ID = "org.eclipse.jst.servlet.ui"; //$NON-NLS-1$
 //	The shared instance.
 	private static ServletUIPlugin plugin;
 	//Resource bundle.

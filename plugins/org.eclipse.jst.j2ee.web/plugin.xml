@@ -115,7 +115,7 @@
          name="Web Edit Model"
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="com.ibm.wtp.web.editModel"
+            editModelID="org.eclipse.jst.web.editModel"
             factoryClass="org.eclipse.jst.j2ee.internal.web.operations.WebEditModelFactory">
          <editModelResource
                URI="WEB-INF/web.xml">
@@ -128,13 +128,13 @@
    <extension
          id="WebModuleExtension"
          name="WebModuleExtension"
-         point="org.eclipse.jst.j2ee.internal.EARModuleExtension">
+         point="org.eclipse.jst.j2ee.EARModuleExtension">
       <earModuleExtension
             extensionClass="org.eclipse.jst.j2ee.internal.web.plugin.WebModuleExtensionImpl">
       </earModuleExtension>
    </extension>
    <extension
-         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
             className="org.eclipse.jst.j2ee.internal.web.providers.WebapplicationItemProviderAdapterFactory"
@@ -143,7 +143,7 @@
       </adapterFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
             className="org.eclipse.jst.j2ee.internal.web.providers.JspItemProviderAdapterFactory"

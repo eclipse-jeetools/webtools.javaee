@@ -22,5 +22,5 @@ public interface IEARNatureConstants {
 
 	String DEFAULT_META_PATH = "META-INF"; //$NON-NLS-1$
 	String[] NATURE_IDS = {NATURE_ID};
-	String EDIT_MODEL_ID = "com.ibm.wtp.application.editModel"; //$NON-NLS-1$
+	String EDIT_MODEL_ID = "org.eclipse.jst.j2ee.application.editModel"; //$NON-NLS-1$
 }

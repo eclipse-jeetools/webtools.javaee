@@ -334,7 +334,7 @@ public class NewModuleProjectSelectionPage extends WTPWizardPage {
 				 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
 				 */
 				protected IWizard createWizard() {
-					return new AppClientProjectWizard(getDefaultModel().getClientModel());
+					return new AppClientModuleCreationWizard(getDefaultModel().getClientModel());
 				}
 			};
 		}

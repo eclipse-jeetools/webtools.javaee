@@ -29,7 +29,7 @@ public interface IEJBNatureConstants {
 	/** The possible nature ids available for an EJB project */
 	String[] EJB_NATURE_IDS = {NATURE_ID};
 
-	String EDIT_MODEL_ID = "com.ibm.wtp.ejb.editModel"; //$NON-NLS-1$
-	String WEB_SERVICE_EDIT_MODEL_ID = "com.ibm.wtp.webservice.ejb.editModel"; //$NON-NLS-1$
+	String EDIT_MODEL_ID = "org.eclipse.jst.ejb.editModel"; //$NON-NLS-1$
+	String WEB_SERVICE_EDIT_MODEL_ID = "org.eclipse.jst.j2ee.webservice.ejb.editModel"; //$NON-NLS-1$
 
 }

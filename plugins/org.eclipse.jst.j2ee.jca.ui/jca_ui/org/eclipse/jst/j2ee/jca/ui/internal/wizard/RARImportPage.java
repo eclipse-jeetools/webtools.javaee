@@ -71,7 +71,7 @@ public class RARImportPage extends J2EEModuleImportPage {
 	}
 
 	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new JCAProjectWizard((ConnectorProjectCreationDataModel) aModel);
+		return new ConnectorModuleCreationWizard((ConnectorProjectCreationDataModel) aModel);
 	}
 
 	protected String getFileNamesStoreID() {

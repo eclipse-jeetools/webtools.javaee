@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="commonarchivecore"
-    nsURI="commonarchive.xmi" nsPrefix="com.ibm.etools.j2ee.commonarchivecore">
+    nsURI="commonarchive.xmi" nsPrefix="org.eclipse.jst.j2ee.commonarchivecore">
   <eClassifiers xsi:type="ecore:EClass" name="File">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="URI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastModified" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
@@ -59,7 +59,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="WebModuleRef" eSuperTypes="#//ModuleRef"/>
   <eClassifiers xsi:type="ecore:EClass" name="ClientModuleRef" eSuperTypes="#//ModuleRef"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectorModuleRef" eSuperTypes="#//ModuleRef"/>
-  <eSubpackages name="looseconfig" nsURI="commonarchive.looseconfig.xmi" nsPrefix="com.ibm.etools.j2ee.commonarchivecore.looseconfig">
+  <eSubpackages name="looseconfig" nsURI="commonarchive.looseconfig.xmi" nsPrefix="org.eclipse.jst.j2ee.commonarchivecore.looseconfig">
     <eClassifiers xsi:type="ecore:EClass" name="LooseApplication" eSuperTypes="#//looseconfig/LooseArchive">
       <eStructuralFeatures xsi:type="ecore:EReference" name="looseArchives" upperBound="-1"
           eType="#//looseconfig/LooseArchive" containment="true" eOpposite="#//looseconfig/LooseArchive/looseApp"/>

@@ -21,6 +21,10 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class JCAUIPlugin extends AbstractUIPlugin {
+	
+	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.jca.ui"; //$NON-NLS-1$
+	
+	
 //	The shared instance.
 	private static JCAUIPlugin plugin;
 	//Resource bundle.

@@ -16,8 +16,8 @@ import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.ValidationException;
 
 
 /**
@@ -50,7 +50,7 @@ public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 	
 
 	/**
-	 * @see org.eclipse.wst.validation.internal.core.core.ejb.ejb20.rules.impl.AHomeVRule#returnsComponentInterfaceOrCollection(IValidationContext, EnterpriseBean, JavaClass, Method)
+	 * @see org.eclipse.wst.validation.core.core.ejb.ejb20.rules.impl.AHomeVRule#returnsComponentInterfaceOrCollection(IValidationContext, EnterpriseBean, JavaClass, Method)
 	 */
 	protected boolean returnsComponentInterfaceOrCollection(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException {
 		if(returnsComponentInterface(vc, bean, clazz, method)) {

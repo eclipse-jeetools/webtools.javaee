@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="jsp"
-    nsURI="jsp.xmi" nsPrefix="com.ibm.etools.jsp">
+    nsURI="jsp.xmi" nsPrefix="org.eclipse.jst.j2ee.jsp">
   <eClassifiers xsi:type="ecore:EClass" name="JSPConfig">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="@since J2EE1.4&#xD;&#xA;The jsp-configType is used to provide global configuration&#xD;&#xA;information for the JSP files in a web application. It has&#xD;&#xA;two subelements, taglib and jsp-property-group."/>

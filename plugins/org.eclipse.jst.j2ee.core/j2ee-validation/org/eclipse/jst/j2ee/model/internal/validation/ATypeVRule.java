@@ -22,9 +22,9 @@ import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.MessageLimitException;
+import org.eclipse.wst.validation.core.ValidationException;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;

@@ -25,7 +25,6 @@
       <import plugin="org.eclipse.jst.j2ee.core"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.validation"/>
-      <import plugin="org.eclipse.wst.validation.mof"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
       <import plugin="org.eclipse.wst.sse.core"/>
       <import plugin="org.eclipse.wst.server.core"/>
@@ -58,18 +57,18 @@
 <!-- This extension-point sends notification to all extensions when J2EEModules are imported.
         Each extension can specify a set of different module types to listen for or listen to them
         all.  The default is to receive notification for all module types.  Notification is sent
-        to the specified class implementing org.eclipse.jst.j2ee.internal.internal.J2EEModulePostImportHandler
+        to the specified class implementing org.eclipse.jst.j2ee.internal.J2EEModulePostImportHandler
 		
 		Both of the following examples register for notification for all J2EEModule types, the first
 		uses the defaults, while the second specifies each module type.  To listen for only specific
 		module types, use the second example and specify only the types to listen to.        
         
-    <extension point="org.eclipse.jst.j2ee.internal.internal.J2EEModulePostImport">
-        <postImport className="org.eclipse.jst.j2ee.internal.internal.tests.extensions.ModulePostImportTestDefault"></postImport>
+    <extension point="org.eclipse.jst.j2ee.internal.J2EEModulePostImport">
+        <postImport className="org.eclipse.jst.j2ee.internal.tests.extensions.ModulePostImportTestDefault"></postImport>
     </extension>
         
-    <extension point="org.eclipse.jst.j2ee.internal.internal.J2EEModulePostImport">
-    	<postImport className="org.eclipse.jst.j2ee.internal.internal.tests.extensions.ModulePostImportTestAll"></postImport>
+    <extension point="org.eclipse.jst.j2ee.internal.J2EEModulePostImport">
+    	<postImport className="org.eclipse.jst.j2ee.internal.tests.extensions.ModulePostImportTestAll"></postImport>
     	<module type="WEB"></module>
     	<module type="EJB"></module>
     	<module type="ApplicationClient"></module>
@@ -374,7 +373,7 @@
          name="Core Edit Model"
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="com.ibm.wtp.application.editModel"
+            editModelID="org.eclipse.jst.j2ee.application.editModel"
             factoryClass="org.eclipse.jst.j2ee.internal.earcreation.EAREditModelFactory">
          <editModelResource
                URI="META-INF/application.xml">
@@ -384,7 +383,7 @@
          </editModelResource>
       </editModel>
       <editModel
-            editModelID="com.ibm.wtp.applicationClient.editModel"
+            editModelID="org.eclipse.jst.j2ee.applicationClient.editModel"
             factoryClass="org.eclipse.jst.j2ee.applicationclient.creation.AppClientEditModelFactory">
          <editModelResource
                URI="META-INF/application-client.xml">
@@ -396,7 +395,7 @@
    </extension>
    <extension
          name="J2EE tools function group"
-         point="org.eclipse.wst.common.frameworks.internals.functionGroup">
+         point="org.eclipse.wst.common.frameworks.functionGroup">
       <functionGroup
             initializerClassName="org.eclipse.jst.j2ee.internal.plugin.J2EEGroupInitializer"
             name="J2EE Core tools"
@@ -529,7 +528,7 @@
          name="Web Service Edit Model"
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="com.ibm.wtp.webservice.ejb.editModel"
+            editModelID="org.eclipse.jst.j2ee.webservice.ejb.editModel"
             factoryClass="org.eclipse.jst.j2ee.internal.webservices.EjbProjectWebServiceEditModelFactory">
          <editModelResource
                URI="META-INF/webservices.xml"
@@ -542,7 +541,7 @@
          name="Web Service Edit Model"
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="com.ibm.wtp.webservice.web.editModel"
+            editModelID="org.eclipse.jst.webservice.web.editModel"
             factoryClass="org.eclipse.jst.j2ee.internal.webservices.WebProjectWebServiceEditModelFactory">
          <editModelResource
                URI="WEB-INF/webservices.xml"
@@ -553,9 +552,9 @@
    <extension
          id="editModel.appClientWebService"
          name="Web Service Edit Model"
-         point="org.eclipse.wst.common.internal.emfworkbench.integration.editModel">
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="com.ibm.wtp.webservice.appClient.editModel"
+            editModelID="org.eclipse.jst.j2ee.webservice.appClient.editModel"
             factoryClass="org.eclipse.jst.j2ee.internal.webservices.AppClientProjectWebServiceEditModelFactory">
          <editModelResource
                URI="META-INF/webservices.xml"

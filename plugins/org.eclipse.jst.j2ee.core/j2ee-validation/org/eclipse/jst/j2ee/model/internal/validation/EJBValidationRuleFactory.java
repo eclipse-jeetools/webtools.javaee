@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.validation.internal.core.IFileDelta;
+import org.eclipse.wst.validation.core.IFileDelta;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

@@ -48,10 +48,12 @@ import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
+import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 import com.ibm.wtp.common.UIContextDetermination;
@@ -474,6 +476,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		// modules
 		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapInit.init(false);
 		ensureFactoryRegistration();
+		ValidatorManager.setResourceUtilClass(ResourceUtil.class);
 	}
 
 	/*

@@ -58,7 +58,7 @@
          name="Connector Edit Model"
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="com.ibm.wtp.jca.editModel"
+            editModelID="org.eclipse.jst.j2ee.jca.editModel"
             factoryClass="org.eclipse.jst.j2ee.internal.jca.operations.ConnectorEditModelFactory">
          <editModelResource
                URI="META-INF/ra.xml">
@@ -68,13 +68,13 @@
    <extension
          id="JcaModuleExtension"
          name="JcaModuleExtension"
-         point="org.eclipse.jst.j2ee.internal.EARModuleExtension">
+         point="org.eclipse.jst.j2ee.EARModuleExtension">
       <earModuleExtension
-            extensionClass="org.eclipse.jst.j2ee.internal.jca.plugin.JcaModuleExtensionImpl">
+            extensionClass="org.eclipse.jst.j2ee.jca.internal.plugin.JcaModuleExtensionImpl">
       </earModuleExtension>
    </extension>
    <extension
-         point="org.eclipse.wst.common.internal.emfworkbench.integration.adapterFactory">
+         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
             className="org.eclipse.jst.j2ee.internal.jca.provider.JcaItemProviderAdapterFactory"

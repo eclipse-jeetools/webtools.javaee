@@ -15,7 +15,7 @@
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"basePackage"
-	    value      	(value Text "com.ibm.etools"))
+	    value      	(value Text "org.eclipse.jst.j2ee"))
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"nsURI"
@@ -2812,6 +2812,23 @@
 		    line_color 	10485760
 		    fill_color 	14472649
 		    quidu      	"3780E5F901EB"
+		    compartment 	(object Compartment
+			Parent_View 	@1
+			location   	(766, 1686)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	3
+			max_width  	622)
 		    width      	752
 		    height     	286
 		    autoResize 	TRUE)
@@ -2841,6 +2858,23 @@
 		    line_color 	10485760
 		    fill_color 	14472649
 		    quidu      	"3780E6970351"
+		    compartment 	(object Compartment
+			Parent_View 	@2
+			location   	(1575, 1711)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	2
+			max_width  	338)
 		    width      	420
 		    height     	236
 		    autoResize 	TRUE)
@@ -2938,18 +2972,18 @@
 			default_color 	TRUE)
 		    label      	(object ItemLabel
 			Parent_View 	@7
-			location   	(2164, 1617)
+			location   	(2092, 1642)
 			fill_color 	13434879
 			nlines     	1
-			max_width  	222
+			max_width  	366
 			justify    	0
 			label      	"MessageDriven")
 		    icon_style 	"Icon"
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF3248010B"
-		    width      	240
-		    height     	157
+		    width      	384
+		    height     	107
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object NoteView @8
@@ -3021,7 +3055,7 @@
 			fill_color 	13434879
 			nlines     	3
 			max_width  	421
-			label      	"Added ejbJar back reference per Yeung Lei.")
+			label      	"Added ejbJar back reference")
 		    fill_color 	14679807
 		    width      	481
 		    height     	175)
@@ -3182,6 +3216,23 @@
 		    line_color 	10485760
 		    fill_color 	14472649
 		    quidu      	"3780E71A010A"
+		    compartment 	(object Compartment
+			Parent_View 	@18
+			location   	(1182, 1139)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	TRUE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	2
+			max_width  	253)
 		    width      	462
 		    height     	386
 		    autoResize 	TRUE)
@@ -3248,6 +3299,23 @@
 		    line_color 	10485760
 		    fill_color 	14472649
 		    quidu      	"371BC55D01E1"
+		    compartment 	(object Compartment
+			Parent_View 	@22
+			location   	(130, 813)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			icon_style 	"Icon"
+			fill_color 	16777215
+			anchor     	2
+			nlines     	3
+			max_width  	412)
 		    width      	492
 		    height     	492
 		    annotation 	8
@@ -3612,12 +3680,12 @@
 		    client     	@7
 		    supplier   	@18
 		    vertices   	(list Points
-			(2269, 1605)
+			(2269, 1630)
 			(2269, 1519)
 			(1397, 1519)
 			(1397, 1452))
 		    line_style 	3
-		    origin_attachment 	(2269, 1605)
+		    origin_attachment 	(2269, 1630)
 		    terminal_attachment 	(1397, 1452))))
 	(object ClassDiagram "Enterprise Bean"
 	    quid       	"3805531D02C3"
@@ -7922,22 +7990,6 @@
 		    line_color 	3342489
 		    fill_color 	16777215
 		    quidu      	"36549FCC00FA"
-		    compartment 	(object Compartment
-			Parent_View 	@254
-			location   	(867, 637)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			anchor     	2
-			nlines     	3
-			max_width  	0)
 		    width      	354
 		    height     	342
 		    annotation 	8
@@ -8636,11 +8688,11 @@
 			    supplier   	@285
 			    vertices   	(list Points
 				(97, 835)
-				(97, 1714)
-				(291, 1714))
+				(97, 1713)
+				(291, 1713))
 			    line_style 	3
 			    origin_attachment 	(97, 835)
-			    terminal_attachment 	(291, 1714))))))
+			    terminal_attachment 	(291, 1713))))))
 	(object ClassDiagram "Data Types"
 	    quid       	"3810D69C01E4"
 	    title      	"Data Types"
@@ -8972,48 +9024,7 @@
 		    line_style 	3
 		    origin_attachment 	(2748, 1864)
 		    terminal_attachment 	(2748, 1678))
-		(object ClassView "Class" "Logical View::ejb::EJBJar" @303
-		    ShowCompartmentStereotypes 	TRUE
-		    SuppressAttribute 	TRUE
-		    SuppressOperation 	TRUE
-		    IncludeAttribute 	TRUE
-		    IncludeOperation 	TRUE
-		    location   	(544, 256)
-		    font       	(object Font
-			size       	10
-			face       	"Arial"
-			bold       	FALSE
-			italics    	FALSE
-			underline  	FALSE
-			strike     	FALSE
-			color      	0
-			default_color 	TRUE)
-		    label      	(object ItemLabel
-			Parent_View 	@303
-			location   	(384, 233)
-			fill_color 	13434879
-			nlines     	1
-			max_width  	320
-			justify    	0
-			label      	"EJBJar")
-		    stereotype 	(object ItemLabel
-			Parent_View 	@303
-			location   	(384, 183)
-			fill_color 	13434879
-			anchor     	10
-			nlines     	1
-			max_width  	317
-			justify    	0
-			label      	"<<component>>")
-		    icon_style 	"Icon"
-		    line_color 	3342489
-		    fill_color 	13434879
-		    quidu      	"371BC55D01E1"
-		    width      	338
-		    height     	170
-		    annotation 	8
-		    autoResize 	TRUE)
-		(object ClassView "Class" "Logical View::java::JavaClass" @304
+		(object ClassView "Class" "Logical View::java::JavaClass" @303
 		    ShowCompartmentStereotypes 	TRUE
 		    SuppressAttribute 	TRUE
 		    SuppressOperation 	TRUE
@@ -9030,7 +9041,7 @@
 			color      	0
 			default_color 	TRUE)
 		    label      	(object ItemLabel
-			Parent_View 	@304
+			Parent_View 	@303
 			location   	(323, 2577)
 			nlines     	2
 			max_width  	186
@@ -9042,6 +9053,47 @@
 		    quidu      	"36549FCC00FA"
 		    width      	204
 		    height     	182
+		    annotation 	8
+		    autoResize 	TRUE)
+		(object ClassView "Class" "Logical View::ejb::EJBJar" @304
+		    ShowCompartmentStereotypes 	TRUE
+		    SuppressAttribute 	TRUE
+		    SuppressOperation 	TRUE
+		    IncludeAttribute 	TRUE
+		    IncludeOperation 	TRUE
+		    location   	(544, 256)
+		    font       	(object Font
+			size       	10
+			face       	"Arial"
+			bold       	FALSE
+			italics    	FALSE
+			underline  	FALSE
+			strike     	FALSE
+			color      	0
+			default_color 	TRUE)
+		    label      	(object ItemLabel
+			Parent_View 	@304
+			location   	(384, 233)
+			fill_color 	13434879
+			nlines     	1
+			max_width  	320
+			justify    	0
+			label      	"EJBJar")
+		    stereotype 	(object ItemLabel
+			Parent_View 	@304
+			location   	(384, 183)
+			fill_color 	13434879
+			anchor     	10
+			nlines     	1
+			max_width  	317
+			justify    	0
+			label      	"<<component>>")
+		    icon_style 	"Icon"
+		    line_color 	3342489
+		    fill_color 	13434879
+		    quidu      	"371BC55D01E1"
+		    width      	338
+		    height     	170
 		    annotation 	8
 		    autoResize 	TRUE)
 		(object ClassView "Class" "Logical View::ejb::CMRField" @305
@@ -9133,7 +9185,7 @@
 			    line_color 	3342489
 			    quidu      	"399AE0FC038F"
 			    client     	@307
-			    supplier   	@304
+			    supplier   	@303
 			    line_style 	3
 			    origin_attachment 	(416, 2466)
 			    terminal_attachment 	(416, 2565)
@@ -9272,7 +9324,7 @@
 			    line_color 	3342489
 			    quidu      	"39BEF889003D"
 			    client     	@314
-			    supplier   	@303
+			    supplier   	@304
 			    line_style 	3
 			    origin_attachment 	(550, 412)
 			    terminal_attachment 	(550, 340)
@@ -11570,23 +11622,6 @@
 		    line_color 	3342489
 		    fill_color 	13434879
 		    quidu      	"37FCA48702EF"
-		    compartment 	(object Compartment
-			Parent_View 	@428
-			location   	(1659, 474)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	231)
 		    width      	350
 		    height     	292
 		    annotation 	8
@@ -11654,23 +11689,6 @@
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF36D703E4"
-		    compartment 	(object Compartment
-			Parent_View 	@431
-			location   	(564, 1146)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	446)
 		    width      	458
 		    height     	292
 		    annotation 	8
@@ -11710,23 +11728,6 @@
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF38F0029C"
-		    compartment 	(object Compartment
-			Parent_View 	@432
-			location   	(805, 1945)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	268)
 		    width      	520
 		    height     	292
 		    annotation 	8
@@ -11766,23 +11767,6 @@
 		    line_color 	32768
 		    fill_color 	13434833
 		    quidu      	"39978F5C0106"
-		    compartment 	(object Compartment
-			Parent_View 	@433
-			location   	(376, 1945)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	178)
 		    width      	354
 		    height     	292
 		    annotation 	8
@@ -11835,23 +11819,6 @@
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF33F10044"
-		    compartment 	(object Compartment
-			Parent_View 	@435
-			location   	(9, 1546)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	950)
 		    width      	1136
 		    height     	286
 		    annotation 	8
@@ -11914,23 +11881,6 @@
 		    line_color 	10949559
 		    fill_color 	15778042
 		    quidu      	"3E4D1A1A00BF"
-		    compartment 	(object Compartment
-			Parent_View 	@437
-			location   	(2445, 1777)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	294)
 		    width      	368
 		    height     	286
 		    annotation 	8
@@ -11961,23 +11911,6 @@
 		    line_color 	4227072
 		    fill_color 	13434833
 		    quidu      	"39BF3248010B"
-		    compartment 	(object Compartment
-			Parent_View 	@438
-			location   	(9, 704)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	5
-			max_width  	943)
 		    width      	1128
 		    height     	336
 		    annotation 	8
@@ -12344,23 +12277,6 @@
 		    line_color 	8421504
 		    fill_color 	12632256
 		    quidu      	"3E4A98D602E0"
-		    compartment 	(object Compartment
-			Parent_View 	@457
-			location   	(2321, 663)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			icon_style 	"Icon"
-			fill_color 	16777215
-			anchor     	2
-			nlines     	3
-			max_width  	284)
 		    width      	356
 		    height     	282
 		    annotation 	8
@@ -12638,11 +12554,11 @@
 			    supplier   	@457
 			    vertices   	(list Points
 				(1949, 830)
-				(1949, 724)
-				(2312, 724))
+				(1949, 723)
+				(2312, 723))
 			    line_style 	3
 			    origin_attachment 	(1949, 830)
-			    terminal_attachment 	(2312, 724)
+			    terminal_attachment 	(2312, 723)
 			    label      	(object SegLabel @472
 				Parent_View 	@470
 				location   	(2251, 778)
@@ -12674,4 +12590,4 @@
 			    supplier   	@458
 			    line_style 	3
 			    origin_attachment 	(1949, 830)
-			    terminal_attachment 	(1949, 1299))))))))
+			    terminal_attachment 	(1949, 1298))))))))

@@ -90,7 +90,7 @@ public class EARImportPage extends J2EEImportPage {
 	}
 
 	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new ApplicationProjectWizard((EARProjectCreationDataModel) aModel);
+		return new J2EEApplicationCreationWizard((EARProjectCreationDataModel) aModel);
 	}
 
 	protected String getProjectImportLabel() {

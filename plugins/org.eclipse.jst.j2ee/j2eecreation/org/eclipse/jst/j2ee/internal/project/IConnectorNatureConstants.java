@@ -27,7 +27,7 @@ public interface IConnectorNatureConstants {
 
 	public static final String DEFAULT_SOURCE_PATH = "connectorModule"; //$NON-NLS-1$
 	public static final String CONNECTOR_NATURE_ID = NATURE_ID; //$NON-NLS-1$
-	public static final String EDIT_MODEL_ID = "com.ibm.wtp.jca.editModel"; //$NON-NLS-1$
+	public static final String EDIT_MODEL_ID = "org.eclipse.jst.j2ee.jca.editModel"; //$NON-NLS-1$
 	public static final String CONNECTOR_CLASSPATH_ENTRY_1 = "/lib/j2ee.jar"; //$NON-NLS-1$
 	public static final String CONNECTOR_CLASSPATH_ENTRY_2 = "/lib/ivjejb35.jar"; //$NON-NLS-1$	
 	public static final String CONNECTOR_DEFAULT_URI = ".rar"; //$NON-NLS-1$		

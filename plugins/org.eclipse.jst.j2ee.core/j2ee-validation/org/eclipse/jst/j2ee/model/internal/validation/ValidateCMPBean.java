@@ -20,8 +20,8 @@ import org.eclipse.jem.java.Method;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.ValidationException;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

@@ -62,7 +62,7 @@ public class WARImportPage extends J2EEModuleImportPage {
 	}
 
 	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new WEBProjectWizard((WebProjectCreationDataModel) aModel);
+		return new WebModuleCreationWizard((WebProjectCreationDataModel) aModel);
 	}
 
 	protected String getFileNamesStoreID() {

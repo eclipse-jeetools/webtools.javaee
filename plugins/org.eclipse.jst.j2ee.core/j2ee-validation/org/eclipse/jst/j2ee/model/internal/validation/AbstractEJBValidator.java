@@ -23,12 +23,12 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 
-import org.eclipse.wst.validation.internal.core.IFileDelta;
-import org.eclipse.wst.validation.internal.core.IHelper;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.IReporter;
-import org.eclipse.wst.validation.internal.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IFileDelta;
+import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.IReporter;
+import org.eclipse.wst.validation.core.MessageLimitException;
+import org.eclipse.wst.validation.core.ValidationException;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 /**

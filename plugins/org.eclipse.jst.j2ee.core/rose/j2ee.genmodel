@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <genmodel:GenModel xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.ibm.etools.j2ee.core/mofj2ee"
-    editDirectory="/com.ibm.wtp.j2ee/commonedit" editorDirectory="/com.ibm.etools.j2ee.core.editor/src"
-    modelPluginID="com.ibm.etools.j2ee.core" templateDirectory="" modelName="J2ee"
-    editPluginClass="J2EEPlugin" editorPluginClass="com.ibm.etools.webapplication.presentation.J2eeEditorPlugin"
-    usedGenPackages="../../org.eclipse.emf.ecore/src/model/Ecore.genmodel#//ecore ../../org.eclipse.jem/model/javaModel.genmodel#//java">
+  xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jst.j2ee.core/mofj2ee"
+    editDirectory="/org.eclipse.jst.j2ee/commonedit" editorDirectory="/org.eclipse.jst.j2ee.core.editor/src"
+    modelPluginID="org.eclipse.jst.j2ee.core" templateDirectory="" modelName="J2ee"
+    editPluginClass="J2EEPlugin" editorPluginClass="org.eclipse.jst.j2ee.webapplication.presentation.J2eeEditorPlugin"
+    usedGenPackages="../../org.eclipse.emf.ecore/src-ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.jem/model/javaModel.genmodel#//java">
   <foreignModel>j2ee.mdl</foreignModel>
   <foreignModel>WORKSPACE_ROOT</foreignModel>
   <foreignModel>../..</foreignModel>
-  <genPackages prefix="Ejb" basePackage="com.ibm.etools" ecorePackage="ejb.ecore#/">
+  <genPackages prefix="Ejb" basePackage="org.eclipse.jst.j2ee" ecorePackage="ejb.ecore#/">
     <genEnums ecoreEnum="ejb.ecore#//TransactionAttributeType">
       <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/NotSupported"/>
       <genEnumLiterals ecoreEnumLiteral="ejb.ecore#//TransactionAttributeType/Supports"/>
@@ -199,7 +199,7 @@
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference ejb.ecore#//ActivationConfig/descriptions"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Taglib" basePackage="com.ibm.etools" ecorePackage="taglib.ecore#/">
+  <genPackages prefix="Taglib" basePackage="org.eclipse.jst.j2ee" ecorePackage="taglib.ecore#/">
     <genEnums ecoreEnum="taglib.ecore#//BodyContentType">
       <genEnumLiterals ecoreEnumLiteral="taglib.ecore#//BodyContentType/tagdependent"/>
       <genEnumLiterals ecoreEnumLiteral="taglib.ecore#//BodyContentType/JSP"/>
@@ -274,7 +274,7 @@
       <genFeatures ecoreFeature="ecore:EAttribute taglib.ecore#//ExtensibleType/value"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Application" basePackage="com.ibm.etools" ecorePackage="application.ecore#/">
+  <genPackages prefix="Application" basePackage="org.eclipse.jst.j2ee" ecorePackage="application.ecore#/">
     <genClasses ecoreClass="application.ecore#//Application">
       <genFeatures ecoreFeature="ecore:EAttribute application.ecore#//Application/version"/>
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference application.ecore#//Application/securityRoles"/>
@@ -292,7 +292,7 @@
     <genClasses ecoreClass="application.ecore#//EjbModule"/>
     <genClasses ecoreClass="application.ecore#//ConnectorModule"/>
   </genPackages>
-  <genPackages prefix="Wscommon" basePackage="com.ibm.etools.webservice" ecorePackage="wscommon.ecore#/">
+  <genPackages prefix="Wscommon" basePackage="org.eclipse.jst.j2ee.webservice" ecorePackage="wscommon.ecore#/">
     <genClasses ecoreClass="wscommon.ecore#//InitParam">
       <genFeatures ecoreFeature="ecore:EAttribute wscommon.ecore#//InitParam/paramName"/>
       <genFeatures ecoreFeature="ecore:EAttribute wscommon.ecore#//InitParam/paramValue"/>
@@ -309,7 +309,7 @@
     <genClasses ecoreClass="wscommon.ecore#//DescriptionType"/>
     <genClasses ecoreClass="wscommon.ecore#//DisplayNameType"/>
   </genPackages>
-  <genPackages prefix="Client" basePackage="com.ibm.etools" ecorePackage="client.ecore#/">
+  <genPackages prefix="Client" basePackage="org.eclipse.jst.j2ee" ecorePackage="client.ecore#/">
     <genEnums ecoreEnum="client.ecore#//ResAuthApplicationType">
       <genEnumLiterals ecoreEnumLiteral="client.ecore#//ResAuthApplicationType/Application"/>
       <genEnumLiterals ecoreEnumLiteral="client.ecore#//ResAuthApplicationType/Container"/>
@@ -326,7 +326,7 @@
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference client.ecore#//ApplicationClient/messageDestinations"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Jsp" basePackage="com.ibm.etools" ecorePackage="jsp.ecore#/">
+  <genPackages prefix="Jsp" basePackage="org.eclipse.jst.j2ee" ecorePackage="jsp.ecore#/">
     <genClasses ecoreClass="jsp.ecore#//JSPConfig">
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference jsp.ecore#//JSPConfig/tagLibs"/>
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference jsp.ecore#//JSPConfig/propertyGroups"/>
@@ -345,7 +345,7 @@
       <genFeatures ecoreFeature="ecore:EAttribute jsp.ecore#//TagLibRefType/taglibLocation"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Jca" basePackage="com.ibm.etools" ecorePackage="jca.ecore#/">
+  <genPackages prefix="Jca" basePackage="org.eclipse.jst.j2ee" ecorePackage="jca.ecore#/">
     <genEnums ecoreEnum="jca.ecore#//AuthenticationMechanismType">
       <genEnumLiterals ecoreEnumLiteral="jca.ecore#//AuthenticationMechanismType/BasicPassword"/>
       <genEnumLiterals ecoreEnumLiteral="jca.ecore#//AuthenticationMechanismType/Kerbv5"/>
@@ -442,7 +442,7 @@
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference jca.ecore#//RequiredConfigPropertyType/descriptions"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Webservice_client" basePackage="com.ibm.etools.webservice"
+  <genPackages prefix="Webservice_client" basePackage="org.eclipse.jst.j2ee.webservice"
       ecorePackage="webservice_client.ecore#/">
     <genClasses ecoreClass="webservice_client.ecore#//ServiceRef">
       <genFeatures notify="false" ecoreFeature="ecore:EReference webservice_client.ecore#//ServiceRef/serviceInterface"/>
@@ -474,7 +474,7 @@
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference webservice_client.ecore#//ComponentScopedRefs/serviceRefs"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Webapplication" basePackage="com.ibm.etools" ecorePackage="webapplication.ecore#/">
+  <genPackages prefix="Webapplication" basePackage="org.eclipse.jst.j2ee" ecorePackage="webapplication.ecore#/">
     <genEnums ecoreEnum="webapplication.ecore#//ResAuthServletType">
       <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//ResAuthServletType/CONTAINER"/>
       <genEnumLiterals ecoreEnumLiteral="webapplication.ecore#//ResAuthServletType/SERVLET"/>
@@ -666,7 +666,7 @@
       <genFeatures ecoreFeature="ecore:EAttribute webapplication.ecore#//HTTPMethodType/httpMethod"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Wsdd" basePackage="com.ibm.etools.webservice" ecorePackage="wsdd.ecore#/">
+  <genPackages prefix="Wsdd" basePackage="org.eclipse.jst.j2ee.webservice" ecorePackage="wsdd.ecore#/">
     <genClasses ecoreClass="wsdd.ecore#//WebServices">
       <genFeatures property="None" children="true" ecoreFeature="ecore:EReference wsdd.ecore#//WebServices/webServiceDescriptions"/>
     </genClasses>
@@ -718,7 +718,7 @@
     </genClasses>
     <genClasses ecoreClass="wsdd.ecore#//BeanLink"/>
   </genPackages>
-  <genPackages prefix="Common" basePackage="com.ibm.etools.j2ee" ecorePackage="common.ecore#/">
+  <genPackages prefix="Common" basePackage="org.eclipse.jst.j2ee" ecorePackage="common.ecore#/">
     <genEnums ecoreEnum="common.ecore#//EnvEntryType">
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/String"/>
       <genEnumLiterals ecoreEnumLiteral="common.ecore#//EnvEntryType/Integer"/>

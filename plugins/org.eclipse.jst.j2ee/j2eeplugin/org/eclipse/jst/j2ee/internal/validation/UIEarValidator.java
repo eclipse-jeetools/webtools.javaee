@@ -69,14 +69,14 @@ import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclipse.wst.validation.internal.core.IFileDelta;
-import org.eclipse.wst.validation.internal.core.IHelper;
-import org.eclipse.wst.validation.internal.core.IMessage;
-import org.eclipse.wst.validation.internal.core.IReporter;
-import org.eclipse.wst.validation.internal.core.Message;
-import org.eclipse.wst.validation.internal.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.core.SeverityEnum;
-import org.eclipse.wst.validation.internal.core.ValidationException;
+import org.eclipse.wst.validation.core.IFileDelta;
+import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.core.IReporter;
+import org.eclipse.wst.validation.core.Message;
+import org.eclipse.wst.validation.core.MessageLimitException;
+import org.eclipse.wst.validation.core.SeverityEnum;
+import org.eclipse.wst.validation.core.ValidationException;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -89,7 +89,7 @@ import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
  * @author: Administrator
  */
 public class UIEarValidator extends EarValidator implements UIEarMessageConstants {
-	public static final String VALIDATOR_ID = "org.eclipse.wst.validation.internal.core.ear.workbenchimpl.UIEarValidator"; //$NON-NLS-1$
+	public static final String VALIDATOR_ID = "org.eclipse.jst.j2ee.internal.validation.UIEarValidator"; //$NON-NLS-1$
 	public static final String MANIFEST_GROUP_NAME = "WSAD.EAR.MANIFEST"; //$NON-NLS-1$
 	protected UIEarHelper earHelper;
 	protected EAREditModel earEditModel;
@@ -578,7 +578,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				validateModuleURIExtension(module);
 			}
 		}
-		validateEARServerTargetJ2EESpecLevel(earEditModel);
+		//validateEARServerTargetJ2EESpecLevel(earEditModel);
 		validateModuleMapsDuplicateProjects(earEditModel);
 	}
 
@@ -594,10 +594,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		IRuntime earRuntime = ServerCore.getProjectProperties(earProject).getRuntimeTarget();
 		if (earRuntime != null) {
 			if (runtime != null) {
-				if (runtime.getId() != earRuntime.getId()) {
+				if (runtime.getId() != earRuntime.getId()) 
 					unmatachedServerTargetOnModuleWarning(project, earProject);
-				}
-				validateModuleServerTargetJ2EESpecLevel(project, runtime);
+				//validateModuleServerTargetJ2EESpecLevel(project, runtime);
 			} else {
 				missingServerTargetOnModuleWarning(project, earProject);
 			}
@@ -623,6 +622,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	/**
 	 * @param earProject
+	 * TODO This validation is RAD specific hence needs to be moved to a the RAD layered plugin references to this method are commented out
 	 */
 	private void validateEARServerTargetJ2EESpecLevel(EAREditModel editModel) {
 		EARNatureRuntime nature = earEditModel.getEARNature();
@@ -642,6 +642,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	/**
 	 * @param project
+	 * TODO This validation is RAD specific hence needs to be moved to a the RAD layered plugin references to this method are commented out
 	 */
 	private void validateModuleServerTargetJ2EESpecLevel(IProject project, IRuntime runtime) {
 		boolean is14SpecLevelProject = false;

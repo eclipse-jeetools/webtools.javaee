@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
   xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="wsclient"
-    nsURI="webservice_client.xmi" nsPrefix="com.ibm.etools.webservice.wsclient">
+    nsURI="webservice_client.xmi" nsPrefix="org.eclipse.jst.j2ee.webservice.wsclient">
   <eClassifiers xsi:type="ecore:EClass" name="ServiceRef" eSuperTypes="common.ecore#//CompatibilityDescriptionGroup">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The service-ref element declares a reference to a Web&#xD;&#xA;    service. It contains optional description, display name and&#xD;&#xA;    icons, a declaration of the required Service interface,&#xD;&#xA;    an optional WSDL document location, an optional set&#xD;&#xA;    of JAX-RPC mappings, an optional QName for the service element,&#xD;&#xA;    an optional set of Service Endpoint Interfaces to be resolved&#xD;&#xA;    by the container to a WSDL port, and an optional set of handlers."/>

@@ -23,6 +23,6 @@ public interface IApplicationClientNatureConstants {
 	String NO_NATURE_MESSAGE = AppClientCreationResourceHandler.getString("Not_an_Application_Client_project_ERROR_"); //$NON-NLS-1$
 	String DEFAULT_SOURCE_PATH = "appClientModule"; //$NON-NLS-1$
 	String[] APPCLIENT_NATURE_IDS = {NATURE_ID};
-	String EDIT_MODEL_ID = "com.ibm.wtp.applicationClient.editModel"; //$NON-NLS-1$
-	String WEB_SERVICE_EDIT_MODEL_ID = "com.ibm.wtp.webservice.appClient.editModel"; //$NON-NLS-1$
+	String EDIT_MODEL_ID = "org.eclipse.jst.j2ee.applicationClient.editModel"; //$NON-NLS-1$
+	String WEB_SERVICE_EDIT_MODEL_ID = "org.eclipse.jst.j2ee.webservice.appClient.editModel"; //$NON-NLS-1$
 }
