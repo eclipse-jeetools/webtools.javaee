@@ -34,8 +34,8 @@ public class ComponentWorkingSetProvider implements ICommonWorkingSetProvider {
 	 * @see org.eclipse.jst.common.navigator.internal.ui.workingsets.IWorkingSetProvider#getWorkingSets()
 	 */
 	public IWorkingSet[] getWorkingSets() {
-		//if (!bInitialized) {
-		    workingSets.clear();
+		if (!bInitialized) {
+		    //workingSets.clear();
 			synchronized (workingSets) {
 				ComponentWorkingSetDescriptor[] set = COMPONENT_WORKING_SET_REGISTRY.getComponentWorkingSetDescriptors();
 				ComponentWorkingSetDescriptor descriptor = null;
@@ -47,7 +47,7 @@ public class ComponentWorkingSetProvider implements ICommonWorkingSetProvider {
 					bInitialized = true;
 				}	
 			}
-		//}
+		}
 		
 		IWorkingSet[] ws = new IWorkingSet[workingSets.size()];
 		return (IWorkingSet[])workingSets.toArray(ws);
