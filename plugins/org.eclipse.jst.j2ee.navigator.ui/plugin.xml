@@ -415,6 +415,7 @@
             contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
             labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"
             actionProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEActionProvider"
+            openListener="org.eclipse.jst.j2ee.internal.actions.J2EEResourceOpenListener"
             id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent.experimental">
          <enables>
          <or>
@@ -464,23 +465,6 @@
          </emfEnablement>
       </navigatorContent>
    </extension>
-   
-      <extension
-         point="org.eclipse.wst.common.navigator.views.actionProvider">
-      <actionProvider
-            class="org.eclipse.jst.common.navigator.internal.actions.OpenActionsExtension" >
-         <enablement>
-         	<or>
-	         	<objectClass
-	         		adaptable="true"
-	                  name="org.eclipse.emf.ecore.EObject" />
-	         	<objectClass
-	         		adaptable="true"
-	                  name="org.eclipse.emf.edit.provider.ItemProvider" />	    
-            </or>
-         </enablement>
-      </actionProvider>
-   </extension> 
 </plugin>
 
 
