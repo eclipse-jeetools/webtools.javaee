@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.common.SecurityIdentity;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CMRField;
@@ -51,6 +50,7 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.jst.j2ee.ejb.Query;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.ejb.util.CMPKeySynchronizationAdapter;
 

@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.model.translator.webservices.JaxrpcmapTranslator;
-import org.eclipse.jst.j2ee.webservice.WebServiceConstants;
+import org.eclipse.jst.j2ee.webservice.internal.WebServiceConstants;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;

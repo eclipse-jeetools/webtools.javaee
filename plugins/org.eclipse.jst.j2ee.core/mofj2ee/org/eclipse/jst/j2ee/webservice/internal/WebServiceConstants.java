@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.webservice;
+package org.eclipse.jst.j2ee.webservice.internal;
 
 public final class WebServiceConstants
 {

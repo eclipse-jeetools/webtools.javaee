@@ -8,11 +8,10 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.common;
+package org.eclipse.jst.j2ee.internal.common;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.internal.common.J2EEXMIResource;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.CompatibilityResourceFactory;
 

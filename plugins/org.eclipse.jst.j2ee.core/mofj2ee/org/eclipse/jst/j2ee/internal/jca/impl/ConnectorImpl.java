@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.common.J2EEVersionResource;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.internal.common.impl.CompatibilityDescriptionGroupImpl;
 import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.Connector;

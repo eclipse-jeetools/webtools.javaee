@@ -11,7 +11,7 @@
 /*
  * Common Interface used to check version of J2EE model resources
  */
-package org.eclipse.jst.j2ee.common;
+package org.eclipse.jst.j2ee.internal.common;
 
 /**
  * @author cbridgha

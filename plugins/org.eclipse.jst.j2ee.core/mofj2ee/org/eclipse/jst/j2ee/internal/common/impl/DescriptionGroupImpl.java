@@ -24,9 +24,9 @@ import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.DescriptionGroup;
 import org.eclipse.jst.j2ee.common.DisplayName;
 import org.eclipse.jst.j2ee.common.IconType;
-import org.eclipse.jst.j2ee.common.J2EEVersionResource;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionResource;
 
 
 /**

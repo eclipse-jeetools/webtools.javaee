@@ -22,9 +22,9 @@ import org.eclipse.jst.j2ee.internal.client.impl.ApplicationClientResourceFactor
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.internal.jca.impl.ConnectorResourceFactory;
 import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
-import org.eclipse.jst.j2ee.webservice.WebServiceConstants;
+import org.eclipse.jst.j2ee.webservice.internal.WebServiceConstants;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.impl.WebServicesClientResourceFactory;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddResourceFactory;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddResourceFactory;
 import org.eclipse.wst.common.internal.emf.resource.EMF2DOMRendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.EMF2SAXRendererFactory;
 
