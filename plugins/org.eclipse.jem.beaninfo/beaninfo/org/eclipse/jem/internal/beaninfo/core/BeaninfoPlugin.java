@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.9 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.10 $  $Date: 2004/10/07 22:29:57 $ 
  */
 
 
@@ -369,10 +369,12 @@ public class BeaninfoPlugin extends Plugin {
 	}
 	
 	/**
-	 * The runnable to use to override. This will be called in sequence
-	 * for each override path found. It is send in on the apply overrides call.
+	 * The runnable is to used to apply override. 
 	 * <p>
-	 * Clients will be passed in the subinterface <code>IContributorOverrideRunnable</code> which
+	 * This will be called in sequence for each override path found. It is send in on the apply overrides call. This
+	 * interface implementation is private.
+	 * <p>
+	 * Clients (implementers of the IBeanInfoContributor) will be passed in the subinterface <code>IContributorOverrideRunnable</code> which
 	 * inherits from this interface.
 	 * <p>
 	 * This interface is not intended to be implemented by clients. 
@@ -382,11 +384,14 @@ public class BeaninfoPlugin extends Plugin {
 	 */
 	public interface IOverrideRunnable {
 		/**
-		 * This will be called with the path to use. It will be called over and over for every
+		 * This will be called with the directory path to use. It will be called over and over for every
 		 * override path found for a package. The path will be complete, including trailing '/'.
 		 * It will be in a URI format for a directory. The overriderunnable implementation will then append the filename call (i.e. classbeingintrospected.override) to get a complete path.
+		 * <p>
+		 * Clients (IBeanInfoContributor implementers) can call this to apply a specific override file to the current
+		 * class being processed.
 		 * 
-		 * @param overridePath
+		 * @param overridePath the path will be complete, including trailing '/'. It will be in a URI format for a directory. The override file name (classname.override) will be appended to this and retrieved and applied.
 		 * 
 		 * @since 1.0.0
 		 */
@@ -412,8 +417,10 @@ public class BeaninfoPlugin extends Plugin {
 	}
 	
 	/**
-	 * This will be passed in to IBeanInfoContributor's so that they can call back to apply the overrides. They
-	 * will call once for each override to be applied. It can be called more than once from each IBeanInfoContributor.
+	 * IBeanInfoContributor runnable to use to apply overrides.
+	 * <p>
+	 * An implementation of this will be passed in to IBeanInfoContributor's so that they can call back to apply the overrides. They
+	 * should call the appropriate run method once for each override to be applied. The run can be called more than once from each IBeanInfoContributor.
 	 * <p>
 	 * It inherits from <code>IOverrideRunnable</code>, so see that for more methods to call.
 	 * <p>
@@ -425,25 +432,31 @@ public class BeaninfoPlugin extends Plugin {
 	public interface IContributorOverrideRunnable extends IOverrideRunnable {
 		
 		/**
-		 * This can be called by BeanInfo contributor for overrides to test if the path (path is for IOverrideRunnable.run(path) method)
-		 * has already been contributed once for this class. It can be used to save time. However, not necessary because
+		 * Tests if path has already been contributed once for the current class.
+		 * <p>
+		 * This can be called by the IBeanInfoContributor for overrides to test if the path (same path as for the IOverrideRunnable.run(String) method)
+		 * has already been contributed once for this class. It can be used to save time. However it is not necessary because
 		 * BeanInfo will not permit it to be contributed more than once for a class.
 		 * 
 		 * @param path
 		 * @return <code>true</code> if used already.
 		 * 
+		 * @see IOverrideRunnable#run(String)
 		 * @since 1.0.0
 		 */
 		public boolean pathContributed(String path);
 		
 		/**
-		 * This can be called by BeanInfo contributor for overrides to see if the URI (path is for IOverrideRunnable.run(resource) method)
+		 * Tests if the URI has already been contributed once for the current class.
+		 * <p>
+		 * This can be called by an IBeanInfoContributor for overrides to see if the URI (same path as the URI from the IOverrideRunnable.run(Resource) method)
 		 * has already been contributed once for this class. It can be used to save time. However, not necessary because
 		 * BeanInfo will not permit the URI to be contributed more than once for a class.
 		 * 
 		 * @param resourceURI
 		 * @return <code>true</code> if used already.
 		 * 
+		 * @see IOverrideRunnable#run(Resource)
 		 * @since 1.0.0
 		 */
 		public boolean resourceContributed(URI resourceURI);
@@ -451,8 +464,13 @@ public class BeaninfoPlugin extends Plugin {
 	
 	/**
 	 * Apply the runnable to all of the override paths that are applicable to the 
-	 * given package name. The package name uses '.' to delineate the fragments of the name,
+	 * given package name.
+	 * <p>
+	 * The package name uses '.' to delineate the fragments of the name,
 	 * i.e. use "<code>java.lang</code>" as a package name.
+	 * <p>
+	 * Note: This is not meant to be called by clients. It is public only because an internal class in another package needs to call it.
+	 * TODO This should be package-protected. Later the other class will be moved into this package.
 	 * 
 	 * @param project the project to run against.
 	 * @param packageName
