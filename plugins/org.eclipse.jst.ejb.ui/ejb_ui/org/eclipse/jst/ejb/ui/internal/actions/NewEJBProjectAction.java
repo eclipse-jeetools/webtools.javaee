@@ -11,8 +11,8 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 
 
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jst.ejb.ui.EJBModuleCreationWizard;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleCreationWizard;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.IWorkbench;

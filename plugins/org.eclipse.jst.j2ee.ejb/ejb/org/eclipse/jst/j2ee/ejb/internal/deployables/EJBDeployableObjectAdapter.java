@@ -22,9 +22,9 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.j2ee.EJBBean;
-import org.eclipse.wst.server.core.model.IModule;
-import org.eclipse.wst.server.core.model.IModuleObject;
-import org.eclipse.wst.server.core.model.IModuleObjectAdapterDelegate;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleArtifact;
+import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -33,7 +33,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * @version 1.0
  * @author
  */
-public class EJBDeployableObjectAdapter implements IModuleObjectAdapterDelegate {
+public class EJBDeployableObjectAdapter extends ModuleArtifactAdapterDelegate {
 	/**
 	 * Constructor for EJBDeployableObjectAdapter.
 	 */
@@ -44,7 +44,7 @@ public class EJBDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 	/*
 	 * @see IDeployableObjectAdapterDelegate#getDeployableObject(Object)
 	 */
-	public IModuleObject getModuleObject(Object obj) {
+	public IModuleArtifact getModuleObject(Object obj) {
 		if (obj == null)
 			return null;
 		if (obj instanceof EJBJar)
@@ -61,7 +61,7 @@ public class EJBDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 		return null;
 	}
 
-	protected IModuleObject getModuleObject(ICompilationUnit cu) {
+	protected IModuleArtifact getModuleObject(ICompilationUnit cu) {
 		try {
 			return getModuleJavaObject((IFile) cu.getCorrespondingResource());
 		} catch (JavaModelException e) {
@@ -70,22 +70,22 @@ public class EJBDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 		return null;
 	}
 
-	protected IModuleObject getModuleObject(EJBJar ejbJar) {
+	protected IModuleArtifact getModuleObject(EJBJar ejbJar) {
 		IModule dep = getModule(ejbJar);
 		return createModuleObject(dep, null, false, false);
 	}
 
-	protected IModuleObject getModuleObject(EnterpriseBean ejb) {
+	protected IModuleArtifact getModuleObject(EnterpriseBean ejb) {
 		IModule dep = getModule(ejb);
 		return createModuleObject(dep, ejb.getName(), ejb.hasRemoteClient(), ejb.hasLocalClient());
 	}
 
-	protected IModuleObject getModuleObject(IProject project) {
+	protected IModuleArtifact getModuleObject(IProject project) {
 		IModule dep = getModule(project);
 		return createModuleObject(dep, null, false, false);
 	}
 
-	protected IModuleObject getModuleObject(IFile file) {
+	protected IModuleArtifact getModuleObject(IFile file) {
 		String ext = file.getFileExtension();
 		if ("java".equals(ext) || "class".equals(ext)) //$NON-NLS-1$ //$NON-NLS-2$
 			return getModuleJavaObject(file);
@@ -112,7 +112,7 @@ public class EJBDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 		return null;
 	}
 
-	protected IModuleObject getModuleJavaObject(IFile file) {
+	protected IModuleArtifact getModuleJavaObject(IFile file) {
 		EJBNatureRuntime nat = getNature(file.getProject());
 		if (nat != null) {
 			JavaClass javaClass = JemProjectUtilities.getJavaClass(file);
@@ -139,7 +139,7 @@ public class EJBDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 		return false;
 	}
 
-	protected IModuleObject createModuleObject(IModule module, String ejbName, boolean remote, boolean local) {
+	protected IModuleArtifact createModuleObject(IModule module, String ejbName, boolean remote, boolean local) {
 		if (module != null) {
 			String jndiName = null;
 			if (ejbName != null)
@@ -148,6 +148,8 @@ public class EJBDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 		}
 		return null;
 	}
+
+  
 
 
 }

@@ -13,7 +13,9 @@ package org.eclipse.jst.j2ee.ejb.internal.deployables;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
+;
 
 /**
  * @version 1.0
@@ -46,7 +48,21 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 	/*
 	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
 	 */
-	public IProjectModule createModule(J2EENature nature) {
+	public IModule createModule(J2EENature nature) {
 		return new EJBDeployable(nature, ID);
 	}
+
+
+    public ModuleDelegate getModuleDelegate(IModule module) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+     */
+    public IModule[] getModules() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

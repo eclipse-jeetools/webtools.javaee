@@ -32,9 +32,9 @@
       <import plugin="org.eclipse.jst.server.core"/>
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.wst.common.annotations.controller"/>
-      <import plugin="org.eclipse.wst.common.jdt.integration"/>
       <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.eclipse.jst.common.annotations.controller"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
    </requires>
 
 

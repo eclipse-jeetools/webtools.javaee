@@ -16,11 +16,12 @@
  */
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
+import org.eclipse.jst.ejb.ui.EJBModuleCreationWizard;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBJarImportDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -69,8 +70,8 @@ public class EJBImportPage extends J2EEModuleImportPage {
 		return new EJBModuleCreationWizard((EJBModuleCreationDataModel) aModel);
 	}
 
-	private EJBJarImportDataModel getEJBDataModel() {
-		return (EJBJarImportDataModel) model;
+	private EJBModuleImportDataModel getEJBDataModel() {
+		return (EJBModuleImportDataModel) model;
 	}
 
 	protected String getProjectImportLabel() {

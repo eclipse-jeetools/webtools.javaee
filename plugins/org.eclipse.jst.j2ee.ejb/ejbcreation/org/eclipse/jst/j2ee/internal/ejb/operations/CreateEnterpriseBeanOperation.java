@@ -32,8 +32,12 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsController;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBCodegenHandlerExtensionReader;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.IEJBCodegenHandler;
 import org.eclipse.jst.j2ee.internal.ejb.commands.AddBeanClassCommand;
@@ -45,10 +49,7 @@ import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsController;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyManager;
 
 /**
  * @author DABERG
@@ -128,9 +129,9 @@ public abstract class CreateEnterpriseBeanOperation extends EditModelOperation {
 			if (cu == null || !cu.exists())
 				cu = fragment.createCompilationUnit(javaFileName, source, true, monitor);
 			annotatedFile = (IFile) cu.getResource();
-			editModel.getWorkingCopy(cu, true); //Track CU.
+			((J2EEEditModel)editModel).getWorkingCopy(cu, true); //Track CU.
 		}
-		WorkingCopyManager mgr = editModel.getWorkingCopyManager();
+		WorkingCopyManager mgr = ((J2EEEditModel)editModel).getWorkingCopyManager();
 		if (mgr != null && annotatedFile != null) {
 			mgr.saveOnlyNewCompilationUnits(new SubProgressMonitor(monitor, 1));
 			AnnotationsController controller = AnnotationsControllerManager.INSTANCE.getAnnotationsController(editModel.getProject());

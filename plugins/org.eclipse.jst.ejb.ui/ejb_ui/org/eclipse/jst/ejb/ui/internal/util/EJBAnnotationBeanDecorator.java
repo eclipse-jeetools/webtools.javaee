@@ -24,13 +24,13 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsController;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerHelper;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsController;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerHelper;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerManager;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

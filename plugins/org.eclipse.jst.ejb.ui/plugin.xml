@@ -32,13 +32,11 @@
       <import plugin="org.eclipse.wst.server.core"/>
       <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.wst.common.annotations.controller"/>
       <import plugin="org.eclipse.wst.common.migration"/>
-      <import plugin="org.eclipse.wst.common.navigator.java"/>
       <import plugin="org.eclipse.jst.j2ee.ui" export="true"/>
-      <import plugin="org.eclipse.wst.common.jdt.integration"/>
       <import plugin="com.ibm.wtp.emf.workbench"/>
-      <import plugin="org.eclipse.wst.common.navigator.views"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
+      <import plugin="org.eclipse.jst.common.annotations.controller"/>
    </requires>
 
 
@@ -57,10 +55,10 @@
             name="%ejb.project_ui_"
             icon="icons/full/ctool16/newejbprj_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleCreationWizard"
+            class="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard"
             project="true"
             finalPerspective=""
-            id="org.eclipse.jst.j2ee.internal.ejb.ui.internal.wizard.EJBProjectWizard">
+            id="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
          <description>
             %new.ejb.project.description_ui_
          </description>
@@ -77,8 +75,8 @@
       <wizard
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/export_ejbjar_wiz.gif"
-            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBExportWizard"
-            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBExportWizard">
+            class="org.eclipse.jst.ejb.ui.EJBModuleExportWizard"
+            id="org.eclipse.jst.ejb.ui.EJBModuleExportWizard">
          <description>
             %ejb.export.description_ui_
          </description>
@@ -187,8 +185,8 @@
       <wizard
             name="%ejb.jar.file_ui_"
             icon="icons/full/ctool16/import_ejbjar.gif"
-            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard"
-            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard">
+            class="org.eclipse.jst.ejb.ui.EJBModuleImportWizard"
+            id="org.eclipse.jst.ejb.ui.EJBModuleImportWizard">
          <description>
             %ejb.import.description_ui_
          </description>

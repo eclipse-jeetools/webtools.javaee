@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyProvider;
 
 
 

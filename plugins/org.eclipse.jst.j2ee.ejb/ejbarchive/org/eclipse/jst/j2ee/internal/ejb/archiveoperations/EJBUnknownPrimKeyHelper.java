@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBJarImportDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 
 
 /**
@@ -45,11 +45,11 @@ public class EJBUnknownPrimKeyHelper {
 	/**
 	 * @param project
 	 */
-	public EJBUnknownPrimKeyHelper(EJBJarImportDataModel ejbDataModel) {
+	public EJBUnknownPrimKeyHelper(EJBModuleImportDataModel ejbDataModel) {
 		dm = ejbDataModel;
 	}
 
-	public EJBJarImportDataModel dm;
+	public EJBModuleImportDataModel dm;
 
 	public void updateGeneratedKeyField(ContainerManagedEntity entity) {
 		if (entity != null) {
