@@ -22,6 +22,7 @@ import org.eclipse.wst.common.frameworks.internal.WTPProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class FlexibleProjectCreationOperation extends WTPOperation {
