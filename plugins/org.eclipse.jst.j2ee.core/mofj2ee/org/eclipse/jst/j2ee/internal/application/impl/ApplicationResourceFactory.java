@@ -13,12 +13,12 @@ package org.eclipse.jst.j2ee.internal.application.impl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceFactory;
+import org.eclipse.wst.common.modulecore.internal.impl.WTPResourceFactoryRegistry;
 
 
 public class ApplicationResourceFactory extends TranslatorResourceFactory {
@@ -51,7 +51,7 @@ public class ApplicationResourceFactory extends TranslatorResourceFactory {
 	 * Register myself with the Resource.Factory.Registry
 	 */
 	public static void registerWith(RendererFactory aRendererFactory) {
-		J2EEResourceFactoryRegistry.INSTANCE.registerLastFileSegment(J2EEConstants.APPLICATION_DD_SHORT_NAME, new ApplicationResourceFactory(aRendererFactory));
+		WTPResourceFactoryRegistry.INSTANCE.registerLastFileSegment(J2EEConstants.APPLICATION_DD_SHORT_NAME, new ApplicationResourceFactory(aRendererFactory));
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class ApplicationResourceFactory extends TranslatorResourceFactory {
 
 	
 	public static Resource.Factory getRegisteredFactory() {
-		return J2EEResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.APPLICATION_DD_URI_OBJ);
+		return WTPResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.APPLICATION_DD_URI_OBJ);
 	}
 
 }
