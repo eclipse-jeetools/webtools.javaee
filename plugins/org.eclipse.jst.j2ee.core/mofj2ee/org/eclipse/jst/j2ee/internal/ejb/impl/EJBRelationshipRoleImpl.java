@@ -41,7 +41,7 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.IRoleShapeStrategy;
 import org.eclipse.jst.j2ee.ejb.MultiplicityKind;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
-import org.eclipse.wst.common.emf.utilities.IDUtil;
+import org.eclipse.wst.common.internal.emf.utilities.IDUtil;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 /**

@@ -17,14 +17,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 
@@ -207,15 +204,12 @@ public class TaglibInfo implements ITaglibInfo, Cloneable {
 				javaIOFile = file.getLocation().toFile();
 			}
 
-
 			// for webxml entries try relative to web.xml
 			if (javaIOFile == null || !javaIOFile.exists()) {
 				if (isWebXMLEntry()) {
 					IPath taglibPath = getLocation();
 					if (!taglibPath.isAbsolute()) {
-						J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(this.project);
-						IContainer webInfContainer = (IContainer) this.project.findMember(webNature.getWEBINFPath());
-						IResource resolvedResource = webInfContainer.findMember(taglibPath);
+						IResource resolvedResource = project.findMember(taglibPath);
 						if (resolvedResource instanceof IFile) {
 							file = (IFile) resolvedResource;
 							javaIOFile = file.getLocation().toFile();

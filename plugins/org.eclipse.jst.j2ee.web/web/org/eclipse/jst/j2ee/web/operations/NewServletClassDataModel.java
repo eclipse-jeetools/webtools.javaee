@@ -16,20 +16,15 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebMessages;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
@@ -555,20 +550,14 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		try {
-			// Ensure project is a j2ee project
-			if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-				IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
-				if (javaProject != null) {
-					// Ensure source folder exists
-					IFolder sourcefolder = getJavaSourceFolder();
-					// Get the java package for the selected folder
-					if (sourcefolder != null)
-						return javaProject.getPackageFragmentRoot(sourcefolder);
-				}
-			}
-		} catch (CoreException ex) {
-			//Do nothing
+
+		IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
+		if (javaProject != null) {
+			// Ensure source folder exists
+			IFolder sourcefolder = getJavaSourceFolder();
+			// Get the java package for the selected folder
+			if (sourcefolder != null)
+				return javaProject.getPackageFragmentRoot(sourcefolder);
 		}
 		return null;
 	}
@@ -586,20 +575,8 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		try {
-			// Ensure the project is a valid dynamic web project
-			J2EEWebNatureRuntime nature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-			if (nature == null)
-				return null;
-			//	check the web project for the JavaSource folder
-			IPath folderFullPath = nature.getSourceFolder().getFullPath();
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			IFolder folder = root.getFolder(folderFullPath);
-			return folder;
-		} catch (CoreException e1) {
-			e1.printStackTrace();
-		}
-		return null;
+		
+		return (IFolder) WebPropertiesUtil.getJavaSourceFolder(project);
 	}
 	
 	/**

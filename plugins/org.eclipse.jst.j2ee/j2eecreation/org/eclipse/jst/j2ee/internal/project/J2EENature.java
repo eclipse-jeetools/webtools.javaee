@@ -48,7 +48,7 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 
 	protected IModule module;
 	protected int moduleVersion;
-	protected J2EESettings j2eeSettings;
+//	protected J2EESettings j2eeSettings;
 
 	private static final String[] J2EE_NATURE_IDS = {IEJBNatureConstants.NATURE_ID, IEARNatureConstants.NATURE_ID, IWebNatureConstants.J2EE_NATURE_ID, IApplicationClientNatureConstants.NATURE_ID, IConnectorNatureConstants.NATURE_ID};
 
@@ -131,12 +131,12 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 		return getProject();
 	}
 
-	protected J2EESettings getJ2EESettings() {
-		if (j2eeSettings == null) {
-			j2eeSettings = new J2EESettings(getProject());
-		}
-		return j2eeSettings;
-	}
+//	protected J2EESettings getJ2EESettings() {
+//		if (j2eeSettings == null) {
+//			j2eeSettings = new J2EESettings(getProject());
+//		}
+//		return j2eeSettings;
+//	}
 
 	protected J2EEWorkbenchURIConverterImpl initializeWorbenchURIConverter(ProjectResourceSet set) {
 		return new J2EEWorkbenchURIConverterImpl(this, set.getSynchronizer());
@@ -332,9 +332,10 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 	public void setModuleVersion(int aModuleVersion) throws CoreException {
 		if (aModuleVersion == moduleVersion)
 			return;
-		J2EESettings settings = getJ2EESettings();
-		settings.setModuleVersion(aModuleVersion);
-		settings.write();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead		
+//		J2EESettings settings = getJ2EESettings();
+//		settings.setModuleVersion(aModuleVersion);
+//		settings.write();
 		moduleVersion = aModuleVersion;
 	}
 
@@ -342,15 +343,18 @@ public abstract class J2EENature extends EditModelNature implements ISynchronize
 	 * Compare with J2EEVersionConstants
 	 */
 	public int getModuleVersion() {
-		if (moduleVersion == 0) {
-			if (getJ2EESettings().getModuleVersion() == 0)
-				try {
-					setModuleVersion(getVersionFromModuleFile());
-				} catch (CoreException e) {
-					Logger.getLogger().logError(e);
-				}
-		}
-		moduleVersion = getJ2EESettings().getModuleVersion();
+//		To do : Needs rework  for flexibile project ModuleCore.getFirstArtifactEditForRead
+		
+//		if (moduleVersion == 0) {
+//			if (getJ2EESettings().getModuleVersion() == 0)
+//				try {
+//					setModuleVersion(getVersionFromModuleFile());
+//				} catch (CoreException e) {
+//					Logger.getLogger().logError(e);
+//				}
+//		}
+//		moduleVersion = getJ2EESettings().getModuleVersion();
+		moduleVersion =22;
 		return moduleVersion;
 	}
 

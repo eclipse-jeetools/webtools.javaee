@@ -84,7 +84,7 @@
 <!--============================-->
 <!-- Web Project Nature Contributions                     -->
 <!--============================-->
-   <extension
+<!--   <extension
          id="WebNature"
          name="Web Properties"
          point="org.eclipse.core.resources.natures">
@@ -93,7 +93,7 @@
                class="org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime">
          </run>
       </runtime>
-   </extension>
+   </extension>  -->
  
 
 <!-- Register the nature id with the AbstractJavaMOFNature -->

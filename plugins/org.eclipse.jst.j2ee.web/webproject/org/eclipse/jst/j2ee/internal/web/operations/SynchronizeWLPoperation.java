@@ -19,7 +19,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
@@ -50,7 +52,7 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 	 */
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		IRuntime target = ServerTargetUtil.getServerTarget(prj.getName());
-		ILibModule[] wlps = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(prj).getLibModules();
+		ILibModule[] wlps = getLibModules();
 		monitor.beginTask(ProjectSupportResourceHandler.getString("Sync_WLP_Op"), wlps.length); //$NON-NLS-1$
 		for (int i = 0; i < wlps.length; i++) {
 			IProject module = wlps[i].getProject();
@@ -65,5 +67,19 @@ public class SynchronizeWLPoperation implements IHeadlessRunnableWithProgress {
 			monitor.worked(1);
 		}
 		monitor.done();
+	}
+	
+	protected ILibModule[] getLibModules() {
+		//TODO this will throw class cast exception, do we use ILibModule anymore?
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(prj);
+			if (webEdit != null)
+				return (ILibModule[]) webEdit.getLibModules();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+		return new ILibModule[] {};
 	}
 }

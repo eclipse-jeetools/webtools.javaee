@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.java.JavaClass;
@@ -37,7 +38,7 @@ import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.jca.Connector;
@@ -57,6 +58,11 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 
 import sun.misc.Service;
 
@@ -282,13 +288,36 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		// Handle Servlet Link case
 		else {
 			linkName = ((ServletLink) link).getServletLink();
-			WebApp webApp = J2EEWebNatureRuntime.getRuntime(p).getWebApp();
-			if (webApp == null)
-				return;
-			Servlet servlet = webApp.getServletNamed(linkName);
-			if (servlet == null)
-				return;
-			javaClass = servlet.getServletClass();
+			URI uri = link.eResource().getURI();
+			ModuleCore moduleCore = null;
+			WebArtifactEdit webEdit = null;
+			WebApp webApp = null;
+			try{
+				moduleCore = ModuleCore.getModuleCoreForRead(p);
+				WorkbenchModuleResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
+				WorkbenchModule module = null;
+				for (int i=0; i<resources.length; i++) {
+					module = resources[i].getModule();
+					if (module != null)
+						break;
+				}
+				webEdit = WebArtifactEdit.getWebArtifactEditForRead(module);
+	       		if(webEdit != null)
+					webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
+				if (webApp == null)
+					return;
+				Servlet servlet = webApp.getServletNamed(linkName);
+				if (servlet == null)
+					return;
+				javaClass = servlet.getServletClass();
+			} catch (UnresolveableURIException e) {
+				//Ignore
+			} finally{
+				if (moduleCore != null)
+					moduleCore.dispose();
+				if( webEdit != null )
+					webEdit.dispose();
+			}
 		}
 		// Open java editor on the selected objects associated java file
 		try {

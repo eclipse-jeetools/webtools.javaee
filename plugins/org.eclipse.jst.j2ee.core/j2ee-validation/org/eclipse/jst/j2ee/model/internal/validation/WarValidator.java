@@ -60,9 +60,8 @@ import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.Message;
-import org.eclipse.wst.validation.core.SeverityEnum;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.Message;
 
 //import org.eclipse.jst.j2ee.internal.plugin.nls.ResourceHandler;
 
@@ -270,7 +269,7 @@ public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChan
 			webDD = warFile.getDeploymentDescriptor();
 			validate();
 		} else {
-			IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_INVALID_WAR_FILE);
+			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_INVALID_WAR_FILE);
 			throw new ValidationException(errorMsg);
 		}
 
@@ -279,7 +278,7 @@ public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChan
 	} catch (Exception e) {
 		String[] parms = new String[1];
 		parms[0] = e.toString();
-		IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms );
+		IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms );
 		throw new ValidationException(errorMsg, e);
 	}
 }
@@ -301,7 +300,7 @@ public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChan
 	} catch (Exception e) {
 		String[] parms = new String[1];
 		parms[0] = e.toString();
-		IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms );
+		IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms );
 		throw new ValidationException(errorMsg, e);
 	}
 }
@@ -323,7 +322,7 @@ public void validate(Object aWarFile) throws ValidationException {
   	e.printStackTrace();
 	String[] parms = new String[1];
 	parms[0] = e.toString();  	
-	IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms);
+	IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms);
 	throw new ValidationException(errorMsg);
   } 
 }

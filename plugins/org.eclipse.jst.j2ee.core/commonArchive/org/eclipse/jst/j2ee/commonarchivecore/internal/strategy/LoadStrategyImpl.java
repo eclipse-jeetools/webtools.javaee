@@ -53,7 +53,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResouceFactorySaxRegistry;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryDomRegistry;
 import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 

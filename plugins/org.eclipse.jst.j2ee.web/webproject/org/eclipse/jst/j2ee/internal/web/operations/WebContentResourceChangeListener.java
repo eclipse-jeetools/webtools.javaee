@@ -17,7 +17,8 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 /*
@@ -49,9 +50,9 @@ public class WebContentResourceChangeListener implements IResourceChangeListener
 
 			case IResource.PROJECT :
 				// Only process web projects
-				IBaseWebNature nature = J2EEWebNatureRuntimeUtilities.getRuntime((IProject) resource);
+			/*	IBaseWebNature nature = ModuleCore.getModuleCoreNature(org.eclipse.emf.common.util.URI.createURI("ADD MODULE URI"));
 				if (nature != null)
-					processWebProject(delta, (IProject) resource, nature);
+					processWebProject(delta, (IProject) resource, nature);*/
 				return;
 
 			default :
@@ -63,12 +64,12 @@ public class WebContentResourceChangeListener implements IResourceChangeListener
 	/*
 	 * If renaming web content folder, then updated project properties.
 	 */
-	private void processWebProject(IResourceDelta delta, IProject project, IBaseWebNature nature) {
+	private void processWebProject(IResourceDelta delta, IProject project) {
 		IResourceDelta[] changedChildren = delta.getAffectedChildren(IResourceDelta.CHANGED);
 		if (changedChildren.length == 1)
 			WebPropertiesUtil.synch(project, new NullProgressMonitor());
 		IResourceDelta[] removedChildren = delta.getAffectedChildren(IResourceDelta.REMOVED);
-		if (removedChildren.length != 1 || !removedChildren[0].getResource().equals(nature.getModuleServerRoot()))
+		if (removedChildren.length != 1 || !removedChildren[0].getResource().equals(getModuleServerRoot(project)))
 			return;
 		IResourceDelta[] addedChildren = delta.getAffectedChildren(IResourceDelta.ADDED);
 		if (addedChildren.length != 1)
@@ -83,5 +84,16 @@ public class WebContentResourceChangeListener implements IResourceChangeListener
 			//Ignore
 		}
 	}
+	
+	protected IResource getModuleServerRoot(IProject project) {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			return (IResource) webEdit.getDeploymentDescriptorResource();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+	}	
 
 }

@@ -31,6 +31,7 @@
       <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.wst.validation"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
 
 

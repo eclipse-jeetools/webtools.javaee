@@ -22,12 +22,15 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.web.internal.operation.ILibModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -42,8 +45,7 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	}
 
 	protected boolean isInLibFolder(IFile file) {
-		J2EEWebNatureRuntime nature = getWebNature();
-		IContainer libFolder = nature.getLibraryFolder();
+		IContainer libFolder = WebPropertiesUtil.getWebLibFolder(project);
 		IPath libPath = libFolder.getProjectRelativePath();
 		int numOfLibPathSegs = libPath.segmentCount();
 		if (file.getProjectRelativePath().matchingFirstSegments(libPath) == numOfLibPathSegs) {
@@ -53,25 +55,16 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	}
 
 	protected boolean isTLDFile(IFile file) {
-		J2EEWebNatureRuntime nature = getWebNature();
-
-		// defect CMVC 214409
-		if (nature.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2)) {
-			return isInWebInfFolder(file) && hasTLDExtension(file.getProjectRelativePath());
-		} else if (nature.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) {
-			return isInWebInfFolder(file) && hasTLDExtension(file.getProjectRelativePath());
-		}
-
-		return /* isInWebInfFolder(file) && */hasTLDExtension(file.getProjectRelativePath());
+		if (getJSPVersion()<J2EEVersionConstants.JSP_1_2_ID)
+			return hasTLDExtension(file.getProjectRelativePath());
+		return isInWebInfFolder(file) && hasTLDExtension(file.getProjectRelativePath());
 	}
 
 	protected boolean isInWebInfFolder(IFile file) {
-		J2EEWebNatureRuntime nature = getWebNature();
-		IPath webInfPath = nature.getWEBINFPath();
+		IPath webInfPath = getWebDeploymentDescriptorPath();
 		int numOfWebInfPathSegs = webInfPath.segmentCount();
-		if (file.getProjectRelativePath().matchingFirstSegments(webInfPath) == numOfWebInfPathSegs) {
+		if (file.getProjectRelativePath().matchingFirstSegments(webInfPath) == numOfWebInfPathSegs)
 			return true;
-		}
 		return false;
 	}
 
@@ -85,17 +78,6 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 				return true;
 		}
 		return false;
-	}
-
-	/**
-	 * @see AbstractTaglibLocator#getServerRoot()
-	 */
-	protected IPath getServerRoot() {
-		return getWebNature().getModuleServerRoot().getProjectRelativePath();
-	}
-
-	protected J2EEWebNatureRuntime getWebNature() {
-		return (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(this.project);
 	}
 
 	protected ZipEntry[] findTLDEntriesInZip(ZipFile zFile) {
@@ -149,27 +131,22 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	protected boolean isValidTLD(TLDDigester digester) {
 		if (digester == null || !super.isValidTLD(digester))
 			return false;
-
+		int JSPVersion = getJSPVersion();
 		// JSP 1.2 TLDs are not allowed in JSP 1.1 projects
-		if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1) && (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1)))
+		if (JSPVersion==J2EEVersionConstants.JSP_1_1_ID && (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEVersionConstants.VERSION_1_1_TEXT)))
 			return false;
 		// JSP 2.0 TLDs are not allowed in JSP 1.2 projects
-		if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) && (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1)))
+		if (JSPVersion==J2EEVersionConstants.JSP_1_2_ID && (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEVersionConstants.VERSION_1_2_TEXT) || !digester.getJSPLevel().equals(J2EEVersionConstants.VERSION_1_1_TEXT)))
 			return false;
-
 		// JSP 2.0 TLDs are allowed in JSP 2.0 projects only
-		if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0) && (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0) || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || !digester.getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_1)))
+		if (JSPVersion==J2EEVersionConstants.JSP_2_0_ID && (digester.getJSPLevel() == null || !digester.getJSPLevel().equals(J2EEVersionConstants.VERSION_2_0_TEXT) || !digester.getJSPLevel().equals(J2EEVersionConstants.VERSION_1_2_TEXT) || !digester.getJSPLevel().equals(J2EEVersionConstants.VERSION_1_1_TEXT)))
 			return false;
-
-
 		return true;
 	}
 
 	protected boolean isValidTLDJarPath(IPath path) {
-		boolean isJSP12 = getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2);
-		boolean isJSP20 = getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0);
-
-		if (isJSP12 || isJSP20) {
+		int JSPVersion = getJSPVersion();
+		if (JSPVersion==J2EEVersionConstants.JSP_1_2_ID || JSPVersion==J2EEVersionConstants.JSP_2_0_ID) {
 			if (!hasTLDExtension(path))
 				return false;
 			if (!(path.matchingFirstSegments(new Path("META-INF")) > 0)) //$NON-NLS-1$
@@ -208,7 +185,8 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 						continue;
 					TLDDigester digester = getTLDDigester(zFile.getInputStream(entry));
 					IPath entryPath = new Path(entry.getName());
-					if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_1_2) || getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) {
+					int JSPVersion = getJSPVersion();
+					if (JSPVersion==J2EEVersionConstants.JSP_1_2_ID || JSPVersion==J2EEVersionConstants.JSP_2_0_ID) {
 						String tURI = uri;
 						if (uri == null) {
 							tURI = digester.getURI();
@@ -257,5 +235,53 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 	protected boolean canAddTaglibTld(TLDDigester digester) {
 		return isValidTLD(digester);
 	}
-
+	
+	protected int getJSPVersion() {
+		WebArtifactEdit webEdit = null;
+		int JSPVersion = 0;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			JSPVersion = webEdit.getJSPVersion();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+		return JSPVersion;
+	}
+	
+	protected ILibModule[] getLibModules() {
+		//TODO this will throw classcastexception, do we use ILibModule anymore?
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				return (ILibModule[])webEdit.getLibModules();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+		return new ILibModule[] {};
+	}
+	
+	/**
+	 * @see AbstractTaglibLocator#getServerRoot()
+	 */
+	protected IPath getServerRoot() {
+		return getModuleServerRoot().getProjectRelativePath();
+	}
+	
+	protected IContainer getModuleServerRoot() {
+		return WebPropertiesUtil.getModuleServerRoot(project);
+	}
+	
+	protected IPath getWebDeploymentDescriptorPath() {
+		WebArtifactEdit webEdit = null;
+		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			return webEdit.getDeploymentDescriptorPath();
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
+		}
+	}
 }

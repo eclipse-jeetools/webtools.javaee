@@ -17,8 +17,8 @@ import java.util.Collection;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.internal.provider.J2EEUIEditingDomain;
-import org.eclipse.wst.common.emf.utilities.CopyGroup;
-import org.eclipse.wst.common.emf.utilities.EtoolsCopyUtility;
+import org.eclipse.wst.common.internal.emf.utilities.CopyGroup;
+import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 
 
 /**

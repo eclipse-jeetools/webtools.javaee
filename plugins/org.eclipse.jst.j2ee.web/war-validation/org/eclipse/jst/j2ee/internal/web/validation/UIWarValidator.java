@@ -12,16 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 
-import java.util.List;
-
-import org.eclipse.core.internal.resources.Resource;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -33,8 +24,6 @@ import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
-import org.eclipse.wst.web.internal.operation.ILibModule;
 
 
 /**
@@ -45,8 +34,12 @@ import org.eclipse.wst.web.internal.operation.ILibModule;
 public class UIWarValidator extends WarValidator {
 	/**
 	 * Method validateLibModules.
+	 * 
+	 * 
 	 */
-	protected void validateLibModules(J2EEWebNatureRuntime webNature) {
+	
+	//TODO create validation for modules
+/*	protected void validateLibModules(J2EEWebNatureRuntime webNature) {
 		if (webNature != null) {
 			ILibModule[] libModules = webNature.getLibModules();
 			IProject project = webNature.getProject();
@@ -67,7 +60,7 @@ public class UIWarValidator extends WarValidator {
 					addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_CONFLICTING_WLP_PROJECT, new String[]{jarName}, webNature.getProject());
 			}
 		}
-	}
+	}*/
 
 	protected org.eclipse.jst.j2ee.internal.web.validation.UIWarHelper warHelper;
 
@@ -119,7 +112,6 @@ public class UIWarValidator extends WarValidator {
 		isFlexibile = ModuleCoreNature.getModuleCoreNature(proj) != null;
 		
 		if( isFlexibile ){
-	        List modules = null;
 	        WorkbenchModule[] workBenchModules = null; 
 			ModuleCore moduleCore = null;	
 			try{ 
@@ -132,7 +124,7 @@ public class UIWarValidator extends WarValidator {
 		               	try{
 		               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule );
 		               		if(webEdit != null) {
-			               		WebApp webApp = webEdit.getWebApplication();		               		
+			               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
 			               		super.validate(inHelper, inReporter, inChangedFiles, webApp);
 		               		}
 		               	}
@@ -144,7 +136,7 @@ public class UIWarValidator extends WarValidator {
 		               	}
 		            }
 		            finally{
-		            	
+		            	//Do nothing
 		            }
 				}    
 			} finally {
@@ -153,62 +145,65 @@ public class UIWarValidator extends WarValidator {
 			}
 		}
 		else{
-			IBaseWebNature webNature = null;
-			if (proj != null) {
-				webNature = J2EEWebNatureRuntimeUtilities.getRuntime(proj);
-			}
-		
-				
+			WebArtifactEdit webEdit = null;
+			WebApp webApp = null;
+			try{
+				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(proj);
+	       		if(webEdit != null) {
+	       			webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
+	       		}			
 			// if this is a static project, it has no WAR, so do not validate.
-			if (webNature != null && !webNature.isStatic()) {
+			if (webApp!= null) 
 				super.validate(inHelper, inReporter, inChangedFiles);
-				validateLibModules((J2EEWebNatureRuntime) webNature);
+			//validateLibModules((J2EEWebNatureRuntime) webNature);
+			} finally{
+				if( webEdit != null )
+					webEdit.dispose();
 			}
 		}	
-	
 	}
-
+	
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
 	public void validateEARForContextRoot() {
 
-		IProject project = getWarHelper().getProject();
-		J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
-		String contextRoot = webNature.getContextRoot();
+//		IProject project = getWarHelper().getProject();
+//		J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
+//		String contextRoot = webNature.getContextRoot();
+//
+//		if (webNature == null)
+//			return;
+//
+//		EARNatureRuntime earRuntimeNature[] = webNature.getReferencingEARProjects();
 
-		if (webNature == null)
-			return;
-
-		EARNatureRuntime earRuntimeNature[] = webNature.getReferencingEARProjects();
-
-		for (int i = 0; i < earRuntimeNature.length; i++) {
-			// for each Ear Project that contains this web project update the context root.
-			// hold the model and validate the context root & release the model
-			org.eclipse.jst.j2ee.internal.earcreation.EAREditModel editModel = null;
-			try {
-				editModel = earRuntimeNature[i].getEarEditModelForRead(this);
-				if (editModel != null) {
-					Module module = null;
-					if ((module = earRuntimeNature[i].getModule(project)) != null) {
-						String webModcontextRoot = ((WebModule) module).getContextRoot();
-						if (webModcontextRoot != null && !webModcontextRoot.equals(contextRoot)) {
-							String[] params = new String[3];
-							params[0] = project.getName();
-							params[1] = ((WebModule) module).getContextRoot();
-							params[2] = earRuntimeNature[i].getProject().getName();
-							addError(WAR_CATEGORY, ERROR_EAR_INVALID_CONTEXT_ROOT, params);
-						}
-					}
-				}
-			} finally {
-				if (editModel != null) {
-					editModel.releaseAccess(this);
-					editModel = null;
-				}
-			}
-
-		}
+//		for (int i = 0; i < earRuntimeNature.length; i++) {
+//			// for each Ear Project that contains this web project update the context root.
+//			// hold the model and validate the context root & release the model
+//			org.eclipse.jst.j2ee.internal.earcreation.EAREditModel editModel = null;
+//			try {
+//				editModel = earRuntimeNature[i].getEarEditModelForRead(this);
+//				if (editModel != null) {
+//					Module module = null;
+//					if ((module = earRuntimeNature[i].getModule(project)) != null) {
+//						String webModcontextRoot = ((WebModule) module).getContextRoot();
+//						if (webModcontextRoot != null && !webModcontextRoot.equals(contextRoot)) {
+//							String[] params = new String[3];
+//							params[0] = project.getName();
+//							params[1] = ((WebModule) module).getContextRoot();
+//							params[2] = earRuntimeNature[i].getProject().getName();
+//							addError(WAR_CATEGORY, ERROR_EAR_INVALID_CONTEXT_ROOT, params);
+//						}
+//					}
+//				}
+//			} finally {
+//				if (editModel != null) {
+//					editModel.releaseAccess(this);
+//					editModel = null;
+//				}
+//			}
+//
+//		}
 
 	}
 }

@@ -25,7 +25,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.emf.utilities.ICommand;
+import org.eclipse.wst.common.internal.emf.utilities.ICommand;
 import org.eclipse.wst.server.core.IRuntime;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

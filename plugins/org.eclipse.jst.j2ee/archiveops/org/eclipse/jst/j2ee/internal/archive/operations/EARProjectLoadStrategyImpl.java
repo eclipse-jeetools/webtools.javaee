@@ -267,7 +267,8 @@ public class EARProjectLoadStrategyImpl extends LoadStrategyImpl implements IJ2E
 	}
 
 	protected boolean isProjectSupportFile(IResource res) {
-		return (res.getProjectRelativePath().toString().equals(PROJECT_RUNTIME_URI) || res.getProjectRelativePath().toString().equals(J2EE_SETTING_URI));
+		//return (res.getProjectRelativePath().toString().equals(PROJECT_RUNTIME_URI) || res.getProjectRelativePath().toString().equals(J2EE_SETTING_URI));
+		return (res.getProjectRelativePath().toString().equals(PROJECT_RUNTIME_URI));
 	}
 
 	protected boolean isProjectMetaFile(IResource res) {

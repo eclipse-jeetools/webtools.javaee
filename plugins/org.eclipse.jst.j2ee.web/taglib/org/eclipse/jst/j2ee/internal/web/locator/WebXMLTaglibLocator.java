@@ -29,17 +29,17 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
-import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
+import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.WebXMLTaglibInfo;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.webapplication.TagLibRef;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
@@ -54,7 +54,7 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 
 	protected ILibModule findLibModule(String jarFile) {
 		String fileName = new Path(jarFile).lastSegment();
-		ILibModule[] libModules = getWebNature().getLibModules();
+		ILibModule[] libModules = getLibModules();
 		for (int i = 0; i < libModules.length; i++) {
 			ILibModule iLibModule = libModules[i];
 			if (iLibModule.getJarName().equals(fileName))
@@ -65,7 +65,7 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 
 	protected IFile findWebAppRelativeFile(IPath path) {
 		if (path != null) {
-			IResource resource = getWebNature().getModuleServerRoot().findMember(path);
+			IResource resource = getModuleServerRoot().findMember(path);
 			if (resource != null && resource.getType() == IResource.FILE)
 				return (IFile) resource;
 		}
@@ -105,19 +105,20 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 	 */
 	public ITaglibInfo[] searchFile(IFile file) {
 		// This locator only looks at web.xml files.
-		if (!getWebNature().getWebXMLPath().equals(file.getFullPath()))
+		if (!getWebDeploymentDescriptorPath().equals(file.getFullPath()))
 			return EMPTY_TAGLIBINFO_ARRAY;
 
-		J2EEWebNatureRuntime webNature = getWebNature();
-		WebEditModel editModel = null;
 		ArrayList results = new ArrayList();
-
+		WebArtifactEdit webEdit = null;
 		try {
-			editModel = webNature.getWebAppEditModelForRead(this);
-			WebApp webApp = editModel.getWebApp();
+			WebApp webApp = null;
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
+		
 			if (webApp == null)
 				return EMPTY_TAGLIBINFO_ARRAY;
-
+	
 			List taglibs = new ArrayList();
 			if (webApp.getVersionID() >= J2EEVersionConstants.WEB_2_4_ID) {
 				JSPConfig config = webApp.getJspConfig();
@@ -126,7 +127,7 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 			} else {
 				taglibs = webApp.getTagLibs();
 			}
-
+	
 			for (Iterator iter = taglibs.iterator(); iter.hasNext();) {
 				TagLibRef taglibRef13;
 				TagLibRefType taglibRef14;
@@ -141,11 +142,11 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 					uri = taglibRef13.getTaglibURI();
 					taglibLocation = taglibRef13.getTaglibLocation();
 				}
-
+	
 				IPath projectRelativeLocation = new Path(taglibLocation);
 				IPath webModuleRelativeLocation = getWebAppRelativePath(taglibLocation);
 				if (webModuleRelativeLocation != null) {
-					projectRelativeLocation = webNature.getModuleServerRoot().getProjectRelativePath().append(webModuleRelativeLocation);
+					projectRelativeLocation = getServerRoot().append(webModuleRelativeLocation);
 				}
 				WebXMLTaglibInfo taglibInfo = null;
 				IFile locationFile = findWebAppRelativeFile(webModuleRelativeLocation);
@@ -177,7 +178,7 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 						isLocationResolved = false;
 					taglibInfo = (WebXMLTaglibInfo) createTaglibForTLD(uri, projectRelativeLocation);
 					setPrefix(taglibInfo, locationFile);
-
+	
 				}
 				if (taglibInfo != null) {
 					taglibInfo.setIsWebXMLEntry(true);
@@ -190,8 +191,8 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 				}
 			}
 		} finally {
-			if (editModel != null)
-				editModel.releaseAccess(this);
+			if (webEdit != null)
+				webEdit.dispose();
 		}
 		return (ITaglibInfo[]) results.toArray(new ITaglibInfo[results.size()]);
 	}
@@ -281,9 +282,8 @@ public class WebXMLTaglibLocator extends AbstractWebTaglibLocator {
 		IPath resolvedPath = null;
 		if (location != null && !location.trim().equals("")) { //$NON-NLS-1$
 			IPath preResolvePath = new Path(location);
-			J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(this.project);
-			IContainer webModuleFolder = webNature.getModuleServerRoot();
-			IContainer webLibraryFolder = webNature.getLibraryFolder();
+			IContainer webModuleFolder = getModuleServerRoot();
+			IContainer webLibraryFolder = WebPropertiesUtil.getWebLibFolder(project);
 			IContainer webInfFolder = webLibraryFolder.getParent();
 			if (preResolvePath.getDevice() == null && !preResolvePath.isEmpty()) {
 				IContainer searchContainer = webModuleFolder;

@@ -37,7 +37,7 @@ import org.eclipse.jst.j2ee.ejb.ExcludeList;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 
 /**

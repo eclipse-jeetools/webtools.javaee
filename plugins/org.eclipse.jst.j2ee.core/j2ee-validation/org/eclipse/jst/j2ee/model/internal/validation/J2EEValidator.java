@@ -26,8 +26,8 @@ import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
-import org.eclipse.wst.validation.core.Message;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.Message;
 
 
 /**
@@ -110,7 +110,7 @@ public void addError(String bundleName, String msgId, String[] msgArgs, Object t
   _reporter.addMessage( this,
 	  new Message(
 		  	bundleName, 
-	  		IReporter.HIGH_SEVERITY,
+	  		IMessage.HIGH_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target));
@@ -118,7 +118,7 @@ public void addError(String bundleName, String msgId, String[] msgArgs, Object t
 public void addError(String bundleName, String msgId, String[] msgArgs, Object target, String groupName) {
 	IMessage message =  new Message(
 		  	bundleName, 
-	  		IReporter.HIGH_SEVERITY,
+	  		IMessage.HIGH_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target);
@@ -129,7 +129,7 @@ public void addError(String bundleName, String msgId, String[] msgArgs, Object t
 {
 	IMessage message = new Message(
 		  	bundleName, 
-	  		IReporter.HIGH_SEVERITY,
+	  		IMessage.HIGH_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target);
@@ -206,7 +206,7 @@ public void addInfo(String bundleName, String msgId, String[] msgArgs, Object ta
   _reporter.addMessage( this,
 	  new Message(
 		  	bundleName, 
-	  		IReporter.LOW_SEVERITY,
+	  		IMessage.LOW_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target));
@@ -278,7 +278,7 @@ public void addWarning(String bundleName, String msgId, String[] msgArgs, Object
   _reporter.addMessage( this,
 	  new Message(
 		  	bundleName, 
-	  		IReporter.NORMAL_SEVERITY,
+	  		IMessage.NORMAL_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target));
@@ -287,7 +287,7 @@ public void addWarning(String bundleName, String msgId, String[] msgArgs, Object
 {
 	IMessage message = new Message(
 		  	bundleName, 
-	  		IReporter.NORMAL_SEVERITY,
+	  		IMessage.NORMAL_SEVERITY,
 		  	msgId, 
 		    msgArgs,
 		    target);

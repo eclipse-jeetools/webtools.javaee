@@ -9,7 +9,7 @@
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
 
-import org.eclipse.jst.j2ee.internal.project.J2EESettings;
+//import org.eclipse.jst.j2ee.internal.project.J2EESettings;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -17,7 +17,7 @@ public interface IJ2EEImportExportConstants {
 
 	public String CLASSPATH_FILE_URI = ProjectUtilities.DOT_CLASSPATH;
 	public String PROJECT_FILE_URI = ProjectUtilities.DOT_PROJECT;
-	public String J2EE_SETTING_URI = J2EESettings.J2EE_SETTINGS_FILE_NAME;
+//	public String J2EE_SETTING_URI = J2EESettings.J2EE_SETTINGS_FILE_NAME;
 	public String PROJECT_RUNTIME_URI = ".runtime"; //$NON-NLS-1$
 
 }

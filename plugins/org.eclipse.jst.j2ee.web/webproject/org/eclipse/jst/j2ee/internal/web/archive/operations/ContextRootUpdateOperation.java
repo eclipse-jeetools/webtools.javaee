@@ -14,12 +14,11 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 
@@ -64,24 +63,20 @@ public class ContextRootUpdateOperation implements IHeadlessRunnableWithProgress
 	public void run(org.eclipse.core.runtime.IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
 		// update context root in web project
-		try {
-			WebPropertiesUtil.updateContextRoot(fProject, fContextRoot);
+		WebPropertiesUtil.updateContextRoot(fProject, fContextRoot);
 
-			// update context root in ear project
-			updateContextRootInEAR(fProject, fContextRoot);
-		} catch (CoreException e) {
-			throw new InvocationTargetException(e);
-		}
+		// update context root in ear project
+		updateContextRootInEAR(fProject, fContextRoot);
 	}
 
 	protected void updateContextRootInEAR(org.eclipse.core.resources.IProject project, String contextRoot) {
+		
+//		J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(project);
+//		if (runtime == null)
+//			return;
 
-		J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(project);
-
-		if (runtime == null)
-			return;
-
-		EARNatureRuntime earNatureRuntime[] = runtime.getReferencingEARProjects();
+//		EARNatureRuntime earNatureRuntime[] = runtime.getReferencingEARProjects();
+		EARNatureRuntime earNatureRuntime[] = new EARNatureRuntime[0];
 		EAREditModel editModel = null;
 		for (int i = 0; i < earNatureRuntime.length; i++) {
 			// hold the model and update the context root & release the model

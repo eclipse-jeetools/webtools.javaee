@@ -114,6 +114,7 @@
 <!--============================-->
 <!-- EAR Project Nature Contributions                -->
 <!--============================-->
+
    <extension
          id="EARNature"
          name="EAR Properties"
@@ -123,6 +124,17 @@
                class="org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime">
          </run>
       </runtime>
+   </extension>
+
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="jst.ear"
+            factoryClass="org.eclipse.wst.common.modulecore.internal.impl.ArtifactEditModelFactory">
+         <editModelResource
+               autoload="false"
+               URI="META-INF/application.xml"/>
+      </editModel>
    </extension>
 <!-- Register the nature id with the EMFNature -->
    <extension

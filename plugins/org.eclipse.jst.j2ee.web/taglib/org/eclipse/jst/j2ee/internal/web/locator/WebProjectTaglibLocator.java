@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.web.taglib.DirTaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.TLDDigester;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibInfo;
@@ -153,10 +153,11 @@ public class WebProjectTaglibLocator extends AbstractWebTaglibLocator {
 		try {
 			resource.accept(new IResourceVisitor() {
 				public boolean visit(IResource aresource) throws CoreException {
+					int JSPVersion = getJSPVersion();
 					if (aresource.getType() != IResource.FILE) {
 						if (aresource.getType() != IResource.ROOT && WebProjectTaglibLocator.this.project != aresource.getProject())
 							return false;
-						if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) {
+						if (JSPVersion==J2EEVersionConstants.JSP_2_0_ID) {
 							ITaglibInfo[] taglibs = searchDir((IContainer) aresource);
 							if (taglibs != null)
 								results.addAll(Arrays.asList(taglibs));
@@ -168,7 +169,7 @@ public class WebProjectTaglibLocator extends AbstractWebTaglibLocator {
 					}
 
 					if (hasTagExtension(aresource.getName())) {
-						if (getWebNature().getJSPLevel().equals(J2EEWebNatureRuntime.JSPLEVEL_2_0)) {
+						if (JSPVersion==J2EEVersionConstants.JSP_2_0_ID) {
 							ITaglibInfo[] taglibs = searchDir(aresource.getParent());
 							if (taglibs != null)
 								results.addAll(Arrays.asList(taglibs));

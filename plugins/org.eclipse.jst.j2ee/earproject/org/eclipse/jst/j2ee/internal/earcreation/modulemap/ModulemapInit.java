@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.internal.earcreation.modulemap;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
+import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emf.utilities.ResourceDependencyRegister;
 
 

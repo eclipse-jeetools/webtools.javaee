@@ -38,9 +38,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestIm
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.common.util.Defaultable;
 import org.eclipse.jst.j2ee.webapplication.FilterMapping;
-import org.eclipse.wst.common.emf.utilities.CopyGroup;
-import org.eclipse.wst.common.emf.utilities.EtoolsCopySession;
-import org.eclipse.wst.common.emf.utilities.EtoolsCopyUtility;
+import org.eclipse.wst.common.internal.emf.utilities.CopyGroup;
+import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopySession;
+import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 
 
 

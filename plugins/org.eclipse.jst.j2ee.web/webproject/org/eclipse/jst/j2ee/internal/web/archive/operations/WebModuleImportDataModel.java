@@ -8,8 +8,6 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +24,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.web.internal.operation.WebSettings;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -108,13 +105,29 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 				WARFileImpl warFile = (WARFileImpl) getArchiveFile();
 				if (null != warFile) {
 					if (warFile.containsFile(".j2ee")) { //$NON-NLS-1$
-						try {
-							webContentName = WebSettings.getWebContentDirectory(warFile.getInputStream(".j2ee")); //$NON-NLS-1$
-						} catch (FileNotFoundException e) {
-							//Do nothing
-						} catch (IOException e) {
-							//Do nothing
-						}
+						//To do:  Needs work here, no web content exists now
+//						try {
+//							//webContentName = WebSettings.getWebContentDirectory(warFile.getInputStream(".j2ee")); //$NON-NLS-1$
+//							ArtifactEdit artifact = null;
+//							WebArtifactEdit webEdit = null;
+//							try{
+//								artifact = ModuleCore.getFirstArtifactEditForRead( project );
+//								webEdit = ( WebArtifactEdit )artifact;
+//					       		if(webEdit != null) {
+//               		
+//					       		}			
+//							}catch (Exception e) {
+//								e.printStackTrace();
+//							}finally{
+//								if( webEdit != null )
+//									webEdit.dispose();
+//							}	
+//							
+//						} catch (FileNotFoundException e) {
+//							//Do nothing
+//						} catch (IOException e) {
+//							//Do nothing
+//						}
 					}
 				}
 			}

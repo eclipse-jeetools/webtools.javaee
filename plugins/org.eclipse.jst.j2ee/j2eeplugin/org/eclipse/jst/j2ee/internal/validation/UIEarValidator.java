@@ -73,10 +73,9 @@ import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.Message;
-import org.eclipse.wst.validation.core.MessageLimitException;
-import org.eclipse.wst.validation.core.SeverityEnum;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.MessageLimitException;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -250,7 +249,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			if (project != null)
 				param[0] = project.getName();
 			Logger.getLogger().logError(e);
-			IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
+			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
 			throw new ValidationException(errorMsg, e);
 		} finally {
 			if (earEditModel != null)
@@ -407,7 +406,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	protected void handleManifestException(IOException ex, Archive anArchive) throws ValidationException {
 		Logger.getLogger().logError(ex);
-		IMessage message = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_READING_MANIFEST_ERROR_, new String[]{anArchive.getURI()});
+		IMessage message = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_READING_MANIFEST_ERROR_, new String[]{anArchive.getURI()});
 		throw new ValidationException(message, ex);
 	}
 

@@ -35,9 +35,11 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class LibDirBuilder extends IncrementalProjectBuilder implements IResourceDeltaVisitor {
 
@@ -210,13 +212,12 @@ public class LibDirBuilder extends IncrementalProjectBuilder implements IResourc
 			}
 			monitor.beginTask(ProjectSupportResourceHandler.getString("Sychronize_Class_Path_UI_"), 4); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Sychronize Class Path"
-
-			J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-			IContainer lib_folder = webNature.getLibraryFolder();
+            
+			IContainer lib_folder = WebPropertiesUtil.getWebLibFolder(project);
 			//Nothing to do if the lib folder does not exist.
 			if (lib_folder == null || !lib_folder.isAccessible())
 				return;
-			IJavaProject javaProject = webNature.getJ2EEJavaProject();
+			IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
 			IPath lib_path = lib_folder.getProjectRelativePath();
 			IPath lib_full_path = lib_folder.getFullPath();
 
@@ -329,10 +330,8 @@ public class LibDirBuilder extends IncrementalProjectBuilder implements IResourc
 				if (filePath.toLowerCase().endsWith(".jar") //$NON-NLS-1$
 							|| filePath.toLowerCase().endsWith(".zip")) { //$NON-NLS-1$
 					IProject project = resource.getProject();
-					J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-					IJavaProject javaProject = webNature.getJ2EEJavaProject();
-					IPath lib_path = project.getFullPath().append(webNature.getLibraryFolder().getProjectRelativePath());
-
+					IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
+					IPath lib_path = lib_path = project.getFullPath().append(WebPropertiesUtil.getWebLibFolder(project).getProjectRelativePath());
 					int file_seg_count = subdelta.getFullPath().segmentCount();
 					int lib_path_seg_count = lib_path.segmentCount();
 

@@ -119,6 +119,8 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
         }
         return false;
     }
+	
+	protected abstract String getNatureID();
 
     /**
      * Creates the module project for the given project.
@@ -138,7 +140,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
     protected abstract List createModules(ModuleCoreNature nature);
 
-    public abstract String getNatureID();
+    //public abstract String getNatureID();
 
     public abstract IModule createModule(J2EENature nature);
 

@@ -16,7 +16,7 @@ import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.command.UnexecutableCommand;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.command.CopyToClipboardCommand;
-import org.eclipse.wst.common.emf.utilities.EtoolsCopyUtility;
+import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
 
 
 public class J2EECopyToClipboardOverrideCommand extends CopyToClipboardCommand {

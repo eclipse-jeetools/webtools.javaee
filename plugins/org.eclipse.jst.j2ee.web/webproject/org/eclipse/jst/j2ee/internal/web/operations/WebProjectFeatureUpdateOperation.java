@@ -25,13 +25,13 @@ import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgres
 public class WebProjectFeatureUpdateOperation implements IHeadlessRunnableWithProgress {
 
 	protected WebProjectInfo webProjectInfo;
-	protected J2EEWebNatureRuntime nature;
+	//protected J2EEWebNatureRuntime nature;
 
 
 	public WebProjectFeatureUpdateOperation(WebProjectInfo projectInfo) {
 		webProjectInfo = projectInfo;
 		IProject project = webProjectInfo.getProject();
-		nature = (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(project);
+		//nature = (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(project);
 	}
 
 	/*
@@ -42,11 +42,13 @@ public class WebProjectFeatureUpdateOperation implements IHeadlessRunnableWithPr
 		String[] featureIDs = webProjectInfo.getFeatureIds();
 
 		try {
+			
+			//TODO set featureID's on module
 
-			if (featureIDs != null && featureIDs.length > 0)
-				nature.setFeatureIds(featureIDs);
+		/*	if (featureIDs != null && featureIDs.length > 0)
+				nature.setFeatureIds(featureIDs);*/
 
-		} catch (CoreException e) {
+		} catch (Exception e) {
 			throw new InvocationTargetException(e);
 		}
 

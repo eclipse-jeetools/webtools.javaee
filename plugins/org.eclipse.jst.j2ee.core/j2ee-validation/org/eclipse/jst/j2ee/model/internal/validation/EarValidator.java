@@ -55,9 +55,8 @@ import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.Message;
-import org.eclipse.wst.validation.core.SeverityEnum;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.Message;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -130,11 +129,11 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 				if (appDD != null && appDD.eResource() != null && appDD.eResource().isLoaded())
 					validate();
 				else {
-					IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, EAR_DD_CANNOT_OPEN_DD, new String[] { getResourceName()});
+					IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_DD_CANNOT_OPEN_DD, new String[] { getResourceName()});
 					throw new ValidationException(errorMsg);
 				}
 			} else {
-				IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, ERROR_EAR_INVALID_EAR_FILE, new String[] { getResourceName()});
+				IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_EAR_INVALID_EAR_FILE, new String[] { getResourceName()});
 				throw new ValidationException(errorMsg);
 			} // if
 		} catch (ValidationException ex) {
@@ -144,7 +143,7 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 			if (earFile != null)
 				param[0] = earFile.getName();
 			Logger.getLogger().logError(e);
-			IMessage errorMsg = new Message(getBaseName(), SeverityEnum.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
+			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
 			throw new ValidationException(errorMsg, e);
 		} // try 
 	} // validate

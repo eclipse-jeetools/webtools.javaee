@@ -11,9 +11,12 @@ package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Application;
+import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
+import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -66,7 +69,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @throws UnresolveableURIException
 	 *             could not resolve uri.
 	 */
-	public static EARArtifactEdit getWebArtifactEditForRead(WorkbenchModule aModule) {
+	public static EARArtifactEdit getEARArtifactEditForRead(WorkbenchModule aModule) {
 		try {
 			if (isValidEARModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -99,7 +102,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of EARArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static EARArtifactEdit getWebArtifactEditForWrite(WorkbenchModule aModule) {
+	public static EARArtifactEdit getEARArtifactEditForWrite(WorkbenchModule aModule) {
 		try {
 			if (isValidEARModule(aModule)) {
 				IProject project = ModuleCore.getContainingProject(aModule.getHandle());
@@ -202,5 +205,42 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(URI.createURI(J2EEConstants.APPLICATION_DD_URI));
+	}
+
+
+	public EObject createModelRoot() {
+		if(getApplicationXmiResource() == null) {
+			 addApplicationIfNecessary(getApplicationXmiResource());
+		}
+		return getApplicationXmiResource().getRootObject();
+	}
+	
+	/**
+	 * <p>
+	 * Creates a deployment descriptor root object (Application) and populates with data. Adds the root
+	 * object to the deployment descriptor resource.
+	 * </p>
+	 * 
+	 * <p>
+	 * 
+	 * @param aModule
+	 *            A non-null pointing to a {@see XMLResource}
+	 * 
+	 * Note: This method is typically used for JUNIT - move?
+	 * </p>
+	 */
+	protected void addApplicationIfNecessary(XMLResource aResource) {
+
+		if (aResource != null && aResource.getContents().isEmpty()) {
+			Application application = ApplicationFactory.eINSTANCE.createApplication();
+			aResource.getContents().add(application);
+			URI moduleURI = getArtifactEditModel().getModuleURI();
+			try {
+				application.setDisplayName(ModuleCore.getDeployedName(moduleURI));
+			} catch (UnresolveableURIException e) {
+			}
+			aResource.setID(application, J2EEConstants.APPL_ID);
+			//TODO add more mandatory elements
+		}
 	}
 }

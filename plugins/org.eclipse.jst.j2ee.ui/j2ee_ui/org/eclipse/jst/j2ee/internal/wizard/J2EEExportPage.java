@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDa
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactExportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -345,6 +346,10 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 	protected String getFileNamesStoreID() {
 		return getNatureID();
 	}
+	
+	protected String getNatureID() {
+		return IWebNatureConstants.J2EE_NATURE_ID;
+	}
 
 	/**
 	 * @return
@@ -370,7 +375,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 	/**
 	 * @return
 	 */
-	protected abstract String getNatureID();
+	//protected abstract String getNatureID();
 
 	protected abstract boolean isMetaTypeSupported(Object o);
 

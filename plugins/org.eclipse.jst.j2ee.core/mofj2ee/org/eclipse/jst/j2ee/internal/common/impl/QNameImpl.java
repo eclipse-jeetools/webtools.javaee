@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.QName;
-import org.eclipse.wst.common.emf.utilities.NamespaceAdapter;
+import org.eclipse.wst.common.internal.emf.utilities.NamespaceAdapter;
 import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
 
 

@@ -18,9 +18,10 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -30,29 +31,28 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
 import org.eclipse.jst.j2ee.internal.dialogs.RenameModuleDialog;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.CommonEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
+import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.UnresolveableURIException;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -62,7 +62,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	protected Shell shell;
 	//Used for EAR rename
 	protected Set referencedProjects;
-	protected List projects;
+	protected List modules;
 	protected RenameOptions options;
 	// added for IRefactoringAction behavior
 	protected ISelectionProvider provider = null;
@@ -92,7 +92,7 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 			renameModuleOperation = null;
 		}
 		referencedProjects = null;
-		projects = null;
+		modules = null;
 		options = null;
 	}
 
@@ -136,7 +136,8 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 		Iterator it = sel.iterator();
 		while (it.hasNext()) {
 			Object o = it.next();
-			if (!CommonUtil.isDeploymentDescriptorRoot(o, false) && !isJ2EEProject(o))
+			//TODO check for j2ee workbench module selection
+			if (!CommonUtil.isDeploymentDescriptorRoot(o, false) /*&& !isJ2EEProject(o)*/)
 				return false;
 		}
 		return true;
@@ -154,32 +155,45 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	}
 
 
-	protected List getProjects() {
-		if (projects == null) {
-			projects = new ArrayList();
+	protected List getModules() {
+		if (modules == null) {
+			modules = new ArrayList();
 			IStructuredSelection sel = (StructuredSelection) getSelection();
 			Iterator iterator = sel.iterator();
-			IProject project = null;
+			WorkbenchModule module = null;
 			Object o = null;
 			while (iterator.hasNext()) {
 				o = iterator.next();
-				if (o instanceof JavaProject) {
-					o = ((JavaProject) o).getProject();
-				}
-				if (o instanceof IProject) {
-					projects.add(o);
+				if (o instanceof WorkbenchModule) {
+					modules.add(o);
 				} else if (o instanceof EObject) {
 					EObject obj = (EObject) o;
-					project = ProjectUtilities.getProject(obj);
-					if (project == null)
-						throw new RuntimeException(J2EEUIMessages.getResourceString("Project_should_not_be_null_1_ERROR_")); //$NON-NLS-1$
-					projects.add(project);
+					IProject project = ProjectUtilities.getProject(obj);
+					ModuleCore moduleCore = null;
+					try {
+						moduleCore = ModuleCore.getModuleCoreForRead(project);
+						URI uri = obj.eResource().getURI();
+						WorkbenchModuleResource[] resources = moduleCore.findWorkbenchModuleResourcesBySourcePath(uri);
+						for (int i=0; i<resources.length; i++) {
+							module = resources[i].getModule();
+							if (module !=null)
+								break;
+						}
+						if (module == null)
+							throw new RuntimeException(J2EEUIMessages.getResourceString("Project_should_not_be_null_1_ERROR_")); //$NON-NLS-1$
+						modules.add(module);
+					} catch (UnresolveableURIException e) {
+						//Ignore
+					} finally {
+						if (moduleCore !=null)
+							moduleCore.dispose();
+					}
 				} else {
 					throw new RuntimeException(J2EEUIMessages.getResourceString("Non-project_in_selection_2_ERROR_")); //$NON-NLS-1$
 				}
 			}
 		}
-		return projects;
+		return modules;
 	}
 
 	/**
@@ -187,34 +201,29 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	 */
 	public void run() {
 		try {
-			List localProjects = getProjects();
-			if (localProjects.size() != 1)
+			List localModules = getModules();
+			if (localModules.size() != 1)
 				return;
-			IProject project = (IProject) localProjects.get(0);
+			WorkbenchModule module = (WorkbenchModule) localModules.get(0);
 			J2EERenameDialog dlg = null;
 
 			// if all we are doing is renaming an EAR, let the base platform do it
 			if (isSelectionAllApplications()) {
 				RenameResourceAction action = new RenameResourceAction(shell);
-				action.selectionChanged(new StructuredSelection(project));
+				action.selectionChanged(new StructuredSelection(module));
 				action.run();
 			} else {
-				String contextRoot = null;
-				try {
-					if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-						contextRoot = J2EEWebNatureRuntime.getRuntime(project).getContextRoot();
-					}
-				} catch (Throwable t) {
-					contextRoot = null;
-				}
-				dlg = new RenameModuleDialog(shell, project.getName(), contextRoot);
+				String contextRoot = ""; //$NON-NLS-1$
+				//TODO add context root to the module model
+				//contextRoot = module.getServerContextRoot();
+				dlg = new RenameModuleDialog(shell, module.getDeployedName(), contextRoot);
 				dlg.open();
 				if (dlg.getReturnCode() == Window.CANCEL)
 					return;
 
 				options = dlg.getRenameOptions();
 				if (options != null)
-					options.setSelectedProjects(localProjects);
+					options.setSelectedProjects(localModules);
 
 				if (!(ensureEditorsSaved() && validateState()))
 					return;
@@ -239,19 +248,20 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 	}
 
 	protected void computeReferencedProjects() {
-		getProjects();
+		getModules();
 		referencedProjects = new HashSet();
-		for (int i = 0; i < projects.size(); i++) {
-			IProject project = (IProject) projects.get(i);
-			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
-			if (runtime == null)
-				continue;
-			EAREditModel editModel = runtime.getEarEditModelForRead(this);
-			try {
-				referencedProjects.addAll(editModel.getModuleMappedProjects());
-			} finally {
-				editModel.releaseAccess(this);
-			}
+		for (int i = 0; i < modules.size(); i++) {
+			//WorkbenchModule module = (WorkbenchModule) modules.get(i);
+			//TODO fix up code here for modules instead of projects
+//			EARNatureRuntime runtime = EARNatureRuntime.getRuntime(project);
+//			if (runtime == null)
+//				continue;
+//			EAREditModel editModel = runtime.getEarEditModelForRead(this);
+//			try {
+//				referencedProjects.addAll(editModel.getModuleMappedProjects());
+//			} finally {
+//				editModel.releaseAccess(this);
+//			}
 		}
 	}
 
@@ -306,12 +316,10 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 		// only web projects should have a context root
 		String newContextRoot = options.getNewContextRoot();
 		if (newContextRoot != null && options.shouldRenameProjects()) {
-			IProject project = (IProject) getProjects().get(0);
+			//WorkbenchModule module = (WorkbenchModule) getModules().get(0);
 			try {
-				IProject newProject = project.getWorkspace().getRoot().getProject(options.getNewName());
-				J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(newProject);
-				if (runtime != null)
-					runtime.setContextRoot(newContextRoot);
+				// TODO add server context root to the module model
+				//module.setServerContextRoot(newContextRoot);		               		
 			} catch (Throwable t) {
 				//Ignore
 			}
@@ -343,30 +351,6 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 				updateSelection(selection);
 			}
 		}
-	}
-
-	protected boolean isJ2EEProject(Object o) {
-		boolean retVal = false;
-		if (o instanceof JavaProject) {
-			o = ((JavaProject) o).getProject();
-		}
-		if (o instanceof IProject) {
-			IProject project = (IProject) o;
-			try {
-				if (EJBNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				} else if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-					retVal = true;
-				} else if (ApplicationClientNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				} else if (ConnectorNatureRuntime.hasRuntime(project)) {
-					retVal = true;
-				}
-			} catch (Throwable t) {
-				retVal = false;
-			}
-		}
-		return retVal;
 	}
 
 	protected boolean isJ2EEApplicationProject(Object o) {

@@ -21,11 +21,12 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.JavaTaglibRegistry;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.WebTaglibRegistry;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 public class TaglibRegistryManager implements ITaglibRegistryManager {
@@ -85,10 +86,11 @@ public class TaglibRegistryManager implements ITaglibRegistryManager {
 
 	protected ITaglibRegistry createNewRegistry(IProject project) {
 		ITaglibRegistry registry = null;
+		WebArtifactEdit webEdit = null;
 		try {
-			if (project != null && project.isAccessible()) { // CMVC defect 221661, Web library
-															 // project being closed
-				if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
+			if (project != null && project.isAccessible()) { // ensure web library project not closed
+				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+				if (webEdit!=null) {
 					registry = new WebTaglibRegistry(project);
 				} else if (project.hasNature(JavaCore.NATURE_ID)) {
 					registry = new JavaTaglibRegistry(project);
@@ -96,6 +98,9 @@ public class TaglibRegistryManager implements ITaglibRegistryManager {
 			}
 		} catch (CoreException e) {
 			//Do nothing
+		} finally {
+			if (webEdit != null)
+				webEdit.dispose();
 		}
 		if (registry != null) {
 			this.registries.put(project, registry);

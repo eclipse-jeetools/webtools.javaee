@@ -15,8 +15,8 @@ import java.util.Hashtable;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 /**
@@ -50,20 +50,26 @@ public class UIWarHelper extends WarHelper {
 		warFile = (IFile) aWarFileMap.get(project.toString());
 		if (warFile != null)
 			return warFile;
-		try {
-			if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) { // dhaaa, do not expect this to be false
-				J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
-				if (webNature != null) {
-					IPath path = webNature.getWebXMLPath(); // this is an absolute path.
-					IPath projectPath = project.getFullPath();
-					path = path.removeFirstSegments(path.matchingFirstSegments(projectPath)); // make it relative
-					warFile = project.getFile(path);
-					aWarFileMap.put(project.toString(), warFile);
-				}
-			}
-		} catch (Exception e) {
-			//Do nothing
-		}
+		
+		IPath path = getDeploymentDescriptorPath(project);
+		IPath projectPath = project.getFullPath();
+		path = path.removeFirstSegments(path.matchingFirstSegments(projectPath)); // make it relative
+		warFile = project.getFile(path);
+		aWarFileMap.put(project.toString(), warFile);
+		
 		return warFile;
+	}
+	
+	protected IPath getDeploymentDescriptorPath(IProject project) {
+		WebArtifactEdit webArtifactEdit = null; 
+		try {
+			webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			if (webArtifactEdit != null)
+				return webArtifactEdit.getDeploymentDescriptorPath();
+		} finally {
+			if (webArtifactEdit!=null)
+				webArtifactEdit.dispose();
+		}
+		return null;
 	}
 }

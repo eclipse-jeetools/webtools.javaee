@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.common.util;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.wst.common.emf.utilities.IDUtil;
+import org.eclipse.wst.common.internal.emf.utilities.IDUtil;
 
 
 /**
