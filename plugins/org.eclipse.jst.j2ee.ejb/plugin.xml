@@ -149,22 +149,22 @@
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
       <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.internal.ejb.EJBJar"
-            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb">
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean"
-            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb2">
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IProject"
-            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb3">
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IFile"
-            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb4">
       </moduleArtifactAdapter>
       <moduleArtifactAdapter
