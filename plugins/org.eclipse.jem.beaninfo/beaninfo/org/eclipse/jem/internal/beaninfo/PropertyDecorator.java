@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: PropertyDecorator.java,v $
- *  $Revision: 1.6 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/16 00:24:55 $ 
  */
 
 
@@ -480,5 +480,17 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * @generated
 	 */
 	EClassifier getPropertyType();
+
+	/**
+	 * @return boolean for whether this property is writeable or not
+	 * It could have a write method or it could have a field (e.g. java.awt.Insets.top)
+	 */
+	boolean isWriteable();
+
+	/**
+	 * @return boolean for whether this property is readable or not
+	 * It could have a read method or it could have a field (e.g. java.awt.Insets.top)
+	 */
+	boolean isReadable();
 
 }

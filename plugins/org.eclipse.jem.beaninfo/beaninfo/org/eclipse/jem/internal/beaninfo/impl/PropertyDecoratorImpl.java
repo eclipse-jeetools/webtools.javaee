@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.10 $  $Date: 2005/02/16 00:28:06 $ 
  */
 
 
@@ -1143,5 +1143,20 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 		}
 		return eDynamicIsSet(eFeature);
 	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.beaninfo.PropertyDecorator#isWriteable()
+	 */
+	public boolean isWriteable() {
+		return !(getWriteMethod() == null && getField() == null);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.beaninfo.PropertyDecorator#isReadable()
+	 */
+	public boolean isReadable() {
+		return !(getReadMethod() == null && getField() == null);
+	}
+	
 
 }
