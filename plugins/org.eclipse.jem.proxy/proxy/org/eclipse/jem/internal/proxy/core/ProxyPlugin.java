@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.9 $  $Date: 2004/03/07 17:21:42 $ 
+ *  $Revision: 1.10 $  $Date: 2004/03/07 18:24:33 $ 
  */
 
 
@@ -48,7 +48,7 @@ public class ProxyPlugin extends Plugin {
 	/**
 	 * This interface is for a listener that needs to know if this plugin (ProxyPlugin) is being shutdown. 
 	 * It is needed because there are some extensions that get added dynamically that need to know when the
-	 * plugin is being shutdown.
+	 * plugin is being shutdown. Can't use new bundle listener for this because it notifies AFTER shutdown.
 	 * 
 	 * @since 1.0.0
 	 */
@@ -508,7 +508,7 @@ public class ProxyPlugin extends Plugin {
 		super.shutdown();
 	}
 	
-	public static final String PI_CONFIGURATION_CONTRIBUTION = "contributor";
+	public static final String PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT = "org.eclipse.jem.proxy.contributor";
 	public static final String PI_CONTAINER = "container";
 	public static final String PI_PLUGIN = "plugin";
 	public static final String PI_CLASS = "class";
@@ -532,7 +532,7 @@ public class ProxyPlugin extends Plugin {
 	 */
 	public IConfigurationElement[] getContainerConfigurations(String containerid) {
 		if (containerToContributions == null)
-			processContributionExtensionPoint();
+			processProxyContributionExtensionPoint();
 		return (IConfigurationElement[]) containerToContributions.get(containerid);
 	}
 
@@ -546,18 +546,54 @@ public class ProxyPlugin extends Plugin {
 	 */
 	public IConfigurationElement[] getPluginConfigurations(String pluginid) {
 		if (pluginToContributions == null)
-			processContributionExtensionPoint();
+			processProxyContributionExtensionPoint();
 		return (IConfigurationElement[]) pluginToContributions.get(pluginid);
 	}
 	
-	protected void processContributionExtensionPoint() {
+	protected void processProxyContributionExtensionPoint() {
+		ContributorExtensionPointInfo info = processContributionExtensionPoint(PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT);
+		containerToContributions = info.containerToContributions;
+		pluginToContributions = info.pluginToContributions;
+	}
+	
+	/**
+	 * Result form processContributionExtensionPoint.
+	 * 
+	 * @see ProxyPlugin#processContributionExtensionPoint(String)
+	 * @since 1.0.0
+	 */
+	public static class ContributorExtensionPointInfo {
+		/**
+		 * Map of container ids (String) to contributions (IConfigurationElement[]) that was found with that id. For each container,
+		 * the contributions will be listed in plugin prereq order.
+		 */
+		public Map containerToContributions;
+		
+		/**
+		 * Map of plugin ids (String) to contributions (IConfigurationElement[]) that was found with that id. For each plugin,
+		 * the contributions will be listed in plugin prereq order.
+		 */
+		public Map pluginToContributions;
+	}
+
+	/**
+	 * Process the extension point looking contributors. It will find entries that have the "container" or "plugin" attributes
+	 * set on them.
+	 * 
+	 * @param extensionPoint fully-qualified extension point id, including plugin id of the extension point.
+	 * @return the contributor info record.
+	 * 
+	 * @since 1.0.0
+	 */
+	public static ContributorExtensionPointInfo processContributionExtensionPoint(String extensionPoint) {
 		// We are processing this once because it is accessed often (once per vm per project).
 		// This can add up so we get it together once here.
-		IExtensionPoint extp = getDescriptor().getExtensionPoint(PI_CONFIGURATION_CONTRIBUTION);
+		IExtensionPoint extp = Platform.getExtensionRegistry().getExtensionPoint(extensionPoint);
+		ContributorExtensionPointInfo result = new ContributorExtensionPointInfo();
 		if (extp == null) {
-			containerToContributions = Collections.EMPTY_MAP;
-			pluginToContributions = Collections.EMPTY_MAP;
-			return;
+			result.containerToContributions = Collections.EMPTY_MAP;
+			result.pluginToContributions = Collections.EMPTY_MAP;
+			return result;
 		}
 		
 		IExtension[] extensions = extp.getExtensions();
@@ -579,8 +615,8 @@ public class ProxyPlugin extends Plugin {
 		
 		// Now order them so we process in required order.
 		IPluginDescriptor[] ordered = ProxyPlugin.orderPlugins(pluginDescriptorsToExtensions.keySet());
-		containerToContributions = new HashMap(ordered.length);
-		pluginToContributions = new HashMap(ordered.length);
+		result.containerToContributions = new HashMap(ordered.length);
+		result.pluginToContributions = new HashMap(ordered.length);
 		for (int i = 0; i < ordered.length; i++) {
 			IExtension[] exts = (IExtension[]) pluginDescriptorsToExtensions.get(ordered[i]);
 			for (int j = 0; j < exts.length; j++) {
@@ -590,19 +626,19 @@ public class ProxyPlugin extends Plugin {
 				for (int k = 0; k < configs.length; k++) {
 					String container = configs[k].getAttributeAsIs(PI_CONTAINER);
 					if (container != null) {
-						List contributions = (List) containerToContributions.get(container);
+						List contributions = (List) result.containerToContributions.get(container);
 						if (contributions == null) {
 							contributions = new ArrayList(1);
-							containerToContributions.put(container, contributions);
+							result.containerToContributions.put(container, contributions);
 						}
 						contributions.add(configs[k]);
 					}
 					String plugin = configs[k].getAttributeAsIs(PI_PLUGIN);
 					if (plugin != null) {
-						List contributions = (List) pluginToContributions.get(plugin);
+						List contributions = (List) result.pluginToContributions.get(plugin);
 						if (contributions == null) {
 							contributions = new ArrayList(1);
-							pluginToContributions.put(plugin, contributions);
+							result.pluginToContributions.put(plugin, contributions);
 						}
 						contributions.add(configs[k]);
 					}
@@ -611,14 +647,16 @@ public class ProxyPlugin extends Plugin {
 		}
 		
 		// Now go through and turn all of the contribution lists into arrays.
-		for (Iterator iter = containerToContributions.entrySet().iterator(); iter.hasNext();) {
+		for (Iterator iter = result.containerToContributions.entrySet().iterator(); iter.hasNext();) {
 			Map.Entry entry = (Map.Entry) iter.next();
 			entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
 		}
-		for (Iterator iter = pluginToContributions.entrySet().iterator(); iter.hasNext();) {
+		for (Iterator iter = result.pluginToContributions.entrySet().iterator(); iter.hasNext();) {
 			Map.Entry entry = (Map.Entry) iter.next();
 			entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
 		}
+		
+		return result;
 	}
 	
 	/**
@@ -631,7 +669,7 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @param jproject
 	 * @param containerIds This set will be filled in with container ids (type is <code>java.lang.String</code>) that are found in the projects build path.
-	 * @param containers This set will be filled in with classpath containers found that implement <code>org.eclipse.jem.internal.proxy.core.IConfigurationContributor</code> that are found in the projects build path.
+	 * @param containers This set will be filled in with classpath containers found in the projects build path.
 	 * @param pluginIds This set will be filled in with plugin ids (type is <code>java.lang.String</code>) that are found in the projects build path.
 	 * 
 	 * @since 1.0.0
