@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.8 $  $Date: 2004/03/09 19:45:57 $ 
+ *  $Revision: 1.9 $  $Date: 2004/03/09 20:26:29 $ 
  */
 
 
@@ -19,7 +19,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.logging.Level;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -44,7 +43,6 @@ import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
 import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
 import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 
-import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Bean Decorator</b></em>'.
