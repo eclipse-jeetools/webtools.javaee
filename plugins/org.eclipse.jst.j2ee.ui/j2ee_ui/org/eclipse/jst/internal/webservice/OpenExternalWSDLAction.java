@@ -23,7 +23,6 @@ import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wst.webbrowser.WebBrowser;
-import org.eclipse.wst.webbrowser.internal.WebBrowserEditorInput;
 import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
@@ -46,7 +45,7 @@ public class OpenExternalWSDLAction extends AbstractOpenAction {
 
 	public void run() {
 		try {
-			WebBrowser.openURL(new WebBrowserEditorInput(new URL(uri), WebBrowserEditorInput.SHOW_ALL | WebBrowserEditorInput.FORCE_NEW_PAGE));
+			WebBrowser.openURL(new URL(uri), WebBrowser.SHOW_ALL | WebBrowser.FORCE_NEW_PAGE, null);
 		} catch (Exception e) {
 		}
 	}
