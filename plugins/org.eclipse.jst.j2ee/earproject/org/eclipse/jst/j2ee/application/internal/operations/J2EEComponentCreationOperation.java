@@ -32,14 +32,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.modulecore.ComponentType;
@@ -193,30 +190,6 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
         return null;
 		}
 		
-	/**
-	 * @param projectModel
-	 * @throws JavaModelException
-	 */
-//	private void updateClasspath(JavaProjectCreationDataModel projectModel) throws JavaModelException {
-//		ClassPathSelection classpath = ((J2EEModuleCreationDataModel) getOperationDataModel()).getClassPathSelection();
-//		if (classpath == null || classpath.getClasspathElements().size() == 0)
-//			return;
-//		IClasspathEntry[] newEntries = classpath.getClasspathEntriesForSelected();
-//		IProject project = projectModel.getProject();
-//		if (project == null)
-//			return;
-//		IJavaProject javaProject = JavaCore.create(project);
-//		IClasspathEntry[] existingEntries = javaProject.getRawClasspath();
-//
-//		List allEntries = new ArrayList();
-//		if (existingEntries != null && existingEntries.length > 0)
-//			allEntries.addAll(Arrays.asList(existingEntries));
-//		if (newEntries != null && newEntries.length > 0)
-//			allEntries.addAll(Arrays.asList(newEntries));
-//		IClasspathEntry[] finalEntriesArray = new IClasspathEntry[allEntries.size()];
-//		allEntries.toArray(finalEntriesArray);
-//		javaProject.setRawClasspath(finalEntriesArray, new NullProgressMonitor());
-//	}
 
 	/**
 	 * @param monitor
@@ -315,50 +288,10 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 	public String getJavaSourceSourcePath() {
 		return getOperationDataModel().getStringProperty(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER);
 	}
-	
-    
-	private IClasspathEntry[] getClasspathEntries() {
-		IClasspathEntry[] sourceEntries = null;
-		sourceEntries = getSourceClasspathEntries();
-		return sourceEntries;
-	}	
-	
-	private IClasspathEntry[] getSourceClasspathEntries() {
-		String sourceFolder = getJavaSourceSourcePath();
-		ArrayList list = new ArrayList();
-		list.add(JavaCore.newSourceEntry(getProject().getFullPath().append(sourceFolder)));
-		
-		IClasspathEntry[] classpath = new IClasspathEntry[list.size()];
-		for (int i = 0; i < classpath.length; i++) {
-			classpath[i] = (IClasspathEntry) list.get(i);
-		}
-		return classpath;
-	}
+   
 	
 	private void addSrcFolderToProject() {
-		IJavaProject javaProject = JavaCore.create( this.getProject());
-		try {
-
-			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-			IClasspathEntry[] newEntries = getClasspathEntries();
-			
-			int oldSize = oldEntries.length;
-			int newSize = newEntries.length;
-			
-			IClasspathEntry[] classpathEnties = new IClasspathEntry[oldSize + newSize];
-			int k = 0;
-			for (int i = 0; i < oldEntries.length; i++) {
-				classpathEnties[i] = oldEntries[i];
-				k++;
-			}
-			for( int j=0; j< newEntries.length; j++){
-				classpathEnties[k] = newEntries[j];
-				k++;
-			}
-			javaProject.setRawClasspath(classpathEnties, null);
-		}
-		catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
-		}
-	}	
+	 	JavaComponentCreationDataModel dm = (JavaComponentCreationDataModel)operationDataModel;		
+		UpdateProjectClasspath update = new UpdateProjectClasspath(dm.getJavaSourceFolder(), dm.getProject());
+	}
 }
