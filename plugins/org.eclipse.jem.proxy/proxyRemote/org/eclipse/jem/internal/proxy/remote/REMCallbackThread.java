@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.6 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.7 $  $Date: 2004/08/17 22:03:19 $ 
  */
 
 import java.io.*;
@@ -35,6 +35,7 @@ class REMCallbackThread extends Thread {
 	final REMCallbackRegistry fServer;
 	final REMStandardBeanProxyFactory fFactory;
 	final REMStandardBeanTypeProxyFactory fTypeFactory;
+	protected boolean shuttingDown;
 	
 
 	
@@ -57,6 +58,7 @@ class REMCallbackThread extends Thread {
 	 */
 	public void close() {
 		try {
+			shuttingDown = true;	// So that if this is a forced close then it will know not to print error msgs.
 			fConnection.fSocket.close();
 		} catch (Exception e) {
 		}
@@ -274,7 +276,8 @@ class REMCallbackThread extends Thread {
 			// This is ok. It means that the connection on the other side was terminated.
 			// So just accept this and go down.
 		} catch (Throwable e) {
-			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$
+			if (!shuttingDown)
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$
 		} finally {
 			if (in != null)
 				try {
