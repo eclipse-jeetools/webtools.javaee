@@ -3,9 +3,9 @@
 <plugin
    id="org.eclipse.jst.j2ee.ejb"
    name="EJB component Plug-in"
-   description="This plugin is a non-ui plugin that provides the core functions for Enterprise Java Beans. Some of the main functions provided by this plugin are are EJB creation modification and deletion, EJB jar Import and Export. The EJBEditModel exists in this plugin"
+   description="This plugin is a non-UI plugin that provides the core functions for Enterprise Java Beans. Some of the main functions provided by this plugin are are EJB creation modification and deletion, EJB jar Import and Export. The EJBEditModel exists in this plugin"
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="Eclipse.org"
    class="org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin">
 
    <runtime>

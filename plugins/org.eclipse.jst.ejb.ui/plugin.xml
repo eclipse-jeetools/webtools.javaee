@@ -4,7 +4,8 @@
    id="org.eclipse.jst.ejb.ui"
    name="WTP EJB UI Plug-in"
    version="1.0.0"
-   class="org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin">
+   class="org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin"
+   provider-name="%providerName">
    <runtime>
       <library name="ejb_ui.jar">
          <export name="*"/>
