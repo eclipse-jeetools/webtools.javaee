@@ -135,7 +135,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.webapplication.provider.WebapplicationItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.internal.web.providers.WebapplicationItemProviderAdapterFactory"
             packageURI="webapplication.xmi"
             id="com.ibm.wtp.j2ee.webapplication.provider.WebapplicationItemProviderAdapterFactory">
       </adapterFactory>
@@ -144,7 +144,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="com.ibm.wtp.j2ee"
-            className="org.eclipse.jst.j2ee.jsp.provider.JspItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.internal.web.providers.JspItemProviderAdapterFactory"
             packageURI="jsp.xmi"
             id="org.eclipse.jst.j2ee.jsp.provider.JspItemProviderAdapterFactory">
       </adapterFactory>
