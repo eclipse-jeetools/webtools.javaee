@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: Expression.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.2 $  $Date: 2004/04/01 21:25:02 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -948,7 +948,7 @@ public abstract class Expression implements IExpression {
 		try {
 			checkForExpression(forExpression);
 			if (!hasReceiver)
-				throw new IllegalArgumentException("Currently methods need receiver");
+				throw new IllegalArgumentException(MessageFormat.format("Currently methods need receiver ({0})", new Object[] {name}));
 
 			switch (argumentCount) {
 				case 0 :
