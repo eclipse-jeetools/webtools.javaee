@@ -13,10 +13,16 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreatio
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientEditModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.ApplicationClientNatureRuntime;
+import org.eclipse.jst.j2ee.applicationclient.modulecore.util.AppClientArtifactEdit;
+import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 
@@ -30,33 +36,36 @@ public class AppClientProjectCreationDataModelVerifier extends ModuleProjectCrea
  /* (non-Javadoc)
  * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.J2EEProjectCreationDataModelVerifier#verifyProjectCreationDataModel(com.ibm.etools.application.operations.J2EEProjectCreationDataModel)
  */
-public void verifyProjectCreationDataModel(J2EEComponentCreationDataModel model) {
-    	AppClientComponentCreationDataModel dataModel = (AppClientComponentCreationDataModel)model;
-        ProjectUtility.verifyProject(dataModel.getTargetProject().getName(), true);
-        AppClientEditModel editModel = null;
+	public void verifyProjectCreationDataModel(J2EEComponentCreationDataModel model) {
+        AppClientComponentCreationDataModel dataModel = (AppClientComponentCreationDataModel) model;
         Object key = new Object();
+		AppClientArtifactEdit appClientEdit = null;
+		
         try {
-        	ApplicationClientNatureRuntime aRuntime = ApplicationClientNatureRuntime.getRuntime(dataModel.getTargetProject());
-            //EMFWorkbenchContext emfWorkbenchContext = WorkbenchResourceHelper.createEMFContext(dataModel.getTargetProject(), null);
-            editModel = (AppClientEditModel)aRuntime.getEditModelForRead(dataModel.getStringProperty(EditModelOperationDataModel.EDIT_MODEL_ID), key);
-            XMLResource dd = editModel.getDeploymentDescriptorResource();
-            Assert.assertNotNull("Deployment Descriptor Null", dd);
+			ComponentHandle handle = ComponentHandle.create(dataModel.getProject(),dataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_NAME));
+			Object dd = null;
+			appClientEdit = (AppClientArtifactEdit) AppClientArtifactEdit.getAppClientArtifactEditForRead(handle);
+       		if(appClientEdit != null) 
+       			dd = (ApplicationClient) appClientEdit.getDeploymentDescriptorRoot();
+			Assert.assertNotNull("Deployment Descriptor Null", dd);
         } finally {
-            editModel.releaseAccess(key);
-        }
-        if (dataModel.getBooleanProperty(AppClientComponentCreationDataModel.ADD_TO_EAR)) {
-            IProject earProject = dataModel.getEarComponentCreationDataModel().getTargetProject();
-            EAREditModel ear = null;
-            try {
-                Assert.assertTrue("EAR doesn't exist:", earProject.exists());
-                EARNatureRuntime runtime = EARNatureRuntime.getRuntime(earProject);
-                //EMFWorkbenchContext emfWorkbenchContext = WorkbenchResourceHelper.createEMFContext(earProject, null);
-                ear = (EAREditModel)runtime.getEditModelForRead(IEARNatureConstants.EDIT_MODEL_ID, key);
-                ear.getModuleMapping(dataModel.getTargetProject());
-                //TODO
-            } finally {
-                ear.releaseAccess(key);
-            }
-        }
-	}
+			if( appClientEdit != null )
+				appClientEdit.dispose();
+		}
+//        if (dataModel.getBooleanProperty(WebComponentCreationDataModel.ADD_TO_EAR)) {
+//            IProject earProject = dataModel.getEarComponentCreationDataModel().getTargetProject();
+//            EAREditModel ear = null;
+//            try {
+//                Assert.assertTrue("EAR doesn't exist:", earProject.exists());
+//                EARNatureRuntime runtime = EARNatureRuntime.getRuntime(earProject);
+//                //EMFWorkbenchContext emfWorkbenchContext = WorkbenchResourceHelper.createEMFContext(earProject, null);
+//                ear = (EAREditModel) runtime.getEditModelForRead(IEARNatureConstants.EDIT_MODEL_ID, key);
+//                ear.getModuleMapping(dataModel.getTargetProject());
+//                //TODO
+//            } finally {
+//                ear.releaseAccess(key);
+//            }
+//
+//        }
+    }
 }

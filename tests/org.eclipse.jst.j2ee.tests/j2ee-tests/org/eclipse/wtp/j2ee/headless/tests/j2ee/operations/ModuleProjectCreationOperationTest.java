@@ -16,7 +16,9 @@ import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOper
 public abstract class ModuleProjectCreationOperationTest extends OperationTestCase {
     
     public static String DEFAULT_PROJECT_NAME = "SimpleProject";
+    public static String DEFAULT_EAR_PROJECT_NAME = "SimpleEARProject";
 	public static String DEFAULT_COMPONENT_NAME = "SimpleComponent";
+	public static String DEFAULT_EAR_COMPONENT_NAME = "SimpleEARComponent";
     
     public static Test suite() {
         TestSuite suite = new TestSuite();
@@ -33,13 +35,23 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     }
     
     public void testCreateEAR() throws Exception {
-    	J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
-        dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, "SimpleEJB");
-        dataModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, "SimpleEAR");
-        runAndVerify(dataModel);
+		createSimpleFlexProject(DEFAULT_EAR_PROJECT_NAME);
+        createSimpleEARModule(DEFAULT_EAR_COMPONENT_NAME,DEFAULT_EAR_PROJECT_NAME);
     }
 
-    public void testAddToEAR() throws Exception {
+    private void createSimpleEARModule(String componentName, String projectName) throws Exception {
+		J2EEComponentCreationDataModel dataModel = getEARComponentCreationDataModel();
+		dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, projectName);
+        dataModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME, componentName);
+        runAndVerify(dataModel);
+	}
+
+	private J2EEComponentCreationDataModel getEARComponentCreationDataModel() {
+		// TODO Auto-generated method stub
+		return new EARComponentCreationDataModel();
+	}
+
+	public void testAddToEAR() throws Exception {
     	EARComponentCreationDataModel  dataModelEAR = new EARComponentCreationDataModel ();
         dataModelEAR.setProperty(EARComponentCreationDataModel.PROJECT_NAME, "SimpleEAR");
         EARProjectCreationOperationTest.runAndVerify(dataModelEAR);
@@ -69,7 +81,6 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
 	public void createSimpleModule(String componentName,String projectName) throws Exception {
         J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
 		dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, projectName);
-		runAndVerify(dataModel);
         dataModel.setProperty(J2EEComponentCreationDataModel.COMPONENT_NAME, componentName);
         runAndVerify(dataModel);
     }

@@ -38,9 +38,9 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 		WebArtifactEdit webEdit = null;
 		
         try {
-			ComponentHandle handle = ComponentHandle.create(dataModel.getTargetProject(),dataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_NAME));
+			ComponentHandle handle = ComponentHandle.create(dataModel.getProject(),dataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_NAME));
 			Object dd = null;
-			webEdit = (WebArtifactEdit) WebArtifactEdit.getArtifactEditForRead(handle);
+			webEdit = (WebArtifactEdit) WebArtifactEdit.getWebArtifactEditForRead(handle);
        		if(webEdit != null) 
        			dd = (WebApp) webEdit.getDeploymentDescriptorRoot();
 			Assert.assertNotNull("Deployment Descriptor Null", dd);
@@ -48,20 +48,20 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 			if( webEdit != null )
 				webEdit.dispose();
 		}
-        if (dataModel.getBooleanProperty(WebComponentCreationDataModel.ADD_TO_EAR)) {
-            IProject earProject = dataModel.getEarComponentCreationDataModel().getTargetProject();
-            EAREditModel ear = null;
-            try {
-                Assert.assertTrue("EAR doesn't exist:", earProject.exists());
-                EARNatureRuntime runtime = EARNatureRuntime.getRuntime(earProject);
-                //EMFWorkbenchContext emfWorkbenchContext = WorkbenchResourceHelper.createEMFContext(earProject, null);
-                ear = (EAREditModel) runtime.getEditModelForRead(IEARNatureConstants.EDIT_MODEL_ID, key);
-                ear.getModuleMapping(dataModel.getTargetProject());
-                //TODO
-            } finally {
-                ear.releaseAccess(key);
-            }
-
-        }
+//        if (dataModel.getBooleanProperty(WebComponentCreationDataModel.ADD_TO_EAR)) {
+//            IProject earProject = dataModel.getEarComponentCreationDataModel().getTargetProject();
+//            EAREditModel ear = null;
+//            try {
+//                Assert.assertTrue("EAR doesn't exist:", earProject.exists());
+//                EARNatureRuntime runtime = EARNatureRuntime.getRuntime(earProject);
+//                //EMFWorkbenchContext emfWorkbenchContext = WorkbenchResourceHelper.createEMFContext(earProject, null);
+//                ear = (EAREditModel) runtime.getEditModelForRead(IEARNatureConstants.EDIT_MODEL_ID, key);
+//                ear.getModuleMapping(dataModel.getTargetProject());
+//                //TODO
+//            } finally {
+//                ear.releaseAccess(key);
+//            }
+//
+//        }
     }
 }
