@@ -175,9 +175,10 @@ public class WebDeployableObjectAdapter extends ModuleArtifactAdapterDelegate {
 		IProject project = nature.getProject();
 		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
 		while (iterator.hasNext()) {
-			deployable = (IModule) iterator.next();
-			if (deployable instanceof IModule) {
-				if (((IModule) deployable).getProject().equals(project))
+			Object next = iterator.next();
+			if (next instanceof IModule) {
+				deployable = (IModule) next;
+				if (deployable.getProject().equals(project))
 					return deployable;
 			}
 		}

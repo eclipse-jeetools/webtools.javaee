@@ -17,10 +17,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
+import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.IModuleArtifactAdapter;
-import org.eclipse.wst.server.core.IModule;
-
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

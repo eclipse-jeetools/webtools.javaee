@@ -9,12 +9,14 @@
 package org.eclipse.jst.j2ee.jca.internal.deployables;
 
 
+
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.model.ModuleDelegate;
+
+import com.ibm.wtp.common.logger.proxy.Logger;
 ;
 
 public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
@@ -41,23 +43,24 @@ public class Connector1_3DeployableFactory extends J2EEDeployableFactory {
 		return IConnectorNatureConstants.CONNECTOR_NATURE_ID;
 	}
 
-	/*
-	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
-	 */
-	public IModule createModule(J2EENature nature) {
-		return new ConnectorDeployable((J2EEModuleNature) nature, ID);
-	}
-
-    public ModuleDelegate getModuleDelegate(IModule module) {
-        // TODO Auto-generated method stub
-        return null;
+    public IModule createModule(J2EENature nature) {
+        if (nature == null)
+            return null;
+        ConnectorDeployable moduleDelegate = null;
+        IModule module = nature.getModule();
+        if (module == null) {
+            try {
+                moduleDelegate = new ConnectorDeployable((J2EEModuleNature) nature, ID);
+                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+                nature.setModule(module);
+                moduleDelegate.initialize(module);
+            } catch (Exception e) {
+                Logger.getLogger().write(e);
+            } finally {
+                moduleDelegates.add(moduleDelegate);
+            }
+        }
+        return module;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
-     */
-    public IModule[] getModules() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

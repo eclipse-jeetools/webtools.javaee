@@ -17,8 +17,6 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
@@ -43,6 +41,7 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
     protected ILooseArchive[] archives;
 
     protected Map uris = new HashMap();
+    
 
     /**
      * @param aNature
@@ -54,7 +53,7 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
     }
     
 	public String getId() {
-		return getFactoryId() +":"+ getProject().getName();
+		return getProject().getName();
 	}
 
     public String getContextRoot() {
@@ -343,41 +342,7 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
         return children;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IStatus validate(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#getModuleType()
-     */
-    public IModuleType getModuleType() {
-        return new IModuleType(){
-
-            public String getId() {
-                return "j2ee.web";
-            }
-
-            public String getName() {
-                // TODO Auto-generated method stub
-                return getModuleTypeName();
-            }
-
-            public String getVersion() {
-                // TODO Auto-generated method stub
-                return getModuleTypeVersion();
-            }};
-        // TODO Auto-generated method stub
-       // return this;
-    }
-    
+   
     public String getModuleTypeName(){
         return getName();
     }
@@ -386,24 +351,5 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
         return getVersion();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IModule[] getChildModules(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
-     */
-    public Object getAdapter(Class adapter) {
-        if (getModule() == null)
-            initialize(this);
-        return this;
-    }
 }

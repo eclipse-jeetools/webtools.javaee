@@ -30,10 +30,9 @@ import org.eclipse.jst.server.j2ee.IJ2EEModule;
 import org.eclipse.jst.server.j2ee.ILooseArchive;
 import org.eclipse.jst.server.j2ee.ILooseArchiveSupport;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.model.ModuleFactoryDelegate;
 
-;
+
 
 public class EnterpriseApplicationDeployable extends J2EEDeployable implements IEnterpriseApplication, ILooseArchiveSupport {
     // cached children
@@ -406,33 +405,7 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#getModuleType()
-     */
-    public IModuleType getModuleType() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IModule[] getChildModules(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
-     */
-    public Object getAdapter(Class adapter) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 }

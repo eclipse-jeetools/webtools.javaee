@@ -17,8 +17,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
@@ -27,8 +25,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployable;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.server.j2ee.IConnectorModule;
-import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.IModuleType;
 
 public class ConnectorDeployable extends J2EEDeployable implements IConnectorModule {
     protected static final String SERVER_CONTAINER = "org.eclipse.jst.server.core.container"; //$NON-NLS-1$
@@ -197,43 +193,5 @@ public class ConnectorDeployable extends J2EEDeployable implements IConnectorMod
         return "1.2"; //$NON-NLS-1$
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IStatus validate(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#getModuleType()
-     */
-    public IModuleType getModuleType() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IModule[] getChildModules(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
-     */
-    public Object getAdapter(Class adapter) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+   
 }
