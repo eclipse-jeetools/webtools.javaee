@@ -6,9 +6,6 @@
  */
 package org.eclipse.jst.ejb.ui.internal.plugin;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPluginDescriptor;
@@ -24,10 +21,8 @@ public class EJBUIPlugin extends AbstractUIPlugin {
 	
 	public static final String PLUGIN_ID = "org.eclipse.jst.ejb.ui"; //$NON-NLS-1$
 	
-//	The shared instance.
+	//	The shared instance.
 	private static EJBUIPlugin plugin;
-	//Resource bundle.
-	private ResourceBundle resourceBundle;
 
 	/**
 	 * The constructor.
@@ -50,24 +45,5 @@ public class EJBUIPlugin extends AbstractUIPlugin {
 	 */
 	public static IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
-	}
-
-	/**
-	 * Returns the string from the plugin's resource bundle, or 'key' if not found.
-	 */
-	public static String getResourceString(String key) {
-		ResourceBundle bundle = EJBUIPlugin.getDefault().getResourceBundle();
-		try {
-			return (bundle != null ? bundle.getString(key) : key);
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
-
-	/**
-	 * Returns the plugin's resource bundle,
-	 */
-	public ResourceBundle getResourceBundle() {
-		return resourceBundle;
 	}
 }
