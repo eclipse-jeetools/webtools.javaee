@@ -44,7 +44,7 @@ import org.eclipse.wst.common.modulecore.ModuleType;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
-import org.eclipse.wst.common.modulecore.internal.impl.ModuleEditModelFactory;
+import org.eclipse.wst.common.modulecore.internal.impl.ArtifactEditModelFactory;
 import org.eclipse.wst.common.modulecore.internal.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.modulecore.internal.impl.ResourceTreeRoot;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
@@ -178,13 +178,13 @@ public class ModuleStructuralModelTest extends TestCase {
 	}
 
 	public void testLoadingDocument() throws Exception {
-		ModuleEditModelFactory factory = new ModuleEditModelFactory();
+		ArtifactEditModelFactory factory = new ArtifactEditModelFactory();
 
 		URI moduleURI = URI.createURI(PlatformURLModuleConnection.MODULE_PROTOCOL + IPath.SEPARATOR + getWebModuleAndLocalWebLibModuleProjectName() + IPath.SEPARATOR + getWebModuleDeployedName());
 		URI ddURI = URI.createURI(IPath.SEPARATOR + "WEB-INF" + IPath.SEPARATOR + "web.xml");
 
 		Map params = new HashMap();
-		params.put(ModuleEditModelFactory.PARAM_MODULE_URI, moduleURI);
+		params.put(ArtifactEditModelFactory.PARAM_MODULE_URI, moduleURI);
 		EMFWorkbenchContext context = createEMFWorkbenchContext();
 		ArtifactEditModel editModel = (ArtifactEditModel) factory.createEditModelForWrite(IModuleTypesConstants.MODULE_TYPE_WEB, context, params);
 		Resource ddResource = editModel.getResource(ddURI);
