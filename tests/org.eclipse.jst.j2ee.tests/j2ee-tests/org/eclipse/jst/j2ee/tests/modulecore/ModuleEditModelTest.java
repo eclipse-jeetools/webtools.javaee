@@ -18,10 +18,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -29,12 +31,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleEditModel;
 import org.eclipse.wst.common.modulecore.ModuleEditModelFactory;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
 import org.eclipse.wst.common.modulecore.ProjectModules;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 import org.eclipse.wst.common.modulecore.impl.PlatformURLModuleConnection;
 
 /**
@@ -74,7 +78,7 @@ public class ModuleEditModelTest extends TestCase {
 	}
 
 	public void testURIAPI() throws Exception {
-		URI uri = URI.createURI("module:/resource/ProjectName/moduleIdentifier/META-INF/ejb-jar.xml");
+		URI uri = URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModuleName() + IPath.SEPARATOR + getTestResourcePath());
 		System.out.println("URI : \"" + uri.toString() + "\"" + " with scheme \"" + uri.scheme() + "\" has " + uri.segmentCount() + " segments. They are ...");
 		String[] segments = uri.segments();
 		for (int i = 0; i < segments.length; i++)
@@ -88,18 +92,24 @@ public class ModuleEditModelTest extends TestCase {
 		if (PlatformURLModuleConnection.RESOURCE_MODULE.equals(segments[0])) {
 			ModuleStructuralModel structuralModel = null;
 			try {
+				URI deployedPath = uri.deresolve(moduleURI);
 				/* We need to find the project */
 				IProject containingProject = getProject(segments[1]);
-				ModuleCoreNature moduleCoreNature = getNature(containingProject);
-				structuralModel = moduleCoreNature.getModuleStructuralModelForRead(this);
-				ProjectModules modules = (ProjectModules) structuralModel.getPrimaryRootObject();
-				EList workbenchModules = modules.getWorkbenchModules();
-				for (Iterator iter = workbenchModules.iterator(); iter.hasNext();) {
-					WorkbenchModule element = (WorkbenchModule) iter.next();
-
-					// if(element.getHandle())
-
+				// ModuleCoreNature moduleCoreNature = getNature(containingProject);
+				// structuralModel = moduleCoreNature.getModuleStructuralModelForRead(this);
+				// ProjectModules modules = (ProjectModules) structuralModel.getPrimaryRootObject();
+				ProjectModules modules = getProjectModules();
+				WorkbenchModule module = modules.findWorkbenchModule(moduleURI);
+				WorkbenchModuleResource resource = null;
+				if (module != null) {
+					EList resources = module.getResources();
+					for (Iterator iter = resources.iterator(); iter.hasNext();) {
+						resource = (WorkbenchModuleResource) iter.next();
+						if (deployedPath.equals(resource.getDeployedPath()))
+							break;
+					}
 				}
+				System.out.println(resource != null ? resource.getSourcePath().toString() : "NOT FOUND" );
 			} finally {
 				if (structuralModel != null)
 					structuralModel.releaseAccess(this);
@@ -107,6 +117,42 @@ public class ModuleEditModelTest extends TestCase {
 		} else if (PlatformURLModuleConnection.BINARY_MODULE.equals(segments[0])) {
 
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	private ProjectModules getProjectModules() {
+		ProjectModules projectModules = ModuleCoreFactory.eINSTANCE.createProjectModules();
+
+		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+		module.setDeployedPath(URI.createURI(getModulesFolder() + ".war")); //$NON-NLS-1$
+		module.setHandle(URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder())); //$NON-NLS-1$
+
+		projectModules.getWorkbenchModules().add(module);
+
+		WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
+		IFile sourceFile = getProject().getFile(new Path(getModulesFolder() + IPath.SEPARATOR + "BLAH" + IPath.SEPARATOR + getTestResourcePath()));
+		resource.setSourcePath(URI.createURI(sourceFile.getFullPath().toString()));
+		resource.setDeployedPath(URI.createURI(getTestResourcePath()));
+
+		module.getResources().add(resource);
+
+		return projectModules;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getModulesFolder() {
+		return "MyWebModule"; //$NON-NLS-1$
+	}
+
+	/**
+	 * @return
+	 */
+	public String getTestResourcePath() {
+		return "WEB-INF/web.xml"; //$NON-NLS-1$
 	}
 
 	/**
@@ -175,7 +221,7 @@ public class ModuleEditModelTest extends TestCase {
 	}
 
 	public String getProjectName() {
-		return "BobDolesModules";
+		return "MyModulesProject";
 	}
 
 	public String getModuleName() {
