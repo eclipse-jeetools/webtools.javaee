@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.15 $  $Date: 2004/06/16 20:58:31 $ 
+ *  $Revision: 1.16 $  $Date: 2004/08/04 12:58:28 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -498,9 +498,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 	}
 
-	private static final String OVERRIDE_EXTENSION = ".override";	//$NON-NLS-1$
-	private static final String ROOT = "..ROOT.."; //$NON-NLS-1$
-	private static final String ROOT_OVERRIDE = "..ROOT.."+OVERRIDE_EXTENSION;	 //$NON-NLS-1$
+	private static final String ROOT_OVERRIDE = BeaninfoPlugin.ROOT+BeaninfoPlugin.OVERRIDE_EXTENSION;	 //$NON-NLS-1$
 	
 	protected void applyExtensionDocument(boolean rootOnly) {
 		boolean alreadyRetrievedRoot = retrievedExtensionDocument == RETRIEVED_ROOT_ONLY;
@@ -512,17 +510,17 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		getRegistry();	// Need to have a registry to get override paths initialized correctly. There is a possibility that overrides asked before any registry created.
 		if (!alreadyRetrievedRoot && (rootOnly || jc.getSupertype() == null)) {
 			// It is a root class. Need to merge in root stuff.
-			applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, ROOT, ROOT);
+			applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, BeaninfoPlugin.ROOT, BeaninfoPlugin.ROOT);
 			if (rootOnly)
 				return;
 		}
 
-		String baseOverridefile = className + OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
+		String baseOverridefile = className + BeaninfoPlugin.OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
 		applyExtensionDocTo(rset, jc, baseOverridefile, getJavaClass().getJavaPackage().getPackageName(), className);
 	}
 	
-	protected void applyExtensionDocTo(final ResourceSet rset, final EObject mergeIntoEObject, final String overrideFile, String packageName, String className) {
-		BeaninfoPlugin.getPlugin().applyOverrides(getAdapterFactory().getProject(), packageName, className, rset, 
+	protected void applyExtensionDocTo(final ResourceSet rset, final JavaClass mergeIntoJavaClass, final String overrideFile, String packageName, String className) {
+		BeaninfoPlugin.getPlugin().applyOverrides(getAdapterFactory().getProject(), packageName, className, mergeIntoJavaClass, rset, 
 			new BeaninfoPlugin.IOverrideRunnable() {
 				/* (non-Javadoc)
 				 * @see org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IOverrideRunnable#run(java.lang.String)
@@ -548,11 +546,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					} catch (Exception e) {
 						// Couldn't load it for some reason.
 						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
-						overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load.
-			
+						overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load so that we can get rid of it.
 					} finally {
 						if (overrideRes != null)
-							rset.getResources().remove(overrideRes); // We don't need it around once we do the merge.
+							rset.getResources().remove(overrideRes); // We don't need it around once we do the merge. Normal merge would of gotton rid of it, but in case of error we do it here.
 					}
 				}
 				
@@ -561,7 +558,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				 */
 				public void run(Resource overrideRes) {
 					try {
-						EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoEObject, rset);
+						EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoJavaClass, rset);
 						util.doForwardEvents(overrideRes.getContents());
 					} catch (WrappedException e) {
 						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error processing file\"" + overrideRes.getURI() + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoContributorAdapter.java,v $
- *  $Revision: 1.2 $  $Date: 2004/05/24 23:23:31 $ 
+ *  $Revision: 1.3 $  $Date: 2004/08/04 12:58:28 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -26,11 +26,14 @@ import org.osgi.framework.Bundle;
 
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IContributorOverrideRunnable;
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
+import org.eclipse.jem.java.JavaClass;
 
 import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
  
 /**
  * A default implementation of IBeanInfoContributor for users to subclass. Default does nothing.
+ * <p>
+ * But this does supply several very useful utility methods.
  * 
  * @since 1.0.0
  */
@@ -45,10 +48,13 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 	/**
 	 * Return true if the given fragment is part of the package. Used by subclasses to determine
 	 * if a override associated with a given fragment should be used for the package.
+	 * <p>
+	 * In other words, <code>org.eclipse</code> as a fragment and and <code>org.eclipse.core</code> as
+	 * a packagePath will answer true, but if you swapped them it will answer false.
 	 * 
 	 * @param fragment
 	 * @param packagePath
-	 * @return
+	 * @return <code>true</code> if the given fragment is a leading part of the package.
 	 * 
 	 * @since 1.0.0
 	 */
@@ -61,33 +67,25 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 	 * to get the part of the package path that is after the fragment. This is then used to
 	 * append to the path from the override to get the full path to override files for this
 	 * package.
+	 * <p>
+	 * This will return the part of the packagePath that is not matched by the fragment. 
+	 * <p>
+	 * Note: It is important that the fragment and packagePath have first been tested through
+	 * isFragment. Otherwise an invalid result will be returned.
 	 * 
 	 * @param fragment
 	 * @param packagePath
-	 * @return
+	 * @return the part of the package path not matched.
 	 * 
+	 * @see BeanInfoContributorAdapter#isFragment(IPath, IPath)
 	 * @since 1.0.0
 	 */
 	protected String getUnmatchedPath(IPath fragment, IPath packagePath) {
 		return fragment.removeFirstSegments(packagePath.segmentCount()).toString();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.beaninfo.core.IBeanInfoContributor#getBeanInfoEntryContributions(org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo)
-	 */
-	public BeaninfoEntry[] getBeanInfoEntryContributions(IConfigurationContributionInfo info) {
-		return EMPTY_BEANINFO_ENTRIES;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.beaninfo.core.IBeanInfoContributor#runOverrides(org.eclipse.core.runtime.IPath, String, org.eclipse.emf.ecore.resource.ResourceSet, org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IContributorOverrideRunnable)
-	 */
-	public void runOverrides(IPath packagePath, String className, ResourceSet rset, IContributorOverrideRunnable runnable) {
-		// Default is do nothing
-	}
-	
 	/**
-	 * Subclasses can use this helper method to get the override resource from the given bundle. 
+	 * Subclasses can use this helper method to get the override resource from the given (plugin) bundle. 
 	 * 
 	 * @param bundle the bundle to use.
 	 * @param relativePath path of file relative to the plugin.
@@ -98,8 +96,6 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 	 * @since 1.0.0
 	 */
 	protected Resource loadOverrideResource(Bundle bundle, String relativePath, ResourceSet rset, BeaninfoPlugin.IContributorOverrideRunnable runnable) {
-		// TODO Because of converters and normalizers we need to use platform:/plugin format here for overrides. Should
-		// change so that normalization can handle bundle format.
 		URI uri = URI.createURI(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+relativePath);
 		if (runnable.resourceContributed(uri))
 			return null;	// Already contributed once.
@@ -133,4 +129,20 @@ public class BeanInfoContributorAdapter implements IBeanInfoContributor {
 		return result;
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.beaninfo.core.IBeanInfoContributor#getBeanInfoEntryContributions(org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo)
+	 */
+	public BeaninfoEntry[] getBeanInfoEntryContributions(IConfigurationContributionInfo info) {
+		return EMPTY_BEANINFO_ENTRIES;
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.beaninfo.core.IBeanInfoContributor#runOverrides(org.eclipse.core.runtime.IPath, java.lang.String, org.eclipse.jem.java.JavaClass, org.eclipse.emf.ecore.resource.ResourceSet, org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IContributorOverrideRunnable)
+	 */
+	public void runOverrides(IPath packagePath, String className, JavaClass javaClass, ResourceSet rset, IContributorOverrideRunnable runnable) {
+		// Default is do nothing
+	}
+		
 }

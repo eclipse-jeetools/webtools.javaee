@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.6 $  $Date: 2004/07/28 18:44:12 $ 
+ *  $Revision: 1.7 $  $Date: 2004/08/04 12:58:28 $ 
  */
 
 
@@ -30,6 +30,7 @@ import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin.ContributorExtensionPointInfo;
+import org.eclipse.jem.java.JavaClass;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
@@ -56,6 +57,18 @@ public class BeaninfoPlugin extends Plugin {
 		return BEANINFO_PLUGIN;
 	}
 	
+	/**
+	 * Special Override file name used when need to apply an override to a class that is at the root.
+	 * A root is one that doesn't have a super type. These are <code>java.lang.Object</code>, interfaces, and any
+	 * undefined classes (i.e. classes that don't actually exist).
+	 */
+	public static final String ROOT = "..ROOT.."; //$NON-NLS-1$
+	
+	/**
+	 * The extension used on any override file when you pass in a path through the method that takes a string.
+	 */
+	public static final String OVERRIDE_EXTENSION = ".override";	//$NON-NLS-1$
+		
 	
 	private Map containerIdsToBeaninfoEntryContributions;
 	private Map pluginToBeaninfoEntryContributions;
@@ -349,6 +362,9 @@ public class BeaninfoPlugin extends Plugin {
 	 * The runnable to use to override. This will be called in sequence
 	 * for each override path found. It is send in on the apply overrides call.
 	 * <p>
+	 * Clients will be passed in the subinterface <code>IContributorOverrideRunnable</code> which
+	 * inherits from this interface.
+	 * <p>
 	 * This interface is not intended to be implemented by clients. 
 	 * 
 	 * @since 1.0.0
@@ -358,8 +374,7 @@ public class BeaninfoPlugin extends Plugin {
 		/**
 		 * This will be called with the path to use. It will be called over and over for every
 		 * override path found for a package. The path will be complete, including trailing '/'.
-		 * It will be in a URI format for a directory. The runnable implementation will then append the 
-		 * filename (i.e. classbeingintrospected.override) to get a complete path.
+		 * It will be in a URI format for a directory. The overriderunnable implementation will then append the filename call (i.e. classbeingintrospected.override) to get a complete path.
 		 * 
 		 * @param overridePath
 		 * 
@@ -377,7 +392,9 @@ public class BeaninfoPlugin extends Plugin {
 		 * This resource will be automatically removed by BeanInfo after being applied. It must not be left around because
 		 * in the process of being applied it will be modified, so it could not be reused. 
 		 *  
-		 * @param overrideResource
+		 * @param overrideResource the resource to apply to the current class. NOTE: This resource WILL be removed from
+		 * the resource set it is in automatically by this call. It won't be left around because the action of apply
+		 * will actually modify the resource.
 		 * 
 		 * @since 1.0.0
 		 */
@@ -385,16 +402,20 @@ public class BeaninfoPlugin extends Plugin {
 	}
 	
 	/**
-	 * This will be passed to IBeanInfoContributor.
+	 * This will be passed in to IBeanInfoContributor's so that they can call back to apply the overrides. They
+	 * will call once for each override to be applied. It can be called more than once from each IBeanInfoContributor.
+	 * <p>
+	 * It inherits from <code>IOverrideRunnable</code>, so see that for more methods to call.
 	 * <p>
 	 * This interface is not intended to be implemented by clients.
 	 * 
+	 * @see BeaninfoPlugin.IOverrideRunnable for more methods that can be called.
 	 * @since 1.0.0
 	 */
 	public interface IContributorOverrideRunnable extends IOverrideRunnable {
 		
 		/**
-		 * This can be called by BeanInfo contributor for overrides to see if the path (path is for IOverrideRunnable.run(path) method)
+		 * This can be called by BeanInfo contributor for overrides to test if the path (path is for IOverrideRunnable.run(path) method)
 		 * has already been contributed once for this class. It can be used to save time. However, not necessary because
 		 * BeanInfo will not permit it to be contributed more than once for a class.
 		 * 
@@ -426,12 +447,13 @@ public class BeaninfoPlugin extends Plugin {
 	 * @param project the project to run against.
 	 * @param packageName
 	 * @param className class name of the class that is being overridden.
+	 * @param javaClass the java class the overrides will be applied to.
 	 * @param resource set that contributors can use to temporarily load dynamic override files.
-	 * @param runnable
+	 * @param runnable use this runnable to actually apply overrides.
 	 * 
 	 * @since 1.0.0
 	 */
-	public void applyOverrides(IProject project, String packageName, final String className, final ResourceSet rset, final IOverrideRunnable runnable) {
+	public void applyOverrides(IProject project, String packageName, final String className, final JavaClass javaClass, final ResourceSet rset, final IOverrideRunnable runnable) {
 		final IPath packagePath = new Path(packageName.replace('.', '/')+'/');
 		try {
 			IConfigurationContributionInfo info = (IConfigurationContributionInfo) project.getSessionProperty(BeaninfoNature.CONFIG_INFO_SESSION_KEY);
@@ -454,8 +476,6 @@ public class BeaninfoPlugin extends Plugin {
 								// Bundle's don't return this format. They return bundle:/stuff
 								// So we will simple create it of the platform:/plugin format.
 								// To save time, we will first see if we have the bundle.
-								// TODO See if we should get URIConverter to normalize into bundle: format
-								// instead so that no matter how formed it is correct.
 								Bundle bundle = Platform.getBundle(contribution.pluginIds[cindex]);
 								if (bundle != null) {
 									if (leftOver == null)
@@ -476,7 +496,6 @@ public class BeaninfoPlugin extends Plugin {
 								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									// TODO See above, same comment applies here.
 									runnable.run(EMFWorkbenchPlugin.PLATFORM_PROTOCOL+":/"+EMFWorkbenchPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
 								}
 							}
@@ -524,7 +543,7 @@ public class BeaninfoPlugin extends Plugin {
 							// Standard run logs to .log
 						}
 						public void run() throws Exception {
-							((IBeanInfoContributor) container).runOverrides(packagePath, className, rset, contribRunnable);						
+							((IBeanInfoContributor) container).runOverrides(packagePath, className, javaClass, rset, contribRunnable);						
 						}
 					});
 				}
@@ -538,7 +557,7 @@ public class BeaninfoPlugin extends Plugin {
 						// Standard run logs to .log
 					}
 					public void run() throws Exception {
-						explicitContributors[ii].runOverrides(packagePath, className, rset, contribRunnable);						
+						explicitContributors[ii].runOverrides(packagePath, className, javaClass, rset, contribRunnable);						
 					}
 				});
 			}			
