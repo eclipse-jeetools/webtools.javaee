@@ -34,5 +34,8 @@ public interface WSDLServiceHelper {
 	public Object getWSDLDefinition(String wsdlURL);
 	public Object getWSDLDefinition(Resource wsdlResource);
 	public List getWsdlServicesFromWsilFile(IFile wsil);
+	public boolean isService(Object aService);
+	public boolean isWSDLResource(Object aResource);
+	public boolean isDefinition(Object aDefinition);
 
 }

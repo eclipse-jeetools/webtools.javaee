@@ -166,7 +166,8 @@ public class ServiceReferenceDataModel extends ReferenceDataModel implements Web
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		IStatus stat = super.doValidateProperty(propertyName);
-		if (!(getProperty(TARGET_WEB_SERVICE).getClass().getName().equals("org.eclipse.wst.wsdl.Service"))) {
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		if (!serviceHelper.isService(getProperty(TARGET_WEB_SERVICE))) {
 			return WTPCommonPlugin.createErrorStatus(J2EECreationResourceHandler.getString("ServiceReferenceDataModel_ERROR_8")); //$NON-NLS-1$
 		}
 		return stat;

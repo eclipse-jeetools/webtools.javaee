@@ -167,4 +167,16 @@ public class WSDLServiceHelperImpl implements WSDLServiceHelper {
 	return parser.getWebServiceEntityByURI(url);
 }
 
+	public boolean isService(Object aService) {
+		
+		return aService instanceof Service;
+	}
+	public boolean isWSDLResource(Object aResource) {
+		
+		return aResource instanceof WSDLResourceImpl;
+	}
+	public boolean isDefinition(Object aDefinition) {
+		
+		return aDefinition instanceof Definition;
+	}
 }

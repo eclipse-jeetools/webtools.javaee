@@ -12,6 +12,8 @@ import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.OpenJ2EEResourceAction;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
@@ -31,12 +33,13 @@ public class WebServicesNavigatorGroupOpenListener implements IOpenListener {
 	 */
 	public void open(OpenEvent event) {
 		StructuredSelection selection = (StructuredSelection)event.getSelection();
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		Object selectedObject = selection.getFirstElement();
 		if (selectedObject == null)
 			return;
 		else if (selectedObject instanceof ServiceImplBean)
 			return;
-		else if (selectedObject.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl")) {
+		else if (serviceHelper.isWSDLResource(selectedObject)) {
 			Resource wsdl = (Resource) selectedObject;
 			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
 			if (wsdlFile == null && !wsdlFile.exists()) {

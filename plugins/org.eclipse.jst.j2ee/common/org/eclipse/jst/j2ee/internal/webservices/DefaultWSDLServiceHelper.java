@@ -117,4 +117,16 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 		return null;
 	}
 
+	public boolean isService(Object aService) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public boolean isWSDLResource(Object aResource) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public boolean isDefinition(Object aDefinition) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

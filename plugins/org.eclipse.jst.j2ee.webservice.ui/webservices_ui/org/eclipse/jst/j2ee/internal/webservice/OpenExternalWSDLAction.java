@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wst.internet.webbrowser.WebBrowser;
 
@@ -53,7 +55,8 @@ public class OpenExternalWSDLAction extends AbstractOpenAction {
 
 	public boolean updateSelection(IStructuredSelection s) {
 		Object obj = s.getFirstElement();
-		if (obj.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl"))
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		if (serviceHelper.isWSDLResource(obj))
 			uri = ((Resource) obj).getURI().toString();
 		return super.updateSelection(s);
 	}

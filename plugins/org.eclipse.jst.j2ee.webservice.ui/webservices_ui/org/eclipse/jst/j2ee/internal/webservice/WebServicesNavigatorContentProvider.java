@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
@@ -84,7 +86,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 //			return super.getChildren(parentElement);
 //		}
 //		activityEnabled = true;
-
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (parentElement instanceof WorkspaceRoot) {
 			return new Object[]{getWebServicesNavigatorGroup(parentElement)};
 		} else if (parentElement instanceof WebServiceNavigatorGroup) {
@@ -96,7 +98,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 			return result.toArray();
 		} else if (parentElement instanceof WebServiceNavigatorGroupType && ((WebServiceNavigatorGroupType) parentElement).isClients()) {
 			return getWebServicesManager().getAllWorkspaceServiceRefs().toArray();
-		} else if (parentElement.getClass().getName().equals("org.eclipse.wst.wsdl.Service")) {
+		} else if (serviceHelper.isService(parentElement)) {
 			return getServiceLevelNodes(parentElement).toArray();
 		} else if (parentElement instanceof WebServiceNavigatorGroupType && ((WebServiceNavigatorGroupType) parentElement).isHandlers()) {
 			return getHandlerChildren(parentElement).toArray();
@@ -106,7 +108,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 			return result.toArray();
 		} else if (parentElement instanceof Handler) {
 			return new ArrayList().toArray();
-		} else if (parentElement.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl"))
+		} else if (serviceHelper.isWSDLResource(parentElement))
 			return new ArrayList().toArray();
 		else
 			return super.getChildren(parentElement);
@@ -260,8 +262,9 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 			return null;
 		WebServiceNavigatorGroupType handler = null;
 		handler = (WebServiceNavigatorGroupType) HANDLERS.get(key);
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (handler == null) {
-			if (key.getClass().getName().equals("org.eclipse.wst.wsdl.Service"))
+			if (serviceHelper.isService(key))
 				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (EObject) key);
 			else if (key instanceof ServiceRef)
 				handler = new WebServiceNavigatorGroupType(WebServiceNavigatorGroupType.HANDLERS, (ServiceRef) key);

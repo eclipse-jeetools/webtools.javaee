@@ -17,6 +17,8 @@
 package org.eclipse.jst.j2ee.internal.webservice;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
+import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.internal.emfworkbench.EMFAdapterFactory;
@@ -46,7 +48,8 @@ public class WebServiceAdapterFactory extends EMFAdapterFactory {
 	 */
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		WsddResource res = null;
-		if (adaptableObject.getClass().getName().equals("org.eclipse.wst.wsdl.Service"))
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		if (serviceHelper.isService(adaptableObject))
 			res = WebServicesManager.getInstance().getWsddResource((EObject) adaptableObject);
 
 		if (res != null && adapterType == EMFAdapterFactory.IFILE_CLASS)

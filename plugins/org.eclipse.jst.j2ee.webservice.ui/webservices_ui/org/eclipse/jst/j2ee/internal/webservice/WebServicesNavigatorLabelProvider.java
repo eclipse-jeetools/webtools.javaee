@@ -70,17 +70,18 @@ public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvid
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
 	 */
 	public Image getImage(Object element) {
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
 		if (element instanceof WebServiceNavigatorGroup)
 			return J2EEUIPlugin.getDefault().getImage("webServicesFolder_obj"); //$NON-NLS-1$
 		else if (element instanceof String)
 			return J2EEUIPlugin.getDefault().getImage("wsdl"); //$NON-NLS-1$
 		else if (element instanceof WebServiceNavigatorGroupType)
 			return J2EEUIPlugin.getDefault().getImage("folder"); //$NON-NLS-1$
-		else if (element.getClass().getName().equals("org.eclipse.wst.wsdl.Service")) {
+		else if (serviceHelper.isService(element)) {
 			if (WebServicesManager.getInstance().isServiceInternal((EObject) element))
 				return J2EEUIPlugin.getDefault().getImage("webServiceItemProvider_obj"); //$NON-NLS-1$
 			return J2EEUIPlugin.getDefault().getImage("extwebserviceitemprovider_obj"); //$NON-NLS-1$
-		} else if (element.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl"))
+		} else if (serviceHelper.isWSDLResource(element))
 			return J2EEUIPlugin.getDefault().getImage("wsdl"); //$NON-NLS-1$
 		else
 			return super.getImage(element);
@@ -108,9 +109,9 @@ public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvid
 			return WebServiceUIResourceHandler.getString("SERVICE_IMPL_UI_") + space + super.getText(element); //$NON-NLS-1$
 		else if (element instanceof ServletLink)
 			return WebServiceUIResourceHandler.getString("SERVICE_IMPL_UI_") + space + super.getText(element); //$NON-NLS-1$
-		else if (element.getClass().getName().equals("org.eclipse.wst.wsdl.Service"))
+		else if (serviceHelper.isService(element))
 			return serviceHelper.getServiceLocalPart(element);
-		else if (element.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl")) {
+		else if (serviceHelper.isWSDLResource(element)) {
 			String result = ""; //$NON-NLS-1$
 			IFile file = WorkbenchResourceHelper.getFile((Resource) element);
 			if (file != null && file.exists())

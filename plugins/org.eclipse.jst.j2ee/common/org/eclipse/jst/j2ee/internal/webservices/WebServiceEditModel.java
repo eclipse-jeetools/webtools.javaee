@@ -142,7 +142,8 @@ public class WebServiceEditModel extends J2EEEditModel {
 		} catch (Exception e) {
 			//Ignore
 		}
-		if (res != null && res.isLoaded() && res.getClass().getName().equals("org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl"))
+		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();
+		if (res != null && res.isLoaded() && serviceHelper.isWSDLResource(res))
 			return (ResourceImpl) res;
 		return null;
 
