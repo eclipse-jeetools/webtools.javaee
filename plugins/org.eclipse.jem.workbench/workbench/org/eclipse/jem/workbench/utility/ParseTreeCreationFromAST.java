@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:23 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/05 15:45:24 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -59,9 +59,10 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		 * 			field: "rect"
 		 * 	field: "x"
 		 *
+		 * Actually it can return any valid expression that has a value (i.e. it cannot be a method invocation with a <code>void</code> return type). 
 		 * 
 		 * @param name
-		 * @return Either a fully-qualified name (as a PTName) or a PTFieldAccess, any other type of expression is invalid.
+		 * @return Either a fully-qualified name (as a PTName) or a PTFieldAccess, any other type of expression.
 		 * 
 		 * @since 1.0.0
 		 */

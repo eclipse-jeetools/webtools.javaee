@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ASTBoundResolver.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:32 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/05 15:45:24 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -30,14 +30,13 @@ import org.eclipse.jem.internal.instantiation.PTName;
 public class ASTBoundResolver extends ParseTreeCreationFromAST.Resolver {
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jem.workbench.utility.IResolver#resolveName(org.eclipse.jdt.core.dom.Name)
+	 * @see org.eclipse.jem.workbench.utility.ParseTreeCreationFromAST.IResolver#resolveName(org.eclipse.jdt.core.dom.Name)
 	 */
 	public PTExpression resolveName(Name name) {
 		IBinding binding = name.resolveBinding();
 		if (binding == null)
-			return null;	// TODO Is this always right. Can you get null if invalid name?
+			return null;
 		
-		// TODO Need to do something here about QualifiedName. I see it done differently in some places.
 		switch (binding.getKind()) {
 			case IBinding.TYPE:
 				String typename = getTypeName((ITypeBinding) binding);
