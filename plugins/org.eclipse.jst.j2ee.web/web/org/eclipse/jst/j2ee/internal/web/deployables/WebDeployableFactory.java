@@ -99,8 +99,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
         for (int i = 0; i < workBenchModules.size(); i++) {
             try {
                 moduleDelegate = new J2EEWebDeployable(nature, ID);
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
-                        moduleDelegate.getProject());
+                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),moduleDelegate.getProject());
                 moduleList.add(module);
                 moduleDelegate.initialize(module);
             } catch (Exception e) {
