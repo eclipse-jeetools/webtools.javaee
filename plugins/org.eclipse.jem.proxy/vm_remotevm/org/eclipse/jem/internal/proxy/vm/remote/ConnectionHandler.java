@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/06 20:43:52 $ 
+ *  $Revision: 1.5 $  $Date: 2004/04/16 19:02:09 $ 
  */
 
 
@@ -397,57 +397,7 @@ public class ConnectionHandler {
 						break;
 					
 					case Commands.EXPRESSION_TREE_COMMAND:
-						byte cmdType = in.readByte();
-						switch (cmdType) {
-							case ExpressionCommands.START_EXPRESSION_TREE_PROCESSING:
-								exp = new ExpressionProcesserController(server, this);
-								break;
-							case ExpressionCommands.PUSH_EXPRESSION:
-								exp.process(in);
-								break;
-							case ExpressionCommands.SYNC_REQUEST:
-								if (exp.noErrors()) {
-									valueObject.set(true); // Mark that all is good.
-									try {
-										Commands.writeValue(out, valueObject, true);
-									} finally {
-										valueObject.set();
-									}
-								} else {
-									processExpressionError(valueObject);
-								}
-								break;
-							case ExpressionCommands.PULL_VALUE_REQUEST:
-								if (exp.noErrors()) {
-									Object[] pulledValue = exp.pullValue();
-									if (pulledValue != null) {
-										// No errors during pulling either.
-										try {
-											if (((Class) pulledValue[1]).isPrimitive()) {
-												int returnTypeID = server.getIdentityID((Class) pulledValue[1]);
-												// Need to tell sendObject the correct primitive type.
-												sendObject(pulledValue[0], returnTypeID, valueObject, out, true);
-												
-											} else {
-												sendObject(pulledValue[0], NOT_A_PRIMITIVE, valueObject, out, true);	// Just send the object back. sendObject knows how to iterpret the type
-											}
-											break;	// We sent good return, so leave.
-										} finally {
-											valueObject.set();
-											pulledValue = null;
-										}
-									}
-								}
-								processExpressionError(valueObject);
-								break;
-							case ExpressionCommands.END_EXPRESSION_TREE_PROCESSING:
-								try {
-									exp.close();
-								} finally {
-									exp = null;
-								}
-								break;
-						}						
+						processExpressionCommand(valueObject);						
 						break;
 						
 					default:
@@ -498,6 +448,60 @@ public class ConnectionHandler {
 		return result;
 	}
 	
+	private void processExpressionCommand(Commands.ValueObject valueObject) throws IOException, CommandException {
+		byte cmdType = in.readByte();
+		switch (cmdType) {
+			case ExpressionCommands.START_EXPRESSION_TREE_PROCESSING:
+				exp = new ExpressionProcesserController(server, this);
+				break;
+			case ExpressionCommands.PUSH_EXPRESSION:
+				exp.process(in);
+				break;
+			case ExpressionCommands.SYNC_REQUEST:
+				if (exp.noErrors()) {
+					valueObject.set(true); // Mark that all is good.
+					try {
+						Commands.writeValue(out, valueObject, true);
+					} finally {
+						valueObject.set();
+					}
+				} else {
+					processExpressionError(valueObject);
+				}
+				break;
+			case ExpressionCommands.PULL_VALUE_REQUEST:
+				if (exp.noErrors()) {
+					Object[] pulledValue = exp.pullValue();
+					if (pulledValue != null) {
+						// No errors during pulling either.
+						try {
+							if (((Class) pulledValue[1]).isPrimitive()) {
+								int returnTypeID = server.getIdentityID((Class) pulledValue[1]);
+								// Need to tell sendObject the correct primitive type.
+								sendObject(pulledValue[0], returnTypeID, valueObject, out, true);
+								
+							} else {
+								sendObject(pulledValue[0], NOT_A_PRIMITIVE, valueObject, out, true);	// Just send the object back. sendObject knows how to iterpret the type
+							}
+							break;	// We sent good return, so leave.
+						} finally {
+							valueObject.set();
+							pulledValue = null;
+						}
+					}
+				}
+				processExpressionError(valueObject);
+				break;
+			case ExpressionCommands.END_EXPRESSION_TREE_PROCESSING:
+				try {
+					exp.close();
+				} finally {
+					exp = null;
+				}
+				break;
+		}
+	}
+
 	private void processExpressionError(Commands.ValueObject valueObject) throws CommandException {
 		try {
 			int code = exp.getErrorCode();
