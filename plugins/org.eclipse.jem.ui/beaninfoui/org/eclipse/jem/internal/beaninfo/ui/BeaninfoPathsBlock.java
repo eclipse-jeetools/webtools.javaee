@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/15 23:02:54 $ 
+ *  $Revision: 1.8 $  $Date: 2005/04/06 22:24:40 $ 
  */
 package org.eclipse.jem.internal.beaninfo.ui;
 
@@ -27,7 +27,6 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.dialogs.StatusInfo;
-import org.eclipse.jdt.internal.ui.util.TabFolderLayout;
 import org.eclipse.jdt.internal.ui.viewsupport.ImageDisposer;
 import org.eclipse.jdt.internal.ui.wizards.IStatusChangeListener;
 import org.eclipse.jdt.internal.ui.wizards.dialogfields.*;
@@ -138,7 +137,6 @@ public class BeaninfoPathsBlock {
 		composite.setLayout(layout);
 
 		TabFolder folder = new TabFolder(composite, SWT.NONE);
-		folder.setLayout(new TabFolderLayout());
 		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 		folder.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
