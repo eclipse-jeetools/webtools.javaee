@@ -3,24 +3,24 @@ package org.eclipse.jst.j2ee.internal.web.migration;
 import java.util.ArrayList;
 
 import org.eclipse.core.internal.resources.Container;
-import org.eclipse.core.internal.resources.Resource;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigration;
+import org.eclipse.jst.j2ee.internal.web.operations.OldWebSettingsForMigration;
 import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.Property;
-import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreFactoryImpl;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.web.internal.operation.WebSettings;
 
 
 
@@ -32,8 +32,9 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	protected static String JSP_LEVEL = "JSPLevel";
 	protected static String FEATURE_ID = "FeatureID";
 	protected static String JAVA_SOURCE_DEPLOY_PATH_NAME = "/WEB-INF/classes";
+	protected static String WEB_DEPLOYMENT_DESCRIPTOR_PATH = "/WEB-INF/web.xml";
 
-	protected WebSettingsMigration fWebSettings;
+	protected OldWebSettingsForMigration fWebSettings;
 	int fVersion;
 
 
@@ -85,9 +86,9 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 		return resources;
 	}
 
-	public WebSettingsMigration getWebSettings() {
+	public OldWebSettingsForMigration getWebSettings() {
 		if (fWebSettings == null) {
-			fWebSettings = new WebSettingsMigration(getProject());
+			fWebSettings = new OldWebSettingsForMigration(getProject());
 		}
 		return fWebSettings;
 	}
@@ -112,7 +113,7 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 	}
 
 	public IPath getBasicWebModulePath() {
-		WebSettingsMigration webSettings = getWebSettings();
+		OldWebSettingsForMigration webSettings = getWebSettings();
 		String name = webSettings.getWebContentName();
 		if (name == null) {
 			int version = getVersion();
@@ -146,33 +147,55 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 		return IModuleConstants.JST_WEB_MODULE;
 	}
 
-	public String getComponetTypeVersion(String componentName) {	
-		return getWebSettings().getVersion();
+	public String getComponetTypeVersion(String componentName) {
+        return J2EEVersionUtil.getJ2EETextVersion(getJ2EEVersion());
 	}
 
-	public Property[] getProperties(String componentName) {		
+	public Property[] getProperties(String componentName) {
 		String contextRootName = getWebSettings().getContextRoot();
-		String jspLevel =  getWebSettings().getJSPLevel();
+		String jspLevel = getWebSettings().getJSPLevel();
 		String[] featureIDs = getWebSettings().getFeatureIds();
-	    Property[] properties = new Property[featureIDs.length + 2];
-	    properties[0] = createProperty(CONTEXT_ROOT, contextRootName);
-	    properties[1] = createProperty(JSP_LEVEL, jspLevel);
-	    for (int i = 2; i < featureIDs.length + 2; i++) {
-	    	properties[i] = createProperty(FEATURE_ID + (i - 1),featureIDs[i - 2]);
-			
+		Property[] properties = new Property[featureIDs.length + 2];
+		properties[0] = createProperty(CONTEXT_ROOT, contextRootName);
+		properties[1] = createProperty(JSP_LEVEL, jspLevel);
+		for (int i = 2; i < featureIDs.length + 2; i++) {
+			properties[i] = createProperty(FEATURE_ID + "_" + (i - 1), featureIDs[i - 2]);
+
 		}
 		return properties;
 	}
-	
-	public Property createProperty(String name, String value){	
+
+	public Property createProperty(String name, String value) {
 		Property property = ModuleCoreFactory.eINSTANCE.createProperty();
 		property.setName(name);
 		property.setValue(value);
 		return property;
 	}
+	
+	
+	public int getJ2EEVersion() {
+		int j2eeVersion;
+		switch (getModuleVersion()) {
+			case J2EEVersionConstants.WEB_2_2_ID :
+				j2eeVersion = J2EEVersionConstants.J2EE_1_2_ID;
+				break;
+			case J2EEVersionConstants.WEB_2_3_ID :
+				j2eeVersion = J2EEVersionConstants.J2EE_1_3_ID;
+				break;
+			default :
+				j2eeVersion = J2EEVersionConstants.J2EE_1_4_ID;
+		}
+		return j2eeVersion;
+	}
 
+
+	/**
+	 * @return
+	 */
+	private int getModuleVersion() {
+		return getWebSettings().getModuleVersion();
+	}
 
 	public void postMigrateStrategy() {
-
 	}
 }
