@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: PTInfixOperator.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:28 $ 
  */
 import java.util.Arrays;
 import java.util.Collections;
@@ -220,15 +220,15 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	public static final int OR = 16;
 
 	/**
-	 * The '<em><b>CONDITIONAL ADD</b></em>' literal value.
+	 * The '<em><b>CONDITIONAL AND</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #CONDITIONAL_ADD_LITERAL
+	 * @see #CONDITIONAL_AND_LITERAL
 	 * @model 
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONDITIONAL_ADD = 17;
+	public static final int CONDITIONAL_AND = 17;
 
 	/**
 	 * The '<em><b>CONDITIONAL OR</b></em>' literal value.
@@ -463,17 +463,17 @@ public final class PTInfixOperator extends AbstractEnumerator {
 	public static final PTInfixOperator OR_LITERAL = new PTInfixOperator(OR, "OR");
 
 	/**
-	 * The '<em><b>CONDITIONAL ADD</b></em>' literal object.
+	 * The '<em><b>CONDITIONAL AND</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * && operator
 	 * <!-- end-model-doc -->
-	 * @see #CONDITIONAL_ADD
+	 * @see #CONDITIONAL_AND
 	 * @generated
 	 * @ordered
 	 */
-	public static final PTInfixOperator CONDITIONAL_ADD_LITERAL = new PTInfixOperator(CONDITIONAL_ADD, "CONDITIONAL_ADD");
+	public static final PTInfixOperator CONDITIONAL_AND_LITERAL = new PTInfixOperator(CONDITIONAL_AND, "CONDITIONAL_AND");
 
 	/**
 	 * The '<em><b>CONDITIONAL OR</b></em>' literal object.
@@ -513,7 +513,7 @@ public final class PTInfixOperator extends AbstractEnumerator {
 			XOR_LITERAL,
 			AND_LITERAL,
 			OR_LITERAL,
-			CONDITIONAL_ADD_LITERAL,
+			CONDITIONAL_AND_LITERAL,
 			CONDITIONAL_OR_LITERAL,
 		};
 	
@@ -537,7 +537,7 @@ public final class PTInfixOperator extends AbstractEnumerator {
 		OPERATOR_STRING[XOR] = "^";
 		OPERATOR_STRING[AND] = "&";
 		OPERATOR_STRING[OR] = "|";
-		OPERATOR_STRING[CONDITIONAL_ADD] = "&&";
+		OPERATOR_STRING[CONDITIONAL_AND] = "&&";
 		OPERATOR_STRING[CONDITIONAL_OR] = "||";
 	}
 
@@ -590,7 +590,7 @@ public final class PTInfixOperator extends AbstractEnumerator {
 			case XOR: return XOR_LITERAL;
 			case AND: return AND_LITERAL;
 			case OR: return OR_LITERAL;
-			case CONDITIONAL_ADD: return CONDITIONAL_ADD_LITERAL;
+			case CONDITIONAL_AND: return CONDITIONAL_AND_LITERAL;
 			case CONDITIONAL_OR: return CONDITIONAL_OR_LITERAL;
 		}
 		return null;	

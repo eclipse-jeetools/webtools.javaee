@@ -11,11 +11,10 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStringBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 /**
  * IDE Implementation of the BeanType proxy for java.lang.String
  */
@@ -23,7 +22,7 @@ final class IDEStringBeanTypeProxy extends IDEBeanTypeProxy {
 	// Cache a proxy to an empty string for speed
 	protected final IDEStringBeanProxy emptyStringProxy;
 
-IDEStringBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+IDEStringBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass);
 	// Cache a proxy to an empty string for speed
 	emptyStringProxy = new IDEStringBeanProxy(aRegistry, "",this);	//$NON-NLS-1$

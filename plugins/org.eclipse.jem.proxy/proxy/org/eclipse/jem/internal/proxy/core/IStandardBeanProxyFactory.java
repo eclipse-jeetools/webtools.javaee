@@ -1,4 +1,6 @@
 package org.eclipse.jem.internal.proxy.core;
+
+
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,7 +13,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IStandardBeanProxyFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -134,6 +136,26 @@ public IArrayBeanProxy  createBeanProxyWith(IBeanTypeProxy type, int[] dimension
 public IArrayBeanProxy createBeanProxyWith(IBeanTypeProxy type, int dimension) throws ThrowableProxy;
 
 /**
+ * Create a bean proxy from an initialization string. 
+ * <p>
+ * It is not recommended that this method be commonly used. That is because no type checking will be performed
+ * on the result. Whatever it evaluates to be will be what it is. It is useful for the rare cases where the desired
+ * result type is not known.
+ * <p>
+ * It is recommended instead to use the newInstance(initString) method on the appropriate IBeanTypeProxy so that the
+ * result can be type-checked to make sure the string evaluates to something of that type.
+ * 
+ * @param initializationString
+ * @return
+ * @throws ThrowableProxy
+ * @throws InstantiationException
+ * @throws ClassCastException
+ * 
+ * @since 1.0.0
+ */
+public IBeanProxy createBeanProxyFrom(String initializationString) throws ThrowableProxy, InstantiationException, ClassCastException;
+
+/**
  * Release the proxy. In the case of Remote VM, this means
  * it will remove the proxy on the client side, and remove
  * the reference to the real object on the server side. On the server
@@ -142,4 +164,12 @@ public IArrayBeanProxy createBeanProxyWith(IBeanTypeProxy type, int dimension) t
  * is holding onto it.
  */
 public void releaseProxy(IBeanProxy proxy);
+
+/**
+ * Create an expression.
+ * @return The expression.
+ * 
+ * @since 1.0.0
+ */
+public IExpression createExpression();
 }

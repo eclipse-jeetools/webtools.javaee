@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -780,6 +780,25 @@ public void terminateFactory() {
 		queue = null;	// Don't bother processing the queue, don't need to now.
 	}
 }
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IStandardBeanProxyFactory#createExpression()
+	 */
+	public IExpression createExpression() {
+		return new REMExpression(this.fRegistry);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IStandardBeanProxyFactory#createBeanProxyFrom(java.lang.String)
+	 */
+	public IBeanProxy createBeanProxyFrom(String initializationString) throws ThrowableProxy, ClassCastException, InstantiationException {
+		try {
+			return createBeanProxy(fBeanTypeProxyFactory.voidType, initializationString);
+		} catch (CommandException e) {
+			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$		}
+		}
+		return null;
+	}
+
 }
 
 

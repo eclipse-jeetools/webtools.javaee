@@ -11,21 +11,19 @@ package org.eclipse.jem.internal.proxy.ide.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEPointBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
-
-import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.ide.*;
-import org.eclipse.jem.internal.proxy.ide.IDEBeanTypeProxy;
 
 import java.awt.Point;
 
+import org.eclipse.jem.internal.proxy.ide.*;
+
 public class IDEPointBeanTypeProxy extends IDEBeanTypeProxy {
 
-IDEPointBeanTypeProxy(ProxyFactoryRegistry aRegistry){
+IDEPointBeanTypeProxy(IDEProxyFactoryRegistry aRegistry){
 	this(aRegistry,Point.class);
 }
-private IDEPointBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class type){
+private IDEPointBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class type){
 	super(aRegistry,type);
 }
 protected IIDEBeanProxy newBeanProxy(Object anObject){

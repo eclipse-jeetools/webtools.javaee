@@ -11,11 +11,10 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEIntegerClassBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.IIntegerBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 
 /**
  * IDE Implementation of IIntegerBeanTypeProxy
@@ -26,7 +25,7 @@ final class IDEIntegerClassBeanTypeProxy extends IDENumberBeanTypeProxy {
 	private final IDEIntegerBeanProxy oneIntProxy;
 	private final IDEIntegerBeanProxy twoIntProxy;
 	private final IDEIntegerBeanProxy threeIntProxy;
-IDEIntegerClassBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+IDEIntegerClassBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass, new Integer(0));
 	// Create the cached values
 	zeroIntProxy = new IDEIntegerBeanProxy(aRegistry, new Integer(0), this );	

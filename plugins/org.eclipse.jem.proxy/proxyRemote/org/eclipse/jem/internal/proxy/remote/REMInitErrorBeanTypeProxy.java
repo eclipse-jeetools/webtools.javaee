@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
  
 import org.eclipse.jem.internal.proxy.core.*;
@@ -210,13 +210,6 @@ public class REMInitErrorBeanTypeProxy implements IREMBeanTypeProxy {
 	 */
 	public IBeanTypeProxy getTypeProxy() {
 		return null;
-	}
-
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#isNullProxy()
-	 */
-	public boolean isNullProxy() {
-		return false;
 	}
 
 	/**

@@ -29,7 +29,7 @@
       <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/XOR"/>
       <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/AND"/>
       <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/OR"/>
-      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/CONDITIONAL_ADD"/>
+      <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/CONDITIONAL_AND"/>
       <genEnumLiterals ecoreEnumLiteral="instance.ecore#//PTInfixOperator/CONDITIONAL_OR"/>
     </genEnums>
     <genEnums ecoreEnum="instance.ecore#//PTPrefixOperator">

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import java.lang.reflect.Array;
@@ -75,7 +75,8 @@ public class IDEStandardBeanTypeProxyFactory implements IStandardBeanTypeProxyFa
 	IDEDoubleClassBeanTypeProxy doubleClass;	
 	
 	IDEStringBeanTypeProxy stringClass;
-	IDEBeanTypeProxy classClass;
+	IDEClassBeanTypeProxy classClass;
+	IDEBeanTypeProxy voidType;
 
 public IDEStandardBeanTypeProxyFactory(IDEProxyFactoryRegistry aRegistry) {
 	fFactoryRegistry = aRegistry;
@@ -100,37 +101,39 @@ public IDEStandardBeanTypeProxyFactory(IDEProxyFactoryRegistry aRegistry) {
 	doubleType = new IDEDoubleTypeBeanTypeProxy(fFactoryRegistry,Double.TYPE);
 	doubleClass = new IDEDoubleClassBeanTypeProxy(fFactoryRegistry,Double.class);
 	stringClass = new IDEStringBeanTypeProxy(fFactoryRegistry, String.class);
-	classClass = new IDEBeanTypeProxy(fFactoryRegistry,java.lang.Class.class);
+	classClass = new IDEClassBeanTypeProxy(fFactoryRegistry,java.lang.Class.class);
+	voidType = new IDEBeanTypeProxy(fFactoryRegistry, Void.TYPE);
 
 	// Initialize the hashtable with the primitives, their lang equivalents, and also common classes like String
 	beanProxies = new HashMap(20);
 
 	// Primitives
-	beanProxies.put("int", intType);//$NON-NLS-1$
-	beanProxies.put("boolean", booleanType);//$NON-NLS-1$
-	beanProxies.put("char", charType); //$NON-NLS-1$
-	beanProxies.put("byte", byteType); //$NON-NLS-1$
-	beanProxies.put("short", shortType); //$NON-NLS-1$
-	beanProxies.put("long", longType); //$NON-NLS-1$
-	beanProxies.put("float", floatType); //$NON-NLS-1$
-	beanProxies.put("double", doubleType); //$NON-NLS-1$
+	beanProxies.put(intType.getTypeName(), intType);
+	beanProxies.put(booleanType.getTypeName(), booleanType);
+	beanProxies.put(charType.getTypeName(), charType); 
+	beanProxies.put(byteType.getTypeName(), byteType); 
+	beanProxies.put(shortType.getTypeName(), shortType); 
+	beanProxies.put(longType.getTypeName(), longType); 
+	beanProxies.put(floatType.getTypeName(), floatType); 
+	beanProxies.put(doubleType.getTypeName(), doubleType); 
 
 	// java.lang primitive peers
 	// Note that special classes are used for some of these which allow the IDE to get the
 	// lang objects from the objects that are holding proxies
-	beanProxies.put("java.lang.Integer", integerClass);//$NON-NLS-1$
-	beanProxies.put("java.lang.Boolean", booleanClass);//$NON-NLS-1$
-	beanProxies.put("java.lang.Character", charClass); //$NON-NLS-1$
-	beanProxies.put("java.lang.Byte", byteClass); //$NON-NLS-1$
-	beanProxies.put("java.lang.Short", shortClass); //$NON-NLS-1$
-	beanProxies.put("java.lang.Long", longClass); //$NON-NLS-1$
-	beanProxies.put("java.lang.Float", floatClass); //$NON-NLS-1$
-	beanProxies.put("java.lang.Double", doubleClass); //$NON-NLS-1$
-	beanProxies.put("java.math.BigDecimal", new IDEBigDecimalBeanTypeProxy(fFactoryRegistry, BigDecimal.class));//$NON-NLS-1$
-	beanProxies.put("java.math.BigInteger", new IDEBigIntegerBeanTypeProxy(fFactoryRegistry, BigInteger.class));//$NON-NLS-1$		
-	beanProxies.put("java.lang.String", stringClass);//$NON-NLS-1$
+	beanProxies.put(integerClass.getTypeName(), integerClass);
+	beanProxies.put(booleanClass.getTypeName(), booleanClass);
+	beanProxies.put(charClass.getTypeName(), charClass); 
+	beanProxies.put(byteClass.getTypeName(), byteClass); 
+	beanProxies.put(shortClass.getTypeName(), shortClass);
+	beanProxies.put(longClass.getTypeName(), longClass); 
+	beanProxies.put(floatClass.getTypeName(), floatClass); 
+	beanProxies.put(doubleClass.getTypeName(), doubleClass);
+	beanProxies.put(BigDecimal.class.getName(), new IDEBigDecimalBeanTypeProxy(fFactoryRegistry, BigDecimal.class));//$NON-NLS-1$
+	beanProxies.put(BigInteger.class.getName(), new IDEBigIntegerBeanTypeProxy(fFactoryRegistry, BigInteger.class));//$NON-NLS-1$		
+	beanProxies.put(stringClass.getTypeName(), stringClass);
 	
-	beanProxies.put("java.lang.Class", classClass); //$NON-NLS-1$
+	beanProxies.put(classClass.getTypeName(), classClass); 
+	beanProxies.put(voidType.getTypeName(), voidType); 
 }
 /**
  * We are an IDE proxy and know that the type is in the same VM as the IDE.
@@ -198,7 +201,7 @@ public synchronized IBeanTypeProxy getBeanTypeProxy(String typeName) {
 			if (beanTypeProxy == null) 
 				beanTypeProxy = new IDEBeanTypeProxy(fFactoryRegistry, ideClass);
 		} catch (ClassNotFoundException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 			String msg = MessageFormat.format("{0}({1})", new Object[] {e.getClass(), e.getMessage()}); //$NON-NLS-1$
 			beanTypeProxy = new IDEInitErrorBeanTypeProxy(fFactoryRegistry, typeName, msg);
 		} catch (ExceptionInInitializerError e) {

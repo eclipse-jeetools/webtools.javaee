@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEInitErrorBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -29,7 +29,7 @@ public class IDEInitErrorBeanTypeProxy extends IDEBeanTypeProxy {
 	protected String classname;
 	protected String initializationError;
 	
-	protected IDEInitErrorBeanTypeProxy(ProxyFactoryRegistry registry, String classname, String initializationError) {
+	protected IDEInitErrorBeanTypeProxy(IDEProxyFactoryRegistry registry, String classname, String initializationError) {
 		super(registry, null);
 		this.classname = classname;
 		this.initializationError = initializationError;
@@ -160,13 +160,6 @@ public class IDEInitErrorBeanTypeProxy extends IDEBeanTypeProxy {
 	 */
 	public String getInitializationError() {
 		return initializationError;
-	}
-
-	/**
-	 * @see org.eclipse.jem.internal.proxy.core.IBeanProxy#isNullProxy()
-	 */
-	public boolean isNullProxy() {
-		return false;
 	}
 
 	/**

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEIntegerBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -25,7 +25,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  */
 public class IDEIntegerBeanProxy extends IDENumberBeanProxy implements IIntegerBeanProxy {
 	protected int fIntValue;
-IDEIntegerBeanProxy(ProxyFactoryRegistry aRegistry, Integer anInteger, IBeanTypeProxy aBeanTypeProxy) {
+IDEIntegerBeanProxy(IDEProxyFactoryRegistry aRegistry, Number anInteger, IBeanTypeProxy aBeanTypeProxy) {
 	super(aRegistry, anInteger , aBeanTypeProxy);
 	fIntValue = anInteger.intValue();
 }

@@ -308,7 +308,7 @@
         <details key="documentation" value="|  operator"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="CONDITIONAL_ADD" value="17">
+    <eLiterals name="CONDITIONAL_AND" value="17">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&amp;&amp; operator"/>
       </eAnnotations>

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: InitializationStringParser.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -246,6 +246,14 @@ public void parse(){
 public boolean isPrimitive() throws InitializationStringEvaluationException {
 	try {
 		return fExpression.isPrimitive();
+	} catch (Exception e) {
+		throw new InitializationStringEvaluationException(e);
+	}
+}
+
+public Class getExpectedType() throws InitializationStringEvaluationException {
+	try {
+		return fExpression.getTypeClass();
 	} catch (Exception e) {
 		throw new InitializationStringEvaluationException(e);
 	}

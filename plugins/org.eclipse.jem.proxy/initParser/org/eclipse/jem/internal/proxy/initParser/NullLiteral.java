@@ -1,4 +1,5 @@
 package org.eclipse.jem.internal.proxy.initParser;
+
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,7 +12,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: NullLiteral.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -28,11 +29,11 @@ public Object evaluate() {
  * evaluate method comment.
  */
 public Class getTypeClass(){
-	return Void.TYPE;
+	return MethodHelper.NULL_TYPE;
 }
 
 protected String getTypeClassName() {
-	return Void.TYPE.getName();
+	return MethodHelper.NULL_TYPE.getName();
 }
 /**
  * true or false cannot consume any kind of expression so we must return null

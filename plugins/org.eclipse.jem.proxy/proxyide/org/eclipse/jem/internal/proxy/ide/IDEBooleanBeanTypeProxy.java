@@ -16,9 +16,8 @@ package org.eclipse.jem.internal.proxy.ide;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 
-import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 
 /**
  * @author richkulp
@@ -33,7 +32,7 @@ public class IDEBooleanBeanTypeProxy extends IDEBooleanBeanProxy {
 	 * @param aBean
 	 * @param aBeanTypeProxy
 	 */
-	public IDEBooleanBeanTypeProxy(ProxyFactoryRegistry aRegistry, Object aBean, IBeanTypeProxy aBeanTypeProxy) {
+	public IDEBooleanBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Object aBean, IBeanTypeProxy aBeanTypeProxy) {
 		super(aRegistry, aBean, aBeanTypeProxy);
 	}
 

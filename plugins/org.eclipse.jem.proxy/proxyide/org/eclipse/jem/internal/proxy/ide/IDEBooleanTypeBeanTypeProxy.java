@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBooleanTypeBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -23,7 +23,7 @@ final public class IDEBooleanTypeBeanTypeProxy extends IDEPrimitiveBeanTypeProxy
 	protected final IDEBooleanBeanProxy trueProxy;
 	protected final IDEBooleanBeanProxy falseProxy;
 
-IDEBooleanTypeBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+IDEBooleanTypeBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 
 	super(aRegistry, aClass);
 	trueProxy = new IDEBooleanBeanTypeProxy( fProxyFactoryRegistry, Boolean.TRUE, this );

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -22,10 +22,10 @@ import org.eclipse.core.runtime.Status;
 
 public class IDEBeanTypeProxy extends IDEBeanProxy implements IBeanTypeProxy {
 	
-	protected ProxyFactoryRegistry fProxyFactoryRegistry;
+	protected IDEProxyFactoryRegistry fProxyFactoryRegistry;
 	Class fClass;
 	
-protected IDEBeanTypeProxy(ProxyFactoryRegistry aRegistry,Class aClass){
+protected IDEBeanTypeProxy(IDEProxyFactoryRegistry aRegistry,Class aClass){
 	super(aRegistry,aClass);
 	fProxyFactoryRegistry = aRegistry;
 	fClass = aClass;
@@ -35,6 +35,10 @@ protected IDEBeanTypeProxy(ProxyFactoryRegistry aRegistry,Class aClass){
  */
 public IBeanTypeProxy getTypeProxy() {
 	return ((IDEStandardBeanTypeProxyFactory)fProxyFactoryRegistry.getBeanTypeProxyFactory()).classClass;
+}
+
+public Class getTypeClass() {
+	return fClass;
 }
 
 public String toBeanString(){

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEFloatTypeBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -20,7 +20,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  * Float BeanType Proxy.
  */
 final class IDEFloatTypeBeanTypeProxy extends IDEPrimitiveBeanTypeProxy {
-protected IDEFloatTypeBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+protected IDEFloatTypeBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass);
 }
 INumberBeanProxy createFloatBeanProxy(float aFloat){
@@ -28,6 +28,12 @@ INumberBeanProxy createFloatBeanProxy(float aFloat){
 }
 int getPrimitiveType(){
 	return FLOAT;
+}
+
+protected IIDEBeanProxy newBeanProxy(Object anObject){
+	Number n = anObject instanceof Character ? new Float(((Character) anObject).charValue()) : (Number) anObject;
+	return new IDENumberBeanProxy(fProxyFactoryRegistry, n, this);
+
 }
 }
 

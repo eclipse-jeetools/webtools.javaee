@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEConstructorProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import java.lang.reflect.Constructor;
@@ -31,7 +31,7 @@ class IDEConstructorProxy extends IDEAccessibleObjectProxy implements IConstruct
 	 * package protected constructor where the instance of java.lang.reflect.Constructor
 	 * can be passed in directly
 	 */
-	IDEConstructorProxy(ProxyFactoryRegistry aRegistry, Constructor aConstructor) {
+	IDEConstructorProxy(IDEProxyFactoryRegistry aRegistry, Constructor aConstructor) {
 		super(aRegistry, aConstructor);
 	}
 	/**

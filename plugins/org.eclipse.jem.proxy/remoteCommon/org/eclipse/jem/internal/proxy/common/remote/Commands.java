@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import java.io.*;
@@ -77,11 +77,17 @@ public class Commands {
 					// really shouldn't happen except as a possible race condition between
 					// GC and returning id from the server.
 		INVOKE = 15,		// Invoke a method.
-		
+	
+	
 		// These commands are to the Master Server thread in the IDE.
 		ALIVE = 16,	// Are you alive?
 		REMOTE_STARTED = 17,	// Remote VM has started.
-		GET_CALLBACK_PORT = 18;	// Get the callback port number. Should only be used once per server, it should cache it.
+		GET_CALLBACK_PORT = 18,	// Get the callback port number. Should only be used once per server, it should cache it.
+
+		// These are more regular commands. They were historically added after the master server thread commands, so
+		// they are shown here after them and with numbers greater than them.
+		EXPRESSION_TREE_COMMAND = 19;	// An expression tree subcommand has come in.
+	
 		
 	// Callback commands
 	public final static byte
@@ -101,7 +107,8 @@ public class Commands {
 		CANNOT_EVALUATE_STRING = 3,	// Evaluator couldn't evaluate the init string. Too complicated. Value is a throwable of the wrappered Init string error.
 		CLASS_CAST_EXCEPTION = 4,	// The result is not assignable to the expected type. Value is void.
 		GET_METHOD_NOT_FOUND = 5,	// Method requested wasn't found. Value is void.
-		THROWABLE_SENT = 6;			// A Throwable is being sent back as the error, not as just data for the error. Value is the Throwable.
+		THROWABLE_SENT = 6,			// A Throwable is being sent back as the error, not as just data for the error. Value is the Throwable.
+		MAX_ERROR_CODE = THROWABLE_SENT;	// This is just the max code. Not actually sent. Used as a flag.
 		
 	// Predefined standard id's for standard classes/objects. Both sides will assume these id's have been assigned
 	// to these classes/types/objects
@@ -141,8 +148,8 @@ public class Commands {
 		REMOTESERVER_ID = 31,	// id of RemoteVMServerThread instance.
 		REMOTEVMSERVER_CLASS = 32,	// RemoteVMServer.class
 		INITIALIZECALLBACK_METHOD_ID = 33,	// ICallback.initializeCallback method.
-		THREAD_CLASS = 33,
-		FIRST_FREE_ID = 34;
+		THREAD_CLASS = 34,
+		FIRST_FREE_ID = 35;
 				
 	// The type flags written in writeByte format
 	public final static byte
@@ -284,6 +291,14 @@ public class Commands {
 	//		there is no return type (i.e. the method was void). So null can be returned either if the value
 	//		was null or if the return type was void.
 	//
+	// EXPRESSION_TREE_COMMAND: 20b, b
+	//		Receiving an expression tree subcommand. Where "b" is byte code, defined in ExpressionCommands, that
+	//		determines the type of expression tree commands.
+	//		There can be more data following, but it is read by the 
+	//		ExpressionProcesserController, not by the connection. See the controller for the subcommands.
+	//		@see ExpressionProcessController
+	//
+	//
 	// Callback commands:
 	//
 	// CALLBACK: 255b, n1, n2, value1
@@ -364,6 +379,47 @@ public class Commands {
 		
 		public ValueObject() {
 			type = VOID;
+		}
+		
+		/**
+		 * Return whether the value stored here is a primitive.
+		 * 
+		 * @return <code>true</code> if value is a primitive type.
+		 * 
+		 * @since 1.0.0
+		 */
+		public boolean isPrimitive() {
+			return getPrimitiveType().isPrimitive();
+		}
+		
+		/**
+		 * Get the primitive type of the value. 
+		 * @return The primitive type, or if not primitive, it returns simply <code>Object.class</code>.
+		 * 
+		 * @since 1.0.0
+		 */
+		public Class getPrimitiveType() {
+			switch (type) {
+				case BYTE:
+					return Byte.TYPE;
+				case CHAR:
+					return Character.TYPE;
+				case DOUBLE:
+					return Double.TYPE;
+				case FLOAT:
+					return Float.TYPE;
+				case INT:
+					return Integer.TYPE;
+				case SHORT:
+					return Short.TYPE;
+				case LONG:
+					return Long.TYPE;
+				case BOOL:
+					return Boolean.TYPE;
+				default:
+					return Object.class;
+			}	
+			
 		}
 		
 		/**
@@ -927,6 +983,7 @@ public class Commands {
 		os.flush();
 	}
 	
+	
 	public static void releaseObjectCommand(DataOutputStream os, int id) throws IOException {
 		os.writeByte(Commands.RELEASE_OBJECT);
 		os.writeInt(id);
@@ -1154,4 +1211,7 @@ public class Commands {
 		}		
 	}
 	
+	private Commands() {
+		// Never intended to be instantiated.
+	}
 }

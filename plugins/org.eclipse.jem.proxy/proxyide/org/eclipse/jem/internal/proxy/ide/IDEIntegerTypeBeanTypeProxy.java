@@ -11,11 +11,10 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEIntegerTypeBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.IIntegerBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 
 /**
  * IDE Implementation of IIntegerBeanTypeProxy
@@ -26,7 +25,7 @@ final class IDEIntegerTypeBeanTypeProxy extends IDEPrimitiveBeanTypeProxy {
 	private final IDEIntegerBeanProxy oneProxy;
 	private final IDEIntegerBeanProxy twoProxy;
 	private final IDEIntegerBeanProxy threeProxy;
-IDEIntegerTypeBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+IDEIntegerTypeBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass);
 	// Create the cached values
 	zeroProxy = new IDEIntegerBeanProxy(aRegistry, new Integer(0), this );
@@ -52,9 +51,16 @@ IIntegerBeanProxy createIntegerBeanProxy(int anInt) {
 /* Specialized from IDEBeanTypeProxy to ensure IIntegerBeanProxies are created correctly
  */
 protected IIDEBeanProxy newBeanProxy(Object anObject){
-
-	return (IIDEBeanProxy)createIntegerBeanProxy( anObject != null ? ((Integer)anObject).intValue() : 0);
-
+	Number n = anObject instanceof Character ? new Integer(((Character) anObject).charValue()) : (Number) anObject;
+	switch(n.intValue()){
+		case 0: return zeroProxy ;
+		case 1: return oneProxy ;
+		case 2: return twoProxy ;
+		case 3: return threeProxy ;
+		default: return new IDEIntegerBeanProxy(fProxyFactoryRegistry, n, this);
+	}
+	
+	
 }
 int getPrimitiveType(){
 	return INTEGER;

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEDimensionBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -23,7 +23,7 @@ public class IDEDimensionBeanProxy extends IDEObjectBeanProxy implements IDimens
 	
 	protected Dimension fDimension;
 
-IDEDimensionBeanProxy(ProxyFactoryRegistry aRegistry,Object aDimension, IBeanTypeProxy aBeanTypeProxy){
+IDEDimensionBeanProxy(IDEProxyFactoryRegistry aRegistry,Object aDimension, IBeanTypeProxy aBeanTypeProxy){
 	super(aRegistry,aDimension,aBeanTypeProxy);
 	fDimension = (Dimension)aDimension;
 }

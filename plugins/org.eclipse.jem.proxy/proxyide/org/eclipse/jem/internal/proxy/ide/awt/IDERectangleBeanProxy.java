@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IDERectangleBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -23,7 +23,7 @@ public class IDERectangleBeanProxy extends IDEObjectBeanProxy implements IRectan
 	
 	protected Rectangle fRectangle;
 
-IDERectangleBeanProxy(ProxyFactoryRegistry aRegistry,Object aRectangle, IBeanTypeProxy aBeanTypeProxy){
+IDERectangleBeanProxy(IDEProxyFactoryRegistry aRegistry,Object aRectangle, IBeanTypeProxy aBeanTypeProxy){
 	super(aRegistry,aRectangle,aBeanTypeProxy);
 	fRectangle = (Rectangle)aRectangle;
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEObjectBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -20,7 +20,7 @@ public class IDEObjectBeanProxy extends IDEBeanProxy {
 
 	protected IBeanTypeProxy fBeanTypeProxy; // Cache the type proxy for speed
 	
-protected IDEObjectBeanProxy(ProxyFactoryRegistry aRegistry){
+protected IDEObjectBeanProxy(IDEProxyFactoryRegistry aRegistry){
 	super(aRegistry);
 }
 /**
@@ -33,7 +33,7 @@ protected IDEObjectBeanProxy(ProxyFactoryRegistry aRegistry){
  * that is based around any kind of VM artifact being proxied to support target VMs and pluggable JDK
  * levels 
  */
-protected IDEObjectBeanProxy(ProxyFactoryRegistry aRegistry, Object aBean, IBeanTypeProxy aBeanTypeProxy){
+protected IDEObjectBeanProxy(IDEProxyFactoryRegistry aRegistry, Object aBean, IBeanTypeProxy aBeanTypeProxy){
 	
 	this(aRegistry, aBean);
 	fBeanTypeProxy = aBeanTypeProxy;
@@ -43,7 +43,7 @@ protected IDEObjectBeanProxy(ProxyFactoryRegistry aRegistry, Object aBean, IBean
  * Set the bean we are proxying.  We are a proxy for a bean running on the same IDE
  * so we hold the bean directly and can return it. 
  */
-protected IDEObjectBeanProxy(ProxyFactoryRegistry aRegistry, Object aBean){
+protected IDEObjectBeanProxy(IDEProxyFactoryRegistry aRegistry, Object aBean){
 	this(aRegistry);
 	
 	fBean = aBean;

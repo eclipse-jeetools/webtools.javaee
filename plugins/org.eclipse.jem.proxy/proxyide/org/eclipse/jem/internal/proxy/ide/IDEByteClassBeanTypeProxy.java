@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEByteClassBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -21,7 +21,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  */
 final class IDEByteClassBeanTypeProxy extends IDENumberBeanTypeProxy {
 		
-protected IDEByteClassBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+protected IDEByteClassBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass, new Byte((byte)0));
 }
 INumberBeanProxy createByteBeanProxy(Byte aByte){

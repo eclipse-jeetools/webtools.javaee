@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ICharacterBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -21,7 +21,7 @@ package org.eclipse.jem.internal.proxy.core;
  * Creation date: (2/6/00 8:58:22 AM)
  * @author: Joe Winchester
  */
-public interface ICharacterBeanProxy extends IBeanProxy {
+public interface ICharacterBeanProxy extends IBeanProxy, INumberBeanProxy {
 /**
  * Return the proxied character as a char that the IDE can use
  * Creation date: (2/6/00 8:58:32 AM)

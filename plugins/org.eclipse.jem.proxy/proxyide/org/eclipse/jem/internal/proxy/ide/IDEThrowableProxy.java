@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEThrowableProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -72,9 +72,6 @@ public class IDEThrowableProxy extends ThrowableProxy implements IIDEBeanProxy {
 	}
 	public boolean isValid() {
 		return true;
-	}
-	public boolean isNullProxy() {
-		return false;
 	}
 	/**
 	 * Return the exception which is the live bean

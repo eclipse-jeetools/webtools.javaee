@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -127,6 +127,9 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 		
 		// Initialize the mapping table with certain pre-defined ids.
 		synchronized(objectToIDMap) {
+			objectToIDMap.put(Void.TYPE, new Integer(Commands.VOID_TYPE));
+			idToObjectMap.put(new Integer(Commands.VOID_TYPE), Void.TYPE);
+			
 			objectToIDMap.put(Boolean.TYPE, new Integer(Commands.BOOLEAN_TYPE));
 			idToObjectMap.put(new Integer(Commands.BOOLEAN_TYPE), Boolean.TYPE);
 			objectToIDMap.put(Boolean.class, new Integer(Commands.BOOLEAN_CLASS));

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEFieldProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import java.lang.reflect.Field;
@@ -35,7 +35,7 @@ public class IDEFieldProxy extends IDEAccessibleObjectProxy implements IFieldPro
 	 * This is package protected because only classes in the IDE package can construct
 	 * this.  Everyone else must go via the typeProxy
 	 */
-	IDEFieldProxy(ProxyFactoryRegistry aRegistry, Field aField) {
+	IDEFieldProxy(IDEProxyFactoryRegistry aRegistry, Field aField) {
 		super(aRegistry, aField);
 	}
 	/**
@@ -54,7 +54,7 @@ public class IDEFieldProxy extends IDEAccessibleObjectProxy implements IFieldPro
 
 		// If we have a non null result wrap it in an IBeanProxy and return it
 		if (result != null) {
-			return IDEMethodProxy.getBeanProxy(fProxyFactoryRegistry, ((Field) getBean()).getType(), result);
+			return fProxyFactoryRegistry.getBeanProxy(((Field) getBean()).getType(), result);
 		} else {
 			return null;
 		}

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEByteTypeBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -19,7 +19,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  * Byte BeanType Proxy.
  */
 final class IDEByteTypeBeanTypeProxy extends IDEPrimitiveBeanTypeProxy {
-protected IDEByteTypeBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+protected IDEByteTypeBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass);
 }
 INumberBeanProxy createByteBeanProxy(byte aByte){
@@ -29,9 +29,8 @@ int getPrimitiveType(){
 	return BYTE;
 }
 protected IIDEBeanProxy newBeanProxy(Object anObject){
-
-	return (IIDEBeanProxy)createByteBeanProxy(((Byte)anObject).byteValue());
-
+	Number n = anObject instanceof Character ? new Byte((byte)((Character) anObject).charValue()) : (Number) anObject;
+	return new IDENumberBeanProxy(fProxyFactoryRegistry, n, this);
 }
 }
 

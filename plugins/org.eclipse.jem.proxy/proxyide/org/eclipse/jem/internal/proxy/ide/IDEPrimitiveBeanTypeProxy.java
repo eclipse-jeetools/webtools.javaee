@@ -11,12 +11,11 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEPrimitiveBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
-import org.eclipse.jem.internal.proxy.core.*;
 
-abstract class IDEPrimitiveBeanTypeProxy extends IDEBeanTypeProxy {
+public abstract class IDEPrimitiveBeanTypeProxy extends IDEBeanTypeProxy {
 	
 	static final int BOOLEAN = 1;
 	static final int BYTE = 2;
@@ -27,7 +26,7 @@ abstract class IDEPrimitiveBeanTypeProxy extends IDEBeanTypeProxy {
 	static final int LONG = 7;
 	static final int SHORT = 8;
 	
-public IDEPrimitiveBeanTypeProxy(ProxyFactoryRegistry aRegistry,Class aClass){
+public IDEPrimitiveBeanTypeProxy(IDEProxyFactoryRegistry aRegistry,Class aClass){
 	super(aRegistry,aClass);
 }
 public boolean isPrimitive() {

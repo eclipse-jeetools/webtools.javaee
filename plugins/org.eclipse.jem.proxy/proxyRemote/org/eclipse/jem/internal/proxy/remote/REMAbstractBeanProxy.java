@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -103,14 +103,7 @@ public abstract class REMAbstractBeanProxy implements IREMBeanProxy {
 	public void release() {
 		fID = null;
 	}
-		
-	/**
-	 * isNullProxy. Nope. There is a special proxy just for null.
-	 */
-	public boolean isNullProxy() {
-		return false;
-	}
-	
+			
 	/**
 	 * Return the toString of the actual bean on the remote side.
 	 */

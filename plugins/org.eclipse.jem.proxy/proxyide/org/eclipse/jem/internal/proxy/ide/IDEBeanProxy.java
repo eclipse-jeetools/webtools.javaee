@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBeanProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -19,20 +19,17 @@ import org.eclipse.jem.internal.proxy.core.*;
 public abstract class IDEBeanProxy implements IBeanProxy, IIDEBeanProxy {
 
 	protected Object fBean;
-	protected final ProxyFactoryRegistry fProxyFactoryRegistry;
+	protected final IDEProxyFactoryRegistry fProxyFactoryRegistry;
 
-	protected IDEBeanProxy(ProxyFactoryRegistry aProxyFactoryRegistry) {
+	protected IDEBeanProxy(IDEProxyFactoryRegistry aProxyFactoryRegistry) {
 		fProxyFactoryRegistry = aProxyFactoryRegistry;
 	}
-	protected IDEBeanProxy(ProxyFactoryRegistry aProxyFactoryRegistry, Object anObject) {
+	protected IDEBeanProxy(IDEProxyFactoryRegistry aProxyFactoryRegistry, Object anObject) {
 		fProxyFactoryRegistry = aProxyFactoryRegistry;
 		fBean = anObject;
 	}
 	public boolean isValid() {
 		return true;
-	}
-	public boolean isNullProxy() {
-		return fBean == null;
 	}
 	public ProxyFactoryRegistry getProxyFactoryRegistry() {
 		return fProxyFactoryRegistry;

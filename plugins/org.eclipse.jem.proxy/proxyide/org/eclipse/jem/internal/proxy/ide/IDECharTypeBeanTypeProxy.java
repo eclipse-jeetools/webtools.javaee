@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDECharTypeBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -20,7 +20,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  * char BeanType Proxy.
  */
 final class IDECharTypeBeanTypeProxy extends IDEPrimitiveBeanTypeProxy {
-protected IDECharTypeBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+protected IDECharTypeBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass);
 }
 ICharacterBeanProxy createCharBeanProxy(char aChar){
@@ -30,9 +30,9 @@ int getPrimitiveType(){
 	return CHAR;
 }
 protected IIDEBeanProxy newBeanProxy(Object anObject){
-
-	return (IIDEBeanProxy)createCharBeanProxy(((Character)anObject).charValue());
-
+	Character c = anObject instanceof Character ? (Character) anObject : new Character((char)((Number) anObject).intValue());
+	return new IDECharacterBeanProxy(fProxyFactoryRegistry, c, this);
+	
 }
 }
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConstantBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -82,14 +82,6 @@ public abstract class REMConstantBeanProxy implements IREMConstantBeanProxy {
 	 * override isValid() to return false.
 	 */
 	public void release() {
-	}
-	
-	/**
-	 * Return if this is the null proxy. The normal constant is not.
-	 * null constant override will return true.
-	 */
-	public boolean isNullProxy() {
-		return false;
 	}
 
 

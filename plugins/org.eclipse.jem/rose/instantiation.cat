@@ -396,7 +396,7 @@
 		    quid       	"4008570402FA"
 		    documentation 	"|  operator"
 		    exportControl 	"Public")
-		(object ClassAttribute "CONDITIONAL_ADD"
+		(object ClassAttribute "CONDITIONAL_AND"
 		    quid       	"400857160075"
 		    documentation 	"&& operator"
 		    exportControl 	"Public")

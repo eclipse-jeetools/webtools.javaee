@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDENumberBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -21,7 +21,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  * Creation date: (2/6/00 9:02:54 AM)
  * @author: Joe Winchester
  */
-class IDENumberBeanProxy extends IDEBeanProxy implements INumberBeanProxy {
+public class IDENumberBeanProxy extends IDEBeanProxy implements INumberBeanProxy {
 	private final Number fNumberValue;
 	protected IBeanTypeProxy fBeanTypeProxy;
 	
@@ -30,7 +30,7 @@ class IDENumberBeanProxy extends IDEBeanProxy implements INumberBeanProxy {
  * in a special way and no one else should create them.
  * @param aBean java.lang.Object
  */
-IDENumberBeanProxy(ProxyFactoryRegistry aRegistry, Number aNumber , IBeanTypeProxy aBeanTypeProxy) {
+IDENumberBeanProxy(IDEProxyFactoryRegistry aRegistry, Number aNumber , IBeanTypeProxy aBeanTypeProxy) {
 	super(aRegistry,aNumber);
 	fNumberValue = aNumber;
 	fBeanTypeProxy = aBeanTypeProxy;

@@ -10,15 +10,13 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IDEAccessibleObjectProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 package org.eclipse.jem.internal.proxy.ide;
 
 import java.lang.reflect.AccessibleObject;
 
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.IAccessibleObjectProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
  
 /**
  * 
@@ -26,11 +24,11 @@ import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
  */
 public class IDEAccessibleObjectProxy extends IDEBeanProxy implements IAccessibleObjectProxy {
 
-	protected IDEAccessibleObjectProxy(ProxyFactoryRegistry aProxyFactoryRegistry) {
+	protected IDEAccessibleObjectProxy(IDEProxyFactoryRegistry aProxyFactoryRegistry) {
 		super(aProxyFactoryRegistry);
 	}
 
-	protected IDEAccessibleObjectProxy(ProxyFactoryRegistry aProxyFactoryRegistry, Object anObject) {
+	protected IDEAccessibleObjectProxy(IDEProxyFactoryRegistry aProxyFactoryRegistry, Object anObject) {
 		super(aProxyFactoryRegistry, anObject);
 	}
 

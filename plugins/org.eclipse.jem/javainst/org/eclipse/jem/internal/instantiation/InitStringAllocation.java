@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.instantiation;
 /*******************************************************************************
  * Copyright (c)  2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,8 +10,9 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InitStringAllocation.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:28 $ 
  */
+package org.eclipse.jem.internal.instantiation;
 
 /**
  * <!-- begin-user-doc -->

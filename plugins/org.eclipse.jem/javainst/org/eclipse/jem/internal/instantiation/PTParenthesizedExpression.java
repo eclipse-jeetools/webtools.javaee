@@ -1,4 +1,3 @@
-package org.eclipse.jem.internal.instantiation;
 /*******************************************************************************
  * Copyright (c)  2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,8 +10,9 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: PTParenthesizedExpression.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:21 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:28 $ 
  */
+package org.eclipse.jem.internal.instantiation;
 
 /**
  * <!-- begin-user-doc -->

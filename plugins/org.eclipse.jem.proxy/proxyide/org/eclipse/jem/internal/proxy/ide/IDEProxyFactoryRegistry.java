@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import java.net.URL;
@@ -20,8 +20,7 @@ import java.net.URLClassLoader;
 import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.Platform;
 
-import org.eclipse.jem.internal.proxy.core.ICallbackRegistry;
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
+import org.eclipse.jem.internal.proxy.core.*;
 /**
  * This implementation runs the Beans inside the Eclipse IDE
  * It should only be used by plugins that can guarantee their their beans do
@@ -85,6 +84,41 @@ public ICallbackRegistry getCallbackRegistry(){
 		fCallbackRegistry = new IDECallbackRegistry(this);
 	}
 	return fCallbackRegistry;
+}
+
+
+/**
+ * Get a bean proxy from the bean of the correct type.
+ * 
+ * @param returnType
+ * @param bean
+ * @return
+ * 
+ * @since 1.0.0
+ */
+IBeanProxy getBeanProxy(Class returnType, Object bean) {
+	IDEStandardBeanTypeProxyFactory proxyFactory = (IDEStandardBeanTypeProxyFactory) this.getBeanTypeProxyFactory();
+	if (!returnType.isPrimitive()) {
+		return IDEStandardBeanProxyFactory.createBeanProxy(this, bean);
+	} else if (returnType == Integer.TYPE) {
+		return proxyFactory.intType.newBeanProxy(bean);
+	} else if (returnType == Boolean.TYPE) {
+		return proxyFactory.booleanType.newBeanProxy(bean);
+	} else if (returnType == Float.TYPE) {
+		return proxyFactory.floatType.newBeanProxy(bean);
+	} else if (returnType == Long.TYPE) {
+		return proxyFactory.longType.newBeanProxy(bean);
+	} else if (returnType == Short.TYPE) {
+		return proxyFactory.shortType.newBeanProxy(bean);
+	} else if (returnType == Double.TYPE) {
+		return proxyFactory.doubleType.newBeanProxy(bean);
+	} else if (returnType == Byte.TYPE) {
+		return proxyFactory.byteType.newBeanProxy(bean);
+	} else if (returnType == Character.TYPE) {
+		return proxyFactory.charType.newBeanProxy(bean);
+	} else {
+		throw new RuntimeException("Unknown primitive type " + returnType.getName()); //$NON-NLS-1$
+	}
 }
 
 }

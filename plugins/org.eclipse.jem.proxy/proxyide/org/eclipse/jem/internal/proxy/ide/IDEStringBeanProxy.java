@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEStringBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -27,7 +27,7 @@ final class IDEStringBeanProxy extends IDEObjectBeanProxy implements IStringBean
  * It is package protected because they are created
  * in a special way and no one else should create them.
  */
-IDEStringBeanProxy(ProxyFactoryRegistry aRegistry, Object aBean, IBeanTypeProxy aBeanTypeProxy) {
+IDEStringBeanProxy(IDEProxyFactoryRegistry aRegistry, Object aBean, IBeanTypeProxy aBeanTypeProxy) {
 	super(aRegistry, aBean,aBeanTypeProxy);
 	fString = (String)aBean;
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEMethodProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +24,7 @@ import org.eclipse.jem.internal.proxy.core.*;
 
 public class IDEMethodProxy extends IDEAccessibleObjectProxy implements IMethodProxy {
 
-	protected IDEMethodProxy(ProxyFactoryRegistry aRegistry, Method aMethod) {
+	protected IDEMethodProxy(IDEProxyFactoryRegistry aRegistry, Method aMethod) {
 		super(aRegistry, aMethod);
 	}
 
@@ -186,30 +186,6 @@ public class IDEMethodProxy extends IDEAccessibleObjectProxy implements IMethodP
 		return null;
 	}
 	IBeanProxy getBeanProxy(Class returnType, Object bean) {
-		return getBeanProxy(fProxyFactoryRegistry, returnType, bean);
-	}
-	static IBeanProxy getBeanProxy(ProxyFactoryRegistry aRegistry, Class returnType, Object bean) {
-		IDEStandardBeanTypeProxyFactory proxyFactory = (IDEStandardBeanTypeProxyFactory) aRegistry.getBeanTypeProxyFactory();
-		if (!returnType.isPrimitive()) {
-			return IDEStandardBeanProxyFactory.createBeanProxy(aRegistry, bean);
-		} else if (returnType == Integer.TYPE) {
-			return proxyFactory.intType.newBeanProxy(bean);
-		} else if (returnType == Boolean.TYPE) {
-			return proxyFactory.booleanType.newBeanProxy(bean);
-		} else if (returnType == Float.TYPE) {
-			return proxyFactory.floatType.newBeanProxy(bean);
-		} else if (returnType == Long.TYPE) {
-			return proxyFactory.longType.newBeanProxy(bean);
-		} else if (returnType == Short.TYPE) {
-			return proxyFactory.shortType.newBeanProxy(bean);
-		} else if (returnType == Double.TYPE) {
-			return proxyFactory.doubleType.newBeanProxy(bean);
-		} else if (returnType == Byte.TYPE) {
-			return proxyFactory.byteType.newBeanProxy(bean);
-		} else if (returnType == Character.TYPE) {
-			return proxyFactory.charType.newBeanProxy(bean);
-		} else {
-			throw new RuntimeException("Unknown primitive type " + returnType.getName()); //$NON-NLS-1$
-		}
+		return fProxyFactoryRegistry.getBeanProxy(returnType, bean);
 	}
 }

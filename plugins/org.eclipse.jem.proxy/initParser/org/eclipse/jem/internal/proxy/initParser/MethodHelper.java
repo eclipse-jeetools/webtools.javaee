@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodHelper.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -19,11 +19,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.lang.reflect.*;
+
 /**
  * This is a class to do message/constructor work. 
  * Specifically to find the most appropriate method.
  */
 public class MethodHelper {
+	
+	/*
+	 * The class that is used to represent Null class type.
+	 * 
+	 * @since 1.0.0
+	 */
+	private static class NULL_CLASS {
+	}
+	
+	public static final Class NULL_TYPE = NULL_CLASS.class;
+	
 	static final ArrayList sPrimitivesOrder;
 	static final int sCharPos;
 	
@@ -57,13 +69,10 @@ public class MethodHelper {
 			}
 			return false;	// primitive to non-primitive, not assignable.
 		} else
-			if (type2 == Void.TYPE)
-				return true;	// Void represents null for us, and null can be assigned to any object
+			if (type2 == NULL_TYPE)
+				return true;	// NULL_TYPE represents null for us, and null can be assigned to any object
 			else		
-				if (type2.isPrimitive())
-					return false;	// non-primitive to primitive. not assignable
-				else
-					return type1.isAssignableFrom(type2);	// Can type2 be assigned to type1
+				return type1.isAssignableFrom(type2);	// Can type2 be assigned to type1
 	}
 	
 	

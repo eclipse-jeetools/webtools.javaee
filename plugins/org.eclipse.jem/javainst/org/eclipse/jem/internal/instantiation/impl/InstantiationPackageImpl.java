@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationPackageImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2004/01/28 17:37:58 $ 
+ *  $Revision: 1.7 $  $Date: 2004/02/03 23:18:28 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -1331,7 +1331,7 @@ public class InstantiationPackageImpl extends EPackageImpl implements Instantiat
 		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.XOR_LITERAL);
 		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.AND_LITERAL);
 		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.OR_LITERAL);
-		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.CONDITIONAL_ADD_LITERAL);
+		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.CONDITIONAL_AND_LITERAL);
 		addEEnumLiteral(ptInfixOperatorEEnum, PTInfixOperator.CONDITIONAL_OR_LITERAL);
 
 		initEEnum(ptPrefixOperatorEEnum, PTPrefixOperator.class, "PTPrefixOperator");

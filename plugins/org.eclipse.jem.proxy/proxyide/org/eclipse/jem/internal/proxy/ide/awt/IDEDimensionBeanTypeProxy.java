@@ -11,22 +11,20 @@ package org.eclipse.jem.internal.proxy.ide.awt;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEDimensionBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
-
-import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.ide.*;
-import org.eclipse.jem.internal.proxy.ide.IDEBeanTypeProxy;
 
 import java.awt.Dimension;
 
+import org.eclipse.jem.internal.proxy.ide.*;
+
 public class IDEDimensionBeanTypeProxy extends IDEBeanTypeProxy {
 
-IDEDimensionBeanTypeProxy(ProxyFactoryRegistry aRegistry){
+IDEDimensionBeanTypeProxy(IDEProxyFactoryRegistry aRegistry){
 	this(aRegistry,Dimension.class);
 }
 
-private IDEDimensionBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class type){
+private IDEDimensionBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class type){
 	super(aRegistry, type);
 }
 

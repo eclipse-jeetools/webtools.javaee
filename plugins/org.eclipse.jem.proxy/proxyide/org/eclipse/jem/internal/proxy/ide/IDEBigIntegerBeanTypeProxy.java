@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBigIntegerBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -21,7 +21,7 @@ import java.math.*;
  */
 final class IDEBigIntegerBeanTypeProxy extends IDENumberBeanTypeProxy {
 // Some values are cache'd for speed
-IDEBigIntegerBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+IDEBigIntegerBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass, new BigInteger("0")); //$NON-NLS-1$
 }
 /**

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/23 22:53:32 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:23 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -310,7 +310,7 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 		if (prefixOperToParseOper == null) {
 			infixOperToParseOper = new HashMap(5);
 			infixOperToParseOper.put(InfixExpression.Operator.AND, PTInfixOperator.AND_LITERAL);
-			infixOperToParseOper.put(InfixExpression.Operator.CONDITIONAL_AND, PTInfixOperator.CONDITIONAL_ADD_LITERAL);
+			infixOperToParseOper.put(InfixExpression.Operator.CONDITIONAL_AND, PTInfixOperator.CONDITIONAL_AND_LITERAL);
 			infixOperToParseOper.put(InfixExpression.Operator.CONDITIONAL_OR, PTInfixOperator.CONDITIONAL_OR_LITERAL);
 			infixOperToParseOper.put(InfixExpression.Operator.DIVIDE, PTInfixOperator.DIVIDE_LITERAL);
 			infixOperToParseOper.put(InfixExpression.Operator.EQUALS, PTInfixOperator.EQUALS_LITERAL);

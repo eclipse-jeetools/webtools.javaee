@@ -11,10 +11,9 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEConstructorTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 
 /**
  * @version 	1.0
@@ -22,7 +21,7 @@ import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
  */
 public class IDEConstructorTypeProxy extends IDEBeanTypeProxy {
 	
-	IDEConstructorTypeProxy(ProxyFactoryRegistry registry) {
+	IDEConstructorTypeProxy(IDEProxyFactoryRegistry registry) {
 		super(registry, java.lang.reflect.Constructor.class);
 	}
 

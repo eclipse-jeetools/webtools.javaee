@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.2 $  $Date: 2003/11/11 16:26:34 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -20,9 +20,11 @@ import java.net.Socket;
 import java.net.SocketException;
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
+import org.eclipse.jem.internal.proxy.common.remote.*;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.UnexpectedExceptionCommandException;
 import org.eclipse.jem.internal.proxy.initParser.*;
+
 /**
  * This handles one connection.
  */
@@ -83,6 +85,13 @@ public class ConnectionHandler {
 		}
 	}
 	
+	/*
+	 * The current expression controller. Since the same connection will be kept live
+	 * for an expression tree, and any new expression trees that occur will use a different connection,
+	 * this is kept here so that it can be found on sub-expression commands. 
+	 */
+	private ExpressionProcesserController exp = null;
+	
 	/**
 	 * Process and loop until told to stop. A callback_done will stop
 	 * the loop and will return a result. Otherwise null is returned.
@@ -129,32 +138,9 @@ public class ConnectionHandler {
 						Class aClass = null;
 						Class superClass = null;
 						String superClassName = null;
-						String componentTypeName = null;
-						int [] dimList = null;
 						boolean added = false;
 						try {
-							if (className.charAt(0) != '[') 
-								aClass = Class.forName(className);
-							else {
-								// It is an array. Strip off the type and try to find the class for it.
-								int dimEnd = className.lastIndexOf('[');
-								componentTypeName = className.substring(dimEnd+1);
-								if (componentTypeName.charAt(0) == 'L') {
-									// The type is a class
-									componentTypeName = componentTypeName.substring(1,componentTypeName.length()-1);	// Strip off begining 'L' and trailing ';'
-									aClass = Class.forName(componentTypeName);									
-								} else {
-									aClass = (Class) Commands.MAP_SHORTSIG_TO_TYPE.get(componentTypeName.substring(0,1));	// It is a primitive, get the mapping name
-									if (aClass == null)
-										throw new ClassNotFoundException();	// Type couldn't be found in the mapping table.
-									
-								}
-								
-								// Now comes the real kludge. We can't just find a class of type array. You need to have
-								// an array first and get its class.
-								dimList = new int[dimEnd+1];	// Each entry will be initialized to zero by default.
-								aClass = java.lang.reflect.Array.newInstance(aClass, dimList).getClass();
-							}
+							aClass = Class.forName(className);	// Turns out using JNI format for array type will work fine.
 								
 							added = server.getIdentityID(aClass, valueObject);
 							boolean isInterface = aClass.isInterface();
@@ -186,8 +172,6 @@ public class ConnectionHandler {
 							superClass = null;
 							superClassName = null;
 							valueObject.set();
-							componentTypeName = null;
-							dimList = null;
 						}
 						break;
 						
@@ -255,7 +239,9 @@ public class ConnectionHandler {
 								parser = InitializationStringParser.createParser(initString);
 								newValue = parser.evaluate();								
 								boolean primitive = parser.isPrimitive();
-								if (primitive != theClass.isPrimitive()) {
+								// If expected class is Void.TYPE, that means don't test the type of the result
+								// to verify if correct type, just return what it really is.
+								if (theClass != Void.TYPE && primitive != theClass.isPrimitive()) {
 									valueObject.set();
 									Commands.sendErrorCommand(out, Commands.CLASS_CAST_EXCEPTION, valueObject);
 									continue;	// Goto next command.
@@ -263,7 +249,7 @@ public class ConnectionHandler {
 								if (primitive) {
 									try {
 										// Need to do special tests for compatibility and assignment.
-										sendObject(newValue, classID, valueObject, out, true);	// This will make sure it goes out as the correct primitive type
+										sendObject(newValue, classID != Commands.VOID_TYPE ? classID : server.getIdentityID(parser.getExpectedType()), valueObject, out, true);	// This will make sure it goes out as the correct primitive type
 									} catch (ClassCastException e) {
 										// The returned type is not of the correct type for what is expected.
 										valueObject.set();
@@ -274,7 +260,9 @@ public class ConnectionHandler {
 									if (newValue != null) {
 										// Test to see if they are compatible. (Null can be assigned to any object,
 										// so that is why it was tested out above).
-										if (!theClass.isInstance(newValue)) {
+										// If expected class is Void.TYPE, that means don't test the type of the result
+										// to verify if correct type, just return what it really is.
+										if (theClass != Void.TYPE && !theClass.isInstance(newValue)) {
 											// The returned type is not of the correct type for what is expected.
 											valueObject.set();
 											Commands.sendErrorCommand(out, Commands.CLASS_CAST_EXCEPTION, valueObject);
@@ -391,7 +379,7 @@ public class ConnectionHandler {
 					case Commands.ERROR:
 						try {
 							// Got an error command. Don't know what to do but read the
-							// valud and simply print it out.
+							// value and simply print it out.
 							Commands.readValue(in, valueObject);
 							result = getInvokableObject(valueObject);
 							System.out.println("Error sent to server: Result=" + result); //$NON-NLS-1$
@@ -399,10 +387,64 @@ public class ConnectionHandler {
 							valueObject.set();
 						}
 						break;
-							
+					
+					case Commands.EXPRESSION_TREE_COMMAND:
+						byte cmdType = in.readByte();
+						switch (cmdType) {
+							case ExpressionCommands.START_EXPRESSION_TREE_PROCESSING:
+								exp = new ExpressionProcesserController(server, this);
+								break;
+							case ExpressionCommands.PUSH_EXPRESSION:
+								exp.process(in);
+								break;
+							case ExpressionCommands.SYNC_REQUEST:
+								if (exp.noErrors()) {
+									valueObject.set(true); // Mark that all is good.
+									try {
+										Commands.writeValue(out, valueObject, true);
+									} finally {
+										valueObject.set();
+									}
+								} else {
+									processExpressionError(valueObject);
+								}
+								break;
+							case ExpressionCommands.PULL_VALUE_REQUEST:
+								if (exp.noErrors()) {
+									Object[] pulledValue = exp.pullValue();
+									if (pulledValue != null) {
+										// No errors during pulling either.
+										try {
+											if (((Class) pulledValue[1]).isPrimitive()) {
+												int returnTypeID = server.getIdentityID((Class) pulledValue[1]);
+												// Need to tell sendObject the correct primitive type.
+												sendObject(pulledValue[0], returnTypeID, valueObject, out, true);
+												
+											} else {
+												sendObject(pulledValue[0], NOT_A_PRIMITIVE, valueObject, out, true);	// Just send the object back. sendObject knows how to iterpret the type
+											}
+											break;	// We sent good return, so leave.
+										} finally {
+											valueObject.set();
+											pulledValue = null;
+										}
+									}
+								}
+								processExpressionError(valueObject);
+								break;
+							case ExpressionCommands.END_EXPRESSION_TREE_PROCESSING:
+								try {
+									exp.close();
+								} finally {
+									exp = null;
+								}
+								break;
+						}						
+						break;
+						
 					default:
 						// Unknown command. We don't know how long it is, so we need to shut the connection down.
-						System.out.println("Error: Invalid cmd send to server: Cmd=" + cmd); //$NON-NLS-1$
+						System.err.println("Error: Invalid cmd send to server: Cmd=" + cmd); //$NON-NLS-1$
 						doLoop = false;
 						closeWhenDone = true;
 						break;
@@ -420,16 +462,22 @@ public class ConnectionHandler {
 			e.printStackTrace();
 		} finally {
 			if (closeWhenDone) {
+				if (exp != null) {
+					exp.close();
+					exp = null;
+				}
 				if (in != null)
 					try {
 						in.close();
 					} catch (Exception e) {
 					}
+				in = null;
 				if (out != null)
 					try {
 						out.close();
 					} catch (Exception e) {
 					}
+				out = null;
 				close();
 			}
 		}
@@ -442,6 +490,26 @@ public class ConnectionHandler {
 		return result;
 	}
 	
+	private void processExpressionError(Commands.ValueObject valueObject) throws CommandException {
+		try {
+			int code = exp.getErrorCode();
+			if (code != 0) {
+				// We have an error code to send back.
+				String emsg = exp.getErrorMsg();
+				if (emsg != null)
+					valueObject.set(emsg);
+				else
+					valueObject.set();
+				Commands.sendErrorCommand(out, code, valueObject);
+			} else {
+				// It must be an exception.
+				sendException(exp.getErrorThrowable(), valueObject, out);
+			}
+		} finally {
+			valueObject.set();
+		}
+	}
+
 protected static final int NOT_A_PRIMITIVE = Commands.NOT_AN_ID;
 protected static final int SEND_AS_IS = -2;	// This means sends as an object not as an id.
 	

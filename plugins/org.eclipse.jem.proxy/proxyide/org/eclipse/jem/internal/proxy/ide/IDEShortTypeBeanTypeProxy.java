@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEShortTypeBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -20,7 +20,7 @@ import org.eclipse.jem.internal.proxy.core.*;
  * Short BeanType Proxy.
  */
 final class IDEShortTypeBeanTypeProxy extends IDEPrimitiveBeanTypeProxy {
-protected IDEShortTypeBeanTypeProxy(ProxyFactoryRegistry aRegistry, Class aClass) {
+protected IDEShortTypeBeanTypeProxy(IDEProxyFactoryRegistry aRegistry, Class aClass) {
 	super(aRegistry, aClass);
 }
 INumberBeanProxy createShortBeanProxy(short aShort){
@@ -28,5 +28,9 @@ INumberBeanProxy createShortBeanProxy(short aShort){
 }
 int getPrimitiveType(){
 	return SHORT;
+}
+protected IIDEBeanProxy newBeanProxy(Object anObject){
+	Number n = anObject instanceof Character ? new Short((short) ((Character) anObject).charValue()) : (Number) anObject;
+	return new IDENumberBeanProxy(fProxyFactoryRegistry, n, this);
 }
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMThrowableBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 
@@ -104,13 +104,6 @@ public class REMThrowableBeanProxy extends ThrowableProxy implements IREMBeanPro
 		return fTypeProxy;
 	}
 	
-	/**
-	 * Answer if this proxy is wrappering a null.
-	 */
-	public boolean isNullProxy() {
-		return false;
-	}
-
 	/**
 	 * Return the toString of the actual bean on the remote side.
 	 */

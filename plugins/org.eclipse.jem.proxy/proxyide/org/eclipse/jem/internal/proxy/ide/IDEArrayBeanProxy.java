@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEArrayBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -27,7 +27,7 @@ public final class IDEArrayBeanProxy extends IDEObjectBeanProxy implements IArra
 
 	private IDEStandardBeanTypeProxyFactory fBeanTypeProxyFactory;
 	
-IDEArrayBeanProxy(ProxyFactoryRegistry aRegistry, Object array,IBeanTypeProxy aType) {
+IDEArrayBeanProxy(IDEProxyFactoryRegistry aRegistry, Object array,IBeanTypeProxy aType) {
 	super(aRegistry, array ,aType);
 	fBeanTypeProxyFactory = (IDEStandardBeanTypeProxyFactory)aRegistry.getBeanTypeProxyFactory();
 }

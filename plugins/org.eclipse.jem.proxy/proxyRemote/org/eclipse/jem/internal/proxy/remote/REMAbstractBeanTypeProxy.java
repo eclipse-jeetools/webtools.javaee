@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -239,13 +239,6 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 	 */
 	public String toString() {
 		return super.toString() + "(" + getTypeName() + ")"; //$NON-NLS-2$//$NON-NLS-1$
-	}
-
-	/**
-	 * isNullProxy: BeanTypes are never null.
-	 */
-	public boolean isNullProxy() {
-		return false;
 	}
 
 	/**
