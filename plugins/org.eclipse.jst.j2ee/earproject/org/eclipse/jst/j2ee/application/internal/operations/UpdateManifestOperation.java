@@ -50,11 +50,7 @@ public class UpdateManifestOperation extends WTPOperation {
 		IProject project = dataModel.getProject();
 
 
-		String manifestFolder = dataModel.getStringProperty(UpdateManifestDataModel.MANIFEST_FOLDER);
-		IContainer container = project.getFolder( manifestFolder );
-		IFile file = container.getFile( new Path(J2EEConstants.MANIFEST_SHORT_NAME));
-		
-		
+		IFile file = (IFile)dataModel.getProperty(UpdateManifestDataModel.MANIFEST_FILE);
 		
 		String classPathValue = dataModel.getClasspathAsString();
 		try {
