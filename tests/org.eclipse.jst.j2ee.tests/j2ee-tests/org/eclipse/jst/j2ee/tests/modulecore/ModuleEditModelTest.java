@@ -152,13 +152,13 @@ public class ModuleEditModelTest extends TestCase {
 	private void addContent(ProjectModules projectModules) {
 
 		WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
-		module.setDeployedPath(URI.createURI(getModulesFolder() + ".war")); //$NON-NLS-1$
+		module.setDeployedName(getModulesFolder() + ".war"); //$NON-NLS-1$
 		module.setHandle(URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder())); //$NON-NLS-1$
 
 		projectModules.getWorkbenchModules().add(module);
 		
 		WorkbenchModule dependentLib = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
-		dependentLib.setDeployedPath(URI.createURI(getModulesFolder() + "Lib.jar")); //$NON-NLS-1$
+		dependentLib.setDeployedName(getModulesFolder() + "Lib.jar"); //$NON-NLS-1$
 		dependentLib.setHandle(URI.createURI("module:/resource/" + getProjectName() + IPath.SEPARATOR + getModulesFolder()+"Lib")); //$NON-NLS-1$
 		
 		module.getModules().add(dependentLib);
