@@ -19,6 +19,7 @@ import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jst.j2ee.application.operations.AddComponentToEnterpriseApplicationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
@@ -142,7 +143,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		addNestedModel(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
 	}
 
-	protected AddModuleToEARDataModel createModuleNestedModel() {
+	protected AddComponentToEnterpriseApplicationDataModel createModuleNestedModel() {
 		return new AddWebModuleToEARDataModel();
 	}
 
