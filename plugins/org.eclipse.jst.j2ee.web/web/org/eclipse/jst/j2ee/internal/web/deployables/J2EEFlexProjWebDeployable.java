@@ -196,9 +196,9 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
         return null;
     }
 
-    protected ILooseArchive getArchiveDeployable(IProject aProject, LooseArchiveDeployableFactory fact) {
+/*    protected ILooseArchive getArchiveDeployable(IProject aProject, LooseArchiveDeployableFactory fact) {
         return (ILooseArchive) fact.getModuleProject(aProject);
-    }
+    }*/
 
     protected ILibModule[] getLibModules() {
     	return null;	
@@ -227,8 +227,8 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
         for (int i = 0; i < libModules.length; i++) {
             ILibModule libModule = libModules[i];
             IProject proj = libModule.getProject();
-            if (proj != null && proj.exists())
-                arcs.add(getArchiveDeployable(proj, fact));
+           /* if (proj != null && proj.exists())
+                arcs.add(getArchiveDeployable(proj, fact));*/
         }
         ILooseArchive[] result = new ILooseArchive[arcs.size()];
         arcs.toArray(result);
