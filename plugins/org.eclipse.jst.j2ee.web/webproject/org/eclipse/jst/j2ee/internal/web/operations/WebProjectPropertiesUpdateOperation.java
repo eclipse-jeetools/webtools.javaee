@@ -34,13 +34,13 @@ import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgres
 public class WebProjectPropertiesUpdateOperation implements IHeadlessRunnableWithProgress {
 
 	protected WebProjectInfo webProjectInfo;
-	protected J2EEWebNatureRuntime nature;
+//	protected J2EEWebNatureRuntime nature;
 
 
 	public WebProjectPropertiesUpdateOperation(WebProjectInfo projectInfo) {
 		webProjectInfo = projectInfo;
 		IProject project = webProjectInfo.getProject();
-		nature = (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(project);
+		//nature = (J2EEWebNatureRuntime) J2EEWebNatureRuntimeUtilities.getRuntime(project);
 	}
 
 	/*
@@ -69,14 +69,14 @@ public class WebProjectPropertiesUpdateOperation implements IHeadlessRunnableWit
 		try {
 			if (servletLevel != null && jspLevel != null)
 				updateClassPathEntries(monitor);
-
-			if (servletLevel != null)
+       //TODO setOn Module forwrite
+		/*	if (servletLevel != null)
 				nature.setServletLevel(servletLevel);
 			if (jspLevel != null)
 				nature.setJSPLevel(jspLevel);
 
-
-		} catch (CoreException e) {
+*/
+		} catch (Exception e) {
 			throw new InvocationTargetException(e);
 		}
 
@@ -96,17 +96,19 @@ public class WebProjectPropertiesUpdateOperation implements IHeadlessRunnableWit
 
 	protected IClasspathEntry[] getOldDefaultClasspath() {
 		WebProjectInfo wpInfo = new WebProjectInfo();
-		wpInfo.setProject(nature.getProject());
+		//TODO switch to module level
+/*		wpInfo.setProject(nature.getProject());
 		wpInfo.setJSPLevel(nature.getJSPLevel());
-		wpInfo.setServletLevel(nature.getServletLevel());
+		wpInfo.setServletLevel(nature.getServletLevel());*/
 		return getClasspathsFromWebProjectInfo(wpInfo);
 	}
 
 	protected IClasspathEntry[] getDefaultClasspath() {
 		WebProjectInfo wpInfo = new WebProjectInfo();
-		wpInfo.setProject(nature.getProject());
+		//TODO switch to Module level
+	/*	wpInfo.setProject(nature.getProject());
 		wpInfo.setJSPLevel(webProjectInfo.getJSPLevel());
-		wpInfo.setServletLevel(webProjectInfo.getServletLevel());
+		wpInfo.setServletLevel(webProjectInfo.getServletLevel());*/
 		return getClasspathsFromWebProjectInfo(wpInfo);
 	}
 

@@ -69,7 +69,9 @@ public class WebSettingsMigrator implements IMigrator {
 	 * @param project
 	 */
 	private boolean migrateWebSettingsFile(IProject project) {
-		J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
+		//
+		
+		/*J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(project);
 		if (webNature != null) {
 			WebSettings webSettings = webNature.getWebSettings();
 			IFile webSettingsFile = webNature.getFile(IWebNatureConstants.WEBSETTINGS_FILE_NAME);
@@ -82,7 +84,7 @@ public class WebSettingsMigrator implements IMigrator {
 			} catch (CoreException ce) {
 				ce.printStackTrace();
 			}
-		}
+		}*/
 		return false;
 	}
 
@@ -92,7 +94,7 @@ public class WebSettingsMigrator implements IMigrator {
 	 * @param jspVersion
 	 * @return
 	 */
-	private boolean performWebSettingsMigration(IProject project, J2EEWebNatureRuntime webNature, WebSettings webSettings, IFile webSettingsFile) {
+/*	private boolean performWebSettingsMigration(IProject project, J2EEWebNatureRuntime webNature, WebSettings webSettings, IFile webSettingsFile) {
 		if (!CompatibilityUtils.isPersistedTimestampCurrent(project, webSettingsFile)) {
 			try {
 				webSettings.setVersion(J2EESettings.CURRENT_VERSION);
@@ -111,13 +113,13 @@ public class WebSettingsMigrator implements IMigrator {
 			}
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * @param servletLevel
 	 * @return
 	 */
-	private String getJSPLevel(J2EEWebNatureRuntime webNature) {
+/*	private String getJSPLevel(J2EEWebNatureRuntime webNature) {
 		String version = webNature.getModuleVersionText();
 		if (version.equals(J2EEVersionConstants.VERSION_2_2_TEXT))
 			return J2EEVersionConstants.VERSION_1_1_TEXT;
@@ -127,7 +129,7 @@ public class WebSettingsMigrator implements IMigrator {
 			return J2EEVersionConstants.VERSION_1_3_TEXT;
 		return null;
 	}
-
+*/
 	/**
 	 * @param project
 	 * @param webNature
@@ -135,7 +137,7 @@ public class WebSettingsMigrator implements IMigrator {
 	 * @return
 	 * @throws CoreException
 	 */
-	private boolean performJ2EESettingsMigration(IProject project, J2EEWebNatureRuntime webNature) throws CoreException {
+/*	private boolean performJ2EESettingsMigration(IProject project, J2EEWebNatureRuntime webNature) throws CoreException {
 
 		IFile j2eeSettingsFile = project.getFile(J2EESettings.J2EE_SETTINGS_FILE_NAME);
 		if (!CompatibilityUtils.isPersistedTimestampCurrent(project, j2eeSettingsFile)) {
@@ -156,7 +158,7 @@ public class WebSettingsMigrator implements IMigrator {
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	protected J2EESettings getJ2EESettings(IProject project) {
 		return new J2EESettings(project);

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.eclipse.core.internal.resources.Folder;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -34,6 +35,8 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EESettings;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -63,17 +66,18 @@ public class WebPropertiesUtil {
 		boolean success = false;
 		if (project.exists() && project.isOpen()) {
 
-			IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+	/*		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
 			if (webContentName == null) {
 				if (webNature.isStatic()) {
 					webContentName = J2EEWebNatureRuntimeUtilities.getDefaultStaticWebContentName();
 				} else {
 					webContentName = J2EEWebNatureRuntimeUtilities.getDefaultJ2EEWebContentName();
 				}
-			}
+			}*/
 
 			IPath newPath = new Path(webContentName);
-			if (webNature.getRootPublishableFolder().getProjectRelativePath().equals(newPath))
+			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			if (webArtifactEdit.getRootPublishableFolder().getProjectRelativePath().equals(newPath))
 				return false;
 
 			if (project.exists(newPath)) {
@@ -96,16 +100,16 @@ public class WebPropertiesUtil {
 	 * @return
 	 */
 	public static void updateWebContentNamePropertiesOnly(IProject project, String webContentName, IProgressMonitor progressMonitor) throws CoreException {
-
-		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+		//IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
 		IPath newPath = new Path(webContentName);
 		//		String webNatureOrigName = webNature.getRootPublishableFolder().getName();
-		if (webNature.getRootPublishableFolder().equals(newPath))
+		if (webModuleArtifact.getRootPublishableFolder().equals(newPath))
 			return;
 
-		if (!webNature.getModuleServerRootName().equals(webContentName)) {
+		if (!webModuleArtifact.getModuleServerRoot().equals(webContentName)) {
 
-			if (webNature.isJ2EE()) {
+			//if (webModuleArtifact.isJ2EE) {
 				// Update the library references
 				IJavaProject javaProject = ProjectUtilities.getJavaProject(project);
 
@@ -116,7 +120,7 @@ public class WebPropertiesUtil {
 					if (classpath[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
 						IClasspathEntry library = classpath[i];
 						IPath libpath = library.getPath();
-						IPath modServerRootPath = webNature.getModuleServerRoot().getFullPath();
+						IPath modServerRootPath = webModuleArtifact.getModuleServerRoot().getFullPath();
 						if (modServerRootPath.isPrefixOf(libpath)) {
 							IPath prunedPath = libpath.removeFirstSegments(modServerRootPath.segmentCount());
 							IPath relWebContentPath = new Path(webContentName + "/" + prunedPath.toString()); //$NON-NLS-1$
@@ -137,14 +141,15 @@ public class WebPropertiesUtil {
 					} else {
 						newClasspath[i] = classpath[i];
 					}
-				}
+			//	}
 
 				// Set the java output folder
-				IFolder outputFolder = project.getFolder(J2EEWebNatureRuntimeUtilities.getWebOutputFolderPath(webContentName));
+				IFolder outputFolder = project.getFolder(((IFolder)webModuleArtifact.getWebContentFolder()).getFullPath());
 				javaProject.setRawClasspath(newClasspath, outputFolder.getFullPath(), new SubProgressMonitor(progressMonitor, 1));
 			}
 			//update websettings
-			webNature.setModuleServerRootName(webContentName);
+			//TODO add to WebArtifactEdit
+				//webNature.setModuleServerRootName(webContentName);
 		}
 	}
 
@@ -162,7 +167,8 @@ public class WebPropertiesUtil {
 	 *             The exception that occured during move operation
 	 */
 	public static void moveWebContentFolder(IProject project, String webContentName, IProgressMonitor progressMonitor) throws CoreException {
-		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+		//IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+		WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 		IPath newPath = new Path(webContentName);
 		if (!project.exists(newPath)) {
 			if (newPath.segmentCount() > 1) {
@@ -175,7 +181,7 @@ public class WebPropertiesUtil {
 				}
 			}
 			newPath = project.getFullPath().append(newPath);
-			IContainer webContentRoot = webNature.getModuleServerRoot();
+			IContainer webContentRoot = webArtifactEdit.getModuleServerRoot();
 			IPath oldPath = webContentRoot.getProjectRelativePath();
 			webContentRoot.move(newPath, IResource.FORCE | IResource.KEEP_HISTORY, new SubProgressMonitor(progressMonitor, 1));
 			for (int i = 0; i < oldPath.segmentCount(); i++) {
@@ -201,12 +207,13 @@ public class WebPropertiesUtil {
 			monitor.beginTask(ProjectSupportResourceHandler.getString("Sychronize_Class_Path_UI_"), 4); //$NON-NLS-1$
 			//$NON-NLS-1$ = "Sychronize Class Path"
 
-			J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-			IContainer lib_folder = webNature.getLibraryFolder();
+			WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
+			//J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
+			IContainer lib_folder = webArtifactEdit.getLibraryFolder();
 			//Nothing to do if the lib folder does not exist.
 			if (lib_folder == null || !lib_folder.isAccessible())
 				return;
-			IJavaProject javaProject = webNature.getJ2EEJavaProject();
+			IJavaProject javaProject = (IJavaProject)webArtifactEdit.getJavaProject();
 			IPath lib_path = lib_folder.getProjectRelativePath();
 			IPath lib_full_path = lib_folder.getFullPath();
 
@@ -310,11 +317,11 @@ public class WebPropertiesUtil {
 	public static void updateContextRoot(IProject project, String contextRoot) throws CoreException {
 		if (project.exists() && project.isOpen()) {
 
-			// both j2ee and static web projects have context root now.
-			IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
+			// TODO getModuleCoreNature both j2ee and static web projects have context root now.
+		/*	IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
 			if (!webNature.getContextRoot().equals(contextRoot)) {
 				webNature.setContextRoot(contextRoot);
-			}
+			}*/
 		}
 	}
 
@@ -452,18 +459,18 @@ public class WebPropertiesUtil {
 	 * @throws CoreException
 	 *             The exception that occured during the version change operation.
 	 */
-	static public boolean updateNatureToCurrentVersion(J2EEWebNatureRuntime webNature) throws CoreException {
+/*	static public boolean updateNatureToCurrentVersion(J2EEWebNatureRuntime webNature) throws CoreException {
 
 		boolean success = false;
 
-		if (webNature.getVersion() != J2EEWebNatureRuntime.CURRENT_VERSION) {
+		if (webNature.getVersion() != WEB.CURRENT_VERSION) {
 			webNature.setVersion(J2EESettings.CURRENT_VERSION);
 			success = true;
 		}
 		((J2EEModuleWorkbenchURIConverterImpl) webNature.getResourceSet().getURIConverter()).recomputeContainersIfNecessary();
 
 		return success;
-	}
+	}*/
 
 	/**
 	 * Move the old source folder to the new default folder.
@@ -480,11 +487,11 @@ public class WebPropertiesUtil {
 	 */
 	static public IContainer updateJavaSourceName(IProject project, IContainer oldSourceFolder, String javaSourceName, IProgressMonitor progressMonitor) throws CoreException {
 		IContainer newSourceFolder = null;
-
+		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(project);
 		if (oldSourceFolder != null) {
 			IPath newPath;
 			if (javaSourceName == null) {
-				newPath = new Path(J2EEWebNatureRuntimeUtilities.getDefaultJavaSourceName());
+				newPath = new Path(webModuleArtifact.getDefaultJavaSourceName().getName());
 			} else {
 				newPath = new Path(javaSourceName);
 			}
