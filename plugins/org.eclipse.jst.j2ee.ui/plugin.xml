@@ -43,10 +43,12 @@
       <import plugin="org.eclipse.wst.common.annotations.controller"/>
       <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.ltk.core.refactoring"/>
-      <import plugin="org.eclipse.wst.common.navigator.java"/>
       <import plugin="org.eclipse.wst.webbrowser"/>
       <import plugin="org.eclipse.wst.wsdl"/>
       <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.wst.common.navigator.workbench"/>
+      <import plugin="org.eclipse.wst.common.navigator.java"/>
+      <import plugin="org.eclipse.wst.common.navigator.views"/>
       
    </requires>
 
