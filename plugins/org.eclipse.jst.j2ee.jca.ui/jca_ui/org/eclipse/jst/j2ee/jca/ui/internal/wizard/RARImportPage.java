@@ -92,7 +92,7 @@ public class RARImportPage extends J2EEModuleImportPage {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
 	protected String getProjectImportLabel() {
-		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_LBL);
+		return JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_LBL);
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {

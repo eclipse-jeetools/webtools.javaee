@@ -58,7 +58,7 @@
             id="org.eclipse.jst.servlet.ui">
       </category>
       <wizard
-            name="%connector_component_ui_"
+            name="%connector_module_ui_"
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard"
@@ -66,7 +66,7 @@
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard">
          <description>
-            %new.connector.component.description_ui_
+            %new.connector.module.description_ui_
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">

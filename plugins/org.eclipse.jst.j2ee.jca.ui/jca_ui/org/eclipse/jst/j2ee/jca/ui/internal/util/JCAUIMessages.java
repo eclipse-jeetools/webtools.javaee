@@ -19,12 +19,12 @@ public class JCAUIMessages extends Messages {
 	public static final String IMAGE_LOAD_ERROR = "0"; //$NON-NLS-1$
 	public static final String JCA_MODULE_WIZ_TITLE = "1"; //$NON-NLS-1$
 	public static final String JCA_VERSION_LBL = "2"; //$NON-NLS-1$
-	public static final String JCA_PROJECT_MAIN_PG_TITLE = "3"; //$NON-NLS-1$
-	public static final String JCA_PROJECT_MAIN_PG_DESC = "4"; //$NON-NLS-1$
+	public static final String JCA_MODULE_MAIN_PG_TITLE = "3"; //$NON-NLS-1$
+	public static final String JCA_MODULE_MAIN_PG_DESC = "4"; //$NON-NLS-1$
 	public static final String JCA_IMPORT_MAIN_PG_DESC = "5"; //$NON-NLS-1$
 	public static final String JCA_IMPORT_MAIN_PG_TITLE = "6"; //$NON-NLS-1$
 	public static final String JCA_FILE_LBL = "7"; //$NON-NLS-1$
-	public static final String JCA_PROJECT_LBL = "8"; //$NON-NLS-1$
+	public static final String JCA_MODULE_LBL = "8"; //$NON-NLS-1$
 	public static final String JCA_EXPORT_MAIN_PG_TITLE = "9"; //$NON-NLS-1$
 	public static final String JCA_EXPORT_MAIN_PG_DESC = "10"; //$NON-NLS-1$
 

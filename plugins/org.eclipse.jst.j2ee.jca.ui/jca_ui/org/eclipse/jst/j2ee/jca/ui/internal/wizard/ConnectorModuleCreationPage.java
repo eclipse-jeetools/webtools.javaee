@@ -28,8 +28,8 @@ public class ConnectorModuleCreationPage extends J2EEModuleCreationPage {
 	 */
 	public ConnectorModuleCreationPage(ConnectorComponentCreationDataModel model, String pageName) {
 		super(model, pageName);
-		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_TITLE));
-		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_DESC));
+		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_MAIN_PG_TITLE));
+		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_MODULE_MAIN_PG_DESC));
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_PROJECT_WIZARD_BANNER));
 	}
 
