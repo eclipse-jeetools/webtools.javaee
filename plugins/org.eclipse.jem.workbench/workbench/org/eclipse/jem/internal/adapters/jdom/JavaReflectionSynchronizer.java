@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.4 $  $Date: 2004/06/09 22:47:06 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/11 15:35:06 $ 
  */
 
 import java.util.ArrayList;
@@ -113,11 +113,9 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 				}						
 				break;
 			}
-			case IJavaElementDelta.REMOVED : {
-				if (!element.isWorkingCopy())
+			case IJavaElementDelta.REMOVED :
 					disAssociateSourcePlusInner(getFullNameFromElement(element));				
 				break;
-			}
 		}
 	}
 	/**

@@ -10,17 +10,21 @@
  *******************************************************************************/
 /*
  *  $RCSfile: UICreateRegistryJobHandler.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/04 15:29:34 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/11 15:35:03 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
-import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.jobs.IJobManager;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.progress.IProgressService;
 
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin;
  
@@ -30,7 +34,7 @@ import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin;
  * loaded except if ui plugin is available.
  * 
  * It will check to see if UI is running, and if it is not, then let super class handle.
- * If it is running, then if this is the UI thread, use progress service, else if not then
+ * If it is running, then if this is the UI thread, do special but run in ui, else if not then
  * let super handle it normally.
  * 
  * @since 1.0.0
@@ -47,22 +51,52 @@ class UICreateRegistryJobHandler extends CreateRegistryJobHandler {
 			if (Display.getCurrent() == null)
 				super.processCreateRegistry(nature);	// We are not in the UI thread. Do normal.
 			else {
-				// We are in the UI, so use the progress service to farm off to another thread and keep the UI active, though disabled.
-				try {
-					PlatformUI.getWorkbench().getProgressService().busyCursorWhile(new IRunnableWithProgress() {
+				// We are in the UI, so try to run in UI. Really don't want to do this, but we need to
+				// get the build rule, and no way to know if the UI thread already has the build rule.
+				// It would be nice to spawn off thread to do it, but if we had the build rule we couldn't
+				// get it for the spawned thread. So hopefully it won't be long.
+				IProgressService ps = PlatformUI.getWorkbench().getProgressService();				
+				final ISchedulingRule buildRule = ResourcesPlugin.getWorkspace().getRuleFactory().buildRule();
 
-						public void run(IProgressMonitor monitor) throws InterruptedException {
-							doCreateRegistry(nature, monitor);
-							if (monitor.isCanceled())
-								throw new InterruptedException();
+// TODO Note: For now, runInUI is just way too annoying. It always flashes up. It is supposed to only flash up
+// when it is blocked by the rule. I've opened 66683 to address this. I've also opened 66690 to be able
+// to test if the thread has the rule so that runInUI will only be used if UI thread had the rule.
+// For now take the risk that the UI thread won't ever have the rule. This is pretty likely to be true.
+//				final boolean[] gotRuleLocally = new boolean[] {false};				
+//				try {
+//					ps.runInUI(ps, new IRunnableWithProgress() {
+//
+//						public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+//							gotRuleLocally[0] = true;
+//							doCreateRegistry(nature, new NullProgressMonitor());
+//						}
+//					}, buildRule);
+//				} catch (InvocationTargetException e) {
+//					if (e.getCause() instanceof IllegalArgumentException && !gotRuleLocally[0]) { 
+//						// Error was because rule conflicted with currect rules for this thread. So do in separate thread, should be able to get rule there.
+						try {
+							ps.busyCursorWhile(new IRunnableWithProgress() {
+
+								public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+									IJobManager jm = Platform.getJobManager();
+									monitor.beginTask("", 200);
+									try {
+										jm.beginRule(buildRule, new SubProgressMonitor(monitor, 100));
+										doCreateRegistry(nature, new SubProgressMonitor(monitor, 100));
+									} finally {
+										jm.endRule(buildRule);
+										monitor.done();
+									}
+								}
+							});
+						} catch (InterruptedException e1) {
+						} catch (InvocationTargetException e2) {
+							BeaninfoPlugin.getPlugin().getLogger().log(e2.getCause(), Level.WARNING);
 						}
-					});
-				} catch (InvocationTargetException e) {
-					BeaninfoPlugin.getPlugin().getLogger().log(e.getCause(), Level.WARNING);
-				} catch (InterruptedException e) {
-					// It was cancelled, so we just go on and launch.
-				}
-				
+//					} else
+//						BeaninfoPlugin.getPlugin().getLogger().log(e.getCause(), Level.WARNING);						
+//				} catch (InterruptedException e) {
+//				}
 			}
 		} else
 			super.processCreateRegistry(nature);	// Workbench not running, do default.

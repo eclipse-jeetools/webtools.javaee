@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.19 $  $Date: 2004/06/09 22:46:55 $ 
+ *  $Revision: 1.20 $  $Date: 2004/06/11 15:35:03 $ 
  */
 
 import java.io.*;
@@ -352,37 +352,31 @@ public class BeaninfoNature implements IProjectNature {
 		return fRegistry;
 	}
 	
-	private Object createSemaphore = new Object();	// Semaphore so that only one create can happen at a time.
 	/*
 	 * This is <package-protected> so that only the appropriate create job in this
 	 * package can call it. This is because this must be controlled to only be
 	 * done when build not in progress and serial access.
-	 * If waitForBuild is passed onto launching the registry. If we suspended the builds, then we must not
-	 * wait, or a deadlock will occur.
 	 */
-	void createRegistry(IProgressMonitor pm, boolean waitForBuild) {
-		// synchronized on createsemaphore so that only one can create on this particular project at a time.
-		synchronized (createSemaphore) {
-			pm.beginTask(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry"), 100); //$NON-NLS-1$		
-			if (isRegistryCreated()) {
-				pm.done();
-				return; // It had already been created. Could of been because threads were racing to do the creation, and one got there first.
-			}
+	void createRegistry(IProgressMonitor pm) {
+		pm.beginTask(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry"), 100); //$NON-NLS-1$		
+		if (isRegistryCreated()) {
+			pm.done();
+			return; // It had already been created. Could of been because threads were racing to do the creation, and one got there first.
+		}
 
-			try {
-				ConfigurationContributor configurationContributor = (ConfigurationContributor) getConfigurationContributor();
-				configurationContributor.setNature(this);
-				ProxyFactoryRegistry registry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
-						new IConfigurationContributor[] { configurationContributor}, waitForBuild, new SubProgressMonitor(pm, 100));
-				registry.addRegistryListener(registryListener);
-				synchronized(this) {
-					fRegistry = registry;
-				}
-			} catch (CoreException e) {
-				BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
-			} finally {
-				pm.done();
+		try {
+			ConfigurationContributor configurationContributor = (ConfigurationContributor) getConfigurationContributor();
+			configurationContributor.setNature(this);
+			ProxyFactoryRegistry registry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
+					new IConfigurationContributor[] { configurationContributor}, false, new SubProgressMonitor(pm, 100));
+			registry.addRegistryListener(registryListener);
+			synchronized(this) {
+				fRegistry = registry;
 			}
+		} catch (CoreException e) {
+			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
+		} finally {
+			pm.done();
 		}
 	}
 	
