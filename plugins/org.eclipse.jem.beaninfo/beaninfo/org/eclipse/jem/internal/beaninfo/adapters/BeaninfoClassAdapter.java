@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.9 $  $Date: 2004/04/21 19:46:44 $ 
+ *  $Revision: 1.10 $  $Date: 2004/04/27 15:25:23 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -537,9 +537,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					} catch (WrappedException e) {
 						// FileNotFoundException is ok
 						if (!(e.exception() instanceof FileNotFoundException)) {
-							if (e.exception() instanceof IOException && e.getMessage() == null)
-								;	// TODO remove this when bugzilla fixed so that throws FileNotFound again. https://bugs.eclipse.org/bugs/show_bug.cgi?id=51649
-							else if (e.exception() instanceof CoreException
+							if (e.exception() instanceof CoreException
 								&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
 								// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
 							} else {
