@@ -35,7 +35,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class WebSettingsMigration extends J2EESettings {
+public class OldWebSettingsForMigration extends OldJ2EESettingsForMigration {
 	
 	static final String ELEMENT_WEBSETTINGS = "websettings"; //$NON-NLS-1$
 	static final String ELEMENT_PROJECTTYPE = "project-type"; //$NON-NLS-1$
@@ -54,11 +54,11 @@ public class WebSettingsMigration extends J2EESettings {
 	static final String[] EMPTY_FEATURES = new String[0];
 	static boolean validWebSettings = true;
 		
-	public WebSettingsMigration(IProject project) {
+	public OldWebSettingsForMigration(IProject project) {
 		super(project, null);
 	}
 	
-	public WebSettingsMigration(IProject project, IFile webSettings) {
+	public OldWebSettingsForMigration(IProject project, IFile webSettings) {
 		super(project, null, webSettings);
 		if (getDOMDocument(webSettings) == null) {
 			validWebSettings = false;

@@ -182,6 +182,8 @@ public class WebProjectMigratorStrategy implements IMigratorStrategy {
 			case J2EEVersionConstants.WEB_2_3_ID :
 				j2eeVersion = J2EEVersionConstants.J2EE_1_3_ID;
 				break;
+			case J2EEVersionConstants.WEB_2_4_ID :
+				j2eeVersion = J2EEVersionConstants.WEB_2_4_ID;
 			default :
 				j2eeVersion = J2EEVersionConstants.J2EE_1_4_ID;
 		}
