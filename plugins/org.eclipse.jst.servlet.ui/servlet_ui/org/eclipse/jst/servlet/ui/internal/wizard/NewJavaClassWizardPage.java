@@ -153,11 +153,11 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		componentNameCombo = new Combo(composite, SWT.BORDER | SWT.READ_ONLY);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = 300;
-		data.horizontalSpan=2;
+		data.horizontalSpan=1;
 		componentNameCombo.setLayoutData(data);
 		initializeComponentList();
 		synchHelper.synchCombo(componentNameCombo, ArtifactEditOperationDataModel.MODULE_NAME, new Control[]{});
-		
+		new Label(composite, SWT.NONE);
 	}
 	
 	private void initializeComponentList() {
@@ -203,7 +203,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		projectNameCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 		data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = 300;
-		data.horizontalSpan=2;
+		data.horizontalSpan=1;
 		projectNameCombo.setLayoutData(data);
 		projectNameCombo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
@@ -212,6 +212,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		});
 		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, new Control[]{});
 		initializeProjectList();
+		new Label(parent, SWT.NONE);
 	}
 	
 	/**
