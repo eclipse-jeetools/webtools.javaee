@@ -30,9 +30,9 @@ public final class WebModuleExportDataModel extends J2EEModuleExportDataModel {
 	/**
 	 * Exports the specified Web Module project to the specified WAR file.
 	 * 
-	 * @param ejbProjectName
+	 * @param webProjectName
 	 *            The name of the Web Module project to export.
-	 * @param ejbJarFileName
+	 * @param warFileName
 	 *            The fully qualified WAR file location to export the specified Web Module project.
 	 * @param overwriteExisting
 	 *            If this is <code>true</code> then an existing file at the location specified by
@@ -42,11 +42,11 @@ public final class WebModuleExportDataModel extends J2EEModuleExportDataModel {
 	 *            will be included in the resulting WAR file.
 	 * @since WTP 1.0
 	 */
-	public static void exportProject(String ejbProjectName, String ejbJarFileName, boolean overwriteExisting, boolean exportSource) {
+	public static void exportProject(String webProjectName, String warFileName, boolean overwriteExisting, boolean exportSource) {
 		WebModuleExportDataModel dataModel = new WebModuleExportDataModel();
-		dataModel.setProperty(PROJECT_NAME, ejbProjectName);
+		dataModel.setProperty(PROJECT_NAME, webProjectName);
 		dataModel.setBooleanProperty(OVERWRITE_EXISTING, overwriteExisting);
-		dataModel.setProperty(ARCHIVE_DESTINATION, ejbJarFileName);
+		dataModel.setProperty(ARCHIVE_DESTINATION, warFileName);
 		dataModel.setBooleanProperty(EXPORT_SOURCE_FILES, exportSource);
 		try {
 			dataModel.getDefaultOperation().run(null);

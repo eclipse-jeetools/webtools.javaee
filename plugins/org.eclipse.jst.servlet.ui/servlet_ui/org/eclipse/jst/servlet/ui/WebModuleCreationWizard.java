@@ -16,7 +16,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
-import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
 import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.jst.servlet.ui.internal.wizard.WEBProjectCreationPage;

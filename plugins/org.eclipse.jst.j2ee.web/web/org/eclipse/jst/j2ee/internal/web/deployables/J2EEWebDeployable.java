@@ -11,9 +11,7 @@
 package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,11 +28,8 @@ import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilitie
 import org.eclipse.jst.server.j2ee.ILooseArchive;
 import org.eclipse.jst.server.j2ee.ILooseArchiveSupport;
 import org.eclipse.jst.server.j2ee.IWebModule;
-import org.eclipse.wst.server.core.internal.ModuleFactory;
-import org.eclipse.wst.server.core.IModuleType;
-import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.model.ModuleFactoryDelegate;
+import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 

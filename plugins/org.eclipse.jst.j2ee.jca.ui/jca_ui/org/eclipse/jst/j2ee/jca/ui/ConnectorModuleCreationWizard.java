@@ -18,7 +18,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectCreationPage;
-import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
 import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;

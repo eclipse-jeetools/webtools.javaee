@@ -10,7 +10,6 @@ package org.eclipse.jst.j2ee.internal.provider;
 
 
 import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.jst.j2ee.application.util.ApplicationAdapterFactory;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationItemProviderAdapterFactory;
 
 

@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.navigator.views.INavigatorActionDelegate;
 import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
 
 

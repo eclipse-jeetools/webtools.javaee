@@ -20,8 +20,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 
-import sun.security.action.GetPropertyAction;
-
 public class WebDeployableFactory extends J2EEDeployableFactory {
     private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$
 

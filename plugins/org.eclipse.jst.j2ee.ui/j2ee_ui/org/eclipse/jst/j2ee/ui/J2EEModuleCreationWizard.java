@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.ui;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -19,7 +18,6 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModulesDependencyPage;
-import org.eclipse.ui.IWorkbench;
 
 
 /**

@@ -31,6 +31,9 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory{
 	}
 
 	public void defineActions(IPageLayout layout) {
+		
+		layout.addActionSet("org.eclipse.jdt.ui.JavaActionSet"); //$NON-NLS-1$
+		layout.addActionSet("org.eclipse.debug.ui.launchActionSet");//$NON-NLS-1$
 		layout.addShowViewShortcut(ID_J2EE_HIERARCHY_VIEW);
 		layout.addShowViewShortcut(ID_SERVERS_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);

@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.ui;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.internal.registry.ConfigurationElement;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -20,6 +19,7 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.internal.DelegateConfigurationElement;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.UIProjectUtilities;
@@ -195,15 +195,14 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	protected final void postPerformFinish() throws InvocationTargetException  {
 		super.postPerformFinish();
 		if (getFinalPerspectiveID() != null && getFinalPerspectiveID().length() > 0) {
-
-			IConfigurationElement element = new ConfigurationElement() {
+			
+			IConfigurationElement element = new DelegateConfigurationElement(configurationElement) {
 				public String getAttribute(String aName) {
 					if (aName.equals("finalPerspective")) { //$NON-NLS-1$
 						return getFinalPerspectiveID();
 					}
-					return (configurationElement != null) ? configurationElement.getAttribute(aName) : super.getAttribute(aName);
+					return super.getAttribute(aName);
 				}
-
 			};
 			BasicNewProjectResourceWizard.updatePerspective(element);
 		} else 

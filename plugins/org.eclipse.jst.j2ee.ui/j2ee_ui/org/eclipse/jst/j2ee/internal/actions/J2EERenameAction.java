@@ -53,7 +53,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
-import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
