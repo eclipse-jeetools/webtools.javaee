@@ -155,6 +155,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @param aModule
 	 *            A non-null pointing to a XMLResource (@see XMLResource) 
 	 *            
+	 * Note: This method is typically used for JUNIT - we should move this? 
 	 * </p>
 	 */
 
