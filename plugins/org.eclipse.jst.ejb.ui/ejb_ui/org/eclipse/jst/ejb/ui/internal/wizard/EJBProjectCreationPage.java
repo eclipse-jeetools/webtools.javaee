@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Composite;
 public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	protected Button addClient;
 	protected AnnotationsStandaloneGroup annotationsGroup;
-	private Button addDefaultBean;
+//	private Button addDefaultBean;
 
 	/**
 	 * @param model
@@ -52,21 +52,21 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 		createEJBClientGroup(advanced);
 
 		createAnnotationsGroup(advanced);
-		createDefaultBean(advanced);
+//		createDefaultBean(advanced);
 	}
 
 	/**
 	 * @param advanced
 	 */
-	private void createDefaultBean(Composite advanced) {
-		addDefaultBean = new Button(advanced, SWT.CHECK);
-		addDefaultBean.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_DEFAULT_SESSION_BEAN));
-		synchHelper.synchCheckbox(addDefaultBean, EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, null);
-		GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
-		gd1.horizontalSpan = 3;
-		addDefaultBean.setLayoutData(gd1);
-
-	}
+//	private void createDefaultBean(Composite advanced) {
+//		addDefaultBean = new Button(advanced, SWT.CHECK);
+//		addDefaultBean.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_DEFAULT_SESSION_BEAN));
+//		synchHelper.synchCheckbox(addDefaultBean, EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, null);
+//		GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
+//		gd1.horizontalSpan = 3;
+//		addDefaultBean.setLayoutData(gd1);
+//
+//	}
 
 	/**
 	 * @param advanced

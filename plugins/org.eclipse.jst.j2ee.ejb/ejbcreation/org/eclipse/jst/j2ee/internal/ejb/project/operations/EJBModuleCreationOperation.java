@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -30,7 +31,7 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
 
 public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 	public static final String DEFAULT_SESSION_BEAN_NAME = "DefaultSession"; //$NON-NLS-1$
-
+	
 	public EJBModuleCreationOperation(EJBModuleCreationDataModel dataModel) {
 		super(dataModel);
 	}
@@ -43,6 +44,8 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.execute(monitor);
 		//createDefaultSessionBean(monitor);
+		if (((EJBModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+			addAnnotationsBuilder();
 		if (((EJBModuleCreationDataModel) operationDataModel).getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT))
 			createClientJar(monitor);
 
@@ -92,5 +95,7 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 		};
 		op.doRun(monitor);
 	}
+	
+	
 
 }
