@@ -39,7 +39,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 

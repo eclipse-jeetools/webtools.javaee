@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.internal.dialogs.J2EERenameUIConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;

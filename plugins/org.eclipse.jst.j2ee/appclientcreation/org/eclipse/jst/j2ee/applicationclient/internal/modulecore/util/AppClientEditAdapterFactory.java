@@ -1,6 +1,7 @@
 package org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.jst.j2ee.applicationclient.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 

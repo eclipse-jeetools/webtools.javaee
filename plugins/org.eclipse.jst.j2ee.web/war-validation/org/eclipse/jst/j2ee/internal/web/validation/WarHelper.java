@@ -24,8 +24,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 

@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 
-package org.eclipse.jst.j2ee.internal.modulecore.util;
+package org.eclipse.jst.j2ee.modulecore.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;

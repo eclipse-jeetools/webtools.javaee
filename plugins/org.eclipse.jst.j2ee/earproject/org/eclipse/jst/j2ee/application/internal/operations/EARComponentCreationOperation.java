@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientCompone
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;

@@ -13,8 +13,8 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;

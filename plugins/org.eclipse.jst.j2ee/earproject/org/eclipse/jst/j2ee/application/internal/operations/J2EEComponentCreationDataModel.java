@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
-import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;

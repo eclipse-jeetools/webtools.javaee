@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.jca.internal.module.util;
+package org.eclipse.jst.j2ee.jca.modulecore.util;
 
 import java.util.List;
 
