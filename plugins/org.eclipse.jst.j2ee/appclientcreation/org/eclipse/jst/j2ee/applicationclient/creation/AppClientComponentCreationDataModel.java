@@ -46,12 +46,12 @@ public class AppClientComponentCreationDataModel extends J2EEComponentCreationDa
 		return super.getDefaultProperty(propertyName);
 	}
 
-    protected Integer getDefaultJ2EEModuleVersion() {
+    protected Integer getDefaultComponentVersion() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		return new Integer(highestJ2EEPref);
     }
 
-    protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
+    protected WTPPropertyDescriptor[] getValidComponentVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
@@ -80,11 +80,11 @@ public class AppClientComponentCreationDataModel extends J2EEComponentCreationDa
     }
 
 
-    protected EClass getModuleType() {
+    protected EClass getComponentType() {
         return CommonarchiveFactoryImpl.getPackage().getApplicationClientFile();
     }
 
-    protected String getModuleExtension() {
+    protected String getComponentExtension() {
 		return ".jar"; //$NON-NLS-1$
     }
 
@@ -95,7 +95,7 @@ public class AppClientComponentCreationDataModel extends J2EEComponentCreationDa
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
      */
-    protected String getModuleID() {
+    protected String getComponentID() {
         return IModuleConstants.JST_APPCLIENT_MODULE;
     }
 

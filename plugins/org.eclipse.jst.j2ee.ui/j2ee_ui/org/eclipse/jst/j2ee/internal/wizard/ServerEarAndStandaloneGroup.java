@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.SWT;
@@ -26,6 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 /**
  * 
@@ -131,12 +131,12 @@ public class ServerEarAndStandaloneGroup {
 	protected void handleNewEarSelected() {
 		J2EEComponentCreationDataModel moduleModel = model;
 		EARComponentCreationDataModel earModel = new EARComponentCreationDataModel();
-		earModel.setIntProperty(J2EECreationDataModel.J2EE_VERSION, moduleModel.getJ2EEVersion());
-		earModel.setProperty(J2EECreationDataModel.MODULE_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
+		earModel.setIntProperty(J2EEComponentCreationDataModel.J2EE_VERSION, moduleModel.getJ2EEVersion());
+		earModel.setProperty(ComponentCreationDataModel.COMPONENT_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
 		EARComponentCreationWizard earWizard = new EARComponentCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
-			moduleModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(J2EECreationDataModel.MODULE_NAME));
+			moduleModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(ComponentCreationDataModel.COMPONENT_NAME));
 		}
 	}
 

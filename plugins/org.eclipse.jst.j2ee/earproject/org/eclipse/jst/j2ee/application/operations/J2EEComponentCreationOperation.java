@@ -43,8 +43,9 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationOperation;
 
-public abstract class J2EEComponentCreationOperation extends J2EECreationOperation {
+public abstract class J2EEComponentCreationOperation extends ComponentCreationOperation {
 	/**
 	 * name of the template emitter to be used to generate the deployment descriptor from the tags
 	 */
@@ -150,11 +151,11 @@ public abstract class J2EEComponentCreationOperation extends J2EECreationOperati
 		
 		
 		public String getModuleName() {
-			return (String)operationDataModel.getProperty(J2EEComponentCreationDataModel.MODULE_NAME);
+			return (String)operationDataModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_NAME);
 		}
 		
 		public String getModuleDeployName() {
-			return (String)operationDataModel.getProperty(J2EEComponentCreationDataModel.MODULE_DEPLOY_NAME);
+			return (String)operationDataModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME);
 		}
 		
 

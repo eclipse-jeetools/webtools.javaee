@@ -16,13 +16,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -48,7 +48,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	/**
 	 * @return Returns the default J2EE spec level based on the Global J2EE Preference
 	 */
-	protected Integer getDefaultJ2EEModuleVersion() {
+	protected Integer getDefaultComponentVersion() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		switch (highestJ2EEPref) {
 			case (J2EEVersionConstants.J2EE_1_4_ID) :
@@ -93,7 +93,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	 * 
 	 */
 	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
-		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+		if (propertyName.equals(COMPONENT_VERSION)) {
 			Integer propertyValue = (Integer) getProperty(propertyName);
 			String description = null;
 			switch (propertyValue.intValue()) {
@@ -116,7 +116,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	/**
 	 * 
 	 */
-	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
+	protected WTPPropertyDescriptor[] getValidComponentVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
@@ -158,11 +158,11 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
 	 */
-	protected EClass getModuleType() {
+	protected EClass getComponentType() {
 		return CommonarchiveFactoryImpl.getPackage().getEARFile();
 	}
 
-	protected String getModuleExtension() {
+	protected String getComponentExtension() {
 		return ".ear"; //$NON-NLS-1$
 	}
 
@@ -177,7 +177,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 
 	protected IStatus doValidateProperty(String propertyName) {
 		// validate server target
-		String projectName = getStringProperty(J2EECreationDataModel.PROJECT_NAME);
+		String projectName = getStringProperty(ComponentCreationDataModel.PROJECT_NAME);
 		if (projectName != null && projectName.length()!= 0) {
 			IProject project = ProjectUtilities.getProject(projectName);
 			if (project != null) {
@@ -202,7 +202,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
 	 */
-	protected String getModuleID() {
+	protected String getComponentID() {
 		return IModuleConstants.JST_EAR_MODULE;
 	}
 }

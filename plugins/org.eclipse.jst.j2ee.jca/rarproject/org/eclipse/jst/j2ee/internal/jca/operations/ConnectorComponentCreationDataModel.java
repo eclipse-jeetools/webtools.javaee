@@ -24,7 +24,7 @@ public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDa
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel#getDefaultJ2EEModuleVersion()
      */
-    protected Integer getDefaultJ2EEModuleVersion() {
+    protected Integer getDefaultComponentVersion() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		switch (highestJ2EEPref) {
 			case (J2EEVersionConstants.J2EE_1_4_ID) :
@@ -38,7 +38,7 @@ public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDa
 		}
     }
 
-	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
+	protected WTPPropertyDescriptor[] getValidComponentVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
@@ -76,16 +76,16 @@ public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDa
 		return super.convertJ2EEVersionToModuleVersion(j2eeVersion);
 	}
 	
-	protected EClass getModuleType() {
+	protected EClass getComponentType() {
 		return CommonarchiveFactoryImpl.getPackage().getRARFile();
 	}
 
-	protected String getModuleExtension() {
+	protected String getComponentExtension() {
 		return ".rar"; //$NON-NLS-1$
 	}
 
 	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
-		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+		if (propertyName.equals(COMPONENT_VERSION)) {
 			Integer propertyValue = (Integer) getProperty(propertyName);
 			String description = null;
 			switch (propertyValue.intValue()) {
@@ -110,7 +110,7 @@ public class ConnectorComponentCreationDataModel extends J2EEComponentCreationDa
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
      */
-    protected String getModuleID() {
+    protected String getComponentID() {
         return IModuleConstants.JST_CONNECTOR_MODULE;
     }
 }

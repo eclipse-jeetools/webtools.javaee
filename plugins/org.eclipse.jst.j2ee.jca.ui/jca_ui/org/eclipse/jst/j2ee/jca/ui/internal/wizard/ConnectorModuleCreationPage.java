@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -19,6 +18,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 public class ConnectorModuleCreationPage extends J2EEModuleCreationPage {
 
@@ -38,7 +38,7 @@ public class ConnectorModuleCreationPage extends J2EEModuleCreationPage {
 	}
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EECreationDataModel.PROJECT_NAME, J2EECreationDataModel.MODULE_NAME, J2EECreationDataModel.J2EE_MODULE_VERSION, WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEComponentCreationDataModel.ADD_TO_EAR};
+		return new String[]{ComponentCreationDataModel.PROJECT_NAME, ComponentCreationDataModel.COMPONENT_NAME, ComponentCreationDataModel.COMPONENT_VERSION, WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEComponentCreationDataModel.ADD_TO_EAR};
 	}
 
 	/**

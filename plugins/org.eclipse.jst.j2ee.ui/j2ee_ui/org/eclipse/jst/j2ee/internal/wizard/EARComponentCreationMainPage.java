@@ -6,13 +6,13 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 public class EARComponentCreationMainPage extends J2EEModuleCreationPage {
 
@@ -44,9 +44,9 @@ public class EARComponentCreationMainPage extends J2EEModuleCreationPage {
 
 	//TODO: utility to handle additions
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EECreationDataModel.PROJECT_NAME, 
-				J2EECreationDataModel.MODULE_NAME, 
-				J2EECreationDataModel.J2EE_MODULE_VERSION, 
+		return new String[]{ComponentCreationDataModel.PROJECT_NAME, 
+				ComponentCreationDataModel.COMPONENT_NAME, 
+				ComponentCreationDataModel.COMPONENT_VERSION, 
 				WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK};
 	}
 

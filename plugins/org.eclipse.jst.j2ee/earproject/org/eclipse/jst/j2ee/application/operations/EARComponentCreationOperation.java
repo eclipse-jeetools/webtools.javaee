@@ -19,6 +19,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class EARComponentCreationOperation extends J2EEComponentCreationOperation {
@@ -31,7 +32,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	}
 
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		String moduleName = (String)operationDataModel.getProperty(EARComponentCreationDataModel.MODULE_NAME);
+		String moduleName = (String)operationDataModel.getProperty(EARComponentCreationDataModel.COMPONENT_NAME);
 		IFolder moduleFolder = getProject().getFolder(moduleName);
 		if (!moduleFolder.exists()) {
 			moduleFolder.create(true, true, null);
@@ -44,9 +45,9 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
         	EARComponentCreationDataModel dm = (EARComponentCreationDataModel)getOperationDataModel();
             moduleCore = ModuleCore.getModuleCoreForWrite(getProject());
             WorkbenchComponent earComp = moduleCore.findWorkbenchModuleByDeployName(
-            		operationDataModel.getStringProperty(EARComponentCreationDataModel.MODULE_DEPLOY_NAME));
+            		operationDataModel.getStringProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
        		edit = EARArtifactEdit.getEARArtifactEditForWrite(earComp);
-       		int versionId = ((J2EECreationDataModel)getOperationDataModel()).getIntProperty(J2EECreationDataModel.J2EE_MODULE_VERSION);
+       		int versionId = ((ComponentCreationDataModel)getOperationDataModel()).getIntProperty(ComponentCreationDataModel.COMPONENT_VERSION);
        		edit.createModelRoot(versionId);
        		// set version to WorkbenchComponent
        		String versionText = J2EEVersionUtil.getJ2EETextVersion(versionId);
@@ -83,7 +84,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
 					getProject().getName());
 			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, 
-					getOperationDataModel().getProperty(EARComponentCreationDataModel.MODULE_DEPLOY_NAME));
+					getOperationDataModel().getProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
 			dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,
 					getOperationDataModel().getProperty(EARComponentCreationDataModel.J2EE_COMPONENT_LIST));
 			AddComponentToEnterpriseApplicationOperation addModuleOp = (AddComponentToEnterpriseApplicationOperation)dm.getDefaultOperation();
@@ -106,7 +107,7 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
 	protected String getVersion() {
-		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.J2EE_MODULE_VERSION);
+		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
 }

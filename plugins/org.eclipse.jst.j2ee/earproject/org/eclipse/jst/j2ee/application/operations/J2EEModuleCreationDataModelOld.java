@@ -402,7 +402,7 @@ public abstract class J2EEModuleCreationDataModelOld extends J2EEArtifactCreatio
 	private IStatus validateJ2EEModuleVersionProperty() {
 		int j2eeVersion = getIntProperty(J2EE_MODULE_VERSION);
 		if (j2eeVersion == -1)
-			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.J2EE_SPEC_LEVEL_NOT_FOUND));
+			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.SPEC_LEVEL_NOT_FOUND));
 		return OK_STATUS;
 	}
 

@@ -51,7 +51,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	protected void createProjectStructure() throws CoreException {
 		
 		
-		String moduleName = (String)operationDataModel.getProperty(WebComponentCreationDataModel.MODULE_NAME);
+		String moduleName = (String)operationDataModel.getProperty(WebComponentCreationDataModel.COMPONENT_NAME);
 
 		
 		IFolder moduleFolder = getProject().getFolder( moduleName );
@@ -97,7 +97,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
         WorkbenchComponent wbmodule = null;
         try {
             moduleCore = ModuleCore.getModuleCoreForRead(getProject());
-            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME));
+            wbmodule = moduleCore.findWorkbenchModuleByDeployName(operationDataModel.getStringProperty(WebComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
@@ -118,7 +118,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
        		IPath webxmlPath = new Path(projPath);
        		boolean b = webxmlPath.isValidPath(webxmlPath.toString());
        		if(webEdit != null) {
-       			int moduleVersion = operationDataModel.getIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION);
+       			int moduleVersion = operationDataModel.getIntProperty(WebComponentCreationDataModel.COMPONENT_VERSION);
   			
            		webEdit.createModelRoot( getProject(), webxmlPath, moduleVersion );
        		}
@@ -177,7 +177,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
 	protected String getVersion() {
-		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.J2EE_MODULE_VERSION);
+		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getServletTextVersion(version);
 
 	}

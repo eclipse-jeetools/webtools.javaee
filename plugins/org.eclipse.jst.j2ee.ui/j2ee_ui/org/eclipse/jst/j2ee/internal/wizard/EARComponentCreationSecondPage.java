@@ -87,7 +87,7 @@ public class EARComponentCreationSecondPage extends WTPWizardPage {
 		gData.widthHint = 200;
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
-		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.J2EE_MODULE_VERSION);
+		int j2eeVersion = getModel().getIntProperty(EARComponentCreationDataModel.COMPONENT_VERSION);
 		AvailableJ2EEComponentsContentProvider provider = new AvailableJ2EEComponentsContentProvider(j2eeVersion);
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());

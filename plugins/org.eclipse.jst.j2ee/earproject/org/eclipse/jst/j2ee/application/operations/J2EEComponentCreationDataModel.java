@@ -6,28 +6,25 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-/*
- * Created on Nov 5, 2003
- * 
- * To change the template for this generated file go to Window&gt;Preferences&gt;Java&gt;Code
- * Generation&gt;Code and Comments
- */
+
 package org.eclipse.jst.j2ee.application.operations;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
- * This dataModel is a common super class used for to create Flexibile Modules.
+ * This dataModel is a common super class used for to create Flexibile J2EE Components.
  * 
  * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
  * the new project structures are adopted. Use at your own risk.
  * 
  * @since WTP 1.0
  */
-public abstract class J2EEComponentCreationDataModel extends J2EECreationDataModel implements IAnnotationsDataModel {
+public abstract class J2EEComponentCreationDataModel extends ComponentCreationDataModel implements IAnnotationsDataModel {
 
 	/**
 	 * type Boolean, default false
@@ -52,7 +49,7 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 	/**
 	 * type Boolean; default true, UI only
 	 */
-	public static final String UI_SHOW_EAR_SECTION = "J2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION"; //$NON-NLS-1$
+	public static final String UI_SHOW_EAR_SECTION = "J2EEComponentCreationDataModel.UI_SHOW_EAR_SECTION"; //$NON-NLS-1$
 	
 	/**
 	 * type String
@@ -65,8 +62,15 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 	 */
 	public static final String JAVASOURCE_FOLDER = "J2EEComponentCreationDataModel.JAVASOURCE_FOLDER"; //$NON-NLS-1$
 	
-	
-	
+	/**
+	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
+	 * version to its corresponding highest module version supported by the J2EE version and set the
+	 * J2EE_MODULE_VERSION property.
+	 * 
+	 * type Integer
+	 */
+	public static final String J2EE_VERSION = "J2EEComponentCreationDataModel.J2EE_VERSION"; //$NON-NLS-1$
+    
 	private AddModuleToEARDataModel addModuleToEARDataModel;
 
 	private UpdateManifestDataModel jarDependencyDataModel;
@@ -85,6 +89,7 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 		addValidBaseProperty(UI_SHOW_EAR_SECTION);
 		addValidBaseProperty(DD_FOLDER);
 		addValidBaseProperty(JAVASOURCE_FOLDER);
+		addValidBaseProperty(J2EE_VERSION);
 	}
 
 	protected void initNestedModels() {
@@ -109,27 +114,21 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(EAR_MODULE_NAME)) {
-			return getStringProperty(MODULE_NAME)+"EAR";
+			return getStringProperty(COMPONENT_NAME)+"EAR";
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}
 	}
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		if (propertyName.equals(PROJECT_NAME)) {
-			
-		}
 		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
 
 		if (propertyName.equals(EAR_MODULE_NAME)) {
-			getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.PROJECT_NAME, propertyValue);
-		} 
-
-		if(propertyName.equals(MODULE_NAME)){
+			getAddModuleToApplicationDataModel().setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, propertyValue);
+		} else if(propertyName.equals(COMPONENT_NAME)){
 			if (!isSet(EAR_MODULE_NAME))
 				notifyDefaultChange(EAR_MODULE_NAME);
-		}
-		if (propertyName.equals(PROJECT_NAME)) {
+		} else if (propertyName.equals(PROJECT_NAME)) {
 //			IProject project = getTargetProject();
 //			getAddModuleToApplicationDataModel().setProperty(AddModuleToEARDataModel.ARCHIVE_PROJECT, project);
 //			if (!isSet(EAR_MODULE_NAME)) {
@@ -138,15 +137,15 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 //
 //			}
 //			jarDependencyDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
-		}
-
-		if (propertyName.equals(ADD_TO_EAR)) {
+		} else if (propertyName.equals(ADD_TO_EAR)) {
 			notifyEnablementChange(ADD_TO_EAR);
+		} else if (propertyName.equals(J2EE_VERSION)) {
+			Integer modVersion = convertJ2EEVersionToModuleVersion((Integer) propertyValue);
+			setProperty(COMPONENT_VERSION, modVersion);
+			return false;
 		}
-
 		return returnValue;
 	}
-
 
 	protected Boolean basicIsEnabled(String propertyName) {
 		Boolean enabled = super.basicIsEnabled(propertyName);
@@ -164,7 +163,7 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 
 	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(EAR_MODULE_NAME)) {
-			int j2eeVersion = getJ2EEVersion();
+			//int j2eeVersion = getJ2EEVersion();
 			
 			//To do: change logic to  get the ear modules
 			
@@ -278,15 +277,31 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		super.propertyChanged(event);
-		if (event.getDataModel() == addModuleToEARDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(AddModuleToEARDataModel.PROJECT_NAME)) {
+		if (event.getDataModel() == addModuleToEARDataModel && event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG && event.getPropertyName().equals(ArtifactEditOperationDataModel.PROJECT_NAME)) {
 //ToDo:			
 //			applicationCreationDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, event.getProperty());
 		}
 	}
 
 	public String getModuleName() {
-		
-		return getStringProperty(MODULE_NAME);
+		return getStringProperty(COMPONENT_NAME);
 	}
+	
+	public final int getJ2EEVersion() {
+		return convertModuleVersionToJ2EEVersion(getIntProperty(COMPONENT_VERSION));
+	}
+	
+	/**
+	 * Subclasses should override to convert the j2eeVersion to a module version id. By default we
+	 * return the j2eeVersion which is fine if no conversion is necessary.
+	 * 
+	 * @param integer
+	 * @return
+	 */
+	protected Integer convertJ2EEVersionToModuleVersion(Integer j2eeVersion) {
+		return j2eeVersion;
+	}
+	
+	protected abstract int convertModuleVersionToJ2EEVersion(int moduleVersion);
 
 }

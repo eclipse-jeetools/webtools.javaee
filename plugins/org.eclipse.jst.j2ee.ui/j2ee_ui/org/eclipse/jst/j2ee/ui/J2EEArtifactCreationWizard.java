@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.DelegateConfigurationElement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.INewWizard;
@@ -26,6 +25,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 /**
  * <p>
@@ -223,7 +223,7 @@ public abstract class J2EEArtifactCreationWizard extends WTPWizard implements IN
 			BasicNewProjectResourceWizard.updatePerspective(element);
 		} else
 			BasicNewProjectResourceWizard.updatePerspective(configurationElement);
-		BasicNewResourceWizard.selectAndReveal(((J2EECreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
+		BasicNewResourceWizard.selectAndReveal(((ComponentCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
 	}
 
 

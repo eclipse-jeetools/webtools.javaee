@@ -21,14 +21,13 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.ui.FlexibleProjectCreationWizard;
 import org.eclipse.swt.SWT;
@@ -44,18 +43,17 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 
 /**
  *
  */
 public class NewModuleGroup {
 	
-	private J2EEComponentCreationDataModel model;
+	private ComponentCreationDataModel model;
 	protected Combo projectNameCombo = null;
 	protected Text moduleNameText = null;
 	protected Button newButton = null;
@@ -72,7 +70,7 @@ public class NewModuleGroup {
 	 * @param parent
 	 * @param style
 	 */
-	public NewModuleGroup(Composite parent, int style, J2EEComponentCreationDataModel model) {
+	public NewModuleGroup(Composite parent, int style, ComponentCreationDataModel model) {
 		this.model = model;
 		this.parentComposite = parent;
 		synchHelper = new WTPDataModelSynchHelper(model);
@@ -117,11 +115,11 @@ public class NewModuleGroup {
 		IProject selectedProject = getSelectedProject();
 		if (selectedProject!=null) {
 			projectNameCombo.setText(selectedProject.getName());
-			model.setProperty(J2EECreationDataModel.PROJECT_NAME,selectedProject.getName());
+			model.setProperty(ComponentCreationDataModel.PROJECT_NAME,selectedProject.getName());
 		}
 		else if (names.length>0) {
 			projectNameCombo.setText(names[0]);
-			model.setProperty(J2EECreationDataModel.PROJECT_NAME,names[0]);
+			model.setProperty(ComponentCreationDataModel.PROJECT_NAME,names[0]);
 		}	
 	}
 
@@ -155,7 +153,7 @@ public class NewModuleGroup {
 				handleNewProjectSelected();
 			}
 		});
-		synchHelper.synchCombo(projectNameCombo, J2EECreationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
+		synchHelper.synchCombo(projectNameCombo, ComponentCreationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});
 	}
 	
 	/**
@@ -208,7 +206,7 @@ public class NewModuleGroup {
 		data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		moduleNameText.setLayoutData(data);
-		synchHelper.synchText(moduleNameText,J2EECreationDataModel.MODULE_NAME,new Control[] {});
+		synchHelper.synchText(moduleNameText,ComponentCreationDataModel.COMPONENT_NAME,new Control[] {});
 		new Label(parent,SWT.NONE);
 	}
 

@@ -18,7 +18,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
@@ -44,6 +43,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 import org.eclipse.wst.server.ui.ServerUIUtil;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -165,7 +165,7 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 		if (!showAdvanced && !isPageComplete()) {
 			String prop = validateControlsBase();
 			if (null != prop) {
-				String[] advancedProperties = {WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EECreationDataModel.J2EE_MODULE_VERSION, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
+				String[] advancedProperties = {WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, ComponentCreationDataModel.COMPONENT_VERSION, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
 				for (int i = 0; i < advancedProperties.length; i++) {
 					if (prop.equals(advancedProperties[i])) {
 						toggleAdvanced(true);
@@ -177,11 +177,11 @@ public abstract class J2EEModuleCreationPage extends WTPWizardPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EECreationDataModel.PROJECT_NAME, J2EECreationDataModel.J2EE_MODULE_VERSION, J2EECreationDataModel.MODULE_NAME, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
+		return new String[]{ComponentCreationDataModel.PROJECT_NAME, ComponentCreationDataModel.COMPONENT_VERSION, ComponentCreationDataModel.COMPONENT_NAME, J2EEComponentCreationDataModel.EAR_MODULE_NAME, J2EEComponentCreationDataModel.ADD_TO_EAR};
 	}
 
 	protected void createVersionComposite(Composite parent) {
-		createVersionComposite(parent, getVersionLabel(), J2EECreationDataModel.J2EE_MODULE_VERSION);
+		createVersionComposite(parent, getVersionLabel(), ComponentCreationDataModel.COMPONENT_VERSION);
 	}
 
 	protected String getVersionLabel() {

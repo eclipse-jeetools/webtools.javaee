@@ -63,7 +63,7 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 	/**
 	 * @return Returns the default J2EE spec level based on the Global J2EE Preference
 	 */
-	protected Integer getDefaultJ2EEModuleVersion() {
+	protected Integer getDefaultComponentVersion() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		switch (highestJ2EEPref) {
 			case (J2EEVersionConstants.J2EE_1_4_ID) :
@@ -92,14 +92,14 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		boolean retVal = super.doSetProperty(propertyName, propertyValue);
 		if (propertyName.equals(USE_ANNOTATIONS)) {
-			notifyEnablementChange(J2EE_MODULE_VERSION);
-		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			notifyEnablementChange(COMPONENT_VERSION);
+		} else if (propertyName.equals(COMPONENT_VERSION)) {
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				setProperty(USE_ANNOTATIONS, Boolean.FALSE);
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			getAddModuleToApplicationDataModel().setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, propertyValue);
-		} else if (propertyName.equals(MODULE_NAME)) {
+		} else if (propertyName.equals(COMPONENT_NAME)) {
 			if (!isSet(CONTEXT_ROOT)) {
 				notifyDefaultChange(CONTEXT_ROOT);
 				((AddWebModuleToEARDataModel)getAddModuleToApplicationDataModel()).defaultContextRoot=(String)propertyValue;
@@ -163,11 +163,11 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 //			return webContentFolderPref;
 //		}
 		if (propertyName.equals(CONTEXT_ROOT)) {
-			return getProperty(MODULE_NAME);
+			return getProperty(COMPONENT_NAME);
 		}
 
 		if (propertyName.equals(SERVLET_VERSION)) {
-			int moduleVersion = getIntProperty(J2EE_MODULE_VERSION);
+			int moduleVersion = getIntProperty(COMPONENT_VERSION);
 			int servletVersion = J2EEVersionConstants.SERVLET_2_2;
 			switch (moduleVersion) {
 				case J2EEVersionConstants.WEB_2_2_ID :
@@ -181,7 +181,7 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 			return new Integer(servletVersion);
 		}
 		if (propertyName.equals(JSP_VERSION)) {
-			int moduleVersion = getIntProperty(J2EE_MODULE_VERSION);
+			int moduleVersion = getIntProperty(COMPONENT_VERSION);
 			int jspVersion = J2EEVersionConstants.JSP_1_2_ID;
 			switch (moduleVersion) {
 				case J2EEVersionConstants.WEB_2_2_ID :
@@ -197,14 +197,14 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 		if (propertyName.equals(DD_FOLDER)) {
 			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
 		}		
-		if (propertyName.equals(this.JAVASOURCE_FOLDER)) {
+		if (propertyName.equals(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER)) {
 			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "JavaSource";
 		}		
 		return super.getDefaultProperty(propertyName);
 	}
 
 	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
-		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+		if (propertyName.equals(COMPONENT_VERSION)) {
 			Integer propertyValue = (Integer) getProperty(propertyName);
 			String description = null;
 			switch (propertyValue.intValue()) {
@@ -224,7 +224,7 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 		return super.doGetPropertyDescriptor(propertyName);
 	}
 
-	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
+	protected WTPPropertyDescriptor[] getValidComponentVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
 		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
@@ -277,11 +277,11 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#getModuleType()
 	 */
-	protected EClass getModuleType() {
+	protected EClass getComponentType() {
 		return CommonarchiveFactoryImpl.getPackage().getWARFile();
 	}
 
-	protected String getModuleExtension() {
+	protected String getComponentExtension() {
 		return ".war"; //$NON-NLS-1$
 	}
 
@@ -316,7 +316,7 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
 	 */
-	protected String getModuleID() {
+	protected String getComponentID() {
 		return IModuleConstants.JST_WEB_MODULE;
 	}
 }

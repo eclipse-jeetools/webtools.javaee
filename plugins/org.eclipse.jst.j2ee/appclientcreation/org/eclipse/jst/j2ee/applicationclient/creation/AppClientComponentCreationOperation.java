@@ -146,7 +146,7 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
 	 */
 	protected String getVersion() {
-		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.J2EE_MODULE_VERSION);
+		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getJ2EETextVersion(version);
 	}
 	
