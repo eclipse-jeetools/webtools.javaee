@@ -14,7 +14,6 @@ package org.eclipse.jst.validation.sample.workbenchimpl;
  * possibility of such damages.
  *  
  */
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -27,8 +26,8 @@ public class PropertiesValidatorPlugin extends WTPPlugin {
 	private static PropertiesValidatorPlugin _inst = null;
 	public static final String PLUGIN_ID = "com.ibm.etools.validation.prop"; //$NON-NLS-1$
 	private static Logger _logger;
-	public PropertiesValidatorPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public PropertiesValidatorPlugin() {
+		super();
 		if (_inst == null) {
 			_inst = this;
 		}

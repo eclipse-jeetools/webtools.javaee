@@ -1,6 +1,5 @@
 package org.eclipse.jst.validation.test;
 
-import org.eclipse.core.runtime.IPluginDescriptor;
 
 /**
  * Plugin for TVT testing.
@@ -15,8 +14,8 @@ public class BVTValidationPlugin extends org.eclipse.wst.common.frameworks.inter
 	 * ValidationTVTPlugin constructor comment.
 	 * @param descriptor org.eclipse.core.runtime.IPluginDescriptor
 	 */
-	public BVTValidationPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public BVTValidationPlugin() {
+		super();
 		if(_inst == null) {
 			_inst = this;
 		}
