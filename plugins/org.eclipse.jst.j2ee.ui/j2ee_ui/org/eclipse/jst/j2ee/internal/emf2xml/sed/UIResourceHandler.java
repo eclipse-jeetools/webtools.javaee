@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.emf2xml.sed;
+package org.eclipse.jst.j2ee.internal.emf2xml.sed;
 
 /*
  * Licensed Material - Property of IBM (C) Copyright IBM Corp. 2001, 2002 - All Rights Reserved. US

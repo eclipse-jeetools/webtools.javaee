@@ -4,7 +4,7 @@
  * To change the template for this generated file go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-package org.eclipse.jst.j2ee.emf2xml.sed;
+package org.eclipse.jst.j2ee.internal.emf2xml.sed;
 
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;

@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.emf2xml.sed;
+package org.eclipse.jst.j2ee.internal.emf2xml.sed;
 
 
 import java.io.FileNotFoundException;
