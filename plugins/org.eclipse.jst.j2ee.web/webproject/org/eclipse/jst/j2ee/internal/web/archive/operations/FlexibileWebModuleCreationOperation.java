@@ -99,6 +99,7 @@ public class FlexibileWebModuleCreationOperation extends FlexibileJ2EEModuleCrea
 
 		//.wtpmodule should be created when creating a project
 		//createInitialWTPModulesFile(); 
+		createModule();
 
 		if (((FlexibileWebModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
 			addAnnotationsBuilder();
@@ -120,7 +121,23 @@ public class FlexibileWebModuleCreationOperation extends FlexibileJ2EEModuleCrea
 //			if(moduleCore != null)
 //				moduleCore.dispose();
 //		}     
-//    }
+//   }
+	
+    private void createModule() {
+    	ModuleCore moduleCore = null;
+		try {
+			IProject containingProject = getProject();
+			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
+			moduleCore.prepareProjectModulesIfNecessary(); 
+			ProjectModules projectModules = moduleCore.getModuleModelRoot();
+			addContent(projectModules);
+			moduleCore.saveIfNecessary(null); 
+		} finally {
+			if(moduleCore != null)
+				moduleCore.dispose();
+		}     
+   }
+    
 	/**
 	 * @param projectModules
 	 */
