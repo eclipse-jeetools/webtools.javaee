@@ -45,7 +45,7 @@ public class OpenExternalWSDLAction extends AbstractOpenAction {
 
 	public void run() {
 		try {
-			WebBrowser.openURL(new URL(uri), WebBrowser.SHOW_ALL | WebBrowser.FORCE_NEW_PAGE, null);
+			WebBrowser.openURL(new URL(uri), WebBrowser.LOCATION_BAR | WebBrowser.BUTTON_BAR, null);
 		} catch (Exception e) {
 		}
 	}
