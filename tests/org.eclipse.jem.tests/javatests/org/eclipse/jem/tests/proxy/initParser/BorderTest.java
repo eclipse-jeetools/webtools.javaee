@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: BorderTest.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/11/09 17:16:23 $ 
  */
 
 /**
@@ -103,15 +103,6 @@ public class BorderTest extends AbstractInitParserTestCase {
 			false,
 			javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 	}
-
-    // TODO: This test fails due to defect xxxx 
-    //       Reenable it once the defect is fixed
-    
-//	public void testCompoundAdvanced() {
-//		testHelper.testInitString(
-//			"javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.LOWERED))",
-//			javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-//	}
 	
 	
 	public void testTitledAdvanced() throws Throwable {
