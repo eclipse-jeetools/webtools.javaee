@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: AbstractBeanInfoTestCase.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/22 23:49:30 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/24 15:07:48 $ 
  */
 import java.util.Iterator;
 
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jem.internal.beaninfo.FeatureDecorator;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
-import org.eclipse.jem.internal.beaninfo.core.BeaninfoNature;
+import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.tests.JavaProjectUtil;
 
