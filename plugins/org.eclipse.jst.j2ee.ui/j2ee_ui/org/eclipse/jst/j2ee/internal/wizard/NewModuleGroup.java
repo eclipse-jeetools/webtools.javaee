@@ -23,6 +23,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJavaProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
@@ -144,11 +146,11 @@ public class NewModuleGroup {
 	}
 	
 	private void handleNewProjectSelected() {
-		J2EEProjectCreationDataModel projModel = new J2EEProjectCreationDataModel();
+		FlexibleJavaProjectCreationDataModel projModel = new FlexibleJavaProjectCreationDataModel();
 		FlexibleProjectCreationWizard newProjectWizard = new FlexibleProjectCreationWizard(projModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), newProjectWizard);
 		if (Window.OK == dialog.open()) {
-			String newProjectName = projModel.getStringProperty(J2EEProjectCreationDataModel.PROJECT_NAME);
+			String newProjectName = projModel.getStringProperty(FlexibleProjectCreationDataModel.PROJECT_NAME);
 			projectNameCombo.add(newProjectName);
 			projectNameCombo.setText(newProjectName);
 		}
