@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.13 $  $Date: 2004/04/15 16:33:19 $ 
+ *  $Revision: 1.14 $  $Date: 2004/04/20 21:15:27 $ 
  */
 
 import java.io.*;
@@ -316,13 +316,6 @@ public class BeaninfoNature implements IProjectNature {
 	}
 
 	/**
-	 * Get the registry, creating it if necessary.
-	 */
-	public ProxyFactoryRegistry getRegistry() {
-		return getRegistry(new NullProgressMonitor());
-	}
-
-	/**
 	 * Close the registry. It needs to be recycled because a class has changed
 	 * and now the new class needs to be accessed.
 	 */
@@ -345,19 +338,42 @@ public class BeaninfoNature implements IProjectNature {
 		}
 	}
 
-	public synchronized ProxyFactoryRegistry getRegistry(IProgressMonitor pm) {
-		if (fRegistry == null) {
-			try {
-				ConfigurationContributor configurationContributor =  (ConfigurationContributor) getConfigurationContributor();
-				configurationContributor.setNature(this);
-				fRegistry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
-					new IConfigurationContributor[] { configurationContributor}, pm);
-				fRegistry.addRegistryListener(registryListener);
-			} catch (CoreException e) {
-				BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
-			}
+	/**
+	 * Get registry, creating it if necessary.
+	 * @return the registry.
+	 * 
+	 * @since 1.0.0
+	 */
+	public ProxyFactoryRegistry getRegistry() {
+		synchronized (this) {
+			if (fRegistry != null)
+				return fRegistry;
 		}
+		// Now need to start the appropriate job. In another class so that it can handle dynamically checking if 
+		// UI is available to even do this (it maybe not in a UI mode, so then just do it.
+		CreateRegistryJobHandler.createRegistry(this);
 		return fRegistry;
+	}
+	
+	/*
+	 * This is <package-protected> so that only the appropriate create job in this
+	 * package can call it. This is because this must be controlled to only be
+	 * done in UI thread.
+	 */
+	void createRegistry(IProgressMonitor pm) {
+		synchronized (this) {
+			if (fRegistry != null)
+				return;	// It had already gotton created. Could of because UI and a thread were racing to do the creation, and one got there first.
+		}
+		try {
+			ConfigurationContributor configurationContributor =  (ConfigurationContributor) getConfigurationContributor();
+			configurationContributor.setNature(this);
+			fRegistry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
+				new IConfigurationContributor[] { configurationContributor}, pm);
+			fRegistry.addRegistryListener(registryListener);
+		} catch (CoreException e) {
+			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
+		}		
 	}
 	
 	public synchronized boolean isRegistryCreated() {
