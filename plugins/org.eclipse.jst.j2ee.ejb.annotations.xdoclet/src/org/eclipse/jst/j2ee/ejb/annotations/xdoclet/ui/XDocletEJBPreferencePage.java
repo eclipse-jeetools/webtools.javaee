@@ -24,7 +24,6 @@ package org.eclipse.jst.j2ee.ejb.annotations.xdoclet.ui;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletAnnotationPlugin;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;

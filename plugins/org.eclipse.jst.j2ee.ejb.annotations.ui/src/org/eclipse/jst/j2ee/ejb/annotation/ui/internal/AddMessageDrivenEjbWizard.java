@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.ejb.annotation.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.operations.AddMessageDrivenBeanOperation;
 import org.eclipse.jst.j2ee.ejb.annotations.ui.EjbAnnotationsUiPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
