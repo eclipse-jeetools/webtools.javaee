@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel;
+import org.eclipse.jst.j2ee.application.operations.AddArchiveToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddUtilityProjectToEARDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.ServerTargetUIHelper;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
@@ -47,7 +47,7 @@ public class AddUtilityJarDropAction extends AddProjectToEarDropAction {
 		WTPOperationDataModel dataModel = null;
 		boolean syncServerTarget = ServerTargetUIHelper.setModuleServerTargetIfNecessary(earProject, projectToAdd, getShell());
 		dataModel = AddUtilityProjectToEARDataModel.createAddToEARDataModel(earProject.getName(), projectToAdd);
-		dataModel.setBooleanProperty(AddArchiveProjectToEARDataModel.SYNC_TARGET_RUNTIME, syncServerTarget);
+		dataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, syncServerTarget);
 		return dataModel;
 	}
 

@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.operations.ClasspathElement;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /*
  * Created on Nov 13, 2003
@@ -57,7 +57,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 
 	private CheckboxTableViewer availableJarsViewer;
 
-	public J2EEModulesDependencyPage(J2EEModuleCreationDataModel model, String pageName) {
+	public J2EEModulesDependencyPage(FlexibleJ2EEModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.MODULES_DEPENDENCY_PAGE_DESC));
@@ -70,7 +70,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 
 
 	private void updateJarViewer() {
-		J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) model;
+		FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) model;
 
 		ClassPathSelection classPathSelection = dataModel.getClassPathSelection();
 
@@ -91,14 +91,14 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		Label projectLabel = new Label(composite, SWT.NONE);
 		projectLabel.setText(WorkbenchMessages.getString("WizardNewProjectCreationPage.nameLabel")); //$NON-NLS-1$
 		Text projectText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
-		synchHelper.synchText(projectText, EditModelOperationDataModel.PROJECT_NAME, null);
+		synchHelper.synchText(projectText, ArtifactEditOperationDataModel.PROJECT_NAME, null);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		projectText.setLayoutData(gd);
 
 		Label earLabel = new Label(composite, SWT.NONE);
 		earLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION));
 		Text earText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
-		synchHelper.synchText(earText, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, null);
+		synchHelper.synchText(earText, FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, null);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		earText.setLayoutData(gd);
 
@@ -137,7 +137,8 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		classpathLabel.setLayoutData(gd);
 
 		Text classpathText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.READ_ONLY);
-		synchHelper.synchText(classpathText, J2EEModuleCreationDataModel.JAR_LIST_TEXT_UI, null);
+		//TODO synchhelper work with flexible project
+		//synchHelper.synchText(classpathText, FlexibleJ2EEModuleCreationDataModel.JAR_LIST_TEXT_UI, null);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
 		gd.heightHint = 30;
@@ -185,7 +186,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		ClasspathElement element = (ClasspathElement) event.getElement();
 		element.setSelected(event.getChecked());
 		String classEntry = element.getText();
-		UpdateManifestDataModel updateManifest = ((J2EEModuleCreationDataModel) model).getUpdateManifestDataModel();
+		UpdateManifestDataModel updateManifest = ((FlexibleJ2EEModuleCreationDataModel) model).getUpdateManifestDataModel();
 		List classpathList = (List) updateManifest.getProperty(UpdateManifestDataModel.JAR_LIST);
 		if (event.getChecked()) {
 			if (!classpathList.contains(classEntry)) {

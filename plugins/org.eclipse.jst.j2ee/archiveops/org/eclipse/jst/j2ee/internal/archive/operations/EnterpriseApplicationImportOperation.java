@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectToEARDataModel;
+import org.eclipse.jst.j2ee.application.operations.AddArchiveToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddUtilityProjectToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
@@ -92,7 +92,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 			List allModels = model.getProjectModels();
 			IProject earProject = model.getProject();
 			IProject archiveProject = null;
-			AddArchiveProjectToEARDataModel addArchiveProjectToEARDataModel = null;
+			AddArchiveToEARDataModel addArchiveProjectToEARDataModel = null;
 			boolean synchServerTarget = model.getBooleanProperty(EnterpriseApplicationImportDataModel.SYNC_SERVER_TARGETS_WITH_EAR);
 			boolean moduleImported = false;
 			for (int i = 0; i < allModels.size(); i++) {
@@ -110,7 +110,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 						if (importModel instanceof J2EEModuleImportDataModel) {
 							addArchiveProjectToEARDataModel = AddModuleToEARDataModel.createAddToEARDataModel(earProject.getName(), archiveProject).getAppropriateDataModel();
 							addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI, importModel.getStringProperty(J2EEArtifactImportDataModel.URI_FOR_MODULE_MAPPING));
-							addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveProjectToEARDataModel.SYNC_TARGET_RUNTIME, synchServerTarget);
+							addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, synchServerTarget);
 							if (addArchiveProjectToEARDataModel.isProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT) && importModel.isProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT)) {
 								addArchiveProjectToEARDataModel.setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, importModel.getProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT));
 							}
@@ -128,7 +128,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 						} else if (importModel instanceof J2EEUtilityJarImportDataModel) {
 							addArchiveProjectToEARDataModel = AddUtilityProjectToEARDataModel.createAddToEARDataModel(earProject.getName(), archiveProject);
 							addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI, importModel.getStringProperty(J2EEArtifactImportDataModel.URI_FOR_MODULE_MAPPING));
-							addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveProjectToEARDataModel.SYNC_TARGET_RUNTIME, synchServerTarget);
+							addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, synchServerTarget);
 							addArchiveProjectToEARDataModel.getDefaultOperation().run(monitor);
 						}
 					}

@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -37,7 +38,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class AddModuleToEARDataModel extends AddArchiveProjectToEARDataModel {
+public class AddModuleToEARDataModel extends AddArchiveToEARDataModel {
 	public static final String MODULE_PROJECT_LIST = "AddModuleToEARDataModel.MODULE_PROJECT_LIST"; //$NON-NLS-1$
 
 	protected void initValidBaseProperties() {
@@ -94,19 +95,20 @@ public class AddModuleToEARDataModel extends AddArchiveProjectToEARDataModel {
 			if (!isJ2EEModule(project)) {
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_TYPE));
 			}
-			EAREditModel editModel = null;
-			Object key = new Object();
-			try {
-				editModel = (EAREditModel) getEditModelForRead(key);
-				ModuleMapping mapping = editModel.getModuleMapping(project);
-				if (mapping != null && mapping.getModule() != null) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_EXISTS));
-				}
-			} finally {
-				if (null != editModel) {
-					editModel.releaseAccess(key);
-				}
-			}
+			//TODO 
+//			EAREditModel editModel = null;
+//			Object key = new Object();
+//			try {
+//				editModel = (EAREditModel) getEditModelForRead(key);
+//				ModuleMapping mapping = editModel.getModuleMapping(project);
+//				if (mapping != null && mapping.getModule() != null) {
+//					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_MODULE_MODULE_EXISTS));
+//				}
+//			} finally {
+//				if (null != editModel) {
+//					editModel.releaseAccess(key);
+//				}
+//			}
 		}
 		return super.doValidateProperty(propertyName);
 	}

@@ -16,10 +16,10 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.FlexibleAppClientCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -83,8 +83,8 @@ public class AppClientImportPage extends J2EEModuleImportPage {
 		return getAppClientDataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
-		return new AppClientModuleCreationWizard((AppClientModuleCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(FlexibleAppClientCreationDataModel aModel) {
+		return new AppClientModuleCreationWizard(aModel);
 	}
 
 	private AppClientModuleImportDataModel getAppClientDataModel() {

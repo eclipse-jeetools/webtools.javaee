@@ -81,7 +81,7 @@ public abstract class J2EEModuleCreationOperation extends J2EEArtifactCreationOp
 				EnterpriseApplicationCreationOperation earOp = new EnterpriseApplicationCreationOperation(earModel);
 				earOp.doRun(monitor);
 			}
-			AddArchiveProjectToEARDataModel addModuleModel = moduleModel.getAddModuleToApplicationDataModel();
+			AddArchiveToEARDataModel addModuleModel = moduleModel.getAddModuleToApplicationDataModel();
 			AddArchiveProjectToEAROperation addModuleOp = new AddArchiveProjectToEAROperation(addModuleModel);
 			addModuleOp.doRun(monitor);
 		}

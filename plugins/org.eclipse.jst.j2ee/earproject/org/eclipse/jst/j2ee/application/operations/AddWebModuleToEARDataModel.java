@@ -35,6 +35,8 @@ import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
  * Generation>Code and Comments
  */
 public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
+	
+	public String defaultContextRoot = "";
 
 	public static AddWebModuleToEARDataModel createAddWebModuleToEARDataModel(String earProjectName, IProject moduleProject) {
 		AddWebModuleToEARDataModel model = new AddWebModuleToEARDataModel();
@@ -101,19 +103,20 @@ public class AddWebModuleToEARDataModel extends AddModuleToEARDataModel {
 	}
 
 	private String getDefaultContextRoot() {
-		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
-		if (archiveProj == null || !J2EENature.hasRuntime(archiveProj, IWebNatureConstants.J2EE_NATURE_ID))
-			return computeDefaultContextRoot();
-		EARNatureRuntime earNature = J2EEProjectUtilities.getFirstReferencingEARProject(archiveProj);
-		if (earNature != null) {
-			WebModule webModule = (WebModule) earNature.getModule(archiveProj);
-			if (webModule != null) {
-				String root = webModule.getContextRoot();
-				if (root != null && root.length() > 0)
-					return root;
-			}
-		}
-		return computeDefaultContextRoot();
+		return defaultContextRoot;
+//		IProject archiveProj = (IProject) getProperty(ARCHIVE_PROJECT);
+//		if (archiveProj == null || !J2EENature.hasRuntime(archiveProj, IWebNatureConstants.J2EE_NATURE_ID))
+//			return computeDefaultContextRoot();
+//		EARNatureRuntime earNature = J2EEProjectUtilities.getFirstReferencingEARProject(archiveProj);
+//		if (earNature != null) {
+//			WebModule webModule = (WebModule) earNature.getModule(archiveProj);
+//			if (webModule != null) {
+//				String root = webModule.getContextRoot();
+//				if (root != null && root.length() > 0)
+//					return root;
+//			}
+//		}
+//		return computeDefaultContextRoot();
 	}
 
 	private String computeDefaultContextRoot() {

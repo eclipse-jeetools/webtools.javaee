@@ -41,7 +41,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public class AddUtilityProjectToEARDataModel extends AddArchiveProjectToEARDataModel {
+public class AddUtilityProjectToEARDataModel extends AddArchiveToEARDataModel {
 
 	public static AddUtilityProjectToEARDataModel createAddToEARDataModel(String earProjectName, IProject moduleProject) {
 		AddUtilityProjectToEARDataModel model = new AddUtilityProjectToEARDataModel();
@@ -160,18 +160,19 @@ public class AddUtilityProjectToEARDataModel extends AddArchiveProjectToEARDataM
 			if (!status.isOK()) {
 				return status;
 			}
-			Object key = new Object();
-			EAREditModel editModel = null;
-			try {
-				editModel = (EAREditModel) getEditModelForRead(key);
-				if (null != editModel.getUtilityJARMapping((IProject) getProperty(ARCHIVE_PROJECT))) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_UTIL_MAPPED));
-				}
-			} finally {
-				if (null != editModel) {
-					editModel.releaseAccess(key);
-				}
-			}
+			//TODO redo without editmodel
+//			Object key = new Object();
+//			EAREditModel editModel = null;
+//			try {
+//				editModel = (EAREditModel) getEditModelForRead(key);
+//				if (null != editModel.getUtilityJARMapping((IProject) getProperty(ARCHIVE_PROJECT))) {
+//					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_UTIL_MAPPED));
+//				}
+//			} finally {
+//				if (null != editModel) {
+//					editModel.releaseAccess(key);
+//				}
+//			}
 			IProject project = (IProject) getProperty(propertyName);
 			if (isWebOrClientModule(project) || !isJavaProject(project)) {
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_NOT_JAVA));

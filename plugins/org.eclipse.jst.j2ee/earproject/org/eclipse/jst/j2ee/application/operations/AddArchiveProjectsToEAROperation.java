@@ -49,10 +49,10 @@ public class AddArchiveProjectsToEAROperation extends EditModelOperation {
 		List models = (List) dataModel.getProperty(AddArchiveProjectsToEARDataModel.ALL_MODULE_MODELS);
 		if (!models.isEmpty()) {
 			CompoundingCommandStack cmdStack = new CompoundingCommandStack(getCommandStack());
-			AddArchiveProjectToEARDataModel model;
+			AddArchiveToEARDataModel model;
 			AddArchiveProjectToEAROperation op = null;
 			for (int i = 0; i < models.size(); i++) {
-				model = (AddArchiveProjectToEARDataModel) models.get(i);
+				model = (AddArchiveToEARDataModel) models.get(i);
 				op = new AddArchiveProjectToEAROperation(model);
 				op.setCommandStack(cmdStack);
 				op.doRun(monitor);

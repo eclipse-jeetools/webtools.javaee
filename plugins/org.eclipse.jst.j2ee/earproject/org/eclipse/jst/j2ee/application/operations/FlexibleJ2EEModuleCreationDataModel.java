@@ -92,6 +92,8 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 			return Boolean.FALSE;
 		}  else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.TRUE;
+		} else if (propertyName.equals(EAR_MODULE_NAME)) {
+			return getStringProperty(MODULE_NAME)+"EAR";
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}
@@ -108,7 +110,8 @@ public abstract class FlexibleJ2EEModuleCreationDataModel extends FlexibleJ2EECr
 		} 
 
 		if(propertyName.equals(MODULE_NAME)){
-			
+			if (!isSet(EAR_MODULE_NAME))
+				notifyDefaultChange(EAR_MODULE_NAME);
 		}
 		if (propertyName.equals(PROJECT_NAME)) {
 //			IProject project = getTargetProject();

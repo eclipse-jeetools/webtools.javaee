@@ -299,7 +299,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 	public void linkArchiveToEAR(String earProjectName, String uriMapping, IProject utlityProject, IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		AddUtilityProjectToEARDataModel addArchiveProjectToEARDataModel = AddUtilityProjectToEARDataModel.createAddToEARDataModel(earProjectName, utlityProject);
 		addArchiveProjectToEARDataModel.setProperty(AddModuleToEARDataModel.ARCHIVE_URI, uriMapping);
-		addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveProjectToEARDataModel.SYNC_TARGET_RUNTIME, true);
+		addArchiveProjectToEARDataModel.setBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME, true);
 		addArchiveProjectToEARDataModel.getDefaultOperation().run(monitor);
 	}
 }

@@ -117,12 +117,12 @@ public class AddArchiveProjectsToEARDataModel extends EditModelOperationDataMode
 		List allModels = new ArrayList(projects.size());
 		String earProjName = getStringProperty(PROJECT_NAME);
 		IProject project = null;
-		AddArchiveProjectToEARDataModel model = null;
+		AddArchiveToEARDataModel model = null;
 		for (int i = 0; i < projects.size(); i++) {
 			project = (IProject) projects.get(i);
 			model = findOrCreateModel(project, models);
 			if (model != null) {
-				model.setProperty(AddArchiveProjectToEARDataModel.PROJECT_NAME, earProjName);
+				model.setProperty(AddArchiveToEARDataModel.PROJECT_NAME, earProjName);
 				allModels.add(model);
 			}
 		}
@@ -134,17 +134,17 @@ public class AddArchiveProjectsToEARDataModel extends EditModelOperationDataMode
 	 * @param models
 	 * @return
 	 */
-	private AddArchiveProjectToEARDataModel findOrCreateModel(IProject project, List models) {
+	private AddArchiveToEARDataModel findOrCreateModel(IProject project, List models) {
 		if (!models.isEmpty()) {
-			AddArchiveProjectToEARDataModel model = null;
+			AddArchiveToEARDataModel model = null;
 			for (int i = 0; i < models.size(); i++) {
-				model = (AddArchiveProjectToEARDataModel) models.get(i);
-				if (project.equals(model.getProperty(AddArchiveProjectToEARDataModel.ARCHIVE_PROJECT)))
+				model = (AddArchiveToEARDataModel) models.get(i);
+				if (project.equals(model.getProperty(AddArchiveToEARDataModel.ARCHIVE_PROJECT)))
 					return model;
 			}
 		}
 		//Not found so we need to create one.
-		return AddArchiveProjectToEARDataModel.createArchiveModel(project);
+		return null; //TODO fix up createArchiveModel(project);
 	}
 
 }

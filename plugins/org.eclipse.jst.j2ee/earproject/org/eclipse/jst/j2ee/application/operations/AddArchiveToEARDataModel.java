@@ -18,17 +18,14 @@ package org.eclipse.jst.j2ee.application.operations;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperationDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-
 import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
@@ -37,7 +34,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * To change the template for this generated type comment go to Window>Preferences>Java>Code
  * Generation>Code and Comments
  */
-public abstract class AddArchiveProjectToEARDataModel extends EditModelOperationDataModel {
+public abstract class AddArchiveToEARDataModel extends EARArtifactEditOperationDataModel {
 	/**
 	 * Required - This is the project that is being added to the EAR (designated by the
 	 * PROJECT_NAME). type = IProject
@@ -52,18 +49,6 @@ public abstract class AddArchiveProjectToEARDataModel extends EditModelOperation
 	 * project default - false;
 	 */
 	public static final String SYNC_TARGET_RUNTIME = "AddModuleToEARDataModel.SYNC_TARGET_RUNTIME"; //$NON-NLS-1$
-
-
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#init()
-	 */
-	protected void init() {
-		super.init();
-		setProperty(EDIT_MODEL_ID, IEARNatureConstants.EDIT_MODEL_ID);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -102,15 +87,16 @@ public abstract class AddArchiveProjectToEARDataModel extends EditModelOperation
 				return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_URI_EMPTY));
 			}
 
-			EAREditModel editModel = null;
+			EARArtifactEdit earEdit = null;
 			try {
-				editModel = (EAREditModel) getEditModelForRead(this);
-				if (editModel.uriExists(uri)) {
-					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_URI_EXISTS));
-				}
+				earEdit = getEARArtifactEditForRead();
+				//TODO fix up uri check for existence
+//				if (earEdit.uriExists(uri)) {
+//					return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.getString(EARCreationResourceHandler.ADD_PROJECT_URI_EXISTS));
+//				}
 			} finally {
-				if (null != editModel) {
-					editModel.releaseAccess(this);
+				if (earEdit != null) {
+					earEdit.dispose();
 				}
 			}
 		}
@@ -175,22 +161,17 @@ public abstract class AddArchiveProjectToEARDataModel extends EditModelOperation
 		return model;
 	}
 
-	public static AddArchiveProjectToEARDataModel createArchiveModel(IProject project) {
-		J2EENature j2eeNature = J2EENature.getRegisteredRuntime(project);
-		AddArchiveProjectToEARDataModel model = null;
-		if (j2eeNature != null) {
-			switch (j2eeNature.getDeploymentDescriptorType()) {
-				case XMLResource.WEB_APP_TYPE :
-					model = new AddWebModuleToEARDataModel();
-					break;
-				default :
-					model = new AddModuleToEARDataModel();
-					break;
-			}
-		} else
-			model = new AddUtilityProjectToEARDataModel();
-		model.setProperty(AddArchiveProjectToEARDataModel.ARCHIVE_PROJECT, project);
-
+	public AddArchiveToEARDataModel createArchiveModel() {
+		AddArchiveToEARDataModel model = null;
+//		switch (ModuleType) {
+//			case XMLResource.WEB_APP_TYPE :
+//				model = new AddWebModuleToEARDataModel();
+//				break;
+//			default :
+//				model = new AddModuleToEARDataModel();
+//				break;
+//		}
+//		model = new AddUtilityProjectToEARDataModel();
 		return model;
 	}
 }

@@ -42,6 +42,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveModuleFromEARProjectCommand;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetOperation;
@@ -52,7 +53,7 @@ import org.eclipse.wst.server.core.ServerCore;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
-public class AddArchiveProjectToEAROperation extends EditModelOperation {
+public class AddArchiveProjectToEAROperation extends EARArtifactEditOperation {
 
 	private IProgressMonitor monitor;
 
@@ -140,16 +141,16 @@ public class AddArchiveProjectToEAROperation extends EditModelOperation {
 		}
 	}
 
-	public AddArchiveProjectToEAROperation(AddArchiveProjectToEARDataModel dataModel) {
+	public AddArchiveProjectToEAROperation(AddArchiveToEARDataModel dataModel) {
 		super(dataModel);
 	}
 
 	protected void execute(IProgressMonitor aMonitor) throws CoreException, InvocationTargetException, InterruptedException {
 		this.monitor = aMonitor;
-		AddArchiveProjectToEARDataModel dataModel = (AddArchiveProjectToEARDataModel) operationDataModel;
+		AddArchiveToEARDataModel dataModel = (AddArchiveToEARDataModel) operationDataModel;
 		String originalID = null;
 		ApplicationResource resource = null;
-		String uri = dataModel.getStringProperty(AddArchiveProjectToEARDataModel.ARCHIVE_URI);
+		String uri = dataModel.getStringProperty(AddArchiveToEARDataModel.ARCHIVE_URI);
 		EARNatureRuntime nature = EARNatureRuntime.getRuntime(dataModel.getTargetProject());
 		Application app = nature.getApplication();
 		Module module = app.getFirstModule(uri);
@@ -224,8 +225,8 @@ public class AddArchiveProjectToEAROperation extends EditModelOperation {
 	}
 
 	protected void addServerTarget(IProgressMonitor aMonitor) throws CoreException, InvocationTargetException, InterruptedException {
-		if (operationDataModel.getBooleanProperty(AddArchiveProjectToEARDataModel.SYNC_TARGET_RUNTIME)) {
-			ServerTargetDataModel model = ((AddArchiveProjectToEARDataModel) operationDataModel).getServerTargetDataModel();
+		if (operationDataModel.getBooleanProperty(AddArchiveToEARDataModel.SYNC_TARGET_RUNTIME)) {
+			ServerTargetDataModel model = ((AddArchiveToEARDataModel) operationDataModel).getServerTargetDataModel();
 			ServerTargetOperation serverTargetOperation = new ServerTargetOperation(model);
 			serverTargetOperation.doRun(aMonitor);
 		}
@@ -276,15 +277,16 @@ public class AddArchiveProjectToEAROperation extends EditModelOperation {
 	 * @param dataModel
 	 * @return
 	 */
-	private Command createCommand(AddArchiveProjectToEARDataModel dataModel) {
+	private Command createCommand(AddArchiveToEARDataModel dataModel) {
 		IProject project = getArchiveProject();
-		String uri = dataModel.getStringProperty(AddArchiveProjectToEARDataModel.ARCHIVE_URI);
+		String uri = dataModel.getStringProperty(AddArchiveToEARDataModel.ARCHIVE_URI);
 		EARNatureRuntime nature = EARNatureRuntime.getRuntime(dataModel.getTargetProject());
 		if (project == nature.getMappedProject(uri)) {
 			return null;
 		}
 
-		Module m = ((EAREditModel) editModel).getApplication().getFirstModule(uri);
+		Module m = null;
+		//TODO fix up ((EAREditModel) editModel).getApplication().getFirstModule(uri);
 		RemoveModuleFromEARProjectCommand removeCommand = null;
 		if (null != m) {
 			removeCommand = new RemoveModuleFromEARProjectCommand(m, dataModel.getTargetProject());
@@ -305,11 +307,11 @@ public class AddArchiveProjectToEAROperation extends EditModelOperation {
 	}
 
 	private IProject getArchiveProject() {
-		return (IProject) operationDataModel.getProperty(AddArchiveProjectToEARDataModel.ARCHIVE_PROJECT);
+		return (IProject) operationDataModel.getProperty(AddArchiveToEARDataModel.ARCHIVE_PROJECT);
 	}
 
 	private IProject getEARProject() {
-		return ((AddArchiveProjectToEARDataModel)operationDataModel).getTargetProject();
+		return ((AddArchiveToEARDataModel)operationDataModel).getTargetProject();
 	}
 
 	private Map computeAllDependents() {
