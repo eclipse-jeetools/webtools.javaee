@@ -11,13 +11,14 @@
 package org.eclipse.jst.j2ee.jca.ui;
 
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.FlexibleConnectorModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.FlexibleConnectorModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.jca.ui.internal.util.JCAUIMessages;
 import org.eclipse.jst.j2ee.jca.ui.internal.wizard.JCAProjectCreationPage;
+import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
 import org.eclipse.jst.j2ee.ui.J2EEModuleCreationWizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
@@ -55,7 +56,7 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * </p>
 	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
 	 */
-	public ConnectorModuleCreationWizard(ConnectorModuleCreationDataModel model) {
+	public ConnectorModuleCreationWizard(FlexibleJ2EEModuleCreationDataModel model) {
 		super(model);
 	}
 	
@@ -70,8 +71,8 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * @return Returns the specific operation data model for the creation of J2EE Connector modules
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		ConnectorModuleCreationDataModel aModel = new ConnectorModuleCreationDataModel();
-		aModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
+		FlexibleConnectorModuleCreationDataModel aModel = new FlexibleConnectorModuleCreationDataModel();
+		aModel.setBooleanProperty(FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
 	
@@ -85,7 +86,7 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	 * @return Returns the specific operation for the creation of J2EE Connector modules
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new ConnectorModuleCreationOperation(getSpecificDataModel());
+		return new FlexibleConnectorModuleCreationOperation(getSpecificDataModel());
 	}
 	
 	/** 
@@ -124,8 +125,8 @@ public final class ConnectorModuleCreationWizard extends J2EEModuleCreationWizar
 	} 
  
 
-	private ConnectorModuleCreationDataModel getSpecificDataModel() {
-		return (ConnectorModuleCreationDataModel) getModel();
+	private FlexibleConnectorModuleCreationDataModel getSpecificDataModel() {
+		return (FlexibleConnectorModuleCreationDataModel) getModel();
 	}
 
 }

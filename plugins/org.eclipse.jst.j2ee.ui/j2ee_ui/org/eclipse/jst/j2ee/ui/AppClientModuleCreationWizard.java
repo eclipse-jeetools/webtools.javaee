@@ -12,7 +12,8 @@ package org.eclipse.jst.j2ee.ui;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.creation.FlexibleAppClientCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.FlexibleAppClientModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -54,7 +55,7 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 *            The model parameter is used to pre-populate wizard controls and interface with the
 	 *            operation
 	 */
-	public AppClientModuleCreationWizard(AppClientModuleCreationDataModel dataModel) {
+	public AppClientModuleCreationWizard(FlexibleAppClientCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -85,7 +86,7 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 * @return Returns the specific operation for the creation of J2EE Application Clients
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new AppClientModuleCreationOperation(getSpecificDataModel());
+		return new FlexibleAppClientModuleCreationOperation(getSpecificDataModel());
 	}
 
 	/**
@@ -123,8 +124,8 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 		return WIZARD_ID;
 	}
 
-	private AppClientModuleCreationDataModel getSpecificDataModel() {
-		return (AppClientModuleCreationDataModel) model;
+	private FlexibleAppClientCreationDataModel getSpecificDataModel() {
+		return (FlexibleAppClientCreationDataModel) model;
 	}
 
 }

@@ -7,7 +7,7 @@
  * 
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.core.resources.ICommand;
@@ -23,21 +23,18 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 
-
-
 /*
  * Licensed Material - Property of IBM (C) Copyright IBM Corp. 2000, 2002 - All
  * Rights Reserved. US Government Users Restricted Rights - Use, duplication or
  * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
 
-public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
-{
+public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard {
 	private static final String ConvertToWebModuleTypeWizard = "org.eclipse.jst.servlet.ui.internal.wizard.convertWebProjectTypeWizard"; //$NON-NLS-1$
 
-	public ConvertToWebModuleTypeWizard(ConvertWebProjectDataModel dataModel)
-	{
-		super(dataModel);
+	public ConvertToWebModuleTypeWizard(ConvertWebProjectDataModel dataModel) {
+		// TODO use flexible project
+		//super(dataModel);
 	}
 
 	/*
@@ -47,8 +44,7 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 	 */
 	private static final String PAGE_ONE = "page1"; //$NON-NLS-1$
 
-	protected WTPOperationDataModel createDefaultModel()
-	{
+	protected WTPOperationDataModel createDefaultModel() {
 		// TODO Auto-generated method stub
 		return new ConvertWebProjectDataModel();
 	}
@@ -58,11 +54,9 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 	 * 
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#createOperation()
 	 */
-	protected WTPOperation createBaseOperation()
-	{
+	protected WTPOperation createBaseOperation() {
 		// TODO Auto-generated method stub
-		return new WebModuleCreationOperation(
-				(WebModuleCreationDataModel) model);
+		return new WebModuleCreationOperation((WebModuleCreationDataModel) model);
 	}
 
 	/*
@@ -70,10 +64,9 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 	 * 
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
-	public void doAddPages()
-	{
-		addPage(new ConvertToWebModuleTypeWizardPage(
-				(WebModuleCreationDataModel) model, PAGE_ONE));
+	public void doAddPages() {
+		//TODO use flexible project
+		//addPage(new ConvertToWebModuleTypeWizardPage((WebModuleCreationDataModel) model, PAGE_ONE));
 	}
 
 	/*
@@ -81,8 +74,7 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 	 * 
 	 * @see com.ibm.wtp.web.ui.wizard.WEBProjectWizard#getWizardID()
 	 */
-	public String getWizardID()
-	{
+	public String getWizardID() {
 		return ConvertToWebModuleTypeWizard;
 	}
 
@@ -92,8 +84,7 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 	 * @see com.ibm.wtp.web.ui.wizard.WEBProjectWizard#init(org.eclipse.ui.IWorkbench,
 	 *      org.eclipse.jface.viewers.IStructuredSelection)
 	 */
-	public void doInit(IWorkbench workbench, IStructuredSelection selection)
-	{
+	public void doInit(IWorkbench workbench, IStructuredSelection selection) {
 		setWindowTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_CONVERT_MAIN_PG_TITLE)); //$NON-NLS-1$
 	}
 
@@ -102,17 +93,12 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 	 * 
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizard#prePerformFinish()
 	 */
-	protected boolean prePerformFinish()
-	{
+	protected boolean prePerformFinish() {
 		IProjectDescription desc;
-		try
-		{
-			desc = ((WebModuleCreationDataModel) model).getProjectDataModel()
-					.getProject().getDescription();
+		try {
+			desc = ((WebModuleCreationDataModel) model).getProjectDataModel().getProject().getDescription();
 			desc.setBuildSpec(new ICommand[0]);
-		}
-		catch( CoreException e )
-		{
+		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -16,11 +16,11 @@
  */
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.FlexibleConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
@@ -71,8 +71,8 @@ public class RARImportPage extends J2EEModuleImportPage {
 		return getJCADataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
-		return new ConnectorModuleCreationWizard((ConnectorModuleCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(FlexibleConnectorModuleCreationDataModel aModel) {
+		return new ConnectorModuleCreationWizard(aModel);
 	}
 
 	protected String getFileNamesStoreID() {

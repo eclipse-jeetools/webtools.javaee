@@ -15,23 +15,17 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -40,44 +34,36 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.wst.common.frameworks.ui.WTPDataModelSynchHelper;
-import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
- * @author cbridgha
  * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
  */
 public class ServerEarAndStandaloneGroup {
+	
 	private Button newEAR;
 	private Combo earCombo;
 	private Label earLabel;
 	private Button addToEAR;
-	protected Combo serverTargetCombo;
-	private J2EEModuleCreationDataModel model;
-	//	constants
-	//private static final int SIZING_TEXT_FIELD_WIDTH = 305;
+	private FlexibleJ2EEModuleCreationDataModel model;
 	private WTPDataModelSynchHelper synchHelper;
-	private WTPDataModelSynchHelper serverTargetSynchHelper;
+	
+	private Composite parentComposite;
 
 	/**
 	 *  
 	 */
-	public ServerEarAndStandaloneGroup(Composite parent, J2EEModuleCreationDataModel model) {
+	public ServerEarAndStandaloneGroup(Composite parent, FlexibleJ2EEModuleCreationDataModel model) {
 		this.model = model;
+		this.parentComposite = parent;
 		synchHelper = new WTPDataModelSynchHelper(model);
-		serverTargetSynchHelper = new WTPDataModelSynchHelper(model.getServerTargetDataModel());
 		buildComposites(parent);
 	}
 
 	public void buildComposites(Composite parent) {
-		createServerTargetComposite(parent);
 		createEarAndStandaloneComposite(parent);
 	}
 
@@ -86,7 +72,7 @@ public class ServerEarAndStandaloneGroup {
 	 */
 	protected void createEarAndStandaloneComposite(Composite parent) {
 
-		if (model.getBooleanProperty(J2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION)) {
+		if (model.getBooleanProperty(FlexibleJ2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION)) {
 
 			Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -102,7 +88,7 @@ public class ServerEarAndStandaloneGroup {
 			gd = new GridData(GridData.FILL_HORIZONTAL);
 			gd.horizontalSpan = 2;
 			addToEAR.setLayoutData(gd);
-			synchHelper.synchCheckbox(addToEAR, J2EEModuleCreationDataModel.ADD_TO_EAR, null);
+			synchHelper.synchCheckbox(addToEAR, FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR, null);
 			addToEAR.addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
 					handleAddToEarSelection();
@@ -136,9 +122,9 @@ public class ServerEarAndStandaloneGroup {
 
 			IProject project = getCurrentProject();
 			if (project != null)
-				model.setProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME, project.getName());
+				model.setProperty(FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, project.getName());
 			Control[] deps = new Control[]{earLabel, newEAR};
-			synchHelper.synchCombo(earCombo, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, deps);
+			synchHelper.synchCombo(earCombo, FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, deps);
 
 		}
 
@@ -157,12 +143,13 @@ public class ServerEarAndStandaloneGroup {
 		StructuredSelection stucturedSelection = (StructuredSelection) selection;
 		Object obj = stucturedSelection.getFirstElement();
 		if (obj instanceof IProject) {
-			IProject project = (IProject) obj;
+			//IProject project = (IProject) obj;
+			//TODO
 			//this will need to be updated when Ear Creation is converted to the flexible project structure i.e
 			// moduleType "j2ee.ear", please mimic the same function in EarnatureRuntime.getAllEarProjectsInWorkbench()
-			List ears = EARNatureRuntime.getAllEARProjectsInWorkbench();
-			if (ears.contains(project))
-				return project;
+			//List ears = EARNatureRuntime.getAllEARProjectsInWorkbench();
+			//if (ears.contains(project))
+			//	return project;
 		}
 
 
@@ -185,45 +172,23 @@ public class ServerEarAndStandaloneGroup {
 	 *  
 	 */
 	protected void handleNewEarSelected() {
-		J2EEModuleCreationDataModel moduleModel = model;
+		FlexibleJ2EEModuleCreationDataModel moduleModel = model;
 		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
 		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
-		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, moduleModel.getProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME));
-		earModel.setProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID, moduleModel.getProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID));
+		earModel.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, moduleModel.getProperty(FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME));
+		//TODO the flexible ear data model needs to be used and server target has to be discovered from project
+		earModel.setProperty(EnterpriseApplicationCreationDataModel.SERVER_TARGET_ID, moduleModel.getProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID));
 		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
 		EnterpriseApplicationCreationWizard earWizard = new EnterpriseApplicationCreationWizard(earModel);
-		WizardDialog dialog = new WizardDialog(getShell(), earWizard);
+		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
-			moduleModel.notifyUpdatedEARs();
-			moduleModel.setProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME, earModel.getProperty(EditModelOperationDataModel.PROJECT_NAME));
+			//moduleModel.notifyUpdatedEARs();
+			moduleModel.setProperty(FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME, earModel.getProperty(ArtifactEditOperationDataModel.PROJECT_NAME));
 		}
 
 	}
 
-	private Shell getShell() {
-		return serverTargetCombo.getShell();
-	}
-
-	protected void createServerTargetComposite(Composite parent) {
-		Label label = new Label(parent, SWT.NONE);
-		label.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.TARGET_SERVER_LBL));
-		serverTargetCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
-		serverTargetCombo.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
-		Button newServerTargetButton = new Button(parent, SWT.NONE);
-		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
-		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				J2EEProjectCreationPage.launchNewRuntimeWizard(getShell(), model.getServerTargetDataModel());
-			}
-		});
-		Control[] deps = new Control[]{label, newServerTargetButton};
-		serverTargetSynchHelper.synchCombo(serverTargetCombo, ServerTargetDataModel.RUNTIME_TARGET_ID, deps);
-	}
-
 	public void dispose() {
-		serverTargetSynchHelper.dispose();
-		serverTargetSynchHelper = null;
 		model.removeListener(synchHelper);
 		model.dispose();
 		synchHelper = null;

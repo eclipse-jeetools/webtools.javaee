@@ -15,32 +15,18 @@
  */
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
-import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.IRuntimeType;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * This dataModel is used for to create Web Modules.
@@ -111,6 +97,12 @@ public class FlexibleWebModuleCreationDataModel extends FlexibleJ2EEModuleCreati
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			getAddModuleToApplicationDataModel().setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, propertyValue);
+		} else if (propertyName.equals(MODULE_NAME)) {
+			if (!isSet(CONTEXT_ROOT)) {
+				notifyDefaultChange(CONTEXT_ROOT);
+				((AddWebModuleToEARDataModel)getAddModuleToApplicationDataModel()).defaultContextRoot=(String)propertyValue;
+				getAddModuleToApplicationDataModel().notifyDefaultChange(AddWebModuleToEARDataModel.CONTEXT_ROOT);
+			}
 		}
 		return retVal;
 	}
@@ -169,7 +161,7 @@ public class FlexibleWebModuleCreationDataModel extends FlexibleJ2EEModuleCreati
 //			return webContentFolderPref;
 //		}
 		if (propertyName.equals(CONTEXT_ROOT)) {
-			return getAddModuleToApplicationDataModel().getProperty(CONTEXT_ROOT);
+			return getProperty(MODULE_NAME);
 		}
 
 		if (propertyName.equals(SERVLET_VERSION)) {

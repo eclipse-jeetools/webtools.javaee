@@ -16,19 +16,16 @@ import org.eclipse.swt.widgets.Composite;
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
-public class ConvertToWebModuleTypeWizardPage extends WEBProjectCreationPage
-{
+public class ConvertToWebModuleTypeWizardPage extends WebModuleCreationPage {
 
 	/**
 	 * @param model
 	 * @param pageName
 	 */
-	protected ConvertToWebModuleTypeWizardPage(
-				WebModuleCreationDataModel model, String pageName)
-	{
-		super(model, pageName);
-		// TODO Auto-generated constructor stub
-
+	protected ConvertToWebModuleTypeWizardPage(WebModuleCreationDataModel model, String pageName) {
+		// TODO use flexible project
+		//super(model, pageName);
+		super(null, pageName);
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_CONVERT_MAIN_PG_DESC)); //$NON-NLS-1$
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_CONVERT_MAIN_PG_TITLE)); //$NON-NLS-1$
 	}
@@ -38,9 +35,8 @@ public class ConvertToWebModuleTypeWizardPage extends WEBProjectCreationPage
 	 * 
 	 * @see com.ibm.wtp.j2ee.ui.wizard.J2EEProjectCreationPage#createProjectNameGroup(org.eclipse.swt.widgets.Composite)
 	 */
-	protected void createProjectNameGroup(Composite parent)
-	{
+	protected void createProjectNameGroup(Composite parent) {
 		super.createProjectNameGroup(parent);
-		projectNameGroup.projectNameField.setEnabled(false);
+		// projectNameGroup.projectNameField.setEnabled(false);
 	}
 }

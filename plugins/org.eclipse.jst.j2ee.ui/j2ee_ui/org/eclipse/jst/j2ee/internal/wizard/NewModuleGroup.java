@@ -113,7 +113,7 @@ public class NewModuleGroup {
 		newButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				//TODO Launch new default project wizard
-				FlexibleProjectCreationWizard();
+				//FlexibleProjectCreationWizard();
 			}
 		});
 		synchHelper.synchCombo(projectNameCombo, ArtifactEditOperationDataModel.PROJECT_NAME, new Control[]{projectNameLabel});

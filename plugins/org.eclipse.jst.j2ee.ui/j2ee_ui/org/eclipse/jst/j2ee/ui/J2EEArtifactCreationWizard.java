@@ -10,17 +10,13 @@ package org.eclipse.jst.j2ee.ui;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.DelegateConfigurationElement;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.plugin.UIProjectUtilities;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.IWorkbench;
@@ -28,6 +24,9 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
  * <p>
@@ -157,7 +156,7 @@ public abstract class J2EEArtifactCreationWizard extends WTPWizard implements IN
 	 *            The data provided from the templated method.
 	 */
 	protected void doSetInitializeData(IConfigurationElement aConfigurationElement, String aPropertyName, Object theData) {
-
+		// Default do nothing
 	}
 
 	/**
@@ -225,7 +224,7 @@ public abstract class J2EEArtifactCreationWizard extends WTPWizard implements IN
 			BasicNewProjectResourceWizard.updatePerspective(element);
 		} else
 			BasicNewProjectResourceWizard.updatePerspective(configurationElement);
-		BasicNewResourceWizard.selectAndReveal(((J2EEArtifactCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
+		BasicNewResourceWizard.selectAndReveal(((ArtifactEditOperationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
 	}
 
 
@@ -275,10 +274,11 @@ public abstract class J2EEArtifactCreationWizard extends WTPWizard implements IN
 	}
 
 	/**
-	 * @return Returns the EAR project selected in the view used to launch the wizard.
+	 * @return Returns the EAR module selected in the view used to launch the wizard.
 	 */
-	protected final IProject getSelectedEARProject() {
-		return UIProjectUtilities.getSelectedProject(getSelection(), IEARNatureConstants.NATURE_ID);
+	protected final WorkbenchComponent getSelectedEARModule() {
+		//TODO return the selected ear module if applicable
+		return null;
 	}
 
 	protected final IConfigurationElement getConfigurationElement() {

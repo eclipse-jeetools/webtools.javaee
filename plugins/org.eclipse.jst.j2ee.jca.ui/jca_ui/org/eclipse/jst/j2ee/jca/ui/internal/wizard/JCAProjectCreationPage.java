@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.FlexibleConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationPage;
@@ -36,7 +36,7 @@ public class JCAProjectCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public JCAProjectCreationPage(ConnectorModuleCreationDataModel model, String pageName) {
+	public JCAProjectCreationPage(FlexibleConnectorModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_TITLE));
 		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_DESC));
