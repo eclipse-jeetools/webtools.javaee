@@ -82,7 +82,7 @@ public class EJBValidationContext implements IEJBValidationContext {
 		*/
 	}
 	
-	/**
+		/**
 	 * If, for performance reasons, an IMessage is reused instead of creating
 	 * a new one each time, this method resets the internal fields to the default.
 	 * 
@@ -100,6 +100,8 @@ public class EJBValidationContext implements IEJBValidationContext {
 		message.setOffset(IMessage.OFFSET_UNSET);
 		message.setLength(IMessage.OFFSET_UNSET);
 	}
+	
+	
 	
 	public Logger getMsgLogger() {
 		return Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
@@ -139,53 +141,31 @@ public class EJBValidationContext implements IEJBValidationContext {
 	}
 	
 	public void addMessage(int severity, String messageId) throws MessageLimitException {
-		IMessage message = getMessage();
-		message.setSeverity(severity);
-		message.setId(messageId);
+		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
 	public void addMessage(int severity, String messageId, String[] parms) throws MessageLimitException {
-		IMessage message = getMessage();
-		message.setSeverity(severity);
-		message.setId(messageId);
-		message.setParams(parms);
+		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
 	public void addMessage(int severity, String messageId, Object target) throws MessageLimitException {
-		IMessage message = getMessage();
-		message.setSeverity(severity);
-		message.setId(messageId);
-		message.setTargetObject(target);
+		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
 	public void addMessage(int severity, String messageId, String[] parms, Object target) throws MessageLimitException {
-		IMessage message = getMessage();
-		message.setSeverity(severity);
-		message.setId(messageId);
-		message.setParams(parms);
-		message.setTargetObject(target);
+		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms,target);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
 	public void addMessage(int severity, String messageId, Object target, String groupName) throws MessageLimitException {
-		IMessage message = getMessage();
-		message.setSeverity(severity);
-		message.setId(messageId);
-		message.setTargetObject(target);
-		message.setGroupName(groupName);
-		getReporter().addMessage(getValidator(), message);
+		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target,groupName);
 	}
 	
 	public void addMessage(int severity, String messageId, String[] parms, Object target, String groupName) throws MessageLimitException {
-		IMessage message = getMessage();
-		message.setSeverity(severity);
-		message.setId(messageId);
-		message.setParams(parms);
-		message.setTargetObject(target);
-		message.setGroupName(groupName);
+		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms,target,groupName);
 		getReporter().addMessage(getValidator(), message);
 	}
 
@@ -203,7 +183,6 @@ public class EJBValidationContext implements IEJBValidationContext {
 		if((messageId == null) || (messageId.equals(""))) { //$NON-NLS-1$
 			return;
 		}
-		
 		IMessage message = getMessage();
 		message.setId(messageId);
 		message.setParams(parms);
