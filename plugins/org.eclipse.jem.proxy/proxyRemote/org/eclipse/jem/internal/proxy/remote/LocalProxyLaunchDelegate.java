@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.15 $ $Date: 2004/11/01 21:43:18 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.16 $ $Date: 2004/11/22 22:23:05 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -32,6 +32,7 @@ import org.eclipse.jdt.launching.*;
 
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.remote.awt.REMRegisterAWT;
+import org.eclipse.jem.internal.temp.VETimerTests;
 
 /**
  * Launch Delegate for launching Local (i.e. remote vm is on local system). Here "remote" means the
@@ -70,6 +71,8 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		else
 			name = MessageFormat.format(ProxyRemoteMessages.getString("ProxyRemoteVMNameWithComment"), new Object[] { project != null ? project.getProject().getName() : "", name }); //$NON-NLS-1$
 
+		String stepId = "Launch VM ( " + name + " )";
+		VETimerTests.basicTest.startStep(stepId);
 		// Problem with launch, can't have double-quotes in vmName.
 		if (name.indexOf('"') != -1)
 			name = name.replace('"', '\'');
@@ -337,6 +340,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		launchInfo.resultRegistry = registry;
 
 		pm.done();
+		VETimerTests.basicTest.stopStep(stepId);
 	}
 
 	/**

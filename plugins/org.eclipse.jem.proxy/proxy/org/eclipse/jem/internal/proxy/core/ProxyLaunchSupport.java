@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.14 $  $Date: 2004/08/27 18:49:49 $ 
+ *  $Revision: 1.15 $  $Date: 2004/11/22 22:23:05 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -29,6 +29,8 @@ import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.osgi.framework.Bundle;
+
+import org.eclipse.jem.internal.temp.VETimerTests;
  
 /**
  * This is the used to launch the proxy registries.
@@ -346,7 +348,8 @@ public class ProxyLaunchSupport {
 
 		if (pm == null)
 			pm = new NullProgressMonitor();
-		
+		String stepId = "Pre-launch VM ( " + vmTitle + " )";
+		VETimerTests.basicTest.startStep(stepId);
 		final ILaunchConfigurationWorkingCopy configwc = config.getWorkingCopy();
 		
 		pm.beginTask("", 400);
@@ -432,7 +435,7 @@ public class ProxyLaunchSupport {
 					reg.terminateRegistry();
 				return null;
 			}
-			
+//			VETimerTests.basicTest.startStep("contribute to registry");
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
 				// Run in safe mode so that anything happens we don't go away.
@@ -442,16 +445,21 @@ public class ProxyLaunchSupport {
 					}
 
 					public void run() throws Exception {
+						String stepid = "contribute to registry for " + contribs[ii].getClass();
+//						VETimerTests.basicTest.startStep(stepid);
 						contribs[ii].contributeToRegistry(reg);
+//						VETimerTests.basicTest.stopStep(stepid);
 					}
 				});
 			}
+//			VETimerTests.basicTest.stopStep("contribute to registry");
 		} finally {
 			// Clean up and return.
 			LAUNCH_INFO.remove(launchKey);
 		}	
 		
 		pm.done();
+		VETimerTests.basicTest.stopStep(stepId);
 		return launchInfo.resultRegistry;
 	}
 	

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.11 $  $Date: 2004/10/28 21:24:57 $ 
+ *  $Revision: 1.12 $  $Date: 2004/11/22 22:23:05 $ 
  */
 
 
@@ -25,8 +25,7 @@ import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
 import org.eclipse.jem.internal.proxy.common.remote.Commands.*;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
-
-import com.ibm.wtp.common.util.TimerTests;
+import org.eclipse.jem.internal.temp.VETimerTests;
 /**
  * The default implementation of the connection.
  *
@@ -193,9 +192,9 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	public void invokeMethod(int methodID, Commands.ValueObject invokeOn, Commands.ValueObject parms, Commands.ValueObject returnValue) throws CommandException {
 		if (isConnected()) {
 			// It's simple, just pass onto Commands.
-			TimerTests.basicTest.startCumulativeStep(INVOKE_METHOD_STEP);
+			VETimerTests.basicTest.startCumulativeStep(INVOKE_METHOD_STEP);
 			Commands.sendInvokeMethodCommand(out, in, methodID, invokeOn, parms, returnValue);
-			TimerTests.basicTest.stopCumulativeStep(INVOKE_METHOD_STEP);
+			VETimerTests.basicTest.stopCumulativeStep(INVOKE_METHOD_STEP);
 		}			
 	}
 	
@@ -206,9 +205,9 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 			ValueObject returnValue) throws CommandException {
 		if (isConnected()) {
 			// It's simple, just pass onto Commands.
-			TimerTests.basicTest.startCumulativeStep(INVOKE_STEP);
+			VETimerTests.basicTest.startCumulativeStep(INVOKE_STEP);
 			Commands.sendInvokeMethodCommand(out, in, classType, methodName, parmTypes, invokeOn, parms, returnValue);
-			TimerTests.basicTest.stopCumulativeStep(INVOKE_STEP);
+			VETimerTests.basicTest.stopCumulativeStep(INVOKE_STEP);
 		}			
 	}
 	

@@ -11,13 +11,14 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyFactoryRegistry.java,v $
- *  $Revision: 1.4 $  $Date: 2004/10/12 20:20:14 $ 
+ *  $Revision: 1.5 $  $Date: 2004/11/22 22:23:05 $ 
  */
 
 
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Iterator;
 
-import com.ibm.wtp.common.util.TimerTests;
+import org.eclipse.jem.internal.temp.VETimerTests;
 
 /**
  * Registry of proxy factories on a per-VM basis.
@@ -289,53 +290,53 @@ public abstract class ProxyFactoryRegistry {
 			return;	// Already or are already terminating. Don't do it again and don't notify again.
 		fIsValid = false;
 		if (fCurrentStandardBeanTypeProxyFactory != null) {
-			TimerTests.basicTest.startStep("Terminate Bean Type Factory", TimerTests.CURRENT_PARENT_ID);
+//			VETimerTests.basicTest.startStep("Terminate Bean Type Factory");
 			fCurrentStandardBeanTypeProxyFactory.terminateFactory(wait);
-			TimerTests.basicTest.stopStep("Terminate Bean Type Factory");
+//			VETimerTests.basicTest.stopStep("Terminate Bean Type Factory");
 			fCurrentStandardBeanTypeProxyFactory = null;
 		}
 		if (fCurrentStandardBeanProxyFactory != null) {
-			TimerTests.basicTest.startStep("Terminate Bean Factory", TimerTests.CURRENT_PARENT_ID);
+			VETimerTests.basicTest.startStep("Terminate Bean Factory");
 			fCurrentStandardBeanProxyFactory.terminateFactory(wait);
-			TimerTests.basicTest.stopStep("Terminate Bean Factory");
+			VETimerTests.basicTest.stopStep("Terminate Bean Factory");
 			fCurrentStandardBeanProxyFactory = null;
 		}
 		if (fMethodProxyFactory != null) {
-			TimerTests.basicTest.startStep("Terminate Method Factory", TimerTests.CURRENT_PARENT_ID);
+//			VETimerTests.basicTest.startStep("Terminate Method Factory");
 			fMethodProxyFactory.terminateFactory(wait);
-			TimerTests.basicTest.stopStep("Terminate Method Factory");
+//			VETimerTests.basicTest.stopStep("Terminate Method Factory");
 			fMethodProxyFactory = null;
 		}
 		
 		Iterator itr = fRegisteredExtensionBeanTypeProxyFactories.values().iterator();
-		TimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory", TimerTests.CURRENT_PARENT_ID);
+		VETimerTests.basicTest.startAccumulating("Terminate Aux. Bean Factory");
 		while (itr.hasNext()) {
-			TimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory");
+			VETimerTests.basicTest.startCumulativeStep("Terminate Aux. Bean Factory");
 			((IBeanProxyFactory) itr.next()).terminateFactory(wait);
-			TimerTests.basicTest.stopCumulativeStep("Terminate Aux. Bean Factory");
+			VETimerTests.basicTest.stopCumulativeStep("Terminate Aux. Bean Factory");
 		}
-		TimerTests.basicTest.stopStep("Terminate Aux. Bean Factory");
+		VETimerTests.basicTest.stopAccumulating("Terminate Aux. Bean Factory");
 		fRegisteredExtensionBeanTypeProxyFactories.clear();
 		
 		itr = fRegisteredExtensionBeanProxyFactories.values().iterator();
-		TimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory", TimerTests.CURRENT_PARENT_ID);		
+		VETimerTests.basicTest.startAccumulating("Terminate Aux. BeanType Factory");		
 		while (itr.hasNext()) {
-			TimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory");
+			VETimerTests.basicTest.startCumulativeStep("Terminate Aux. BeanType Factory");
 			((IBeanProxyFactory) itr.next()).terminateFactory(wait);
-			TimerTests.basicTest.stopCumulativeStep("Terminate Aux. BeanType Factory");
+			VETimerTests.basicTest.stopCumulativeStep("Terminate Aux. BeanType Factory");
 		}
-		TimerTests.basicTest.stopStep("Terminate Aux. BeanType Factory");
+		VETimerTests.basicTest.stopAccumulating("Terminate Aux. BeanType Factory");
 		fRegisteredExtensionBeanProxyFactories.clear();
 		
 		fRegisteredConstants.clear();
 		
-		TimerTests.basicTest.startStep("Registry Terminated", TimerTests.CURRENT_PARENT_ID);
+		VETimerTests.basicTest.startStep("Registry Terminated");
 		registryTerminated(wait);
-		TimerTests.basicTest.stopStep("Registry Terminated");
+		VETimerTests.basicTest.stopStep("Registry Terminated");
 		
-		TimerTests.basicTest.startStep("Registry Terminated Notification", TimerTests.CURRENT_PARENT_ID);
+//		VETimerTests.basicTest.startStep("Registry Terminated Notification");
 		fireRegistryTerminated();	// Let everyone know that we are gone. This is fired even if wait is false because at this point in time the registry is invalid.
-		TimerTests.basicTest.stopStep("Registry Terminated Notification");
+//		VETimerTests.basicTest.stopStep("Registry Terminated Notification");
 	}
 	
 
