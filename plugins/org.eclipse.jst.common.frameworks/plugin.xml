@@ -5,7 +5,7 @@
    name="Integration Plug-in"
    description="This plugin provides an integration layer with jdt. It provides function for the working copy manager and for java project creation."
    version="1.0.0"
-   provider-name="IBM">
+   provider-name="Eclipse.org">
 
    <runtime>
       <library name="jdt_integration.jar">

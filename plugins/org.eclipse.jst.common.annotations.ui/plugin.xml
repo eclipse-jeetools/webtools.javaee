@@ -5,7 +5,7 @@
    name="Ui Plug-in"
    description="This plugin is used for the base annotations ui layer.  The function supplied here allows the code assist for the the annotated tag proposals and completion procedures while editing an annotated file."
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="Eclipse.org"
    class="org.eclipse.jst.common.internal.annotations.ui.UiPlugin">
 
    <runtime>

@@ -5,7 +5,7 @@
    name="J2EE Component"
    description="Responsible for creation, deletion and modification of various J2EE modules including ear, application client."
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="Eclipse.org"
    class="org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin">
 
    <runtime>

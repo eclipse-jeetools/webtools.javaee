@@ -4,7 +4,7 @@
    id="org.eclipse.jst.j2ee.web"
    name="Web Plug-in"
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="Eclipse.org"
    class="org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin">
 
    <runtime>

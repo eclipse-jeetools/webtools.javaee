@@ -4,7 +4,8 @@
    id="org.eclipse.jst.j2ee.jca.ui"
    name="WTP JCA UI Plug-in"
    version="1.0.0"
-   class="org.eclipse.jst.j2ee.jca.ui.internal.plugin.JCAUIPlugin">
+   class="org.eclipse.jst.j2ee.jca.ui.internal.plugin.JCAUIPlugin"
+   provider-name="%providerName">
 
    <runtime>
       <library name="jcaui.jar">

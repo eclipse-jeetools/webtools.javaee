@@ -4,7 +4,7 @@
    id="org.eclipse.jst.j2ee.webservice"
    name="Web Service Plug-in"
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="Eclipse.org"
    class="org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin">
 
    <runtime>

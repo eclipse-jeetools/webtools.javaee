@@ -5,7 +5,7 @@
    name="Annotation Core Plug-in"
    description="This plugin house core annotation features like the Annotation Tag Parser which is the base parser for reading annotated tags."
    version="1.0.0"
-   provider-name="IBM" >
+   provider-name="Eclipse.org" >
 
    <runtime>
       <library name="annotations-core.jar">

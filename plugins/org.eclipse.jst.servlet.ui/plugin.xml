@@ -4,7 +4,7 @@
    id="org.eclipse.jst.servlet.ui"
    name="WTP Servlet UI Plug-in"
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="Eclipse.org"
    description="This plugin contains the UI to create web projects/export projects/import war archives/create servlets and filters."
    class="org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin">
 

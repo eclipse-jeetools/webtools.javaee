@@ -3,9 +3,9 @@
 <plugin
    id="org.eclipse.jst.j2ee.jca"
    name="JCA Plug-in"
-   description="A non-ui plugin containing apis to work with J2EE Connector modules.  The JCA EditModel is defined in this plugin.  No extension points are defined here."
+   description="A non-UI plugin containing apis to work with J2EE Connector modules.  The JCA EditModel is defined in this plugin.  No extension points are defined here."
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="Eclipse.org"
    class="org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin">
 
    <runtime>

@@ -5,7 +5,7 @@
    name="Annotation Controller Plug-in"
    description="This plugin provides the framework for the annotations controller which manages any added annotation builders."
    version="1.0.0"
-   provider-name="IBM">
+   provider-name="Eclipse.org">
 
    <runtime>
       <library name="controller.jar">
