@@ -24,11 +24,8 @@ public class WebDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDe
 		return new Class[]{ILaunchable.class};
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate#getModuleArtifact(java.lang.Object)
-	 */
+
 	public IModuleArtifact getModuleArtifact(Object obj) {
-		// TODO Auto-generated method stub
 		return WebDeployableArtifactUtil.getModuleObject(obj);
 	}
 
