@@ -1,8 +1,9 @@
 package org.eclipse.jst.j2ee.common.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.Listener;
 
@@ -44,5 +45,12 @@ public class ListenerTest extends TestCase {
         retValue = objListener.getListenerClassName();
         assertEquals(listenerClassName, retValue);
     }
+    
+    /**
+	 * @return
+	 */
+	public static Test suite() {
+		return new TestSuite(ListenerTest.class);
+	}
 
 }

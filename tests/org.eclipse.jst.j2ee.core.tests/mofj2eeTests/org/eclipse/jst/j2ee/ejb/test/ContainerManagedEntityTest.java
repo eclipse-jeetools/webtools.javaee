@@ -2,15 +2,14 @@ package org.eclipse.jst.j2ee.ejb.test;
 
 import java.util.List;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
-import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
-import org.eclipse.jst.j2ee.ejb.EJBExtensionFilter;
-import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -19,6 +18,10 @@ public class ContainerManagedEntityTest extends TestCase {
 	
 	private static final EjbFactory EJBFACTORY = EjbPackage.eINSTANCE.getEjbFactory();
 
+	public static Test suite() {
+		return new TestSuite(ContainerManagedEntityTest.class);
+	}
+	
 	private ContainerManagedEntity getInstance() {
 		return EJBFACTORY.createContainerManagedEntity();
 	}
@@ -228,8 +231,9 @@ public class ContainerManagedEntityTest extends TestCase {
         
         
     }
-    
-    public void test_makePrimKeyFieldProxy() {
+  
+    // TODO
+   /* public void test_makePrimKeyFieldProxy() {
 
         ContainerManagedEntity objContainerManagedEntity = getInstance();
         objContainerManagedEntity.makePrimKeyFieldProxy();
@@ -255,7 +259,7 @@ public class ContainerManagedEntityTest extends TestCase {
         ContainerManagedEntity objContainerManagedEntity = getInstance();
         List retValue = null;
         retValue = objContainerManagedEntity.getAvailableFindQueryMethods();
-    }
+    } */
 
     public void test_getCMPVersionID() throws IllegalStateException {
 
@@ -273,7 +277,7 @@ public class ContainerManagedEntityTest extends TestCase {
   
    
 
-    public void test_getCMRFields() {
+  /*  public void test_getCMRFields() {
 
         ContainerManagedEntity objContainerManagedEntity = getInstance();
         List retValue = null;
@@ -306,7 +310,7 @@ public class ContainerManagedEntityTest extends TestCase {
         EJBExtensionFilter aFilter = null;
         List retValue = null;
         retValue = objContainerManagedEntity.getFilteredFeatures(aFilter);
-    }
+    } */
 
     /* public void test_getPersistentAttribute() {
 

@@ -2,6 +2,8 @@ package org.eclipse.jst.j2ee.ejb.test;
 
 import java.util.List;
 
+import junit.framework.TestSuite;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
@@ -13,11 +15,15 @@ import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
+import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
+import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.Relationships;
+import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 
 public class EJBJarTest extends  EjbEMFTestBase {
 
@@ -32,6 +38,9 @@ public class EJBJarTest extends  EjbEMFTestBase {
         EJBJar tmpEJBJar = getInstance();
         assertNotNull(tmpEJBJar);
     }
+    
+   
+    
 
     public void test_containsContainerManagedBeans() {
 
@@ -68,6 +77,8 @@ public class EJBJarTest extends  EjbEMFTestBase {
 		retValue = objEJBJar.containsSecurityRole(securityRoleName) ;
 		assertEquals(retValue,true);
     }
+    
+    
 
     public void test_getBeanManagedBeans() {
         EJBJar objEJBJar = getInstance();
@@ -103,6 +114,9 @@ public class EJBJarTest extends  EjbEMFTestBase {
         assertEquals(retValue.size()==1,true);
         assertEquals(retValue.get(0),entity);
     }
+    
+   
+    
 
     public void test_getEJB11ContainerManagedBeans() {
 
@@ -152,6 +166,7 @@ public class EJBJarTest extends  EjbEMFTestBase {
       assertEquals(retValue.get(0),entity2);
     }
 
+    
     public void test_getMessageDrivenBeans() {
         EJBJar objEJBJar = getInstance();
         Session session = getEjbFactory().createSession();
@@ -181,6 +196,9 @@ public class EJBJarTest extends  EjbEMFTestBase {
         
         assertEquals(ejbRelations,retValue);
     }
+    
+
+   
 
     public void test_getEnterpiseBeanFromRef() {
     	
@@ -265,30 +283,65 @@ public class EJBJarTest extends  EjbEMFTestBase {
          assertEquals(retValue.contains(session2), true);
          
     }
+    
+  
 
     public void test_getEnterpriseBeanWithReference() {
-
-        EJBJar objEJBJar = getInstance();
-        JavaClass aJavaClass = null;
-        EnterpriseBean retValue = null;
-        retValue = objEJBJar.getEnterpriseBeanWithReference(aJavaClass);
+    	
+    	EJBJar objEJBJar = getInstance();
+        AssemblyDescriptor descriptor = getEjbFactory().createAssemblyDescriptor();
+        objEJBJar.setAssemblyDescriptor(descriptor);
+         
+    	Session session1 = getEjbFactory().createSession();
+    	String name1 = "Name1";
+    	session1.setName(name1);
+    	
+    	Session session2 = getEjbFactory().createSession();
+    	String name2 = "Name2";
+    	session2.setName(name2);
+    	
+        	
+    	objEJBJar.getEnterpriseBeans().add(session1);
+    	objEJBJar.getEnterpriseBeans().add(session2);
+    	
+    	JavaClass javaClass1 = JavaRefFactory.eINSTANCE.createClassRef("java.lang.String") ;
+    	
+    	session1.setEjbClass(javaClass1);
+    	session2.setEjbClass(javaClass1);
+    	
+    	EnterpriseBean retValue = null;
+        retValue = objEJBJar.getEnterpriseBeanWithReference(javaClass1);
+        assertEquals(retValue, session1);
+        
     }
 
-    public void test_getSessionBeans() {
-
+    public void test_getSessionBeans() {     
         EJBJar objEJBJar = getInstance();
+        MessageDriven messageDriven = getEjbFactory().createMessageDriven();
+        objEJBJar.getEnterpriseBeans().add(messageDriven);
+        
+        
         List retValue = null;
         retValue = objEJBJar.getSessionBeans();
+        assertEquals(retValue.size()==0,true);
+        
+        Session session = getEjbFactory().createSession();
+        objEJBJar.getEnterpriseBeans().add(session);
+        
+        
+        retValue = objEJBJar.getSessionBeans();
+        assertEquals(retValue.size()==1,true);
+        assertEquals(retValue.contains(session), true);
+        
     }
 
 
-    public void test_renameSecurityRole() {
-
+   /* public void test_renameSecurityRole() {
         EJBJar objEJBJar = getInstance();
         java.lang.String existingRoleName = "";
         java.lang.String newRoleName = "";
         objEJBJar.renameSecurityRole(existingRoleName, newRoleName);
-    }
+    } */
 
   /* public void test_getEjbClientJar() {
 
@@ -310,19 +363,54 @@ public class EJBJarTest extends  EjbEMFTestBase {
         String retValue = "";
         retValue = objEJBJar.getVersion();
     }*/
+    
+   
+    
 
-    public void test_getVersionID() throws IllegalStateException {
+    public void test_getVersionID() throws Exception {
 
-        EJBJar objEJBJar = getInstance();
+    	init();
+    	EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
+        DD.setVersionID(J2EEVersionConstants.J2EE_1_4_ID);
+		setVersion(VERSION_1_4);
+		setModuleType(EJB);
+		populateRoot(DD.getRootObject());
         int retValue = 0;
-        retValue = objEJBJar.getVersionID();
+        retValue = DD.getEJBJar().getVersionID();
+        assertEquals(retValue,J2EEVersionConstants.EJB_2_1_ID);
+        
+        DD.setVersionID(J2EEVersionConstants.J2EE_1_3_ID);
+		setVersion(VERSION_1_3);
+		retValue = DD.getEJBJar().getVersionID();
+	    assertEquals(retValue,J2EEVersionConstants.EJB_2_0_ID);
+	    
+	    DD.setVersionID(J2EEVersionConstants.J2EE_1_2_ID);
+		setVersion(VERSION_1_2);
+		retValue = DD.getEJBJar().getVersionID();
+	    assertEquals(retValue,J2EEVersionConstants.EJB_1_1_ID);	    
     }
 
-    public void test_getJ2EEVersionID() throws IllegalStateException {
+    public void test_getJ2EEVersionID() throws Exception {
 
-        EJBJar objEJBJar = getInstance();
+    	init();
+    	EJBResource DD = (EJBResource) ejbFile.getDeploymentDescriptorResource();
+        DD.setVersionID(J2EEVersionConstants.J2EE_1_4_ID);
+		setVersion(VERSION_1_4);
+		setModuleType(EJB);
+		populateRoot(DD.getRootObject());
         int retValue = 0;
-        retValue = objEJBJar.getJ2EEVersionID();
+        retValue = DD.getEJBJar().getJ2EEVersionID();
+        assertEquals(retValue,J2EEVersionConstants.J2EE_1_4_ID);
+        
+        DD.setVersionID(J2EEVersionConstants.J2EE_1_3_ID);
+		setVersion(VERSION_1_3);
+		retValue = DD.getEJBJar().getJ2EEVersionID();
+	    assertEquals(retValue,J2EEVersionConstants.J2EE_1_3_ID);
+	    
+	    DD.setVersionID(J2EEVersionConstants.J2EE_1_2_ID);
+		setVersion(VERSION_1_2);
+		retValue = DD.getEJBJar().getJ2EEVersionID();
+	    assertEquals(retValue,J2EEVersionConstants.J2EE_1_2_ID);
     }
 
   /*  public void test_setVersion() {
@@ -374,27 +462,128 @@ public class EJBJarTest extends  EjbEMFTestBase {
    
 
     public void test_getEJBRelation() {
-
-        EJBJar objEJBJar = getInstance();
-        String aRelationName = "";
-        EJBRelation retValue = null;
-        retValue = objEJBJar.getEJBRelation(aRelationName);
+    	 EJBJar objEJBJar = getInstance();
+         Relationships relationships = getEjbFactory().createRelationships();
+         objEJBJar.setRelationshipList(relationships);
+         relationships.setEjbJar(objEJBJar);
+       
+         EJBRelation relation = getEjbFactory().createEJBRelation();
+         String aRelationName = "Relation1";
+         relation.setName(aRelationName);
+         
+         relationships.getEjbRelations().add(relation);
+         EJBRelation retValue = null;
+         retValue = objEJBJar.getEJBRelation(aRelationName);
+         assertEquals(retValue, relation);
     }
+    
+   
 
     public void test_getEJBRelationsForSource() {
-
-        EJBJar objEJBJar = getInstance();
-        ContainerManagedEntity cmp = null;
+    	
+    	EJBJar objEJBJar = getInstance();
+        Relationships relationships = getEjbFactory().createRelationships();
+        objEJBJar.setRelationshipList(relationships);
+        relationships.setEjbJar(objEJBJar);
+      
+        EJBRelation relation = getEjbFactory().createEJBRelation();
+        String aRelationName = "Relation1";
+        relation.setName(aRelationName);
+        
+        EJBRelationshipRole role1 = getEjbFactory().createEJBRelationshipRole();
+    	EJBRelationshipRole role2 = getEjbFactory().createEJBRelationshipRole();
+       
+    	List roleList = relation.getRelationshipRoles();
+        roleList.add(role1);
+        roleList.add(role2);
+        
+        ContainerManagedEntity entity = getEjbFactory().createContainerManagedEntity();
+        ContainerManagedEntity targetEntity = getEjbFactory().createContainerManagedEntity();
+        
+	    RoleSource roleSource = getEjbFactory().createRoleSource();
+	    roleSource.setEntityBean(entity);
+	    roleSource.setRole(role1);
+	    role1.setSource(roleSource);
+	    
+	    RoleSource targetRoleSource = getEjbFactory().createRoleSource();
+	    targetRoleSource.setEntityBean(targetEntity);
+	    targetRoleSource.setRole(role2);
+	    role2.setSource(targetRoleSource);
+        
         List retValue = null;
-        retValue = objEJBJar.getEJBRelationsForSource(cmp);
+        retValue = objEJBJar.getEJBRelationsForSource(entity);
+        
+        assertNotNull(retValue);
+        assertEquals(retValue.size(),1);
+        assertEquals(retValue.contains(relation),true);
+        
     }
 
     public void test_getEJBRelationshipRolesForType() {
 
-        EJBJar objEJBJar = getInstance();
-        ContainerManagedEntity cmp = null;
+    	EJBJar objEJBJar = getInstance();
+        Relationships relationships = getEjbFactory().createRelationships();
+        objEJBJar.setRelationshipList(relationships);
+        relationships.setEjbJar(objEJBJar);
+      
+        EJBRelation relation = getEjbFactory().createEJBRelation();
+        String aRelationName = "Relation1";
+        relation.setName(aRelationName);
+        
+        EJBRelationshipRole role1 = getEjbFactory().createEJBRelationshipRole();
+    	EJBRelationshipRole role2 = getEjbFactory().createEJBRelationshipRole();
+       
+    	List roleList = relation.getRelationshipRoles();
+        roleList.add(role1);
+        roleList.add(role2);
+        
+        ContainerManagedEntity entity = getEjbFactory().createContainerManagedEntity();
+        ContainerManagedEntity targetEntity = getEjbFactory().createContainerManagedEntity();
+        
+	    RoleSource roleSource = getEjbFactory().createRoleSource();
+	    roleSource.setEntityBean(entity);
+	    roleSource.setRole(role1);
+	    role1.setSource(roleSource);
+	    
+	    RoleSource targetRoleSource = getEjbFactory().createRoleSource();
+	    targetRoleSource.setEntityBean(targetEntity);
+	    targetRoleSource.setRole(role2);
+	    role2.setSource(targetRoleSource);
+        
         List retValue = null;
-        retValue = objEJBJar.getEJBRelationshipRolesForType(cmp);
+        retValue = objEJBJar.getEJBRelationshipRolesForType(targetEntity);
+        
+        assertNotNull(retValue);
+        assertEquals(retValue.size(),1);
+        assertEquals(retValue.contains(relation),true);
     }
+    
+    public static junit.framework.Test suite() {
+		TestSuite suite = new TestSuite();
+		suite.addTest(new EJBJarTest("test_EJBJar"));
+		suite.addTest(new EJBJarTest("test_containsContainerManagedBeans"));
+		suite.addTest(new EJBJarTest("test_containsSecurityRole"));
+		suite.addTest(new EJBJarTest("test_getBeanManagedBeans"));
+		suite.addTest(new EJBJarTest("test_getContainerManagedBeans"));
+		
+		suite.addTest(new EJBJarTest("test_getEJB11ContainerManagedBeans"));
+		suite.addTest(new EJBJarTest("test_getEJB20ContainerManagedBeans"));
+		suite.addTest(new EJBJarTest("test_getMessageDrivenBeans"));
+		suite.addTest(new EJBJarTest("test_getEjbRelations"));
+		suite.addTest(new EJBJarTest("test_getEnterpiseBeanFromRef"));
+		
+		suite.addTest(new EJBJarTest("test_getEnterpriseBeanNamed"));
+		suite.addTest(new EJBJarTest("test_getEnterpriseBeansWithReference"));
+		suite.addTest(new EJBJarTest("test_getEnterpriseBeanWithReference"));
+		suite.addTest(new EJBJarTest("test_getSessionBeans"));
+		suite.addTest(new EJBJarTest("test_getVersionID"));
+		
+		suite.addTest(new EJBJarTest("test_getJ2EEVersionID"));
+		suite.addTest(new EJBJarTest("test_getEJBRelation"));
+		suite.addTest(new EJBJarTest("test_getEJBRelationsForSource"));
+		suite.addTest(new EJBJarTest("test_getEJBRelationshipRolesForType"));
+		
+		return suite;
+	}
 
 }

@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.common.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -213,4 +215,11 @@ public class CommonFactoryTest extends TestCase {
         retValue = objCommonFactory.getCommonPackage();
         assertNotNull(retValue);
     }   
+    
+    /**
+	 * @return
+	 */
+	public static Test suite() {
+		return new TestSuite(CommonFactoryTest.class);
+	}
 }

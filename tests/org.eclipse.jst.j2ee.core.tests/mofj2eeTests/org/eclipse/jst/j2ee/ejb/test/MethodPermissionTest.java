@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.ejb.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -92,8 +94,12 @@ public class MethodPermissionTest extends TestCase {
         
         
         boolean retValue = objMethodPermission1.isEquivalent(objMethodPermission2);
+        assertEquals(retValue, true);
+        
         objMethodPermission1.getRoles().add(securityRole3);
+        retValue = objMethodPermission1.isEquivalent(objMethodPermission2);
         assertEquals(retValue, false);
+        
         
     }
 
@@ -172,5 +178,10 @@ public class MethodPermissionTest extends TestCase {
         EList retValue = null;
         retValue = objMethodPermission.getDescriptions();
     }*/   
+    
+    public static Test suite() {
+		return new TestSuite(MethodPermissionTest.class);
+	}
+
 
 }

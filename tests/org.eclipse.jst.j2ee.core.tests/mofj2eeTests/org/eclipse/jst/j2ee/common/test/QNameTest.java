@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.common.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.QName;
@@ -83,5 +85,12 @@ public class QNameTest extends TestCase {
         assertEquals(nsURI,objQName.getNamespaceURI());
         assertEquals(localPart,objQName.getLocalPart());
     }
+    
+    /**
+	 * @return
+	 */
+	public static Test suite() {
+		return new TestSuite(QNameTest.class);
+	}
 
 }

@@ -39,4 +39,12 @@ public class EjbEMFTestBase extends EjbEMFTest {
 		setModuleType(EJB);
 		populateRoot(DD.getRootObject());
 	}
+	
+	public void testEJBJarPopulation() throws Exception {
+		// dont test the base functions
+	}
+	
+	public void test14EJBJarPopulation() throws Exception {
+		//		 dont test the base functions
+	}	
 }

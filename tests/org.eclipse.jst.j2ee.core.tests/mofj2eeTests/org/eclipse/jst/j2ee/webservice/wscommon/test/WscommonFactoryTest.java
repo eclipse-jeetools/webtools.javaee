@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.webservice.wscommon.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
@@ -13,6 +15,10 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 
 public class WscommonFactoryTest extends TestCase {
 
+	public static Test suite() {
+		return new TestSuite(WscommonFactoryTest.class);
+	}
+	
 	private WscommonFactory getInstance() {
 		return WscommonPackage.eINSTANCE.getWscommonFactory();
 	}

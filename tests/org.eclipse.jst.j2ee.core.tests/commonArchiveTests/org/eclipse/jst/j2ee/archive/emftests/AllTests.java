@@ -6,6 +6,8 @@
  */
 package org.eclipse.jst.j2ee.archive.emftests;
 
+import org.eclipse.jst.j2ee.core.tests.api.AllAPITest;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -23,6 +25,7 @@ public class AllTests {
 
 		suite.addTest(AllDOMTests.suite());
 		suite.addTest(AllSAXTests.suite());
+		suite.addTest(AllAPITest.suite());
 
 		//$JUnit-END$
 		return suite;

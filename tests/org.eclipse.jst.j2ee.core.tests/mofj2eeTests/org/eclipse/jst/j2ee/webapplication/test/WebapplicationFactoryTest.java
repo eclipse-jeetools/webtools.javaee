@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.webapplication.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
@@ -35,6 +37,10 @@ import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 
 public class WebapplicationFactoryTest extends TestCase {
 
+	public static Test suite() {
+		return new TestSuite(WebapplicationFactoryTest.class);
+	}
+	
 	private WebapplicationFactory getInstance() {
 		return WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
 	}

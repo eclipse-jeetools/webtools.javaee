@@ -1,7 +1,10 @@
 package org.eclipse.jst.j2ee.jsp.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
+import org.eclipse.jst.j2ee.jca.test.JcaFactoryTest;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
@@ -10,6 +13,10 @@ import org.eclipse.jst.j2ee.jsp.TagLibRefType;
 
 public class JspFactoryTest extends TestCase {
 
+	public static Test suite() {
+		return new TestSuite(JcaFactoryTest.class);
+	}
+	
 	private JspFactory getInstance() {
 		return JspPackage.eINSTANCE.getJspFactory();
 	}

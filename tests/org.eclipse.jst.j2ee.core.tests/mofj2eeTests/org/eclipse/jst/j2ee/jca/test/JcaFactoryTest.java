@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.jca.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.jca.ActivationSpec;
 import org.eclipse.jst.j2ee.jca.AdminObject;
@@ -28,6 +30,10 @@ public class JcaFactoryTest extends TestCase {
 
         JcaFactory tmpJcaFactory = getInstance();
     }
+    
+    public static Test suite() {
+		return new TestSuite(JcaFactoryTest.class);
+	}
 
     public void test_createConnector() {
 
@@ -146,8 +152,8 @@ public class JcaFactoryTest extends TestCase {
         JcaFactory objJcaFactory = getInstance();
         JcaPackage retValue = null;
         retValue = objJcaFactory.getJcaPackage();
-        // TODO getWsddPackage method always return null
-        //assertNotNull(retValue);
+       
+        assertNotNull(retValue);
     }
 
 }

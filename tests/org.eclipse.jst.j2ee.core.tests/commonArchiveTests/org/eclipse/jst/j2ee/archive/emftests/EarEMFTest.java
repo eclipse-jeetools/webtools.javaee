@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 public class EarEMFTest extends GeneralEMFPopulationTest {
-    EARFile earFile;
+    protected EARFile earFile;
     int createdModules = 0;
 
     private int NUM_MODULES = 5;

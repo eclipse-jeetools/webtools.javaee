@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.ejb.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
@@ -73,6 +75,11 @@ public class CMRFieldTest extends TestCase {
         JavaClass retVal = objCMRField.getCollectionType();
         assertEquals(newCollectionType,retVal);
     }
+    
+    public static Test suite() {
+		return new TestSuite(CMRFieldTest.class);
+	}
+
 
    
     

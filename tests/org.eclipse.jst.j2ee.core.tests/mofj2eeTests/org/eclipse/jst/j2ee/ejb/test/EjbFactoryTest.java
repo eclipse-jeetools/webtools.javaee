@@ -1,9 +1,14 @@
 package org.eclipse.jst.j2ee.ejb.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
+import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jem.java.JavaParameter;
+import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jem.java.impl.MethodImpl;
+import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
@@ -35,6 +40,11 @@ public class EjbFactoryTest extends TestCase {
 		return EjbPackage.eINSTANCE.getEjbFactory();
 	}
 	
+
+	public static Test suite() {
+		return new TestSuite(EjbFactoryTest.class);
+	}
+	
     public void test_EjbFactory() {
 
         EjbFactory tmpEjbFactory = getInstance();
@@ -52,9 +62,23 @@ public class EjbFactoryTest extends TestCase {
     public void test_createMethodElementFrom() {
 
         EjbFactory objEjbFactory = getInstance();
-        Method method = null;
+        Method aMethod =  JavaRefFactoryImpl.getActiveFactory().createMethod();
+        
+        String name = "setTwoParamMethod";
+        JavaParameter javaParameter1 = JavaRefFactory.eINSTANCE.createJavaParameter();
+        JavaHelpers type1 = JavaRefFactory.eINSTANCE.createClassRef("java.lang.String");
+        javaParameter1.setEType(type1);
+        
+        JavaParameter javaParameter2 = JavaRefFactory.eINSTANCE.createJavaParameter();
+        JavaHelpers type2 = JavaRefFactory.eINSTANCE.createClassRef("java.util.List");
+        javaParameter2.setEType(type2);
+        
+        aMethod.setName(name);
+        aMethod.getParameters().add(javaParameter1);
+        aMethod.getParameters().add(javaParameter2);
+        
         MethodElement retValue = null;
-        retValue = objEjbFactory.createMethodElementFrom(method);
+        retValue = objEjbFactory.createMethodElementFrom(aMethod);
         assertNotNull(retValue);
     }
 

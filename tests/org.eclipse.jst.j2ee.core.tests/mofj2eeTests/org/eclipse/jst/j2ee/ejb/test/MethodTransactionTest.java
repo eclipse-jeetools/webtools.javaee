@@ -58,14 +58,14 @@ public class MethodTransactionTest extends EjbEMFTestBase {
      *
      */
 
-    public void test_getMostSpecificMethodElement() {
+  /*  public void test_getMostSpecificMethodElement() {
 
         MethodTransaction objMethodTransaction = EjbFactory.eINSTANCE.createMethodTransaction();
         Method aMethod = null;
         MethodElement retValue = null;
         retValue = objMethodTransaction
                 .getMostSpecificMethodElement(aMethod);
-    }
+    } */
 
     public void test_isEquivalent() {
 

@@ -2,7 +2,9 @@ package org.eclipse.jst.j2ee.ejb.test;
 
 import java.util.List;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
@@ -15,7 +17,10 @@ public class EJBRelationTest extends TestCase {
 	private EJBRelation getInstance() {
 		return EjbFactory.eINSTANCE.createEJBRelation();
 	}
-	
+	 public static Test suite() {
+		return new TestSuite(EJBRelationTest.class);
+	}
+	 
     public void test_EJBRelation() {
 
         EJBRelation tmpEJBRelation = getInstance();

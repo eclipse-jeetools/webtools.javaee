@@ -2,12 +2,15 @@ package org.eclipse.jst.j2ee.ejb.test;
 
 import java.util.List;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 
@@ -86,16 +89,23 @@ public class CMPAttributeTest extends TestCase {
     }
 
     public void test_isKey() {
+    	EJBJar jar = EJBFACTORY.createEJBJar();
     	ContainerManagedEntity entity = EJBFACTORY.createContainerManagedEntity();
+    	entity.setName("Foo");
+    	jar.getEnterpriseBeans().add(entity);
         CMPAttribute objCMPAttribute = getInstance();
-        List list = entity.getCMPAttribute();
-        list.add(objCMPAttribute);
+        objCMPAttribute.setName("fooAttr");
+        entity.getPersistentAttributes().add(objCMPAttribute);
+        JavaHelpers newValue = JavaRefFactory.eINSTANCE.createClassRef("java.lang.String");
+        objCMPAttribute.setEType(newValue);
+        ((ContainerManagedEntity)jar.getEnterpriseBeanNamed(entity.getName())).getCMPAttribute().add(objCMPAttribute);
+        CMPAttribute retAttribute = (CMPAttribute)entity.getCMPAttribute().get(0);
         boolean retValue = false;
-        retValue = objCMPAttribute.isKey();
+        retValue = retAttribute.isKey();
         assertEquals(retValue,false);
-        list = entity.getKeyAttributes();
+        List list = entity.getKeyAttributes();
         list.add(objCMPAttribute);
-        retValue = objCMPAttribute.isKey();
+        retValue = retAttribute.isKey();
         assertEquals(retValue,true);
     }
 
@@ -103,6 +113,7 @@ public class CMPAttributeTest extends TestCase {
     	ContainerManagedEntity entity = EJBFACTORY.createContainerManagedEntity();
         CMPAttribute objCMPAttribute = getInstance();
         List list = entity.getCMPAttribute();
+        entity.getPersistentAttributes().add(objCMPAttribute);
         list.add(objCMPAttribute);
         boolean retValue = false;
         retValue = objCMPAttribute.isPrimKeyField();
@@ -166,6 +177,10 @@ public class CMPAttributeTest extends TestCase {
         retVal = objCMPAttribute.isDerived();
         assertEquals(retVal,aBoolean);
     }
+
+    public static Test suite() {
+		return new TestSuite(CMPAttributeTest.class);
+	}
 
    
 }

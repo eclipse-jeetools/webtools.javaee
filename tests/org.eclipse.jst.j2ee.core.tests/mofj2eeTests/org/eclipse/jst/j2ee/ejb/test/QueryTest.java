@@ -1,12 +1,11 @@
 package org.eclipse.jst.j2ee.ejb.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.Query;
-import org.eclipse.jst.j2ee.ejb.QueryMethod;
 import org.eclipse.jst.j2ee.ejb.ReturnTypeMapping;
 
 public class QueryTest extends TestCase {
@@ -15,6 +14,9 @@ public class QueryTest extends TestCase {
         Query tmpQuery = EjbFactory.eINSTANCE.createQuery();
         assertNotNull(tmpQuery);
     }
+    public static Test suite() {
+		return new TestSuite(QueryTest.class);
+	}
 
     public void test_isLocalResultMapping() {
 

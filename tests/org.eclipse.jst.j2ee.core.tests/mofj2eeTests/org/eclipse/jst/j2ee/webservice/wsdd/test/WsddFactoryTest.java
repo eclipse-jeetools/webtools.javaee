@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.webservice.wsdd.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
@@ -16,6 +18,10 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 public class WsddFactoryTest extends TestCase {
 
+	public static Test suite() {
+		return new TestSuite(WsddFactoryTest.class);
+	}
+	
 	private WsddFactory getInstance() {
 		return WsddPackage.eINSTANCE.getWsddFactory();
 	}

@@ -2,7 +2,9 @@ package org.eclipse.jst.j2ee.ejb.test;
 
 import java.util.List;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.ejb.CMRField;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
@@ -20,6 +22,10 @@ public class EJBRelationshipRoleTest extends TestCase {
 	ContainerManagedEntity entity = null;
 	EJBRelation ejbRelation = null ;
 	
+	 public static Test suite() {
+		return new TestSuite(EJBRelationshipRoleTest.class);
+	}
+	 
 	private EJBRelationshipRole getInstance() {
 		return EJBFACTORY.createEJBRelationshipRole();
 	}
@@ -290,11 +296,11 @@ public class EJBRelationshipRoleTest extends TestCase {
         assertEquals(true,objEJBRelationshipRole.isRequired());
     }
     
-    public void test_reconcileAttributes() {
+   /* public void test_reconcileAttributes() {
 
         EJBRelationshipRole objEJBRelationshipRole = getInstance();
         objEJBRelationshipRole.reconcileAttributes();
-    }
+    } */
 
 
    

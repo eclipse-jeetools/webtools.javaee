@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.ejb.test;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -8,6 +10,9 @@ import org.eclipse.jst.j2ee.ejb.Session;
 
 public class SessionTest extends TestCase {
 
+	  public static Test suite() {
+		return new TestSuite(SessionTest.class);
+	}
  
   /*  public void test_getTransactionType() {
 
