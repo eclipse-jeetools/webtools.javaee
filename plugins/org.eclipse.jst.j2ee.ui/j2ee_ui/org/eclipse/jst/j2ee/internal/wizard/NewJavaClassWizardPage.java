@@ -9,7 +9,7 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.jst.servlet.ui.internal.wizard;
+package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,6 @@ import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -276,7 +275,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	private void addFolderGroup(Composite composite) {
 		// folder
 		Label folderLabel = new Label(composite, SWT.LEFT);
-		folderLabel.setText(IWebWizardConstants.FOLDER_LABEL);
+		folderLabel.setText(J2EEUIMessages.FOLDER_LABEL);
 		folderLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
 		folderText = new Text(composite, SWT.SINGLE | SWT.BORDER);
@@ -284,7 +283,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		synchHelper.synchText(folderText, NewJavaClassDataModel.SOURCE_FOLDER, null);
 
 		folderButton = new Button(composite, SWT.PUSH);
-		folderButton.setText(IWebWizardConstants.BROWSE_BUTTON_LABEL);
+		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
 		folderButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		folderButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -302,7 +301,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	private void addPackageGroup(Composite composite) {
 		// package
 		Label packageLabel = new Label(composite, SWT.LEFT);
-		packageLabel.setText(IWebWizardConstants.JAVA_PACKAGE_LABEL);
+		packageLabel.setText(J2EEUIMessages.JAVA_PACKAGE_LABEL);
 		packageLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
 		packageText = new Text(composite, SWT.SINGLE | SWT.BORDER);
@@ -310,7 +309,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		synchHelper.synchText(packageText, NewJavaClassDataModel.JAVA_PACKAGE, null);
 
 		packageButton = new Button(composite, SWT.PUSH);
-		packageButton.setText(IWebWizardConstants.BROWSE_BUTTON_LABEL);
+		packageButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
 		packageButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		packageButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -328,7 +327,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	private void addClassnameGroup(Composite composite) {
 		// class name
 		Label classLabel = new Label(composite, SWT.LEFT);
-		classLabel.setText(IWebWizardConstants.CLASS_NAME_LABEL);
+		classLabel.setText(J2EEUIMessages.CLASS_NAME_LABEL);
 		classLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
 		classText = new Text(composite, SWT.SINGLE | SWT.BORDER);
@@ -359,7 +358,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 	private void addSuperclassGroup(Composite composite) {
 		// superclass
 		Label superLabel = new Label(composite, SWT.LEFT);
-		superLabel.setText(IWebWizardConstants.SUPERCLASS_LABEL);
+		superLabel.setText(J2EEUIMessages.SUPERCLASS_LABEL);
 		superLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
 		superText = new Text(composite, SWT.SINGLE | SWT.BORDER);
@@ -367,7 +366,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		synchHelper.synchText(superText, NewJavaClassDataModel.SUPERCLASS, null);
 
 		superButton = new Button(composite, SWT.PUSH);
-		superButton.setText(IWebWizardConstants.BROWSE_BUTTON_LABEL);
+		superButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
 		superButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		superButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -389,8 +388,8 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		ILabelProvider labelProvider = new DecoratingLabelProvider(new WorkbenchLabelProvider(), PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator());
 		ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(getShell(), labelProvider, contentProvider);
 		dialog.setValidator(validator);
-		dialog.setTitle(IWebWizardConstants.CONTAINER_SELECTION_DIALOG_TITLE);
-		dialog.setMessage(IWebWizardConstants.CONTAINER_SELECTION_DIALOG_DESC);
+		dialog.setTitle(J2EEUIMessages.CONTAINER_SELECTION_DIALOG_TITLE);
+		dialog.setMessage(J2EEUIMessages.CONTAINER_SELECTION_DIALOG_DESC);
 		dialog.addFilter(filter);
 		IProject project = ((NewJavaClassDataModel)model).getTargetProject();
 		dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
@@ -426,16 +425,16 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 			packages = new IJavaElement[0];
 
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(getShell(), new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT));
-		dialog.setTitle(IWebWizardConstants.PACKAGE_SELECTION_DIALOG_TITLE);
-		dialog.setMessage(IWebWizardConstants.PACKAGE_SELECTION_DIALOG_DESC);
-		dialog.setEmptyListMessage(IWebWizardConstants.PACKAGE_SELECTION_DIALOG_MSG_NONE);
+		dialog.setTitle(J2EEUIMessages.PACKAGE_SELECTION_DIALOG_TITLE);
+		dialog.setMessage(J2EEUIMessages.PACKAGE_SELECTION_DIALOG_DESC);
+		dialog.setEmptyListMessage(J2EEUIMessages.PACKAGE_SELECTION_DIALOG_MSG_NONE);
 		dialog.setElements(packages);
 		if (dialog.open() == Window.OK) {
 			IPackageFragment fragment = (IPackageFragment) dialog.getFirstResult();
 			if (fragment != null) {
 				packageText.setText(fragment.getElementName());
 			} else {
-				packageText.setText(IWebWizardConstants.EMPTY_STRING);
+				packageText.setText(J2EEUIMessages.EMPTY_STRING);
 			}
 		}
 	}
@@ -453,12 +452,12 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 		// to the Super Class Browse Button on the Create new Java Class Wizard
 		// final IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] {root.getJavaProject()} );
 		TypeSelectionDialog dialog = new TypeSelectionDialog(getShell(), getWizard().getContainer(), IJavaSearchConstants.CLASS, scope);
-		dialog.setTitle(IWebWizardConstants.SUPERCLASS_SELECTION_DIALOG_TITLE);
-		dialog.setMessage(IWebWizardConstants.SUPERCLASS_SELECTION_DIALOG_DESC);
+		dialog.setTitle(J2EEUIMessages.SUPERCLASS_SELECTION_DIALOG_TITLE);
+		dialog.setMessage(J2EEUIMessages.SUPERCLASS_SELECTION_DIALOG_DESC);
 
 		if (dialog.open() == Window.OK) {
 			IType type = (IType) dialog.getFirstResult();
-			String superclassFullPath = IWebWizardConstants.EMPTY_STRING;
+			String superclassFullPath = J2EEUIMessages.EMPTY_STRING;
 			if (type != null) {
 				superclassFullPath = type.getFullyQualifiedName();
 			}
@@ -479,7 +478,7 @@ public class NewJavaClassWizardPage extends WTPWizardPage {
 			public IStatus validate(Object[] selection) {
 				if (selection !=null && selection[0] != null && !(selection[0] instanceof IProject))
 					return WTPCommonPlugin.OK_STATUS;
-				return WTPCommonPlugin.createErrorStatus(IWebWizardConstants.CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG);
+				return WTPCommonPlugin.createErrorStatus(J2EEUIMessages.CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG);
 			}
 		};
 	}

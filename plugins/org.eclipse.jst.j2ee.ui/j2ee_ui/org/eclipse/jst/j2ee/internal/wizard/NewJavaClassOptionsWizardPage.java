@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.servlet.ui.internal.wizard;
+package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +34,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -121,7 +122,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 */
 	protected void createModifierControls(Composite parent) {
 		Label modifiersLabel = new Label(parent, SWT.NONE);
-		modifiersLabel.setText(IWebWizardConstants.JAVA_CLASS_MODIFIERS_LABEL);
+		modifiersLabel.setText(J2EEUIMessages.JAVA_CLASS_MODIFIERS_LABEL);
 		modifiersLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout();
@@ -131,21 +132,21 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		publicButton = new Button(composite, SWT.CHECK);
-		publicButton.setText(IWebWizardConstants.JAVA_CLASS_PUBLIC_CHECKBOX_LABEL);
+		publicButton.setText(J2EEUIMessages.JAVA_CLASS_PUBLIC_CHECKBOX_LABEL);
 		synchHelper.synchCheckbox(publicButton, NewJavaClassDataModel.MODIFIER_PUBLIC, null);
 
 		abstractButton = new Button(composite, SWT.CHECK);
-		abstractButton.setText(IWebWizardConstants.JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL);
+		abstractButton.setText(J2EEUIMessages.JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL);
 		synchHelper.synchCheckbox(abstractButton, NewJavaClassDataModel.MODIFIER_ABSTRACT, null);
 
 		finalButton = new Button(composite, SWT.CHECK);
-		finalButton.setText(IWebWizardConstants.JAVA_CLASS_FINAL_CHECKBOX_LABEL);
+		finalButton.setText(J2EEUIMessages.JAVA_CLASS_FINAL_CHECKBOX_LABEL);
 		synchHelper.synchCheckbox(finalButton, NewJavaClassDataModel.MODIFIER_FINAL, null);
 	}
 
 	protected void createInterfaceControls(Composite parent) {
 		Label interfaceLabel = new Label(parent, SWT.NONE);
-		interfaceLabel.setText(IWebWizardConstants.JAVA_CLASS_INTERFACES_LABEL);
+		interfaceLabel.setText(J2EEUIMessages.JAVA_CLASS_INTERFACES_LABEL);
 		interfaceLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_BEGINNING));
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout();
@@ -166,7 +167,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		buttonCompo.setLayoutData(new GridData(GridData.FILL_VERTICAL | GridData.VERTICAL_ALIGN_BEGINNING));
 
 		addButton = new Button(buttonCompo, SWT.PUSH);
-		addButton.setText(IWebWizardConstants.ADD_BUTTON_LABEL);
+		addButton.setText(J2EEUIMessages.ADD_BUTTON_LABEL);
 		addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		addButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent event) {
@@ -178,7 +179,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		});
 
 		removeButton = new Button(buttonCompo, SWT.PUSH);
-		removeButton.setText(IWebWizardConstants.REMOVE_BUTTON);
+		removeButton.setText(J2EEUIMessages.REMOVE_BUTTON);
 		removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		removeButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent event) {
@@ -204,7 +205,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 */
 	protected void createStubsComposite(Composite parent) {
 		Label stubLabel = new Label(parent, SWT.NONE);
-		stubLabel.setText(IWebWizardConstants.JAVA_CLASS_METHOD_STUBS_LABEL);
+		stubLabel.setText(J2EEUIMessages.JAVA_CLASS_METHOD_STUBS_LABEL);
 		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		data.horizontalSpan = 2;
 		stubLabel.setLayoutData(data);
@@ -217,15 +218,15 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		buttonCompo.setLayoutData(data);
 
 		mainMethodButton = new Button(buttonCompo, SWT.CHECK);
-		mainMethodButton.setText(IWebWizardConstants.JAVA_CLASS_MAIN_CHECKBOX_LABEL);
+		mainMethodButton.setText(J2EEUIMessages.JAVA_CLASS_MAIN_CHECKBOX_LABEL);
 		synchHelper.synchCheckbox(mainMethodButton, NewJavaClassDataModel.MAIN_METHOD, null);
 
 		inheritButton = new Button(buttonCompo, SWT.CHECK);
-		inheritButton.setText(IWebWizardConstants.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
+		inheritButton.setText(J2EEUIMessages.JAVA_CLASS_INHERIT_CHECKBOX_LABEL);
 		synchHelper.synchCheckbox(inheritButton, NewJavaClassDataModel.ABSTRACT_METHODS, null);
 
 		constructorButton = new Button(buttonCompo, SWT.CHECK);
-		constructorButton.setText(IWebWizardConstants.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
+		constructorButton.setText(J2EEUIMessages.JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL);
 		synchHelper.synchCheckbox(constructorButton, NewJavaClassDataModel.CONSTRUCTOR, null);
 	}
 
@@ -299,7 +300,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 			}
 
 			public String getText(Object element) {
-				String ret = IWebWizardConstants.EMPTY_STRING;
+				String ret = J2EEUIMessages.EMPTY_STRING;
 				if (element instanceof String)
 					ret = (String) element;
 				return ret;
@@ -330,7 +331,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		// this eliminates the non-exported classpath entries
 		final IJavaSearchScope scope = TypeSearchEngine.createJavaSearchScopeForAProject(javaProject, true, true);
 		TypeSelectionDialog dialog = new TypeSelectionDialog(getShell(),context,IJavaSearchConstants.INTERFACE, scope);
-		dialog.setTitle(IWebWizardConstants.INTERFACE_SELECTION_DIALOG_TITLE);
+		dialog.setTitle(J2EEUIMessages.INTERFACE_SELECTION_DIALOG_TITLE);
 		if (dialog.open() == Window.OK) {
 			IType type = (IType) dialog.getFirstResult();
 			String superclassFullPath = ""; //$NON-NLS-1$

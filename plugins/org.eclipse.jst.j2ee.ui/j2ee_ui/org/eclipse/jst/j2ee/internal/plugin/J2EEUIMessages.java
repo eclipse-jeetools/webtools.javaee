@@ -15,6 +15,8 @@ import org.eclipse.wst.common.frameworks.internal.Messages;
 
 
 public class J2EEUIMessages extends Messages {
+	
+	private static final J2EEUIMessages INSTANCE = new J2EEUIMessages();
 
 	public static final String PROJECT_LOC_LBL = "1"; //$NON-NLS-1$
 	public static final String TARGET_SERVER_LBL = "2"; //$NON-NLS-1$
@@ -142,9 +144,35 @@ public class J2EEUIMessages extends Messages {
 	public static final String DEFAULT_COMPONENT_PAGE_APPCLIENT_MODULE_LBL = "DefaultJ2EEComponentCreationWizard.page.label.appclient"; //$NON-NLS-1$
 	public static final String DEFAULT_COMPONENT_PAGE_NEW_MOD_SEL_PG_DEF_BTN = "DefaultJ2EEComponentCreationWizard.page.button.select"; //$NON-NLS-1$
 	
+	public final static String EMPTY_STRING = ""; //$NON-NLS-1$
+	public final static String FOLDER_LABEL = getResourceString("FOLDER_LABEL"); //$NON-NLS-1$
+	public final static String BROWSE_BUTTON_LABEL = getResourceString("BROWSE_BUTTON_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_PACKAGE_LABEL = getResourceString("JAVA_PACKAGE_LABEL"); //$NON-NLS-1$
+	public final static String CLASS_NAME_LABEL = getResourceString("CLASS_NAME_LABEL"); //$NON-NLS-1$
+	public final static String SUPERCLASS_LABEL = getResourceString("SUPERCLASS_LABEL"); //$NON-NLS-1$
+	public final static String CONTAINER_SELECTION_DIALOG_TITLE = getResourceString("CONTAINER_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
+	public final static String CONTAINER_SELECTION_DIALOG_DESC = getResourceString("CONTAINER_SELECTION_DIALOG_DESC"); //$NON-NLS-1$
+	public final static String CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG = getResourceString("CONTAINER_SELECTION_DIALOG_VALIDATOR_MESG"); //$NON-NLS-1$
+	public final static String PACKAGE_SELECTION_DIALOG_TITLE = getResourceString("PACKAGE_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
+	public final static String PACKAGE_SELECTION_DIALOG_DESC = getResourceString("PACKAGE_SELECTION_DIALOG_DESC"); //$NON-NLS-1$
+	public final static String PACKAGE_SELECTION_DIALOG_MSG_NONE = getResourceString("PACKAGE_SELECTION_DIALOG_MSG_NONE"); //$NON-NLS-1$
+	public final static String SUPERCLASS_SELECTION_DIALOG_TITLE = getResourceString("SUPERCLASS_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
+	public final static String SUPERCLASS_SELECTION_DIALOG_DESC = getResourceString("SUPERCLASS_SELECTION_DIALOG_DESC"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_MODIFIERS_LABEL = getResourceString("JAVA_CLASS_MODIFIERS_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_INTERFACES_LABEL = getResourceString("JAVA_CLASS_INTERFACES_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_METHOD_STUBS_LABEL = getResourceString("JAVA_CLASS_METHOD_STUBS_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_PUBLIC_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_PUBLIC_CHECKBOX_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_ABSTRACT_CHECKBOX_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_FINAL_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_FINAL_CHECKBOX_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_CONSTRUCTOR_CHECKBOX_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_MAIN_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_MAIN_CHECKBOX_LABEL"); //$NON-NLS-1$
+	public final static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL = getResourceString("JAVA_CLASS_INHERIT_CHECKBOX_LABEL"); //$NON-NLS-1$
+	public final static String ADD_BUTTON_LABEL = getResourceString("ADD_BUTTON_LABEL"); //$NON-NLS-1$
+	public static final String REMOVE_BUTTON = getResourceString("REMOVE_BUTTON"); //$NON-NLS-1$
+	public final static String INTERFACE_SELECTION_DIALOG_TITLE = getResourceString("INTERFACE_SELECTION_DIALOG_TITLE"); //$NON-NLS-1$
 	
-	private static final J2EEUIMessages INSTANCE = new J2EEUIMessages();
-
+	
+	
 
 	/**
 	 * Returns the string from the resource bundle, or 'key' if not found.
