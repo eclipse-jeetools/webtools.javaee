@@ -20,6 +20,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	
@@ -38,7 +39,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 */
 
-	public static String TYPE_ID = "jst.applicationClient"; //$NON-NLS-1$
+	public static String TYPE_ID = IModuleConstants.JST_APPCLIENT_MODULE; //$NON-NLS-1$
 
 	public AppClientArtifactEdit(ArtifactEditModel anArtifactEditModel) {
 		super(anArtifactEditModel);

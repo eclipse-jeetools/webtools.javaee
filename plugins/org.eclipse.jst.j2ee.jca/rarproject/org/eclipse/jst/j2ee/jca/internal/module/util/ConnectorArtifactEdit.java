@@ -17,6 +17,7 @@ import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	
@@ -39,7 +40,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 	 * </p>
 	 */
 
-	public static String TYPE_ID = "jst.jca"; //$NON-NLS-1$
+	public static String TYPE_ID = IModuleConstants.JST_CONNECTOR_MODULE; //$NON-NLS-1$
 	
 	/**
 	 * <p>
