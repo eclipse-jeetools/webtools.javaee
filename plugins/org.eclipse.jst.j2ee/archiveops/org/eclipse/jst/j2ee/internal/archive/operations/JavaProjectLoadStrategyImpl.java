@@ -35,7 +35,6 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	//	IProject project;
 	protected IJavaProject javaProject;
 	protected List sourceContainers = null;
-	protected String moduleFolderName;
 
 	public static final String JAVA_EXTENSION = "java"; //$NON-NLS-1$
 	public static final String CLASS_EXTENSION = "class"; //$NON-NLS-1$
@@ -53,10 +52,8 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 
 	}
 
-	public String getModuleFolderName() {
-		if (moduleFolderName == null)
-			moduleFolderName = ProjectUtilities.getJavaProjectOutputContainer(getProject()).getProjectRelativePath().segment(0);
-		return moduleFolderName;
+	public IContainer getModuleContainer() {
+		return ProjectUtilities.getJavaProjectOutputContainer(getProject());
 	}
 
 	/*
@@ -90,7 +87,7 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 	protected IPath getOutputPathForFile(IPath aPath) throws Exception {
 
 		if (isProjectMetaFile(aPath.toString())) {
-			if (includeProjectMetaFiles)
+			if (shouldIncludeProjectMetaFiles())
 				return aPath;
 			return null;
 		}
@@ -105,7 +102,7 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 				IPath result = aPath.removeFirstSegments(containerPath.segmentCount());
 				//The next three lines cover the case where you have the project as source
 				//and a folder as the output
-				if (isProjectMetaFile(result.toString()) && !includeProjectMetaFiles)
+				if (isProjectMetaFile(result.toString()) && !shouldIncludeProjectMetaFiles())
 					return null;
 				return result;
 			}
@@ -128,7 +125,7 @@ public class JavaProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		String ext = path.getFileExtension();
 
 		if (isJava(ext))
-			return exportSource;
+			return isExportSource();
 		return true;
 	}
 

@@ -465,21 +465,21 @@
    
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
-      <moduleObjectAdapter
+      <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.application.Application"
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ear1">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IProject"
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ear2">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IFile"
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ear3">
-      </moduleObjectAdapter>
+      </moduleArtifactAdapter>
    </extension>
 <!-- =============================================================== -->
 <!-- Purpose: Define the default deployable project factory          -->
@@ -488,9 +488,9 @@
    <extension
          point="org.eclipse.wst.server.core.moduleFactories">
       <moduleFactory
-            label="%appClient12DeployableLabel"
+          
             projects="true"
-            icon="icons/full/obj16/appclient_12_deploy.gif"
+            
             class="org.eclipse.jst.j2ee.internal.deployables.ApplicationClientDeployableFactory"
             id="com.ibm.wtp.server.j2ee.appclient">
          <moduleType
@@ -499,9 +499,9 @@
          </moduleType>
       </moduleFactory>
       <moduleFactory
-            label="%ear12DeployableLabel"
+           
             projects="true"
-            icon="icons/full/obj16/12_ear_deploy.gif"
+           
             class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseApplicationDeployableFactory"
             id="com.ibm.wtp.server.j2ee.application">
          <moduleType
@@ -511,8 +511,7 @@
       </moduleFactory>
       <moduleFactory
             projects="true"
-            icon="icons/full/obj16/jarproject_deploy.gif"
-            index="20"
+          
             class="org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory"
             id="com.ibm.wtp.server.looseArchive">
          <moduleType

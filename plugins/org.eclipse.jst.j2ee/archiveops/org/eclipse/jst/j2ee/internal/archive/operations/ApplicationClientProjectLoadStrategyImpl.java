@@ -15,6 +15,7 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
@@ -43,10 +44,10 @@ public class ApplicationClientProjectLoadStrategyImpl extends org.eclipse.jst.j2
 	/**
 	 * getModuleFolderName method comment.
 	 */
-	public java.lang.String getModuleFolderName() {
+	public IContainer getModuleContainer() {
 		try {
 			ApplicationClientNatureRuntime enr = ApplicationClientNatureRuntime.getRuntime(project);
-			return enr.getModuleServerRoot().getName();
+			return enr.getModuleServerRoot();
 		} catch (Exception e) {
 			throw new ArchiveRuntimeException(e.getMessage(), e);
 		}

@@ -149,7 +149,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 	public static void importArchive(String earFileName, String earProjectName) {
 		EnterpriseApplicationImportDataModel dataModel = new EnterpriseApplicationImportDataModel();
 		dataModel.setProperty(FILE_NAME, earFileName);
-		dataModel.setProperty(PROJECT_NAME, earFileName);
+		dataModel.setProperty(PROJECT_NAME, earProjectName);
 		try {
 			dataModel.getDefaultOperation().run(null);
 		} catch (InvocationTargetException e) {

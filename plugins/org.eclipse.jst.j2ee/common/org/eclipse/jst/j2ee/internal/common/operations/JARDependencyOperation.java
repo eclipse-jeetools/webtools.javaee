@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
@@ -106,7 +107,9 @@ public class JARDependencyOperation extends WTPOperation {
 				}
 					break;
 				case JARDependencyDataModel.JAR_MANIPULATION_INVERT :
-					model.getClassPathSelection().invertClientJARSelection(dataModel.getReferencedProject(), dataModel.getOppositeProject());
+					ClassPathSelection classPathSelection = model.getClassPathSelection();
+					if (classPathSelection != null)
+						classPathSelection.invertClientJARSelection(dataModel.getReferencedProject(), dataModel.getOppositeProject());
 					break;
 			}
 			if (model.isDirty())

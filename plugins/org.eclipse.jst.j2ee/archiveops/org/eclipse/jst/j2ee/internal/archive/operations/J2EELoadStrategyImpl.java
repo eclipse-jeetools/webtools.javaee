@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.eclipse.core.internal.resources.ProjectDescription;
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
@@ -53,8 +54,8 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 	protected WorkbenchURIConverter projectMetaURIConverter;
 	protected WorkbenchURIConverter projectURIConverter;
 	protected Set visitedURIs;
-	protected boolean exportSource = false;
-	protected boolean includeProjectMetaFiles = false;
+	private boolean exportSource = false;
+	private boolean includeProjectMetaFiles = false;
 	protected List sourceFolders;
 
 	/**
@@ -190,55 +191,76 @@ public abstract class J2EELoadStrategyImpl extends LoadStrategyImpl implements I
 		return PROJECT_FILE_URI.equals(uri) || CLASSPATH_FILE_URI.equals(uri);
 	}
 
-	public abstract String getModuleFolderName();
+	public abstract IContainer getModuleContainer();
 
 	protected IPath getOutputPathForFile(IPath aPath) throws Exception {
-
 		if (isProjectMetaFile(aPath.toString())) {
 			if (includeProjectMetaFiles)
 				return aPath;
 			return null;
 		}
-		int charIndex = 0;
-		ArrayList tokens = new ArrayList();
-		String pathString = aPath.toString();
-
-		for (int i = 0; i < pathString.length(); i++) {
-			if (pathString.charAt(i) == '/') {
-				tokens.add(pathString.substring(charIndex, i));
-				charIndex = ++i;
+		IContainer moduleContainer = getModuleContainer();
+		IPath moduleContainerPath = moduleContainer.getProjectRelativePath();
+		//check if the file is an output folder file
+		if (aPath.segmentCount() > moduleContainerPath.segmentCount() && aPath.removeLastSegments(aPath.segmentCount() - moduleContainerPath.segmentCount()).equals(moduleContainerPath)) {
+			IPath tempPath = aPath.removeFirstSegments(moduleContainerPath.segmentCount());
+			if (moduleContainer.exists(tempPath)) {
+				return tempPath;
 			}
 		}
-
-		int indexOfModule = -1;
-		IContainer outputFolder = ProjectUtilities.getJavaProjectOutputContainer(getProject());
-		// check if file is an output folder file
-		if (tokens.contains(getModuleFolderName())) {
-			indexOfModule = tokens.indexOf(getModuleFolderName());
-			// make sure the path exists, if not, we should check source folders
-			if (!outputFolder.exists(aPath.removeFirstSegments(indexOfModule + 1)))
-				indexOfModule = -1;
-		}
-		// check if file is a source folder file
-		if (indexOfModule == -1) {
-			List localSourceFolders = getSourceFoldersNames();
-			if (localSourceFolders != null) {
-				for (int j = 0; j < localSourceFolders.size(); j++) {
-					if (!tokens.isEmpty()) {
-						if (((String) tokens.get(0)).equals(localSourceFolders.get(j))) {
-							indexOfModule = tokens.indexOf(localSourceFolders.get(j));
-							break;
-						}
-						continue;
-					}
-				}
+		//if this file is in a source folder, find the source folder
+		//and remove the source folder portion from the path
+		List lSourceFolders = getSourceFolders();
+		for (int i = 0; i < lSourceFolders.size(); i++) {
+			IPath folderPath = ((IFolder) lSourceFolders.get(i)).getProjectRelativePath();
+			if (aPath.segmentCount() > folderPath.segmentCount() && aPath.removeLastSegments(aPath.segmentCount() - folderPath.segmentCount()).equals(folderPath)) {
+				return aPath.removeFirstSegments(folderPath.segmentCount());
 			}
 		}
-		if (indexOfModule > -1)
-			return aPath.removeFirstSegments(indexOfModule + 1);
 		return null;
 	}
 
+	//		int charIndex = 0;
+
+	//		ArrayList tokens = new ArrayList();
+	//		String pathString = aPath.toString();
+	//
+	//		for (int i = 0; i < pathString.length(); i++) {
+	//			if (pathString.charAt(i) == '/') {
+	//				tokens.add(pathString.substring(charIndex, i));
+	//				charIndex = ++i;
+	//			}
+	//		}
+
+	//		int indexOfModule = -1;
+	//		IContainer outputFolder = ProjectUtilities.getJavaProjectOutputContainer(getProject());
+	// check if file is an output folder file
+
+	//		if (tokens.contains(getModuleFolderName())) {
+	//			indexOfModule = tokens.indexOf(getModuleFolderName());
+	//			// make sure the path exists, if not, we should check source folders
+	//			if (!outputFolder.exists(aPath.removeFirstSegments(indexOfModule + 1)))
+	//				indexOfModule = -1;
+	//		}
+	// check if file is a source folder file
+	//		if (indexOfModule == -1) {
+	//			List localSourceFolders = getSourceFoldersNames();
+	//			if (localSourceFolders != null) {
+	//				for (int j = 0; j < localSourceFolders.size(); j++) {
+	//					if (!tokens.isEmpty()) {
+	//						if (((String) tokens.get(0)).equals(localSourceFolders.get(j))) {
+	//							indexOfModule = tokens.indexOf(localSourceFolders.get(j));
+	//							break;
+	//						}
+	//						continue;
+	//					}
+	//				}
+	//			}
+	//		}
+	//		if (indexOfModule > -1)
+	//			return aPath.removeFirstSegments(indexOfModule + 1);
+	//		return null;
+	//	}
 	/**
 	 * Insert the method's description here. Creation date: (7/19/2001 3:58:31 PM)
 	 * 

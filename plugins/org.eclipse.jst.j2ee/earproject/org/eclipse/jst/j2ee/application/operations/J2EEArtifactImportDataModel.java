@@ -251,8 +251,11 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 		if (null != archiveFile && getBooleanProperty(DEFAULT_PROJECT_NAME)) {
 			Path path = new Path(archiveFile.getURI());
 			String defaultProjectName = path.segment(path.segmentCount() - 1);
-			if (defaultProjectName.indexOf(".") > 0) { //$NON-NLS-1$
-				defaultProjectName = defaultProjectName.substring(0, defaultProjectName.indexOf(".")); //$NON-NLS-1$
+			if (defaultProjectName.indexOf('.') > 0) {
+				defaultProjectName = defaultProjectName.substring(0, defaultProjectName.lastIndexOf('.'));
+				if (defaultProjectName.indexOf('.') > 0) {
+					defaultProjectName = defaultProjectName.replace('.', '_');
+				}
 			}
 			if (!getBooleanProperty(OVERWRITE_PROJECT)) {
 				String baseName = defaultProjectName;

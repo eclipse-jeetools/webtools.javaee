@@ -72,7 +72,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	public static final String UI_PLUGIN_ID = "org.eclipse.jst.j2ee.ui"; //$NON-NLS-1$
 	protected final IPath iconsFolder = new Path(getDescriptor().getInstallURL().getFile()).append("icons"); //$NON-NLS-1$
 	// LibDir Change Listener
-	public static final String LIBDIRCHANGE_BUILDER_ID = UI_PLUGIN_ID + ".LibDirBuilder"; //$NON-NLS-1$
+	public static final String LIBDIRCHANGE_BUILDER_ID = "org.eclipse.jst.j2ee.web.LibDirBuilder"; //$NON-NLS-1$
 	// LibCopy builder ID
 	public static final String LIBCOPY_BUILDER_ID = PLUGIN_ID + ".LibCopyBuilder"; //$NON-NLS-1$
 	// Validation part of the plugin

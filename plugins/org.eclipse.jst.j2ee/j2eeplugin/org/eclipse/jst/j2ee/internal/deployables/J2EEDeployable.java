@@ -84,4 +84,11 @@ public abstract class J2EEDeployable extends ProjectModule implements IJ2EEModul
 			return nature != null && ((J2EEModuleNature) nature).isBinaryProject();
 		return false;
 	}
+	
+    public Object getAdapter(Class adapter) {
+        if (getModule() == null)
+            initialize(this);
+        return this;
+    }
+	
 }
