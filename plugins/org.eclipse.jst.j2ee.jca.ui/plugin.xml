@@ -131,5 +131,96 @@
          </visibility>
       </objectContribution>
    </extension>
-   
+    <extension
+         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
+      <!-- Connector New -->
+        <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard">
+         <enablement>
+         <or>
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
+                  </objectState>
+                </and>
+                <and>
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.EARNature">
+	                  </objectState>
+	               </or> 
+                </and> 
+                   
+            </or>
+         </enablement>
+       </commonWizard>
+        <!-- Connector import -->
+      <commonWizard
+            type="import"
+            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard">
+         <enablement>
+          <or>
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
+                  </objectState>
+                </and>
+                <and>
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.EARNature">
+	                  </objectState>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
+	                  </objectState>
+	               </or> 
+                </and> 
+                   
+         </or>
+         </enablement>
+       </commonWizard>
+         <!-- Connector Export -->
+       <commonWizard
+            type="export"
+            wizardId="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard">
+         <enablement>
+         <or>
+            <and>
+               <or>
+                  <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+	               <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+               </or>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+    </extension>
 </plugin>

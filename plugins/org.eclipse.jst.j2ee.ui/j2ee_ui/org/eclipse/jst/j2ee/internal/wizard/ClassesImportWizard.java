@@ -53,12 +53,14 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 
 	protected ArrayList fileNames = null;
 
+	public ClassesImportWizard() {
+		super();
+	}
+	
 	public ClassesImportWizard(IProject project) {
 		super();
 		this.project = project;
 
-		setWindowTitle(J2EEUIMessages.getResourceString("Import_Class_Files_UI")); //$NON-NLS-1$
-		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor("import_class_file_wiz_ban")); //$NON-NLS-1$
 	}
 
 	public ClassesImportWizard(IProject project, String fileName, List otherFileNames) {
@@ -141,10 +143,13 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
 	 */
 	public void init(IWorkbench aWorkbench, IStructuredSelection aSelection) {
-		this.workbench = aWorkbench;
-		this.selection = aSelection;
-		if (project == null && !aSelection.isEmpty() && aSelection.getFirstElement() instanceof IProject)
-			this.project = (IProject) aSelection.getFirstElement();
+		setWindowTitle(J2EEUIMessages.getResourceString("Import_Class_Files_UI")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor("import_class_file_wiz_ban")); //$NON-NLS-1$
+
+		workbench = aWorkbench;
+		selection = aSelection;
+		if (!aSelection.isEmpty() && aSelection.getFirstElement() instanceof IProject)
+				project = (IProject) aSelection.getFirstElement();
 
 		if (project != null)
 			createImportedClassesFolder(project);

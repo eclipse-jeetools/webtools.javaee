@@ -169,4 +169,97 @@
 			</action>
 		</actionSet>
 	</extension>
+	<extension
+         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
+          <!-- Web New -->
+        <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.servlet.ui.WebModuleCreationWizard">
+         <enablement>
+         <or>
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.web.WebNature">
+                  </objectState>
+                </and>
+                <and>
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.EARNature">
+	                  </objectState>
+	               </or> 
+                </and> 
+                   
+            </or>
+         </enablement>
+       </commonWizard>
+       <!-- Web Import -->
+        <commonWizard
+            type="import"
+            wizardId="org.eclipse.jst.servlet.ui.WebModuleImportWizard">
+         <enablement>
+          <or>
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.web.WebNature">
+                  </objectState>
+                </and>
+                <and>
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.EARNature">
+	                  </objectState>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.web.WebNature">
+	                  </objectState>
+	               </or> 
+                </and> 
+                   
+         </or>
+       </enablement>
+       </commonWizard>
+       <!-- Web Export -->
+        <commonWizard
+            type="export"
+            wizardId="org.eclipse.jst.servlet.ui.WebModuleExportWizard">
+         <enablement>
+         <or>
+            <and>
+               <or>
+               <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               </objectClass>
+               <objectClass
+                     name="org.eclipse.core.resources.IProject">
+               </objectClass>
+               </or>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.web.WebNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+    </extension>
+	
 </plugin>

@@ -137,7 +137,17 @@
             <selection
                class="org.eclipse.core.resources.IResource">
 	        </selection>
-	  </wizard>            
+	  </wizard>     
+	   <wizard
+            name="%Import_Classes"
+            icon=""
+            class="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard"
+            id="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
+         
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>             
    </extension>
 <!--================================-->
 <!-- Export Wizard Contributions    -->
@@ -617,4 +627,209 @@
       </uiContextSensitiveClass>
    </extension>
    -->
+   <extension
+         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
+          <!-- EAR New -->
+          <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard">
+         <enablement>
+         <or> 
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.EARNature">
+                  </objectState>
+                </and>	          
+            </or>
+         </enablement>
+       </commonWizard>
+        <!-- AppClient New -->
+        <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard">
+         <enablement>
+         <or>
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
+                  </objectState>
+                </and>
+                <and>
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.EARNature">
+	                  </objectState>
+	               </or> 
+                </and> 
+                   
+            </or>
+         </enablement>
+       </commonWizard>
+           <!-- EAR Import -->
+          <commonWizard
+            type="import"
+            wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizard">
+         <enablement>
+         <or> 
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.EARNature">
+                  </objectState>
+                </and>	          
+            </or>
+         </enablement>
+       </commonWizard>
+            <!-- App Client Import -->
+          <commonWizard
+            type="import"
+            wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard">
+         <enablement>
+         <or> 
+               <and>
+            	   <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+               	   <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
+                  </objectState>
+                </and>
+                <and>
+                   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <or>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.EARNature">
+	                  </objectState>
+	                  <objectState
+	                        name="projectNature"
+	                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
+	                  </objectState>
+	               </or> 
+                </and> 
+               	          
+            </or>
+         </enablement>
+       </commonWizard>
+        <!-- Utility Jar Import -->
+        <commonWizard
+            type="import"
+            wizardId="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard">
+         <enablement>
+         <or>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IProject">
+               </objectClass>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.EARNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+       <!-- EAR export -->
+       <commonWizard
+            type="export"
+            wizardId="org.eclipse.jst.j2ee.ui.EnterpriseApplicationExportWizard">
+         <enablement>
+         <or>
+            <and>
+               <or>
+                  <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+	               <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+               </or>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.EARNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+        <!-- App Client export -->
+       <commonWizard
+            type="export"
+            wizardId="org.eclipse.jst.j2ee.ui.AppClientModuleExportWizard">
+         <enablement>
+         <or>
+            <and>
+               <or>
+                  <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+	               <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+               </or>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+       <!-- Import Classes Wizard -->
+        <commonWizard
+            type="import"
+            wizardId="org.eclipse.jst.j2ee.internal.wizard.ClassesImportWizard">
+         <enablement>
+         <or>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IProject">
+               </objectClass>
+               <or>
+               	  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ApplicationClientNature">
+                  </objectState>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.jca.ConnectorNature">
+                  </objectState>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
+                  </objectState>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.web.WebNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+   </extension>
 </plugin>
