@@ -29,7 +29,7 @@
     <ant target="core-test" antfile="${library-file}" dir="${eclipse-home}">
       <property name="data-dir" value="${workspace}"/>
       <property name="plugin-name" value="${plugin-name}"/>
-      <property name="classname" value="org.eclipse.jst.j2ee.tests.headless.plugin.J2EEHeadlessBVT"/>
+      <property name="classname" value="org.eclipse.jst.j2ee.tests.headless.plugin.AllPluginTests"/>
     </ant>
   </target>
     
