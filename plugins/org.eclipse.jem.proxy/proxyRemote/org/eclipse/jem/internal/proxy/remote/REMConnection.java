@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConnection.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/04 20:30:21 $ 
+ *  $Revision: 1.5 $  $Date: 2004/04/27 21:00:07 $ 
  */
 
 
@@ -37,7 +37,7 @@ public class REMConnection implements IREMConnection, IREMExpressionConnection {
 	protected Socket fSocket = null;
 	protected DataInputStream in = null;
 	protected DataOutputStream out = null;
-	private static final int TIME_OUT = 1000 * 60;	// Wait up to one minute before timeout.
+	private static final int TIME_OUT = 1000 * 30;	// Wait up to half minute before timeout.
 	
 	public REMConnection(Socket socket, boolean noTimeouts) {
 		try {
