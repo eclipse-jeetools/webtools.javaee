@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaJDKAdapterFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/11/08 19:11:04 $ 
  */
 import java.util.Iterator;
 
@@ -72,9 +72,6 @@ public class JavaJDKAdapterFactory extends JavaReflectionAdapterFactory {
 	 */
 	public java.lang.ClassLoader getContextClassLoader() {
 		return contextClassLoader;
-	}
-	public boolean isFactoryForType(Object type) {
-		return type.equals(TYPE_NAME);
 	}
 	/**
 	 * Insert the method's description here.

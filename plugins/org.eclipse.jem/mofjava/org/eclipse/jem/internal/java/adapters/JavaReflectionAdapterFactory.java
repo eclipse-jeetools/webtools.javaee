@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionAdapterFactory.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.5 $  $Date: 2004/11/08 19:11:04 $ 
  */
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +32,10 @@ public abstract class JavaReflectionAdapterFactory extends AdapterFactoryImpl {
 	// relfected from them.  This allows a flush operation to force those
 	// adapters to re-reflect.
 	protected HashMap reflected = new HashMap();
-	protected static final String TYPE_NAME = ReadAdaptor.TYPE_KEY;
+	/**
+	 * Key for the type of adapters that this factory creates. (Used in isFactoryForType()).
+	 */
+	public static final String TYPE_KEY = ReadAdaptor.TYPE_KEY;
 	protected boolean isBusyIteratingReflected = false;
 	protected Map registerQueue;
 	protected List unregisterQueue;
@@ -154,6 +157,9 @@ protected void finishedIteratingReflected() {
 		}
 		registerQueue.clear();
 	}
+}
+public boolean isFactoryForType(Object type) {
+	return TYPE_KEY.equals(type);
 }
 }
 
