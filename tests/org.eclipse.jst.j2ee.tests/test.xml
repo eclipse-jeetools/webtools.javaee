@@ -7,7 +7,7 @@
 
   <!-- sets the properties eclipse-home, and library-file -->
   <property name="plugin-name" value="org.eclipse.jst.j2ee.tests"/>
-  <property name="library-file" value="${eclipse-home}/plugins/org.eclipse.test/library.xml"/>
+  <property name="library-file" value="${eclipse-home}/plugins/org.eclipse.test_3.1.0/library.xml"/>
   <property name="extraVMargs" value="-Dorg.eclipse.jst.server.jonas.432=${jonas432Dir}"/> 
             
   <property name="workspace" value="${basedir}/${plugin-name}"/>
