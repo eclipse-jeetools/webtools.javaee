@@ -6,6 +6,10 @@
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
+   <description>
+      %description
+   </description>
+
    <license url="%licenseURL">
       %license
    </license>
