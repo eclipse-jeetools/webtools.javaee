@@ -343,7 +343,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	 *         not encode an editor input, or if there is no remembered working copy for this
 	 *         compilation unit
 	 */
-	protected org.eclipse.jdt.core.ICompilationUnit primGetWorkingCopy(ICompilationUnit cu) throws CoreException {
+	protected ICompilationUnit primGetWorkingCopy(ICompilationUnit cu) throws CoreException {
 		return null;
 	}
 

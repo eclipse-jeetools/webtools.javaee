@@ -18,11 +18,7 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -128,21 +124,22 @@ public class AnnotationsStandaloneGroup {
 	}
 
 	public boolean isAnnotationsSupported(IProject project) {
+		//TODO clean up to be module based, not project based
 		try {
 			//			if (isForBean) {
 			//				AnnotationsController controller =
 			// AnnotationsControllerManager.INSTANCE.getAnnotationsController(project);
 			//				return (controller !=null && controller.isTagHandlerInstalled(EJBTAGSET));
 			//			}
-			J2EEModuleNature nature = null;
-			if (project != null && project.hasNature(IWebNatureConstants.J2EE_NATURE_ID))
-				nature = (J2EEModuleNature) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-			else if (project != null && project.hasNature(IEJBNatureConstants.NATURE_ID))
-				nature = (J2EEModuleNature) project.getNature(IEJBNatureConstants.NATURE_ID);
-
-			if (!isForBean || (nature != null && nature.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2))
+//			J2EEModuleNature nature = null;
+//			if (project != null && project.hasNature(IWebNatureConstants.J2EE_NATURE_ID))
+//				nature = (J2EEModuleNature) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
+//			else if (project != null && project.hasNature(IEJBNatureConstants.NATURE_ID))
+//				nature = (J2EEModuleNature) project.getNature(IEJBNatureConstants.NATURE_ID);
+//
+//			if (!isForBean || (nature != null && nature.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2))
 				return true;
-			return false;
+//			return false;
 		} catch (Throwable t) {
 			t.printStackTrace();
 			return false;
