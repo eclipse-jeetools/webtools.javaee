@@ -22,6 +22,10 @@ import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IProjectProperties;
+import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.ProjectProperties;
 
 /**
  * @version 1.0
@@ -46,7 +50,7 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 		return IEJBNatureConstants.NATURE_ID;
 	}
 
-    
+
 	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
 		EJBFlexibleDeployable moduleDelegate = null;
 		IModule module = null;
@@ -54,7 +58,9 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 		for (int i = 0; i < workBenchModules.size(); i++) {
 			try {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
-				moduleDelegate = new EJBFlexibleDeployable(project, ID, wbModule);
+				if (!wbModule.getComponentType().getComponentTypeId().equals(EJBFlexibleDeployable.EJB_TYPE))
+					continue;
+					moduleDelegate = new EJBFlexibleDeployable(project, ID, wbModule);
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
 				moduleList.add(module);
 				moduleDelegate.initialize(module);
@@ -86,13 +92,12 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 		return modules;
 
 	}
-	
+
 	protected boolean isValidModule(IProject project) {
-
-		return false;
+		IProjectProperties properties = ServerCore.getProjectProperties(project);
+		String string = properties.getRuntimeTarget().getId();
+		return true;
 	}
-
-	
 
 
 

@@ -102,20 +102,16 @@ public class EJBDeployableArtifactAdapterUtil {
 	}
 
 	protected static IModule getModule(IProject project) {
-		EJBNatureRuntime nature = getNature(project);
-		if (nature != null) {
-			IModule deployable = nature.getModule();
-			if (deployable != null)
-				return deployable;
-			Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ejb")).iterator(); //$NON-NLS-1$
-
-			while (iterator.hasNext()) {
-				Object next = iterator.next();
-				if (next instanceof IModule) {
-					deployable = (IModule) next;
-					if (deployable.getProject().equals(project))
-						return deployable;
-				}
+		IModule deployable = null;
+		if (deployable != null)
+			return deployable;
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.ejb")).iterator(); //$NON-NLS-1$
+		while (iterator.hasNext()) {
+			Object next = iterator.next();
+			if (next instanceof IModule) {
+				deployable = (IModule) next;
+				if (deployable.getProject().equals(project))
+					return deployable;
 			}
 		}
 		return null;

@@ -26,6 +26,8 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
  * Code Style - Code Templates
  */
 public class EJBFlexibleDeployable extends J2EEFlexProjDeployable implements IEJBModule {
+	
+	public static String EJB_TYPE = "jst.ejb";
 
 	public EJBFlexibleDeployable(IProject project, String aFactoryId, WorkbenchComponent aWorkbenchModule) {
 		super(project, aFactoryId, aWorkbenchModule);
@@ -93,6 +95,7 @@ public String getJNDIName(String ejbName) {
 			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(wbModule);
 			if (ejbEdit != null) {
 				IProject project = (IProject) ejbEdit.getContentModelRoot();
+				if (project == null)return null;
 				return project.getProjectRelativePath();
 
 			}
