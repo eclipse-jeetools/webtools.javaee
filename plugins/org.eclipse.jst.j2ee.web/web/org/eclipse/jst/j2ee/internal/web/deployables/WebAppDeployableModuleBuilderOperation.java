@@ -56,13 +56,15 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 		List resourceList = workbenchModule.getResources();
 		for (int i = 0; i < resourceList.size(); i++) {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
-			URI uri = wmr.getSourcePath();
-			IPath path = projectPath.append(uri.toFileString());
-			IResource resource = getWorkspace().getRoot().getFolder(path);
+			URI sourceURI = wmr.getSourcePath();
+			IPath sourcePath = projectPath.append(sourceURI.toFileString());
+			IResource resource = getWorkspace().getRoot().getFolder(sourcePath);
 			if (resource == null) {
-				resource =  getWorkspace().getRoot().getFile(path);
+				resource =  getWorkspace().getRoot().getFile(sourcePath);
 			}
-			resource.copy(absoluteDMP, true, new NullProgressMonitor());
+			URI deployURI = wmr.getDeployedPath();
+			IPath deployPath = absoluteDMP.append(deployURI.toFileString());
+			resource.copy(deployPath, true, new NullProgressMonitor());
 		}
 	}
 
