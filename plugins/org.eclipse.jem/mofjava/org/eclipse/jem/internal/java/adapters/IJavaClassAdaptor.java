@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: IJavaClassAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/16 20:49:21 $ 
  */
 /**
  * Insert the type's description here.
@@ -28,6 +28,22 @@ boolean isSourceTypeFromBinary() ;
  * Return true if the sourceType can be found.
  */
 boolean sourceTypeExists() ;
+
+/**
+ * Reflect the fields
+ * @return <code>true</code> if reflection occurred.
+ * 
+ * @since 1.0.0
+ */
+boolean reflectFieldsIfNecessary();	
+
+/**
+ * Reflect the methods.
+ * @return <code>true</code> if reflection occurred.
+ * 
+ * @since 1.0.0
+ */
+boolean reflectMethodsIfNecessary();
 }
 
 

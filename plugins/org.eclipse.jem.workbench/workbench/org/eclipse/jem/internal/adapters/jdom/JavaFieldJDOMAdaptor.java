@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:42 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/16 20:49:23 $ 
  */
 import java.util.Map;
 
@@ -21,9 +21,11 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.core.JavaElement;
-import org.eclipse.jem.java.*;
+
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
+import org.eclipse.jem.java.*;
+import org.eclipse.jem.java.impl.FieldImpl;
 /**
  * Insert the type's description here.
  * Creation date: (6/6/2000 4:42:50 PM)
@@ -39,6 +41,24 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 	}
 	protected void clearSource() {
 		sourceField = null;
+	}
+	
+	protected boolean flushReflectedValues(boolean clearCachedModelObject) {
+		if (clearCachedModelObject)
+			clearSource();
+		FieldImpl field = getTargetField();
+		field.setInitializer(null);
+		field.setFinal(false);
+		field.setStatic(false);
+		field.setTransient(false);
+		field.setVolatile(false);
+		field.setJavaVisibility(JavaVisibilityKind.PUBLIC_LITERAL);
+		return true;
+	}
+	
+	protected void postFlushReflectedValuesIfNecessary(boolean isExisting) {
+		getTargetField().setReflected(false);
+		super.postFlushReflectedValuesIfNecessary(isExisting);
 	}
 	/**
 	 * Return a String for the source starting after the field's name to the end of
@@ -149,19 +169,26 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 	public Object getReflectionSource() {
 		return getSourceField();
 	}
+	
+	/*
+	 * Used by Java Class JDOM adapter to create and set with a source field
+	 */	
+	public void setSourceField(IField field) {
+		sourceField = field;
+	}	
 	/**
 	 * getSourceField - return the IField which describes our implementing field
 	 */
 	protected IField getSourceField() {
-		if (sourceField == null) {
+		if (sourceField == null || !sourceField.exists()) {
 			IType parent = this.getParentType();
 			if (parent != null)
 				sourceField = parent.getField(((Field) getTarget()).getName());
 		}
 		return sourceField;
 	}
-	public Field getTargetField() {
-		return (Field) getTarget();
+	public FieldImpl getTargetField() {
+		return (FieldImpl) getTarget();
 	}
 	protected IType getType() {
 		return getParentType();

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/09 22:47:06 $ 
+ *  $Revision: 1.7 $  $Date: 2004/06/16 20:49:23 $ 
  */
 
 import java.util.*;
@@ -20,13 +20,17 @@ import java.util.logging.Level;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
 
 import com.ibm.wtp.common.UIContextDetermination;
+import com.ibm.wtp.common.logger.proxy.Logger;
 
 import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
@@ -41,46 +45,157 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	protected IType sourceType = null;
 	protected JavaReflectionAdapterFactory adapterFactory;
 	private Map typeResolutionCache = new HashMap(25);
+	private boolean hasReflectedFields, isReflectingFields;
+	private boolean hasReflectedMethods, isReflectingMethods;
+	
 	public JavaClassJDOMAdaptor(Notifier target, IJavaProject workingProject, JavaReflectionAdapterFactory inFactory) {
 		super(target, workingProject);
 		setAdapterFactory(inFactory);
 	}
-	/**
+	
+	private Map existingFields = new HashMap(); 
+	/*
 	 * addFields - reflect our fields
 	 */
-	protected void addFields() {
+	protected boolean addFields() {
+
+		// The algorithm we will use is:
+		// 1) Pass through the IField's of this class
+		//    a) If it is in existingFields, then add to newExisting the entry from
+		//       oldExisting (deleting from oldExisting at the same time), and flush the field. This is so next we re-get any changed parts of it.
+		//    b) else not existing, then create new field and add to the new fields list.
+		// 2) Remove from the fields list any still left in oldExisting. These are ones that no longer exist.
+		// 3) Add all of the news ones to the fields.
+		//       
+		IField[] fields = null;
 		try {
-			XMIResource resource = (XMIResource) getJavaClassTarget().eResource();
-			IField[] fields = getSourceType().getFields();
-			List targetFields = getJavaClassTarget().getFieldsGen();
-			for (int i = 0; i < fields.length; i++) {
-				targetFields.add(createJavaField(fields[i], resource));
-			}
-		} catch (JavaModelException npe) {
-			// name stays null and we carry on
+			fields = getSourceType().getFields();
+		} catch (JavaModelException e) {
+			Logger.getLogger().log(e, Level.WARNING);
+			return false;	
 		}
+		XMIResource resource = (XMIResource) getJavaClassTarget().eResource();		
+		Field field = null;
+		JavaFieldJDOMAdaptor adapter = null;
+		Map newExisting = new HashMap(fields.length);
+		List newFields = new ArrayList();
+		for (int i = 0; i < fields.length; i++) {
+			IField ifield = fields[i];
+			field = (Field) existingFields.remove(ifield);	// Get the existing field (which is the value) from the collection keyed by IField.
+			if (field != null) {
+				// It is an existing method. So just put over to newExisting. Then flush it.
+				newExisting.put(ifield, field);
+				// Since this is a new method, it is not attached to a resource, so we need to explicitly create the adapter.
+				adapter = (JavaFieldJDOMAdaptor) getAdapterFactory().adaptNew(field, ReadAdaptor.TYPE_KEY);
+				if (adapter != null) {
+					adapter.flushReflectedValuesIfNecessaryNoNotification(true);
+					adapter.setSourceField(ifield);	// Give it this new IField
+				}
+			} else {
+				// It is a new method. Create the new method, add to newExisting, and add to newMethods list.
+				field = createJavaField(ifield, resource);
+				newExisting.put(ifield, field);				
+				newFields.add(field);
+				adapter = (JavaFieldJDOMAdaptor) retrieveAdaptorFrom(field);
+				if (adapter != null)
+					adapter.setSourceField(fields[i]);
+			}
+		}
+		
+		BasicEList fieldsList = (BasicEList) getJavaClassTarget().getFieldsGen();
+		if (!existingFields.isEmpty()) {
+			// Now any still left in old existing are deleted. So we make them proxies and then remove them from fields list.			
+			URI baseURI = resource.getURI();
+			Collection toDelete = existingFields.values();
+			for (Iterator itr = toDelete.iterator(); itr.hasNext();) {
+				InternalEObject m = (InternalEObject) itr.next();
+				String id = resource.getID(m);
+				if (id != null)
+					m.eSetProxyURI(baseURI.appendFragment(id));
+			}
+			fieldsList.removeAll(toDelete);
+		}
+		
+		if (!newFields.isEmpty()) {
+			// Now add in the news ones
+			fieldsList.addAllUnique(newFields);
+		}
+		
+		// Finally set current existing to the new map we created.
+		existingFields = newExisting;
+		return true;			
 	}
-	/**
-	 * addMethods - reflect our methods
+	
+	private Map existingMethods = new HashMap(); 
+	/*
+	 * addMethods - reflect our methods. Merge in with the previous.
 	 */
-	protected void addMethods() {
+	protected boolean addMethods() {
+		// The algorithm we will use is:
+		// 1) Pass through the IMethod's of this class
+		//    a) If it is in existingMethods, then add to newExisting the entry from
+		//       oldExisting (deleting from oldExisting at the same time), and flush the method. This is so next we re-get any changed parts of it.
+		//    b) else not existing, then create new method and add to the new methods list.
+		// 2) Remove from the methods list any still left in oldExisting. These are ones that no longer exist.
+		// 3) Add all of the news ones to the methods.
+		//       
+		IMethod[] methods = null;
 		try {
-			XMIResource resource = (XMIResource) getJavaClassTarget().eResource();
-			IMethod[] methods = getSourceType().getMethods();
-			List targetMethods = getJavaClassTarget().getMethodsGen();
-			Method method = null;
-			JavaMethodJDOMAdaptor adaptor = null;
-			for (int i = 0; i < methods.length; i++) {
-				adaptor = null;
-				method = createJavaMethod(methods[i], resource);
-				targetMethods.add(method);
-				adaptor = (JavaMethodJDOMAdaptor) retrieveAdaptorFrom(method);
-				if (adaptor != null)
-					adaptor.setSourceMethod(methods[i]);
-			}
-		} catch (JavaModelException npe) {
-			// name stays null and we carry on
+			methods = getSourceType().getMethods();
+		} catch (JavaModelException e) {
+			Logger.getLogger().log(e, Level.WARNING);
+			return false;	
 		}
+		XMIResource resource = (XMIResource) getJavaClassTarget().eResource();		
+		Method method = null;
+		JavaMethodJDOMAdaptor adapter = null;
+		Map newExisting = new HashMap(methods.length);
+		List newMethods = new ArrayList();
+		for (int i = 0; i < methods.length; i++) {
+			IMethod im = methods[i];
+			method = (Method) existingMethods.remove(im);	// Get the existing method (which is the value) from the collection keyed by IMethod.
+			if (method != null) {
+				// It is an existing method. So just put over to newExisting. Then flush it.
+				newExisting.put(im, method);
+				adapter = (JavaMethodJDOMAdaptor) retrieveAdaptorFrom(method);
+				if (adapter != null) {
+					adapter.flushReflectedValuesIfNecessaryNoNotification(true);
+					adapter.setSourceMethod(im);	// Give it this new IMethod
+				}
+			} else {
+				// It is a new method. Create the new method, add to newExisting, and add to newMethods list.
+				method = createJavaMethod(im, resource);
+				newExisting.put(im, method);				
+				newMethods.add(method);
+				// Since this is a new method, it is not attached to a resource, so we need to explicitly create the adapter.
+				adapter = (JavaMethodJDOMAdaptor) getAdapterFactory().adaptNew(method, ReadAdaptor.TYPE_KEY);
+				if (adapter != null)
+					adapter.setSourceMethod(methods[i]);
+			}
+		}
+		
+		BasicEList methodsList = (BasicEList) getJavaClassTarget().getMethodsGen();
+		if (!existingMethods.isEmpty()) {
+			// Now any still left in old existing are deleted. So we make them proxies and then remove them from methods list.
+			URI baseURI = resource.getURI();
+			Collection toDelete = existingMethods.values();
+			for (Iterator itr = toDelete.iterator(); itr.hasNext();) {
+				InternalEObject m = (InternalEObject) itr.next();
+				String id = resource.getID(m);
+				if (id != null)
+					m.eSetProxyURI(baseURI.appendFragment(id));
+			}
+			methodsList.removeAll(toDelete);
+		}
+		
+		if (!newMethods.isEmpty()) {
+			// Now add in the news ones
+			methodsList.addAllUnique(newMethods);
+		}
+		
+		// Finally set current existing to the new map we created.
+		existingMethods = newExisting;
+		return true;
 	}
 	/**
 	 * Clear source Type ;
@@ -93,9 +208,21 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 * Clear the reflected fields list.
 	 */
 	protected boolean flushFields() {
-		getJavaClassTarget().getFieldsGen().clear();
+		// First turn them all into proxies so that any holders will re-resolve to maybe the new one if class comes back.
+		existingFields.clear();
+		XMIResource res = (XMIResource) getJavaClassTarget().eResource();
+		URI baseURI = res.getURI();
+		List fields = getJavaClassTarget().getFieldsGen();
+		int msize = fields.size();
+		for (int i = 0; i < msize; i++) {
+			InternalEObject f = (InternalEObject) fields.get(i);
+			String id = res.getID(f);
+			if (id != null)
+				f.eSetProxyURI(baseURI.appendFragment(id));
+		}
+		fields.clear();	// Now we can clear it.
 		return true;
-	}
+		}
 	/**
 	 * Clear the implements list.
 	 */
@@ -107,7 +234,19 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 * Clear the reflected methods list.
 	 */
 	protected boolean flushMethods() {
-		getJavaClassTarget().getMethodsGen().clear();
+		// First turn them all into proxies so that any holders will re-resolve to maybe the new one if class comes back.
+		existingMethods.clear();
+		XMIResource res = (XMIResource) getJavaClassTarget().eResource();
+		URI baseURI = res.getURI();
+		List methods = getJavaClassTarget().getMethodsGen();
+		int msize = methods.size();
+		for (int i = 0; i < msize; i++) {
+			InternalEObject m = (InternalEObject) methods.get(i);
+			String id = res.getID(m);
+			if (id != null)
+				m.eSetProxyURI(baseURI.appendFragment(id));
+		}
+		methods.clear();	// Now we can clear it.
 		return true;
 	}
 	protected boolean flushModifiers() {
@@ -129,7 +268,20 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		if (clearCachedModelObject)
 			setSourceType(null);
 		typeResolutionCache.clear();
-		return primFlushReflectedValues();
+		flushModifiers();
+		flushSuper();
+		flushImplements();
+		if (clearCachedModelObject) {
+			// Don't flush these yet. We will try to reuse them on the next reflush. If clear model too, then flush them. This usually means class has been deleted, so why keep them around.
+			flushMethods();
+			flushFields();
+		}
+		// Even if we didn't flush the fields/methods, we do need to mark as not reflected so on next usage we will merge in the changes.
+		hasReflectedMethods = false;
+		hasReflectedFields = false;
+		
+		flushInnerClasses();
+		return true;
 	}
 
 	/**
@@ -202,18 +354,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			return false; //must be new?
 		return getSourceType().isBinary();
 	}
-	/**
-	 * Clear the reflected values.
-	 */
-	protected boolean primFlushReflectedValues() {
-		boolean result = flushModifiers();
-		result &= flushSuper();
-		result &= flushImplements();
-		result &= flushMethods();
-		result &= flushFields();
-		result &= flushInnerClasses();
-		return result;
-	}
+
 
 	protected JavaClass reflectJavaClass(String qualifiedName) {
 		IType type = JDOMSearchHelper.findType(qualifiedName, true, getSourceProject(), this);
@@ -251,7 +392,6 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	 */
 	public boolean reflectValues() {
 		super.reflectValues();
-		primFlushReflectedValues();
 		boolean isHeadless = UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT;
 		if (getSourceProject() != null && getSourceType() != null && getSourceType().exists()) {
 			ICompilationUnit cu = getSourceType().getCompilationUnit();
@@ -272,8 +412,6 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 					JavaPlugin.getDefault().getLogger().log(e);
 				}
 				setImplements();
-				addMethods();
-				addFields();
 				reflectInnerClasses();
 				//addImports();
 				if (isHeadless) {
@@ -289,6 +427,48 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			return true;
 		}
 	}
+	
+	
+	public synchronized boolean reflectFieldsIfNecessary() {
+		if (reflectValuesIfNecessary()) {
+			if (!hasReflectedFields && !isReflectingFields) {
+				isReflectingFields = true;
+				try {
+					addFields();
+					hasReflectedFields = true;
+				} catch (Throwable e) {
+					hasReflectedFields = false;
+					Logger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
+					Logger.getLogger().log(e);					
+				} finally {
+					isReflectingFields = false;
+				}
+			}
+			return hasReflectedFields;
+		} else
+			return false;	// Couldn't reflect the base values, so couldn't do fields either
+	}
+	public boolean reflectMethodsIfNecessary() {
+		if (reflectValuesIfNecessary()) {
+			if (!hasReflectedMethods && !isReflectingMethods) {
+				isReflectingMethods = true;
+				try {
+					hasReflectedMethods = addMethods();
+				} catch (Throwable e) {
+					hasReflectedMethods = false;
+					Logger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
+					Logger.getLogger().log(e);					
+				} finally {
+					isReflectingMethods = false;
+					if (!hasReflected)
+						flushMethods();	// Something bad happened, so we will do a complete flush to be on safe side.
+				}
+			}
+			return hasReflectedMethods;
+		} else
+			return false;	// Couldn't reflect the base values, so couldn't do fields either
+	}
+	
 	private void registerWithFactory() {
 		getAdapterFactory().registerReflection(getJavaClassTarget().getQualifiedNameForReflection(), this);
 	}

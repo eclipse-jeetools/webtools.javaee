@@ -1,4 +1,5 @@
 package org.eclipse.jem.java.impl;
+
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,7 +12,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/16 20:49:21 $ 
  */
 
 import java.util.Collection;
@@ -33,7 +34,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-
 import org.eclipse.jem.java.Block;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
@@ -46,9 +46,10 @@ import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 /**
  * @generated
  */
-public class MethodImpl extends EOperationImpl implements Method{
+public class MethodImpl extends EOperationImpl implements Method {
+
 	protected String signature;
-	
+
 	/**
 	 * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -179,12 +180,13 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 */
 	protected static final JavaVisibilityKind JAVA_VISIBILITY_EDEFAULT = JavaVisibilityKind.PUBLIC_LITERAL;
 
-	public static final String copyright = "(c) Copyright IBM Corporation 2001.";
 	private transient boolean isGenerated = false;
+
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	protected JavaVisibilityKind javaVisibility = JAVA_VISIBILITY_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -218,6 +220,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	protected MethodImpl() {
 		super();
 	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -229,19 +232,19 @@ public class MethodImpl extends EOperationImpl implements Method{
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isAbstractGen() {
+	public boolean isAbstractGen() {
 		return abstract_;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setAbstract(boolean newAbstract) {
+	public void setAbstract(boolean newAbstract) {
 		boolean oldAbstract = abstract_;
 		abstract_ = newAbstract;
 		if (eNotificationRequired())
@@ -250,19 +253,19 @@ public class MethodImpl extends EOperationImpl implements Method{
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isNativeGen() {
+	public boolean isNativeGen() {
 		return native_;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setNative(boolean newNative) {
+	public void setNative(boolean newNative) {
 		boolean oldNative = native_;
 		native_ = newNative;
 		if (eNotificationRequired())
@@ -271,19 +274,19 @@ public class MethodImpl extends EOperationImpl implements Method{
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSynchronizedGen() {
+	public boolean isSynchronizedGen() {
 		return synchronized_;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setSynchronized(boolean newSynchronized) {
+	public void setSynchronized(boolean newSynchronized) {
 		boolean oldSynchronized = synchronized_;
 		synchronized_ = newSynchronized;
 		if (eNotificationRequired())
@@ -292,19 +295,19 @@ public class MethodImpl extends EOperationImpl implements Method{
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isFinalGen() {
+	public boolean isFinalGen() {
 		return final_;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setFinal(boolean newFinal) {
+	public void setFinal(boolean newFinal) {
 		boolean oldFinal = final_;
 		final_ = newFinal;
 		if (eNotificationRequired())
@@ -313,19 +316,19 @@ public class MethodImpl extends EOperationImpl implements Method{
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isConstructorGen() {
+	public boolean isConstructorGen() {
 		return constructor;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setConstructor(boolean newConstructor) {
+	public void setConstructor(boolean newConstructor) {
 		boolean oldConstructor = constructor;
 		constructor = newConstructor;
 		if (eNotificationRequired())
@@ -334,19 +337,19 @@ public class MethodImpl extends EOperationImpl implements Method{
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isStaticGen() {
+	public boolean isStaticGen() {
 		return static_;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setStatic(boolean newStatic) {
+	public void setStatic(boolean newStatic) {
 		boolean oldStatic = static_;
 		static_ = newStatic;
 		if (eNotificationRequired())
@@ -359,62 +362,70 @@ public class MethodImpl extends EOperationImpl implements Method{
 	public JavaClass getContainingJavaClass() {
 		return this.getJavaClass();
 	}
-	  /**
-   * Overrides to ensure reflection is done.
-   */
-  public boolean isAbstract() {
-    if (!hasReflected) reflectValues();
-    return isAbstractGen();
-  }
-  public boolean isConstructor() {
-    if (!hasReflected) reflectValues();
-    return isConstructorGen();
-  }
-  public boolean isFinal() {
-    if (!hasReflected) reflectValues();
-    return isFinalGen();
-  }
-  public boolean isNative() {
-    if (!hasReflected) reflectValues();
-    return isNativeGen();
-  }
-  public boolean isStatic() {
-    if (!hasReflected) reflectValues();
-    return isStaticGen();
-  }
-  public boolean isSynchronized() {
-    if (!hasReflected) reflectValues();
-    return isSynchronizedGen();
-  }
-  public EList getJavaExceptions() {
-    if (!hasReflected) reflectValues();
-    return getJavaExceptionsGen();
-  }
-  public JavaVisibilityKind getJavaVisibility() {
-    if (!hasReflected) reflectValues();
-    return getJavaVisibilityGen();
-  }
-  public EList getParameters() {
-    if (!hasReflected) reflectValues();
-    return getParametersGen();
-  }
-  
-  /**
-   * @see org.eclipse.emf.ecore.ETypedElement#getEType()
-   */
-   public EClassifier getEType() {
-	  if (!hasReflected) reflectValues();
-      return getETypeGen();
-   }
-   
-   public EClassifier getETypeGen() {
-   	  return super.getEType();
-   }
 
-  
+	/**
+	 * Overrides to ensure reflection is done.
+	 */
+	public boolean isAbstract() {
+		reflectValues();
+		return isAbstractGen();
+	}
+
+	public boolean isConstructor() {
+		reflectValues();
+		return isConstructorGen();
+	}
+
+	public boolean isFinal() {
+		reflectValues();
+		return isFinalGen();
+	}
+
+	public boolean isNative() {
+		reflectValues();
+		return isNativeGen();
+	}
+
+	public boolean isStatic() {
+		reflectValues();
+		return isStaticGen();
+	}
+
+	public boolean isSynchronized() {
+		reflectValues();
+		return isSynchronizedGen();
+	}
+
+	public EList getJavaExceptions() {
+		reflectValues();
+		return getJavaExceptionsGen();
+	}
+
+	public JavaVisibilityKind getJavaVisibility() {
+		reflectValues();
+		return getJavaVisibilityGen();
+	}
+
+	public EList getParameters() {
+		reflectValues();
+		return getParametersGen();
+	}
+
+	/**
+	 * @see org.eclipse.emf.ecore.ETypedElement#getEType()
+	 */
+	public EClassifier getEType() {
+		reflectValues();
+		return getETypeGen();
+	}
+
+	public EClassifier getETypeGen() {
+		return super.getEType();
+	}
+
 	/**
 	 * Return a String with the the method name and its parameters. e.g. <code> setFirstName(java.lang.String) <//code> .
-	 *  
+	 *
 	 */
 	public String getMethodElementSignature() {
 		StringBuffer sb = new StringBuffer(75);
@@ -427,17 +438,18 @@ public class MethodImpl extends EOperationImpl implements Method{
 		for (int j = 0; j < parmSize; j++) {
 			if (j > commaTest) {
 				sb.append(",");
-			}			
+			}
 			param = (JavaParameter) params.get(j);
-//FB       if (param.isReturn()) {
-//FB         commaTest ++;
-//FB         continue;
-//FB       }
+			//FB if (param.isReturn()) {
+			//FB commaTest ++;
+			//FB continue;
+			//FB }
 			sb.append(((JavaHelpers) param.getEType()).getQualifiedName());
 		}
 		sb.append(")");
 		return sb.toString();
 	}
+
 	/**
 	 * Return a Parameter with the passed name, or null.
 	 */
@@ -453,28 +465,51 @@ public class MethodImpl extends EOperationImpl implements Method{
 		return null;
 	}
 
-	/**
-	 * Return a ReadAdaptor which can reflect our Java properties
-	 */  
-  protected ReadAdaptor getReadAdaptor() {
-    return (ReadAdaptor)EcoreUtil.getRegisteredAdapter(this, ReadAdaptor.TYPE_KEY);
-  }
+	protected boolean hasReflected = false;
 
-  protected boolean hasReflected = false;
+	protected void reflectValues() {
+		// We only want the testing of the hasReflected and get readadapter to be sync(this) so that
+		// it is short and no deadlock possibility (this is because the the method reflection adapter may go
+		// back to the containing java class to get its reflection adapter, which would lock on itself. So
+		// we need to keep the sections that are sync(this) to not be deadlockable by not doing significant work
+		// during the sync.
+		ReadAdaptor readAdaptor = null;
+		synchronized (this) {
+			if (!hasReflected) {
+				readAdaptor = getReadAdapter();
+			}
+		}
+		if (readAdaptor != null) {
+			boolean setReflected = readAdaptor.reflectValuesIfNecessary();
+			synchronized (this) {
+				// Don't want to set it false. That is job of reflection adapter. Otherwise we could have a race.
+				if (setReflected)
+					hasReflected = setReflected;
+			}
+		}
+	}
 
-  protected void reflectValues()
-  {
-    ReadAdaptor readAdaptor = getReadAdaptor();
-    if (readAdaptor != null) hasReflected = readAdaptor.reflectValuesIfNecessary();
-  }
+	/*
+	 * This is not meant to be used outside of the reflection adapters.
+	 */
+	public synchronized ReadAdaptor getReadAdapter() {
+		return (ReadAdaptor) EcoreUtil.getRegisteredAdapter(this, ReadAdaptor.TYPE_KEY);
+	}
+
+	/*
+	 * Used by reflection adapter to clear the reflection. This not intended to be used by others.
+	 */
+	public synchronized void setReflected(boolean reflected) {
+		hasReflected = reflected;
+	}
 
 	/**
 	 * Get the return type.
 	 */
 	public JavaHelpers getReturnType() {
-    	return (JavaHelpers)getEType();
+		return (JavaHelpers) getEType();
 	}
-	
+
 	public String getSignature() {
 		if (signature == null)
 			signature = doGetSignature();
@@ -484,29 +519,32 @@ public class MethodImpl extends EOperationImpl implements Method{
 	/**
 	 * Replicate the functionality of java.lang.reflect.Method.toString().
 	 * 
-	 * Returns a string describing this Method.  The string is formatted as the method access modifiers, if any, followed by the method return type, followed by a space, followed by the class declaring the method, followed by a period, followed by the method name, followed by a parenthesized, comma-separated list of the method's formal parameter types. If the method throws checked exceptions, the parameter list is followed by a space, followed by the word throws followed by a comma-separated list of the thrown exception types.
+	 * Returns a string describing this Method. The string is formatted as the method access modifiers, if any, followed by the method return type,
+	 * followed by a space, followed by the class declaring the method, followed by a period, followed by the method name, followed by a
+	 * parenthesized, comma-separated list of the method's formal parameter types. If the method throws checked exceptions, the parameter list is
+	 * followed by a space, followed by the word throws followed by a comma-separated list of the thrown exception types.
 	 * 
 	 * For example:
 	 * 
-	 *     public boolean java.lang.Object.equals(java.lang.Object)
+	 * public boolean java.lang.Object.equals(java.lang.Object)
 	 * 
-	 * The access modifiers are placed in canonical order as specified by "The Java Language Specification".  This is public, <tt>protected<//tt> or <tt>private<//tt> first, and then other modifiers in the following order: <tt>abstract<//tt>, <tt>static<//tt>, <tt>final<//tt>, <tt>synchronized<//tt> <tt>native<//tt>.
+	 * The access modifiers are placed in canonical order as specified by "The Java Language Specification". This is public,
+	 * <tt>protected<//tt> or <tt>private<//tt> first, and then other modifiers in the following order: <tt>abstract<//tt>, <tt>static<//tt>, <tt>final<//tt>, <tt>synchronized<//tt> <tt>native<//tt>.
 
 	 */
 	protected String doGetSignature() {
 		StringBuffer sb = new StringBuffer();
-		switch (getJavaVisibility().getValue())
-		{
-		    case JavaVisibilityKind.PUBLIC:
+		switch (getJavaVisibility().getValue()) {
+			case JavaVisibilityKind.PUBLIC:
 				sb.append("Public ");
 				break;
-		    case JavaVisibilityKind.PROTECTED:
+			case JavaVisibilityKind.PROTECTED:
 				sb.append("Protected ");
 				break;
-		    case JavaVisibilityKind.PRIVATE:
+			case JavaVisibilityKind.PRIVATE:
 				sb.append("Private ");
 				break;
-		    case JavaVisibilityKind.PACKAGE:
+			case JavaVisibilityKind.PACKAGE:
 				sb.append("Package ");
 				break;
 		}
@@ -531,8 +569,8 @@ public class MethodImpl extends EOperationImpl implements Method{
 		int parmSize = params.size();
 		for (int j = 0; j < parmSize; j++) {
 			param = (JavaParameter) params.get(j);
-//FB       if (param.isReturn())
-//FB         continue; //  listParameters() includes return type in array 
+			//FB if (param.isReturn())
+			//FB continue; // listParameters() includes return type in array
 			sb.append(((JavaHelpers) param.getEType()).getQualifiedName());
 			if (j < (params.size() - 1)) {
 				sb.append(",");
@@ -553,21 +591,32 @@ public class MethodImpl extends EOperationImpl implements Method{
 		}
 		return sb.toString();
 	}
+
 	/**
-	 * Returns true if the method is system generated.
-	 * This is usually determined by the "generated" tag in the comment.
+	 * Returns true if the method is system generated. This is usually determined by the "generated" tag in the comment.
 	 */
-  public boolean isGenerated() {
-	   return isGenerated;
-  }
+	public boolean isGenerated() {
+		reflectValues();
+		return isGeneratedGen();
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isGeneratedGen() {
+		return isGenerated;
+	}	
 
 	/**
 	 * Is this a void return type method.
 	 */
 	public boolean isVoid() {
-//FB    return (getReturnParameter() == null || "void".equals(getReturnType().getName()));
-    return (getReturnType() == null || "void".equals(getReturnType().getName()));
-  }
+		//FB return (getReturnParameter() == null || "void".equals(getReturnType().getName()));
+		return (getReturnType() == null || "void".equals(getReturnType().getName()));
+	}
+
 	public JavaParameter[] listParametersWithoutReturn() {
 		Collection v = getParameters();
 		JavaParameter[] result = new JavaParameter[v.size()];
@@ -575,23 +624,26 @@ public class MethodImpl extends EOperationImpl implements Method{
 		return result;
 	}
 
-  public EList eContents() {
-    EList results = new BasicEList();
-    results.addAll(getParametersGen()); //FB
-    return results;
-  }
+	public EList eContents() {
+		EList results = new BasicEList();
+		results.addAll(getParametersGen()); //FB
+		return results;
+	}
+
 	/**
 	 * Set the isGenerated flag.
 	 */
 	public void setIsGenerated(boolean generated) {
-		isGenerated = generated;		
+		isGenerated = generated;
 	}
+
 	/**
 	 * Set the return type
 	 */
 	public void setReturnType(JavaHelpers type) {
-	    this.setEType(type);
+		this.setEType(type);
 	}
+
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
@@ -615,8 +667,9 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public JavaClass getJavaClass() {
-		if (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS) return null;
-		return (JavaClass)eContainer;
+		if (eContainerFeatureID != JavaRefPackage.METHOD__JAVA_CLASS)
+			return null;
+		return (JavaClass) eContainer;
 	}
 
 	/**
@@ -632,11 +685,11 @@ public class MethodImpl extends EOperationImpl implements Method{
 			if (eContainer != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newJavaClass != null)
-				msgs = ((InternalEObject)newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
+				msgs = ((InternalEObject) newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
+			msgs = eBasicSetContainer((InternalEObject) newJavaClass, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.METHOD__JAVA_CLASS, newJavaClass, newJavaClass));
 	}
 
@@ -646,7 +699,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 	public Block getSource() {
 		if (source != null && source.eIsProxy()) {
 			Block oldSource = source;
-			source = (Block)eResolveProxy((InternalEObject)source);
+			source = (Block) eResolveProxy((InternalEObject) source);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, JavaRefPackage.METHOD__SOURCE, oldSource, source));
@@ -738,68 +791,68 @@ public class MethodImpl extends EOperationImpl implements Method{
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.METHOD__EANNOTATIONS:
 				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
+				getEAnnotations().addAll((Collection) newValue);
 				return;
 			case JavaRefPackage.METHOD__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case JavaRefPackage.METHOD__ORDERED:
-				setOrdered(((Boolean)newValue).booleanValue());
+				setOrdered(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
+				setUnique(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
+				setLowerBound(((Integer) newValue).intValue());
 				return;
 			case JavaRefPackage.METHOD__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
+				setUpperBound(((Integer) newValue).intValue());
 				return;
 			case JavaRefPackage.METHOD__ETYPE:
-				setEType((EClassifier)newValue);
+				setEType((EClassifier) newValue);
 				return;
 			case JavaRefPackage.METHOD__EPARAMETERS:
 				getEParameters().clear();
-				getEParameters().addAll((Collection)newValue);
+				getEParameters().addAll((Collection) newValue);
 				return;
 			case JavaRefPackage.METHOD__EEXCEPTIONS:
 				getEExceptions().clear();
-				getEExceptions().addAll((Collection)newValue);
+				getEExceptions().addAll((Collection) newValue);
 				return;
 			case JavaRefPackage.METHOD__ABSTRACT:
-				setAbstract(((Boolean)newValue).booleanValue());
+				setAbstract(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__NATIVE:
-				setNative(((Boolean)newValue).booleanValue());
+				setNative(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__SYNCHRONIZED:
-				setSynchronized(((Boolean)newValue).booleanValue());
+				setSynchronized(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__FINAL:
-				setFinal(((Boolean)newValue).booleanValue());
+				setFinal(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__CONSTRUCTOR:
-				setConstructor(((Boolean)newValue).booleanValue());
+				setConstructor(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__STATIC:
-				setStatic(((Boolean)newValue).booleanValue());
+				setStatic(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.METHOD__JAVA_VISIBILITY:
-				setJavaVisibility((JavaVisibilityKind)newValue);
+				setJavaVisibility((JavaVisibilityKind) newValue);
 				return;
 			case JavaRefPackage.METHOD__PARAMETERS:
 				getParameters().clear();
-				getParameters().addAll((Collection)newValue);
+				getParameters().addAll((Collection) newValue);
 				return;
 			case JavaRefPackage.METHOD__JAVA_EXCEPTIONS:
 				getJavaExceptions().clear();
-				getJavaExceptions().addAll((Collection)newValue);
+				getJavaExceptions().addAll((Collection) newValue);
 				return;
 			case JavaRefPackage.METHOD__JAVA_CLASS:
-				setJavaClass((JavaClass)newValue);
+				setJavaClass((JavaClass) newValue);
 				return;
 			case JavaRefPackage.METHOD__SOURCE:
-				setSource((Block)newValue);
+				setSource((Block) newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -829,7 +882,7 @@ public class MethodImpl extends EOperationImpl implements Method{
 				setUpperBound(UPPER_BOUND_EDEFAULT);
 				return;
 			case JavaRefPackage.METHOD__ETYPE:
-				setEType((EClassifier)null);
+				setEType((EClassifier) null);
 				return;
 			case JavaRefPackage.METHOD__EPARAMETERS:
 				getEParameters().clear();
@@ -865,10 +918,10 @@ public class MethodImpl extends EOperationImpl implements Method{
 				getJavaExceptions().clear();
 				return;
 			case JavaRefPackage.METHOD__JAVA_CLASS:
-				setJavaClass((JavaClass)null);
+				setJavaClass((JavaClass) null);
 				return;
 			case JavaRefPackage.METHOD__SOURCE:
-				setSource((Block)null);
+				setSource((Block) null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -878,7 +931,8 @@ public class MethodImpl extends EOperationImpl implements Method{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (abstract: ");
@@ -928,13 +982,13 @@ public class MethodImpl extends EOperationImpl implements Method{
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.METHOD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
+					return ((InternalEList) getEAnnotations()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, JavaRefPackage.METHOD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.METHOD__EPARAMETERS:
-					return ((InternalEList)getEParameters()).basicAdd(otherEnd, msgs);
+					return ((InternalEList) getEParameters()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.METHOD__JAVA_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -957,13 +1011,13 @@ public class MethodImpl extends EOperationImpl implements Method{
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.METHOD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
+					return ((InternalEList) getEAnnotations()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.METHOD__ECONTAINING_CLASS, msgs);
 				case JavaRefPackage.METHOD__EPARAMETERS:
-					return ((InternalEList)getEParameters()).basicRemove(otherEnd, msgs);
+					return ((InternalEList) getEParameters()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.METHOD__PARAMETERS:
-					return ((InternalEList)getParameters()).basicRemove(otherEnd, msgs);
+					return ((InternalEList) getParameters()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.METHOD__JAVA_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
 				default:
@@ -982,14 +1036,14 @@ public class MethodImpl extends EOperationImpl implements Method{
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.METHOD__ECONTAINING_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, EcorePackage.ECLASS__EOPERATIONS, EClass.class, msgs);
+					return ((InternalEObject) eContainer).eInverseRemove(this, EcorePackage.ECLASS__EOPERATIONS, EClass.class, msgs);
 				case JavaRefPackage.METHOD__JAVA_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
+					return ((InternalEObject) eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__METHODS, JavaClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return ((InternalEObject) eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -1016,7 +1070,8 @@ public class MethodImpl extends EOperationImpl implements Method{
 			case JavaRefPackage.METHOD__REQUIRED:
 				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.METHOD__ETYPE:
-				if (resolve) return getEType();
+				if (resolve)
+					return getEType();
 				return basicGetEType();
 			case JavaRefPackage.METHOD__ECONTAINING_CLASS:
 				return getEContainingClass();
@@ -1045,18 +1100,12 @@ public class MethodImpl extends EOperationImpl implements Method{
 			case JavaRefPackage.METHOD__JAVA_CLASS:
 				return getJavaClass();
 			case JavaRefPackage.METHOD__SOURCE:
-				if (resolve) return getSource();
+				if (resolve)
+					return getSource();
 				return basicGetSource();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
 
 }
-
-
-
-
-
-
-
 

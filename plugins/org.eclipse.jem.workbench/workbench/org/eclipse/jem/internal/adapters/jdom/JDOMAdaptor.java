@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JDOMAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:42 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/16 20:49:23 $ 
  */
 
 import java.io.File;
@@ -175,17 +175,6 @@ public abstract class JDOMAdaptor extends JavaReflectionAdaptor {
 		resource.setID(newMethod, computeMethodID(jdomMethod, getType(), getTypeResolutionCache()));
 		return newMethod;
 	}
-	/*
-	 *  Leave the target as is, but flush it so
-	 *  that notifications go through, and clear
-	 *  the source.
-	 */
-
-	public void deprecateSource() {
-		hasReflected = false; // Note:  There is a potential race condidtion here as already existing in
-		//        the flushReflectedValuesIfNecessary()/reflectValues()
-		flushReflectedValuesIfNecessary(true); // induce clients to get Notified.
-	}
 	protected IPath getBinaryPathFromQualifiedName(String qualifiedName) {
 		return new Path(qualifiedName.replace('.', File.separatorChar) + ".class"); //$NON-NLS-1$
 	}
@@ -259,12 +248,10 @@ public abstract class JDOMAdaptor extends JavaReflectionAdaptor {
 	protected abstract Map getTypeResolutionCache();
 
 	public void releaseSourceType() {
-		deprecateSource();
+		flushReflectedValuesIfNecessary(true); // induce clients to get Notified.
 	}
 
 	public Notification releaseSourceTypeNoNotification() {
-		hasReflected = false; // Note:  There is a potential race condidtion here as already existing in
-		//        the flushReflectedValuesIfNecessary()/reflectValues()
 		return flushReflectedValuesIfNecessaryNoNotification(true); // induce clients to get Notified.
 	}
 	/**

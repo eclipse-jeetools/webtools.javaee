@@ -1,4 +1,3 @@
-package org.eclipse.jem.java.impl;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,8 +10,10 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: FieldImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/16 20:49:21 $ 
  */
+package org.eclipse.jem.java.impl;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -42,7 +43,7 @@ import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 /**
  * @generated
  */
-public class FieldImpl extends ETypedElementImpl implements Field{
+public class FieldImpl extends ETypedElementImpl implements Field {
 
 	/**
 	 * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
@@ -94,11 +95,11 @@ public class FieldImpl extends ETypedElementImpl implements Field{
 	 */
 	protected static final JavaVisibilityKind JAVA_VISIBILITY_EDEFAULT = JavaVisibilityKind.PUBLIC_LITERAL;
 
-
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	protected JavaVisibilityKind javaVisibility = JAVA_VISIBILITY_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #isTransient() <em>Transient</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -152,6 +153,7 @@ public class FieldImpl extends ETypedElementImpl implements Field{
 	protected FieldImpl() {
 		super();
 	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -162,65 +164,98 @@ public class FieldImpl extends ETypedElementImpl implements Field{
 	}
 
 	/**
-	 * createFieldRef - return a JavaURL reference to the named field in the named Java class
-	 * 		in the form "package.class_field"
+	 * createFieldRef - return a JavaURL reference to the named field in the named Java class in the form "package.class_field"
 	 */
-  public static Field createFieldRef(String className, String fieldName) {
-    Field ref = JavaRefFactoryImpl.getActiveFactory().createField();
-    JavaURL javaurl = new JavaURL(className + "/" + fieldName);
-    ((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
-    return ref;    
-  }
+	public static Field createFieldRef(String className, String fieldName) {
+		Field ref = JavaRefFactoryImpl.getActiveFactory().createField();
+		JavaURL javaurl = new JavaURL(className + "/" + fieldName);
+		((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
+		return ref;
+	}
+
 	/**
 	 * Get the class that this field is within.
 	 */
 	public JavaClass getContainingJavaClass() {
 		return (JavaClass) this.getJavaClass();
 	}
+
 	/**
 	 * Overrides to perform lazy initializations/reflection.
 	 */
 	public EClassifier getEType() {
-    if (!hasReflected) reflectValues();
-    return super.getEType();
-  }
-  public Block getInitializer() {
-    if (!hasReflected) reflectValues();
-    return getInitializerGen();
-  }
-  public boolean isFinal() {
-    if (!hasReflected) reflectValues();
-    return isFinalGen();
-  }
-  public boolean isStatic() {
-    if (!hasReflected) reflectValues();
-    return isStaticGen();
-  }
-	public JavaHelpers getJavaType() {
-		return (JavaHelpers)getEType();
+		reflectValues();
+		return super.getEType();
 	}
- public JavaVisibilityKind getJavaVisibility() {
-    if (!hasReflected) reflectValues();
-    return getJavaVisibilityGen();
-  }
-protected ReadAdaptor getReadAdaptor() {
-    return (ReadAdaptor)EcoreUtil.getRegisteredAdapter(this, ReadAdaptor.TYPE_KEY);
-  }
 
-//FB   protected Object getReadAdaptorValue(EObject attribute) {
-//FB     if (getReadAdaptor() != null)
-//FB       return readAdaptor.getValueIn(this, attribute);
-//FB     return null;
-//FB   }
+	public Block getInitializer() {
+		reflectValues();
+		return getInitializerGen();
+	}
 
-//FB BEGIN
-  protected boolean hasReflected = false;
+	public boolean isFinal() {
+		reflectValues();
+		return isFinalGen();
+	}
 
-  protected void reflectValues()
-  {
-    ReadAdaptor readAdaptor = getReadAdaptor();
-    if (readAdaptor != null) hasReflected = readAdaptor.reflectValuesIfNecessary();
-  }
+	public boolean isStatic() {
+		reflectValues();
+		return isStaticGen();
+	}
+
+	public boolean isTransient() {
+		reflectValues();
+		return isTransientGen();
+	}
+	
+	public boolean isVolatile() {
+		reflectValues();
+		return isVolatileGen();
+	}	
+
+	public JavaHelpers getJavaType() {
+		return (JavaHelpers) getEType();
+	}
+
+	public JavaVisibilityKind getJavaVisibility() {
+		reflectValues();
+		return getJavaVisibilityGen();
+	}
+
+	protected synchronized ReadAdaptor getReadAdapter() {
+		return (ReadAdaptor) EcoreUtil.getRegisteredAdapter(this, ReadAdaptor.TYPE_KEY);
+	}
+
+	protected boolean hasReflected = false;
+
+	protected void reflectValues() {
+		// We only want the testing of the hasReflected and get readadapter to be sync(this) so that
+		// it is short and no deadlock possibility (this is because the the method reflection adapter may go
+		// back to the containing java class to get its reflection adapter, which would lock on itself. So
+		// we need to keep the sections that are sync(this) to not be deadlockable by not doing significant work
+		// during the sync.
+		ReadAdaptor readAdaptor = null;
+		synchronized (this) {
+			if (!hasReflected) {
+				readAdaptor = getReadAdapter();
+			}
+		}
+		if (readAdaptor != null) {
+			boolean setReflected = readAdaptor.reflectValuesIfNecessary();
+			synchronized (this) {
+				// Don't want to set it false. That is job of reflection adapter. Otherwise we could have a race.
+				if (setReflected)
+					hasReflected = setReflected;
+			}
+		}
+	}
+
+	/*
+	 * Used by reflection adapter to clear the reflection. This not intended to be used by others.
+	 */
+	public synchronized void setReflected(boolean reflected) {
+		hasReflected = reflected;
+	}
 
 	/**
 	 * Is this field an array type.
@@ -232,37 +267,39 @@ protected ReadAdaptor getReadAdaptor() {
 	/**
 	 * Overridden to prevent the reflection of the class.
 	 */
-  public EList eContents() {
-    EList results = new BasicEList();
-//FB  
-//FB    EList containments = eClass().getEAllContainments();
-//FB    if (containments != null) {
-//FB      Iterator i = containments.iterator();
-//FB      while (i.hasNext()) {
-//FB        EStructuralFeature sf = (EStructuralFeature) i.next();
-//FB        //Change from super to primRefValue
-//FB        Object value = primRefValue(sf);
-//FB        //EndChange
-//FB        if (value != null)
-//FB          if (sf.isMany())
-//FB            results.addAll((Collection) value);
-//FB          else
-//FB            results.add(value);
-//FB      }
-//FB    }
-    if (getInitializerGen() != null) results.add(getInitializerGen()); //FB
-    return results;
-  }
+	public EList eContents() {
+		EList results = new BasicEList();
+		//FB
+		//FB EList containments = eClass().getEAllContainments();
+		//FB if (containments != null) {
+		//FB Iterator i = containments.iterator();
+		//FB while (i.hasNext()) {
+		//FB EStructuralFeature sf = (EStructuralFeature) i.next();
+		//FB //Change from super to primRefValue
+		//FB Object value = primRefValue(sf);
+		//FB //EndChange
+		//FB if (value != null)
+		//FB if (sf.isMany())
+		//FB results.addAll((Collection) value);
+		//FB else
+		//FB results.add(value);
+		//FB }
+		//FB }
+		if (getInitializerGen() != null)
+			results.add(getInitializerGen()); //FB
+		return results;
+	}
 
 	public String toString() {
 		return getClass().getName() + " " + "(" + getName() + ")";
 	}
+
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public JavaVisibilityKind getJavaVisibilityGen() {
+	public JavaVisibilityKind getJavaVisibilityGen() {
 		return javaVisibility;
 	}
 
@@ -321,7 +358,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isTransient() {
+	public boolean isTransientGen() {
 		return transient_;
 	}
 
@@ -342,7 +379,7 @@ protected ReadAdaptor getReadAdaptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isVolatile() {
+	public boolean isVolatileGen() {
 		return volatile_;
 	}
 
@@ -362,8 +399,9 @@ protected ReadAdaptor getReadAdaptor() {
 	 * @generated This field/method will be replaced during code generation 
 	 */
 	public JavaClass getJavaClass() {
-		if (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS) return null;
-		return (JavaClass)eContainer;
+		if (eContainerFeatureID != JavaRefPackage.FIELD__JAVA_CLASS)
+			return null;
+		return (JavaClass) eContainer;
 	}
 
 	/**
@@ -379,11 +417,11 @@ protected ReadAdaptor getReadAdaptor() {
 			if (eContainer != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newJavaClass != null)
-				msgs = ((InternalEObject)newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newJavaClass, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
+				msgs = ((InternalEObject) newJavaClass).eInverseAdd(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
+			msgs = eBasicSetContainer((InternalEObject) newJavaClass, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__JAVA_CLASS, newJavaClass, newJavaClass));
 	}
 
@@ -435,46 +473,46 @@ protected ReadAdaptor getReadAdaptor() {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case JavaRefPackage.FIELD__EANNOTATIONS:
 				getEAnnotations().clear();
-				getEAnnotations().addAll((Collection)newValue);
+				getEAnnotations().addAll((Collection) newValue);
 				return;
 			case JavaRefPackage.FIELD__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case JavaRefPackage.FIELD__ORDERED:
-				setOrdered(((Boolean)newValue).booleanValue());
+				setOrdered(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__UNIQUE:
-				setUnique(((Boolean)newValue).booleanValue());
+				setUnique(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__LOWER_BOUND:
-				setLowerBound(((Integer)newValue).intValue());
+				setLowerBound(((Integer) newValue).intValue());
 				return;
 			case JavaRefPackage.FIELD__UPPER_BOUND:
-				setUpperBound(((Integer)newValue).intValue());
+				setUpperBound(((Integer) newValue).intValue());
 				return;
 			case JavaRefPackage.FIELD__ETYPE:
-				setEType((EClassifier)newValue);
+				setEType((EClassifier) newValue);
 				return;
 			case JavaRefPackage.FIELD__FINAL:
-				setFinal(((Boolean)newValue).booleanValue());
+				setFinal(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__STATIC:
-				setStatic(((Boolean)newValue).booleanValue());
+				setStatic(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__JAVA_VISIBILITY:
-				setJavaVisibility((JavaVisibilityKind)newValue);
+				setJavaVisibility((JavaVisibilityKind) newValue);
 				return;
 			case JavaRefPackage.FIELD__TRANSIENT:
-				setTransient(((Boolean)newValue).booleanValue());
+				setTransient(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__VOLATILE:
-				setVolatile(((Boolean)newValue).booleanValue());
+				setVolatile(((Boolean) newValue).booleanValue());
 				return;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
-				setJavaClass((JavaClass)newValue);
+				setJavaClass((JavaClass) newValue);
 				return;
 			case JavaRefPackage.FIELD__INITIALIZER:
-				setInitializer((Block)newValue);
+				setInitializer((Block) newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -504,7 +542,7 @@ protected ReadAdaptor getReadAdaptor() {
 				setUpperBound(UPPER_BOUND_EDEFAULT);
 				return;
 			case JavaRefPackage.FIELD__ETYPE:
-				setEType((EClassifier)null);
+				setEType((EClassifier) null);
 				return;
 			case JavaRefPackage.FIELD__FINAL:
 				setFinal(FINAL_EDEFAULT);
@@ -522,10 +560,10 @@ protected ReadAdaptor getReadAdaptor() {
 				setVolatile(VOLATILE_EDEFAULT);
 				return;
 			case JavaRefPackage.FIELD__JAVA_CLASS:
-				setJavaClass((JavaClass)null);
+				setJavaClass((JavaClass) null);
 				return;
 			case JavaRefPackage.FIELD__INITIALIZER:
-				setInitializer((Block)null);
+				setInitializer((Block) null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -547,8 +585,12 @@ protected ReadAdaptor getReadAdaptor() {
 		Block oldInitializer = initializer;
 		initializer = newInitializer;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__INITIALIZER, oldInitializer, newInitializer);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__INITIALIZER, oldInitializer,
+					newInitializer);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -562,13 +604,13 @@ protected ReadAdaptor getReadAdaptor() {
 		if (newInitializer != initializer) {
 			NotificationChain msgs = null;
 			if (initializer != null)
-				msgs = ((InternalEObject)initializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
+				msgs = ((InternalEObject) initializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
 			if (newInitializer != null)
-				msgs = ((InternalEObject)newInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
+				msgs = ((InternalEObject) newInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JavaRefPackage.FIELD__INITIALIZER, null, msgs);
 			msgs = basicSetInitializer(newInitializer, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.FIELD__INITIALIZER, newInitializer, newInitializer));
 	}
 
@@ -581,7 +623,7 @@ protected ReadAdaptor getReadAdaptor() {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicAdd(otherEnd, msgs);
+					return ((InternalEList) getEAnnotations()).basicAdd(otherEnd, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -604,7 +646,7 @@ protected ReadAdaptor getReadAdaptor() {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case JavaRefPackage.FIELD__EANNOTATIONS:
-					return ((InternalEList)getEAnnotations()).basicRemove(otherEnd, msgs);
+					return ((InternalEList) getEAnnotations()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.FIELD__JAVA_CLASS:
 					return eBasicSetContainer(null, JavaRefPackage.FIELD__JAVA_CLASS, msgs);
 				case JavaRefPackage.FIELD__INITIALIZER:
@@ -625,12 +667,12 @@ protected ReadAdaptor getReadAdaptor() {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
 				case JavaRefPackage.FIELD__JAVA_CLASS:
-					return ((InternalEObject)eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
+					return ((InternalEObject) eContainer).eInverseRemove(this, JavaRefPackage.JAVA_CLASS__FIELDS, JavaClass.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
 		}
-		return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return ((InternalEObject) eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -657,7 +699,8 @@ protected ReadAdaptor getReadAdaptor() {
 			case JavaRefPackage.FIELD__REQUIRED:
 				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 			case JavaRefPackage.FIELD__ETYPE:
-				if (resolve) return getEType();
+				if (resolve)
+					return getEType();
 				return basicGetEType();
 			case JavaRefPackage.FIELD__FINAL:
 				return isFinal() ? Boolean.TRUE : Boolean.FALSE;
@@ -681,7 +724,8 @@ protected ReadAdaptor getReadAdaptor() {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public String toStringGen() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (final: ");
@@ -699,8 +743,4 @@ protected ReadAdaptor getReadAdaptor() {
 	}
 
 }
-
-
-
-
 

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/24 19:33:42 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/16 20:49:21 $ 
  */
 import java.util.List;
 
@@ -196,7 +196,7 @@ public final boolean flushReflectedValuesIfNecessary(boolean clearCachedModelObj
 	return hasFlushed;
 }
 
-public Notification flushReflectedValuesIfNecessaryNoNotification(boolean clearCachedModelObject) {
+public synchronized Notification flushReflectedValuesIfNecessaryNoNotification(boolean clearCachedModelObject) {
 	if (!hasFlushed && !isFlushing) {
 		boolean isExisting = hasReflectionSource();
 		try {

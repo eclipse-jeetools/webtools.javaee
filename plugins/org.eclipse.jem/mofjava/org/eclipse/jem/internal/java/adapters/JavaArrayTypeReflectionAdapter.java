@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaArrayTypeReflectionAdapter.java,v $
- *  $Revision: 1.1 $  $Date: 2004/05/05 21:03:07 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/16 20:49:21 $ 
  */
 package org.eclipse.jem.internal.java.adapters;
 
@@ -22,30 +22,30 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.impl.ArrayTypeImpl;
 
- 
-
 /**
- * Array type reflection adapter. 
- * Since arrays are very constant we don't need any fancy reflection to the source type (class object).
- * It really doesn't do anything. It is just here so that it exists. Everything is constant or depends on
- * the final component type.
+ * Array type reflection adapter. Since arrays are very constant we don't need any fancy reflection to the source type (class object). It really
+ * doesn't do anything. It is just here so that it exists. Everything is constant or depends on the final component type.
  * 
  * @since 1.0.0
  */
-public class JavaArrayTypeReflectionAdapter extends JavaReflectionAdaptor {
-			
+public class JavaArrayTypeReflectionAdapter extends JavaReflectionAdaptor implements IJavaClassAdaptor {
+
 	public JavaArrayTypeReflectionAdapter(Notifier target) {
 		super(target);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#getReflectionSource()
 	 */
 	public Object getReflectionSource() {
-		return null;	// There isn't any for arrays.
+		return null; // There isn't any for arrays.
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#hasReflectionSource()
 	 */
 	public boolean hasReflectionSource() {
@@ -54,10 +54,10 @@ public class JavaArrayTypeReflectionAdapter extends JavaReflectionAdaptor {
 		JavaHelpers fc = jh.getFinalComponentType();
 		return (fc.isPrimitive() || ((JavaClass) fc).isExistingType());
 	}
-	
-	
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.java.adapters.ReflectionAdaptor#reflectValues()
 	 */
 	public boolean reflectValues() {
@@ -77,12 +77,47 @@ public class JavaArrayTypeReflectionAdapter extends JavaReflectionAdaptor {
 		list.add(JavaRefFactory.eINSTANCE.createClassRef("java.io.Serializable"));
 		return super.reflectValues();
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#flushReflectedValues(boolean)
 	 */
 	protected boolean flushReflectedValues(boolean clearCachedModelObject) {
 		ArrayTypeImpl at = (ArrayTypeImpl) getTarget();
 		at.getImplementsInterfacesGen().clear();
 		return true;
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor#isSourceTypeFromBinary()
+	 */
+	public boolean isSourceTypeFromBinary() {
+		return false;
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor#reflectFieldsIfNecessary()
+	 */
+	public synchronized boolean reflectFieldsIfNecessary() {
+		return reflectValuesIfNecessary();
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor#reflectMethodsIfNecessary()
+	 */
+	public synchronized boolean reflectMethodsIfNecessary() {
+		return reflectValuesIfNecessary();
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor#sourceTypeExists()
+	 */
+	public boolean sourceTypeExists() {
+		return hasReflectionSource();
 	}
 }

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/24 19:33:42 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/16 20:49:21 $ 
  */
 import java.util.logging.Level;
 
@@ -116,11 +116,14 @@ public abstract boolean reflectValues();
 /**
  * Return a boolean indicating whether reflection had occurred.
  */
-public boolean reflectValuesIfNecessary() {
+public synchronized boolean reflectValuesIfNecessary() {
 	if (!hasReflected && !isReflecting) {
 		try {
 			isReflecting = true;
-			hasReflected = reflectValues();
+			if (!((EObject)getTarget()).eIsProxy())
+				hasReflected = reflectValues();
+			else
+				hasReflected = false;	// AS long we are a proxy, we won't reflect.
 		} catch (Throwable e) {
 			hasReflected = false;
 			Logger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
@@ -132,8 +135,10 @@ public boolean reflectValuesIfNecessary() {
 	}
 	return hasReflected;
 }
-public static ReflectionAdaptor retrieveAdaptorFrom(EObject object) {	
-	return (ReflectionAdaptor)EcoreUtil.getRegisteredAdapter(object, ReadAdaptor.TYPE_KEY);
+public static ReflectionAdaptor retrieveAdaptorFrom(EObject object) {
+	synchronized (object) {
+		return (ReflectionAdaptor)EcoreUtil.getRegisteredAdapter(object, ReadAdaptor.TYPE_KEY);
+	}
 }
 }
 
