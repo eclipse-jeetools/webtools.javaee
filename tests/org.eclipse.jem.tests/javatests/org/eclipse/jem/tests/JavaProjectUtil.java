@@ -11,7 +11,7 @@ package org.eclipse.jem.tests;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaProjectUtil.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/14 22:04:50 $ 
+ *  $Revision: 1.7 $  $Date: 2004/07/16 15:33:57 $ 
  */
 
 
@@ -247,11 +247,12 @@ public class JavaProjectUtil {
 	public static void waitForAutoBuild() throws CoreException {
 		IJobManager jobManager = Platform.getJobManager();
 		if (jobManager.find(ResourcesPlugin.FAMILY_AUTO_BUILD).length > 0) {
-			try {						
-				jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new NullProgressMonitor());
-			} catch (InterruptedException e) {
-				throw new CoreException(
-						new Status(IStatus.ERROR, JavaTestsPlugin.getPlugin().getBundle().getSymbolicName(), IStatus.ERROR, "", e)); //$NON-NLS-1$
+			while (true) {
+				try {
+					jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new NullProgressMonitor());
+					break;
+				} catch (InterruptedException e) {
+				}
 			}
 		}
 
