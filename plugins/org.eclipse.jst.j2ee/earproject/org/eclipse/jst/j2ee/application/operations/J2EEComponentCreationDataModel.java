@@ -17,6 +17,7 @@ package org.eclipse.jst.j2ee.application.operations;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * This dataModel is a common super class used for to create Flexibile Modules.
@@ -232,8 +233,8 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 //			status = applicationCreationDataModel.validateProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION);
 //		}
 //		return status;
-		IStatus status = null;
-		return status;
+		
+		return WTPCommonPlugin.OK_STATUS;
 	}
 
 	/**
