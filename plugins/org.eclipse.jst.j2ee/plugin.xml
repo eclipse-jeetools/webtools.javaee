@@ -42,7 +42,7 @@
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
-      <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.wst.common.modulecore" export="true"/>
       <import plugin="org.eclipse.debug.ui"/>
    </requires>
 
