@@ -25,16 +25,9 @@
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
       <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.wst.common.tests"/>
 
    </requires>
 
-
-   <extension
-         point="org.eclipse.wst.common.tests.collector.suites">
-      <suite
-            suiteName="J2EE Core BVT"
-            suiteClass="org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVTEclipse">
-      </suite>
-   </extension>
 
 </plugin>

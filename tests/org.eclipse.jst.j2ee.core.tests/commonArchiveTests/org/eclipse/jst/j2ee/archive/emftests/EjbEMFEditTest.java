@@ -106,14 +106,15 @@ public class EjbEMFEditTest extends GeneralEMFEditingTest {
         //Compare work in progress
         
         String exampleDeploymentDesURI = null;
-        if (RendererFactory.getDefaultRendererFactory() == EMF2SAXRendererFactory.INSTANCE){
+        //System.out.println(RendererFactory.getDefaultRendererFactory());
+        if (RendererFactory.getDefaultRendererFactory() instanceof EMF2SAXRendererFactory){
             exampleDeploymentDesURI = curDir + "EMFTests/ejb-jar2-0sax.xml";
         }
         else
             exampleDeploymentDesURI = curDir + "EMFTests/ejb-jar2-0.xml";
-       
+        //System.out.println("File: " + exampleDeploymentDesURI);
         String curDeploymentDesURI = out + "/META-INF/ejb-jar.xml";
-        compareContents(curDeploymentDesURI, exampleDeploymentDesURI);
+        compareContentsIgnoreWhitespace(curDeploymentDesURI, exampleDeploymentDesURI, "");
     }
 
     public void testWCCMJar() throws Exception {

@@ -15,8 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -36,9 +34,10 @@ import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
+import org.eclipse.wst.common.tests.BaseTestCase;
 
 
-public class GeneralEMFPopulationTest extends TestCase {
+public class GeneralEMFPopulationTest extends BaseTestCase {
     //inner class to handle deffered shared references
     protected class DeferredSharedReferenceAction {
         EObject owner;

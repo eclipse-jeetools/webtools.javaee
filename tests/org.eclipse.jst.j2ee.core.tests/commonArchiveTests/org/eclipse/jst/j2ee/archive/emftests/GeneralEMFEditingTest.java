@@ -15,8 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -30,9 +28,10 @@ import org.eclipse.jst.j2ee.archive.testutilities.J2EEVersionCheck;
 import org.eclipse.jst.j2ee.archive.testutilities.TestUtilities;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
+import org.eclipse.wst.common.tests.BaseTestCase;
 
 
-public class GeneralEMFEditingTest extends TestCase {
+public class GeneralEMFEditingTest extends BaseTestCase {
 	//inner class to handle deffered shared references
 	protected class DeferredSharedReferenceAction {
 		EObject owner;
@@ -286,10 +285,57 @@ public class GeneralEMFEditingTest extends TestCase {
 	public boolean isEquivalentLines(String line1, String line2) {
 		if (lineEquals(line1, line2))
 			return true;
-
+		if (equalTags(line1, line2))
+			return true;
 		String equiv = (String) getEquivalentLines().get(line1);
 		return equiv != null && equiv.equals(line2);
 	}
+	
+	public boolean equalTags(String line1, String line2){
+		//data check, there should be no data for this test to return true
+		int shortEndIndex1 = line1.indexOf("/>");
+		int shortEndIndex2 = line2.indexOf("/>");
+		if (shortEndIndex1 == -1 && shortEndIndex2 == -1)
+			return false;
+		else if (shortEndIndex1 != -1){
+			String tagName1 = line1.substring(1,shortEndIndex1);
+			String tagName2 = extractTagName(line2);
+			if (checkNoData(line2) && tagName1.equals(tagName2)){
+				return true;
+			}
+		}
+		else if (shortEndIndex2 != -1){
+			String tagName1 = extractTagName(line1); 
+			String tagName2 = line2.substring(1,shortEndIndex2);
+			if (checkNoData(line1) && tagName1.equals(tagName2)){
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
+	 * @param line2
+	 * @return
+	 */
+	private String extractTagName(String line) {
+		int endOpenTag = line.indexOf(">");
+		return line.substring(1,endOpenTag);
+	}
+
+	/**
+	 * @param line2
+	 * @return
+	 */
+	private boolean checkNoData(String line) {
+		int endOpenTag = line.indexOf(">");
+		int startEndTag = line.lastIndexOf("<");
+		if (endOpenTag == line.length())
+			return true;
+		else if (endOpenTag+1 == startEndTag)
+			return true;
+		return false;
+	}
+
 	public Map getEquivalentLines() {
 		if (equivalentLines == null)
 			equivalentLines = new HashMap();
