@@ -26,14 +26,11 @@ public class ServletUIPlugin extends AbstractUIPlugin {
 	/**
 	 * The constructor.
 	 */
-	public ServletUIPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public ServletUIPlugin() {
+		super();
 		plugin = this;
 	}
 	
-	public ServletUIPlugin() {
-		//Default constructor
-	}
 	
 	/**
 	 * Returns the shared instance.
