@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2004/06/22 17:55:17 $ 
+ *  $Revision: 1.9 $  $Date: 2004/07/06 21:51:55 $ 
  */
 
 import java.util.*;
@@ -400,7 +400,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	public boolean reflectValues() {
 		super.reflectValues();
 		boolean isHeadless = UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT;
-		if (getSourceProject() != null && getSourceType() != null && getSourceType().exists()) {
+		if (canReflect()) {
 			ICompilationUnit cu = getSourceType().getCompilationUnit();
 			boolean isWC = cu != null ? cu.isWorkingCopy() : false;
 			IResource res = isWC ? getSourceType().getResource() : null;
@@ -436,8 +436,14 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	}
 	
 	
+	/**
+	 * @return
+	 */
+	private boolean canReflect() {
+		return getSourceProject() != null && getSourceType() != null && getSourceType().exists();
+	}
 	public synchronized boolean reflectFieldsIfNecessary() {
-		if (reflectValuesIfNecessary()) {
+		if (reflectValuesIfNecessary() && canReflect()) {
 			if (!hasReflectedFields && !isReflectingFields) {
 				isReflectingFields = true;
 				try {
@@ -455,8 +461,8 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		} else
 			return false;	// Couldn't reflect the base values, so couldn't do fields either
 	}
-	public boolean reflectMethodsIfNecessary() {
-		if (reflectValuesIfNecessary()) {
+	public synchronized boolean reflectMethodsIfNecessary() {
+		if (reflectValuesIfNecessary() && canReflect()) {
 			if (!hasReflectedMethods && !isReflectingMethods) {
 				isReflectingMethods = true;
 				try {
