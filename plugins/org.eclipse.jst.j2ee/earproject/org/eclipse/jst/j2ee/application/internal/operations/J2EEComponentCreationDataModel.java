@@ -143,6 +143,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
 
 		if (propertyName.equals(EAR_MODULE_NAME)) {
+			earComponentHandle = computeEARHandle((String)propertyValue);
 			setEARDeployNameProperty(propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
 			if (!isSet(EAR_MODULE_NAME)) 
@@ -161,6 +162,23 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		return returnValue;
 	}
 
+	private URI computeEARHandle(String earDeployName){
+		 ModuleCore mc = null;
+		 try {
+			IProject flexProject = getProject();
+			if(flexProject != null) { 
+				mc = ModuleCore.getModuleCoreForRead(getProject());
+				WorkbenchComponent wc = mc.findWorkbenchModuleByDeployName(earDeployName);
+				return wc.getHandle();
+			}	
+			
+		 }finally {
+			if(mc != null)
+				mc.dispose();			
+		 }
+		return null;		
+	}
+	
 	private void setEARDeployNameProperty(Object propertyValue) {
 	   setProperty(EAR_MODULE_DEPLOY_NAME,propertyValue);
 	}
