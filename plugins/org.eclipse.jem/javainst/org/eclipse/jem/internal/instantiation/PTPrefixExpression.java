@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTPrefixExpression.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:27 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:25:15 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -26,12 +26,12 @@ package org.eclipse.jem.internal.instantiation;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.PrefixExpression#getOperator <em>Operator</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.instantiation.PrefixExpression#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.PTPrefixExpression#getOperator <em>Operator</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.PTPrefixExpression#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPrefixExpression()
+ * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTPrefixExpression()
  * @model 
  * @generated
  */

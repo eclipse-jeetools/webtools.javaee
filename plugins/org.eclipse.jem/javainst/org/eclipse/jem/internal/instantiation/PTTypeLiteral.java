@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTTypeLiteral.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:28 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:25:15 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -26,11 +26,11 @@ package org.eclipse.jem.internal.instantiation;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.TypeLiteral#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.PTTypeLiteral#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getTypeLiteral()
+ * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTTypeLiteral()
  * @model 
  * @generated
  */

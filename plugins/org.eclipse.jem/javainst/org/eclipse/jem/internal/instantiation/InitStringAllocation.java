@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: InitStringAllocation.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:28 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/03 23:25:15 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -24,7 +24,15 @@ package org.eclipse.jem.internal.instantiation;
  * @since 1.0.0
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * This is used when the allocation string can be parsed by the remote vm. It uses the allocString.
+ * <!-- end-model-doc -->
+ *
  * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.InitStringAllocation#getInitString <em>Init String</em>}</li>
+ * </ul>
  * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getInitStringAllocation()

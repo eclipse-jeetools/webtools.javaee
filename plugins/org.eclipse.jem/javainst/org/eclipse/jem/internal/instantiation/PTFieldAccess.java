@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTFieldAccess.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:28 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:25:15 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -26,12 +26,12 @@ package org.eclipse.jem.internal.instantiation;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.FieldAccess#getReceiver <em>Receiver</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.instantiation.FieldAccess#getField <em>Field</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.PTFieldAccess#getReceiver <em>Receiver</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.PTFieldAccess#getField <em>Field</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getFieldAccess()
+ * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTFieldAccess()
  * @model 
  * @generated
  */

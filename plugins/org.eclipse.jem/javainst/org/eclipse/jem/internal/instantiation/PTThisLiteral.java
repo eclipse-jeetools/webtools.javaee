@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: PTThisLiteral.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:28 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 23:25:15 $ 
  */
 package org.eclipse.jem.internal.instantiation;
 
@@ -24,9 +24,9 @@ package org.eclipse.jem.internal.instantiation;
  * <!-- end-model-doc -->
  *
  *
- * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getThisLiteral()
+ * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getPTThisLiteral()
  * @model 
  * @generated
  */
-public interface PTThisLiteral extends PTExpression {
+public interface PTThisLiteral extends PTExpression{
 } // ThisLiteral
