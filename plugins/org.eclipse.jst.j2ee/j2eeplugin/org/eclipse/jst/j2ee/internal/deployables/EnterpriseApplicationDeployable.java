@@ -214,7 +214,9 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 			getModulesFromDelegates(change).toArray(changed);
 			IModule[] removed = new IModule[remove.size()];
 			getModulesFromDelegates(remove).toArray(removed);
-			fireModuleChangeEvent(true, added, changed, removed);
+			////////////TODO add back looselib support///////////////////////////
+			//containedArchives = getContainedArchives();
+	//		fireModuleChangeEvent(true, added, changed, removed);
 		}
 	}
 
