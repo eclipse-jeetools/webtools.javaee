@@ -20,6 +20,7 @@
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.wtp.emf"/>
       <import plugin="org.eclipse.wtp.emf.workbench"/>
+      <import plugin="org.eclipse.jem.proxy"/>
    </requires>
 
 
