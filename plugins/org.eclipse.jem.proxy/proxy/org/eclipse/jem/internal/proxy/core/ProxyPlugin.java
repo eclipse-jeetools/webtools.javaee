@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.24 $  $Date: 2004/06/02 19:58:49 $ 
+ *  $Revision: 1.25 $  $Date: 2004/06/09 22:46:57 $ 
  */
 
 
@@ -674,7 +674,7 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public IConfigurationElement[] getContainerConfigurations(String containerid) {
+	public synchronized IConfigurationElement[] getContainerConfigurations(String containerid) {
 		if (containerToContributions == null)
 			processProxyContributionExtensionPoint();
 		return (IConfigurationElement[]) containerToContributions.get(containerid);
@@ -688,13 +688,13 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public IConfigurationElement[] getPluginConfigurations(String pluginid) {
+	public synchronized IConfigurationElement[] getPluginConfigurations(String pluginid) {
 		if (pluginToContributions == null)
 			processProxyContributionExtensionPoint();
 		return (IConfigurationElement[]) pluginToContributions.get(pluginid);
 	}
 	
-	protected void processProxyContributionExtensionPoint() {
+	protected synchronized void processProxyContributionExtensionPoint() {
 		ContributorExtensionPointInfo info = processContributionExtensionPoint(PI_CONFIGURATION_CONTRIBUTION_EXTENSION_POINT);
 		containerToContributions = info.containerToContributions;
 		pluginToContributions = info.pluginToContributions;

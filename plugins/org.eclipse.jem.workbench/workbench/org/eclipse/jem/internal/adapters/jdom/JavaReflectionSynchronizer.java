@@ -11,15 +11,13 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:17 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/09 22:47:06 $ 
  */
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
-import org.eclipse.core.resources.*;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.jdt.core.*;
@@ -32,10 +30,11 @@ import org.eclipse.jem.internal.plugin.JavaPlugin;
  */
 public class JavaReflectionSynchronizer extends JavaModelListener {
 	
-	private static final IPath CLASSPATH_PATH = new Path(".classpath"); //$NON-NLS-1$
 	protected JavaJDOMAdapterFactory fAdapterFactory;
+
 	protected boolean flushedAll = false;
 	protected List flushTypes = new ArrayList();
+	protected List flushTypePlusInner = new ArrayList();
 	protected List notifications = new ArrayList();
 	/**
 	 * JavaReflectionSynchronizer constructor comment.
@@ -44,15 +43,37 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 		super();
 		fAdapterFactory = synchronizee;
 	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.adapters.jdom.JavaModelListener#getJavaProject()
+	 */
+	protected IJavaProject getJavaProject() {
+		return getAdapterFactory().getJavaProject();
+	}	
 	/**
 	 * Tell the reflection factory to flush the passed IType
 	 */
 	protected Notification doFlush(IType element) {
 		return getAdapterFactory().flushReflectionNoNotification(element.getFullyQualifiedName());
 	}
+	
+	/*
+	 * Flush the compilation unit and any inner classes since we don't if they may or may not of changed.
+	 */
+	protected Notification doFlush(ICompilationUnit element) {
+		return getAdapterFactory().flushReflectionPlusInnerNoNotification(getFullNameFromElement(element));
+	}
+	
 	protected void flush(IType element) {
 		if (!flushTypes.contains(element))
 			flushTypes.add(element);
+	}
+	/*
+	 * flush the compilation unit. Since we don't know if inner classes may also
+	 * of been affected, they to will be flushed.
+	 */
+	protected void flush(ICompilationUnit element) {
+		if (!flushTypePlusInner.contains(element))
+			flushTypePlusInner.add(element);		
 	}
 	protected void flushPackage(String packageName, boolean noFlushIfSourceFound) {
 		notifications.addAll(getAdapterFactory().flushPackageNoNotification(packageName, true));
@@ -60,53 +81,43 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	protected JavaJDOMAdapterFactory getAdapterFactory() {
 		return fAdapterFactory;
 	}
-	private boolean isClassPathChange(IJavaElementDelta delta) {
-		int flags = delta.getFlags();
-		return (delta.getKind() == IJavaElementDelta.CHANGED && ((flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) != 0) || ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) != 0) || ((flags & IJavaElementDelta.F_REORDER) != 0));
-	}
 	/**
 	 * If the complation unit's content has changed, notify all adapters which point to it.
 	 * This change may not require a call to flush() if the structure of the entity has not changed.
 	 * Creation date: (8/17/2001 3:58:31 PM)
 	 * @param param org.eclipse.jdt.core.IJavaElementDelta
 	 */
-	public void processContentChanged(IJavaElementDelta delta) {
-		if (delta == null)
-			return;
-		// Any change will be notified, as changes to childrens may impact the text-location of this element.
-		IJavaElement element = delta.getElement();
-		if (element.getElementType() == IJavaElement.COMPILATION_UNIT)
-			if (((delta.getFlags()) & (IJavaElementDelta.F_CONTENT | IJavaElementDelta.F_MODIFIERS | IJavaElementDelta.F_CHILDREN | IJavaElementDelta.F_MOVED_TO | IJavaElementDelta.F_MOVED_FROM)) != 0) {
-				getAdapterFactory().notifyContentChanged((ICompilationUnit) element);
-			}
-	}
+// This doesn't really apply anymore. If the file has been physically changed, we cannot determine if it
+// just content like this. So we just ignore this for now.
+//	public void processContentChanged(IJavaElementDelta delta) {
+//		if (delta == null)
+//			return;
+//		// Any change will be notified, as changes to childrens may impact the text-location of this element.
+//		IJavaElement element = delta.getElement();
+//		if (element.getElementType() == IJavaElement.COMPILATION_UNIT)
+//			if (((delta.getFlags()) & (IJavaElementDelta.F_CONTENT | IJavaElementDelta.F_MODIFIERS | IJavaElementDelta.F_CHILDREN | IJavaElementDelta.F_MOVED_TO | IJavaElementDelta.F_MOVED_FROM)) != 0) {
+//				getAdapterFactory().notifyContentChanged((ICompilationUnit) element);
+//			}
+//	}
 	/**
 	 * Handle the change for a single element, children will be handled separately.
 	 *
 	 */
 	protected void processJavaElementChanged(ICompilationUnit element, IJavaElementDelta delta) {
-		if (!element.isWorkingCopy()) {
-			switch (delta.getKind()) {
-				case IJavaElementDelta.CHANGED : {						
-					if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) != 0) {
-						try {
-							IType[] flushTypes = element.getAllTypes();
-							for (int i = 0; i < flushTypes.length; i++)
-								flush(flushTypes[i]);
-						} catch (JavaModelException e) {
-						}
-						
-					}
-					
-					break;
-				}
-				case IJavaElementDelta.ADDED :
-				case IJavaElementDelta.REMOVED : {
-					disAssociateSourcePlusInner(getFullNameFromElement(element));
-					return;
-				}
+		switch (delta.getKind()) {
+			case IJavaElementDelta.CHANGED : {
+				// A file save had occurred. It doesn't matter if currently working copy or not.
+				// It means something has changed to the file on disk, but don't know what.
+				if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
+					flush(element);	// Flush everything, including inner classes.					
+				}						
+				break;
 			}
-			processChildren(element, delta);
+			case IJavaElementDelta.REMOVED : {
+				if (!element.isWorkingCopy())
+					disAssociateSourcePlusInner(getFullNameFromElement(element));				
+				break;
+			}
 		}
 	}
 	/**
@@ -147,25 +158,6 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 		}
 	}
 	/**
-	 * Method isClasspathResourceChange.
-	 * @param delta
-	 * @return boolean
-	 */
-	private boolean isClasspathResourceChange(IJavaElementDelta delta) {
-		IResourceDelta[] resources = delta.getResourceDeltas();
-		if (resources == null)
-			return false;
-		IPath path = null;
-		for (int i = 0; i < resources.length; i++) {
-			if (resources[i].getKind() == IResourceDelta.CHANGED) {
-				path = resources[i].getProjectRelativePath();
-				if (path.equals(CLASSPATH_PATH))
-					return true;
-			}
-		}
-		return false;
-	}
-	/**
 	 * Handle the change for a single element, children will be handled separately.
 	 *
 	 */
@@ -189,12 +181,12 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 			case IJavaElementDelta.ADDED : {
 				if (delta.getAffectedChildren().length == 0)
 					flushPackage(delta.getElement().getElementName(), true);
-					break;
+				break;
 			}
 			case IJavaElementDelta.REMOVED :{
 				if (delta.getAffectedChildren().length == 0)
 					getAdapterFactory().flushPackage(delta.getElement().getElementName(), false);
-					break;
+				break;
 			}
 			default :
 				super.processJavaElementChanged(element, delta);
@@ -221,6 +213,7 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	 * that the type's name is package.filename (without the .java)
 	 * If we are wrong (if, then a rare case),  we will flush.
 	 * Next access will induce a reflection attempt.
+	 * @deprecated This doesn't look like it is ever called. It someone else calls it, please contact development to see if right method to be called.
 	 */
 	protected void processRemoveOrAdd(ICompilationUnit element) {
 		disAssociateSource(getFullNameFromElement(element));
@@ -249,72 +242,12 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 		JavaCore.removeElementChangedListener(this);
 	}
 	/**
-	 * This method will check to see if a <code>javaProject</code> is a project in the
-	 * classpath of the adapterFactory java project.
-	 */
-	protected boolean isInClasspath(IJavaProject javaProject) {
-		IJavaProject adapterJavaProject = getAdapterFactory().getJavaProject();
-		if (javaProject.equals(adapterJavaProject))
-			return true;
-		return isInClasspath(javaProject, adapterJavaProject, true, new HashSet());
-	}
-	protected boolean isInClasspath(IJavaProject testProject, IJavaProject targetProject, boolean isFirstLevel, Set visited) {
-		if (visited.contains(targetProject))
-			return false;
-		visited.add(targetProject);
-		IClasspathEntry[] entries = null;
-		try {
-			entries = targetProject.getRawClasspath();
-		} catch (JavaModelException e) {
-			return false;
-		}
-		IClasspathEntry entry, resEntry;
-		IJavaProject proj = null;
-		List projects = null;
-		for (int i = 0; i < entries.length; i++) {
-			entry = entries[i];
-			if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT) {
-				resEntry = JavaCore.getResolvedClasspathEntry(entry);
-				proj = getJavaProject(entry);
-				if (isFirstLevel || resEntry.isExported()) {
-					if (proj.equals(testProject))
-						return true;
-					else {
-						if (projects == null)
-							projects = new ArrayList();
-						projects.add(proj);
-					}
-				}
-			}
-		}
-		return isInClasspath(testProject, projects, false, visited);
-	}
-	protected boolean isInClasspath(IJavaProject testProject, List someJavaProjects, boolean isFirstLevel, Set visited) {
-		if (someJavaProjects == null)
-			return false;
-		int size = someJavaProjects.size();
-		IJavaProject javaProj = null;
-		for (int i = 0; i < size; i++) {
-			javaProj = (IJavaProject) someJavaProjects.get(i);
-			return isInClasspath(testProject, javaProj, isFirstLevel, visited);
-		}
-		return false;
-	}
-	protected IJavaProject getJavaProject(IClasspathEntry entry) {
-		IProject proj = getWorkspaceRoot().getProject(entry.getPath().segment(0));
-		if (proj != null)
-			return (IJavaProject) JavaCore.create(proj);
-		return null;
-	}
-	protected IWorkspaceRoot getWorkspaceRoot() {
-		return ResourcesPlugin.getWorkspace().getRoot();
-	}
-	/**
 	 * @see org.eclipse.jem.internal.adapters.jdom.JavaModelListener#elementChanged(ElementChangedEvent)
 	 */
 	public void elementChanged(ElementChangedEvent event) {
 		try {
 			flushTypes.clear();
+			flushTypePlusInner.clear();
 			notifications.clear();
 			super.elementChanged(event);
 			flushTypes();
@@ -322,6 +255,7 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 		} finally {
 			flushedAll = false;
 			flushTypes.clear();
+			flushTypePlusInner.clear();
 			notifications.clear();
 		}
 	}
@@ -339,6 +273,16 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 					notifications.add(not);
 			}
 		}
+		if (!flushTypePlusInner.isEmpty()) {
+			ICompilationUnit unit = null;
+			Notification not;
+			for (int i = 0; i < flushTypePlusInner.size(); i++) {
+				unit = (ICompilationUnit) flushTypePlusInner.get(i);
+				not = doFlush(unit);
+				if (not != null)
+					notifications.add(not);
+			}
+		}		
 	}
 	/**
 	 * @param notifications

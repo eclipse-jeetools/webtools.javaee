@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2004/05/05 21:03:09 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/09 22:46:55 $ 
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -152,6 +152,28 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 			}
 		}
 	}
+	
+	public void markStaleIntrospectionPlusInner(String sourceName, boolean clearResults) {
+		processQueue();
+		String sourceNameForInner = sourceName + '$';
+		synchronized (this) {
+			Iterator itr = fIntrospected.entrySet().iterator();
+			while (itr.hasNext()) {
+				Map.Entry entry = (Map.Entry) itr.next();
+				String entryName = (String) entry.getKey();
+				if (entryName.equals(sourceName) || entryName.startsWith(sourceNameForInner)) {
+					// It is the item or one of its inner classes.
+					WeakValue ref = (WeakValue) entry.getValue();
+					BeaninfoClassAdapter a = (BeaninfoClassAdapter) ref.get();					
+					if (a != null) {
+						if (clearResults)
+							a.clearIntrospection();
+						a.markStaleFactory(isRegistryCreated() ? getRegistry() : null); // Mark it stale with the current registry.
+					}
+				}
+			}
+		}
+	}	
 
 	/**
 	 * Register an adapter for introspection.
@@ -164,46 +186,6 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 		processQueue();
 		synchronized (this) {
 			fIntrospected.put(sourceName, new WeakValue(sourceName, adapter, fRefQ));
-		}
-	}
-
-	/**
-	 * Unregister the introspection and remove the adapter and clear out any introspection it may of done.
-	 * @param sourceName Fully qualified source name, use type for reflection, i.e. "a.b.c.Class1$InnerClass"
-	 */
-	public void unregisterIntrospection(String sourceName) {
-		processQueue();
-		synchronized (this) {
-			WeakValue ref = (WeakValue) fIntrospected.remove(sourceName);
-			if (ref != null) {
-				BeaninfoClassAdapter a = (BeaninfoClassAdapter) ref.get();
-				a.clearIntrospection();
-				a.getTarget().eAdapters().remove(a);
-			}
-		}
-	}
-
-	/**
-	 * Unregister this class and all inner classes (denoted by having same name plus '$' plus stuff)
-	 * @param sourceName Fully qualified source name, use type for reflection, i.e. "a.b.c.Class1$InnerClass"
-	 */
-	public void unregisterIntrospectionPlusInner(String sourceName) {
-		processQueue();
-		String sourceNameForInner = sourceName + '$';
-		synchronized (this) {
-			Iterator itr = fIntrospected.entrySet().iterator();
-			while (itr.hasNext()) {
-				Map.Entry entry = (Map.Entry) itr.next();
-				String entryName = (String) entry.getKey();
-				if (entryName.equals(sourceName) || entryName.startsWith(sourceNameForInner)) {
-					// It is the item or one of its inner classes.
-					WeakValue ref = (WeakValue) entry.getValue();
-					itr.remove();	// Since I removed it BEFORE sending removeAdapter, I won't get a concurrentmodification exception from removeAdapter also removing it, since it won't be there then.
-					BeaninfoClassAdapter a = (BeaninfoClassAdapter) ref.get();
-					a.clearIntrospection();
-					a.getTarget().eAdapters().remove(a);
-				}
-			}
 		}
 	}
 	

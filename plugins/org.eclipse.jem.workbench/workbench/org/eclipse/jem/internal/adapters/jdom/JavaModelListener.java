@@ -11,9 +11,16 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaModelListener.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:42 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/09 22:47:06 $ 
  */
 
+import java.util.*;
+
+import org.eclipse.core.resources.*;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
 
 /**
@@ -21,14 +28,17 @@ import org.eclipse.jdt.core.*;
  * Creation date: (10/31/2000 1:13:12 PM)
  * @author: Administrator
  */
-public class JavaModelListener implements IElementChangedListener {
+public abstract class JavaModelListener implements IElementChangedListener {
 	
 /**
  * JavaModelListener constructor comment.
  */
 public JavaModelListener() {
-	super();
-	JavaCore.addElementChangedListener(this, ElementChangedEvent.POST_CHANGE | ElementChangedEvent.POST_RECONCILE);
+	this(ElementChangedEvent.POST_CHANGE);
+}
+
+public JavaModelListener(int eventsToListen) {
+	JavaCore.addElementChangedListener(this, eventsToListen);
 }
 /**
  * One or more attributes of one or more elements maintained by
@@ -141,5 +151,116 @@ protected void processJavaElementChanged(IPackageFragmentRoot element, IJavaElem
  */
 protected void processJavaElementChanged(IType element, IJavaElementDelta delta) {
 	// override to implement specific behavior
+}
+private static final IPath CLASSPATH_PATH = new Path(".classpath");
+protected boolean isClassPathChange(IJavaElementDelta delta) {
+	int flags = delta.getFlags();
+	return (delta.getKind() == IJavaElementDelta.CHANGED && ((flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) != 0) || ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) != 0) || ((flags & IJavaElementDelta.F_REORDER) != 0));
+}
+
+/**
+ * Method isClasspathResourceChange.
+ * @param delta
+ * @return boolean
+ */
+protected boolean isClasspathResourceChange(IJavaElementDelta delta) {
+	IResourceDelta[] resources = delta.getResourceDeltas();
+	if (resources == null)
+		return false;
+	IPath path = null;
+	for (int i = 0; i < resources.length; i++) {
+		if (resources[i].getKind() == IResourceDelta.CHANGED) {
+			path = resources[i].getProjectRelativePath();
+			if (path.equals(CLASSPATH_PATH) || isAlsoClasspathChange(path))
+				return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * Is this path also a classpath change type of resource. If so, return true.
+ * Subclasses may override. Default is false.
+ * @param path
+ * @return
+ * 
+ * @since 1.0.0
+ */
+protected boolean isAlsoClasspathChange(IPath path) {
+	return false;
+}
+
+/**
+ * This method will check to see if a <code>javaProject</code> is a project in the
+ * classpath of the adapterFactory java project.
+ */
+protected boolean isInClasspath(IJavaProject javaProject) {
+	IJavaProject adapterJavaProject = getJavaProject();
+	if (javaProject.equals(adapterJavaProject))
+		return true;
+	return isInClasspath(javaProject, adapterJavaProject, true, new HashSet());
+}
+
+/**
+ * Get the java project that we are interested in.
+ * @return
+ * 
+ * @since 1.0.0
+ */
+protected abstract IJavaProject getJavaProject();
+
+protected boolean isInClasspath(IJavaProject testProject, IJavaProject targetProject, boolean isFirstLevel, Set visited) {
+	if (visited.contains(targetProject))
+		return false;
+	visited.add(targetProject);
+	IClasspathEntry[] entries = null;
+	try {
+		entries = targetProject.getRawClasspath();
+	} catch (JavaModelException e) {
+		return false;
+	}
+	IClasspathEntry entry, resEntry;
+	IJavaProject proj = null;
+	List projects = null;
+	for (int i = 0; i < entries.length; i++) {
+		entry = entries[i];
+		if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT) {
+			resEntry = JavaCore.getResolvedClasspathEntry(entry);
+			proj = getJavaProject(entry);
+			if (isFirstLevel || resEntry.isExported()) {
+				if (proj.equals(testProject))
+					return true;
+				else {
+					if (projects == null)
+						projects = new ArrayList();
+					projects.add(proj);
+				}
+			}
+		}
+	}
+	return isInClasspath(testProject, projects, false, visited);
+}
+
+protected boolean isInClasspath(IJavaProject testProject, List someJavaProjects, boolean isFirstLevel, Set visited) {
+	if (someJavaProjects == null)
+		return false;
+	int size = someJavaProjects.size();
+	IJavaProject javaProj = null;
+	for (int i = 0; i < size; i++) {
+		javaProj = (IJavaProject) someJavaProjects.get(i);
+		return isInClasspath(testProject, javaProj, isFirstLevel, visited);
+	}
+	return false;
+}
+
+protected IJavaProject getJavaProject(IClasspathEntry entry) {
+	IProject proj = getWorkspaceRoot().getProject(entry.getPath().segment(0));
+	if (proj != null)
+		return (IJavaProject) JavaCore.create(proj);
+	return null;
+}
+
+protected IWorkspaceRoot getWorkspaceRoot() {
+	return ResourcesPlugin.getWorkspace().getRoot();
 }
 }

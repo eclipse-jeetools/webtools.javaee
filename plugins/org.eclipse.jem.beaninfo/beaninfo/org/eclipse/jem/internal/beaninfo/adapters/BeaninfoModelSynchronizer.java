@@ -11,14 +11,9 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoModelSynchronizer.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/24 15:07:44 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/09 22:46:55 $ 
  */
 
-import java.util.*;
-
-import org.eclipse.core.resources.*;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
@@ -32,22 +27,27 @@ import org.eclipse.jem.internal.adapters.jdom.JavaModelListener;
 public class BeaninfoModelSynchronizer extends JavaModelListener {
 	protected BeaninfoAdapterFactory fAdapterFactory;
 	protected IJavaProject fProject; // The project this listener is opened on.
-	protected IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-	private static final IPath CLASSPATH_PATH = new Path(".classpath"); //$NON-NLS-1$
 	private static final IPath BEANINFOCONFIG_PATH = new Path(BeaninfoNature.P_BEANINFO_SEARCH_PATH);	//$NON-NLS-1$	
 
 	public BeaninfoModelSynchronizer(BeaninfoAdapterFactory aFactory, IJavaProject aProject) {
-		super();
+		super(ElementChangedEvent.POST_CHANGE);
 		fAdapterFactory = aFactory;
 		fProject = aProject;
-		// We're really only interested in Post_Change, not the others, so we will
-		// remove ourself (since super ctor added ourself) and then add ourself
-		// back with only post change. (Post change is after everything has been
-		// reconciled and build).
-		JavaCore.removeElementChangedListener(this);
-		JavaCore.addElementChangedListener(this, ElementChangedEvent.POST_CHANGE);	
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.adapters.jdom.JavaModelListener#getJavaProject()
+	 */
+	protected IJavaProject getJavaProject() {
+		return fProject;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.adapters.jdom.JavaModelListener#isAlsoClasspathChange(org.eclipse.core.runtime.IPath)
+	 */
+	protected boolean isAlsoClasspathChange(IPath path) {
+		return path.equals(BEANINFOCONFIG_PATH);
+	}
+	
 	/**
 	 * Stop the synchronizer from listening to any more changes.
 	 */
@@ -58,97 +58,6 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 
 	public BeaninfoAdapterFactory getAdapterFactory() {
 		return fAdapterFactory;
-	}
-
-	protected IJavaProject getJavaProject(IClasspathEntry entry) {
-		IProject proj = workspaceRoot.getProject(entry.getPath().segment(0));
-		if (proj != null)
-			return (IJavaProject) JavaCore.create(proj);
-		return null;
-	}
-	
-	private boolean isClassPathChange(IJavaElementDelta delta) {
-		int flags = delta.getFlags();
-		return (
-			delta.getKind() == IJavaElementDelta.CHANGED
-				&& ((flags & IJavaElementDelta.F_ADDED_TO_CLASSPATH) != 0)
-				|| ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) != 0)
-				|| ((flags & IJavaElementDelta.F_REORDER) != 0));
-	}
-
-	/**
-	 * This method will check to see if a <code>javaProject</code> is a project in the
-	 * classpath of the adapterFactory java project.
-	 */
-	protected boolean isInClasspath(IJavaProject javaProject) {
-		IJavaProject adapterJavaProject = fProject;
-		if (javaProject.equals(adapterJavaProject))
-			return true;
-		return isInClasspath(javaProject, adapterJavaProject, true, new HashSet());
-	}
-
-	protected boolean isInClasspath(IJavaProject testProject, IJavaProject targetProject, boolean isFirstLevel, Set visited) {
-		if (visited.contains(targetProject))
-			return false;
-		visited.add(targetProject);
-		IClasspathEntry[] entries = null;
-		try {
-			entries = targetProject.getRawClasspath();
-		} catch (JavaModelException e) {
-			return false;
-		}
-		IClasspathEntry entry, resEntry;
-		IJavaProject proj = null;
-		List projects = null;
-		for (int i = 0; i < entries.length; i++) {
-			entry = entries[i];
-			if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT) {
-				resEntry = JavaCore.getResolvedClasspathEntry(entry);
-				proj = getJavaProject(resEntry);
-				if (isFirstLevel || resEntry.isExported()) {
-					if (proj.equals(testProject))
-						return true;
-					else {
-						if (projects == null)
-							projects = new ArrayList();
-						projects.add(proj);
-					}
-				}
-			}
-		}
-		return isInClasspath(testProject, projects, false, visited);
-	}
-	
-	protected boolean isInClasspath(IJavaProject testProject, List someJavaProjects, boolean isFirstLevel, Set visited) {
-		if (someJavaProjects == null)
-			return false;
-		int size = someJavaProjects.size();
-		IJavaProject javaProj = null;
-		for (int i = 0; i < size; i++) {
-			javaProj = (IJavaProject) someJavaProjects.get(i);
-			return isInClasspath(testProject, javaProj, isFirstLevel, visited);
-		}
-		return false;
-	}
-
-	/*
-	 * Test if .classpath/.beaninfoconfig is part of the change. This is necessary
-	 * because .classpath/.beaninfoconfig changes of DEPENDENT PROJECTS are not signaled
-	 * through classpath change mechanisms of the top project.
-	 */
-	private boolean isClasspathResourceChange(IJavaElementDelta delta) {
-		IResourceDelta[] resources = delta.getResourceDeltas();
-		if (resources == null)
-			return false;
-		IPath path = null;
-		for (int i = 0; i < resources.length; i++) {
-			if (resources[i].getKind() != IResourceDelta.NO_CHANGE) {
-				path = resources[i].getProjectRelativePath();
-				if (path.equals(CLASSPATH_PATH) || path.equals(BEANINFOCONFIG_PATH))
-					return true;
-			}
-		}
-		return false;
 	}
 
 	protected void processJavaElementChanged(IJavaProject element, IJavaElementDelta delta) {
@@ -163,7 +72,7 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 				}
 				return;
 			} else if (isClasspathResourceChange(delta)) {
-				getAdapterFactory().markAllStale(); // The .classpath file itself in SOME DEPENDENT PROJECT has changed. 
+				getAdapterFactory().markAllStale(); // The .classpath file (or .beaninfoconfig) itself in SOME DEPENDENT PROJECT has changed. 
 				return;
 			}
 			processChildren(element, delta);
@@ -178,26 +87,26 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 	 * If it is not a content change then process the children.
 	 */
 	protected void processJavaElementChanged(ICompilationUnit element, IJavaElementDelta delta) {
-		if (!element.isWorkingCopy()) {
-			if (((delta.getKind() == IJavaElementDelta.CHANGED && (delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) == 0) || delta.getKind() == IJavaElementDelta.ADDED)) {
-				try {
-					IType[] flushTypes = element.getAllTypes();
-					for (int i = 0; i < flushTypes.length; i++) {
-						getAdapterFactory().markStaleIntrospection(flushTypes[i].getFullyQualifiedName(), false);
-					}
-				} catch (JavaModelException e) {
-				}
-			}
-			if (delta.getKind() == IJavaElementDelta.REMOVED) {
-				// It doesn't matter if totally removed or just moved somewhere else, we will clear out and remove the
+		switch (delta.getKind()) {
+			case IJavaElementDelta.CHANGED :
+				// A file save had occurred. It doesn't matter if currently working copy or not.
+				// It means something has changed to the file on disk, but don't know what.
+				if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
+					getAdapterFactory().markStaleIntrospectionPlusInner(getFullNameFromElement(element), false);	// Flush everything, including inner classes.
+				}						
+				
+				break;
+			case IJavaElementDelta.ADDED:
+			case IJavaElementDelta.REMOVED:
+				// Need to know for add because we optimize the beaninfo such that once found as undefined, it won't
+				// introspect again until we mark it stale. So we need to mark it stale to refresh it.
+				
+				// It doesn't matter if totally removed or just moved somewhere else, we will clear out
 				// adapter because there could be a rename which would be a different class.
-				// Currently the element is already deleted and there is no way to find the types in the unit to remove.
-				// So instead we ask factory to remove all it any that start with it plus for inner classes.				
-				getAdapterFactory().unregisterIntrospectionPlusInner(getFullNameFromElement(element));
-				return;
-				// Since the compilation unit was removed we don't need to process the children (actually the children list will be empty
-			}
-			processChildren(element, delta);
+				// Currently the element is already deleted or added and there is no way to find the types in the unit to flush.
+				// So instead we ask factory to flush all it any that start with it plus for inner classes.				
+				getAdapterFactory().markStaleIntrospectionPlusInner(getFullNameFromElement(element), true);	// Flush everything, including inner classes.
+				break;
 		}
 	}
 
@@ -210,7 +119,7 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 			// adapter because there could be a rename which would be a different class.
 			// Currently the element is already deleted and there is no way to find the types in the unit to remove.
 			// So instead we ask factory to remove all it any that start with it plus for inner classes.
-			getAdapterFactory().unregisterIntrospectionPlusInner(getFullNameFromElement(element));
+			getAdapterFactory().markStaleIntrospectionPlusInner(getFullNameFromElement(element), true);
 			return; // Since the classfile was removed we don't need to process the children (actually the children list will be empty
 		}
 		IJavaElementDelta[] children = delta.getAffectedChildren();
@@ -251,6 +160,20 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 		else
 			super.processJavaElementChanged(element, delta);
 	}
+	
+	protected void processJavaElementChanged(IPackageFragment element, IJavaElementDelta delta) {
+		switch (delta.getKind()) {
+			case IJavaElementDelta.ADDED:
+				break;	// Don't need to do anything on a new package. If this was from a new fragroot, we would recycle already. Otherwise, it will find this package on the first use.
+			case IJavaElementDelta.REMOVED:
+				if (delta.getAffectedChildren().length == 0)
+					fAdapterFactory.markAllStale();
+				break;
+			default :
+				super.processJavaElementChanged(element, delta);
+		}
+	}
+	
 
 	/**
 	 * Handle the change for a single element, children will be handled separately.
@@ -259,7 +182,11 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 	 */
 	protected void processJavaElementChanged(IType element, IJavaElementDelta delta) {
 		if (delta.getKind() == IJavaElementDelta.REMOVED) {
-			getAdapterFactory().unregisterIntrospectionPlusInner(element.getFullyQualifiedName());	// Close it out. Doesn't matter if moved_to, that would be a rename which requires brand new class.
+			// Close it out. Doesn't matter if moved_to, that would be a rename which requires brand new class.
+			// We can't actually get rid of the beaninfo adapter because it may be asked for again
+			// just to see if not defined. It may also come back later and we want to know about
+			// it to recycle the vm.
+			getAdapterFactory().markStaleIntrospection(element.getFullyQualifiedName(), true);	
 		} else
 			getAdapterFactory().markStaleIntrospection(element.getFullyQualifiedName(), false); // Just mark it stale
 		processChildren(element, delta);

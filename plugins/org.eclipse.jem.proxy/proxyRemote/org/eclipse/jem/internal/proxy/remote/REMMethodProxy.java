@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMMethodProxy.java,v $
- *  $Revision: 1.5 $  $Date: 2004/05/24 23:23:36 $ 
+ *  $Revision: 1.6 $  $Date: 2004/06/09 22:46:57 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -61,14 +61,10 @@ final class REMMethodProxy extends REMAccessibleObjectProxy implements IREMMetho
 		return fMethodName;
 	}
 
-	public IBeanTypeProxy[] getParameterTypes() {
+	public synchronized IBeanTypeProxy[] getParameterTypes() {
 		if (fParameterTypes == null) {
-			IArrayBeanProxy parmTypes =
-				(IArrayBeanProxy) REMStandardBeanProxyConstants
-					.getConstants(fFactory)
-					.getMethodParameterTypesMessage()
-					.invokeCatchThrowableExceptions(
-					this);
+			IArrayBeanProxy parmTypes = (IArrayBeanProxy) REMStandardBeanProxyConstants.getConstants(fFactory)
+					.getMethodParameterTypesMessage().invokeCatchThrowableExceptions(this);
 			if (parmTypes == null)
 				fParameterTypes = new IBeanTypeProxy[0]; // There was some error, only way null is returned
 			else {

@@ -11,12 +11,13 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2004/02/24 19:33:35 $ 
+ *  $Revision: 1.6 $  $Date: 2004/06/09 22:47:06 $ 
  */
 
 import java.util.*;
 import java.util.logging.Level;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
@@ -253,21 +254,32 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		primFlushReflectedValues();
 		boolean isHeadless = UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT;
 		if (getSourceProject() != null && getSourceType() != null && getSourceType().exists()) {
-			setModifiers();
-			setNaming();
-			try {
-				setSuper();
-			} catch (InheritanceCycleException e) {
-				JavaPlugin.getDefault().getLogger().log(e);
-			}
-			setImplements();
-			addMethods();
-			addFields();
-			reflectInnerClasses();
-			//addImports();
-			if (isHeadless) {
-				registerWithFactory();
-				return true;
+			ICompilationUnit cu = getSourceType().getCompilationUnit();
+			boolean isWC = cu != null ? cu.isWorkingCopy() : false;
+			IResource res = isWC ? getSourceType().getResource() : null;
+			// We are only interested in physical classes. If still just in working copy and not yet put out to
+			// disk, we don't should treat as not exist. Anything else is considered existing because we got past
+			// getSourceType.exists. This will return the truth for non-wc. But for wc types it will return true,
+			// even though not physically on disk (such as just creating it and hadn't saved it yet). So for wc types
+			// we need to test the actual resource.
+			// Test is OK if not wc, or if wc, then there is a res. and it is accessible.
+			if (!isWC || (res != null && res.isAccessible())) {
+				setModifiers();
+				setNaming();
+				try {
+					setSuper();
+				} catch (InheritanceCycleException e) {
+					JavaPlugin.getDefault().getLogger().log(e);
+				}
+				setImplements();
+				addMethods();
+				addFields();
+				reflectInnerClasses();
+				//addImports();
+				if (isHeadless) {
+					registerWithFactory();
+					return true;
+				}
 			}
 		}
 		if (isHeadless)

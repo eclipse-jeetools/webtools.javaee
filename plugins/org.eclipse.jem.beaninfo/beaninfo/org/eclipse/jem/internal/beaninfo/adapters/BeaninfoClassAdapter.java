@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.13 $  $Date: 2004/06/02 19:42:39 $ 
+ *  $Revision: 1.14 $  $Date: 2004/06/09 22:46:55 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -423,7 +423,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						retrievedExtensionDocument = NEVER_RETRIEVED_EXTENSION_DOCUMENT;
 					}
 					if (retrievedExtensionDocument == NEVER_RETRIEVED_EXTENSION_DOCUMENT)
-						applyExtensionDocument(true);	// Add in Root stuff so that it will work correctly even though undefined.					
+						applyExtensionDocument(true);	// Add in Root stuff so that it will work correctly even though undefined.
+					// Mark that we've done all introspections so as not to waste time until we get notified that it has been added
+					// back in.
 					hasIntrospected = hasIntrospectedOperations = hasIntrospectedProperties = hasIntrospectedEvents = true;
 				} else {
 					if (retrievedExtensionDocument == RETRIEVED_ROOT_ONLY) {
@@ -952,7 +954,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// allow discovered duplicates unless they are different types.
 		HashMap supers = new HashMap(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-		if (bd.isMergeSuperProperties()) {
+		if (bd == null || bd.isMergeSuperProperties()) {
 			JavaClass superType = getJavaClass().getSupertype();
 			if (superType != null) {
 				Iterator superAllItr = superType.getAllProperties().iterator();
@@ -1343,7 +1345,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// will be allowed and we will not override them.
 		HashMap supers = new HashMap(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-		if (bd.isMergeSuperBehaviors()) {
+		if (bd == null || bd.isMergeSuperBehaviors()) {
 			EClass superType = getJavaClass().getSupertype();
 			if (superType != null) {
 				Iterator superAllItr = superType.getEAllOperations().iterator();
@@ -1590,7 +1592,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// allow discovered duplicates.
 		HashMap supers = new HashMap(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-		if (bd.isMergeSuperEvents()) {
+		if (bd == null || bd.isMergeSuperEvents()) {
 			JavaClass superType = (JavaClass) getJavaClass().getSupertype();
 			if (superType != null) {
 				Iterator superAllItr = superType.getAllEvents().iterator();

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.18 $  $Date: 2004/06/04 15:29:34 $ 
+ *  $Revision: 1.19 $  $Date: 2004/06/09 22:46:55 $ 
  */
 
 import java.io.*;
@@ -352,6 +352,7 @@ public class BeaninfoNature implements IProjectNature {
 		return fRegistry;
 	}
 	
+	private Object createSemaphore = new Object();	// Semaphore so that only one create can happen at a time.
 	/*
 	 * This is <package-protected> so that only the appropriate create job in this
 	 * package can call it. This is because this must be controlled to only be
@@ -359,24 +360,29 @@ public class BeaninfoNature implements IProjectNature {
 	 * If waitForBuild is passed onto launching the registry. If we suspended the builds, then we must not
 	 * wait, or a deadlock will occur.
 	 */
-	synchronized void createRegistry(IProgressMonitor pm, boolean waitForBuild) {
-		pm.beginTask(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry"), 100);	//$NON-NLS-1$		
-		// synchronized on this nature so that only one can create on this particular project at a time.
-		if (fRegistry != null) {
-			pm.done();
-			return;	// It had already been created. Could of been because threads were racing to do the creation, and one got there first.
-		}
+	void createRegistry(IProgressMonitor pm, boolean waitForBuild) {
+		// synchronized on createsemaphore so that only one can create on this particular project at a time.
+		synchronized (createSemaphore) {
+			pm.beginTask(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry"), 100); //$NON-NLS-1$		
+			if (isRegistryCreated()) {
+				pm.done();
+				return; // It had already been created. Could of been because threads were racing to do the creation, and one got there first.
+			}
 
-		try {
-			ConfigurationContributor configurationContributor =  (ConfigurationContributor) getConfigurationContributor();
-			configurationContributor.setNature(this);
-			fRegistry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
-				new IConfigurationContributor[] { configurationContributor}, waitForBuild, new SubProgressMonitor(pm, 100));
-			fRegistry.addRegistryListener(registryListener);
-		} catch (CoreException e) {
-			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
-		} finally {
-			pm.done();
+			try {
+				ConfigurationContributor configurationContributor = (ConfigurationContributor) getConfigurationContributor();
+				configurationContributor.setNature(this);
+				ProxyFactoryRegistry registry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
+						new IConfigurationContributor[] { configurationContributor}, waitForBuild, new SubProgressMonitor(pm, 100));
+				registry.addRegistryListener(registryListener);
+				synchronized(this) {
+					fRegistry = registry;
+				}
+			} catch (CoreException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
+			} finally {
+				pm.done();
+			}
 		}
 	}
 	
@@ -645,10 +651,6 @@ public class BeaninfoNature implements IProjectNature {
 					// First time for this nature, or first time after registry reset. Need to compute the info.
 					// It is possible for this to be called BEFORE the first usage of BeanInfo. The editor usually
 					// brings up the editor's registry before it gets anything from BeanInfo.
-					
-					// Save it for override processing. That happens over and over later after all config processing is done.
-					info.getJavaProject().getProject().setSessionProperty(CONFIG_INFO_SESSION_KEY, info);
-					
 					List contributorsList = new ArrayList(10);
 					if (!info.getContainerIds().isEmpty()) {
 						// Run through all of the visible container ids that are applicable and get BeanInfo contributors.
@@ -699,6 +701,11 @@ public class BeaninfoNature implements IProjectNature {
 					// Save it for all beaninfo processing (and configuration processing if they implement proxy configuration contributor).
 					explicitContributors = (IBeanInfoContributor[]) contributorsList.toArray(new IBeanInfoContributor[contributorsList.size()]);
 					info.getJavaProject().getProject().setSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY, explicitContributors);
+					// Save it for override processing. That happens over and over later after all config processing is done.
+					// Do it last so that if there is a race condition, since this property is a flag to indicate we have data,
+					// we need to make sure the Beaninfo data is already set at the point we set this.
+					// We could actually set it twice because of this, but it is the same data, so, so what.
+					info.getJavaProject().getProject().setSessionProperty(CONFIG_INFO_SESSION_KEY, info);					
 				} else {
 					explicitContributors = (IBeanInfoContributor[]) info.getJavaProject().getProject().getSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY);
 				}

@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/05/05 21:03:07 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/09 22:46:53 $ 
  */
 
 import java.util.ArrayList;
@@ -446,7 +446,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * Return an IntrospectionAdaptor which can introspect our Java properties
 	 */
-	protected IIntrospectionAdapter getIntrospectionAdapter() {
+	protected synchronized IIntrospectionAdapter getIntrospectionAdapter() {
+		// Need to sync this because we are now in multi-thread env.
 		return (IIntrospectionAdapter) EcoreUtil.getRegisteredAdapter(this, IIntrospectionAdapter.ADAPTER_KEY);
 	}
 
@@ -702,7 +703,8 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	/**
 	 * Return a ReadAdaptor which can reflect our Java properties
 	 */
-	protected ReadAdaptor getReadAdaptor() {
+	protected synchronized ReadAdaptor getReadAdaptor() {
+		// Need to sync because now in a multi-thread env.
 		return (ReadAdaptor) EcoreUtil.getRegisteredAdapter(this, ReadAdaptor.TYPE_KEY);
 	}
 

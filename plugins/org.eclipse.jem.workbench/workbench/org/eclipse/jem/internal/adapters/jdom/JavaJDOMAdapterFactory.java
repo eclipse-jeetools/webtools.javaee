@@ -11,13 +11,15 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaJDOMAdapterFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:33:53 $ 
+ *  $Revision: 1.2 $  $Date: 2004/06/09 22:47:06 $ 
  */
 import java.util.*;
 
+import org.eclipse.emf.common.notify.*;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.jdt.core.*;
+import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.adapters.JavaReflectionAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.ReflectionAdaptor;
 /**
@@ -143,6 +145,35 @@ public Notification flushReflectionNoNotification(String source) {
 	if (a != null)
 		return a.flushReflectedValuesIfNecessaryNoNotification(false);
 	return null;
+}
+
+public Notification flushReflectionPlusInnerNoNotification(String source) {
+	isBusyIteratingReflected = true;
+	Notification notification = null;
+	try {
+		String innerName = source + '$';
+		Iterator it = reflected.entrySet().iterator();
+		Map.Entry entry;
+		String key;
+		JavaReflectionAdaptor adaptor;
+		while (it.hasNext()) {
+			entry = (Map.Entry) it.next();
+			key = (String) entry.getKey();
+			if (key.equals(source) || key.startsWith(innerName)) {
+				adaptor = (JavaReflectionAdaptor) reflected.get(key);
+				if (adaptor != null) {
+					if (notification == null)
+						notification = adaptor.flushReflectedValuesIfNecessaryNoNotification(false);
+					else
+						((NotificationChain) notification).add(adaptor.flushReflectedValuesIfNecessaryNoNotification(false));
+				}
+			}
+		}
+	} finally {
+		finishedIteratingReflected();
+	}
+	return notification;
+
 }
 /**
  * Insert the method's description here.

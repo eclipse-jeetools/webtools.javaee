@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.core;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.4 $  $Date: 2004/05/24 23:23:31 $ 
+ *  $Revision: 1.5 $  $Date: 2004/06/09 22:46:55 $ 
  */
 
 
@@ -84,25 +84,25 @@ public class BeaninfoPlugin extends Plugin {
 	
 	private static final OverrideContribution[] EMPTY_OC = new OverrideContribution[0];	// Used for an empty contribution list for a fragment.
 
-	public BeaninfoEntry[] getContainerIdBeanInfos(String containerID) {
+	public synchronized BeaninfoEntry[] getContainerIdBeanInfos(String containerID) {
 		if (containerIdsToBeaninfoEntryContributions == null)
 			processBeanInfoContributionExtensionPoint();
 		return (BeaninfoEntry[]) containerIdsToBeaninfoEntryContributions.get(containerID);
 	}
 	
-	public BeaninfoEntry[] getPluginBeanInfos(String pluginid) {
+	public synchronized BeaninfoEntry[] getPluginBeanInfos(String pluginid) {
 		if (pluginToBeaninfoEntryContributions == null)
 			processBeanInfoContributionExtensionPoint();
 		return (BeaninfoEntry[]) pluginToBeaninfoEntryContributions.get(pluginid);
 	}
 	
-	public IConfigurationElement[] getPluginContributors(String pluginid) {
+	public synchronized IConfigurationElement[] getPluginContributors(String pluginid) {
 		if (pluginToContributors == null)
 			processBeanInfoContributionExtensionPoint();
 		return (IConfigurationElement[]) pluginToContributors.get(pluginid);
 	}	
 	
-	public IConfigurationElement[] getContainerIdContributors(String containerID) {
+	public synchronized IConfigurationElement[] getContainerIdContributors(String containerID) {
 		if (containerIdsToContributors == null)
 			processBeanInfoContributionExtensionPoint();
 		return (IConfigurationElement[]) containerIdsToContributors.get(containerID);
@@ -116,7 +116,7 @@ public class BeaninfoPlugin extends Plugin {
 	public static final String PI_PACKAGE = "package";
 	public static final String PI_PATH = "path";
 	
-	protected void processBeanInfoContributionExtensionPoint() {
+	protected synchronized void processBeanInfoContributionExtensionPoint() {
 		ContributorExtensionPointInfo info = ProxyPlugin.processContributionExtensionPoint(PI_BEANINFO_CONTRIBUTION_EXTENSION_POINT);
 		ConfigurationElementReader reader = new ConfigurationElementReader();
 		// Process the container IDs first.
@@ -431,8 +431,10 @@ public class BeaninfoPlugin extends Plugin {
 		try {
 			IConfigurationContributionInfo info = (IConfigurationContributionInfo) project.getSessionProperty(BeaninfoNature.CONFIG_INFO_SESSION_KEY);
 			final IBeanInfoContributor[] explicitContributors = (IBeanInfoContributor[]) project.getSessionProperty(BeaninfoNature.BEANINFO_CONTRIBUTORS_SESSION_KEY);
-			if (ocFragments == null)
-				processBeanInfoContributionExtensionPoint();	// We haven't processed them yet.
+			synchronized (this) {
+				if (ocFragments == null)
+					processBeanInfoContributionExtensionPoint(); // We haven't processed them yet.
+			}
 			for (int fragmentIndex = 0; fragmentIndex < ocFragments.length; fragmentIndex++) {
 				if (ocFragments[fragmentIndex].isPrefixOf(packagePath)) {
 					String leftOver = null;	// The left over portion of the package. This will be set first time needed. 
