@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: IJavaMethodAdapter.java,v $
- *  $Revision: 1.1 $  $Date: 2005/02/03 21:19:40 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/09 19:04:04 $ 
  */
 package org.eclipse.jem.internal.java.adapters;
  
@@ -28,4 +28,12 @@ public interface IJavaMethodAdapter {
 	 * @since 1.0.0
 	 */
 	public boolean reflectGeneratedIfNecessary();
+	
+	/**
+	 * Reflect the names of the method parameters if necessary.
+	 * @return <code>true</code> if reflection occurred.
+	 * 
+	 * @since 1.0.0
+	 */
+	public boolean reflectParamNamesIfNecessary();
 }

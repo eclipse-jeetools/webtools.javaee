@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.9 $  $Date: 2005/02/04 23:11:33 $ 
+ *  $Revision: 1.10 $  $Date: 2005/02/09 19:04:04 $ 
  */
 import java.util.List;
 
@@ -94,7 +94,8 @@ public JavaClass createJavaClassRef(String targetName) {
  */
 public JavaParameter createJavaParameter(Method parentMethod, String parmName, String parmTypeName) {
 	JavaParameter newParm = getJavaFactory().createJavaParameter();
-	newParm.setName(parmName);
+	if (parmName!=null)
+	   newParm.setName(parmName);
 // ((InternalEObject)newParm).eSetID(parentMethod.eID() + C_METHODID_PARMID_DELIMITER + parmName);
 	String classRefString = parmTypeName;
 	newParm.setEType(createJavaClassRef(classRefString));

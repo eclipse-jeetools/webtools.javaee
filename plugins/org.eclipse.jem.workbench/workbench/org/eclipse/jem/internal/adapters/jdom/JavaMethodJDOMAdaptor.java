@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2005/02/08 23:20:27 $ 
+ *  $Revision: 1.9 $  $Date: 2005/02/09 19:04:05 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -89,11 +89,9 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 			// name stays null and we carry on
 		}
 	}
-
-	/**
-	 * addParameters - reflect our parms
-	 */
-	protected void addParameters() {
+	
+	
+	protected String[] getParameterNames() {
 		String[] parmNames = new String[0], parmTypeNames = getSourceMethod().getParameterTypes();
 		try {
 			parmNames = getSourceMethod().getParameterNames();
@@ -106,11 +104,19 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 			for (int i = 0; i < parmTypeNames.length; i++) {
 				parmNames[i] = "arg" + i;//$NON-NLS-1$
 			}
-		}
+		}	
+		return parmNames;
+	}
+
+	/**
+	 * addParameters - reflect our parms
+	 */
+	protected void addParameters() {
+		String[] parmTypeNames = getSourceMethod().getParameterTypes();
 		MethodImpl javaMethodTarget = (MethodImpl) getTarget();
 		List params = javaMethodTarget.getParametersGen();
-		for (int i = 0; i < parmNames.length; i++) {
-			params.add(createJavaParameter(javaMethodTarget, parmNames[i], typeNameFromSignature(parmTypeNames[i])));
+		for (int i = 0; i < parmTypeNames.length; i++) {
+			params.add(createJavaParameter(javaMethodTarget, null, typeNameFromSignature(parmTypeNames[i])));
 		}
 	}
 
@@ -268,6 +274,18 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 	public boolean reflectGeneratedIfNecessary() {
 		if (reflectValuesIfNecessary()) {
 			setGeneratedFlag();
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean reflectParamNamesIfNecessary() {
+		if (reflectValuesIfNecessary()) {
+			String [] paramNames = getParameterNames();
+			List param = ((MethodImpl)getTarget()).getParameters();
+			for (int i = 0; i < paramNames.length; i++) {
+				((JavaParameter)param.get(i)).setName(paramNames[i]);				
+			}
 			return true;
 		}
 		return false;

@@ -12,7 +12,7 @@ package org.eclipse.jem.java.impl;
 
 /*
  *  $RCSfile: JavaParameterImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/09 19:04:04 $ 
  */
 import java.util.Collection;
 
@@ -26,9 +26,12 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EParameterImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 
+import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
+import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.JavaParameterKind;
@@ -140,6 +143,53 @@ public class JavaParameterImpl extends EParameterImpl implements JavaParameter{
 		parameterKind = newParameterKind == null ? PARAMETER_KIND_EDEFAULT : newParameterKind;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaRefPackage.JAVA_PARAMETER__PARAMETER_KIND, oldParameterKind, parameterKind));
+	}
+	
+	/*
+	 * This is not meant to be used outside of the reflection adapters.
+	 */
+	public synchronized ReadAdaptor getReadAdapter() {
+		return (ReadAdaptor) EcoreUtil.getRegisteredAdapter(eContainer(), ReadAdaptor.TYPE_KEY);
+	}
+	
+	private static final int  REFLECTED_BASE = 0x1, REFLECTED_PARAM_NAME = 0x2;
+
+	protected int reflectionStatus = REFLECTED_BASE;  // At this time base reflection
+													  // is performed at creation.
+
+	protected void reflectParamName() {
+		// We only want the testing of the hasReflected and get readadapter to be sync(this) so that
+		// it is short and no deadlock possibility (this is because the the method reflection adapter may go
+		// back to the containing java class to get its reflection adapter, which would lock on itself. So
+		// we need to keep the sections that are sync(this) to not be deadlockable by not doing significant work
+		// during the sync.
+		ReadAdaptor readAdaptor = null;
+		synchronized (this) {
+			if ((reflectionStatus & REFLECTED_PARAM_NAME) == 0) {
+				readAdaptor = getReadAdapter();
+			}
+		}
+		if (readAdaptor != null) {
+			boolean setReflected = ((IJavaMethodAdapter) readAdaptor).reflectParamNamesIfNecessary();
+			synchronized (this) {
+				// Don't want to set it false. That is job of reflection adapter. Otherwise we could have a race.
+				if (setReflected)
+					reflectionStatus |= (REFLECTED_PARAM_NAME); // We can be certain base will be done by reflect generated if not already
+																			  // done.
+			}
+		}
+	}
+	
+	public String getName() {
+		reflectParamName();
+		return super.getName();
+	}
+	
+	public void setName(String name) {
+		super.setName(name);
+		synchronized (this) {
+		   reflectionStatus |= (REFLECTED_PARAM_NAME);
+		}
 	}
 
 	/**

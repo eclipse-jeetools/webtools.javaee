@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters.jdk;
 /*
  *  $RCSfile: JavaMethodJDKAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2005/02/03 21:19:40 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/09 19:04:04 $ 
  */
 
 import java.util.List;
@@ -181,6 +181,10 @@ public class JavaMethodJDKAdaptor extends JDKAdaptor implements IJavaMethodAdapt
 	 * @see org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter#reflectGeneratedIfNecessary()
 	 */
 	public boolean reflectGeneratedIfNecessary() {
+		return reflectValuesIfNecessary();
+	}
+	
+	public boolean reflectParamNamesIfNecessary() {
 		return reflectValuesIfNecessary();
 	}
 	
