@@ -65,33 +65,7 @@
          </action>
       </actionSet>
    </extension>
-<!--================================-->
-<!-- Project Wizard Contributions   -->
-<!--================================-->
-   <extension
-         id="J2EEUIProjectWizards"
-         point="org.eclipse.ui.newWizards">
-<!-- EJB Project Wizard -->
-      <category
-            name="%ejb.category_ui_"
-            id="org.eclipse.jst.ejb.ui">
-      </category>
-      <wizard
-            name="%ejb.project_ui_"
-            icon="icons/full/ctool16/newejbprj_wiz.gif"
-            category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard"
-            project="true"
-            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
-         <description>
-            %new.ejb.project.description_ui_
-         </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
-      </wizard>
-   </extension>
+  
 <!--================================-->
 <!-- Export Wizard Contributions    -->
 <!--================================-->

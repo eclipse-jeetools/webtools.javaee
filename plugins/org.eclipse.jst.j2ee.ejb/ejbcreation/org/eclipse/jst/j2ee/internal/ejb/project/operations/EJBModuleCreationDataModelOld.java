@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -44,7 +44,7 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * 
  * @since WTP 1.0
  */
-public final class EJBModuleCreationDataModel extends J2EEModuleCreationDataModel {
+public final class EJBModuleCreationDataModelOld extends J2EEModuleCreationDataModelOld {
 
 	/**
 	 * Optional - Indicates if this model is for an EJB client project. defaults to false
@@ -75,7 +75,7 @@ public final class EJBModuleCreationDataModel extends J2EEModuleCreationDataMode
 	 * @since WTP 1.0
 	 */
 	public static void createProject(String projectName, IPath projectLocation, int ejbModuleVersion) {
-		EJBModuleCreationDataModel dataModel = new EJBModuleCreationDataModel();
+		EJBModuleCreationDataModelOld dataModel = new EJBModuleCreationDataModelOld();
 		dataModel.setProperty(PROJECT_NAME, projectName);
 		if (null != projectLocation) {
 			dataModel.setProperty(PROJECT_LOCATION, projectLocation.toOSString());
@@ -92,7 +92,7 @@ public final class EJBModuleCreationDataModel extends J2EEModuleCreationDataMode
 	
 	
 	public WTPOperation getDefaultOperation() {
-		return new EJBModuleCreationOperation(this);
+		return new EJBModuleCreationOperationOld(this);
 	}
 
 

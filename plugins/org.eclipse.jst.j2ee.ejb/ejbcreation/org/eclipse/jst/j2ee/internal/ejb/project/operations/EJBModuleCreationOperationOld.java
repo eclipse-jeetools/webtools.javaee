@@ -23,16 +23,16 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOld;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
-public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
+public class EJBModuleCreationOperationOld extends J2EEModuleCreationOperationOld {
 	public static final String DEFAULT_SESSION_BEAN_NAME = "DefaultSession"; //$NON-NLS-1$
 	
-	public EJBModuleCreationOperation(EJBModuleCreationDataModel dataModel) {
+	public EJBModuleCreationOperationOld(EJBModuleCreationDataModelOld dataModel) {
 		super(dataModel);
 	}
 
@@ -44,9 +44,9 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.execute(monitor);
 		//createDefaultSessionBean(monitor);
-		if (((EJBModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+		if (((EJBModuleCreationDataModelOld) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
 			addAnnotationsBuilder();
-		if (((EJBModuleCreationDataModel) operationDataModel).getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT))
+		if (((EJBModuleCreationDataModelOld) operationDataModel).getBooleanProperty(EJBModuleCreationDataModelOld.CREATE_CLIENT))
 			createClientJar(monitor);
 
 	}
@@ -72,7 +72,7 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 	 *  
 	 */
 	private void createClientJar(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EJBClientJarCreationOperation clientOp = new EJBClientJarCreationOperation(((EJBModuleCreationDataModel) operationDataModel).getNestEJBClientProjectDM());
+		EJBClientJarCreationOperation clientOp = new EJBClientJarCreationOperation(((EJBModuleCreationDataModelOld) operationDataModel).getNestEJBClientProjectDM());
 		clientOp.doRun(monitor);
 	}
 
@@ -80,7 +80,7 @@ public class EJBModuleCreationOperation extends J2EEModuleCreationOperation {
 	 * @param monitor
 	 */
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModel) operationDataModel) {
+		EditModelOperation op = new EditModelOperation((J2EEModuleCreationDataModelOld) operationDataModel) {
 			protected void execute(IProgressMonitor pm) throws CoreException, InvocationTargetException, InterruptedException {
 				EJBEditModel model = (EJBEditModel) editModel;
 

@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -44,7 +44,7 @@ import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * 
  * @since WTP 1.0
  */
-public class FlexibleEjbModuleCreationDataModel extends FlexibleJ2EEModuleCreationDataModel {
+public class EjbComponentCreationDataModel extends J2EEComponentCreationDataModel {
 
 	public static final String CREATE_CLIENT = "EJBModuleCreationDataModel.IS_CLIENT"; //$NON-NLS-1$
 	public static final String CREATE_DEFAULT_SESSION_BEAN = "EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN"; //$NON-NLS-1$
@@ -55,7 +55,7 @@ public class FlexibleEjbModuleCreationDataModel extends FlexibleJ2EEModuleCreati
 
 
 	public WTPOperation getDefaultOperation() {
-		return new FlexibleEjbModuleCreationOperation(this);
+		return new EjbComponentCreationOperation(this);
 	}
 
 	/**

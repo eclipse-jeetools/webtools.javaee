@@ -20,16 +20,16 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
-	public FlexibleEjbModuleCreationOperation(FlexibleEjbModuleCreationDataModel dataModel) {
+public class EjbComponentCreationOperation extends J2EEComponentCreationOperation {
+	public EjbComponentCreationOperation(EjbComponentCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
-	public FlexibleEjbModuleCreationOperation() {
+	public EjbComponentCreationOperation() {
 		super();
 	}
 

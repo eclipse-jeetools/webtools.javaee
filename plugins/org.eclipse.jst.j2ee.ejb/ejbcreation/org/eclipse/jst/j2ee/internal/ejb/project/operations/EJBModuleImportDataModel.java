@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportFactory;
 import org.eclipse.jst.j2ee.application.operations.ExtendedImportRegistry;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -69,9 +69,9 @@ public final class EJBModuleImportDataModel extends J2EEModuleImportDataModel {
 	}
 
 
-	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
-		EJBModuleCreationDataModel m = new EJBModuleCreationDataModel();
-		m.setProperty(EJBModuleCreationDataModel.CREATE_CLIENT, Boolean.FALSE);
+	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
+		EJBModuleCreationDataModelOld m = new EJBModuleCreationDataModelOld();
+		m.setProperty(EJBModuleCreationDataModelOld.CREATE_CLIENT, Boolean.FALSE);
 		return m;
 	}
 

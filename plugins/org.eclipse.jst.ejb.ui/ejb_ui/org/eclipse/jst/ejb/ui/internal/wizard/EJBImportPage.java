@@ -19,11 +19,11 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import org.eclipse.jst.ejb.ui.EJBModuleCreationWizard;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.FlexibleEjbModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
@@ -63,11 +63,11 @@ public class EJBImportPage extends J2EEModuleImportPage {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
 	}
 
-	protected J2EEArtifactCreationDataModel getNewProjectCreationDataModel() {
+	protected J2EEArtifactCreationDataModelOld getNewProjectCreationDataModel() {
 		return getEJBDataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(FlexibleEjbModuleCreationDataModel aModel) {
+	protected WTPWizard getNewProjectWizard(EjbComponentCreationDataModel aModel) {
 		return new EJBModuleCreationWizard(aModel);
 	}
 
