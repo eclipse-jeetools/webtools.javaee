@@ -47,8 +47,8 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
      * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
      */
     protected void createAndLinkJ2EEComponents() throws CoreException {
-        IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
-        component.commit();
+        IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+        component.create(0, null);
 		//create and link ejbModule Source Folder
 		IVirtualFolder ejbModule = component.getFolder(new Path("/")); //$NON-NLS-1$		
 		ejbModule.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null);

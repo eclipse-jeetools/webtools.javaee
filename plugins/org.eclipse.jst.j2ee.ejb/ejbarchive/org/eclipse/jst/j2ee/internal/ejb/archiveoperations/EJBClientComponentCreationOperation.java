@@ -170,9 +170,9 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 			moduleCore = ModuleCore.getModuleCoreForRead(ejbProject);
 			WorkbenchComponent ejbwc = moduleCore.findWorkbenchModuleByDeployName(ejbComponentDeployName);
 			ejbwc = moduleCore.findWorkbenchModuleByDeployName(ejbComponentDeployName);
-			IVirtualContainer component = ModuleCore.create( ejbProject, ejbwc.getName());
+			IVirtualContainer component = ModuleCore.createContainer( ejbProject, ejbwc.getName());
 			IVirtualFile vf = component.getFile( new Path("/META-INF/MANIFEST.MF"));
-			manifestmf = vf.getRealFile();
+			manifestmf = vf.getUnderlyingFile();
 		}finally {
 		       if (null != moduleCore) {
 	            moduleCore.dispose();
