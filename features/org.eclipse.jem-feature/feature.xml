@@ -18,6 +18,8 @@
       <import feature="org.eclipse.jdt" version="3.0.0" match="compatible"/>
       <import feature="org.eclipse.emf" version="2.0.0" match="compatible"/>
    </requires>
+   
+   <includes id="com.ibm.wtp.emf.integration" version="1.0.0" />    
 
    <plugin
          id="org.eclipse.jem.beaninfo"
@@ -50,27 +52,9 @@
          version="1.0.0"/>
 
    <plugin
-         id="com.ibm.wtp.emf"
-         download-size="0"
-         install-size="0"
-         version="0.5.0"/>
-
-   <plugin
          id="com.ibm.etools.emf.event"
          download-size="0"
          install-size="0"
          version="3.0.0.1"/>
-
-   <plugin
-         id="com.ibm.wtp.emf.workbench"
-         download-size="0"
-         install-size="0"
-         version="0.5.0"/>
-         
-   <plugin
-         id="com.ibm.wtp.common"
-         download-size="0"
-         install-size="0"
-         version="1.0.0"/>         
 
 </feature>
