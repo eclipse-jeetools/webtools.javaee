@@ -5,13 +5,13 @@ import java.util.List;
 
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 public class AssemblyDescriptorTest extends EjbEMFTestBase {
 

@@ -13,7 +13,6 @@ import junit.swingui.TestRunner;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -24,12 +23,13 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObject
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 

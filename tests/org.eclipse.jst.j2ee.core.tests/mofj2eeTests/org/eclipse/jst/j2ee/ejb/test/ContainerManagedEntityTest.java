@@ -11,8 +11,8 @@ import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 public class ContainerManagedEntityTest extends TestCase {
 	

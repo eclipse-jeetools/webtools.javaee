@@ -11,9 +11,9 @@ import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MultiplicityKind;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 public class EJBRelationshipRoleTest extends TestCase {
 

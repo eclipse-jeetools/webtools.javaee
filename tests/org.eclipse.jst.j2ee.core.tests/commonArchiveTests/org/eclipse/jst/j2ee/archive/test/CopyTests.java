@@ -26,10 +26,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ReadOnlyDirectory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**

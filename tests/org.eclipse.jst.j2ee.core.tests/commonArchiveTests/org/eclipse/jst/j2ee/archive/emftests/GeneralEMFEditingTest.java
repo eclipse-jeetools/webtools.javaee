@@ -26,8 +26,8 @@ import org.eclipse.jem.java.impl.JavaClassImpl;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.archive.testutilities.J2EEVersionCheck;
 import org.eclipse.jst.j2ee.archive.testutilities.TestUtilities;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.wst.common.tests.BaseTestCase;
 
 

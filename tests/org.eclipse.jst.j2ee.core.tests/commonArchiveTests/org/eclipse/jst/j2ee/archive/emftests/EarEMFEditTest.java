@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -18,9 +17,10 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 public class EarEMFEditTest extends GeneralEMFEditingTest {

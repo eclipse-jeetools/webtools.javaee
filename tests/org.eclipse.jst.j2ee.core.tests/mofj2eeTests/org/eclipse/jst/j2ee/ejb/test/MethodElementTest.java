@@ -12,11 +12,11 @@ import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 public class MethodElementTest extends EjbEMFTestBase {
 	private final int SESSION =0;

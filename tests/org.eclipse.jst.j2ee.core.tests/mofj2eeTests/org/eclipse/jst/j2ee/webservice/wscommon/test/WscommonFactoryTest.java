@@ -4,6 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.jst.j2ee.webservice.internal.wscommon.WscommonPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
 import org.eclipse.jst.j2ee.webservice.wscommon.InitParam;
@@ -11,7 +12,6 @@ import org.eclipse.jst.j2ee.webservice.wscommon.PortName;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPHeader;
 import org.eclipse.jst.j2ee.webservice.wscommon.SOAPRole;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
-import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 
 public class WscommonFactoryTest extends TestCase {
 

@@ -18,7 +18,6 @@ import junit.swingui.TestRunner;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
@@ -38,11 +37,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 
 /**

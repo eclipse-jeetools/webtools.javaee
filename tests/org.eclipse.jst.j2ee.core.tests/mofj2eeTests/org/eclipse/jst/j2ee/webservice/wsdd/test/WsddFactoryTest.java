@@ -4,6 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
@@ -14,7 +15,6 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 
 public class WsddFactoryTest extends TestCase {
 

@@ -5,8 +5,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 public class SessionTest extends TestCase {
 

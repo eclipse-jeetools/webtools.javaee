@@ -20,7 +20,6 @@ import org.eclipse.jst.j2ee.ejb.EJBMethodCategory;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.ExcludeList;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
@@ -33,6 +32,7 @@ import org.eclipse.jst.j2ee.ejb.QueryMethod;
 import org.eclipse.jst.j2ee.ejb.Relationships;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 
 public class EjbFactoryTest extends TestCase {
 

@@ -26,14 +26,14 @@ import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
 import org.eclipse.jst.j2ee.archive.testutilities.J2EEVersionCheck;
 import org.eclipse.jst.j2ee.archive.testutilities.TestUtilities;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
 import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.common.ResAuthTypeBase;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.MethodElementKind;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.wst.common.tests.BaseTestCase;
 
 

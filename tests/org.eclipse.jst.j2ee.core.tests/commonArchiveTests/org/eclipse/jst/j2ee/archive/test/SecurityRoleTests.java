@@ -11,7 +11,6 @@ import junit.framework.TestSuite;
 import junit.swingui.TestRunner;
 
 import org.eclipse.jst.j2ee.common.CommonFactory;
-import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
@@ -19,6 +18,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WebModuleRef;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 
 /**
  * Insert the type's description here.

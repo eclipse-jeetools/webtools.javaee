@@ -11,12 +11,12 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.client.ClientPackage;
-import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
+import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.internal.client.ClientPackage;
+import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.jca.JcaPackage;
+import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 
 public class J2EEVersionCheck {
 	public int version;

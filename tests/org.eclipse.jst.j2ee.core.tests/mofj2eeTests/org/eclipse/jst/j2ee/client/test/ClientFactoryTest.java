@@ -6,7 +6,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.client.ClientFactory;
-import org.eclipse.jst.j2ee.client.ClientPackage;
+import org.eclipse.jst.j2ee.internal.client.ClientPackage;
 
 public class ClientFactoryTest extends TestCase {
 
