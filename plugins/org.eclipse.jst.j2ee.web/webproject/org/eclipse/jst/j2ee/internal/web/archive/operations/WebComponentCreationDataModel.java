@@ -99,6 +99,12 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			getAddModuleToApplicationDataModel().setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, propertyValue);
+		} else if (propertyName.equals(MODULE_NAME)) {
+			if (!isSet(CONTEXT_ROOT)) {
+				notifyDefaultChange(CONTEXT_ROOT);
+				((AddWebModuleToEARDataModel)getAddModuleToApplicationDataModel()).defaultContextRoot=(String)propertyValue;
+				getAddModuleToApplicationDataModel().notifyDefaultChange(AddWebModuleToEARDataModel.CONTEXT_ROOT);
+			}
 		}
 		return retVal;
 	}
@@ -157,7 +163,7 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 //			return webContentFolderPref;
 //		}
 		if (propertyName.equals(CONTEXT_ROOT)) {
-			return getAddModuleToApplicationDataModel().getProperty(CONTEXT_ROOT);
+			return getProperty(MODULE_NAME);
 		}
 
 		if (propertyName.equals(SERVLET_VERSION)) {
