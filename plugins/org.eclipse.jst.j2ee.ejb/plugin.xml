@@ -56,14 +56,14 @@
                class="org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime">
          </run>
       </runtime>
-   </extension>-->
-<!-- Register the nature id with the AbstractJavaMOFNature -->
-   <extension
+   </extension>
+   Register the nature id with the AbstractJavaMOFNature -->
+   <!-- <extension
          point="com.ibm.wtp.emf.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.ejb.EJBNature">
       </nature>
-   </extension>
+   </extension> -->
    <extension
          id="editModel.ejb"
          name="EJB Edit Model"
