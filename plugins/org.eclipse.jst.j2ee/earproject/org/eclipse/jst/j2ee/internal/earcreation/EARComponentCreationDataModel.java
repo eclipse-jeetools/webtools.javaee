@@ -24,7 +24,6 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
