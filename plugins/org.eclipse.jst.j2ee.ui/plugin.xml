@@ -116,10 +116,10 @@
             name="%ear_component_ui_"
             icon="icons/full/ctool16/newear_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.ui.EARComponentCreationWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.ui.EARComponentCreationWizard">
+            id="org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard">
          <description>
             %new.ear.component.description_ui_
          </description>
@@ -127,7 +127,23 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-
+<!-- Application Client Component Wizard
+      <wizard
+            name="%appclient_component_ui_"
+            icon="icons/full/ctool16/newappclient_wiz.gif"
+            category="org.eclipse.jst.j2ee.internal"
+            class="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard"
+            project="true"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            id="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentCreationWizard">
+         <description>
+            %new.appclient.component.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+ -->
    </extension>
   
 <!--================================-->
