@@ -1,0 +1,142 @@
+package org.eclipse.jst.j2ee.internal.web.migration;
+
+import java.util.ArrayList;
+
+import org.eclipse.core.internal.resources.Container;
+import org.eclipse.core.internal.resources.Resource;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceStatus;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.wst.common.internal.migration.IMigratorStrategy;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.web.internal.operation.WebSettings;
+
+
+
+public class WebProjectMigratorStrategy implements IMigratorStrategy {
+
+	protected IProject project;
+	protected static String JAVA_SOURCE = "JavaSource";
+	protected static String JAVA_SOURCE_DEPLOY_PATH_NAME = "/WEB-INF/classes";
+
+	protected WebSettings fWebSettings;
+	int fVersion;
+
+
+
+	public IJavaProject getJavaProject() {
+		IJavaProject javaProject = JavaCore.create(project);
+		return javaProject;
+	}
+
+	public IPackageFragmentRoot[] getPackageRoots() {
+		try {
+			return getJavaProject().getAllPackageFragmentRoots();
+		} catch (JavaModelException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	public IResource[] getResources(String componentName, int type) {
+		IResource[] resources = null;
+		switch (type) {
+			case IMigratorStrategy.SOURCE : {
+				IPackageFragmentRoot[] roots = getPackageRoots();
+				ArrayList sourceFolders = new ArrayList(roots.length);
+				for (int i = 0; i < roots.length; i++) {
+					IResource packageResource;
+					try {
+						packageResource = (roots[i].getKind() == IPackageFragmentRoot.K_SOURCE) ? roots[i].getCorrespondingResource() : null;
+						if (packageResource != null && packageResource.getType() == IResource.FOLDER)
+							sourceFolders.add(packageResource);
+					} catch (JavaModelException e) {
+						e.printStackTrace();
+					}
+				}
+				resources = new Container[sourceFolders.size()];
+				sourceFolders.toArray(resources);
+				break;
+			}
+			case IMigratorStrategy.CONTENT : {
+				resources = new Container[1];
+				Container webContent = (Container) project.getFolder(getBasicWebModulePath());
+				if (webContent != null)
+					resources[0] = (Container) webContent;
+				break;
+			}
+		};
+
+		return resources;
+	}
+
+	public WebSettings getWebSettings() {
+		if (fWebSettings == null) {
+			fWebSettings = new WebSettings(getProject());
+		}
+		return fWebSettings;
+	}
+
+	public IPath getRuntimeType(IResource resource, int type) {
+		if (resource.getName().equals(JAVA_SOURCE))
+			return (new Path(JAVA_SOURCE_DEPLOY_PATH_NAME));
+		return new Path("/");
+	}
+
+	public String[] getComponentNames() {
+		return new String[]{project.getName()};
+	}
+
+
+	public String getComponentType(String componentName) {
+		return IModuleConstants.JST_WEB_MODULE;
+	}
+
+
+	public void setCurrentProject(IProject aProject) {
+		project = aProject;
+	}
+
+	public IProject getProject() {
+		return project;
+	}
+
+	public IPath getBasicWebModulePath() {
+		WebSettings webSettings = getWebSettings();
+		String name = webSettings.getWebContentName();
+		if (name == null) {
+			int version = getVersion();
+			// If created in V5 or beyond
+			if (version != -1 && version >= 500)
+				return IWebNatureConstants.WEB_MODULE_PATH_;
+			else
+				return IWebNatureConstants.WEB_MODULE_PATH_V4;
+		}
+		return new Path(name);
+	}
+
+	public int getVersion() {
+		if (fVersion == -1) {
+			try {
+				String versionString = getWebSettings().getVersion();
+				if (versionString != null)
+					fVersion = Integer.parseInt(versionString);
+			} catch (NumberFormatException e) {
+			}
+		}
+		return fVersion;
+	}
+
+
+	public IResource[] getExcludedResources(String componentName, int type) {
+		return null;
+	}
+}

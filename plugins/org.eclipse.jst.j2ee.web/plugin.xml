@@ -274,11 +274,13 @@
             className="org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator"
             id="org.eclipse.jst.common.migration.WebSettingsMigrator.id"
             filter="org.eclipse.jst.j2ee.internal.settings.J2EEMigrationFilter">
-         <enablement>
+         <enablement>          
 			<projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
          </enablement>
       </migrator>
    </extension>
+   
+  
    
 <!-- =============================================================== -->
 <!-- WTP Operation extendable operations						        -->
@@ -565,4 +567,39 @@
                URI="WEB-INF/web.xml"/>
       </editModel>
    </extension>
+   <extension
+         point="org.eclipse.wst.common.migration.migrator">
+      <migrator
+            className="org.eclipse.wst.common.internal.migration.ComponentMigrator"
+            id="org.eclipse.wst.common.internal.migration.ComponentMigrator">
+         <enablement>
+			<projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
+         </enablement>
+      </migrator>
+   </extension>
+    <extension
+          point="org.eclipse.wst.common.migration.migratorStrategy">
+       <migratorStrategy
+             className="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy"
+             id="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy.ID">
+          <enablement>
+			  <projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
+          </enablement>
+       </migratorStrategy>
+    </extension>
+    <extension
+		id="NatureMappings"
+		name="Module Core Nature Mappings"
+		point="org.eclipse.wst.common.migration.natureMapping">
+		<natureMapping>
+			<mapping
+				position="first"
+				name="Nature Mapping"
+				newValue="org.eclipse.wst.common.modulecore.ModuleCoreNature">
+				<alias
+					value="org.eclipse.jst.j2ee.web.WebNature">
+				</alias>
+			</mapping>
+		</natureMapping>
+	</extension>
 </plugin>
