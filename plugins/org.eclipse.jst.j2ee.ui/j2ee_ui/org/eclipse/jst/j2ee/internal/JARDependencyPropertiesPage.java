@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.preference.IPreferencePage;
+import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
@@ -280,11 +282,11 @@ public class JARDependencyPropertiesPage extends PropertyPage implements IClassp
         availableJARsViewer.setSorter(null);
 
         // table columns
-        TableColumn fileNameColumn = table.getColumn(0);
+        TableColumn fileNameColumn = new TableColumn(table, SWT.NONE, 0);
         fileNameColumn.setText(ManifestUIResourceHandler.getString("JAR/Module_UI_")); //$NON-NLS-1$
         fileNameColumn.setResizable(true);
 
-        TableColumn projectColumn = new TableColumn(table, SWT.NONE);
+        TableColumn projectColumn = new TableColumn(table, SWT.NONE, 1);
         projectColumn.setText(ManifestUIResourceHandler.getString("Project_UI_")); //$NON-NLS-1$ = "Project"
         projectColumn.setResizable(true);
         tableLayout.layout(table, true);
