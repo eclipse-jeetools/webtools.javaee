@@ -19,28 +19,28 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
-import org.eclipse.jst.j2ee.ejb.Session;
-import org.eclipse.jst.j2ee.ejb.SessionType;
+import org.eclipse.jst.j2ee.ejb.MessageDriven;
+import org.eclipse.jst.j2ee.ejb.MessageDrivenDestination;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
+import org.eclipse.jst.j2ee.ejb.annotation.model.BeanFactory;
 import org.eclipse.jst.j2ee.ejb.annotation.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.MessageDrivenBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.model.NewEJBJavaClassDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.SessionBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.model.BeanFactory;
-import org.eclipse.jst.j2ee.ejb.annotations.ISessionBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate;
 import org.eclipse.jst.j2ee.ejb.annotations.classgen.EjbBuilder;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
-import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
+import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.MessageDrivenEjbEmitter;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 
-public class AddSessionBeanOperation extends WTPOperation {
+public class AddMessageDrivenBeanOperation extends WTPOperation {
 	/**
 	 * @param dataModel
 	 */
-	public AddSessionBeanOperation(EjbCommonDataModel dataModel) {
+	public AddMessageDrivenBeanOperation(EjbCommonDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -51,40 +51,46 @@ public class AddSessionBeanOperation extends WTPOperation {
 
 	private void createDefaultSessionBean(IProgressMonitor monitor) {
 		
-		SessionBeanDataModel ejbModel = (SessionBeanDataModel)this.getOperationDataModel();
+		MessageDrivenBeanDataModel ejbModel = (MessageDrivenBeanDataModel)this.getOperationDataModel();
 		NewEJBJavaClassDataModel ejbClassModel = (NewEJBJavaClassDataModel)ejbModel.getNestedModel("NewEJBJavaClassDataModel");
 		
-		Session sessionBean = EjbFactory.eINSTANCE.createSession();
-		sessionBean.setName(ejbModel.getStringProperty(EjbCommonDataModel.EJB_NAME));
-		sessionBean.setDescription(ejbModel.getStringProperty(EjbCommonDataModel.DESCRIPTION));
-		sessionBean.setDisplayName(ejbModel.getStringProperty(EjbCommonDataModel.DISPLAY_NAME));
-		sessionBean.setEjbClassName(ejbClassModel.getQualifiedClassName());
+		MessageDriven mdBean = EjbFactory.eINSTANCE.createMessageDriven();
+		mdBean.setName(ejbModel.getStringProperty(EjbCommonDataModel.EJB_NAME));
+		mdBean.setDescription(ejbModel.getStringProperty(EjbCommonDataModel.DESCRIPTION));
+		mdBean.setDisplayName(ejbModel.getStringProperty(EjbCommonDataModel.DISPLAY_NAME));
+		mdBean.setEjbClassName(ejbClassModel.getQualifiedClassName());
 
-		String stateType = ejbModel.getStringProperty(EjbCommonDataModel.STATELESS);
-		SessionType sessionBeanType = SessionType.STATELESS_LITERAL;
-		if( stateType.equals(SessionType.STATEFUL_LITERAL.getName()))
-			sessionBeanType = SessionType.STATEFUL_LITERAL;
-		sessionBean.setSessionType(sessionBeanType);
-
+		String destType = ejbModel.getStringProperty(MessageDrivenBeanDataModel.DESTINATIONTYPE);
+		DestinationType dType = DestinationType.QUEUE_LITERAL;
+		if( destType.equals(DestinationType.TOPIC_LITERAL.getName()))
+			dType = DestinationType.TOPIC_LITERAL;
+		
+		MessageDrivenDestination destination = EjbFactory.eINSTANCE.createMessageDrivenDestination();
+		destination.setType(dType);
+		destination.setBean(mdBean);
+		
+		mdBean.setDestination(destination);
+		mdBean.setMessageSelector(ejbModel.getStringProperty(MessageDrivenBeanDataModel.DESTINATIONNAME));
+	
 		String tType = ejbModel.getStringProperty(MessageDrivenBeanDataModel.TRANSACTIONTYPE);
 		TransactionType transactionType =TransactionType.CONTAINER_LITERAL;
 		if(tType.equals(TransactionType.BEAN_LITERAL.getName()))
 			transactionType = TransactionType.BEAN_LITERAL;
-		sessionBean.setTransactionType(TransactionType.BEAN_LITERAL);
-
+		mdBean.setTransactionType(TransactionType.BEAN_LITERAL);
 		
-		ISessionBeanDelegate delegate =BeanFactory.getDelegate(sessionBean, ejbModel);
+		IMessageDrivenBeanDelegate delegate =BeanFactory.getDelegate(mdBean, ejbModel);
 		
 		
 		try {
 			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.jst.j2ee.ejb.annotations.emitter.template");
 			String builderId = configurationElements[0].getAttribute("builderId");
 			addToEndOfBuildSpec( ejbClassModel.getTargetProject(),  configurationElements[0].getNamespace() + "."+builderId);
-			EjbEmitter ejbEmitter = new SessionEjbEmitter(configurationElements[0]);
+			EjbEmitter ejbEmitter = new MessageDrivenEjbEmitter(configurationElements[0]);
+			String fields = ejbEmitter.emitFields(delegate);
 			String comment = ejbEmitter.emitTypeComment(delegate);
 			String stub = ejbEmitter.emitTypeStub(delegate);
 			String method = ejbEmitter.emitInterfaceMethods(delegate);
-			String className = sessionBean.getEjbClassName();
+			String className = mdBean.getEjbClassName();
 
 			
 		
@@ -99,7 +105,7 @@ public class AddSessionBeanOperation extends WTPOperation {
 			ejbBuilder.setTypeComment(comment);
 			ejbBuilder.setTypeStub(stub);
 			ejbBuilder.setMethodStub(method);
-			ejbBuilder.setFields("");
+			ejbBuilder.setFields(fields);
 				
 			ejbBuilder.createType();
 			

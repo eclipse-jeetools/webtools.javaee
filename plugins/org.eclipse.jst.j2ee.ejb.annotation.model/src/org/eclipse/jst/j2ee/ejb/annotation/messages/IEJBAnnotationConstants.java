@@ -21,6 +21,10 @@ public interface IEJBAnnotationConstants {
 	public static final String ERR_STATELESS_VALUE = EJBAnnotationMessages.getResourceString("ERR_STATELESS_VALUE"); //$NON-NLS-1$
 	public static final String ERR_JNDI_NAME_EMPTY = EJBAnnotationMessages.getResourceString("ERR_JNDI_NAME_EMPTY"); //$NON-NLS-1$
 	public static final String ERR_JNDI_NAME_VALUE = EJBAnnotationMessages.getResourceString("ERR_JNDI_NAME_VALUE"); //$NON-NLS-1$
+	public static final String ERR_TRANSACTION_EMPTY = EJBAnnotationMessages.getResourceString("ERR_TRANSACTION_EMPTY"); //$NON-NLS-1$
+	public static final String ERR_TRANSACTION_VALUE = EJBAnnotationMessages.getResourceString("ERR_TRANSACTION_VALUE"); //$NON-NLS-1$
+	public static final String ERR_DESTINATIONTYPE_EMPTY = EJBAnnotationMessages.getResourceString("ERR_DESTINATIONTYPE_EMPTY"); //$NON-NLS-1$
+	public static final String ERR_DESTINATIONTYPE_VALUE = EJBAnnotationMessages.getResourceString("ERR_DESTINATIONTYPE_VALUE"); //$NON-NLS-1$
 
 	// AddEjbWizard
 	public final static String ADD_SESSION_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_SESSION_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
@@ -46,6 +50,9 @@ public interface IEJBAnnotationConstants {
 	public static final String NAME_LABEL = EJBAnnotationMessages.getResourceString("NAME_LABEL"); //$NON-NLS-1$;
 	public static final String JNDI_NAME_LABEL = EJBAnnotationMessages.getResourceString("JNDI_NAME_LABEL"); //$NON-NLS-1$;
 	public static final String STATELESS_LABEL =  EJBAnnotationMessages.getResourceString("STATELESS_LABEL"); //$NON-NLS-1$;;
+	public static final String TRANSACTION_LABEL = EJBAnnotationMessages.getResourceString("TRANSACTION_LABEL"); //$NON-NLS-1$;;;
+	public static final String DESTINATION_LABEL = EJBAnnotationMessages.getResourceString("DESTINATION_LABEL"); //$NON-NLS-1$;;;
+	public static final String DESTINATION_NAME_LABEL = EJBAnnotationMessages.getResourceString("DESTINATION_NAME_LABEL"); //$NON-NLS-1$;;;
 	public static final String DISPLAY_NAME_LABEL = EJBAnnotationMessages.getResourceString("DISPLAY_NAME_LABEL"); //$NON-NLS-1$;
 
 	

@@ -1,4 +1,5 @@
-<%@ jet package="com.objectlearn.gmf.templates.messageDriven" class="MethodGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.sun.java.xml.ns.j2ee.MethodType com.sun.java.xml.ns.j2ee.JavaTypeType"%>
+<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="FieldGenerator"  imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.*"%>
+<% IMessageDrivenBeanDelegate mdb  = (IMessageDrivenBeanDelegate)argument; %>
 
 /** 
 * <!-- begin-user-doc -->

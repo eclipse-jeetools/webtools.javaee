@@ -9,17 +9,29 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.model;
 
+import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.Session;
+import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDelegate;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDelegate;
+import org.eclipse.jst.j2ee.ejb.annotations.IMessageDrivenBeanDelegate;
 import org.eclipse.jst.j2ee.ejb.annotations.ISessionBeanDelegate;
 
 
-public class SessionBeanFactory {
+public class BeanFactory {
 
 	 public static ISessionBeanDelegate getDelegate(Session  session, SessionBeanDataModel beanDataModel)
 	 {
 	 	SessionBeanDelegate beanDelegate = new SessionBeanDelegate();
 	 	beanDelegate.setEjb(session);
+	 	beanDelegate.setEnterpriseBeanDataModel(beanDataModel);
+	 	
+	 	return beanDelegate;
+	 }
+	 
+	 public static IMessageDrivenBeanDelegate getDelegate(MessageDriven  mdb, MessageDrivenBeanDataModel beanDataModel)
+	 {
+	 	MessageDrivenBeanDelegate beanDelegate = new MessageDrivenBeanDelegate();
+	 	beanDelegate.setEjb(mdb);
 	 	beanDelegate.setEnterpriseBeanDataModel(beanDataModel);
 	 	
 	 	return beanDelegate;

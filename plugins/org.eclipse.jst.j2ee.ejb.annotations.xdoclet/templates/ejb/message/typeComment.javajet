@@ -1,40 +1,17 @@
-<%@ jet package="com.objectlearn.gmf.templates.messageDriven" class="TypeCommentGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.MessageDrivenBean com.sun.java.xml.ns.j2ee.MessageDrivenBeanType com.sun.java.xml.ns.j2ee.MessageDestinationType"%>
-<% DocumentRoot root = (DocumentRoot)argument;
-   MessageDrivenBean     lmdb = (MessageDrivenBean) root.getEjb().getMessageDriven();
-   MessageDrivenBeanType mdb = (MessageDrivenBeanType) lmdb.getMessageDrivenEjb();
-   MessageDestinationType destination = (MessageDestinationType) lmdb.getMessageDestination();
-   String destinationType = mdb.getMessageDestinationType().getValue();
-   boolean isQueue = "javax.jms.Queue".equals(destinationType);
-%>
+<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="TypeCommentGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.*"%>
+<% IMessageDrivenBeanDelegate mdb  = (IMessageDrivenBeanDelegate)argument; %>
+
 
  
 /**
- *
- * <!-- begin-user-doc -->
- * You can insert your documentation for '<em><b><%=mdb.getEjbClass().getUnqualifiedClassName()%></b></em>'.
- * <!-- end-user-doc -->
- *
- <!--  begin-lomboz-definition -->
- <%= root.asString() %>
- <!--  end-lomboz-definition -->
- *
- *
  * <!-- begin-xdoclet-definition -->
- * @ejb.bean name="<%=mdb.getEjbClass().getUnqualifiedClassName()%>" 
+ * @ejb.bean name="<%=mdb.getEjbName()%>" 
  *     acknowledge-mode="Auto-acknowledge"
- *     destination-type="<%=destinationType%>"
- *     <%= isQueue ? "" : "subscription-durability=\"NonDurable\""%>
- *     transaction-type="<%= mdb.getTransactionType().getValue() %>"
- *     destination-jndi-name="<%=destination.getMessageDestinationName().getValue()%>"
- * 
- *
- *--
- * Server Runtime Specific Tags
- * If you are not using a specific runtime, you can safely remove the tags below.
- * @jonas.message-driven-destination jndi-name="<%=destination.getMessageDestinationName().getValue()%>"
- * @jboss.destination-jndi-name name="<%=destination.getMessageDestinationName().getValue()%>"
- *
- *--
+ *     destination-type="<%= mdb.getDestinationType() %>"
+ *     <%= "Queue".equals(mdb.getDestinationType()) ? "" : "subscription-durability=\"NonDurable\""%>
+ *     transaction-type="<%= mdb.getTransactionType() %>"
+ *     destination-jndi-name="<%= mdb.getDestinationName() %>"
+
  * <!-- end-xdoclet-definition -->
  * @generated
  **/

@@ -29,6 +29,7 @@ public abstract class EjbCommonDataModel extends J2EEModelModifierOperationDataM
 	public static final String DESCRIPTION = "EjbCommonDataModel.DESCRIPTION"; //$NON-NLS-1$
 	public static final String CLASS_NAME = "EjbCommonDataModel.CLASS_NAME"; //$NON-NLS-1$
 	public static final String STATELESS = "EjbCommonDataModel.STATELESS";
+	public static final String TRANSACTIONTYPE = "EjbCommonDataModel.TRANSACTIONTYPE";
 
 	/*
 	 * (non-Javadoc)
@@ -52,6 +53,7 @@ public abstract class EjbCommonDataModel extends J2EEModelModifierOperationDataM
 		addValidBaseProperty(DESCRIPTION);
 		addValidBaseProperty(CLASS_NAME);
 		addValidBaseProperty(STATELESS);
+		addValidBaseProperty(TRANSACTIONTYPE);
 	}
 
 	/*
@@ -70,6 +72,8 @@ public abstract class EjbCommonDataModel extends J2EEModelModifierOperationDataM
 			return validateClassName(getStringProperty(propertyName));
 		if (propertyName.equals(STATELESS))
 			return validateStateless(getStringProperty(propertyName));
+		if (propertyName.equals(TRANSACTIONTYPE))
+			return validateTransaction(getStringProperty(propertyName));
 		return super.doValidateProperty(propertyName);
 	}
 
@@ -81,6 +85,19 @@ public abstract class EjbCommonDataModel extends J2EEModelModifierOperationDataM
 		}
 		if (prop.indexOf("Stateless") >= 0 || prop.indexOf("Stateful") >= 0) {
 			String msg = IEJBAnnotationConstants.ERR_STATELESS_VALUE;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		return WTPCommonPlugin.OK_STATUS;
+	}
+	
+	private IStatus validateTransaction(String prop) {
+		// check for empty
+		if (prop == null || prop.trim().length() == 0) {
+			String msg = IEJBAnnotationConstants.ERR_TRANSACTION_EMPTY;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		if (prop.indexOf("Container") >= 0 || prop.indexOf("Bean") >= 0) {
+			String msg = IEJBAnnotationConstants.ERR_TRANSACTION_VALUE;
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		return WTPCommonPlugin.OK_STATUS;

@@ -74,12 +74,57 @@
          </description>
       </wizard>
    </extension>
+   <extension
+         id="org.eclipse.jst.j2ee.ejb.ui.wizards"
+         point="org.eclipse.ui.newWizards">
+       <category
+            name="EJB"
+            id="org.eclipse.jst.ejb.ui">
+      </category>
+      <wizard
+            name="%ejb.createmdbean_ui_"
+            icon="icons/full/ctool16/newmessageejb_wiz.gif"
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard"
+            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard">
+         <description>
+            %new.ejb.description_ui_
+         </description>
+      </wizard>
+   </extension>
    
     <extension
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
           <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AAddSessionEjbWizard">
+            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard">
+         <enablement>
+         <or>
+            <and>
+            	<or>
+                  <objectClass
+                     name="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup">
+               	   </objectClass>
+	               <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+               </or>
+               <or>
+                  <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.ejb.EJBNature">
+                  </objectState>
+               </or>
+            </and>            
+            </or>
+         </enablement>
+       </commonWizard>
+      </extension> 
+    <extension
+         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
+          <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard">
          <enablement>
          <or>
             <and>

@@ -1,11 +1,8 @@
-<%@ jet package="com.objectlearn.gmf.templates.messageDriven" class="MethodGenerator" imports="java.util.* com.objectlearn.lomboz.xml.lomboz.DocumentRoot com.objectlearn.lomboz.xml.lomboz.MessageDrivenBean com.sun.java.xml.ns.j2ee.MessageDrivenBeanType com.sun.java.xml.ns.j2ee.MessageDestinationType"%>
-<% DocumentRoot root = (DocumentRoot)argument;
-   MessageDrivenBean     lmdb = (MessageDrivenBean) root.getEjb().getMessageDriven();
-   MessageDrivenBeanType mdb = (MessageDrivenBeanType) lmdb.getMessageDrivenEjb();
-   MessageDestinationType destination = (MessageDestinationType) lmdb.getMessageDestination();
-   String destinationType = mdb.getMessageDestinationType().getValue();
-   boolean isQueue = "javax.jms.Queue".equals(destinationType);
-%>
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.messageDriven" class="MethodGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotations.*"%>
+
+<% IMessageDrivenBeanDelegate mdb  = (IMessageDrivenBeanDelegate)argument; %>
+
+
 /** 
  * Required method for container to set context.
  * @generated 
