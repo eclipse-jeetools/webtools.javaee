@@ -72,15 +72,10 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 	 * @param image
 	 * @param displayString
 	 * @param relevance
-	 * @param viewer
 	 */
-	public AnnotationTagProposal(String replacementString, int replacementOffset, int replacementLength, Image image, String displayString, int relevance, ITextViewer viewer) {
-		super(replacementString, replacementOffset, replacementLength, image, displayString, relevance);
-		this.localString = replacementString;
-	}
 
 	public AnnotationTagProposal(AttributeValueProposalHelper proposalHelper) {
-		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), null, proposalHelper.getValueDisplayString(), 1, null);
+		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), null, proposalHelper.getValueDisplayString(), 1);
 		if (proposalHelper instanceof UIAttributeValueProposalHelper)
 			setImage(((UIAttributeValueProposalHelper) proposalHelper).getImage());
 		setEnsureBeginQuote(proposalHelper.ensureBeginQuote());
@@ -88,7 +83,7 @@ public class AnnotationTagProposal extends JavaCompletionProposal {
 	}
 
 	public AnnotationTagProposal(UIAttributeValueProposalHelper proposalHelper) {
-		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), proposalHelper.getImage(), proposalHelper.getValueDisplayString(), 1, null);
+		this(proposalHelper.getReplacementString(), proposalHelper.getValueOffset(), proposalHelper.getReplacementLength(), proposalHelper.getImage(), proposalHelper.getValueDisplayString(), 1);
 		setEnsureBeginQuote(proposalHelper.ensureBeginQuote());
 		setEnsureEndQuote(proposalHelper.ensureEndQuote());
 	}
