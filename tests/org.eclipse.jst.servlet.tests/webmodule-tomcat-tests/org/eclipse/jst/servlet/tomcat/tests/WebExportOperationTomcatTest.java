@@ -58,5 +58,12 @@ public class WebExportOperationTomcatTest extends ModuleExportOperationTestCase 
 	protected ModuleImportOperationTestCase getImportTestCase() {
 		return new WebImportOperationTomcatTest("");
 	}
+	
+	/**
+	 * @return
+	 */
+	public String getModuleExportFileExt() {
+		return ".war";
+	}
 
 }

@@ -31,13 +31,13 @@ public class AllTomcatTests extends TestSuite {
     public AllTomcatTests(){
         super("WEB Tests");
         addTest(WebProjectCreationTomcatTest.suite());
-        //addTest(WebImportOperationTomcatTest.suite());
-        //addTest(WebExportOperationTomcatTest.suite());
+        addTest(WebImportOperationTomcatTest.suite());
+        addTest(WebExportOperationTomcatTest.suite());
         
     }
     
     public static IRuntime createRuntime()  {
-    	String s = System.getProperty("org.eclipse.jst.server.tomcat.50");
+    	String s = "D:/Program Files/Apache Software Foundation/Tomcat 5.0";
     	if (s == null || s.length() == 0)
     		return null;
     	try {

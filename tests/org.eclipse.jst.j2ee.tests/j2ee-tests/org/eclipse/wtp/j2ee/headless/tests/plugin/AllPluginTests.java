@@ -31,15 +31,15 @@ public class AllPluginTests extends TestSuite {
 
     public AllPluginTests() {
         super();
-        addTest(org.eclipse.wtp.j2ee.headless.tests.ejb.operations.AllTests.suite());
-        addTest(org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests.suite());
-        addTest(org.eclipse.wtp.j2ee.headless.tests.jca.operations.AllTests.suite());
-        addTest(org.eclipse.wtp.j2ee.headless.tests.ear.operations.AllTests.suite());
-        addTest(org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AllTests.suite());
+	      addTest(org.eclipse.wtp.j2ee.headless.tests.ejb.operations.AllTests.suite());
+	      addTest(org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests.suite());
+	      addTest(org.eclipse.wtp.j2ee.headless.tests.jca.operations.AllTests.suite());
+	      addTest(org.eclipse.wtp.j2ee.headless.tests.ear.operations.AllTests.suite());
+	      addTest(org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AllTests.suite());
     }
     
     public static IRuntime createJONASRuntime()  {
-    	String s = "D:/JOnAS-4.3.2/lib";
+    	String s = System.getProperty("org.eclipse.jst.server.jonas.432");
     	if (s == null || s.length() == 0)
     		return null;
     	try {
