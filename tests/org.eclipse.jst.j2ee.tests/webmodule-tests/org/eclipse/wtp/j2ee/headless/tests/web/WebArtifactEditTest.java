@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
@@ -16,7 +16,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchComponent;
  * The WebArtifactEditTest is an API test class for the WebArtifactEdit class.
  * All the exposed API is tested through the scenarios in this junit.
  * 
- * @see org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit
+ * @see org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit
  *
  * NOTE -- The test web module creation static helper needs to be plugged in here when it is
  * ready.
