@@ -577,13 +577,33 @@
          </enablement>
       </migrator>
    </extension>
-    <extension
+      <extension
+         point="org.eclipse.wst.common.migration.migrator">
+      <migrator
+            className="org.eclipse.wst.common.internal.migration.ComponentMigrator"
+            id="org.eclipse.wst.common.internal.migration.ComponentMigrator">
+             <enablement>
+			  <projectNature natureID="com.ibm.wtp.web.WebNature"/>		                          
+         </enablement>
+      </migrator>
+   </extension>
+       <extension
           point="org.eclipse.wst.common.migration.migratorStrategy">
        <migratorStrategy
              className="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy"
              id="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy.ID">
           <enablement>
 			  <projectNature natureID="org.eclipse.jst.j2ee.web.WebNature"/>
+          </enablement>
+       </migratorStrategy>
+    </extension>
+    <extension
+          point="org.eclipse.wst.common.migration.migratorStrategy">
+       <migratorStrategy
+             className="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy"
+             id="org.eclipse.jst.j2ee.internal.web.migration.WebProjectMigratorStrategy.ID">
+          <enablement>
+			  <projectNature natureID="com.ibm.wtp.web.WebNature"/>		                          
           </enablement>
        </migratorStrategy>
     </extension>
