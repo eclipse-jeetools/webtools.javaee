@@ -14,10 +14,7 @@ import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 public class WebDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDelegate implements IAdapterFactory {
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		IModuleArtifact moduleArtifact = null;
-		if (adapterType == WebModuleArtifact.class )
-			return getModuleArtifact(adaptableObject);
-		return moduleArtifact;
+		return null;
 	}
 
 	public Class[] getAdapterList() {
