@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.internal.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webservice.internal.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
+import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 
@@ -85,9 +86,9 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		
 
 		WebServicesResource webserDD = (WebServicesResource)ejbFile.getResourceSet().createResource(URI.createURI("META-INF/webservicesclient.xml"));
-		webserDD.getContents().add(Webservice_clientPackage.eINSTANCE.getWebservice_clientFactory().createWebServicesClient());
 		//TODO: individual test for each version
 		webserDD.setVersionID(currentVersion);
+		setVersion(VERSION_1_3);
 		populateRoot(webserDD.getRootObject());
 		
 		String out = AutomatedBVT.baseDirectory +getProjectLocation();
@@ -103,9 +104,9 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		createEJB();
 
 		WsddResource webserDD = (WsddResource)ejbFile.getResourceSet().createResource(URI.createURI("META-INF/webservices.xml"));
-		webserDD.getContents().add(WsddFactory.eINSTANCE.createWebServices());
 		//TODO: individual test for each version
 		webserDD.setVersionID(currentVersion);
+		setVersion(VERSION_1_3);
 		populateRoot(webserDD.getRootObject());
 		
 		String out = AutomatedBVT.baseDirectory +getProjectLocation();
@@ -123,6 +124,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		webserDD.getContents().add(WsddFactory.eINSTANCE.createWebServices());
 		//TODO: individual test for each version
 		webserDD.setVersionID(currentVersion);
+		setVersion(VERSION_1_4);
 		populateRoot(webserDD.getRootObject());
 		
 		String out = AutomatedBVT.baseDirectory +getProjectLocation();
