@@ -42,6 +42,8 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
     protected Map uris = new HashMap();
 
+	public static final String WEB_MODULE_TYPE = "jst.web";
+
     
 
     /**

@@ -48,20 +48,22 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	}
 
 
-	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
 		J2EEFlexProjWebDeployable moduleDelegate = null;
 		IModule module = null;
 		List moduleList = new ArrayList(workBenchModules.size());
-		//  J2EENature nature = (J2EENature)project.getNature(getNatureID());
+		// J2EENature nature = (J2EENature)project.getNature(getNatureID());
 
 		for (int i = 0; i < workBenchModules.size(); i++) {
 			try {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
+				if (!wbModule.getComponentType().getComponentTypeId().equals(J2EEFlexProjWebDeployable.WEB_MODULE_TYPE))
+					return null;
 				moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
 				module = createModule(wbModule.getName(), wbModule.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
 				moduleList.add(module);
 				moduleDelegate.initialize(module);
-				//adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
+				// adapt(moduleDelegate, (WorkbenchComponent) workBenchModules.get(i));
 			} catch (Exception e) {
 				Logger.getLogger().write(e);
 			} finally {
@@ -73,9 +75,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 		}
 		return moduleList;
 
-	}
-
-	private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
+	}	private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchComponent wbModule) {
 
 		ModuleAdapter moduleAdapter = new ModuleAdapter() {
 			public void notifyChanged(Notification msg) {

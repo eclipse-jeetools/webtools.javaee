@@ -76,6 +76,8 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 			Logger.getLogger().write(e);
 		}
 		List modules = createModules(nature);
+		if (modules == null)
+			return new IModule[0];
 		IModule[] moduleArray = new IModule[modules.size()];
 		modules.toArray(moduleArray);
 		return moduleArray;
