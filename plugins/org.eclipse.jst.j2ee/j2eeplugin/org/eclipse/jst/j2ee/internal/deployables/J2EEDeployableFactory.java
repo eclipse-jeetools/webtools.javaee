@@ -166,8 +166,10 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
     }
 
     public IModule[] getModules() {
-        if (!getProjectModules().isEmpty())
-            return getALLModules();
+        if (!getProjectModules().isEmpty()){
+        	cacheModules();
+        	return getALLModules();
+            }
         if (projects == null)
             cacheModules();
         int i = 0;
