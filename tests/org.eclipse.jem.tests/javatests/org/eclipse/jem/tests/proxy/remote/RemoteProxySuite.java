@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: RemoteProxySuite.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/04 16:13:39 $ 
  */
 import java.net.URL;
 
@@ -48,7 +48,7 @@ public class RemoteProxySuite extends TestSetup {
 		public ProxyFactoryRegistry getRegistry() throws CoreException {
 			if (registry == null) {
 				registry =
-					ProxyPlugin.getPlugin().startImplementation(
+					ProxyLaunchSupport.startImplementation(
 						project,
 						"JUnit Remote Proxy Test",
 						new IConfigurationContributor[] { ProxySuite.getProxySuiteContributor()},

@@ -11,24 +11,18 @@ package org.eclipse.jem.tests.proxy.initParser.tree;
  *******************************************************************************/
 /*
  *  $RCSfile: ASTParserSuite.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:13 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/04 16:13:39 $ 
  */
+import junit.extensions.TestSetup;
+import junit.framework.*;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
-import junit.extensions.TestSetup;
-import junit.framework.*;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 import org.eclipse.jem.tests.JavaProjectUtil;
 import org.eclipse.jem.tests.JavaTestsPlugin;
 import org.eclipse.jem.tests.proxy.ProxySuite;
@@ -102,7 +96,7 @@ public class ASTParserSuite extends TestSetup {
 			// the remote proxy expression evaluation. We are really testing AST->ParseTree->BeanProxy. If any expression
 			// type errors show up (i.e. the proxy expression itself is not working correctly). Then that should be fixed
 			// and a junit test in the proxy suite should be created instead.
-			registry = ProxyPlugin.getPlugin().startImplementation(
+			registry = ProxyLaunchSupport.startImplementation(
 					project,
 					"JUnit Parse Tree Test",
 					new IConfigurationContributor[] { ProxySuite.getProxySuiteContributor()},

@@ -11,17 +11,15 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxySuite.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:13 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/04 16:13:39 $ 
  */
-import java.util.List;
+import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.IConfigurationContributor;
-import org.eclipse.jem.tests.JavaTestsPlugin;
-import org.eclipse.jdt.launching.VMRunnerConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 
-import junit.framework.TestSuite;
+import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.tests.JavaTestsPlugin;
 
 /**
  * @author richkulp
@@ -81,11 +79,11 @@ public class ProxySuite extends TestSuite {
 	 */
 	public static IConfigurationContributor getProxySuiteContributor() {
 		return new IConfigurationContributor() {
-			public void contributeClasspaths(List classpaths, IClasspathContributionController controller) throws CoreException {
-				controller.contributeClasspath(ProxyPlugin.getPlugin().localizeFromPlugin(JavaTestsPlugin.getPlugin(), "vm/tests.jar"), classpaths, 0);
+			public void contributeClasspaths(IConfigurationContributionController controller) throws CoreException {
+				controller.contributeClasspath(JavaTestsPlugin.getPlugin(), "vm/tests.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, false);
 			}
 
-			public void contributeToConfiguration(VMRunnerConfiguration config) {
+			public void contributeToConfiguration(ILaunchConfigurationWorkingCopy config) {
 			}
 
 			public void contributeToRegistry(ProxyFactoryRegistry registry) {
