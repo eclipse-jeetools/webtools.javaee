@@ -21,7 +21,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleExportData
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 
@@ -70,16 +69,6 @@ public class WARExportPage extends J2EEModuleExportPage {
 	 */
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof org.eclipse.jst.j2ee.webapplication.WebApp;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#getNatureID()
-	 */
-	protected String getNatureID() {
-
-		return IWebNatureConstants.J2EE_NATURE_ID;
 	}
 
 }

@@ -13,10 +13,8 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;

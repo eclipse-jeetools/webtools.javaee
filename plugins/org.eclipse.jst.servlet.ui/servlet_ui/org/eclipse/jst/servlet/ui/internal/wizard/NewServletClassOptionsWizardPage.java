@@ -20,7 +20,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 /**
  * @author jialin
@@ -38,7 +37,7 @@ public class NewServletClassOptionsWizardPage extends NewJavaClassOptionsWizardP
 	protected Button destroyButton;
 	protected Button doGetButton;
 
-	public NewServletClassOptionsWizardPage(WTPOperationDataModel model, String pageName, String pageDesc, String pageTitle) {
+	public NewServletClassOptionsWizardPage(NewServletClassDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName, pageDesc, pageTitle);
 	}
 	/**

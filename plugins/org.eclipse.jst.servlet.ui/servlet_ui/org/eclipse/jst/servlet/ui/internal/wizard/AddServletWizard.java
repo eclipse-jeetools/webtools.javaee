@@ -67,18 +67,18 @@ public class AddServletWizard extends NewWebWizard {
 	 */
 	public void doAddPages() {
 		
-		NewJavaClassWizardPage page2 = new NewJavaClassWizardPage(
+		NewJavaClassWizardPage page1 = new NewJavaClassWizardPage(
 				(NewServletClassDataModel)model, 
-				PAGE_TWO,
+				PAGE_ONE,
 				IWebWizardConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE, IModuleConstants.JST_WEB_MODULE);
-		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
-		addPage(page2);
-		AddServletWizardPage page1 = new AddServletWizardPage((NewServletClassDataModel) model, PAGE_ONE);
-		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1);
+		page1.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_2);
 		addPage(page1);
+		AddServletWizardPage page2 = new AddServletWizardPage((NewServletClassDataModel) model, PAGE_TWO);
+		page2.setInfopopID(IWebUIContextIds.WEBEDITOR_SERVLET_PAGE_ADD_SERVLET_WIZARD_1);
+		addPage(page2);
 		NewServletClassOptionsWizardPage page3 = new NewServletClassOptionsWizardPage(
-				model, 
+				(NewServletClassDataModel)model, 
 				PAGE_THREE,
 				IWebWizardConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
 				IWebWizardConstants.ADD_SERVLET_WIZARD_PAGE_TITLE);
@@ -94,8 +94,9 @@ public class AddServletWizard extends NewWebWizard {
 	}
 	
 	public boolean canFinish() {
-		AddServletWizardPage firstPage = (AddServletWizardPage)getPage(PAGE_ONE);
-		NewJavaClassWizardPage secondPage = (NewJavaClassWizardPage)getPage(PAGE_TWO);
+		NewJavaClassWizardPage firstPage = (NewJavaClassWizardPage)getPage(PAGE_ONE);
+		AddServletWizardPage secondPage = (AddServletWizardPage)getPage(PAGE_TWO);
+		
 		if (firstPage != null && firstPage.isPageComplete() && secondPage.isPageComplete() ) {
 			return true;
 		}

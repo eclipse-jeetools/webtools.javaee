@@ -46,8 +46,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.Workbench;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 
 /**
  * @author jialin
@@ -71,7 +71,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public NewJavaClassOptionsWizardPage(WTPOperationDataModel model, String pageName, String pageDesc, String pageTitle) {
+	public NewJavaClassOptionsWizardPage(ArtifactEditOperationDataModel model, String pageName, String pageDesc, String pageTitle) {
 		super(model, pageName);
 		setDescription(pageDesc);
 		this.setTitle(pageTitle);
@@ -324,7 +324,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 	 * Browse for a new Super Interface Class
 	 */
 	protected void handleInterfaceAddButtonSelected() {
-		IProject project = model.getTargetProject();
+		IProject project = ((ArtifactEditOperationDataModel)model).getTargetProject();
 		IRunnableContext context = Workbench.getInstance().getActiveWorkbenchWindow();
 		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(project);
 		// this eliminates the non-exported classpath entries

@@ -27,8 +27,7 @@ import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
 
-public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction
-{
+public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAction {
 
 	IStructuredSelection fSelection = null;
 	IProject project = null;
@@ -37,46 +36,33 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * ConvertLinksDialog constructor comment.
 	 */
-	public ConvertToWebModuleTypeAction()
-	{
+	public ConvertToWebModuleTypeAction() {
 		super();
 	}
 
-	public ConvertToWebModuleTypeAction(IWorkbench workbench, String label,
-			Class[] acceptedTypes)
-	{
+	public ConvertToWebModuleTypeAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
 		super(workbench, label, acceptedTypes, false);
 	}
 
-	protected Wizard createWizard()
-	{
-		ConvertToWebComponentTypeWizard wizard = new ConvertToWebComponentTypeWizard(
-				new ConvertWebProjectDataModel());
-		WebModuleCreationDataModel model = (WebModuleCreationDataModel) wizard
-				.getModel();
-		model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project
-				.getName());
+	protected Wizard createWizard() {
+		ConvertToWebComponentTypeWizard wizard = new ConvertToWebComponentTypeWizard(new ConvertWebProjectDataModel());
+		WebModuleCreationDataModel model = (WebModuleCreationDataModel) wizard.getModel();
+		model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project.getName());
 		model.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
 
 		StaticWebNatureRuntime nature;
-		try
-		{
-			nature = (StaticWebNatureRuntime) project
-					.getNature(IWebNatureConstants.STATIC_NATURE_ID);
+		try {
+			nature = (StaticWebNatureRuntime) project.getNature(IWebNatureConstants.STATIC_NATURE_ID);
 			String webContent = nature.getRootPublishableFolder().getName();
 			String contextRoot = nature.getContextRoot();
-			model.setProperty(WebModuleCreationDataModel.WEB_CONTENT,
-					webContent);
-			model.setProperty(WebModuleCreationDataModel.CONTEXT_ROOT,
-					contextRoot);
-		}
-		catch( CoreException e )
-		{
+			model.setProperty(WebModuleCreationDataModel.WEB_CONTENT, webContent);
+			model.setProperty(WebModuleCreationDataModel.CONTEXT_ROOT, contextRoot);
+		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			Logger.getLogger().logError(e);
 		}
 
-		//		wizard.setWindowTitle("Convert to Dynamic Web Project");
+		// wizard.setWindowTitle("Convert to Dynamic Web Project");
 
 		return wizard;
 	}
@@ -84,15 +70,12 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * Is this a web project?
 	 */
-	boolean isAWebProject(IProject aProject)
-	{
-		if( aProject == null ) return false;
-		try
-		{
+	boolean isAWebProject(IProject aProject) {
+		if (aProject == null)
+			return false;
+		try {
 			aProject.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-		}
-		catch( CoreException coe )
-		{
+		} catch (CoreException coe) {
 			return false;
 		}
 		return true;
@@ -101,20 +84,14 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * make sure a web project is selected.
 	 */
-	public boolean isValidProject(IProject aProject)
-	{
-		if( isAWebProject(aProject) )
-		{
-			try
-			{
-				IBaseWebNature nature = (IBaseWebNature) aProject
-						.getNature(IWebNatureConstants.STATIC_NATURE_ID);
-				if( nature == null )
+	public boolean isValidProject(IProject aProject) {
+		if (isAWebProject(aProject)) {
+			try {
+				IBaseWebNature nature = (IBaseWebNature) aProject.getNature(IWebNatureConstants.STATIC_NATURE_ID);
+				if (nature == null)
 					return false;
 				return true;
-			}
-			catch( CoreException e )
-			{
+			} catch (CoreException e) {
 				return false;
 			}
 		}
@@ -125,11 +102,9 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * selectionChanged method comment.
 	 */
-	public void selectionChanged(IAction action, ISelection selection)
-	{
+	public void selectionChanged(IAction action, ISelection selection) {
 		boolean bEnable = false;
-		if( selection instanceof IStructuredSelection )
-		{
+		if (selection instanceof IStructuredSelection) {
 			fSelection = (IStructuredSelection) selection;
 			bEnable = validateSelected(fSelection);
 		}
@@ -139,14 +114,15 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * selectionChanged method comment.
 	 */
-	public boolean validateSelected(ISelection selection)
-	{
-		if( !(selection instanceof IStructuredSelection) ) return false;
+	public boolean validateSelected(ISelection selection) {
+		if (!(selection instanceof IStructuredSelection))
+			return false;
 
 		fSelection = (IStructuredSelection) selection;
 
 		Object selectedProject = fSelection.getFirstElement();
-		if( !(selectedProject instanceof IProject) ) return false;
+		if (!(selectedProject instanceof IProject))
+			return false;
 
 		project = (IProject) selectedProject;
 		return isValidProject(project);

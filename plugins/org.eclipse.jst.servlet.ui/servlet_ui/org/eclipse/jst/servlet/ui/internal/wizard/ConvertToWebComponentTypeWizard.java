@@ -41,7 +41,7 @@ public class ConvertToWebComponentTypeWizard extends WebComponentCreationWizard 
 	 * 
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizard#createDefaultModel()
 	 */
-	private static final String PAGE_ONE = "page1"; //$NON-NLS-1$
+	//private static final String PAGE_ONE = "page1"; //$NON-NLS-1$
 
 	protected WTPOperationDataModel createDefaultModel() {
 		// TODO Auto-generated method stub

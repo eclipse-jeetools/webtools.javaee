@@ -20,7 +20,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactCreation
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
@@ -63,10 +62,6 @@ public class WARImportPage extends J2EEModuleImportPage {
 
 	protected WTPWizard getNewProjectWizard(WebComponentCreationDataModel aModel) {
 		return new WebComponentCreationWizard(aModel);
-	}
-
-	protected String getFileNamesStoreID() {
-		return IWebNatureConstants.J2EE_NATURE_ID;
 	}
 
 	private WebModuleImportDataModel getWebDataModel() {

@@ -10,12 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -49,26 +46,6 @@ public abstract class NewWebWizard extends WTPWizard implements INewWizard {
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		createDefaultModel();
-	}
-
-	protected IProject getDefaultWebProject() {
-		IProject project = null;
-		IStructuredSelection selection = getCurrentSelection();
-		if (selection != null && selection.getFirstElement() != null) {
-			project = ProjectUtilities.getProject(selection.getFirstElement());
-		}
-		if (project == null) {
-			IProject[] projects = ProjectUtilities.getAllProjects();
-			J2EEWebNatureRuntime nature = null;
-			for (int i = 0; i < projects.length; i++) {
-				nature = J2EEWebNatureRuntime.getRuntime(projects[i]);
-				if (nature != null) {
-					project = projects[i];
-					break;
-				}
-			}
-		}
-		return project;
 	}
 
 	protected IStructuredSelection getCurrentSelection() {
