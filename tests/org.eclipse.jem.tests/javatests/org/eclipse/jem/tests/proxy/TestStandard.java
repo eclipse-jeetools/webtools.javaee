@@ -11,10 +11,11 @@
 package org.eclipse.jem.tests.proxy;
 /*
  *  $RCSfile: TestStandard.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:33:39 $ 
+ *  $Revision: 1.6 $  $Date: 2005/02/10 22:38:32 $ 
  */
 import java.io.IOException;
 
+import org.eclipse.jem.internal.proxy.common.AmbiguousMethodException;
 import org.eclipse.jem.internal.proxy.core.*;
 
 /**
@@ -105,6 +106,24 @@ public class TestStandard extends AbstractTestProxy {
 		assertEquals("abcd", aString.stringValue()); //$NON-NLS-1$
 	}
 	
+	public void testGetConstructors() {
+		IBeanTypeProxy stringType = proxyTypeFactory.getBeanTypeProxy("java.lang.String"); //$NON-NLS-1$				
+		
+		// Get all constructors.
+		IConstructorProxy[] ctors = stringType.getConstructors();
+		assertNotNull(ctors);
+		assertEquals(11, ctors.length);		
+	}
+
+	public void testGetDeclaredConstructors() {
+		IBeanTypeProxy stringType = proxyTypeFactory.getBeanTypeProxy("java.lang.String"); //$NON-NLS-1$				
+		
+		// Get all constructors.
+		IConstructorProxy[] ctors = stringType.getDeclaredConstructors();
+		assertNotNull(ctors);
+		assertEquals(16, ctors.length);		
+	}
+
 	public void testSimpleConstructor() throws ThrowableProxy {
 		IBeanTypeProxy integerType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"); //$NON-NLS-1$				
 		
@@ -117,6 +136,14 @@ public class TestStandard extends AbstractTestProxy {
 		// Zero is cached, let's see if that is what we got above.
 		IIntegerBeanProxy aZero = proxyFactory.createBeanProxyWith(new Integer(0));
 		assertSame(anInt, aZero);
+	}
+
+	public void testSimpleDeclaredConstructor() throws ThrowableProxy {
+		IBeanTypeProxy stringType = proxyTypeFactory.getBeanTypeProxy("java.lang.String"); //$NON-NLS-1$				
+		
+		// See if we can get a private constructor.
+		IConstructorProxy ctor = stringType.getDeclaredConstructorProxy(new String[] {"java.lang.String", "int"}); //$NON-NLS-1$ //$NON-NLS-2$
+		assertNotNull(ctor);
 	}
 
 	public void testPrimitiveReturn() throws ThrowableProxy {
@@ -261,7 +288,43 @@ public class TestStandard extends AbstractTestProxy {
 		arrayProxy.set(anInt, new int[] {0,1});
 		assertEquals(anInt, idx1.get(1));
 	}
-	
+
+	public void testArraySnapshot2DimArray() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("java.lang.Integer", 2); //$NON-NLS-1$
+		
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, new int[] {2, 3});
+		assertNotNull(arrayProxy);
+
+		// Get the two entries which are Integer[3]		
+		IArrayBeanProxy idx0 = (IArrayBeanProxy) arrayProxy.get(0);
+		IArrayBeanProxy idx1 = (IArrayBeanProxy) arrayProxy.get(1);
+		
+		// Now get the snapshot and see if the entries are idx0 and idx1.
+		IBeanProxy[] snapshot = arrayProxy.getSnapshot();
+		assertEquals(idx0, snapshot[0]);
+		assertEquals(idx1, snapshot[1]);
+	}
+
+	public void testArraySnapshotPrimitiveArray() throws ThrowableProxy {
+		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("int", 1); //$NON-NLS-1$
+		
+		IArrayBeanProxy arrayProxy = proxyFactory.createBeanProxyWith(arrayType, new int[] {2});
+		assertNotNull(arrayProxy);
+
+		// Set the two entries to int values.
+		arrayProxy.set(proxyFactory.createBeanProxyWith(2), 0);
+		arrayProxy.set(proxyFactory.createBeanProxyWith(3), 1);
+		IIntegerBeanProxy idx0 = (IIntegerBeanProxy) arrayProxy.get(0);
+		IIntegerBeanProxy idx1 = (IIntegerBeanProxy) arrayProxy.get(1);
+		assertEquals(2, idx0.intValue());
+		assertEquals(3, idx1.intValue());
+		
+		// Now get the snapshot and see if the entries are idx0 and idx1.
+		IBeanProxy[] snapshot = arrayProxy.getSnapshot();
+		assertEquals(idx0, snapshot[0]);
+		assertEquals(idx1, snapshot[1]);
+	}
+
 	public void testEmptyArray() throws ThrowableProxy {
 		IArrayBeanTypeProxy arrayType = (IArrayBeanTypeProxy) proxyTypeFactory.getBeanTypeProxy("java.lang.Integer", 1); //$NON-NLS-1$
 
@@ -468,5 +531,109 @@ public class TestStandard extends AbstractTestProxy {
 		registry.getCallbackRegistry().deregisterCallback(callbackProxy);				
 		cb.testComplete();
 		System.out.println("If there is anything in the .log file, then the test failed.");			 //$NON-NLS-1$		
+	}
+	
+	public void testSimpleGetField() throws ThrowableProxy {
+		IBeanTypeProxy integerType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"); //$NON-NLS-1$				
+		
+		// Get the public field.
+		IFieldProxy field = integerType.getFieldProxy("MAX_VALUE"); //$NON-NLS-1$
+		assertNotNull(field);
+	}
+
+	public void testSimpleGetDeclaredField() throws ThrowableProxy {
+		IBeanTypeProxy integerType = proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"); //$NON-NLS-1$				
+		
+		// Get the public field.
+		IFieldProxy field = integerType.getDeclaredFieldProxy("value"); //$NON-NLS-1$
+		assertNotNull(field);
+	}
+
+	public void testGetFields() {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
+		
+		// Get all fields.
+		IFieldProxy[] fields = testAccessType.getFields();
+		assertNotNull(fields);
+		assertEquals(1, fields.length);		
+	}
+
+	public void testGetDeclaredFields() {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
+		
+		// Get all fields.
+		IFieldProxy[] fields = testAccessType.getDeclaredFields();
+		assertNotNull(fields);
+		assertEquals(2, fields.length);		
+	}
+	
+	public void testSimpleGetMethod() throws ThrowableProxy {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$	
+		
+		// Get the public field.
+		IMethodProxy method = testAccessType.getMethodProxy("xyz"); //$NON-NLS-1$
+		assertNotNull(method);
+	}
+
+	public void testSimpleGetDeclaredMethod() throws ThrowableProxy {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$	
+		
+		// Get the public field.
+		IMethodProxy method = testAccessType.getDeclaredMethodProxy("qxr", (String[]) null); //$NON-NLS-1$
+		assertNotNull(method);
+	}
+
+	public void testGetMethods() {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$
+		IBeanTypeProxy testObjectType = proxyTypeFactory.getBeanTypeProxy("java.lang.Object"); //$NON-NLS-1$
+		
+		// Get all methods. Need to get all of Object too since getMethods() gets them all including inherited. We will
+		// then take the diff to show what's only at the local level.
+		IMethodProxy[] methods = testAccessType.getMethods();
+		IMethodProxy[] objectMethods = testObjectType.getMethods();
+		assertNotNull(methods);
+		assertNotNull(objectMethods);
+		assertEquals(6, methods.length-objectMethods.length);		
+	}
+
+	public void testGetDeclaredMethods() {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
+		
+		// Get all fields.
+		IMethodProxy[] methods = testAccessType.getDeclaredMethods();
+		assertNotNull(methods);
+		assertEquals(7, methods.length);		
+	}
+
+	public void testFindCompatibleConstructor() throws AmbiguousMethodException, NoSuchMethodException {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
+
+		IConstructorProxy ctor = testAccessType.getCompatibleConstructor(new IBeanTypeProxy[] {proxyTypeFactory.getBeanTypeProxy("java.lang.ArrayStoreException")});
+		IConstructorProxy comp = testAccessType.getDeclaredConstructorProxy(new IBeanTypeProxy[] {proxyTypeFactory.getBeanTypeProxy("java.lang.RuntimeException")});
+		
+		assertNotNull(ctor);
+		assertNotNull(comp);
+		assertEquals(ctor, comp);
+	}
+	
+	public void testFindCompatibleMethod() throws AmbiguousMethodException, NoSuchMethodException {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
+
+		IMethodProxy method = testAccessType.getCompatibleMethod("xyz", new IBeanTypeProxy[] {proxyTypeFactory.getBeanTypeProxy("java.lang.Integer")});
+		IMethodProxy comp = testAccessType.getDeclaredMethodProxy("xyz", new IBeanTypeProxy[] {proxyTypeFactory.getBeanTypeProxy("java.lang.Number")});
+		
+		assertNotNull(method);
+		assertNotNull(comp);
+		assertEquals(method, comp);
+	}
+	
+	public void testFindAmbiguousMethod() throws NoSuchMethodException {
+		IBeanTypeProxy testAccessType = proxyTypeFactory.getBeanTypeProxy("testPackage.TestAccess"); //$NON-NLS-1$				
+
+		try {
+			testAccessType.getCompatibleMethod("ddd", new IBeanTypeProxy[] {proxyTypeFactory.getBeanTypeProxy("java.lang.Integer"), proxyTypeFactory.getBeanTypeProxy("java.lang.Integer")});
+			fail("Should of been ambiguous");
+		} catch (AmbiguousMethodException e) {
+		} 
 	}
 }
