@@ -11,11 +11,9 @@
 package org.eclipse.jem.tests.beaninfo;
 /*
  *  $RCSfile: AbstractBeanInfoTestCase.java,v $
- *  $Revision: 1.7 $  $Date: 2004/11/12 23:11:09 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/04 23:12:00 $ 
  */
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 import junit.framework.TestCase;
 
@@ -23,16 +21,14 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jem.internal.beaninfo.FeatureDecorator;
+
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.IArrayBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
-import org.eclipse.jem.tests.JavaProjectUtil;
-
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.tests.JavaProjectUtil;
 
 /**
  * @author richkulp
@@ -95,7 +91,7 @@ public abstract class AbstractBeanInfoTestCase extends TestCase {
 			EStructuralFeature p = (EStructuralFeature) itr0.next();
 			objFeaturesSet.add(p);
 			PropertyDecorator pd = Utilities.getPropertyDecorator(p);
-			if ( pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()))
+			if ( pd == null || (pd.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL && !pd.isMergeIntrospection()))
 				objNonProperties++;
 		}
 	}
