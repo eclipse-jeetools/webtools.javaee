@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+   id="org.eclipse.jem.proxy"
+   name="%pluginName"
+   version="0.5.0"
+   provider-name="%providerName"
+   class="org.eclipse.jem.internal.proxy.core.ProxyPlugin">
+
+   <runtime>
+      <library name="proxy.jar">
+         <export name="*"/>
+         <packages prefixes="org.eclipse.jem.internal.proxy.core,org.eclipse.jem.internal.proxy.awt"/>
+      </library>
+      <library name="proxycommon.jar">
+         <export name="*"/>
+         <packages prefixes="org.eclipse.jem.internal.proxy.common"/>
+      </library>
+      <library name="initparser.jar">
+         <export name="*"/>
+         <packages prefixes="org.eclipse.jem.internal.proxy.initParser"/>
+      </library>
+      <library name="proxyremote.jar">
+         <export name="*"/>
+         <packages prefixes="org.eclipse.jem.internal.proxy.remote"/>
+      </library>
+      <library name="remotecommon.jar">
+         <export name="*"/>
+         <packages prefixes="org.eclipse.jem.internal.proxy.common.remote"/>
+      </library>
+      <library name="proxyide.jar">
+         <export name="*"/>
+         <packages prefixes="org.eclipse.jem.internal.proxy.ide"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.core.resources" export="true"/>
+      <import plugin="org.eclipse.jdt.launching" export="true"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.debug.core" export="true"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.jem" export="true"/>
+   </requires>
+
+
+<!-- This extension point is used to register for each
+        VMTypes which Proxy implementation should be used.
+        
+        -"awt" is a parm to the implementation, value is either
+         "y" or "n". If "y" then AWT will be registered for proxy
+         usage. Default is "y").
+         
+        -"vmtypeid" is a parm giving the id of the VMType that this implementation
+         supports.
+         
+        -"vmname" is a parm to use if there is a specific name of that VMType
+         that this registration supports. If not specfied, then this registration
+         will be used for all of this type that are not explicitly registered.
+         
+        The registration class must implement org.eclipse.jem.internal.proxy.IRegistration.
+        
+        There can only be more than one implementation element per extension element.
+        Each will be treated as an indiviual implementation.
+         
+        For example:
+          <extension point="org.eclipse.jem.internal.proxy.proxyimplementations">
+            <implementation
+                 awt="y"
+                 vmtypeid="org.eclipse.jdt.internal.ui.launcher.StandardVMType">
+              <registration class="org.eclipse.jem.internal.proxy.remote.ProxyRegistration"/>
+            </implementation>
+          </extension>
+   -->
+   <extension-point id="proxyimplementations" name="Proxy Implementations"/>
+
+   <extension
+         point="org.eclipse.jem.proxy.proxyimplementations">
+      <implementation
+            vmtypeid="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType"
+            awt="y">
+         <registration
+               class="org.eclipse.jem.internal.proxy.remote.ProxyRegistration">
+         </registration>
+      </implementation>
+   </extension>
+
+</plugin>

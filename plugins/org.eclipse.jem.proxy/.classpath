@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="proxy/"/>
+    <classpathentry kind="src" path="proxyCommon/"/>
+    <classpathentry kind="src" path="initParser/"/>
+    <classpathentry kind="src" path="proxyRemote/"/>
+    <classpathentry kind="src" path="remoteCommon/"/>
+    <classpathentry kind="src" path="proxyide/"/>
+    <classpathentry kind="src" path="vm_remotevm"/>
+    <classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="output" path="bin"/>
+</classpath>

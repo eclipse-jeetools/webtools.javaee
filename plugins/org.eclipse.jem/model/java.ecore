@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="java"
+    nsURI="java.xmi" nsPrefix="org.eclipse.jem.internal.java">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaClass" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClass">
+    <eOperations name="isNested" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="getField" eType="#//Field">
+      <eParameters name="fieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getFieldExtended" eType="#//Field">
+      <eParameters name="fieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getFieldNamed" eType="#//Field">
+      <eParameters name="fieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getFieldsExtended" eType="#//JTypeList"/>
+    <eOperations name="getMethod" eType="#//Method">
+      <eParameters name="methodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="parameterTypes" eType="#//JTypeList"/>
+    </eOperations>
+    <eOperations name="getMethodElementSignatures" eType="#//JTypeList"/>
+    <eOperations name="getMethodExtended" eType="#//Method">
+      <eParameters name="methodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="parameterTypes" eType="#//JTypeList"/>
+    </eOperations>
+    <eOperations name="getMethodsExtended" eType="#//JTypeList"/>
+    <eOperations name="getOnlySpecificMethods" eType="#//JTypeList">
+      <eParameters name="aMethodNamePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="excludedNames" eType="#//JTypeList"/>
+    </eOperations>
+    <eOperations name="getPublicMethod" eType="#//Method">
+      <eParameters name="methodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="parameterTypes" eType="#//JTypeList"/>
+    </eOperations>
+    <eOperations name="getPublicMethods" eType="#//JTypeList"/>
+    <eOperations name="getPublicMethodsExtended" eType="#//JTypeList"/>
+    <eOperations name="getPublicMethodsNamed" eType="#//JTypeList">
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getSupertype" eType="#//JavaClass"/>
+    <eOperations name="implementsInterface" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="interfaceType" eType="#//JavaClass"/>
+    </eOperations>
+    <eOperations name="infoString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="inheritsFrom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="javaClass" eType="#//JavaClass"/>
+    </eOperations>
+    <eOperations name="isExistingType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="isInterface" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="setSupertype">
+      <eParameters name="javaclass" eType="#//JavaClass"/>
+    </eOperations>
+    <eReferences name="implementsInterfaces" eType="#//JavaClass" upperBound="-1"/>
+    <eReferences name="classImport" eType="#//JavaClass" upperBound="-1"/>
+    <eReferences name="packageImports" eType="#//JavaPackage" upperBound="-1"/>
+    <eReferences name="fields" eType="#//Field" upperBound="-1" containment="true"
+        eOpposite="#//Field/javaClass"/>
+    <eReferences name="methods" eType="#//Method" upperBound="-1" containment="true"
+        eOpposite="#//Method/javaClass"/>
+    <eReferences name="initializers" eType="#//Initializer" upperBound="-1" containment="true"
+        eOpposite="#//Initializer/javaClass"/>
+    <eReferences name="declaredClasses" eType="#//JavaClass" upperBound="-1" eOpposite="#//JavaClass/declaringClass"/>
+    <eReferences name="declaringClass" eType="#//JavaClass" eOpposite="#//JavaClass/declaredClasses"/>
+    <eReferences name="javaPackage" eType="#//JavaPackage" changeable="false" volatile="true"
+        transient="true" eOpposite="#//JavaPackage/javaClasses"/>
+    <eReferences name="events" eType="#//JavaEvent" upperBound="-1" containment="true"/>
+    <eReferences name="allEvents" eType="#//JavaEvent" volatile="true" transient="true"
+        upperBound="-1"/>
+    <eAttributes name="kind" eType="#//TypeKind"/>
+    <eAttributes name="public" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Initializer">
+    <eReferences name="javaClass" eType="#//JavaClass" transient="true" eOpposite="#//JavaClass/initializers"/>
+    <eReferences name="source" eType="#//Block"/>
+    <eAttributes name="isStatic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaParameter" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EParameter ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EModelElement">
+    <eOperations name="isArray" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="isReturn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="getJavaType" eType="#//JTypeJavaHelpers"/>
+    <eOperations name="getQualifiedName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAttributes name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="parameterKind" eType="#//JavaParameterKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Method" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EOperation">
+    <eOperations name="getContainingJavaClass" eType="#//JavaClass"/>
+    <eOperations name="getMethodElementSignature" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getParameter" eType="#//JavaParameter">
+      <eParameters name="parameterName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getReturnType" eType="#//JTypeJavaHelpers"/>
+    <eOperations name="setReturnType">
+      <eParameters name="type" eType="#//JTypeJavaHelpers"/>
+    </eOperations>
+    <eOperations name="getSignature" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="isGenerated" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="setIsGenerated">
+      <eParameters name="generated" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eOperations>
+    <eOperations name="isVoid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eReferences name="parameters" eType="#//JavaParameter" upperBound="-1" containment="true"/>
+    <eReferences name="javaExceptions" eType="#//JavaClass" upperBound="-1"/>
+    <eReferences name="javaClass" eType="#//JavaClass" transient="true" eOpposite="#//JavaClass/methods"/>
+    <eReferences name="source" eType="#//Block"/>
+    <eAttributes name="abstract" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="native" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="synchronized" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="constructor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="static" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="javaVisibility" eType="#//JavaVisibilityKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Field" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EAttribute">
+    <eOperations name="getContainingJavaClass" eType="#//JavaClass"/>
+    <eOperations name="isArray" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eReferences name="javaClass" eType="#//JavaClass" transient="true" eOpposite="#//JavaClass/fields"/>
+    <eReferences name="initializer" eType="#//Block" containment="true"/>
+    <eAttributes name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="static" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="javaVisibility" eType="#//JavaVisibilityKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TypeKind">
+    <eLiterals name="UNDEFINED"/>
+    <eLiterals name="CLASS" value="1"/>
+    <eLiterals name="INTERFACE" value="2"/>
+    <eLiterals name="EXCEPTION" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Block">
+    <eReferences name="contents" eType="#//Block" upperBound="-1" containment="true"/>
+    <eAttributes name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAttributes name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//Block"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" eSuperTypes="#//Block"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaPackage" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EPackage">
+    <eReferences name="javaClasses" eType="#//JavaClass" changeable="false" volatile="true"
+        transient="true" upperBound="-1" eOpposite="#//JavaClass/javaPackage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="JavaVisibilityKind">
+    <eLiterals name="PUBLIC"/>
+    <eLiterals name="PRIVATE" value="1"/>
+    <eLiterals name="PROTECTED" value="2"/>
+    <eLiterals name="PACKAGE" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="JavaParameterKind">
+    <eLiterals name="IN"/>
+    <eLiterals name="OUT" value="1"/>
+    <eLiterals name="INOUT" value="2"/>
+    <eLiterals name="RETURN" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaDataType" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClass">
+    <eOperations name="getDefaultValueString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayType" eSuperTypes="#//JavaClass">
+    <eOperations name="getFinalComponentType" eType="#//JTypeJavaHelpers"/>
+    <eOperations name="getComponentTypeAsHelper" eType="#//JTypeJavaHelpers"/>
+    <eOperations name="isPrimitiveArray" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="setComponentType">
+      <eParameters name="helperComponentType" eType="#//JTypeJavaHelpers"/>
+    </eOperations>
+    <eReferences name="componentType" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClassifier"
+        lowerBound="1"/>
+    <eAttributes name="arrayDimensions" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="JTypeJavaHelpers" instanceClassName="org.eclipse.jem.internal.java.JavaHelpers"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="JTypeList" instanceClassName="java.util.List"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaEvent" abstract="true" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EStructuralFeature"/>
+</ecore:EPackage>

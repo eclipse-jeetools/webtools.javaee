@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jem/javainst"
+    editDirectory="/org.eclipse.jem.edit/src" editorDirectory="/org.eclipse.jem.editor/src"
+    modelPluginID="" modelName="instance" editPluginClass="org.eclipse.jem.internal.instantiation.provider.instanceEditPlugin"
+    editorPluginClass="org.eclipse.jem.internal.instantiation.presentation.instanceEditorPlugin"
+    updateClasspath="false">
+  <foreignModel>..\rose\instance.mdl</foreignModel>
+  <foreignModel>WorkspaceRoot</foreignModel>
+  <foreignModel>../..</foreignModel>
+  <genPackages prefix="Instantiation" basePackage="org.eclipse.jem.internal" adapterFactory="false"
+      ecorePackage="instance.ecore#/">
+    <genClasses ecoreClass="instance.ecore#//IJavaDataTypeInstance"/>
+    <genClasses ecoreClass="instance.ecore#//IJavaInstance"/>
+    <genClasses ecoreClass="instance.ecore#//IJavaObjectInstance"/>
+  </genPackages>
+</genmodel:GenModel>

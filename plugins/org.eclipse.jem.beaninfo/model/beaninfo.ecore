@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="beaninfo"
+    nsURI="http:///org/eclipse/jem/internal/beaninfo/beaninfo.ecore" nsPrefix="org.eclipse.jem.internal.beaninfo.beaninfo">
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureDecorator" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EAnnotation">
+    <eOperations name="getName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eReferences name="attributes" eType="#//FeatureAttributeValue" upperBound="-1"
+        containment="true"/>
+    <eAttributes name="displayName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true"/>
+    <eAttributes name="shortDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        unsettable="true"/>
+    <eAttributes name="category" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAttributes name="expert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="hidden" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="preferred" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="mergeIntrospection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eAttributes name="attributesExplicit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureAttributeValue">
+    <eReferences name="value" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EObject"
+        containment="true"/>
+    <eAttributes name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAttributes name="valueProxy" eType="ecore:EDataType ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EJavaObject"
+        transient="true" unsettable="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BeanDecorator" eSuperTypes="#//FeatureDecorator">
+    <eReferences name="customizerClass" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//JavaClass"/>
+    <eAttributes name="mergeSuperProperties" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true" unsettable="true"/>
+    <eAttributes name="mergeSuperBehaviors" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true" unsettable="true"/>
+    <eAttributes name="mergeSuperEvents" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true" unsettable="true"/>
+    <eAttributes name="introspectProperties" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eAttributes name="introspectBehaviors" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eAttributes name="introspectEvents" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eAttributes name="doBeaninfo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventSetDecorator" eSuperTypes="#//FeatureDecorator">
+    <eReferences name="addListenerMethod" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//Method"
+        lowerBound="1"/>
+    <eReferences name="listenerMethods" eType="#//MethodProxy" lowerBound="1" upperBound="-1"
+        containment="true"/>
+    <eReferences name="listenerType" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//JavaClass"
+        lowerBound="1"/>
+    <eReferences name="removeListenerMethod" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//Method"
+        lowerBound="1"/>
+    <eAttributes name="inDefaultEventSet" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="unicast" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="listenerMethodsExplicit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodDecorator" eSuperTypes="#//FeatureDecorator">
+    <eReferences name="parameterDescriptors" eType="#//ParameterDecorator" upperBound="-1"
+        containment="true"/>
+    <eAttributes name="parmsExplicit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterDecorator" eSuperTypes="#//FeatureDecorator">
+    <eReferences name="parameter" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//JavaParameter"
+        transient="true"/>
+    <eAttributes name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyDecorator" eSuperTypes="#//FeatureDecorator">
+    <eOperations name="getPropertyType" eType="ecore:EClass ../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EClassifier"/>
+    <eReferences name="propertyEditorClass" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//JavaClass"/>
+    <eReferences name="readMethod" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//Method"/>
+    <eReferences name="writeMethod" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//Method"/>
+    <eAttributes name="bound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="constrained" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="designTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        unsettable="true"/>
+    <eAttributes name="alwaysIncompatible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAttributes name="filterFlags" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        upperBound="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IndexedPropertyDecorator" eSuperTypes="#//PropertyDecorator">
+    <eReferences name="indexedReadMethod" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//Method"/>
+    <eReferences name="indexedWriteMethod" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//Method"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodProxy" eSuperTypes="../../org.eclipse.emf.ecore/src/model/Ecore.ecore#//EOperation">
+    <eReferences name="method" eType="ecore:EClass ../../com.ibm.etools.java.core/rose/java.ecore#//Method"
+        lowerBound="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BeanEvent" eSuperTypes="../../com.ibm.etools.java.core/rose/java.ecore#//JavaEvent"/>
+</ecore:EPackage>

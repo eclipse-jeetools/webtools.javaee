@@ -1,0 +1,340 @@
+package org.eclipse.jem.internal.beaninfo.adapters;
+/*******************************************************************************
+ * Copyright (c)  2001, 2003 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+/*
+ *  $RCSfile: BeaninfoEntry.java,v $
+ *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ */
+
+import java.util.ArrayList;
+
+import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
+
+import org.eclipse.core.resources.*;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.*;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+import org.w3c.dom.*;
+
+/**
+ * Beaninfo entry. Location of the beaninfos. Much like a standard classpath entry.
+ * 
+ * @version 	1.0
+ * @author
+ */
+public class BeaninfoEntry implements IBeaninfosDocEntry {
+
+	final static String sBeaninfo = "beaninfo"; // Beaninfo entry, shared with BeaninfosDoc. //$NON-NLS-1$
+	
+	public static final int BIE_PLUGIN = 100;	// Beaninfo jar can be found in a plugin.
+
+	static int kindFromString(String kindStr) {
+
+		if (kindStr.equalsIgnoreCase("var")) //$NON-NLS-1$
+			return IClasspathEntry.CPE_VARIABLE;
+		if (kindStr.equalsIgnoreCase("src")) //$NON-NLS-1$
+			return IClasspathEntry.CPE_SOURCE;
+		if (kindStr.equalsIgnoreCase("lib")) //$NON-NLS-1$
+			return IClasspathEntry.CPE_LIBRARY;
+		if (kindStr.equalsIgnoreCase("plugin")) //$NON-NLS-1$
+			return BIE_PLUGIN;
+		return -1;
+	}
+
+	static String kindToString(int kind) {
+
+		switch (kind) {
+			case IClasspathEntry.CPE_PROJECT :
+				return "src"; // backward compatibility //$NON-NLS-1$
+			case IClasspathEntry.CPE_SOURCE :
+				return "src"; //$NON-NLS-1$
+			case IClasspathEntry.CPE_LIBRARY :
+				return "lib"; //$NON-NLS-1$
+			case IClasspathEntry.CPE_VARIABLE :
+				return "var"; //$NON-NLS-1$
+			case BIE_PLUGIN:
+				return "plugin";	//$NON-NLS-1$
+			default :
+				return "unknown"; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Return the appropriate kind of entry when we know it is a classpath entry.
+	 */
+	public static IClasspathEntry createEntry(int kind, IPath path, IProject project, boolean isExported) {
+		switch (kind) {
+
+			case IClasspathEntry.CPE_LIBRARY :
+				if (path.isAbsolute())
+					return JavaCore.newLibraryEntry(path, null, null, isExported);
+				break;
+
+			case IClasspathEntry.CPE_SOURCE :
+				if (path.isAbsolute()) {
+					// must be an entry in this project or specify another project
+					String projSegment = path.segment(0);
+					if (project != null && projSegment != null && projSegment.equals(project.getName())) {
+						// this project
+						return JavaCore.newSourceEntry(path);
+					} else {
+						// another project
+						return JavaCore.newProjectEntry(path, isExported);
+					}
+				}
+				break;
+
+			case IClasspathEntry.CPE_VARIABLE :
+				return JavaCore.newVariableEntry(path, null, null, isExported);
+		}
+
+		return null;
+	}
+	/**
+	 * Read the entry in from the element.
+	 */
+	public static BeaninfoEntry readEntry(IReader reader, Object element, IProject project) {
+		String elementKind = reader.getAttribute(element, BeaninfosDoc.sKind);
+		String pathStr = reader.getAttribute(element, BeaninfosDoc.sPath);
+		// ensure path is absolute
+		IPath path = new Path(pathStr);
+		int kind = kindFromString(elementKind);
+		if (kind != IClasspathEntry.CPE_VARIABLE && kind != BIE_PLUGIN && !path.isAbsolute()) {
+			path = project != null ? project.getFullPath().append(path) : path.makeAbsolute(); // Some folder/jar within this project
+		}
+
+		// exported flag
+		String exportedString = reader.getAttribute(element, BeaninfosDoc.sExported);
+		boolean isExported = "true".equalsIgnoreCase(exportedString); //$NON-NLS-1$
+		//$NON-NLS-1$
+
+		// recreate the entry
+		IClasspathEntry cpEntry = null;
+		IPath pluginPath = null;
+		if (kind != BIE_PLUGIN) {
+			cpEntry = createEntry(kind, path, project, isExported);
+		} else {
+			if (path.isAbsolute())
+				pluginPath = path;
+		}
+
+		ArrayList searchpaths = new ArrayList();
+		Object children = reader.getChildren(element);
+		int childrenLength = reader.getLength(children);
+		for (int i = 0; i < childrenLength; i++) {
+			Object child = reader.getItem(children, i);
+			if (reader.isNodeTypeElement(child)) {
+				Object entry = null;
+				if (reader.getNodeName(child).equalsIgnoreCase(SearchpathEntry.sSearchpath)) {
+					entry = SearchpathEntry.readEntry(reader, child, project, true);
+				}
+				if (entry != null)
+					searchpaths.add(entry);
+			}
+		}
+
+		if (cpEntry != null)
+			return new BeaninfoEntry(
+				cpEntry,
+				(SearchpathEntry[]) searchpaths.toArray(new SearchpathEntry[searchpaths.size()]),
+				isExported);
+		else if (pluginPath != null)
+			return new BeaninfoEntry(
+				pluginPath,
+				(SearchpathEntry[]) searchpaths.toArray(new SearchpathEntry[searchpaths.size()]),
+				isExported);
+		else
+			return null;
+	}
+
+	protected IClasspathEntry entry; // Store it as a classpath entry for convienence. It is the RAW classpath entry. This is only used when pointing to something other than a plugin.
+	protected IPath pluginPath;	// When stored in a plugin, this will be set instead.
+	protected boolean isExported;
+	protected SearchpathEntry[] searchpaths;
+	
+	/**
+	 * Used when the beaninfo jar is within a plugin. In that case, the first segment
+	 * of the path is the plugin descriptor, and the rest is the path from the plugin
+	 * directory to the jar.
+	 */
+	public BeaninfoEntry(IPath pluginPath, SearchpathEntry[] searchpaths, boolean isExported) {
+		this(searchpaths, isExported);
+		this.pluginPath = pluginPath;
+	}
+
+	/**
+	 * Used when the beaninfo jar/folder is either an external jar/folder or is somewhere else
+	 * in the workspace. In that case the entry is the RAW classpath entry to that code.
+	 */
+	public BeaninfoEntry(IClasspathEntry entry, SearchpathEntry[] searchpaths, boolean isExported) {
+		this(searchpaths, isExported);
+		this.entry = entry;
+	}
+	
+	protected BeaninfoEntry(SearchpathEntry[] searchpaths, boolean isExported) {
+		this.isExported = isExported;
+		this.searchpaths = searchpaths != null ? searchpaths : new SearchpathEntry[0];
+	}
+	
+	public SearchpathEntry[] getSearchPaths() {
+		return searchpaths;
+	}
+	
+	public void setSearchPaths(SearchpathEntry[] searchpaths) {
+		this.searchpaths = searchpaths;
+	}
+	
+	public boolean isExported() {
+		return isExported;
+	}
+	
+	public void setIsExported(boolean isExported) {
+		this.isExported = isExported;
+	}
+
+	public Node writeEntry(Document doc, IProject project) {
+
+		Element element = doc.createElement(sBeaninfo);
+		IPath path = null;
+		if (entry != null) {
+			element.setAttribute(BeaninfosDoc.sKind, kindToString(entry.getEntryKind()));
+			path = entry.getPath();
+			if (entry.getEntryKind() != IClasspathEntry.CPE_VARIABLE) {
+				// translate to project relative from absolute (unless a device path)
+				if (path.isAbsolute()) {
+					if (path.segment(0).equals(project.getFullPath().segment(0))) {
+						path = path.removeFirstSegments(1);
+						path = path.makeRelative();
+					} else {
+						path = path.makeAbsolute();
+					}
+				}
+			}
+		} else {
+			element.setAttribute(BeaninfosDoc.sKind, kindToString(BIE_PLUGIN));
+			path = pluginPath;
+		}
+
+		element.setAttribute(BeaninfosDoc.sPath, path.toString()); //$NON-NLS-1$
+		if (isExported()) {
+			element.setAttribute(BeaninfosDoc.sExported, "true"); //$NON-NLS-1$
+		}
+
+		for (int i = 0; i < searchpaths.length; i++) {
+			SearchpathEntry spe = searchpaths[i];
+			element.appendChild(spe.writeEntry(doc, project));
+		}
+
+		return element;
+	}
+	
+	/**
+	 * If this is not a plugin info, then return the classpath entry.
+	 */
+	public IClasspathEntry getClasspathEntry() {
+		return entry;
+	}
+	
+	/**
+	 * Return the resolved classpath for this entry. This is the path to the 
+	 * beaninfo jar.
+	 * Returns either:
+	 * 1) a string if a single jar,
+	 * 2) an IProject if it is a project,
+	 * 3) a String[] if it is a jar (including from any fragments) in a plugin. The [0] entry should be the one directly from the plugin, the rest will be from fragments.
+	 * It can return null if the path could not be computed.
+	 */
+	public Object getClasspath() {
+		if (entry != null) {
+			// It is a standard CPE Entry.
+			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+			IClasspathEntry resolvedEntry = JavaCore.getResolvedClasspathEntry(entry);
+			switch (resolvedEntry.getEntryKind()) {
+				case IClasspathEntry.CPE_PROJECT :
+					IProject reqProject = (IProject) root.findMember(resolvedEntry.getPath().lastSegment());
+					// Project entries only have one segment.
+					if (reqProject != null && reqProject.isOpen())
+						return reqProject;
+					else
+						return null;
+
+				case IClasspathEntry.CPE_SOURCE :
+					reqProject = (IProject) root.findMember(resolvedEntry.getPath().segment(0));
+					// Find project from the first segment.
+					IJavaProject javaProject = JavaCore.create(reqProject);
+					if (javaProject != null) {
+						try {
+							IPath outputLocation = javaProject.getOutputLocation();
+							IResource resource = root.findMember(outputLocation);
+							if (resource != null) {
+								return resource.getLocation().toString();
+							}
+						} catch(JavaModelException e) {
+						}
+					}
+					break;
+
+				case IClasspathEntry.CPE_LIBRARY :
+					IResource library = root.findMember(resolvedEntry.getPath());
+					// can be external or in workspace
+					return (library != null) ? library.getLocation().toString() : resolvedEntry.getPath().toString();
+			}
+		} else {
+			IPluginDescriptor descr = Platform.getPluginRegistry().getPluginDescriptor(pluginPath.segment(0));
+			if (descr != null)
+				return ProxyPlugin.getPlugin().localizeFromPluginDescriptorAndFragments(
+					descr,
+					pluginPath.removeFirstSegments(1).toString());
+		}
+		return null;
+
+	}
+	
+	public int getKind() {
+		return entry != null ? entry.getEntryKind() : BIE_PLUGIN;
+	}
+	
+	public IPath getPath() {
+		return entry != null ? entry.getPath() : pluginPath;
+	}
+	
+	public boolean equals(Object other) {
+		if (this == other)
+			return true;
+			
+		if (!(other instanceof BeaninfoEntry))
+			return false;
+
+		// Return equal if the classpath entry is the same classpath entry or plugin path entry.
+		// The search path doesn't have any affect on the semantic equality.
+		BeaninfoEntry otherEntry = (BeaninfoEntry) other;
+		if (isExported != otherEntry.isExported)
+			return false;	
+		if (entry != null)
+			return entry.equals(otherEntry.entry);
+		
+		return pluginPath.equals(otherEntry.pluginPath);
+	}
+	
+	public int hashCode() {
+		if (entry != null)
+			return entry.hashCode() ^ (isExported ? Boolean.TRUE : Boolean.FALSE).hashCode();
+		else
+			return pluginPath.hashCode() ^ (isExported ? Boolean.TRUE : Boolean.FALSE).hashCode();
+	}
+
+}
