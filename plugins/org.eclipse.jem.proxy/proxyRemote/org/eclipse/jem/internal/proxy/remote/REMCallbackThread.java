@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
  */
 
 import java.io.*;
@@ -19,6 +19,8 @@ import java.net.Socket;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+
+import org.eclipse.jem.internal.core.MsgLogger;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
@@ -205,14 +207,17 @@ class REMCallbackThread extends Thread {
 											Commands.OBJECT_CLASS);
 									}
 									
-									Commands.sendCallbackDoneCommand(out, valueObject);
+									Commands.sendCallbackDoneCommand(out, valueObject, Commands.NO_ERROR);
 								} catch (RuntimeException e) {
-									// Something happened, we'll just send back Void.TYPE
-									// so that remote side can continue.
-									valueObject.set(Void.TYPE, Commands.CLASS_CLASS);
-									Commands.sendCallbackDoneCommand(out, valueObject);
-									throw e;
+									// Something happened, turn it into an error object
+									// to send back.
+									valueObject.set(e.getLocalizedMessage());
+									Commands.sendCallbackDoneCommand(out, valueObject, Commands.CALLBACK_RUNTIME_EXCEPTION);
+									ProxyPlugin.getPlugin().getMsgLogger().log(e, MsgLogger.LOG_INFO);	// Just log it, but assume safe enough to just go back and wait for next callback request.
 								}
+							} else {
+								valueObject.set();
+								Commands.sendCallbackDoneCommand(out, valueObject, Commands.CALLBACK_NOT_REGISTERED);	// Send error msg back to indicate we weren't registered.								
 							}
 						} finally {
 							parm = null;	// Clear out for GC to work
@@ -234,7 +239,7 @@ class REMCallbackThread extends Thread {
 							if (cb != null) {
 								// Callback still registered
 								valueObject.set();								
-								Commands.sendCallbackDoneCommand(out, valueObject);	// Send null to let it know we've accepted the stream
+								Commands.sendCallbackDoneCommand(out, valueObject, Commands.NO_ERROR);	// Send null to let it know we've accepted the stream
 								ins = new REMCallbackInputStream(in, out);
 								try {
 									cb.calledBackStream(msgID, ins);
@@ -248,8 +253,8 @@ class REMCallbackThread extends Thread {
 									}
 								}
 							} else {
-								valueObject.set("Callback not registered"); //$NON-NLS-1$
-								Commands.sendCallbackDoneCommand(out, valueObject);	// Send error msg back to indicate we weren't registered.								
+								valueObject.set();
+								Commands.sendCallbackDoneCommand(out, valueObject, Commands.CALLBACK_NOT_REGISTERED);	// Send error msg back to indicate we weren't registered.								
 							}
 						} finally {
 							cb = null;	// Clear out for GC to work

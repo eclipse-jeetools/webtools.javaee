@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ConnectionHandler.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/06 20:43:52 $ 
  */
 
 
@@ -358,17 +358,25 @@ public class ConnectionHandler {
 								valueObject.set();
 								Commands.sendErrorCommand(out, Commands.UNKNOWN_COMMAND_SENT, valueObject);
 							} else {
-								Commands.readValue(in, valueObject);
-								if (valueObject.type == Commands.ARRAY_IDS) {
-									// It is an array containing IDs, as it normally would be.
-									valueSender.initialize(valueObject);
-									Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
-									result = (Object[]) valueSender.getArray();
-								} else {
-									result = getInvokableObject(valueObject);
+								try {
+									Commands.readBackValue(in, valueObject, Commands.NO_TYPE_CHECK);
+									if (valueObject.type == Commands.ARRAY_IDS) {
+										// It is an array containing IDs, as it normally would be.
+										valueSender.initialize(valueObject);
+										Commands.readArray(in, valueObject.anInt, valueSender, valueObject);
+										result = (Object[]) valueSender.getArray();
+									} else {
+										result = getInvokableObject(valueObject);
+									}
+									doLoop = false; // We need to terminate and return result
+									closeWhenDone = false; // Don't close, we will continue.
+								} catch (CommandErrorException e) {
+									// There was an command error on the other side. This means 
+									// connection still good, but don't continue the callback processing.
+									doLoop = false; // We need to terminate and return result
+									closeWhenDone = false; // Don't close, we will continue.
+									throw e;	// Let it go on out.
 								}
-								doLoop = false;	// We need to terminate and return result
-								closeWhenDone = false;	// Don't close, we will continue.
 							}
 						} finally {
 							valueObject.set();

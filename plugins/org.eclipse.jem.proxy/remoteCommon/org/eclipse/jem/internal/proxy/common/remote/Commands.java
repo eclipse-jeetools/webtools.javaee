@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: Commands.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
  */
 
 import java.io.*;
@@ -102,13 +102,16 @@ public class Commands {
 		
 	// The error values from the command on the server.
 	public final static int
+		NO_ERROR = 0,				// No error status.
 		UNKNOWN_COMMAND_SENT = 1,	// An unknown command was sent to the server. Value is void.
 		GET_CLASS_NOT_FOUND = 2,	// The class was not found in GetClass. Value is void.
 		CANNOT_EVALUATE_STRING = 3,	// Evaluator couldn't evaluate the init string. Too complicated. Value is a throwable of the wrappered Init string error.
 		CLASS_CAST_EXCEPTION = 4,	// The result is not assignable to the expected type. Value is void.
 		GET_METHOD_NOT_FOUND = 5,	// Method requested wasn't found. Value is void.
 		THROWABLE_SENT = 6,			// A Throwable is being sent back as the error, not as just data for the error. Value is the Throwable.
-		MAX_ERROR_CODE = THROWABLE_SENT;	// This is just the max code. Not actually sent. Used as a flag.
+		CALLBACK_RUNTIME_EXCEPTION = 7,	// A runtime exception occurred during a callback. The data is the message.
+		CALLBACK_NOT_REGISTERED = 8,
+		MAX_ERROR_CODE = CALLBACK_NOT_REGISTERED;	// This is just the max code. Not actually sent. Used as a flag.
 		
 	// Predefined standard id's for standard classes/objects. Both sides will assume these id's have been assigned
 	// to these classes/types/objects
@@ -309,7 +312,9 @@ public class Commands {
 	//          parms to send to the callback msg.
 	//      It will return a CALLBACK_DONE.
 	//
-	// CALLBACK_DONE: 254b, value.
+	// CALLBACK_DONE: 254b, value command.
+	//		What comes back is a value command (i.e. Commands.VALUE followed by value). This allows
+	//		ERRORS to be sent back too.
 	//
 	// CALLBACK_STREAM: 253b, n1, n2
 	//      Where
@@ -363,7 +368,7 @@ public class Commands {
 	 * will still be the Object type (i.e. if type = L_BYTE, the aByte will
 	 * have the value in it).
 	 */
-	public static class ValueObject {
+	public static class ValueObject implements Cloneable {
 		public byte type;	// Same as the types above
 		public byte aByte;
 		public char aChar;
@@ -379,6 +384,14 @@ public class Commands {
 		
 		public ValueObject() {
 			type = VOID;
+		}
+		
+		public Object clone() {
+			try {
+				return (ValueObject) super.clone();
+			} catch (CloneNotSupportedException e) {
+				return null;
+			}
 		}
 		
 		/**
@@ -1004,11 +1017,14 @@ public class Commands {
 		}		
 	}
 		
-	public static void sendCallbackDoneCommand(DataOutputStream os, ValueObject value) throws CommandException {
+	public static void sendCallbackDoneCommand(DataOutputStream os, ValueObject value, int errorCode) throws CommandException {
 		try {
 			os.writeByte(CALLBACK_DONE);
-			writeValue(os, value, false);
-			os.flush();
+			if (errorCode == NO_ERROR) {
+				writeValue(os, value, true);
+				os.flush();
+			} else
+				sendErrorCommand(os, errorCode, value);
 		} catch (CommandException e) {
 			// rethrow this exception since we want these to go on out.
 			throw e;

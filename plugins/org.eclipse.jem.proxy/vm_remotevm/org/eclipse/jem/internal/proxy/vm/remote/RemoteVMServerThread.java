@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: RemoteVMServerThread.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
  */
 
 
@@ -534,6 +534,10 @@ public class RemoteVMServerThread extends Thread implements IVMServer {
 			try {
 				try {
 					return run.run(handler);
+				} catch (CommandErrorException e) {
+					// This is command error, connection still good, don't retry, just pass it on.
+					// It means the other side said I processed it, but there is an error.
+					throw e;
 				} catch (CommandException e) {
 					if (!e.isRecoverable()) {
 						// Close this handler and try a new one, one more time.

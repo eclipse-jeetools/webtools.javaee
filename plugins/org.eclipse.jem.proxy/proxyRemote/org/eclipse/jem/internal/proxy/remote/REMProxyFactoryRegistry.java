@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
  */
 
 
@@ -52,6 +52,20 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 	// working with a debugger because we don't how long it will be to respond to requests when 
 	// someone is working with a debugger.
 	boolean fNoTimeouts = false;
+	
+	// This is set via the static setGlobalNoTimeouts() method. It is here so that
+	// when debugging callbacks, but not debugging remote vm, that no timeouts for any registry will occur. 
+	static boolean fGlobalNoTimeouts = false;
+	
+	/**
+	 * Typicall set through the "expression" evaluation of the debugger.
+	 * @param noTimeouts
+	 * 
+	 * @since 1.0.0
+	 */
+	public static void setGlobalNoTimeouts(boolean noTimeouts) {
+		fGlobalNoTimeouts = noTimeouts;
+	}
 	
 	// An internal thread that locks and waits for the remote vm to register itself. 
 	private WaitForRegistrationThread waitRegistrationThread;

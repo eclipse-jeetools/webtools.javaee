@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.vm.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: CallbackHandler.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
  */
 
 import java.net.Socket;
@@ -44,9 +44,7 @@ class CallbackHandler extends ConnectionHandler implements ICallbackHandler {
 		} catch (Exception e) {
 			throw new UnexpectedExceptionCommandException(false, e);
 		}
-		Object result = run();	// Now run and wait for return. If the result is null, then it signals to continue.
-		if (result != null)
-			throw new CommandException("Request refused.", result); //$NON-NLS-1$
+		run();	// Now run and wait for return. If no command exeception thrown, then it signals to continue.
 	}
 	
 	/**

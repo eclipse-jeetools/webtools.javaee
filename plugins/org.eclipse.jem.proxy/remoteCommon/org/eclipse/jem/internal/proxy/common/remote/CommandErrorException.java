@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.common.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: CommandErrorException.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/06 20:43:52 $ 
  */
 
 import org.eclipse.jem.internal.proxy.common.CommandException;
@@ -26,7 +26,7 @@ public class CommandErrorException extends CommandException {
 	private final int fErrorCode;
 	
 	public CommandErrorException(int errorCode, Commands.ValueObject errorData) {
-		super(errorData);
+		super(errorData.clone());	// Clone it because typically these get reused and cleared out. This way we have our own.
 		fErrorObject = null;
 		fErrorCode = errorCode;
 	}
@@ -58,4 +58,13 @@ public class CommandErrorException extends CommandException {
 	public Object getErrorObject() {
 		return fErrorObject;
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return super.toString() + "-- Error code:"+getErrorCode() + (getValue() != null ? " Value data:\"" + getValue().getAsObject() + "\"" : " ") + (fErrorObject != null ? " Error object:\""+fErrorObject.toString()+"\"" : " ");
+	}
+
 }

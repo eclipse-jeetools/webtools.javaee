@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.proxy.remote;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.2 $ $Date: 2004/01/13 16:17:24 $
+ * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.3 $ $Date: 2004/02/06 20:43:52 $
  */
 
 import java.io.IOException;
@@ -301,7 +301,7 @@ public class ProxyRegistration implements IRegistration {
 				new REMStandardBeanProxyFactory(registry);
 				new REMMethodProxyFactory(registry);
 
-				if (debugMode)
+				if (debugMode || REMProxyFactoryRegistry.fGlobalNoTimeouts)
 					registry.fNoTimeouts = true;
 				if (attachAWT)
 					REMRegisterAWT.registerAWT(registry);
