@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.7 $  $Date: 2004/06/16 20:49:23 $ 
+ *  $Revision: 1.8 $  $Date: 2004/06/22 17:55:17 $ 
  */
 
 import java.util.*;
@@ -318,6 +318,13 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	public Object getReflectionSource() {
 		return getSourceType();
 	}
+	
+    /* (non-Javadoc)
+     * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#hasReflectionSource()
+     */
+    public boolean hasCachedReflectionSource() {
+        return sourceType != null;
+    }
 	/**
 	 * getSourceType - return the IType which describes our existing Java class or source file
 	 */

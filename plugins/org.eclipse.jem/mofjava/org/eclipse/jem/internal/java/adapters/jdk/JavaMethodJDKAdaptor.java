@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDKAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/22 17:55:19 $ 
  */
 
 import java.util.List;
@@ -111,6 +111,13 @@ public class JavaMethodJDKAdaptor extends JDKAdaptor {
 	public Object getReflectionSource() {
 		return getSourceAccessible();
 	}
+	
+    /* (non-Javadoc)
+     * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#hasReflectionSource()
+     */
+    public boolean hasCachedReflectionSource() { 
+        return sourceAccessible != null;
+    }
 	/**
 	 * getsourceMethod - return the java.lang.reflect.Method which describes our implementing method
 	 */

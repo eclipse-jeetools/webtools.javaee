@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaArrayTypeReflectionAdapter.java,v $
- *  $Revision: 1.2 $  $Date: 2004/06/16 20:49:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/22 17:55:19 $ 
  */
 package org.eclipse.jem.internal.java.adapters;
 
@@ -18,8 +18,12 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.jem.java.*;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jem.java.ArrayType;
+import org.eclipse.jem.java.InheritanceCycleException;
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.java.impl.ArrayTypeImpl;
 
 /**
@@ -53,6 +57,17 @@ public class JavaArrayTypeReflectionAdapter extends JavaReflectionAdaptor implem
 		ArrayType jh = (ArrayType) getTarget();
 		JavaHelpers fc = jh.getFinalComponentType();
 		return (fc.isPrimitive() || ((JavaClass) fc).isExistingType());
+	}
+	
+	public boolean hasCachedReflectionSource() {
+		ArrayType jh = (ArrayType) getTarget();
+		JavaHelpers fc = jh.getFinalComponentType();
+		if(fc.isPrimitive())
+		    return true;
+		else {
+		    JavaReflectionAdaptor reflectionAdaptor = (JavaReflectionAdaptor) EcoreUtil.getExistingAdapter(((JavaClass)fc), ReflectionAdaptor.TYPE_KEY);
+		    return (reflectionAdaptor != null) ? reflectionAdaptor.hasCachedReflectionSource() : false;		    
+		} 
 	}
 
 	/*

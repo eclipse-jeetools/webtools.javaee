@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2004/06/16 20:49:21 $ 
+ *  $Revision: 1.6 $  $Date: 2004/06/22 17:55:19 $ 
  */
 import java.util.List;
 
@@ -148,8 +148,10 @@ protected static String[] getTypeNamesFromMethodID(String methodID) {
 	} while ((pos = methodID.indexOf(C_PARM_PARM_DELIMITER, ++pos)) != -1);
 	return parmTypeNames;
 }
+public abstract boolean hasCachedReflectionSource();
+
 public boolean hasReflectionSource() {
-	return (getReflectionSource() != null);
+    return getReflectionSource() != null;
 }
 
 /**
@@ -198,7 +200,7 @@ public final boolean flushReflectedValuesIfNecessary(boolean clearCachedModelObj
 
 public synchronized Notification flushReflectedValuesIfNecessaryNoNotification(boolean clearCachedModelObject) {
 	if (!hasFlushed && !isFlushing) {
-		boolean isExisting = hasReflectionSource();
+		boolean isExisting = hasCachedReflectionSource();
 		try {
 			isFlushing = true;
 			hasReflected = false;

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/16 20:49:21 $ 
+ *  $Revision: 1.7 $  $Date: 2004/06/22 17:55:19 $ 
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;
@@ -181,6 +181,12 @@ public class JavaClassJDKAdaptor extends JDKAdaptor implements IJavaClassAdaptor
 	public Object getReflectionSource() {
 		return getSourceType();
 	}
+    /* (non-Javadoc)
+     * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#hasReflectionSource()
+     */
+    public boolean hasCachedReflectionSource() {
+        return sourceType != null;
+    }
 
 	/**
 	 * getSourceType - return the java.lang.Class which describes our existing Java class

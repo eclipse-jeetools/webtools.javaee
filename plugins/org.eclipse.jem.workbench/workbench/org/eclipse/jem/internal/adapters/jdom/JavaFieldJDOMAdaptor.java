@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/16 20:49:23 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/22 17:55:17 $ 
  */
 import java.util.Map;
 
@@ -169,6 +169,13 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 	public Object getReflectionSource() {
 		return getSourceField();
 	}
+	
+    /* (non-Javadoc)
+     * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#hasReflectionSource()
+     */
+    public boolean hasCachedReflectionSource() {
+        return sourceField != null;
+    }
 	
 	/*
 	 * Used by Java Class JDOM adapter to create and set with a source field

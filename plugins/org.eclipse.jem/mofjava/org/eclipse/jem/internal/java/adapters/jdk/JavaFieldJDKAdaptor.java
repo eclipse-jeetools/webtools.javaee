@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaFieldJDKAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/22 17:55:19 $ 
  */
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
@@ -46,6 +46,13 @@ public class JavaFieldJDKAdaptor extends JDKAdaptor {
 	public Object getReflectionSource() {
 		return getSourceField();
 	}
+	
+    /* (non-Javadoc)
+     * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#hasReflectionSource()
+     */
+    public boolean hasCachedReflectionSource() {
+        return sourceField != null;
+    }
 	/**
 	 * getSourceField - return the java.lang.reflect.Field which describes our implementing field
 	 */

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/16 20:49:23 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/22 17:55:17 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -155,6 +155,13 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor {
 	public Object getReflectionSource() {
 		return getSourceMethod();
 	}
+	
+    /* (non-Javadoc)
+     * @see org.eclipse.jem.internal.java.adapters.JavaReflectionAdaptor#hasReflectionSource()
+     */
+    public boolean hasCachedReflectionSource() {
+        return sourceMethod != null;
+    }
 
 	/*
 	 * Used by Java Class JDOM adapter to create and set with a source method/
