@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.8 $  $Date: 2004/08/27 15:35:19 $ 
+ *  $Revision: 1.9 $  $Date: 2004/10/28 15:47:59 $ 
  */
 
 import java.io.*;
@@ -59,7 +59,8 @@ class REMCallbackThread extends Thread {
 	public void close() {
 		try {
 			shuttingDown = true;	// So that if this is a forced close then it will know not to print error msgs.
-			fConnection.fSocket.close();
+			if (fConnection.fSocket != null)
+				fConnection.fSocket.close();
 		} catch (Exception e) {
 		}
 	}
