@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jem"
       label="%featureName"
-      version="1.0.0"
+      version="1.0.1"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -17,7 +17,7 @@
 
    <includes
          id="com.ibm.wtp.emf.integration.core"
-         version="1.0.0"/>
+         version="0.0.0"/>
 
    <requires>
       <import feature="org.eclipse.jdt" version="3.0.0" match="compatible"/>
@@ -28,25 +28,25 @@
          id="org.eclipse.jem.beaninfo"
          download-size="0"
          install-size="0"
-         version="1.0.0"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jem.proxy"
          download-size="0"
          install-size="0"
-         version="1.0.0"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jem"
          download-size="0"
          install-size="0"
-         version="1.0.0"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.jem.workbench"
          download-size="0"
          install-size="0"
-         version="1.0.0"/>
+         version="0.0.0"/>
 
    <plugin
          id="com.ibm.etools.emf.event"
@@ -58,6 +58,6 @@
          id="org.eclipse.jem.ui"
          download-size="0"
          install-size="0"
-         version="1.0.0"/>
+         version="0.0.0"/>
 
 </feature>
