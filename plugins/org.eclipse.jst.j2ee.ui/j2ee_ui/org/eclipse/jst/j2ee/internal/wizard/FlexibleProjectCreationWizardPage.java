@@ -290,7 +290,7 @@ public class FlexibleProjectCreationWizardPage extends WTPWizardPage {
 
 	public static boolean launchNewRuntimeWizard(Shell shell, J2EEProjectServerTargetDataModel model) {
 		WTPPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
-		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");
+		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
 		if (isOK && model != null) {
 			model.notifyValidValuesChange(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);
 			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(J2EEProjectServerTargetDataModel.RUNTIME_TARGET_ID);

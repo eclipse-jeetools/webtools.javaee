@@ -158,7 +158,8 @@ public class J2EEProjectServerTargetDataModel extends WTPOperationDataModel {
     private List getValidServerTargets() {
         List validServerTargets = null;
         //TODO: api is needed from the server target helper to get all server targets
-        validServerTargets = ServerTargetHelper.getServerTargets(IServerTargetConstants.EAR_TYPE, IServerTargetConstants.J2EE_14);
+//        validServerTargets = ServerTargetHelper.getServerTargets(IServerTargetConstants.EAR_TYPE, IServerTargetConstants.J2EE_14);
+        validServerTargets = ServerTargetHelper.getServerTargets("", "");  //$NON-NLS-1$  //$NON-NLS-2$
         if (validServerTargets != null && validServerTargets.isEmpty())
             validServerTargets = null;
         if (validServerTargets == null)
