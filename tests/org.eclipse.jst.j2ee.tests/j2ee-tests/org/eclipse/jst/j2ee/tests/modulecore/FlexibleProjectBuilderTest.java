@@ -24,17 +24,17 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
-import org.eclipse.wst.common.modulecore.ReferencedComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
+import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
-import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
+import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public class FlexibleProjectBuilderTest extends TestCase {
@@ -219,9 +219,9 @@ public class FlexibleProjectBuilderTest extends TestCase {
 
 		project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 		if (!project.exists()) {
-			WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
-			dataModel.setProperty(WebModuleCreationDataModel.PROJECT_NAME, aProjectName);
-			dataModel.setProperty(WebModuleCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
+			WebComponentCreationDataModel dataModel = new WebComponentCreationDataModel();
+			dataModel.setProperty(WebComponentCreationDataModel.PROJECT_NAME, aProjectName);
+			// dataModel.setProperty(WebComponentCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
 			dataModel.getDefaultOperation().run(null);
 		}
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);

@@ -9,8 +9,8 @@ package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
 
@@ -23,8 +23,8 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
     /* (non-Javadoc)
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
-    public J2EEModuleCreationDataModelOld getProjectCreationDataModel() {
-        return new WebModuleCreationDataModel();
+    public J2EEComponentCreationDataModel getProjectCreationDataModel() {
+        return new WebComponentCreationDataModel();
     }
     
 }

@@ -4,8 +4,8 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
 public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperationTest {
@@ -17,8 +17,8 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     /* (non-Javadoc)
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
-    public J2EEModuleCreationDataModelOld getProjectCreationDataModel() {
-        return new EJBModuleCreationDataModel();
+    public J2EEComponentCreationDataModel getProjectCreationDataModel() {
+        return new EjbComponentCreationDataModel();
     }
   
 }
