@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jem.tests"
       label="%featureName"
-      version="1.0.2"
+      version="1.1.0"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -14,7 +14,7 @@
       <update label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
       <discovery label="%updateSiteName" url="http://update.eclipse.org/tools/ve/updates/1.0"/>
    </url>
-   
+
    <requires>
       <import feature="org.eclipse.jem"/>
    </requires>
@@ -30,7 +30,7 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-         
+
    <plugin
          id="org.eclipse.perfmsr.core"
          download-size="0"
