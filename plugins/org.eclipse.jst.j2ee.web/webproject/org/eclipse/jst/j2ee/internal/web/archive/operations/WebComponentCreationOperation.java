@@ -17,17 +17,13 @@
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
@@ -125,7 +121,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
        		}
        	}
        	catch(Exception e){
-            e.printStackTrace();
+       		Logger.getLogger().logError(e);
        	} finally {
        		if(webEdit != null)
        			webEdit.dispose();
@@ -138,73 +134,18 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		
 		super.execute( IModuleConstants.JST_WEB_MODULE, monitor );
-		addSrcFolderToProject();
 	}
-    
-	public IClasspathEntry[] getClasspathEntries() {
-
-		IClasspathEntry[] sourceEntries = null;
-		
-		sourceEntries = getSourceClasspathEntries();
-		return sourceEntries;
-	}
-	
-	private IClasspathEntry[] getSourceClasspathEntries() {
-		String sourceFolder = getJavaSourceSourcePath(getModuleName());
-		ArrayList list = new ArrayList();
-
-		list.add(JavaCore.newSourceEntry(getProject().getFullPath().append(sourceFolder)));
-		
-		IClasspathEntry[] classpath = new IClasspathEntry[list.size()];
-		for (int i = 0; i < classpath.length; i++) {
-			classpath[i] = (IClasspathEntry) list.get(i);
-		}
-		return classpath;
-	}
-	
-	private void addSrcFolderToProject() {
-		IJavaProject javaProject = JavaCore.create( this.getProject());
-		try {
-
-			IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-			
-			IClasspathEntry[] newEntries = getClasspathEntries();
-			
-			int oldSize = oldEntries.length;
-			int newSize = newEntries.length;
-			
-			IClasspathEntry[] classpathEnties = new IClasspathEntry[oldSize + newSize];
-			
-			int k = 0;
-			for (int i = 0; i < oldEntries.length; i++) {
-				classpathEnties[i] = oldEntries[i];
-				k++;
-			}
-			for( int j=0; j< newEntries.length; j++){
-				classpathEnties[k] = newEntries[j];
-				k++;
-			}
-			
-			javaProject.setRawClasspath(classpathEnties, null);
-		}
-		catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-		
-
 	
 	protected  void addResources( WorkbenchComponent component ){
-		addResource(component, getModuleRelativeFile(getWebContentSourcePath( getModuleName() ), getProject()), getWebContentDeployPath());
-		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());		
+		addResource(component, getModuleRelativeFile(getWebContentSourcePath(), getProject()), getWebContentDeployPath());
+		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());		
 	}
 	
 	/**
 	 * @return
 	 */
-	public String getJavaSourceSourcePath(String moduleName) {
-		return "/" + moduleName +"/JavaSource"; //$NON-NLS-1$
+	public String getJavaSourceSourcePath() {
+		return "/" + getModuleName() +"/JavaSource"; //$NON-NLS-1$
 	}
 	
 	/**
@@ -217,8 +158,8 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 	/**
 	 * @return
 	 */
-	public String getWebContentSourcePath(String moduleName) {
-		return "/" + moduleName + "/WebContent"; //$NON-NLS-1$
+	public String getWebContentSourcePath() {
+		return "/" + getModuleName() + "/WebContent"; //$NON-NLS-1$
 	}
 	
 	/**
