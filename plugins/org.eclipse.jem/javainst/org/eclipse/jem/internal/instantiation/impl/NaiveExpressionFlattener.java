@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: NaiveExpressionFlattener.java,v $
- *  $Revision: 1.4 $  $Date: 2004/05/10 18:12:54 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/20 13:01:21 $ 
  */
 package org.eclipse.jem.internal.instantiation.impl;
 
@@ -73,7 +73,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTArrayCreation)
 	 */
 	public boolean visit(PTArrayCreation node) {
-		String type = node.getType();
+		String type = handleQualifiedName(node.getType());
 		buffer.append("new ");
 		int ob = type.indexOf('[');
 		buffer.append(type.substring(0, ob));
@@ -128,7 +128,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 */
 	public boolean visit(PTCastExpression node) {
 		buffer.append('(');
-		buffer.append(node.getType());
+		buffer.append(handleQualifiedName(node.getType()));
 		buffer.append(") ");
 		node.getExpression().accept(this);
 		return false;
@@ -147,7 +147,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 */
 	public boolean visit(PTClassInstanceCreation node) {
 		buffer.append("new ");
-		buffer.append(node.getType());
+		buffer.append(handleQualifiedName(node.getType()));
 		buffer.append('(');
 		List args = node.getArguments();
 		for (int i = 0; i < args.size(); i++) {
@@ -207,7 +207,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	public boolean visit(PTInstanceof node) {
 		node.getOperand().accept(this);
 		buffer.append(" instanceof ");
-		buffer.append(node.getType());
+		buffer.append(handleQualifiedName(node.getType()));
 		return false;
 	}
 
@@ -246,7 +246,7 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTName)
 	 */
 	public boolean visit(PTName node) {
-		buffer.append(node.getName());
+		buffer.append(handleQualifiedName(node.getName()));
 		return false;
 	}
 
@@ -305,9 +305,22 @@ public class NaiveExpressionFlattener extends ParseVisitor {
 	 * @see org.eclipse.jem.internal.instantiation.ParseVisitor#visit(org.eclipse.jem.internal.instantiation.PTTypeLiteral)
 	 */
 	public boolean visit(PTTypeLiteral node) {
-		buffer.append(node.getType());
+		buffer.append(handleQualifiedName(node.getType()));
 		buffer.append(".class");
 		return false;
+	}
+	
+	/**
+	 * This method enables one to overide the handling of qualified names.
+	 * The default operation is to do nothing.
+	 * 
+	 * Overriders may choose to use short names, relying on import statement handling.
+	 * 
+	 * @param qName  
+	 * @return Name to use for the flattened result
+	 */
+	protected String handleQualifiedName(String qName) {
+		return qName;
 	}
 
 }
