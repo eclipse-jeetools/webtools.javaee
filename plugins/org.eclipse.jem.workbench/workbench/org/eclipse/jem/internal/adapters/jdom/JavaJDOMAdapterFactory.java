@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaJDOMAdapterFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:35:09 $ 
+ *  $Revision: 1.4 $  $Date: 2004/11/08 18:51:03 $ 
  */
 import java.util.*;
 
@@ -189,9 +189,6 @@ public IJavaProject getJavaProject() {
  */
 protected void initializeSynchronizer() {
 	synchronizer = new JavaReflectionSynchronizer(this);
-}
-public boolean isFactoryForType(Object type) {
-	return type.equals(TYPE_NAME);
 }
 /**
  * Notify all JDOMAdapters which use the same target ICompilationUnit
