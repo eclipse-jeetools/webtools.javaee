@@ -19,8 +19,6 @@ import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModel;
-import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -140,7 +138,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 		ejbClientComponentDataModel.setEarComponentHandle(getEarComponentHandle());
 	}
 
-	private Object updateAddToEar() {
+//	private Object updateAddToEar() {
 		//IRuntime type = getServerTargetDataModel().getRuntimeTarget();
 //		Boolean ret = Boolean.FALSE;
 //		IRuntime type = getProjectDataModel().getServerTargetDataModel().getRuntimeTarget();
@@ -151,8 +149,8 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 //			return Boolean.TRUE;
 //		return ret;
 		//return new Boolean(!rType.getVendor().equals(APACHE_VENDER_NAME));
-		return null;
-	}
+//		return null;
+//	}
 
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CREATE_CLIENT)) {
