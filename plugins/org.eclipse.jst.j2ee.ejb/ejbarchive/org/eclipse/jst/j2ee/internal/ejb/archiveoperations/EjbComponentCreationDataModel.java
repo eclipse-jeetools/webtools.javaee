@@ -104,11 +104,17 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			if (!ejbClientComponentDataModel.isSet(EJBClientComponentDataModel.CLIENT_COMPONENT_URI))
 				ejbClientComponentDataModel.notifyDefaultChange(EJBClientComponentDataModel.CLIENT_COMPONENT_URI);
 		}else if (getBooleanProperty(CREATE_CLIENT)) {
-			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)) {
+			
+			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)
+						|| propertyName.equals(EAR_MODULE_DEPLOY_NAME) || propertyName.equals(COMPONENT_DEPLOY_NAME)) {
 				ejbClientComponentDataModel.setProperty(ComponentCreationDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
 				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
+				ejbClientComponentDataModel.setProperty( EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME, getProperty(EAR_MODULE_DEPLOY_NAME));
+				ejbClientComponentDataModel.setProperty( EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME, getProperty(COMPONENT_DEPLOY_NAME));
 			}
 		}
+		
+
 		return doSet;
 	}
 

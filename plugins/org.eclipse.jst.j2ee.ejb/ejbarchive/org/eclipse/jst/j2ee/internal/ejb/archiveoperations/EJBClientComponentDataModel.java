@@ -29,6 +29,12 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 	 * Required, type String
 	 */		
 	public static final String EJB_PROJECT_NAME = "EJBClientComponentDataModel.EJB_PROJECT_NAME"; //$NON-NLS-1$	
+	
+	/**
+	 * Required, type String
+	 */		
+	public static final String EJB_COMPONENT_DEPLOY_NAME = "EJBClientComponentDataModel.EJB_COMPONENT_DEPLOY_NAME"; //$NON-NLS-1$
+	
 
 	/**
 	 * Required, type String
@@ -39,6 +45,18 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 	 * Optional, type boolean
 	 */
 	public static final String DELETE_WHEN_FINISHED = "EJBClientComponentDataModel.DELETE_WHEN_FINISHED"; //$NON-NLS-1$
+	
+	/**
+	 * type Boolean, default false
+	 */
+	public static final String ADD_TO_EAR = "EJBClientComponentDataModel.ADD_TO_EAR"; //$NON-NLS-1$
+
+	/**
+	 * type String
+	 */
+	
+	public static final String EAR_MODULE_DEPLOY_NAME = "EJBClientComponentDataModel.EAR_MODULE_DEPLOY_NAME"; //$NON-NLS-1$
+	
 
 	/**
 	 *  
@@ -53,9 +71,12 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(EJB_COMPONENT_NAME);
 		addValidBaseProperty(EJB_PROJECT_NAME);
+		addValidBaseProperty(EJB_COMPONENT_DEPLOY_NAME);
 		addValidBaseProperty(CLIENT_COMPONENT_URI);
 		addValidBaseProperty(DELETE_WHEN_FINISHED);
 		addValidBaseProperty(JAVASOURCE_FOLDER);
+		addValidBaseProperty(ADD_TO_EAR);
+		addValidBaseProperty(EAR_MODULE_DEPLOY_NAME);
 		super.initValidBaseProperties();
 	}
 
@@ -175,4 +196,11 @@ public class EJBClientComponentDataModel extends JavaComponentCreationDataModel 
 	public void disableValidation() {
 		super.disableValidation();
 	}
+	
+	public String getEARDeployName(){
+		return getStringProperty(EAR_MODULE_DEPLOY_NAME);
+	}
+	public String getEJBDeployName(){
+		return getStringProperty(EJB_COMPONENT_DEPLOY_NAME);
+	}	
 }
