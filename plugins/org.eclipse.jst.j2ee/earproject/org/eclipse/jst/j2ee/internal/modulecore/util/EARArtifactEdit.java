@@ -21,8 +21,8 @@ import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 /**
  * <p>
  * EARArtifactEdit utilizes the facade function of ArtifactEdit {@see ArtifactEdit}to obtain
- * Application specific data from an ApplicationXMIResource (@see ApplicationXMIResource ). The
- * ApplicationXMIResource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}using a
+ * Application specific data from an ApplicationResource (@see ApplicationResource). The
+ * ApplicationResource is retrieved from the ArtifactEditModel {@see ArtifactEditModel}using a
  * cached constant (@see ArchiveConstants.APPLICATION_DD_URI). Defined methods extract data from the
  * resource.
  * </p>
