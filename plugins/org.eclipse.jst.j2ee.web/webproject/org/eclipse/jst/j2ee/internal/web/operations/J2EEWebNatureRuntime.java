@@ -360,7 +360,7 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * included as the first segment of a doc relative path specification within an html file.
 	 */
 	public String getContextRoot() {
-		if (contextRoot == null) {
+		if (contextRoot == null || contextRoot.equals("")) {
 			WebSettings settings = getWebSettings();
 			contextRoot = settings.getContextRoot();
 			if (contextRoot == null)
