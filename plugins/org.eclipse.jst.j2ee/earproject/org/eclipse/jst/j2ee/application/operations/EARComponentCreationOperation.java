@@ -10,7 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -36,64 +38,33 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
 		//should cache wbmodule when created instead of  searching ?
         ModuleCore moduleCore = null;
         WorkbenchComponent component = null;
+        EARArtifactEdit edit = null;
         try {
-            moduleCore = ModuleCore.getModuleCoreForRead(getProject());
+            moduleCore = ModuleCore.getModuleCoreForWrite(getProject());
             component = moduleCore.findWorkbenchModuleByDeployName(
             		operationDataModel.getStringProperty(EARComponentCreationDataModel.MODULE_DEPLOY_NAME));
+       		edit = EARArtifactEdit.getEARArtifactEditForWrite(component);
+       		edit.createModelRoot();
+			// specify module source folder, and deploy path
+			IPath metaInfPath = new Path("META-INF"); //$NON-NLS-1$
+		    IFolder metaInfFolder = moduleFolder.getFolder(metaInfPath); //$NON-NLS-1$
+		    String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
+		    addResource(component, metaInfFolder, metaInfFolderDeployPath);
+			moduleCore.saveIfNecessary(null); 
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
             }
-        }		
-
-        EARArtifactEdit edit = null;
-       	try{
-       		edit = EARArtifactEdit.getEARArtifactEditForWrite(component);
-       		edit.createModelRoot();
-       	}
-       	catch(Exception e){
-            e.printStackTrace();
-       	} finally {
        		if(edit != null)
        			edit.dispose();
-       	}					
+        }		
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		super.execute( IModuleConstants.JST_EAR_MODULE, monitor );
 	}
     
-	protected  void addResources( WorkbenchComponent component ){
-		addResource(component, getModuleRelativeFile(getWebContentSourcePath( getModuleName() ), getProject()), getWebContentDeployPath());
-		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());		
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJavaSourceSourcePath(String moduleName) {
-		return "/" + moduleName +"/JavaSource"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJavaSourceDeployPath() {
-		return "/WEB-INF/classes"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getWebContentSourcePath(String moduleName) {
-		return "/" + moduleName + "/WebContent"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getWebContentDeployPath() {
-		return "/"; //$NON-NLS-1$
+	protected  void addResources(WorkbenchComponent component ){
 	}
 
 	/* (non-Javadoc)
