@@ -38,13 +38,13 @@
 <!-- ====================================================== -->
 <!--           JUnit BVT Test Suite                         -->
 <!-- ====================================================== -->
-   <extension
+<!--   <extension
          point="org.eclipse.wst.common.tests.collector.suites">
       <suite
             suiteName="Validation BVT Suite"
             suiteClass="org.eclipse.jst.validation.test.junit.BVTSuite">
       </suite>
-   </extension>
+   </extension> -->
 <!-- batch BVT -->
    <extension
          id="bvt_batch"
