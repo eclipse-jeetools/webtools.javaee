@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.45 $  $Date: 2005/02/15 22:53:46 $ 
+ *  $Revision: 1.46 $  $Date: 2005/02/28 17:44:48 $ 
  */
 
 
@@ -942,9 +942,15 @@ public class ProxyPlugin extends Plugin {
 	 * @since 1.0.2
 	 */
 	public void findPlugins(Map pluginIds, boolean visible, boolean first, IJavaProject project) {
-		IPDEProcessForPlugin pdeprocess = getPDEProcessForPlugin();
-		if (pdeprocess != null)
-			pdeprocess.findPlugins(project, pluginIds, visible, first);	// expand the plugins for this project, if any.
+		try {
+			// To prevent unnecessary loading of the PDE plugin, find the plugins only if this project is a PDE plugin project.
+			if (project.getProject().hasNature("org.eclipse.pde.PluginNature")) {
+				IPDEProcessForPlugin pdeprocess = getPDEProcessForPlugin();
+				if (pdeprocess != null)
+					pdeprocess.findPlugins(project, pluginIds, visible, first); // expand the plugins for this project, if any.
+			}
+		} catch (CoreException e) {
+		}
 	}
 
 	/*
