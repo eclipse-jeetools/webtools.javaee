@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.6 $  $Date: 2004/06/11 15:35:03 $ 
+ *  $Revision: 1.7 $  $Date: 2004/06/14 16:07:26 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -60,18 +60,29 @@ class CreateRegistryJobHandler {
 		Job currentJob = jobManager.currentJob();
 		if (currentJob == null || (!currentJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) && !currentJob.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD))) {
 			// See if autojob is waiting or sleeping.
-			Job[] autojobs = jobManager.find(ResourcesPlugin.FAMILY_AUTO_BUILD);
-			for (int i = 0; i < autojobs.length; i++) {
-				int state = autojobs[i].getState();
-				if (state == Job.WAITING || state == Job.SLEEPING) {
-					BeaninfoPlugin.getPlugin().getLogger().log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$
-					break;
+			if (isAutoWaiting()) {
+				try {
+					Thread.sleep(200);	// Wait just .2 seconds to give build a chance to start. If it is still not started, then just go on.
+				} catch (InterruptedException e) {
 				}
+				if (isAutoWaiting())
+					BeaninfoPlugin.getPlugin().getLogger().log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$
 			}
 		}
 		
 		jobHandler.processCreateRegistry(nature);
 	}
+
+	private static boolean isAutoWaiting() {
+		Job[] autojobs = Platform.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
+		for (int i = 0; i < autojobs.length; i++) {
+			int state = autojobs[i].getState();
+			if (state == Job.WAITING || state == Job.SLEEPING) 
+				return true;
+		}
+		return false;
+	}
+
 	
 	/**
 	 * Process the create of the registry. This should be overridden to

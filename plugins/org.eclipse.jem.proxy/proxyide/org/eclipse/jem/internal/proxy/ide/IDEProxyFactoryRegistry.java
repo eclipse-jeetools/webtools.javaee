@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEProxyFactoryRegistry.java,v $
- *  $Revision: 1.3 $  $Date: 2004/06/02 15:57:12 $ 
+ *  $Revision: 1.4 $  $Date: 2004/06/14 16:07:27 $ 
  */
 
 import java.net.URL;
@@ -57,8 +57,11 @@ public class IDEProxyFactoryRegistry extends org.eclipse.jem.internal.proxy.core
 		 * @see java.lang.ClassLoader#findClass(java.lang.String)
 		 */
 		protected Class findClass(String name) throws ClassNotFoundException {
-			Class c = bundle.loadClass(name);
-			return c != null ? c : super.findClass(name);
+			try {
+				return bundle.loadClass(name);
+			} catch (ClassNotFoundException e) {
+				return super.findClass(name);
+			}
 		}
 		
 		/* (non-Javadoc)
