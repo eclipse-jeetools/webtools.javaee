@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportOpera
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportWizard;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ComponentCreationDataModel;
 
 /**
  * <p>
@@ -112,7 +113,7 @@ public final class WebModuleImportWizard extends J2EEModuleImportWizard {
 	 */
 	protected String getFinalPerspectiveID() {
 		J2EEComponentCreationDataModel projCreationModel = getSpecificDataModel().getJ2EEModuleCreationDataModel();
-		return projCreationModel.getStringProperty(J2EEComponentCreationDataModel.FINAL_PERSPECTIVE);
+		return projCreationModel.getStringProperty(ComponentCreationDataModel.FINAL_PERSPECTIVE);
 	}
  
 	private WebModuleImportDataModel getSpecificDataModel() {
