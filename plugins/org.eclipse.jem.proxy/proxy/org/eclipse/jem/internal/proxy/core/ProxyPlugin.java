@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.29 $  $Date: 2004/07/16 15:33:08 $ 
+ *  $Revision: 1.30 $  $Date: 2004/07/24 20:45:53 $ 
  */
 
 
@@ -952,5 +952,81 @@ public class ProxyPlugin extends Plugin {
 			if (pb != null)
 				expandPlugin(pb, pluginIds, importVisible, false);
 		}
+	}
+	
+	/**
+	 * This tries to find a jar in the bundle specified, and the attached source using the
+	 * PDE source location extension point. The jar must exist for source to be attachable.
+	 * The source must be in the standard PDE source plugin. I.e. it must be in a directory
+	 * of the name "bundlename_bundleversion", and in the same path from there as in the
+	 * jar, plus the name must be "jarnamesrc.zip".
+	 * <p>
+	 * The returned URL's will not be Platform.resolve(). They will be in form returned from
+	 * Platform.find().
+	 * 
+	 * @param bundle bundle to search, will search fragments too.
+	 * @param filepath filepath from the root of the bundle/fragment where the jar will be found. 
+	 * @return two URL's. [0] is the URL to the jar, <code>null</code> if not found, [2] is the URL to the source zip, <code>null</code> if not found.
+	 * 
+	 * @since 1.0.0
+	 */
+	public URL[] findPluginJarAndAttachedSource(Bundle bundle, IPath filepath) {
+		// This is a bit kludgy, but the algorithm is to find the file first, and then get the root url of the bundle/fragment
+		// that matches the found file. This will be used to calculate the name of the directory under the source. From there
+		// all of the source extensions will be searched for the source zip file.
+		// This is assuming that find returns a url where the file part of the url is a standard path and doesn't have
+		// things like special chars to indicate within a jar. That would appear when it is resolved, but I think that the
+		// unresolved ones from find are typically "jarbundle://nnn/path" or something like that. This is a gray area.
+		URL jarURL = Platform.find(bundle, filepath);
+		if (jarURL == null)
+			return new URL[2];
+		
+		// Found it, so let's try to find which bundle/fragment it was found in.
+		String jarString = jarURL.toExternalForm();
+		// First the bundle itself.
+		String installLoc = bundle.getEntry("/").toExternalForm();
+		URL sourceURL = null;
+		if (jarString.startsWith(installLoc))
+			sourceURL = getSrcFrom(bundle, installLoc, jarString);
+		else {
+			// Now look in the fragments.
+			Bundle[] frags = Platform.getFragments(bundle);
+			for (int i = 0; i < frags.length; i++) {
+				installLoc = frags[i].getEntry("/").toExternalForm();
+				if (jarString.startsWith(installLoc)) {
+					sourceURL = getSrcFrom(frags[i], installLoc, jarString);
+					break;
+				}
+			}
+		}
+		return new URL[] {jarURL, sourceURL};
+	}
+	
+	private URL getSrcFrom(Bundle bundle, String installLoc, String jarString) {
+		// format of path in a PDE source plugin is (under the "src" directory from the extension point),
+		// "bundlename_bundleversion/pathOfJar/jarnamesrc.zip". However there is no way to know
+		// which extension has the source in it, so we need to search them all.
+		
+		IPath srcPath = new Path(bundle.getSymbolicName()+"_"+ (String) bundle.getHeaders("").get(Constants.BUNDLE_VERSION)); //$NON-NLS-1$ $NON-NLS-2$
+		srcPath = srcPath.append(new Path(jarString.substring(installLoc.length())));
+		if (srcPath.segmentCount() < 2)
+			return null;	// Something is not right. No jar name.
+		srcPath = srcPath.removeFileExtension();	// Remove the .jar.
+		String jarName = srcPath.lastSegment();	// This should be the jar name.
+		srcPath = srcPath.removeLastSegments(1).append(jarName+"src.zip");
+		
+		// Now look through all of the src extensions. Can't tell if the extension is from a fragment or a bundle, so we need to
+		// use Platform.find() to look in the bundle and fragment. So we may get a dup search if there is a fragment source 
+		// (for example platform source and win32 platform source (which is a fragment of platform source).
+		IConfigurationElement[] ces = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.pde.core.source");
+		for (int i = 0; i < ces.length; i++) {
+			IPath srcsrch = new Path(ces[i].getAttributeAsIs("path")).append(srcPath);
+			Bundle srcBundle = Platform.getBundle(ces[i].getDeclaringExtension().getNamespace());
+			URL srcUrl = Platform.find(srcBundle, srcsrch);
+			if (srcUrl != null) {
+				return srcUrl;
+			}
+		}
+		return null;
 	}
 }
