@@ -51,7 +51,7 @@ public abstract class FlexibileJ2EEModuleCreationOperation extends FlexibileJ2EE
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
-		createModule(monitor);
+		//createModule(monitor);
 		if (dataModel.getBooleanProperty(FlexibleJ2EEModuleCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
 			//J2EENature nature = (J2EENature) dataModel.getProjectDataModel().getProject().getNature(dataModel.getJ2EENatureID());
