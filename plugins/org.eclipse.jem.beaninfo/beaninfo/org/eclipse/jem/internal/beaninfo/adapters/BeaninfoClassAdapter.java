@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.21 $  $Date: 2004/11/19 17:34:44 $ 
+ *  $Revision: 1.22 $  $Date: 2004/12/06 20:38:28 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.internal.temp.VETimerTests;
 
 import com.ibm.etools.emf.event.EventFactory;
 import com.ibm.etools.emf.event.EventUtil;
@@ -49,6 +50,11 @@ import org.eclipse.jem.java.impl.JavaClassImpl;
  */
 
 public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionAdapter {
+	
+	public static final String REFLECT_PROPERTIES = "Reflect properties";	// Reflect properties in IDE
+	public static final String INTROSPECT_PROPERTIES = "Introspect properties";	// Introspect on remote for properties
+	public static final String APPLY_EXTENSIONS = "Apply Overrides";	// Apply override files
+	public static final String REMOTE_INTROSPECT = "Remote Introspect";	// Introspect on remote
 	
 	/**
 	 * Clear out the introspection because introspection is being closed or removed from the project.
@@ -439,6 +445,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					BeanDecorator decor = Utilities.getBeanDecorator(getJavaClass());
 					if (decor == null || decor.isDoBeaninfo()) {
 						IBeanTypeProxy targetType = null;
+						VETimerTests.basicTest.startCumulativeStep(REMOTE_INTROSPECT);							
 						ProxyFactoryRegistry registry = getRegistry();
 						if (registry != null && registry.isValid())
 							targetType =
@@ -491,6 +498,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					}
 					calculateBeanDescriptor(decor);
 					hasIntrospected = true;
+					VETimerTests.basicTest.stopCumulativeStep(REMOTE_INTROSPECT);					
 				}
 				getAdapterFactory().registerIntrospection(getJavaClass().getQualifiedNameForReflection(), this);
 			}
@@ -502,22 +510,27 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	private static final String ROOT_OVERRIDE = BeaninfoPlugin.ROOT+BeaninfoPlugin.OVERRIDE_EXTENSION;	 //$NON-NLS-1$
 	
 	protected void applyExtensionDocument(boolean rootOnly) {
-		boolean alreadyRetrievedRoot = retrievedExtensionDocument == RETRIEVED_ROOT_ONLY;
-		retrievedExtensionDocument = rootOnly ? RETRIEVED_ROOT_ONLY : RETRIEVED_FULL_DOCUMENT;
-		JavaClass jc = getJavaClass();
-		Resource mergeIntoResource = jc.eResource();
-		ResourceSet rset = mergeIntoResource.getResourceSet();
-		String className = getJavaClass().getName();
-		getRegistry();	// Need to have a registry to get override paths initialized correctly. There is a possibility that overrides asked before any registry created.
-		if (!alreadyRetrievedRoot && (rootOnly || jc.getSupertype() == null)) {
-			// It is a root class. Need to merge in root stuff.
-			applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, BeaninfoPlugin.ROOT, BeaninfoPlugin.ROOT);
-			if (rootOnly)
-				return;
-		}
+		try {
+			VETimerTests.basicTest.startCumulativeStep(APPLY_EXTENSIONS);
+			boolean alreadyRetrievedRoot = retrievedExtensionDocument == RETRIEVED_ROOT_ONLY;
+			retrievedExtensionDocument = rootOnly ? RETRIEVED_ROOT_ONLY : RETRIEVED_FULL_DOCUMENT;
+			JavaClass jc = getJavaClass();
+			Resource mergeIntoResource = jc.eResource();
+			ResourceSet rset = mergeIntoResource.getResourceSet();
+			String className = getJavaClass().getName();
+			getRegistry();	// Need to have a registry to get override paths initialized correctly. There is a possibility that overrides asked before any registry created.
+			if (!alreadyRetrievedRoot && (rootOnly || jc.getSupertype() == null)) {
+				// It is a root class. Need to merge in root stuff.
+				applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, BeaninfoPlugin.ROOT, BeaninfoPlugin.ROOT);
+				if (rootOnly)
+					return;
+			}
 
-		String baseOverridefile = className + BeaninfoPlugin.OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
-		applyExtensionDocTo(rset, jc, baseOverridefile, getJavaClass().getJavaPackage().getPackageName(), className);
+			String baseOverridefile = className + BeaninfoPlugin.OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
+			applyExtensionDocTo(rset, jc, baseOverridefile, getJavaClass().getJavaPackage().getPackageName(), className);
+		} finally {
+			VETimerTests.basicTest.stopCumulativeStep(APPLY_EXTENSIONS);	
+		}
 	}
 	
 	protected void applyExtensionDocTo(final ResourceSet rset, final JavaClass mergeIntoJavaClass, final String overrideFile, String packageName, String className) {
@@ -673,6 +686,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					if (bd == null || bd.isIntrospectProperties()) {
 						// bd wants properties to be introspected/reflected
 						if (beaninfo != null) {
+							VETimerTests.basicTest.startCumulativeStep(INTROSPECT_PROPERTIES);							
 							IArrayBeanProxy props =
 								(IArrayBeanProxy) getProxyConstants().getPropertyDescriptorsProxy().invokeCatchThrowableExceptions(
 									beaninfo);
@@ -681,6 +695,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 								for (int i = 0; i < propSize; i++)
 									calculateProperty(props.getCatchThrowableException(i));
 							}
+							VETimerTests.basicTest.stopCumulativeStep(INTROSPECT_PROPERTIES);							
 						} else
 							reflectProperties(); // No beaninfo, so use reflection to create properties
 					}
@@ -1005,6 +1020,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// gets confusing. We need to look for dups from the super types.
 		//
 		// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
+		VETimerTests.basicTest.startCumulativeStep(REFLECT_PROPERTIES);		
 		Set supers = new HashSet(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
 		if (bd == null || bd.isMergeSuperProperties()) {
@@ -1091,6 +1107,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				((PropertyInfo) entry.getValue()).createProperty((String) entry.getKey(), isBound);
 			}
 		}
+		VETimerTests.basicTest.stopCumulativeStep(REFLECT_PROPERTIES);		
 	}
 
 	private class PropertyInfo {
