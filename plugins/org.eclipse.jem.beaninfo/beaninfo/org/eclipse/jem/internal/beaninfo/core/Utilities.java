@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.adapters;
+package org.eclipse.jem.internal.beaninfo.core;
 /*******************************************************************************
  * Copyright (c)  2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: Utilities.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
  */
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -23,11 +23,10 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.jem.internal.beaninfo.*;
-import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.JavaURL;
-import org.eclipse.jem.java.Method;
+import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.java.adapters.ReflectionAdaptor;
 import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.java.*;
 
 /**
  * Beaninfo (introspection) utilities methods

@@ -36,15 +36,17 @@
       </package>
    </extension>
    <extension
-         point="org.eclipse.jem.beaninfo.overrides">
-      <override
+         point="org.eclipse.jem.beaninfo.registrations">
+      <registration container="org.eclipse.jdt.launching.JRE_CONTAINER">
+        <override
             package="java.lang"
-            path="platform:/plugin/org.eclipse.jem/overrides/java/lang">
-      </override>
-      <override
+            path="overrides/java/lang">
+        </override>
+        <override
             package="..ROOT.."
-            path="platform:/plugin/org.eclipse.jem/overrides">
-      </override>
+            path="overrides">
+        </override>
+      </registration>
    </extension>
 
 </plugin>

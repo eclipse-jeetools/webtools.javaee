@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: LocalFileConfigurationContributorController.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/07 17:21:42 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:02 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -18,7 +18,7 @@ import java.util.*;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -32,7 +32,6 @@ import org.eclipse.jem.internal.proxy.core.*;
  */
 public class LocalFileConfigurationContributorController implements IConfigurationContributionController {
 
-	private IJavaProject javaProject;
 	private String[] classpathInfo;
 	private String[][] bootpathInfo;
 	private List classpath;
@@ -41,8 +40,7 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	private List javaLibraryPath;
 	private ProxyLaunchSupport.LaunchInfo launchInfo;
 	
-	public LocalFileConfigurationContributorController(IJavaProject javaProject, String[] classpathInfo, String[][] bootpathInfo, ProxyLaunchSupport.LaunchInfo launchInfo) {
-		this.javaProject = javaProject;
+	public LocalFileConfigurationContributorController(String[] classpathInfo, String[][] bootpathInfo, ProxyLaunchSupport.LaunchInfo launchInfo) {
 		this.classpathInfo = classpathInfo;
 		this.bootpathInfo = bootpathInfo;
 		this.launchInfo = launchInfo;
@@ -138,28 +136,7 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#getJavaProject()
 	 */
 	public IJavaProject getJavaProject() {
-		return javaProject;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#getContainerIds()
-	 */
-	public Set getContainerIds() {
-		return launchInfo.containerIds;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#getContainers()
-	 */
-	public Set getContainers() {
-		return launchInfo.containers;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#getPluginIds()
-	 */
-	public Set getPluginIds() {
-		return launchInfo.pluginIds;
+		return launchInfo.getJavaProject();
 	}
 	
 	/* (non-Javadoc)
@@ -221,12 +198,12 @@ public class LocalFileConfigurationContributorController implements IConfigurati
 	/* (non-Javadoc)
 	 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionController#contributeClasspath(org.eclipse.core.runtime.Plugin, java.lang.String, int, boolean)
 	 */
-	public void contributeClasspath(Plugin plugin, String relativePath, int typeFlag, boolean nlsLocalize) {
+	public void contributeClasspath(IPluginDescriptor pluginDescriptor, String relativePath, int typeFlag, boolean nlsLocalize) {
 		// If not nls localize, or if it is java library path, then just find the one in the plugin/fragment and add it.
 		if (!nlsLocalize || typeFlag == IConfigurationContributionController.APPEND_JAVA_LIBRARY_PATH)
-			contributeClasspath(ProxyPlugin.getPlugin().localizeFromPlugin(plugin, relativePath), typeFlag);
+			contributeClasspath(ProxyPlugin.getPlugin().localizeFromPluginDescriptor(pluginDescriptor, relativePath), typeFlag);
 		else
-			contributeClasspath(ProxyPlugin.getPlugin().localizeFromPluginDescriptorAndFragments(plugin.getDescriptor(), relativePath), typeFlag);
+			contributeClasspath(ProxyPlugin.getPlugin().localizeFromPluginDescriptorAndFragments(pluginDescriptor, relativePath), typeFlag);
 	}
 
 	/* (non-Javadoc)

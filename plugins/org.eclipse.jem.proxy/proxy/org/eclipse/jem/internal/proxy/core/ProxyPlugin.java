@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.11 $  $Date: 2004/03/10 23:02:38 $ 
+ *  $Revision: 1.12 $  $Date: 2004/03/22 23:49:02 $ 
  */
 
 
@@ -231,13 +231,36 @@ public class ProxyPlugin extends Plugin {
 	}
 	
 	private static final IPath PROXYJARS_PATH = new Path("proxy.jars");
+	
 	/**
-	 * See localizeFromPluginDescriptor...
+	 * @see ProxyPlugin#localizeFromPluginDescriptor(IPluginDescriptor, String)
+	 * 
 	 * This is just a helper to return a url instead.
-	 */		
-	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {					
+	 * 
+	 * @param pluginDescriptor
+	 * @param filenameWithinPlugin
+	 * @return
+	 * 
+	 * @since 1.0.0
+	 */
+	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, String filenameWithinPlugin) {
+		return urlLocalizeFromPluginDescriptor(pluginDescriptor, new Path(filenameWithinPlugin));
+	}
+	
+	/**
+	 * @see ProxyPlugin#localizeFromPluginDescriptor(IPluginDescriptor, String)
+	 * 
+	 * This is just a helper to return a url instead.
+	 * 
+	 * @param pluginDescriptor
+	 * @param filenameWithinPlugin
+	 * @return
+	 * 
+	 * @since 1.0.0
+	 */
+	public URL urlLocalizeFromPluginDescriptor(IPluginDescriptor pluginDescriptor, IPath filenameWithinPlugin) {					
 		try {
-			URL pvm = pluginDescriptor.find(new Path(filenameWithinPlugin));
+			URL pvm = pluginDescriptor.find(filenameWithinPlugin);
 			if (pvm != null)
 				pvm = Platform.asLocalURL(pvm);
 			if (devMode) {
@@ -272,7 +295,7 @@ public class ProxyPlugin extends Plugin {
 						ios = pvm.openStream();
 						Properties props = new Properties();
 						props.load(ios);
-						String pathString = props.getProperty(filenameWithinPlugin);
+						String pathString = props.getProperty(filenameWithinPlugin.toString());
 						if (pathString != null) {
 							IPath path = new Path(Platform.resolve(pluginDescriptor.getInstallURL()).getFile());
 							path = path.removeLastSegments(1); // Move up one level to workspace root of development workspace.
@@ -301,11 +324,11 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public static IPluginDescriptor[] orderPlugins(final Set pluginDescriptorsToOrder) {
+	public static IPluginDescriptor[] orderPlugins(final Set pluginDescriptorsToOrder) {	
 		PluginRegistry registry = (PluginRegistry) Platform.getPluginRegistry();
 		int ndx = pluginDescriptorsToOrder.size();
 		IPluginDescriptor[] result = new IPluginDescriptor[ndx];
-		Map dependents = getDependentCounts(false);	// We want the inactive ones too. That way have complete order. They can be ignored later if necessary.
+		Map dependents = getDependentCounts(false, pluginDescriptorsToOrder);	// We want the inactive ones too. That way have complete order. They can be ignored later if necessary.
 		// keep iterating until all have been visited. This will actually find them in reverse order from what we
 		// want, i.e. it will find the leaves first. So we will build result array in reverse order.
 		while (!dependents.isEmpty()) {
@@ -333,42 +356,64 @@ public class ProxyPlugin extends Plugin {
 					}
 				}
 			}
-		}
+		}		
 		return result;
 	}
 	
 	
-	private static Map getDependentCounts(boolean activeOnly) {
+	private static Map getDependentCounts(boolean activeOnly, Set startingSet) {
 		// TODO This needs to move to OSGi format when that API becomes stable. Currently this cannot handle
 		// plugins that are totally OSGi and not legacy.
 		IPluginRegistry registry = Platform.getPluginRegistry();
-		IPluginDescriptor[] descriptors = Platform.getPluginRegistry().getPluginDescriptors();
-		int descSize = (descriptors == null) ? 0 : descriptors.length;
-		Map dependents = new HashMap(descSize);
+		Map dependents = new HashMap(startingSet.size());
 		// build a table of all dependent counts.  The table is keyed by descriptor and
 		// the value the integer number of dependent plugins.
-		for (int i = 0; i < descSize; i++) {
-			if (activeOnly && !descriptors[i].isPluginActivated())
-				continue;
-			if (descriptors[i].getUniqueIdentifier().indexOf("hyades") != -1)
-				continue;	// TODO needs to be removed when 52563 is fixed by eclipse
-			// ensure there is an entry for this descriptor (otherwise it will not be visited)
-			int[] entry = (int[]) dependents.get(descriptors[i]);
-			if (entry == null)
-				dependents.put(descriptors[i], new int[1]);
-			IPluginPrerequisite[] requires = descriptors[i].getPluginPrerequisites();
-			int reqSize = (requires == null ? 0 : requires.length);
-			for (int j = 0; j < reqSize; j++) {
-				String id = requires[j].getUniqueIdentifier();
-				IPluginDescriptor prereq = registry.getPluginDescriptor(id);
-				if (prereq == null || activeOnly && !prereq.isPluginActivated())
+		List processNow = new ArrayList(startingSet);
+		List processNext = new ArrayList(processNow.size());
+		if (!processNow.isEmpty()) {
+			// Go through the first time from the starting set to get an entry into the list.
+			// If there is an entry, then it won't be marked for processNext. Only new entries
+			// are added to processNext in the following loop.
+			int pnSize = processNow.size();
+			for (int i = 0; i < pnSize; i++) {
+				IPluginDescriptor pd = (IPluginDescriptor) processNow.get(i);
+				if (activeOnly && !pd.isPluginActivated())
 					continue;
-				entry = (int[]) dependents.get(prereq);
+				// ensure there is an entry for this descriptor (otherwise it will not be visited)
+				int[] entry = (int[]) dependents.get(pd);
 				if (entry == null)
-					dependents.put(prereq, new int[] {1});
-				else
-					++entry[0];
+					dependents.put(pd, new int[1]);
 			}
+		}
+		
+		// Now process the processNow to find the requireds, increment them, and add to processNext if never found before.
+		while (!processNow.isEmpty()) {
+			processNext.clear();
+			int pnSize = processNow.size();
+			for (int i = 0; i < pnSize; i++) {
+				IPluginDescriptor pd = (IPluginDescriptor) processNow.get(i);
+				if (activeOnly && !pd.isPluginActivated())
+					continue;			
+				IPluginPrerequisite[] requires = pd.getPluginPrerequisites();
+				int reqSize = (requires == null ? 0 : requires.length);
+				for (int j = 0; j < reqSize; j++) {
+					String id = requires[j].getUniqueIdentifier();
+					IPluginDescriptor prereq = registry.getPluginDescriptor(id);
+					if (prereq == null || activeOnly && !prereq.isPluginActivated())
+						continue;
+					int[] entry = (int[]) dependents.get(prereq);
+					if (entry == null) {
+						dependents.put(prereq, new int[] {1});
+						processNext.add(prereq);	// Never processed before, so we add it to the next process loop.
+					} else
+						++entry[0];
+				}
+			}
+			
+			// Now swap the lists so that we processNext will be now and visa-versa.
+			List t = processNext;
+			processNext = processNow;
+			processNow = t;
 		}
 		return dependents;
 	}
@@ -585,7 +630,7 @@ public class ProxyPlugin extends Plugin {
 	 * 
 	 * @since 1.0.0
 	 */
-	public static ContributorExtensionPointInfo processContributionExtensionPoint(String extensionPoint) {
+	public static ContributorExtensionPointInfo processContributionExtensionPoint(String extensionPoint) {	
 		// We are processing this once because it is accessed often (once per vm per project).
 		// This can add up so we get it together once here.
 		IExtensionPoint extp = Platform.getExtensionRegistry().getExtensionPoint(extensionPoint);
@@ -655,32 +700,36 @@ public class ProxyPlugin extends Plugin {
 			Map.Entry entry = (Map.Entry) iter.next();
 			entry.setValue(((List) entry.getValue()).toArray(new IConfigurationElement[((List) entry.getValue()).size()]));
 		}
-		
+
 		return result;
 	}
 	
 	/**
-	 * For the given java project, return the set of container paths and plugins found. The set entries will be of type IClasspathContainer.
+	 * For the given java project, return the maps of container paths and plugins found. The keys will be of type as specified for the parms
+	 * while the value will be Boolean, true if it was visible, and false if it wasn't.
 	 * For example if <code>/SWT_CONTAINER/subpath1</code> is found in the projects path (or from required projects), then
-	 * the container id will be added to the set. They come from the raw classpath entries of the projects.
-	 * <p>
-	 * It also finds all classpath containers that implement <code>org.eclipse.jem.internal.proxy.core.IConfigurationContributor</code> so
-	 * that they can also be called.  
-	 * 
+	 * the container id will be added to the map. They come from the raw classpath entries of the projects.
+	 *
 	 * @param jproject
-	 * @param containerIds This set will be filled in with container ids (type is <code>java.lang.String</code>) that are found in the projects build path.
-	 * @param containers This set will be filled in with classpath containers found in the projects build path.
-	 * @param pluginIds This set will be filled in with plugin ids (type is <code>java.lang.String</code>) that are found in the projects build path.
+	 * @param containerIds This map will be filled in with container ids as keys (type is <code>java.lang.String</code>) that are found in the projects build path. The value will be a Boolean, true if this container id was visible to the project (i.e. was in the project or was exported from a required project).
+	 * @param containers This map will be filled in with classpath containers as keys found in the projects build path. The value will be a Boolean as in container ids map.
+	 * @param pluginIds This map will be filled in with plugin ids as keys (type is <code>java.lang.String</code>) that are found in the projects build path. The value will be a Boolean as in container ids map.
+	 * @param projects This map will be filled in with project paths (except the top project) as keys (type is <code>org.eclipse.core.runtime.IPath</code>) that are found in the projects build path. The value will be a Boolean as in container ids map.
 	 * 
 	 * @since 1.0.0
 	 */
-	public void getIDsFound(IJavaProject jproject, Set containerIds, Set containers, Set pluginIds) throws JavaModelException {
-		expandProject(JavaCore.newProjectEntry(jproject.getProject().getFullPath()), containerIds, containers, pluginIds, new HashSet(1));
+	public void getIDsFound(IJavaProject jproject, Map containerIds, Map containers, Map pluginIds, Map projects) throws JavaModelException {		
+		IPath projectPath = jproject.getProject().getFullPath();
+		projects.put(projectPath, Boolean.TRUE);		
+		expandProject(projectPath, containerIds, containers, pluginIds, projects, true, true);
+		projects.remove(projectPath);	// Don't need to include itself now, was needed for testing so if ciruclar we don't get into a loop.
 	}
 	
-	private void expandProject(IClasspathEntry projectEntry, Set containerIds, Set containers, Set plugindiIds, Set expandedProjects) throws JavaModelException {
-		expandedProjects.add(projectEntry);
-		IPath projectPath = projectEntry.getPath();
+	/*
+	 * The passed in visible flag tells if this project is visible and its contents are visible if they are exported.
+	 * Only exception is if first is true, then all contents are visible to the top level project.
+	 */
+	private void expandProject(IPath projectPath, Map containerIds, Map containers, Map pluginIds, Map projects, boolean visible, boolean first) throws JavaModelException {
 		IResource res = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath.lastSegment());
 		if (res == null)
 			return;	// Not exist so don't delve into it.
@@ -693,46 +742,52 @@ public class ProxyPlugin extends Plugin {
 			IClasspathEntry entry = entries[i];
 			switch (entry.getEntryKind()) {
 				case IClasspathEntry.CPE_PROJECT:
-					if (!expandedProjects.contains(entry))
-						expandProject(entry, containerIds, containers, plugindiIds, expandedProjects);
+					if (!projects.containsKey(entry.getPath())) {
+						projects.put(entry.getPath(), first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );
+						expandProject(entry.getPath(), containerIds, containers, pluginIds, projects, visible && entry.isExported(), false);
+					}
 					break;
 				case IClasspathEntry.CPE_CONTAINER:
 					IClasspathContainer container = JavaCore.getClasspathContainer(entry.getPath(), project);
-					containers.add(container);
-					containerIds.add(entry.getPath().segment(0));
+					if (!containers.containsKey(container))
+						containers.put(container, first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );
+					if (!containerIds.containsKey(entry.getPath().segment(0)))
+						containerIds.put(entry.getPath().segment(0), first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );					
 					break;
 				default:
 					break;
 			}
 		}		
 		
-		processPlugin(project, plugindiIds);	// expand the plugins for this project, if any.
+		processPlugin(project, pluginIds, visible, first);	// expand the plugins for this project, if any.
 	}
 	
-	private void processPlugin(IJavaProject project, Set pluginIds) {
+	private void processPlugin(IJavaProject project, Map pluginIds, boolean visible, boolean first) {
 		WorkspaceModelManager wm = (WorkspaceModelManager)PDECore.getDefault().getWorkspaceModelManager();
 		IModel m = wm.getWorkspaceModel(project.getProject());
 		if (m instanceof IPluginModel) {
 			// it is a plugin, process it.
-			expandPlugin(((IPluginModel) m).getPlugin(), pluginIds);
+			IPlugin plugin = ((IPluginModel) m).getPlugin();			
+			if (pluginIds.containsKey(plugin.getId()))
+				return;	// already processed it
+			pluginIds.put(plugin.getId(), first || visible ? Boolean.TRUE : Boolean.FALSE);			
+			expandPlugin(plugin, pluginIds, visible, first);
 		}
 		return;
 	}
 	
-	private void expandPlugin(IPlugin plugin, Set pluginIds) {
-		if (pluginIds.contains(plugin.getId()))
-			return;	// already processed it
-		pluginIds.add(plugin.getId());
+	private void expandPlugin(IPlugin plugin, Map pluginIds, boolean visible, boolean first) {
 		IPluginImport[] imports = plugin.getImports();
 		for (int i = 0; i < imports.length; i++) {
 			IPluginImport pi = imports[i];
-			if (pluginIds.contains(pi.getId()))
+			if (pluginIds.containsKey(pi.getId()))
 				continue;	// save time actually going for it. we already processed it.
+			pluginIds.put(plugin.getId(), first || (visible && pi.isReexported()) ? Boolean.TRUE : Boolean.FALSE);			
 			IPlugin pb = PDECore.getDefault().findPlugin(pi.getId(),
 				pi.getVersion(),
 				pi.getMatch());
 			if (pb != null)
-				expandPlugin(pb, pluginIds);
+				expandPlugin(pb, pluginIds, visible && pi.isReexported(), false);
 		}
 	}
 }

@@ -11,16 +11,18 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoAdapterFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/22 23:49:10 $ 
  */
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.*;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
+import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 /**
@@ -82,6 +84,10 @@ public class BeaninfoAdapterFactory extends AdapterFactoryImpl {
 	public ProxyFactoryRegistry recycleRegistry() {
 		markAllStale(); // At this point in time we need to mark them all stale because we are recycling. MarkAllStale also closes the registry.
 		return getRegistry();
+	}
+	
+	public IProject getProject() {
+		return fInfoSupplier.getProject();
 	}
 
 	/**

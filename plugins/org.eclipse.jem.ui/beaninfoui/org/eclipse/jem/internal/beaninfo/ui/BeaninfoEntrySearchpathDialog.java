@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoEntrySearchpathDialog.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:48:57 $ 
  */
 
 import java.text.MessageFormat;
@@ -55,8 +55,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoEntry;
-import org.eclipse.jem.internal.beaninfo.adapters.SearchpathEntry;
+import org.eclipse.jem.internal.beaninfo.core.BeaninfoEntry;
+import org.eclipse.jem.internal.beaninfo.core.SearchpathEntry;
 
 /**
  * This dialog is used to display and modify the search path

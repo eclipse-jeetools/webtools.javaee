@@ -11,9 +11,11 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyRemoteUtil.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/22 23:49:02 $ 
  */
 
+
+import org.eclipse.core.runtime.IPluginDescriptor;
 
 import org.eclipse.jem.internal.proxy.core.IConfigurationContributionController;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
@@ -45,13 +47,13 @@ public class ProxyRemoteUtil {
 	 * support.
 	 */
 	public static void updateClassPaths(IConfigurationContributionController controller) {
-		ProxyPlugin proxyPlugin = ProxyPlugin.getPlugin();
+		IPluginDescriptor proxyPluginDescriptor = ProxyPlugin.getPlugin().getDescriptor();
 		// Need to have our jars at the beginning. (Struts causes a problem because 
 		// they have a jar (commons-fileupload.jar) that if when searching for a class and
 		// this jar is reached, it causes the class loader to barf. Our jars used to be at
 		// the end, and so it found the fileupload jar first and no remote vm could be started
 		// because of this.
-		controller.contributeClasspath(proxyPlugin, "remotecommon.jar", IConfigurationContributionController.PREPEND_USER_CLASSPATH, false); //$NON-NLS-1$
-		controller.contributeClasspath(proxyPlugin, "vm/remotevm.jar", IConfigurationContributionController.PREPEND_USER_CLASSPATH, false); //$NON-NLS-1$		
+		controller.contributeClasspath(proxyPluginDescriptor, "remotecommon.jar", IConfigurationContributionController.PREPEND_USER_CLASSPATH, false); //$NON-NLS-1$
+		controller.contributeClasspath(proxyPluginDescriptor, "vm/remotevm.jar", IConfigurationContributionController.PREPEND_USER_CLASSPATH, false); //$NON-NLS-1$		
 	}
 }

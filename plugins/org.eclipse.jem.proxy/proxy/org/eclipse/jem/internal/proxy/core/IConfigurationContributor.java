@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IConfigurationContributor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/04 16:14:04 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:02 $ 
  */
 
 
@@ -26,6 +26,24 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
  * @since 1.0.0
  */
 public interface IConfigurationContributor {
+	
+	/**
+	 * Called first before any of the other calls. This can be used to do any internal initializations
+	 * required by the other calls. That way the other calls can have the order changed as the implementation
+	 * requires.
+	 * <p>
+	 * NOTE: For those who nest configuration contributors (i.e. within an implementation of a contributor, more
+	 * contributors are discovered) then it is imperitive that when those contributors are discovered that this method
+	 * be called on them too. This is necessary so the contract with contributors can be followed. It is best if the
+	 * discoveries are actually done in the initialize method itself so that it can pass the launch info right there.
+	 * 
+	 * @param info info contains things like containers visible, etc.
+	 * 
+	 * @see IConfigurationContributionInfo
+	 * @since 1.0.0
+	 */
+	public void initialize(IConfigurationContributionInfo info);
+	
 	/**
 	 * Contribute to the classpath. The controller is used to do the actual contribution.
 	 * 

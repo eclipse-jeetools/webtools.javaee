@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPathsBlock.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:48:57 $ 
  */
 
 import java.io.File;
@@ -42,7 +42,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
-import org.eclipse.jem.internal.beaninfo.adapters.*;
+import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 
 public class BeaninfoPathsBlock {
@@ -230,30 +230,35 @@ public class BeaninfoPathsBlock {
 					IBeaninfosDocEntry[] sp = doc.getSearchpath();
 					for (int i = 0; i < sp.length; i++) {
 						IBeaninfosDocEntry curr = sp[i];
-						boolean isMissing = true;
+						boolean isMissing = false;
 						BPListElement elem = null;
 						if (curr instanceof BeaninfoEntry) {
 							BeaninfoEntry be = (BeaninfoEntry) curr;
 
 							// get the resource, this tells if the beaninfos exist or not.
-							Object path = be.getClasspath();
-							if (path instanceof IProject)
-								isMissing = !((IProject) path).exists();
-							else {
-								File f = null;
-								if (path instanceof String)
-									f = new File((String) path);
-								else if (path instanceof String[] && ((String[]) path).length > 0)
-									f = new File(((String[]) path)[0]);
-								if (f != null)
-									isMissing = !f.exists();
-							}
+							Object[] paths = be.getClasspath(fCurrJProject);
+							if (paths != null && paths.length > 0) {
+								for (int j = 0; !isMissing && j < paths.length; j++) {
+									Object path = paths[i];
+									if (path instanceof IProject)
+										isMissing = !((IProject) path).exists();
+									else if (path instanceof String) {
+										File f = new File((String) path);
+										isMissing = !f.exists();
+									} else if (path instanceof IPath) {
+										isMissing = true;	// Plugins are invalid in BeaninfoConfig. They only apply within contributions.
+									} else
+										isMissing = true; // Invalid, so isMissing.
+								}								
+							} else
+								isMissing = true;
 
 							elem = new BPBeaninfoListElement(be, getInitialSearchpaths(be), isMissing);
 						} else {
 							// Searchpath entry, see if we can find the raw classpath entry that it is for.
 							boolean isExported = false;
 							boolean isPackageMissing = true;
+							isMissing = true;	// Initially missing until we find it.
 							SearchpathEntry ce = (SearchpathEntry) curr;
 							int kind = ce.getKind();
 							IPath path = ce.getPath();

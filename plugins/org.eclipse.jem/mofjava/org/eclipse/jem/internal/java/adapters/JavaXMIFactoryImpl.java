@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaXMIFactoryImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:26 $ 
  */
 import java.io.IOException;
 import java.util.*;
@@ -110,16 +110,12 @@ public class JavaXMIFactoryImpl extends XMIResourceFactoryImpl {
 			}
 			return result;
 		}
-		
-		protected EObject getEObjectByID(String id) {
-			if (idToEObjectMap != null) {
-				EObject eObject = (EObject) idToEObjectMap.get(id);
-				if (eObject != null) {
-					return eObject;
-				}
-			}
-			return null;
-		}		
+		/* (non-Javadoc)
+		 * @see org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl#useIDAttributes()
+		 */
+		protected boolean useIDAttributes() {
+			return false;
+		}
 
 	}
 

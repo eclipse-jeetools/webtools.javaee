@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.2 $ $Date: 2004/03/07 17:21:42 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.3 $ $Date: 2004/03/22 23:49:02 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -108,8 +108,8 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		ProxyLaunchSupport.LaunchInfo launchInfo = ProxyLaunchSupport.getInfo(launchKey);
 		final IConfigurationContributor[] contributors = launchInfo.contributors;
 		final LocalFileConfigurationContributorController controller =
-			new LocalFileConfigurationContributorController(project, classpath, bootpathInfo, launchInfo);
-		if (contributors != null) {
+			new LocalFileConfigurationContributorController(classpath, bootpathInfo, launchInfo);
+		if (contributors != null) {		
 			for (int i = 0; i < contributors.length; i++) {
 				// Run in safe mode so that anything happens we don't go away.
 				final int ii = i;

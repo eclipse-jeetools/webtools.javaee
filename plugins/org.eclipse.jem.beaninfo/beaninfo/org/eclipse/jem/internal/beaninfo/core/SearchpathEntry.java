@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.adapters;
+package org.eclipse.jem.internal.beaninfo.core;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: SearchpathEntry.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:00 $ 
+ *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 import org.eclipse.core.resources.IProject;

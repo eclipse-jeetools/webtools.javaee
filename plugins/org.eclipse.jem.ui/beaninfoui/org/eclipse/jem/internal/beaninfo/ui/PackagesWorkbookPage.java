@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: PackagesWorkbookPage.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:48:57 $ 
  */
 
 import java.util.*;
@@ -31,7 +31,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.dialogs.*;
 
-import org.eclipse.jem.internal.beaninfo.adapters.SearchpathEntry;
+import org.eclipse.jem.internal.beaninfo.core.SearchpathEntry;
 import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 /**
  * Workbook page for selecting the packages from the current

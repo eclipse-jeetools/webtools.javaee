@@ -11,10 +11,10 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BPSearchListElement.java,v $
- *  $Revision: 1.1 $  $Date: 2004/03/04 16:14:29 $ 
+ *  $Revision: 1.2 $  $Date: 2004/03/22 23:48:57 $ 
  */
 
-import org.eclipse.jem.internal.beaninfo.adapters.SearchpathEntry;
+import org.eclipse.jem.internal.beaninfo.core.SearchpathEntry;
 
 /**
  * @version 	1.0

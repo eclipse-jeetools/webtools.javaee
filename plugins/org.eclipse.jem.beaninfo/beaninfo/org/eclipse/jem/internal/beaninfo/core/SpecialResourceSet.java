@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.adapters;
+package org.eclipse.jem.internal.beaninfo.core;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: SpecialResourceSet.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/24 19:33:46 $ 
+ *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 import com.ibm.wtp.internal.emf.workbench.ProjectResourceSetImpl;

@@ -11,14 +11,12 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IConfigurationContributionController.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/07 17:21:42 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:02 $ 
  */
-
-import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.jdt.core.IJavaProject;
 ;
 /**
@@ -75,36 +73,7 @@ public interface IConfigurationContributionController {
 	 * @since 1.0.0
 	 */
 	public IJavaProject getJavaProject();
-	
-	/**
-	 * Return the set of containers that are found in the classpath. This is useful for determining
-	 * if the container impliments a contributor interface.
-	 * 
-	 * @return set of containers. Elements of type IClasspathContainer. <code>null</code> if launch not in a project.
-	 * 
-	 * @see org.eclipse.jdt.core.IClasspathContainer
-	 * @since 1.0.0
-	 */
-	public Set getContainers();
-	
-	/**
-	 * Return the set of container ids that are found in the classpath.
-	 * 
-	 * @return set of container ids. Elements of type String. <code>null</code> if launch not in a project.
-	 * 
-	 * @since 1.0.0
-	 */
-	public Set getContainerIds();
-	
-	/**
-	 * Return the set of plugin ids that are found in the classpath.
-	 * 
-	 * @return set of plugin ids. Elements of type String. <code>null</code> if launch not in a project.
-	 * 
-	 * @since 1.0.0
-	 */
-	public Set getPluginIds();	
-	
+		
 	/**
 	 * Add a project to the classpath. The type flag tells where to add it.
 	 * 
@@ -157,12 +126,12 @@ public interface IConfigurationContributionController {
 	 * <p>
 	 * This is useful for nls where the nls for the filename will be in one or more of the fragments of the plugin.	 	 
 	 * 
-	 * @param plugin The plugin it can be found in.
+	 * @param pluginDescriptor The plugin descriptor it can be found in.
 	 * @param relativePath Path to file/folder relative to bundle root. If it is <code>APPEND_JAVA_LIBRARY_PATH</code>, it should be folder and nlsLocalize will be ignored.
 	 * @param typeFlag One of <code>APPEND_USER_CLASSPATH</code>, <code>APPEND_BOOT_CLASSPATH</code>, <code>PREPEND_BOOT_CLASSPATH</code>, or <code>APPEND_JAVA_LIBRARY_PATH</code>.
 	 * @param nlsLocalize The usual value should be <code>false</code>. Use <code>true</code> if should look through fragments to gather them all as described in this methods description.
 	 * 
 	 * @since 1.0.0
 	 */
-	public void contributeClasspath(Plugin plugin, String relativePath, int typeFlag, boolean nlsLocalize);	
+	public void contributeClasspath(IPluginDescriptor plugin, String relativePath, int typeFlag, boolean nlsLocalize);	
 }

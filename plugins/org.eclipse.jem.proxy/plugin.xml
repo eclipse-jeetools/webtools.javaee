@@ -43,7 +43,7 @@
    </requires>
 
 
-   <extension-point id="contributor" name="Proxy Configuration Contributor" schema="schema/contributor.exsd"/>
+   <extension-point id="contributors" name="%contributors.extensionpoint.name" schema="schema/contributors.exsd"/>
 
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">

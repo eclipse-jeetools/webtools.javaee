@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.adapters;
+package org.eclipse.jem.internal.beaninfo.core;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,9 +11,11 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: IBeaninfoSupplier.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
+
+import org.eclipse.core.resources.IProject;
 
 import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
 /**
@@ -41,5 +43,13 @@ public interface IBeaninfoSupplier {
 	 * reconstructed.
 	 */
 	public void closeRegistry();
+	
+	/**
+	 * Return the project that this supplier is for.
+	 * @return
+	 * 
+	 * @since 1.0.0
+	 */
+	public IProject getProject();
 
 }

@@ -11,15 +11,13 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.10 $  $Date: 2004/03/10 00:39:58 $ 
+ *  $Revision: 1.11 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.logging.Level;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -35,16 +33,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.internal.beaninfo.BeanDecorator;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
-import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
+import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
 import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
 import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 
-import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Bean Decorator</b></em>'.

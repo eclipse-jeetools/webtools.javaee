@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.adapters;
+package org.eclipse.jem.internal.beaninfo.core;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,23 +11,18 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoEntry.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:00 $ 
+ *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 import java.util.ArrayList;
-
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
+import java.util.List;
+import java.util.logging.Level;
 
 import org.eclipse.core.resources.*;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.w3c.dom.*;
 
 /**
@@ -49,8 +44,8 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 	public static final int BIE_PLUGIN = 100;	// Beaninfo jar can be found in a plugin.
 
 	static int kindFromString(String kindStr) {
-		if (kindStr == null)
-			return -1;
+		if (kindStr == null || kindStr.length() == 0)
+			return BIE_PLUGIN;	// Default to plugin. If coming from beaninfoconfig, there should always be kind. But if coming from plugin.xml there shouldn't be one.
 		if (kindStr.equalsIgnoreCase("con"))
 			return IClasspathEntry.CPE_CONTAINER;
 		if (kindStr.equalsIgnoreCase("var")) //$NON-NLS-1$
@@ -111,6 +106,9 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 
 			case IClasspathEntry.CPE_VARIABLE :
 				return JavaCore.newVariableEntry(path, null, null, isExported);
+			
+			case IClasspathEntry.CPE_CONTAINER:
+				return JavaCore.newContainerEntry(path, isExported);
 
 		}
 
@@ -142,6 +140,14 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 		} else {
 			if (path.isAbsolute())
 				pluginPath = path;
+			else {
+				// Kludge This should only be a plugin type if from configuration element. So we will cast to that
+				// and get the plugin id to create an absolute plugin path.
+				if (element instanceof IConfigurationElement) {
+					pluginPath = new Path('/'+((IConfigurationElement) element).getDeclaringExtension().getNamespace()).append(path);
+				} else
+					return null;	// Not valid because can't have plugin from .beaninfoconfig file.
+			}
 		}
 
 		ArrayList searchpaths = new ArrayList();
@@ -164,13 +170,10 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 				cpEntry,
 				(SearchpathEntry[]) searchpaths.toArray(new SearchpathEntry[searchpaths.size()]),
 				isExported);
-		else if (pluginPath != null)
-			return new BeaninfoEntry(
+		else return new BeaninfoEntry(
 				pluginPath,
 				(SearchpathEntry[]) searchpaths.toArray(new SearchpathEntry[searchpaths.size()]),
 				isExported);
-		else
-			return null;
 	}
 
 	protected IClasspathEntry entry; // Store it as a classpath entry for convienence. It is the RAW classpath entry. This is only used when pointing to something other than a plugin.
@@ -260,62 +263,80 @@ public class BeaninfoEntry implements IBeaninfosDocEntry {
 	public IClasspathEntry getClasspathEntry() {
 		return entry;
 	}
-	
+
 	/**
-	 * Return the resolved classpath for this entry. This is the path to the 
-	 * beaninfo jar.
-	 * Returns either:
-	 * 1) a string if a single jar,
-	 * 2) an IProject if it is a project,
-	 * 3) a String[] if it is a jar (including from any fragments) in a plugin. The [0] entry should be the one directly from the plugin, the rest will be from fragments.
-	 * It can return null if the path could not be computed.
+	 * Return the resolved classpaths. Each entry in the array will be either:
+	 * 1) IProject - If it is a project type entry. Want the whole project
+	 * 2) String - an absolute external path to a jar
+	 * 3) IPath - a path to a plugin jar. The first segment is the plugin id, the rest is the path relative to that plugin.
+	 *            
+	 * 
+	 * @param javaProject
+	 * @return The array of paths, or <code>null</code> if no paths.
+	 * 
+	 * @since 1.0.0
 	 */
-	public Object getClasspath() {
+	public Object[] getClasspath(IJavaProject javaProject) {
 		if (entry != null) {
 			// It is a standard CPE Entry.
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+			List paths = new ArrayList(1);
 			IClasspathEntry resolvedEntry = JavaCore.getResolvedClasspathEntry(entry);
-			switch (resolvedEntry.getEntryKind()) {
-				case IClasspathEntry.CPE_PROJECT :
-					IProject reqProject = (IProject) root.findMember(resolvedEntry.getPath().lastSegment());
-					// Project entries only have one segment.
-					if (reqProject != null && reqProject.isOpen())
-						return reqProject;
-					else
-						return null;
-
-				case IClasspathEntry.CPE_SOURCE :
-					reqProject = (IProject) root.findMember(resolvedEntry.getPath().segment(0));
-					// Find project from the first segment.
-					IJavaProject javaProject = JavaCore.create(reqProject);
-					if (javaProject != null) {
-						try {
-							IPath outputLocation = javaProject.getOutputLocation();
-							IResource resource = root.findMember(outputLocation);
-							if (resource != null) {
-								return resource.getLocation().toString();
-							}
-						} catch(JavaModelException e) {
-						}
-					}
-					break;
-
-				case IClasspathEntry.CPE_LIBRARY :
-					IResource library = root.findMember(resolvedEntry.getPath());
-					// can be external or in workspace
-					return (library != null) ? library.getLocation().toString() : resolvedEntry.getPath().toString();
-			}
-		} else {
-			IPluginDescriptor descr = Platform.getPluginRegistry().getPluginDescriptor(pluginPath.segment(0));
-			if (descr != null)
-				return ProxyPlugin.getPlugin().localizeFromPluginDescriptorAndFragments(
-					descr,
-					pluginPath.removeFirstSegments(1).toString());
-		}
+			resolveEntry(root, paths, resolvedEntry, javaProject);
+			return paths.toArray();
+		} else if (pluginPath != null) 
+			return new Object[] {pluginPath};
+		
 		return null;
 
 	}
 	
+	private void resolveEntry(IWorkspaceRoot root, List paths, IClasspathEntry entry, IJavaProject javaProject) {
+		switch (entry.getEntryKind()) {
+			case IClasspathEntry.CPE_PROJECT :
+				IProject reqProject = (IProject) root.findMember(entry.getPath().lastSegment());
+				// Project entries only have one segment.
+				if (reqProject != null && reqProject.isOpen())
+					paths.add(reqProject);
+				break;
+
+			case IClasspathEntry.CPE_SOURCE :
+				reqProject = (IProject) root.findMember(entry.getPath().segment(0));
+				// Find project from the first segment.
+				IJavaProject jProject = JavaCore.create(reqProject);
+				if (jProject != null) {
+					try {
+						IPath outputLocation = jProject.getOutputLocation();
+						IResource resource = root.findMember(outputLocation);
+						if (resource != null) {
+							paths.add(resource.getLocation().toString());
+						}
+					} catch(JavaModelException e) {
+					}
+				}
+				break;
+
+			case IClasspathEntry.CPE_LIBRARY :
+				IResource library = root.findMember(entry.getPath());
+				// can be external or in workspace
+				paths.add((library != null) ? library.getLocation().toString() : entry.getPath().toString());
+				break;
+				
+			case IClasspathEntry.CPE_CONTAINER:
+				try {
+					IClasspathContainer container = JavaCore.getClasspathContainer(entry.getPath(), javaProject);
+					if (container != null) {
+						IClasspathEntry[] entries = container.getClasspathEntries();
+						for (int i = 0; i < entries.length; i++) {
+							resolveEntry(root, paths, entries[i], javaProject);
+						}
+					}
+				} catch (JavaModelException e) {
+					BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+				}			
+		}
+	}
+
 	public int getKind() {
 		return entry != null ? entry.getEntryKind() : BIE_PLUGIN;
 	}

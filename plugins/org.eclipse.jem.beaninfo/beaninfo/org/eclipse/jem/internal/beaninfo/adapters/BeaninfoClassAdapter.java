@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.6 $  $Date: 2004/02/20 00:43:53 $ 
+ *  $Revision: 1.7 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.internal.beaninfo.*;
+import org.eclipse.jem.internal.beaninfo.core.*;
 import org.eclipse.jem.internal.proxy.core.*;
 
 import com.ibm.etools.emf.event.EventFactory;
@@ -508,61 +509,67 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		JavaClass jc = getJavaClass();
 		Resource mergeIntoResource = jc.eResource();
 		ResourceSet rset = mergeIntoResource.getResourceSet();
+		String className = getJavaClass().getName();
 		if (!alreadyRetrievedRoot && (rootOnly || jc.getSupertype() == null)) {
 			// It is a root class. Need to merge in root stuff.
-			BeaninfoPlugin.OverridePathSearch searcher =
-				BeaninfoPlugin.getPlugin().getOverrideSearch(ROOT);
-			applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, searcher);
+			applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, ROOT, ROOT);
 			if (rootOnly)
 				return;
 		}
 
-		String baseOverridefile = getJavaClass().getName() + OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
-		BeaninfoPlugin.OverridePathSearch searcher =
-			BeaninfoPlugin.getPlugin().getOverrideSearch(getJavaClass().getJavaPackage().getPackageName());		
-		applyExtensionDocTo(rset, jc, baseOverridefile, searcher);
+		String baseOverridefile = className + OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
+		applyExtensionDocTo(rset, jc, baseOverridefile, getJavaClass().getJavaPackage().getPackageName(), className);
 	}
 	
-	protected void applyExtensionDocTo(ResourceSet rset, EObject mergeIntoEObject, String baseOverridefile, BeaninfoPlugin.OverridePathSearch searcher) {
-		for (String[] paths = searcher.getNextPath(); paths != null; paths = searcher.getNextPath()) {
-			String overridepath = searcher.getUnmatchedPath();
-			String overridefile = baseOverridefile;
-			if (overridepath.length() > 0)
-				overridefile = overridepath + '/' + overridefile;
-			for (int i = 0; i < paths.length; i++) {
-				String filename = paths[i] + overridefile;
-				Resource overrideRes = null;
-				URI uri = URI.createURI(filename);
-				try {
-					overrideRes = rset.getResource(uri, true);
-		
-					EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoEObject, rset);
-					util.doForwardEvents(overrideRes.getContents());
-				} catch (WrappedException e) {
-					// FileNotFoundException is ok
-					if (!(e.exception() instanceof FileNotFoundException)) {
-						if (e.exception() instanceof IOException && e.getMessage() == null)
-							;	// TODO remove this when bugzilla fixed so that throws FileNotFound again. https://bugs.eclipse.org/bugs/show_bug.cgi?id=51649
-						else if (e.exception() instanceof CoreException
-							&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
-							// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
-						} else {
-							BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "Error loading file\"" + filename + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+	protected void applyExtensionDocTo(final ResourceSet rset, final EObject mergeIntoEObject, final String overrideFile, String packageName, String className) {
+		BeaninfoPlugin.getPlugin().applyOverrides(getAdapterFactory().getProject(), packageName, className, rset, 
+			new BeaninfoPlugin.IOverrideRunnable() {
+				/* (non-Javadoc)
+				 * @see org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IOverrideRunnable#run(java.lang.String)
+				 */
+				public void run(String overridePath) {
+					Resource overrideRes = null;
+					URI uri = URI.createURI(overridePath+overrideFile);
+					try {
+						overrideRes = rset.getResource(uri, true);
+						run(overrideRes);
+					} catch (WrappedException e) {
+						// FileNotFoundException is ok
+						if (!(e.exception() instanceof FileNotFoundException)) {
+							if (e.exception() instanceof IOException && e.getMessage() == null)
+								;	// TODO remove this when bugzilla fixed so that throws FileNotFound again. https://bugs.eclipse.org/bugs/show_bug.cgi?id=51649
+							else if (e.exception() instanceof CoreException
+								&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
+								// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
+							} else {
+								BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+							}
 						}
+						// In case it happened after creating resource but during load. Need to get rid of it in the finally.	
+						overrideRes = rset.getResource(uri, false);				
+					} catch (Exception e) {
+						// Couldn't load it for some reason.
+						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
+						overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load.
+			
+					} finally {
+						if (overrideRes != null)
+							rset.getResources().remove(overrideRes); // We don't need it around once we do the merge.
 					}
-					overrideRes = rset.getResource(uri, false);
-					// In case it happened after creating resource but during load.					
-				} catch (Exception e) {
-					// Couldn't load it for some reason.
-					BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "Error loading file\"" + filename + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
-					overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load.
-		
-				} finally {
-					if (overrideRes != null)
-						rset.getResources().remove(overrideRes); // We don't need it around once we do the merge.
 				}
-			}
-		}
+				
+				/* (non-Javadoc)
+				 * @see org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IOverrideRunnable#run(org.eclipse.emf.ecore.resource.Resource)
+				 */
+				public void run(Resource overrideRes) {
+					try {
+						EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoEObject, rset);
+						util.doForwardEvents(overrideRes.getContents());
+					} catch (WrappedException e) {
+						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error processing file\"" + overrideRes.getURI() + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+					}
+				}
+			});
 	}
 
 	/**

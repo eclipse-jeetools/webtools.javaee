@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/08 00:48:07 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:48:57 $ 
  */
 
 import java.util.*;
@@ -19,7 +19,8 @@ import java.util.List;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoEntry;
+
+import org.eclipse.jem.internal.beaninfo.core.BeaninfoEntry;
 import org.eclipse.jem.internal.ui.core.JEMUIPlugin;
 
 import org.eclipse.jdt.core.*;

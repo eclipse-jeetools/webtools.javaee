@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoModelSynchronizer.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/06 20:43:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 import java.util.*;
@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.*;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaModelListener;
+import org.eclipse.jem.internal.beaninfo.core.*;
 /**
  * This class listens for changes to the java model and flushs the
  * appropriate class introspection.
@@ -56,7 +57,7 @@ public class BeaninfoModelSynchronizer extends JavaModelListener {
 		getAdapterFactory().closeAll(clearResults);
 	}
 
-	protected BeaninfoAdapterFactory getAdapterFactory() {
+	public BeaninfoAdapterFactory getAdapterFactory() {
 		return fAdapterFactory;
 	}
 

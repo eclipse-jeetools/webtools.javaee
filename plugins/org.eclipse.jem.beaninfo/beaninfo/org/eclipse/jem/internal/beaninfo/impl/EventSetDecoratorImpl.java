@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/08 21:25:33 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 
@@ -43,7 +43,7 @@ import org.eclipse.jem.java.Method;
 
 import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
+import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.java.*;
 /**

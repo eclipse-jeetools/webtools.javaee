@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: PTInfixExpressionImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/03/11 01:48:01 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:26 $ 
  */
 import java.util.Collection;
 
@@ -370,24 +370,22 @@ public class PTInfixExpressionImpl extends PTExpressionImpl implements PTInfixEx
 		// If no left and no right
 		if(getLeftOperand() == null && getRightOperand() != null){
 			// no extends so just use the right operand
-			if(getExtendedOperands().size() == 0){
+			if(getExtendedOperands().isEmpty()){
 				return getRightOperand();
 			} else {
 				// The right becomes the new left
 				setLeftOperand(getRightOperand());
 				// The first operand becomes the right one
-				setRightOperand((PTExpression) getExtendedOperands().get(0));
-				getExtendedOperands().remove(1);
+				setRightOperand((PTExpression) getExtendedOperands().remove(0));
 				return this;
 			}
 		} else if (getRightOperand() == null && getLeftOperand() != null){
 			// no extends so just use the left operand
-			if(getExtendedOperands().size() == 0){
+			if(getExtendedOperands().isEmpty()){
 				return getLeftOperand();
 			} else {
 				// The right becomes the first extended
-				setRightOperand((PTExpression)getExtendedOperands().get(1));
-				getExtendedOperands().remove(1);
+				setRightOperand((PTExpression)getExtendedOperands().remove(0));
 				return this;
 			}			
 		}	

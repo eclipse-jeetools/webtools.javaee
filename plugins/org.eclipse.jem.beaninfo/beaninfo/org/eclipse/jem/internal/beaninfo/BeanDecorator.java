@@ -11,13 +11,13 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecorator.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/10 00:40:28 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 
 import org.eclipse.jem.java.JavaClass;
 import java.net.URL;
-import java.util.Map;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Bean Decorator</b></em>'.

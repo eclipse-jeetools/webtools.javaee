@@ -1,4 +1,4 @@
-package org.eclipse.jem.internal.beaninfo.adapters;
+package org.eclipse.jem.internal.beaninfo.core;
 /*******************************************************************************
  * Copyright (c)  2001, 2003 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -11,12 +11,13 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.9 $  $Date: 2004/03/08 00:48:00 $ 
+ *  $Revision: 1.1 $  $Date: 2004/03/22 23:49:10 $ 
  */
 
 import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.logging.Level;
 
 import org.apache.xerces.jaxp.DocumentBuilderFactoryImpl;
 import org.apache.xml.serialize.*;
@@ -29,10 +30,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.launching.JavaRuntime;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.internal.java.init.JavaInit;
@@ -48,9 +50,11 @@ import com.ibm.wtp.emf.workbench.ResourceHandler;
 
 public class BeaninfoNature implements IProjectNature {
 
-	public static final String NATURE_ID = "org.eclipse.jem.beaninfo.BeanInfoNature"; //$NON-NLS-1$
+	public static final String NATURE_ID = BeaninfoPlugin.PI_BEANINFO_PLUGINID + ".BeanInfoNature"; //$NON-NLS-1$
 	public static final String P_BEANINFO_SEARCH_PATH = ".beaninfoConfig"; //$NON-NLS-1$
-	// Persistent key
+	
+	public static final QualifiedName CONFIG_INFO_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "CONFIG_INFO");
+	public static final QualifiedName BEANINFO_CONTRIBUTORS_SESSION_KEY = new QualifiedName(BeaninfoPlugin.PI_BEANINFO_PLUGINID, "BEANINFO_CONTRIBUTORS");
 
 	private ResourceTracker resourceTracker;
 	// This class listens for changes to the beaninfo paths file, and if changed it marks all stale
@@ -93,6 +97,19 @@ public class BeaninfoNature implements IProjectNature {
 		else
 			return createRuntime(project);
 	}
+	
+	/**
+	 * Return whether this project has a BeanInfo runtime turned on.
+	 * 
+	 * @param project
+	 * @return <code>true</code> if it has the a BeanInfo runtime.
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.0
+	 */
+	public static boolean hasRuntime(IProject project) throws CoreException {
+		return project.hasNature(NATURE_ID);
+	}
 
 	/**
 	 * Test if this is a valid project for a Beaninfo Nature. It must be
@@ -114,7 +131,7 @@ public class BeaninfoNature implements IProjectNature {
 			throw new CoreException(
 				new Status(
 					IStatus.ERROR,
-					BeaninfoPlugin.PI_BEANINFO,
+					BeaninfoPlugin.PI_BEANINFO_PLUGINID,
 					0,
 					MessageFormat.format(
 						BeaninfoPlugin.getPlugin().getDescriptor().getResourceString(BeaninfoProperties.INTROSPECTFAILED),
@@ -194,9 +211,10 @@ public class BeaninfoNature implements IProjectNature {
 				// will also be loaded into this resourceset. So to find it we need to go in here and try.
 				//
 				// However, if not found we won't go and try to load the resource. That could load in the wrong place.
-				// TODO Because of a bug in XMLHandler.getPackageFromURI(), it doesn't use getResource(...,true) and it tries instead
+				// Kludge: Because of a bug (feature :-)) in XMLHandler.getPackageFromURI(), it doesn't use getResource(...,true) and it tries instead
 				// to use uri inputstream to load the package when not found. This bypasses our special create resource and so
 				// packages are not automatically created. So we need to do load on demand here instead if it is a java protocol.
+				// EMF will not be fixing this. It is working as designed.
 				return getResourceSet().getResource(uri, JavaXMIFactoryImpl.SCHEME.equals(uri.scheme()));
 			}
 
@@ -274,6 +292,10 @@ public class BeaninfoNature implements IProjectNature {
 				public void closeRegistry() {
 					BeaninfoNature.this.closeRegistry();
 				}
+				
+				public IProject getProject() {
+					return BeaninfoNature.this.getProject();
+				}
 			});
 			fSynchronizer =
 				new BeaninfoModelSynchronizer(
@@ -302,6 +324,13 @@ public class BeaninfoNature implements IProjectNature {
 		synchronized (this) {
 			reg = fRegistry;
 			fRegistry = null;
+			try {
+				// Wipe out the Session properties so that they are recomputed.
+				getProject().setSessionProperty(CONFIG_INFO_SESSION_KEY, null);
+				getProject().setSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY, null);			
+			} catch (CoreException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e, Level.INFO);
+			}
 		}
 		if (reg != null) {
 			reg.removeRegistryListener(registryListener);
@@ -312,8 +341,10 @@ public class BeaninfoNature implements IProjectNature {
 	public synchronized ProxyFactoryRegistry getRegistry(IProgressMonitor pm) {
 		if (fRegistry == null) {
 			try {
-					fRegistry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
-							new IConfigurationContributor[] { getConfigurationContributor()}, pm);
+				ConfigurationContributor configurationContributor =  (ConfigurationContributor) getConfigurationContributor();
+				configurationContributor.setNature(this);
+				fRegistry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
+					new IConfigurationContributor[] { configurationContributor}, pm);
 				fRegistry.addRegistryListener(registryListener);
 			} catch (CoreException e) {
 				BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
@@ -351,9 +382,7 @@ public class BeaninfoNature implements IProjectNature {
 	private static final String ENCODING = "UTF-8"; //$NON-NLS-1$
 	static final String sBeaninfos = "beaninfos"; // Root element name //$NON-NLS-1$
 	/**
-	 * Get the persistent search path. The object returned is a copy of the
-	 * list, and it can be modified, but it won't be reflected back into the
-	 * nature.
+	 * Get the persistent search path. It is copy.
 	 */
 	public BeaninfosDoc getSearchPath() {
 		BeaninfosDoc bdoc = null;
@@ -378,7 +407,7 @@ public class BeaninfoNature implements IProjectNature {
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		} catch (Exception e) {
-			BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "", e));
+			BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "", e));
 		}
 		return bdoc;
 	}
@@ -537,64 +566,202 @@ public class BeaninfoNature implements IProjectNature {
 		return new ConfigurationContributor(getSearchPath());
 	}
 
-	private static final IPath JRE_LIB_VARIABLE_PATH = new Path(JavaRuntime.JRELIB_VARIABLE);	// TODO Remove when we handle containers
-	private class ConfigurationContributor implements IConfigurationContributor {
+	private static class ConfigurationContributor extends ConfigurationContributorAdapter {
 
-		BeaninfosDoc doc;
-		List computedSearchPath = new ArrayList();
-		// Compute the search path as we compute the classpaths. This is saved because it will be used in a separate call.
-		HashSet visitedVariablepaths; // Visited registered variable paths, so we don't visit them again.
-		List variableContributors = new ArrayList(0); // Variable contributors that were found.
+		private BeaninfosDoc doc;
+		List computedSearchPath;
+				
+		// The nature. If the nature is not set then this contributor is one
+		// used by some other later proxy registry to get the beaninfo classes into their paths. In that case
+		// we can expect the config info to be in the session variable for our use. Otherwise we will need to
+		// add it here. Also don't set searchpath stuff if not nature because only the beaninfo one will do introspection.
+		private BeaninfoNature nature;	
+		
+		private IConfigurationContributionInfo info;
+		private IBeanInfoContributor[] explicitContributors;
 
 		public ConfigurationContributor(BeaninfosDoc doc) {
 			this.doc = doc;
 		}
 
-		/**
-		 * Method to update any class paths with any
-		 * paths that need to be added to a VM. In this case, it is
-		 * the proxyvm.jar that needs to be added. This jar contains
-		 * the common code that is required by any VM for proxy
-		 * support.
+		/*
+		 * Set that this is the nature contributor. Not null, means that this is the contributor being
+		 * used to setup the registry for the project's beaninfo nature. null (default) means that this
+		 * is one created to add to some editor's registry.
+		 * 
+		 * Note: This MUST be set before initialize is called or it will not work correctly. If not set, it 
+		 * will be considered not for BeanInfo nature directly.
 		 */
-		public void contributeClasspaths(IConfigurationContributionController controller) throws CoreException {
-			// Need to find any additional beaninfo jars. They can be pointed to within this projects path,
-			// or they can be found in pre-req'd project (assuming they are exported).
-			HashSet visitedProjects = new HashSet();
-			visitedVariablepaths = new HashSet();
+		public void setNature(BeaninfoNature nature) {
+			this.nature = nature;
+			if (nature != null)
+				computedSearchPath = new ArrayList(3);	// We will be gathering this info.
+		}
+		
+		private static final String PI_CLASS = "class";
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributor#initialize(org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo)
+		 */
+		public void initialize(IConfigurationContributionInfo info) {
+			this.info = info;
 			try {
-				contributeClasspathsForProject(controller, getProject(), visitedProjects, doc);
-				// Add the beaninfovm.jar and any nls to the end of the classpath.
-				controller.contributeClasspath(BeaninfoPlugin.getPlugin(), "vm/beaninfovm.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
-			} finally {
-				visitedVariablepaths = null;
-			}
-
-			// Now turn the var elements into contributors.
-			for (ListIterator itr = variableContributors.listIterator(); itr.hasNext();) {
-				IConfigurationElement v = (IConfigurationElement) itr.next();
-				IConfigurationContributor contrib = null;
-				try {
-					contrib = (IConfigurationContributor) v.createExecutableExtension(BeaninfoPlugin.PI_CONTRIBUTOR);
-				} catch (ClassCastException e) {
-					BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "", e)); //$NON-NLS-1$
+				if (info.getJavaProject().getProject().getSessionProperty(CONFIG_INFO_SESSION_KEY) == null) {
+					// First time for this nature, or first time after registry reset. Need to compute the info.
+					// It is possible for this to be called BEFORE the first usage of BeanInfo. The editor usually
+					// brings up the editor's registry before it gets anything from BeanInfo.
+					
+					// Save it for override processing. That happens over and over later after all config processing is done.
+					info.getJavaProject().getProject().setSessionProperty(CONFIG_INFO_SESSION_KEY, info);
+					
+					List contributorsList = new ArrayList(10);
+					if (!info.getContainerIds().isEmpty()) {
+						// Run through all of the visible container ids that are applicable and get BeanInfo contributors.
+						Iterator containerIdItr = info.getContainerIds().entrySet().iterator();
+						while (containerIdItr.hasNext()) {
+							Map.Entry entry = (Map.Entry) containerIdItr.next();
+							if (((Boolean) entry.getValue()).booleanValue()) {
+								IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getContainerIdContributors(
+										(String) entry.getKey());
+								if (contributors != null) {
+									for (int i = 0; i < contributors.length; i++) {
+									try {
+										Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
+										if (contributor instanceof IBeanInfoContributor)
+											contributorsList.add(contributor);
+									} catch (CoreException e) {
+										BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+									}
+								}
+							}
+}
+						}						
+					}
+					
+					if (!info.getPluginIds().isEmpty()) {
+						// Run through all of the visible plugin ids that are applicable and get BeanInfo contributors.
+						Iterator pluginIdItr = info.getPluginIds().entrySet().iterator();
+						while (pluginIdItr.hasNext()) {
+							Map.Entry entry = (Map.Entry) pluginIdItr.next();
+							if (((Boolean) entry.getValue()).booleanValue()) {
+								IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getPluginContributors(
+										(String) entry.getKey());
+								if (contributors != null) {
+									for (int i = 0; i < contributors.length; i++) {
+									try {
+										Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
+										if (contributor instanceof IBeanInfoContributor)
+											contributorsList.add(contributor);
+									} catch (CoreException e) {
+										BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+									}
+								}
+							}
+}
+						}
+					}
+					
+					// Save it for all beaninfo processing (and configuration processing if they implement proxy configuration contributor).
+					explicitContributors = (IBeanInfoContributor[]) contributorsList.toArray(new IBeanInfoContributor[contributorsList.size()]);
+					info.getJavaProject().getProject().setSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY, explicitContributors);
+				} else {
+					explicitContributors = (IBeanInfoContributor[]) info.getJavaProject().getProject().getSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY);
 				}
-
-				itr.set(contrib); // Set to what should be used, null is valid for not found.
-				if (contrib != null)
-					contrib.contributeClasspaths(controller);
+			} catch (CoreException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(e);
 			}
 		}
+		
+		public void contributeClasspaths(final IConfigurationContributionController controller) throws CoreException {
+			// Contribute for this project
+			contributeClasspathsForProject(controller, info.getJavaProject().getProject(), doc, true);
+						
+			if (!info.getProjectPaths().isEmpty()) {
+				// Run through all of the visible projects and contribute the classpaths (which come from the BeanInfo docs, if they have any).
+				IWorkspaceRoot root = info.getJavaProject().getProject().getWorkspace().getRoot();
+				Iterator projIter = info.getProjectPaths().entrySet().iterator();
+				while (projIter.hasNext()) {
+					Map.Entry entry = (Map.Entry) projIter.next();
+					if (((Boolean) entry.getValue()).booleanValue()) {
+						IResource res = root.findMember((IPath) entry.getKey());
+						if (res instanceof IProject && ((IProject) res).isOpen() && BeaninfoNature.hasRuntime((IProject) res))
+							contributeClasspathsForProject(controller, (IProject) res, BeaninfoNature.getRuntime((IProject) res)
+									.getSearchPath(), false);
+					}
+				}
+			}			
+			
+			if (!info.getContainerIds().isEmpty()) {
+				// Run through all of the visible container ids that are applicable.
+				Iterator containerIdItr = info.getContainerIds().entrySet().iterator();
+				while (containerIdItr.hasNext()) {
+					Map.Entry entry = (Map.Entry) containerIdItr.next();
+					if (((Boolean) entry.getValue()).booleanValue()) {
+						processBeaninfoEntries(BeaninfoPlugin.getPlugin().getContainerIdBeanInfos((String) entry.getKey()),
+								controller, info.getJavaProject());
+					}
+				}
+				
+			}
+			
+			if (!info.getPluginIds().isEmpty()) {
+				// Run through all of the visible plugin ids that are applicable.
+				Iterator pluginIdItr = info.getPluginIds().entrySet().iterator();
+				while (pluginIdItr.hasNext()) {
+					Map.Entry entry = (Map.Entry) pluginIdItr.next();
+					if (((Boolean) entry.getValue()).booleanValue()) {
+						processBeaninfoEntries(BeaninfoPlugin.getPlugin().getPluginBeanInfos((String) entry.getKey()), controller, info.getJavaProject());
+					}
+				}
+				
+			}
+			
+			if (!info.getContainers().isEmpty()) {
+				// Run through all of the visible containers that implement IBeanInfoContributor and ask them for the contributions.
+				Iterator containerItr = info.getContainers().entrySet().iterator();
+				while (containerItr.hasNext()) {
+					Map.Entry entry = (Map.Entry) containerItr.next();
+					if (((Boolean) entry.getValue()).booleanValue()) {
+						if (entry.getKey() instanceof IBeanInfoContributor)
+							processBeaninfoEntries(((IBeanInfoContributor) entry.getKey()).getBeanInfoEntryContributions(info),
+									controller, info.getJavaProject());
+					}
+				}
+				
+			}			
+				
+			// And finally run through the explicit contributors.				
+			for (int i = 0; i < explicitContributors.length; i++) {
+				final IBeanInfoContributor contributor = explicitContributors[i];
+				processBeaninfoEntries(contributor.getBeanInfoEntryContributions(info), controller, info.getJavaProject());
+				if (contributor instanceof IConfigurationContributor) {
+					Platform.run(new ISafeRunnable() {
+						public void handleException(Throwable exception) {
+							// do nothing. by default platform logs.
+						}
 
-		private IClasspathEntry get(IClasspathEntry[] array, InternalCPEntry cpe) {
+						public void run() throws Exception {;
+							if (contributor instanceof IConfigurationContributor)
+								((IConfigurationContributor) contributor).contributeClasspaths(controller);
+						}
+					});
+				}
+			}
+			
+			// Add the beaninfovm.jar and any nls to the end of the classpath.
+			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getDescriptor(), "vm/beaninfovm.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
+		}
+
+		private IClasspathEntry get(IClasspathEntry[] array, SearchpathEntry se) {
 			for (int i = 0; i < array.length; i++) {
-				if (cpe.equals(array[i]))
+				if (array[i].getEntryKind() == se.getKind() && array[i].getPath().equals(se.getPath()))
 					return array[i];
 			}
-
 			return null;
 		}
 
+		private static final IBeaninfosDocEntry[] EMPTY_ENTRIES = new IBeaninfosDocEntry[0];
+		
 		/*
 		 * Contribute classpaths for the specified project. If doc is passed in, then this is the top level and
 		 * all should be added. If no doc, then this is pre-req'd project, and then we will handle exported entries only.
@@ -602,81 +769,35 @@ public class BeaninfoNature implements IProjectNature {
 		protected void contributeClasspathsForProject(
 			IConfigurationContributionController controller,
 			IProject project,
-			HashSet visitedProjects,
-			BeaninfosDoc doc)
+			BeaninfosDoc doc,
+			boolean toplevelProject)
 			throws CoreException {
-			if (visitedProjects.contains(project))
-				return;
-			visitedProjects.add(project);
-
+			
 			IJavaProject jProject = JavaCore.create(project);
 			IClasspathEntry[] rawPath = jProject.getRawClasspath();
 
-			// List of classpath entries for this project that have already been processed in the search path list.
-			// This is so that at the end when we process the classpath to add in any implicit beaninfos/search paths,
-			// we know these had been explicitly handled already.
-			List contributedICPEs = new ArrayList();
-			InternalCPEntry working = new InternalCPEntry(); // A working copy that we keep reusing.
-
 			// Search path of this project
-			IBeaninfosDocEntry[] entries = null;
-			if (doc != null)
-				entries = doc.getSearchpath();
-			else {
-				BeaninfosDoc adoc = BeaninfoNature.getRuntime(project).getSearchPath();
-				entries = adoc != null ? adoc.getSearchpath() : new IBeaninfosDocEntry[0];
-			}
-
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+			IBeaninfosDocEntry[] entries = (doc != null) ? doc.getSearchpath() : EMPTY_ENTRIES;
 
 			for (int i = 0; i < entries.length; i++) {
 				IBeaninfosDocEntry entry = entries[i];
 				if (entry instanceof BeaninfoEntry) {
 					BeaninfoEntry be = (BeaninfoEntry) entry;
-					if (doc != null || be.isExported()) {
-						// First project or this is an exported beaninfo
-						Object cp = be.getClasspath();
-						if (cp instanceof IProject)
-							controller.contributeProject((IProject) cp);
-						else if (cp instanceof String)
-							controller.contributeClasspath((String) cp, IConfigurationContributionController.APPEND_USER_CLASSPATH);
-						else if (cp instanceof String[]) {
-							String[] cps = (String[]) cp;
-							for (int j = 0; j < cps.length; j++) {
-								controller.contributeClasspath(cps[j], IConfigurationContributionController.APPEND_USER_CLASSPATH);
-							}
-						} else
-							continue; // It was an invalid entry, don't add in its searchpaths.
-
-						// Now add in the package names.
-						SearchpathEntry[] sees = be.getSearchPaths();
-						for (int j = 0; j < sees.length; j++) {
-							SearchpathEntry searchpathEntry = sees[j];
-							if (!computedSearchPath.contains(searchpathEntry.getPackage()))
-								computedSearchPath.add(searchpathEntry.getPackage());
-						}
+					if (toplevelProject || be.isExported()) {
+						// First project or this is an exported beaninfo, so we process it.
+						processBeaninfoEntry(be, controller, jProject);
 					}
-				} else {
+				} else if (nature != null){
 					// Just a search path entry. There is no beaninfo jar to pick up.
+					// We have a nature, so we process search path.
 					SearchpathEntry se = (SearchpathEntry) entry;
-					working.setEntry(se.getKind(), se.getPath());
-					int cndx = contributedICPEs.indexOf(working);
-					if (cndx == -1) {
-						InternalCPEntry icpe = new InternalCPEntry(working.getKind(), working.getPath());
-						contributedICPEs.add(icpe); // Keep a record that this entry has been used.
-						if (doc == null) {
-							// This is the first time we've found this entry and we are in a nested project, find the raw classpath entry to see
-							// if this entry is exported. Only do it if exported. (Note: exported is only used on non-source. Source are always exported).
-							IClasspathEntry cpe = get(rawPath, icpe);
-							if (cpe == null || (cpe.getEntryKind() != IClasspathEntry.CPE_SOURCE && !cpe.isExported())) {
-								icpe.setIsExported(false); // Mark it as exported so if found again it won't be used.
-								continue; // Not exist or not exported, so we don't want it here either.
-							}
+					if (!toplevelProject) {
+						// We are in a nested project, find the raw classpath entry to see
+						// if this entry is exported. Only do it if exported. (Note: exported is only used on non-source. Source are always exported).
+						IClasspathEntry cpe = get(rawPath, se);
+						if (cpe == null || (cpe.getEntryKind() != IClasspathEntry.CPE_SOURCE && !cpe.isExported())) {
+							continue; // Not exist or not exported, so we don't want it here either.
 						}
-					} else {
-						InternalCPEntry icpe = (InternalCPEntry) contributedICPEs.get(cndx);
-						if (doc == null && !icpe.isExported())
-							continue; // We've already determined it is not exported, so don't use it.
 					}
 
 					String pkg = se.getPackage();
@@ -685,144 +806,54 @@ public class BeaninfoNature implements IProjectNature {
 						if (!computedSearchPath.contains(pkg))
 							computedSearchPath.add(pkg);
 					} else {
-						// Process if this is an implicit search path kind of entry.
-						// I.e. It is just kind/path and no packagename. This means
-						// find the implicit searchpaths for this entry and put them
-						// in order here now. This can only be used on implicit kind
-						// of classpath entries. Any others don't have any implicit search paths
-						// so they are processed, just ignored.
-						processImplicitSearchPath(controller, visitedProjects, root, se.getKind(), se.getPath());
+						// We no longer allow this, but just to be on safe side we test for it.
 					}
-
 				}
 			}
-
-			// Now we need to go through our raw classpath to handle any not already handled.
-			// We only handle implicit search path from the project or registered variable.
-			for (int i = 0; i < rawPath.length; i++) {
-				IClasspathEntry entry = rawPath[i];
-				working.setEntry(entry);
-				if (contributedICPEs.contains(working))
-					continue; // We've already handled it above.
-				processImplicitSearchPath(controller, visitedProjects, root, entry.getEntryKind(), entry.getPath());
-			}
-
 		}
 
-		protected void processImplicitSearchPath(
+		protected void processBeaninfoEntries(
+			BeaninfoEntry[] entries,
 			IConfigurationContributionController controller,
-			HashSet visitedProjects,
-			IWorkspaceRoot root,
-			int kind,
-			IPath path)
+			IJavaProject javaProject)
 			throws CoreException {
-			// Use the implicit search path from the project or registered variable.
-			// For now, only projects.
-			if (kind == IClasspathEntry.CPE_PROJECT) {
-				IProject reqProject = (IProject) root.findMember(path.lastSegment());
-				// Project entries only have one segment.
-				if (reqProject != null && reqProject.isOpen())
-					contributeClasspathsForProject(controller, reqProject, visitedProjects, null);
-			} else if (kind == IClasspathEntry.CPE_VARIABLE || kind == IClasspathEntry.CPE_CONTAINER) {
-				// We only handle variables as being registered.
-				// TODO - Hack to deal with containers for SWT till we get the proper solution
-				if (path == null || path.segmentCount() == 0)
-					return; // No path information to process.
-				// First we handle the generic kind of for just the variable itself (which is segment 0).
-				IPath varpath = path.segmentCount() == 1 ? path : path.removeLastSegments(path.segmentCount() - 1);
-				if (!visitedVariablepaths.contains(varpath)) {
-					visitedVariablepaths.add(varpath);
-					BeaninfoRegistration[] registrations = BeaninfoPlugin.getPlugin().getRegistrations(varpath);
-					if (registrations != null)
-						processBeaninfoRegistrations(registrations, controller);
-				}
+			for (int i = 0; i < entries.length; i++)
+				processBeaninfoEntry(entries[i], controller, javaProject);
+		}
 
-				// Now process for the specific path (which would be variable followed by some subpaths).
-				if (path.segmentCount() > 1 && !visitedVariablepaths.contains(path)) {
-					visitedVariablepaths.add(path);
-					BeaninfoRegistration[] registrations = BeaninfoPlugin.getPlugin().getRegistrations(path);
-					if (registrations != null)
-						processBeaninfoRegistrations(registrations, controller);
-				}
-			} 
-
-			if (kind == IClasspathEntry.CPE_CONTAINER) {
-				// KLUDGE TODO For now we can't really handle containers, we will simply hard-code and only handle JRE container to JRE_LIB stuff.
-				if (path == null || path.segmentCount() == 0)
-					return; // No path information to process.
-				if (path.segment(0).equals(JavaRuntime.JRE_CONTAINER)) {
-					if (!visitedVariablepaths.contains(JRE_LIB_VARIABLE_PATH)) {
-						visitedVariablepaths.add(JRE_LIB_VARIABLE_PATH);
-						BeaninfoRegistration[] registrations = BeaninfoPlugin.getPlugin().getRegistrations(JRE_LIB_VARIABLE_PATH);
-						if (registrations != null)
-							processBeaninfoRegistrations(registrations, controller);							
-					}
+		protected void processBeaninfoEntry(
+			BeaninfoEntry entry,
+			IConfigurationContributionController controller,
+			IJavaProject javaProject)
+			throws CoreException {
+			Object[] cps = entry.getClasspath(javaProject);
+			for (int j = 0; j < cps.length; j++) {
+				Object cp = cps[j];
+				if (cp instanceof IProject)
+					controller.contributeProject((IProject) cp);
+				else if (cp instanceof String)
+					controller.contributeClasspath((String) cp, IConfigurationContributionController.APPEND_USER_CLASSPATH);
+				else if (cp instanceof IPath) {
+					IPath path = (IPath) cp;
+					IPluginDescriptor pd = Platform.getPluginRegistry().getPluginDescriptor(path.segment(0));
+					if (pd != null)
+						controller.contributeClasspath(pd, path.removeFirstSegments(1).toString(), IConfigurationContributionController.APPEND_USER_CLASSPATH, true);
 				}
 			}
-		}
 
-		protected void processBeaninfoRegistrations(
-			BeaninfoRegistration[] registrations,
-			IConfigurationContributionController controller)
-			throws CoreException {
-			for (int i = 0; i < registrations.length; i++)
-				processBeaninfoRegistration(registrations[i], controller);
-		}
-
-		protected void processBeaninfoRegistration(
-			BeaninfoRegistration registration,
-			IConfigurationContributionController controller)
-			throws CoreException {
-			BeaninfosDoc doc = registration.getDoc();
-			if (doc == null)
-				return;
-
-			IConfigurationElement varElement = registration.getVariableElement();
-			if (varElement != null)
-				variableContributors.add(varElement);
-
-			IBeaninfosDocEntry[] entries = doc.getSearchpath();
-
-			for (int i = 0; i < entries.length; i++) {
-				IBeaninfosDocEntry entry = entries[i];
-				if (entry instanceof BeaninfoEntry) {
-					BeaninfoEntry be = (BeaninfoEntry) entry;
-					Object cp = be.getClasspath();
-					if (cp instanceof IProject)
-						controller.contributeProject((IProject) cp);
-					else if (cp instanceof String)
-						controller.contributeClasspath((String) cp, IConfigurationContributionController.APPEND_USER_CLASSPATH);
-					else if (cp instanceof String[]) {
-						String[] cps = (String[]) cp;
-						for (int j = 0; j < cps.length; j++) {
-							controller.contributeClasspath(cps[j], IConfigurationContributionController.APPEND_USER_CLASSPATH);	
-						}					
-					} else
-						continue; // It was an invalid entry, don't add in its searchpaths.
-
-					// Now add in the package names.
-					SearchpathEntry[] sees = be.getSearchPaths();
-					for (int j = 0; j < sees.length; j++) {
-						SearchpathEntry searchpathEntry = sees[j];
-						if (!computedSearchPath.contains(searchpathEntry.getPackage()))
-							computedSearchPath.add(searchpathEntry.getPackage());
-					}
-				} else {
-					// Just a search path entry. There is no beaninfo jar to pick up. The paths will be in the current classpath probably from the bean classes jar that this registration matches.
-					// There should be no paths or kinds. It should only be packagename.
-
-					String pkg = ((SearchpathEntry) entry).getPackage();
-					if (pkg != null) {
-						// Explicit search path
-						if (!computedSearchPath.contains(pkg))
-							computedSearchPath.add(pkg);
-					}
+			if (nature != null) {
+				// Now add in the package names.
+				SearchpathEntry[] sees = entry.getSearchPaths();
+				for (int j = 0; j < sees.length; j++) {
+					SearchpathEntry searchpathEntry = sees[j];
+					if (!computedSearchPath.contains(searchpathEntry.getPackage()))
+						computedSearchPath.add(searchpathEntry.getPackage());
 				}
 			}
 		}
 
 		public void contributeToConfiguration(final ILaunchConfigurationWorkingCopy config) {
-			for (int i = 0; i < variableContributors.size(); i++) {
+			for (int i = 0; i < explicitContributors.length; i++) {
 				final int ii = i;
 				Platform.run(new ISafeRunnable() {
 					public void handleException(Throwable exception) {
@@ -830,92 +861,33 @@ public class BeaninfoNature implements IProjectNature {
 					}
 
 					public void run() throws Exception {
-						IConfigurationContributor contrib = (IConfigurationContributor) variableContributors.get(ii);
-						if (contrib != null)
-							contrib.contributeToConfiguration(config);
+						IBeanInfoContributor contributor = explicitContributors[ii];
+						if (contributor instanceof IConfigurationContributor)
+							((IConfigurationContributor) contributor).contributeToConfiguration(config);
 					}
 				});
-			}
+			}			
 		}
 
-		public void contributeToRegistry(ProxyFactoryRegistry registry) {
-			setProxySearchPath(registry, computedSearchPath);
-			for (int i = 0; i < variableContributors.size(); i++) {
-				IConfigurationContributor contrib = (IConfigurationContributor) variableContributors.get(i);
-				if (contrib != null)
-					contrib.contributeToRegistry(registry);
-			}
+		public void contributeToRegistry(final ProxyFactoryRegistry registry) {
+			if (nature != null)
+				nature.setProxySearchPath(registry, computedSearchPath);
+			for (int i = 0; i < explicitContributors.length; i++) {
+				final int ii = i;
+				Platform.run(new ISafeRunnable() {
+					public void handleException(Throwable exception) {
+						// do nothing. by default platform logs.
+					}
+
+					public void run() throws Exception {
+						IBeanInfoContributor contributor = explicitContributors[ii];
+						if (contributor instanceof IConfigurationContributor)
+							((IConfigurationContributor) contributor).contributeToRegistry(registry);
+					}
+				});
+			}			
 		}
 	}
 
-	/*
-	 * An internal type CPEntry because an actual
-	 * entry also tests attachments, but we are only interested
-	 * in kind/path.
-	 * 
-	 * Note: This must not be used in a Hash... because its hashCode
-	 * doesn't work for this. This is because there is no hashCode
-	 * that we could compute that would allow IClasspathEntry's and
-	 * InternalCPEntry's that are semantically equal to hash to the same value.
-	 */
-	private static class InternalCPEntry {
-		int kind;
-		IPath path;
-		boolean isExported = true;
-
-		public InternalCPEntry(int kind, IPath path) {
-			setEntry(kind, path);
-		}
-
-		public InternalCPEntry() {
-		}
-
-		/*
-		 * Set if this entry is exported or not. This is not involved in
-		 * the equality test.
-		 */
-		public boolean isExported() {
-			return isExported;
-		}
-
-		public void setIsExported(boolean isExported) {
-			this.isExported = isExported;
-		}
-
-		public int getKind() {
-			return kind;
-		}
-
-		public IPath getPath() {
-			return path;
-		}
-
-		public boolean equals(Object o) {
-			if (this == o)
-				return true;
-
-			if (o instanceof IClasspathEntry) {
-				IClasspathEntry ce = (IClasspathEntry) o;
-				return kind == ce.getEntryKind() && path.equals(ce.getPath());
-			}
-
-			if (o instanceof InternalCPEntry) {
-				InternalCPEntry ice = (InternalCPEntry) o;
-				return kind == ice.kind && path.equals(ice.path);
-			}
-
-			return false;
-		}
-
-		public void setEntry(IClasspathEntry entry) {
-			setEntry(entry.getEntryKind(), entry.getPath());
-		}
-
-		public void setEntry(int kind, IPath path) {
-			this.kind = kind;
-			this.path = path;
-		}
-
-	}
 
 }
