@@ -22,6 +22,7 @@ package org.eclipse.jst.validation.sample;
 import java.io.LineNumberReader;
 import java.util.logging.Level;
 
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.IValidationConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
@@ -30,8 +31,6 @@ import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * This class checks that the .properties files has no syntax or

@@ -14,9 +14,8 @@ package org.eclipse.jst.validation.sample.workbenchimpl;
  * possibility of such damages.
  *  
  */
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 /**
  * This class is the Plugin class identified by the com.ibm.etools.validation.core.prop's plugin.xml
  * file (i.e., the &lt;plugin <br><br>

@@ -14,10 +14,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 public class TestcaseMetaData {
 	private String _pluginId = null; // The plugin id that has contributed this test case.

@@ -25,10 +25,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * Create a Java project by importing a JAR file.

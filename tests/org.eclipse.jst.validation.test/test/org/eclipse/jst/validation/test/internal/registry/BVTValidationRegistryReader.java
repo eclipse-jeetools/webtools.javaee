@@ -15,14 +15,13 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.IOperationRunnable;
 import org.eclipse.jst.validation.test.setup.IBuffer;
 import org.eclipse.jst.validation.test.setup.IImportOperation;
 import org.eclipse.wst.validation.internal.ValidationRegistryReader;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * BVTValidationRegistryReader is a singleton who reads the plugin registry

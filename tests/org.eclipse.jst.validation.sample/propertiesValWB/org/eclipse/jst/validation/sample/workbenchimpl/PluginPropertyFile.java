@@ -18,11 +18,10 @@ import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.MessageMetaData;
 import org.eclipse.wst.validation.core.IMessage;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * A PluginPropertyFile represents a resource bundle that is exported by a plugin.

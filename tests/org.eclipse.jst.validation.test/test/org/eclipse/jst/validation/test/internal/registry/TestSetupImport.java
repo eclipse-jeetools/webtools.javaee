@@ -5,12 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.setup.IImportOperation;
 import org.eclipse.wst.validation.plugin.ValidationPlugin;
-
-import com.ibm.wtp.common.logger.LogEntry;
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * This class holds the metadata needed to import an .ear or

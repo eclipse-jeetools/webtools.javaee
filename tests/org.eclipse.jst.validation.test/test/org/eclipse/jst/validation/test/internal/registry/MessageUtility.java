@@ -7,6 +7,7 @@ import java.util.logging.Level;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.setup.IBuffer;
@@ -14,8 +15,6 @@ import org.eclipse.wst.validation.internal.ConfigurationConstants;
 import org.eclipse.wst.validation.internal.ConfigurationManager;
 import org.eclipse.wst.validation.internal.ValidationRegistryReader;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 public class MessageUtility {
 	private final static String _TESTCASE_MESSAGE_TEMPLATE_ = "<message prefix=\"{0}\" resource=\"{1}\" location=\"{2}\" text=\"{3}\"/>"; //$NON-NLS-1$

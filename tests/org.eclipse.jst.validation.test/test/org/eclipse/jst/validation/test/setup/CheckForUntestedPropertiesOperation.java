@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
 import org.eclipse.jst.validation.sample.workbenchimpl.PluginPropertyFile;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
@@ -20,8 +21,6 @@ import org.eclipse.jst.validation.test.internal.registry.MessageUtility;
 import org.eclipse.jst.validation.test.internal.registry.ValidatorTestcase;
 import org.eclipse.jst.validation.test.internal.util.BVTValidationUtility;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 /**
  * Generate a FVT test case for every EJB Validator validation marker on each
  * selected project.

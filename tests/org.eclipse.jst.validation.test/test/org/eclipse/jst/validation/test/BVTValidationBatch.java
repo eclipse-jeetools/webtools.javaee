@@ -7,10 +7,9 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.internal.util.BVTRunner;
 import org.eclipse.jst.validation.test.internal.util.BVTValidationUtility;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 /**
  */
 public class BVTValidationBatch implements IPlatformRunnable {

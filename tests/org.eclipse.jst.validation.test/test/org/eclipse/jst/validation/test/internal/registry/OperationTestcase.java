@@ -5,11 +5,10 @@ import java.util.logging.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.IOperationRunnable;
 import org.eclipse.jst.validation.test.setup.IBuffer;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
 
 /**
  * Instead of testing a validator, an operation test case tests the 
