@@ -208,7 +208,7 @@
 <!-- Purpose: Define the default module project factory          -->
 <!-- =============================================================== -->
    <extension
-         point="com.ibm.wtp.server.core.moduleFactories">
+         point="org.eclipse.wst.server.core.moduleFactories">
       <moduleFactory
             projects="true"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableFactory"
@@ -220,7 +220,7 @@
       </moduleFactory>
    </extension>
    <extension
-         point="com.ibm.wtp.server.core.moduleFactories">
+         point="org.eclipse.wst.server.core.moduleFactories">
       <moduleFactory
             projects="true"
             icon="icons/full/obj16/webstatic_deploy.gif"

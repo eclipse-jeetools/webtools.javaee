@@ -22,10 +22,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.webbrowser.WebBrowser;
-import org.eclipse.webbrowser.WebBrowserEditorInput;
-
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.webbrowser.WebBrowser;
+import org.eclipse.wst.webbrowser.WebBrowserEditorInput;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
  * @author jlanuti

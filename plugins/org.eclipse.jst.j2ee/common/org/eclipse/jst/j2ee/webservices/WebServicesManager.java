@@ -14,6 +14,9 @@
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
+//TODO This class needs to be cleanup as soon as com.ibm.wtp.ws.parser plugin is renamed and released
+
+
 package org.eclipse.jst.j2ee.webservices;
 
 import java.util.ArrayList;
@@ -62,13 +65,11 @@ import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.emfworkbench.integration.EditModelListener;
+import org.eclipse.wst.wsdl.Definition;
+import org.eclipse.wst.wsdl.Port;
+import org.eclipse.wst.wsdl.Service;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
-import com.ibm.etools.webservice.consumption.wsil.WebServiceEntity;
-import com.ibm.etools.webservice.consumption.wsil.WebServicesParser;
-import com.ibm.etools.wsdl.Definition;
-import com.ibm.etools.wsdl.Port;
-import com.ibm.etools.wsdl.Service;
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -348,72 +349,72 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		return result;
 	}
 
-	public List getExternalWSDLServices() {
+//	public List getExternalWSDLServices() {
+//
+//		List result = getWsdlServicesFromWorkspaceWSILs();
+//		result.removeAll(getInternalWSDLServices());
+//		return result;
+//	}
 
-		List result = getWsdlServicesFromWorkspaceWSILs();
-		result.removeAll(getInternalWSDLServices());
-		return result;
-	}
+//	public List getWsdlServicesFromWorkspaceWSILs() {
+//		List result = new ArrayList();
+//		List wsilFiles = getWorkspaceWSILFiles();
+//		for (int i = 0; i < wsilFiles.size(); i++) {
+//			IFile wsil = (IFile) wsilFiles.get(i);
+//			List services = getWsdlServicesFromWsilFile(wsil);
+//			if (!services.isEmpty())
+//				result.addAll(services);
+//		}
+//		return result;
+//	}
 
-	public List getWsdlServicesFromWorkspaceWSILs() {
-		List result = new ArrayList();
-		List wsilFiles = getWorkspaceWSILFiles();
-		for (int i = 0; i < wsilFiles.size(); i++) {
-			IFile wsil = (IFile) wsilFiles.get(i);
-			List services = getWsdlServicesFromWsilFile(wsil);
-			if (!services.isEmpty())
-				result.addAll(services);
-		}
-		return result;
-	}
+//	public List getWsdlServicesFromWsilFile(IFile wsil) {
+//		List result = new ArrayList();
+//		WebServiceEntity entity = parseWsilFile(wsil);
+//		if (entity != null && entity.getType() == WebServiceEntity.TYPE_WSIL) {
+//			// get all the WSDL references from the WSIL entity
+//			List wsdlList = entity.getChildren();
+//			for (Iterator it = wsdlList.iterator(); it.hasNext();) {
+//				Object item = it.next();
+//				if (item != null && item instanceof WebServiceEntity) {
+//					if (((WebServiceEntity) item).getModel() != null && ((WebServiceEntity) item).getModel() instanceof Definition) {
+//						Definition def = (Definition) ((WebServiceEntity) item).getModel();
+//						if (def != null && !def.getServices().isEmpty())
+//							result.addAll(def.getServices().values());
+//					}
+//				}
+//			}
+//		}
+//		return result;
+//	}
 
-	public List getWsdlServicesFromWsilFile(IFile wsil) {
-		List result = new ArrayList();
-		WebServiceEntity entity = parseWsilFile(wsil);
-		if (entity != null && entity.getType() == WebServiceEntity.TYPE_WSIL) {
-			// get all the WSDL references from the WSIL entity
-			List wsdlList = entity.getChildren();
-			for (Iterator it = wsdlList.iterator(); it.hasNext();) {
-				Object item = it.next();
-				if (item != null && item instanceof WebServiceEntity) {
-					if (((WebServiceEntity) item).getModel() != null && ((WebServiceEntity) item).getModel() instanceof Definition) {
-						Definition def = (Definition) ((WebServiceEntity) item).getModel();
-						if (def != null && !def.getServices().isEmpty())
-							result.addAll(def.getServices().values());
-					}
-				}
-			}
-		}
-		return result;
-	}
+//	public WebServiceEntity parseWsilFile(IFile wsil) {
+//		WebServicesParser parser = null;
+//		String url = null;
+//		// verify proper input
+//		if (wsil == null || !wsil.getFileExtension().equals(WSIL_EXT))
+//			return null;
+//		// Parse wsil file to get wsdl services
+//		try {
+//			url = wsil.getLocation().toFile().toURL().toString();
+//			parser = new WebServicesParser(url);
+//			parser.parse(WebServicesParser.PARSE_WSIL | WebServicesParser.PARSE_WSDL);
+//		} catch (Exception e) {
+//		}
+//		if (parser == null)
+//			return null;
+//		return parser.getWebServiceEntityByURI(url);
+//	}
 
-	public WebServiceEntity parseWsilFile(IFile wsil) {
-		WebServicesParser parser = null;
-		String url = null;
-		// verify proper input
-		if (wsil == null || !wsil.getFileExtension().equals(WSIL_EXT))
-			return null;
-		// Parse wsil file to get wsdl services
-		try {
-			url = wsil.getLocation().toFile().toURL().toString();
-			parser = new WebServicesParser(url);
-			parser.parse(WebServicesParser.PARSE_WSIL | WebServicesParser.PARSE_WSDL);
-		} catch (Exception e) {
-		}
-		if (parser == null)
-			return null;
-		return parser.getWebServiceEntityByURI(url);
-	}
-
-	/**
-	 * Returns all WSDL Services, both internal and external
-	 */
-	public List getAllWSDLServices() {
-		List result = new ArrayList();
-		result.addAll(getInternalWSDLServices());
-		result.addAll(getExternalWSDLServices());
-		return result;
-	}
+//	/**
+//	 * Returns all WSDL Services, both internal and external
+//	 */
+//	public List getAllWSDLServices() {
+//		List result = new ArrayList();
+//		result.addAll(getInternalWSDLServices());
+//		result.addAll(getExternalWSDLServices());
+//		return result;
+//	}
 
 	protected void dispose() {
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);

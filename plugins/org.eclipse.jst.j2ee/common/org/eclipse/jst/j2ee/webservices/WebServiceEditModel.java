@@ -34,7 +34,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
 
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**

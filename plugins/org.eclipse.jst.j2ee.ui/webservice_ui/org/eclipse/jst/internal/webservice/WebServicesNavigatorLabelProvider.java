@@ -36,9 +36,8 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.jst.j2ee.webservices.WebServicesManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
-
-import com.ibm.etools.wsdl.Service;
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.wsdl.Service;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**

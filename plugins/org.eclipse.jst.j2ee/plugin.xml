@@ -38,12 +38,13 @@
       <import plugin="org.eclipse.wst.common.frameworks"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="com.ibm.etools.wsdl"/>
       <import plugin="org.eclipse.wst.common.jdt.integration"/>
       <import plugin="org.eclipse.wst.common.migration"/>
-      <import plugin="com.ibm.wtp.ws.parser"/>
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.eclipse.wst.wsdl"/>
+      <import plugin="org.eclipse.jface"/>
+      
    </requires>
 
 

@@ -8,6 +8,9 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
+
+//TODO This class needs to be cleanup as soon as com.ibm.wtp.ws.parser plugin is renamed and released
+
 /*
  * Created on Jan 19, 2004
  *
@@ -34,8 +37,8 @@ import org.eclipse.wst.common.navigator.internal.views.NavigatorActivityHelper;
 import org.eclipse.wst.common.navigator.views.INavigatorContentExtension;
 import org.eclipse.wst.common.navigator.views.INavigatorContentProvider;
 
-import com.ibm.etools.wsdl.Service;
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.wsdl.Service;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
  * @author jlanuti
@@ -75,7 +78,7 @@ public class WebServicesNavigatorContentProvider extends CommonAdapterFactoryCon
 		} else if (parentElement instanceof WebServiceNavigatorGroupType && ((WebServiceNavigatorGroupType) parentElement).isServices()) {
 			List result = new ArrayList();
 			result.addAll(getWebServicesManager().getInternalWSDLServices());
-			result.addAll(getWebServicesManager().getExternalWSDLServices());
+			//result.addAll(getWebServicesManager().getExternalWSDLServices());
 			return result.toArray();
 		} else if (parentElement instanceof WebServiceNavigatorGroupType && ((WebServiceNavigatorGroupType) parentElement).isClients()) {
 			return getWebServicesManager().getAllWorkspaceServiceRefs().toArray();

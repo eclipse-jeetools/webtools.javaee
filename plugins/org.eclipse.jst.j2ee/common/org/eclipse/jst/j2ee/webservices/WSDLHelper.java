@@ -28,10 +28,10 @@ import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
 
-import com.ibm.etools.wsdl.Definition;
-import com.ibm.etools.wsdl.Port;
-import com.ibm.etools.wsdl.Service;
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.wsdl.Definition;
+import org.eclipse.wst.wsdl.Port;
+import org.eclipse.wst.wsdl.Service;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
  * This class contains methods to help navigate WSDL files provided in various JSR-109 descriptors

@@ -56,9 +56,9 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.emfworkbench.integration.EditModel;
 
-import com.ibm.etools.wsdl.Definition;
-import com.ibm.etools.wsdl.Service;
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.wsdl.Definition;
+import org.eclipse.wst.wsdl.Service;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**

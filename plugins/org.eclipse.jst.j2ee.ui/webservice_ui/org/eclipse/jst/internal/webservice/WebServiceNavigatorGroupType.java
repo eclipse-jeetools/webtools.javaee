@@ -19,7 +19,7 @@ package org.eclipse.jst.internal.webservice;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.ui.IActionFilter;
 
-import com.ibm.etools.wsdl.Service;
+import org.eclipse.wst.wsdl.Service;
 
 /**
  * @author jlanuti

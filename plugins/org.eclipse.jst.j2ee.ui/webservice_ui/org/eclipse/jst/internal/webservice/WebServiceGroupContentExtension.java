@@ -38,8 +38,7 @@ import org.eclipse.wst.common.navigator.views.DefaultNavigatorContentExtension;
 import org.eclipse.wst.common.navigator.views.INavigatorContentProvider;
 import org.eclipse.wst.common.navigator.views.actions.CommonEditActionGroup;
 import org.eclipse.wst.common.navigator.views.actions.ICommonMenuConstants;
-
-import com.ibm.etools.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
  * 

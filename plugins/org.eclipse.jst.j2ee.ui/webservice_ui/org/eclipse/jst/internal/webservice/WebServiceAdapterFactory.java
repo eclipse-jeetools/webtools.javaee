@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.webservices.WebServicesManager;
 import org.eclipse.wst.common.emfworkbench.EMFAdapterFactory;
 import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
 
-import com.ibm.etools.wsdl.Service;
+import org.eclipse.wst.wsdl.Service;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**

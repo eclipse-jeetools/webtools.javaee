@@ -25,7 +25,7 @@ import org.eclipse.wst.common.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.framework.operation.WTPOperation;
 import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
 
-import com.ibm.etools.wsdl.Service;
+import org.eclipse.wst.wsdl.Service;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class ServiceReferenceDataModel extends ReferenceDataModel implements WebServicesClientDataHelper {

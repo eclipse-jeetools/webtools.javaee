@@ -44,13 +44,14 @@
       <import plugin="org.eclipse.wst.server.ui"/>
       <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="com.ibm.etools.wsdl"/>
       <import plugin="org.eclipse.wst.common.jdt.integration"/>
       <import plugin="org.eclipse.wst.common.annotations.controller"/>
       <import plugin="org.eclipse.wst.common.migration"/>
-      <import plugin="org.eclipse.webbrowser"/>
       <import plugin="org.eclipse.ltk.core.refactoring"/>
       <import plugin="org.eclipse.wst.common.navigator.java"/>
+      <import plugin="org.eclipse.wst.webbrowser"/>
+      <import plugin="org.eclipse.wst.wsdl"/>
+      
    </requires>
 
 
@@ -300,55 +301,6 @@
             id="org.eclipse.jst.j2ee.internal.webProjectWizard">
       </extendableWizard>
    </extension>
-<!-- ====================================================== -->
-<!--           Migration Actions                            -->
-<!-- ====================================================== -->
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            id="migrate">
-         <menu
-               label="%migrate.menu_ui_"
-               path="additions"
-               id="migrateParent">
-            <separator
-                  name="migrateChildren">
-            </separator>
-         </menu>
-         <action
-               label="%openJ2EEMigrationWizard.action.label_ui_"
-               class="org.eclipse.jst.j2ee.internal.migration.actions.MigrateJ2EEActionDelgate"
-               menubarPath="migrateParent/migrateChildren"
-               id="migrateJ2EEAction">
-         </action>
-         <visibility>
-            <or>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.jst.j2ee.ejb.EJBNature">
-               </objectState>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.jst.j2ee.web.WebNature">
-               </objectState>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.jst.j2ee.internal.ApplicationClientNature">
-               </objectState>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.jst.j2ee.jca.ConnectorNature">
-               </objectState>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.jst.j2ee.internal.EARNature">
-               </objectState>
-            </or>
-         </visibility>
-      </objectContribution>
-   </extension>
 <!-- Navigator Object Contributions -->
 <!-- EAR Group Contributions -->
    <extension
@@ -443,22 +395,6 @@
          </visibility>
       </objectContribution>
    </extension>
-    
-   <extension
-         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.migration.J2EEMigrationOperation"
-            id="org.eclipse.jst.j2ee.internal.migration.J2EEMigrationOperation">
-      </extendableOperation>
-   </extension>
-
-   <extension
-         point="org.eclipse.wst.common.frameworks.ExtendableOperation">
-      <extendableOperation
-            class="org.eclipse.jst.j2ee.internal.migration.J2EEProjectStructureMigrationOperation"
-            id="org.eclipse.jst.j2ee.internal.migration.J2EEProjectStructureMigrationOperation">
-      </extendableOperation>
-   </extension>
 <!-- ====================================================== -->
 <!--           Label Decorators                             -->
 <!-- ====================================================== -->
@@ -492,14 +428,7 @@
          </description>
       </decorator>
     </extension> 
-   <extension
-         id="org.eclipse.jst.j2ee.internal.migration.JaxrpcmapMigrationOperation"
-         point="org.eclipse.wst.common.frameworks.OperationExtension">
-      <operationExtension
-            postOperationClass="org.eclipse.jst.j2ee.internal.migration.JaxrpcmapMigrationOperation"
-            id="org.eclipse.jst.j2ee.internal.migration.J2EEMigrationOperation">
-      </operationExtension>
-   </extension>   
+  
     <extension
          point="org.eclipse.wst.common.ui.wtpuiAction"> 
       <masterOperation
@@ -754,29 +683,7 @@
          </visibility>
       </objectContribution>
    </extension>
-<!--Remove Compatibility -->
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            id="org.eclipse.jst.j2ee.ui.RemoveCompatibility">
-         <action
-               label="%remove_compatibility_ui_"
-               class="org.eclipse.jst.j2ee.internal.migration.actions.RemoveCompatibilityActionDelegate"
-               menubarPath="additions"
-               id="removeCompatibility">
-         </action>
-         <visibility>
-            <and>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.jst.j2ee.internal.EARNature">
-               </objectState>
-            </and>
-         </visibility>
-      </objectContribution>
-   </extension>
+
 <!-- Connector Group Contributions -->
    <extension
          point="org.eclipse.ui.popupMenus">

@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="ejb_ui"/>
 	<classpathentry kind="src" path="web_ui"/>
 	<classpathentry kind="src" path="jca_ui"/>
-	<classpathentry kind="src" path="j2ee_migration"/>
 	<classpathentry kind="src" path="property_files"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

@@ -25,8 +25,7 @@ import org.eclipse.jst.j2ee.webservices.WebServicesManager;
 import org.eclipse.wst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
 import org.eclipse.wst.common.navigator.views.INavigatorContentExtension;
 import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
-
-import com.ibm.etools.wsdl.Service;
+import org.eclipse.wst.wsdl.Service;
 
 /**
  * @author jlanuti
