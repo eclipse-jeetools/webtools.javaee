@@ -32,6 +32,7 @@
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
    </requires>
    
 <!-- ====================================================== -->

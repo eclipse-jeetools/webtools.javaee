@@ -14,13 +14,14 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -75,12 +76,18 @@ public abstract class NewWebWizard extends WTPWizard implements INewWizard {
 		}
 		if (project == null) {
 			IProject[] projects = ProjectUtilities.getAllProjects();
-			J2EEWebNatureRuntime nature = null;
+			ArtifactEdit edit = null;
 			for (int i = 0; i < projects.length; i++) {
-				nature = J2EEWebNatureRuntime.getRuntime(projects[i]);
-				if (nature != null) {
-					project = projects[i];
-					break;
+				//TODO this assumes only web projects and one module per project for now
+				try {
+					edit = ModuleCore.getFirstArtifactEditForRead(projects[i]);
+					if (edit != null) {
+						project = projects[i];
+						break;
+					}
+				} finally {
+					if (edit != null)
+						edit.dispose();
 				}
 			}
 		}
