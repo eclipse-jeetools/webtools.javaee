@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/30 15:56:06 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/30 21:14:59 $ 
  */
 
 
@@ -288,7 +288,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public Method getReadMethod() {
 		if (validProxy(fFeatureProxy) && !this.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_ReadMethod())) {
 			if (validProxy(fFeatureProxy)) {
-				if (retrievedReadMethod && cachedReadMethod.eContainer() == null) {
+				if (retrievedReadMethod && cachedReadMethod != null && cachedReadMethod.eContainer() == null) {
 					clearCache();	// Method has been removed or refreshed, so we have a new one to get instead.
 				}
 				if (!retrievedReadMethod) {
@@ -309,7 +309,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public Method getWriteMethod() {
 		if (validProxy(fFeatureProxy) && !this.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_WriteMethod())) {
 			if (validProxy(fFeatureProxy)) {
-				if (retrievedReadMethod && cachedReadMethod.eContainer() == null) {
+				if (retrievedWriteMethod && cachedWriteMethod != null && cachedWriteMethod.eContainer() == null) {
 					clearCache();	// Method has been removed or refreshed, so we have a new one to get instead.
 				}				
 				if (!retrievedWriteMethod) {
