@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.13 $  $Date: 2004/08/20 19:10:17 $ 
+ *  $Revision: 1.14 $  $Date: 2004/08/27 18:49:49 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -358,6 +358,9 @@ public class ProxyLaunchSupport {
 				UI_RUNNER.handleBuild(new SubProgressMonitor(pm, 100));
 			else
 				runBuild(new SubProgressMonitor(pm, 100));
+			
+			if (pm.isCanceled())
+				return null;
 		}
 				
 		if (aContribs != null) {
@@ -422,8 +425,13 @@ public class ProxyLaunchSupport {
 			configwc.launch(ILaunchManager.RUN_MODE, new SubProgressMonitor(pm, 100));
 			
 			final ProxyFactoryRegistry reg = launchInfo.resultRegistry;
-			if (reg == null)
+			if (!pm.isCanceled() && reg == null)
 				throw new CoreException(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, ProxyMessages.getString("ProxyLaunchSupport.RegistryCouldNotStartForSomeReason_WARN_"), null)); //$NON-NLS-1$
+			if (pm.isCanceled()) {
+				if (reg != null)
+					reg.terminateRegistry();
+				return null;
+			}
 			
 			for (int i = 0; i < contribs.length; i++) {
 				final int ii = i;
@@ -533,17 +541,23 @@ public class ProxyLaunchSupport {
 	 * be called under control of an IProgressService so that it is in a separate
 	 * thread and the UI will remain responsive (in that either a busy cursor comes
 	 * up or eventually a progress dialog).
+	 * If the pm is canceled, this will just return, but the caller must check if the pm is canceled.
+	 * 
 	 * <package-protected> so that only the UI handler will access it.
 	 */
 	static void runBuild(IProgressMonitor pm) throws CoreException {
 		boolean autobuilding = ResourcesPlugin.getWorkspace().isAutoBuilding();
 		if (!autobuilding) {
-			// We are not autobuilding. So kick off a build right here and
-			// wait for it. (If we already within a build on this thread, then this
-			// will return immediately without building. We will take that risk. If
-			// some other thread is building, we will wait for it finish before we
-			// can get it and do our build.
-			ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, pm);			
+			try {
+				// We are not autobuilding. So kick off a build right here and
+				// wait for it. (If we already within a build on this thread, then this
+				// will return immediately without building. We will take that risk. If
+				// some other thread is building, we will wait for it finish before we
+				// can get it and do our build.
+				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, pm); 
+			} catch (OperationCanceledException e) {
+				// The pm is already marked canceled, so caller can check that instead.
+			} 
 		} else {
 			pm.beginTask("", 200); //$NON-NLS-1$
 			IJobManager jobManager = Platform.getJobManager();
@@ -554,12 +568,16 @@ public class ProxyLaunchSupport {
 					// that risk. The problem is that if within the build, we can't wait for it to finish because
 					// we would stop the thread and so the build would not complete.
 					pm.subTask(ProxyMessages.getString("ProxyWaitForBuild")); //$NON-NLS-1$
-					try {						
-						jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new SubProgressMonitor(pm, 100));
-						jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, new SubProgressMonitor(pm, 100));
-					} catch (InterruptedException e) {
-						throw new CoreException(
-								new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), IStatus.ERROR, "", e)); //$NON-NLS-1$
+					try {
+						while (true) {
+							try {
+								jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new SubProgressMonitor(pm, 100));
+								jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, new SubProgressMonitor(pm, 100));
+								break;
+							} catch (InterruptedException e) {
+							}
+						}
+					} catch (OperationCanceledException e) {
 					}
 				}
 			} 
