@@ -34,7 +34,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.help.WorkbenchHelp;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
@@ -97,7 +97,7 @@ public class NewJavaClassOptionsWizardPage extends WTPWizardPage {
 		createStubsComposite(composite);
 
 		publicButton.setFocus();
-		WorkbenchHelp.setHelp(composite, getInfopopID());
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
 		return composite;
 	}
 
