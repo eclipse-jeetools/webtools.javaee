@@ -30,6 +30,7 @@ import org.eclipse.jst.server.j2ee.IJ2EEModule;
 import org.eclipse.jst.server.j2ee.ILooseArchive;
 import org.eclipse.jst.server.j2ee.ILooseArchiveSupport;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.model.ModuleFactoryDelegate;
 
 
@@ -200,13 +201,23 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 
         if (!add.isEmpty() || !remove.isEmpty() || !change.isEmpty()) {
             IModule[] added = new IModule[add.size()];
-            add.toArray(added);
+            getModulesFromDelegates(add).toArray(added);
             IModule[] changed = new IModule[change.size()];
-            change.toArray(changed);
+            getModulesFromDelegates(change).toArray(changed);
             IModule[] removed = new IModule[remove.size()];
-            remove.toArray(removed);
+            getModulesFromDelegates(remove).toArray(removed);
             fireModuleChangeEvent(true, added, changed, removed);
         }
+    }
+    
+    protected List getModulesFromDelegates(List delegates) {
+    	List result = new ArrayList();
+    	for (int i=0; i<delegates.size(); i++) {
+    		Object delegate = delegates.get(i);
+    		if (delegate != null && delegate instanceof J2EEDeployable)
+    			result.add(((J2EEDeployable)delegate).getModule());
+    	}
+    	return result;
     }
 
     /**
@@ -279,8 +290,11 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
             nat = (J2EENature) it.next();
             if (nat != null) {
                 Object module = getModule(nat);
-                if (module != null)
-                    mods.add(module);
+                if (module != null && module instanceof IModule) {
+                	Object moduleDelegate = ((IModule)module).getAdapter(ModuleDelegate.class);
+                	if (moduleDelegate != null)
+                		mods.add(moduleDelegate);
+                }
             }
         }
         IJ2EEModule[] result = new IJ2EEModule[mods.size()];
@@ -342,7 +356,7 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
 
     protected String getContainedURI(IJ2EEModule deployable) {
         if (deployable instanceof J2EEDeployable) {
-            IProject aProject = ((IModule) deployable).getProject();
+            IProject aProject = ((J2EEDeployable) deployable).getProject();
             if (aProject != null) {
                 Module m = getEARNature().getModule(aProject);
                 if (m != null)
@@ -404,8 +418,4 @@ public class EnterpriseApplicationDeployable extends J2EEDeployable implements I
         // TODO Auto-generated method stub
         return null;
     }
-
-
-
-
 }
