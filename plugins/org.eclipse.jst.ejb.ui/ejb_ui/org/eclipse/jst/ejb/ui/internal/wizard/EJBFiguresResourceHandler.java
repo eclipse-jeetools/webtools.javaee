@@ -58,6 +58,7 @@ public class EJBFiguresResourceHandler extends Messages {
 		try {
 			resourceBundle = ResourceBundle.getBundle("ejb_figures"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
+			//Ignore
 		}
 	}
 
