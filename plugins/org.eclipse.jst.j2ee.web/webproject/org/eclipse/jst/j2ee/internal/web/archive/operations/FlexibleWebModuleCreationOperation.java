@@ -95,6 +95,7 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 			lib.create(true, true, null);
 		}
 		
+		//should cache wbmodule when created instead of  searching ?
         ModuleCore moduleCore = null;
         WorkbenchComponent wbmodule = null;
         try {
@@ -128,60 +129,15 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		
-		createModule(monitor);
+		super.execute( IModuleConstants.JST_WEB_MODULE, monitor );
 
-		super.execute(monitor);
-		FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;		
-		if (((FlexibleWebModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
-			addAnnotationsBuilder();		
 	}
     
-	/**
-	 * @param projectModules
-	 */
-	private void addContent(ProjectComponents projectModules) {
-		
-	    WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleDeployName(), createModuleURI()); //$NON-NLS-1$
-		
-		addResource(webModule, getModuleRelativeFile(getWebContentSourcePath( getModuleName() ), getProject()), getWebContentDeployPath());
-		addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());
+	protected  void addResources( WorkbenchComponent component ){
+		addResource(component, getModuleRelativeFile(getWebContentSourcePath( getModuleName() ), getProject()), getWebContentDeployPath());
+		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath( getModuleName() ), getProject()), getJavaSourceDeployPath());		
 	}
 	
-	
-	public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
-		return getProject().getFile(new Path(IPath.SEPARATOR + aModuleRelativePath));
-	}
-	
-	/**
-	 * @return
-	 */
-	private URI createModuleURI() {
-		return URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+ getModuleDeployName()); //$NON-NLS-1$ //$NON-NLS-2$
-	}
-
-	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();		
-		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setRuntimePath(URI.createURI(aDeployPath));
-		aModule.getResources().add(resource);
-	}
-	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setHandle(aHandle);  
-		module.setName(aDeployedName);  
-		ComponentType type = ModuleCoreFactory.eINSTANCE.createComponentType();
-		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
-		module.setComponentType(type);
-		theModules.getComponents().add(module);
-		return module;
-	}
-
-	
-	public IProject getProject() {
-		FlexibleWebModuleCreationDataModel dataModel = (FlexibleWebModuleCreationDataModel) operationDataModel;
-		return dataModel.getTargetProject();
-	}
-
 	/**
 	 * @return
 	 */
@@ -209,31 +165,12 @@ public class FlexibleWebModuleCreationOperation extends FlexibleJ2EEModuleCreati
 	public String getWebContentDeployPath() {
 		return "/"; //$NON-NLS-1$
 	}
-	
-	public String getModuleName() {
-		return (String)operationDataModel.getProperty(FlexibleWebModuleCreationDataModel.MODULE_NAME);
-	}
-	
-	public String getModuleDeployName() {
-		return (String)operationDataModel.getProperty(FlexibleWebModuleCreationDataModel.MODULE_DEPLOY_NAME);
-	}
-	
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibileJ2EECreationOperation#createModule(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
 	 */
-	protected void createModule(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-    	ModuleCore moduleCore = null;
-		try {
-			IProject containingProject = getProject();
-			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
-			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
-			addContent(projectModules);
-			moduleCore.saveIfNecessary(null); 
-		} finally {
-			if(moduleCore != null)
-				moduleCore.dispose();
-		}     
+	protected void createProjectStructure() throws CoreException {
+		// TODO Auto-generated method stub
+		
 	}
 }

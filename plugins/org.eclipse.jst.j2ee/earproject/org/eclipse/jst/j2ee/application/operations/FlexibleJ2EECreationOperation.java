@@ -34,6 +34,6 @@ public abstract class FlexibleJ2EECreationOperation extends WTPOperation {
 		super();
 	}
 
-	protected abstract void createModule(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
+	//protected abstract void createModule(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
 }

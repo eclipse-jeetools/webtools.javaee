@@ -16,15 +16,30 @@
  */
 package org.eclipse.jst.j2ee.application.operations;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.ICommand;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
+import org.eclipse.wst.common.modulecore.ComponentResource;
+import org.eclipse.wst.common.modulecore.ComponentType;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
+import org.eclipse.wst.common.modulecore.ProjectComponents;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECreationOperation {
 	/**
@@ -44,17 +59,26 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 		super();
 	}
 
-	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+	protected void execute( String componentType, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
-		//createModule(monitor);
+		
+	    createProjectStructure();
+		createComponent( componentType, monitor);
+		
 		if (dataModel.getBooleanProperty(FlexibleJ2EEModuleCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
-			//J2EENature nature = (J2EENature) dataModel.getProjectDataModel().getProject().getNature(dataModel.getJ2EENatureID());
-			//createManifest(nature, monitor);
 		}
+		
+		if (((FlexibleJ2EEModuleCreationDataModel) operationDataModel).getBooleanProperty(IAnnotationsDataModel.USE_ANNOTATIONS))
+			addAnnotationsBuilder();	
+		
 		linkToEARIfNecessary(dataModel, monitor);
 	}
 
+	protected abstract void createProjectStructure() throws CoreException;
+	
+
+	
 	protected abstract void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
 
 	public static void linkToEARIfNecessary(FlexibleJ2EEModuleCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -70,17 +94,75 @@ public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECr
 //		}
 	}
 
-	protected void createModule(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-//		JavaProjectCreationDataModel projectModel = ((J2EEModuleCreationDataModel) operationDataModel).getJavaProjectCreationDataModel();
-//		JavaProjectCreationOperation javaProjectOperation = new JavaProjectCreationOperation(projectModel);
-//		javaProjectOperation.doRun(monitor);
-//		updateClasspath(projectModel);
-		//J2EEModuleCreationDataModel dataModel = (J2EEModuleCreationDataModel) operationDataModel;
-		//J2EENature nature = (J2EENature) dataModel.getProjectDataModel().getProject().getNature(dataModel.getJ2EENatureID());
-		//setVersion(nature, monitor);
-		//addServerTarget(monitor);
-	}
+	
+		protected void createComponent( String moduletype, IProgressMonitor monitor ) throws CoreException, InvocationTargetException, InterruptedException {
+	    	ModuleCore moduleCore = null;
+			try {
+				IProject containingProject = getProject();
+				moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
+				moduleCore.prepareProjectModulesIfNecessary(); 
+				ProjectComponents projectModules = moduleCore.getModuleModelRoot();
+				
+				addContent(projectModules, moduletype);
+				moduleCore.saveIfNecessary(null); 
+			} finally {
+				if(moduleCore != null)
+					moduleCore.dispose();
+			}     
+		}
+		public IProject getProject() {
+			FlexibleJ2EEModuleCreationDataModel dataModel = (FlexibleJ2EEModuleCreationDataModel) operationDataModel;
+			return dataModel.getTargetProject();
+		}
+		
+		private void addContent(ProjectComponents projectModules, String moduletype) {
 
+		    WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleDeployName(), 
+		    			moduletype, createModuleURI()); //$NON-NLS-1$
+		    addResources( webModule );
+		}		
+		
+		protected abstract void addResources( WorkbenchComponent component );
+		
+		public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, 
+					String moduletype, URI aHandle) {
+			WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
+			module.setHandle(aHandle);  
+			module.setName(aDeployedName);  
+			ComponentType type = ModuleCoreFactory.eINSTANCE.createComponentType();
+			type.setModuleTypeId(moduletype);
+			module.setComponentType(type);
+			theModules.getComponents().add(module);
+			return module;
+		}
+		
+		
+		public String getModuleName() {
+			return (String)operationDataModel.getProperty(FlexibleJ2EEModuleCreationDataModel.MODULE_NAME);
+		}
+		
+		public String getModuleDeployName() {
+			return (String)operationDataModel.getProperty(FlexibleJ2EEModuleCreationDataModel.MODULE_DEPLOY_NAME);
+		}
+	
+		
+
+		private URI createModuleURI() {
+			return URI.createURI("module:/resource/"+getProject().getName()+IPath.SEPARATOR+ getModuleDeployName()); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		
+
+		public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
+			return getProject().getFile(new Path(IPath.SEPARATOR + aModuleRelativePath));
+		}
+
+		public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
+			ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();		
+			resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
+			resource.setRuntimePath(URI.createURI(aDeployPath));
+			aModule.getResources().add(resource);
+		}
+		
 	/**
 	 * @param projectModel
 	 * @throws JavaModelException

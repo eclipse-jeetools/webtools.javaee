@@ -45,8 +45,6 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
     }
 
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        createProjectStructure();
-        createModule();
         
         AppClientArtifactEdit artifactEdit = null;
         try {
@@ -77,7 +75,7 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
     /**
      * 
      */
-    private void createProjectStructure() throws CoreException {
+    protected void createProjectStructure() throws CoreException {
         IProject rootProject = getDataModel().getTargetProject();
         URI metainfURI = URI.createURI(IPath.SEPARATOR + getModuleName() + ".jar" + IPath.SEPARATOR + "appClientModule" + IPath.SEPARATOR + "META-INF");
         IPath absMetaRoot = rootProject.getLocation().append(metainfURI.toString());
@@ -122,60 +120,7 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
     public FlexibleAppClientCreationDataModel getDataModel() {
         return (FlexibleAppClientCreationDataModel) operationDataModel;
     }
-
-    private void createModule() {
-        ModuleCore moduleCore = null;
-        try {
-            IProject containingProject = getDataModel().getTargetProject();
-            moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
-            moduleCore.prepareProjectModulesIfNecessary();
-            ProjectComponents projectModules = moduleCore.getModuleModelRoot();
-            addContent(projectModules);
-            moduleCore.saveIfNecessary(null);
-        } finally {
-            if (moduleCore != null)
-                moduleCore.dispose();
-        }
-    }
-
-    /**
-     * @param projectModules
-     */
-    private void addContent(ProjectComponents projectModules) {
-        WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleName() + ".jar", createModuleURI()); //$NON-NLS-1$
-        IProject aProject = getDataModel().getTargetProject();
-        addResource(webModule, getModuleRelativeFile(getContentSourcePath(), aProject), getContentDeployPath());
-        addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath(), aProject), getJavaSourceDeployPath());
-    }
-
-    /**
-     * @return
-     */
-    private URI createModuleURI() {
-        return URI.createURI("module:/resource/" + getDataModel().getTargetProject().getName() + IPath.SEPARATOR + getModuleName() + ".jar"); //$NON-NLS-1$ //$NON-NLS-2$
-    }
-
-    public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-        ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();
-        resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-        resource.setRuntimePath(URI.createURI(aDeployPath));
-        aModule.getResources().add(resource);
-    }
-
-    public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-        WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-        module.setHandle(aHandle);
-        module.setName(aDeployedName);
-        ComponentType type = ModuleCoreFactory.eINSTANCE.createComponentType();
-        type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
-        module.setComponentType(type);
-        theModules.getComponents().add(module);
-        return module;
-    }
-
-    public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
-        return getDataModel().getTargetProject().getFile(new Path(IPath.SEPARATOR + aModuleRelativePath));
-    }
+    
 
     /**
      * @return
@@ -204,8 +149,18 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
     public String getContentDeployPath() {
         return "/appClientModule/META-INF"; //$NON-NLS-1$
     }
+    
+    
+	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		
+		super.execute( IModuleConstants.JST_APPCLIENT_MODULE, monitor );
 
-    public String getModuleName() {
-        return getDataModel().getModuleName();
-    }
+	}
+    
+	protected  void addResources( WorkbenchComponent component ){
+		addResource(component, getModuleRelativeFile(getContentSourcePath(), getProject()), getContentDeployPath());
+		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());		
+	}
+	
+  
 }
