@@ -34,9 +34,7 @@ import org.eclipse.jem.internal.instantiation.InitStringAllocation;
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
 import org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance;
 import org.eclipse.jem.internal.instantiation.base.IJavaObjectInstance;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaHelpers;
-import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.tests.JavaProjectUtil;
 import org.eclipse.jem.tests.beaninfo.AbstractBeanInfoTestCase;
 
@@ -77,12 +75,12 @@ public class TestStandard extends TestCase {
 		assertNotNull(nature);
 		rset = nature.getResourceSet();
 		assertNotNull(rset);
-		boolType = JavaClassImpl.reflect("boolean", rset);
+		boolType = JavaRefFactory.eINSTANCE.reflectType("boolean", rset);
 		assertNotNull(boolType);
 	}
 
 	protected JavaClass getTest1Class() {
-		return (JavaClass) JavaClassImpl.reflect("org.eclipse.jem.tests.beaninfo.Test1Class", rset); //$NON-NLS-1$
+		return (JavaClass) JavaRefFactory.eINSTANCE.reflectType("org.eclipse.jem.tests.beaninfo.Test1Class", rset); //$NON-NLS-1$
 	}
 
 	public void testInit() {
@@ -172,14 +170,18 @@ public class TestStandard extends TestCase {
 		PrintWriter pw = new PrintWriter(sw);
 		pw.println("<?xml version=\"1.0\" encoding=\"ASCII\"?>");
 		pw.println(
-			"<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:_-javaprim=\"java:/\" xmlns:org.eclipse.jem.tests.beaninfo=\"java:/org.eclipse.jem.tests.beaninfo\">");
-		pw.println("  <org.eclipse.jem.tests.beaninfo:Test1Class initializationString=\"new Test1Class()\" set=\"/1\"/>");
-		pw.println("  <_-javaprim:boolean initializationString=\"true\"/>");
+			"<xmi:XMI xmi:version=\"2.0\" xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:_-javaprim=\"java:/\" xmlns:org.eclipse.jem.internal.instantiation=\"http:///org/eclipse/jem/internal/instantiation.ecore\" xmlns:org.eclipse.jem.tests.beaninfo=\"java:/org.eclipse.jem.tests.beaninfo\">");
+		pw.println("  <org.eclipse.jem.tests.beaninfo:Test1Class set=\"/1\">");
+		pw.println("    <allocation xsi:type=\"org.eclipse.jem.internal.instantiation:InitStringAllocation\" allocString=\"new Test1Class()\" initString=\"new Test1Class()\"/>");
+		pw.println("  </org.eclipse.jem.tests.beaninfo:Test1Class>");
+		pw.println("  <_-javaprim:boolean>");
+		pw.println("    <allocation xsi:type=\"org.eclipse.jem.internal.instantiation:InitStringAllocation\" allocString=\"true\" initString=\"true\"/>");
+		pw.println("  </_-javaprim:boolean>");
 		pw.println("</xmi:XMI>");
 		pw.close();
 		assertEquals(sw.toString(), out);
 	}
-
+		
 	public void testReading() throws IOException {
 		// Test reading serialization back in produces correct objects.
 		// Rerun tests.
