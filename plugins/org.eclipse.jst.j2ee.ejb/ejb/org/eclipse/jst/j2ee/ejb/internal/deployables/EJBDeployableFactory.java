@@ -40,48 +40,20 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 		super();
 	}
 
-	/*
-	 * @see DeployableProjectFactoryDelegate#getFactoryID()
-	 */
 	public String getFactoryId() {
 		return ID;
 	}
 
-	/*
-	 * @see J2EEDeployableFactory#getNatureID()
-	 */
+
 	public String getNatureID() {
 		return IEJBNatureConstants.NATURE_ID;
 	}
 
-
-	
-    public IModule createModule(J2EENature nature) {
-        if (nature == null)
-            return null;
-        EJBDeployable moduleDelegate = null;
-        IModule module = nature.getModule();
-        if (module == null) {
-            try {
-                moduleDelegate = new EJBDeployable(nature, ID);
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-                nature.setModule(module);
-                moduleDelegate.initialize(module);
-            } catch (Exception e) {
-                Logger.getLogger().write(e);
-            } finally {
-                moduleDelegates.add(moduleDelegate);
-            }
-        }
-        return module;
-    }
     
-	private List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
+	protected List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
 		EJBFlexibleDeployable moduleDelegate = null;
 		IModule module = null;
 		List moduleList = new ArrayList(workBenchModules.size());
-		//  J2EENature nature = (J2EENature)project.getNature(getNatureID());
-
 		for (int i = 0; i < workBenchModules.size(); i++) {
 			try {
 				WorkbenchComponent wbModule = (WorkbenchComponent) workBenchModules.get(i);
@@ -101,30 +73,6 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 		}
 		return moduleList;
 
-	}
-
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModules(org.eclipse.wst.common.modulecore.ModuleCoreNature)
-     */
-	protected List createModules(ModuleCoreNature nature) {
-		IProject project = nature.getProject();
-		List modules = new ArrayList(1); 
-		ModuleCore moduleCore = null;
-		try {
-			
-			moduleCore = ModuleCore.getModuleCoreForRead(project);
-			EList workBenchModules = moduleCore.getModuleModelRoot().getComponents();						 
-			if (workBenchModules.isEmpty())
-				return modules;
-			modules = createModuleDelegates(workBenchModules, project);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(moduleCore != null) 
-				moduleCore.dispose();
-		}
-		return modules;
 	}
 
 	public IModule[] getModules() {
@@ -148,6 +96,8 @@ public class EJBDeployableFactory extends J2EEDeployableFactory {
 
 		return false;
 	}
+
+	
 
 
 
