@@ -127,7 +127,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
-<!-- Application Client Component Wizard
+<!-- Application Client Component Wizard -->
       <wizard
             name="%appclient_component_ui_"
             icon="icons/full/ctool16/newappclient_wiz.gif"
@@ -143,7 +143,7 @@
                class="org.eclipse.core.resources.IResource">
          </selection>
       </wizard>
- -->
+
    </extension>
   
 <!--================================-->
