@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ArrayCreationImpl.java,v $
- *  $Revision: 1.1 $  $Date: 2004/01/19 22:50:15 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/21 16:41:18 $ 
  */
 import java.util.Collection;
 import java.util.List;
@@ -294,7 +294,7 @@ public class ArrayCreationImpl extends ExpressionImpl implements ArrayCreation {
 		int realdims = 0;
 		while (ob != -1) {
 			realdims++;
-			ob = type.indexOf('[',ob);
+			ob = type.indexOf('[',ob+1);
 		}
 		List dims = getDimensions();
 		for (int i = 0; i < dims.size(); i++) {
@@ -302,7 +302,7 @@ public class ArrayCreationImpl extends ExpressionImpl implements ArrayCreation {
 			buf.append(dims.get(i));
 			buf.append(']');
 		}
-		for (int i=dims.size(); i <= realdims; i++) {
+		for (int i=dims.size(); i < realdims; i++) {
 			buf.append("[]");
 		}
 		
