@@ -9,6 +9,7 @@
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -43,7 +44,7 @@ public class EJBClientCreationWizard extends WTPWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		addPage(new EJBClientCreationWizardPage((EJBClientProjectDataModel) model, PAGE_ONE));
+		addPage(new EJBClientCreationWizardPage((EJBClientComponentDataModel) model, PAGE_ONE));
 	}
 
 	/*

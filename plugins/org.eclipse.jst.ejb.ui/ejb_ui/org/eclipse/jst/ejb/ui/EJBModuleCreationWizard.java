@@ -162,7 +162,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 */
 	public void doAddPages() {
 		addPage(new EJBModuleCreationPage(getSpecificDataModel(), MAIN_PG));
-		clientPage = new EJBClientCreationWizardPage(getSpecificDataModel().getNestEJBClientProjectDM(), CLIENT_PG);
+		clientPage = new EJBClientCreationWizardPage(getSpecificDataModel().getNestEJBClientComponentDM(), CLIENT_PG);
 		addPage(clientPage);
 		super.doAddPages();
 	}

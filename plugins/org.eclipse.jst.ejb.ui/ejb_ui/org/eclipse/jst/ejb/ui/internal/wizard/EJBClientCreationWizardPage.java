@@ -13,6 +13,7 @@ import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBClientComponentDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.NewProjectGroup;
 import org.eclipse.swt.SWT;
@@ -45,7 +46,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EJBClientCreationWizardPage(EJBClientProjectDataModel model, String pageName) {
+	public EJBClientCreationWizardPage(EJBClientComponentDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Title)); //$NON-NLS-1$
 		setDescription(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Client_Desc)); //$NON-NLS-1$
