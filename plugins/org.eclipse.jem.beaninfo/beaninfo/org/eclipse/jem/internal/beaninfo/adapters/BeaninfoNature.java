@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.17 $  $Date: 2004/06/02 19:42:39 $ 
+ *  $Revision: 1.18 $  $Date: 2004/06/04 15:29:34 $ 
  */
 
 import java.io.*;
@@ -355,22 +355,29 @@ public class BeaninfoNature implements IProjectNature {
 	/*
 	 * This is <package-protected> so that only the appropriate create job in this
 	 * package can call it. This is because this must be controlled to only be
-	 * done in UI thread.
+	 * done when build not in progress and serial access.
+	 * If waitForBuild is passed onto launching the registry. If we suspended the builds, then we must not
+	 * wait, or a deadlock will occur.
 	 */
-	void createRegistry(IProgressMonitor pm) {
-		synchronized (this) {
-			if (fRegistry != null)
-				return;	// It had already gotton created. Could of because UI and a thread were racing to do the creation, and one got there first.
+	synchronized void createRegistry(IProgressMonitor pm, boolean waitForBuild) {
+		pm.beginTask(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry"), 100);	//$NON-NLS-1$		
+		// synchronized on this nature so that only one can create on this particular project at a time.
+		if (fRegistry != null) {
+			pm.done();
+			return;	// It had already been created. Could of been because threads were racing to do the creation, and one got there first.
 		}
+
 		try {
 			ConfigurationContributor configurationContributor =  (ConfigurationContributor) getConfigurationContributor();
 			configurationContributor.setNature(this);
 			fRegistry = ProxyLaunchSupport.startImplementation(fProject, "Beaninfo", //$NON-NLS-1$
-				new IConfigurationContributor[] { configurationContributor}, pm);
+				new IConfigurationContributor[] { configurationContributor}, waitForBuild, new SubProgressMonitor(pm, 100));
 			fRegistry.addRegistryListener(registryListener);
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
-		}		
+		} finally {
+			pm.done();
+		}
 	}
 	
 	public synchronized boolean isRegistryCreated() {
@@ -426,7 +433,7 @@ public class BeaninfoNature implements IProjectNature {
 		} catch (CoreException e) {
 			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		} catch (Exception e) {
-			BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "", e));
+			BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "", e)); //$NON-NLS-1$
 		}
 		return bdoc;
 	}

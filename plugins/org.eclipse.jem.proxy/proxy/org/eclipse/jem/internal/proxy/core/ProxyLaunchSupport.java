@@ -10,15 +10,17 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.9 $  $Date: 2004/06/02 19:58:49 $ 
+ *  $Revision: 1.10 $  $Date: 2004/06/04 15:29:38 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.logging.Level;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.*;
 import org.eclipse.jdt.core.*;
@@ -197,10 +199,39 @@ public class ProxyLaunchSupport {
 	
 	/**
 	 * Start an implementation using the default config for the given project.
+	 * <p> 
+	 * This will wait for build. If you
+	 * know the build has been suspended by your thread, then you must use the other method that takes a waitForThread
+	 * boolean, and you must pass in false. Otherwise it will deadlock.
 	 * 
 	 * @param project The project. It must be a java project, and it cannot be <code>null</code>.
-	 * @param vmTitle
+	 * @param vmTitle title for VM. It may be <code>null</code>.
 	 * @param aContribs The contributions array. It may be <code>null</code>.
+	 * @param pm
+	 * @return The created registry.
+	 * @throws CoreException
+	 * 
+	 * @see ProxyLaunchSupport#startImplementation(IProject, String, IConfigurationContributor[], boolean, IProgressMonitor)
+	 * @since 1.0.0
+	 */
+	public static ProxyFactoryRegistry startImplementation(
+			IProject project,
+			String vmTitle,
+			IConfigurationContributor[] aContribs,
+			IProgressMonitor pm)
+				throws CoreException {
+		return startImplementation(project, vmTitle, aContribs, true, pm);
+	}
+	
+	/**
+	 * Start an implementation using the default config for the given project.
+	 * <p> 
+	 * If you know the build has been suspended by your thread, then you must use call this with false for waitForThread. Otherwise it will deadlock.
+	 * 
+	 * @param project The project. It must be a java project, and it cannot be <code>null</code>.
+	 * @param vmTitle title for VM. It may be <code>null</code>.
+	 * @param aContribs The contributions array. It may be <code>null</code>.
+	 * @param waitForBuild wait for the build. If caller knows that the build has been suspended by this thread, then it must call this with false. Otherwise a deadlock will occur.
 	 * @param pm
 	 * @return The created registry.
 	 * @throws CoreException
@@ -211,9 +242,9 @@ public class ProxyLaunchSupport {
 			IProject project,
 			String vmTitle,
 			IConfigurationContributor[] aContribs,
+			boolean waitForBuild, 
 			IProgressMonitor pm)
 				throws CoreException {
-		
 		// First find the appropriate launch configuration to use for this project.
 		// The process is:
 		//	1) See if the project's persistent property has a setting for "proxyLaunchConfiguration", if it does,
@@ -257,18 +288,24 @@ public class ProxyLaunchSupport {
 			config = configwc;
 		}
 		
-		return startImplementation(config, vmTitle, aContribs, pm);
+		return startImplementation(config, vmTitle, aContribs, waitForBuild, pm);
 	}
 	
 	/**
 	 * Launch a registry using the given configuration.
+	 * <p> 
+	 * This will wait for build. If you
+	 * know the build has been suspended by your thread, then you must use the other method that takes a waitForThread
+	 * boolean, and you must pass in false. Otherwise it will deadlock.
+	 *
 	 * @param config 
-	 * @param vmTitle
+	 * @param vmTitle title for VM. It may be <code>null</code>.
 	 * @param aContribs The contributions array. It may be <code>null</code>.
 	 * @param pm
 	 * @return The registry from this configuration.
 	 * @throws CoreException
 	 * 
+	 * @see ProxyLaunchSupport#startImplementation(ILaunchConfiguration, String, IConfigurationContributor[], boolean, IProgressMonitor)
 	 * @since 1.0.0
 	 */
 	public static ProxyFactoryRegistry startImplementation(
@@ -277,18 +314,47 @@ public class ProxyLaunchSupport {
 			IConfigurationContributor[] aContribs,
 			IProgressMonitor pm)
 			throws CoreException {
-		
+		return startImplementation(config, vmTitle, aContribs, true, pm);
+	}
+
+	/**
+	 * Launch a registry using the given configuration.
+	 * <p> 
+	 * If you know the build has been suspended by your thread, then you must use you must pass in false for waitForThread. Otherwise it will deadlock.
+	 *
+	 * @param config
+	 * @param vmTitle title for VM. It may be <code>null</code>.
+	 * @param aContribs The contributions array. It may be <code>null</code>.
+	 * @param waitForBuild wait for the build. If caller knows that the build has been suspended by this thread, then it must call this with false. Otherwise a deadlock will occur.
+	 * @param pm
+	 * @return The registry from this configuration.
+	 * @throws CoreException
+	 * 
+	 * @since 1.0.0
+	 */
+	public static ProxyFactoryRegistry startImplementation(
+				ILaunchConfiguration config,
+				String vmTitle,
+				IConfigurationContributor[] aContribs,
+				boolean waitForBuild,
+				IProgressMonitor pm)
+				throws CoreException {
+
 		if (pm == null)
 			pm = new NullProgressMonitor();
 		
 		final ILaunchConfigurationWorkingCopy configwc = config.getWorkingCopy();
 		
-		// See if build needed or waiting or inprogress, if so, wait for it to complete. We've
-		// decided
-		// too difficult to determine if build would affect us or not, so just wait.
 		pm.beginTask("", 400);
-		pm.subTask(ProxyMessages.getString("ProxyLaunch")); //$NON-NLS-1$
-		handleBuild(new SubProgressMonitor(pm, 100));
+		pm.subTask(ProxyMessages.getString("ProxyLaunch"));	//$NON-NLS-1$
+		if (waitForBuild) {
+			// See if build needed or waiting or inprogress, if so, wait for it to complete. We've
+			// decided too difficult to determine if build would affect us or not, so just wait.		
+			if (UI_RUNNER != null)
+				UI_RUNNER.handleBuild(new SubProgressMonitor(pm, 100));
+			else
+				runBuild(new SubProgressMonitor(pm, 100));
+		}
 				
 		if (aContribs != null) {
 			IConfigurationContributor[] newContribs = new IConfigurationContributor[aContribs.length+1];
@@ -439,20 +505,35 @@ public class ProxyLaunchSupport {
 		return launchInfo.resultRegistry;
 	}
 	
-	private static void handleBuild(IProgressMonitor pm) throws CoreException {
+	/*
+	 * Run the build. If the original launch was in the UI thread, this will
+	 * be called under control of an IProgressService so that it is in a separate
+	 * thread and the UI will remain responsive (in that either a busy cursor comes
+	 * up or eventually a progress dialog).
+	 * <package-protected> so that only the UI handler will access it.
+	 */
+	static void runBuild(IProgressMonitor pm) throws CoreException {
 		boolean autobuilding = ResourcesPlugin.getWorkspace().isAutoBuilding();
 		if (!autobuilding) {
 			// We are not autobuilding. So kick off a build right here and
-			// wait for it.
+			// wait for it. (If we already within a build on this thread, then this
+			// will return immediately without building. We will take that risk. If
+			// some other thread is building, we will wait for it finish before we
+			// can get it and do our build.
 			ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, pm);			
 		} else {
-			Job[] build = Platform.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
-			pm.beginTask("", 100);
-			if (build.length == 1) {
-				if (build[0].getState() == Job.RUNNING || build[0].getState() == Job.WAITING || build[0].getState() == Job.SLEEPING) {
+			pm.beginTask("", 200); //$NON-NLS-1$
+			IJobManager jobManager = Platform.getJobManager();
+			Job currentJob = jobManager.currentJob();
+			if (currentJob == null || (!currentJob.belongsTo(ResourcesPlugin.FAMILY_AUTO_BUILD) && !currentJob.belongsTo(ResourcesPlugin.FAMILY_MANUAL_BUILD))) { 
+				if (jobManager.find(ResourcesPlugin.FAMILY_AUTO_BUILD).length > 0 || jobManager.find(ResourcesPlugin.FAMILY_MANUAL_BUILD).length >0) {
+					// We are not within a build job. If we were, then we don't do the build. We will take
+					// that risk. The problem is that if within the build, we can't wait for it to finish because
+					// we would stop the thread and so the build would not complete.
 					pm.subTask(ProxyMessages.getString("ProxyWaitForBuild")); //$NON-NLS-1$
 					try {						
-						build[0].join();						
+						jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new SubProgressMonitor(pm, 100));
+						jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, new SubProgressMonitor(pm, 100));
 					} catch (InterruptedException e) {
 						throw new CoreException(
 								new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), IStatus.ERROR, "", e)); //$NON-NLS-1$
@@ -470,6 +551,7 @@ public class ProxyLaunchSupport {
 	 * public but only so that launch delegate can get to it.
 	 */
 	public static String ATTR_PRIVATE;
+	private static IUIRunner UI_RUNNER = null;
 	static {
 		ATTR_PRIVATE = null;
 		try {
@@ -478,6 +560,16 @@ public class ProxyLaunchSupport {
 			if (debuguiBundle != null) {
 				Class debugUIConstants = debuguiBundle.loadClass("org.eclipse.debug.ui.IDebugUIConstants"); //$NON-NLS-1$
 				ATTR_PRIVATE = (String) debugUIConstants.getField("ATTR_PRIVATE").get(null); //$NON-NLS-1$
+			}
+			
+			Bundle uiBundle = Platform.getBundle("org.eclipse.ui");	//$NON-NLS-1$
+			if (uiBundle != null) {
+				try {
+					// We have a UI bundle, so we can load our UIRunner class and it will load fine.
+					UI_RUNNER = (IUIRunner) Class.forName("org.eclipse.jem.internal.proxy.core.UIRunner").newInstance(); //$NON-NLS-1$
+				} catch (InstantiationException e1) {
+					ProxyPlugin.getPlugin().getLogger().log(e1, Level.WARNING);
+				}
 			}
 		} catch (SecurityException e) {
 		} catch (ClassNotFoundException e) {

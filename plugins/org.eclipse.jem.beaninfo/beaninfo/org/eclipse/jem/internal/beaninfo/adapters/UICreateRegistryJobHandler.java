@@ -10,15 +10,19 @@
  *******************************************************************************/
 /*
  *  $RCSfile: UICreateRegistryJobHandler.java,v $
- *  $Revision: 1.2 $  $Date: 2004/06/02 19:42:39 $ 
+ *  $Revision: 1.3 $  $Date: 2004/06/04 15:29:34 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
-import org.eclipse.core.runtime.*;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.jobs.Job;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+
+import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin;
  
 
 /**
@@ -26,8 +30,8 @@ import org.eclipse.ui.PlatformUI;
  * loaded except if ui plugin is available.
  * 
  * It will check to see if UI is running, and if it is not, then let super class handle.
- * If it is running, then if this is the UI thread, just do the creation, else if not
- * UI thread, create a job that will do a syncexec to the ui thread to do it.
+ * If it is running, then if this is the UI thread, use progress service, else if not then
+ * let super handle it normally.
  * 
  * @since 1.0.0
  */
@@ -40,30 +44,25 @@ class UICreateRegistryJobHandler extends CreateRegistryJobHandler {
 	 */
 	protected void processCreateRegistry(final BeaninfoNature nature) {
 		if (PlatformUI.isWorkbenchRunning()) {
-			final Display display = PlatformUI.getWorkbench().getDisplay();
-			if (display.getThread() == Thread.currentThread())
-				doCreateRegistry(nature, new NullProgressMonitor());	// We are in the UI thread, so just do it.
+			if (Display.getCurrent() == null)
+				super.processCreateRegistry(nature);	// We are not in the UI thread. Do normal.
 			else {
-				// We are not in the UI thread, so farm it off to a job to syncit.
-				// Use it as a job so that if it takes long enough, the progress view will be shown.
-				Job createJob = new Job(BeanInfoAdapterMessages.getString("UICreateRegistryJobHandler.StartBeaninfoRegistry")) { //$NON-NLS-1$
-					protected IStatus run(final IProgressMonitor monitor) {
-						display.syncExec(new Runnable() {
-							public void run() {
-								doCreateRegistry(nature, monitor);
-							}
-						});
-						return Status.OK_STATUS;
-					}
-				};
-				createJob.schedule();
-				while (true) {
-					try {
-						createJob.join();
-						break;
-					} catch (InterruptedException e) {
-					}
+				// We are in the UI, so use the progress service to farm off to another thread and keep the UI active, though disabled.
+				try {
+					PlatformUI.getWorkbench().getProgressService().busyCursorWhile(new IRunnableWithProgress() {
+
+						public void run(IProgressMonitor monitor) throws InterruptedException {
+							doCreateRegistry(nature, monitor);
+							if (monitor.isCanceled())
+								throw new InterruptedException();
+						}
+					});
+				} catch (InvocationTargetException e) {
+					BeaninfoPlugin.getPlugin().getLogger().log(e.getCause(), Level.WARNING);
+				} catch (InterruptedException e) {
+					// It was cancelled, so we just go on and launch.
 				}
+				
 			}
 		} else
 			super.processCreateRegistry(nature);	// Workbench not running, do default.
