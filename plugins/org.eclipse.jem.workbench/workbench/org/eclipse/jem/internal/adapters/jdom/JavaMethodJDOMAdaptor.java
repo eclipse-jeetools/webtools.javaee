@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.7 $  $Date: 2005/02/03 21:19:40 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/08 23:20:27 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -28,6 +28,7 @@ import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.impl.MethodImpl;
+import org.eclipse.jem.util.TimerTests;
 
 /**
  * Java Method Reflection Adapter for JDOM (i.e. JDT model)
@@ -35,6 +36,11 @@ import org.eclipse.jem.java.impl.MethodImpl;
  * @author: Administrator
  */
 public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAdapter  {
+
+	/*
+	 * Step ids used for TimerTests of performance testing.
+	 */
+	public static final String REFLECT_METHOD = "Reflect JDOM Method";
 
 	protected IMethod sourceMethod = null;
 
@@ -220,13 +226,18 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 	 */
 	public boolean reflectValues() {
 		super.reflectValues();
-		if (getSourceProject() != null && getSourceMethod() != null && sourceMethod.exists()) {
-			setModifiers();
-			setNaming();
-			setReturnType();
-			addParameters();
-			addExceptions();
-			return true;
+		try {
+			TimerTests.basicTest.startCumulativeStep(REFLECT_METHOD);
+			if (getSourceProject() != null && getSourceMethod() != null && sourceMethod.exists()) {
+				setModifiers();
+				setNaming();
+				setReturnType();
+				addParameters();
+				addExceptions();
+				return true;
+			}
+		} finally {
+			TimerTests.basicTest.stopCumulativeStep(REFLECT_METHOD);
 		}
 		return false;
 	}

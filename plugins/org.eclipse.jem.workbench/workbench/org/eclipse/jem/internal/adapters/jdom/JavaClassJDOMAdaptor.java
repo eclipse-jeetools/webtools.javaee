@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.13 $  $Date: 2005/01/07 20:51:49 $ 
+ *  $Revision: 1.14 $  $Date: 2005/02/08 23:20:27 $ 
  */
 
 import java.util.*;
@@ -35,6 +35,7 @@ import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.internal.plugin.JavaPlugin;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.impl.JavaClassImpl;
+import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
@@ -42,6 +43,14 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdaptor {
 	private static final String OBJECT_TYPE_NAME = "java.lang.Object"; //$NON-NLS-1$
 
+	/*
+	 * Step ids used for TimerTests of performance testing.
+	 */
+	public static final String REFLECT_CLASS = "Reflect JDOM Class";
+	public static final String REFLECT_METHODS = "Reflect all JDOM methods for a class";
+	public static final String REFLECT_FIELDS = "Reflect all JDOM fields for a class";
+	
+	
 	protected IType sourceType = null;
 	protected JavaReflectionAdapterFactory adapterFactory;
 	private Map typeResolutionCache = new HashMap(25);
@@ -402,30 +411,35 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 		super.reflectValues();
 		boolean isHeadless = UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT;
 		if (canReflect()) {
-			ICompilationUnit cu = getSourceType().getCompilationUnit();
-			boolean isWC = cu != null ? cu.isWorkingCopy() : false;
-			IResource res = isWC ? getSourceType().getResource() : null;
-			// We are only interested in physical classes. If still just in working copy and not yet put out to
-			// disk, we don't should treat as not exist. Anything else is considered existing because we got past
-			// getSourceType.exists. This will return the truth for non-wc. But for wc types it will return true,
-			// even though not physically on disk (such as just creating it and hadn't saved it yet). So for wc types
-			// we need to test the actual resource.
-			// Test is OK if not wc, or if wc, then there is a res. and it is accessible.
-			if (!isWC || (res != null && res.isAccessible())) {
-				setModifiers();
-				setNaming();
-				try {
-					setSuper();
-				} catch (InheritanceCycleException e) {
-					JavaPlugin.getDefault().getLogger().log(e);
+			TimerTests.basicTest.startCumulativeStep(REFLECT_CLASS);
+			try {
+				ICompilationUnit cu = getSourceType().getCompilationUnit();
+				boolean isWC = cu != null ? cu.isWorkingCopy() : false;
+				IResource res = isWC ? getSourceType().getResource() : null;
+				// We are only interested in physical classes. If still just in working copy and not yet put out to
+				// disk, we don't should treat as not exist. Anything else is considered existing because we got past
+				// getSourceType.exists. This will return the truth for non-wc. But for wc types it will return true,
+				// even though not physically on disk (such as just creating it and hadn't saved it yet). So for wc types
+				// we need to test the actual resource.
+				// Test is OK if not wc, or if wc, then there is a res. and it is accessible.
+				if (!isWC || (res != null && res.isAccessible())) {
+					setModifiers();
+					setNaming();
+					try {
+						setSuper();
+					} catch (InheritanceCycleException e) {
+						JavaPlugin.getDefault().getLogger().log(e);
+					}
+					setImplements();
+					reflectInnerClasses();
+					//addImports();
+					if (isHeadless) {
+						registerWithFactory();
+						return true;
+					}
 				}
-				setImplements();
-				reflectInnerClasses();
-				//addImports();
-				if (isHeadless) {
-					registerWithFactory();
-					return true;
-				}
+			} finally {
+				TimerTests.basicTest.stopCumulativeStep(REFLECT_CLASS);
 			}
 		}
 		if (isHeadless)
@@ -448,6 +462,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			if (!hasReflectedFields && !isReflectingFields) {
 				isReflectingFields = true;
 				try {
+					TimerTests.basicTest.startCumulativeStep(REFLECT_FIELDS);
 					addFields();
 					hasReflectedFields = true;
 				} catch (Throwable e) {
@@ -459,6 +474,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 					}					
 				} finally {
 					isReflectingFields = false;
+					TimerTests.basicTest.stopCumulativeStep(REFLECT_FIELDS);
 				}
 			}
 			return hasReflectedFields;
@@ -470,6 +486,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			if (!hasReflectedMethods && !isReflectingMethods) {
 				isReflectingMethods = true;
 				try {
+					TimerTests.basicTest.startCumulativeStep(REFLECT_METHODS);
 					hasReflectedMethods = addMethods();
 				} catch (Throwable e) {
 					hasReflectedMethods = false;
@@ -482,6 +499,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 					isReflectingMethods = false;
 					if (!hasReflected)
 						flushMethods();	// Something bad happened, so we will do a complete flush to be on safe side.
+					TimerTests.basicTest.stopCumulativeStep(REFLECT_METHODS);
 				}
 			}
 			return hasReflectedMethods;
