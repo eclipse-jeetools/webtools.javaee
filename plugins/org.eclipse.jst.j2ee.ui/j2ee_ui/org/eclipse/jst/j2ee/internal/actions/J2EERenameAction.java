@@ -47,12 +47,14 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.RenameResourceAction;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -202,7 +204,23 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 				String contextRoot = null;
 				try {
 					if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-						contextRoot = J2EEWebNatureRuntime.getRuntime(project).getContextRoot();
+						//contextRoot = J2EEWebNatureRuntime.getRuntime(project).getContextRoot();
+						ArtifactEdit artifact = null;
+						WebArtifactEdit webEdit = null;
+						try{
+							artifact = ModuleCore.getFirstArtifactEditForRead( project );
+							webEdit = ( WebArtifactEdit )artifact;
+				       		if(webEdit != null) {
+				       			contextRoot = webEdit.getContextRoot();		               		
+
+				       		}			
+						}catch (Exception e) {
+							e.printStackTrace();
+						}finally{
+							if( webEdit != null )
+								webEdit.dispose();
+						}							
+						
 					}
 				} catch (Throwable t) {
 					contextRoot = null;
@@ -309,9 +327,26 @@ public class J2EERenameAction extends SelectionDispatchAction implements J2EERen
 			IProject project = (IProject) getProjects().get(0);
 			try {
 				IProject newProject = project.getWorkspace().getRoot().getProject(options.getNewName());
-				J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(newProject);
-				if (runtime != null)
-					runtime.setContextRoot(newContextRoot);
+				
+				//J2EEWebNatureRuntime runtime = J2EEWebNatureRuntime.getRuntime(newProject);
+				//if (runtime != null)
+					//runtime.setContextRoot(newContextRoot);
+				ArtifactEdit artifact = null;
+				WebArtifactEdit webEdit = null;
+				try{
+					artifact = ModuleCore.getFirstArtifactEditForRead( project );
+					webEdit = ( WebArtifactEdit )artifact;
+		       		if(webEdit != null) {
+		       			//To do :Needs rework here
+		           		 //webEdit.setContextRoot(newContextRoot);		               		
+
+		       		}			
+				}catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if( webEdit != null )
+						webEdit.dispose();
+				}					
 			} catch (Throwable t) {
 				//Ignore
 			}

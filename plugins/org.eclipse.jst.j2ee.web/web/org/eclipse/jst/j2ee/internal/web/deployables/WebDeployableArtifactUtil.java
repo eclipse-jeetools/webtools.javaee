@@ -30,9 +30,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.ServletMapping;
@@ -40,6 +40,8 @@ import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.server.core.WebResource;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -298,23 +300,26 @@ public class WebDeployableArtifactUtil  {
 	public static String getServletMapping(IProject project, boolean isServlet, String typeName) {
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
+		
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+           		webApp = webEdit.getWebApplication();		               		
 
-		J2EEWebNatureRuntime webNature = null;
-		WebEditModel model = null;
-		Object key = new Object();
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}
 
 		try {
-			webNature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(project);
-			if (webNature == null)
-				return null;
-
-			model = webNature.getWebAppEditModelForRead(key);
-			if (model == null)
-				return null;
-			WebApp webApp = model.getWebApp();
-			if (webApp == null)
-				return null;
-
+	
 			// find servlet
 			Iterator iterator = webApp.getServlets().iterator();
 			while (iterator.hasNext()) {
@@ -346,21 +351,11 @@ public class WebDeployableArtifactUtil  {
 			return null;
 		} finally {
 			try {
-				if (model != null)
-					model.releaseAccess(key);
+
 			} catch (Exception ex) {
 				// ignore
 			}
 		}
-	}
-
-	public static String getJSPSpecificationVersion(IBaseWebNature baseWebNature) {
-
-		if (baseWebNature.isJ2EE()) {
-			return ((J2EEWebNatureRuntime) baseWebNature).isJSP1_2() ? "1.2" : "1.1"; //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		return "1.2"; //$NON-NLS-1$
-
 	}
 
 }

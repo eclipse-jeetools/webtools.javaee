@@ -50,6 +50,7 @@
       <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.eclipse.wst.sse.core"/>
       <import plugin="org.eclipse.wst.xml.core"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
       
    </requires>
 <!-- ====================================================== -->

@@ -28,11 +28,13 @@ import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebMessages;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -586,19 +588,41 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		IProject project = getTargetProject();
 		if (project == null)
 			return null;
-		try {
+//		try {
 			// Ensure the project is a valid dynamic web project
-			J2EEWebNatureRuntime nature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-			if (nature == null)
-				return null;
-			//	check the web project for the JavaSource folder
-			IPath folderFullPath = nature.getSourceFolder().getFullPath();
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			IFolder folder = root.getFolder(folderFullPath);
-			return folder;
-		} catch (CoreException e1) {
-			e1.printStackTrace();
-		}
+//			J2EEWebNatureRuntime nature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
+//			if (nature == null)
+//				return null;
+//			//	check the web project for the JavaSource folder
+//			IPath folderFullPath = nature.getSourceFolder().getFullPath();
+//			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+//			IFolder folder = root.getFolder(folderFullPath);
+//			return folder;
+			
+			
+//		} catch (CoreException e1) {
+//			e1.printStackTrace();
+//		}
+		
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			IPath folderFullPath = webEdit.getSourceFolder().getFullPath();	
+       			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+    			IFolder folder = root.getFolder(folderFullPath);
+    			return folder;       			
+
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}				
 		return null;
 	}
 	

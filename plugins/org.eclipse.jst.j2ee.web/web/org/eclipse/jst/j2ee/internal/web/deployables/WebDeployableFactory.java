@@ -43,26 +43,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
     }
 
     public IModule createModule(J2EENature nature) {
-        IProject project = nature.getProject();
-        if (isFlexableProject(project))
-            return null;
-        if (nature == null)
-            return null;
-        J2EEWebDeployable moduleDelegate = null;
-        IModule module = nature.getModule();
-        if (module == null) {
-            try {
-                moduleDelegate = new J2EEWebDeployable(nature, ID);
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),moduleDelegate.getProject());
-                nature.setModule(module);
-                moduleDelegate.initialize(module);
-            } catch (Exception e) {
-                Logger.getLogger().write(e);
-            } finally {
-                moduleDelegates.add(moduleDelegate);
-            }
-        }
-        return module;
+          return null;
     }
 
     protected IPath[] getListenerPaths() {

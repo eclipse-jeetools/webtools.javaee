@@ -21,8 +21,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.server.core.ILooseArchive;
 import org.eclipse.jst.server.core.ILooseArchiveSupport;
@@ -205,15 +203,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     }
 
     protected ILibModule[] getLibModules() {
-        J2EEWebNatureRuntime j2eeNature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(this.project);
-        if (j2eeNature == null)
-            return null;
-
-        ILibModule[] libModules = j2eeNature.getLibModules();
-
-        if (libModules == null || libModules.length == 0)
-            return null;
-        return libModules;
+    	return null;	
     }
 
     public ILooseArchive[] getLooseArchives() {
@@ -266,20 +256,6 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
     }
 
     protected String getURI(IProject looseJARProject) {
-        J2EEWebNatureRuntime j2eeNature = J2EEWebNatureRuntimeUtilities.getJ2EERuntime(this.project);
-        if (j2eeNature == null)
-            return null;
-
-        ILibModule[] libModules = getLibModules();
-        if (libModules == null)
-            return null;
-
-        for (int i = 0; i < libModules.length; i++) {
-            ILibModule iLibModule = libModules[i];
-            if (iLibModule.getProject().equals(looseJARProject))
-                return iLibModule.getURI();
-        }
-
         return null;
     }
 

@@ -25,10 +25,12 @@ import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+//import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectPropertiesUpdateOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -45,6 +47,8 @@ import org.eclipse.wst.common.frameworks.internal.ui.RunnableWithProgressWrapper
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
 import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorImpl;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -91,9 +95,11 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 				fillAppClientLevel(p, c);
 			} else if (ConnectorNatureRuntime.hasRuntime(p)) {
 				fillConnectorLevel(p, c);
-			} else if (J2EEWebNatureRuntime.hasRuntime(p)) {
-				fillWebLevel(p, c);
 			}
+			//Do: need to rework based on Module
+			//else if (J2EEWebNatureRuntime.hasRuntime(p)) {
+				//fillWebLevel(p, c);
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -104,12 +110,32 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	 * @param c
 	 */
 	private void fillWebLevel(IProject p, Composite c) {
-		J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(p);
+		//J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(p);
+
+		int servletVersion = 22;
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			servletVersion = webEdit.getServletVersion();
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}
+		
+		
 		//fillJ2EELevel(nature,c);
 		Label label = new Label(c, SWT.NONE);
-		label.setText(WEB_LEVEL + " " + nature.getModuleVersionText()); //$NON-NLS-1$
+		//label.setText(WEB_LEVEL + " " + nature.getModuleVersionText()); //$NON-NLS-1$
+		label.setText(WEB_LEVEL + " " + webEdit.getModuleVersionText()); //$NON-NLS-1$
 		String moduleDesc = null;
-		switch (nature.getModuleVersion()) {
+		//switch (nature.getModuleVersion()) {
+		switch ( servletVersion ) {
 			case J2EEVersionConstants.WEB_2_2_ID :
 				moduleDesc = WEB_22_DESCRIPTION;
 				break;
@@ -145,7 +171,25 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 		webContentFolderField.setLayoutData(data);
 		webContentFolderField.setEditable(true);
 
-		String s = J2EEWebNatureRuntime.getRuntime(p).getModuleServerRootName();
+		//String s = J2EEWebNatureRuntime.getRuntime(p).getModuleServerRootName();
+		
+		String s = "";
+		
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;		
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			s = webEdit.getModuleServerRoot().getName();
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}		
+		
 		webContentFolderField.setText(s);
 
 		webContentFolderField.addModifyListener(new ModifyListener() {
@@ -170,7 +214,26 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 		contextRootNameField.setLayoutData(data);
 		contextRootNameField.setEditable(true);
 
-		String s = J2EEWebNatureRuntime.getRuntime(p).getContextRoot();
+		//String s = J2EEWebNatureRuntime.getRuntime(p).getContextRoot();
+		
+		String s = ""; //$NON-NLS-1$
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			s = webEdit.getContextRoot();   		
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}	
+		
+
 		contextRootNameField.setText(s);
 
 		contextRootNameField.addModifyListener(new ModifyListener() {
@@ -310,7 +373,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	}
 
 	private static boolean isJ2EEProject(IProject p) {
-		return EARNatureRuntime.hasRuntime(p) || J2EEWebNatureRuntime.hasRuntime(p) || EJBNatureRuntime.hasRuntime(p) || ApplicationClientNatureRuntime.hasRuntime(p) || ConnectorNatureRuntime.hasRuntime(p);
+		return EARNatureRuntime.hasRuntime(p) || /* //To Do: need to rework based on Module J2EEWebNatureRuntime.hasRuntime(p) || */ EJBNatureRuntime.hasRuntime(p) || ApplicationClientNatureRuntime.hasRuntime(p) || ConnectorNatureRuntime.hasRuntime(p);
 	}
 
 
@@ -318,13 +381,33 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	private IHeadlessRunnableWithProgress getWebPropertiesUpdateOperation() {
 		IProject aProject = getJ2EEProject();
 		wtWebProjectInfo.setProject(aProject);
-		J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
+		
+		//J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
+		
+		String serveletLevel = "";
+		String jspLevel = "";
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			serveletLevel = webEdit.getServletLevel();  		
+       			jspLevel = webEdit.getJSPLevel();	
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}	
+		
 		if (getContextRoot() != null)
 			wtWebProjectInfo.setContextRoot(getContextRoot());
 		if (getModuleServerRootName() != null)
 			wtWebProjectInfo.setWebContentName(getModuleServerRootName());
-		wtWebProjectInfo.setJSPLevel(webNatureRuntime.getJSPLevel());
-		wtWebProjectInfo.setServletLevel(webNatureRuntime.getServletLevel());
+		wtWebProjectInfo.setJSPLevel(jspLevel);
+		wtWebProjectInfo.setServletLevel(serveletLevel);
 
 		return new WebProjectPropertiesUpdateOperation(wtWebProjectInfo);
 	}
@@ -350,8 +433,27 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 
 	private boolean hasContextRootChanged() {
 		IProject aProject = getJ2EEProject();
-		J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
-		String oldContextRoot = webNatureRuntime.getContextRoot();
+		//J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
+		//String oldContextRoot = webNatureRuntime.getContextRoot();
+		
+		String oldContextRoot = ""; //$NON-NLS-1$
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			oldContextRoot = webEdit.getContextRoot();		               		
+
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}			
+		
 		if (oldContextRoot == null)
 			return true;
 		return !oldContextRoot.equals(getContextRoot());
@@ -359,8 +461,26 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 
 	private boolean hasWebContentNameChanged() {
 		IProject aProject = getJ2EEProject();
-		J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
-		String oldWebContentName = webNatureRuntime.getModuleServerRootName();
+		//J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
+		//String oldWebContentName = webNatureRuntime.getModuleServerRootName();
+		
+		String oldWebContentName = "";//$NON-NLS-1$
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			oldWebContentName = webEdit.getModuleServerRoot().getName();
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}	
+		
 		if (oldWebContentName == null)
 			return true;
 		return !oldWebContentName.equals(getModuleServerRootName());
@@ -370,13 +490,33 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 		super.performDefaults();
 
 		IProject aProject = getJ2EEProject();
-		J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
+		//J2EEWebNatureRuntime webNatureRuntime = J2EEWebNatureRuntime.getRuntime(aProject);
+		String contextRoot = "";//$NON-NLS-1$
+		String moduleServerRoot = "";//$NON-NLS-1$
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			contextRoot = webEdit.getContextRoot();
+       			moduleServerRoot = webEdit.getModuleServerRoot().getName();
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}			
 
 		if (this.contextRootNameField != null)
-			contextRootNameField.setText(webNatureRuntime.getContextRoot());
+			//contextRootNameField.setText(webNatureRuntime.getContextRoot());
+			contextRootNameField.setText(contextRoot);
 
 		if (this.webContentFolderField != null)
-			webContentFolderField.setText(webNatureRuntime.getModuleServerRootName());
+			//webContentFolderField.setText(webNatureRuntime.getModuleServerRootName());
+			webContentFolderField.setText(moduleServerRoot);
 
 	}
 
@@ -384,7 +524,11 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 		boolean retVal = true;
 		IProject aProject = getJ2EEProject();
 		// if the project isn't open, OK worked.
-		if (J2EEWebNatureRuntime.hasRuntime(aProject)) {
+		
+		//To Do: need to rework based on  Module
+		
+		/*
+		if ( J2EEWebNatureRuntime.hasRuntime(aProject)) {
 			WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
 			if (hasUpdatedInformation()) {
 				IHeadlessRunnableWithProgress runnable = getWebPropertiesUpdateOperation();
@@ -415,7 +559,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 					return false;
 				}
 			}
-		}
+		} */
 		return retVal;
 	}
 

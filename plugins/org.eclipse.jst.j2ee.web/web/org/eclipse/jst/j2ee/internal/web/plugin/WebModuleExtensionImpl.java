@@ -32,13 +32,15 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebProjectInfo;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.WebSettings;
 
@@ -63,24 +65,42 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	}
 
 	public void initializeEjbReferencesToModule(J2EENature moduleNature, UpdateModuleReferencesInEARProjectCommand command) {
-		WebEditModel editModel;
-		try {
-			editModel = ((J2EEWebNatureRuntime) moduleNature).getWebAppEditModelForWrite(this);
-		} catch (Exception e) {
-			return;
-		}
+//		WebEditModel editModel;
+//		try {
+//			editModel = ((J2EEWebNatureRuntime) moduleNature).getWebAppEditModelForWrite(this);
+//		} catch (Exception e) {
+//			return;
+//		}
+		
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			artifact = ModuleCore.getFirstArtifactEditForRead( moduleNature.getProject() );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+           		webApp = webEdit.getWebApplication();		               		
+
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}		
+		
 		boolean foundRef = false;
 		try {
-			WebApp webApp = editModel.getWebApp();
+			//WebApp webApp = editModel.getWebApp();
 			if (webApp != null) {
 				foundRef = command.initializeEjbReferencesToModule(webApp.getEjbRefs());
 				foundRef = command.initializeEjbReferencesToModule(webApp.getEjbLocalRefs());
 			}
-			if (foundRef)
-				command.addNestedEditModel(editModel);
+//			if (foundRef)
+//				command.addNestedEditModel(editModel);
 		} finally {
-			if (!foundRef)
-				editModel.releaseAccess(this);
+//			if (!foundRef)
+//				editModel.releaseAccess(this);
 		}
 	}
 
@@ -91,15 +111,15 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 *      java.util.Set)
 	 */
 	public void addWLPProjects(IProject aProject, Set projectsToBuild) {
-		J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(aProject);
-		if (nature == null)
-			return;
-		ILibModule[] libModules = nature.getLibModules();
-		for (int i = 0; i < libModules.length; i++) {
-			IProject p = libModules[i].getProject();
-			if (p.isAccessible())
-				projectsToBuild.add(libModules[i].getProject());
-		}
+//		J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(aProject);
+//		if (nature == null)
+//			return;
+//		ILibModule[] libModules = nature.getLibModules();
+//		for (int i = 0; i < libModules.length; i++) {
+//			IProject p = libModules[i].getProject();
+//			if (p.isAccessible())
+//				projectsToBuild.add(libModules[i].getProject());
+//		}
 	}
 
 	/*
@@ -127,10 +147,28 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 *      org.eclipse.core.resources.IProject)
 	 */
 	public void setContextRootForModuleMapping(WebModule webModule, IProject nestedProject) throws CoreException {
-		J2EEWebNatureRuntime wnr = J2EEWebNatureRuntime.getRuntime(nestedProject);
-		if (wnr != null) {
-			wnr.setContextRoot(webModule.getContextRoot());
+		//J2EEWebNatureRuntime wnr = J2EEWebNatureRuntime.getRuntime(nestedProject);
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			
+			artifact = ModuleCore.getFirstArtifactEditForRead( nestedProject );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			//To Do: need to rework
+       			//webEdit.setContextRoot(webModule.getContextRoot());
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
 		}
+		
+//		if (wnr != null) {
+//			wnr.setContextRoot(webModule.getContextRoot());
+//		}
 	}
 
 	/*
@@ -175,11 +213,29 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 *      org.eclipse.core.resources.IProject)
 	 */
 	public boolean compareWebContextRoot(Module module, IProject project) throws CoreException {
-		J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
-		String contextRoot = ((WebModule) module).getContextRoot();
-		if (contextRoot != null) {
-			return ((contextRoot).equals(webNature.getContextRoot()));
-		}
+		//J2EEWebNatureRuntime webNature = (J2EEWebNatureRuntime) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
+		ArtifactEdit artifact = null;
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			
+			artifact = ModuleCore.getFirstArtifactEditForRead( project );
+			webEdit = ( WebArtifactEdit )artifact;
+       		if(webEdit != null) {
+       			String contextRoot = ((WebModule) module).getContextRoot();
+       			if (contextRoot != null) {
+       				return ((contextRoot).equals(webEdit.getContextRoot()));
+       			}
+       			
+       		}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}		
+		
+
 		return false;
 	}
 

@@ -37,7 +37,7 @@ import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
 import org.eclipse.jst.j2ee.jca.Connector;
@@ -57,6 +57,8 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.common.modulecore.ArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 import sun.misc.Service;
 
@@ -282,7 +284,23 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		// Handle Servlet Link case
 		else {
 			linkName = ((ServletLink) link).getServletLink();
-			WebApp webApp = J2EEWebNatureRuntime.getRuntime(p).getWebApp();
+			//WebApp webApp = J2EEWebNatureRuntime.getRuntime(p).getWebApp();
+			ArtifactEdit artifact = null;
+			WebArtifactEdit webEdit = null;
+			WebApp webApp = null;
+			try{
+				artifact = ModuleCore.getFirstArtifactEditForRead( p );
+				webEdit = ( WebArtifactEdit )artifact;
+	       		if(webEdit != null) {
+	           		webApp = webEdit.getWebApplication();		               		
+
+	       		}			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				if( webEdit != null )
+					webEdit.dispose();
+			}				
 			if (webApp == null)
 				return;
 			Servlet servlet = webApp.getServletNamed(linkName);
