@@ -74,7 +74,7 @@ public abstract class ModuleExportOperationTestCase extends OperationTestCase {
 	}
 
 	private String getOutputDirectory(){
-	    return "tempOutput";
+	    return "testOutput";
 	}
 	protected abstract ModuleImportOperationTestCase getImportTestCase();
 	protected abstract J2EEModuleExportDataModel getModelInstance();
