@@ -15,7 +15,7 @@
    </url>
 
    <includes
-         id="com.ibm.wtp.emf.integration"
+         id="com.ibm.wtp.emf.integration.core"
          version="1.0.0"/>
 
    <requires>

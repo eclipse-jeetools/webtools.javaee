@@ -3,12 +3,12 @@
 <plugin
    id="com.ibm.wtp.emf.workbench"
    name="EMF Workbench"
-   version="0.5.0"
+   version="1.0.0"
    provider-name="IBM"
    class="com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin">
 
    <runtime>
-      <library name="runtime/emfworkbench.jar">
+      <library name="emfworkbench.jar">
          <export name="*"/>
       </library>
    </runtime>
@@ -16,11 +16,10 @@
       <import plugin="org.apache.xerces"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="com.ibm.wtp.common"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="com.ibm.wtp.emf"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="com.ibm.wtp.common.util"/>
    </requires>
 
 
@@ -28,9 +27,7 @@
 	new WorkbenchContexts -->
    <extension-point id="ResourceHandlerExtension" name="ResourceHandlerExtension"/>
    <extension-point id="globalPluginResourceLoad" name="Global Plugin Resource Load" schema="schema/globalPluginResourceLoad.exsd"/>
-   <extension-point id="editModel" name="EMF Resource Edit Model" schema="schema/editModel.exsd"/>
-   <extension-point id="nature_registration" name="Java EMF Nature registration"/>
-   <extension-point id="editModelExtension" name="Edit Model Extensions" schema="schema/editModelExtension.exsd"/>
-   <extension-point id="adapterFactory" name="Adapter Factory Extension" schema="schema/adapterFactory.exsd"/>
+   <extension-point id="nature_registration" name="EMF Nature registration"/>
+   <extension-point id="internalWorkbenchContextFactory" name="Internal Workbench Context Factory"/>
 
 </plugin>

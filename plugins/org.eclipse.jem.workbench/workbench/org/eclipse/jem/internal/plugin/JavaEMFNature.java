@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.plugin;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.4 $ $Date: 2004/02/24 19:33:35 $
+ * $RCSfile: JavaEMFNature.java,v $ $Revision: 1.5 $ $Date: 2004/03/06 18:39:45 $
  */
 
 import java.util.List;
@@ -124,7 +124,7 @@ public static boolean primHasRuntime(IProject project) {
 /**
  * primary contribute to context
  */
-public void primaryContributeToContext(EMFWorkbenchContext aNature) {
+public void primaryContributeToContext(EMFWorkbenchContextBase aNature) {
 	if (emfContext == aNature) return;
 	emfContext = aNature;
 	ResourceSet set = aNature.getResourceSet();
@@ -137,7 +137,7 @@ public void primaryContributeToContext(EMFWorkbenchContext aNature) {
 /**
  * secondary contribute to context
  */
-public void secondaryContributeToContext(EMFWorkbenchContext aNature) {
+public void secondaryContributeToContext(EMFWorkbenchContextBase aNature) {
 	primaryContributeToContext(aNature);
 }
 

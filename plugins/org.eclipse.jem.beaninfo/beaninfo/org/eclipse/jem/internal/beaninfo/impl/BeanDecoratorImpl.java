@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: BeanDecoratorImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/03/06 11:28:26 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/06 18:38:37 $ 
  */
 
 
@@ -35,14 +35,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jem.internal.beaninfo.BeanDecorator;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
-import org.eclipse.jem.internal.beaninfo.adapters.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.internal.proxy.core.*;
-import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
+
 
 import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.7 $  $Date: 2004/03/06 11:28:26 $ 
+ *  $Revision: 1.8 $  $Date: 2004/03/06 18:38:37 $ 
  */
 
 import java.io.*;
@@ -808,19 +808,19 @@ public class BeaninfoNature implements IProjectNature {
 				}
 			} 
 
-//			if (kind == IClasspathEntry.CPE_CONTAINER) {
-//				// KLUDGE TODO For now we can't really handle containers, we will simply hard-code and only handle JRE container to JRE_LIB stuff.
-//				if (path == null || path.segmentCount() == 0)
-//					return; // No path information to process.
-//				if (path.segment(0).equals(JavaRuntime.JRE_CONTAINER)) {
-//					if (!visitedVariablepaths.contains(JRE_LIB_VARIABLE_PATH)) {
-//						visitedVariablepaths.add(JRE_LIB_VARIABLE_PATH);
-//						BeaninfoRegistration[] registrations = BeaninfoPlugin.getPlugin().getRegistrations(JRE_LIB_VARIABLE_PATH);
-//						if (registrations != null)
-//							processBeaninfoRegistrations(registrations, classPaths, controller);							
-//					}
-//				}
-//			}
+			if (kind == IClasspathEntry.CPE_CONTAINER) {
+				// KLUDGE TODO For now we can't really handle containers, we will simply hard-code and only handle JRE container to JRE_LIB stuff.
+				if (path == null || path.segmentCount() == 0)
+					return; // No path information to process.
+				if (path.segment(0).equals(JavaRuntime.JRE_CONTAINER)) {
+					if (!visitedVariablepaths.contains(JRE_LIB_VARIABLE_PATH)) {
+						visitedVariablepaths.add(JRE_LIB_VARIABLE_PATH);
+						BeaninfoRegistration[] registrations = BeaninfoPlugin.getPlugin().getRegistrations(JRE_LIB_VARIABLE_PATH);
+						if (registrations != null)
+							processBeaninfoRegistrations(registrations, controller);							
+					}
+				}
+			}
 		}
 
 		protected void processBeaninfoRegistrations(
