@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.14 $  $Date: 2004/04/20 21:15:27 $ 
+ *  $Revision: 1.15 $  $Date: 2004/04/26 21:44:35 $ 
  */
 
 import java.io.*;
@@ -27,7 +27,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.xalan.templates.OutputProperties;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -461,7 +460,6 @@ public class BeaninfoNature implements IProjectNature {
 				Transformer transformer = TransformerFactory.newInstance().newTransformer();
 				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); //$NON-NLS-1$
 				transformer.setOutputProperty(OutputKeys.METHOD, "xml"); //$NON-NLS-1$
-				transformer.setOutputProperty(OutputProperties.S_KEY_INDENT_AMOUNT, "3"); //$NON-NLS-1$
 				transformer.transform(source, result);
 				property = strWriter.toString();
 			} catch (TransformerConfigurationException e) {
