@@ -97,12 +97,12 @@
  
 
 <!-- Register the nature id with the AbstractJavaMOFNature -->
-   <extension
+<!--<extension
          point="com.ibm.wtp.emf.workbench.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.web.WebNature">
       </nature>
-   </extension>
+    </extension> -->
    <extension
          id="editModel.web"
          name="Web Edit Model"
