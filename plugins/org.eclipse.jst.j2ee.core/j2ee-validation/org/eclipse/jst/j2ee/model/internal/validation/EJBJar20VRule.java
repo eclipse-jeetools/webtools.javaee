@@ -167,7 +167,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		_relationshipRoleName.clear();
 	}
 
-	protected void addInternalErrorMessage(IValidationContext vc, Throwable exc) {
+	protected void addInternalErrorMessage(IEJBValidationContext vc, Throwable exc) {
 		IMessage mssg = vc.getMessage();
 		mssg.setId(IMessagePrefixEjb20Constants.CHKJ2900);
 		vc.addMessage(mssg);
@@ -180,12 +180,12 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		}
 	}
 	
-	protected void logMissingRule(IValidationContext vc, Object ruleId) {
+	protected void logMissingRule(IEJBValidationContext vc, Object ruleId) {
 		log(vc, ruleId + " = null"); //$NON-NLS-1$
 		addInternalErrorMessage(vc, null);
 	}
 	
-	protected void log(IValidationContext vc, String message) {
+	protected void log(IEJBValidationContext vc, String message) {
 		Logger logger = vc.getMsgLogger();
 		if (logger != null && logger.isLoggingLevel(Level.SEVERE)) {
 			logger.write(Level.SEVERE, message);
@@ -193,9 +193,9 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 	}
 	
 	/*
-	 * @see IValidationRule#validate(IValidationContext, Object, Object)
+	 * @see IValidationRule#validate(IEJBValidationContext, Object, Object)
 		 */
-	public void validate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		Logger logger = vc.getMsgLogger();
 		if(logger != null && logger.isLoggingLevel(Level.FINEST)) {
 			LogEntry entry = vc.getLogEntry();
@@ -272,14 +272,14 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			}
 			catch(ValidationException exc) {
 				// something goes wrong, just proceed with the next bean
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2852, IValidationContext.WARNING, bean, new String[]{ArchiveConstants.EJBJAR_DD_SHORT_NAME, bean.getName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{ArchiveConstants.EJBJAR_DD_SHORT_NAME, bean.getName()}, this);
 				vc.addMessage(message);
 				if (logger.isLoggingLevel(Level.SEVERE)) {
 					logger.write(Level.SEVERE, exc);
 				}
 			}
 			catch (Throwable exc) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2852, IValidationContext.WARNING, bean, new String[]{ArchiveConstants.EJBJAR_DD_SHORT_NAME, bean.getName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{ArchiveConstants.EJBJAR_DD_SHORT_NAME, bean.getName()}, this);
 				vc.addMessage(message);
 				if (logger.isLoggingLevel(Level.SEVERE)) {
 					logger.write(Level.SEVERE, exc);
@@ -296,7 +296,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		validateClientJAR(vc, ejbJar);
 	}
 	
-	protected void register(IValidationContext vc, EJBJar ejbJar, EnterpriseBean bean) {
+	protected void register(IEJBValidationContext vc, EJBJar ejbJar, EnterpriseBean bean) {
 		// To check if every bean name is unique, need to build a list
 		_ejbName.add(new EjbNameWrapper(bean));
 		
@@ -306,11 +306,11 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		}
 	}
 
-	protected void validateCMPVersionElement(IValidationContext vc, EJBJar ejbJar, ContainerManagedEntity cmp) {
+	protected void validateCMPVersionElement(IEJBValidationContext vc, EJBJar ejbJar, ContainerManagedEntity cmp) {
 		if(cmp.eIsSet(EjbPackage.eINSTANCE.getContainerManagedEntity_Version())) {
 			String version = cmp.getVersion();
 			if(! (ContainerManagedEntity.VERSION_1_X.equals(version) || ContainerManagedEntity.VERSION_2_X.equals(version))) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2872, IValidationContext.ERROR, cmp, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2872, IEJBValidationContext.ERROR, cmp, this);
 				vc.addMessage(message);
 			}			
 		}
@@ -318,7 +318,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 	
 		
 
-	protected void validateAssemblyDescriptorElement(IValidationContext vc, EJBJar ejbJar) {
+	protected void validateAssemblyDescriptorElement(IEJBValidationContext vc, EJBJar ejbJar) {
 		vc.terminateIfCancelled();
 
 		// Validate the security roles, if they're defined in the assembly-descriptor.
@@ -374,11 +374,11 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 				if ((role == null) || (!role.eIsSet(CommonPackage.eINSTANCE.getSecurityRole_RoleName())) || (role.getRoleName().equals(""))) { //$NON-NLS-1$
 					// role-name not set
 					if(role == null) {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2825, IValidationContext.WARNING, role, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2825, IEJBValidationContext.WARNING, role, this);
 						vc.addMessage(message);
 					}
 					else {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2825, IValidationContext.WARNING, assemblyDescriptor, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2825, IEJBValidationContext.WARNING, assemblyDescriptor, this);
 						vc.addMessage(message);
 					}
 				}
@@ -393,7 +393,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 				List duplicates = roleNames.getDuplicates();
 				Iterator iterator = duplicates.iterator();
 				while (iterator.hasNext()) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2826, IValidationContext.WARNING, ((RoleWrapper) iterator.next()).getRole(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2826, IEJBValidationContext.WARNING, ((RoleWrapper) iterator.next()).getRole(), this);
 					vc.addMessage(message);
 				}
 			}
@@ -430,7 +430,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 
 			boolean hasValidMethod = validateMethodElements(vc, ejbJar, mt.getMethodElements());
 			if (!hasValidMethod) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2847, IValidationContext.WARNING, mt, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2847, IEJBValidationContext.WARNING, mt, this);
 				vc.addMessage(message);
 			}
 		}
@@ -443,20 +443,20 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			boolean hasValidMethod = validateMethodElements(vc, ejbJar, mp.getMethodElements());
 			if (!hasValidMethod) {
 				// 15.3.2, p. 229, a <method-permission> must have at least one method listed (and that method must be found)
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2846, IValidationContext.WARNING, mp, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2846, IEJBValidationContext.WARNING, mp, this);
 				vc.addMessage(message);
 			}
 
 			// at least one security-role must be defined
 			List mproles = mp.getRoles();
 			if (((mproles == null) || (mproles.size() == 0)) && (!mp.isSetUnchecked())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2845, IValidationContext.WARNING, mp, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2845, IEJBValidationContext.WARNING, mp, this);
 				vc.addMessage(message);
 			}
 		}
 	}
 
-	protected void validateUniqueAbstractSchemaNames(IValidationContext vc, EJBJar ejbJar) {
+	protected void validateUniqueAbstractSchemaNames(IEJBValidationContext vc, EJBJar ejbJar) {
 		List names = _asName.getDuplicates();
 		if(names.size() == 0) {
 			return;
@@ -465,12 +465,12 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		Iterator iterator = names.iterator();
 		while(iterator.hasNext()) {
 			ASNameWrapper wrapper = (ASNameWrapper)iterator.next();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2854, IValidationContext.ERROR, wrapper.getBean(), new String[]{wrapper.getBean().getAbstractSchemaName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2854, IEJBValidationContext.ERROR, wrapper.getBean(), new String[]{wrapper.getBean().getAbstractSchemaName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	protected void validateUniqueEjbNames(IValidationContext vc, EJBJar ejbJar) {
+	protected void validateUniqueEjbNames(IEJBValidationContext vc, EJBJar ejbJar) {
 		List names = _ejbName.getDuplicates();
 		if(names.size() == 0) {
 			return;
@@ -479,12 +479,12 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		Iterator iterator = names.iterator();
 		while(iterator.hasNext()) {
 			EjbNameWrapper wrapper = (EjbNameWrapper)iterator.next();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2895, IValidationContext.WARNING, wrapper.getBean(), new String[]{wrapper.getBean().getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2895, IEJBValidationContext.WARNING, wrapper.getBean(), new String[]{wrapper.getBean().getName()}, this);
 			vc.addMessage(message);
 		}
 	}
 
-	protected void validateRelationships(IValidationContext vc, EJBJar ejbJar) {
+	protected void validateRelationships(IEJBValidationContext vc, EJBJar ejbJar) {
 		Relationships relationships = ejbJar.getRelationshipList();
 		if(relationships == null) {
 			return;
@@ -507,7 +507,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 
 				boolean validMultiplicity = role.isSetMultiplicity();
 				if(!validMultiplicity) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2818, IValidationContext.INFO, role, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2818, IEJBValidationContext.INFO, role, this);
 					vc.addMessage(message);
 				}
 	
@@ -519,7 +519,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 				if(role.isSetCascadeDelete()) {
 					boolean isOtherMultiplicityOne = ((oppositeRole.isSetMultiplicity()) && (oppositeRole.getMultiplicity().getValue() == MultiplicityKind.ONE));
 					if(!isOtherMultiplicityOne) {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2848, IValidationContext.INFO, role, this);
+						IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2848, IEJBValidationContext.INFO, role, this);
 						vc.addMessage(message);
 					}
 				}
@@ -532,7 +532,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 						if((!ITypeConstants.CLASSNAME_JAVA_UTIL_COLLECTION.equals(cmrFieldType)) &&
 							(!ITypeConstants.CLASSNAME_JAVA_UTIL_SET.equals(cmrFieldType))) {
 							// CHKJ2868: The value of the <cmr-field-type> element must be either "java.util.Collection" or "java.util.Set" (EJB 2.0: 10.3.13, 22.5).
-							IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2868, IValidationContext.INFO, role, this);
+							IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2868, IEJBValidationContext.INFO, role, this);
 							vc.addMessage(message);
 						}
 					}
@@ -540,14 +540,14 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 				
 				RoleSource sourceRoleSource = role.getSource();
 				if(sourceRoleSource == null) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2821, IValidationContext.INFO, role, new String[]{role.getName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2821, IEJBValidationContext.INFO, role, new String[]{role.getName()}, this);
 					vc.addMessage(message);
 					continue;
 				}
 
 				Entity sourceEntity = sourceRoleSource.getEntityBean();
 				if(sourceEntity == null) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2821, IValidationContext.INFO, role, new String[]{role.getName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2821, IEJBValidationContext.INFO, role, new String[]{role.getName()}, this);
 					vc.addMessage(message);
 				}
 				else if(sourceEntity.isContainerManagedEntity()) {
@@ -561,14 +561,14 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 						}
 						
 						if(!found_cmrField) {
-							IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2866, IValidationContext.INFO, role, new String[]{cmrField.getName(), sourceEntity.getName()}, this);
+							IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2866, IEJBValidationContext.INFO, role, new String[]{cmrField.getName(), sourceEntity.getName()}, this);
 							vc.addMessage(message);
 						}
 					}
 				}
 				else {
 					// CHKJ2871: <ejb-name> {0} must refer to a CMP bean (EJB 2.0: 10.3.2, 10.3.13).
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2871, IValidationContext.INFO, role, new String[]{sourceEntity.getName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2871, IEJBValidationContext.INFO, role, new String[]{sourceEntity.getName()}, this);
 					vc.addMessage(message);
 				}
 				
@@ -587,7 +587,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 				else if(targetEntity.getLocalInterface() == null) {
 					// Does the target of this role have a local interface?
 					// CHKJ2867: This bean can have only unidirectional relationships to other beans (EJB 2.0: 10.3.2).
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2867, IValidationContext.INFO, oppositeRole, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2867, IEJBValidationContext.INFO, oppositeRole, this);
 					vc.addMessage(message);
 				}
 			}
@@ -598,7 +598,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			
 			if(!atLeastOneCmrFieldExists) {
 				// CHKJ2869I: At least one <ejb-relationship-role> must define a <cmr-field> (EJB 2.0: 10.3.2, 10.3.13, 22.5).
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2869, IValidationContext.INFO, relation, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2869, IEJBValidationContext.INFO, relation, this);
 				vc.addMessage(message);
 			}
 		}
@@ -606,7 +606,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		validateUniqueRelationNames(vc, ejbJar);
 	}
 	
-	protected void validateUniqueRelationNames(IValidationContext vc, EJBJar ejbJar) {
+	protected void validateUniqueRelationNames(IEJBValidationContext vc, EJBJar ejbJar) {
 		List names = _relationshipName.getDuplicates();
 		if(names.size() == 0) {
 			return;
@@ -615,12 +615,12 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		Iterator iterator = names.iterator();
 		while(iterator.hasNext()) {
 			EJBRelationNameWrapper wrapper = (EJBRelationNameWrapper)iterator.next();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2816, IValidationContext.INFO, wrapper.getRelation(), new String[]{wrapper.getRelation().getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2816, IEJBValidationContext.INFO, wrapper.getRelation(), new String[]{wrapper.getRelation().getName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	protected void validateUniqueRelationshipRoleNames(IValidationContext vc, EJBJar ejbJar) {
+	protected void validateUniqueRelationshipRoleNames(IEJBValidationContext vc, EJBJar ejbJar) {
 		List names = _relationshipRoleName.getDuplicates();
 		if(names.size() == 0) {
 			return;
@@ -629,7 +629,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		Iterator iterator = names.iterator();
 		while(iterator.hasNext()) {
 			EJBRelationshipRoleNameWrapper wrapper = (EJBRelationshipRoleNameWrapper)iterator.next();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2817, IValidationContext.INFO, wrapper.getRelationshipRole(), new String[]{wrapper.getRelationshipRole().getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2817, IEJBValidationContext.INFO, wrapper.getRelationshipRole(), new String[]{wrapper.getRelationshipRole().getName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -641,7 +641,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 	 * Return true if at least one of the methods referenced by this list of 
 	 * MethodElement can be found.
 	*/
-	protected boolean validateMethodElements(IValidationContext vc, EJBJar ejbJar, List elements) {
+	protected boolean validateMethodElements(IEJBValidationContext vc, EJBJar ejbJar, List elements) {
 		if ((elements == null) || (elements.size() == 0)) {
 			return false;
 		}
@@ -654,7 +654,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 
 			EnterpriseBean bean = element.getEnterpriseBean();
 			if (bean == null) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2814, IValidationContext.WARNING, element, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2814, IEJBValidationContext.WARNING, element, this);
 				vc.addMessage(message);
 				continue;
 			}
@@ -667,7 +667,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 
 				if (!hasMethods) {
 					// warning
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2843, IValidationContext.WARNING, element, new String[] { bean.getName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2843, IEJBValidationContext.WARNING, element, new String[] { bean.getName()}, this);
 					vc.addMessage(message);
 				}
 				else {
@@ -676,7 +676,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 						List params = element.getMethodParams();
 						if ((params != null) && (params.size() > 0)) {
 							// warning
-							IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2842, IValidationContext.WARNING, element, this);
+							IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2842, IEJBValidationContext.WARNING, element, this);
 							vc.addMessage(message);
 						}
 					}
@@ -684,7 +684,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			}
 			else {
 				// error
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2844, IValidationContext.WARNING, element, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2844, IEJBValidationContext.WARNING, element, this);
 				vc.addMessage(message);
 			}
 		}
@@ -692,7 +692,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		return hasValidMethod;
 	}
 
-	protected void validateClientJAR(IValidationContext vc, EJBJar ejbJar) {
+	protected void validateClientJAR(IEJBValidationContext vc, EJBJar ejbJar) {
 		String clientJARName = ejbJar.getEjbClientJar();
 		if(clientJARName == null) {
 			// No client JAR specified; everything's okay.
@@ -707,7 +707,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		}
 		
 		if(!exists.booleanValue()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2875, IValidationContext.ERROR, ejbJar, new String[]{clientJARName}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2875, IEJBValidationContext.ERROR, ejbJar, new String[]{clientJARName}, this);
 			vc.addMessage(message);
 		}
 	}

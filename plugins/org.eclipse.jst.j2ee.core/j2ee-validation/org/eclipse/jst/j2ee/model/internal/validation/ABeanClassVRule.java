@@ -29,7 +29,7 @@ import org.eclipse.wst.validation.core.ValidationException;
  */
 public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 	protected final static long[] BASE_TYPES = new long[]{ITypeConstants.JAVA_LANG_OBJECT};
-	protected final static int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IValidationContext.WARNING; // Deprecated use of RemoteException.
+	protected final static int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IEJBValidationContext.WARNING; // Deprecated use of RemoteException.
 	
 	public long[] getBaseTypes() {
 		return BASE_TYPES;
@@ -47,19 +47,19 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		return HELPER;
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!followAbstractRules(clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2014, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2014, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
 		if(!followPublicRules(clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2022, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2022, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if(!followFinalRules(clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2015, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2015, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
@@ -86,7 +86,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		return methodsExtendedList[4];
 	}
 	
-	public final List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// A bean class needs the following classes' extended methods:
 		//    1. remote home
 		//    2. local home
@@ -139,7 +139,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		return result;
 	}
 	
-	public final List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a bean class' field is defined on another class
 		// of the bean.
 		return null;
@@ -151,9 +151,9 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 	protected abstract boolean shouldValidateTransientField();
 	protected abstract JavaHelpers getEjbCreateReturnType(EnterpriseBean bean, Method method) throws InvalidInputException;
 	protected abstract String getEjbCreateReturnTypeName(EnterpriseBean bean, Method method) throws InvalidInputException;
-	public abstract String getMatchingHomeMethodName(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList);
+	public abstract String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList);
 	
-	public String getMatchingEjbHomeMethodName(IValidationContext vc, Method method) {
+	public String getMatchingEjbHomeMethodName(IEJBValidationContext vc, Method method) {
 		// Section number stating this name convention?
 		String methodName = method.getName();
 		// Strip the "ejbHome" off, strip off the next character, and replace that character with a lowercase version of that character
@@ -162,14 +162,14 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		return buffer.toString();
 	}
 	
-	public String getMatchingEjbCreateMethodName(IValidationContext vc, Method method) {
+	public String getMatchingEjbCreateMethodName(IEJBValidationContext vc, Method method) {
 		StringBuffer buffer = new StringBuffer(IMethodAndFieldConstants.PREFIX_C);
 		// Strip the "ejbC" off of "create" and replace with "c"
 		buffer.append(method.getName().substring(4));
 		return buffer.toString();
 	}
 
-	public String getMatchingEjbPostCreateMethodName(IValidationContext vc, Method method) {
+	public String getMatchingEjbPostCreateMethodName(IEJBValidationContext vc, Method method) {
 		StringBuffer buffer = new StringBuffer(IMethodAndFieldConstants.PREFIX_C);
 		// Strip the "ejbPostC" off of "create" and replace with "c"
 		buffer.append(method.getName().substring(8));
@@ -178,21 +178,21 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 	
 	
 	
-	public String getMatchingEjbFindMethodName(IValidationContext vc, Method method) {
+	public String getMatchingEjbFindMethodName(IEJBValidationContext vc, Method method) {
 		StringBuffer buffer = new StringBuffer(IMethodAndFieldConstants.PREFIX_F);
 		// Strip the "ejbF" off of "ejbFind" and replace with "f"
 		buffer.append(method.getName().substring(4));
 		return buffer.toString();
 	}
 	
-	public String getMatchingBusinessMethodName(IValidationContext vc, Method method) {
+	public String getMatchingBusinessMethodName(IEJBValidationContext vc, Method method) {
 		return method.getName();
 	}
 	
 	/*
 	 * The given method is not supposed to have a matching method.
 	 */
-	public String getNoMatchingMethodName(IValidationContext vc, Method method) {
+	public String getNoMatchingMethodName(IEJBValidationContext vc, Method method) {
 		return null; // not supposed to have a matching method
 	}
 
@@ -218,26 +218,26 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 	}
 	
 	
-	public void validateEjbCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2421, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2421, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if(method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2422, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2422, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if(method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2423, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2423, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		JavaHelpers retType = getEjbCreateReturnType(bean, method);
 		if((retType == null) || (!ValidationRuleUtility.isAssignableFrom(method.getReturnType(), retType))) {
 			String retTypeName = (retType == null) ? getEjbCreateReturnTypeName(bean, method) : retType.getJavaName();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2424, IValidationContext.WARNING, bean, clazz, method, new String[]{retTypeName}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2424, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{retTypeName}, this);
 			vc.addMessage(message);
 		}
 
@@ -245,7 +245,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 
 		if(validateEjbCreateMethodExceptions()) {
 			if(!followRemoteExceptionRules(bean, method)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbCreate, IValidationContext.WARNING, bean, clazz, method, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbCreate, IEJBValidationContext.WARNING, bean, clazz, method, this);
 				vc.addMessage(message);
 			}
 		}
@@ -255,48 +255,48 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		return true;
 	}
 	
-	public void validateEjbPostCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2426, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2426, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if(method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2427, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2427, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if(method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2428, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2428, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if(!method.isVoid()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2505_ejbPostCreate, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2505_ejbPostCreate, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if(!followRemoteExceptionRules(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbPostCreate, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbPostCreate, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	public final void validateEjbHomeMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateEjbHomeMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2431, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2431, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if(method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2439, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2439, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		validateRMI_IIOPTypeRules(vc, bean, clazz, method, methodsExtendedLists, true);
 
 		if(!followRemoteExceptionRules(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbHome, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbHome, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
@@ -317,16 +317,16 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 			return;
 		}
 		
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2430, IValidationContext.INFO, bean, clazz, method, new String[]{methodToMatchName}, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2430, IEJBValidationContext.INFO, bean, clazz, method, new String[]{methodToMatchName}, this);
 		vc.addMessage(message);
 	}
 	
-	public final void validateBusinessMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// IWAD4048 = Business methods must not start with "ejb". Read section 7.10.4 of the EJB 2.0 specification.
 		// IWAD4201 = This method name must not start with "ejb". Read section 10.6.8 of the EJB 2.0 specification.
 		// IWAD4317 = The method name must not start with "ejb". Read section 12.2.7 of the EJB 2.0 specification.
 		if(method.getName().startsWith(IMethodAndFieldConstants.PREFIX_EJB)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2411, IValidationContext.WARNING, bean, clazz, method, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2411, IEJBValidationContext.WARNING, bean, clazz, method, this);		
 			vc.addMessage(message);
 		}
 		
@@ -334,7 +334,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		// IWAD4202 = This method must be public. Read section 10.6.8 of the EJB 2.0 specification.
 		// IWAD4318 = The method must be public. Read section 12.2.7 of the EJB 2.0 specification.
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2441, IValidationContext.WARNING, bean, clazz, method, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2441, IEJBValidationContext.WARNING, bean, clazz, method, this);		
 			vc.addMessage(message);
 		}
 		
@@ -342,7 +342,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		// IWAD4203 = This method must not be final. Read section 10.6.8 of the EJB 2.0 specification.
 		// IWAD4319 = The method must not be final. Read section 12.2.7 of the EJB 2.0 specification.
 		if(method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2442, IValidationContext.WARNING, bean, clazz, method, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2442, IEJBValidationContext.WARNING, bean, clazz, method, this);		
 			vc.addMessage(message);
 		}
 		
@@ -350,7 +350,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		// IWAD4204 = This method must not be static. Read section 10.6.8 of the EJB 2.0 specification.
 		// IWAD4320 = The method must not be static. Read section 12.2.7 of the EJB 2.0 specification.
 		if(method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2443, IValidationContext.WARNING, bean, clazz, method, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2443, IEJBValidationContext.WARNING, bean, clazz, method, this);		
 			vc.addMessage(message);
 		}
 		
@@ -370,36 +370,36 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		validateMatchingComponentMethod(vc, bean, clazz, method, methodsExtendedLists);
 	}
 
-	public void validateEjbRemoveMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateEjbRemoveMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// IWAD4402 = This method must be public. Read section 15.7.5 of the EJB 2.0 specification.
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2492, IValidationContext.WARNING, bean, clazz, method, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2492, IEJBValidationContext.WARNING, bean, clazz, method, this);		
 			vc.addMessage(message);
 		}
 		
 		// IWAD4403 = This method must not be final. Read section 15.7.5 of the EJB 2.0 specification.
 		if(method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2493, IValidationContext.WARNING, bean, clazz, method, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2493, IEJBValidationContext.WARNING, bean, clazz, method, this);		
 			vc.addMessage(message);
 		}
 		
 		// IWAD4404 = This method must not be static. Read section 15.7.5 of the EJB 2.0 specification.
 		if(method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2494, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2494, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	
 		// IWAD4405 = This method must return void. Read section 15.7.5 of the EJB 2.0 specification.
 		if(!method.isVoid()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2505_ejbRemove, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2505_ejbRemove, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
 	
 	/*
-	 * @see IClassVRule#validate(IValidationContext, JavaClass, Field)
+	 * @see IClassVRule#validate(IEJBValidationContext, JavaClass, Field)
 	 */
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// IWAD4024 = A transient field should not be the {0} type. Read section 7.4.1 of the EJB 2.0 specification.
 		// IWAD4025 = Transient fields are discouraged. Read section 7.4.1 of the EJB 2.0 specification.
 		// IWAD4115 = {0} must not be defined in this class. Read section 10.3.1 of the EJB 2.0 specification.
@@ -410,7 +410,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		}
 	}
 	
-	public void validateTransientField(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateTransientField(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// By default do nothing
 	}
 	
@@ -426,7 +426,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		}	
 	}
 
-	public void validateMatchingMethodExceptions(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, JavaClass matchingClazz, Method matchingMethod) {
+	public void validateMatchingMethodExceptions(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, JavaClass matchingClazz, Method matchingMethod) {
 		// Every exception thrown on the bean class' method must be thrown on the component/home method
 		/* Don't check for this here - let the home & component do it.
 		Set exceptions = ValidationRuleUtility.getNotSubsetExceptions(bean, method, matchingMethod);
@@ -440,12 +440,12 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		Iterator eiterator = exceptions.iterator();
 		while(eiterator.hasNext()) {
 			JavaClass exception = (JavaClass)eiterator.next();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2456, IValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), matchingClazz.getJavaName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2456, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), matchingClazz.getJavaName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	public final void validateMatchingHomeMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
+	public final void validateMatchingHomeMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
 		Method remoteMethod = ValidationRuleUtility.getMethod(method, getMatchingHomeMethodName(vc, bean, clazz, method, methodsExtendedLists), getRemoteHomeMethodsExtended(methodsExtendedLists));
 		if(remoteMethod != null) {
 			validateMatchingMethodExceptions(vc, bean, clazz, method, bean.getHomeInterface(), remoteMethod);
@@ -457,7 +457,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		}
 	}
 	
-	public final void validateMatchingComponentMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
+	public final void validateMatchingComponentMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
 		Method remoteMethod = ValidationRuleUtility.getMethod(method, method.getName(), getRemoteComponentMethodsExtended(methodsExtendedLists));
 		if(remoteMethod != null) {
 			validateMatchingMethodExceptions(vc, bean, clazz, method, bean.getRemoteInterface(), remoteMethod);
@@ -469,7 +469,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		}
 	}
 
-	protected void validateAppendixB(IValidationContext vc, EnterpriseBean bean, JavaClass thisEjbObject) {
+	protected void validateAppendixB(IEJBValidationContext vc, EnterpriseBean bean, JavaClass thisEjbObject) {
 		// The Java inheritance structure must match the EJB inheritance structure.
 		// e.g. if EJB B is a child of EJB A, then class B must be a child of class A.
 		// B could be a grandchild (or great-grandchild or ...) of A.
@@ -487,13 +487,13 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 				ValidationRuleUtility.isValidType(parentEjbObject);
 				if (!ValidationRuleUtility.isAssignableFrom(thisEjbObject, parentEjbObject)) {
 					String[] msgParm = new String[] { thisEjbObject.getQualifiedName(), parentEjbObject.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2103, IValidationContext.ERROR, bean, thisEjbObject, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2103, IEJBValidationContext.ERROR, bean, thisEjbObject, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2849, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

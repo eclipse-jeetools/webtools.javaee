@@ -98,17 +98,17 @@ public abstract class AValidationRule implements IValidationRule {
     }
 
     /*
-     * @see IValidationRule#preValidate(IValidationContext, Object, Object)
+     * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
      */
-    public void preValidate(IValidationContext vc, Object targetParent, Object target)
+    public void preValidate(IEJBValidationContext vc, Object targetParent, Object target)
             throws ValidationCancelledException, ValidationException {
         // By default, allocate nothing.
     }
 
     /*
-     * @see IValidationRule#postValidate(IValidationContext, Object, Object)
+     * @see IValidationRule#postValidate(IEJBValidationContext, Object, Object)
      */
-    public void postValidate(IValidationContext vc, Object targetParent, Object target)
+    public void postValidate(IEJBValidationContext vc, Object targetParent, Object target)
             throws ValidationCancelledException, ValidationException {
         // By default, assume that nothing was allocated in preValidate.
     }

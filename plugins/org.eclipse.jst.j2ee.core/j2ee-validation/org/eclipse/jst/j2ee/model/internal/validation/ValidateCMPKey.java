@@ -149,7 +149,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	 *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
 	 *     fields, and vice versa.)
 	 */
-	protected void buildFieldNameList(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	protected void buildFieldNameList(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Build up the list of field names to be used in the field validation.
 		vc.terminateIfCancelled();
 
@@ -190,10 +190,10 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	 *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
 	 *     fields, and vice versa.)
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		// All fields in the primary key class must be declared as public.
 		if (!ValidationRuleUtility.isPublic(field)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2205, IValidationContext.WARNING, bean, clazz, field, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2205, IEJBValidationContext.WARNING, bean, clazz, field, this);
 			vc.addMessage(message);
 		}
 
@@ -208,7 +208,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 			JavaClass ejbClass = cmp.getEjbClass();
 			ValidationRuleUtility.isValidType(ejbClass);
 			String[] msgParm = { cmp.getName(), cmp.getEjbClass().getName()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2206, IValidationContext.WARNING, bean, clazz, field, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2206, IEJBValidationContext.WARNING, bean, clazz, field, msgParm, this);
 			vc.addMessage(message);
 		}
 	}
@@ -216,7 +216,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/**
 	 * This method actually does the validation.
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(ejbMethod);
 
@@ -226,7 +226,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
 
@@ -247,14 +247,14 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	 *     fields. (This allows the container to extract the primary key fields from an instance's container-managed
 	 *     fields, and vice versa.)
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateClass(vc, bean, clazz);
 
 		vc.terminateIfCancelled();
 
 		// The primary key class must be public
 		if (!clazz.isPublic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2020, IValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2020, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 
@@ -270,7 +270,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 			if ((primKeyFields == null) || (primKeyFields.size() == 0)) {
 				JavaClass primaryKey = cmp.getPrimaryKey(); // don't need to check MOFHelper.isValidType(primaryKey), because it's already been called in the validateDeploymentDescriptor method
 				String beanName = (cmp.getName() == null) ? "null" : cmp.getName(); //$NON-NLS-1$
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2829, IValidationContext.ERROR, bean, primaryKey, new String[] { primaryKey.getName(), beanName }, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2829, IEJBValidationContext.ERROR, bean, primaryKey, new String[] { primaryKey.getName(), beanName }, this);
 				vc.addMessage(message);
 			}
 		}
@@ -280,20 +280,20 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	 *  9.4.7.2 Primary key that maps to multiple fields in the entity bean class
 	 *     The primary key class must be public, and must have a public constructor with no parameters.
 	 */
-	public void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateMethodExists(vc, bean, clazz);
 
 		// If the class has no constructors defined, Java inserts a public constructor with no arguments.
 		// But if the class has at least one constructor defined, Java will not insert a constructor.
 		if (!hasDefaultConstructor && hasAConstructor) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2021, IValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2021, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	/*
-	 * @see IValidationRule#preValidate(IValidationContext, Object, Object)
+	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
-	public void preValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasAConstructor = false;
 		hasDefaultConstructor = false;

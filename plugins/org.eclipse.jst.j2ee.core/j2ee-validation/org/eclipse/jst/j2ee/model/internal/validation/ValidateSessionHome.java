@@ -135,7 +135,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 		return false;
 	}
 
-	protected void incrementCreateMethodCount(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected void incrementCreateMethodCount(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
 			return;
 		}
@@ -190,7 +190,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	 *   - The throws clause must include javax.ejb.CreateException.
 	 * ...
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(hiMethod);
 
@@ -206,7 +206,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 			// (No methods other than create methods are listed in section 6.10.6,
 			// but other sections of the spec, e.g. 9.2.2, explicitly list each type
 			// of method which can be on a class/interface.)
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2419, IValidationContext.ERROR, bean, clazz, hiMethod, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2419, IEJBValidationContext.ERROR, bean, clazz, hiMethod, this);
 			vc.addMessage(message);
 		}
 
@@ -216,7 +216,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
 
@@ -245,7 +245,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	 *     remote interfaces.
 	 * ...
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		// Both of the above checks are performed by the ValidateHome class's validateClass method.
 		super.validateClass(vc, bean, clazz);
@@ -278,7 +278,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	 *     matching create method of the home interface.
 	 *   - The throws clause must include javax.ejb.CreateException. 
 	 */
-	protected void validateCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	protected void validateCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
 			return;
 		}
@@ -301,7 +301,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 		// The throws clause must include javax.ejb.CreateException.
 		if (!ValidationRuleUtility.throwsCreateException(bean, method)) {
 			String[] msgParm = { ITypeConstants.CLASSNAME_JAVAX_EJB_CREATEEXCEPTION };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IValidationContext.ERROR, bean, clazz, method, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IEJBValidationContext.ERROR, bean, clazz, method, msgParm, this);
 			vc.addMessage(message);
 		}
 
@@ -323,12 +323,12 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	 * The following are the requirements for the session bean's home interface:
 	 *   - A session bean's home interface must define one or more create(...) methods.
 	 */
-	protected void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
 
 		// A session bean's home must define one or more create methods.
 		if (!hasCreateMethod()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2010, IValidationContext.ERROR, bean, clazz, modelObjectName, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2010, IEJBValidationContext.ERROR, bean, clazz, modelObjectName, this);
 			vc.addMessage(message);
 		}
 
@@ -338,15 +338,15 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 		if (ValidationRuleUtility.isStateless(bean) && (createMethods.size() > 0)) {
 			Iterator iterator = createMethods.iterator();
 			while (iterator.hasNext()) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2024, IValidationContext.ERROR, bean, clazz, (Method) iterator.next(), modelObjectName, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2024, IEJBValidationContext.ERROR, bean, clazz, (Method) iterator.next(), modelObjectName, this);
 				vc.addMessage(message);
 			}
 		}
 	}
 	/*
-	 * @see IValidationRule#preValidate(IValidationContext, Object, Object)
+	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
-	public void preValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasDefaultCreateMethod = false;
 	}

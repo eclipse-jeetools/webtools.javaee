@@ -173,7 +173,7 @@ public final class MessageUtility {
 		return result;
 	}
 	
-	protected IMessage getMessage(IValidationContext vc, int severity, String id, String[] parms, Object target, String groupName) {
+	protected IMessage getMessage(IEJBValidationContext vc, int severity, String id, String[] parms, Object target, String groupName) {
 		IMessage message = vc.getMessage();
 		message.setSeverity(severity);
 		message.setId(id);
@@ -186,52 +186,52 @@ public final class MessageUtility {
 	/** 
 	 * For use only by the DD VRules.
 	 */
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EJBJar target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EJBJar target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, SecurityRole target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, SecurityRole target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, SecurityRoleRef target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, SecurityRoleRef target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, MethodElement target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, MethodElement target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, MethodTransaction target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, MethodTransaction target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, MethodPermission target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, MethodPermission target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EJBRelationshipRole target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EJBRelationshipRole target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, CommonRelationshipRole target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, CommonRelationshipRole target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EJBRelation target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EJBRelation target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, AssemblyDescriptor target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, AssemblyDescriptor target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, null);
 	}
@@ -239,62 +239,62 @@ public final class MessageUtility {
 	/** 
 	 * For use only by the DD VRules.
 	 */
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EJBJar target, String[] parms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EJBJar target, String[] parms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, parms, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, MethodElement target, String[] parms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, MethodElement target, String[] parms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, parms, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EJBRelationshipRole target, String[] parms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EJBRelationshipRole target, String[] parms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, parms, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, SecurityRoleRef target, String[] parms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, SecurityRoleRef target, String[] parms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, parms, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EJBRelation target, String[] parms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EJBRelation target, String[] parms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, parms, target, null);
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, Object target, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, Object target, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, target, getGroupName(bean));
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, Object target, String[] parms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, Object target, String[] parms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, parms, target, getGroupName(bean));
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, IValidationRule rule) {
 		String id = getMessageId(messageNumber, bean, rule);
 		return getMessage(vc, severity, id, null, bean, getGroupName(bean));
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, String[] parms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, String[] parms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, bean, rule);
 		return getMessage(vc, severity, id, parms, bean, getGroupName(bean));
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, null, clazz, getGroupName(bean));
 	}
 
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, String[] additionalParms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, String[] additionalParms, IValidationRule rule) {
 		String id = getMessageId(messageNumber, rule);
 		return getMessage(vc, severity, id, additionalParms, clazz, getGroupName(bean));
 	}
 	
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Method method, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Method method, IValidationRule rule) {
 		if(method == null) {
 			return getMessage(vc, messageNumber, severity, bean, clazz, rule);
 		}
@@ -302,7 +302,7 @@ public final class MessageUtility {
 		return getMessage(vc, messageNumber, severity, null, clazz, method, method.getMethodElementSignature(), ValidationRuleUtility.onClass(clazz, method), getGroupName(bean), rule);
 	}
 		
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Method method, String[] additionalParms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Method method, String[] additionalParms, IValidationRule rule) {
 		if(method == null) {
 			return getMessage(vc, messageNumber, severity, bean, clazz, additionalParms, rule);
 		}
@@ -310,7 +310,7 @@ public final class MessageUtility {
 		return getMessage(vc, messageNumber, severity, additionalParms, clazz, method, method.getMethodElementSignature(), ValidationRuleUtility.onClass(clazz, method), getGroupName(bean), rule);
 	}
 		
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Field field, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Field field, IValidationRule rule) {
 		if(field == null) {
 			return getMessage(vc, messageNumber, severity, bean, clazz, rule);
 		}
@@ -318,7 +318,7 @@ public final class MessageUtility {
 		return getMessage(vc, messageNumber, severity, null, clazz, field, field.getName(), ValidationRuleUtility.onClass(clazz, field), getGroupName(bean), rule);
 	}
 		
-	public IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Field field, String[] additionalParms, IValidationRule rule) {
+	public IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, EnterpriseBean bean, JavaClass clazz, Field field, String[] additionalParms, IValidationRule rule) {
 		if(field == null) {
 			return getMessage(vc, messageNumber, severity, bean, clazz, additionalParms, rule);
 		}
@@ -326,7 +326,7 @@ public final class MessageUtility {
 		return getMessage(vc, messageNumber, severity, additionalParms, clazz, field, field.getName(), ValidationRuleUtility.onClass(clazz, field), getGroupName(bean), rule);
 	}
 	
-	protected IMessage getMessage(IValidationContext vc, Object messageNumber, int severity, String[] additionalParms, JavaClass clazz, EObject fieldOrMethod, String fieldOrMethodName, boolean isMethodOnClass, String groupName, IValidationRule rule) {
+	protected IMessage getMessage(IEJBValidationContext vc, Object messageNumber, int severity, String[] additionalParms, JavaClass clazz, EObject fieldOrMethod, String fieldOrMethodName, boolean isMethodOnClass, String groupName, IValidationRule rule) {
 		if(fieldOrMethod == null) {
 			String id = getMessageId(messageNumber, rule);
 			return getMessage(vc, severity, id, additionalParms, clazz, groupName);

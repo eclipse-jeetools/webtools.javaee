@@ -22,10 +22,10 @@ import org.eclipse.wst.validation.core.ValidationException;
  * @author
  */
 public abstract class AStatelessHomeVRule extends ASessionHomeVRule {
-	public void validateCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// The create method must be a create() method.
 		if((method.listParametersWithoutReturn().length != 0) || (!IMethodAndFieldConstants.METHODNAME_CREATE.equals(method.getName()))) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2476, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2476, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		else {

@@ -25,18 +25,18 @@ import org.eclipse.wst.validation.core.ValidationException;
 public abstract class AEntityBeanClassVRule extends ABeanClassVRule {
 	private static final String missingMethodTemplate = "{0}({1})"; //$NON-NLS-1$
 	
-	public void validateEjbCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validateEjbCreateMethod(vc, bean, clazz, method, methodsExtendedList);
 		
 		validateMatchingEjbPostCreateMethod(vc, bean, clazz, method, methodsExtendedList);
 	}
 	
-	public final void validateMatchingEjbPostCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateMatchingEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		String matchingMethodName = IMethodAndFieldConstants.METHODNAME_EJBPOSTCREATE + method.getName().substring(9); // "ejbCreate" is 9 characters long, so strip off characters 0..8 inclusive
 		Method ejbPostCreateMethod = ValidationRuleUtility.getMethod(method, matchingMethodName, getBeanClassMethodsExtended(methodsExtendedLists));
 		if(ejbPostCreateMethod == null) {
 			String missingMethod = MessageFormat.format(missingMethodTemplate, new String[]{matchingMethodName, ValidationRuleUtility.getParmsAsString(method)});
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_ejbPostCreate, IValidationContext.ERROR, bean, clazz, method, new String[]{missingMethod}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_ejbPostCreate, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{missingMethod}, this);
 			vc.addMessage(message);
 		}
 	}

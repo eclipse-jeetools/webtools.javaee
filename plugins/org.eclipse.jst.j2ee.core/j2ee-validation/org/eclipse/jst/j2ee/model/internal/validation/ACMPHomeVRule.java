@@ -24,7 +24,7 @@ import org.eclipse.wst.validation.core.ValidationException;
  */
 public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 
-	public final void validateFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validateFindMethod(vc, bean, clazz, method);
 		
 		// Check that this method is associated with a query element in ejb-jar.xml
@@ -36,7 +36,7 @@ public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 		
 		ContainerManagedEntity cmp = (ContainerManagedEntity)bean;
 		if(!ValidationRuleUtility.isAssociatedWithQuery(cmp, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2495, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2495, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
@@ -50,9 +50,9 @@ public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 	
 
 	/**
-	 * @see org.eclipse.wst.validation.core.core.ejb.ejb20.rules.impl.AHomeVRule#returnsComponentInterfaceOrCollection(IValidationContext, EnterpriseBean, JavaClass, Method)
+	 * @see org.eclipse.wst.validation.core.core.ejb.ejb20.rules.impl.AHomeVRule#returnsComponentInterfaceOrCollection(IEJBValidationContext, EnterpriseBean, JavaClass, Method)
 	 */
-	protected boolean returnsComponentInterfaceOrCollection(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException {
+	protected boolean returnsComponentInterfaceOrCollection(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException {
 		if(returnsComponentInterface(vc, bean, clazz, method)) {
 			return true;
 		}
@@ -66,7 +66,7 @@ public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 		return false;
 	}
 
-	public final void validateMatchingReturnTypeMatches(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedList) {
+	public final void validateMatchingReturnTypeMatches(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedList) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, homeMethod, methodsExtendedList, this);
 		if((methodType & FIND) != FIND) {
 			super.validateMatchingReturnTypeMatches(vc, bean, clazz, homeMethod, beanMethod, methodsExtendedList);

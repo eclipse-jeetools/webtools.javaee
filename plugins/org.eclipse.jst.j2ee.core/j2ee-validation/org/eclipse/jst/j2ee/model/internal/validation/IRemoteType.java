@@ -17,5 +17,5 @@ package org.eclipse.jst.j2ee.model.internal.validation;
  */
 public interface IRemoteType {
 	public int IS_REMOTE = IEJBType.REMOTE;
-	public int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IValidationContext.ERROR; // If a method does not throw an exception when it should, RMIC blows up, hence this situation is an error.
+	public int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IEJBValidationContext.ERROR; // If a method does not throw an exception when it should, RMIC blows up, hence this situation is an error.
 }

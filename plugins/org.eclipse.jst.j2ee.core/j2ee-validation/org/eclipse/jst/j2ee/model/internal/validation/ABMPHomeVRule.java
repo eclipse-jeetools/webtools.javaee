@@ -21,7 +21,7 @@ import org.eclipse.wst.validation.core.IMessage;
 
 public abstract class ABMPHomeVRule extends AEntityHomeVRule {
 
-	public final void validateMatchingReturnTypeMatches(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedLists) {
+	public final void validateMatchingReturnTypeMatches(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedLists) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, homeMethod, methodsExtendedLists, this);
 		if((methodType & FIND) != FIND) {
 			super.validateMatchingReturnTypeMatches(vc, bean, clazz, homeMethod, beanMethod, methodsExtendedLists);
@@ -47,7 +47,7 @@ public abstract class ABMPHomeVRule extends AEntityHomeVRule {
 					else {
 						retTypeName = (beanRetType == null) ? "?" : beanRetType.getJavaName(); //$NON-NLS-1$
 					}
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2479, IValidationContext.ERROR, bean, clazz, homeMethod, new String[] { retTypeName}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2479, IEJBValidationContext.ERROR, bean, clazz, homeMethod, new String[] { retTypeName}, this);
 					vc.addMessage(message);
 				}
 			}

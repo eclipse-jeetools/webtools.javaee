@@ -46,26 +46,26 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 		return getSupertypes();
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!followRMI_IIOPInheritanceRules(bean, clazz)) {
 			// IWAD4057 = {0} must follow RMI-IIOP rules for remote interfaces. Read section 7.10.5 of the EJB 2.0 specification.
 			// IWAD4210 = {0} must follow RMI-IIOP rules for remote interfaces. Read section 10.6.9 of the EJB 2.0 specification.
 			// IWAD4326 = {0} must follow RMI-IIOP rules for remote interfaces. Read section 12.2.8 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2468, IValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2468, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
 		validateAppendixB(vc, bean, clazz);
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz, method, methodsExtendedLists); // check application exceptions
 		
 		if(isEJBInterfaceMethod(bean, method)) {
 			// IWAD4021 = {0} is provided by the container. Read section 6.5 of the EJB 2.0 specification.
 			// IWAD4110 = {0} is provided by the container. Read section 9.9 of the EJB 2.0 specification.
 			// IWAD4112 = {0} is provided by the container. Read section 9.10 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2469, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2469, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
@@ -77,7 +77,7 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 			// IWAD4354 = {0} must exist on {1}. Read section 12.2.10 of the EJB 2.0 specification.
 			// IWAD4211 = {0} must exist on {1}. Read section 10.6.9 of the EJB 2.0 specification.
 			// IWAD4227 = {0} must exist on {1}. Read section 10.6.11 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2023, IValidationContext.WARNING, bean, clazz, method, new String[]{method.getMethodElementSignature(), bean.getEjbClass().getJavaName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2023, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{method.getMethodElementSignature(), bean.getEjbClass().getJavaName()}, this);
 			vc.addMessage(message);
 		}
 		else {
@@ -86,7 +86,7 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 				// IWAD4228 = This method must return the same type as {0}. Read section 10.6.11 of the EJB 2.0 specification.
 				// IWAD4328 = This method must return the same type as {0} on {1}. Read section 12.2.8 of the EJB 2.0 specification.
 				// IWAD4355 = This method must return {0}. Read section 12.2.10 of the EJB 2.0 specification.
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2470, IValidationContext.ERROR, bean, clazz, method, new String[]{match.getReturnType().getJavaName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2470, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{match.getReturnType().getJavaName()}, this);
 				vc.addMessage(message);
 			}
 			
@@ -94,7 +94,7 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 			Iterator eiterator = exceptions.iterator();
 			while(eiterator.hasNext()) {
 				JavaClass exception = (JavaClass)eiterator.next();
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2471, IValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), match.getMethodElementSignature()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2471, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), match.getMethodElementSignature()}, this);
 				vc.addMessage(message);
 			}
 		}
@@ -120,12 +120,12 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 			// IWAD4107 = This method must not expose the {0} type. Read section 9.7.2 of the EJB 2.0 specification.
 			// IWAD4330 = This method must not expose the {0} type. Read section 12.2.8 of the EJB 2.0 specification.
 			// IWAD4128 = This method must not expose the {0} type. Read section 10.3.1, 10.3.10.1 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2472, IValidationContext.INFO, bean, clazz, method, new String[]{oe.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2472, IEJBValidationContext.INFO, bean, clazz, method, new String[]{oe.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	protected void validateAppendixB(IValidationContext vc, EnterpriseBean bean, JavaClass thisComponent) {
+	protected void validateAppendixB(IEJBValidationContext vc, EnterpriseBean bean, JavaClass thisComponent) {
 		// The Java inheritance structure must match the EJB inheritance structure.
 		// e.g. if EJB B is a child of EJB A, then class B must be a child of class A.
 		// B could be a grandchild (or great-grandchild or ...) of A.
@@ -148,13 +148,13 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 				ValidationRuleUtility.isValidType(parentComponent);
 				if (!ValidationRuleUtility.isAssignableFrom(thisComponent, parentComponent)) {
 					String[] msgParm = new String[] { thisComponent.getQualifiedName(), parentComponent.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2105, IValidationContext.ERROR, bean, thisComponent, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2105, IEJBValidationContext.ERROR, bean, thisComponent, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2849, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

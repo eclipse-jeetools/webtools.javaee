@@ -128,7 +128,7 @@ public class ValidateBMPHome extends AValidateEntityHome implements IMessagePref
 	 *     method of the home interface.
 	 *...
 	 */
-	public void validateFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		super.validateFindMethod(vc, bean, clazz, method);
 
 		if (method == null) {
@@ -162,7 +162,7 @@ public class ValidateBMPHome extends AValidateEntityHome implements IMessagePref
 	 *     method of the home interface.
 	 *...
 	 */
-	public void validateFindMethod_beanDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateFindMethod_beanDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
 			return;
 		}

@@ -21,10 +21,10 @@ import org.eclipse.wst.validation.core.ValidationException;
 /**
  */
 public abstract class ASessionBeanClassVRule extends ABeanClassVRule {
-	public final void validateTransientField(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateTransientField(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(field.isTransient()) {
 			// IWAD4025 = Transient fields are discouraged. Read section 7.4.1 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2453, IValidationContext.INFO, bean, clazz, field, this);		
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2453, IEJBValidationContext.INFO, bean, clazz, field, this);		
 			vc.addMessage(message);
 			
 			JavaHelpers javaxEjbSessionContext = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONCONTEXT, bean);
@@ -35,7 +35,7 @@ public abstract class ASessionBeanClassVRule extends ABeanClassVRule {
 				ValidationRuleUtility.isJNDINamingContext(field))
 			{
 				// IWAD4024 = A transient field should not be the {0} type. Read section 7.4.1 of the EJB 2.0 specification.
-				message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2452, IValidationContext.WARNING, bean, clazz, field, this);		
+				message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2452, IEJBValidationContext.WARNING, bean, clazz, field, this);		
 				vc.addMessage(message);
 			}
 		}

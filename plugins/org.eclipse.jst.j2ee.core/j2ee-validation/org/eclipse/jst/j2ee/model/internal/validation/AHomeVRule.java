@@ -40,7 +40,7 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 		return ((EnterpriseBean)parent).getLocalHomeInterface();
 	}
 	
-	public void validateFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// By default, do nothing.
 		// Let the entity rules override this method, and the session don't do anything
 		// because validateMethodMustNotExist does what the sessions need.		
@@ -50,19 +50,19 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 		return ValidationRuleUtility.throwsCreateException(bean, method);
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.isLegalRMI_IIOPInheritance(clazz)) {
 			// IWAD4334 = {0} must follow RMI-IIOP rules for remote interfaces. Read section 12.2.9 of the EJB 2.0 specification.
 			// IWAD4217 = {0} must follow RMI-IIOP rules for remote interfaces. Read section 10.6.10 of the EJB 2.0 specification.
 			// IWAD4062 = {0} must follow RMI-IIOP rules for remote interfaces. Read section 7.10.6 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2461, IValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2461, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
 		validateAppendixB(vc, bean, clazz);
 	}
 	
-	public final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz, method, methodsExtendedLists); // check application exceptions
 		
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
@@ -129,7 +129,7 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 			// IWAD4023 = {0} cannot be an argument or result type. Read section 6.7.2 of the EJB 2.0 specification.
 			// IWAD4225 = This method must not expose the {0} type. Read section 10.6.10 of the EJB 2.0 specification.
 			// IWAD4351 = This method must not expose the {0} type. Read section 12.2.9 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2466, IValidationContext.INFO, bean, clazz, method, new String[]{local.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2466, IEJBValidationContext.INFO, bean, clazz, method, new String[]{local.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 		
@@ -142,7 +142,7 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 		return true;
 	}
 	
-	public final void validateMatchingBeanMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, String nameOfMethodToFind, boolean validateReturnTypeMatches, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateMatchingBeanMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, String nameOfMethodToFind, boolean validateReturnTypeMatches, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		Method match = ValidationRuleUtility.getMethod(method, nameOfMethodToFind, getBeanClassMethodsExtended(methodsExtendedLists));
 		if(match == null) {
 			IMethodType mType = MethodUtility.getUtility().getMethodType(bean, clazz, method, methodsExtendedLists, this);
@@ -159,7 +159,7 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 			else {
 				JavaClass beanClass = bean.getEjbClass();
 				String beanClassName = (beanClass == null) ? IEJBValidatorConstants.NULL_BEAN_CLASS : beanClass.getJavaName();
-				IMessage message = MessageUtility.getUtility().getMessage(vc, mType.getMessageId_messageMissingMatching(), IValidationContext.WARNING, bean, clazz, method, new String[]{nameOfMethodToFind, beanClassName}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, mType.getMessageId_messageMissingMatching(), IEJBValidationContext.WARNING, bean, clazz, method, new String[]{nameOfMethodToFind, beanClassName}, this);
 				vc.addMessage(message);
 			}
 		}
@@ -172,22 +172,22 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 			Iterator eiterator = exceptions.iterator();
 			while(eiterator.hasNext()) {
 				JavaClass exception = (JavaClass)eiterator.next();
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2465, IValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), match.getMethodElementSignature()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2465, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getJavaName(), match.getMethodElementSignature()}, this);
 				vc.addMessage(message);
 			}
 		}
 	}
 	
-	public void validateMatchingReturnTypeMatches(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedMethod) {
+	public void validateMatchingReturnTypeMatches(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedMethod) {
 		if(!ValidationRuleUtility.isAssignableFrom(homeMethod.getReturnType(), beanMethod.getReturnType())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2402, IValidationContext.ERROR, bean, clazz, homeMethod, new String[]{beanMethod.getReturnType().getJavaName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2402, IEJBValidationContext.ERROR, bean, clazz, homeMethod, new String[]{beanMethod.getReturnType().getJavaName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	public void validateCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!followsCreateExceptionRules(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2467, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2467, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
@@ -205,22 +205,22 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 					className = IEJBValidatorConstants.NULL_LOCAL;
 				}
 			}
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2402, IValidationContext.ERROR, bean, clazz, method, new String[]{className}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2402, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{className}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	public void validateHomeMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, ValidationException {
+	public void validateHomeMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, ValidationException {
 		// IWAD4350 = The return type must match the return type of {0}. Read section 12.2.9 of the EJB 2.0 specification.
 		// The above check is done in the "validate(vc, bean, clazz, method) method.
 	}
 
-	protected boolean returnsComponentInterface(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException {
+	protected boolean returnsComponentInterface(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException {
 		JavaClass componentInterface = getComponentInterface(bean);
 		return ValidationRuleUtility.isAssignableFrom(method.getReturnType(), componentInterface);
 	}
 	
-	protected boolean returnsComponentInterfaceOrCollection(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException {
+	protected boolean returnsComponentInterfaceOrCollection(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException {
 		if(returnsComponentInterface(vc, bean, clazz, method)) {
 			return true;
 		}
@@ -239,7 +239,7 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 		return false;
 	}
 
-	protected void validateAppendixB(IValidationContext vc, EnterpriseBean bean, JavaClass thisHome) {
+	protected void validateAppendixB(IEJBValidationContext vc, EnterpriseBean bean, JavaClass thisHome) {
 		// The Java inheritance structure must match the EJB inheritance structure.
 		// e.g. if EJB B is a child of EJB A, then class B must be a child of class A.
 		// B could be a grandchild (or great-grandchild or ...) of A.
@@ -268,13 +268,13 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 				ValidationRuleUtility.isValidType(parentHome);
 				if (ValidationRuleUtility.isAssignableFrom(thisHome, parentHome)) {
 					String[] msgParm = new String[] { thisHome.getQualifiedName(), parentHome.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2104, IValidationContext.ERROR, bean, thisHome, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2104, IEJBValidationContext.ERROR, bean, thisHome, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2849, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

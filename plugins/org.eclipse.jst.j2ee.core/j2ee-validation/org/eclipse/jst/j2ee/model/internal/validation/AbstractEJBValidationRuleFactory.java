@@ -97,7 +97,7 @@ public abstract class AbstractEJBValidationRuleFactory {
      */
     protected abstract Logger getMsgLogger();
 
-    protected EJBJar getEJBJar(IValidationContext vc) {
+    protected EJBJar getEJBJar(IEJBValidationContext vc) {
     	return (EJBJar)vc.loadModel(EJBValidatorModelEnum.EJB_MODEL);
     }
 
@@ -106,7 +106,7 @@ public abstract class AbstractEJBValidationRuleFactory {
      * If the ruleid is not registered, or if there is a problem
      * instantiating the IValidationRule, then null will be returned.
      */
-    public IValidationRule getRule(IValidationContext vc, Object ruleId) {
+    public IValidationRule getRule(IEJBValidationContext vc, Object ruleId) {
     	// To avoid loading a rule until it is needed, intialize
     	// the list with a rule id as the key, and a String class name
     	// as a value. When a rule is loaded, if the value is a String,

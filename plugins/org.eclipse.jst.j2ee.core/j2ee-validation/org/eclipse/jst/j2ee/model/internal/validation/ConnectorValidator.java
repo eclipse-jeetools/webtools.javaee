@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.model.internal.validation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
@@ -82,7 +82,7 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 		 * 
 		 * @throws ValidationException
 		 */
-		public void validate(IHelper inHelper, IReporter inReporter,IFileDelta[] changedFiles)
+		public void validate(IValidationContext inHelper, IReporter inReporter,IFileDelta[] changedFiles)
 		throws ValidationException {
 			super.validate(inHelper, inReporter, changedFiles);
 			try {

@@ -52,19 +52,19 @@ public interface IValidationRule {
 	 * then that information should be calculated here. This cached information should
 	 * be cleaned up in the postValidate method.
 	 */
-	public void preValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException;
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException;
 	
 	/**
 	 * Validate the target object. Report all messages, load models, etc.
 	 * through the IValidtionContext parameter.
 	 */
-	public void validate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException;
+	public void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException;
 	
 	/**
 	 * This method cleans up any resources calculated or cached in the preValidate method.
 	 * This method is called after the validate method has completed.
 	 */
-	public void postValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException;
+	public void postValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException;
 	
 	/**
 	 * To enable this rule for reuse, reset any stored values (which were calculated 

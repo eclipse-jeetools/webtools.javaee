@@ -31,27 +31,27 @@ public abstract class AKeyClassVRule extends ATypeVRule {
 		return BASE_TYPES;
 	}
 	
-	public final List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a key class' method is defined on another class 
 		// of the bean.
 		return null;
 	}
 	
-	public final List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a key class' field is defined on another class
 		// of the bean.
 		return null;
 	}
 	
 	/*
-	 * @see IClassVRule#validate(IValidationContext, EnterpriseBean, JavaClass)
+	 * @see IClassVRule#validate(IEJBValidationContext, EnterpriseBean, JavaClass)
 	 */
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// CHKJ2108 = {0} must be a legal Value Type in RMI-IIOP. Read section 9.8 of the EJB 2.0 specification.
 		// CHKJ2241 = {0} must be a legal Value Type in RMI-IIOP. Read section 10.6.13 of the EJB 2.0 specification.
 		// CHKJ2376 = {0} must be a legal Value Type in RMI-IIOP. Read section 12.2.12 of the EJB 2.0 specification.
 		if(!ValidationRuleUtility.isLegalRMI_IIOPType(bean, clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2019, IValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2019, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 	}

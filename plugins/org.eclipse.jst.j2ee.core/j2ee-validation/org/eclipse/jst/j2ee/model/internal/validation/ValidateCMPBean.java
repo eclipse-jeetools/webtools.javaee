@@ -224,7 +224,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 		return (getContainerManagedFields() != null && getContainerManagedFields().size() > 0);
 	}
 	
-	public boolean isContainerManagedField(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) {
+	public boolean isContainerManagedField(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) {
 		if (field == null) {
 			return false;
 		}
@@ -248,7 +248,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 *
 	 * Return true if the field is the enterprise bean's home interface.
 	 */
-	protected boolean isContainerManagedHome_homeDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+	protected boolean isContainerManagedHome_homeDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		if (field == null) {
 			return false;
 		}
@@ -280,7 +280,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 *
 	 * Return true if the field is the enterprise bean's remote interface.
 	 */
-	protected boolean isContainerManagedRemote_remoteDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+	protected boolean isContainerManagedRemote_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		if (field == null) {
 			return false;
 		}
@@ -295,7 +295,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 		return ValidationRuleUtility.isAssignableFrom(ValidationRuleUtility.getType(field), remoteIntf);
 	}
 	
-	private List loadContainerManagedFields(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	private List loadContainerManagedFields(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// The validation in this class, of the fields, is performed against the
 		// container-managed fields, not the fields of this class directly.
 		if (bean == null) {
@@ -329,7 +329,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 *   declared as final.
 	 *...
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		super.primValidate(vc, bean, clazz, field);
 
 		vc.terminateIfCancelled();
@@ -353,7 +353,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 *          should throw the javax.ejb.EJBException or another java.lang.RuntimeException
 	 *          to indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateBusinessMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP business method checks
 		if (!isEjbRelationshipRoleMethod(vc, bean, clazz, method))
 			super.validateBusinessMethod(vc, bean, clazz, method);
@@ -362,7 +362,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 		// All of the points in 9.2.6 are common to both BMPs & CMPs.
 	}
 	
-	protected void validateBusinessMethodNoRemoteException(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	protected void validateBusinessMethodNoRemoteException(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (!isEjbRelationshipRoleMethod(vc, bean, clazz, method))
 			super.validateBusinessMethodNoRemoteException(vc, bean, clazz, method); // EJB 2.0 added "throws InvalidInputException above"
 	}
@@ -393,7 +393,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 *     example helper methods invoked internally by the business methods) 
 	 *     in addition to the methods required by the EJB specification.
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// All of the above checks are performed by the parent.
 		super.validateClass(vc, bean, clazz);
 
@@ -415,7 +415,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 *          interfaces.
 	 *...
 	 */
-	protected void validateContainerManagedField(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+	protected void validateContainerManagedField(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		if (isContainerManagedField(vc, bean, clazz, field)) {
 			if (field == null) {
 				return;
@@ -424,12 +424,12 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 			vc.terminateIfCancelled();
 
 			if (!ValidationRuleUtility.isPublic(field)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2203, IValidationContext.ERROR, bean, clazz, field, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2203, IEJBValidationContext.ERROR, bean, clazz, field, this);
 				vc.addMessage(message);
 			}
 
 			if (field.isTransient()) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2201, IValidationContext.ERROR, bean, clazz, field, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2201, IEJBValidationContext.ERROR, bean, clazz, field, this);
 				vc.addMessage(message);
 			}
 
@@ -456,7 +456,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 * Return true if the field is either the enterprise bean's remote interface, 
 	 * or the enterprise bean's home interface.
 	 */
-	protected void validateContainerManagedField_dependent(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+	protected void validateContainerManagedField_dependent(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		if (field == null) {
 			return;
 		}
@@ -469,7 +469,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 			// Check if it's the enterprise bean's remote or home interface
 			vc.terminateIfCancelled();
 			if (!(isContainerManagedHome_homeDep(vc, bean, clazz, field)) || (isContainerManagedRemote_remoteDep(vc, bean, clazz, field))) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2202, IValidationContext.WARNING, bean, clazz, field, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2202, IEJBValidationContext.WARNING, bean, clazz, field, this);
 				vc.addMessage(message);
 			}
 		}
@@ -479,13 +479,13 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 * 9.4.6 finder methods
 	 *   - The entity Bean Provider does not write the finder (ejbFind<METHOD>(...)) methods.
 	 */
-	public void validateEjbFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
 			throw new InvalidInputException();
 		}
 
 		// Only BMPs implement finder methods.
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2004, IValidationContext.WARNING, bean, clazz, method, new String[] { clazz.getQualifiedName()}, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2004, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { clazz.getQualifiedName()}, this);
 		vc.addMessage(message);
 	}
 	
@@ -517,7 +517,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 *     The returned value is ignored by the Container.
 	 *...
 	*/
-	public void validateEjbPostCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP ejbPostCreate method checks
 		super.validateEjbPostCreateMethod(vc, bean, clazz, method);
 
@@ -525,7 +525,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 		// All of the points in 9.2.4 are common to both BMPs & CMPs.
 	}
 	
-	protected void validatePrimitivePrimaryKey(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validatePrimitivePrimaryKey(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		ContainerManagedEntity cmp = (ContainerManagedEntity) bean; // bean is checked for null in AValidateEJB.validate() method, so don't need to check for it here.
 
 		if (ValidationRuleUtility.isPrimitivePrimaryKey(cmp)) {
@@ -538,7 +538,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 			JavaClass primaryKey = cmp.getPrimaryKey();
 			if ((keyField == null) || !ValidationRuleUtility.isAssignableFrom((JavaHelpers)keyField.getEType(), primaryKey)) {
 				String[] msgParm = { keyAttribute.getName(), primaryKey.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2207, IValidationContext.ERROR, bean, clazz, keyField, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2207, IEJBValidationContext.ERROR, bean, clazz, keyField, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -547,16 +547,16 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	/**
 	 * Check that at least one field exists on the bean.
 	 */
-	public void verifyFieldExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void verifyFieldExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		if (!hasContainerManagedField()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2032, IValidationContext.WARNING, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2032, IEJBValidationContext.WARNING, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	/*
-	 * @see IValidationRule#preValidate(IValidationContext, Object, Object)
+	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
-	public void preValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		_containerManagedFields = loadContainerManagedFields(vc, (EnterpriseBean)targetParent, (JavaClass)target);
 	}

@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
@@ -102,7 +102,7 @@ public class UIWarValidator extends WarValidator {
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
-	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.core.ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.core.ValidationException {
 		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
         WorkbenchComponent[] workBenchModules = null; 

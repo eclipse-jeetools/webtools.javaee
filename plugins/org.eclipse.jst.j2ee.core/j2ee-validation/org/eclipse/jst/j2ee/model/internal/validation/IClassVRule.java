@@ -24,7 +24,7 @@ import org.eclipse.wst.validation.core.ValidationException;
  * @author
  */
 public interface IClassVRule extends IValidationRule {
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException;
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException;
 
 	// Because calling JavaClass::getMethodsExtended() is an expensive call, need to call it once
 	// per class instead of multiple times per class. However, each class in the bean needs different
@@ -38,11 +38,11 @@ public interface IClassVRule extends IValidationRule {
 	// key class will probably pass in a null instead of an empty List.)
 	// 
 	// Similar reasoning for the List[] of getFieldsExtended().
-	public List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException;
-	public List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException;
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
+	public List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException;
+	public List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException;
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
 	
-	public void register(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
-	public void register(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
+	public void register(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
+	public void register(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtended) throws ValidationCancelledException, InvalidInputException, ValidationException;
 }

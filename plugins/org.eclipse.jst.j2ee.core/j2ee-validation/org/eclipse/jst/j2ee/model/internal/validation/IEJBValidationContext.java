@@ -12,20 +12,20 @@ package org.eclipse.jst.j2ee.model.internal.validation;
 
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
 import org.eclipse.wst.validation.core.MessageLimitException;
 
-public interface IValidationContext {
+public interface IEJBValidationContext {
 	public static final int ERROR = IMessage.HIGH_SEVERITY;
 	public static final int WARNING = IMessage.NORMAL_SEVERITY;
 	public static final int INFO = IMessage.LOW_SEVERITY;
 	
 	
 	public IValidator getValidator();
-	public IHelper getHelper();
+	public IValidationContext getHelper();
 	public IReporter getReporter();
 	
 	public IMessage getMessage(); // returns an empty IMessage which can be reused

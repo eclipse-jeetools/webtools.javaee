@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.internal.common.impl.ResourceRefImpl;
 import org.eclipse.jst.j2ee.internal.common.impl.SecurityRoleImpl;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
@@ -38,7 +38,7 @@ import org.eclispe.wst.validation.internal.core.Message;
 public abstract class J2EEValidator implements IValidator, J2EEMessageConstants {
   protected IReporter _reporter;
   protected IFileDelta[] _changedFiles;
-  protected IHelper _helper;
+  protected IValidationContext _helper;
 
 	public J2EEValidator()
 	{
@@ -440,7 +440,7 @@ public String[] getParam1(String string1){
  * If <code>changedFiles</code> is null, or if it is an empty array, then a full build
  * is performed. Otherwise, validation on just the files listed in the Vector is performed.
  */
-public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws ValidationException {
+public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws ValidationException {
 
   _helper = inHelper;
   _reporter = inReporter;

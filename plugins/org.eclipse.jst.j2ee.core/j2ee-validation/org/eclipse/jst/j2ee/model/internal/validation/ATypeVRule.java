@@ -40,7 +40,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 	private long _methodList = NO_METHODS;
 	private long _fieldList = NO_FIELDS;
 
-	public final void validate(IValidationContext vc, Object targetParent, Object target) throws ValidationException {
+	public final void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationException {
 		vc.subtask(IEJBValidatorConstants.STATUS_VALIDATING, new String[]{((JavaClass) target).getJavaName()});
 
 		Logger logger = vc.getMsgLogger();
@@ -69,7 +69,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 			}
 
 			if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2041, IValidationContext.INFO, bean, clazz, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 				vc.addMessage(message);
 			}
 
@@ -99,7 +99,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		}
 	}
 
-	protected final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field[] fields, List[] fieldsExtendedLists) throws ValidationException {
+	protected final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field[] fields, List[] fieldsExtendedLists) throws ValidationException {
 		try {
 			vc.terminateIfCancelled();
 
@@ -195,7 +195,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		return ((getFieldType(bean, clazz, field) & EXCLUDED_FIELD) != EXCLUDED_FIELD);
 	}
 
-	protected final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method[] methods, List[] methodsExtendedLists) throws ValidationException {
+	protected final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method[] methods, List[] methodsExtendedLists) throws ValidationException {
 		try {
 			vc.terminateIfCancelled();
 
@@ -235,7 +235,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 						if (!isOwnedByBase(bean, method)) {
 							if ((MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this) & EXCLUDED_METHOD) == EXCLUDED_METHOD) {
 								// unidentified method excluded
-								IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2502, IValidationContext.INFO, bean, clazz, method, new String[]{method.getName()}, this);
+								IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2502, IEJBValidationContext.INFO, bean, clazz, method, new String[]{method.getName()}, this);
 								vc.addMessage(message);
 							}
 						}
@@ -252,7 +252,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 
 	}
 
-	public final void register(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedList) throws InvalidInputException, ValidationCancelledException, ValidationException {
+	public final void register(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedList) throws InvalidInputException, ValidationCancelledException, ValidationException {
 		_fieldList = (_fieldList | getFieldType(bean, clazz, field));
 	}
 
@@ -296,7 +296,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 	/*
 	 * @see IValidationRule#reset()
 	 */
-	public void validateMethodsWhichMustExist(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException, ValidationCancelledException, ValidationException {
+	public void validateMethodsWhichMustExist(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException, ValidationCancelledException, ValidationException {
 		long[] methods = getMethodsWhichMustExist();
 		if (methods != null) {
 			for (int i = 0; i < methods.length; i++) {
@@ -332,14 +332,14 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 						continue;
 					}
 
-					IMessage message = MessageUtility.getUtility().getMessage(vc, mType.getMessageId_messageMissing(), IValidationContext.WARNING, bean, clazz, new String[]{mType.getMethodName(bean, clazz, null)}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, mType.getMessageId_messageMissing(), IEJBValidationContext.WARNING, bean, clazz, new String[]{mType.getMethodName(bean, clazz, null)}, this);
 					vc.addMessage(message);
 				}
 			}
 		}
 	}
 
-	public final void validateMethodWhichMustNotExist(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws InvalidInputException, ValidationCancelledException, ValidationException {
+	public final void validateMethodWhichMustNotExist(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws InvalidInputException, ValidationCancelledException, ValidationException {
 		IMethodType mType = MethodUtility.getUtility().getMethodType(bean, clazz, method, methodsExtendedLists, this);
 		if (mType == null) {
 			// what happened?
@@ -354,7 +354,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		}
 
 
-		IMessage message = MessageUtility.getUtility().getMessage(vc, mType.getMessageId_messageExists(), IValidationContext.INFO, bean, clazz, method, new String[]{mType.getMethodName(bean, clazz, method)}, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, mType.getMessageId_messageExists(), IEJBValidationContext.INFO, bean, clazz, method, new String[]{mType.getMethodName(bean, clazz, method)}, this);
 		vc.addMessage(message);
 	}
 
@@ -378,11 +378,11 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		return id;
 	}
 
-	public final void register(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException, ValidationCancelledException, ValidationException {
+	public final void register(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException, ValidationCancelledException, ValidationException {
 		_methodList = (_methodList | MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedList, this));
 	}
 
-	public final void validateSupertypes(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException, ValidationCancelledException, ValidationException {
+	public final void validateSupertypes(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException, ValidationCancelledException, ValidationException {
 		validateShouldBeSuperTypes(vc, bean, clazz);
 		validateShouldNotBeSuperTypes(vc, bean, clazz);
 	}
@@ -393,7 +393,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 	 * @param clazz
 	 * @throws InvalidInputException
 	 */
-	protected void validateShouldNotBeSuperTypes(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validateShouldNotBeSuperTypes(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		long[] types;
 		// Test for types which can be supertypes, though it's either not recommended or should be
 		// coded with caution
@@ -413,7 +413,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 					// argument or result. Read section 12.2.2 of the EJB 2.0 specification.
 					// IWAD4043 = Because {0} implements {1}, "this" must not be passed as a method
 					// argument or result. Read section 7.10.2 of the EJB 2.0 specification.
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2040, IValidationContext.INFO, bean, clazz, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2040, IEJBValidationContext.INFO, bean, clazz, this);
 					vc.addMessage(message);
 				}
 			}
@@ -426,7 +426,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 	 * @param clazz
 	 * @throws InvalidInputException
 	 */
-	protected void validateShouldBeSuperTypes(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validateShouldBeSuperTypes(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		long[] types = getSupertypes();
 		if (types != null) {
 			for (int i = 0; i < types.length; i++) {
@@ -447,7 +447,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 					// of the EJB 2.0 specification.
 					// IWAD4286 = This class must implement java.ejb.EntityBean. Read section 12.2.2
 					// of the EJB 2.0 specification.
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2017, IValidationContext.ERROR, bean, clazz, new String[]{superType.getJavaName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, new String[]{superType.getJavaName()}, this);
 					vc.addMessage(message);
 				};
 			}
@@ -460,26 +460,26 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		_fieldList = NO_FIELDS;
 	}
 
-	protected final void reflectionError(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
+	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
 		vc.addMessage(message);
 	}
 
-	protected final void reflectionWarning(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, InvalidInputException exc) throws MessageLimitException {
+	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, InvalidInputException exc) throws MessageLimitException {
 		vc.removeMessages(field);
 		vc.removeMessages(clazz, field.getName());
 		IMessage message = getReflectionWarning(vc, exc, bean, clazz, field);
 		vc.addMessage(message);
 	}
 
-	protected final void reflectionWarning(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, InvalidInputException exc) throws MessageLimitException {
+	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, InvalidInputException exc) throws MessageLimitException {
 		vc.removeMessages(method);
 		vc.removeMessages(clazz, method.getSignature());
 		IMessage message = getReflectionWarning(vc, exc, bean, clazz, method);
 		vc.addMessage(message);
 	}
 
-	protected final IMessage getReflectionWarning(IValidationContext vc, InvalidInputException exc, EnterpriseBean bean, JavaClass clazz, EObject fieldOrMethod) {
+	protected final IMessage getReflectionWarning(IEJBValidationContext vc, InvalidInputException exc, EnterpriseBean bean, JavaClass clazz, EObject fieldOrMethod) {
 		if (exc == null) {
 			return null;
 		}
@@ -490,19 +490,19 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 
 		if (fieldOrMethod instanceof Field) {
 			String name = ((Field) fieldOrMethod).getName();
-			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IValidationContext.WARNING, bean, clazz, (Field) fieldOrMethod, new String[]{name, typeName}, this);
+			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, (Field) fieldOrMethod, new String[]{name, typeName}, this);
 		} else if (fieldOrMethod instanceof Method) {
 			String name = ((Method) fieldOrMethod).getMethodElementSignature();
-			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IValidationContext.WARNING, bean, clazz, (Method) fieldOrMethod, new String[]{name, typeName}, this);
+			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, (Method) fieldOrMethod, new String[]{name, typeName}, this);
 		} else {
 			String name = ((XMIResource) fieldOrMethod.eResource()).getID(fieldOrMethod);
-			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IValidationContext.WARNING, bean, clazz, new String[]{name, typeName}, this);
+			message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, new String[]{name, typeName}, this);
 		}
 		if (badClazz == null) {
 			Logger logger = vc.getMsgLogger();
 			if (logger != null && logger.isLoggingLevel(Level.FINEST)) {
 				LogEntry entry = vc.getLogEntry();
-				entry.setSourceID("getMessageId(IValidationContext, InvalidInputException, boolean)"); //$NON-NLS-1$
+				entry.setSourceID("getMessageId(IEJBValidationContext, InvalidInputException, boolean)"); //$NON-NLS-1$
 				entry.setText("InvalidInputException thrown on unknown class"); //$NON-NLS-1$
 				entry.setTargetException(exc);
 				logger.write(Level.FINEST, entry);
@@ -543,7 +543,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		return true;
 	}
 
-	public final void validateRMI_IIOPTypeRules(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList, boolean checkReturnType) throws InvalidInputException, MessageLimitException {
+	public final void validateRMI_IIOPTypeRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList, boolean checkReturnType) throws InvalidInputException, MessageLimitException {
 		if ((isRemote() & IEJBType.REMOTE) == IEJBType.REMOTE) {
 			JavaParameter[] parms = method.listParametersWithoutReturn();
 
@@ -554,7 +554,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 					if (mt == null) {
 						// log
 					} else {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, mt.getMessageId_messageRMI_IIOPParm(), IValidationContext.INFO, bean, clazz, method, new String[]{parm.getJavaType().getJavaName()}, this); // Can't
+						IMessage message = MessageUtility.getUtility().getMessage(vc, mt.getMessageId_messageRMI_IIOPParm(), IEJBValidationContext.INFO, bean, clazz, method, new String[]{parm.getJavaType().getJavaName()}, this); // Can't
 																																																								  // use
 																																																								  // the
 																																																								  // name
@@ -592,7 +592,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 					if (mt == null) {
 						// log
 					} else {
-						IMessage message = MessageUtility.getUtility().getMessage(vc, mt.getMessageId_messageRMI_IIOPParm(), IValidationContext.INFO, bean, clazz, method, new String[]{method.getReturnType().getJavaName()}, this); // Can't
+						IMessage message = MessageUtility.getUtility().getMessage(vc, mt.getMessageId_messageRMI_IIOPParm(), IEJBValidationContext.INFO, bean, clazz, method, new String[]{method.getReturnType().getJavaName()}, this); // Can't
 																																																									  // use
 																																																									  // the
 																																																									  // name
@@ -636,7 +636,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		return true;
 	}
 
-	public void validateSerialVersionUID(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) {
+	public void validateSerialVersionUID(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) {
 		/*
 		 * For now, do nothing. In future, check if the field is public & static?
 		 */

@@ -24,7 +24,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.MessageLimitException;
@@ -62,9 +62,9 @@ public class EJBValidator extends AbstractEJBValidator {
 	}
 
 	/*
-	 * @see IValidator#validate(IHelper, IReporter, IFileDelta[])
+	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
 	 */
-	public void validate(IHelper helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
 		long start = System.currentTimeMillis();
 		Logger logger = Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
 		if(logger != null && logger.isLoggingLevel(Level.FINER)) {
@@ -93,7 +93,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		}
 	}
 	
-	public boolean isFullValidate(IValidationContext vc, IFileDelta[] delta) {
+	public boolean isFullValidate(IEJBValidationContext vc, IFileDelta[] delta) {
 		if(delta == null) {
 			return true;
 		}
@@ -112,7 +112,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		return false;
 	}
 	
-	public void runDependents(IValidationContext vc, IValidationRule rule, Object targetParent, Object target) throws ValidationException {
+	public void runDependents(IEJBValidationContext vc, IValidationRule rule, Object targetParent, Object target) throws ValidationException {
 		// If a class is being run only because it depends on a rule which has changed,
 		// i.e., it's a dependent, then we don't want to run its dependents because the
 		// class itself hasn't changed.
@@ -154,7 +154,7 @@ public class EJBValidator extends AbstractEJBValidator {
 	
 	
 	
-	protected void logMissingRule(IValidationContext vc, Object ruleId) {
+	protected void logMissingRule(IEJBValidationContext vc, Object ruleId) {
 		Logger logger = vc.getMsgLogger();
 		if (logger != null && logger.isLoggingLevel(Level.SEVERE)) {
 			logger.write(Level.SEVERE, ruleId + " = null"); //$NON-NLS-1$
@@ -162,7 +162,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		addInternalErrorMessage(vc);
 	}
 	
-	protected void preRemoveOldMessages(IValidationContext vc, IFileDelta[] delta, Map targets) throws ValidationException {
+	protected void preRemoveOldMessages(IEJBValidationContext vc, IFileDelta[] delta, Map targets) throws ValidationException {
 		Set validatedClasses = new HashSet();
 		
 		try {	
@@ -366,7 +366,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		return EJBValidatorModelEnum.REMOVE_OLD_MESSAGES;
 	}
 	
-	public void fullValidate(IValidationContext vc) throws ValidationException {
+	public void fullValidate(IEJBValidationContext vc) throws ValidationException {
 		removeOldMessages(vc, null, null); // null == no IFileDelta, null = don't track targets
 		
 		EJBJar ejbJar = (EJBJar)vc.loadModel(EJBValidatorModelEnum.EJB_MODEL);
@@ -460,7 +460,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		return result;		
 	}
 	
-	public void incrementalValidate(IValidationContext vc, IFileDelta[] delta) throws ValidationException {
+	public void incrementalValidate(IEJBValidationContext vc, IFileDelta[] delta) throws ValidationException {
 		Map targets = new HashMap();
 		try {
 			removeOldMessages(vc, delta, targets);

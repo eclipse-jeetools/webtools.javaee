@@ -105,7 +105,7 @@ public abstract class AValidateHome extends AValidateEJB {
 		return ((EnterpriseBean)parent).getHomeInterface();
 	}
 
-	public final List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// A home or component class needs the following classes' extended methods:
 		//    1. bean class
 		List[] result = new List[1];
@@ -119,7 +119,7 @@ public abstract class AValidateHome extends AValidateEJB {
 		return result;
 	}
 	
-	public final List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a home or component's field is defined on another class
 		// of the bean.
 		return null;
@@ -152,7 +152,7 @@ public abstract class AValidateHome extends AValidateEJB {
 	 *     (i.e the set of exceptions defined for the create method must be a superset
 	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
 	 */
-	public Method getMatchingBeanEjbCreateMethodExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public Method getMatchingBeanEjbCreateMethodExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return null;
@@ -170,7 +170,7 @@ public abstract class AValidateHome extends AValidateEJB {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
-	protected boolean isValid(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
+	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, method, methodsExtendedList)) {
 			// Exclude root remote interface methods
 			if (ValidationRuleUtility.isEJBHomeMethod(bean, method)) {
@@ -197,24 +197,24 @@ public abstract class AValidateHome extends AValidateEJB {
 	 *   - The interface must extend the javax.ejb.EJBHome interface.
 	 *...
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		// home interface must be an interface
 		if (!clazz.isInterface()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2012, IValidationContext.ERROR, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2012, IEJBValidationContext.ERROR, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		// home interface must inherit javax.ejb.EJBHome.class
 		if (!ValidationRuleUtility.isAssignableFrom(clazz, ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME, bean))) {
 			String[] msgParm = { ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2017, IValidationContext.ERROR, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 
 		if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 		
@@ -248,7 +248,7 @@ public abstract class AValidateHome extends AValidateEJB {
 	 *     matching create method of the home interface.
 	 *   - The throws clause must include javax.ejb.CreateException. 
 	 */
-	protected void validateCreateMethod_beanDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	protected void validateCreateMethod_beanDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
 			return;
 		}
@@ -301,7 +301,7 @@ public abstract class AValidateHome extends AValidateEJB {
 	 * single-object finder), or a collection thereof (for a multi-object finder).
 	 *...
 	 */
-	protected void validateCreateMethod_remoteDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	protected void validateCreateMethod_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
 			return;
 		}
@@ -311,7 +311,7 @@ public abstract class AValidateHome extends AValidateEJB {
 
 		// The return type for a create method must be the remote interface type.
 		if (!ValidationRuleUtility.isAssignableFrom(method.getReturnType(), remoteIntf)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2402, IValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntf.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2402, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntf.getName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -342,7 +342,7 @@ public abstract class AValidateHome extends AValidateEJB {
 	 *     (i.e the set of exceptions defined for the create method must be a superset
 	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
 	 */
-	public void validateMatchingBeanCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateMatchingBeanCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		if (method == null) {
@@ -358,7 +358,7 @@ public abstract class AValidateHome extends AValidateEJB {
 
 		Method ejbCreateMethod = ValidationRuleUtility.getMethodExtended(beanClass, method, IMethodAndFieldConstants.METHODNAME_EJBCREATE);
 		if (ejbCreateMethod == null) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2026, IValidationContext.ERROR, bean, clazz, method, new String[] { beanClass.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2026, IEJBValidationContext.ERROR, bean, clazz, method, new String[] { beanClass.getName()}, this);
 			vc.addMessage(message);
 			return;
 		}
@@ -376,13 +376,13 @@ public abstract class AValidateHome extends AValidateEJB {
 			while(iterator.hasNext()) {
 				JavaClass exc = (JavaClass)iterator.next();
 				String[] msgParm = {exc.getQualifiedName()};
-				addValidationMessage(IValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTHI_EXCEP, msgParm, ejbCreateMethod, EJB_HOME_GROUP); // since we're adding the message to the bean class, we need to mark it like the bean class would; i.e., a home-dependent message
+				addValidationMessage(IEJBValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTHI_EXCEP, msgParm, ejbCreateMethod, EJB_HOME_GROUP); // since we're adding the message to the bean class, we need to mark it like the bean class would; i.e., a home-dependent message
 			}
 		}
 		*/
 	}
 	
-	protected void validateAppendixB(IValidationContext vc, EnterpriseBean bean, JavaClass thisHome) {
+	protected void validateAppendixB(IEJBValidationContext vc, EnterpriseBean bean, JavaClass thisHome) {
 		// The Java inheritance structure must match the EJB inheritance structure.
 		// e.g. if EJB B is a child of EJB A, then class B must be a child of class A.
 		// B could be a grandchild (or great-grandchild or ...) of A.
@@ -406,13 +406,13 @@ public abstract class AValidateHome extends AValidateEJB {
 				ValidationRuleUtility.isValidType(parentHome);
 				if (ValidationRuleUtility.isAssignableFrom(thisHome, parentHome)) {
 					String[] msgParm = new String[] { thisHome.getQualifiedName(), parentHome.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2104, IValidationContext.ERROR, bean, thisHome, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2104, IEJBValidationContext.ERROR, bean, thisHome, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2849, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
@@ -75,7 +75,7 @@ public class ApplicationClientValidator extends org.eclipse.jst.j2ee.model.inter
 	 * 
 	 * @throws ValidationException
 	 */
-	public void validate(IHelper inHelper, IReporter inReporter,IFileDelta[] changedFiles)
+	public void validate(IValidationContext inHelper, IReporter inReporter,IFileDelta[] changedFiles)
 	  throws ValidationException {
 	  super.validate(inHelper, inReporter, changedFiles);
 	  try {

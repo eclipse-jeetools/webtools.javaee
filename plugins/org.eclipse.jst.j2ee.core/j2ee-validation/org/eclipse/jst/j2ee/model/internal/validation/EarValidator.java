@@ -53,7 +53,7 @@ import org.eclipse.jst.j2ee.internal.common.impl.EjbRefImpl;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
@@ -118,7 +118,7 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	/**
 	 * Does the validation
 	 */
-	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		super.validate(inHelper, inReporter, changedFiles);
 		try {
@@ -147,7 +147,7 @@ public class EarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 		} // try 
 	} // validate
 	
-	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] changedFiles, Application app) throws ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] changedFiles, Application app) throws ValidationException {
 
 		super.validate(inHelper, inReporter, changedFiles);
 

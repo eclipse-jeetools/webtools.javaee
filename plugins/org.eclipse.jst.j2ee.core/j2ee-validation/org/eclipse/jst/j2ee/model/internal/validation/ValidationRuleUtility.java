@@ -59,7 +59,7 @@ public final class ValidationRuleUtility {
 	private static LogEntry logEntry = null;
 	private static Logger logger = null;
 	
-	public static JavaClass getCMRFieldType(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, CMRField field) {
+	public static JavaClass getCMRFieldType(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, CMRField field) {
 		CommonRelationshipRole role = field.getRole();
 		if(!role.isMany()) {
 			ContainerManagedEntity cmp = role.getTypeEntity();
@@ -704,7 +704,7 @@ public final class ValidationRuleUtility {
 		return !isRemoteException(exception, bean);
 	}
 	
-	public static final boolean isRemoteMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	public static final boolean isRemoteMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		try {
 			JavaHelpers javaRmiRemote = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVA_RMI_REMOTE, bean);
 			if(isAssignableFrom(clazz, javaRmiRemote)) {
@@ -1055,7 +1055,7 @@ public final class ValidationRuleUtility {
 		return false;
 	}
 	
-	public static final boolean isUnidirectionalRelationship(IValidationContext vc, EJBRelationshipRole role) {
+	public static final boolean isUnidirectionalRelationship(IEJBValidationContext vc, EJBRelationshipRole role) {
 		// Page 131 of EJB 2.0:
 		// A unidirectional relationship is implemented with a cmr-field on the entity bean instance from which
 		// navigation can take place, and no related cmr-field on the entity bean instance that is the target of the
@@ -1290,7 +1290,7 @@ public final class ValidationRuleUtility {
 	 */
 	public static final void isValidType(JavaHelpers type) throws InvalidInputException {
 		if(type == null) {
-			// Cheating here. Should technically access the MsgLogger from the IValidationContext
+			// Cheating here. Should technically access the MsgLogger from the IEJBValidationContext
 			// type, but when I started changing this method and the isValidTypeHierarchy method,
 			// I ended up changing 42 files because these two methods are called directly or
 			// indirectly from almost everywhere. That was too much change, so I cheated.
@@ -1336,7 +1336,7 @@ public final class ValidationRuleUtility {
 	 */
 	public static final void isValidTypeHierarchy(EnterpriseBean bean, JavaHelpers type) throws InvalidInputException {
 		if(type == null) {
-			// Cheating here. Should technically access the MsgLogger from the IValidationContext
+			// Cheating here. Should technically access the MsgLogger from the IEJBValidationContext
 			// type, but when I started changing this method and the isValidType method,
 			// I ended up changing 42 files because these two methods are called directly or
 			// indirectly from almost everywhere. That was too much change, so I cheated.

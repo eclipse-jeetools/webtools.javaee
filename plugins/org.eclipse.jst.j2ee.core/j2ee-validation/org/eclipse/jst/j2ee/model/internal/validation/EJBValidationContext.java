@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.model.internal.validation;
 
 
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.IValidator;
@@ -26,14 +26,14 @@ import org.eclipse.jem.util.logger.proxy.Logger;
  * @version 	1.0
  * @author
  */
-public class EJBValidationContext implements IValidationContext {
+public class EJBValidationContext implements IEJBValidationContext {
 	private IValidator _validator = null;
-	private IHelper _helper = null;
+	private IValidationContext _helper = null;
 	private IReporter _reporter = null;
 	private LogEntry logEntry = null;
 //	private IMessage _message = null;
 	
-	public EJBValidationContext(IValidator v, IHelper h, IReporter r) {
+	public EJBValidationContext(IValidator v, IValidationContext h, IReporter r) {
 		setValidator(v);
 		setHelper(h);
 		setReporter(r);
@@ -47,11 +47,11 @@ public class EJBValidationContext implements IValidationContext {
 		_validator = v;
 	}
 	
-	public IHelper getHelper() {
+	public IValidationContext getHelper() {
 		return _helper;
 	}
 	
-	public void setHelper(IHelper h) {
+	public void setHelper(IValidationContext h) {
 		_helper = h;
 	}
 	

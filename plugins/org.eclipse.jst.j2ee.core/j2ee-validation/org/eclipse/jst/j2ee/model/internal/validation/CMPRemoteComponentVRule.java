@@ -124,7 +124,7 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 		return KNOWN_METHOD_TYPES;
 	}
 
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz);
 		
 		ContainerManagedEntity cmp = (ContainerManagedEntity)bean;
@@ -148,7 +148,7 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 				// Cannot expose get/set methods of CMR fields on the remote home or interface
 				Method remoteGetMethod = ValidationRuleUtility.getMethodExtended(clazz, cmrField.getGetterName(), new JavaHelpers[0], localType);
 				if(remoteGetMethod != null) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2473, IValidationContext.WARNING, cmp, clazz, remoteGetMethod, new String[]{cmrField.getGetterName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2473, IEJBValidationContext.WARNING, cmp, clazz, remoteGetMethod, new String[]{cmrField.getGetterName()}, this);
 					vc.addMessage(message);
 				}
 
@@ -156,7 +156,7 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 				Method remoteSetMethod = ValidationRuleUtility.getMethodExtended(clazz, cmrField.getSetterName(), setMethodParms);
 				if(remoteSetMethod != null) {
 					String setterName = cmrField.getSetterName() + "(" + ValidationRuleUtility.getParmsAsString(setMethodParms) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2473, IValidationContext.WARNING, cmp, clazz, remoteSetMethod, new String[]{setterName}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2473, IEJBValidationContext.WARNING, cmp, clazz, remoteSetMethod, new String[]{setterName}, this);
 					vc.addMessage(message);
 				}
 			}

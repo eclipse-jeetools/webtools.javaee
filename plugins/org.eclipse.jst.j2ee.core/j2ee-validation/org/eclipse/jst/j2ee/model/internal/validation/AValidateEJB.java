@@ -48,7 +48,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * Creation date: (9/5/2001 12:36:39 PM)
 	 * @return java.util.List
 	 */
-	protected List getRoleMethodNames(IValidationContext vc, EnterpriseBean bean) {
+	protected List getRoleMethodNames(IEJBValidationContext vc, EnterpriseBean bean) {
 		try {
 			if (roleMethodNames == null && bean != null) {
 				roleMethodNames = getRoleMethodNamesExtended(bean);
@@ -64,7 +64,7 @@ public abstract class AValidateEJB extends AValidationRule {
 		}
 	}
 	
-	protected boolean isEjbRelationshipRoleMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected boolean isEjbRelationshipRoleMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null)
 			return false;
 		List aRoleMethodNames = getRoleMethodNames(vc, bean);
@@ -78,7 +78,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * Filter out faulty fields (i.e., null), and fields which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
-	protected boolean isValid(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedLists) throws InvalidInputException {
+	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedLists) throws InvalidInputException {
 		// The following call checks if the type reflected properly
 		ValidationRuleUtility.isValidType(ValidationRuleUtility.getType(field));
 
@@ -94,7 +94,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
-	protected boolean isValid(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
+	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (method == null) {
 			throw new InvalidInputException();
 		}
@@ -106,30 +106,30 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * not validate fields now, implement this method as a no-op so that the
 	 * classes compile. 
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 	}
 	
 	/**
 	 * This method actually does the validation.
 	 */
-	public abstract void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException;
+	public abstract void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException;
 	
 	/**
 	 * This method does the actual checking (if ejbMethod exists).
 	 */
-	protected abstract void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException;
+	protected abstract void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException;
 	
-	protected abstract List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz);
-	protected abstract List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz);
+	protected abstract List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz);
+	protected abstract List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz);
 	
-	protected final void reflectionError(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
+	protected final void reflectionError(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws MessageLimitException {
 		vc.removeMessages(clazz);
 	
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2907, IValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2907, IEJBValidationContext.ERROR, bean, clazz, new String[]{clazz.getQualifiedName()}, this);
 		vc.addMessage(message);
 	}
 	
-	protected final void reflectionWarning(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, InvalidInputException e) {
+	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, InvalidInputException e) {
 		// One of two cases where we care if the type is on this class or not (i.e., not leaving it up to MessageUtility)
 		String[] msgParm = null;
 		String javaClassName = (e.getJavaClass() == null) ? "?" : e.getJavaClass().getQualifiedName(); //$NON-NLS-1$
@@ -139,11 +139,11 @@ public abstract class AValidateEJB extends AValidationRule {
 		else {
 			msgParm = new String[] {javaClassName}; // MessageUtility will substitute in the name of the field
 		}
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IValidationContext.WARNING, bean, clazz, field, msgParm, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, field, msgParm, this);
 		vc.addMessage(message);
 	}
 	
-	protected final void reflectionWarning(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, InvalidInputException e) {
+	protected final void reflectionWarning(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, InvalidInputException e) {
 		// One of two cases where we care if the type is on this class or not (i.e., not leaving it up to MessageUtility)
 		String[] msgParm = null;
 		String javaClassName = (e.getJavaClass() == null) ? "?" : e.getJavaClass().getQualifiedName(); //$NON-NLS-1$
@@ -153,11 +153,11 @@ public abstract class AValidateEJB extends AValidationRule {
 		else {
 			msgParm = new String[] {javaClassName}; // MessageUtility will substitute in the name of the field
 		}
-		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IValidationContext.WARNING, bean, clazz, method, msgParm, this);
+		IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, clazz, method, msgParm, this);
 		vc.addMessage(message);
 	}
 	
-	public final void validate(IValidationContext vc, Object targetParent, Object target) throws ValidationException {
+	public final void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationException {
 		vc.terminateIfCancelled();
 		
 		EnterpriseBean bean = (EnterpriseBean)targetParent;
@@ -188,7 +188,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * This method should be called to avoid validating a Field more
 	 * than once.  This is not used for checking the existence of a field.
 	 */
-	public final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedList) throws InvalidInputException {
+	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedList) throws InvalidInputException {
 		if (isValid(vc, bean, clazz, field, fieldsExtendedList)) {
 			primValidate(vc, bean, clazz, field);
 		}
@@ -198,7 +198,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * This method should be called to avoid validating a Method more
 	 * than once.  This is not used for checking the existence of a method.
 	 */
-	public final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod, List[] methodsExtendedList) throws InvalidInputException {
+	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod, List[] methodsExtendedList) throws InvalidInputException {
 		if (isValid(vc, bean, clazz, ejbMethod, methodsExtendedList)) {
 			primValidate(vc, bean, clazz, ejbMethod);
 		}
@@ -206,16 +206,16 @@ public abstract class AValidateEJB extends AValidationRule {
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected final void validateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod, List[] methodsExtendedList) throws InvalidInputException {
+	protected final void validateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod, List[] methodsExtendedList) throws InvalidInputException {
 		if (isValid(vc, bean, clazz, ejbMethod, methodsExtendedList)) {
 			primValidateExistence(vc, bean, clazz, ejbMethod);
 		}
 	}
 	
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 	}
 	
-	public final void validateFields(IValidationContext vc, EnterpriseBean bean, JavaClass clazz)  throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateFields(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz)  throws ValidationCancelledException, InvalidInputException, ValidationException {
 		vc.terminateIfCancelled();
 
 		// Whenever looping over an entire list, always use an 
@@ -254,7 +254,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * This means that their argument and return values must be of valid types 
 	 * for RMI/IIOP, and their throws clause must include the java.rmi.RemoteException.
 	 */
-	public final void validateLegalRMIMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public final void validateLegalRMIMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		validateLegalRMIMethodWithoutExceptions(vc, bean, clazz, method);
 		validateLegalRMIMethodExceptions(vc, bean, clazz, method);
@@ -265,7 +265,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * This means that their argument and return values must be of valid types 
 	 * for RMI/IIOP, and their throws clause must include the java.rmi.RemoteException.
 	 */
-	public final void validateLegalRMIMethodArguments(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public final void validateLegalRMIMethodArguments(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		if (method == null) {
@@ -277,7 +277,7 @@ public abstract class AValidateEJB extends AValidationRule {
 			vc.terminateIfCancelled();
 
 			if (!ValidationRuleUtility.isLegalRMI_IIOPType(bean, args[i].getJavaType())) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2413, IValidationContext.INFO, bean, clazz, method, new String[]{args[i].getQualifiedName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2413, IEJBValidationContext.INFO, bean, clazz, method, new String[]{args[i].getQualifiedName()}, this);
 				vc.addMessage(message);
 			}
 		}
@@ -288,7 +288,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * This means that their argument and return values must be of valid types 
 	 * for RMI/IIOP, and their throws clause must include the java.rmi.RemoteException.
 	 */
-	public final void validateLegalRMIMethodExceptions(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public final void validateLegalRMIMethodExceptions(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		if (method == null) {
@@ -296,7 +296,7 @@ public abstract class AValidateEJB extends AValidationRule {
 		}
 
 		if (!ValidationRuleUtility.throwsRemoteExceptionOrParent(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IValidationContext.ERROR, bean, clazz, method, new String[]{ITypeConstants.CLASSNAME_JAVA_RMI_REMOTEEXCEPTION}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{ITypeConstants.CLASSNAME_JAVA_RMI_REMOTEEXCEPTION}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -306,14 +306,14 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * This means that the method's argument and return values must be of valid types 
 	 * for RMI/IIOP.
 	 */
-	public final void validateLegalRMIMethodReturnType(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public final void validateLegalRMIMethodReturnType(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return;
 		}
 
 		if (!ValidationRuleUtility.isLegalRMI_IIOPType(bean, method.getReturnType())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2412, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2412, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
@@ -323,7 +323,7 @@ public abstract class AValidateEJB extends AValidationRule {
 	 * This means that the method's argument and return values must be of valid types 
 	 * for RMI/IIOP.
 	 */
-	public final void validateLegalRMIMethodWithoutExceptions(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public final void validateLegalRMIMethodWithoutExceptions(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		validateLegalRMIMethodArguments(vc, bean, clazz, method);
 		validateLegalRMIMethodReturnType(vc, bean, clazz, method);
@@ -332,9 +332,9 @@ public abstract class AValidateEJB extends AValidationRule {
 	/**
 	 * Final check to see if required methods were detected.
 	 */
-	protected abstract void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException;
+	protected abstract void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException;
 	
-	public final void validateMethods(IValidationContext vc, EnterpriseBean bean, JavaClass clazz)  throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateMethods(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz)  throws ValidationCancelledException, InvalidInputException, ValidationException {
 		vc.terminateIfCancelled();
 
 		// Whenever looping over an entire list, always use an 

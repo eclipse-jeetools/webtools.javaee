@@ -73,7 +73,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 		return ((EnterpriseBean)parent).getRemoteInterface();
 	}
 
-	public final List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz)  {
+	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz)  {
 		// A home or component class needs the following classes' extended methods:
 		//    1. bean class
 		List[] result = new List[1];
@@ -87,7 +87,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 		return result;
 	}
 	
-	public final List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a home or component's field is defined on another class
 		// of the bean.
 		return null;
@@ -98,7 +98,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
-	protected boolean isValid(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
+	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, method, methodsExtendedList)) {
 			// Exclude root remote interface methods 
 			if (ValidationRuleUtility.isEJBObjectMethod(bean, method)) {
@@ -150,7 +150,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 *			  the method of the remote interface.
 	 * ...
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method riMethod) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method riMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.validateExistence(riMethod);
 
@@ -168,7 +168,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
 
@@ -202,12 +202,12 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 *		  is subject to the RMI-IIOP rules for the definition of remote interfaces.
 	 * ...
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		// It must be an interface, not a class.
 		if (!clazz.isInterface()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2012, IValidationContext.ERROR, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2012, IEJBValidationContext.ERROR, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
@@ -215,12 +215,12 @@ public abstract class AValidateRemote extends AValidateEJB {
 		JavaHelpers javaxEjbObject = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT, bean);
 		if (!ValidationRuleUtility.isAssignableFrom(clazz, javaxEjbObject)) {
 			String[] msgParm = { ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2017, IValidationContext.ERROR, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2017, IEJBValidationContext.ERROR, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 
 		if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
@@ -246,7 +246,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 *     of the enterprise Bean class must be defined in the throws clause of 
 	 *     the method of the remote interface. 
 	 */
-	public void validateMatchingBeanMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method remoteMethod) throws InvalidInputException {
+	public void validateMatchingBeanMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method remoteMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (remoteMethod == null) {
 			return;
@@ -258,7 +258,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 		Method beanMethod = ValidationRuleUtility.getMethodExtended(beanClass, remoteMethod, remoteMethod.getName());
 		if (beanMethod == null) {
 			String[] msgParm = { beanClass.getName()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2023, IValidationContext.ERROR, bean, clazz, remoteMethod, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2023, IEJBValidationContext.ERROR, bean, clazz, remoteMethod, msgParm, this);
 			vc.addMessage(message);
 			return;
 		}
@@ -277,7 +277,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 		// Check if return types match
 		vc.terminateIfCancelled();
 		if (!ValidationRuleUtility.isAssignableFrom(remoteMethod.getReturnType(), beanMethod.getReturnType())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2415, IValidationContext.ERROR, bean, clazz, remoteMethod, new String[] { beanMethod.getReturnType().getJavaName(), beanClass.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2415, IEJBValidationContext.ERROR, bean, clazz, remoteMethod, new String[] { beanMethod.getReturnType().getJavaName(), beanClass.getName()}, this);
 			vc.addMessage(message);
 		}
 
@@ -295,7 +295,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 			while(iterator.hasNext()) {
 				JavaClass exc = (JavaClass)iterator.next();
 				String[] msgParm = {exc.getQualifiedName()};
-				addValidationMessage(IValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTRI_EXCEP, msgParm, beanMethod, EJB_BEAN_GROUP);
+				addValidationMessage(IEJBValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTRI_EXCEP, msgParm, beanMethod, EJB_BEAN_GROUP);
 			}
 		}	
 		*/
@@ -334,7 +334,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 *			  the method of the remote interface.
 	 * ...
 	 */
-	public void validateMethod_beanDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method riMethod) throws InvalidInputException {
+	public void validateMethod_beanDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method riMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		// For each method defined in the remote interface, there must be a matching
 		// method in the session bean's class. 
@@ -344,11 +344,11 @@ public abstract class AValidateRemote extends AValidateEJB {
 	/**
 	 * Final check to see if required methods were detected.
 	 */
-	protected void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		//There are no required methods.
 	}
 
-	protected void validateAppendixB(IValidationContext vc, EnterpriseBean bean, JavaClass thisRemote) {
+	protected void validateAppendixB(IEJBValidationContext vc, EnterpriseBean bean, JavaClass thisRemote) {
 		// The Java inheritance structure must match the EJB inheritance structure.
 		// e.g. if EJB B is a child of EJB A, then class B must be a child of class A.
 		// B could be a grandchild (or great-grandchild or ...) of A.
@@ -366,13 +366,13 @@ public abstract class AValidateRemote extends AValidateEJB {
 				ValidationRuleUtility.isValidType(parentRemote);
 				if (!ValidationRuleUtility.isAssignableFrom(thisRemote, parentRemote)) {
 					String[] msgParm = new String[] { thisRemote.getQualifiedName(), parentRemote.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2105, IValidationContext.ERROR, bean, thisRemote, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2105, IEJBValidationContext.ERROR, bean, thisRemote, msgParm, this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { e.getJavaClass().getQualifiedName(), bean.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2849, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2849, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

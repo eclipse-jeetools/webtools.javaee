@@ -194,7 +194,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		return false;
 	}
 
-	protected void incrementCreateMethodCount(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected void incrementCreateMethodCount(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
 			return;
 		}
@@ -275,7 +275,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * enterprise bean should throw the javax.ejb.EJBException or another RuntimeException to
 	 * indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(ejbMethod);
 
@@ -305,7 +305,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
 
@@ -330,7 +330,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * enterprise bean should throw the javax.ejb.EJBException or another RuntimeException to
 	 * indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateBusinessMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		super.validateBusinessMethod(vc, bean, clazz, method); // check method name does not start with 'ejb'	
@@ -375,7 +375,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 *          potential error can be avoided by choosing not to implement the remote 
 	 *          interface in the session bean class.
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		super.validateClass(vc, bean, clazz);
 		// super.validateClass() performs the following checks:
@@ -406,7 +406,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 			 */
 			try {
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean))) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2003E, IValidationContext.ERROR, bean, bean.getEjbClass(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2003E, IEJBValidationContext.ERROR, bean, bean.getEjbClass(), this);
 					vc.addMessage(message);
 				}
 			}
@@ -414,7 +414,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 				String beanClassName = (bean.getEjbClass() == null) ? IEJBValidatorConstants.NULL_BEAN_CLASS : bean.getEjbClass().getJavaName();
 				String eClass = (e.getJavaClass() == null) ? ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION : e.getJavaClass().getJavaName(); // Since only getType throws InvalidInputException, this cannot have been thrown because of the bean class
 				String[] msgParm = { beanClassName, eClass };
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2433, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -433,13 +433,13 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 			 */
 			try {
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean))) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2003I, IValidationContext.INFO, bean, bean.getEjbClass(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2003I, IEJBValidationContext.INFO, bean, bean.getEjbClass(), this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { bean.getEjbClass().getQualifiedName(), e.getJavaClass().getQualifiedName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2907, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2907, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -494,7 +494,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 *          potential error can be avoided by choosing not to implement the remote 
 	 *          interface in the session bean class.
 	 */
-	public void validateClass_remoteDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		// The class may, but is not required to, implement the session bean's 
 		// remote interface [4] .
@@ -506,13 +506,13 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		ValidationRuleUtility.isValidTypeHierarchy(bean, remote);
 		if (ValidationRuleUtility.isAssignableFrom(clazz, remote)) {
 			String[] msgParm = {clazz.getQualifiedName(), remote.getQualifiedName()};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2040, IValidationContext.INFO, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2040, IEJBValidationContext.INFO, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 
 	}
 	
-	protected void validateConstructor(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected void validateConstructor(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
 			return;
 		}
@@ -541,7 +541,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * compliant enterprise bean should throw the javax.ejb.EJBException or another RuntimeException 
 	 * to indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateEjbCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		// The method which calls this method has already tested that the method name is ejbCreate.
@@ -554,7 +554,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		String returnTypeName = ((parmType == null) ? "" : parmType.getQualifiedName()); //$NON-NLS-1$
 
 		if (!returnTypeName.equals(ITypeConstants.VOID)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2401, IValidationContext.ERROR, bean, clazz, method, new String[] {clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2401, IEJBValidationContext.ERROR, bean, clazz, method, new String[] {clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 
@@ -574,14 +574,14 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * 		- The class must not define the finalize() method.
 	 * ...
 	 */
-	protected void validateFinalizeMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected void validateFinalizeMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
 			return;
 		}
 
 		if (method.listParametersWithoutReturn().length == 0) {
 			// This is a warning, not an error, because EJB 1.0 allowed the finalize() method to be called. EJB 1.1 (section 6.10.2) specifically prohibits it.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2007, IValidationContext.WARNING, bean, clazz, method, new String[] {clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2007, IEJBValidationContext.WARNING, bean, clazz, method, new String[] {clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -603,18 +603,18 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * follow these rules:
 	 *...
 	 */
-	protected void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
 		if (!hasValidConstructor && hasAConstructor) {
 			// If a public constructor with no arguments does not exist explicitly,
 			// Java will insert one as long as there are no constructors defined in the
 			// class. If there is a constructor, Java does not insert a default constructor.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2006, IValidationContext.ERROR, bean, clazz, modelObjectName, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2006, IEJBValidationContext.ERROR, bean, clazz, modelObjectName, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasCreateMethod()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2008, IValidationContext.ERROR, bean, clazz, modelObjectName, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2008, IEJBValidationContext.ERROR, bean, clazz, modelObjectName, this);
 			vc.addMessage(message);
 		}
 
@@ -623,7 +623,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		if (ValidationRuleUtility.isStateless(bean) && (createMethods.size() > 0)) {
 			Iterator iterator = createMethods.iterator();
 			while (iterator.hasNext()) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2025, IValidationContext.ERROR, bean, clazz, (Method) iterator.next(), modelObjectName, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2025, IEJBValidationContext.ERROR, bean, clazz, (Method) iterator.next(), modelObjectName, this);
 				vc.addMessage(message);
 			}
 		}
@@ -643,7 +643,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * enterprise bean should throw the javax.ejb.EJBException or another RuntimeException to
 	 * indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateBusinessModifiersAndExceptions(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateBusinessModifiersAndExceptions(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// EJB 2.0 added "throws InvalidInputException" above
 		vc.terminateIfCancelled();
 		if (method == null)
@@ -651,18 +651,18 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 
 		// The method must be declared as public.
 		if (!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_bus, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_bus, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		// The method must not be declared as final or static.
 		if (method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_bus, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_bus, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if (method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_bus, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_bus, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -675,7 +675,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		validateNoRemoteException(vc, bean, clazz, method, IMessagePrefixEjb11Constants.CHKJ2400_bus);
 	}
 
-	public void validateEjbCreateModifiersAndExceptions(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbCreateModifiersAndExceptions(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// EJB 2.0 added "throws InvalidInputException" above
 		vc.terminateIfCancelled();
 		if (method == null)
@@ -683,18 +683,18 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 
 		// The method must be declared as public.
 		if (!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		// The method must not be declared as final or static.
 		if (method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if (method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -707,9 +707,9 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		validateNoRemoteException(vc, bean, clazz, method, IMessagePrefixEjb11Constants.CHKJ2400_ejbCreate);
 	}
 	/*
-	 * @see IValidationRule#preValidate(IValidationContext, Object, Object)
+	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
-	public void preValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasValidConstructor = false;
 		hasAConstructor = false;

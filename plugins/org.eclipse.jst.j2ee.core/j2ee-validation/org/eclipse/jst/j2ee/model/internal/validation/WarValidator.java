@@ -57,7 +57,7 @@ import org.eclipse.jst.j2ee.webapplication.WebResourceCollection;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IHelper;
+import org.eclipse.wst.validation.core.IValidationContext;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
@@ -256,7 +256,7 @@ private void validateUrlPattern() {
  * If <code>changedFiles</code> is null, or if it is an empty array, then a full build
  * is performed. Otherwise, validation on just the files listed in the Vector is performed.
  */
-public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws ValidationException {
+public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws ValidationException {
 
 	super.validate(inHelper, inReporter, inChangedFiles);
 
@@ -284,7 +284,7 @@ public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChan
 }
 
 
-public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles, WebApp webApp) throws ValidationException {
+public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles, WebApp webApp) throws ValidationException {
 
 	super.validate(inHelper, inReporter, inChangedFiles);
 

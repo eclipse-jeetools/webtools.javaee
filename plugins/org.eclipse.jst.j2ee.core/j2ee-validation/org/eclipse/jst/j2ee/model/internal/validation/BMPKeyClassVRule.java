@@ -109,18 +109,18 @@ public final class BMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 	}
 	
 	/*
-	 * @see IClassVRule#validate(IValidationContext, EnterpriseBean, JavaClass, Method)
+	 * @see IClassVRule#validate(IEJBValidationContext, EnterpriseBean, JavaClass, Method)
 	 */
-	public final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass parent, Method method, List[] methodExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass parent, Method method, List[] methodExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// Do not perform any validation on the methods of this class (other than the
 		// validation performed in AKeyClassVRule's check for the existence of hashCode()
 		// and equals(Object)
 	}
 
 	/*
-	 * @see IClassVRule#validate(IValidationContext, EnterpriseBean, JavaClass, Field)
+	 * @see IClassVRule#validate(IEJBValidationContext, EnterpriseBean, JavaClass, Field)
 	 */
-	public final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// Do not perform any validation on the fields of the BMP key class
 		long fieldType = MethodUtility.getUtility().getFieldTypeId(bean, clazz, field, this);
 		if((fieldType & IMethodAndFieldConstants.SERIALVERSIONUID) == IMethodAndFieldConstants.SERIALVERSIONUID) {

@@ -286,7 +286,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 		return ID;
 	}
 	
-	protected void incrementFindByPrimaryKeyCount(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected void incrementFindByPrimaryKeyCount(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
 			return;
 		}
@@ -296,7 +296,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		super.primValidateExistence(vc, bean, clazz, ejbMethod);
 
 		// BMPs must implement ejbFindByPrimaryKey. If it isn't implemented, validateMethodExists() will
@@ -323,7 +323,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 *          should throw the javax.ejb.EJBException or another java.lang.RuntimeException
 	 *          to indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateBusinessMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP business method checks
 		super.validateBusinessMethod(vc, bean, clazz, method);
 
@@ -357,7 +357,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 *     example helper methods invoked internally by the business methods) 
 	 *     in addition to the methods required by the EJB specification.
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// All of the above checks are performed by the parent.
 		super.validateClass(vc, bean, clazz);
 	}
@@ -384,7 +384,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 *     should throw the javax.ejb.EJBException or another java.lang.RuntimeException
 	 *     to indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateEjbFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// A finder method name must start with the prefix "ejbFind" 
 		// (e.g. ejbFindByPrimaryKey, ejbFindLargeAccounts, ejbFindLateShipments).
 		// The method which calls this method performs the above check.
@@ -399,18 +399,18 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 		vc.terminateIfCancelled();
 		// A finder method must be declared as public.
 		if (!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbFind, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbFind, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		// The method must not be declared as final or static.
 		if (method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbFind, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbFind, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if (method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbFind, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbFind, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -453,7 +453,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 *     should throw the javax.ejb.EJBException or another java.lang.RuntimeException
 	 *     to indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateEjbFindMethod_key(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbFindMethod_key(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
 			return;
 		}
@@ -470,7 +470,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 			  ValidationRuleUtility.isAssignableFromCollection(returnType, bean) ||
 			  ValidationRuleUtility.isAssignableFromEnumeration(returnType, bean)
 		   )) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2407, IValidationContext.WARNING, bean, clazz, method, new String[] { primaryKey.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2407, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { primaryKey.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -497,7 +497,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 *      Container (see Section 12.2.2).
 	 *...
 	*/
-	public void validateEjbPostCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP ejbPostCreate method checks
 		super.validateEjbPostCreateMethod(vc, bean, clazz, method);
 
@@ -513,30 +513,30 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 *     be a single-object finder).
 	 *...
 	 */
-	public void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateMethodExists(vc, bean, clazz);
 
 		if (!hasPKMethod) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2009, IValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2009, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	public void verifyFieldExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void verifyFieldExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		/*
 		// Plus, check that at least one field exists on the bean.
 		List fields = getFields();
 		if((fields == null) || (fields.size() == 0)) {
-			addValidationMessage(IValidationContext.WARNING, IMessagePrefixEjb11Constants.EJB_BMP_NOFIELDS, new String[] {getModelObjectName()}, getModelObject());
+			addValidationMessage(IEJBValidationContext.WARNING, IMessagePrefixEjb11Constants.EJB_BMP_NOFIELDS, new String[] {getModelObjectName()}, getModelObject());
 			return;
 		}
 		*/
 	}
 	
 	/*
-	 * @see IValidationRule#preValidate(IValidationContext, Object, Object)
+	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
-	public void preValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasPKMethod = false;
 	}

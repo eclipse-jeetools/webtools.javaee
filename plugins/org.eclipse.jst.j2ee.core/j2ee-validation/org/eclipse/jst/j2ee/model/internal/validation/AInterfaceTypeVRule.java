@@ -34,7 +34,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		return methodsExtendedList[0];
 	}
 	
-	public final List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// A home or component class needs the following classes' extended methods:
 		//    1. bean class
 		JavaClass beanClass = bean.getEjbClass();
@@ -46,16 +46,16 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		return result;
 	}
 	
-	public final List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a home or component's field is defined on another class
 		// of the bean.
 		return null;
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		validateApplicationExceptionRules(vc, bean, clazz, method);
 	}
 	
@@ -105,7 +105,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		}	
 	}
 	
-	public void validateApplicationExceptionRules(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, MessageLimitException  {
+	public void validateApplicationExceptionRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, MessageLimitException  {
 		List exceptions = method.getJavaExceptions();
 		if(exceptions.size() == 0) {
 			return;
@@ -125,7 +125,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 				}
 				
 				if(!ValidationRuleUtility.isAssignableFrom(exception, javaLangException)) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2404, IValidationContext.WARNING, bean, clazz, method, new String[]{exception.getName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2404, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getName()}, this);
 					vc.addMessage(message);
 					
 					// no point checking the rest
@@ -134,7 +134,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 				
 				// IWAD4420 = {0} must not be a subclass of java.lang.RuntimeException. Read section 18.1.1, 18.2.1 of the EJB 2.0 specification.
 				if(ValidationRuleUtility.isAssignableFrom(exception, javaLangRuntimeException)) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2416, IValidationContext.WARNING, bean, clazz, method, new String[]{exception.getName()}, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2416, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{exception.getName()}, this);
 					vc.addMessage(message);
 				}
 			}

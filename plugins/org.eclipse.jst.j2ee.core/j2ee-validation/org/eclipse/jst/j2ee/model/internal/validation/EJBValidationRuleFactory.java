@@ -104,7 +104,7 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 	 * If the IFileDelta represents a static load model (i.e., the file name is always the same),
 	 * then return the Integer which loads that model. Otherwise return null.
 	 */
-	public final Object getRuleId(IValidationContext vc, IFileDelta delta) {
+	public final Object getRuleId(IEJBValidationContext vc, IFileDelta delta) {
 		if(delta == null) {
 			Logger aLogger = vc.getMsgLogger();
 			if (aLogger != null && aLogger.isLoggingLevel(Level.FINE)) {
@@ -120,7 +120,7 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 	 * If the IFileDelta represents a static load model (i.e., the file name is always the same),
 	 * then return the Integer which loads that model. Otherwise return null.
 	 */
-	public  Object getRuleId(IValidationContext vc, String fileName) {
+	public  Object getRuleId(IEJBValidationContext vc, String fileName) {
 		if(fileName == null) {
 			Logger aLogger = vc.getMsgLogger();
 			if (aLogger != null && aLogger.isLoggingLevel(Level.FINE)) {
@@ -144,7 +144,7 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 	 * If the IFileDelta represents a dynamic load model (i.e., the file name can be changed by the
 	 * user), then return the Integer which loads that model. Return null if no such model exists.
 	 */
-	public final Object getRuleId(IValidationContext vc, JavaClass clazz, EnterpriseBean bean) {
+	public final Object getRuleId(IEJBValidationContext vc, JavaClass clazz, EnterpriseBean bean) {
 		// Return the rule id which will validate the JavaClass as the 
 		// type which it is used as by the EnterpriseBean.
 		if((clazz == null) || (bean == null)) {

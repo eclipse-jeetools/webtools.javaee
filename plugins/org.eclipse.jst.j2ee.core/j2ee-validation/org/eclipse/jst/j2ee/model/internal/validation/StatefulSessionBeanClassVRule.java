@@ -169,7 +169,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return KNOWN_METHOD_TYPES;
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {
@@ -190,7 +190,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		}
 	}
 
-	public String getMatchingHomeMethodName(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
+	public String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {
@@ -214,7 +214,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.validation.internal.core.core.ejb.ejb20.rules.IClassVRule#validate(org.eclipse.wst.validation.internal.core.core.ejb.IValidationContext, org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean, org.eclipse.jem.internal.java.JavaClass)
 	 */
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz);
 		Session session = (Session)bean;
 		boolean isBeanManagedStateful = (ValidationRuleUtility.isValidTransactionTypeElement(session) && ValidationRuleUtility.isBeanManagedSession(session) && ValidationRuleUtility.isStateful(session));
@@ -235,13 +235,13 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 			try {
 				JavaHelpers ss = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean);
 				if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ss)) {
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2003I, IValidationContext.INFO, bean, bean.getEjbClass(), this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2003I, IEJBValidationContext.INFO, bean, bean.getEjbClass(), this);
 					vc.addMessage(message);
 				}
 			}
 			catch (InvalidInputException e) {
 				String[] msgParm = { ValidationRuleUtility.getQualifiedName(bean.getEjbClass()), ValidationRuleUtility.getQualifiedName(e.getJavaClass())};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IValidationContext.WARNING, bean, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IEJBValidationContext.WARNING, bean, msgParm, this);
 				vc.addMessage(message);
 			}
 		}

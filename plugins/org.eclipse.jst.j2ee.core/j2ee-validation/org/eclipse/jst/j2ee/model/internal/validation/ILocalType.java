@@ -17,5 +17,5 @@ package org.eclipse.jst.j2ee.model.internal.validation;
  */
 public interface ILocalType {
 	public int IS_REMOTE = IEJBType.LOCAL;
-	public int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IValidationContext.WARNING; // If a method throws a RemoteException when it shouldn't, that's a deprecated use, hence a warning.
+	public int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IEJBValidationContext.WARNING; // If a method throws a RemoteException when it shouldn't, that's a deprecated use, hence a warning.
 }

@@ -242,7 +242,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 * Given a bean's ejbFind method, return the matching find method from
 	 * the home, if it exists. If not, return null.
 	 */
-	public Method getMatchingHomeFindMethodExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public Method getMatchingHomeFindMethodExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return null;
@@ -309,7 +309,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *     example helper methods invoked internally by the business methods) 
 	 *     in addition to the methods required by the EJB specification.
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.primValidate(ejbMethod);
 
@@ -335,7 +335,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
 
@@ -407,25 +407,25 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *          should throw the javax.ejb.EJBException or another java.lang.RuntimeException
 	 *          to indicate non-application exceptions to the Container (see Section 12.2.2).
 	 */
-	public void validateBusinessMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		super.validateBusinessMethod(vc, bean, clazz, method); // make sure that name does not start with 'ejb'
 
 		// The method must be declared as public.
 		if (!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_bus, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_bus, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		// The method must not be declared as final or static.
 		if (method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_bus, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_bus, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if (method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_bus, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_bus, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -441,7 +441,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 		validateBusinessMethodNoRemoteException(vc, bean, clazz, method);
 	}
 	
-	protected void validateBusinessMethodNoRemoteException(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	protected void validateBusinessMethodNoRemoteException(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// EJB 2.0 added "throws InvalidInputException" above
 		validateNoRemoteException(vc, bean, clazz, method, IMessagePrefixEjb11Constants.CHKJ2400_bus);
 	}
@@ -471,7 +471,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *     example helper methods invoked internally by the business methods) 
 	 *     in addition to the methods required by the EJB specification.
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// All of the above checks are performed by ValidateBean.
 		super.validateClass(vc, bean, clazz);
 
@@ -522,7 +522,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *     The returned value is ignored by the Container.
 	 *...
 	 */
-	public void validateEjbCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		// The method which calls this method has already tested that the method name is ejbCreate.
 		if (method == null)
@@ -530,18 +530,18 @@ public abstract class AValidateEntityBean extends AValidateBean {
 
 		// The method must be declared as public.
 		if (!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		// The method must not be declared as final or static.
 		if (method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if (method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -571,7 +571,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 		// Verify that there is a matching ejbPostCreate method for this ejbCreate method.
 		Method ejbPostCreateMethod = ValidationRuleUtility.getMethodExtended(clazz, IMethodAndFieldConstants.METHODNAME_EJBPOSTCREATE, method.listParametersWithoutReturn());
 		if (ejbPostCreateMethod == null) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2002, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2002, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -623,7 +623,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *     The returned value is ignored by the Container.
 	 *...
 	 */
-	public void validateEjbCreateMethod_keyDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbCreateMethod_keyDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		// The method which calls this method has already tested that the method name is ejbCreate.
@@ -649,7 +649,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 			// if the parameter type is java.lang.Object, could be section 9.4.7.3
 			String keyName = (primaryKey == null) ? IEJBValidatorConstants.NULL_PRIMARY_KEY : primaryKey.getJavaName();
 			String[] msgParm = {keyName};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2406, IValidationContext.WARNING, bean, clazz, method, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2406, IEJBValidationContext.WARNING, bean, clazz, method, msgParm, this);
 			vc.addMessage(message);
 		}
 	}
@@ -686,7 +686,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *     class in the deployment descriptor as of the type java.lang.Object.
 	 *  (This does not need to be validated directly, since CMPs don't implement finder methods.
 	 */
-	public void validateEjbFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// This method is a no-op so that the dependency classes don't have to implement it.
 		// (This method will never be called in a dependency class.)
 	}
@@ -723,7 +723,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *     class in the deployment descriptor as of the type java.lang.Object.
 	 *  (This does not need to be validated directly, since CMPs don't implement finder methods.
 	 */
-	public void validateEjbFindMethod_homeDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbFindMethod_homeDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// All the exceptions defined in the throws clause of the matching ejbCreate 
 		// and ejbPostCreate methods of the enterprise Bean class must be included in 
 		// the throws clause of the matching create method of the home interface 
@@ -744,7 +744,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 			while (iterator.hasNext()) {
 				JavaClass exc = (JavaClass) iterator.next();
 				String[] msgParm = { exc.getQualifiedName(), home.getQualifiedName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2420, IValidationContext.ERROR, bean, clazz, method, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2420, IEJBValidationContext.ERROR, bean, clazz, method, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -772,7 +772,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *      Container (see Section 12.2.2).
 	 *...
 	*/
-	public void validateEjbPostCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		// The method which calls this method has already tested that the method name is ejbPostCreate.
 		if (method == null)
@@ -780,18 +780,18 @@ public abstract class AValidateEntityBean extends AValidateBean {
 
 		// The method must be declared as public.
 		if (!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbPostCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2408_ejbPostCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		// The method must not be declared as final or static.
 		if (method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbPostCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2410_ejbPostCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
 		if (method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbPostCreate, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2409_ejbPostCreate, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -801,7 +801,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 		JavaHelpers parmType = method.getReturnType();
 		String returnTypeName = ((parmType == null) ? "" : parmType.getQualifiedName()); //$NON-NLS-1$
 		if (!returnTypeName.equals(ITypeConstants.VOID)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2418, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2418, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -818,7 +818,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 		// Verify that the ejbPostCreate method has a matching ejbCreate method.
 		Method ejbCreateMethod = ValidationRuleUtility.getMethodExtended(clazz, IMethodAndFieldConstants.METHODNAME_EJBCREATE, method.listParametersWithoutReturn());
 		if (ejbCreateMethod == null) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2028, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2028, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 
@@ -847,7 +847,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *      Container (see Section 12.2.2).
 	 *...
 	*/
-	public void validateEjbPostCreateMethod_homeDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateEjbPostCreateMethod_homeDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		// The method which calls this method has already tested that the method name is ejbPostCreate.
@@ -869,7 +869,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 
 			// The validateEjbCreateMethod checks for a matching create method, but just in
 			// case the ejbCreate method is missing, check for it here too.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2029, IValidationContext.WARNING, bean, clazz, method, new String[] { homeIntf.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2029, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { homeIntf.getName()}, this);
 			vc.addMessage(message);
 
 			// Can't check the exceptions of a method which doesn't exist.
@@ -888,7 +888,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 			while (iterator.hasNext()) {
 				JavaClass exc = (JavaClass) iterator.next();
 				String[] msgParm = { exc.getQualifiedName(), homeIntf.getQualifiedName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2420, IValidationContext.ERROR, bean, clazz, method, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2420, IEJBValidationContext.ERROR, bean, clazz, method, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -902,7 +902,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *      - The class must not define the finalize() method.
 	 *...
 	 */
-	protected void validateFinalize(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected void validateFinalize(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
 			return;
 		}
@@ -910,7 +910,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 		// If it's "finalize()", the ejb bean shouldn't have the method.
 		if (method.listParametersWithoutReturn().length == 0) {
 			// This is a warning, not an error, because EJB 1.0 allowed the finalize() method to be called. EJB 1.1 (section 6.10.2) specifically prohibits it.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2007, IValidationContext.WARNING, bean, clazz, method, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2007, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -930,48 +930,48 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 *    EJB objects. The enterprise Bean restricts the clients to accessing entities 
 	 *    that were created through direct database inserts.
 	 */
-	protected void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
 		if (!hasValidConstructor && hasAConstructor) {
 			// If a public constructor with no arguments does not exist explicitly,
 			// Java will insert one as long as there are no constructors defined in the
 			// class. If there is a constructor, Java does not insert a default constructor.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2006, IValidationContext.ERROR, bean, clazz, modelObjectName, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2006, IEJBValidationContext.ERROR, bean, clazz, modelObjectName, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasSetEntityContext) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2033, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2033, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasUnsetEntityContext) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2034, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2034, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasEjbActivate) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2035, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2035, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasEjbPassivate) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2036, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2036, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasEjbRemove) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2037, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2037, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasEjbLoad) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2038, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2038, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 
 		if (!hasEjbStore) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2039, IValidationContext.WARNING, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2039, IEJBValidationContext.WARNING, bean, clazz, this);
 			vc.addMessage(message);
 		}
 	}
@@ -979,12 +979,12 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	/**
 	 * Check that at least one field exists on the bean class.
 	 */
-	public abstract void verifyFieldExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException;
+	public abstract void verifyFieldExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException;
 
 	/*
-	 * @see IValidationRule#preValidate(IValidationContext, Object, Object)
+	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
-	public void preValidate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasValidConstructor = false;
 		hasAConstructor = false;

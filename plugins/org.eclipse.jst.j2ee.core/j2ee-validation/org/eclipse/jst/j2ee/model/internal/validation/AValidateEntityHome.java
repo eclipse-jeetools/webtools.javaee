@@ -80,7 +80,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		findByPKMethods.clear();
 	}
 
-	protected void incrementFindByPrimaryKeyCount(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
+	protected void incrementFindByPrimaryKeyCount(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) {
 		if (method == null) {
 			return;
 		}
@@ -98,7 +98,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 * This method returns true if the given method returns the remote interface,
 	 * and false otherwise.
 	 */
-	public boolean isSingleObjectFinder(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public boolean isSingleObjectFinder(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return false;
@@ -155,7 +155,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     method of the home interface.
 	 *   - The throws clause of a finder method must include the javax.ejb.FinderException. 
 	 */
-	public void primValidate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
+	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(hiMethod);
 
@@ -171,7 +171,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		else if (name.startsWith(IMethodAndFieldConstants.PREFIX_FIND))
 			validateFindMethod(vc, bean, clazz, hiMethod);
 		else {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2005, IValidationContext.ERROR, bean, clazz, hiMethod, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2005, IEJBValidationContext.ERROR, bean, clazz, hiMethod, this);
 			vc.addMessage(message);
 		}
 	}
@@ -179,7 +179,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
-	protected void primValidateExistence(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
+	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
 
@@ -196,7 +196,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     inheritance is subject to the RMI-IIOP rules for the definition of remote interfaces.
 	 *...
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateClass(vc, bean, clazz);
 		// The superclass checks that the home extends javax.ejb.EJBHome,
 		// and that the interface inheritance complies with RMI-IIOP rules.
@@ -218,7 +218,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     (i.e the set of exceptions defined for the create method must be a superset
 	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
 	 */
-	public void validateCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return;
@@ -244,7 +244,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		// The throws clause of a create method must include the javax.ejb.CreateException.
 		if (!ValidationRuleUtility.throwsCreateException(bean, method)) {
 			String[] msgParm = { ITypeConstants.CLASSNAME_JAVAX_EJB_CREATEEXCEPTION };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IValidationContext.ERROR, bean, clazz, method, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IEJBValidationContext.ERROR, bean, clazz, method, msgParm, this);
 			vc.addMessage(message);
 		}
 
@@ -271,7 +271,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     (i.e the set of exceptions defined for the create method must be a superset
 	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
 	 */
-	public void validateCreateMethod_beanDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateCreateMethod_beanDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return;
@@ -302,7 +302,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     always a single-object finder. The method must declare the primary key class 
 	 *     as the method argument.
 	 */
-	public void validateFindByPrimaryKeyMethod_keyDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateFindByPrimaryKeyMethod_keyDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return;
@@ -337,7 +337,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		}
 
 		if (!hasValidFBPKMethod) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2405, IValidationContext.WARNING, bean, clazz, method, new String[] { keyClass.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2405, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { keyClass.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -352,11 +352,11 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     always a single-object finder. The method must declare the primary key class 
 	 *     as the method argument.
 	 */
-	public void validateFindByPrimaryKeyMethod_remoteDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateFindByPrimaryKeyMethod_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (!isSingleObjectFinder(vc, bean, clazz, method)) {
 			String remoteIntfName = bean.getRemoteInterface().getName(); // Can assume that remote interface isn't null, or isSingleObjectFinder would have thrown an InvalidInputException.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2403, IValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntfName }, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, new String[] { remoteIntfName }, this);
 			vc.addMessage(message);
 		}
 	}
@@ -380,7 +380,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     method of the home interface.
 	 *   - The throws clause of a finder method must include the javax.ejb.FinderException. 
 	 */
-	public void validateFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return;
@@ -398,7 +398,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		// The throws clause of a finder method must include the javax.ejb.FinderException. 
 		if (!ValidationRuleUtility.throwsFinderException(bean, method)) {
 			String[] msgParm = { ITypeConstants.CLASSNAME_JAVAX_EJB_FINDEREXCEPTION };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IValidationContext.ERROR, bean, clazz, method, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2414, IEJBValidationContext.ERROR, bean, clazz, method, msgParm, this);
 			vc.addMessage(message);
 		}
 
@@ -465,7 +465,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     method of the home interface.
 	 *   - The throws clause of a finder method must include the javax.ejb.FinderException. 
 	 */
-	public void validateFindMethod_remoteDep(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateFindMethod_remoteDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
 			return;
@@ -491,7 +491,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 			       ValidationRuleUtility.isAssignableFromEnumeration(returnType, bean) || 
 			       ValidationRuleUtility.isAssignableFrom(returnType, remoteIntf))) {
 				String[] msgParm = { remoteIntf.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2403, IValidationContext.WARNING, bean, clazz, method, msgParm, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, msgParm, this);
 				vc.addMessage(message);
 			}
 		}
@@ -504,7 +504,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		}
 	}
 
-	public void validateMatchingBeanCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
+	public void validateMatchingBeanCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		super.validateMatchingBeanCreateMethod(vc, bean, clazz, method);
@@ -531,7 +531,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     method of the home interface.
 	 *...
 	 */
-	public void validateMatchingBeanFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod) throws InvalidInputException {
+	public void validateMatchingBeanFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		if (homeMethod == null) {
@@ -549,7 +549,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 
 		Method beanMethod = ValidationRuleUtility.getMethodExtended(beanClass, homeMethod, findMethodName);
 		if (beanMethod == null) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2030, IValidationContext.ERROR, bean, clazz, homeMethod, new String[] { beanClass.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2030, IEJBValidationContext.ERROR, bean, clazz, homeMethod, new String[] { beanClass.getName()}, this);
 			vc.addMessage(message);
 			return;
 		}
@@ -564,7 +564,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 			boolean beanRetTypeIsKey = ValidationRuleUtility.isAssignableFrom(beanRetType, ((Entity)bean).getPrimaryKey());
 			if(!(homeRetTypeIsRemote && beanRetTypeIsKey)) {
 				JavaHelpers retType = (beanRetTypeIsKey) ? bean.getRemoteInterface() : beanRetType; // if the bean class returns a key, the home must return the remote; if the bean class returns a Coll/Enum, the home must return the same
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2415, IValidationContext.ERROR, bean, clazz, homeMethod, new String[] { retType.getJavaName(), beanClass.getName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2415, IEJBValidationContext.ERROR, bean, clazz, homeMethod, new String[] { retType.getJavaName(), beanClass.getName()}, this);
 				vc.addMessage(message);
 			}
 		}
@@ -582,7 +582,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 			while(iterator.hasNext()) {
 				JavaClass exc = (JavaClass)iterator.next();
 				String[] msgParm = {exc.getQualifiedName()};
-				addValidationMessage(IValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTHI_EXCEP, msgParm, beanMethod, EJB_BEAN_GROUP);
+				addValidationMessage(IEJBValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTHI_EXCEP, msgParm, beanMethod, EJB_BEAN_GROUP);
 			}
 		}	
 		*/
@@ -605,7 +605,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     of the union of exceptions defined for the ejbCreate and ejbPostCreate methods)
 	 *...
 	 */
-	public void validateMatchingBeanPostCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod) throws InvalidInputException {
+	public void validateMatchingBeanPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		if (homeMethod == null) {
@@ -623,7 +623,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		if (beanMethod == null) {
 			// Let the bean class report this message. Otherwise, when the bean class reports it, this message looks like a duplicate.
 			/*
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2031, IValidationContext.WARNING, bean, clazz, homeMethod, new String[] { beanClass.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2031, IEJBValidationContext.WARNING, bean, clazz, homeMethod, new String[] { beanClass.getName()}, this);
 			vc.addMessage(message);
 			*/
 			return;
@@ -644,7 +644,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 			while(iterator.hasNext()) {
 				JavaClass exc = (JavaClass)iterator.next();
 				String[] msgParm = {exc.getQualifiedName()};
-				addValidationMessage(IValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTHI_EXCEP, msgParm, beanMethod, EJB_BEAN_GROUP);
+				addValidationMessage(IEJBValidationContext.ERROR, IMessagePrefixEjb11Constants.EJB_METHOD_THROW_NOTHI_EXCEP, msgParm, beanMethod, EJB_BEAN_GROUP);
 			}
 		}
 		*/
@@ -657,13 +657,13 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 *     always a single-object finder. The method must declare the primary key class 
 	 *     as the method argument.
 	 */
-	protected void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// - The home interface must always include the findByPrimaryKey method, which is 
 		// always a single-object finder. The method must declare the primary key class 
 		// as the method argument.
 		if (findByPKMethods.size() == 0) {
 			// must have one findByPrimaryKey method
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2011, IValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2011, IEJBValidationContext.ERROR, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 		/*
@@ -673,7 +673,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 			// if the home interface has multiple findByPrimaryKey methods (implied by 9.2.8)
 			Iterator iterator = findByPKMethods.iterator();
 			while(iterator.hasNext()) {
-				addValidationMessage(IValidationContext.WARNING, IMessagePrefixEjb11Constants.EJB_HAS_MULTIPLE_PK_METHODS, (Method)iterator.next());
+				addValidationMessage(IEJBValidationContext.WARNING, IMessagePrefixEjb11Constants.EJB_HAS_MULTIPLE_PK_METHODS, (Method)iterator.next());
 			}
 		}
 		*/

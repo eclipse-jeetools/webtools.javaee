@@ -29,24 +29,24 @@ public abstract class AEntityHomeVRule extends AHomeVRule {
 		return HOME;
 	}
 
-	public final void validateFindByPrimaryKeyMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, ValidationException {
+	public final void validateFindByPrimaryKeyMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, ValidationException {
 		JavaClass key = ((Entity)bean).getPrimaryKey();
 		JavaParameter[] parms = method.listParametersWithoutReturn();
 		if((parms.length != 1) || (!ValidationRuleUtility.isAssignableFrom(key, parms[0].getJavaType()))) {
 			String keyName = (key == null) ? IEJBValidatorConstants.NULL_PRIMARY_KEY : key.getJavaName();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2475, IValidationContext.WARNING, bean, clazz, method, new String[]{keyName}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2475, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{keyName}, this);
 			vc.addMessage(message);
 		}
 	}
 
-	public void validateFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.followsFinderExceptionRules(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2477, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2477, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
 		if(!ValidationRuleUtility.followsObjectNotFoundExceptionRules(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2478, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2478, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
@@ -66,31 +66,31 @@ public abstract class AEntityHomeVRule extends AHomeVRule {
 						className = IEJBValidatorConstants.NULL_LOCAL;
 					}
 				}
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2479, IValidationContext.ERROR, bean, clazz, method, new String[]{className}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2479, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{className}, this);
 				vc.addMessage(message);
 			}
 		}
 		else {
 			if(!returnsComponentInterfaceOrCollection(vc, bean, clazz, method)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2403, IValidationContext.WARNING, bean, clazz, method, new String[]{getComponentInterface(bean).getName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2403, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{getComponentInterface(bean).getName()}, this);
 				vc.addMessage(message);
 			}
 		}
 	}
 	
-	public void validateHomeMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, ValidationException {
+	public void validateHomeMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, ValidationException {
 		// IWAD4350 = The return type must match the return type of {0}. Read section 12.2.9 of the EJB 2.0 specification.
 		// The above check is done in the "validate(vc, bean, clazz, method) method.
 		if(method.getName().startsWith(IMethodAndFieldConstants.METHODNAME_CREATE)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2462, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2462, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		else if(method.getName().startsWith(IMethodAndFieldConstants.PREFIX_FIND)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2463, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2463, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		else if(method.getName().startsWith(IMethodAndFieldConstants.METHODNAME_REMOVE)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2464, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2464, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}

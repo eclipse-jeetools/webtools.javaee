@@ -172,7 +172,7 @@ public final class StatelessSessionBeanClassVRule extends ASessionBeanClassVRule
 		return KNOWN_METHOD_TYPES;
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {
@@ -193,7 +193,7 @@ public final class StatelessSessionBeanClassVRule extends ASessionBeanClassVRule
 		}
 	}
 
-	public String getMatchingHomeMethodName(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
+	public String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {
@@ -214,9 +214,9 @@ public final class StatelessSessionBeanClassVRule extends ASessionBeanClassVRule
 		}
 	}
 	
-	public void validateEjbCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if((method.listParametersWithoutReturn().length != 0) || (!IMethodAndFieldConstants.METHODNAME_EJBCREATE.equals(method.getName()))) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2476, IValidationContext.ERROR, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2476, IEJBValidationContext.ERROR, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		else {
@@ -226,7 +226,7 @@ public final class StatelessSessionBeanClassVRule extends ASessionBeanClassVRule
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.validation.internal.core.core.ejb.ejb20.rules.IClassVRule#validate(org.eclipse.wst.validation.internal.core.core.ejb.IValidationContext, org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean, org.eclipse.jem.internal.java.JavaClass)
 	 */
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// TODO Auto-generated method stub
 		super.validate(vc, bean, clazz);
 		/*
@@ -244,13 +244,13 @@ public final class StatelessSessionBeanClassVRule extends ASessionBeanClassVRule
 		try {
 			JavaHelpers ss = ValidationRuleUtility.getType(ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION, bean);
 			if (ValidationRuleUtility.isAssignableFrom(bean.getEjbClass(), ss)) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2003E, IValidationContext.ERROR, bean, bean.getEjbClass(), this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2003E, IEJBValidationContext.ERROR, bean, bean.getEjbClass(), this);
 				vc.addMessage(message);
 			}
 		}
 		catch (InvalidInputException e) {
 			String[] msgParm = { ValidationRuleUtility.getQualifiedName(bean.getEjbClass()), ValidationRuleUtility.getQualifiedName(e.getJavaClass())};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IValidationContext.WARNING, bean, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2907, IEJBValidationContext.WARNING, bean, msgParm, this);
 			vc.addMessage(message);
 		}
 	}

@@ -46,13 +46,13 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 		return ((Entity) parent).getPrimaryKey();
 	}
 
-	public final List[] getMethodsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a key class' method is defined on another class 
 		// of the bean.
 		return null;
 	}
 	
-	public final List[] getFieldsExtended(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
+	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a key class' field is defined on another class
 		// of the bean.
 		return null;
@@ -63,7 +63,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
-	protected boolean isValid(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
+	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, method, methodsExtendedList)) {
 			// exclude root object methods
 			if (!ValidationRuleUtility.isJavaLangObjectMethod(bean, method)) {
@@ -81,13 +81,13 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 *    equals(Object other) methods to simplify the management of the primary keys 
 	 *    by client code.
 	 */
-	public void validateClass(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		validateLegalRMIType(vc, bean, clazz);
 
 		if (ValidationRuleUtility.isUnnamedPackage(clazz.getJavaPackage())) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IValidationContext.INFO, bean, clazz, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2041, IEJBValidationContext.INFO, bean, clazz, this);
 			vc.addMessage(message);
 		}
 	}
@@ -107,13 +107,13 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 *   details on how to make classes serializable, see the Java Object Serialization
 	 *   Specification. 
 	 */
-	public final void validateLegalRMIType(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public final void validateLegalRMIType(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
 		ValidationRuleUtility.isValidType(clazz);
 
 		if (!ValidationRuleUtility.isLegalRMI_IIOPType(bean, clazz)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2019, IValidationContext.INFO, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2019, IEJBValidationContext.INFO, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
 			vc.addMessage(message);
 		}
 	}
@@ -124,7 +124,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 *    equals(Object other) methods to simplify the management of the primary keys 
 	 *    by client code.
 	 */
-	public void validateMethodExists(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
+	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// The class must provide suitable implementation of the hashCode() and 
 		// equals(Object other) methods to simplify the management of the primary keys 
 		// by client code.
@@ -132,7 +132,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 		if ((hashCodeMethod == null) || ValidationRuleUtility.isJavaLangObjectMethod(bean, hashCodeMethod)) {
 			// EJB 1.0 did not require this method, so this is a warning instead of an error.
 			String[] msgParm = { clazz.getQualifiedName(), IMethodAndFieldConstants.METHODSIGNATURE_HASHCODE};
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2001, IValidationContext.WARNING, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2001, IEJBValidationContext.WARNING, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 
@@ -140,7 +140,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 		if ((equalsMethod == null) || (ValidationRuleUtility.isJavaLangObjectMethod(bean, equalsMethod))) {
 			// EJB 1.0 did not require this method, so this is a warning instead of an error.
 			String[] msgParm = { clazz.getQualifiedName(), IMethodAndFieldConstants.METHODSIGNATURE_EQUALS };
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2001, IValidationContext.WARNING, bean, clazz, msgParm, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2001, IEJBValidationContext.WARNING, bean, clazz, msgParm, this);
 			vc.addMessage(message);
 		}
 	}

@@ -221,7 +221,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return retType.getJavaName();
 	}
 	
-	public final void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz);
 		
 		ContainerManagedEntity cmp = (ContainerManagedEntity)bean;
@@ -249,16 +249,16 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 	}
 	
-	public void validateEjbCreateMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validateEjbCreateMethod(vc, bean, clazz, method, methodsExtendedList);
 		
 		if(!ValidationRuleUtility.throwsCreateException(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2497, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2497, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	public final void validateEjbSelectMethod(IValidationContext vc, EnterpriseBean bean, JavaClass parent, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateEjbSelectMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass parent, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// # ejbSelect<METHOD> checks
 		// IWAD4154 = {0} must exist. Read section 10.5.2 of the EJB 2.0 specification.
 		// IWAD4502 = This method must not exist on this class. Read section 10.5.5 of the EJB 2.0 specification.
@@ -269,40 +269,40 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		if(!ValidationRuleUtility.isAssignableFrom(returnType, bean.getLocalInterface()) &&
 			!ValidationRuleUtility.isAssignableFrom(returnType, javaUtilCollection) ) {
 			// IWAD4160 = Type {0} cannot be returned by a select method. Read section 10.5.7 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2486, IValidationContext.INFO, bean, parent, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2486, IEJBValidationContext.INFO, bean, parent, method, this);
 			vc.addMessage(message);
 		}
 		
 		if(!ValidationRuleUtility.isPublic(method)) {
 			// IWAD4198 = This method must be public. Read section 10.6.7 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2487, IValidationContext.INFO, bean, parent, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2487, IEJBValidationContext.INFO, bean, parent, method, this);
 			vc.addMessage(message);
 		}
 		
 		if(!method.isAbstract()) {
 			// IWAD4199 = This method must be abstract. Read section 10.6.7 of the EJB 2.0 specification.
 			// IWAD4158 = {0} must be abstract. Read section 10.5.7 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2485, IValidationContext.INFO, bean, parent, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2485, IEJBValidationContext.INFO, bean, parent, method, this);
 			vc.addMessage(message);
 		}
 		
 		if(!ValidationRuleUtility.throwsFinderException(bean, method)) {
 			// IWAD4200 = This method must throw javax.ejb.FinderException. Read section 10.6.7 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2488, IValidationContext.INFO, bean, parent, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2488, IEJBValidationContext.INFO, bean, parent, method, this);
 			vc.addMessage(message);
 		}
 		
 		if(!ValidationRuleUtility.followsObjectNotFoundExceptionRules(bean, method)) {
 			// IWAD4285 = This method must not throw javax.ejb.ObjectNotFoundException. Read section 12.1.8.4 of the EJB 2.0 specification.
 			// IWAD4168 = This method must not throw ObjectNotFoundException. Read section 10.5.8.4 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2478, IValidationContext.INFO, bean, parent, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2478, IEJBValidationContext.INFO, bean, parent, method, this);
 			vc.addMessage(message);
 		}
 		
 		// Check method is associated with a query element in ejb-jar.xml.
 		ContainerManagedEntity cmp = (ContainerManagedEntity)bean;
 		if(!ValidationRuleUtility.isAssociatedWithQuery(cmp, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2496, IValidationContext.INFO, bean, parent, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2496, IEJBValidationContext.INFO, bean, parent, method, this);
 			vc.addMessage(message);
 		}
 	}
@@ -311,7 +311,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return KNOWN_METHOD_TYPES;
 	}
 	
-	public void validateCmpField(IValidationContext vc, ContainerManagedEntity cmp, JavaClass clazz, CMPAttribute attrib) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateCmpField(IEJBValidationContext vc, ContainerManagedEntity cmp, JavaClass clazz, CMPAttribute attrib) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		String fieldName = attrib.getName();
 		if((fieldName == null) || (fieldName.equals(""))) { //$NON-NLS-1$
 			// let the EJBJarVRule report this
@@ -319,7 +319,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 		
 		if(!Character.isLowerCase(fieldName.charAt(0))) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2480, IValidationContext.INFO, cmp, clazz, attrib.getField(), this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2480, IEJBValidationContext.INFO, cmp, clazz, attrib.getField(), this);
 			vc.addMessage(message);
 		}
 		
@@ -328,7 +328,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 			JavaClass ejbClass = cmp.getEjbClass();
 			Method getMethod = ValidationRuleUtility.getMethodExtended(ejbClass, attrib.getGetterName(), new JavaHelpers[0], attrib.getType());
 			if(getMethod == null) {
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IValidationContext.ERROR, cmp, clazz, new String[]{attrib.getGetterName()}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IEJBValidationContext.ERROR, cmp, clazz, new String[]{attrib.getGetterName()}, this);
 				vc.addMessage(message);
 			}
 			else {
@@ -339,7 +339,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 			Method setMethod = ValidationRuleUtility.getMethodExtended(ejbClass, attrib.getSetterName(), setMethodParms);
 			if(setMethod == null) {
 				String setterName = attrib.getSetterName() + "(" + ValidationRuleUtility.getParmsAsString(setMethodParms) + ")"; //$NON-NLS-1$  //$NON-NLS-2$
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IValidationContext.ERROR, cmp, clazz, new String[]{setterName}, this);
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IEJBValidationContext.ERROR, cmp, clazz, new String[]{setterName}, this);
 				vc.addMessage(message);
 			}
 			else {
@@ -349,13 +349,13 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 
 		Field field = attrib.getField();
 		if ((field != null) && (clazz.getFieldExtended(attrib.getName()) != null)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2454, IValidationContext.WARNING, cmp, clazz, field, new String[]{attrib.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2454, IEJBValidationContext.WARNING, cmp, clazz, field, new String[]{attrib.getName()}, this);
 			vc.addMessage(message);
 		}
 			
 	}
 	
-	public void validateCmrField(IValidationContext vc, ContainerManagedEntity cmp, JavaClass clazz, CMRField cmrField) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validateCmrField(IEJBValidationContext vc, ContainerManagedEntity cmp, JavaClass clazz, CMRField cmrField) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		String fieldName = cmrField.getName();
 		if((fieldName == null) || (fieldName.equals(""))) { //$NON-NLS-1$
 			// let the EJBJarVRule report this
@@ -363,7 +363,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 		
 		if(!Character.isLowerCase(fieldName.charAt(0))) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2480, IValidationContext.INFO, cmp, clazz, cmrField.getField(), this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2480, IEJBValidationContext.INFO, cmp, clazz, cmrField.getField(), this);
 			vc.addMessage(message);
 		}
 		
@@ -377,7 +377,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 		Method getMethod = ValidationRuleUtility.getMethodExtended(ejbClass, cmrField.getGetterName(), new JavaHelpers[0], localType);
 		if(getMethod == null) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IValidationContext.ERROR, cmp, clazz, new String[]{cmrField.getGetterName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IEJBValidationContext.ERROR, cmp, clazz, new String[]{cmrField.getGetterName()}, this);
 			vc.addMessage(message);
 		}
 		else {
@@ -388,7 +388,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		Method setMethod = ValidationRuleUtility.getMethodExtended(ejbClass, cmrField.getSetterName(), setMethodParms);
 		if(setMethod == null) {
 			String setterName = cmrField.getSetterName() + "(" + ValidationRuleUtility.getParmsAsString(setMethodParms) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IValidationContext.ERROR, cmp, clazz, new String[]{setterName}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_acc, IEJBValidationContext.ERROR, cmp, clazz, new String[]{setterName}, this);
 			vc.addMessage(message);
 		}
 		else {
@@ -397,36 +397,36 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		
 		Field field = cmrField.getField();
 		if ((field != null) && (clazz.getFieldExtended(cmrField.getName()) != null)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2454, IValidationContext.WARNING, cmp, clazz, field, new String[]{cmrField.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2454, IEJBValidationContext.WARNING, cmp, clazz, field, new String[]{cmrField.getName()}, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	protected void validateCMRAccessorMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, CMRField field) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	protected void validateCMRAccessorMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, CMRField field) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2449, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2449, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 				 
 		if(!method.isAbstract()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2450, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2450, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	protected void validateCMPAccessorMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, CMPAttribute field) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	protected void validateCMPAccessorMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, CMPAttribute field) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2449, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2449, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 				 
 		if(!method.isAbstract()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2450, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2450, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {
@@ -453,7 +453,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 	}
 
-	public String getMatchingHomeMethodName(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) {
+	public String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedList, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {

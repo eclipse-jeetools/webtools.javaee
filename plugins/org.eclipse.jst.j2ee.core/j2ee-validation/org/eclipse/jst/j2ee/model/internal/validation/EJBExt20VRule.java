@@ -131,7 +131,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 		return true;
 	}
 
-	public void validate(IValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
+	public void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		Logger logger = vc.getMsgLogger();
 		if(logger != null && logger.isLoggingLevel(Level.FINEST)) {
 			LogEntry entry = vc.getLogEntry();
@@ -154,9 +154,9 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 	}
 	
 	/*
-	 * @see IValidationRule#validate(IValidationContext, Object, Object)
+	 * @see IValidationRule#validate(IEJBValidationContext, Object, Object)
 	 */
-	public void validate(IValidationContext vc, EJBJar ejbJar) throws ValidationCancelledException, ValidationException {
+	public void validate(IEJBValidationContext vc, EJBJar ejbJar) throws ValidationCancelledException, ValidationException {
 		List enterpriseBeans = ejbJar.getEnterpriseBeans();
 		Iterator iterator = enterpriseBeans.iterator();
 		EnterpriseBean bean = null;
@@ -171,7 +171,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 		}
 	}
 	
-	public void validate(IValidationContext vc, EJBJar ejbJar, EnterpriseBean bean) throws ValidationCancelledException, ValidationException {
+	public void validate(IEJBValidationContext vc, EJBJar ejbJar, EnterpriseBean bean) throws ValidationCancelledException, ValidationException {
 		try {
 			// Check if the class exists, etc.
 			if(!areBeanComponentsReflected(bean)) {
@@ -197,7 +197,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 		/* unreachable catch block
 		catch(ValidationException exc) {
 			// If there's a problem, proceed with the next bean.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorConstants.CHKJ2852, IValidationContext.WARNING, bean, new String[]{ArchiveConstants.EJBJAR_EXTENSIONS_SHORT_NAME, beanName}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorConstants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{ArchiveConstants.EJBJAR_EXTENSIONS_SHORT_NAME, beanName}, this);
 			vc.addMessage(message);
 			if(logger.isLoggingLevel(Level.FINER)) {
 				logger.write(Level.FINER, exc);
@@ -209,7 +209,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 			String superTypeName = getEJBInheritanceFileName();
 			if(superTypeName == null)
 			  superTypeName = "unknown super type"; //$NON-NLS-1$
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2852, IValidationContext.WARNING, bean, new String[]{superTypeName, bean.getName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{superTypeName, bean.getName()}, this);
 			vc.addMessage(message);
 			Logger logger = vc.getMsgLogger();
 			if(logger != null && logger.isLoggingLevel(Level.SEVERE)) {
@@ -218,7 +218,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 		}
 	}
 	
-	protected void validateAppendixB(IValidationContext vc, EJBJar ejbJar, EnterpriseBean bean) {
+	protected void validateAppendixB(IEJBValidationContext vc, EJBJar ejbJar, EnterpriseBean bean) {
 		// The Java inheritance structure must match the EJB inheritance structure.
 		// e.g. if EJB B is a child of EJB A, then class B must be a child of class A.
 		// B could be a grandchild (or great-grandchild or ...) of A.
@@ -241,7 +241,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 
 				if ((thisKey == null) || (parentKey == null) || !thisKey.equals(parentKey)) {
 					String[] msgParm = new String[] { bean.getName(), parentKey.getQualifiedName()};
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2106, IValidationContext.ERROR, bean, msgParm, this);
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2106, IEJBValidationContext.ERROR, bean, msgParm, this);
 					vc.addMessage(message);
 				}
 			}

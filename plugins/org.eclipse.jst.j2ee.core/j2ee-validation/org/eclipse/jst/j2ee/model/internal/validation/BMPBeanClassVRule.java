@@ -192,7 +192,7 @@ public final class BMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return retType.getJavaName();
 	}
 	
-	public void validate(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {
@@ -219,7 +219,7 @@ public final class BMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 	}
 	
-	public final String getMatchingHomeMethodName(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
+	public final String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
 		if((methodType & EJBCREATE) == EJBCREATE) {
@@ -246,7 +246,7 @@ public final class BMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 	}
 	
-	public final void validateEjbFindMethod(IValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
+	public final void validateEjbFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// # ejbFind methods
 		// IWAD4502 = This method must not exist on this class. Read section 10.5.5 of the EJB 2.0 specification.
 		// IWAD4507 = The container provides the ejbFind method implementation. Read section 10.6.2 of the EJB 2.0 specification.
@@ -254,20 +254,20 @@ public final class BMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		
 		// IWAD4305 = This method must be public. Read section 12.2.5 of the EJB 2.0 specification.
 		if(!ValidationRuleUtility.isPublic(method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2457, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2457, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
 		
 		// IWAD4306 = This method must not be final. Read section 12.2.5 of the EJB 2.0 specification.
 		if(method.isFinal()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2458, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2458, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
 		// IWAD4307 = This method must not be static. Read section 12.2.5 of the EJB 2.0 specification.
 		if(method.isStatic()) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2459, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2459, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
@@ -283,20 +283,20 @@ public final class BMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 			  ValidationRuleUtility.isAssignableFrom(retType, key)
 		   )) {
 		   	String keyName = (key == null) ? IEJBValidatorConstants.NULL_PRIMARY_KEY : key.getJavaName();
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2407, IValidationContext.WARNING, bean, clazz, method, new String[]{keyName}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2407, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{keyName}, this);
 			vc.addMessage(message);
 		}
 		
 		if(!ValidationRuleUtility.followsObjectNotFoundExceptionRules(bean, method)) {
 			// IWAD4285 = This method must not throw javax.ejb.ObjectNotFoundException. Read section 12.1.8.4 of the EJB 2.0 specification.
 			// IWAD4168 = This method must not throw ObjectNotFoundException. Read section 10.5.8.4 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2478, IValidationContext.INFO, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2478, IEJBValidationContext.INFO, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 		
 		// IWAD4310 = This method must not throw java.rmi.RemoteException. Read section 12.2.5, 18.3.8, 18.6 of the EJB 2.0 specification.
 		if(!followRemoteExceptionRules(bean, method)) {
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbFind, IValidationContext.WARNING, bean, clazz, method, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2503_ejbFind, IEJBValidationContext.WARNING, bean, clazz, method, this);
 			vc.addMessage(message);
 		}
 	}
