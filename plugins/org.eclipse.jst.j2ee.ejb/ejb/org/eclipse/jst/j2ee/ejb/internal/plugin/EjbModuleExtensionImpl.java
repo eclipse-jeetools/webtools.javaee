@@ -37,7 +37,7 @@ import org.eclipse.jst.j2ee.internal.project.IJ2EEProjectTypes;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
 import org.eclipse.jst.j2ee.moduleextension.EjbModuleExtension;
-import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.operations.IHeadlessRunnableWithProgress;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 

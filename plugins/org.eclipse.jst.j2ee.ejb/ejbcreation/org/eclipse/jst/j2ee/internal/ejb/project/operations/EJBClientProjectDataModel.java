@@ -104,7 +104,7 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		if (event.getDataModel() == nestedProjModel && event.getPropertyName().equals(ProjectCreationDataModel.PROJECT_NAME)) {
-			setProperty(CLIENT_PROJECT_NAME, event.getNewValue());
+			setProperty(CLIENT_PROJECT_NAME, event.getProperty());
 		}
 		super.propertyChanged(event);
 	}
