@@ -11,10 +11,17 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.internal.runtime.AdapterManager;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
@@ -34,11 +41,9 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
     protected static final IPath[] PATHS = new IPath[] { new Path(".j2ee") //$NON-NLS-1$
     };
 
-    
     public String getFactoryId() {
         return ID;
     }
-
 
     public String getNatureID() {
         //  if (isFlexableProject())
@@ -56,7 +61,8 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
         if (module == null) {
             try {
                 moduleDelegate = new J2EEWebDeployable(nature, ID);
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),moduleDelegate.getProject());
+                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
+                        moduleDelegate.getProject());
                 nature.setModule(module);
                 moduleDelegate.initialize(module);
             } catch (Exception e) {
@@ -68,12 +74,10 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
         return module;
     }
 
-
     protected IPath[] getListenerPaths() {
         return PATHS;
     }
 
- 
     protected List createModules(ModuleCoreNature nature) {
         IProject project = nature.getProject();
         List modules = null;
@@ -92,17 +96,19 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
     }
 
     private List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException {
-    	J2EEFlexProjWebDeployable moduleDelegate = null;
+        J2EEFlexProjWebDeployable moduleDelegate = null;
         IModule module;
         List moduleList = new ArrayList(workBenchModules.size());
-      //  J2EENature nature = (J2EENature)project.getNature(getNatureID());
-       
+        //  J2EENature nature = (J2EENature)project.getNature(getNatureID());
+
         for (int i = 0; i < workBenchModules.size(); i++) {
             try {
-                moduleDelegate = new J2EEFlexProjWebDeployable( project, ID, (WorkbenchModule)workBenchModules.get(i) );
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),moduleDelegate.getProject());
+                moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, (WorkbenchModule) workBenchModules.get(i));
+                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
+                        moduleDelegate.getProject());
                 moduleList.add(module);
                 moduleDelegate.initialize(module);
+                adapt(moduleDelegate, (WorkbenchModule) workBenchModules.get(i));
             } catch (Exception e) {
                 Logger.getLogger().write(e);
             } finally {
@@ -113,4 +119,15 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 
     }
 
+    private void adapt(J2EEFlexProjWebDeployable moduleDelegate, WorkbenchModule wbModule) {
+
+        ModuleAdapter moduleAdapter = new ModuleAdapter() {
+            public void notifyChanged(Notification msg) {
+                super.notifyChanged(msg);
+            }
+        };
+        moduleAdapter.setTarget(wbModule);
+        moduleAdapter.setModuleDelegate(moduleDelegate);
+        wbModule.eAdapters().add(moduleAdapter);
+    }
 }
