@@ -31,7 +31,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.RuntimeClasspathEntry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseArchive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 

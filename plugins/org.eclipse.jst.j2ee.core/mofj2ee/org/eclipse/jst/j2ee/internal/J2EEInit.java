@@ -43,8 +43,6 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResourceFactory;
 import org.eclipse.wst.common.emf.utilities.AdapterFactoryDescriptor;
 import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
-import org.eclipse.wst.common.internal.emf.resource.EMF2DOMRenderer;
-import org.eclipse.wst.common.internal.emf.resource.EMF2DOMRendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.utilities.DOMUtilities;
 import org.eclipse.wst.common.internal.emf.utilities.EncoderDecoderRegistry;
