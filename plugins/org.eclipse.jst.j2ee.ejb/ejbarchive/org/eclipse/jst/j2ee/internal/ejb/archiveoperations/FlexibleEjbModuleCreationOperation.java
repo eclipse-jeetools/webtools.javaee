@@ -26,7 +26,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.application.operations.FlexibileJ2EEModuleCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
@@ -42,7 +42,7 @@ import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
-public class FlexibleEjbModuleCreationOperation extends FlexibileJ2EEModuleCreationOperation {
+public class FlexibleEjbModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
 	public FlexibleEjbModuleCreationOperation(FlexibleEjbModuleCreationDataModel dataModel) {
 		super(dataModel);
 	}
