@@ -26,7 +26,6 @@
       <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.emf.ecore.edit"/>
-      <import plugin="org.eclipse.wst.validation.mof"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.server.core"/>
@@ -75,7 +74,7 @@
          name="EJB Edit Model"
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
-            editModelID="com.ibm.wtp.ejb.editModel"
+            editModelID="org.eclipse.jst.ejb.editModel"
             factoryClass="org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModelFactory">
          <editModelResource
                URI="META-INF/ejb-jar.xml">
@@ -88,7 +87,7 @@
    <extension
          id="EJBModuleExtension"
          name="EJBModuleExtension"
-         point="org.eclipse.jst.j2ee.internal.EARModuleExtension">
+         point="org.eclipse.jst.j2ee.EARModuleExtension">
       <earModuleExtension
             extensionClass="org.eclipse.jst.j2ee.ejb.internal.plugin.EjbModuleExtensionImpl">
       </earModuleExtension>

@@ -28,7 +28,7 @@ import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation
  */
 public class DeleteEnterpriseBeanDataModel extends EditModelOperationDataModel {
 
-	public static final String DELETE_BEANS_ACTION_ID = "com.ibm.wtp.generic.Delete"; //$NON-NLS-1$
+	public static final String DELETE_BEANS_ACTION_ID = "org.eclipse.wst.common.generic.Delete"; //$NON-NLS-1$
 	public static final String DELETE_BEANS_ACTION_NAME = EJBCodeGenResourceHandler.getString("DeleteEnterpriseBeanDataModel_UI_1"); //$NON-NLS-1$
 
 	public static final String BEANS_TO_BE_DELETED = "DeleteEnterpriseBeanDataModel.BEANS_TO_BE_DELETED"; //$NON-NLS-1$

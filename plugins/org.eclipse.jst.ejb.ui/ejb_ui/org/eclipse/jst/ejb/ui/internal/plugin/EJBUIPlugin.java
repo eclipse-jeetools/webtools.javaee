@@ -21,6 +21,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class EJBUIPlugin extends AbstractUIPlugin {
+	
+	public static final String PLUGIN_ID = "org.eclipse.jst.ejb.ui"; //$NON-NLS-1$
+	
 //	The shared instance.
 	private static EJBUIPlugin plugin;
 	//Resource bundle.

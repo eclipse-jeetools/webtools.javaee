@@ -12,7 +12,7 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBProjectWizard;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleCreationWizard;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.IWorkbench;
@@ -37,7 +37,7 @@ public class NewEJBProjectAction extends AbstractOpenWizardWorkbenchAction {
 	}
 
 	protected Wizard createWizard() {
-		return new EJBProjectWizard();
+		return new EJBModuleCreationWizard();
 	}
 
 	protected boolean shouldAcceptElement(Object obj) {

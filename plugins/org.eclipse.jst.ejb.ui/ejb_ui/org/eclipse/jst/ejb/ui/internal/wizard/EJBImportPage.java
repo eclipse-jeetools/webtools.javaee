@@ -66,7 +66,7 @@ public class EJBImportPage extends J2EEModuleImportPage {
 	}
 
 	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new EJBProjectWizard((EJBProjectCreationDataModel) aModel);
+		return new EJBModuleCreationWizard((EJBProjectCreationDataModel) aModel);
 	}
 
 	private EJBJarImportDataModel getEJBDataModel() {

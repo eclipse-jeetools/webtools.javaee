@@ -64,7 +64,7 @@
             name="%ejb.project_ui_"
             icon="icons/full/ctool16/newejbprj_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBProjectWizard"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleCreationWizard"
             project="true"
             finalPerspective=""
             id="org.eclipse.jst.j2ee.internal.ejb.ui.internal.wizard.EJBProjectWizard">
