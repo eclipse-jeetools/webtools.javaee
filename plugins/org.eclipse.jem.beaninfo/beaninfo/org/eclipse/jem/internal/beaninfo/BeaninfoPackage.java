@@ -11,11 +11,13 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeaninfoPackage.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -193,6 +195,33 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int FEATURE_DECORATOR__MERGE_INTROSPECTION = EcorePackage.EANNOTATION_FEATURE_COUNT + 6;
 	/**
+	 * The feature id for the '<em><b>Attributes Explicit Empty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY = EcorePackage.EANNOTATION_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_DECORATOR__IMPLICITLY_SET_BITS = EcorePackage.EANNOTATION_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG = EcorePackage.EANNOTATION_FEATURE_COUNT + 9;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl <em>Event Set Decorator</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -200,7 +229,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getEventSetDecorator()
 	 * @generated
 	 */
-	int EVENT_SET_DECORATOR = 3;
+	int EVENT_SET_DECORATOR = 2;
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.MethodProxyImpl <em>Method Proxy</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -209,7 +238,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getMethodProxy()
 	 * @generated
 	 */
-	int METHOD_PROXY = 8;
+	int METHOD_PROXY = 7;
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.PropertyDecoratorImpl <em>Property Decorator</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -218,7 +247,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getPropertyDecorator()
 	 * @generated
 	 */
-	int PROPERTY_DECORATOR = 6;
+	int PROPERTY_DECORATOR = 5;
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.IndexedPropertyDecoratorImpl <em>Indexed Property Decorator</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -227,7 +256,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getIndexedPropertyDecorator()
 	 * @generated
 	 */
-	int INDEXED_PROPERTY_DECORATOR = 7;
+	int INDEXED_PROPERTY_DECORATOR = 6;
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.BeanDecoratorImpl <em>Bean Decorator</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -236,7 +265,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getBeanDecorator()
 	 * @generated
 	 */
-	int BEAN_DECORATOR = 2;
+	int BEAN_DECORATOR = 1;
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.MethodDecoratorImpl <em>Method Decorator</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -245,7 +274,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getMethodDecorator()
 	 * @generated
 	 */
-	int METHOD_DECORATOR = 4;
+	int METHOD_DECORATOR = 3;
 	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.ParameterDecoratorImpl <em>Parameter Decorator</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -254,24 +283,16 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getParameterDecorator()
 	 * @generated
 	 */
-	int PARAMETER_DECORATOR = 5;
+	int PARAMETER_DECORATOR = 4;
 	/**
-	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl <em>Feature Attribute Value</em>}' class.
+	 * The meta object id for the '<em>Feature Attribute Value</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jem.internal.beaninfo.impl.FeatureAttributeValueImpl
+	 * @see org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getFeatureAttributeValue()
 	 * @generated
 	 */
-	int FEATURE_ATTRIBUTE_VALUE = 1;
-	/**
-	 * The feature id for the '<em><b>Attributes Explicit</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT = EcorePackage.EANNOTATION_FEATURE_COUNT + 7;
+	int FEATURE_ATTRIBUTE_VALUE = 11;
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
@@ -279,7 +300,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_DECORATOR__ATTRIBUTES = EcorePackage.EANNOTATION_FEATURE_COUNT + 8;
+	int FEATURE_DECORATOR__ATTRIBUTES = EcorePackage.EANNOTATION_FEATURE_COUNT + 10;
 	/**
 	 * The number of structural features of the the '<em>Feature Decorator</em>' class.
 	 * <!-- begin-user-doc -->
@@ -287,42 +308,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_DECORATOR_FEATURE_COUNT = EcorePackage.EANNOTATION_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ATTRIBUTE_VALUE__VALUE = 0;
-
-	/**
-	 * The feature id for the '<em><b>Value Java</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ATTRIBUTE_VALUE__VALUE_JAVA = 1;
-
-	/**
-	 * The feature id for the '<em><b>Value Proxy</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ATTRIBUTE_VALUE__VALUE_PROXY = 2;
-	/**
-	 * The number of structural features of the the '<em>Feature Attribute Value</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ATTRIBUTE_VALUE_FEATURE_COUNT = 3;
+	int FEATURE_DECORATOR_FEATURE_COUNT = EcorePackage.EANNOTATION_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -438,13 +424,32 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int BEAN_DECORATOR__MERGE_INTROSPECTION = FEATURE_DECORATOR__MERGE_INTROSPECTION;
 	/**
-	 * The feature id for the '<em><b>Attributes Explicit</b></em>' attribute.
+	 * The feature id for the '<em><b>Attributes Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEAN_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
+	int BEAN_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY;
+
+	/**
+	 * The feature id for the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_DECORATOR__IMPLICITLY_SET_BITS = FEATURE_DECORATOR__IMPLICITLY_SET_BITS;
+
+	/**
+	 * The feature id for the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_DECORATOR__IMPLICIT_DECORATOR_FLAG = FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG;
+
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
@@ -462,13 +467,14 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int BEAN_DECORATOR__MERGE_SUPER_PROPERTIES = FEATURE_DECORATOR_FEATURE_COUNT + 0;
 	/**
-	 * The feature id for the '<em><b>Merge Super Behaviors</b></em>' attribute.
+	 * The feature id for the '<em><b>Merge Super Methods</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEAN_DECORATOR__MERGE_SUPER_BEHAVIORS = FEATURE_DECORATOR_FEATURE_COUNT + 1;
+	int BEAN_DECORATOR__MERGE_SUPER_METHODS = FEATURE_DECORATOR_FEATURE_COUNT + 1;
+
 	/**
 	 * The feature id for the '<em><b>Merge Super Events</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -486,13 +492,14 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int BEAN_DECORATOR__INTROSPECT_PROPERTIES = FEATURE_DECORATOR_FEATURE_COUNT + 3;
 	/**
-	 * The feature id for the '<em><b>Introspect Behaviors</b></em>' attribute.
+	 * The feature id for the '<em><b>Introspect Methods</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEAN_DECORATOR__INTROSPECT_BEHAVIORS = FEATURE_DECORATOR_FEATURE_COUNT + 4;
+	int BEAN_DECORATOR__INTROSPECT_METHODS = FEATURE_DECORATOR_FEATURE_COUNT + 4;
+
 	/**
 	 * The feature id for the '<em><b>Introspect Events</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -510,13 +517,40 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int BEAN_DECORATOR__DO_BEANINFO = FEATURE_DECORATOR_FEATURE_COUNT + 6;
 	/**
+	 * The feature id for the '<em><b>Not Inherited Property Names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_DECORATOR__NOT_INHERITED_PROPERTY_NAMES = FEATURE_DECORATOR_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Not Inherited Method Names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_DECORATOR__NOT_INHERITED_METHOD_NAMES = FEATURE_DECORATOR_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Not Inherited Event Names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEAN_DECORATOR__NOT_INHERITED_EVENT_NAMES = FEATURE_DECORATOR_FEATURE_COUNT + 9;
+
+	/**
 	 * The feature id for the '<em><b>Customizer Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEAN_DECORATOR__CUSTOMIZER_CLASS = FEATURE_DECORATOR_FEATURE_COUNT + 7;
+	int BEAN_DECORATOR__CUSTOMIZER_CLASS = FEATURE_DECORATOR_FEATURE_COUNT + 10;
 	/**
 	 * The number of structural features of the the '<em>Bean Decorator</em>' class.
 	 * <!-- begin-user-doc -->
@@ -524,7 +558,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int BEAN_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 8;
+	int BEAN_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -640,13 +674,32 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int EVENT_SET_DECORATOR__MERGE_INTROSPECTION = FEATURE_DECORATOR__MERGE_INTROSPECTION;
 	/**
-	 * The feature id for the '<em><b>Attributes Explicit</b></em>' attribute.
+	 * The feature id for the '<em><b>Attributes Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
+	int EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY;
+
+	/**
+	 * The feature id for the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS = FEATURE_DECORATOR__IMPLICITLY_SET_BITS;
+
+	/**
+	 * The feature id for the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG = FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG;
+
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
@@ -674,6 +727,15 @@ public interface BeaninfoPackage extends EPackage{
 	int EVENT_SET_DECORATOR__UNICAST = FEATURE_DECORATOR_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Listener Methods Explicit Empty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY = FEATURE_DECORATOR_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.impl.BeanEventImpl <em>Bean Event</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -681,15 +743,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getBeanEvent()
 	 * @generated
 	 */
-	int BEAN_EVENT = 9;
-	/**
-	 * The feature id for the '<em><b>Listener Methods Explicit</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT = FEATURE_DECORATOR_FEATURE_COUNT + 2;
+	int BEAN_EVENT = 8;
 	/**
 	 * The feature id for the '<em><b>Add Listener Method</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -699,7 +753,7 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int EVENT_SET_DECORATOR__ADD_LISTENER_METHOD = FEATURE_DECORATOR_FEATURE_COUNT + 3;
 	/**
-	 * The feature id for the '<em><b>Listener Methods</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Listener Methods</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -723,13 +777,31 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD = FEATURE_DECORATOR_FEATURE_COUNT + 6;
 	/**
+	 * The feature id for the '<em><b>Event Adapter Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS = FEATURE_DECORATOR_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Ser List Mthd</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_SET_DECORATOR__SER_LIST_MTHD = FEATURE_DECORATOR_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the the '<em>Event Set Decorator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_SET_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 7;
+	int EVENT_SET_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -845,13 +917,32 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int METHOD_DECORATOR__MERGE_INTROSPECTION = FEATURE_DECORATOR__MERGE_INTROSPECTION;
 	/**
-	 * The feature id for the '<em><b>Attributes Explicit</b></em>' attribute.
+	 * The feature id for the '<em><b>Attributes Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
+	int METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY;
+
+	/**
+	 * The feature id for the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_DECORATOR__IMPLICITLY_SET_BITS = FEATURE_DECORATOR__IMPLICITLY_SET_BITS;
+
+	/**
+	 * The feature id for the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG = FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG;
+
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
@@ -861,15 +952,16 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int METHOD_DECORATOR__ATTRIBUTES = FEATURE_DECORATOR__ATTRIBUTES;
 	/**
-	 * The feature id for the '<em><b>Parms Explicit</b></em>' attribute.
+	 * The feature id for the '<em><b>Parms Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_DECORATOR__PARMS_EXPLICIT = FEATURE_DECORATOR_FEATURE_COUNT + 0;
+	int METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY = FEATURE_DECORATOR_FEATURE_COUNT + 0;
+
 	/**
-	 * The feature id for the '<em><b>Parameter Descriptors</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Parameter Descriptors</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -877,13 +969,22 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int METHOD_DECORATOR__PARAMETER_DESCRIPTORS = FEATURE_DECORATOR_FEATURE_COUNT + 1;
 	/**
+	 * The feature id for the '<em><b>Ser Parm Desc</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_DECORATOR__SER_PARM_DESC = FEATURE_DECORATOR_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the the '<em>Method Decorator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 2;
+	int METHOD_DECORATOR_FEATURE_COUNT = FEATURE_DECORATOR_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -999,13 +1100,32 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int PARAMETER_DECORATOR__MERGE_INTROSPECTION = FEATURE_DECORATOR__MERGE_INTROSPECTION;
 	/**
-	 * The feature id for the '<em><b>Attributes Explicit</b></em>' attribute.
+	 * The feature id for the '<em><b>Attributes Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
+	int PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY;
+
+	/**
+	 * The feature id for the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_DECORATOR__IMPLICITLY_SET_BITS = FEATURE_DECORATOR__IMPLICITLY_SET_BITS;
+
+	/**
+	 * The feature id for the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER_DECORATOR__IMPLICIT_DECORATOR_FLAG = FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG;
+
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
@@ -1153,13 +1273,32 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int PROPERTY_DECORATOR__MERGE_INTROSPECTION = FEATURE_DECORATOR__MERGE_INTROSPECTION;
 	/**
-	 * The feature id for the '<em><b>Attributes Explicit</b></em>' attribute.
+	 * The feature id for the '<em><b>Attributes Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT;
+	int PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY = FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY;
+
+	/**
+	 * The feature id for the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_DECORATOR__IMPLICITLY_SET_BITS = FEATURE_DECORATOR__IMPLICITLY_SET_BITS;
+
+	/**
+	 * The feature id for the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG = FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG;
+
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
@@ -1359,13 +1498,32 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int INDEXED_PROPERTY_DECORATOR__MERGE_INTROSPECTION = PROPERTY_DECORATOR__MERGE_INTROSPECTION;
 	/**
-	 * The feature id for the '<em><b>Attributes Explicit</b></em>' attribute.
+	 * The feature id for the '<em><b>Attributes Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT = PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT;
+	int INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY = PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY;
+
+	/**
+	 * The feature id for the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEXED_PROPERTY_DECORATOR__IMPLICITLY_SET_BITS = PROPERTY_DECORATOR__IMPLICITLY_SET_BITS;
+
+	/**
+	 * The feature id for the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEXED_PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG = PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG;
+
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
 	 * <!-- begin-user-doc -->
@@ -1761,7 +1919,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getFeatureAttributeMapEntry()
 	 * @generated
 	 */
-	int FEATURE_ATTRIBUTE_MAP_ENTRY = 10;
+	int FEATURE_ATTRIBUTE_MAP_ENTRY = 9;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -1773,7 +1931,7 @@ public interface BeaninfoPackage extends EPackage{
 	int FEATURE_ATTRIBUTE_MAP_ENTRY__KEY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1790,6 +1948,16 @@ public interface BeaninfoPackage extends EPackage{
 	 */
 	int FEATURE_ATTRIBUTE_MAP_ENTRY_FEATURE_COUNT = 2;
 
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jem.internal.beaninfo.ImplicitItem <em>Implicit Item</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jem.internal.beaninfo.ImplicitItem
+	 * @see org.eclipse.jem.internal.beaninfo.impl.BeaninfoPackageImpl#getImplicitItem()
+	 * @generated
+	 */
+	int IMPLICIT_ITEM = 10;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator <em>Feature Decorator</em>}'.
@@ -1879,6 +2047,39 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getFeatureDecorator_MergeIntrospection();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicitEmpty <em>Attributes Explicit Empty</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Attributes Explicit Empty</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicitEmpty()
+	 * @see #getFeatureDecorator()
+	 * @generated
+	 */
+	EAttribute getFeatureDecorator_AttributesExplicitEmpty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitlySetBits <em>Implicitly Set Bits</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Implicitly Set Bits</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitlySetBits()
+	 * @see #getFeatureDecorator()
+	 * @generated
+	 */
+	EAttribute getFeatureDecorator_ImplicitlySetBits();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitDecoratorFlag <em>Implicit Decorator Flag</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Implicit Decorator Flag</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitDecoratorFlag()
+	 * @see #getFeatureDecorator()
+	 * @generated
+	 */
+	EAttribute getFeatureDecorator_ImplicitDecoratorFlag();
+
+	/**
 	 * Returns the meta object for the map '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getAttributes <em>Attributes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1922,6 +2123,17 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getEventSetDecorator_Unicast();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#isListenerMethodsExplicitEmpty <em>Listener Methods Explicit Empty</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Listener Methods Explicit Empty</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.EventSetDecorator#isListenerMethodsExplicitEmpty()
+	 * @see #getEventSetDecorator()
+	 * @generated
+	 */
+	EAttribute getEventSetDecorator_ListenerMethodsExplicitEmpty();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#getAddListenerMethod <em>Add Listener Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1933,10 +2145,10 @@ public interface BeaninfoPackage extends EPackage{
 	EReference getEventSetDecorator_AddListenerMethod();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#getListenerMethods <em>Listener Methods</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#getListenerMethods <em>Listener Methods</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Listener Methods</em>'.
+	 * @return the meta object for the reference list '<em>Listener Methods</em>'.
 	 * @see org.eclipse.jem.internal.beaninfo.EventSetDecorator#getListenerMethods()
 	 * @see #getEventSetDecorator()
 	 * @generated
@@ -1964,6 +2176,28 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getEventSetDecorator_RemoveListenerMethod();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#getEventAdapterClass <em>Event Adapter Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Event Adapter Class</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.EventSetDecorator#getEventAdapterClass()
+	 * @see #getEventSetDecorator()
+	 * @generated
+	 */
+	EReference getEventSetDecorator_EventAdapterClass();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#getSerListMthd <em>Ser List Mthd</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ser List Mthd</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.EventSetDecorator#getSerListMthd()
+	 * @see #getEventSetDecorator()
+	 * @generated
+	 */
+	EReference getEventSetDecorator_SerListMthd();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jem.internal.beaninfo.MethodProxy <em>Method Proxy</em>}'.
@@ -2138,15 +2372,15 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getBeanDecorator_MergeSuperProperties();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperBehaviors <em>Merge Super Behaviors</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperMethods <em>Merge Super Methods</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Merge Super Behaviors</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperBehaviors()
+	 * @return the meta object for the attribute '<em>Merge Super Methods</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperMethods()
 	 * @see #getBeanDecorator()
 	 * @generated
 	 */
-	EAttribute getBeanDecorator_MergeSuperBehaviors();
+	EAttribute getBeanDecorator_MergeSuperMethods();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperEvents <em>Merge Super Events</em>}'.
@@ -2171,15 +2405,15 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getBeanDecorator_IntrospectProperties();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectBehaviors <em>Introspect Behaviors</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectMethods <em>Introspect Methods</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Introspect Behaviors</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectBehaviors()
+	 * @return the meta object for the attribute '<em>Introspect Methods</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectMethods()
 	 * @see #getBeanDecorator()
 	 * @generated
 	 */
-	EAttribute getBeanDecorator_IntrospectBehaviors();
+	EAttribute getBeanDecorator_IntrospectMethods();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectEvents <em>Introspect Events</em>}'.
@@ -2214,26 +2448,37 @@ public interface BeaninfoPackage extends EPackage{
 	EClass getMethodDecorator();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicit <em>Parms Explicit</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicitEmpty <em>Parms Explicit Empty</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Parms Explicit</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicit()
+	 * @return the meta object for the attribute '<em>Parms Explicit Empty</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicitEmpty()
 	 * @see #getMethodDecorator()
 	 * @generated
 	 */
-	EAttribute getMethodDecorator_ParmsExplicit();
+	EAttribute getMethodDecorator_ParmsExplicitEmpty();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#getParameterDescriptors <em>Parameter Descriptors</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#getParameterDescriptors <em>Parameter Descriptors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameter Descriptors</em>'.
+	 * @return the meta object for the reference list '<em>Parameter Descriptors</em>'.
 	 * @see org.eclipse.jem.internal.beaninfo.MethodDecorator#getParameterDescriptors()
 	 * @see #getMethodDecorator()
 	 * @generated
 	 */
 	EReference getMethodDecorator_ParameterDescriptors();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#getSerParmDesc <em>Ser Parm Desc</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ser Parm Desc</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.MethodDecorator#getSerParmDesc()
+	 * @see #getMethodDecorator()
+	 * @generated
+	 */
+	EReference getMethodDecorator_SerParmDesc();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jem.internal.beaninfo.ParameterDecorator <em>Parameter Decorator</em>}'.
@@ -2257,36 +2502,15 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getParameterDecorator_Name();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue <em>Feature Attribute Value</em>}'.
+	 * Returns the meta object for data type '{@link org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue <em>Feature Attribute Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Feature Attribute Value</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureAttributeValue
+	 * @return the meta object for data type '<em>Feature Attribute Value</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue
+	 * @model instanceClass="org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue"
 	 * @generated
 	 */
-	EClass getFeatureAttributeValue();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValue()
-	 * @see #getFeatureAttributeValue()
-	 * @generated
-	 */
-	EReference getFeatureAttributeValue_Value();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueJava <em>Value Java</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Java</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueJava()
-	 * @see #getFeatureAttributeValue()
-	 * @generated
-	 */
-	EAttribute getFeatureAttributeValue_ValueJava();
+	EDataType getFeatureAttributeValue();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2309,15 +2533,37 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getBeanDecorator_DoBeaninfo();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueProxy <em>Value Proxy</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedPropertyNames <em>Not Inherited Property Names</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Proxy</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureAttributeValue#getValueProxy()
-	 * @see #getFeatureAttributeValue()
+	 * @return the meta object for the attribute list '<em>Not Inherited Property Names</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedPropertyNames()
+	 * @see #getBeanDecorator()
 	 * @generated
 	 */
-	EAttribute getFeatureAttributeValue_ValueProxy();
+	EAttribute getBeanDecorator_NotInheritedPropertyNames();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedMethodNames <em>Not Inherited Method Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Not Inherited Method Names</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedMethodNames()
+	 * @see #getBeanDecorator()
+	 * @generated
+	 */
+	EAttribute getBeanDecorator_NotInheritedMethodNames();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedEventNames <em>Not Inherited Event Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Not Inherited Event Names</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedEventNames()
+	 * @see #getBeanDecorator()
+	 * @generated
+	 */
+	EAttribute getBeanDecorator_NotInheritedEventNames();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.jem.internal.beaninfo.ParameterDecorator#getParameter <em>Parameter</em>}'.
@@ -2329,17 +2575,6 @@ public interface BeaninfoPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getParameterDecorator_Parameter();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicit <em>Attributes Explicit</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Attributes Explicit</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicit()
-	 * @see #getFeatureDecorator()
-	 * @generated
-	 */
-	EAttribute getFeatureDecorator_AttributesExplicit();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jem.internal.beaninfo.BeanEvent <em>Bean Event</em>}'.
@@ -2357,7 +2592,7 @@ public interface BeaninfoPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Feature Attribute Map Entry</em>'.
 	 * @see java.util.Map.Entry
-	 * @model keyType="java.lang.String" valueType="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue" valueContainment="true" 
+	 * @model keyType="java.lang.String" valueType="org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue" valueDataType="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue" 
 	 * @generated
 	 */
 	EClass getFeatureAttributeMapEntry();
@@ -2374,25 +2609,24 @@ public interface BeaninfoPackage extends EPackage{
 	EAttribute getFeatureAttributeMapEntry_Key();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @return the meta object for the attribute '<em>Value</em>'.
 	 * @see java.util.Map.Entry
 	 * @see #getFeatureAttributeMapEntry()
 	 * @generated
 	 */
-	EReference getFeatureAttributeMapEntry_Value();
+	EAttribute getFeatureAttributeMapEntry_Value();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jem.internal.beaninfo.EventSetDecorator#isListenerMethodsExplicit <em>Listener Methods Explicit</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jem.internal.beaninfo.ImplicitItem <em>Implicit Item</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Listener Methods Explicit</em>'.
-	 * @see org.eclipse.jem.internal.beaninfo.EventSetDecorator#isListenerMethodsExplicit()
-	 * @see #getEventSetDecorator()
+	 * @return the meta object for enum '<em>Implicit Item</em>'.
+	 * @see org.eclipse.jem.internal.beaninfo.ImplicitItem
 	 * @generated
 	 */
-	EAttribute getEventSetDecorator_ListenerMethodsExplicit();
+	EEnum getImplicitItem();
 
 }

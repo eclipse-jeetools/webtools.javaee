@@ -11,9 +11,8 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: Utilities.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
-import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.CoreException;
@@ -23,7 +22,7 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.jem.internal.beaninfo.*;
-import org.eclipse.jem.internal.beaninfo.adapters.*;
+import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.java.adapters.ReflectionAdaptor;
 import org.eclipse.jem.internal.proxy.core.*;
@@ -35,31 +34,49 @@ import org.eclipse.jem.java.*;
 
 public final class Utilities {
 	
-	private static final java.lang.reflect.Method sSignatureToString;
-	static {
-		// If in the workbench, we want to use the Signature.toString(type) method
-		// to convert array arguments. However, we may not be in workbench, so we
-		// need to use reflection.
-		java.lang.reflect.Method ssig = null;
-		try {
-			Class signature = Class.forName("org.eclipse.jdt.core.Signature"); //$NON-NLS-1$
-			ssig = signature.getMethod("toString", new Class[] { String.class }); //$NON-NLS-1$
-		} catch (ClassNotFoundException e) {
-		} catch (NoSuchMethodException e) {
-		}
-
-		sSignatureToString = ssig;
-	}
-
 	private Utilities() {
 	}
 
 	/**
-	 * Utility to return the EClassifier from the given name. (EClassifier because
-	 * it could return either a JavaDataType or a JavaClass).
+	 * Utility to return the class as a JavaClass. If it actually is a JavaType this will
+	 * fail with a ClassCastException.
+	 * @param className
+	 * @param rset
+	 * @return java class
+	 * 
+	 * @throws ClassCastException if not a java class, but instead a java primitive.
+	 * @since 1.1.0
 	 */
-	public static JavaHelpers getJavaClass(String className, ResourceSet rset) {
-		return (JavaHelpers) rset.getEObject(URI.createURI((new JavaURL(className)).getFullString()), true);
+	public static JavaClass getJavaClass(String className, ResourceSet rset) {
+		return (JavaClass) getJavaType(className, rset);
+	}
+	
+	/**
+	 * Utility to return the class as a JavaHelpers.
+	 * 
+	 * @param className
+	 * @param rset
+	 * @return java helpers.
+	 * 
+	 * @since 1.1.0
+	 */
+	public static JavaHelpers getJavaType(String className, ResourceSet rset) {
+		return (JavaHelpers) rset.getEObject(getJavaClassURI(className), true);
+	}
+	
+	/**
+	 * Create a URI to the given classname.
+	 * <p>
+	 * Note: It must be in normal form, i.e. fully-qualified, if primitive spelled out (e.g. "int" not I), and if
+	 * arrays it must readable form (e.g. "new java.lang.String[]" and not "[Ljava.lang.String;").
+	 * 
+	 * @param className
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public static URI getJavaClassURI(String className) {
+		return URI.createURI((new JavaURL(className)).getFullString());
 	}
 
 	/** 
@@ -67,16 +84,7 @@ public final class Utilities {
 	 */
 	public static EClassifier getJavaClass(IBeanTypeProxy type, ResourceSet rset) {
 		if (type != null) {
-			String typeName = null;
-			if (!type.isArray())
-				typeName = type.getTypeName();
-			else {
-				typeName = ((IArrayBeanTypeProxy) type).getFinalComponentType().getTypeName();
-				int dim = ((IArrayBeanTypeProxy) type).getDimensions();
-				while (dim-- > 0)
-					typeName = typeName.concat("[]"); //$NON-NLS-1$
-			}
-			return getJavaClass(typeName, rset);
+			return getJavaType(type.getFormalTypeName(), rset);
 		} else
 			return null;
 	}
@@ -93,30 +101,36 @@ public final class Utilities {
 	 */
 	public static String getMethodURL(IMethodProxy method) {
 		String className = method.getClassType().getTypeName();
-		int classStart = className.lastIndexOf('.');
+		IBeanTypeProxy[] parms = method.getParameterTypes();
+		String[] parmTypes = parms.length > 0 ? new String[parms.length] : null;
+		for (int i = 0; i < parms.length; i++) {
+			parmTypes[i] = parms[i].getFormalTypeName();
+		}
+		return computeMethodURL(className, method.getName(), parmTypes);
+	}
+	
+	protected static String computeMethodURL(String fullyQualifiedClassName, String methodName, String[] parmTypes) {
+		int classStart = fullyQualifiedClassName.lastIndexOf('.');
 		StringBuffer url = new StringBuffer(50);
 		url.append("java:/"); //$NON-NLS-1$
 		if (classStart > -1)
-			url.append(className.substring(0, classStart));
+			url.append(fullyQualifiedClassName.substring(0, classStart));
 		url.append('#');
-		IBeanTypeProxy[] parms = method.getParameterTypes();
-		String[] parmTypes = new String[parms.length];
-		for (int i = 0; i < parmTypes.length; i++) {
-			IBeanTypeProxy ptype = parms[i];
-			if (!ptype.isArray() || sSignatureToString == null)
-				parmTypes[i] = parms[i].getTypeName();
-			else {
-				// It is an array and we are in the workbench. Need to converty [I to int[]
-				try {
-					parmTypes[i] = (String) sSignatureToString.invoke(null, new Object[] { ptype.getTypeName()});
-				} catch (IllegalArgumentException e) {
-				} catch (IllegalAccessException e) {
-				} catch (InvocationTargetException e) {
-				}
-			}
-		}
-		url.append(computeMethodID(className.substring(classStart + 1), method.getName(), parmTypes));
+		url.append(computeMethodID(fullyQualifiedClassName.substring(classStart + 1), methodName, parmTypes));
 		return url.toString();
+	}
+	
+	/**
+	 * Return the method uri for the given classname, methodname, parm types.
+	 * @param fullyQualifiedClassName
+	 * @param methodName
+	 * @param parmTypes <code>null</code> if there are no parms.
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public static URI getMethodURI(String fullyQualifiedClassName, String methodName, String[] parmTypes) {
+		return URI.createURI(computeMethodURL(fullyQualifiedClassName, methodName, parmTypes));
 	}
 
 	/**
@@ -136,11 +150,12 @@ public final class Utilities {
 		out.append(ReflectionAdaptor.C_CLASS_MEMBER_DELIMITER);
 		out.append(methodName);
 		out.append(ReflectionAdaptor.C_METHOD_PARM_DELIMITER);
-		for (int i = 0; i < parameterTypes.length; i++) {
-			out.append(parameterTypes[i]);
-			if (i < parameterTypes.length - 1)
-				out.append(ReflectionAdaptor.C_PARM_PARM_DELIMITER);
-		}
+		if (parameterTypes != null)
+			for (int i = 0; i < parameterTypes.length; i++) {
+				out.append(parameterTypes[i]);
+				if (i < parameterTypes.length - 1)
+					out.append(ReflectionAdaptor.C_PARM_PARM_DELIMITER);
+			}
 		if (className.equals(methodName))
 			out.append(ReflectionAdaptor.S_CONSTRUCTOR_TOKEN); //It's a constructor
 		return out.toString();

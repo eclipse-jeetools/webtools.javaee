@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: MapTypes.java,v $
- *  $Revision: 1.1 $  $Date: 2004/05/26 22:02:08 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/04 23:11:34 $ 
  */
 package org.eclipse.jem.internal.proxy.common;
 
@@ -87,5 +87,46 @@ public class MapTypes {
 		}
 		
 		return jni.toString();
+	}
+	
+	/**
+	 * This converts from the JNI format to the formal typename.
+	 * 
+	 * @param jniName
+	 * @return formal typename
+	 * 
+	 * @since 1.1.0
+	 */
+	public static String getFormalTypeName(String jniName) {
+		if (jniName.charAt(0) == '[') {
+			// It is an array
+			int dims = jniName.lastIndexOf('[')+1;	// Number of dimensions
+			int startType = dims+1;
+			StringBuffer fName = new StringBuffer(jniName.length()+(2*dims)); 
+			if (jniName.charAt(dims) == 'L')
+				fName.append(jniName.substring(startType, jniName.length()-1));	// For "Ljava.lang.String;" return "java.lang.String"
+			else if (jniName.length() == startType+1) {
+				// Possible primitive
+				Class type = (Class) MAP_SHORTSIG_TO_TYPE.get(jniName.substring(startType, startType));
+				if (type != null) {
+					fName.append(type.getName());
+				} else
+					return "";	// Invalid if no 'L' and not a primitive.
+			} else
+				return "";	// Invalid, must be either a primitive or 'L' type.
+			while(dims-- > 0) {
+				fName.append("[]");
+			}
+			return fName.toString();
+		} else if (jniName.length() == 1) {
+			// Possible primitive.
+			Class type = (Class) MAP_SHORTSIG_TO_TYPE.get(jniName);
+			if (type != null) {
+				return type.getName();
+			}
+		}
+		
+		// If got here then just a name as is.
+		return jniName;
 	}
 }

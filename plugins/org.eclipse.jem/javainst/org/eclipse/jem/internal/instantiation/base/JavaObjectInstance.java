@@ -11,8 +11,10 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.11 $  $Date: 2005/01/25 15:11:27 $ 
+ *  $Revision: 1.12 $  $Date: 2005/02/04 23:11:33 $ 
  */
+
+import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -38,29 +40,27 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 		return isSetAllocation() ? (JavaAllocation) eGet(JavaInstantiation.getAllocationFeature(this)) : null;
 	}
 	
-	public boolean eIsSet(EStructuralFeature feature) {
-		return super.eIsSet(feature);
-	}
-	/** Visit the argument with all of the set features in an optimized fashion 
+	/** 
+	 * Visit the argument with all of the set features in an optimized fashion 
 	 */
 	private final static Object NIL = EStructuralFeatureImpl.InternalSettingDelegateSingle.NIL;
 	public void visitSetFeatures(Visitor aVisitor) {
-		
-		JavaObjectInstancePropertiesHolder settings = (JavaObjectInstancePropertiesHolder) eProperties(); 
-		
-		Object[] setPropertyValues = settings.eSettings();
-		if(setPropertyValues != null){
-			for (int i = 0; i < setPropertyValues.length; i++) {
-				Object propertyValue = setPropertyValues[i];
-				if(propertyValue != null){					
-					// null is handle by a placeholder
-					if (propertyValue == NIL)
-						propertyValue = null;					 
-					aVisitor.isSet(
-							(EStructuralFeature) settings.getAllStructuralFeatures().get(i),
-							propertyValue);
+		if (eHasSettings()) {
+			JavaObjectInstancePropertiesHolder settings = (JavaObjectInstancePropertiesHolder) eProperties();
+
+			Object[] setPropertyValues = settings.eSettings();
+			if (setPropertyValues != null) {
+				List allFeatures = settings.getAllStructuralFeatures();
+				for (int i = 0; i < setPropertyValues.length; i++) {
+					Object propertyValue = setPropertyValues[i];
+					if (propertyValue != null) {
+						// <null> is handled by the placeholder NIL. A setting of true null means not set. A setting of NIL means set to null.
+						if (propertyValue == NIL)
+							propertyValue = null;
+						aVisitor.isSet((EStructuralFeature) allFeatures.get(i), propertyValue);
+					}
 				}
-			}
+			} 
 		}												
 	}
 		

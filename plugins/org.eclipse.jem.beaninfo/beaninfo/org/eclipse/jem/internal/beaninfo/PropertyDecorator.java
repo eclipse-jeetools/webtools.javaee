@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: PropertyDecorator.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -24,6 +24,10 @@ import org.eclipse.jem.java.Method;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Property Decorator</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * Equivalent to PropertyDecorator in java.
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -292,9 +296,11 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Read Method</em>' reference.
+	 * @see #isSetReadMethod()
+	 * @see #unsetReadMethod()
 	 * @see #setReadMethod(Method)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_ReadMethod()
-	 * @model 
+	 * @model unsettable="true"
 	 * @generated
 	 */
 	Method getReadMethod();
@@ -304,10 +310,35 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Read Method</em>' reference.
+	 * @see #isSetReadMethod()
+	 * @see #unsetReadMethod()
 	 * @see #getReadMethod()
 	 * @generated
 	 */
 	void setReadMethod(Method value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getReadMethod <em>Read Method</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetReadMethod()
+	 * @see #getReadMethod()
+	 * @see #setReadMethod(Method)
+	 * @generated
+	 */
+	void unsetReadMethod();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getReadMethod <em>Read Method</em>}' reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Read Method</em>' reference is set.
+	 * @see #unsetReadMethod()
+	 * @see #getReadMethod()
+	 * @see #setReadMethod(Method)
+	 * @generated
+	 */
+	boolean isSetReadMethod();
 
 	/**
 	 * Returns the value of the '<em><b>Write Method</b></em>' reference.
@@ -318,9 +349,11 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Write Method</em>' reference.
+	 * @see #isSetWriteMethod()
+	 * @see #unsetWriteMethod()
 	 * @see #setWriteMethod(Method)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getPropertyDecorator_WriteMethod()
-	 * @model 
+	 * @model unsettable="true"
 	 * @generated
 	 */
 	Method getWriteMethod();
@@ -330,10 +363,35 @@ public interface PropertyDecorator extends FeatureDecorator{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Write Method</em>' reference.
+	 * @see #isSetWriteMethod()
+	 * @see #unsetWriteMethod()
 	 * @see #getWriteMethod()
 	 * @generated
 	 */
 	void setWriteMethod(Method value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getWriteMethod <em>Write Method</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetWriteMethod()
+	 * @see #getWriteMethod()
+	 * @see #setWriteMethod(Method)
+	 * @generated
+	 */
+	void unsetWriteMethod();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jem.internal.beaninfo.PropertyDecorator#getWriteMethod <em>Write Method</em>}' reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Write Method</em>' reference is set.
+	 * @see #unsetWriteMethod()
+	 * @see #getWriteMethod()
+	 * @see #setWriteMethod(Method)
+	 * @generated
+	 */
+	boolean isSetWriteMethod();
 
 	/**
 	 * <!-- begin-user-doc -->

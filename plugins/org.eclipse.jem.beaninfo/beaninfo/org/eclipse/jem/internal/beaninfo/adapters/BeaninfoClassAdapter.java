@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.25 $  $Date: 2005/01/10 19:26:47 $ 
+ *  $Revision: 1.26 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -20,13 +20,15 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.logging.Level;
 
-import org.eclipse.core.resources.IResourceStatus;
+import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.*;
 import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.change.ChangeDescription;
+import org.eclipse.emf.ecore.change.ChangeFactory;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.ESuperAdapter;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -36,20 +38,45 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.internal.beaninfo.*;
+import org.eclipse.jem.internal.beaninfo.common.*;
 import org.eclipse.jem.internal.beaninfo.core.*;
-import org.eclipse.jem.internal.proxy.core.*;
-
-import com.ibm.etools.emf.event.EventFactory;
-import com.ibm.etools.emf.event.EventUtil;
-
-import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
+import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.impl.JavaClassImpl;
 import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.logger.proxy.Logger;
 
+import com.ibm.etools.emf.event.EventFactory;
+import com.ibm.etools.emf.event.EventUtil;
+
 /**
  * Beaninfo adapter for doing introspection on a Java Model class.
+ * <p>
+ * The first time a introspect request is made, it will use the ClassEntry from the cache controller to determine if it should load from the
+ * cache or do a complete introspection. After that it will always do a complete introspection when it is marked as needing introspection.
+ * This is because the cache is useless to us then. At that point in time we already know that we or one of our superclasses or one of 
+ * outer classes has changed, thereby requiring us to reintrospect, the cache is invalid at that point. Also once we did an introspection we
+ * don't want to do a load from cache but instead do a merge because someone may of been holding onto the features and we don't want to
+ * throw them away unnecessarily.
+ * <p> 
+ * TODO Need to re-look into this to see if we can do a merge with the cache file because if it was an external jar and it has now gone
+ * valid, why waste time reintrospecting. But this needs to be carefully thought about. 
+ * <p> 
+ * The resource change listener
+ * will automatically mark any subclasses (both the BeaninfoClassAdapter and the ClassEntry) as being stale for us. That way we don't need
+ * to waste time checking the ce and superclasses everytime. We will keep the ClassEntry around simply to make the marking of it as stale easier for the
+ * resource listener. Finding the ce everytime would be expensive.
+ * <p> 
+ * This is the process for determining if introspection required:
+ * <ol>
+ * <li>If needsIntrospection flag is false, then do nothing. Doesn't need introspection.
+ * <li>If class is undefined, then just set up for an undefined class and return. (In this case the CE should be thrown away, it should of been deleted).
+ * <li>If never introspected (not RETRIEVED_FULL_DOCUMENT), get the CE, get the modification stamp and call isStaleStamp. This determines if this
+ * stamp or any super class stamp is stale wrt to current stamp. If it is not stale, then load from cache because the cache is good. 
+ * <li>If no cache or cache is stale or has introspected once, then introspect and replace cache.
+ * </ol>
+ * 
  */
 
 public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionAdapter {
@@ -58,92 +85,126 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	public static final String INTROSPECT_PROPERTIES = "Introspect properties";	// Introspect on remote for properties
 	public static final String APPLY_EXTENSIONS = "Apply Overrides";	// Apply override files
 	public static final String REMOTE_INTROSPECT = "Remote Introspect";	// Introspect on remote
+	public static final String INTROSPECT = "Introspect";	// Straight introspection, whether load from cache or introspect.
+	public static final String LOAD_FROM_CACHE = "Load from Cache";
+	
+	// TODO Put this back (if necessary, not sure since haven't done it yet) when we do override change recording too to handle overrides. 
+	// This will make it even faster because such
+	// overrides rarely change and so can be glombed together into one large change. So then we would have two change caches per
+	// class, one is the override record, which will be created once, the first time the class is referenced after a stale
+	// configuration, and then the other is the introspection/reflection results, which will be created each time there is
+	// a cache change. Both will be applied only once, the first time the class is referenced after a project has been opened.
+	// No need to load at any other time because any changes will simply be a merge of the changes (thru reflection/introspection) into
+	// the existing set and then a new change cache will be created containing the entire set of implicit changes, both the previous
+	// ones that are still valid, and any new ones.
+//	/**
+//	 * Pausable Change Recorder.
+//	 * 
+//	 * @since 1.1.0
+//	 */
+//	private static class PausableChangeRecorder extends ChangeRecorder {
+//		
+//		/**
+//		 * @param rootObject
+//		 * 
+//		 * @since 1.1.0
+//		 */
+//		public PausableChangeRecorder(EObject rootObject) {
+//			super(rootObject);
+//		}
+//		/**
+//		 * Pause recording
+//		 * 
+//		 * 
+//		 * @since 1.1.0
+//		 */
+//		public void pause() {
+//			recording = false;
+//		}
+//		
+//		/**
+//		 * Resume recording
+//		 * 
+//		 * 
+//		 * @since 1.1.0
+//		 */
+//		public void resume() {
+//			recording = true;
+//		}
+//	}
+	
+	public static BeaninfoClassAdapter getBeaninfoClassAdapter(EObject jc) {
+		return (BeaninfoClassAdapter) EcoreUtil.getExistingAdapter(jc, IIntrospectionAdapter.ADAPTER_KEY);
+	}
 	
 	/**
 	 * Clear out the introspection because introspection is being closed or removed from the project.
 	 * Don't want anything hanging around that we had done.
 	 */
 	public void clearIntrospection() {
-		if (beaninfo != null) {
-			beaninfo = null;
+		// Clear out the beandecorator if implicitly created.
+		Iterator beanItr = getJavaClass().getEAnnotationsInternal().iterator();
+		while (beanItr.hasNext()) {
+			EAnnotation dec = (EAnnotation) beanItr.next();
+			if (dec instanceof BeanDecorator) {
+				BeanDecorator decor = (BeanDecorator) dec;
+				if (decor.getImplicitDecoratorFlag() == ImplicitItem.IMPLICIT_DECORATOR_LITERAL) {
+					beanItr.remove();
+					((InternalEObject) decor).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
+				} else {
+					BeanInfoDecoratorUtility.clear((BeanDecorator) dec);
+				}
+				break;
+			}
 		}
-		if (hasIntrospected) {
-			// Clear out the beandecorator if implicitly created.
-			Iterator beanItr = getJavaClass().getEAnnotations().iterator();
-			while (beanItr.hasNext()) {
-				EAnnotation dec = (EAnnotation) beanItr.next();
-				if (dec instanceof BeanDecorator) {
-					BeanDecorator decor = (BeanDecorator) dec;
-					decor.setDescriptorProxy(null);
-					decor.setDecoratorProxy(null);
-					if (decor.isImplicitlyCreated() == BeanDecorator.IMPLICIT_DECORATOR) {
-						beanItr.remove();
-						((InternalEObject) decor).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
-						break;
+		// Clear out the features that we implicitly created.
+		Iterator propItr = getJavaClass().getEStructuralFeaturesInternal().iterator();
+		while (propItr.hasNext()) {
+			EStructuralFeature prop = (EStructuralFeature) propItr.next();
+			Iterator pdItr = prop.getEAnnotations().iterator();
+			while (pdItr.hasNext()) {
+				EAnnotation dec = (EAnnotation) pdItr.next();
+				if (dec instanceof PropertyDecorator) {
+					PropertyDecorator pd = (PropertyDecorator) dec;
+					if (pd.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL)
+						BeanInfoDecoratorUtility.clear(pd);
+					else {
+						pdItr.remove(); // Remove it from the property.
+						((InternalEObject) pd).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
 					}
+					if (pd.getImplicitDecoratorFlag() == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
+						propItr.remove(); // Remove the feature itself
+						((InternalEObject) prop).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
+					}
+					break;
 				}
 			}
-			hasIntrospected = false;
-		}
-	
-		if (hasIntrospectedProperties) {
-			// Clear out the features that we implicitly created.
-			Iterator propItr = getJavaClass().getEStructuralFeaturesInternal().iterator();
-			while (propItr.hasNext()) {
-				EStructuralFeature prop = (EStructuralFeature) propItr.next();
-				Iterator pdItr = prop.getEAnnotations().iterator();
-				while (pdItr.hasNext()) {
-					EAnnotation dec = (EAnnotation) pdItr.next();
-					if (dec instanceof PropertyDecorator) {
-						PropertyDecorator pd = (PropertyDecorator) dec;
-						pd.setDescriptorProxy(null);
-						pd.setDecoratorProxy(null);
-						if (pd.isImplicitlyCreated() != PropertyDecorator.NOT_IMPLICIT) {
-							pdItr.remove(); // Remove it from the property.
-							 ((InternalEObject) pd).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
-						}
-						if (pd.isImplicitlyCreated() == PropertyDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
-							propItr.remove(); // Remove the feature itself
-							 ((InternalEObject) prop).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
-						}
-						break;
-					}
-				}
-			}
-	
-			hasIntrospectedProperties = false;
-		}
-	
-		if (hasIntrospectedOperations) {
-			// Clear out the operations that we implicitly created.
-			Iterator operItr = getJavaClass().getEOperationsInternal().iterator();
-			while (operItr.hasNext()) {
-				EOperation oper = (EOperation) operItr.next();
-				Iterator mdItr = oper.getEAnnotations().iterator();
-				while (mdItr.hasNext()) {
-					EAnnotation dec = (EAnnotation) mdItr.next();
-					if (dec instanceof MethodDecorator) {
-						MethodDecorator md = (MethodDecorator) dec;
-						md.setDescriptorProxy(null);
-						md.setDecoratorProxy(null);
-						if (md.isImplicitlyCreated() != MethodDecorator.NOT_IMPLICIT) {
-							mdItr.remove(); // Remove it from the operation.
-							 ((InternalEObject) md).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
-						}
-						if (md.isImplicitlyCreated() == MethodDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
-							operItr.remove(); // Remove the oepration itself
-							 ((InternalEObject) oper).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
-						}
-						break;
-					}
-				}
-			}
-	
-			hasIntrospectedOperations = false;
 		}
 		
-		if (hasIntrospectedEvents) {
-			// Clear out the eventsthat we implicitly created.
+		// Clear out the operations that we implicitly created.
+		Iterator operItr = getJavaClass().getEOperationsInternal().iterator();
+		while (operItr.hasNext()) {
+			EOperation oper = (EOperation) operItr.next();
+			Iterator mdItr = oper.getEAnnotations().iterator();
+			while (mdItr.hasNext()) {
+				EAnnotation dec = (EAnnotation) mdItr.next();
+				if (dec instanceof MethodDecorator) {
+					MethodDecorator md = (MethodDecorator) dec;
+					if (md.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL)
+						BeanInfoDecoratorUtility.clear(md);
+					else {
+						mdItr.remove(); // Remove it from the operation.
+						((InternalEObject) md).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
+					}
+					if (md.getImplicitDecoratorFlag() == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
+						operItr.remove(); // Remove the oepration itself
+						((InternalEObject) oper).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
+					}
+					break;
+				}
+			}
+			
+			// Clear out the events that we implicitly created.
 			Iterator evtItr = getJavaClass().getEventsGen().iterator();
 			while (evtItr.hasNext()) {
 				JavaEvent evt = (JavaEvent) evtItr.next();
@@ -152,37 +213,40 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					EAnnotation dec = (EAnnotation) edItr.next();
 					if (dec instanceof EventSetDecorator) {
 						EventSetDecorator ed = (EventSetDecorator) dec;
-						ed.setDescriptorProxy(null);
-						ed.setDecoratorProxy(null);
-						if (ed.isImplicitlyCreated() != EventSetDecorator.NOT_IMPLICIT) {
+						if (ed.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL)
+							BeanInfoDecoratorUtility.clear(ed);
+						else {
 							edItr.remove(); // Remove it from the event.
-							 ((InternalEObject) ed).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
+							((InternalEObject) ed).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
 						}
-						if (ed.isImplicitlyCreated() == EventSetDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
+						if (ed.getImplicitDecoratorFlag() == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
 							evtItr.remove(); // Remove the event itself
-							 ((InternalEObject) evt).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
+							((InternalEObject) evt).eSetProxyURI(BAD_URI); // Mark it as bad proxy so we know it is no longer any use.
 						}
 						break;
 					}
 				}
-			}
-	
-			hasIntrospectedEvents = false;
-		}		
+			}				
+		}
+
+		synchronized(this) {
+			needsIntrospection = true;
+		}
 	}
 	
 	private void clearAll() {
-		if (beaninfo != null) {
-			beaninfo = null;
-		}
+		clearIntrospection();	// First get rid of the ones we did so that they are marked as proxies.
+		
 		// Clear out the annotations.
-		getJavaClass().getEAnnotations().clear();
+		getJavaClass().getEAnnotationsInternal().clear();
 		// Clear out the attributes.
 		getJavaClass().getEStructuralFeaturesInternal().clear();	
 		// Clear out the operations.
 		getJavaClass().getEOperationsInternal().clear();
 		// Clear out the events.
 		getJavaClass().getEventsGen().clear();
+		
+		retrievedExtensionDocument = NEVER_RETRIEVED_EXTENSION_DOCUMENT;	// Since we cleared everything, go back to no doc applied.
 	}
 	
 
@@ -191,23 +255,18 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 * @author
 	 */
 
-	protected static final URI BAD_URI = URI.createURI("baduri"); //$NON-NLS-1$
 	// A URI that will never resolve. Used to mark an object as no longer valid.
-	protected boolean hasIntrospected;
-	protected boolean isIntrospecting;
+	protected static final URI BAD_URI = URI.createURI("baduri"); //$NON-NLS-1$
 
-	protected boolean hasIntrospectedProperties;
-	protected boolean isIntrospectingProperties;
+	protected boolean needsIntrospection = true;
+	
+	protected BeanInfoCacheController.ClassEntry classEntry;
+	
+	protected boolean isIntrospecting;
 
 	protected boolean isDoingAllProperties;
 
-	protected boolean hasIntrospectedOperations;
-	protected boolean isIntrospectingOperations;
-
 	protected boolean isDoingAllOperations;
-
-	protected boolean hasIntrospectedEvents;
-	protected boolean isIntrospectingEvents;
 
 	protected boolean isDoingAllEvents;
 
@@ -217,7 +276,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		RETRIEVED_FULL_DOCUMENT = 2;
 	protected int retrievedExtensionDocument = NEVER_RETRIEVED_EXTENSION_DOCUMENT;
 
-	protected IBeanProxy beaninfo;
 	protected BeaninfoAdapterFactory adapterFactory;
 
 	private WeakReference staleFactory; // When reference not null, then this factory is a stale factory and 
@@ -399,11 +457,22 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	}
 
 	public void introspectIfNecessary() {
-		if (!hasIntrospected && !isIntrospecting) {
+		introspectIfNecessary(false);
+	}
+	
+	protected void introspectIfNecessary(boolean doOperations) {
+		boolean doIntrospection = false;
+		synchronized (this) {
+			doIntrospection = needsIntrospection && !isIntrospecting; 
+			if (doIntrospection)
+				isIntrospecting = true;
+		}
+		if (doIntrospection) {
+			boolean didIntrospection = false;
 			try {				
-				introspect();
+				introspect(doOperations);
+				didIntrospection = true;
 			} catch (Throwable e) {
-				hasIntrospected = false;
 				BeaninfoPlugin.getPlugin().getLogger().log(
 					new Status(
 						IStatus.WARNING,
@@ -413,17 +482,161 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
 							new Object[] { getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
 						e));
+			} finally {
+				synchronized (this) {
+					isIntrospecting = false;
+					needsIntrospection = !didIntrospection;
+				}
 			}
 		}
 	}
 
-	public void introspect() {
-		isIntrospecting = true;
+	/**
+	 * Get the class entry. 
+	 * @return
+	 * 
+	 * @since 1.1.0
+	 */
+	public BeanInfoCacheController.ClassEntry getClassEntry() {
+		return classEntry;
+	}
+	
+	private boolean canUseCache() {
+		// We check our level, we assume not stale unless CE says stale.
+		synchronized (this) {
+			// We may already have a class entry due to a subclass doing a check, so if we do, we'll use it. Else we'll get the latest one.
+			if (classEntry == null)
+				classEntry = BeanInfoCacheController.INSTANCE.getClassEntry(getJavaClass());
+			if (classEntry != null) {
+				// We have a cache to check.
+				long modStamp = classEntry.getModificationStamp();
+				// A sanity check, if this was an old, but now deleted one we want to throw it away and get it again. It may now be valid.
+				if (modStamp == BeanInfoCacheController.ClassEntry.DELETED_MODIFICATION_STAMP) {
+					classEntry = BeanInfoCacheController.INSTANCE.getClassEntry(getJavaClass());
+					if (classEntry != null)
+						modStamp = classEntry.getModificationStamp();
+				}
+				if (modStamp == IResource.NULL_STAMP || modStamp == BeanInfoCacheController.ClassEntry.DELETED_MODIFICATION_STAMP)
+					return false;	// We are stale.
+			} else
+				return false;	// We don't have a cache entry to check against, which means are deleted, or never cached.
+		}
+		
+		// Now try the supers to see if we are out of date to them.
+		// Note: Only if this is an interface could there be more than one eSuperType.
+		List supers = getJavaClass().getESuperTypes();
+		if (!supers.isEmpty()) {
+			BeaninfoClassAdapter bca = getBeaninfoClassAdapter((EObject) supers.get(0));
+			if (bca.getClassEntry().getModificationStamp() != classEntry.getSuperModificationStamp())
+				return false; // Out-of-date wrt/super.
+			String[] iNames = classEntry.getInterfaceNames();
+			if (iNames != null) {
+				if (iNames.length != supers.size() - 1)
+					return false; // We have a different number of supers, so stale.
+				// Now the interfaces may not be in the same order, but there shouldn't be too many, so we'll use O(n2) lookup. We'll try starting at
+				// the same index just in case. That way if they are the same order it will be linear instead. Most likely will be same order.
+				long[] iStamp = classEntry.getInterfaceModificationStamps();
+				for (int i = 1; i <= iNames.length; i++) {
+					JavaClass javaClass = (JavaClass) supers.get(i);
+					String intName = (javaClass).getQualifiedNameForReflection();
+					// Find it in the names list.
+					int stop = i-1;
+					int indx = stop;	// Start at the stop, when we hit it again we will be done.
+					boolean found = false;
+					do {
+						if (iNames[indx].equals(intName)) {
+							found = true;
+							break;
+						}
+					} while ((++indx)%iNames.length != stop);
+					if (!found)
+						return false;	// Couldn't find it, so we are stale.
+					if (iStamp[indx] != getBeaninfoClassAdapter(javaClass).getClassEntry().getModificationStamp())
+						return false;	// We didn't match it, so we are stale.
+				}
+			}
+		}
+		return true;	// If we got here everything is ok.
+	}
+
+	private boolean canUseOverrideCache() {
+		// We check our config stamp.
+		// TODO in future can we listen for config changes and mark classes stale if the config changes?
+		synchronized (this) {
+			// We may already have a class entry due to a subclass doing a check, so if we do, we'll use it. Else we'll get the latest one.
+			if (classEntry == null)
+				classEntry = BeanInfoCacheController.INSTANCE.getClassEntry(getJavaClass());
+			if (classEntry != null) {
+				// We have a cache to check.
+				// A sanity check, if this was an old, but now deleted one we want to throw it away and get it again. It may now be valid.
+				if (classEntry.isDeleted()) {
+					classEntry = BeanInfoCacheController.INSTANCE.getClassEntry(getJavaClass());
+					if (classEntry != null)
+						if (classEntry.isDeleted())
+							return false;	// We have been deleted. Probably shouldn't of gotton here in this case.
+				}
+			} else
+				return false;	// We don't have a cache entry to check against, which means are deleted, or never cached.
+			return classEntry.getConfigurationModificationStamp() == Platform.getPlatformAdmin().getState(false).getTimeStamp();
+		}
+		
+	}
+
+	/**
+	 * Check if the cache for this entry is stale compared to the modification stamp, or if the modification stamp itself is stale, meaning
+	 * subclass was stale already.
+	 * 
+	 * @param requestStamp the timestamp to compare against. 
+	 * @return <code>true</code> if we can use the incoming cache stamp.
+	 * 
+	 * @since 1.1.0
+	 */
+	protected boolean canUseCache(long requestStamp) {
+		long modStamp;
+		// Now get the current mod stamp for this class so we can compare it.
+		synchronized (this) {
+			// We may already have a class entry due to a subclass doing a check, so if we do, we'll use it. Else we'll get the latest one.
+			if (classEntry == null)
+				classEntry = BeanInfoCacheController.INSTANCE.getClassEntry(getJavaClass());
+			if (classEntry != null) {
+				// We have a cache to check.
+				modStamp = classEntry.getModificationStamp();
+				// A sanity check, if this was an old, but now deleted one we want to throw it away and get it again. It may now be valid.
+				if (modStamp == BeanInfoCacheController.ClassEntry.DELETED_MODIFICATION_STAMP) {
+					classEntry = BeanInfoCacheController.INSTANCE.getClassEntry(getJavaClass());
+					if (classEntry != null)
+						modStamp = classEntry.getModificationStamp();
+				}
+				if (modStamp == IResource.NULL_STAMP && modStamp == BeanInfoCacheController.ClassEntry.DELETED_MODIFICATION_STAMP)
+					return false;	// Since we are stale, child asking question must also be stale and can't use the cache.
+			} else
+				return false;	// We don't have a cache entry to check against, so child must be stale too.
+		}
+		// If the requested stamp is not the same as ours, then it is out of date (it couldn't be newer but it could be older).
+		return requestStamp == modStamp;
+	}
+		
+	/*
+	 * This should only be called through introspectIfNecessary so that flags are set correctly.
+	 */
+	private void introspect(boolean doOperations) {
+		IBeanProxy beaninfo = null;
 		try {
 			if (isResourceConnected()) {
+				TimerTests.basicTest.startCumulativeStep(INTROSPECT);
 				// See if are valid kind of class.
 				if (getJavaClass().getKind() == TypeKind.UNDEFINED_LITERAL) {
 					// Not valid, don't let any further introspection occur.
+					// Mark that we've done all introspections so as not to waste time until we get notified that it has been added
+					// back in.
+					synchronized(this) {
+						if (classEntry != null) {
+							classEntry.markDeleted();	// mark it deleted in case still sitting in cache (maybe because it was in an external jar, we can't know if deleted when jar changed).
+							classEntry = null;	// Get rid of it since now deleted.
+						}
+						needsIntrospection = false;
+					}
+					
 					if (retrievedExtensionDocument == RETRIEVED_FULL_DOCUMENT) {
 						// We've been defined at one point. Need to clear everything and step back
 						// to never retrieved so that we now get the root added in. If we had been
@@ -434,154 +647,284 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					}
 					if (retrievedExtensionDocument == NEVER_RETRIEVED_EXTENSION_DOCUMENT)
 						applyExtensionDocument(true);	// Add in Root stuff so that it will work correctly even though undefined.
-					// Mark that we've done all introspections so as not to waste time until we get notified that it has been added
-					// back in.
-					hasIntrospected = hasIntrospectedOperations = hasIntrospectedProperties = hasIntrospectedEvents = true;
 				} else {
+					// TODO For now cause recycle of vm if any super type is stale so that if registry is stale for the super type it will be
+					// recreated. This is needed because reflection requires superProperties, etc. and recreating the registry
+					// currently re-marks everyone as stale, including this subclass. This would mean that
+					// re-introspection would need to be done, even though we just did it. The stale registry business needs to be re-addressed so that it is
+					// a lot smarter. 
+					List supers = getJavaClass().getEAllSuperTypes();
+					for (int i = 0; i < supers.size(); i++) {
+						BeaninfoClassAdapter bca = (BeaninfoClassAdapter) EcoreUtil.getExistingAdapter((EObject) supers.get(i),
+								IIntrospectionAdapter.ADAPTER_KEY);
+						if (bca != null && bca.isStale())
+							bca.getRegistry();
+					}
+					// Now we need to force introspection, if needed, of all parents because we need them to be up-to-date for the
+					// class entry.
+					// TODO see if we can come up with a better way that we KNOW the CE is correct, even if any supers are stale.
+					supers = getJavaClass().getESuperTypes();
+					for (int i = 0; i < supers.size(); i++) {
+						BeaninfoClassAdapter bca = (BeaninfoClassAdapter) EcoreUtil.getRegisteredAdapter((EObject) supers.get(i),
+								IIntrospectionAdapter.ADAPTER_KEY);
+						bca.introspectIfNecessary();
+					}
+
 					if (retrievedExtensionDocument == RETRIEVED_ROOT_ONLY) {
 						// We need to clear out EVERYTHING because we are coming from an undefined to a defined.
-						// Nothing previous is now valid. (Particually the root stuff).
+						// Nothing previous is now valid. (Particularly the root stuff).
 						clearAll();
 					}
-					if (retrievedExtensionDocument != RETRIEVED_FULL_DOCUMENT)
+					boolean firstTime = false;
+					if (retrievedExtensionDocument != RETRIEVED_FULL_DOCUMENT) {
+						firstTime = true;	// If we need to apply the extension doc, then this is the first time.
 						applyExtensionDocument(false); // Apply the extension doc before we do anything.
-					BeanDecorator decor = Utilities.getBeanDecorator(getJavaClass());
-					if (decor == null || decor.isDoBeaninfo()) {
-						IBeanTypeProxy targetType = null;
-						TimerTests.basicTest.startCumulativeStep(REMOTE_INTROSPECT);							
-						ProxyFactoryRegistry registry = getRegistry();
-						if (registry != null && registry.isValid())
-							targetType =
-								registry.getBeanTypeProxyFactory().getBeanTypeProxy(getJavaClass().getQualifiedNameForReflection());
-						if (targetType != null) {
-							if (targetType.getInitializationError() == null) {
-								// If an exception is thrown, treat this as no proxy, however log it because we
-								// shouldn't have exceptions during introspection, but if we do it should be logged
-								// so it can be corrected.
+					}
+
+					// Now check to see if we can use the cache.
+					boolean doIntrospection = true;
+					if (firstTime) {
+						// Check if we can use the cache. Use Max value so that first level test (ourself) will always pass and go on to the supers.
+						if (canUseCache()) {
+							TimerTests.basicTest.startCumulativeStep(LOAD_FROM_CACHE);
+							// We can use the cache.
+							Resource cres = BeanInfoCacheController.INSTANCE.getCache(getJavaClass(), classEntry, true);
+							if (cres != null) {
 								try {
-									beaninfo =
-										getProxyConstants().getIntrospectProxy().invoke(
-											null,
-											new IBeanProxy[] { targetType, getRegistry().getBeanProxyFactory().createBeanProxyWith(false)});
-								} catch (ThrowableProxy e) {
-									BeaninfoPlugin.getPlugin().getLogger().log(
-										new Status(
-											IStatus.WARNING,
-											BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
-											0,
-											MessageFormat.format(
-												BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
-												new Object[] { getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
-											e));
+									// Got a cache to use, now apply it.
+									for (Iterator cds = cres.getContents().iterator(); cds.hasNext();) {
+										ChangeDescription cacheCD = (ChangeDescription) cds.next();
+										cacheCD.apply();
+									}
+									doIntrospection = false;
+								} catch (RuntimeException e) {
+									BeaninfoPlugin.getPlugin().getLogger().log(e);
+								} finally {
+									// Remove the cres since it is now invalid. The applies cause them to be invalid.
+									cres.getResourceSet().getResources().remove(cres);
+									if (doIntrospection) {
+										// Apply had failed. We don't know how far it went. We need to wipe out and reget EVERYTHING.
+										clearAll();
+										applyExtensionDocument(false); // Re-apply the extension doc before we do anything else.
+									}
 								}
-							} else {
-								// The class itself couldn't be initialized. Just log it, but treat as no proxy.
-								BeaninfoPlugin.getPlugin().getLogger().log(
-									new Status(
-										IStatus.WARNING,
-										BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
-										0,
-										MessageFormat.format(
-											BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
-											new Object[] { getJavaClass().getJavaName(), targetType.getInitializationError()}),
-										null));
 							}
-						} else {
-							// The class itself could not be found. Just log it, but treat as no proxy.
-							BeaninfoPlugin.getPlugin().getLogger().log(
-								new Status(
-									IStatus.INFO,
-									BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(),
-									0,
-									MessageFormat.format(
-										BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED),
-										new Object[] { getJavaClass().getJavaName(), BeanInfoAdapterMessages.getString("BeaninfoClassAdapter.ClassNotFound")}), //$NON-NLS-1$
-									null));
+							TimerTests.basicTest.stopCumulativeStep(LOAD_FROM_CACHE);
 						}
 					}
-					calculateBeanDescriptor(decor);
-					hasIntrospected = true;
-					TimerTests.basicTest.stopCumulativeStep(REMOTE_INTROSPECT);					
+					
+					if (doIntrospection) {
+						// Finally we can get to handling ourselves.
+						BeanDecorator decor = Utilities.getBeanDecorator(getJavaClass());
+						if (decor == null || decor.isDoBeaninfo()) {
+							IBeanTypeProxy targetType = null;
+							TimerTests.basicTest.startCumulativeStep(REMOTE_INTROSPECT);
+							ProxyFactoryRegistry registry = getRegistry();
+							if (registry != null && registry.isValid())
+								targetType = registry.getBeanTypeProxyFactory().getBeanTypeProxy(getJavaClass().getQualifiedNameForReflection());
+							if (targetType != null) {
+								if (targetType.getInitializationError() == null) {
+									// If an exception is thrown, treat this as no proxy, however log it because we
+									// shouldn't have exceptions during introspection, but if we do it should be logged
+									// so it can be corrected.
+									try {
+										beaninfo = getProxyConstants().getIntrospectProxy().invoke(null,
+												new IBeanProxy[] { targetType, getRegistry().getBeanProxyFactory().createBeanProxyWith(false)});
+									} catch (ThrowableProxy e) {
+										BeaninfoPlugin.getPlugin().getLogger().log(
+												new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,
+														MessageFormat.format(BeanInfoAdapterMessages
+																.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
+																getJavaClass().getJavaName(), ""}), //$NON-NLS-1$
+														e));
+									}
+								} else {
+									// The class itself couldn't be initialized. Just log it, but treat as no proxy.
+									BeaninfoPlugin.getPlugin().getLogger()
+											.log(
+													new Status(IStatus.WARNING, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0,
+															MessageFormat.format(BeanInfoAdapterMessages
+																	.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
+																	getJavaClass().getJavaName(), targetType.getInitializationError()}), null));
+								}
+							} else {
+								// The class itself could not be found. Just log it, but treat as no proxy.
+								BeaninfoPlugin.getPlugin().getLogger().log(
+										new Status(IStatus.INFO, BeaninfoPlugin.getPlugin().getBundle().getSymbolicName(), 0, MessageFormat.format(
+												BeanInfoAdapterMessages.getString(BeanInfoAdapterMessages.INTROSPECTFAILED), new Object[] {
+														getJavaClass().getJavaName(),
+														BeanInfoAdapterMessages.getString("BeaninfoClassAdapter.ClassNotFound")}), //$NON-NLS-1$
+												null));
+							}
+						}
+						ChangeDescription cd = ChangeFactory.eINSTANCE.createChangeDescription();
+						calculateBeanDescriptor(decor, beaninfo, cd);
+
+						// We can now build the change cache.
+						// First force complete introspection so we get everything loaded. Then we can build the cache.
+						introspectProperties(beaninfo, cd);
+						if (doOperations)
+							introspectOperations(beaninfo, cd);
+						introspectEvents(beaninfo, cd);
+
+						classEntry = BeanInfoCacheController.INSTANCE.newCache(getJavaClass(), cd, doOperations ? BeanInfoCacheController.REFLECTION_OPERATIONS_CACHE : BeanInfoCacheController.REFLECTION_CACHE);
+						TimerTests.basicTest.stopCumulativeStep(REMOTE_INTROSPECT); 
+					}					
 				}
 				getAdapterFactory().registerIntrospection(getJavaClass().getQualifiedNameForReflection(), this);
+				TimerTests.basicTest.stopCumulativeStep(INTROSPECT);
 			}
 		} finally {
-			isIntrospecting = false;
+			if (beaninfo != null) {
+				beaninfo.getProxyFactoryRegistry().releaseProxy(beaninfo); // Dispose of the beaninfo since we now have everything.
+			}
+
 		}
 	}
+	
 
 	private static final String ROOT_OVERRIDE = BeaninfoPlugin.ROOT+BeaninfoPlugin.OVERRIDE_EXTENSION;	 //$NON-NLS-1$
 	
 	protected void applyExtensionDocument(boolean rootOnly) {
 		try {
 			TimerTests.basicTest.startCumulativeStep(APPLY_EXTENSIONS);
+			boolean canUseCache = !rootOnly && canUseOverrideCache();
 			boolean alreadyRetrievedRoot = retrievedExtensionDocument == RETRIEVED_ROOT_ONLY;
 			retrievedExtensionDocument = rootOnly ? RETRIEVED_ROOT_ONLY : RETRIEVED_FULL_DOCUMENT;
 			JavaClass jc = getJavaClass();
 			Resource mergeIntoResource = jc.eResource();
 			ResourceSet rset = mergeIntoResource.getResourceSet();
-			String className = getJavaClass().getName();
-			getRegistry();	// Need to have a registry to get override paths initialized correctly. There is a possibility that overrides asked before any registry created.
+			String className = jc.getName();
+			if (canUseCache) {
+				// We can use the cache, see if we actually have one.
+				if (getClassEntry().overrideCacheExists()) {
+					// Get the cache and apply it before anything else.
+					Resource cacheRes = BeanInfoCacheController.INSTANCE.getCache(jc, getClassEntry(), false);
+					if (cacheRes != null) {
+						try {
+							EventUtil util = EventFactory.eINSTANCE.createEventUtil(jc, rset);
+							util.doForwardEvents(cacheRes.getContents());
+						} catch (WrappedException e) {
+							BeaninfoPlugin.getPlugin().getLogger().log(
+									new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0,
+											"Error processing file\"" + cacheRes.getURI() + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+						} finally {
+							cacheRes.getResourceSet().getResources().remove(cacheRes); // We don't need it around once we do the merge. Normal merge would of gotton rid of it, but in case of error we do it here.
+						}
+					} else
+						canUseCache = false; // Need to rebuild the cache.
+				}
+			}
+			List overrideCache = null;
 			if (!alreadyRetrievedRoot && (rootOnly || jc.getSupertype() == null)) {
 				// It is a root class. Need to merge in root stuff.
+				if (!canUseCache && !rootOnly) {
+					overrideCache = createOverrideCache(overrideCache, getAdapterFactory().getProject(), BeaninfoPlugin.ROOT, ROOT_OVERRIDE, rset, jc);
+				}
 				applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, BeaninfoPlugin.ROOT, BeaninfoPlugin.ROOT);
 				if (rootOnly)
 					return;
 			}
 
 			String baseOverridefile = className + BeaninfoPlugin.OVERRIDE_EXTENSION; // getName() returns inner classes with "$" notation, which is good. //$NON-NLS-1$
-			applyExtensionDocTo(rset, jc, baseOverridefile, getJavaClass().getJavaPackage().getPackageName(), className);
+			String packageName = jc.getJavaPackage().getPackageName();
+			if (!canUseCache) {
+				overrideCache = createOverrideCache(overrideCache, getAdapterFactory().getProject(), packageName, baseOverridefile, rset, jc);
+			}
+			applyExtensionDocTo(rset, jc, baseOverridefile, packageName, className);
+			
+			if (!canUseCache) {
+				// We have an override cache to store. If the cache is null, this will flag that there is no override cache for the current configuration. That way we won't bother trying again until config changes.
+				BeanInfoCacheController.INSTANCE.newCache(jc, overrideCache, BeanInfoCacheController.OVERRIDES_CACHE);
+			}
+			
 		} finally {
 			TimerTests.basicTest.stopCumulativeStep(APPLY_EXTENSIONS);	
 		}
 	}
 	
-	protected void applyExtensionDocTo(final ResourceSet rset, final JavaClass mergeIntoJavaClass, final String overrideFile, String packageName, String className) {
+	/*
+	 * Build up the fixed overrides into the cache, and apply as we gather them.
+	 * Return the cache or null if the cache is empty at the end.
+	 */
+	private List createOverrideCache(List cache, IProject project, String packageName, String overrideFile, ResourceSet rset, JavaClass mergeIntoJavaClass) {
+		// Now get the overrides paths
+		String[] paths = BeaninfoPlugin.getPlugin().getOverridePaths(project, packageName);
+		if (paths.length == 0)
+			return cache;
+		
+		// Now apply the overrides.
+		if (cache == null)
+			cache = new ArrayList();
+		BeaninfoPlugin.IOverrideRunnable runnable = new ExtensionDocApplies(overrideFile, rset, mergeIntoJavaClass, cache);
+		for (int i = 0; i < paths.length; i++) {
+			runnable.run(paths[i]);
+		}
+		return !cache.isEmpty() ? cache : null;
+	}
+	
+	private class ExtensionDocApplies implements BeaninfoPlugin.IOverrideRunnable {
+		
+		private final String overrideFile;
+		private final ResourceSet rset;
+		private final JavaClass mergeIntoJavaClass;
+		private final List overridesCache;
+
+		public ExtensionDocApplies(String overrideFile, ResourceSet rset, JavaClass mergeIntoJavaClass, List overridesCache) {
+			this.overrideFile = overrideFile;
+			this.rset = rset;
+			this.mergeIntoJavaClass = mergeIntoJavaClass;
+			this.overridesCache = overridesCache;
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IOverrideRunnable#run(java.lang.String)
+		 */
+		public void run(String overridePath) {
+			Resource overrideRes = null;
+			URI uri = URI.createURI(overridePath+overrideFile);
+			try {
+				overrideRes = rset.getResource(uri, true);
+				run(overrideRes);
+			} catch (WrappedException e) {
+				// FileNotFoundException is ok
+				if (!(e.exception() instanceof FileNotFoundException)) {
+					if (e.exception() instanceof CoreException
+						&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
+						// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
+					} else {
+						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+					}
+				}
+				// In case it happened after creating resource but during load. Need to get rid of it in the finally.	
+				overrideRes = rset.getResource(uri, false);				
+			} catch (Exception e) {
+				// Couldn't load it for some reason.
+				BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
+				overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load so that we can get rid of it.
+			} finally {
+				if (overrideRes != null)
+					rset.getResources().remove(overrideRes); // We don't need it around once we do the merge. Normal merge would of gotton rid of it, but in case of error we do it here.
+			}
+		}
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IOverrideRunnable#run(org.eclipse.emf.ecore.resource.Resource)
+		 */
+		public void run(Resource overrideRes) {
+			try {
+				if (overridesCache != null)
+					overridesCache.addAll(EcoreUtil.copyAll(overrideRes.getContents()));	// Make a copy for the override cache to be used next time needed.
+				EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoJavaClass, rset);
+				util.doForwardEvents(overrideRes.getContents());
+			} catch (WrappedException e) {
+				BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error processing file\"" + overrideRes.getURI() + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+			}
+		}
+	}
+	protected void applyExtensionDocTo(ResourceSet rset, JavaClass mergeIntoJavaClass, String overrideFile, String packageName, String className) {
 		BeaninfoPlugin.getPlugin().applyOverrides(getAdapterFactory().getProject(), packageName, className, mergeIntoJavaClass, rset, 
-			new BeaninfoPlugin.IOverrideRunnable() {
-				/* (non-Javadoc)
-				 * @see org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IOverrideRunnable#run(java.lang.String)
-				 */
-				public void run(String overridePath) {
-					Resource overrideRes = null;
-					URI uri = URI.createURI(overridePath+overrideFile);
-					try {
-						overrideRes = rset.getResource(uri, true);
-						run(overrideRes);
-					} catch (WrappedException e) {
-						// FileNotFoundException is ok
-						if (!(e.exception() instanceof FileNotFoundException)) {
-							if (e.exception() instanceof CoreException
-								&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
-								// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
-							} else {
-								BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
-							}
-						}
-						// In case it happened after creating resource but during load. Need to get rid of it in the finally.	
-						overrideRes = rset.getResource(uri, false);				
-					} catch (Exception e) {
-						// Couldn't load it for some reason.
-						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error loading file\"" + overridePath + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
-						overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load so that we can get rid of it.
-					} finally {
-						if (overrideRes != null)
-							rset.getResources().remove(overrideRes); // We don't need it around once we do the merge. Normal merge would of gotton rid of it, but in case of error we do it here.
-					}
-				}
-				
-				/* (non-Javadoc)
-				 * @see org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin.IOverrideRunnable#run(org.eclipse.emf.ecore.resource.Resource)
-				 */
-				public void run(Resource overrideRes) {
-					try {
-						EventUtil util = EventFactory.eINSTANCE.createEventUtil(mergeIntoJavaClass, rset);
-						util.doForwardEvents(overrideRes.getContents());
-					} catch (WrappedException e) {
-						BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO_PLUGINID, 0, "Error processing file\"" + overrideRes.getURI() + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
-					}
-				}
-			});
+			new ExtensionDocApplies(overrideFile, rset, mergeIntoJavaClass, null));
 	}
 
 	/**
@@ -602,7 +945,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 * @see org.eclipse.jem.java.beaninfo.IIntrospectionAdapter#getEStructuralFeatures()
 	 */
 	public EList getEStructuralFeatures() {
-		introspectProperties();
+		introspectIfNecessary();
 		return getJavaClass().getEStructuralFeaturesInternal();
 	}
 	
@@ -617,7 +960,15 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 * @see org.eclipse.jem.java.beaninfo.IIntrospectionAdapter#getEOperations()
 	 */
 	public EList getEOperations() {
-		return introspectOperations();
+		if (getClassEntry() != null && getClassEntry().isOperationsStored())
+			introspectIfNecessary();	// Already stored, just do if necessary.
+		else {
+			synchronized (this) {
+				needsIntrospection = true;	// Force reintrospection because we either aren't storing operations, or have never loaded.
+			}
+			introspectIfNecessary(true);	// But force the operations now.
+		}
+		return getJavaClass().getEOperationsInternal();
 	}
 	
 	/**
@@ -631,7 +982,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 * @see org.eclipse.jem.java.beaninfo.IIntrospectionAdapter#getEvents()
 	 */
 	public EList getEvents() {
-		return introspectEvents();
+		introspectIfNecessary();
+		return getJavaClass().getEventsGen();
 	}
 	
 	/**
@@ -643,8 +995,10 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 	/**
 	 * Fill in the BeanDescriptorDecorator.
+	 * @param beaninfo 
+	 * @param cd TODO
 	 */
-	protected void calculateBeanDescriptor(BeanDecorator decor) {
+	protected void calculateBeanDescriptor(BeanDecorator decor, IBeanProxy beaninfo, ChangeDescription cd) {
 		// If there already is one, then we
 		// will use it. This allows merging with beanfinfo.
 		// If this was an implicit one left over from a previous introspection before going stale,
@@ -652,102 +1006,101 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 		if (decor == null) {
 			decor = BeaninfoFactory.eINSTANCE.createBeanDecorator();
-			decor.setImplicitlyCreated(BeanDecorator.IMPLICIT_DECORATOR);
+			decor.setImplicitDecoratorFlag(ImplicitItem.IMPLICIT_DECORATOR_LITERAL);
 			getJavaClass().getEAnnotations().add(decor);
-		}
+		} else
+			BeanInfoDecoratorUtility.clear(decor);	// Clear out previous results.
 
-		if (beaninfo != null && decor.isMergeIntrospection()) {
-			decor.setDescriptorProxy(getProxyConstants().getBeanDescriptorProxy().invokeCatchThrowableExceptions(beaninfo));
-			decor.setMergeSuperPropertiesProxy(
-				((IBooleanBeanProxy) getProxyConstants().getIsMergeInheritedPropertiesProxy().invokeCatchThrowableExceptions(beaninfo))
-					.getBooleanValue());
-			decor.setMergeSuperBehaviorsProxy(
-				((IBooleanBeanProxy) getProxyConstants().getIsMergeInheritedMethodsProxy().invokeCatchThrowableExceptions(beaninfo))
-					.getBooleanValue());
-			decor.setMergeSuperEventsProxy(
-				((IBooleanBeanProxy) getProxyConstants().getIsMergeInheritedEventsProxy().invokeCatchThrowableExceptions(beaninfo))
-					.getBooleanValue());					
-		} else {
-			decor.setDescriptorProxy(null);
-			decor.setMergeSuperEventsProxy(null);
-			decor.setMergeSuperPropertiesProxy(null);
-			decor.setMergeSuperBehaviorsProxy(null);
+		if (decor.isMergeIntrospection())
+			if (beaninfo != null)
+				BeanInfoDecoratorUtility.introspect(decor, beaninfo);
+			else
+				BeanInfoDecoratorUtility.clear(decor);	// For reflection, just clear it. Nothing else is set.
+		
+		if (cd != null) {
+			// We have a ChangeDescription, which means we need to build the cache.
+			BeanInfoDecoratorUtility.buildChange(cd, decor);
 		}
-		decor.setDecoratorProxy(null);
 	}
 
-	/**
-	 * introspect the Properties
+	/*
+	 * Should only be called from introspect so that flags are correct.
 	 */
-	protected void introspectProperties() {
-		introspectIfNecessary();
-		if (!isIntrospecting && !isIntrospectingProperties && !hasIntrospectedProperties) {
-			isIntrospectingProperties = true;
-			try {
-				if (isResourceConnected()) {
-					BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-					if (bd == null || bd.isIntrospectProperties()) {
-						// bd wants properties to be introspected/reflected
-						if (beaninfo != null) {
-							TimerTests.basicTest.startCumulativeStep(INTROSPECT_PROPERTIES);							
-							IArrayBeanProxy props =
-								(IArrayBeanProxy) getProxyConstants().getPropertyDescriptorsProxy().invokeCatchThrowableExceptions(
-									beaninfo);
-							if (props != null) {
-								int propSize = props.getLength();
-								for (int i = 0; i < propSize; i++)
-									calculateProperty(props.getCatchThrowableException(i));
+	private void introspectProperties(IBeanProxy beaninfo, ChangeDescription cd) {
+		try {
+			if (isResourceConnected()) {
+				BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
+				if (bd == null || bd.isIntrospectProperties()) {
+					// bd wants properties to be introspected/reflected
+					if (beaninfo != null) {
+						TimerTests.basicTest.startCumulativeStep(INTROSPECT_PROPERTIES);
+						BeanInfoDecoratorUtility.introspect(new BeanInfoDecoratorUtility.PropertyCallBack() {
+
+							/* (non-Javadoc)
+							 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.PropertyCallBack#process(org.eclipse.jem.internal.beaninfo.common.PropertyRecord)
+							 */
+							public PropertyDecorator process(PropertyRecord record) {
+								return calculateProperty(record, false);
 							}
-							TimerTests.basicTest.stopCumulativeStep(INTROSPECT_PROPERTIES);							
-						} else
-							reflectProperties(); // No beaninfo, so use reflection to create properties
-					}
 
-					// Now go through the list and remove those that should be removed, and set the etype for those that don't have it set.
-					Map oldLocals = getPropertiesMap();
-					Iterator itr = getFeaturesList().iterator();
-					while (itr.hasNext()) {
-						EStructuralFeature a = (EStructuralFeature) itr.next();
-						PropertyDecorator p = Utilities.getPropertyDecorator(a);
-						Object aOld = oldLocals.get(a.getName());
-						if (aOld != null && aOld != Boolean.FALSE) {
-							// A candidate for removal. It was in the old list and it was not processed.
-							if (p != null) {
-								int implicit = p.isImplicitlyCreated();
-								if (implicit != PropertyDecorator.NOT_IMPLICIT) {
-									p.setEModelElement(null); // Remove from the feature;
-									((InternalEObject) p).eSetProxyURI(BAD_URI);
-									// Mark it as bad proxy so we know it is no longer any use.
-									p = null;
-								}
+							/* (non-Javadoc)
+							 * @see org.eclipse.jem.internal.beaninfo.adapters.BeanInfoDecoratorUtility.PropertyCallBack#process(org.eclipse.jem.internal.beaninfo.common.IndexedPropertyRecord)
+							 */
+							public PropertyDecorator process(IndexedPropertyRecord record) {
+								return calculateProperty(record, true);
+							}
+						}, beaninfo);
+						TimerTests.basicTest.stopCumulativeStep(INTROSPECT_PROPERTIES);							
+					} else
+						reflectProperties(); // No beaninfo, so use reflection to create properties
+				}
 
-								if (implicit == PropertyDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
+				// Now go through the list and remove those that should be removed, and set the etype for those that don't have it set.
+				Map oldLocals = getPropertiesMap();
+				Iterator itr = getFeaturesList().iterator();
+				while (itr.hasNext()) {
+					EStructuralFeature a = (EStructuralFeature) itr.next();
+					PropertyDecorator p = Utilities.getPropertyDecorator(a);
+					Object aOld = oldLocals.get(a.getName());
+					if (aOld != null && aOld != Boolean.FALSE) {
+						// A candidate for removal. It was in the old list and it was not processed.
+						if (p != null) {
+							ImplicitItem implicit = p.getImplicitDecoratorFlag();
+							if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
+								p.setEModelElement(null); // Remove from the feature;
+								((InternalEObject) p).eSetProxyURI(BAD_URI);
+								// Mark it as bad proxy so we know it is no longer any use.
+								p = null;
+								if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
 									itr.remove(); // Remove it, this was implicitly created and not processed this time.
-									((InternalEObject) a).eSetProxyURI(BAD_URI);
-									// Mark it as bad proxy so we know it is no longer any use.
+									((InternalEObject) a).eSetProxyURI(BAD_URI);	// Mark it as bad proxy so we know it is no longer any use.
 									continue;
 								}
+								// Need to go on because we need to check the eType to make sure it is set. At this point we have no decorator but we still have a feature.
 							}
 						}
-						
-						// [79083] Also check for eType not set, and if it is, set it to EObject type. That way it will be valid, but not valid as 
-						// a bean setting.
-						if (a.getEType() == null) {
-							// Set it to EObject type. If it becomes valid later (through the class being changed), then the introspect/reflect
-							// will set it to the correct type.
-							a.setEType(EcorePackage.eINSTANCE.getEObject());
-							Logger logger = BeaninfoPlugin.getPlugin().getLogger();
-							if (logger.isLoggingLevel(Level.WARNING))
-								logger.logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
-						}
+					}
+					
+					// [79083] Also check for eType not set, and if it is, set it to EObject type. That way it will be valid, but not valid as 
+					// a bean setting.
+					if (a.getEType() == null) {
+						// Set it to EObject type. If it becomes valid later (through the class being changed), then the introspect/reflect
+						// will set it to the correct type.
+						a.setEType(EcorePackage.eINSTANCE.getEObject());
+						Logger logger = BeaninfoPlugin.getPlugin().getLogger();
+						if (logger.isLoggingLevel(Level.WARNING))
+							logger.logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
+					}
+					
+					if (p != null && cd != null) {
+						// Now create the appropriate cache entry for this property.
+						BeanInfoDecoratorUtility.buildChange(cd, p);
 					}
 				}
-				hasIntrospectedProperties = true;
-			} finally {
-				isIntrospectingProperties = false;
-				propertiesMap = null; // Get rid of accumulated map.
-				featuresRealList = null; // Release the real list.
 			}
+		} finally {
+			propertiesMap = null; // Get rid of accumulated map.
+			featuresRealList = null; // Release the real list.
 		}
 	}
 
@@ -776,8 +1129,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			}
 
 		};
-		if (!isIntrospecting && !isDoingAllProperties && isResourceConnected()) {
-			isDoingAllProperties = true;
+		boolean doAllProperties = false;
+		synchronized(this) {
+			// If we are introspecting, don't do all properties because it is an invalid list. Just return empty without reseting the all modified flag.
+			doAllProperties = !isDoingAllProperties && !isIntrospecting && isResourceConnected();
+			if (doAllProperties)
+				isDoingAllProperties = true;
+		}
+		if (doAllProperties) {
 			try {
 				EList localProperties = getJavaClass().getProperties();
 				// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
@@ -805,47 +1164,33 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							for (int i1 = 0; i1 < len; i1++) {
 								EStructuralFeature p = (EStructuralFeature) supers.get(i1);
 								PropertyDecorator pd = Utilities.getPropertyDecorator(p);
-								if ( pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()))
+								if ( pd == null || (pd.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL && !pd.isMergeIntrospection()))
 									workingAllProperties.add(p);
 							}
 						}
 					} else {
 						// We want to merge all.					
-						if (beaninfo != null) {
-							// BeanInfo has given us the merge list. If the list is empty, then we accept all.
-							IArrayBeanProxy superNames = (IArrayBeanProxy) getProxyConstants().getInheritedPropertyDescriptorsProxy().invokeCatchThrowableExceptions(beaninfo);
-							if (superNames != null) {
-								// We were given a list of names.
-								// Get the names into a set to create a quick lookup.
-								int l = superNames.getLength();
-								HashSet superSet = new HashSet(l);
-								for (int i = 0; i < l; i++) {
-									superSet.add(((IStringBeanProxy) superNames.getCatchThrowableException(i)).stringValue());
-								}
-								
-								// Now walk and add in non-bean properties (and bean properties that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
-								// and those specifically called out by BeanInfo.
-								int lenST = superTypes.size();
-								for (int i=0; i<lenST; i++) {
-									List supers = ((JavaClass) superTypes.get(i)).getAllProperties();
-									int len = supers.size();
-									for (int i1 = 0; i1 < len; i1++) {
-										EStructuralFeature p = (EStructuralFeature) supers.get(i1);
-										PropertyDecorator pd = Utilities.getPropertyDecorator(p);
-										if (pd == null || (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !pd.isMergeIntrospection()) || superSet.contains(pd.getName()))
-											workingAllProperties.add(p);
-									}
-								}
-							} else {
-								// BeanInfo called out that all super properties are good
-								int lenST = superTypes.size();
-								for (int i=0; i<lenST; i++) {
-									workingAllProperties.addAll(((JavaClass) superTypes.get(i)).getAllProperties());
+						// BeanInfo could of given us the not merge list. If the list is empty, then we accept all.
+						if (bd != null && bd.eIsSet(BeaninfoPackage.eINSTANCE.getBeanDecorator_NotInheritedPropertyNames())) {
+							// We were given a list of names.
+							// Get the names into a set to create a quick lookup.
+							HashSet superSet = new HashSet(bd.getNotInheritedPropertyNames());
+							
+							// Now walk and add in non-bean properties (and bean properties that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
+							// and add those not specifically called out by BeanInfo in the not inherited list.
+							int lenST = superTypes.size();
+							for (int i=0; i<lenST; i++) {
+								List supers = ((JavaClass) superTypes.get(i)).getAllProperties();
+								int len = supers.size();
+								for (int i1 = 0; i1 < len; i1++) {
+									EStructuralFeature p = (EStructuralFeature) supers.get(i1);
+									PropertyDecorator pd = Utilities.getPropertyDecorator(p);
+									if (pd == null || (pd.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL && !pd.isMergeIntrospection()) || !superSet.contains(pd.getName()))
+										workingAllProperties.add(p);
 								}
 							}
 						} else {
-							// We don't have a BeanInfo telling us how to merge. This means we're reflecting and have prevented
-							// dups. So we accept all supers.
+							// BeanInfo (or reflection always does this) called out that all super properties are good
 							int lenST = superTypes.size();
 							for (int i=0; i<lenST; i++) {
 								workingAllProperties.addAll(((JavaClass) superTypes.get(i)).getAllProperties());
@@ -858,56 +1203,54 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				allProperties.addAll(localProperties);				
 				superAdapter.setAllPropertiesCollectionModified(false); // Now built, so reset to not changed.
 			} finally {
-				isDoingAllProperties = false;
-			}
-		}
-
-		allProperties.shrink();
-		return new EcoreEList.UnmodifiableEList(
-			getJavaClass(),
-			null,
-			allProperties.size(),
-			allProperties.data());
-	}
-
-	/**
-	 * Fill in the property and its decorator using the propDesc.
-	 */
-	protected void calculateProperty(IBeanProxy propDesc) {
-		// See if this is an indexed property. If it is, then a few fields will not be set in here, but
-		// will instead be set by the calculateIndexedProperty, which will be called.
-		boolean indexed = propDesc.getProxyFactoryRegistry().getBeanTypeProxyFactory().getBeanTypeProxy("java.beans.IndexedPropertyDescriptor").equals(propDesc.getTypeProxy()); //$NON-NLS-1$
-		String name = ((IStringBeanProxy) getProxyConstants().getNameProxy().invokeCatchThrowableExceptions(propDesc)).stringValue();
-		boolean changeable;
-		EClassifier type = null;
-
-		changeable = getProxyConstants().getWriteMethodProxy().invokeCatchThrowableExceptions(propDesc) != null;
-		IBeanTypeProxy typeProxy = (IBeanTypeProxy) getProxyConstants().getPropertyTypeProxy().invokeCatchThrowableExceptions(propDesc);
-		if (typeProxy != null)
-			type = Utilities.getJavaClass(typeProxy, getJavaClass().eResource().getResourceSet());
-
-		if (indexed) {
-			// If no array write method found, then see if there is an indexed write method. If there is, then it is changable.
-			if (!changeable)
-				changeable = getProxyConstants().getIndexedWriteMethodProxy().invokeCatchThrowableExceptions(propDesc) != null;
-			if (typeProxy == null) {
-				// If no array type proxy from above, create one from the indexed type proxy.
-				typeProxy = (IBeanTypeProxy) getProxyConstants().getIndexedPropertyTypeProxy().invokeCatchThrowableExceptions(propDesc);
-				if (typeProxy != null) {
-					typeProxy = typeProxy.getProxyFactoryRegistry().getBeanTypeProxyFactory().getBeanTypeProxy(typeProxy.getTypeName(), 1);
-					type = Utilities.getJavaClass(typeProxy, getJavaClass().eResource().getResourceSet());
+				synchronized(this) {
+					isDoingAllProperties = false;
 				}
 			}
 		}
 
+		if (!allProperties.isEmpty()) {
+			allProperties.shrink();
+			return new EcoreEList.UnmodifiableEList(
+				getJavaClass(),
+				null,
+				allProperties.size(),
+				allProperties.data());
+		} else
+			return ECollections.EMPTY_ELIST;
+	}
+
+	/*
+	 * Fill in the property using the prop record. If this one that should have merging done, then
+	 * return the PropertyDecorator so that it can have the PropertyRecord merged into it. Else
+	 * return null if no merging.
+	 */
+	protected PropertyDecorator calculateProperty(PropertyRecord pr, boolean indexed) {
+		// If this is an indexed property, then a few fields will not be set in here, but
+		// will instead be set by the calculateIndexedProperty, which will be called.
+		boolean changeable = pr.writeMethod != null;
+		JavaHelpers type = pr.propertyTypeName != null ? Utilities.getJavaType(MapJNITypes.getFormalTypeName(pr.propertyTypeName), getJavaClass().eResource().getResourceSet()) : null;
+
+		if (indexed) {
+			// If no array write method found, then see if there is an indexed write method. If there is, then it is changable.
+			if (!changeable)
+				changeable = ((IndexedPropertyRecord) pr).indexedWriteMethod != null;
+			if (type == null) {
+				// If no array type from above, create one from the indexed type proxy. Add '[]' to turn it into an array.
+				type = Utilities.getJavaType(MapJNITypes.getFormalTypeName(((IndexedPropertyRecord) pr).indexedPropertyTypeName)+"[]", getJavaClass().eResource().getResourceSet());
+			}
+		}
+
 		if (type != null)
-			createProperty(name, indexed, changeable, type, propDesc); // A valid property descriptor.
+			return createProperty(pr.name, indexed, changeable, type); // A valid property descriptor.
+		else
+			return null;
 	}
 
 	/**
 	 * Fill in the property and its decorator using the passed in information.
 	 */
-	public PropertyDecorator createProperty(String name, boolean indexed, boolean changeable, EClassifier type, IBeanProxy propDesc) {
+	protected PropertyDecorator createProperty(String name, boolean indexed, boolean changeable, EClassifier type) {
 		// First find if there is already a property of this name, and if there is, is the PropertyDecorator
 		// marked to not allow merging in of introspection results.		
 		HashMap existingLocals = getPropertiesMap();
@@ -939,39 +1282,35 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// been set by a previous reflection which has now become introspected.
 		// When reflected we set the actual fields instead of the letting proxy determine them.
 		if (pd != null) {
-			if (pd.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT) {
+			if (pd.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL) {
 				// We can't change the type for explicit.
 				indexed = pd instanceof IndexedPropertyDecorator;
 			} else {
 				if ((indexed && !(pd instanceof IndexedPropertyDecorator)) || (!indexed && pd instanceof IndexedPropertyDecorator)) {
+					// It is implicit and of a different type, so just get rid of it and let it be recreated correctly.
 					prop.getEAnnotations().remove(pd);
 					pd = null;
-				} else {
-					// It is implicit and could of been reflected, so clear the explict sets.
-					pd.unsetBound();
-					pd.unsetConstrained();
-					pd.eUnset(BeaninfoPackage.eINSTANCE.getPropertyDecorator_ReadMethod());
-					pd.eUnset(BeaninfoPackage.eINSTANCE.getPropertyDecorator_WriteMethod());
-					if (pd instanceof IndexedPropertyDecorator) {
-						pd.eUnset(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedReadMethod());
-						pd.eUnset(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedWriteMethod());
-					}
 				}
 			}
+			if (pd != null)
+				if (indexed)
+					BeanInfoDecoratorUtility.clear((IndexedPropertyDecorator) pd);
+				else
+					BeanInfoDecoratorUtility.clear(pd);
 		}
 
-		int implicit = pd == null ? FeatureDecorator.IMPLICIT_DECORATOR : pd.isImplicitlyCreated();
+		ImplicitItem implicit = pd == null ? ImplicitItem.IMPLICIT_DECORATOR_LITERAL : pd.getImplicitDecoratorFlag();
 		if (prop == null) {
 			// We will create a new property.
 			// We can't have an implicit feature, but an explicit decorator.
 			getFeaturesList().add(prop = EcoreFactory.eINSTANCE.createEReference());
-			implicit = FeatureDecorator.IMPLICIT_DECORATOR_AND_FEATURE;
+			implicit = ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL;
 		}
 
 		// Now fill it in. Normal id for an attribute is "classname.attributename" but we can't use that
 		// for us because that format is used by Java Core for a field and there would be confusion.
 		// So we will use '/' instead.
-		 ((XMIResource) prop.eResource()).setID(prop, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.FEATURE + name);
+		((XMIResource) prop.eResource()).setID(prop, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.FEATURE + name);
 		prop.setName(name);
 		prop.setTransient(false);
 		prop.setVolatile(false);
@@ -981,7 +1320,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// false because ECore has not made containment/unsettable an unsettable feature. So we need to instead use the algorithm of if we here 
 		// created the feature, then we will by default set it to containment/unsettable. If it was created through diff merge, then
 		// we will leave it alone. It is the responsibility of the merge file writer to set containment/unsettable correctly.
-		if (implicit == FeatureDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
+		if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
 			prop.setUnsettable(true);
 		}
 		prop.setEType(type);
@@ -1002,19 +1341,17 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				(!indexed)
 					? BeaninfoFactory.eINSTANCE.createPropertyDecorator()
 					: BeaninfoFactory.eINSTANCE.createIndexedPropertyDecorator();
-			pd.setImplicitlyCreated(implicit);
+			pd.setImplicitDecoratorFlag(implicit);
 			prop.getEAnnotations().add(pd);
 		}
-		pd.setDescriptorProxy(propDesc);
-		pd.setDecoratorProxy(null);
 		return pd;
 	}
 
-	/**
+	/*
 	 * Reflect the properties. This requires going through local methods and matching them up to
 	 * see if they are properties.
 	 */
-	protected void reflectProperties() {
+	private void reflectProperties() {
 		// If we are set to mergeSuperTypeProperties, then we need to get the super properties.
 		// This is so that duplicate any from super that we find here. When reflecting we don't
 		// allow discovered duplicates unless they are different types.
@@ -1040,9 +1377,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						supers.add(sf.getName());
 					}
 				}
-				// Kludge: The above requests for super properties could of caused a recycle (in case the super
-				// was stale). Because of this we need to reintrospect to mark ourselves as not stale.
-				introspectIfNecessary();
 			}
 		}
 
@@ -1069,8 +1403,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				continue; // Statics/constructors don't participate as properties
 			if (mthd.getName().startsWith("get")) { //$NON-NLS-1$
 				String name = java.beans.Introspector.decapitalize(mthd.getName().substring(3));
-				if (name.length() == 0)
-					continue;	// Had get(...) and not getXXX(...) so not a getter.
+				if (name.length() == 0 || supers.contains(name))
+					continue;	// Had get(...) and not getXXX(...) so not a getter. Or this is the same name as a super, either way ignore it.
 				PropertyInfo propInfo = (PropertyInfo) props.get(name);
 				if (propInfo == null) {
 					propInfo = new PropertyInfo();
@@ -1080,8 +1414,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					propInfo.setGetter(mthd, false);
 			} else if (mthd.getName().startsWith("is")) { //$NON-NLS-1$
 				String name = java.beans.Introspector.decapitalize(mthd.getName().substring(2));
-				if (name.length() == 0)
-					continue;	// Had is(...) and not isXXX(...) so not a getter.				
+				if (name.length() == 0 || supers.contains(name))
+					continue;	// Had is(...) and not isXXX(...) so not a getter. Or this is the same name as a super, either way ignore it.
 				PropertyInfo propInfo = (PropertyInfo) props.get(name);
 				if (propInfo == null) {
 					propInfo = new PropertyInfo();
@@ -1091,8 +1425,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					propInfo.setGetter(mthd, true);
 			} else if (mthd.getName().startsWith("set")) { //$NON-NLS-1$
 				String name = java.beans.Introspector.decapitalize(mthd.getName().substring(3));
-				if (name.length() == 0)
-					continue;	// Had set(...) and not setXXX(...) so not a setter.				
+				if (name.length() == 0 || supers.contains(name))
+					continue;	// Had set(...) and not setXXX(...) so not a setter. Or this is the same name as a super, either way ignore it.				
 				PropertyInfo propInfo = (PropertyInfo) props.get(name);
 				if (propInfo == null) {
 					propInfo = new PropertyInfo();
@@ -1107,10 +1441,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		itr = props.entrySet().iterator();
 		while (itr.hasNext()) {
 			Map.Entry entry = (Map.Entry) itr.next();
-			if(!supers.contains(entry.getKey())) {
-				// Create it if the sf is not a super.
-				((PropertyInfo) entry.getValue()).createProperty((String) entry.getKey(), isBound);
-			}
+			((PropertyInfo) entry.getValue()).createProperty((String) entry.getKey(), isBound);
 		}
 		TimerTests.basicTest.stopCumulativeStep(REFLECT_PROPERTIES);		
 	}
@@ -1236,109 +1567,75 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					name,
 					indexed,
 					(!indexed) ? (setter != null) : (setter != null || indexedSetter != null),
-					type,
-					null);
+					type);
 			if (prop == null)
 				return; // Reflection not wanted.
 
 			indexed = prop instanceof IndexedPropertyDecorator; // It could of been forced back to not indexed if explicitly set.
 
-			// Now fill in the property decorator info. If our decorator was not implicit, then we need
-			// to use a proxy so that the use can override specific settings while we supply the defaults.
-			// If our decorator was implicitly created, then we know that there are no user data and we
-			// can use our decorator directly.
-			if (prop.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT) {
-				PropertyDecorator propProxy =
-					indexed
-						? BeaninfoFactory.eINSTANCE.createIndexedPropertyDecorator()
-						: BeaninfoFactory.eINSTANCE.createPropertyDecorator();
-				// Create a proxy.
-				prop.setDecoratorProxy(propProxy);
-				prop = propProxy;
-			}
-
-			prop.setBound(isBound);
-			prop.setConstrained(constrained);
-			if (getter != null)
-				prop.setReadMethod(getter);
-			else
-				prop.eUnset(BeaninfoPackage.eINSTANCE.getPropertyDecorator_ReadMethod());
-			if (setter != null)
-				prop.setWriteMethod(setter);
-			else
-				prop.eUnset(BeaninfoPackage.eINSTANCE.getPropertyDecorator_WriteMethod());
-			if (indexed) {
-				IndexedPropertyDecorator iprop = (IndexedPropertyDecorator) prop;
-				if (indexedGetter != null)
-					iprop.setIndexedReadMethod(indexedGetter);
-				else
-					iprop.eUnset(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedReadMethod());
-				if (indexedSetter != null)
-					iprop.setIndexedWriteMethod(indexedSetter);
-				else
-					iprop.eUnset(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedReadMethod());
-			}
+			// At this point in time all implicit settings have been cleared. This is done back in createProperty() method above.
+			// So now apply reflected settings on the property decorator.
+			BeanInfoDecoratorUtility.setProperties(prop, isBound, constrained, getter, setter);
+			if (indexed)
+				BeanInfoDecoratorUtility.setProperties((IndexedPropertyDecorator) prop, indexedGetter, indexedSetter);
 
 		}
 	};
 
-	/**
-	 * introspect the behaviors (methods)
+	/*
+	 * Should only be called from introspect so that flags are correct.
 	 */
-	protected EList introspectOperations() {
-		introspectIfNecessary();
-		if (!isIntrospecting && !isIntrospectingOperations && !hasIntrospectedOperations) {
-			isIntrospectingOperations = true;
-			try {
-				if (isResourceConnected()) {
-					newoperations = new HashSet(50);
-					BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-					if (bd == null || bd.isIntrospectBehaviors()) {
-						// bd wants behaviors to be introspected/reflected
-						if (beaninfo != null) {
-							IArrayBeanProxy mthds =
-								(IArrayBeanProxy) getProxyConstants().getMethodDescriptorsProxy().invokeCatchThrowableExceptions(beaninfo);
-							if (mthds != null) {
-								int mthdSize = mthds.getLength();
-								for (int i = 0; i < mthdSize; i++)
-									calculateOperation(mthds.getCatchThrowableException(i));
+	private EList introspectOperations(IBeanProxy beaninfo, ChangeDescription cd) {
+		try {
+			if (isResourceConnected()) {
+				newoperations = new HashSet(50);
+				BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
+				if (bd == null || bd.isIntrospectMethods()) {
+					// bd wants behaviors to be introspected/reflected
+					if (beaninfo != null) {
+						BeanInfoDecoratorUtility.introspect(new BeanInfoDecoratorUtility.OperationCallBack() {
+							public MethodDecorator process(MethodRecord record) {
+								return calculateOperation(record);
 							}
-						} else
-							reflectOperations(); // No beaninfo, so use reflection to create behaviors
-					}
 
-					// Now go through the list and remove those that should be removed.
-					Iterator itr = getOperationsList().iterator();
-					while (itr.hasNext()) {
-						EOperation a = (EOperation) itr.next();
-						MethodDecorator m = Utilities.getMethodDecorator(a);
-						if (!newoperations.contains(a)) {
-							// A candidate for removal. It is in the list but we didn't add it. Check to see if it one we had created in the past.
-							// If no methoddecorator, then keep it, not one ours.
-							if (m != null) {
-								int implicit = m.isImplicitlyCreated();
-								if (implicit != MethodDecorator.NOT_IMPLICIT) {
-									m.setEModelElement(null); // Remove it because it was implicit.
-									 ((InternalEObject) m).eSetProxyURI(BAD_URI);
-									m = null;
-								}
-								if (implicit == MethodDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
-									itr.remove(); // The feature was implicit too.
+						}, beaninfo);
+					} else
+						reflectOperations(); // No beaninfo, so use reflection to create behaviors
+				}
+
+				// Now go through the list and remove those that should be removed.
+				Iterator itr = getOperationsList().iterator();
+				while (itr.hasNext()) {
+					EOperation a = (EOperation) itr.next();
+					MethodDecorator m = Utilities.getMethodDecorator(a);
+					if (!newoperations.contains(a)) {
+						// A candidate for removal. It is in the list but we didn't add it. Check to see if it one we had created in the past.
+						// If no methoddecorator, then keep it, not one ours.
+						if (m != null) {
+							ImplicitItem implicit = m.getImplicitDecoratorFlag();
+							if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
+								m.setEModelElement(null); // Remove it because it was implicit.
+								 ((InternalEObject) m).eSetProxyURI(BAD_URI);
+								if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
+									itr.remove(); // The operation was implicit too.
 									 ((InternalEObject) a).eSetProxyURI(BAD_URI);
-									a = null;
 								}
+								continue;	// At this point we no longer have a method decorator, so go to next.
 							}
 						}
 					}
-					hasIntrospectedOperations = true;
+					
+					if (m != null && cd != null) {
+						// Now create the appropriate cache entry for this method.
+						BeanInfoDecoratorUtility.buildChange(cd, m);
+					}
 				}
-			} finally {
-				isIntrospectingOperations = false;
-				operationsMap = null; // Clear out the temp lists.
-				operationsRealList = null;
-				newoperations = null;
-
 			}
+		} finally {
+			operationsMap = null; // Clear out the temp lists.
+			operationsRealList = null;
+			newoperations = null;
+
 		}
 		return getJavaClass().getEOperationsInternal();
 	}
@@ -1346,15 +1643,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	/**
 	 * Fill in the behavior and its decorator using the mthdDesc.
 	 */
-	protected void calculateOperation(IBeanProxy operDesc) {
-		String name = ((IStringBeanProxy) getProxyConstants().getNameProxy().invokeCatchThrowableExceptions(operDesc)).stringValue();
-		createOperation(name, formLongName(name, operDesc), null, operDesc);
+	protected MethodDecorator calculateOperation(MethodRecord record) {
+		return createOperation(record.name, formLongName(record), null, record);
 	}
 
 	/**
 	 * Fill in the behavior and its decorator using the passed in information.
 	 */
-	public MethodDecorator createOperation(String name, String longName, Method method, IBeanProxy mthdDesc) {
+	protected MethodDecorator createOperation(String name, String longName, Method method, MethodRecord record) {
 		// First find if there is already a behavior of this name and method signature , and if there is, is the MethodDecorator
 		// marked to not allow merging in of introspection results.
 		HashMap existingLocals = getOperationsMap();
@@ -1378,18 +1674,16 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 		// Need to find the method and method id.
 		if (method == null) {
-			// No method sent, create a proxy to it.
-			method = JavaRefFactory.eINSTANCE.createMethod();
-			URI uri = Utilities.getMethodURI((IMethodProxy) getProxyConstants().getMethodProxy().invokeCatchThrowableExceptions(mthdDesc));
-			((InternalEObject) method).eSetProxyURI(uri);
+			// No method sent, create a proxy to it from the record.
+			method = BeanInfoDecoratorUtility.createJavaMethodProxy(record.methodForDescriptor);
 		}
 
-		int implicit = md == null ? FeatureDecorator.IMPLICIT_DECORATOR : FeatureDecorator.NOT_IMPLICIT;
+		ImplicitItem implicit = md == null ? ImplicitItem.IMPLICIT_DECORATOR_LITERAL : ImplicitItem.NOT_IMPLICIT_LITERAL;
 		if (oper == null) {
 			// We will create a new MethodProxy.
 			oper = BeaninfoFactory.eINSTANCE.createMethodProxy();
 			getOperationsList().add(oper);
-			implicit = FeatureDecorator.IMPLICIT_DECORATOR_AND_FEATURE; 
+			implicit = ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL; 
 		}		
 		if (name == null)
 			name = method.getName();		
@@ -1406,19 +1700,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// will use it. This allows merging with beaninfo.		
 		if (md == null) {
 			md = BeaninfoFactory.eINSTANCE.createMethodDecorator();
-			md.setImplicitlyCreated(implicit);
+			md.setImplicitDecoratorFlag(implicit);
 			oper.getEAnnotations().add(md);
-		}
-		md.setDescriptorProxy(mthdDesc);
-		md.setDecoratorProxy(null);
+		} else
+			BeanInfoDecoratorUtility.clear(md);
 		return md;
 	}
 
-	/**
-	 * Reflect the behaviors. This requires going through local public methods and creating a 
-	 * method proxy for it.
-	 */
-	protected void reflectOperations() {
+	private void reflectOperations() {
 		// If we are set to mergeSuperTypeBehaviors, then we need to get the super behaviors.
 		// This is so that duplicate any from super that we find here. When reflecting we don't
 		// allow discovered duplicates unless they are different signatures. So all super operations
@@ -1432,7 +1721,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		// Supertypes will never be more than one entry for classes, it is possible to be 0, 1, 2 or more for interfaces.
 		Set supers = new HashSet(50);
 		BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-		if (bd == null || bd.isMergeSuperBehaviors()) {
+		if (bd == null || bd.isMergeSuperMethods()) {
 			List superTypes = getJavaClass().getESuperTypes();
 			if (!superTypes.isEmpty()) {
 				int lenST = superTypes.size();
@@ -1444,9 +1733,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						supers.add(formLongName(op));
 					}
 				}
-				// Kludge: The above requests for super properties could of caused a recycle (in case the super
-				// was stale). Because of this we need to reintrospect to mark ourselves as not stale.
-				introspectIfNecessary();
 			}
 		}
 
@@ -1462,10 +1748,20 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 	}
 
-	/**
+	/*
 	 * merge all  the Behaviors(i.e. supertypes)
 	 */
 	protected BasicEList allOperations() {
+		BasicEList jcAllOperations = (BasicEList) getJavaClass().getEAllOperationsGen();
+		BeaninfoSuperAdapter superAdapter =
+			(BeaninfoSuperAdapter) EcoreUtil.getRegisteredAdapter(getJavaClass(), BeaninfoSuperAdapter.class);
+		if (jcAllOperations != null) {
+			// See if new one required.
+			if (superAdapter == null || !superAdapter.isAllOperationsCollectionModified())
+				return jcAllOperations;
+			// Can't get superadapter, so must not be attached to a resource, so return current list. Or no change required.       		
+		}
+
 		UniqueEList allOperations = new UniqueEList() {
 			protected Object[] newData(int capacity) {
 				return new EOperation[capacity];
@@ -1475,8 +1771,15 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				return false;
 			}
 		};
-		if (!isIntrospecting && !isDoingAllOperations && isResourceConnected()) {
-			isDoingAllOperations = true;
+		boolean doAllOperations = false;
+		synchronized(this) {
+			// If we are introspecting, don't do all operatoins because it is an invalid list. Just return empty without reseting the all modified flag.
+			doAllOperations = !isDoingAllOperations && !isIntrospecting && isResourceConnected();
+			if (doAllOperations)
+				isDoingAllOperations = true;
+		}
+
+		if (doAllOperations) {
 			try {
 				EList localOperations = getJavaClass().getEOperations();
 				// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
@@ -1494,9 +1797,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 					// because IB would contribute IC's too).
 					Collection workingAllOperations = superTypes.size() == 1 ? (Collection) allOperations : new LinkedHashSet(); 
 					// We will now merge as directed.
-					boolean mergeAll = bd == null || bd.isMergeSuperBehaviors();
+					boolean mergeAll = bd == null || bd.isMergeSuperMethods();
 					if (!mergeAll) {
-						// we don't to want to merge super properties, but we still need super non-operations.
+						// we don't to want to merge super operations, but we still need super non-operations.
 						int lenST = superTypes.size();
 						for (int i=0; i<lenST; i++) {
 							List supers = ((JavaClass) superTypes.get(i)).getEAllOperations();
@@ -1504,54 +1807,37 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							for (int i1 = 0; i1 < len; i1++) {
 								EOperation o = (EOperation) supers.get(i1);
 								MethodDecorator md = Utilities.getMethodDecorator(o);
-								if (md == null || (md.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !md.isMergeIntrospection()))
+								if (md == null || (md.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL && !md.isMergeIntrospection()))
 									workingAllOperations.add(o);
 							}
 						}
 					} else {
-						// We want to merge all.					
-						if (beaninfo != null) {
-							// BeanInfo has given us the merge list. If the list is empty, then we accept all.
-							IArrayBeanProxy superNames = (IArrayBeanProxy) getProxyConstants().getInheritedMethodDescriptorsProxy().invokeCatchThrowableExceptions(beaninfo);
-							if (superNames != null) {
-								// We were given a list of names.
-								// Get the names into a set to create a quick lookup.
-								int l = superNames.getLength();
-								HashSet superSet = new HashSet(l);
-								for (int i = 0; i < l; i++) {
-									superSet.add(((IStringBeanProxy) superNames.getCatchThrowableException(i)).stringValue());
-								}
-								
-								// Now walk and add in non-bean operations (and bean operations that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
-								// and those specifically called out by BeanInfo.
-								// Now walk and add in non-bean events (and bean events that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
-								// and those specifically called out by BeanInfo.
-								int lenST = superTypes.size();
-								for (int i=0; i<lenST; i++) {
-									List supers = ((JavaClass) superTypes.get(i)).getEAllOperations();
-									int len = supers.size();
-									for (int i1 = 0; i1 < len; i1++) {
-										EOperation o = (EOperation) supers.get(i1);
-										MethodDecorator md = Utilities.getMethodDecorator(o);
-										if (md == null || (md.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !md.isMergeIntrospection()))
+						// We want to merge all.
+						// BeanInfo could of given us the don't merge list. If the list is empty, then we accept all.
+						if (bd != null && bd.eIsSet(BeaninfoPackage.eINSTANCE.getBeanDecorator_NotInheritedMethodNames())) {
+							// We were given a list of names.
+							// Get the names into a set to create a quick lookup.
+							HashSet superSet = new HashSet(bd.getNotInheritedMethodNames());
+							
+							// Now walk and add in non-bean operations (and bean operations that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
+							// and add those not specifically called out by BeanInfo not merge list.
+							int lenST = superTypes.size();
+							for (int i=0; i<lenST; i++) {
+								List supers = ((JavaClass) superTypes.get(i)).getEAllOperations();
+								int len = supers.size();
+								for (int i1 = 0; i1 < len; i1++) {
+									EOperation o = (EOperation) supers.get(i1);
+									MethodDecorator md = Utilities.getMethodDecorator(o);
+									if (md == null || (md.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL && !md.isMergeIntrospection()))
+										workingAllOperations.add(o);
+									else {
+										String longName = formLongName(o);
+										if (longName == null || !superSet.contains(longName))
 											workingAllOperations.add(o);
-										else {
-											String longName = formLongName(o);
-											if (longName == null || superSet.contains(longName))
-												workingAllOperations.add(o);
-										}
 									}
-								}
-							} else {
-								// BeanInfo called out that all super operations should be added 
-								int lenST = superTypes.size();
-								for (int i=0; i<lenST; i++) {
-									workingAllOperations.addAll(((JavaClass) superTypes.get(i)).getEAllOperations());
 								}
 							}
 						} else {
-							// We don't have a BeanInfo telling us how to merge, so we did reflection. But if that is the case, we already
-							// took the supers into account and did not override any thru the reflection, so all supers are good.
 							int lenST = superTypes.size();
 							for (int i=0; i<lenST; i++) {
 								workingAllOperations.addAll(((JavaClass) superTypes.get(i)).getEAllOperations());
@@ -1565,7 +1851,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				ESuperAdapter sa = getJavaClass().getESuperAdapter();
 				sa.setAllOperationsCollectionModified(false); // Now built, so reset to not changed.
 			} finally {
-				isDoingAllOperations = false;
+				synchronized(this) {
+					isDoingAllProperties = false;
+				}
 			}
 		}
 
@@ -1578,62 +1866,58 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 
 	}
 
-	/**
-	 * introspect the events
+	/*
+	 * Should only be called from introspect so that flags are correct.
 	 */
-	protected EList introspectEvents() {
-		introspectIfNecessary();
-		if (!isIntrospecting && !isIntrospectingEvents && !hasIntrospectedEvents) {
-			isIntrospectingEvents = true;
-			try {
-				if (isResourceConnected()) {
-					BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
-					if (bd == null || bd.isIntrospectEvents()) {
-						// bd wants events to be introspected/reflected
-						if (beaninfo != null) {
-							IArrayBeanProxy events =
-								(IArrayBeanProxy) getProxyConstants().getEventSetDescriptorsProxy().invokeCatchThrowableExceptions(
-									beaninfo);
-							if (events != null) {
-								int eventSize = events.getLength();
-								for (int i = 0; i < eventSize; i++)
-									calculateEvent(events.getCatchThrowableException(i));
+	private EList introspectEvents(IBeanProxy beaninfo, ChangeDescription cd) {
+		try {
+			if (isResourceConnected()) {
+				BeanDecorator bd = Utilities.getBeanDecorator(getJavaClass());
+				if (bd == null || bd.isIntrospectEvents()) {
+					// bd wants events to be introspected/reflected
+					if (beaninfo != null) {
+						BeanInfoDecoratorUtility.introspect(new BeanInfoDecoratorUtility.EventCallBack() {
+							public EventSetDecorator process(EventSetRecord record) {
+								return calculateEvent(record);
 							}
-						} else
-							reflectEvents(); // No beaninfo, so use reflection to create events
-					}
+						}, beaninfo);
+					} else
+						reflectEvents(); // No beaninfo, so use reflection to create events
+				}
 
-					// Now go through the list and remove those that should be removed.
-					Map oldLocals = getEventsMap();
-					Iterator itr = getEventsList().iterator();
-					while (itr.hasNext()) {
-						JavaEvent a = (JavaEvent) itr.next();
-						EventSetDecorator e = Utilities.getEventSetDecorator(a);
-						Object aOld = oldLocals.get(a.getName());
-						if (aOld != null && aOld != Boolean.FALSE) {
-							// A candidate for removal. It was in the old list and it was not processed.
-							if (e != null) {
-								int implicit = e.isImplicitlyCreated();
-								if (implicit != EventSetDecorator.NOT_IMPLICIT) {
-									e.setEModelElement(null); // Remove it because it was implicit.
-									 ((InternalEObject) e).eSetProxyURI(BAD_URI);
-									e = null;
-								}
-								if (implicit == EventSetDecorator.IMPLICIT_DECORATOR_AND_FEATURE) {
+				// Now go through the list and remove those that should be removed.
+				Map oldLocals = getEventsMap();
+				Iterator itr = getEventsList().iterator();
+				while (itr.hasNext()) {
+					JavaEvent a = (JavaEvent) itr.next();
+					EventSetDecorator e = Utilities.getEventSetDecorator(a);
+					Object aOld = oldLocals.get(a.getName());
+					if (aOld != null && aOld != Boolean.FALSE) {
+						// A candidate for removal. It was in the old list and it was not processed.
+						if (e != null) {
+							ImplicitItem implicit = e.getImplicitDecoratorFlag();
+							if (implicit != ImplicitItem.NOT_IMPLICIT_LITERAL) {
+								e.setEModelElement(null); // Remove it because it was implicit.
+								((InternalEObject) e).eSetProxyURI(BAD_URI);
+								if (implicit == ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL) {
 									itr.remove(); // The feature was implicit too.
-									 ((InternalEObject) a).eSetProxyURI(BAD_URI);
-									a = null;
+									((InternalEObject) a).eSetProxyURI(BAD_URI);
 								}
+								continue;	// At this point we don't have a decorator any more, so don't bother going on.
 							}
 						}
 					}
-					hasIntrospectedEvents = true;
+					
+					if (e != null && cd != null) {
+						// Now create the appropriate cache entry for this event.
+						BeanInfoDecoratorUtility.buildChange(cd, e);
+					}
+					
 				}
-			} finally {
-				isIntrospectingEvents = false;
-				eventsMap = null; // Clear out the temp lists.
-				eventsRealList = null;
 			}
+		} finally {
+			eventsMap = null; // Clear out the temp lists.
+			eventsRealList = null;
 		}
 
 		return getJavaClass().getEventsGen();
@@ -1642,15 +1926,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	/**
 	 * Fill in the event and its decorator using the eventDesc.
 	 */
-	protected void calculateEvent(IBeanProxy eventDesc) {
-		String name = ((IStringBeanProxy) getProxyConstants().getNameProxy().invokeCatchThrowableExceptions(eventDesc)).stringValue();
-		createEvent(name, eventDesc);
+	protected EventSetDecorator calculateEvent(EventSetRecord record) {
+		return createEvent(record.name);
 	}
 
 	/**
 	 * Fill in the event and its decorator using the passed in information.
 	 */
-	public EventSetDecorator createEvent(String name, IBeanProxy eventDesc) {
+	protected EventSetDecorator createEvent(String name) {
 		// First find if there is already an event of this name, and if there is, is the EventSetDecorator
 		// marked to not allow merging in of introspection results.
 		HashMap existingLocals = getEventsMap();
@@ -1672,37 +1955,28 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				return null;
 			event = (JavaEvent) b;
 		}
-
-		if (ed != null && ed.isImplicitlyCreated() != FeatureDecorator.NOT_IMPLICIT) {
-			// It is implicit and could of been reflected, so clear the explict sets.
-			ed.unsetUnicast();
-			ed.setAddListenerMethod(null);
-			ed.setRemoveListenerMethod(null);
-			ed.setListenerType(null);
-		}
 		
-		int implicit = ed == null ? FeatureDecorator.IMPLICIT_DECORATOR : FeatureDecorator.NOT_IMPLICIT;
+		ImplicitItem implicit = ed == null ? ImplicitItem.IMPLICIT_DECORATOR_LITERAL : ImplicitItem.NOT_IMPLICIT_LITERAL;
 		if (event == null) {
 			// We will create a new Event.
 			event = BeaninfoFactory.eINSTANCE.createBeanEvent();
 			getEventsList().add(event);
-			implicit = FeatureDecorator.IMPLICIT_DECORATOR_AND_FEATURE; // Can't have an implicit feature but explicit decorator.
+			implicit = ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL; // Can't have an implicit feature but explicit decorator.
 		}
 
 		// Now fill it in.
-		 ((XMIResource) event.eResource()).setID(event, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.EVENT + name);
+		((XMIResource) event.eResource()).setID(event, getJavaClass().getName() + BeaninfoJavaReflectionKeyExtension.EVENT + name);
 		event.setName(name);
 
-		// Now create/fill in the event decorator for it.
+		// Now create in the event decorator for it.
 		// If there already is one then we
 		// will use it. This allows merging with beaninfo.		
 		if (ed == null) {
 			ed = BeaninfoFactory.eINSTANCE.createEventSetDecorator();
-			ed.setImplicitlyCreated(implicit);
+			ed.setImplicitDecoratorFlag(implicit);
 			event.getEAnnotations().add(ed);
-		}
-		ed.setDescriptorProxy(eventDesc);
-		ed.setDecoratorProxy(null);
+		} else
+			BeanInfoDecoratorUtility.clear(ed);
 		return ed;
 	}
 
@@ -1735,9 +2009,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 						supers.add(se.getName());
 					}
 				}
-				// Kludge: The above requests for super events could of caused a recycle (in case the super
-				// was stale). Because of this we need to reintrospect to mark ourselves as not stale.
-				introspectIfNecessary();
 			}
 		}
 
@@ -1820,8 +2091,16 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				return false;
 			}
 		};
-		if (!isIntrospecting && !isDoingAllEvents && isResourceConnected()) {
-			isDoingAllEvents = true;
+		
+		boolean doAllEvents = false;
+		synchronized(this) {
+			// If we are introspecting, don't do all properties because it is an invalid list. Just return empty without reseting the all modified flag.
+			doAllEvents = !isDoingAllEvents && !isIntrospecting && isResourceConnected();
+			if (doAllEvents)
+				isDoingAllEvents = true;
+		}
+
+		if (doAllEvents) {
 			try {
 				EList localEvents = getJavaClass().getEvents();
 				// Kludge: BeanInfo spec doesn't address Interfaces, but some people want to use them.
@@ -1849,47 +2128,33 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							for (int i1 = 0; i1 < len; i1++) {
 								JavaEvent e = (JavaEvent) supers.get(i1);
 								EventSetDecorator ed = Utilities.getEventSetDecorator(e);
-								if (ed == null || (ed.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !ed.isMergeIntrospection()))
+								if (ed == null || (ed.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL && !ed.isMergeIntrospection()))
 									workingAllEvents.add(e);
 							}
 						}
 					} else {
 						// We want to merge all.					
-						if (beaninfo != null) {
-							// BeanInfo has given us the merge list. If the list is empty, then we accept all.
-							IArrayBeanProxy superNames = (IArrayBeanProxy) getProxyConstants().getInheritedEventSetDescriptorsProxy().invokeCatchThrowableExceptions(beaninfo);
-							if (superNames != null) {
-								// We were given a list of names.
-								// Get the names into a set to create a quick lookup.
-								int l = superNames.getLength();
-								HashSet superSet = new HashSet(l);
-								for (int i = 0; i < l; i++) {
-									superSet.add(((IStringBeanProxy) superNames.getCatchThrowableException(i)).stringValue());
-								}
-								
-								// Now walk and add in non-bean events (and bean events that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
-								// and those specifically called out by BeanInfo.
-								int lenST = superTypes.size();
-								for (int i=0; i<lenST; i++) {
-									List supers = ((JavaClass) superTypes.get(i)).getAllEvents();
-									int len = supers.size();
-									for (int i1 = 0; i1 < len; i1++) {
-										JavaEvent e = (JavaEvent) supers.get(i1);
-										EventSetDecorator ed = Utilities.getEventSetDecorator(e);
-										if (ed == null || (ed.isImplicitlyCreated() == FeatureDecorator.NOT_IMPLICIT && !ed.isMergeIntrospection()) || superSet.contains(ed.getName()))
-											workingAllEvents.add(e);
-									}
-								}
-							} else {
-								// BeanInfo called out that all super events should be added
-								int lenST = superTypes.size();
-								for (int i=0; i<lenST; i++) {
-									workingAllEvents.addAll(((JavaClass) superTypes.get(i)).getAllEvents());
+						// BeanInfo has given us the not merge list. If the list is empty, then we accept all.
+						if (bd != null && bd.eIsSet(BeaninfoPackage.eINSTANCE.getBeanDecorator_NotInheritedEventNames())) {
+							// We were given a list of names.
+							// Get the names into a set to create a quick lookup.
+							HashSet superSet = new HashSet(bd.getNotInheritedEventNames());
+							
+							// Now walk and add in non-bean events (and bean events that were explicitly added and not mergeable (i.e. didn't come thru beaninfo)) 
+							// and add those not specifically called out by BeanInfo.
+							int lenST = superTypes.size();
+							for (int i=0; i<lenST; i++) {
+								List supers = ((JavaClass) superTypes.get(i)).getAllEvents();
+								int len = supers.size();
+								for (int i1 = 0; i1 < len; i1++) {
+									JavaEvent e = (JavaEvent) supers.get(i1);
+									EventSetDecorator ed = Utilities.getEventSetDecorator(e);
+									if (ed == null || (ed.getImplicitDecoratorFlag() == ImplicitItem.NOT_IMPLICIT_LITERAL && !ed.isMergeIntrospection()) || !superSet.contains(ed.getName()))
+										workingAllEvents.add(e);
 								}
 							}
 						} else {
-							// We don't have a BeanInfo telling us how to merge. This means we reflected and have already stripped
-							// out and prevented duplicates by name.
+							// BeanInfo called out that all super events should be added, or no beaninfo.
 							int lenST = superTypes.size();
 							for (int i=0; i<lenST; i++) {
 								workingAllEvents.addAll(((JavaClass) superTypes.get(i)).getAllEvents());
@@ -1902,16 +2167,22 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				allEvents.addAll(localEvents);				
 				superAdapter.setAllEventsCollectionModified(false); // Now built, so reset to not changed.
 			} finally {
-				isDoingAllEvents = false;
+				synchronized (this) {
+					isDoingAllEvents = false;
+				}
 			}
 		}
 
-		allEvents.shrink();
-		return new EcoreEList.UnmodifiableEList(
-			getJavaClass(),
-			JavaRefPackage.eINSTANCE.getJavaClass_AllEvents(),
-			allEvents.size(),
-			allEvents.data());
+		if (allEvents.isEmpty())
+			return ECollections.EMPTY_ELIST;
+		else {
+			allEvents.shrink();
+			return new EcoreEList.UnmodifiableEList(
+				getJavaClass(),
+				JavaRefPackage.eINSTANCE.getJavaClass_AllEvents(),
+				allEvents.size(),
+				allEvents.data());
+		}
 
 	}
 
@@ -2035,28 +2306,23 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 
 		public boolean createEvent(String name) {
-			EventSetDecorator ed = BeaninfoClassAdapter.this.createEvent(name, null);
+			EventSetDecorator ed = BeaninfoClassAdapter.this.createEvent(name);
 			if (ed == null)
 				return false; // Reflection not wanted.
 
-			ed.setAddListenerMethod(addListenerMethod);
-			ed.setRemoveListenerMethod(removeListenerMethod);
 
 			// See if unicast.
-			Iterator itr = addListenerMethod.getJavaExceptions().iterator();
-			while (itr.hasNext()) {
-				if (itr.next() == BeaninfoClassAdapter.this.tooManyExceptionClass) {
-					ed.setUnicast(true);
+			boolean unicast = false;
+			List exceptions = addListenerMethod.getJavaExceptions();
+			int len = exceptions.size();
+			for(int i=0; i<len; i++) {
+				if (exceptions.get(i) == BeaninfoClassAdapter.this.tooManyExceptionClass) {
+					unicast = true;
 					break;
 				}
 			}
-
-			// Set the listener type.
-			List parms = addListenerMethod.getParameters();
-			ed.setListenerType((JavaClass) ((JavaParameter) parms.get(0)).getEType());
-
 			// We'll let listener methods get retrieved dynamically when needed.
-
+			BeanInfoDecoratorUtility.setProperties(ed, addListenerMethod, removeListenerMethod, unicast, (JavaClass) ((JavaParameter) addListenerMethod.getParameters().get(0)).getEType());
 			return true;
 		}
 
@@ -2068,14 +2334,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	public void markStaleFactory(ProxyFactoryRegistry stale) {
 		if (staleFactory == null) {
 			// It's not stale so make it stale.
-			hasIntrospected = hasIntrospectedProperties = hasIntrospectedOperations = hasIntrospectedEvents = false;
 			// So that next access will re-introspect
 			defaultBound = null; // So query on next request.
 			staleFactory = new WeakReference(stale);
-			if (beaninfo != null) {
-				beaninfo.getProxyFactoryRegistry().releaseProxy(beaninfo); // Dispose of the beaninfo since we will need to recreate it
-				beaninfo = null;
-			}
 
 			// Need to mark the esuperadapter that things have changed so that any 
 			// subtype will know to reuse the parent for anything that requires knowing parent info.
@@ -2091,6 +2352,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 			a = EcoreUtil.getExistingAdapter(getTarget(), BeaninfoSuperAdapter.ADAPTER_KEY);
 			if (a != null)
 				a.notifyChanged(note);
+			synchronized (this) {
+				needsIntrospection = true;
+			}
 		}
 	}
 
@@ -2122,20 +2386,23 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		return longName.toString();
 	}
 	
-	private String formLongName(String name, IBeanProxy methDesc) {
+	/*
+	 * More than one operation can have the same name. To identify them uniquely, the long name is created,
+	 * which is formed from the name and the method signature.
+	 */
+	private String formLongName(MethodRecord record) {
 		StringBuffer longName = new StringBuffer(100);
-		longName.append(name); // Feature Name
+		longName.append(record.name); // Feature Name
 		longName.append(':');
-		IMethodProxy mthd = (IMethodProxy) getProxyConstants().getMethodProxy().invokeCatchThrowableExceptions(methDesc);
-		longName.append(mthd.getName()); // Method Name
+		longName.append(record.methodForDescriptor.methodName); // Method Name
 		longName.append('(');
-		IBeanTypeProxy[] p = mthd.getParameterTypes();
-		for (int i = 0; i < p.length; i++) {
-			IBeanTypeProxy parm = p[i];
-			if (i>0)
-				longName.append(',');
-			longName.append(parm.getFormalTypeName());
-		}
+		String[] p = record.methodForDescriptor.parameterTypeNames;
+		if (p != null)
+			for (int i = 0; i < p.length; i++) {
+				if (i>0)
+					longName.append(',');
+				longName.append(MapJNITypes.getFormalTypeName(p[i]));
+			}
 
 		return longName.toString();
 	}

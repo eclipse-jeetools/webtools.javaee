@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.beaninfo;
 /*
  *  $RCSfile: IIntrospectionAdapter.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:33 $ 
  */
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -25,7 +25,6 @@ import org.eclipse.emf.common.util.EList;
 
 public interface IIntrospectionAdapter extends org.eclipse.emf.common.notify.Adapter {
 	public static final Class ADAPTER_KEY = IIntrospectionAdapter.class;
-	public void introspect();
 	public void introspectIfNecessary();
 	public boolean isStale();
 	public EList getEStructuralFeatures();

@@ -10,22 +10,34 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ModelingBeanInfoPre14.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $RCSfile: ModelingBeanInfo15.java,v $
+ *  $Revision: 1.1 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import java.beans.BeanInfo;
 
 /**
- * This is the modeling BeanInfo for Pre-JDK 1.4.
+ * This was supposed to for 1.4 or above where it can use identity
+ * to test for inherited features, but it still is not correct
+ * in 1.4. See the header comments in ModelingBeanInfo.
+ * @see org.eclipse.jem.internal.beaninfo.vm.ModelingBeanInfo
  */
-public class ModelingBeanInfoPre14 extends ModelingBeanInfo {
+public class ModelingBeanInfo15 extends ModelingBeanInfo {
 
-	public ModelingBeanInfoPre14(BeanInfo beanInfo) {
+	/**
+	 * Constructor for ModelingBeanInfo15.
+	 * @param beanInfo
+	 */
+	public ModelingBeanInfo15(BeanInfo beanInfo) {
 		super(beanInfo);
 	}
 
-	public ModelingBeanInfoPre14(BeanInfo beanInfo, BeanInfo superBeanInfo) {
+	/**
+	 * Constructor for ModelingBeanInfo15.
+	 * @param beanInfo
+	 * @param superBeanInfo
+	 */
+	public ModelingBeanInfo15(BeanInfo beanInfo, BeanInfo superBeanInfo) {
 		super(beanInfo, superBeanInfo);
 	}
 }

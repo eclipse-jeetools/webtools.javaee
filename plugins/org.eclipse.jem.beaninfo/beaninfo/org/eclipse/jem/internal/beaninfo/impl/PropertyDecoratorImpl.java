@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: PropertyDecoratorImpl.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -31,16 +31,10 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.core.IBooleanBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IMethodProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Property Decorator</b></em>'.
@@ -65,6 +59,18 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 
 public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements PropertyDecorator{
 
+	/**
+	 * Bits for implicitly set features. This is internal, not meant for clients.
+	 */
+	public static final long PROPERTY_EDITOR_CLASS_IMPLICIT = 0x1L;
+	public static final long PROPERTY_TYPE_IMPLICIT = 0x2L;
+	public static final long PROPERTY_READMETHOD_IMPLICIT = 0x4L;
+	public static final long PROPERTY_WRITEMETHOD_IMPLICIT = 0x8L;
+	public static final long PROPERTY_BOUND_IMPLICIT = 0x10L;
+	public static final long PROPERTY_CONSTRAINED_IMPLICIT = 0x20L;
+	public static final long PROPERTY_DESIGNTIME_IMPLICIT = 0x4L;
+	
+	
 	/**
 	 * The default value of the '{@link #isBound() <em>Bound</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -171,10 +177,6 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * @ordered
 	 */
 	protected boolean alwaysIncompatible = ALWAYS_INCOMPATIBLE_EDEFAULT;
-
-	// getting read/write methods are expensive, and they are called very often in parsing, so we will cache them
-	private Method cachedReadMethod, cachedWriteMethod;
-	boolean retrievedReadMethod, retrievedWriteMethod;
 		
 	/**
 	 * The cached value of the '{@link #getFilterFlags() <em>Filter Flags</em>}' attribute list.
@@ -204,6 +206,15 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 */
 	protected Method readMethod = null;
 	/**
+	 * This is true if the Read Method reference has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean readMethodESet = false;
+
+	/**
 	 * The cached value of the '{@link #getWriteMethod() <em>Write Method</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -213,6 +224,15 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 */
 	protected Method writeMethod = null;
 	
+	/**
+	 * This is true if the Write Method reference has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean writeMethodESet = false;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -231,114 +251,18 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 		return BeaninfoPackage.eINSTANCE.getPropertyDecorator();
 	}
 
-	public boolean isBound() {
-		if (!isSetBound()) {
-			if (validProxy(fFeatureProxy)) {
-				try {
-					return ((IBooleanBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIsBoundProxy().invoke(fFeatureProxy)).booleanValue();
-				} catch (ThrowableProxy e) {
-				}
-			} else
-				if (fFeatureDecoratorProxy != null)
-					return ((PropertyDecorator) fFeatureDecoratorProxy).isBound();
-		}
-					
-		return this.isBoundGen();
-	}
-	public boolean isConstrained() {
-		if (!isSetConstrained()) {
-			if (validProxy(fFeatureProxy)) {
-				try {
-					return ((IBooleanBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIsConstrainedProxy().invoke(fFeatureProxy)).booleanValue();
-				} catch (ThrowableProxy e) {
-				}
-			} else
-				if (fFeatureDecoratorProxy != null)
-					return ((PropertyDecorator) fFeatureDecoratorProxy).isConstrained();
-		}
-									
-		return this.isConstrainedGen();
-	}
-	public boolean isDesignTime() {
-		if (validProxy(fFeatureProxy) && !this.isSetDesignTimeGen()) {
-			getAttributes();	// This will cause the isDesignTime flag to be set if found.
-			return isDesignTimeProxy;	// Return the value
-		}
-		
-		return this.isDesignTimeGen();
-	}
-	public boolean isSetDesignTime() {
-		if (validProxy(fFeatureProxy) && !this.isSetDesignTimeGen()) {
-			getAttributes();	// This will cause the isDesignTime flag to be set if found.
-			return setIsDesignTimeProxy;	// Return whether set or not.
-		}
-		
-		return this.isSetDesignTimeGen();
-	}
-	public JavaClass getPropertyEditorClass() {
-		if (validProxy(fFeatureProxy) && !this.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_PropertyEditorClass()))
-			try {
-				return (JavaClass) Utilities.getJavaClass((IBeanTypeProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getPropertyEditorClassProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-			} catch (ThrowableProxy e) {
-			};
-					
-		return this.getPropertyEditorClassGen();
-	}
-	
-	public Method getReadMethod() {
-		if (validProxy(fFeatureProxy) && !this.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_ReadMethod())) {
-			if (validProxy(fFeatureProxy)) {
-				if (retrievedReadMethod && cachedReadMethod != null && cachedReadMethod.eContainer() == null) {
-					clearCache();	// Method has been removed or refreshed, so we have a new one to get instead.
-				}
-				if (!retrievedReadMethod) {
-					try {
-						cachedReadMethod = Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getReadMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-						retrievedReadMethod = true;
-					} catch (ThrowableProxy e) {
-					}
-				}
-				return cachedReadMethod;
-			} else
-				if (fFeatureDecoratorProxy != null)
-					return ((PropertyDecorator) fFeatureDecoratorProxy).getReadMethod();
-		}
-									
-		return this.getReadMethodGen();
-	}
-	public Method getWriteMethod() {
-		if (validProxy(fFeatureProxy) && !this.eIsSet(BeaninfoPackage.eINSTANCE.getPropertyDecorator_WriteMethod())) {
-			if (validProxy(fFeatureProxy)) {
-				if (retrievedWriteMethod && cachedWriteMethod != null && cachedWriteMethod.eContainer() == null) {
-					clearCache();	// Method has been removed or refreshed, so we have a new one to get instead.
-				}				
-				if (!retrievedWriteMethod) {
-					try {
-						cachedWriteMethod = Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getWriteMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-						retrievedWriteMethod = true;
-					} catch (ThrowableProxy e) {
-					}
-				}
-				return cachedWriteMethod;
-			} else
-				if (fFeatureDecoratorProxy != null)
-					return	((PropertyDecorator) fFeatureDecoratorProxy).getWriteMethod();
-		}
-									
-		return this.getWriteMethodGen();
-	}
-	
-	public EClassifier getPropertyType() {
-		EStructuralFeature feature = (EStructuralFeature) getEModelElement();
-		return (feature != null) ? feature.getEType() : null;
-	}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isBoundGen() {
+	public boolean isBound() {
 		return bound;
+	}
+
+	public EClassifier getPropertyType() {
+		EStructuralFeature feature = (EStructuralFeature) getEModelElement();
+		return (feature != null) ? feature.getEType() : null;
 	}
 
 	/**
@@ -383,7 +307,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isConstrainedGen() {
+	public boolean isConstrained() {
 		return constrained;
 	}
 
@@ -429,7 +353,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isDesignTimeGen() {
+	public boolean isDesignTime() {
 		return designTime;
 	}
 
@@ -466,7 +390,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetDesignTimeGen() {
+	public boolean isSetDesignTime() {
 		return designTimeESet;
 	}
 
@@ -508,6 +432,23 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JavaClass getPropertyEditorClass() {
+		if (propertyEditorClass != null && propertyEditorClass.eIsProxy()) {
+			JavaClass oldPropertyEditorClass = propertyEditorClass;
+			propertyEditorClass = (JavaClass)eResolveProxy((InternalEObject)propertyEditorClass);
+			if (propertyEditorClass != oldPropertyEditorClass) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS, oldPropertyEditorClass, propertyEditorClass));
+			}
+		}
+		return propertyEditorClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setPropertyEditorClass(JavaClass newPropertyEditorClass) {
 		JavaClass oldPropertyEditorClass = propertyEditorClass;
 		propertyEditorClass = newPropertyEditorClass;
@@ -520,11 +461,70 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Method getReadMethod() {
+		if (readMethod != null && readMethod.eIsProxy()) {
+			Method oldReadMethod = readMethod;
+			readMethod = (Method)eResolveProxy((InternalEObject)readMethod);
+			if (readMethod != oldReadMethod) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, readMethod));
+			}
+		}
+		return readMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setReadMethod(Method newReadMethod) {
 		Method oldReadMethod = readMethod;
 		readMethod = newReadMethod;
+		boolean oldReadMethodESet = readMethodESet;
+		readMethodESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, readMethod));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, readMethod, !oldReadMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetReadMethod() {
+		Method oldReadMethod = readMethod;
+		boolean oldReadMethodESet = readMethodESet;
+		readMethod = null;
+		readMethodESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, null, oldReadMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetReadMethod() {
+		return readMethodESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Method getWriteMethod() {
+		if (writeMethod != null && writeMethod.eIsProxy()) {
+			Method oldWriteMethod = writeMethod;
+			writeMethod = (Method)eResolveProxy((InternalEObject)writeMethod);
+			if (writeMethod != oldWriteMethod) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, writeMethod));
+			}
+		}
+		return writeMethod;
 	}
 
 	/**
@@ -535,8 +535,33 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	public void setWriteMethod(Method newWriteMethod) {
 		Method oldWriteMethod = writeMethod;
 		writeMethod = newWriteMethod;
+		boolean oldWriteMethodESet = writeMethodESet;
+		writeMethodESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, writeMethod));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, writeMethod, !oldWriteMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetWriteMethod() {
+		Method oldWriteMethod = writeMethod;
+		boolean oldWriteMethodESet = writeMethodESet;
+		writeMethod = null;
+		writeMethodESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, null, oldWriteMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetWriteMethod() {
+		return writeMethodESet;
 	}
 
 	/**
@@ -567,23 +592,6 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JavaClass getPropertyEditorClassGen() {
-		if (propertyEditorClass != null && propertyEditorClass.eIsProxy()) {
-			JavaClass oldPropertyEditorClass = propertyEditorClass;
-			propertyEditorClass = (JavaClass)eResolveProxy((InternalEObject)propertyEditorClass);
-			if (propertyEditorClass != oldPropertyEditorClass) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS, oldPropertyEditorClass, propertyEditorClass));
-			}
-		}
-		return propertyEditorClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public JavaClass basicGetPropertyEditorClass() {
 		return propertyEditorClass;
 	}
@@ -593,42 +601,8 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Method getReadMethodGen() {
-		if (readMethod != null && readMethod.eIsProxy()) {
-			Method oldReadMethod = readMethod;
-			readMethod = (Method)eResolveProxy((InternalEObject)readMethod);
-			if (readMethod != oldReadMethod) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD, oldReadMethod, readMethod));
-			}
-		}
-		return readMethod;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Method basicGetReadMethod() {
 		return readMethod;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Method getWriteMethodGen() {
-		if (writeMethod != null && writeMethod.eIsProxy()) {
-			Method oldWriteMethod = writeMethod;
-			writeMethod = (Method)eResolveProxy((InternalEObject)writeMethod);
-			if (writeMethod != oldWriteMethod) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD, oldWriteMethod, writeMethod));
-			}
-		}
-		return writeMethod;
 	}
 
 	/**
@@ -738,8 +712,12 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return isAttributesExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
 			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES:
 				return getAttributes();
 			case BeaninfoPackage.PROPERTY_DECORATOR__BOUND:
@@ -815,8 +793,14 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			case BeaninfoPackage.PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(((Boolean)newValue).booleanValue());
 				return;
-			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
 				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -897,8 +881,14 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			case BeaninfoPackage.PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
 				return;
-			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(ATTRIBUTES_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
 				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -922,13 +912,25 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				setPropertyEditorClass((JavaClass)null);
 				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD:
-				setReadMethod((Method)null);
+				unsetReadMethod();
 				return;
 			case BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD:
-				setWriteMethod((Method)null);
+				unsetWriteMethod();
 				return;
 		}
 		eDynamicUnset(eFeature);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
+	 */
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.PROPERTY_DECORATOR__SOURCE:
+				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			default:
+				return eIsSetGen(eFeature);
+		}
 	}
 
 	/**
@@ -936,7 +938,7 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
+	public boolean eIsSetGen(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.PROPERTY_DECORATOR__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -964,8 +966,12 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 				return isSetPreferred();
 			case BeaninfoPackage.PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return attributesExplicit != ATTRIBUTES_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
 			case BeaninfoPackage.PROPERTY_DECORATOR__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 			case BeaninfoPackage.PROPERTY_DECORATOR__BOUND:
@@ -981,31 +987,11 @@ public class PropertyDecoratorImpl extends FeatureDecoratorImpl implements Prope
 			case BeaninfoPackage.PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				return propertyEditorClass != null;
 			case BeaninfoPackage.PROPERTY_DECORATOR__READ_METHOD:
-				return readMethod != null;
+				return isSetReadMethod();
 			case BeaninfoPackage.PROPERTY_DECORATOR__WRITE_METHOD:
-				return writeMethod != null;
+				return isSetWriteMethod();
 		}
 		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureDecorator#setDescriptorProxy(IBeanProxy)
-	 */
-	public void setDescriptorProxy(IBeanProxy descriptor) {
-		super.setDescriptorProxy(descriptor);
-		clearCache();
-		
-	}
-	
-	private void clearCache() {
-		if (retrievedReadMethod) {
-			retrievedReadMethod = false;
-			cachedReadMethod = null;
-		}
-		if (retrievedWriteMethod) {
-			retrievedWriteMethod = false;
-			cachedWriteMethod = null;
-		}
 	}
 
 }

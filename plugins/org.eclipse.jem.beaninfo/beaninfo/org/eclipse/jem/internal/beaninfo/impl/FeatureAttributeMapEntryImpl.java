@@ -10,13 +10,12 @@
  *******************************************************************************/
 /*
  *  $RCSfile: FeatureAttributeMapEntryImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.3 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 package org.eclipse.jem.internal.beaninfo.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
@@ -24,13 +23,13 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
-import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
+
+import org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,14 +67,24 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	protected String key = KEY_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTypedValue() <em>Value</em>}' containment reference.
+	 * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTypedValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureAttributeValue value = null;
+	protected static final FeatureAttributeValue VALUE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypedValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureAttributeValue value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -130,50 +139,11 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTypedValue(FeatureAttributeValue newValue, NotificationChain msgs) {
+	public void setTypedValue(FeatureAttributeValue newValue) {
 		FeatureAttributeValue oldValue = value;
 		value = newValue;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE, oldValue, newValue);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTypedValue(FeatureAttributeValue newValue) {
-		if (newValue != value) {
-			NotificationChain msgs = null;
-			if (value != null)
-				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE, null, msgs);
-			if (newValue != null)
-				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE, null, msgs);
-			msgs = basicSetTypedValue(newValue, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE, newValue, newValue));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE:
-					return basicSetTypedValue(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE, oldValue, value));
 	}
 
 	/**
@@ -219,7 +189,7 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 				setTypedKey(KEY_EDEFAULT);
 				return;
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE:
-				setTypedValue((FeatureAttributeValue)null);
+				setTypedValue(VALUE_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -235,7 +205,7 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__KEY:
 				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
 			case BeaninfoPackage.FEATURE_ATTRIBUTE_MAP_ENTRY__VALUE:
-				return value != null;
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -251,6 +221,8 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (key: ");
 		result.append(key);
+		result.append(", value: ");
+		result.append(value);
 		result.append(')');
 		return result.toString();
 	}
@@ -331,4 +303,5 @@ public class FeatureAttributeMapEntryImpl extends EObjectImpl implements BasicEM
 		EObject container = eContainer();
 		return container == null ? null : (EMap)container.eGet(eContainmentFeature());
 	}
+
 } //FeatureAttributeMapEntryImpl

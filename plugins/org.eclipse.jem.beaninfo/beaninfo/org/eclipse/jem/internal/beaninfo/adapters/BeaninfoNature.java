@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.27 $  $Date: 2005/01/07 20:51:34 $ 
+ *  $Revision: 1.28 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import java.io.*;
@@ -383,6 +383,78 @@ public class BeaninfoNature implements IProjectNature {
 		}
 	}
 
+	private static final String PI_CLASS = "class"; //$NON-NLS-1$
+	
+	/**
+	 * Using the given configuration info, compute the BeanInfo config info needed. This sets the
+	 * session properties BEANINFO_CONTRIBUTORS_SESSION_KEY and CONFIG_INFO_SESSION_KEY.
+	 * 
+	 * @param info
+	 * @throws CoreException
+	 * 
+	 * @since 1.1.0
+	 */
+	public static void computeBeanInfoConfigInfo(IConfigurationContributionInfo info) throws CoreException {
+		// First time for this nature, or first time after registry reset. Need to compute the info.
+		// It is possible for this to be called BEFORE the first usage of BeanInfo. The editor usually
+		// brings up the editor's registry before it gets anything from BeanInfo.
+		List contributorsList = new ArrayList(10);
+		if (!info.getContainerIds().isEmpty()) {
+			// Run through all of the visible container ids that are applicable and get BeanInfo contributors.
+			Iterator containerIdItr = info.getContainerIds().entrySet().iterator();
+			while (containerIdItr.hasNext()) {
+				Map.Entry entry = (Map.Entry) containerIdItr.next();
+				if (((Boolean) entry.getValue()).booleanValue()) {
+					IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getContainerIdContributors(
+							(String) entry.getKey());
+					if (contributors != null) {
+						for (int i = 0; i < contributors.length; i++) {
+							try {
+								Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
+								if (contributor instanceof IBeanInfoContributor)
+									contributorsList.add(contributor);
+							} catch (CoreException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+							}
+						}
+					}
+				}
+			}						
+		}
+		
+		if (!info.getPluginIds().isEmpty()) {
+			// Run through all of the visible plugin ids that are applicable and get BeanInfo contributors.
+				Iterator pluginIdItr = info.getPluginIds().entrySet().iterator();
+				while (pluginIdItr.hasNext()) {
+					Map.Entry entry = (Map.Entry) pluginIdItr.next();
+					if (((Boolean) entry.getValue()).booleanValue()) {
+						IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getPluginContributors(
+								(String) entry.getKey());
+						if (contributors != null) {
+							for (int i = 0; i < contributors.length; i++) {
+							try {
+								Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
+								if (contributor instanceof IBeanInfoContributor)
+									contributorsList.add(contributor);
+							} catch (CoreException e) {
+								BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
+							}
+						}
+					}
+				}
+			}
+		}
+			
+			// Save it for all beaninfo processing (and configuration processing if they implement proxy configuration contributor).
+		IBeanInfoContributor[] explicitContributors = (IBeanInfoContributor[]) contributorsList.toArray(new IBeanInfoContributor[contributorsList.size()]);
+		info.getJavaProject().getProject().setSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY, explicitContributors);
+		// Save it for override processing. That happens over and over later after all config processing is done.
+		// Do it last so that if there is a race condition, since this property is a flag to indicate we have data,
+		// we need to make sure the Beaninfo data is already set at the point we set this.
+		// We could actually set it twice because of this, but it is the same data, so, so what.
+		info.getJavaProject().getProject().setSessionProperty(CONFIG_INFO_SESSION_KEY, info);
+	}
+
 	/**
 	 * Get registry, creating it if necessary.
 	 * @return the registry.
@@ -681,8 +753,6 @@ public class BeaninfoNature implements IProjectNature {
 				computedSearchPath = new ArrayList(3);	// We will be gathering this info.
 		}
 		
-		private static final String PI_CLASS = "class"; //$NON-NLS-1$
-		
 		/* (non-Javadoc)
 		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributor#initialize(org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo)
 		 */
@@ -690,67 +760,12 @@ public class BeaninfoNature implements IProjectNature {
 			this.info = info;
 			try {
 				if (info.getJavaProject().getProject().getSessionProperty(CONFIG_INFO_SESSION_KEY) == null) {
-					// First time for this nature, or first time after registry reset. Need to compute the info.
-					// It is possible for this to be called BEFORE the first usage of BeanInfo. The editor usually
-					// brings up the editor's registry before it gets anything from BeanInfo.
-					List contributorsList = new ArrayList(10);
-					if (!info.getContainerIds().isEmpty()) {
-						// Run through all of the visible container ids that are applicable and get BeanInfo contributors.
-						Iterator containerIdItr = info.getContainerIds().entrySet().iterator();
-						while (containerIdItr.hasNext()) {
-							Map.Entry entry = (Map.Entry) containerIdItr.next();
-							if (((Boolean) entry.getValue()).booleanValue()) {
-								IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getContainerIdContributors(
-										(String) entry.getKey());
-								if (contributors != null) {
-									for (int i = 0; i < contributors.length; i++) {
-										try {
-											Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
-											if (contributor instanceof IBeanInfoContributor)
-												contributorsList.add(contributor);
-										} catch (CoreException e) {
-											BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
-										}
-									}
-								}
-							}
-						}						
-					}
+					// TODO For now we will rebuild for each time we open a registry, but it actually is only needed if a classpath
+					// changes for some reason. At that point we can get it out of here.
 					
-					if (!info.getPluginIds().isEmpty()) {
-						// Run through all of the visible plugin ids that are applicable and get BeanInfo contributors.
-						Iterator pluginIdItr = info.getPluginIds().entrySet().iterator();
-						while (pluginIdItr.hasNext()) {
-							Map.Entry entry = (Map.Entry) pluginIdItr.next();
-							if (((Boolean) entry.getValue()).booleanValue()) {
-								IConfigurationElement[] contributors = BeaninfoPlugin.getPlugin().getPluginContributors(
-										(String) entry.getKey());
-								if (contributors != null) {
-									for (int i = 0; i < contributors.length; i++) {
-									try {
-										Object contributor = contributors[i].createExecutableExtension(PI_CLASS);
-										if (contributor instanceof IBeanInfoContributor)
-											contributorsList.add(contributor);
-									} catch (CoreException e) {
-										BeaninfoPlugin.getPlugin().getLogger().log(e, Level.WARNING);
-									}
-								}
-							}
-}
-						}
-					}
-					
-					// Save it for all beaninfo processing (and configuration processing if they implement proxy configuration contributor).
-					explicitContributors = (IBeanInfoContributor[]) contributorsList.toArray(new IBeanInfoContributor[contributorsList.size()]);
-					info.getJavaProject().getProject().setSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY, explicitContributors);
-					// Save it for override processing. That happens over and over later after all config processing is done.
-					// Do it last so that if there is a race condition, since this property is a flag to indicate we have data,
-					// we need to make sure the Beaninfo data is already set at the point we set this.
-					// We could actually set it twice because of this, but it is the same data, so, so what.
-					info.getJavaProject().getProject().setSessionProperty(CONFIG_INFO_SESSION_KEY, info);					
-				} else {
-					explicitContributors = (IBeanInfoContributor[]) info.getJavaProject().getProject().getSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY);
-				}
+					computeBeanInfoConfigInfo(info);					
+				} 
+				explicitContributors = (IBeanInfoContributor[]) info.getJavaProject().getProject().getSessionProperty(BEANINFO_CONTRIBUTORS_SESSION_KEY);
 			} catch (CoreException e) {
 				BeaninfoPlugin.getPlugin().getLogger().log(e);
 			}
@@ -831,6 +846,9 @@ public class BeaninfoNature implements IProjectNature {
 					});
 				}
 			}
+			
+			// Add the common and beaninfovm.jar and any nls to the end of the classpath.
+			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), "beaninfocommon.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$
 			
 			// Add the beaninfovm.jar and any nls to the end of the classpath.
 			controller.contributeClasspath(BeaninfoPlugin.getPlugin().getBundle(), "vm/beaninfovm.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, true); //$NON-NLS-1$

@@ -1,2 +1,4 @@
 bin
 build.xml
+bin_beaninfocommon
+bin_vm_beaninfovm

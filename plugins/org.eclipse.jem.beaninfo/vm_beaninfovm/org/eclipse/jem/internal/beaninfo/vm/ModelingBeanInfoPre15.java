@@ -10,36 +10,22 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: ModelingBeanInfo14.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $RCSfile: ModelingBeanInfoPre15.java,v $
+ *  $Revision: 1.1 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import java.beans.BeanInfo;
 
 /**
- * @author richkulp
- *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * This is the modeling BeanInfo for Pre-JDK 1.4.
  */
-public class ModelingBeanInfo14 extends ModelingBeanInfo {
+public class ModelingBeanInfoPre15 extends ModelingBeanInfo {
 
-	/**
-	 * Constructor for ModelingBeanInfo14.
-	 * @param beanInfo
-	 */
-	public ModelingBeanInfo14(BeanInfo beanInfo) {
+	public ModelingBeanInfoPre15(BeanInfo beanInfo) {
 		super(beanInfo);
 	}
 
-	/**
-	 * Constructor for ModelingBeanInfo14.
-	 * @param beanInfo
-	 * @param superBeanInfo
-	 */
-	public ModelingBeanInfo14(BeanInfo beanInfo, BeanInfo superBeanInfo) {
+	public ModelingBeanInfoPre15(BeanInfo beanInfo, BeanInfo superBeanInfo) {
 		super(beanInfo, superBeanInfo);
 	}
 }

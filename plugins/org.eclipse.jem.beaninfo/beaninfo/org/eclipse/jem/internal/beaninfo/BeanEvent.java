@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeanEvent.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import org.eclipse.jem.java.JavaEvent;
@@ -24,6 +24,8 @@ import org.eclipse.jem.java.JavaEvent;
  *
  * <!-- begin-model-doc -->
  * Event from Introspection/Reflection.
+ * <p>
+ * The BeanEvent will be under the JavaClass' events and allEvents feature. Each BeanEvent will be decorated by an EventSetDecorator.
  * <!-- end-model-doc -->
  *
  *

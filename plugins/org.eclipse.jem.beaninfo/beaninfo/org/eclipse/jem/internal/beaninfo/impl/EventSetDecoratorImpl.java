@@ -11,13 +11,12 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
 import java.util.Collection;
-
-import java.util.*;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -28,24 +27,19 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.*;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
 import org.eclipse.jem.internal.beaninfo.EventSetDecorator;
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.MethodProxy;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
 
 import org.eclipse.jem.internal.beaninfo.*;
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.beaninfo.core.Utilities;
-import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.java.*;
 /**
  * <!-- begin-user-doc -->
@@ -56,11 +50,13 @@ import org.eclipse.jem.java.*;
  * <ul>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#isInDefaultEventSet <em>In Default Event Set</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#isUnicast <em>Unicast</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#isListenerMethodsExplicit <em>Listener Methods Explicit</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#isListenerMethodsExplicitEmpty <em>Listener Methods Explicit Empty</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#getAddListenerMethod <em>Add Listener Method</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#getListenerMethods <em>Listener Methods</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#getListenerType <em>Listener Type</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#getRemoveListenerMethod <em>Remove Listener Method</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#getEventAdapterClass <em>Event Adapter Class</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.EventSetDecoratorImpl#getSerListMthd <em>Ser List Mthd</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +65,19 @@ import org.eclipse.jem.java.*;
 
 
 public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements EventSetDecorator{
+	
+	/**
+	 * Bits for implicitly set features. This is internal, not meant for clients.
+	 */
+	public static final long EVENT_ADDLISTENERMETHOD_IMPLICIT = 0x1L;
+	public static final long EVENT_ADAPTERCLASS_IMPLICIT = 0x2L;
+	public static final long EVENT_LISTENERMETHODS_IMPLICIT = 0x4L;
+	public static final long EVENT_LISTENERTYPE_IMPLICIT = 0x8L;
+	public static final long EVENT_REMOVELISTENERMETHOD_IMPLICIT = 0x10L;
+	public static final long EVENT_DEFAULTEVENTSET_IMPLICIT = 0x20L;
+	public static final long EVENT_UNICAST_IMPLICIT = 0x40L;
+	public static final long EVENT_LISTENERMETHODS_DEFAULT = 0x80L;
+
 
 	/**
 	 * The default value of the '{@link #isInDefaultEventSet() <em>In Default Event Set</em>}' attribute.
@@ -129,24 +138,25 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	protected boolean unicastESet = false;
 
 	/**
-	 * The default value of the '{@link #isListenerMethodsExplicit() <em>Listener Methods Explicit</em>}' attribute.
+	 * The default value of the '{@link #isListenerMethodsExplicitEmpty() <em>Listener Methods Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isListenerMethodsExplicit()
+	 * @see #isListenerMethodsExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean LISTENER_METHODS_EXPLICIT_EDEFAULT = false;
+	protected static final boolean LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isListenerMethodsExplicit() <em>Listener Methods Explicit</em>}' attribute.
+	 * The cached value of the '{@link #isListenerMethodsExplicitEmpty() <em>Listener Methods Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isListenerMethodsExplicit()
+	 * @see #isListenerMethodsExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean listenerMethodsExplicit = LISTENER_METHODS_EXPLICIT_EDEFAULT;
+	protected boolean listenerMethodsExplicitEmpty = LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getAddListenerMethod() <em>Add Listener Method</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -157,19 +167,6 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	 */
 	protected Method addListenerMethod = null;
 	
-	// The add listener method is cached because this is called very often in ve processing.
-	private boolean hasCachedAddListenerMethod;
-	protected Method cachedAddListenerMethod;
-	
-	/**
-	 * The cached value of the '{@link #getListenerMethods() <em>Listener Methods</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getListenerMethods()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList listenerMethods = null;
 	/**
 	 * The cached value of the '{@link #getListenerType() <em>Listener Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -190,6 +187,26 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 	protected Method removeListenerMethod = null;
 	
 	/**
+	 * The cached value of the '{@link #getEventAdapterClass() <em>Event Adapter Class</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEventAdapterClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected JavaClass eventAdapterClass = null;
+
+	/**
+	 * The cached value of the '{@link #getSerListMthd() <em>Ser List Mthd</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSerListMthd()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList serListMthd = null;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -207,24 +224,12 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		return BeaninfoPackage.eINSTANCE.getEventSetDecorator();
 	}
 
-	public boolean isInDefaultEventSet() {	
-		if (!isSetInDefaultEventSet())
-			if (validProxy(fFeatureProxy)) {
-				try {
-					return ((IBooleanBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIsInDefaultEventSetProxy().invoke(fFeatureProxy)).booleanValue();
-				} catch (ThrowableProxy e) {
-				}
-			}
-				
-		return this.isInDefaultEventSetGen();
-	}
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isInDefaultEventSetGen() {
+	public boolean isInDefaultEventSet() {
 		return inDefaultEventSet;
 	}
 
@@ -265,24 +270,12 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		return inDefaultEventSetESet;
 	}
 
-	public boolean isUnicast() {	
-		if (!isSetUnicast())
-			if (validProxy(fFeatureProxy)) {
-				try {
-					return ((IBooleanBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIsUnicastProxy().invoke(fFeatureProxy)).booleanValue();
-				} catch (ThrowableProxy e) {
-				}
-			}
-				
-		return this.isUnicastGen();
-	}
-		
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isUnicastGen() {
+	public boolean isUnicast() {
 		return unicast;
 	}
 
@@ -323,37 +316,33 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		return unicastESet;
 	}
 
-	public Method getAddListenerMethod() {
-		if (hasCachedAddListenerMethod) {
-			if (cachedAddListenerMethod == null || !cachedAddListenerMethod.eIsProxy())
-				return cachedAddListenerMethod;
-			else {
-				// It has gone stale, resolve it again (may go null this time).
-				cachedAddListenerMethod = (Method) EcoreUtil.resolve(cachedAddListenerMethod, this);
-				if (cachedAddListenerMethod.eIsProxy()) {
-					cachedAddListenerMethod = null;	// Still not found, so just go to not have one.
-				}
-			}
-		}
-		
-		if (!eIsSet(BeaninfoPackage.eINSTANCE.getEventSetDecorator_AddListenerMethod()))
-			if (validProxy(fFeatureProxy)) {
-				try {
-					hasCachedAddListenerMethod = true;
-					return cachedAddListenerMethod = Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getAddListenerMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-				} catch (ThrowableProxy e) {
-				}
-			}
-				
-		return this.getAddListenerMethodGen();
-	}
-		
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Method getAddListenerMethodGen() {
+	public boolean isListenerMethodsExplicitEmpty() {
+		return listenerMethodsExplicitEmpty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setListenerMethodsExplicitEmpty(boolean newListenerMethodsExplicitEmpty) {
+		boolean oldListenerMethodsExplicitEmpty = listenerMethodsExplicitEmpty;
+		listenerMethodsExplicitEmpty = newListenerMethodsExplicitEmpty;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY, oldListenerMethodsExplicitEmpty, listenerMethodsExplicitEmpty));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Method getAddListenerMethod() {
 		if (addListenerMethod != null && addListenerMethod.eIsProxy()) {
 			Method oldAddListenerMethod = addListenerMethod;
 			addListenerMethod = (Method)eResolveProxy((InternalEObject)addListenerMethod);
@@ -386,73 +375,53 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD, oldAddListenerMethod, addListenerMethod));
 	}
 
-	protected boolean retrievedListenerMethods;
-	protected boolean retrievedListenerMethodsSuccessful; 
-	
-	public EList getListenerMethods() {	
-		if (!isListenerMethodsExplicit()) {
-			if (validProxy(fFeatureProxy) && !retrievedListenerMethods) {
-				retrievedListenerMethods = true;
-				EList methodsList = this.getListenerMethodsGen();
-				try {
-					BeaninfoProxyConstants constants = BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry());
-					IArrayBeanProxy methodDescs = (IArrayBeanProxy) constants.getListenerMethodDescriptorsProxy().invoke(fFeatureProxy);
-					if (methodDescs != null) {
-						ResourceSet rset = getEModelElement().eResource().getResourceSet();
-						int methodDescsLength = methodDescs.getLength();
-						BeaninfoFactory bfact = BeaninfoFactory.eINSTANCE;
-						for (int i=0; i<methodDescsLength; i++) {
-							IBeanProxy mthdDesc = methodDescs.get(i);
-							// First find the Method from the descriptor
-							URI uri = Utilities.getMethodURI((IMethodProxy) constants.getMethodProxy().invokeCatchThrowableExceptions(mthdDesc));
-							Method method = (Method) rset.getEObject(uri, true);	// In the V5 release, this poofs one up, even if it didn't exist, however, since we are getting one from the remote vm, if should exist here too.
-							// We need a method proxy, and a method decorator.
-							MethodProxy mproxy = bfact.createMethodProxy();
-							mproxy.setMethod(method);
-							mproxy.setName(method.getName());
-							MethodDecorator md = bfact.createMethodDecorator();
-							md.setImplicitlyCreated(IMPLICIT_DECORATOR_AND_FEATURE);
-							md.setDescriptorProxy(mthdDesc);
-							md.setEModelElement(mproxy);
-							methodsList.add(mproxy);
-						}
-						retrievedListenerMethodsSuccessful = true;
-						return methodsList;
-					}		
-				} catch (ThrowableProxy e) {
-				};
-			}
-			
-			if (retrievedListenerMethodsSuccessful)
-				return this.getListenerMethodsGen();	// Built once from proxy, use it always.
-			else
-				return createDefaultListenerMethodsList();	// Not explicit and not sucessful retrieval, use default.
+	public EList getListenerMethods() {
+		if (!isListenerMethodsExplicitEmpty() && getSerListMthd().isEmpty() && (getImplicitlySetBits()&(EVENT_LISTENERMETHODS_IMPLICIT | EVENT_LISTENERMETHODS_DEFAULT)) == 0) {
+			// Not explicitly empty, it is empty, and we have not implicitly or by defaults made it empty, then create the defaults.
+			createDefaultListenerMethodsList();
 		}
-		return this.getListenerMethodsGen();
+		return getSerListMthd();
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList getListenerMethodsGen() {
-		if (listenerMethods == null) {
-			listenerMethods = new EObjectContainmentEList(MethodProxy.class, this, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS);
+		// TODO: implement this method to return the 'Listener Methods' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JavaClass getListenerType() {
+		if (listenerType != null && listenerType.eIsProxy()) {
+			JavaClass oldListenerType = listenerType;
+			listenerType = (JavaClass)eResolveProxy((InternalEObject)listenerType);
+			if (listenerType != oldListenerType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_TYPE, oldListenerType, listenerType));
+			}
 		}
-		return listenerMethods;
+		return listenerType;
 	}
 
 	/**
 	 * This is called if method listeners list not explicitly set and there is no feature proxy or
 	 * there is a feature proxy and the proxy has nothing defined.
+	 * <p>
+	 * This is an internal method used by BeanInfo classes. It is not to be used by clients.
 	 */
-	protected EList createDefaultListenerMethodsList() {
-		EList mthdsList = this.getListenerMethodsGen();		
+	public EList createDefaultListenerMethodsList() {
 		if (!eIsSet(EcorePackage.eINSTANCE.getEAnnotation_EModelElement()))
-			return mthdsList;	// We are not attached, can't determine the list yet.
+			return this.getSerListMthd();	// We are not attached, can't determine the list yet.
+		EList mthdsList = this.getSerListMthd();		
 			
-		retrievedListenerMethods = retrievedListenerMethodsSuccessful = true;
 		JavaClass eventObjectClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("java.util.EventObject", getEModelElement().eResource().getResourceSet()); //$NON-NLS-1$
 		
 		mthdsList.clear();
@@ -462,6 +431,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		JavaClass lt = getListenerType();
 		if (lt == null)
 			return mthdsList;	// Couldn't get the listener type for some reason, so leave as is.
+		setImplicitlySetBits(getImplicitlySetBits()|EVENT_LISTENERMETHODS_DEFAULT);	// Mark as we implicitly filled it in.
 		
 		BeaninfoFactory bfact = BeaninfoFactory.eINSTANCE;
 		List ms = lt.getPublicMethodsExtended();
@@ -479,41 +449,13 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			mproxy.setMethod(method);
 			mproxy.setName(method.getName());			
 			MethodDecorator md = bfact.createMethodDecorator();
-			md.setImplicitlyCreated(IMPLICIT_DECORATOR_AND_FEATURE);
+			md.setImplicitDecoratorFlag(ImplicitItem.IMPLICIT_DECORATOR_AND_FEATURE_LITERAL);
 			md.setEModelElement(mproxy);			
 			mthdsList.add(mproxy);
 		}
 		return mthdsList;
 	}	
 	
-	public JavaClass getListenerType() {	
-		if (!eIsSet(BeaninfoPackage.eINSTANCE.getEventSetDecorator_ListenerType()))
-			if (validProxy(fFeatureProxy)) {
-				try {
-					return (JavaClass) Utilities.getJavaClass((IBeanTypeProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getListenerTypeProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-				} catch (ThrowableProxy e) {
-				}
-			}
-				
-		return this.getListenerTypeGen();
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public JavaClass getListenerTypeGen() {
-		if (listenerType != null && listenerType.eIsProxy()) {
-			JavaClass oldListenerType = listenerType;
-			listenerType = (JavaClass)eResolveProxy((InternalEObject)listenerType);
-			if (listenerType != oldListenerType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_TYPE, oldListenerType, listenerType));
-			}
-		}
-		return listenerType;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -536,24 +478,12 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_TYPE, oldListenerType, listenerType));
 	}
 
-	public Method getRemoveListenerMethod() {	
-		if (!eIsSet(BeaninfoPackage.eINSTANCE.getEventSetDecorator_RemoveListenerMethod()))
-			if (validProxy(fFeatureProxy)) {
-				try {
-					return Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getRemoveListenerMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-				} catch (ThrowableProxy e) {
-				}
-			}
-				
-		return this.getRemoveListenerMethodGen();
-	}
-		
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Method getRemoveListenerMethodGen() {
+	public Method getRemoveListenerMethod() {
 		if (removeListenerMethod != null && removeListenerMethod.eIsProxy()) {
 			Method oldRemoveListenerMethod = removeListenerMethod;
 			removeListenerMethod = (Method)eResolveProxy((InternalEObject)removeListenerMethod);
@@ -584,6 +514,56 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		removeListenerMethod = newRemoveListenerMethod;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD, oldRemoveListenerMethod, removeListenerMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JavaClass getEventAdapterClass() {
+		if (eventAdapterClass != null && eventAdapterClass.eIsProxy()) {
+			JavaClass oldEventAdapterClass = eventAdapterClass;
+			eventAdapterClass = (JavaClass)eResolveProxy((InternalEObject)eventAdapterClass);
+			if (eventAdapterClass != oldEventAdapterClass) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS, oldEventAdapterClass, eventAdapterClass));
+			}
+		}
+		return eventAdapterClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JavaClass basicGetEventAdapterClass() {
+		return eventAdapterClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEventAdapterClass(JavaClass newEventAdapterClass) {
+		JavaClass oldEventAdapterClass = eventAdapterClass;
+		eventAdapterClass = newEventAdapterClass;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS, oldEventAdapterClass, eventAdapterClass));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getSerListMthd() {
+		if (serListMthd == null) {
+			serListMthd = new EObjectContainmentEList(MethodProxy.class, this, BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD);
+		}
+		return serListMthd;
 	}
 
 	/**
@@ -627,8 +607,8 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 					return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
 				case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
 					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS:
-					return ((InternalEList)getListenerMethods()).basicRemove(otherEnd, msgs);
+				case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+					return ((InternalEList)getSerListMthd()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -686,16 +666,20 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
 				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return isAttributesExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
 				return getAttributes();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET:
 				return isInDefaultEventSet() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST:
 				return isUnicast() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT:
-				return isListenerMethodsExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY:
+				return isListenerMethodsExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD:
 				if (resolve) return getAddListenerMethod();
 				return basicGetAddListenerMethod();
@@ -707,6 +691,11 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD:
 				if (resolve) return getRemoveListenerMethod();
 				return basicGetRemoveListenerMethod();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS:
+				if (resolve) return getEventAdapterClass();
+				return basicGetEventAdapterClass();
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+				return getSerListMthd();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -761,8 +750,14 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(((Boolean)newValue).booleanValue());
 				return;
-			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
 				return;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -774,8 +769,8 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST:
 				setUnicast(((Boolean)newValue).booleanValue());
 				return;
-			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT:
-				setListenerMethodsExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY:
+				setListenerMethodsExplicitEmpty(((Boolean)newValue).booleanValue());
 				return;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD:
 				setAddListenerMethod((Method)newValue);
@@ -789,6 +784,13 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 				return;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD:
 				setRemoveListenerMethod((Method)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS:
+				setEventAdapterClass((JavaClass)newValue);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+				getSerListMthd().clear();
+				getSerListMthd().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -840,8 +842,14 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
 				return;
-			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(ATTRIBUTES_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
 				return;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -852,8 +860,8 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST:
 				unsetUnicast();
 				return;
-			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT:
-				setListenerMethodsExplicit(LISTENER_METHODS_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY:
+				setListenerMethodsExplicitEmpty(LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT);
 				return;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD:
 				setAddListenerMethod((Method)null);
@@ -867,16 +875,43 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			case BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD:
 				setRemoveListenerMethod((Method)null);
 				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS:
+				setEventAdapterClass((JavaClass)null);
+				return;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+				getSerListMthd().clear();
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
 
+	/*
+	 * This is overridden so that we can do special is set tests:
+	 * 1) parameter descriptors: check if serParmDesc exists and not empty, since parameter descriptors is derived.
+	 * 2) serParmDesc: if flag set to default parm desc, then answer not set, else do normal isSet test. That way if set by default it won't serialize
+	 *    out the unneeded default parms. They can be reconstructed quickly when needed.
+	 */
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SOURCE:
+				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS:
+				return eIsSetGen(BeaninfoPackage.eINSTANCE.getEventSetDecorator_SerListMthd());	// Let default serListMthd is set work.
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+				if ((getImplicitlySetBits() & EVENT_LISTENERMETHODS_DEFAULT) != 0)
+					return false;	// Not considered set if initialized by default.
+				else
+					return eIsSetGen(eFeature);	// Not set by default, so check true setting.
+			default:
+				return eIsSetGen(eFeature);	// Everything else use the gen method.
+		}
+	}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
+	public boolean eIsSetGen(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.EVENT_SET_DECORATOR__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -904,24 +939,32 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 				return isSetPreferred();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__MERGE_INTROSPECTION:
 				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return attributesExplicit != ATTRIBUTES_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__IN_DEFAULT_EVENT_SET:
 				return isSetInDefaultEventSet();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__UNICAST:
 				return isSetUnicast();
-			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT:
-				return listenerMethodsExplicit != LISTENER_METHODS_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT_EMPTY:
+				return listenerMethodsExplicitEmpty != LISTENER_METHODS_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__ADD_LISTENER_METHOD:
 				return addListenerMethod != null;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS:
-				return listenerMethods != null && !listenerMethods.isEmpty();
+				return !getListenerMethods().isEmpty();
 			case BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_TYPE:
 				return listenerType != null;
 			case BeaninfoPackage.EVENT_SET_DECORATOR__REMOVE_LISTENER_METHOD:
 				return removeListenerMethod != null;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__EVENT_ADAPTER_CLASS:
+				return eventAdapterClass != null;
+			case BeaninfoPackage.EVENT_SET_DECORATOR__SER_LIST_MTHD:
+				return serListMthd != null && !serListMthd.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -939,59 +982,10 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 		if (inDefaultEventSetESet) result.append(inDefaultEventSet); else result.append("<unset>");
 		result.append(", unicast: ");
 		if (unicastESet) result.append(unicast); else result.append("<unset>");
-		result.append(", listenerMethodsExplicit: ");
-		result.append(listenerMethodsExplicit);
+		result.append(", listenerMethodsExplicitEmpty: ");
+		result.append(listenerMethodsExplicitEmpty);
 		result.append(')');
 		return result.toString();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isListenerMethodsExplicit() {
-		return listenerMethodsExplicit;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setListenerMethodsExplicit(boolean newListenerMethodsExplicit) {
-		boolean oldListenerMethodsExplicit = listenerMethodsExplicit;
-		listenerMethodsExplicit = newListenerMethodsExplicit;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.EVENT_SET_DECORATOR__LISTENER_METHODS_EXPLICIT, oldListenerMethodsExplicit, listenerMethodsExplicit));
-	}
-
-	public void setDescriptorProxy(IBeanProxy descriptorProxy) {
-		if (retrievedListenerMethods) {
-			this.getListenerMethodsGen().clear();
-			retrievedListenerMethods = retrievedListenerMethodsSuccessful = false;
-		}
-		
-		if (hasCachedAddListenerMethod) {
-			hasCachedAddListenerMethod = false;
-			cachedAddListenerMethod = null;
-		}
-		super.setDescriptorProxy(descriptorProxy);
-	}	
-
-	/**
-	 * For some listener interfaces an adapter class is provided that implements default no-op methods, e.g.
-	 * java.awt.event.FocusEvent which has java.awt.event.FocusAdapter.
-	 * The Adapter class is provided in a key/value pair on the java.beans.EventSetDescriptor with a key 
-	 * defined in a static final constants EVENTADAPTERCLASS = "eventAdapterClass";
-	 */	
-	public JavaClass getEventAdapterClass(){
-		FeatureAttributeValue featureAttribute = (FeatureAttributeValue)getAttributes().get(EventSetDecorator.EVENTADAPTERCLASS);
-		if (featureAttribute != null && featureAttribute.isSetValueProxy()) {
-			String adapterClassName = ((IStringBeanProxy)featureAttribute.getValueProxy()).stringValue();
-			return (JavaClass) Utilities.getJavaClass(adapterClassName,eResource().getResourceSet()); 
-		}
-		return null;	
-	}
-	
 }

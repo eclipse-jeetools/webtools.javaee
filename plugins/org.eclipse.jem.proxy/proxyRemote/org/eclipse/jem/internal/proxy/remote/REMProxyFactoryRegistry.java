@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.14 $  $Date: 2004/10/28 21:24:57 $ 
+ *  $Revision: 1.15 $  $Date: 2005/02/04 23:11:34 $ 
  */
 
 
@@ -57,8 +57,9 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 	boolean fNoTimeouts = false;
 	
 	// This is set via the static setGlobalNoTimeouts() method. It is here so that
-	// when debugging callbacks, but not debugging remote vm, that no timeouts for any registry will occur. 
-	static boolean fGlobalNoTimeouts = false;
+	// when debugging callbacks, but not debugging remote vm, that no timeouts for any registry will occur.
+	// Or it can be set through the debug .options flag.
+	static boolean fGlobalNoTimeouts = "true".equalsIgnoreCase(Platform.getDebugOption(ProxyPlugin.getPlugin().getBundle().getSymbolicName()+ProxyRemoteUtil.NO_TIMEOUTS)); //$NON-NLS-1$;
 	
 	/**
 	 * Typicall set through the "expression" evaluation of the debugger.
@@ -391,7 +392,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			
 			if (scArray[0] == null)  {
 				// Log where we are at so we can know where it was we down.
-				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", new RuntimeException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.ConnectionCreationFailed_INFO_"))));	//$NON-NLS-1$ //$NON-NLS-2$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getBundle().getSymbolicName(), 0, "", new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.ConnectionCreationFailed_INFO_"))));	//$NON-NLS-1$ //$NON-NLS-2$
 				throw new IllegalStateException(ProxyRemoteMessages.getString("REMProxyFactoryRegistry.CouldNotCreateSocketConnectionToRemoteVM_EXC_"));	// Couldn't get one, probably server is down. //$NON-NLS-1$
 			}
 

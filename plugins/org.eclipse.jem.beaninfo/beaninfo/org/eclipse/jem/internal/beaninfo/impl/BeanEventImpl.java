@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: BeanEventImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import java.util.Collection;
@@ -286,9 +286,9 @@ public class BeanEventImpl extends JavaEventImpl implements BeanEvent{
 			case BeaninfoPackage.BEAN_EVENT__UPPER_BOUND:
 				return upperBound != UPPER_BOUND_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__MANY:
-				return isMany() != false;
+				return isMany() != MANY_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__REQUIRED:
-				return isRequired() != false;
+				return isRequired() != REQUIRED_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__ETYPE:
 				return eType != null;
 			case BeaninfoPackage.BEAN_EVENT__CHANGEABLE:
@@ -300,7 +300,7 @@ public class BeanEventImpl extends JavaEventImpl implements BeanEvent{
 			case BeaninfoPackage.BEAN_EVENT__DEFAULT_VALUE_LITERAL:
 				return DEFAULT_VALUE_LITERAL_EDEFAULT == null ? defaultValueLiteral != null : !DEFAULT_VALUE_LITERAL_EDEFAULT.equals(defaultValueLiteral);
 			case BeaninfoPackage.BEAN_EVENT__DEFAULT_VALUE:
-				return getDefaultValue() != null;
+				return DEFAULT_VALUE_EDEFAULT == null ? getDefaultValue() != null : !DEFAULT_VALUE_EDEFAULT.equals(getDefaultValue());
 			case BeaninfoPackage.BEAN_EVENT__UNSETTABLE:
 				return unsettable != UNSETTABLE_EDEFAULT;
 			case BeaninfoPackage.BEAN_EVENT__DERIVED:

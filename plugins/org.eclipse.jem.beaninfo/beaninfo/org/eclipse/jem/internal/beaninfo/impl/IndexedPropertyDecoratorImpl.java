@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: IndexedPropertyDecoratorImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -28,13 +28,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator;
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.beaninfo.core.Utilities;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jem.internal.proxy.core.IMethodProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Indexed Property Decorator</b></em>'.
@@ -52,6 +49,13 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 
 
 public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implements IndexedPropertyDecorator{
+	
+	/**
+	 * Bits for implicitly set features. This is internal, not meant for clients.
+	 */
+	public static final long INDEXED_READMETHOD_IMPLICIT = 0x100000L;	// Start kind of high so as to allow PropertyDecorator to increase without conflig.
+	public static final long INDEXED_WRITEMETHOD_IMPLICIT = 0x200000L;
+	
 	/**
 	 * The cached value of the '{@link #getIndexedReadMethod() <em>Indexed Read Method</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -62,6 +66,15 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 */
 	protected Method indexedReadMethod = null;
 	/**
+	 * This is true if the Indexed Read Method reference has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean indexedReadMethodESet = false;
+
+	/**
 	 * The cached value of the '{@link #getIndexedWriteMethod() <em>Indexed Write Method</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -71,6 +84,15 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 */
 	protected Method indexedWriteMethod = null;
 	
+	/**
+	 * This is true if the Indexed Write Method reference has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean indexedWriteMethodESet = false;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -89,34 +111,23 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 		return BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator();
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Method getIndexedReadMethod() {
-		if (!eIsSet(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedReadMethod())) {
-			if (validProxy(fFeatureProxy)) {			
-				try {
-					return (Method) Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIndexedReadMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-				} catch (ThrowableProxy e) {
-				}
-			} else
-				if (fFeatureDecoratorProxy != null)
-					return ((IndexedPropertyDecorator) fFeatureDecoratorProxy).getIndexedReadMethod();
-		}			
-					
-		return this.getIndexedReadMethodGen();
+		if (indexedReadMethod != null && indexedReadMethod.eIsProxy()) {
+			Method oldIndexedReadMethod = indexedReadMethod;
+			indexedReadMethod = (Method)eResolveProxy((InternalEObject)indexedReadMethod);
+			if (indexedReadMethod != oldIndexedReadMethod) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, indexedReadMethod));
+			}
+		}
+		return indexedReadMethod;
 	}
-	public Method getIndexedWriteMethod() {
-		if (!eIsSet(BeaninfoPackage.eINSTANCE.getIndexedPropertyDecorator_IndexedWriteMethod())) {
-			if (validProxy(fFeatureProxy)) {			
-				try {
-					return (Method) Utilities.getMethod((IMethodProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIndexedWriteMethodProxy().invoke(fFeatureProxy),  getEModelElement().eResource().getResourceSet());
-				} catch (ThrowableProxy e) {
-				}
-			} else
-				if (fFeatureDecoratorProxy != null)
-					return ((IndexedPropertyDecorator) fFeatureDecoratorProxy).getIndexedWriteMethod();
-		}			
-									
-		return this.getIndexedWriteMethodGen();
-	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -125,8 +136,50 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	public void setIndexedReadMethod(Method newIndexedReadMethod) {
 		Method oldIndexedReadMethod = indexedReadMethod;
 		indexedReadMethod = newIndexedReadMethod;
+		boolean oldIndexedReadMethodESet = indexedReadMethodESet;
+		indexedReadMethodESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, indexedReadMethod));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, indexedReadMethod, !oldIndexedReadMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetIndexedReadMethod() {
+		Method oldIndexedReadMethod = indexedReadMethod;
+		boolean oldIndexedReadMethodESet = indexedReadMethodESet;
+		indexedReadMethod = null;
+		indexedReadMethodESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, null, oldIndexedReadMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetIndexedReadMethod() {
+		return indexedReadMethodESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Method getIndexedWriteMethod() {
+		if (indexedWriteMethod != null && indexedWriteMethod.eIsProxy()) {
+			Method oldIndexedWriteMethod = indexedWriteMethod;
+			indexedWriteMethod = (Method)eResolveProxy((InternalEObject)indexedWriteMethod);
+			if (indexedWriteMethod != oldIndexedWriteMethod) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, indexedWriteMethod));
+			}
+		}
+		return indexedWriteMethod;
 	}
 
 	/**
@@ -137,8 +190,33 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	public void setIndexedWriteMethod(Method newIndexedWriteMethod) {
 		Method oldIndexedWriteMethod = indexedWriteMethod;
 		indexedWriteMethod = newIndexedWriteMethod;
+		boolean oldIndexedWriteMethodESet = indexedWriteMethodESet;
+		indexedWriteMethodESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, indexedWriteMethod));
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, indexedWriteMethod, !oldIndexedWriteMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetIndexedWriteMethod() {
+		Method oldIndexedWriteMethod = indexedWriteMethod;
+		boolean oldIndexedWriteMethodESet = indexedWriteMethodESet;
+		indexedWriteMethod = null;
+		indexedWriteMethodESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, null, oldIndexedWriteMethodESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetIndexedWriteMethod() {
+		return indexedWriteMethodESet;
 	}
 
 	/**
@@ -239,8 +317,12 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return isAttributesExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES:
 				return getAttributes();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__BOUND:
@@ -322,8 +404,14 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(((Boolean)newValue).booleanValue());
 				return;
-			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -410,8 +498,14 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
 				return;
-			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(ATTRIBUTES_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -435,19 +529,31 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				setPropertyEditorClass((JavaClass)null);
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__READ_METHOD:
-				setReadMethod((Method)null);
+				unsetReadMethod();
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__WRITE_METHOD:
-				setWriteMethod((Method)null);
+				unsetWriteMethod();
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD:
-				setIndexedReadMethod((Method)null);
+				unsetIndexedReadMethod();
 				return;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD:
-				setIndexedWriteMethod((Method)null);
+				unsetIndexedWriteMethod();
 				return;
 		}
 		eDynamicUnset(eFeature);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
+	 */
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__SOURCE:
+				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			default:
+				return eIsSetGen(eFeature);
+		}
 	}
 
 	/**
@@ -455,7 +561,7 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
+	public boolean eIsSetGen(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -483,8 +589,12 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 				return isSetPreferred();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__MERGE_INTROSPECTION:
 				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return attributesExplicit != ATTRIBUTES_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__BOUND:
@@ -500,13 +610,13 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__PROPERTY_EDITOR_CLASS:
 				return propertyEditorClass != null;
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__READ_METHOD:
-				return readMethod != null;
+				return isSetReadMethod();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__WRITE_METHOD:
-				return writeMethod != null;
+				return isSetWriteMethod();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD:
-				return indexedReadMethod != null;
+				return isSetIndexedReadMethod();
 			case BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD:
-				return indexedWriteMethod != null;
+				return isSetIndexedWriteMethod();
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -516,42 +626,8 @@ public class IndexedPropertyDecoratorImpl extends PropertyDecoratorImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Method getIndexedReadMethodGen() {
-		if (indexedReadMethod != null && indexedReadMethod.eIsProxy()) {
-			Method oldIndexedReadMethod = indexedReadMethod;
-			indexedReadMethod = (Method)eResolveProxy((InternalEObject)indexedReadMethod);
-			if (indexedReadMethod != oldIndexedReadMethod) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_READ_METHOD, oldIndexedReadMethod, indexedReadMethod));
-			}
-		}
-		return indexedReadMethod;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Method basicGetIndexedReadMethod() {
 		return indexedReadMethod;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Method getIndexedWriteMethodGen() {
-		if (indexedWriteMethod != null && indexedWriteMethod.eIsProxy()) {
-			Method oldIndexedWriteMethod = indexedWriteMethod;
-			indexedWriteMethod = (Method)eResolveProxy((InternalEObject)indexedWriteMethod);
-			if (indexedWriteMethod != oldIndexedWriteMethod) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BeaninfoPackage.INDEXED_PROPERTY_DECORATOR__INDEXED_WRITE_METHOD, oldIndexedWriteMethod, indexedWriteMethod));
-			}
-		}
-		return indexedWriteMethod;
 	}
 
 	/**

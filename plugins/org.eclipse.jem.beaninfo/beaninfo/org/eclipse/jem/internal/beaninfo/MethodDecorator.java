@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: MethodDecorator.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -21,11 +21,16 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Method Decorator</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Equivalent to MethodDecorator in java.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicit <em>Parms Explicit</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicitEmpty <em>Parms Explicit Empty</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#getParameterDescriptors <em>Parameter Descriptors</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#getSerParmDesc <em>Ser Parm Desc</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,36 +42,32 @@ import org.eclipse.emf.common.util.EList;
 
 public interface MethodDecorator extends FeatureDecorator{
 	/**
-	 * Returns the value of the '<em><b>Parms Explicit</b></em>' attribute.
+	 * Returns the value of the '<em><b>Parms Explicit Empty</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parms Explicit</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * If the parameterDescriptors feature is explicitly set, ie. not through the method descriptor proxy, then this flag must be set true. If it is true, then the parameterDescriptors will not be brought over from the descriptor proxy, nor will default ones be created if there aren't any specified.
+	 * Set true if the parms feature is explicitly set as empty and is not to have parameters merged in from BeanInfo or reflection.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Parms Explicit</em>' attribute.
-	 * @see #setParmsExplicit(boolean)
-	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getMethodDecorator_ParmsExplicit()
+	 * @return the value of the '<em>Parms Explicit Empty</em>' attribute.
+	 * @see #setParmsExplicitEmpty(boolean)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getMethodDecorator_ParmsExplicitEmpty()
 	 * @model 
 	 * @generated
 	 */
-	boolean isParmsExplicit();
+	boolean isParmsExplicitEmpty();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicit <em>Parms Explicit</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.MethodDecorator#isParmsExplicitEmpty <em>Parms Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Parms Explicit</em>' attribute.
-	 * @see #isParmsExplicit()
+	 * @param value the new value of the '<em>Parms Explicit Empty</em>' attribute.
+	 * @see #isParmsExplicitEmpty()
 	 * @generated
 	 */
-	void setParmsExplicit(boolean value);
+	void setParmsExplicitEmpty(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Parameter Descriptors</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Parameter Descriptors</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.jem.internal.beaninfo.ParameterDecorator}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -74,11 +75,35 @@ public interface MethodDecorator extends FeatureDecorator{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameter Descriptors</em>' containment reference list.
+	 * <!-- begin-model-doc -->
+	 * This is the parameter descriptors list.
+	 * <p>
+	 * Note: This is a derived setting, which means it will not notify out changes to it. To here changes to it, listen on "serParmDesc" notifications instead.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Parameter Descriptors</em>' reference list.
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getMethodDecorator_ParameterDescriptors()
-	 * @model type="org.eclipse.jem.internal.beaninfo.ParameterDecorator" containment="true"
+	 * @model type="org.eclipse.jem.internal.beaninfo.ParameterDecorator" transient="true" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList getParameterDescriptors();
+
+	/**
+	 * Returns the value of the '<em><b>Ser Parm Desc</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jem.internal.beaninfo.ParameterDecorator}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ser Parm Desc</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This is a private feature. It is used internally only. 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Ser Parm Desc</em>' containment reference list.
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getMethodDecorator_SerParmDesc()
+	 * @model type="org.eclipse.jem.internal.beaninfo.ParameterDecorator" containment="true"
+	 * @generated
+	 */
+	EList getSerParmDesc();
 
 }

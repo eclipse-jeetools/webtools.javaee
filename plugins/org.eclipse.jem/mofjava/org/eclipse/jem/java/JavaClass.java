@@ -11,7 +11,7 @@
 package org.eclipse.jem.java;
 /*
  *  $RCSfile: JavaClass.java,v $
- *  $Revision: 1.2 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.3 $  $Date: 2005/02/04 23:11:33 $ 
  */
 import java.util.List;
 
@@ -401,6 +401,16 @@ public interface JavaClass extends EClass, JavaHelpers{
 	 */
 	EList getAllProperties();
 	
+	
+	/**
+	 * Return the reflection type, if it exists, for this class. If running within Eclipse this
+	 * will be an {@link org.eclipse.jdt.core.IType}, or running outside of Eclipse it will be a {@link java.lang.Class}.
+	 * 
+	 * @return IType if in Eclipse, Class if outside Eclipse, or <code>null</code> if type not found.
+	 * 
+	 * @since 1.1.0
+	 */
+	Object getReflectionType();
 
 }
 

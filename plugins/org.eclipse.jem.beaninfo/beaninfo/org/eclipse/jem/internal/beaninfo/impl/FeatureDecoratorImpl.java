@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: FeatureDecoratorImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -32,17 +32,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jem.internal.beaninfo.BeaninfoFactory;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
-import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
 import org.eclipse.jem.internal.beaninfo.FeatureDecorator;
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
-import org.eclipse.jem.internal.proxy.core.EnumerationBeanProxyWrapper;
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBooleanBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IMethodProxy;
-import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 
 /**
  * <!-- begin-user-doc -->
@@ -58,7 +50,9 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#isHidden <em>Hidden</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#isPreferred <em>Preferred</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#isMergeIntrospection <em>Merge Introspection</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#isAttributesExplicit <em>Attributes Explicit</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#isAttributesExplicitEmpty <em>Attributes Explicit Empty</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#getImplicitlySetBits <em>Implicitly Set Bits</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#getImplicitDecoratorFlag <em>Implicit Decorator Flag</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.FeatureDecoratorImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
@@ -66,6 +60,22 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
  * @generated
  */
 public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDecorator{
+	
+	/**
+	 * Bits for implicitly set features. This is internal, not meant for clients.
+	 * Note: To make it easier to make changes Feature goes from high bits down, while the
+	 * subclasses go from low-bits up. That way if a change is made to add something of
+	 * interest to Feature, all of the subclasses don't need to have their bits re-ordered.
+	 * Since these are bits, it doesn't matter which ones to use.
+	 */
+	public static final long FEATURE_DISPLAYNAME_IMPLICIT = 0x8000000000000000L;
+	public static final long FEATURE_SHORTDESC_IMPLICIT = 0x4000000000000000L;
+	public static final long FEATURE_CATEGORY_IMPLICIT = 0x2000000000000000L;
+	public static final long FEATURE_EXPERT_IMPLICIT = 0x1000000000000000L;
+	public static final long FEATURE_HIDDEN_IMPLICIT = 0x800000000000000L;
+	public static final long FEATURE_PREFERRED_IMPLICIT = 0x400000000000000L;
+	public static final long FEATURE_ATTRIBUTES_IMPLICIT = 0x200000000000000L; 
+	
 	/**
 	 * The default value of the '{@link #getDisplayName() <em>Display Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -76,20 +86,6 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	protected static final String DISPLAY_NAME_EDEFAULT = null;
 
-	protected IBeanProxy fFeatureProxy;
-	protected FeatureDecorator fFeatureDecoratorProxy;
-	private int fIsImplicit = NOT_IMPLICIT;
-	private String fProxyDisplayName = null;
-	
-	protected boolean isDesignTimeProxy = false;
-	protected boolean setIsDesignTimeProxy;
-	protected boolean isPreferredProxy = false;
-	protected boolean setIsPreferredProxy;
-	
-	protected String categoryProxy;	
-	protected boolean setCategoryProxy;
-	protected String shortDescriptionProxy;
-	protected boolean setShortDescriptionProxy;
 	 
 	/**
 	 * The cached value of the '{@link #getDisplayName() <em>Display Name</em>}' attribute.
@@ -263,25 +259,64 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 */
 	protected boolean mergeIntrospection = MERGE_INTROSPECTION_EDEFAULT;
 	/**
-	 * The default value of the '{@link #isAttributesExplicit() <em>Attributes Explicit</em>}' attribute.
+	 * The default value of the '{@link #isAttributesExplicitEmpty() <em>Attributes Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isAttributesExplicit()
+	 * @see #isAttributesExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean ATTRIBUTES_EXPLICIT_EDEFAULT = false;
+	protected static final boolean ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isAttributesExplicit() <em>Attributes Explicit</em>}' attribute.
+	 * The cached value of the '{@link #isAttributesExplicitEmpty() <em>Attributes Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isAttributesExplicit()
+	 * @see #isAttributesExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean attributesExplicit = ATTRIBUTES_EXPLICIT_EDEFAULT;
+	protected boolean attributesExplicitEmpty = ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
 
+	/**
+	 * The default value of the '{@link #getImplicitlySetBits() <em>Implicitly Set Bits</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImplicitlySetBits()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final long IMPLICITLY_SET_BITS_EDEFAULT = 0L;
+
+	/**
+	 * The cached value of the '{@link #getImplicitlySetBits() <em>Implicitly Set Bits</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImplicitlySetBits()
+	 * @generated
+	 * @ordered
+	 */
+	protected long implicitlySetBits = IMPLICITLY_SET_BITS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getImplicitDecoratorFlag() <em>Implicit Decorator Flag</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImplicitDecoratorFlag()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ImplicitItem IMPLICIT_DECORATOR_FLAG_EDEFAULT = ImplicitItem.NOT_IMPLICIT_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getImplicitDecoratorFlag() <em>Implicit Decorator Flag</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImplicitDecoratorFlag()
+	 * @generated
+	 * @ordered
+	 */
+	protected ImplicitItem implicitDecoratorFlag = IMPLICIT_DECORATOR_FLAG_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' map.
@@ -301,6 +336,7 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 		super();
 		setSource(this.getClass().getName());		
 	}
+	
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -311,140 +347,19 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 		return BeaninfoPackage.eINSTANCE.getFeatureDecorator();
 	}
 
-	protected boolean retrievedAttributes;
-	
-	protected boolean validProxy(IBeanProxy proxy) {
-		return proxy != null ? proxy.isValid() : false;
+	public String getDisplayName() {
+		return isSetDisplayName() ? getDisplayNameGen() : getName();
 	}
-			
-	public EMap getAttributes() {
-		if (!isAttributesExplicit()) {
-			if (validProxy(fFeatureProxy) && !retrievedAttributes) {
-				retrievedAttributes = true;
-				EMap attribs = this.getAttributesGen();				
-				
-				IMethodProxy getValue = BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getValueProxy();
-				try {				
-					EnumerationBeanProxyWrapper attrNames = new EnumerationBeanProxyWrapper(BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getAttributeNamesProxy().invoke(fFeatureProxy));
-					while (attrNames.hasMoreElements()) {
-						try {
-							IStringBeanProxy attrName = (IStringBeanProxy) attrNames.nextElement();
-							IBeanProxy attrValue = getValue.invoke(fFeatureProxy, attrName);
-							if ("ivjDesignTimeProperty".equals(attrName.stringValue())) { //$NON-NLS-1$
-								// This is special, we pull it out.
-								// This actually only has meaning for Properties, so we only set it here, it is not referenced till there.
-								if (attrValue instanceof IBooleanBeanProxy) {
-									IBooleanBeanProxy v = (IBooleanBeanProxy) attrValue;
-									isDesignTimeProxy = v.booleanValue();
-								} else
-									isDesignTimeProxy = false;
-								setIsDesignTimeProxy = true;
-							} else if ("category".equals(attrName.stringValue())) { //$NON-NLS-1$
-								// This is special we pull it out.
-								if (attrValue instanceof IStringBeanProxy) {
-									categoryProxy = ((IStringBeanProxy) attrValue).stringValue();
-								} else
-									categoryProxy = null;
-								setCategoryProxy = true;
-							} else if ("preferred".equals(attrName.stringValue())) { //$NON-NLS-1$
-								// There is a bug JDK 1.3 where preferred setting in the FeatureDescriptor is not
-								// preserved and is lost. This was fixed in 1.4. So to allow 1.3 preferred to work
-								// we allow the convention that if there is a "preferred" attribute setting, then
-								// we will use that for preferred. 
-								// When sure that a descriptor is only used in 1.4, then the "preferred" attribute
-								// can be removed from that beaninfo featureDescriptor.
-								if (attrValue instanceof IBooleanBeanProxy) {
-									IBooleanBeanProxy v = (IBooleanBeanProxy) attrValue;
-									isPreferredProxy = v.booleanValue();
-									setIsPreferredProxy = true;									
-								} 
 
-							} else {
-								// See if entry already exists, if not create. If it does, and there wasn't a value proxy
-								// previously set, then ignore it (because came from an override). If previously set, then
-								// set with new one.
-								String key = attrName.stringValue();
-								FeatureAttributeValue fv = (FeatureAttributeValue) attribs.get(key);
-								if (fv == null)
-									fv = BeaninfoFactory.eINSTANCE.createFeatureAttributeValue();
-								else if (!fv.isSetValueProxy())
-									continue;
-								fv.setValueProxy(attrValue);
-								attribs.put(key, fv);
-							}
-						} catch (ThrowableProxy e) {
-						}
-					}
-				} catch (ThrowableProxy e) {
-				}						
-			}
-		}
-		return this.getAttributesGen();
-	}
-	
 	/**
-	 * Was this decorator and/or feature implicitly created by introspection?
-	 * The default should be NOT_IMPLICIT.
-	 * This is here for linkage with the introspection process
-	 * and is not really a MOF property. The introspection needs
-	 * to know which features it created and which were explicitly
-	 * created by other means. Implicitly created ones may be 
-	 * deleted at any time when the introspection determines it
-	 * needs to.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public int isImplicitlyCreated() {
-		return fIsImplicit;
+	public String getDisplayNameGen() {
+		return displayName;
 	}
-	
-	public void setImplicitlyCreated(int implicit) {
-		fIsImplicit = implicit;
-	}
-	
-	
-	public boolean isIntrospected() {
-		return fFeatureProxy != null;
-	}
-	
-	public IBeanProxy getDescriptorProxy() {
-		return fFeatureProxy;
-	}
-	
-	public void setDescriptorProxy(IBeanProxy descriptor) {
-		fFeatureProxy = descriptor;
-		fProxyDisplayName = null;
-		if (retrievedAttributes) {
-			attributes.clear();
-			retrievedAttributes = false;
-		}
-		isDesignTimeProxy = false;
-		setIsDesignTimeProxy = false;
-		
-		setCategoryProxy = false;
-		categoryProxy = null;
-		
-		setShortDescriptionProxy = false;
-		shortDescriptionProxy = null;
-		
-		isPreferredProxy = false;
-		setIsPreferredProxy = false;
 
-		if (validProxy(fFeatureProxy)) {
-			// Cache display name because this is used over and over.
-			if (!isSetDisplayName())
-				try {
-					fProxyDisplayName = ((IStringBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getDisplayNameProxy().invoke(fFeatureProxy)).stringValue();
-				} catch (NullPointerException e) {
-				} catch (ThrowableProxy e) {
-				}
-				
-		}
-				
-	}
-	
-	public void setDecoratorProxy(FeatureDecorator decorator) {
-		fFeatureDecoratorProxy = decorator;
-	}
-	
 	public String getName() {
 		ENamedElement ne = (ENamedElement) getEModelElement();
 		if (ne != null)
@@ -453,33 +368,6 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 			return "?";	// Don't know what it is. //$NON-NLS-1$
 	}
 	
-	public String getDisplayName() {
-		if (!isSetDisplayName())
-			if (fProxyDisplayName != null) 
-				return fProxyDisplayName;
-			else
-				return getName();	// Use the name as the display name.
-		return this.getDisplayNameGen();
-	}
-	public String getShortDescription() {
-		if (!isSetShortDescription()) {
-			if (!setShortDescriptionProxy) {
-				// Short description is used over and over, so we cache it.
-				setShortDescriptionProxy = true;
-				if (validProxy(fFeatureProxy))
-					try {
-						IStringBeanProxy str = (IStringBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getShortDescriptionProxy().invoke(fFeatureProxy);
-						if (str != null)
-							shortDescriptionProxy = str.stringValue();
-					} catch (ThrowableProxy e) {
-					};
-			}
-			
-			return shortDescriptionProxy != null ? shortDescriptionProxy : getDisplayName();	// It not set, then use display name.
-		}
-					
-		return this.getShortDescriptionGen();
-	}
 
 
 	/**
@@ -524,6 +412,15 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setShortDescription(String newShortDescription) {
 		String oldShortDescription = shortDescription;
 		shortDescription = newShortDescription;
@@ -556,19 +453,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 		return shortDescriptionESet;
 	}
 
-	public String getCategory() {
-		if (category != CATEGORY_EDEFAULT)
-			return getCategoryGen();
-		getAttributes();	// Force retrieval of attributes so that we can see if category is there.
-		return setCategoryProxy ? categoryProxy : CATEGORY_EDEFAULT;
-	}
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCategoryGen() {
+	public String getCategory() {
 		return category;
 	}
 
@@ -584,22 +474,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__CATEGORY, oldCategory, category));
 	}
 
-	public boolean isExpert() {
-		if (validProxy(fFeatureProxy) && !isSetExpert())
-			try {
-				return ((IBooleanBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIsExpertProxy().invoke(fFeatureProxy)).booleanValue();
-			} catch (ThrowableProxy e) {
-			};
-					
-		return this.isExpertGen();
-	}
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isExpertGen() {
+	public boolean isExpert() {
 		return expert;
 	}
 
@@ -641,24 +521,11 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	}
 
 	/**
-	 */
-	public boolean isHidden() {
-		if (validProxy(fFeatureProxy) && !isSetHidden())
-			try {
-				return ((IBooleanBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIsHiddenProxy().invoke(fFeatureProxy)).booleanValue();
-			} catch (ThrowableProxy e) {
-			};
-					
-		return this.isHiddenGen();
-	
-	}
-	
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isHiddenGen() {
+	public boolean isHidden() {
 		return hidden;
 	}
 
@@ -699,26 +566,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 		return hiddenESet;
 	}
 
-	public boolean isPreferred() {
-		getAttributes();	// This will cause the preferred flag to be set if found. (Due to 1.3 bug, we need ti also test the attributes).
-		if (setIsPreferredProxy)
-			return isPreferredProxy;
-		else if (validProxy(fFeatureProxy) && !isSetPreferred())
-			try {
-				return ((IBooleanBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getIsPreferredProxy().invoke(fFeatureProxy)).booleanValue();
-			} catch (ThrowableProxy e) {
-			};
-					
-		return this.isPreferredGen();
-	
-	}
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isPreferredGen() {
+	public boolean isPreferred() {
 		return preferred;
 	}
 
@@ -785,6 +638,81 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isAttributesExplicitEmpty() {
+		return attributesExplicitEmpty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAttributesExplicitEmpty(boolean newAttributesExplicitEmpty) {
+		boolean oldAttributesExplicitEmpty = attributesExplicitEmpty;
+		attributesExplicitEmpty = newAttributesExplicitEmpty;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY, oldAttributesExplicitEmpty, attributesExplicitEmpty));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public long getImplicitlySetBits() {
+		return implicitlySetBits;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImplicitlySetBits(long newImplicitlySetBits) {
+		long oldImplicitlySetBits = implicitlySetBits;
+		implicitlySetBits = newImplicitlySetBits;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS, oldImplicitlySetBits, implicitlySetBits));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplicitItem getImplicitDecoratorFlag() {
+		return implicitDecoratorFlag;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImplicitDecoratorFlag(ImplicitItem newImplicitDecoratorFlag) {
+		ImplicitItem oldImplicitDecoratorFlag = implicitDecoratorFlag;
+		implicitDecoratorFlag = newImplicitDecoratorFlag == null ? IMPLICIT_DECORATOR_FLAG_EDEFAULT : newImplicitDecoratorFlag;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG, oldImplicitDecoratorFlag, implicitDecoratorFlag));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EMap getAttributes() {
+		if (attributes == null) {
+			attributes = new EcoreEMap(BeaninfoPackage.eINSTANCE.getFeatureAttributeMapEntry(), FeatureAttributeMapEntryImpl.class, this, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES);
+		}
+		return attributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -803,40 +731,14 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 		if (preferredESet) result.append(preferred); else result.append("<unset>");
 		result.append(", mergeIntrospection: ");
 		result.append(mergeIntrospection);
-		result.append(", attributesExplicit: ");
-		result.append(attributesExplicit);
+		result.append(", attributesExplicitEmpty: ");
+		result.append(attributesExplicitEmpty);
+		result.append(", implicitlySetBits: ");
+		result.append(implicitlySetBits);
+		result.append(", implicitDecoratorFlag: ");
+		result.append(implicitDecoratorFlag);
 		result.append(')');
 		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDisplayNameGen() {
-		return displayName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getShortDescriptionGen() {
-		return shortDescription;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EMap getAttributesGen() {
-		if (attributes == null) {
-			attributes = new EcoreEMap(BeaninfoPackage.eINSTANCE.getFeatureAttributeMapEntry(), FeatureAttributeMapEntryImpl.class, this, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES);
-		}
-		return attributes;
 	}
 
 	/**
@@ -937,8 +839,12 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
 				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return isAttributesExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
 			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
 				return getAttributes();
 		}
@@ -995,8 +901,14 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(((Boolean)newValue).booleanValue());
 				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
 				return;
 			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -1052,8 +964,14 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
 				return;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(ATTRIBUTES_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
 				return;
 			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -1063,11 +981,40 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 	}
 
 	/**
+	 * Called by overrides to eIsSet to test if source is set. This is because for the 
+	 * FeatureDecorator and subclasses, setting source to the classname is considered
+	 * to be not set since that is the new default for each class level. By doing this
+	 * when serializing it won't waste space and time adding a copy of the source string
+	 * to the serialized output and then creating a NEW copy on each decorator loaded
+	 * from an XMI file. 
+	 * 
+	 * @return <code>true</code> if source is not null and not equal to class name.
+	 * 
+	 * @since 1.1.0
+	 */
+	protected boolean isSourceSet() {
+		return source != null && !getClass().getName().equals(source);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
+	 */
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.FEATURE_DECORATOR__SOURCE:
+				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			default:
+				return eIsSetGen(eFeature);
+		}
+	}
+
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
+	public boolean eIsSetGen(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.FEATURE_DECORATOR__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -1095,40 +1042,16 @@ public class FeatureDecoratorImpl extends EAnnotationImpl implements FeatureDeco
 				return isSetPreferred();
 			case BeaninfoPackage.FEATURE_DECORATOR__MERGE_INTROSPECTION:
 				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return attributesExplicit != ATTRIBUTES_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.FEATURE_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
 			case BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isAttributesExplicit() {
-		return attributesExplicit;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAttributesExplicit(boolean newAttributesExplicit) {
-		boolean oldAttributesExplicit = attributesExplicit;
-		attributesExplicit = newAttributesExplicit;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.FEATURE_DECORATOR__ATTRIBUTES_EXPLICIT, oldAttributesExplicit, attributesExplicit));
-	}
-
-	/**
-	 * @see org.eclipse.jem.internal.beaninfo.FeatureDecorator#needIntrospection()
-	 */
-	public boolean needIntrospection() {
-		return fFeatureProxy != null && !validProxy(fFeatureProxy);
 	}
 
 }

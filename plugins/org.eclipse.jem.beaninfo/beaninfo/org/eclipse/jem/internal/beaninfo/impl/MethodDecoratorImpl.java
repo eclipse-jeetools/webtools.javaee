@@ -11,10 +11,11 @@
 package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: MethodDecoratorImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
+import java.util.*;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,15 +33,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoFactory;
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.MethodDecorator;
 import org.eclipse.jem.internal.beaninfo.MethodProxy;
 import org.eclipse.jem.internal.beaninfo.ParameterDecorator;
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.java.JavaParameter;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jem.internal.proxy.core.IArrayBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Method Decorator</b></em>'.
@@ -48,8 +46,9 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.MethodDecoratorImpl#isParmsExplicit <em>Parms Explicit</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.MethodDecoratorImpl#isParmsExplicitEmpty <em>Parms Explicit Empty</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.MethodDecoratorImpl#getParameterDescriptors <em>Parameter Descriptors</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.impl.MethodDecoratorImpl#getSerParmDesc <em>Ser Parm Desc</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,38 +57,43 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 
 
 public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodDecorator{
+	
 	/**
-	 * The default value of the '{@link #isParmsExplicit() <em>Parms Explicit</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isParmsExplicit()
-	 * @generated
-	 * @ordered
+	 * Bits for implicitly set features. This is internal, not meant for clients.
 	 */
-	protected static final boolean PARMS_EXPLICIT_EDEFAULT = false;
+	public static final long METHOD_PARAMETERS_IMPLICIT = 0x1L;
+	public static final long METHOD_PARAMETERS_DEFAULT = 02L;	// Special, means were created by default and not by implicit (from beaninfo).
 
-	protected boolean fRetrievedParms = false;
-	protected boolean fRetrievedParmsSuccessful = false;
-	
 	/**
-	 * The cached value of the '{@link #isParmsExplicit() <em>Parms Explicit</em>}' attribute.
+	 * The default value of the '{@link #isParmsExplicitEmpty() <em>Parms Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isParmsExplicit()
+	 * @see #isParmsExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean parmsExplicit = PARMS_EXPLICIT_EDEFAULT;
+	protected static final boolean PARMS_EXPLICIT_EMPTY_EDEFAULT = false;
+
 	/**
-	 * The cached value of the '{@link #getParameterDescriptors() <em>Parameter Descriptors</em>}' containment reference list.
+	 * The cached value of the '{@link #isParmsExplicitEmpty() <em>Parms Explicit Empty</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getParameterDescriptors()
+	 * @see #isParmsExplicitEmpty()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList parameterDescriptors = null;
-	
+	protected boolean parmsExplicitEmpty = PARMS_EXPLICIT_EMPTY_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getSerParmDesc() <em>Ser Parm Desc</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSerParmDesc()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList serParmDesc = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,53 +112,37 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 		return BeaninfoPackage.eINSTANCE.getMethodDecorator();
 	}
 
-	public EList getParameterDescriptors() {
-		if (!isParmsExplicit()) {
-			if (validProxy(fFeatureProxy) && !fRetrievedParms) {
-				fRetrievedParms = true;
-				EList parmsList = this.getParameterDescriptorsGen();
-									
-				try {
-					IArrayBeanProxy parms = (IArrayBeanProxy) BeaninfoProxyConstants.getConstants(fFeatureProxy.getProxyFactoryRegistry()).getParameterDescriptorsProxy().invoke(fFeatureProxy);
-					if (parms != null) {
-						List plist = getMethodParameters();
-						int plistLength = plist != null ? plist.size() : 0;
-						int parmsLength = Math.min(parms.getLength(), plistLength);
-						// Don't want to add more than there really is. This just means that the beaninfo is out of sync with the code.
-						for (int i=0; i<parmsLength; i++) {
-							IBeanProxy parm = parms.get(i);
-							ParameterDecorator pd = BeaninfoFactory.eINSTANCE.createParameterDecorator();
-							pd.setImplicitlyCreated(IMPLICIT_DECORATOR);
-							pd.setDescriptorProxy(parm);
-							parmsList.add(pd);
-							// Get the real parm and set as the decorates.
-							pd.setParameter((JavaParameter) plist.get(i));
-						}
-						fRetrievedParmsSuccessful = true;
-						return parmsList;
-					}		
-				} catch (ThrowableProxy e) {
-				};
-			}
-			
-			if (fRetrievedParmsSuccessful)
-				return this.getParameterDescriptorsGen();	// Built once from proxy, use it always.
-			else
-				return createDefaultParmsList();	// Not explicit and not sucessful retrieval, use default.
-		}
-		return this.getParameterDescriptorsGen();
-	}
 	/**
-	 * This is called if parms list not explicitly set and there is no feature proxy or
-	 * there is a feature proxy and the proxy has nothing defined.
-	 * We will generate a list based upon the parameters from the method itself.
-	 * We won't cache it because it may change and we aren't listening for changes.
-	 * It shouldn't be used that often to cause a performance problem.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	protected EList createDefaultParmsList() {
-		EList parmsList = this.getParameterDescriptorsGen();
+	public boolean isParmsExplicitEmpty() {
+		return parmsExplicitEmpty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setParmsExplicitEmpty(boolean newParmsExplicitEmpty) {
+		boolean oldParmsExplicitEmpty = parmsExplicitEmpty;
+		parmsExplicitEmpty = newParmsExplicitEmpty;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY, oldParmsExplicitEmpty, parmsExplicitEmpty));
+	}
+
+	/*
+	 * This is called if parms list not explicitly set and it was empty from BeanInfo or
+	 * this is from reflection. This becomes the default list based upon the method
+	 * we are attached to.
+	 */
+	private EList createDefaultParmsList() {
+		EList parmsList = this.getSerParmDesc();
 		parmsList.clear();
 		
+		setImplicitlySetBits(getImplicitlySetBits()|METHOD_PARAMETERS_DEFAULT);	// Mark as we implicitly filled it in.
 		List p = getMethodParameters();
 		if (p == null)
 			return parmsList;	// Couldn't get the list for some reason, so leave as is.
@@ -163,6 +151,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 			ParameterDecorator pd = BeaninfoFactory.eINSTANCE.createParameterDecorator();
 			JavaParameter jp = (JavaParameter) p.get(i);
 			pd.setName(jp.getName());
+			pd.setImplicitlySetBits(ParameterDecoratorImpl.PARAMETER_NAME_IMPLICIT);
 			pd.setParameter(jp);
 			parmsList.add(pd);
 		}
@@ -170,23 +159,28 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	}
 	
 	/*
-	 * Initialize the ParameterDecorators to point to the JavaParameter they are describing.
+	 * Initialize the ParameterDecorators to hook up the JavaParameter they are describing.
 	 * This is called from ParameterDecorator when it finds that its JavaParameter has not been set.
 	 * This means that it was explicitly added and we need to setup the parms.
+	 * <p>
+	 * Note this an internal method for BeanInfo. It is not meant to be called by clients.
 	 */
-	protected void initializeParameters() {
-		if (this.parameterDescriptors == null)
+	void initializeParameters() {
+		if (this.serParmDesc == null)
 			return;
 		List mp = getMethodParameters();
-		if (mp == null || mp.isEmpty())
+		if (mp.isEmpty())
 			return;	// Nothing that can be described.
-		int psize = Math.min(this.parameterDescriptors.size(), mp.size());
+		int psize = Math.min(this.serParmDesc.size(), mp.size());
 		for (int i=0; i < psize; i++)
-			((ParameterDecorator) this.parameterDescriptors.get(i)).setParameter((JavaParameter) mp.get(i));
+			((ParameterDecorator) this.serParmDesc.get(i)).setParameter((JavaParameter) mp.get(i));
 	}
 
 
-	protected List getMethodParameters() {
+	/*
+	 * Get the jem parameters from the method (jem method)
+	 */
+	private List getMethodParameters() {
 		// Get the method
 		Method m = null;
 		Object d = getEModelElement();
@@ -196,45 +190,15 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 			if (d instanceof MethodProxy)
 				m = ((MethodProxy) d).getMethod();
 			else
-				return null;	// Not decorating correct object.
+				return Collections.EMPTY_LIST;	// Not decorating correct object.
 		if (m == null)
-			return null;	// Couldn't find the method.
+			return Collections.EMPTY_LIST;	// Couldn't find the method.
 		List p = m.getParameters();
 		return p;
 	}
 			
 			
 	
-	public void setDescriptorProxy(IBeanProxy descriptorProxy) {
-		if (fRetrievedParms) {
-			this.getParameterDescriptorsGen().clear();
-			fRetrievedParms = fRetrievedParmsSuccessful = false;
-		}
-		super.setDescriptorProxy(descriptorProxy);
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isParmsExplicit() {
-		return parmsExplicit;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setParmsExplicit(boolean newParmsExplicit) {
-		boolean oldParmsExplicit = parmsExplicit;
-		parmsExplicit = newParmsExplicit;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT, oldParmsExplicit, parmsExplicit));
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -244,10 +208,33 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (parmsExplicit: ");
-		result.append(parmsExplicit);
+		result.append(" (parmsExplicitEmpty: ");
+		result.append(parmsExplicitEmpty);
 		result.append(')');
 		return result.toString();
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.beaninfo.MethodDecorator#getParameterDescriptors()
+	 */
+	public EList getParameterDescriptors() {
+		if (!isParmsExplicitEmpty() && getSerParmDesc().isEmpty() && (getImplicitlySetBits()&(METHOD_PARAMETERS_IMPLICIT | METHOD_PARAMETERS_DEFAULT)) == 0) {
+			// Not explicitly empty, it is empty, and we have not implicitly or by defaults made it empty, then create the defaults.
+			createDefaultParmsList();
+		}
+		return getSerParmDesc();
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getParameterDescriptorsGen() {
+		// TODO: implement this method to return the 'Parameter Descriptors' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -255,11 +242,11 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getParameterDescriptorsGen() {
-		if (parameterDescriptors == null) {
-			parameterDescriptors = new EObjectContainmentEList(ParameterDecorator.class, this, BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS);
+	public EList getSerParmDesc() {
+		if (serParmDesc == null) {
+			serParmDesc = new EObjectContainmentEList(ParameterDecorator.class, this, BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC);
 		}
-		return parameterDescriptors;
+		return serParmDesc;
 	}
 
 	/**
@@ -303,8 +290,8 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 					return ((InternalEList)getContents()).basicRemove(otherEnd, msgs);
 				case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
 					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
-				case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
-					return ((InternalEList)getParameterDescriptors()).basicRemove(otherEnd, msgs);
+				case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+					return ((InternalEList)getSerParmDesc()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -362,14 +349,20 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
 				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return isAttributesExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
 			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
 				return getAttributes();
-			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT:
-				return isParmsExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
+				return isParmsExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
 				return getParameterDescriptors();
+			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+				return getSerParmDesc();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -424,19 +417,29 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(((Boolean)newValue).booleanValue());
 				return;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
 				return;
 			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
 				getAttributes().addAll((Collection)newValue);
 				return;
-			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT:
-				setParmsExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
+				setParmsExplicitEmpty(((Boolean)newValue).booleanValue());
 				return;
 			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
 				getParameterDescriptors().clear();
 				getParameterDescriptors().addAll((Collection)newValue);
+				return;
+			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+				getSerParmDesc().clear();
+				getSerParmDesc().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -488,20 +491,51 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
 				return;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(ATTRIBUTES_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
 				return;
 			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
 				return;
-			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT:
-				setParmsExplicit(PARMS_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
+				setParmsExplicitEmpty(PARMS_EXPLICIT_EMPTY_EDEFAULT);
 				return;
 			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
 				getParameterDescriptors().clear();
 				return;
+			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+				getSerParmDesc().clear();
+				return;
 		}
 		eDynamicUnset(eFeature);
+	}
+
+	/*
+	 * This is overridden so that we can do special is set tests:
+	 * 1) parameter descriptors: check if serParmDesc exists and not empty, since parameter descriptors is derived.
+	 * 2) serParmDesc: if flag set to default parm desc, then answer not set, else do normal isSet test. That way if set by default it won't serialize
+	 *    out the unneeded default parms. They can be reconstructed quickly when needed.
+	 */
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.METHOD_DECORATOR__SOURCE:
+					return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
+				return eIsSetGen(BeaninfoPackage.eINSTANCE.getMethodDecorator_SerParmDesc());	// Let default serParmDesc is set work.
+			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+				if ((getImplicitlySetBits() & METHOD_PARAMETERS_DEFAULT) != 0)
+					return false;	// Not considered set if initialized by default.
+				else
+					return eIsSetGen(eFeature);	// Not set by default, so check true setting.
+			default:
+				return eIsSetGen(eFeature);	// Everything else use the gen method.
+		}
 	}
 
 	/**
@@ -509,7 +543,7 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
+	public boolean eIsSetGen(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.METHOD_DECORATOR__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -537,14 +571,20 @@ public class MethodDecoratorImpl extends FeatureDecoratorImpl implements MethodD
 				return isSetPreferred();
 			case BeaninfoPackage.METHOD_DECORATOR__MERGE_INTROSPECTION:
 				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return attributesExplicit != ATTRIBUTES_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.METHOD_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
 			case BeaninfoPackage.METHOD_DECORATOR__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
-			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT:
-				return parmsExplicit != PARMS_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.METHOD_DECORATOR__PARMS_EXPLICIT_EMPTY:
+				return parmsExplicitEmpty != PARMS_EXPLICIT_EMPTY_EDEFAULT;
 			case BeaninfoPackage.METHOD_DECORATOR__PARAMETER_DESCRIPTORS:
-				return parameterDescriptors != null && !parameterDescriptors.isEmpty();
+				return !getParameterDescriptors().isEmpty();
+			case BeaninfoPackage.METHOD_DECORATOR__SER_PARM_DESC:
+				return serParmDesc != null && !serParmDesc.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

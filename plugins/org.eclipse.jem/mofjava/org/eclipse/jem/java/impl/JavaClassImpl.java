@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.11 $  $Date: 2004/11/12 23:11:05 $ 
+ *  $Revision: 1.12 $  $Date: 2005/02/04 23:11:33 $ 
  */
 package org.eclipse.jem.java.impl;
 
@@ -209,6 +209,10 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 
 	protected JavaClassImpl() {
 		super();
+	}
+	
+	public EList getEAnnotationsInternal() {
+		return super.getEAnnotations();
 	}
 
 	/**
@@ -1875,5 +1879,12 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	public synchronized void setReflected(boolean aBoolean) {
 		if (!aBoolean)
 			reflectionStatus = NOT_REFLECTED;
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaClass#getReflectionType()
+	 */
+	public Object getReflectionType() {
+		JavaReflectionAdaptor ja = ((JavaReflectionAdaptor) getReadAdapter());
+		return ja != null ? ja.getReflectionSource() : null;
 	}
 }

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyLaunchSupport.java,v $
- *  $Revision: 1.19 $  $Date: 2005/01/10 19:43:57 $ 
+ *  $Revision: 1.20 $  $Date: 2005/02/04 23:11:34 $ 
  */
 package org.eclipse.jem.internal.proxy.core;
 
@@ -30,8 +30,8 @@ import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.osgi.framework.Bundle;
 
-import org.eclipse.jem.util.TimerTests;
 import org.eclipse.jem.util.PerformanceMonitorUtil;
+import org.eclipse.jem.util.TimerTests;
 
  
 /**
@@ -58,11 +58,107 @@ public class ProxyLaunchSupport {
 	 * Registry of launch key to LaunchInfo classes.
 	 */
 	private static Map LAUNCH_INFO = new HashMap(2);
+
+	/**
+	 * Public only for access by other launch delegates to set up if they go outside of ProxyLaunchSupport,
+	 * e.g. IDE proxy. Must not be used for any purpose.
+	 * 
+	 * @since 1.0.0
+	 */
+	public static class LaunchSupportIConfigurationContributionInfo implements IConfigurationContributionInfo {
+		/* (non-Javadoc)
+		 * Map of containers (IClasspathContainer) found in classpath (including required projects).
+		 * This is for each project found. If there was a container in more than one project with the
+		 * id, this set will contain the container from each such project. They are not considered the
+		 * same because they come from a different project.
+		 * <p>
+		 * The key will be the containers, and the value will be a <code>Boolean</code>, where true means it
+		 * is visible to the top-level project.
+		 * <p>
+		 * This is used for determining if a project's container implements the desired contributor.
+		 * 
+		 * Will be empty if no project sent in to launch configuration.
+		 * 
+		 * @see org.eclipse.jdt.core.IClasspathContainer
+		 */
+		public Map containers = Collections.EMPTY_MAP;
+		
+		/* (non-Javadoc)
+		 * Map of unique container id strings found in classpath (including required projects).
+		 * If a container with the same id was found in more than one project, only one id will
+		 * be in this set since they are the same.
+		 * <p>
+		 * The key will be the container ids, and the value will be a <code>Boolean</code>, where true means it
+		 * is visible to the top-level project.
+		 * 
+		 * Will be empty if no project sent in to launch configuration.
+		 */
+		public Map containerIds = Collections.EMPTY_MAP;
+		
+		/* (non-Javadoc)
+		 * Set of unique plugin id strings found in classpath (including required projects).
+		 * If a required plugin with the same id was found in more than one project, only one id will
+		 * be in this set since they are the same.
+		 * <p>
+		 * The key will be the plugin ids, and the value will be a <code>Boolean</code>, where true means it
+		 * is visible to the top-level project.
+		 * 
+		 * Will be empty if no project sent in to launch configuration.
+		 */		
+		public Map pluginIds = Collections.EMPTY_MAP;;
+		
+		/* (non-Javadoc)
+		 * Map of unique projects found in classpath (including required projects), but not including top-level project.
+		 * <p>
+		 * The key will be the <code>IPath</code> for the project, and the value will be a <code>Boolean</code>, where true means it
+		 * is visible to the top-level project.
+		 * 
+		 * Will be <code>null</code> if no project sent in to launch configuration.
+		 */		
+		public Map projectPaths;
+		
+		/* (non-Javadoc)
+		 * Java project for this launch. <code>null</code> if not for a project.
+		 */
+		public IJavaProject javaProject;
+		
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getContainerIds()
+		 */
+		public Map getContainerIds() {
+			return containerIds;
+		}
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getContainers()
+		 */
+		public Map getContainers() {
+			return containers;
+		}
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getJavaProject()
+		 */
+		public IJavaProject getJavaProject() {
+			return javaProject;
+		}
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getPluginIds()
+		 */
+		public Map getPluginIds() {
+			return pluginIds;
+		}
+		/* (non-Javadoc)
+		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getProjectPaths()
+		 */
+		public Map getProjectPaths() {
+			return projectPaths;
+		}
+		
+	}
 	
 	/**
 	 * LaunchInfo for a launch. Stored by key and retrievable by the key.
 	 * This is only passed to launch delegates. It should not be passed on to
-	 * others, thought the IConfigurationContributionInfo may be.
+	 * others, though the IConfigurationContributionInfo may be.
 	 * 
 	 * <p>
 	 * This class is not intended to be subclassed by clients.
@@ -84,102 +180,6 @@ public class ProxyLaunchSupport {
 		public ProxyFactoryRegistry resultRegistry;
 		
 
-		/**
-		 * Public only for access by other launch delegates to set up if they go outside of ProxyLaunchSupport,
-		 * e.g. IDE proxy. Must not be used for any purpose.
-		 * 
-		 * @since 1.0.0
-		 */
-		public static class LaunchSupportIConfigurationContributionInfo implements IConfigurationContributionInfo {
-			/* (non-Javadoc)
-			 * Map of containers (IClasspathContainer) found in classpath (including required projects).
-			 * This is for each project found. If there was a container in more than one project with the
-			 * id, this set will contain the container from each such project. They are not considered the
-			 * same because they come from a different project.
-			 * <p>
-			 * The key will be the containers, and the value will be a <code>Boolean</code>, where true means it
-			 * is visible to the top-level project.
-			 * <p>
-			 * This is used for determining if a project's container implements the desired contributor.
-			 * 
-			 * Will be empty if no project sent in to launch configuration.
-			 * 
-			 * @see org.eclipse.jdt.core.IClasspathContainer
-			 */
-			public Map containers = Collections.EMPTY_MAP;
-			
-			/* (non-Javadoc)
-			 * Map of unique container id strings found in classpath (including required projects).
-			 * If a container with the same id was found in more than one project, only one id will
-			 * be in this set since they are the same.
-			 * <p>
-			 * The key will be the container ids, and the value will be a <code>Boolean</code>, where true means it
-			 * is visible to the top-level project.
-			 * 
-			 * Will be empty if no project sent in to launch configuration.
-			 */
-			public Map containerIds = Collections.EMPTY_MAP;
-			
-			/* (non-Javadoc)
-			 * Set of unique plugin id strings found in classpath (including required projects).
-			 * If a required plugin with the same id was found in more than one project, only one id will
-			 * be in this set since they are the same.
-			 * <p>
-			 * The key will be the plugin ids, and the value will be a <code>Boolean</code>, where true means it
-			 * is visible to the top-level project.
-			 * 
-			 * Will be empty if no project sent in to launch configuration.
-			 */		
-			public Map pluginIds = Collections.EMPTY_MAP;;
-			
-			/* (non-Javadoc)
-			 * Map of unique projects found in classpath (including required projects), but not including top-level project.
-			 * <p>
-			 * The key will be the <code>IPath</code> for the project, and the value will be a <code>Boolean</code>, where true means it
-			 * is visible to the top-level project.
-			 * 
-			 * Will be <code>null</code> if no project sent in to launch configuration.
-			 */		
-			public Map projectPaths;
-			
-			/* (non-Javadoc)
-			 * Java project for this launch. <code>null</code> if not for a project.
-			 */
-			public IJavaProject javaProject;
-			
-			/* (non-Javadoc)
-			 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getContainerIds()
-			 */
-			public Map getContainerIds() {
-				return containerIds;
-			}
-			/* (non-Javadoc)
-			 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getContainers()
-			 */
-			public Map getContainers() {
-				return containers;
-			}
-			/* (non-Javadoc)
-			 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getJavaProject()
-			 */
-			public IJavaProject getJavaProject() {
-				return javaProject;
-			}
-			/* (non-Javadoc)
-			 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getPluginIds()
-			 */
-			public Map getPluginIds() {
-				return pluginIds;
-			}
-			/* (non-Javadoc)
-			 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getProjectPaths()
-			 */
-			public Map getProjectPaths() {
-				return projectPaths;
-			}
-			
-		};
-		
 		/* (non-Javadoc)
 		 * @see org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo#getJavaProject()
 		 */
@@ -197,11 +197,7 @@ public class ProxyLaunchSupport {
 			return configInfo;
 		}
 		
-		/**
-		 * Public only so that other launch delegates types can get into it. Not meant for
-		 * general usage.
-		 */
-		public LaunchSupportIConfigurationContributionInfo configInfo = new LaunchSupportIConfigurationContributionInfo();
+		protected IConfigurationContributionInfo configInfo;
 		
 	}
 	
@@ -470,6 +466,27 @@ public class ProxyLaunchSupport {
 	}
 	
 	/**
+	 * Create a default IConfigurationContributionInfo for the given project. This is useful info even when not launching a
+	 * vm.
+	 * 
+	 * @param javaProject
+	 * @return new contrib info.
+	 * @throws JavaModelException
+	 * 
+	 * @since 1.1.0
+	 */
+	public static IConfigurationContributionInfo createDefaultConfigurationContributionInfo(IJavaProject javaProject) throws JavaModelException {
+		LaunchSupportIConfigurationContributionInfo configInfo = new LaunchSupportIConfigurationContributionInfo();
+		configInfo.javaProject = javaProject;
+		configInfo.containerIds = new HashMap(5);
+		configInfo.containers = new HashMap(5);
+		configInfo.pluginIds = new HashMap(5);
+		configInfo.projectPaths = new HashMap(5);
+		ProxyPlugin.getPlugin().getIDsFound(javaProject, configInfo.containerIds, configInfo.containers, configInfo.pluginIds, configInfo.projectPaths);
+		return configInfo;
+
+	}
+	/**
 	 * Fill in the launch info config info and contribs. The contribs sent in may be expanded due to extension
 	 * points and a new one created. Either the expanded copy or the original (if no change) will be stored in
 	 * the launchinfo and returned from this call.
@@ -490,27 +507,22 @@ public class ProxyLaunchSupport {
 				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 				IJavaProject javaProject = JavaCore.create(project);
 				if (javaProject != null && javaProject.exists()) {
-					launchInfo.configInfo.javaProject = javaProject;
-					launchInfo.configInfo.containerIds = new HashMap(5);
-					launchInfo.configInfo.containers = new HashMap(5);
-					launchInfo.configInfo.pluginIds = new HashMap(5);
-					launchInfo.configInfo.projectPaths = new HashMap(5);
-					ProxyPlugin.getPlugin().getIDsFound(javaProject, launchInfo.configInfo.containerIds, launchInfo.configInfo.containers, launchInfo.configInfo.pluginIds, launchInfo.configInfo.projectPaths);					
-					if (!launchInfo.configInfo.containerIds.isEmpty() || !launchInfo.configInfo.containers.isEmpty() || !launchInfo.configInfo.pluginIds.isEmpty()) {
-						List computedContributors = new ArrayList(launchInfo.configInfo.containerIds.size()+launchInfo.configInfo.containers.size()+launchInfo.configInfo.pluginIds.size());
+					launchInfo.configInfo = createDefaultConfigurationContributionInfo(javaProject);
+					if (!launchInfo.configInfo.getContainerIds().isEmpty() || !launchInfo.configInfo.getContainers().isEmpty() || !launchInfo.configInfo.getPluginIds().isEmpty()) {
+						List computedContributors = new ArrayList(launchInfo.configInfo.getContainerIds().size()+launchInfo.configInfo.getContainers().size()+launchInfo.configInfo.getPluginIds().size());
 						// Note: We don't care about the visibility business here. For contributors to proxy it means
 						// some classes in the projects/plugins/etc. need configuration whether they are visible or not.
 						// This is because even though not visible, some other visible class may instantiate it. So it
 						// needs the configuration.
 						// First handle explicit classpath containers that implement IConfigurationContributor
-						for (Iterator iter = launchInfo.configInfo.containers.keySet().iterator(); iter.hasNext();) {
+						for (Iterator iter = launchInfo.configInfo.getContainers().keySet().iterator(); iter.hasNext();) {
 							IClasspathContainer container = (IClasspathContainer) iter.next();
 							if (container instanceof IConfigurationContributor)
 								computedContributors.add(container);
 						}
 						
 						// Second add in contributors that exist for a container id.
-						for (Iterator iter = launchInfo.configInfo.containerIds.keySet().iterator(); iter.hasNext();) {
+						for (Iterator iter = launchInfo.configInfo.getContainerIds().keySet().iterator(); iter.hasNext();) {
 							String containerid = (String) iter.next();
 							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getContainerConfigurations(containerid);
 							if (contributors != null)
@@ -522,7 +534,7 @@ public class ProxyLaunchSupport {
 						}
 						
 						// Finally add in contributors that exist for a plugin id.
-						for (Iterator iter = launchInfo.configInfo.pluginIds.keySet().iterator(); iter.hasNext();) {
+						for (Iterator iter = launchInfo.configInfo.getPluginIds().keySet().iterator(); iter.hasNext();) {
 							String pluginId = (String) iter.next();
 							IConfigurationElement[] contributors = ProxyPlugin.getPlugin().getPluginConfigurations(pluginId);
 							if (contributors != null)

@@ -8,11 +8,12 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jem.internal.beaninfo.impl;
 /*
  *  $RCSfile: ParameterDecoratorImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
+package org.eclipse.jem.internal.beaninfo.impl;
+
 
 
 import java.util.Collection;
@@ -29,15 +30,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
+import org.eclipse.jem.internal.beaninfo.ImplicitItem;
 import org.eclipse.jem.internal.beaninfo.ParameterDecorator;
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.java.JavaParameter;
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Parameter Decorator</b></em>'.
+ * A representation of the model object '<em><b>Method Decorator</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -50,8 +48,13 @@ import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
  * @generated
  */
 
-
 public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements ParameterDecorator{
+	
+	/**
+	 * Bits for implicitly set features. This is internal, not meant for clients.
+	 */
+	public static final long PARAMETER_NAME_IMPLICIT = 0x1L;
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -80,9 +83,15 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 		return BeaninfoPackage.eINSTANCE.getParameterDecorator();
 	}
 
-	protected String fProxyName;
-	protected boolean triedOnce;	// Set when tried to get the java parameter and couldn't.
-	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -101,29 +110,7 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 	 * @ordered
 	 */
 	protected JavaParameter parameter = null;
-	public void setDescriptorProxy(IBeanProxy descriptor) {
-		super.setDescriptorProxy(descriptor);
-		
-		fProxyName = null;
-		if (descriptor != null) {
-			// Cache name and because these are used over and over.
-			if (!eIsSet(BeaninfoPackage.eINSTANCE.getParameterDecorator_Name()))
-				try {
-					fProxyName = ((IStringBeanProxy) BeaninfoProxyConstants.getConstants(descriptor.getProxyFactoryRegistry()).getNameProxy().invoke(descriptor)).stringValue();
-				} catch (NullPointerException e) {
-				} catch (ThrowableProxy e) {
-				}				
-		}
-	}
 	
-	public String getName() {
-		if (!eIsSet(BeaninfoPackage.eINSTANCE.getParameterDecorator_Name()))
-			if (fProxyName != null) 
-				return fProxyName;
-			else
-				return "?";	// It must be set or come from proxy. //$NON-NLS-1$
-		return this.getNameGen();
-	}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -151,20 +138,16 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 		return result.toString();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	/*
+	 * Flag for if we tried to link up this parameter to java parm.
 	 */
-	public String getNameGen() {
-		return name;
-	}
-
+	private boolean triedOnce;
+	
 	/**
-	 * The JavaParameter that this ParameterDecorator is decorating. Can't use eDecorates in this.
+	 * The JavaParameter that this ParameterDecorator is decorating.
 	 */
 	public JavaParameter getParameter() {
-		if (!!eIsSet(BeaninfoPackage.eINSTANCE.getParameterDecorator_Parameter()) && !triedOnce) {
+		if (!eIsSet(BeaninfoPackage.eINSTANCE.getParameterDecorator_Parameter()) && !triedOnce) {
 			// Need to try to fill in the parameter setting.
 			triedOnce = true;
 			EObject container = eContainer();	// See if we are in a MethodDecorator.
@@ -201,12 +184,18 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 		return parameter;
 	}
 
+	public void setParameter(JavaParameter newParameter) {
+		if (newParameter == null)
+			triedOnce = false;
+		setParameterGen(newParameter);
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParameter(JavaParameter newParameter) {
+	public void setParameterGen(JavaParameter newParameter) {
 		JavaParameter oldParameter = parameter;
 		parameter = newParameter;
 		if (eNotificationRequired())
@@ -311,8 +300,12 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 				return isPreferred() ? Boolean.TRUE : Boolean.FALSE;
 			case BeaninfoPackage.PARAMETER_DECORATOR__MERGE_INTROSPECTION:
 				return isMergeIntrospection() ? Boolean.TRUE : Boolean.FALSE;
-			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return isAttributesExplicit() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return isAttributesExplicitEmpty() ? Boolean.TRUE : Boolean.FALSE;
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICITLY_SET_BITS:
+				return new Long(getImplicitlySetBits());
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return getImplicitDecoratorFlag();
 			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES:
 				return getAttributes();
 			case BeaninfoPackage.PARAMETER_DECORATOR__NAME:
@@ -374,8 +367,14 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 			case BeaninfoPackage.PARAMETER_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(((Boolean)newValue).booleanValue());
 				return;
-			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(((Boolean)newValue).booleanValue());
+			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(((Boolean)newValue).booleanValue());
+				return;
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(((Long)newValue).longValue());
+				return;
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag((ImplicitItem)newValue);
 				return;
 			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -437,8 +436,14 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 			case BeaninfoPackage.PARAMETER_DECORATOR__MERGE_INTROSPECTION:
 				setMergeIntrospection(MERGE_INTROSPECTION_EDEFAULT);
 				return;
-			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT:
-				setAttributesExplicit(ATTRIBUTES_EXPLICIT_EDEFAULT);
+			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				setAttributesExplicitEmpty(ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT);
+				return;
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICITLY_SET_BITS:
+				setImplicitlySetBits(IMPLICITLY_SET_BITS_EDEFAULT);
+				return;
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				setImplicitDecoratorFlag(IMPLICIT_DECORATOR_FLAG_EDEFAULT);
 				return;
 			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES:
 				getAttributes().clear();
@@ -453,12 +458,24 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 		eDynamicUnset(eFeature);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
+	 */
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case BeaninfoPackage.PARAMETER_DECORATOR__SOURCE:
+				return isSourceSet();	// Override so that if set to the same as classname, then it is considered not set.
+			default:
+				return eIsSetGen(eFeature);
+		}
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
+	public boolean eIsSetGen(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case BeaninfoPackage.PARAMETER_DECORATOR__EANNOTATIONS:
 				return eAnnotations != null && !eAnnotations.isEmpty();
@@ -486,8 +503,12 @@ public class ParameterDecoratorImpl extends FeatureDecoratorImpl implements Para
 				return isSetPreferred();
 			case BeaninfoPackage.PARAMETER_DECORATOR__MERGE_INTROSPECTION:
 				return mergeIntrospection != MERGE_INTROSPECTION_EDEFAULT;
-			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT:
-				return attributesExplicit != ATTRIBUTES_EXPLICIT_EDEFAULT;
+			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES_EXPLICIT_EMPTY:
+				return attributesExplicitEmpty != ATTRIBUTES_EXPLICIT_EMPTY_EDEFAULT;
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICITLY_SET_BITS:
+				return implicitlySetBits != IMPLICITLY_SET_BITS_EDEFAULT;
+			case BeaninfoPackage.PARAMETER_DECORATOR__IMPLICIT_DECORATOR_FLAG:
+				return implicitDecoratorFlag != IMPLICIT_DECORATOR_FLAG_EDEFAULT;
 			case BeaninfoPackage.PARAMETER_DECORATOR__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 			case BeaninfoPackage.PARAMETER_DECORATOR__NAME:

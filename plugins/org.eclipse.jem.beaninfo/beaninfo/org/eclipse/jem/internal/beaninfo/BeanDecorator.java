@@ -11,9 +11,11 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: BeanDecorator.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.7 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.jem.java.JavaClass;
 import java.net.URL;
@@ -23,16 +25,23 @@ import java.net.URL;
  * A representation of the model object '<em><b>Bean Decorator</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Equivalent to BeanDecorator in java.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperProperties <em>Merge Super Properties</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperBehaviors <em>Merge Super Behaviors</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperMethods <em>Merge Super Methods</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperEvents <em>Merge Super Events</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectProperties <em>Introspect Properties</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectBehaviors <em>Introspect Behaviors</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectMethods <em>Introspect Methods</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectEvents <em>Introspect Events</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isDoBeaninfo <em>Do Beaninfo</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedPropertyNames <em>Not Inherited Property Names</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedMethodNames <em>Not Inherited Method Names</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#getNotInheritedEventNames <em>Not Inherited Event Names</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#getCustomizerClass <em>Customizer Class</em>}</li>
  * </ul>
  * </p>
@@ -44,25 +53,6 @@ import java.net.URL;
 
 
 public interface BeanDecorator extends FeatureDecorator{
-	/**
-	 * Set merge super properties proxy. This can't be answered from the BeanDescriptor proxy,
-	 * so it must be explicitly set from the beaninfo class adapter.
-	 */
-	public void setMergeSuperPropertiesProxy(Boolean bool);
-	
-	/**
- 	 * Set merge super behaviors proxy. This can't be answered from the BeanDescriptor proxy,
-	 * so it must be explicitly set from the beaninfo class adapter.
-	 * @param value The new value of the MergeSuperBehaviors attribute
-	 */
-	public void setMergeSuperBehaviorsProxy(Boolean value);
-	
-	/**
- 	 * Set merge super events proxy. This can't be answered from the BeanDescriptor proxy,
-	 * so it must be explicitly set from the beaninfo class adapter.
-	 * @param value The new value of the MergeSuperBehaviors attribute
-	 */
-	public void setMergeSuperEventsProxy(Boolean value);	
 	
 	/**
 	 * Returns the value of the '<em><b>Merge Super Properties</b></em>' attribute.
@@ -122,7 +112,7 @@ public interface BeanDecorator extends FeatureDecorator{
 	boolean isSetMergeSuperProperties();
 
 	/**
-	 * Returns the value of the '<em><b>Merge Super Behaviors</b></em>' attribute.
+	 * Returns the value of the '<em><b>Merge Super Methods</b></em>' attribute.
 	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -131,52 +121,52 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Should the behaviors of super types be merged when asking for eAllBehaviors.
+	 * Should the methods of super types be merged when asking for eAllBehaviors.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Merge Super Behaviors</em>' attribute.
-	 * @see #isSetMergeSuperBehaviors()
-	 * @see #unsetMergeSuperBehaviors()
-	 * @see #setMergeSuperBehaviors(boolean)
-	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_MergeSuperBehaviors()
+	 * @return the value of the '<em>Merge Super Methods</em>' attribute.
+	 * @see #isSetMergeSuperMethods()
+	 * @see #unsetMergeSuperMethods()
+	 * @see #setMergeSuperMethods(boolean)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_MergeSuperMethods()
 	 * @model default="true" unsettable="true"
 	 * @generated
 	 */
-	boolean isMergeSuperBehaviors();
+	boolean isMergeSuperMethods();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperBehaviors <em>Merge Super Behaviors</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperMethods <em>Merge Super Methods</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Merge Super Behaviors</em>' attribute.
-	 * @see #isSetMergeSuperBehaviors()
-	 * @see #unsetMergeSuperBehaviors()
-	 * @see #isMergeSuperBehaviors()
+	 * @param value the new value of the '<em>Merge Super Methods</em>' attribute.
+	 * @see #isSetMergeSuperMethods()
+	 * @see #unsetMergeSuperMethods()
+	 * @see #isMergeSuperMethods()
 	 * @generated
 	 */
-	void setMergeSuperBehaviors(boolean value);
+	void setMergeSuperMethods(boolean value);
 
 	/**
-	 * Unsets the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperBehaviors <em>Merge Super Behaviors</em>}' attribute.
+	 * Unsets the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperMethods <em>Merge Super Methods</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isSetMergeSuperBehaviors()
-	 * @see #isMergeSuperBehaviors()
-	 * @see #setMergeSuperBehaviors(boolean)
+	 * @see #isSetMergeSuperMethods()
+	 * @see #isMergeSuperMethods()
+	 * @see #setMergeSuperMethods(boolean)
 	 * @generated
 	 */
-	void unsetMergeSuperBehaviors();
+	void unsetMergeSuperMethods();
 
 	/**
-	 * Returns whether the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperBehaviors <em>Merge Super Behaviors</em>}' attribute is set.
+	 * Returns whether the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isMergeSuperMethods <em>Merge Super Methods</em>}' attribute is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Merge Super Behaviors</em>' attribute is set.
-	 * @see #unsetMergeSuperBehaviors()
-	 * @see #isMergeSuperBehaviors()
-	 * @see #setMergeSuperBehaviors(boolean)
+	 * @return whether the value of the '<em>Merge Super Methods</em>' attribute is set.
+	 * @see #unsetMergeSuperMethods()
+	 * @see #isMergeSuperMethods()
+	 * @see #setMergeSuperMethods(boolean)
 	 * @generated
 	 */
-	boolean isSetMergeSuperBehaviors();
+	boolean isSetMergeSuperMethods();
 
 	/**
 	 * Returns the value of the '<em><b>Merge Super Events</b></em>' attribute.
@@ -266,7 +256,7 @@ public interface BeanDecorator extends FeatureDecorator{
 	void setIntrospectProperties(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Introspect Behaviors</b></em>' attribute.
+	 * Returns the value of the '<em><b>Introspect Methods</b></em>' attribute.
 	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -275,25 +265,25 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Should the behaviors from the introspection be added to the class. This allows behaviors to not be introspected and to use only what is defined explicitly in the JavaClass xmi file.
+	 * Should the methods from the introspection be added to the class. This allows methods to not be introspected and to use only what is defined explicitly in the JavaClass xmi file.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Introspect Behaviors</em>' attribute.
-	 * @see #setIntrospectBehaviors(boolean)
-	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_IntrospectBehaviors()
+	 * @return the value of the '<em>Introspect Methods</em>' attribute.
+	 * @see #setIntrospectMethods(boolean)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_IntrospectMethods()
 	 * @model default="true"
 	 * @generated
 	 */
-	boolean isIntrospectBehaviors();
+	boolean isIntrospectMethods();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectBehaviors <em>Introspect Behaviors</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.BeanDecorator#isIntrospectMethods <em>Introspect Methods</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Introspect Behaviors</em>' attribute.
-	 * @see #isIntrospectBehaviors()
+	 * @param value the new value of the '<em>Introspect Methods</em>' attribute.
+	 * @see #isIntrospectMethods()
 	 * @generated
 	 */
-	void setIntrospectBehaviors(boolean value);
+	void setIntrospectMethods(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Introspect Events</b></em>' attribute.
@@ -380,6 +370,59 @@ public interface BeanDecorator extends FeatureDecorator{
 	 * @generated
 	 */
 	void setDoBeaninfo(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Not Inherited Property Names</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This is the list of inherited property names to not use in getAllProperties(). These names are properties that should not be inherited and should not show through. If the inherited property is not on the list then it will show in getAllProperties().
+	 * <p>
+	 * This list will be empty if all properties are inherited or if the mergeSuperProperties flag is false.
+	 * <p>
+	 * Note: This attribute is not meant to be changed by clients. It is an internal attribute.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Not Inherited Property Names</em>' attribute list.
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_NotInheritedPropertyNames()
+	 * @model type="java.lang.String"
+	 * @generated
+	 */
+	EList getNotInheritedPropertyNames();
+
+	/**
+	 * Returns the value of the '<em><b>Not Inherited Method Names</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This is the list of inherited method names to not use in eAllOperations(). These names are operations that should not be inherited and should not show through. If the inherited operation is not on the list then it will show in getAllOperations().
+	 * <p>
+	 * This list will be empty if all operations are inherited or if the mergeSuperBehaviors flag is false.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Not Inherited Method Names</em>' attribute list.
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_NotInheritedMethodNames()
+	 * @model type="java.lang.String"
+	 * @generated
+	 */
+	EList getNotInheritedMethodNames();
+
+	/**
+	 * Returns the value of the '<em><b>Not Inherited Event Names</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This is the list of inherited event names to not use in getAllEvents(). These names are events that should not be inherited and should not show through. If the inherited event is not on the list then it will show in getAllEvents().
+	 * <p>
+	 * This list will be empty if all events are inherited or if the mergeSuperEvents flag is false.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Not Inherited Event Names</em>' attribute list.
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getBeanDecorator_NotInheritedEventNames()
+	 * @model type="java.lang.String"
+	 * @generated
+	 */
+	EList getNotInheritedEventNames();
 
 	/**
 	 * Return the URL of a 16x16 Color icon

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoSuperAdapter.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 import java.util.Collection;
@@ -39,6 +39,7 @@ public class BeaninfoSuperAdapter extends AdapterImpl {
 
 	private boolean allEventsCollectionModified = true;
 	private boolean allPropertiesCollectionModified = true;
+	private boolean allOperationsCollectionModified = true;
 
 	public BeaninfoSuperAdapter() {
 		super();
@@ -57,6 +58,14 @@ public class BeaninfoSuperAdapter extends AdapterImpl {
 		allEventsCollectionModified = newEventsModified;
 	}
 
+	public boolean isAllOperationsCollectionModified() {
+		return allOperationsCollectionModified;
+	}
+
+	public void setAllOperationsCollectionModified(boolean newOperationsModified) {
+		allOperationsCollectionModified = newOperationsModified;
+	}
+	
 	public void setAllPropertiesCollectionModified(boolean allPropertiesCollectionModified) {
 		this.allPropertiesCollectionModified = allPropertiesCollectionModified;
 	}
@@ -79,6 +88,10 @@ public class BeaninfoSuperAdapter extends AdapterImpl {
 		switch (featureId) {
 			case JavaRefPackage.JAVA_CLASS__EVENTS :
 				setAllEventsCollectionModified(true);
+				break;
+				
+			case JavaRefPackage.JAVA_CLASS__EOPERATIONS:
+				setAllOperationsCollectionModified(true);
 				break;
 
 			case JavaRefPackage.JAVA_CLASS__ESUPER_TYPES:

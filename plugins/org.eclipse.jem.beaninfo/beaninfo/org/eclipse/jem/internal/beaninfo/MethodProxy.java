@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: MethodProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -26,6 +26,10 @@ import org.eclipse.jem.java.Method;
  *
  * <!-- begin-model-doc -->
  * This is just a wrapper of a java Method. It allows access to the method but doesn't duplicate the interface for it.
+ * <p>
+ * MethodProxies will be in the eBehaviors setting for any methods that are in the JavaClass methods setting so that they are not duplicated.
+ * <p>
+ * MethodProxies would also have MethodDecorators.
  * <!-- end-model-doc -->
  *
  * <p>

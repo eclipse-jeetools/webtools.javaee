@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoFactory.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:17:59 $ 
+ *  $Revision: 1.2 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EFactory;
  */
 
 
-public interface BeaninfoFactory extends EFactory {
+public interface BeaninfoFactory extends EFactory{
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
@@ -106,15 +106,6 @@ public interface BeaninfoFactory extends EFactory {
 	 * @generated
 	 */
 	ParameterDecorator createParameterDecorator();
-
-	/**
-	 * Returns a new object of class '<em>Feature Attribute Value</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Attribute Value</em>'.
-	 * @generated
-	 */
-	FeatureAttributeValue createFeatureAttributeValue();
 
 	/**
 	 * Returns the package supported by this factory.

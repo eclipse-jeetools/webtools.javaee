@@ -11,14 +11,13 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: FeatureDecorator.java,v $
- *  $Revision: 1.4 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.5 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAnnotation;
 
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +26,10 @@ import org.eclipse.jem.internal.proxy.core.IBeanProxy;
  *
  * <!-- begin-model-doc -->
  * Equivalent to FeatureDescriptor in java.
+ * <p>
+ * Note: If any attribute is explicitly set then the BeanInfo/Reflection will not be merged into the decorator. This provides a way of overriding the BeanInfos. Also for any many-valued attribute, if it is desired to have it explicitly empty and not have BeanInfo fill it in, there will be another attribute named of the form "attibutueExplicitEmpty" If this is true then the BeanInfo will not merge in and will leave it empty.
+ * <p>
+ * These comments about merging apply to all subclasses of this decorator too. 
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +42,9 @@ import org.eclipse.jem.internal.proxy.core.IBeanProxy;
  *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isHidden <em>Hidden</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isPreferred <em>Preferred</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isMergeIntrospection <em>Merge Introspection</em>}</li>
- *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicit <em>Attributes Explicit</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicitEmpty <em>Attributes Explicit Empty</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitlySetBits <em>Implicitly Set Bits</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitDecoratorFlag <em>Implicit Decorator Flag</em>}</li>
  *   <li>{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
@@ -51,68 +56,7 @@ import org.eclipse.jem.internal.proxy.core.IBeanProxy;
 
 
 public interface FeatureDecorator extends EAnnotation{
-	/**
-	 * Enumeration of what was implicitly created.
-	 */
-	public static final int
-		NOT_IMPLICIT = 0,
-		IMPLICIT_DECORATOR = 1,
-		IMPLICIT_DECORATOR_AND_FEATURE = 3;
-		// Can't have explicit decorator but implicit feature.
-
-
-	/**
-	 * Was this decorator implicitly created by introspection?
-	 * The default should be false.
-	 * This is here for linkage with the introspection process
-	 * and is not really a MOF property. The introspection needs
-	 * to know which features it created and which were explicitly
-	 * created by other means. Implicitly created ones may be 
-	 * deleted at any time when the introspection determines it
-	 * needs to.
-	 */
-	public int isImplicitlyCreated();
-	public void setImplicitlyCreated(int implicit);
-	
-	/**
-	 * Answer whether this has introspection results merged into it.
-	 * This is important because if it doesn't have a proxy,
-	 * then this is an explicit decorator. Explicit decorators
-	 * will show up in the eAllAttribute/eAllBehaviors/eAllEvents
-	 * when beaninfo says don't do merge. This is because the
-	 * introspection only knows about beaninfo features and so
-	 * it can only specify that beaninfo features are not to
-	 * be inherited.
-	 */
-	public boolean isIntrospected();
-	
-	/**
-	 * Return the descriptor proxy used gather implicit information
-	 * not explicitly set on the decorator. Each decorator
-	 * knows what to retrieve out of the proxy. 
-	 */
-	public IBeanProxy getDescriptorProxy();
-		 
-	/**
-	 * Set the descriptor proxy to gather implicit information
-	 * not explicitly set on the decorator. Each decorator
-	 * knows what to retrieve out of the proxy. If the proxy
-	 * is null, then it there is no beaninfo to info from. When
-	 * this method is called, any cached values are cleared out.
-	 */
-	public void setDescriptorProxy(IBeanProxy descriptor);
-	
-	/**
-	 * Set the decorator to use for querying reflected properties.
-	 * On reflection we need to return the results, but we don't
-	 * want to explicitly set anything that could override the
-	 * explicit settings by the user. So we pass in a decorator
-	 * that has the reflected settings. It act's like the descriptor proxy
-	 * above for when it comes from beaninfo's. Each decorator knows what
-	 * to retrieve from implicit decorator.
-	 */
-	public void setDecoratorProxy(FeatureDecorator decorator);
-	
+		
 	/**
 	 * Returns the value of the '<em><b>Display Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -414,7 +358,7 @@ public interface FeatureDecorator extends EAnnotation{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Should the introspection results be merged into this decorator. If this is set to false, then the introspection results are ignored for this particular decorator. This is an internal feature simply to allow desired override capabilities.
+	 * Should the introspection results be merged into this decorator. If this is set to false, then the introspection results are ignored for this particular decorator. This is an internal feature simply to allow desired override capabilities. Customers would use it to prevent ANY introspection/reflection from occurring.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Merge Introspection</em>' attribute.
 	 * @see #setMergeIntrospection(boolean)
@@ -435,18 +379,103 @@ public interface FeatureDecorator extends EAnnotation{
 	void setMergeIntrospection(boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>Attributes Explicit Empty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The attributes are explicitly set as empty and not retrieved from the beaninfo/reflection. Customers should set this if they want the list of attributes to be empty and not merged with the BeanInfo results. 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Attributes Explicit Empty</em>' attribute.
+	 * @see #setAttributesExplicitEmpty(boolean)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_AttributesExplicitEmpty()
+	 * @model 
+	 * @generated
+	 */
+	boolean isAttributesExplicitEmpty();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicitEmpty <em>Attributes Explicit Empty</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Attributes Explicit Empty</em>' attribute.
+	 * @see #isAttributesExplicitEmpty()
+	 * @generated
+	 */
+	void setAttributesExplicitEmpty(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Implicitly Set Bits</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A bitflag for which attributes have been set by BeanInfo/Reflection.
+	 * <p>
+	 * This is an internal attribute that is used by the BeanInfo maintanance. It is not meant to be used by customers.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Implicitly Set Bits</em>' attribute.
+	 * @see #setImplicitlySetBits(long)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_ImplicitlySetBits()
+	 * @model 
+	 * @generated
+	 */
+	long getImplicitlySetBits();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitlySetBits <em>Implicitly Set Bits</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Implicitly Set Bits</em>' attribute.
+	 * @see #getImplicitlySetBits()
+	 * @generated
+	 */
+	void setImplicitlySetBits(long value);
+
+	/**
+	 * Returns the value of the '<em><b>Implicit Decorator Flag</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.jem.internal.beaninfo.ImplicitItem}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Is this decorator/feature implicit. This means created by Introspection/Reflection and not by customer.
+	 * <p>
+	 * This is an internal attribute that is used by the BeanInfo maintanance. It is not meant to be used by customers.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Implicit Decorator Flag</em>' attribute.
+	 * @see org.eclipse.jem.internal.beaninfo.ImplicitItem
+	 * @see #setImplicitDecoratorFlag(ImplicitItem)
+	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_ImplicitDecoratorFlag()
+	 * @model 
+	 * @generated
+	 */
+	ImplicitItem getImplicitDecoratorFlag();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#getImplicitDecoratorFlag <em>Implicit Decorator Flag</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Implicit Decorator Flag</em>' attribute.
+	 * @see org.eclipse.jem.internal.beaninfo.ImplicitItem
+	 * @see #getImplicitDecoratorFlag()
+	 * @generated
+	 */
+	void setImplicitDecoratorFlag(ImplicitItem value);
+
+	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' map.
 	 * The key is of type {@link java.lang.String},
-	 * and the value is of type {@link org.eclipse.jem.internal.beaninfo.FeatureAttributeValue},
+	 * and the value is of type {@link org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue},
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Feature attributes. Key/value pairs. If it is desired that the feature attributes is explicitly empty and not have BeanInfo/reflection set it, set attributesExplicitEmpty to true.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Attributes</em>' map.
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_Attributes()
-	 * @model mapType="org.eclipse.jem.internal.beaninfo.FeatureAttributeMapEntry" keyType="java.lang.String" valueType="org.eclipse.jem.internal.beaninfo.FeatureAttributeValue"
+	 * @model mapType="org.eclipse.jem.internal.beaninfo.FeatureAttributeMapEntry" keyType="java.lang.String" valueType="org.eclipse.jem.internal.beaninfo.common.FeatureAttributeValue"
 	 * @generated
 	 */
 	EMap getAttributes();
@@ -458,42 +487,5 @@ public interface FeatureDecorator extends EAnnotation{
 	 * @generated
 	 */
 	String getName();
-
-	/**
-	 * Returns the value of the '<em><b>Attributes Explicit</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Attributes Explicit</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The attributes are explicitly set and not retrieved from the beaninfo.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Attributes Explicit</em>' attribute.
-	 * @see #setAttributesExplicit(boolean)
-	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getFeatureDecorator_AttributesExplicit()
-	 * @model 
-	 * @generated
-	 */
-	boolean isAttributesExplicit();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.jem.internal.beaninfo.FeatureDecorator#isAttributesExplicit <em>Attributes Explicit</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Attributes Explicit</em>' attribute.
-	 * @see #isAttributesExplicit()
-	 * @generated
-	 */
-	void setAttributesExplicit(boolean value);
-
-	/**
-	 * Answer if this decorator needs to be re-introspected. This would occur
-	 * because the BeanInfo is now invalid.
-	 * @return Re-introspection required.
-	 */
-	boolean needIntrospection();
-	
 
 }

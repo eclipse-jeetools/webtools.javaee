@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo;
 /*
  *  $RCSfile: IndexedPropertyDecorator.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:33:31 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -20,6 +20,10 @@ import org.eclipse.jem.java.Method;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Indexed Property Decorator</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * Equivalent to IndexedPropertyDecorator
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -35,7 +39,7 @@ import org.eclipse.jem.java.Method;
  */
 
 
-public interface IndexedPropertyDecorator extends PropertyDecorator {
+public interface IndexedPropertyDecorator extends PropertyDecorator{
 	/**
 	 * Returns the value of the '<em><b>Indexed Read Method</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -45,9 +49,11 @@ public interface IndexedPropertyDecorator extends PropertyDecorator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Indexed Read Method</em>' reference.
+	 * @see #isSetIndexedReadMethod()
+	 * @see #unsetIndexedReadMethod()
 	 * @see #setIndexedReadMethod(Method)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getIndexedPropertyDecorator_IndexedReadMethod()
-	 * @model 
+	 * @model unsettable="true"
 	 * @generated
 	 */
 	Method getIndexedReadMethod();
@@ -57,10 +63,35 @@ public interface IndexedPropertyDecorator extends PropertyDecorator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Indexed Read Method</em>' reference.
+	 * @see #isSetIndexedReadMethod()
+	 * @see #unsetIndexedReadMethod()
 	 * @see #getIndexedReadMethod()
 	 * @generated
 	 */
 	void setIndexedReadMethod(Method value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator#getIndexedReadMethod <em>Indexed Read Method</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetIndexedReadMethod()
+	 * @see #getIndexedReadMethod()
+	 * @see #setIndexedReadMethod(Method)
+	 * @generated
+	 */
+	void unsetIndexedReadMethod();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator#getIndexedReadMethod <em>Indexed Read Method</em>}' reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Indexed Read Method</em>' reference is set.
+	 * @see #unsetIndexedReadMethod()
+	 * @see #getIndexedReadMethod()
+	 * @see #setIndexedReadMethod(Method)
+	 * @generated
+	 */
+	boolean isSetIndexedReadMethod();
 
 	/**
 	 * Returns the value of the '<em><b>Indexed Write Method</b></em>' reference.
@@ -71,9 +102,11 @@ public interface IndexedPropertyDecorator extends PropertyDecorator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Indexed Write Method</em>' reference.
+	 * @see #isSetIndexedWriteMethod()
+	 * @see #unsetIndexedWriteMethod()
 	 * @see #setIndexedWriteMethod(Method)
 	 * @see org.eclipse.jem.internal.beaninfo.BeaninfoPackage#getIndexedPropertyDecorator_IndexedWriteMethod()
-	 * @model 
+	 * @model unsettable="true"
 	 * @generated
 	 */
 	Method getIndexedWriteMethod();
@@ -83,9 +116,34 @@ public interface IndexedPropertyDecorator extends PropertyDecorator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Indexed Write Method</em>' reference.
+	 * @see #isSetIndexedWriteMethod()
+	 * @see #unsetIndexedWriteMethod()
 	 * @see #getIndexedWriteMethod()
 	 * @generated
 	 */
 	void setIndexedWriteMethod(Method value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator#getIndexedWriteMethod <em>Indexed Write Method</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetIndexedWriteMethod()
+	 * @see #getIndexedWriteMethod()
+	 * @see #setIndexedWriteMethod(Method)
+	 * @generated
+	 */
+	void unsetIndexedWriteMethod();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jem.internal.beaninfo.IndexedPropertyDecorator#getIndexedWriteMethod <em>Indexed Write Method</em>}' reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Indexed Write Method</em>' reference is set.
+	 * @see #unsetIndexedWriteMethod()
+	 * @see #getIndexedWriteMethod()
+	 * @see #setIndexedWriteMethod(Method)
+	 * @generated
+	 */
+	boolean isSetIndexedWriteMethod();
 
 }

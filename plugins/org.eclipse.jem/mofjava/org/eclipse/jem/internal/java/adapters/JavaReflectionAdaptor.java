@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2005/01/07 20:51:26 $ 
+ *  $Revision: 1.9 $  $Date: 2005/02/04 23:11:33 $ 
  */
 import java.util.List;
 
@@ -30,12 +30,28 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 public abstract class JavaReflectionAdaptor extends ReflectionAdaptor {
 	private static final String C_METHOD_DEFAULT_CTOR = String.valueOf(C_METHOD_PARM_DELIMITER) + S_CONSTRUCTOR_TOKEN;
 	protected static final String LEFT_BRACKET = "[";//$NON-NLS-1$
-	public static final EAttribute FLUSH_REFLECTION_SF = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
-	public static final EAttribute FLUSH_NEW_REFLECTION_SF = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+	
+	/**
+	 * Special notification event type. This is sent against a JavaClass (as the target) whenever flush of the reflection occurs. It will be
+	 * sent under the notification event type of REFLECTION_EVENT.
+	 * @since 1.1.0
+	 */
+	public static final EAttribute FLUSH_REFLECTION_EVENT = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
+	
+	/**
+	 * Special notification event type. This is sent against a JavaClass (as the target) whenever flush of a new class (i.e. 
+	 * no source was found) of the reflection occurs. It will be
+	 * sent under the notification event type of REFLECTION_EVENT.
+	 * @since 1.1.0
+	 */
+	public static final EAttribute FLUSH_NEW_REFLECTION_EVENT = EcorePackage.eINSTANCE.getEcoreFactory().createEAttribute();
 
+	/*
+	 * Fill in the name. Not really needed but it would be nice.
+	 */
 	static {
-		FLUSH_REFLECTION_SF.setName("flushReflectedValues");    //$NON-NLS-1$
-		FLUSH_NEW_REFLECTION_SF.setName("flushNewReflectedValues"); //$NON-NLS-1$
+		FLUSH_REFLECTION_EVENT.setName("flushReflectedValues");    //$NON-NLS-1$
+		FLUSH_NEW_REFLECTION_EVENT.setName("flushNewReflectedValues"); //$NON-NLS-1$
 	}
 	protected boolean hasFlushed = false;
 	protected boolean isFlushing = false;
@@ -228,8 +244,8 @@ public synchronized Notification flushReflectedValuesIfNecessaryNoNotification(b
  * @return
  */
 protected Notification createFlushNotification(boolean isExisting) {
-	EStructuralFeature feature = isExisting ? FLUSH_REFLECTION_SF : FLUSH_NEW_REFLECTION_SF;
-	return new ENotificationImpl((InternalEObject)getTarget(),Notification.SET, feature, null, null);
+	EStructuralFeature feature = isExisting ? FLUSH_REFLECTION_EVENT : FLUSH_NEW_REFLECTION_EVENT;
+	return new ENotificationImpl((InternalEObject)getTarget(),EVENT, feature, null, null);
 }
 protected void postFlushReflectedValuesIfNecessary(boolean isExisting) {
 }

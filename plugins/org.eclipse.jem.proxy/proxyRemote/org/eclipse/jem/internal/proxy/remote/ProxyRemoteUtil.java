@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: ProxyRemoteUtil.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/04 23:11:34 $ 
  */
 
 
@@ -26,7 +26,8 @@ public class ProxyRemoteUtil {
 	// Debug options
 	public static final String DEBUG_VM = "/remote/debug/debugvm", // Bring up debugger on remote vm's. //$NON-NLS-1$
 		IO_CONSOLE = "/remote/debug/ioconsole", // IO Through console (system in and out) for asking questions. //$NON-NLS-1$
-		DEBUG_VM_TRACEOUT = "/remote/debug/vmtraceout"; // Trace the output from the remote vm's. //$NON-NLS-1$
+		DEBUG_VM_TRACEOUT = "/remote/debug/vmtraceout", // Trace the output from the remote vm's. //$NON-NLS-1$
+		NO_TIMEOUTS = "/remote/debug/notimeouts";	// No socket timeouts when talking to remote vm. Turn this on when doing callback testing. Not needed otherwise. //$NON-NLS-1$ 
 
 	private static REMRegistryController pluginRegistryController;
 	

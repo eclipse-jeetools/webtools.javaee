@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.core;
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.12 $  $Date: 2005/01/07 21:09:41 $ 
+ *  $Revision: 1.13 $  $Date: 2005/02/04 23:11:53 $ 
  */
 
 
@@ -24,12 +24,12 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IClasspathContainer;
+import org.eclipse.jdt.core.JavaCore;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
-import org.eclipse.jem.internal.proxy.core.IConfigurationContributionInfo;
-import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
+import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin.ContributorExtensionPointInfo;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -462,30 +462,29 @@ public class BeaninfoPlugin extends Plugin {
 		public boolean resourceContributed(URI resourceURI);
 	}
 	
+	private static final String[] NO_PATHS = new String[0];
+	
 	/**
-	 * Apply the runnable to all of the override paths that are applicable to the 
-	 * given package name.
-	 * <p>
-	 * The package name uses '.' to delineate the fragments of the name,
-	 * i.e. use "<code>java.lang</code>" as a package name.
-	 * <p>
-	 * Note: This is not meant to be called by clients. It is public only because an internal class in another package needs to call it.
-	 * TODO This should be package-protected. Later the other class will be moved into this package.
+	 * Return just the contributed override paths (through the BeanInfo registrations). Does not include any paths that are contributed from
+	 * IBeanInfoContributor's. This is used by the BeanInfoClassAdapter to load the overrides files into one cache file so that it can
+	 * be done at one time the next time it is needed.
 	 * 
-	 * @param project the project to run against.
+	 * @param project
 	 * @param packageName
-	 * @param className class name of the class that is being overridden.
-	 * @param javaClass the java class the overrides will be applied to.
-	 * @param resource set that contributors can use to temporarily load dynamic override files.
-	 * @param runnable use this runnable to actually apply overrides.
+	 * @return array of path strings to the override. The files may not exist, they is just possible overrides. 
 	 * 
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	public void applyOverrides(IProject project, String packageName, final String className, final JavaClass javaClass, final ResourceSet rset, final IOverrideRunnable runnable) {
+	public String[] getOverridePaths(IProject project, String packageName) {
 		final IPath packagePath = new Path(packageName.replace('.', '/')+'/');
+		List overridePaths = new ArrayList();
 		try {
 			IConfigurationContributionInfo info = (IConfigurationContributionInfo) project.getSessionProperty(BeaninfoNature.CONFIG_INFO_SESSION_KEY);
-			final IBeanInfoContributor[] explicitContributors = (IBeanInfoContributor[]) project.getSessionProperty(BeaninfoNature.BEANINFO_CONTRIBUTORS_SESSION_KEY);
+			if (info == null) {
+				// It hasn't been created yet, so we need to create our own internal version here.
+				info = ProxyLaunchSupport.createDefaultConfigurationContributionInfo(JavaCore.create(project));					
+				BeaninfoNature.computeBeanInfoConfigInfo(info);
+			}
 			synchronized (this) {
 				if (ocFragments == null)
 					processBeanInfoContributionExtensionPoint(); // We haven't processed them yet.
@@ -508,7 +507,7 @@ public class BeaninfoPlugin extends Plugin {
 								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									runnable.run(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
+									overridePaths.add(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
 								}
 							}
 						}
@@ -524,12 +523,51 @@ public class BeaninfoPlugin extends Plugin {
 								if (bundle != null) {
 									if (leftOver == null)
 										leftOver = getLeftOver(ocFragments[fragmentIndex], packagePath);
-									runnable.run(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
+									overridePaths.add(JEMUtilPlugin.PLATFORM_PROTOCOL+":/"+JEMUtilPlugin.PLATFORM_PLUGIN+'/'+bundle.getSymbolicName()+'/'+contribution.paths[cindex]+leftOver);
 								}
 							}
 						}
 					}
 				}
+			}
+		} catch (CoreException e) {
+			getLogger().log(e, Level.INFO);
+		}
+		return overridePaths.isEmpty() ? NO_PATHS : (String[]) overridePaths.toArray(new String[overridePaths.size()]);
+	}
+	
+	/**
+	 * Apply the runnable to all of the override paths that are applicable to the 
+	 * given package name. It will run through the explicit contributors and the IContainers that implement IBeanInfoContributor.
+	 * <p>
+	 * The package name uses '.' to delineate the fragments of the name,
+	 * i.e. use "<code>java.lang</code>" as a package name.
+	 * <p>
+	 * Note: This is not meant to be called by clients. It is public only because an internal class in another package needs to call it.
+	 * TODO This should be package-protected. Later the other class will be moved into this package.
+	 * 
+	 * @param project the project to run against.
+	 * @param packageName
+	 * @param className class name of the class that is being overridden.
+	 * @param javaClass the java class the overrides will be applied to.
+	 * @param resource set that contributors can use to temporarily load dynamic override files.
+	 * @param runnable use this runnable to actually apply overrides.
+	 * 
+	 * @since 1.0.0
+	 */
+	public void applyOverrides(final IProject project, String packageName, final String className, final JavaClass javaClass, final ResourceSet rset, final IOverrideRunnable runnable) {
+		final IPath packagePath = new Path(packageName.replace('.', '/')+'/');
+		try {
+			IConfigurationContributionInfo info = (IConfigurationContributionInfo) project.getSessionProperty(BeaninfoNature.CONFIG_INFO_SESSION_KEY);
+			if (info == null) {
+				// It hasn't been created yet, so we need to create our own internal version here.
+				info = ProxyLaunchSupport.createDefaultConfigurationContributionInfo(JavaCore.create(project));					
+				BeaninfoNature.computeBeanInfoConfigInfo(info);
+			}
+			final IBeanInfoContributor[] explicitContributors = (IBeanInfoContributor[]) project.getSessionProperty(BeaninfoNature.BEANINFO_CONTRIBUTORS_SESSION_KEY);
+			synchronized (this) {
+				if (ocFragments == null)
+					processBeanInfoContributionExtensionPoint(); // We haven't processed them yet.
 			}
 
 			final Set usedPaths = new HashSet(10);	// Set of used paths. So that the contributors don't supply a path already used. This could cause problems if they did.
@@ -577,7 +615,7 @@ public class BeaninfoPlugin extends Plugin {
 				}
 			}
 			
-			// Run through the explicint contributors.
+			// Run through the explicit contributors.
 			for (int i=0; i<explicitContributors.length; i++) {
 				final int ii = i;
 				Platform.run(new ISafeRunnable() {
