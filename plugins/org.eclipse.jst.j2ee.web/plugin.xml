@@ -585,7 +585,7 @@
          point="org.eclipse.wst.common.emfworkbench.integration.editModel">
       <editModel
             editModelID="jst.web"
-            factoryClass="org.eclipse.wst.common.modulecore.ModuleEditModelFactory">
+            factoryClass="org.eclipse.wst.common.modulecore.internal.impl.ArtifactEditModelFactory">
          <editModelResource
                autoload="false"
                URI="WEB-INF/web.xml"/>

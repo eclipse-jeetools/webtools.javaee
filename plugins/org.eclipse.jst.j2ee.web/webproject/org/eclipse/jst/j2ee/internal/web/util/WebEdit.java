@@ -1,9 +1,13 @@
-/*
- * Created on Feb 7, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+/*******************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.util;
 
 import java.util.List;
@@ -20,20 +24,20 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
-import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ModuleURIUtil;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 
 /**
- * @author cbridgha
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * <p>
+ * The following class is experimental until fully documented.
+ * </p> 
  */
 public class WebEdit extends EnterpriseArtifactEdit {
 	
 	public static final Class ADAPTER_TYPE = WebEdit.class;
 	
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
+	
 	/**
 	 * @param model
 	 */
@@ -83,7 +87,7 @@ public class WebEdit extends EnterpriseArtifactEdit {
 			aResource.getContents().add(webApp);
 			URI moduleURI = getArtifactEditModel().getModuleURI();			
 			try {
-				webApp.setDisplayName(ModuleCore.getDeployedNameForModule(moduleURI));
+				webApp.setDisplayName(ModuleURIUtil.getDeployedName(moduleURI));
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(webApp, J2EEConstants.WEBAPP_ID);

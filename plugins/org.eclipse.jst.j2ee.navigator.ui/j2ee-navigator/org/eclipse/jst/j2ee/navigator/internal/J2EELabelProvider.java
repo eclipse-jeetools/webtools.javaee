@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jst.j2ee.common.util.CommonUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.navigator.internal.views.extensions.ICommonLabelProvider;
+import org.eclipse.wst.common.navigator.views.ICommonLabelProvider;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

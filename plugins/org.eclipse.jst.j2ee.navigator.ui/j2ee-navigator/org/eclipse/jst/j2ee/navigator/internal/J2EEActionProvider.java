@@ -30,7 +30,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPOptionalOperationAction;
 import org.eclipse.wst.common.navigator.internal.views.actions.CommonActionProvider;
 import org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider;
 import org.eclipse.wst.common.navigator.internal.views.actions.ICommonMenuConstants;
-import org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorContentService;
+import org.eclipse.wst.common.navigator.views.NavigatorContentService;
 
 public class J2EEActionProvider extends CommonActionProvider implements ICommonActionProvider {
 
