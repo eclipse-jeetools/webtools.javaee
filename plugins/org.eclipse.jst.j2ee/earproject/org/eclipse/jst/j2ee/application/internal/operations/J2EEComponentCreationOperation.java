@@ -186,7 +186,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
     protected abstract String getVersion();
 
     protected void setupComponentType(String typeID) {
-        IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
+        IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
         ComponentType componentType = ModuleCoreFactory.eINSTANCE.createComponentType();
         componentType.setModuleTypeId(typeID);
         componentType.setVersion(getVersion());

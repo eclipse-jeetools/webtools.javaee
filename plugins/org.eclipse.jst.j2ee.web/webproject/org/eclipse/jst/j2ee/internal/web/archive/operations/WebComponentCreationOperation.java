@@ -50,8 +50,8 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
      * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
      */
     protected void createAndLinkJ2EEComponents() throws CoreException {
-    	IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
-    	component.commit();
+    	IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+    	component.create(0, null);
     	//create and link javaSource Source Folder
     	IVirtualFolder javaSourceFolder = component.getFolder(new Path("/"  + J2EEConstants.WEB_INF + "/classes")); //$NON-NLS-1$		
     	javaSourceFolder.createLink(new Path("/" + getModuleName() + "/JavaSource"), 0, null);

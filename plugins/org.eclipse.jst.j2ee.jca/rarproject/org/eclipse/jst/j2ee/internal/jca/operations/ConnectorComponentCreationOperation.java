@@ -40,8 +40,8 @@ public class ConnectorComponentCreationOperation extends J2EEComponentCreationOp
      * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
      */
     protected void createAndLinkJ2EEComponents() throws CoreException {
-		IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
-        component.commit();
+		IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+        component.create(0, null);
 		//create and link connectorModule Source Folder
 		IVirtualFolder connectorModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
 		connectorModuleFolder.createLink(new Path("/" + getModuleName() + "/connectorModule"), 0, null);

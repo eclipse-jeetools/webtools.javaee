@@ -56,9 +56,9 @@ public class JavaUtilityComponentCreationOperation extends ComponentCreationOper
 	protected void createComponent() {
 			   	
 		JavaComponentCreationDataModel dm = (JavaComponentCreationDataModel)operationDataModel;	   	
-		IVirtualContainer component = ModuleCore.create(dm.getProject(), dm.getComponentDeployName());
+		IVirtualContainer component = ModuleCore.createContainer(dm.getProject(), dm.getComponentDeployName());
 		try {
-			component.commit();
+			component.create(0, null);
 			//create and link javaSource Source Folder
 			IVirtualFolder javaSourceFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
 			javaSourceFolder.createLink(new Path("/" + dm.getJavaSourceFolder()), 0, null);

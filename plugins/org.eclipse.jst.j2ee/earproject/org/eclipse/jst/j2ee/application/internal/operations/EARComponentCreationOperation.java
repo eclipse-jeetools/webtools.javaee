@@ -40,8 +40,8 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
      * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
      */
     protected void createAndLinkJ2EEComponents() throws CoreException {
-        IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
-        component.commit();
+        IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+        component.create(0, null);
 		//create and link META-INF folder
 		IVirtualFolder root = component.getFolder(new Path("/")); //$NON-NLS-1$		
 		root.createLink(new Path("/" + getModuleName()), 0, null);

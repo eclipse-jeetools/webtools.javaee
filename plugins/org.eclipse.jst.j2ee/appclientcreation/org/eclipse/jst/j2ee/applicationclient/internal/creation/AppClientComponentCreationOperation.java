@@ -35,8 +35,8 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
         super(dataModel);
     }
     protected void createAndLinkJ2EEComponents() throws CoreException {
-		IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
-		component.commit();
+		IVirtualContainer component = ModuleCore.createContainer(getProject(), getModuleDeployName());
+		component.create(0, null);
 		//create and link appClientModule Source Folder
 		IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/")); //$NON-NLS-1$		
 		appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/appClientModule"), 0, null);
