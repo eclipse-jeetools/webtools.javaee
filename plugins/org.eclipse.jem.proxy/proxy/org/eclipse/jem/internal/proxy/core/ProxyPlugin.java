@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.38 $  $Date: 2005/01/25 16:14:38 $ 
+ *  $Revision: 1.39 $  $Date: 2005/01/25 21:14:52 $ 
  */
 
 
@@ -315,9 +315,8 @@ public class ProxyPlugin extends Plugin {
 	public URL urlLocalizeFromBundle(Bundle bundle, IPath filenameWithinBundle) {					
 		try {
 			URL pvm = Platform.find(bundle, filenameWithinBundle);
-			pvm = verifyFound(pvm);
 			if (pvm != null)
-				return pvm;
+				return Platform.asLocalURL(pvm);
 		} catch (IOException e) {
 		}
 
@@ -327,34 +326,12 @@ public class ProxyPlugin extends Plugin {
 	protected URL urlLocalizeFromBundleOnly(Bundle bundle, String filenameWithinBundle) {
 		try {
 			URL pvm = bundle.getEntry(filenameWithinBundle);
-			pvm = verifyFound(pvm);
 			if (pvm != null)
-				return pvm;
+				return Platform.asLocalURL(pvm);
 		} catch (IOException e) {
 		}
 
 		return findDev(bundle, filenameWithinBundle);
-	}
-	
-	private URL verifyFound(URL pvm) throws IOException {
-		if (pvm != null)
-			pvm = Platform.asLocalURL(pvm);
-		if (devMode) {
-			// Need to test if found in devmode. Otherwise we will just assume it is found. If not found on remote and moved to cache, an IOException would be thrown.
-			if (pvm != null) {
-				InputStream ios = null;
-				try {
-					ios = pvm.openStream();
-					if (ios != null)
-						return pvm; // Found it, so return it.
-				} finally {
-					if (ios != null)
-						ios.close();
-				}
-			}
-		} else
-			return pvm;
-		return null;
 	}
 	
 	private URL findDev(Bundle bundle, String filenameWithinBundle) {
