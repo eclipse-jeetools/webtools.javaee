@@ -11,13 +11,13 @@ package org.eclipse.jst.j2ee.internal.web.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -28,7 +28,6 @@ import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
-import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
@@ -65,6 +64,13 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
 
+	public final String SERVLETLEVEL_2_2 = "Servlet 2.2"; //$NON-NLS-1$
+	public final String SERVLETLEVEL_2_3 = "Servlet 2.3"; //$NON-NLS-1$
+	public final String SERVLETLEVEL_2_4 = "Servlet 2.4"; //$NON-NLS-1$
+	public final String JSPLEVEL_1_1 = "JSP 1.1"; //$NON-NLS-1$
+	public final String JSPLEVEL_1_2 = "JSP 1.2"; //$NON-NLS-1$
+	public final String JSPLEVEL_2_0 = "JSP 2.0"; //$NON-NLS-1$
+
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given
@@ -72,9 +78,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * must be {@see #dispose()}ed of when no longer in use.
 	 * </p>
 	 * <p>
-	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that will not
-	 * be used for editing. Invocations of any save*() API on an instance returned from this method
-	 * will throw exceptions.
+	 * Use to acquire an WebArtifactEdit facade for a specific {@see WorkbenchModule}&nbsp;that
+	 * will not be used for editing. Invocations of any save*() API on an instance returned from
+	 * this method will throw exceptions.
 	 * </p>
 	 * <p>
 	 * <b>This method may return null. </b>
@@ -306,44 +312,45 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 			files.add(file);
 		}
 	}
-	
+
 	public String getContextRoot() {
 		//TODO return the valid context root for the module
 		return null;
 	}
-	
-	public IContainer getWebContentFolder(){
+
+	public IContainer getWebContentFolder() {
 		//TODO return the valid context root for the module
 		return null;
-		
+
 	}
-	
+
 	//push down to J2EE
-	public IFolder getMetaInfFolder(){
+	public IFolder getMetaInfFolder() {
 		return null;
-		
+
 	}
-	
+
 	public IContainer getWebInfFolder() {
 		//TODO return the valid web info folder for the module
 		return null;
 	}
-	
+
 	public IPath getWTPModuleFile() {
 		//TODO return the WTPModuleFile path
 		return null;
 	}
-	
+
 	public IContainer getWebLibFolder() {
 		//TODO return the appropriate web library folder
 		return null;
 	}
-	
+
+	//server specific, dont have support in WTP, but will in RAD
 	public ILibModule[] getLibModules() {
 		//TODO return the appropriate web lib modules
 		return null;
 	}
-	
+
 	public int getJSPVersion() {
 		int servletVersion = getServletVersion();
 		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
@@ -362,53 +369,23 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		//TODO return the module server root
 		return null;
 	}
-	
-	public IPath getDeploymentDescriptorPath() {
-		IFile file = WorkbenchResourceHelper.getFile(getDeploymentDescriptorResource());
-		if (file!=null)
-			return file.getFullPath();
+
+	public IFolder getLibraryFolder() {
+		IFolder webInfFolder = (IFolder) getWebInfFolder();
+		IFolder libFolder = (IFolder) webInfFolder.findMember(IWebNatureConstants.LIBRARY_DIRECTORY);
+		return libFolder;
+	}
+	public IFolder getRootPublishableFolder(){
+//		TODO return the rootpublishableFolder
+		return null;
+		
+	}
+	public IFolder getDefaultJavaSourceName(){
 		return null;
 	}
 	
-	public IFolder getSourceFolder(){
-		IFolder srcFolder = null;
-		return srcFolder;
-	}
-	
-	public String getModuleVersionText(){
-		return getServletLevel();
-	}
-	
-	public String getServletLevel(){
-		int servletVersion = getServletVersion();
+	public IJavaProject getJavaProject(){
+		return null;
 		
-		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
-			return J2EEVersionConstants.VERSION_2_2_TEXT;
-		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
-			return J2EEVersionConstants.VERSION_2_3_TEXT;
-		else
-			return J2EEVersionConstants.VERSION_2_4_TEXT;		
-	}
-	
-	public String getJSPLevel(){
-		int servletVersion = getServletVersion();
-		
-		if (servletVersion == J2EEVersionConstants.WEB_2_2_ID)
-			return J2EEVersionConstants.VERSION_1_1_TEXT;
-		else if (servletVersion == J2EEVersionConstants.WEB_2_3_ID)
-			return J2EEVersionConstants.VERSION_1_2_TEXT;
-		else
-			return J2EEVersionConstants.VERSION_2_0_TEXT;	
-		
-	}
-
-	public IFolder getLibraryFolder() {
-		IFolder webInfFolder = (IFolder)getWebInfFolder();
-		IFolder libFolder = (IFolder)webInfFolder.getFolder(IWebNatureConstants.LIBRARY_DIRECTORY);
-		return libFolder;
-	}
-	
-	public void setLibModules(ILibModule[] libModules) {
-		//TODO we need an edit model for write to do it.
 	}
 }
