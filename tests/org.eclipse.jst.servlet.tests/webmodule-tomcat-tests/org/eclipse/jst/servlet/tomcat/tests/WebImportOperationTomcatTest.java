@@ -58,7 +58,7 @@ public class WebImportOperationTomcatTest extends ModuleImportOperationTestCase 
 	 * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTestCase#setServerTargetProperty(org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel)
 	 */
 	public void setServerTargetProperty(J2EEModuleImportDataModel dataModel) {
-		dataModel.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID,AllTomcatTests.TOMCAT_RUNTIME);
+		dataModel.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID,AllTomcatTests.TOMCAT_RUNTIME.getId());
 	}
 
 }
