@@ -23,12 +23,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author schacher
@@ -64,7 +63,7 @@ public class InvertClientJARDependencyCompoundOperation extends WTPOperation {
 			Iterator projects = earNatures[i].getAllMappedProjects().values().iterator();
 			while (projects.hasNext()) {
 				IProject project = (IProject) projects.next();
-				if (project != null && !project.equals(oldProject) && !project.equals(newProject) && !ProjectUtilities.isBinaryProject(project)) {
+				if (project != null && !project.equals(oldProject) && !project.equals(newProject) && !JavaProjectUtilities.isBinaryProject(project)) {
 					JARDependencyDataModel model = new JARDependencyDataModel();
 					model.setIntProperty(JARDependencyDataModel.JAR_MANIPULATION_TYPE, JARDependencyDataModel.JAR_MANIPULATION_INVERT);
 					model.setProperty(JARDependencyDataModel.PROJECT_NAME, project.getName());

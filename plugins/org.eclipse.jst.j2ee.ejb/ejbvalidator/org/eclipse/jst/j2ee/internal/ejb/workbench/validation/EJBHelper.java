@@ -40,6 +40,10 @@ import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -71,10 +75,6 @@ import org.eclipse.jst.j2ee.model.internal.validation.ValidationRuleUtility;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
-
-import com.ibm.wtp.common.logger.LogEntry;
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * Load the EJB MOF model and return resources for the EJB Validator.
@@ -638,7 +638,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			return null;
 		}
 		IProject project = ProjectUtilities.getProject(clazz);
-		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);
+		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
 		return JDOMSearchHelper.findType(clazz.getJavaPackage().getName(), clazz.getName(), javaProj);
 	}
 

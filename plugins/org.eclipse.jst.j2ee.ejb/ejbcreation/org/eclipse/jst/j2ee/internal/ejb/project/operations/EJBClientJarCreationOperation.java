@@ -39,6 +39,8 @@ import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerHelper;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.AddArchiveToEARDataModel;
@@ -60,9 +62,6 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class EJBClientJarCreationOperation extends AbstractEJBClientJAROperation {
 	protected String clientProjectName;
@@ -322,7 +321,7 @@ public class EJBClientJarCreationOperation extends AbstractEJBClientJAROperation
 
 	//Get all the roots that are folders in the project
 	private List getResourcePackageFragmentRoots() throws JavaModelException {
-		IJavaProject javaProj = ProjectUtilities.getJavaProject(ejbProject);
+		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(ejbProject);
 		List result = new ArrayList();
 		IPackageFragmentRoot[] roots = javaProj.getPackageFragmentRoots();
 		for (int i = 0; i < roots.length; i++) {

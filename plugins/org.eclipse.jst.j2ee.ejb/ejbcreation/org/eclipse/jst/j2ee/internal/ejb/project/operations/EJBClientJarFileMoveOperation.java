@@ -36,11 +36,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @author dfholt
@@ -100,7 +100,7 @@ public class EJBClientJarFileMoveOperation extends WTPOperation {
 				Logger.getLogger().logError(e);
 			}
 		}
-		IJavaProject javaProject = ProjectUtilities.getJavaProject(clientProject);
+		IJavaProject javaProject = JavaProjectUtilities.getJavaProject(clientProject);
 		//Refresh problems
 		javaProject.close();
 		javaProject.open(null);
@@ -142,7 +142,7 @@ public class EJBClientJarFileMoveOperation extends WTPOperation {
 		IFolder targetFolder = clientProject.getFolder(sourceSourceFolder.getProjectRelativePath());
 		if (targetFolder == null || !targetFolder.exists()) {
 			mkFolders(targetFolder.getFullPath(), workspace.getRoot());
-			ProjectUtilities.appendJavaClassPath(clientProject, JavaCore.newSourceEntry(targetFolder.getFullPath()));
+			JavaProjectUtilities.appendJavaClassPath(clientProject, JavaCore.newSourceEntry(targetFolder.getFullPath()));
 		}
 		return targetFolder;
 	}
@@ -179,7 +179,7 @@ public class EJBClientJarFileMoveOperation extends WTPOperation {
 		if (!folder.exists())
 			folder.create(true, true, null);
 		try {
-			ProjectUtilities.appendJavaClassPath(clientProject, JavaCore.newLibraryEntry(folder.getFullPath(), null, null, true));
+			JavaProjectUtilities.appendJavaClassPath(clientProject, JavaCore.newLibraryEntry(folder.getFullPath(), null, null, true));
 		} catch (CoreException ex) {
 			Logger.getLogger().logError(ex);
 		}

@@ -47,7 +47,7 @@ import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.wst.validation.internal.operations.EnabledValidatorsOperation;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here. Creation date: (10/12/00 10:20:00 PM)

@@ -18,13 +18,12 @@ import java.util.List;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
+import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
-import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
 
 /**
  * Insert the type's description here. Creation date: (1/9/2001 11:24:19 AM)
@@ -61,7 +60,7 @@ public class EJBProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		EJBNatureRuntime enr = EJBNatureRuntime.getRuntime(project);
 		projectURIConverter = new WorkbenchURIConverterImpl(enr.getModuleServerRoot());
 		if (isExportSource()) {
-			List sourceContainers = ProjectUtilities.getSourceContainers(enr.getProject());
+			List sourceContainers = JavaProjectUtilities.getSourceContainers(enr.getProject());
 			for (int i = 0; i < sourceContainers.size(); i++) {
 				projectURIConverter.addInputContainer((IFolder) sourceContainers.get(i));
 			}

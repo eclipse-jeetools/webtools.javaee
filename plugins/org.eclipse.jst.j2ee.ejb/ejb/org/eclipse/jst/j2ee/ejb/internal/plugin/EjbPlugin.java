@@ -86,7 +86,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 				String installLocation = ((PlatformURLConnection) url.openConnection()).getURLAsLocal().getFile();
 				location = new Path(installLocation);
 			} catch (IOException e) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
 			}
 		}
 		return location;

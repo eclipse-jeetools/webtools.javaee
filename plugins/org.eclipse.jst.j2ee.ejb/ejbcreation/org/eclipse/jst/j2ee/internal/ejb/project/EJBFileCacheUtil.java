@@ -23,10 +23,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-
-import com.ibm.wtp.common.logger.proxy.Logger;
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * For accessing the EJBFileCache from within eclipse, this utility class should be used. These
@@ -155,7 +154,7 @@ public class EJBFileCacheUtil {
 		} catch (CoreException exc) {
 			return null;
 		}
-		return ProjectUtilities.getJavaProject(project);
+		return JavaProjectUtilities.getJavaProject(project);
 	}
 
 	/**

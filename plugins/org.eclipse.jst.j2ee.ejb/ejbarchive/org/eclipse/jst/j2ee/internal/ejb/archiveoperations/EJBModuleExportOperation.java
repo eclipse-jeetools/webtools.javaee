@@ -103,14 +103,14 @@ public final class EJBModuleExportOperation extends J2EEArtifactExportOperation 
 				cp = p.getResolvedClasspath(true);
 			} catch (JavaModelException ex2) {
 				// Okay; something is really wrong
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 			}
 		}
 		List paths = new ArrayList();
 		try {
 			paths.add(getJavaProject().getOutputLocation().addTrailingSeparator());
 		} catch (JavaModelException ex) {
-			com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 		}
 		for (int i = 0; i < cp.length; i++) {
 			if (cp[i].getEntryKind() == IClasspathEntry.CPE_SOURCE) {
@@ -127,7 +127,7 @@ public final class EJBModuleExportOperation extends J2EEArtifactExportOperation 
 			try {
 				pathUrls[i] = new java.net.URL("file:///" + path.toString());//$NON-NLS-1$
 			} catch (java.net.MalformedURLException ex) {
-				com.ibm.wtp.common.logger.proxy.Logger.getLogger().logError(ex);
+				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
 			}
 		}
 		java.net.URLClassLoader parent = null; //

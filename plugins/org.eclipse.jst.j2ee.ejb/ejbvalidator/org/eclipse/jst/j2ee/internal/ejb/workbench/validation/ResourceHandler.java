@@ -17,8 +17,8 @@ import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.model.internal.validation.IEJBValidatorConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.J2EEValidationResourceHandler;
 
-import com.ibm.wtp.common.logger.LogEntry;
-import com.ibm.wtp.common.logger.proxy.Logger;
+import org.eclipse.jem.util.logger.LogEntry;
+import org.eclipse.jem.util.logger.proxy.Logger;
 
 /**
  * Insert the type's description here. Creation date: (1/22/01 4:13:13 PM)

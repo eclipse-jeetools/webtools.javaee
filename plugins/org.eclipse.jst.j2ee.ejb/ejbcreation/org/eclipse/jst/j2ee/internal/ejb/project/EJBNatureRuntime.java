@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.XMLResource;
@@ -47,8 +49,6 @@ import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl
 import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ComposedEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * @deprecated
@@ -294,7 +294,7 @@ public class EJBNatureRuntime extends J2EEModuleNature implements IEJBNatureCons
 	 * @see IJ2EENature
 	 */
 	public IContainer getModuleServerRoot() {
-		return ProjectUtilities.getJavaProjectOutputContainer(project);
+		return JavaProjectUtilities.getJavaProjectOutputContainer(project);
 	}
 
 	/**
