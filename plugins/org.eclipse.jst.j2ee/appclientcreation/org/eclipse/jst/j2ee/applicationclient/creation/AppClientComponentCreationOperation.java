@@ -56,8 +56,8 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
             createFolder(absMetaRoot);
 
             artifactEdit.getDeploymentDescriptorRoot();
-            AppClientModuleCreationDataModelOld dataModel = (AppClientModuleCreationDataModelOld) operationDataModel;
-            if (dataModel.getBooleanProperty(AppClientModuleCreationDataModelOld.CREATE_DEFAULT_MAIN_CLASS)) {
+            AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel) operationDataModel;
+            if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
                 NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
                 mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, dataModel.getProjectDataModel().getProject().getName());
                 mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$

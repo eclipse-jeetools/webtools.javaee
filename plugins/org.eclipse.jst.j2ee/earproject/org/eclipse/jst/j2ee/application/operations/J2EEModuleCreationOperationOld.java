@@ -76,9 +76,9 @@ public abstract class J2EEModuleCreationOperationOld extends J2EEArtifactCreatio
 
 	public static void linkToEARIfNecessary(J2EEModuleCreationDataModelOld moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		if (moduleModel.getBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR)) {
-			EnterpriseApplicationCreationDataModelOld earModel = moduleModel.getApplicationCreationDataModel();
+			EnterpriseApplicationCreationDataModel earModel = moduleModel.getApplicationCreationDataModel();
 			if (!earModel.getTargetProject().exists()) {
-				EnterpriseApplicationCreationOperationOld earOp = new EnterpriseApplicationCreationOperationOld(earModel);
+				EnterpriseApplicationCreationOperation earOp = new EnterpriseApplicationCreationOperation(earModel);
 				earOp.doRun(monitor);
 			}
 			AddArchiveToEARDataModel addModuleModel = moduleModel.getAddModuleToApplicationDataModel();

@@ -58,7 +58,7 @@ public class WebModuleImportOperation extends J2EEArtifactImportOperation {
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		WebModuleCreationOperationOld op = new WebModuleCreationOperationOld((WebModuleCreationDataModelOld) model);
+		WebModuleCreationOperation op = new WebModuleCreationOperation((WebModuleCreationDataModel) model);
 		op.run(monitor);
 	}
 

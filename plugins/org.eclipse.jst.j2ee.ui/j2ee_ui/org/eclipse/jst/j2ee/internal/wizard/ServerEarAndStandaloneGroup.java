@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EECreationDataModel;
@@ -173,12 +173,12 @@ public class ServerEarAndStandaloneGroup {
 	 */
 	protected void handleNewEarSelected() {
 		J2EEComponentCreationDataModel moduleModel = model;
-		EnterpriseApplicationCreationDataModelOld earModel = new EnterpriseApplicationCreationDataModelOld();
-		earModel.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
+		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
+		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
 		earModel.setProperty(J2EECreationDataModel.PROJECT_NAME, moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
 		//TODO the flexible ear data model needs to be used and server target has to be discovered from project
 		//earModel.setProperty(EnterpriseApplicationCreationDataModelOld.SERVER_TARGET_ID, moduleModel.getProperty(J2EEComponentCreationDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModelOld.UI_SHOW_FIRST_PAGE_ONLY, true);
+		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
 		EnterpriseApplicationCreationWizard earWizard = new EnterpriseApplicationCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {

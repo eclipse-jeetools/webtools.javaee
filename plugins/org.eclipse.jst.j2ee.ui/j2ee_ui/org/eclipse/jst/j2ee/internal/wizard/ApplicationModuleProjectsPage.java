@@ -31,7 +31,7 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectsToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -63,7 +63,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public ApplicationModuleProjectsPage(EnterpriseApplicationCreationDataModelOld model, String pageName) {
+	public ApplicationModuleProjectsPage(EnterpriseApplicationCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_DESC));
@@ -104,7 +104,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 		gData.widthHint = 200;
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
-		AvailableModuleProjectsProvider provider = new AvailableModuleProjectsProvider((EnterpriseApplicationCreationDataModelOld) model);
+		AvailableModuleProjectsProvider provider = new AvailableModuleProjectsProvider((EnterpriseApplicationCreationDataModel) model);
 		moduleProjectsViewer.setContentProvider(provider);
 		moduleProjectsViewer.setLabelProvider(new WorkbenchLabelProvider());
 		setCheckedItemsFromModel();
@@ -209,7 +209,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 	private void setNewModules(DefaultModuleProjectCreationDataModel defaultModel) {
 		List newProjects = new ArrayList();
 		collectNewProjects(defaultModel, newProjects);
-		AddArchiveProjectsToEARDataModel modModel = ((EnterpriseApplicationCreationDataModelOld) model).getAddModulesToEARDataModel();
+		AddArchiveProjectsToEARDataModel modModel = ((EnterpriseApplicationCreationDataModel) model).getAddModulesToEARDataModel();
 		List selectedProjects = (List) modModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST);
 		newProjects.addAll(selectedProjects);
 		modModel.setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, newProjects);
@@ -237,7 +237,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 	private DefaultModuleProjectCreationDataModel createNewModuleModel() {
 		DefaultModuleProjectCreationDataModel defaultModel = new DefaultModuleProjectCreationDataModel();
 		String earName = model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME);
-		Object j2eeVersion = model.getProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION);
+		Object j2eeVersion = model.getProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION);
 		Object serverTargetID = model.getStringProperty(J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID);
 		defaultModel.setProperty(DefaultModuleProjectCreationDataModel.BASE_NAME, earName);
 		defaultModel.setProperty(DefaultModuleProjectCreationDataModel.J2EE_VERSION, j2eeVersion);
@@ -272,7 +272,7 @@ public class ApplicationModuleProjectsPage extends WTPWizardPage {
 	}
 
 	private AddArchiveProjectsToEARDataModel getModulesModel() {
-		return ((EnterpriseApplicationCreationDataModelOld) model).getAddModulesToEARDataModel();
+		return ((EnterpriseApplicationCreationDataModel) model).getAddModulesToEARDataModel();
 	}
 
 	/*

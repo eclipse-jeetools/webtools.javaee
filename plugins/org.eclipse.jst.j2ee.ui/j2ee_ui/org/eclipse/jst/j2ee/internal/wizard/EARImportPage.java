@@ -16,7 +16,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
@@ -82,16 +82,16 @@ public class EARImportPage extends J2EEImportPage {
 
 	protected J2EEArtifactCreationDataModelOld getNewProjectCreationDataModel() {
 		EnterpriseApplicationImportDataModel importModel = (EnterpriseApplicationImportDataModel) model;
-		EnterpriseApplicationCreationDataModelOld earModel = new EnterpriseApplicationCreationDataModelOld();
-		earModel.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, importModel.getJ2EEVersion());
+		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
+		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, importModel.getJ2EEVersion());
 		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, importModel.getProperty(J2EEArtifactImportDataModel.PROJECT_NAME));
 		earModel.setProperty(J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID, importModel.getProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModelOld.UI_SHOW_FIRST_PAGE_ONLY, true);
+		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
 		return earModel;
 	}
 
 	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModelOld aModel) {
-		return new EnterpriseApplicationCreationWizard((EnterpriseApplicationCreationDataModelOld) aModel);
+		return new EnterpriseApplicationCreationWizard((EnterpriseApplicationCreationDataModel) aModel);
 	}
 
 	protected String getProjectImportLabel() {

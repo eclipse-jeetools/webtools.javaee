@@ -234,9 +234,9 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 			setProperty(MODULE_MODELS_LIST, getModuleModels());
 			setBooleanProperty(PRESERVE_PROJECT_METADATA, false);
 			setProperty(UTILITY_LIST, null);
-			EnterpriseApplicationCreationDataModelOld earProjectModel = (EnterpriseApplicationCreationDataModelOld) getJ2eeArtifactCreationDataModel();
+			EnterpriseApplicationCreationDataModel earProjectModel = (EnterpriseApplicationCreationDataModel) getJ2eeArtifactCreationDataModel();
 			if (getModuleFile() != null) {
-				earProjectModel.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, ArchiveUtil.getFastSpecVersion(getModuleFile()));
+				earProjectModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, ArchiveUtil.getFastSpecVersion(getModuleFile()));
 			}
 			notifyValidValuesChange(PROJECT_NAME);
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
@@ -639,7 +639,7 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 	}
 
 	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		return new EnterpriseApplicationCreationDataModelOld();
+		return new EnterpriseApplicationCreationDataModel();
 	}
 
 	protected int getType() {

@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.ui;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -71,7 +71,7 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 *         Clients
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		AppClientModuleCreationDataModelOld aModel = new AppClientModuleCreationDataModelOld();
+		AppClientModuleCreationDataModel aModel = new AppClientModuleCreationDataModel();
 		aModel.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
 		return aModel;
 	}

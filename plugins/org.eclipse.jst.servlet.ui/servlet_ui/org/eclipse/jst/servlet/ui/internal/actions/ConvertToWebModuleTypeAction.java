@@ -16,7 +16,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenWizardWorkbenchAction;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.ConvertWebProjectDataModel;
 import org.eclipse.jst.servlet.ui.internal.wizard.ConvertToWebModuleTypeWizard;
 import org.eclipse.ui.IWorkbench;
@@ -52,7 +52,7 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	{
 		ConvertToWebModuleTypeWizard wizard = new ConvertToWebModuleTypeWizard(
 				new ConvertWebProjectDataModel());
-		WebModuleCreationDataModelOld model = (WebModuleCreationDataModelOld) wizard
+		WebModuleCreationDataModel model = (WebModuleCreationDataModel) wizard
 				.getModel();
 		model.setProperty(EditModelOperationDataModel.PROJECT_NAME, project
 				.getName());
@@ -65,9 +65,9 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 					.getNature(IWebNatureConstants.STATIC_NATURE_ID);
 			String webContent = nature.getRootPublishableFolder().getName();
 			String contextRoot = nature.getContextRoot();
-			model.setProperty(WebModuleCreationDataModelOld.WEB_CONTENT,
+			model.setProperty(WebModuleCreationDataModel.WEB_CONTENT,
 					webContent);
-			model.setProperty(WebModuleCreationDataModelOld.CONTEXT_ROOT,
+			model.setProperty(WebModuleCreationDataModel.CONTEXT_ROOT,
 					contextRoot);
 		}
 		catch( CoreException e )

@@ -18,8 +18,8 @@ import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOl
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationOperationOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
@@ -78,7 +78,7 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
 	 */
 	public J2EEModuleCreationOperationOld createProjectCreationOperation(J2EEModuleCreationDataModelOld dataModel) {
-		return new ConnectorModuleCreationOperationOld((ConnectorModuleCreationDataModelOld) dataModel);
+		return new ConnectorModuleCreationOperation((ConnectorModuleCreationDataModel) dataModel);
 	}
 
 	/*
@@ -87,7 +87,7 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
 	public J2EEModuleCreationDataModelOld createProjectDataModel() {
-		return new ConnectorModuleCreationDataModelOld();
+		return new ConnectorModuleCreationDataModel();
 	}
 
 	/*

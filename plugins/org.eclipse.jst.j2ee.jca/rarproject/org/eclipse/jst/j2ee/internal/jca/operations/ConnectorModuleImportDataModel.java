@@ -77,7 +77,7 @@ public final class ConnectorModuleImportDataModel extends J2EEModuleImportDataMo
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
 	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		return new ConnectorModuleCreationDataModelOld();
+		return new ConnectorModuleCreationDataModel();
 	}
 
 	/*

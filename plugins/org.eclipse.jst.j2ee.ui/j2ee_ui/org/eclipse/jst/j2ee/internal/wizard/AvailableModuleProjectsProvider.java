@@ -27,7 +27,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.swt.graphics.Image;
@@ -39,9 +39,9 @@ import org.eclipse.swt.graphics.Image;
  * Generation>Code and Comments
  */
 public class AvailableModuleProjectsProvider implements IStructuredContentProvider, ITableLabelProvider {
-	private EnterpriseApplicationCreationDataModelOld model;
+	private EnterpriseApplicationCreationDataModel model;
 
-	public AvailableModuleProjectsProvider(EnterpriseApplicationCreationDataModelOld dataModel) {
+	public AvailableModuleProjectsProvider(EnterpriseApplicationCreationDataModel dataModel) {
 		super();
 		model = dataModel;
 	}
@@ -56,7 +56,7 @@ public class AvailableModuleProjectsProvider implements IStructuredContentProvid
 		if (inputElement instanceof IWorkspaceRoot) {
 			IProject[] projects = ((IWorkspaceRoot) inputElement).getProjects();
 			if (projects.length > 0) {
-				int j2eeVersion = model.getIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION);
+				int j2eeVersion = model.getIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION);
 				for (int i = 0; i < projects.length; i++) {
 					if (isValid(projects[i], j2eeVersion)) {
 						if (validModuleProjects == null)

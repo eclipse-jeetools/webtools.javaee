@@ -20,8 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtension;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.moduleextension.JcaModuleExtension;
@@ -121,7 +121,7 @@ public class DefaultModuleProjectCreationOperation extends WTPOperation {
 	 * @param model
 	 */
 	private void createAppClientModuleProject(J2EEModuleCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		AppClientModuleCreationOperationOld op = new AppClientModuleCreationOperationOld((AppClientModuleCreationDataModelOld) model);
+		AppClientModuleCreationOperation op = new AppClientModuleCreationOperation((AppClientModuleCreationDataModel) model);
 		op.doRun(monitor);
 		WTPActivityBridge.getInstance().enableActivity(ENTERPRISE_JAVA, true);
 

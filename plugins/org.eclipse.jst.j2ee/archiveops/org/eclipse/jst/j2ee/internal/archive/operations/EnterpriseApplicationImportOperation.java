@@ -26,8 +26,8 @@ import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddUtilityProjectToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationOperationOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
@@ -251,7 +251,7 @@ public class EnterpriseApplicationImportOperation extends J2EEArtifactImportOper
 	}
 
 	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		EnterpriseApplicationCreationOperationOld earProjectOp = new EnterpriseApplicationCreationOperationOld((EnterpriseApplicationCreationDataModelOld) model);
+		EnterpriseApplicationCreationOperation earProjectOp = new EnterpriseApplicationCreationOperation((EnterpriseApplicationCreationDataModel) model);
 		earProjectOp.run(monitor);
 	}
 

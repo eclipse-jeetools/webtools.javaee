@@ -91,9 +91,9 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 	}
 
 	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		WebModuleCreationDataModelOld dm = new WebModuleCreationDataModelOld();
+		WebModuleCreationDataModel dm = new WebModuleCreationDataModel();
 		dm.setBooleanProperty(J2EEArtifactCreationDataModelOld.ADD_SERVER_TARGET, false);
-		dm.setBooleanProperty(WebModuleCreationDataModelOld.MIGRATE_WEB_SETTINGS, false);
+		dm.setBooleanProperty(WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS, false);
 		return dm;
 	}
 
@@ -131,7 +131,7 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 					}
 				}
 			}
-			setProperty(WebModuleCreationDataModelOld.WEB_CONTENT, webContentName);
+			setProperty(WebModuleCreationDataModel.WEB_CONTENT, webContentName);
 		}
 		return returnVal;
 	}

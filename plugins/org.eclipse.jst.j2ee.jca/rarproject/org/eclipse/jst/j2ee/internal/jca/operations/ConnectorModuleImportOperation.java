@@ -56,7 +56,7 @@ public class ConnectorModuleImportOperation extends J2EEArtifactImportOperation 
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		ConnectorModuleCreationOperationOld op = new ConnectorModuleCreationOperationOld((ConnectorModuleCreationDataModelOld) model);
+		ConnectorModuleCreationOperation op = new ConnectorModuleCreationOperation((ConnectorModuleCreationDataModel) model);
 		op.run(monitor);
 	}
 

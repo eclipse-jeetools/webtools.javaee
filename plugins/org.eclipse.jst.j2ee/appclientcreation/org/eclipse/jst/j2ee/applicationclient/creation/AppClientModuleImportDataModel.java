@@ -69,7 +69,7 @@ public final class AppClientModuleImportDataModel extends J2EEModuleImportDataMo
 	}
 
 	protected J2EEArtifactCreationDataModelOld createJ2EEProjectCreationDataModel() {
-		return new AppClientModuleCreationDataModelOld();
+		return new AppClientModuleCreationDataModel();
 	}
 
 	protected int getType() {

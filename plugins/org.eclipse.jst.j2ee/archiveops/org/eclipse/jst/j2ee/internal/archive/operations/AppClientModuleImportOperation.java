@@ -21,8 +21,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 public class AppClientModuleImportOperation extends J2EEArtifactImportOperation {
@@ -44,7 +44,7 @@ public class AppClientModuleImportOperation extends J2EEArtifactImportOperation 
 	}
 
 	protected void createModuleProject(J2EEArtifactCreationDataModelOld model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		AppClientModuleCreationOperationOld op = new AppClientModuleCreationOperationOld((AppClientModuleCreationDataModelOld) model);
+		AppClientModuleCreationOperation op = new AppClientModuleCreationOperation((AppClientModuleCreationDataModel) model);
 		op.run(monitor);
 	}
 

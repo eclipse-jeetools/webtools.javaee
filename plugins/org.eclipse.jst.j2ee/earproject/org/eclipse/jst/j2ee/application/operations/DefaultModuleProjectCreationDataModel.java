@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -112,7 +112,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	private J2EEModuleCreationDataModelOld ejbModel;
 	private J2EEModuleCreationDataModelOld webModel;
 	private J2EEModuleCreationDataModelOld jcaModel;
-	private AppClientModuleCreationDataModelOld clientModel;
+	private AppClientModuleCreationDataModel clientModel;
 
 	/**
 	 *  
@@ -152,7 +152,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#initNestedModels()
 	 */
 	protected void initNestedModels() {
-		clientModel = new AppClientModuleCreationDataModelOld();
+		clientModel = new AppClientModuleCreationDataModel();
 		addNestedModel(NESTED_MODEL_CLIENT, clientModel);
 		EjbModuleExtension ejbExt = EarModuleManager.getEJBModuleExtension();
 		if (ejbExt != null) {
@@ -493,7 +493,7 @@ public class DefaultModuleProjectCreationDataModel extends WTPOperationDataModel
 	/**
 	 * @return Returns the clientModel.
 	 */
-	public AppClientModuleCreationDataModelOld getClientModel() {
+	public AppClientModuleCreationDataModel getClientModel() {
 		return clientModel;
 	}
 

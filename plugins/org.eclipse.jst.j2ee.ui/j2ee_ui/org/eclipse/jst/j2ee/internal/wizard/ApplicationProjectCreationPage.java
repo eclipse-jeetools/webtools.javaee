@@ -15,7 +15,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -45,7 +45,7 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public ApplicationProjectCreationPage(EnterpriseApplicationCreationDataModelOld model, String pageName) {
+	public ApplicationProjectCreationPage(EnterpriseApplicationCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MAIN_PG_DESC));
@@ -66,7 +66,7 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 	 */
 	protected void createVersionComposite(Composite parent) {
 		String label = J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_VERSION_LBL);
-		createVersionComposite(parent, label, EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION);
+		createVersionComposite(parent, label, EnterpriseApplicationCreationDataModel.APPLICATION_VERSION);
 	}
 
 	protected void createServerTargetComposite(Composite parent) {
@@ -82,7 +82,7 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				J2EEProjectCreationPage.launchNewRuntimeWizard(getShell(), ((EnterpriseApplicationCreationDataModelOld) model).getServerTargetDataModel());
+				J2EEProjectCreationPage.launchNewRuntimeWizard(getShell(), ((EnterpriseApplicationCreationDataModel) model).getServerTargetDataModel());
 			}
 		});
 		Control[] deps = new Control[]{label, newServerTargetButton};
@@ -100,6 +100,6 @@ public class ApplicationProjectCreationPage extends J2EEProjectCreationPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EditModelOperationDataModel.PROJECT_NAME, J2EEArtifactCreationDataModelOld.PROJECT_LOCATION, EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID};
+		return new String[]{EditModelOperationDataModel.PROJECT_NAME, J2EEArtifactCreationDataModelOld.PROJECT_LOCATION, EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, J2EEArtifactCreationDataModelOld.SERVER_TARGET_ID};
 	}
 }
