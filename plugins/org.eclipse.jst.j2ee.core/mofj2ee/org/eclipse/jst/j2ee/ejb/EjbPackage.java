@@ -1906,7 +1906,7 @@ public interface EjbPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	EjbPackage eINSTANCE = org.eclipse.jst.j2ee.ejb.impl.EjbPackageImpl.init();
+	EjbPackage eINSTANCE = org.eclipse.jst.j2ee.internal.ejb.impl.EjbPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

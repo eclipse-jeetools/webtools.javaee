@@ -16,7 +16,9 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.common.impl.CommonPackageImpl;
+import org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wscommon.impl.WscommonPackageImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wsdd.impl.WsddPackageImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ClassType;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ConstructorParameterOrder;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ElementName;
@@ -54,9 +56,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLReturnValueMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.XMLElementName;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
-import org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
-import org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl;
 
 
 /**

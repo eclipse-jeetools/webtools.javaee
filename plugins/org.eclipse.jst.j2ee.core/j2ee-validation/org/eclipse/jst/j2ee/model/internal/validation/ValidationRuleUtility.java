@@ -42,8 +42,8 @@ import org.eclipse.jst.j2ee.ejb.QueryMethod;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
-import org.eclipse.jst.j2ee.ejb.impl.LocalModelledPersistentAttributeFilter;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.ejb.impl.LocalModelledPersistentAttributeFilter;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;

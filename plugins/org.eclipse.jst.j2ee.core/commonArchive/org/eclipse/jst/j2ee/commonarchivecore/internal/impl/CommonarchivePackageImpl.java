@@ -19,10 +19,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.jem.java.impl.JavaRefPackageImpl;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.application.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.client.ClientPackage;
-import org.eclipse.jst.j2ee.client.impl.ClientPackageImpl;
-import org.eclipse.jst.j2ee.common.impl.CommonPackageImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ClientModuleRef;
@@ -43,13 +40,16 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.WebModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.LooseconfigPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.looseconfig.impl.LooseconfigPackageImpl;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.ejb.impl.EjbPackageImpl;
+import org.eclipse.jst.j2ee.internal.application.impl.ApplicationPackageImpl;
+import org.eclipse.jst.j2ee.internal.client.impl.ClientPackageImpl;
+import org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl;
+import org.eclipse.jst.j2ee.internal.ejb.impl.EjbPackageImpl;
+import org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl;
+import org.eclipse.jst.j2ee.internal.jsp.impl.JspPackageImpl;
+import org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl;
-import org.eclipse.jst.j2ee.jsp.impl.JspPackageImpl;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl;
-import org.eclipse.jst.j2ee.webservice.wsclient.impl.Webservice_clientPackageImpl;
+import org.eclipse.jst.j2ee.webservice.internal.wsclient.impl.Webservice_clientPackageImpl;
 
 
 /**

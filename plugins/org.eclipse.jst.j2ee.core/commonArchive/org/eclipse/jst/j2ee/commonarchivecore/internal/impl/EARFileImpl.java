@@ -44,11 +44,9 @@ import org.eclipse.jst.j2ee.application.JavaClientModule;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
-import org.eclipse.jst.j2ee.client.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.SecurityRole;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
@@ -75,11 +73,13 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.ejb.impl.EJBJarResourceFactory;
+import org.eclipse.jst.j2ee.internal.client.impl.ApplicationClientResourceFactory;
+import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
+import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarResourceFactory;
+import org.eclipse.jst.j2ee.internal.jca.impl.ConnectorResourceFactory;
+import org.eclipse.jst.j2ee.internal.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.jst.j2ee.jca.Connector;
-import org.eclipse.jst.j2ee.jca.impl.ConnectorResourceFactory;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
-import org.eclipse.jst.j2ee.webapplication.impl.WebAppResourceFactory;
 
 
 /**

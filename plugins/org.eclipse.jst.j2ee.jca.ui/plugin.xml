@@ -161,13 +161,13 @@
 	               </or> 
                 </and> 
                 <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
            	   </objectClass>
            	    <objectClass
                  name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
            	   </objectClass>
            	   <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
            	   </objectClass>
             </or>
          </enablement>
@@ -203,19 +203,19 @@
 	               </or> 
                 </and> 
                   <objectClass
-	                     name="org.eclipse.jst.j2ee.jca.impl.ConnectorImpl">
+	                     name="org.eclipse.jst.j2ee.internal.jca.impl.ConnectorImpl">
 	               </objectClass>
 	                <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ApplicationImpl">
            	   </objectClass>
            	    <objectClass
                  name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
            	   </objectClass>
            	    <objectClass
-                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+                 name="org.eclipse.jst.j2ee.internal.application.impl.ModuleImpl">
            	   </objectClass>
            	     <objectClass
-                 name="org.eclipse.jst.j2ee.jca.impl.ResourceAdapterImpl">
+                 name="org.eclipse.jst.j2ee.internal.jca.impl.ResourceAdapterImpl">
            	   </objectClass>
            	   
            	                       
@@ -245,10 +245,10 @@
                </or>
             </and>     
              <objectClass
-	                     name="org.eclipse.jst.j2ee.jca.impl.ConnectorImpl">
+	                     name="org.eclipse.jst.j2ee.internal.jca.impl.ConnectorImpl">
 	         </objectClass>     
 	         <objectClass
-                 name="org.eclipse.jst.j2ee.jca.impl.ResourceAdapterImpl">
+                 name="org.eclipse.jst.j2ee.internal.jca.impl.ResourceAdapterImpl">
            	   </objectClass>  
             </or>
          </enablement>
@@ -260,10 +260,10 @@
          <enablement>
           <or>
              <objectClass
-	                     name="org.eclipse.jst.j2ee.jca.impl.ConnectorImpl">
+	                     name="org.eclipse.jst.j2ee.internal.jca.impl.ConnectorImpl">
 	         </objectClass>    
 	              <objectClass
-                 name="org.eclipse.jst.j2ee.jca.impl.ResourceAdapterImpl">
+                 name="org.eclipse.jst.j2ee.internal.jca.impl.ResourceAdapterImpl">
            	   </objectClass>
            </or> 
          </enablement>

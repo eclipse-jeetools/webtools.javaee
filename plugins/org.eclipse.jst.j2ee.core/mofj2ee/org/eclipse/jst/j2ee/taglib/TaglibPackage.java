@@ -606,7 +606,7 @@ public interface TaglibPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	TaglibPackage eINSTANCE = org.eclipse.jst.j2ee.taglib.impl.TaglibPackageImpl.init();
+	TaglibPackage eINSTANCE = org.eclipse.jst.j2ee.internal.taglib.impl.TaglibPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

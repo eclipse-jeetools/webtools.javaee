@@ -1219,7 +1219,7 @@ public interface WebapplicationPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	WebapplicationPackage eINSTANCE = org.eclipse.jst.j2ee.webapplication.impl.WebapplicationPackageImpl.init();
+	WebapplicationPackage eINSTANCE = org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

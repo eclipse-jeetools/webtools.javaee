@@ -62,7 +62,7 @@ public interface JspPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JspPackage eINSTANCE = org.eclipse.jst.j2ee.jsp.impl.JspPackageImpl.init();
+	JspPackage eINSTANCE = org.eclipse.jst.j2ee.internal.jsp.impl.JspPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.jsp.impl.JSPConfigImpl <em>JSP Config</em>}' class.

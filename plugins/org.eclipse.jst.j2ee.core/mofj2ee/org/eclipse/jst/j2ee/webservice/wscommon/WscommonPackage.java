@@ -62,7 +62,7 @@ public interface WscommonPackage extends EPackage{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WscommonPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonPackageImpl.init();
+  WscommonPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.internal.wscommon.impl.WscommonPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wscommon.impl.InitParamImpl <em>Init Param</em>}' class.

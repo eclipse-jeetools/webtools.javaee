@@ -265,7 +265,7 @@ public interface JcaPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JcaPackage eINSTANCE = org.eclipse.jst.j2ee.jca.impl.JcaPackageImpl.init();
+	JcaPackage eINSTANCE = org.eclipse.jst.j2ee.internal.jca.impl.JcaPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation.

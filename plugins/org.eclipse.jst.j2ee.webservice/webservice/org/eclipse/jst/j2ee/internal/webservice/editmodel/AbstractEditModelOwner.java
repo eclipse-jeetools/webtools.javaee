@@ -18,7 +18,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
+import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;

@@ -62,7 +62,7 @@ public interface WsddPackage extends EPackage{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WsddPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddPackageImpl.init();
+  WsddPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.internal.wsdd.impl.WsddPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsdd.impl.WebServicesImpl <em>Web Services</em>}' class.

@@ -21,7 +21,7 @@ public interface WebapplicationFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	WebapplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.webapplication.impl.WebapplicationFactoryImpl();
+	WebapplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.webapplication.impl.WebapplicationFactoryImpl();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

@@ -23,7 +23,7 @@ public interface EjbFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	EjbFactory eINSTANCE = new org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl();
+	EjbFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl();
 
 MethodElement createMethodElement(String aSignature) ;
 MethodElement createMethodElementFrom(Method method) ;

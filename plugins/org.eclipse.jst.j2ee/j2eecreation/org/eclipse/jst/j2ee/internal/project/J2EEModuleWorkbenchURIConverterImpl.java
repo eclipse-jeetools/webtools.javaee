@@ -34,14 +34,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.common.impl.J2EEResouceFactorySaxRegistry;
-import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.AppClient12ImportStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.EjbJar11ImportStrategyImpl;
+import org.eclipse.jst.j2ee.internal.common.impl.J2EEResouceFactorySaxRegistry;
+import org.eclipse.jst.j2ee.internal.common.impl.J2EEResourceFactoryRegistry;
 
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

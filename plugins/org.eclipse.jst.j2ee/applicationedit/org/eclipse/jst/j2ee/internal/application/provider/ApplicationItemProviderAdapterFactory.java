@@ -30,7 +30,7 @@ import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jst.j2ee.application.util.ApplicationAdapterFactory;
+import org.eclipse.jst.j2ee.internal.application.util.ApplicationAdapterFactory;
 
 
 /**

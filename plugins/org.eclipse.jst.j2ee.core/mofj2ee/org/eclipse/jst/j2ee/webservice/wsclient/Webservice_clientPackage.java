@@ -62,7 +62,7 @@ public interface Webservice_clientPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	Webservice_clientPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.wsclient.impl.Webservice_clientPackageImpl.init();
+	Webservice_clientPackage eINSTANCE = org.eclipse.jst.j2ee.webservice.internal.wsclient.impl.Webservice_clientPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.internal.webservice.wsclient.impl.ServiceRefImpl <em>Service Ref</em>}' class.

@@ -27,7 +27,7 @@ public interface WscommonFactory extends EFactory{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WscommonFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wscommon.impl.WscommonFactoryImpl();
+  WscommonFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.internal.wscommon.impl.WscommonFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>Init Param</em>'.

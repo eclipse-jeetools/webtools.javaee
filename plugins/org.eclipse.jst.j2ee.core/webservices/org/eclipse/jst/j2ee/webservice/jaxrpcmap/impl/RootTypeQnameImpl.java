@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.webservice.jaxrpcmap.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jst.j2ee.common.impl.QNameImpl;
+import org.eclipse.jst.j2ee.internal.common.impl.QNameImpl;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.RootTypeQname;
 

@@ -16,7 +16,7 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.QName;
-import org.eclipse.jst.j2ee.webservice.util.QNameHelper;
+import org.eclipse.jst.j2ee.internal.webservice.util.QNameHelper;
 
 public class CommandModifyNSURI extends AbstractCommand {
 	private QName eObject_;

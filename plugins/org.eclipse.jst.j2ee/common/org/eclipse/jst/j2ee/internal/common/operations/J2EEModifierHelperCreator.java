@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
-import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
 import org.eclipse.wst.common.emf.utilities.EtoolsCopyUtility;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 

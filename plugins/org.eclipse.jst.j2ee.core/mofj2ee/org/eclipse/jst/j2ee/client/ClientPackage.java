@@ -176,7 +176,7 @@ public interface ClientPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ClientPackage eINSTANCE = org.eclipse.jst.j2ee.client.impl.ClientPackageImpl.init();
+	ClientPackage eINSTANCE = org.eclipse.jst.j2ee.internal.client.impl.ClientPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

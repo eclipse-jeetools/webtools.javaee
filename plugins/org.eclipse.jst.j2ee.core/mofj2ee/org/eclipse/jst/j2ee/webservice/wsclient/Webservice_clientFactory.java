@@ -27,7 +27,7 @@ public interface Webservice_clientFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	Webservice_clientFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wsclient.impl.Webservice_clientFactoryImpl();
+	Webservice_clientFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.internal.wsclient.impl.Webservice_clientFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>Service Ref</em>'.

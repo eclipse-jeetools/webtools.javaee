@@ -260,7 +260,7 @@ public interface ApplicationPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ApplicationPackage eINSTANCE = org.eclipse.jst.j2ee.application.impl.ApplicationPackageImpl.init();
+	ApplicationPackage eINSTANCE = org.eclipse.jst.j2ee.internal.application.impl.ApplicationPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

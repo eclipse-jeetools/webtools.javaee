@@ -1234,7 +1234,7 @@ public interface CommonPackage extends EPackage{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	CommonPackage eINSTANCE = org.eclipse.jst.j2ee.common.impl.CommonPackageImpl.init();
+	CommonPackage eINSTANCE = org.eclipse.jst.j2ee.internal.common.impl.CommonPackageImpl.init();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

@@ -21,7 +21,7 @@ public interface ClientFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ClientFactory eINSTANCE = new org.eclipse.jst.j2ee.client.impl.ClientFactoryImpl();
+	ClientFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.client.impl.ClientFactoryImpl();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

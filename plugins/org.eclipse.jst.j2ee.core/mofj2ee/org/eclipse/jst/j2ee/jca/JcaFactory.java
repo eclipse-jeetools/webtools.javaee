@@ -22,7 +22,7 @@ public interface JcaFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JcaFactory eINSTANCE = new org.eclipse.jst.j2ee.jca.impl.JcaFactoryImpl();
+	JcaFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.jca.impl.JcaFactoryImpl();
 
 
 	/**

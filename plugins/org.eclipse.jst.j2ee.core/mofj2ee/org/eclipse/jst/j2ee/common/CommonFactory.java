@@ -27,7 +27,7 @@ public interface CommonFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	CommonFactory eINSTANCE = new org.eclipse.jst.j2ee.common.impl.CommonFactoryImpl();
+	CommonFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.common.impl.CommonFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>Ejb Ref</em>'.

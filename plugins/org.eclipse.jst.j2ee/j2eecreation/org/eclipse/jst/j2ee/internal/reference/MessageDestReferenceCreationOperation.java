@@ -16,7 +16,6 @@ package org.eclipse.jst.j2ee.internal.reference;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.client.impl.ClientFactoryImpl;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.Description;
@@ -29,6 +28,7 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
+import org.eclipse.jst.j2ee.internal.client.impl.ClientFactoryImpl;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.wst.common.internal.emfworkbench.integration.ModifierHelper;
 import org.eclipse.wst.common.internal.emfworkbench.operation.ModelModifierOperation;

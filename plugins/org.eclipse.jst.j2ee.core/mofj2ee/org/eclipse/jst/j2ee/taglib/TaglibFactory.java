@@ -21,7 +21,7 @@ public interface TaglibFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	TaglibFactory eINSTANCE = new org.eclipse.jst.j2ee.taglib.impl.TaglibFactoryImpl();
+	TaglibFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.taglib.impl.TaglibFactoryImpl();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.ExcludeList;
-import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.internal.ejb.impl.EjbFactoryImpl;
 
 
 public class ExcludeListContentProvider extends AbstractMethodsContentProvider {

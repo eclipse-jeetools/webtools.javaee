@@ -35,7 +35,7 @@ import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationResource;
 import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.application.impl.ApplicationResourceImpl;
+import org.eclipse.jst.j2ee.internal.application.impl.ApplicationResourceImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EJBArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.earcreation.AddModuleToEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;

@@ -27,7 +27,7 @@ public interface JspFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	JspFactory eINSTANCE = new org.eclipse.jst.j2ee.jsp.impl.JspFactoryImpl();
+	JspFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.jsp.impl.JspFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>JSP Config</em>'.

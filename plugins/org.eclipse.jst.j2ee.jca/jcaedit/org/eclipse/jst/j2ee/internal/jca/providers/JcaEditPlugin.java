@@ -19,9 +19,9 @@ import java.text.MessageFormat;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.jst.j2ee.internal.jca.impl.JcaFactoryImpl;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.jca.impl.JcaFactoryImpl;
 
 
 /**

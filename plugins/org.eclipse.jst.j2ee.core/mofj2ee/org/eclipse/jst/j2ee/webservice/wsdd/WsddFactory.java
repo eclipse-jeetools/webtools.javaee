@@ -27,7 +27,7 @@ public interface WsddFactory extends EFactory{
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  WsddFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.wsdd.impl.WsddFactoryImpl();
+  WsddFactory eINSTANCE = new org.eclipse.jst.j2ee.webservice.internal.wsdd.impl.WsddFactoryImpl();
 
 	/**
 	 * Returns a new object of class '<em>Web Services</em>'.

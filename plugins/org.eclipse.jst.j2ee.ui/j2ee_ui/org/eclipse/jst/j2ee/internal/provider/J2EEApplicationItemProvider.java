@@ -24,7 +24,7 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.application.impl.ApplicationFactoryImpl;
+import org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationItemProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;

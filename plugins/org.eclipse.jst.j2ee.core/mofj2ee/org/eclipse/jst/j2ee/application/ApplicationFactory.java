@@ -21,7 +21,7 @@ public interface ApplicationFactory extends EFactory{
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ApplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.application.impl.ApplicationFactoryImpl();
+	ApplicationFactory eINSTANCE = new org.eclipse.jst.j2ee.internal.application.impl.ApplicationFactoryImpl();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

@@ -19,8 +19,8 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.EjbRef;
-import org.eclipse.jst.j2ee.common.impl.ResourceRefImpl;
-import org.eclipse.jst.j2ee.common.impl.SecurityRoleImpl;
+import org.eclipse.jst.j2ee.internal.common.impl.ResourceRefImpl;
+import org.eclipse.jst.j2ee.internal.common.impl.SecurityRoleImpl;
 import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;

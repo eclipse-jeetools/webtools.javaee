@@ -30,7 +30,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.common.internal.provider.ListenerItemProvider;
-import org.eclipse.jst.j2ee.webapplication.util.WebapplicationAdapterFactory;
+import org.eclipse.jst.j2ee.internal.webapplication.util.WebapplicationAdapterFactory;
 
 
 /**

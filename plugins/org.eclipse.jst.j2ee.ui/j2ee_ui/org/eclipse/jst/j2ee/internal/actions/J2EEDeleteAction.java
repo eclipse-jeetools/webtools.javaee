@@ -34,7 +34,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.common.util.CommonUtil;
+import org.eclipse.jst.j2ee.internal.common.util.CommonUtil;
 import org.eclipse.jst.j2ee.internal.delete.DeleteModuleOperation;
 import org.eclipse.jst.j2ee.internal.delete.DeleteOptions;
 import org.eclipse.jst.j2ee.internal.dialogs.DeleteEARDialog;

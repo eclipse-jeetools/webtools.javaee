@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.common.QName;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandAddElement;
 import org.eclipse.jst.j2ee.internal.webservice.command.CommandRemoveElement;
 import org.eclipse.jst.j2ee.internal.webservice.editmodel.EditModel;
-import org.eclipse.jst.j2ee.webservice.util.QNameHelper;
+import org.eclipse.jst.j2ee.internal.webservice.util.QNameHelper;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
