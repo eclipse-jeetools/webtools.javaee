@@ -20,18 +20,18 @@ import org.eclipse.ui.IWorkbench;
 
 
 
-public class NewEJBModuleAction extends AbstractOpenWizardWorkbenchAction {
+public class NewEJBComponentAction extends AbstractOpenWizardWorkbenchAction {
 
 	// TODO MDE 02-28 Find correct label
 	public static String LABEL = EJBUIMessages.getResourceString("NewEJBModuleAction_UI_0"); //$NON-NLS-1$
 	private static final String ICON = "newejbprj_wiz"; //$NON-NLS-1$
 
-	public NewEJBModuleAction() {
+	public NewEJBComponentAction() {
 		setText(LABEL);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
-	public NewEJBModuleAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
+	public NewEJBComponentAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
 		super(workbench, label, acceptedTypes, false);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}

@@ -59,9 +59,9 @@
                label="%create.ejb.module_ui_"
                icon="icons/full/ctool16/newejbprj_wiz.gif"
                tooltip="%create.ejb.module_ui_"
-               class="org.eclipse.jst.ejb.ui.internal.actions.NewEJBModuleAction"
+               class="org.eclipse.jst.ejb.ui.internal.actions.NewEJBComponentAction"
                toolbarPath="J2EEMain2"
-               id="org.eclipse.jst.ejb.ui.internal.actions.NewEJBModule">
+               id="org.eclipse.jst.ejb.ui.internal.actions.NewEJBComponentAction">
          </action>
       </actionSet>
    </extension>
