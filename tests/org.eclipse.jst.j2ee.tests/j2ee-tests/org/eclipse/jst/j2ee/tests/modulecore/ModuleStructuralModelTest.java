@@ -122,7 +122,7 @@ public class ModuleStructuralModelTest extends TestCase {
 			String name = ModuleCore.getDeployedName(getWebModuleURI());
 			List dependentModules = null;
 			for(int i=0; i<modules.length; i++) {
-				System.out.println("Module: "+modules[i].getDeployedName());
+				System.out.println("Module: "+modules[i].getName());
 				List list = modules[i].getResources();
 				for (int j = 0; j < list.size(); j++) {
 					ComponentResource wmr = (ComponentResource)list.get(j);
@@ -133,7 +133,7 @@ public class ModuleStructuralModelTest extends TestCase {
 				for(int dependentIndex=0; dependentIndex<dependentModules.size(); dependentIndex++) {
 					ReferencedComponent dependentModule = (ReferencedComponent)dependentModules.get(dependentIndex);
 					WorkbenchComponent resolvedModule = moduleCore.findWorkbenchModuleByModuleURI(dependentModule.getHandle());
-					System.out.println("\tDependentModule: "+resolvedModule.getDeployedName()+ " in " + resolvedModule.getHandle());
+					System.out.println("\tDependentModule: "+resolvedModule.getName()+ " in " + resolvedModule.getHandle());
 					boolean b = moduleCore.isLocalDependency(dependentModule);
 				}
 			}
@@ -255,13 +255,13 @@ public class ModuleStructuralModelTest extends TestCase {
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
 		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setDeployedPath(URI.createURI(aDeployPath));
+		resource.setRuntimePath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
 		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setDeployedName(aDeployedName);
+		module.setName(aDeployedName);
 		module.setHandle(aHandle);
 		theModules.getComponents().add(module);
 		return module;
@@ -269,7 +269,7 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	public void addDependentModule(WorkbenchComponent aModule, URI aDeployedPath, URI aHandle) {
 		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
-		aClasspathDependentModule.setDeployedPath(aDeployedPath);
+		aClasspathDependentModule.setRuntimePath(aDeployedPath);
 		aClasspathDependentModule.setHandle(aHandle);
 		aModule.getReferencedComponents().add(aClasspathDependentModule);
 	}

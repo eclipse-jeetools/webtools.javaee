@@ -264,13 +264,13 @@ public class FlexibleProjectBuilderTest extends TestCase {
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
 		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setDeployedPath(URI.createURI(aDeployPath));
+		resource.setRuntimePath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
 		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setDeployedName(aDeployedName);
+		module.setName(aDeployedName);
 		module.setHandle(aHandle);
 		theModules.getComponents().add(module);
 		return module;
@@ -278,7 +278,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
 
 	public void addDependentModule(WorkbenchComponent aModule, URI aDeployedPath, URI aHandle) {
 		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
-		aClasspathDependentModule.setDeployedPath(aDeployedPath);
+		aClasspathDependentModule.setRuntimePath(aDeployedPath);
 		aClasspathDependentModule.setHandle(aHandle);
 		aModule.getReferencedComponents().add(aClasspathDependentModule);
 	}
