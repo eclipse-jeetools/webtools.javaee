@@ -26,32 +26,33 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * </p>
  */
 public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizard {
-	
+
 	/**
 	 * <p>
-	 * The Wizard ID of the ConnectorModuleCreationWizard. Used for 
-	 * internal purposes and activities management.
+	 * The Wizard ID of the ConnectorModuleCreationWizard. Used for internal purposes and activities
+	 * management.
 	 * </p>
 	 */
 	public static final String WIZARD_ID = AppClientModuleCreationWizard.class.getName();
-	
+
 	/**
 	 * <p>
-	 * The default constructor. Creates a wizard with no selection, 
-	 * no model instance, and no operation instance. The model and 
-	 * operation will be created as needed.
+	 * The default constructor. Creates a wizard with no selection, no model instance, and no
+	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
 	public AppClientModuleCreationWizard() {
 		super();
 	}
-	
+
 	/**
 	 * <p>
-	 * The model is used to prepopulate the wizard controls
-	 * and interface with the operation.
+	 * The model is used to prepopulate the wizard controls and interface with the operation.
 	 * </p>
-	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
+	 * 
+	 * @param model
+	 *            The model parameter is used to pre-populate wizard controls and interface with the
+	 *            operation
 	 */
 	public AppClientModuleCreationWizard(AppClientModuleCreationDataModel dataModel) {
 		super(dataModel);
@@ -61,40 +62,42 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Overridden to return an {@link AppClientProjectCreationDataModel} and defaults
-	 * the value of {@link J2EEModuleCreationDataModel#ADD_TO_EAR} to <b>true</b>
+	 * Overridden to return an {@link AppClientProjectCreationDataModel}and defaults the value of
+	 * {@link J2EEModuleCreationDataModel#ADD_TO_EAR}to <b>true </b>
 	 * </p>
 	 * 
-	 * @return Returns the specific operation data model for the creation of J2EE Application Clients 
+	 * @return Returns the specific operation data model for the creation of J2EE Application
+	 *         Clients
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
 		AppClientModuleCreationDataModel aModel = new AppClientModuleCreationDataModel();
 		aModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Overridden to return an {@link AppClientProjectCreationOperation}. 
+	 * Overridden to return an {@link AppClientProjectCreationOperation}.
 	 * </p>
-	 * @return Returns the specific operation for the creation of J2EE Application Clients 
+	 * 
+	 * @return Returns the specific operation for the creation of J2EE Application Clients
 	 */
 	protected final WTPOperation createBaseOperation() {
 		return new AppClientModuleCreationOperation(getSpecificDataModel());
 	}
 
 	/**
-	 * {@inheritDoc}   
+	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Sets up the dialog window title and default wizard page image. 
+	 * Sets up the dialog window title and default wizard page image.
 	 * </p>
 	 * 
 	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
-	public void doInit() { 
+	public void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJECT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.APP_CLIENT_PROJECT_WIZARD_BANNER));
 	}
@@ -103,7 +106,7 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Adds an {@link AppClientProjectCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG}.
+	 * Adds an {@link AppClientProjectCreationPage}as the {@link J2EEModuleCreationWizard#MAIN_PG}.
 	 * </p>
 	 */
 	public void doAddPages() {
@@ -112,14 +115,14 @@ public final class AppClientModuleCreationWizard extends J2EEModuleCreationWizar
 	}
 
 	/**
-	 * {@inheritDoc}  
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#getWizardID()
 	 */
 	public String getWizardID() {
 		return WIZARD_ID;
-	} 	
-	
+	}
+
 	private AppClientModuleCreationDataModel getSpecificDataModel() {
 		return (AppClientModuleCreationDataModel) model;
 	}

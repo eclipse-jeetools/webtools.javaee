@@ -21,78 +21,79 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 
 /**
  * <p>
- * Wizard used to export J2EE Application Client module structures 
- * from the Eclipse Workbench to a deployable Application Client 
- * Archive *.jar file.  
+ * Wizard used to export J2EE Application Client module structures from the Eclipse Workbench to a
+ * deployable Application Client Archive *.jar file.
  * </p>
  */
 public final class AppClientModuleExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
 
 	/**
 	 * <p>
-	 * The default constructor. Creates a wizard with no selection, 
-	 * no model instance, and no operation instance. The model and 
-	 * operation will be created as needed.
+	 * The default constructor. Creates a wizard with no selection, no model instance, and no
+	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
 	public AppClientModuleExportWizard() {
 		super();
 	}
-	
+
 	/**
 	 * <p>
-	 * The model is used to prepopulate the wizard controls
-	 * and interface with the operation.
+	 * The model is used to prepopulate the wizard controls and interface with the operation.
 	 * </p>
-	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
+	 * 
+	 * @param model
+	 *            The model parameter is used to pre-populate wizard controls and interface with the
+	 *            operation
 	 */
 	public AppClientModuleExportWizard(AppClientModuleExportDataModel model) {
 		super(model);
 	}
 
 	/**
-	 * {@inheritDoc} 
+	 * {@inheritDoc}
 	 * 
 	 * <p>
 	 * Overridden to return an {@link AppClientModuleExportDataModel}.
 	 * </p>
-	 *  
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
-		return new AppClientModuleExportDataModel(); 
+		return new AppClientModuleExportDataModel();
 	}
 
 	/**
-	 * {@inheritDoc} 
+	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Returns an {@link AppClientModuleExportOperation} using the model either
-	 * supplied in the constructor or created from {@link #createDefaultModel()}.
+	 * Returns an {@link AppClientModuleExportOperation}using the model either supplied in the
+	 * constructor or created from {@link #createDefaultModel()}.
 	 * </p>
+	 * 
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
 	protected WTPOperation createOperation() {
 		return new AppClientModuleExportOperation(getSpecificModel());
 	}
-	
+
 	/**
 	 * <p>
 	 * Adds the following pages:
 	 * <ul>
-	 * 	<li> {@link AppClientExportPage} as the main wizard page ({@link #MAIN_PG}) 
+	 * <li>{@link AppClientExportPage}as the main wizard page ({@link #MAIN_PG})
 	 * </ul>
 	 * </p>
 	 */
 	public void addPages() {
 		addPage(new AppClientExportPage(getSpecificModel(), MAIN_PG, getSelection()));
 	}
-	
+
 	/**
-	 * {@inheritDoc}   
+	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Sets up the default wizard page image. 
+	 * Sets up the default wizard page image.
 	 * </p>
 	 */
 	protected void doInit() {
@@ -102,5 +103,5 @@ public final class AppClientModuleExportWizard extends J2EEArtifactExportWizard 
 	private AppClientModuleExportDataModel getSpecificModel() {
 		return (AppClientModuleExportDataModel) getModel();
 	}
- 
+
 }

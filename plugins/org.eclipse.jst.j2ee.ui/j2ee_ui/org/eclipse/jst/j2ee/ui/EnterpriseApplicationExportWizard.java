@@ -7,7 +7,7 @@
  * 
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.ui;
 
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDataModel;
@@ -21,18 +21,16 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 
 /**
  * <p>
- * Wizard used to export J2EE Enterprise Application structures 
- * from the Eclipse Workbench to a deployable Enterprise Application 
- * Archive *.ear file.  
+ * Wizard used to export J2EE Enterprise Application structures from the Eclipse Workbench to a
+ * deployable Enterprise Application Archive *.ear file.
  * </p>
  */
 public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportWizard implements IExportWizard {
 
 	/**
 	 * <p>
-	 * The default constructor. Creates a wizard with no selection, 
-	 * no model instance, and no operation instance. The model and 
-	 * operation will be created as needed.
+	 * The default constructor. Creates a wizard with no selection, no model instance, and no
+	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
 	public EnterpriseApplicationExportWizard() {
@@ -41,63 +39,66 @@ public final class EnterpriseApplicationExportWizard extends J2EEArtifactExportW
 
 	/**
 	 * <p>
-	 * The model is used to prepopulate the wizard controls
-	 * and interface with the operation.
+	 * The model is used to prepopulate the wizard controls and interface with the operation.
 	 * </p>
-	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
+	 * 
+	 * @param model
+	 *            The model parameter is used to pre-populate wizard controls and interface with the
+	 *            operation
 	 */
 	public EnterpriseApplicationExportWizard(EnterpriseApplicationExportDataModel model) {
 		super(model);
 	}
- 
+
 	/**
-	 * {@inheritDoc} 
+	 * {@inheritDoc}
 	 * 
 	 * <p>
 	 * Overridden to return an {@link EnterpriseApplicationImportDataModel}.
 	 * </p>
-	 *  
+	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
-		return new EnterpriseApplicationExportDataModel(); 
+		return new EnterpriseApplicationExportDataModel();
 	}
 
 	/**
-	 * {@inheritDoc} 
+	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Returns an {@link EnterpriseApplicationExportOperation} using the model either
-	 * supplied in the constructor or created from {@link #createDefaultModel()}.
+	 * Returns an {@link EnterpriseApplicationExportOperation}using the model either supplied in
+	 * the constructor or created from {@link #createDefaultModel()}.
 	 * </p>
+	 * 
 	 * @return Returns the operation to be executed when the Wizard completes.
 	 */
 	protected WTPOperation createOperation() {
 		return new EnterpriseApplicationExportOperation(getSpecificModel());
 	}
-	
+
 	/**
 	 * <p>
 	 * Adds the following pages:
 	 * <ul>
-	 * 	<li> {@link EARExportPage} as the main wizard page ({@link #MAIN_PG}) 
+	 * <li>{@link EARExportPage}as the main wizard page ({@link #MAIN_PG})
 	 * </ul>
 	 * </p>
 	 */
 	public void addPages() {
 		addPage(new EARExportPage(getSpecificModel(), MAIN_PG, getSelection()));
-	} 
+	}
 
 	/**
-	 * {@inheritDoc}   
+	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Sets up the default wizard page image. 
+	 * Sets up the default wizard page image.
 	 * </p>
 	 */
 	protected void doInit() {
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_EXPORT_WIZARD_BANNER));
-	} 
+	}
 
 	private EnterpriseApplicationExportDataModel getSpecificModel() {
 		return (EnterpriseApplicationExportDataModel) getModel();

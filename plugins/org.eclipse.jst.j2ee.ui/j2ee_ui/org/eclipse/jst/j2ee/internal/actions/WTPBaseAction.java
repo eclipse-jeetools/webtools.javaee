@@ -24,13 +24,12 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IActionDelegate2;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.navigator.views.INavigatorActionDelegate;
-import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
 
 
 
-public abstract class WTPBaseAction extends Action implements INavigatorActionDelegate {
+public abstract class WTPBaseAction extends Action implements IActionDelegate2 {
 	private final static String ERROR_OCCURRED_TITLE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_TITLE"); //$NON-NLS-1$
 	private final static String ERROR_OCCURRED_MESSAGE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_MESSAGE"); //$NON-NLS-1$
 
@@ -62,15 +61,6 @@ public abstract class WTPBaseAction extends Action implements INavigatorActionDe
 	}
 
 	protected abstract void primRun(Shell shell);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorActionDelegate#init(org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorExtensionSite)
-	 */
-	public void init(INavigatorExtensionSite site) {
-
-	}
 
 	/*
 	 * (non-Javadoc)

@@ -25,18 +25,17 @@ import org.eclipse.jst.j2ee.internal.wizard.J2EEModulesDependencyPage;
  * Serves as a base class for Wizards which create J2EE module structures in Eclipse projects.
  * </p>
  * <p>
- * The EAR will be pre-populated in the Wizard controls if any selection was 
- * provided to the Wizard.
- * </p> 
+ * The EAR will be pre-populated in the Wizard controls if any selection was provided to the Wizard.
+ * </p>
  * <p>
- * Refer to {@link org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard} for 
- * information on how to extend this class. 
+ * Refer to {@link org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard}for information
+ * on how to extend this class.
  * </p>
  * 
  * @see org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard
  */
 public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizard {
-	
+
 	/**
 	 * <p>
 	 * Constant used to identify the key of the main page of the Wizard.
@@ -46,46 +45,47 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 
 	/**
 	 * <p>
-	 * The default constructor. Creates a wizard with no selection, 
-	 * no model instance, and no operation instance. The model and 
-	 * operation will be created as needed.
+	 * The default constructor. Creates a wizard with no selection, no model instance, and no
+	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
 	public J2EEModuleCreationWizard() {
 		super();
 	}
-	
+
 	/**
 	 * <p>
-	 * The model is used to prepopulate the wizard controls
-	 * and interface with the operation.
+	 * The model is used to prepopulate the wizard controls and interface with the operation.
 	 * </p>
-	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
+	 * 
+	 * @param model
+	 *            The model parameter is used to pre-populate wizard controls and interface with the
+	 *            operation
 	 */
 	public J2EEModuleCreationWizard(J2EEModuleCreationDataModel model) {
 		super(model);
 	}
-	
-	/** 
+
+	/**
 	 * <p>
-	 * The selection stored in 
-	 * {@link J2EEArtifactCreationWizard#init(IWorkbench, IStructuredSelection)}
-	 * is used to pre-populate the EAR project in the Wizard dialog controls.
+	 * The selection stored in
+	 * {@link J2EEArtifactCreationWizard#init(IWorkbench, IStructuredSelection)}is used to
+	 * pre-populate the EAR project in the Wizard dialog controls.
 	 * </p>
 	 * 
 	 * @see J2EEArtifactCreationWizard#init(IWorkbench, IStructuredSelection)
-	 * @see J2EEArtifactCreationWizard#doInit() 
+	 * @see J2EEArtifactCreationWizard#doInit()
 	 */
-	protected void doInit() { 
+	protected void doInit() {
 		preFillSelectedEARProject();
 	}
 
 	/**
 	 * <p>
-	 * Subclasses which override this method should always call 
-	 * super.addModulesPageIfNecessary() ahead of before their own pages.
+	 * Subclasses which override this method should always call super.addModulesPageIfNecessary()
+	 * ahead of before their own pages.
 	 * </p>
-	 *
+	 *  
 	 */
 	protected void addModulesPageIfNecessary() {
 		if (model.getBooleanProperty(J2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION)) {
@@ -94,18 +94,18 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	}
 
 	/**
-	 * @inheritDoc 
+	 * @inheritDoc
 	 * 
 	 * @see org.eclipse.jface.wizard.IWizard#addPages()
 	 */
 	protected void doAddPages() {
 		addModulesPageIfNecessary();
 	}
-	
-	/**  
+
+	/**
 	 * <p>
-	 * Skips the page identified by the MODULE_PG name if 
-	 * {@link J2EEModuleCreationWizard#shouldShowModulesPage()} is false.
+	 * Skips the page identified by the MODULE_PG name if
+	 * {@link J2EEModuleCreationWizard#shouldShowModulesPage()}is false.
 	 * </p>
 	 * 
 	 * @see org.eclipse.jface.wizard.IWizard#getPreviousPage(org.eclipse.jface.wizard.IWizardPage)
@@ -121,12 +121,12 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 	}
 
 
-	/**  
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Skips the page identified by the MODULE_PG name if 
-	 * {@link J2EEModuleProjectCreationWizard#shouldShowModulesPage()} is false.
+	 * Skips the page identified by the MODULE_PG name if
+	 * {@link J2EEModuleProjectCreationWizard#shouldShowModulesPage()}is false.
 	 * </p>
 	 * 
 	 * @see org.eclipse.jface.wizard.IWizard#getNextPage(org.eclipse.jface.wizard.IWizardPage)
@@ -143,10 +143,11 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 
 	/**
 	 * <p>
-	 * Uses the model to determine if the module page should be shown. The default is 
-	 * to AND the values of model.getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR) 
-	 * and shouldShowModulesPageForEAR().
+	 * Uses the model to determine if the module page should be shown. The default is to AND the
+	 * values of model.getBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR) and
+	 * shouldShowModulesPageForEAR().
 	 * </p>
+	 * 
 	 * @return Returns a boolean true if the module page should be shown.
 	 */
 	protected final boolean shouldShowModulesPage() {
@@ -155,17 +156,19 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 
 	/**
 	 * <p>
-	 * Uses the model to determine if the module page should be shown for the EAR. If no modules are 
+	 * Uses the model to determine if the module page should be shown for the EAR. If no modules are
 	 * present in the classpath selection of the model, the method will return false.
 	 * </p>
-	 * @return true only if the @see J2EEModuleCreationDataModel#getClassPathSelection() is non-empty.
+	 * 
+	 * @return true only if the
+	 * @see J2EEModuleCreationDataModel#getClassPathSelection() is non-empty.
 	 */
 	protected final boolean shouldShowModulesPageForEAR() {
 		IProject earProject = model.getProjectHandle(J2EEModuleCreationDataModel.EAR_PROJECT_NAME);
 		if (null != earProject && earProject.exists() && earProject.isAccessible())
 			return !((J2EEModuleCreationDataModel) model).getClassPathSelection().getClasspathElements().isEmpty();
 		return false;
-	}	
+	}
 
 	private void preFillSelectedEARProject() {
 		IProject project = getSelectedEARProject();

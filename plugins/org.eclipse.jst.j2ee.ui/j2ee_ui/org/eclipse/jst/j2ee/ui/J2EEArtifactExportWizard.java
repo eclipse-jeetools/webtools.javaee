@@ -7,7 +7,7 @@
  * 
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.ui;
 
 import org.eclipse.core.resources.IProject;
@@ -24,29 +24,28 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * <p>
- * Serves as a base class for Wizards which export J2EE artifact 
- * structures from Eclipse projects into a deployable form. 
+ * Serves as a base class for Wizards which export J2EE artifact structures from Eclipse projects
+ * into a deployable form.
  * </p>
- * <p> 
- * Subclasses must provide the methods that are required by 
+ * <p>
+ * Subclasses must provide the methods that are required by
  * {@link org.eclipse.wst.common.frameworks.internal.ui.WTPWizard}.
- * </p> 
+ * </p>
  * <p>
  * Optionally, subclasses may also override the following methods:
  * <ul>
- * 	<li>{@link #doInit()()}
- * 	<li>{@link #doDispose()()}
+ * <li>{@link #doInit()()}
+ * <li>{@link #doDispose()()}
  * </ul>
  * </p>
  * <p>
- * The base class will ensure that the Wizard is not spawned unless
- * all open editors are in a non-dirty state. Additionally, the 
- * selection from the active view which spanwed the wizard will 
+ * The base class will ensure that the Wizard is not spawned unless all open editors are in a
+ * non-dirty state. Additionally, the selection from the active view which spanwed the wizard will
  * be made available to subclasses via {@link #getSelection()}.
  * </p>
  */
 public abstract class J2EEArtifactExportWizard extends WTPWizard {
-	
+
 	/**
 	 * <p>
 	 * Constant used to identify the key of the main page of the Wizard.
@@ -58,9 +57,8 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 
 	/**
 	 * <p>
-	 * The default constructor. Creates a wizard with no selection, 
-	 * no model instance, and no operation instance. The model and 
-	 * operation will be created as needed.
+	 * The default constructor. Creates a wizard with no selection, no model instance, and no
+	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
 	public J2EEArtifactExportWizard() {
@@ -70,38 +68,39 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 
 	/**
 	 * <p>
-	 * The model is used to prepopulate the wizard controls
-	 * and interface with the operation.
+	 * The model is used to prepopulate the wizard controls and interface with the operation.
 	 * </p>
-	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
+	 * 
+	 * @param model
+	 *            The model parameter is used to pre-populate wizard controls and interface with the
+	 *            operation
 	 */
 	public J2EEArtifactExportWizard(WTPOperationDataModel model) {
 		super(model);
 		setWindowTitle(J2EEUIMessages.getResourceString("67"));//$NON-NLS-1$ 
 	}
-	
+
 	/**
 	 * <p>
-	 * Invoked from init(IWorkbench, IStructuredSelection) 
-	 * once the workbench and selection have been safely 
-	 * stored away.
+	 * Invoked from init(IWorkbench, IStructuredSelection) once the workbench and selection have
+	 * been safely stored away.
 	 * </p>
 	 * <p>
 	 * No-op by default.
 	 * </p>
 	 */
 	protected void doInit() {
-		
+
 	}
+
 	/**
 	 * <p>
-	 * Invoked from {@link #dispose()}. Should be used to handle 
-	 * any specific Wizard disposal.
+	 * Invoked from {@link #dispose()}. Should be used to handle any specific Wizard disposal.
 	 * </p>
 	 */
-	private void doDispose() { 		
+	private void doDispose() {
 	}
-	
+
 	/**
 	 * <p>
 	 * The selection is used to pre-populate values in the Wizard dialog controls.
@@ -133,19 +132,19 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 		}
 		doInit();
 	}
-	
+
 	/**
 	 * <p>
-	 * Calls {@link #doDispose()} and then nulls out fields that 
-	 * are no longer needed once the wizard completes.
+	 * Calls {@link #doDispose()}and then nulls out fields that are no longer needed once the
+	 * wizard completes.
 	 * </p>
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
 	 */
-	public final void dispose() { 
+	public final void dispose() {
 		super.dispose();
 		doDispose();
-		this.currentSelection = null;		
+		this.currentSelection = null;
 	}
 
 	protected final boolean prePerformFinish() {
@@ -157,14 +156,14 @@ public abstract class J2EEArtifactExportWizard extends WTPWizard {
 		}
 		return super.prePerformFinish();
 	}
-	
+
 	/**
 	 * @return Returns the currentSelection.
 	 */
 	protected final IStructuredSelection getSelection() {
 		return currentSelection;
-	}	
-	
+	}
+
 	/**
 	 * @return
 	 */

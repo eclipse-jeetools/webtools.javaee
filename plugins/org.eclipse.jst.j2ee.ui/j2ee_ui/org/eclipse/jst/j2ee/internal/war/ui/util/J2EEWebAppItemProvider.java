@@ -43,77 +43,83 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	private WebReferencesGroupItemProvider webRefsGroup;
 	private WebSecurityGroupItemProvider webSecurityGroup;
 	// TODO WebServices for M3
-//	private J2EEWebServiceClientDDManager clientMgr;
+	//	private J2EEWebServiceClientDDManager clientMgr;
 	private WebListenerGroupItemProvider webListenerGroup;
 
 	/**
 	 * Listen and fire updates for 1.3 web service clients
 	 */
 	// TODO WebServices for M3
-//	private class J2EEWebServiceClientDDManager extends AdapterImpl implements EditModelListener {
-//		private WebApp webApp;
-//		private WebServicesManager webServiceMgr = WebServicesManager.getInstance();
-//		WebServiceEditModel editModel;
-//		WebServicesClient client;
-//
-//		public J2EEWebServiceClientDDManager(WebApp webApp) {
-//			this.webApp = webApp;
-//			init();
-//		}
-//
-//		public void setWebApp(WebApp webApp) {
-//			this.webApp = webApp;
-//		}
-//
-//		public void init() {
-//			editModel = webServiceMgr.getWSEditModel(ProjectUtilities.getProject(webApp));
-//			if (editModel != null) {
-//				editModel.addListener(this);
-//				if (editModel.get13WebServicesClientResource() != null) {
-//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
-//					if (client != null)
-//						client.eAdapters().add(this);
-//				}
-//			}
-//		}
-//
-//		/*
-//		 * (non-Javadoc)
-//		 * 
-//		 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
-//		 */
-//		public void editModelChanged(EditModelEvent anEvent) {
-//			if (editModel == null)
-//				init();
-//		}
-//
-//		/*
-//		 * (non-Javadoc)
-//		 * 
-//		 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
-//		 */
-//		public void notifyChanged(Notification notification) {
-//			if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE || notification.getEventType() == Notification.REMOVE_MANY) {
-//				if (notification.getFeatureID(WebServicesClient.class) == Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS) {
-//					NotificationWrapper notificationWrapper = new NotificationWrapper(webRefsGroup, notification);
-//					fireNotifyChanged(notificationWrapper);
-//				}
-//			}
-//			super.notifyChanged(notification);
-//		}
-//
-//		public void dispose() {
-//			if (editModel != null) {
-//				editModel.removeListener(this);
-//				if (editModel.get13WebServicesClientResource() != null) {
-//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
-//					if (client != null)
-//						client.eAdapters().remove(this);
-//				}
-//			}
-//		}
-//	}
-
+	//	private class J2EEWebServiceClientDDManager extends AdapterImpl implements EditModelListener
+	// {
+	//		private WebApp webApp;
+	//		private WebServicesManager webServiceMgr = WebServicesManager.getInstance();
+	//		WebServiceEditModel editModel;
+	//		WebServicesClient client;
+	//
+	//		public J2EEWebServiceClientDDManager(WebApp webApp) {
+	//			this.webApp = webApp;
+	//			init();
+	//		}
+	//
+	//		public void setWebApp(WebApp webApp) {
+	//			this.webApp = webApp;
+	//		}
+	//
+	//		public void init() {
+	//			editModel = webServiceMgr.getWSEditModel(ProjectUtilities.getProject(webApp));
+	//			if (editModel != null) {
+	//				editModel.addListener(this);
+	//				if (editModel.get13WebServicesClientResource() != null) {
+	//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
+	//					if (client != null)
+	//						client.eAdapters().add(this);
+	//				}
+	//			}
+	//		}
+	//
+	//		/*
+	//		 * (non-Javadoc)
+	//		 *
+	//		 * @see
+	// org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
+	//		 */
+	//		public void editModelChanged(EditModelEvent anEvent) {
+	//			if (editModel == null)
+	//				init();
+	//		}
+	//
+	//		/*
+	//		 * (non-Javadoc)
+	//		 *
+	//		 * @see
+	// org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
+	//		 */
+	//		public void notifyChanged(Notification notification) {
+	//			if (notification.getEventType() == Notification.ADD || notification.getEventType() ==
+	// Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE ||
+	// notification.getEventType() == Notification.REMOVE_MANY) {
+	//				if (notification.getFeatureID(WebServicesClient.class) ==
+	// Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS) {
+	//					NotificationWrapper notificationWrapper = new NotificationWrapper(webRefsGroup,
+	// notification);
+	//					fireNotifyChanged(notificationWrapper);
+	//				}
+	//			}
+	//			super.notifyChanged(notification);
+	//		}
+	//
+	//		public void dispose() {
+	//			if (editModel != null) {
+	//				editModel.removeListener(this);
+	//				if (editModel.get13WebServicesClientResource() != null) {
+	//					client = editModel.get13WebServicesClientResource().getWebServicesClient();
+	//					if (client != null)
+	//						client.eAdapters().remove(this);
+	//				}
+	//			}
+	//		}
+	//	}
 	/**
 	 * Default constructor
 	 */
@@ -126,8 +132,8 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 */
 	private void initChildren(WebApp webApp) {
 		// TODO WebServices for M3
-//		if (clientMgr == null)
-//			clientMgr = new J2EEWebServiceClientDDManager(webApp);
+		//		if (clientMgr == null)
+		//			clientMgr = new J2EEWebServiceClientDDManager(webApp);
 		children.add(webServletGroup = new WebServletGroupItemProvider(adapterFactory, webApp));
 		children.add(webServletMappingGroup = new WebServletMappingGroupItemProvider(adapterFactory, webApp));
 		children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, webApp));
@@ -163,8 +169,8 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 			}
 		}
 		// TODO WebServices for M3
-//		if (clientMgr != null)
-//			clientMgr.setWebApp(app);
+		//		if (clientMgr != null)
+		//			clientMgr.setWebApp(app);
 	}
 
 	/*
@@ -229,8 +235,8 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 */
 	public void dispose() {
 		// TODO WebServices for M3
-//		if (clientMgr != null)
-//			clientMgr.dispose();
+		//		if (clientMgr != null)
+		//			clientMgr.dispose();
 		super.dispose();
 	}
 }

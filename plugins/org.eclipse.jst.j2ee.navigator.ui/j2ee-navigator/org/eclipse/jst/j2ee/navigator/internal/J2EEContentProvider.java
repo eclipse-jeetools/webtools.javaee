@@ -31,7 +31,7 @@ import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectManager.IRefreshHand
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.navigator.internal.views.CommonViewer;
+import org.eclipse.wst.common.navigator.views.CommonViewer;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

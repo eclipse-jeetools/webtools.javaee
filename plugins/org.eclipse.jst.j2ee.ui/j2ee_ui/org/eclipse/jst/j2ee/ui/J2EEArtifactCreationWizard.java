@@ -36,35 +36,39 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * Serves as a base class for the Wizards which create J2EE artifact structures. An Artifact can be
  * a J2EE application, module, or utility component.
  * </p>
- * <p> 
- * Creation wizards must define the abstract methods from 
- * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard} which
+ * <p>
+ * Creation wizards must define the abstract methods from
+ * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard}which
  * include the following:
  * <ul>
- * 	<li>{@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#doAddPages()}
- *  <li>{@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#canFinish()}
- *  <li>{@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#createBaseOperation()}
- *  <li>{@link org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#createDefaultModel()}
+ * <li>
+ * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#doAddPages()}
+ * <li>
+ * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#canFinish()}
+ * <li>
+ * {@link org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard#createBaseOperation()}
+ * <li>{@link org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#createDefaultModel()}
  * </ul>
- * </p> 
+ * </p>
  * <p>
  * And optionally, they can override the following methods:
  * <ul>
- * 	<li>{@link #getFinalPerspectiveID()}
- * 	<li>{@link #doInit()()}
- * 	<li>{@link #doDispose()()}
+ * <li>{@link #getFinalPerspectiveID()}
+ * <li>{@link #doInit()()}
+ * <li>{@link #doDispose()()}
  * </ul>
+ * 
  * @see org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard
  */
 public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implements INewWizard, IExecutableExtension, IPluginContribution {
-	
+
 	/**
 	 * <p>
 	 * Constant used to identify the key of the main page of the Wizard.
 	 * </p>
 	 */
 	protected static final String MAIN_PG = "main"; //$NON-NLS-1$
-	
+
 	private IStructuredSelection selection;
 	private IConfigurationElement configurationElement;
 
@@ -110,16 +114,16 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 		this.selection = aSelection;
 		doInit();
 	}
-	
+
 	/**
 	 * <p>
-	 * Calls {@link #doDispose()} and then nulls out fields that 
-	 * are no longer needed once the wizard completes.
+	 * Calls {@link #doDispose()}and then nulls out fields that are no longer needed once the
+	 * wizard completes.
 	 * </p>
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
 	 */
-	public final void dispose() { 
+	public final void dispose() {
 		super.dispose();
 		doDispose();
 		this.selection = null;
@@ -129,11 +133,10 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * The configuration element is saved to use when the wizard 
-	 * completes in order to change the current perspective using
-	 * either (1) the value specified by {@link #getFinalPerspectiveID()} 
-	 * or (2) the value specified by the finalPerspective attribute
-	 * in the Wizard's configuration element. 
+	 * The configuration element is saved to use when the wizard completes in order to change the
+	 * current perspective using either (1) the value specified by {@link #getFinalPerspectiveID()}
+	 * or (2) the value specified by the finalPerspective attribute in the Wizard's configuration
+	 * element.
 	 * </p>
 	 * 
 	 * @see org.eclipse.core.runtime.IExecutableExtension#setInitializationData(org.eclipse.core.runtime.IConfigurationElement,
@@ -145,9 +148,8 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 
 	/**
 	 * <p>
-	 * Invoked from init(IWorkbench, IStructuredSelection) 
-	 * once the workbench and selection have been safely 
-	 * stored away.
+	 * Invoked from init(IWorkbench, IStructuredSelection) once the workbench and selection have
+	 * been safely stored away.
 	 * </p>
 	 * <p>
 	 * No-op by default.
@@ -155,47 +157,47 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 */
 	protected void doInit() {
 	}
-	
+
 	/**
 	 * <p>
-	 * Invoked from {@link #dispose()}. Should be used to handle 
-	 * any specific Wizard disposal.
+	 * Invoked from {@link #dispose()}. Should be used to handle any specific Wizard disposal.
 	 * </p>
 	 */
-	protected void doDispose() { 		
+	protected void doDispose() {
 	}
 
 	/**
 	 * <p>
-	 * Override to return the final perspective ID (if any). The final 
-	 * perspective ID can be hardcoded by the subclass or determined 
-	 * programmatically (possibly using the value of a field on the 
-	 * Wizard's WTP Operation Data Model). 
+	 * Override to return the final perspective ID (if any). The final perspective ID can be
+	 * hardcoded by the subclass or determined programmatically (possibly using the value of a field
+	 * on the Wizard's WTP Operation Data Model).
 	 * </p>
 	 * <p>
-	 * Default return value is <b>null</b>.
+	 * Default return value is <b>null </b>.
 	 * </p>
+	 * 
 	 * @return Returns the ID of the Perspective which is preferred by this wizard upon completion.
 	 */
-	protected String getFinalPerspectiveID() { 
+	protected String getFinalPerspectiveID() {
 		return null;
 	}
 
 	/**
 	 * 
 	 * <p>
-	 * Invoked after the user has clicked the "Finish" button of the wizard. The
-	 * default implementation will attempt to update the final perspective to the
-	 * value specified by {@link #getFinalPerspectiveID() } 
+	 * Invoked after the user has clicked the "Finish" button of the wizard. The default
+	 * implementation will attempt to update the final perspective to the value specified by
+	 * {@link #getFinalPerspectiveID() }
 	 * </p>
+	 * 
 	 * @throws InvocationTargetException
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#postPerformFinish()
 	 */
-	protected final void postPerformFinish() throws InvocationTargetException  {
+	protected final void postPerformFinish() throws InvocationTargetException {
 		super.postPerformFinish();
 		if (getFinalPerspectiveID() != null && getFinalPerspectiveID().length() > 0) {
-			
+
 			IConfigurationElement element = new DelegateConfigurationElement(configurationElement) {
 				public String getAttribute(String aName) {
 					if (aName.equals("finalPerspective")) { //$NON-NLS-1$
@@ -205,8 +207,8 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 				}
 			};
 			BasicNewProjectResourceWizard.updatePerspective(element);
-		} else 
-			BasicNewProjectResourceWizard.updatePerspective(configurationElement); 
+		} else
+			BasicNewProjectResourceWizard.updatePerspective(configurationElement);
 		BasicNewResourceWizard.selectAndReveal(((J2EEArtifactCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
 	}
 
@@ -234,7 +236,7 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * Returns the value specified by {@link #getWizardId()}
 	 * </p>
 	 * 
-	 * @return Returns the an id component used for Activity filtering. 
+	 * @return Returns the an id component used for Activity filtering.
 	 */
 	public final String getLocalId() {
 		return getWizardID();
@@ -246,13 +248,14 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 * </p>
 	 * 
 	 * <p>
-	 * The Plugin ID is determined from the configuration element specified in {@see #setInitializationData(IConfigurationElement, String, Object)}.
+	 * The Plugin ID is determined from the configuration element specified in
+	 * {@see #setInitializationData(IConfigurationElement, String, Object)}.
 	 * </p>
 	 * 
 	 * @return Returns the plugin id associated with this wizard
 	 */
 	public final String getPluginId() {
-		return (configurationElement!=null)? configurationElement.getDeclaringExtension().getDeclaringPluginDescriptor().getUniqueIdentifier() : ""; //$NON-NLS-1$
+		return (configurationElement != null) ? configurationElement.getDeclaringExtension().getDeclaringPluginDescriptor().getUniqueIdentifier() : ""; //$NON-NLS-1$
 	}
 
 	/**

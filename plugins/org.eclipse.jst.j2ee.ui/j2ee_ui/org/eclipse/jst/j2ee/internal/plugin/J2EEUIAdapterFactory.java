@@ -12,30 +12,35 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class J2EEUIAdapterFactory implements IAdapterFactory {
 
-    protected static final Class ILAUNCHABLE_CLASS = ILaunchable.class;
-    /**
-     * Default Constructor
-     */
-    public J2EEUIAdapterFactory() {
-        super();
-    }
+	protected static final Class ILAUNCHABLE_CLASS = ILaunchable.class;
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
-     */
-    public Object getAdapter(Object adaptableObject, Class adapterType) {
-        if (adaptableObject instanceof EObject) {
-			if(adapterType == ILAUNCHABLE_CLASS)
+	/**
+	 * Default Constructor
+	 */
+	public J2EEUIAdapterFactory() {
+		super();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
+	 */
+	public Object getAdapter(Object adaptableObject, Class adapterType) {
+		if (adaptableObject instanceof EObject) {
+			if (adapterType == ILAUNCHABLE_CLASS)
 				return adaptableObject;
 		}
 		return null;
-    }
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
-     */
-    public Class[] getAdapterList() {
-        return new Class[] { ILAUNCHABLE_CLASS };
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
+	 */
+	public Class[] getAdapterList() {
+		return new Class[]{ILAUNCHABLE_CLASS};
+	}
 
 }

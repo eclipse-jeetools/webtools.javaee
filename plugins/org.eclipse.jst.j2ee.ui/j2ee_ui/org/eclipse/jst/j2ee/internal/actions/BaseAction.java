@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
 
 
 /**
@@ -35,12 +34,12 @@ import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
 public abstract class BaseAction extends Action implements IActionDelegate {
-	
+
 	private final static String ERROR_OCCURRED_TITLE = "!!!!Error";//EJBUIResourceHandler.getString("ERROR_OCCURRED_TITLE");
-																   // //$NON-NLS-1$
+	// //$NON-NLS-1$
 	// //$NON-NLS-1$
 	private final static String ERROR_OCCURRED_MESSAGE = "!!@!!Error";//EJBUIResourceHandler.getString("ERROR_OCCURRED_MESSAGE");
-																	  // //$NON-NLS-1$
+	// //$NON-NLS-1$
 	// //$NON-NLS-1$
 
 	protected IStructuredSelection selection = null;
@@ -72,14 +71,6 @@ public abstract class BaseAction extends Action implements IActionDelegate {
 
 	protected abstract void primRun(Shell shell);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorActionDelegate#init(org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorExtensionSite)
-	 */
-	public void init(INavigatorExtensionSite site) {
-
-	}
 
 	/*
 	 * (non-Javadoc)

@@ -27,7 +27,8 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ContainerManagedEntity}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.ContainerManagedEntity}.
 	 */
 	public Adapter createContainerManagedEntityAdapter() {
 		if (containerManagedEntityItemProvider == null) {

@@ -68,15 +68,15 @@ public class WebReferencesGroupItemProvider extends WebGroupItemProvider {
 			result.addAll(webApp.getMessageDestinationRefs());
 
 		// TODO WebServices for M3
-//		Collection serviceRefs = null;
-//		try {
-//			serviceRefs = WebServicesManager.getInstance().getServiceRefs(webApp);
-//		} catch (RuntimeException re) {
-//			serviceRefs = Collections.EMPTY_LIST;
-//		}
-//
-//		if (!serviceRefs.isEmpty())
-//			result.addAll(serviceRefs);
+		//		Collection serviceRefs = null;
+		//		try {
+		//			serviceRefs = WebServicesManager.getInstance().getServiceRefs(webApp);
+		//		} catch (RuntimeException re) {
+		//			serviceRefs = Collections.EMPTY_LIST;
+		//		}
+		//
+		//		if (!serviceRefs.isEmpty())
+		//			result.addAll(serviceRefs);
 		return result;
 	}
 

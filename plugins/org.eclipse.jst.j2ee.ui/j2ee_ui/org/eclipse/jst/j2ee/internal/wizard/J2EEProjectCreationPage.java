@@ -259,12 +259,12 @@ public abstract class J2EEProjectCreationPage extends WTPWizardPage {
 		if (isOK && model != null) {
 			model.notifyValidValuesChange(ServerTargetDataModel.RUNTIME_TARGET_ID);
 			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(ServerTargetDataModel.RUNTIME_TARGET_ID);
-			Object [] preAddition = new Object[preAdditionDescriptors.length];
-			for(int i=0;i<preAddition.length;i++){
+			Object[] preAddition = new Object[preAdditionDescriptors.length];
+			for (int i = 0; i < preAddition.length; i++) {
 				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
 			}
-			Object [] postAddition = new Object[postAdditionDescriptors.length];
-			for(int i=0;i<postAddition.length;i++){
+			Object[] postAddition = new Object[postAdditionDescriptors.length];
+			for (int i = 0; i < postAddition.length; i++) {
 				postAddition[i] = postAdditionDescriptors[i].getPropertyValue();
 			}
 			Object newAddition = ProjectUtilities.getNewObject(preAddition, postAddition);

@@ -72,7 +72,7 @@ public class J2EEEditorUtility {
 			return type.getCompilationUnit();
 		return null;
 	}
-	
+
 	public static IType getType(JavaClass javaClass) {
 		if (javaClass != null) {
 			JavaClassJDOMAdaptor adaptor = (JavaClassJDOMAdaptor) EcoreUtil.getRegisteredAdapter(javaClass, ReadAdaptor.TYPE_KEY);
@@ -81,7 +81,7 @@ public class J2EEEditorUtility {
 		}
 		return null;
 	}
-	
+
 	public static IEditorInput getEditorInput(Object input) {
 		if (input instanceof EObject)
 			return new FileEditorInput(WorkbenchResourceHelper.getFile((EObject) input));

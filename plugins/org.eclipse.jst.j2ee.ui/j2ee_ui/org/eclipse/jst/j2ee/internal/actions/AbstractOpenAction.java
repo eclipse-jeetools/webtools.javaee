@@ -15,17 +15,16 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.ui.IActionDelegate2;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.SelectionListenerAction;
-import org.eclipse.wst.common.navigator.views.INavigatorActionDelegate;
-import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
 
 /**
  * Action for opening a J2EE resource from the J2EE navigator.
  */
-public abstract class AbstractOpenAction extends SelectionListenerAction implements INavigatorActionDelegate {
+public abstract class AbstractOpenAction extends SelectionListenerAction implements IActionDelegate2 {
 	// //$NON-NLS-1$
 	protected IEditorDescriptor currentDescriptor;
 	protected Object srcObject;
@@ -69,23 +68,12 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 		return true;
 	}
 
-	// TODO Skeleton implementation of INavigatorActionDelegate
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorActionDelegate#init(org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorExtensionSite)
-	 */
-	public void init(INavigatorExtensionSite site) {
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
 	public void dispose() {
-		// TODO Auto-generated method stub
 
 	}
 

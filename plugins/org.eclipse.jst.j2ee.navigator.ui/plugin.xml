@@ -414,6 +414,7 @@
             icon="icons/J2EEPerspective.gif" 
             contentProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEContentProvider"
             labelProvider="org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider"
+            actionProvider="org.eclipse.jst.j2ee.navigator.internal.J2EEActionProvider"
             id="org.eclipse.jst.navigator.j2ee.ui.J2EEContent.experimental">
          <enables>
          <or>

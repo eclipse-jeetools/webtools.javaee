@@ -1,13 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.util.ArrayList;
@@ -56,7 +54,7 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 	public ClassesImportWizard() {
 		super();
 	}
-	
+
 	public ClassesImportWizard(IProject project) {
 		super();
 		this.project = project;
@@ -149,7 +147,7 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 		workbench = aWorkbench;
 		selection = aSelection;
 		if (!aSelection.isEmpty() && aSelection.getFirstElement() instanceof IProject)
-				project = (IProject) aSelection.getFirstElement();
+			project = (IProject) aSelection.getFirstElement();
 
 		if (project != null)
 			createImportedClassesFolder(project);
@@ -165,10 +163,10 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 			page1 = new WizardClassesImportPage1(workbench, selection, importedClassesPath, fileNames);
 			page1.setWizard(this);
 			addPage(page1);
-		} catch (Throwable ex){
+		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}
-		
+
 
 	}
 

@@ -213,7 +213,7 @@
    </extension>
    
 <!-- Navigator Object Contributions -->
-<!-- EAR Group Contributions -->
+<!-- EAR Group Contributions 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -235,8 +235,9 @@
          </visibility>
       </objectContribution>
    </extension>
+   -->
 <!-- Navigator Object Contributions -->
-<!-- Application Client Group Contributions -->
+<!-- Application Client Group Contributions 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -258,6 +259,7 @@
          </visibility>
       </objectContribution>
    </extension>
+   -->
 <!-- Navigator Object Contributions -->
 
     <extension
@@ -321,7 +323,7 @@
             packageURI="ejb.xmi"
             id="org.eclipse.jst.j2ee.internal.ejb.provider.J2EEEjbItemProviderAdapterFactory">
          <view
-               id="com.ibm.wtp.ui.ProjectNavigator">
+               id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
          </view>
       </adapterFactory>
       <adapterFactory
@@ -329,7 +331,7 @@
             packageURI="webapplication.xmi"
             id="org.eclipse.jst.j2ee.internal.war.ui.util.J2EEWebItemProviderAdapterFactory">
          <view
-               id="com.ibm.wtp.ui.ProjectNavigator">
+               id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
          </view>
       </adapterFactory>
       <adapterFactory
@@ -337,7 +339,7 @@
             packageURI="application.xmi"
             id="org.eclipse.jst.j2ee.internal.provider.J2EEApplicationItemProviderAdapterFactory">
          <view
-               id="com.ibm.wtp.ui.ProjectNavigator">
+               id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
          </view>
       </adapterFactory>
       <adapterFactory
@@ -345,7 +347,7 @@
             packageURI="modulemap.xmi"
             id="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory">
          <view
-               id="com.ibm.wtp.ui.ProjectNavigator">
+               id="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
          </view>
       </adapterFactory>
    </extension>
@@ -380,12 +382,12 @@
          point="org.eclipse.wst.common.navigator.views.navigatorViewer">
       <navigatorViewer
             rootContentExtensionId="org.eclipse.wst.common.frameworks.navigator.webservice"
-            viewerId="com.ibm.wtp.ui.ProjectNavigator">
+            viewerId="org.eclipse.wst.navigator.ui.WTPCommonNavigator">
       </navigatorViewer>
    </extension>
  -->  
 <!-- Navigator Object Contributions -->
-<!-- EAR Group Contributions -->
+<!-- EAR Group Contributions 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -415,8 +417,9 @@
          </visibility>
       </objectContribution>
    </extension>
+   -->
 <!-- Navigator Object Contributions -->
-<!-- Application Client Group Contributions -->
+<!-- Application Client Group Contributions
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -446,6 +449,7 @@
          </visibility>
       </objectContribution>
    </extension>
+    -->
 <!-- Navigator Object Contributions -->
 <!-- ================================================== -->
 <!--          DEPLOY EXTENSIONS                         -->

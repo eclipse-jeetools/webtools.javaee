@@ -7,7 +7,7 @@
  * 
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.ui;
 
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
@@ -20,33 +20,32 @@ import org.eclipse.jst.j2ee.internal.wizard.ApplicationProjectCreationPage;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
-/** 
+/**
  * <p>
- * Provides a user interface for the creation of J2EE Enterprise Application 
- * Projects.
- * </p> 
+ * Provides a user interface for the creation of J2EE Enterprise Application Projects.
+ * </p>
  */
 public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreationWizard {
-	
+
 	/**
 	 * <p>
 	 * Constant used to identify the key of the Modules page of the Wizard.
 	 * </p>
 	 */
 	private static final String MODULES_PG = "modules"; //$NON-NLS-1$
-	
+
 	public static final String WIZARD_ID = EnterpriseApplicationCreationWizard.class.getName();
-	
+
 	/**
 	 * <p>
-	 * Creates a default instance of the wizard with no configuration 
-	 * data, no selection, and no operation data model.
+	 * Creates a default instance of the wizard with no configuration data, no selection, and no
+	 * operation data model.
 	 * </p>
 	 */
 	public EnterpriseApplicationCreationWizard() {
 		super();
 	}
-	
+
 	/**
 	 * <p>
 	 * The model is used to prepopulate wizard controls and to collect data from the user. The model
@@ -59,7 +58,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	public EnterpriseApplicationCreationWizard(EnterpriseApplicationCreationDataModel model) {
 		super(model);
 	}
- 
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -92,7 +91,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	 */
 	protected WTPOperation createBaseOperation() {
 		return new EnterpriseApplicationCreationOperation(getSpecificDataModel());
-	} 
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -100,7 +99,7 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
 	 *      org.eclipse.jface.viewers.IStructuredSelection)
 	 */
-	protected void doInit() { 
+	protected void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_WIZ_BANNER));
 		setHelpAvailable(false);
@@ -113,8 +112,8 @@ public final class EnterpriseApplicationCreationWizard extends J2EEArtifactCreat
 	 */
 	public String getWizardID() {
 		return WIZARD_ID;
-	} 
-	
+	}
+
 	private EnterpriseApplicationCreationDataModel getSpecificDataModel() {
 		return (EnterpriseApplicationCreationDataModel) model;
 	}

@@ -272,7 +272,7 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 		}
 		return null;
 	}
-	
-	
-	
-}
+
+
+
+	}

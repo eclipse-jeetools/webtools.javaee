@@ -7,7 +7,7 @@
  * 
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.ui;
 
 import java.lang.reflect.InvocationTargetException;
@@ -29,72 +29,74 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
  * <p>
  * Serves as a base class for Wizards which import J2EE artifact structures into Eclipse projects.
  * </p>
- * <p> 
- * Subclasses must provide the methods that are required by 
+ * <p>
+ * Subclasses must provide the methods that are required by
  * {@see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard}.
- * </p> 
+ * </p>
  * <p>
  * Optionally, subclasses may also override the following methods:
  * <ul>
- * 	<li>{@link #getFinalPerspectiveID()}
- * 	<li>{@link #doInit()()}
- * 	<li>{@link #doDispose()()}
+ * <li>{@link #getFinalPerspectiveID()}
+ * <li>{@link #doInit()()}
+ * <li>{@link #doDispose()()}
  * </ul>
  * </p>
  * <p>
- * The base class will ensure that the Wizard is not spawned unless
- * all open editors are in a non-dirty state. Additionally, the 
- * selection from the active view which spanwed the wizard will 
+ * The base class will ensure that the Wizard is not spawned unless all open editors are in a
+ * non-dirty state. Additionally, the selection from the active view which spanwed the wizard will
  * be made available to subclasses via {@link #getCurrentSelection()}.
  * </p>
  */
 public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImportWizard, IExecutableExtension {
-	
+
 	/**
 	 * <p>
 	 * Constant used to identify the key of the main page of the Wizard.
 	 * </p>
 	 */
 	protected static final String MAIN_PG = "main"; //$NON-NLS-1$
-	
+
 	private static final String FINAL_PERSPECTIVE_ID = "org.eclipse.jst.j2ee.J2EEPerspective"; //$NON-NLS-1$ 
-	
+
 	private IConfigurationElement configurationElement;
 	private IStructuredSelection selection;
-	
+
 	/**
 	 * <p>
-	 * The default constructor. Creates a wizard with no selection, 
-	 * no model instance, and no operation instance. The model and 
-	 * operation will be created as needed.
+	 * The default constructor. Creates a wizard with no selection, no model instance, and no
+	 * operation instance. The model and operation will be created as needed.
 	 * </p>
 	 */
 	public J2EEArtifactImportWizard() {
-		super(); 
+		super();
 	}
-	
+
 	/**
 	 * <p>
-	 * The model is used to prepopulate the wizard controls
-	 * and interface with the operation.
+	 * The model is used to prepopulate the wizard controls and interface with the operation.
 	 * </p>
-	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
+	 * 
+	 * @param model
+	 *            The model parameter is used to pre-populate wizard controls and interface with the
+	 *            operation
 	 */
 	public J2EEArtifactImportWizard(J2EEArtifactImportDataModel model) {
-		super(model); 
-	}	 
-	
+		super(model);
+	}
+
 	/**
 	 * <p>
-	 * The model is used to prepopulate the wizard controls
-	 * and interface with the operation.
+	 * The model is used to prepopulate the wizard controls and interface with the operation.
 	 * </p>
-	 * @param model The model parameter is used to pre-populate wizard controls and interface with the operation
+	 * 
+	 * @param model
+	 *            The model parameter is used to pre-populate wizard controls and interface with the
+	 *            operation
 	 */
 	public J2EEArtifactImportWizard(WTPOperationDataModel model) {
-		super(model); 
-	}	
-	
+		super(model);
+	}
+
 	/**
 	 * <p>
 	 * The selection is used to pre-populate values in the Wizard dialog controls.
@@ -108,50 +110,49 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	 * @param aSelection
 	 *            the selection from the view used to start the wizard (if any)
 	 */
-	public final void init(IWorkbench workbench, IStructuredSelection aSelection) {		
+	public final void init(IWorkbench workbench, IStructuredSelection aSelection) {
 		this.selection = aSelection;
 		doInit();
 	}
-	
+
 	/**
 	 * <p>
-	 * Calls {@link #doDispose()} and then nulls out fields that 
-	 * are no longer needed once the wizard completes.
+	 * Calls {@link #doDispose()}and then nulls out fields that are no longer needed once the
+	 * wizard completes.
 	 * </p>
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.WTPWizard#dispose()
 	 */
-	public final void dispose() { 
+	public final void dispose() {
 		super.dispose();
 		doDispose();
 		this.selection = null;
 		this.configurationElement = null;
 	}
-	
+
 
 	/**
 	 * <p>
-	 * Invoked after the selection has been saved off in 
-	 * {@link #init(IWorkbench, IStructuredSelection)}. Should 
-	 * be used to handle any specific Wizard initialization.
+	 * Invoked after the selection has been saved off in
+	 * {@link #init(IWorkbench, IStructuredSelection)}. Should be used to handle any specific
+	 * Wizard initialization.
 	 * </p>
 	 */
-	protected void doInit() {		
+	protected void doInit() {
 	}
-	
+
 	/**
 	 * <p>
-	 * Invoked from {@link #dispose()}. Should be used to handle 
-	 * any specific Wizard disposal.
+	 * Invoked from {@link #dispose()}. Should be used to handle any specific Wizard disposal.
 	 * </p>
 	 */
-	protected void doDispose() {		
-	} 
-	
+	protected void doDispose() {
+	}
+
 	/**
 	 * <p>
-	 * The return value of this method will be used to suggest a 
-	 * final perspective to the user once the wizard completes.
+	 * The return value of this method will be used to suggest a final perspective to the user once
+	 * the wizard completes.
 	 * </p>
 	 * 
 	 * @return Returns the J2EE Perpsective ID by default
@@ -159,11 +160,12 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	protected String getFinalPerspectiveID() {
 		return FINAL_PERSPECTIVE_ID;
 	}
-	
+
 	/**
 	 * <p>
-	 * Prompts the user to save open, dirty editors. 
+	 * Prompts the user to save open, dirty editors.
 	 * </p>
+	 * 
 	 * @return true only if all editors are saved
 	 */
 	protected final boolean prePerformFinish() {
@@ -176,18 +178,18 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 		return super.prePerformFinish();
 	}
 
-	/** 
+	/**
 	 * <p>
-	 * Invoked after the user has clicked the "Finish" button of the wizard. The
-	 * default implementation will attempt to update the final perspective to the
-	 * value specified by {@link #getFinalPerspectiveID() } 
+	 * Invoked after the user has clicked the "Finish" button of the wizard. The default
+	 * implementation will attempt to update the final perspective to the value specified by
+	 * {@link #getFinalPerspectiveID() }
 	 * </p>
 	 * 
 	 * @throws InvocationTargetException
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#postPerformFinish()
 	 */
-	protected final void postPerformFinish() throws InvocationTargetException  {
+	protected final void postPerformFinish() throws InvocationTargetException {
 		super.postPerformFinish();
 		if (getFinalPerspectiveID() != null && getFinalPerspectiveID().length() > 0) {
 
@@ -201,19 +203,18 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 
 			};
 			BasicNewProjectResourceWizard.updatePerspective(element);
-		} else 
-			BasicNewProjectResourceWizard.updatePerspective(configurationElement); 
-	}	
+		} else
+			BasicNewProjectResourceWizard.updatePerspective(configurationElement);
+	}
 
 	/**
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * The configuration element is saved to use when the wizard 
-	 * completes in order to change the current perspective using
-	 * either (1) the value specified by {@see #getFinalPerspectiveID()} 
-	 * or (2) the value specified by the finalPerspective attribute
-	 * in the Wizard's configuration element. 
+	 * The configuration element is saved to use when the wizard completes in order to change the
+	 * current perspective using either (1) the value specified by {@see #getFinalPerspectiveID()}
+	 * or (2) the value specified by the finalPerspective attribute in the Wizard's configuration
+	 * element.
 	 * </p>
 	 * 
 	 * @see org.eclipse.core.runtime.IExecutableExtension#setInitializationData(org.eclipse.core.runtime.IConfigurationElement,
@@ -221,8 +222,8 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	 */
 	public final void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		this.configurationElement = config;
-	} 	
-	
+	}
+
 
 	/**
 	 * @return Returns the selection.
@@ -230,5 +231,5 @@ public abstract class J2EEArtifactImportWizard extends WTPWizard implements IImp
 	protected final IStructuredSelection getSelection() {
 		return selection;
 	}
-	
+
 }

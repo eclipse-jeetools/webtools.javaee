@@ -203,6 +203,7 @@ public class J2EEModulesDependencyPage extends WTPWizardPage {
 		Table aTable = availableJarsViewer.getTable();
 		aTable.addControlListener(new ControlAdapter() {
 			boolean fResized = false;
+
 			public void controlResized(ControlEvent e) {
 				if (e.widget instanceof Table && !fResized) {
 					final Table table = (Table) e.widget;

@@ -82,7 +82,7 @@
      </extension>
 
 <!-- Navigator Object Contributions --> 
-<!-- Connector Group Contributions -->
+<!-- Connector Group Contributions 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -131,6 +131,7 @@
          </visibility>
       </objectContribution>
    </extension>
+   -->
     <extension
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
       <!-- Connector New -->

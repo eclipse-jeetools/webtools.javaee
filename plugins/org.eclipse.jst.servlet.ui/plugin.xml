@@ -90,7 +90,7 @@
       </wizard>
     </extension>
     
-<!-- WEB Group Contributions -->
+<!-- WEB Group Contributions 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -139,7 +139,7 @@
          </visibility>
       </objectContribution>
    </extension> 
-   
+   -->
    <extension
          point="org.eclipse.wst.common.frameworks.ui.extendableWizard">
       <extendableWizard
