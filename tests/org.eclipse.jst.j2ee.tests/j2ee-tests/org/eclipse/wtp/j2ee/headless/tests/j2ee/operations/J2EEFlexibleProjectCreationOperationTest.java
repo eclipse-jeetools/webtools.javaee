@@ -3,12 +3,12 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEJavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.tests.modulecore.AllTests;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARProjectCreationOperationTest;

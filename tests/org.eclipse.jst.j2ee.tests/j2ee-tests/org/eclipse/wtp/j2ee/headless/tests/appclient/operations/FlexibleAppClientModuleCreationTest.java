@@ -15,7 +15,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.FlexibleAppClientCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientComponentCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.tests.OperationTestCase;
 
@@ -43,16 +43,16 @@ public class FlexibleAppClientModuleCreationTest extends OperationTestCase {
         op.run(null);
     }
     public void createAppClientModule(String moduleName) throws Exception {
-        FlexibleAppClientCreationDataModel dataModel = getFlexibleAppClientModuleCreation();
-        dataModel.setProperty(FlexibleAppClientCreationDataModel.PROJECT_NAME, DEFAULT_PROJECT_NAME);
-        dataModel.setProperty(FlexibleAppClientCreationDataModel.MODULE_NAME, DEFAULT_MODULE_NAME);
+        AppClientComponentCreationDataModel dataModel = getFlexibleAppClientModuleCreation();
+        dataModel.setProperty(AppClientComponentCreationDataModel.PROJECT_NAME, DEFAULT_PROJECT_NAME);
+        dataModel.setProperty(AppClientComponentCreationDataModel.MODULE_NAME, DEFAULT_MODULE_NAME);
         runAndVerify(dataModel);
     }
     
     public J2EEJavaProjectCreationDataModel getProjectCreationDataModel(){
 		return new J2EEJavaProjectCreationDataModel();
     }
-    public FlexibleAppClientCreationDataModel getFlexibleAppClientModuleCreation(){
-		return new FlexibleAppClientCreationDataModel();
+    public AppClientComponentCreationDataModel getFlexibleAppClientModuleCreation(){
+		return new AppClientComponentCreationDataModel();
     }
 }

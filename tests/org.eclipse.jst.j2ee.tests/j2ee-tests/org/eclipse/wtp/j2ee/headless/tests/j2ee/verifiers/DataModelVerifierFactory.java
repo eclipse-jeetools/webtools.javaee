@@ -10,14 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jst.j2ee.application.operations.AppClientModuleExportDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
@@ -80,10 +80,10 @@ public class DataModelVerifierFactory {
 			dataModelVerifiersMap.put(WebModuleExportDataModel.class.getName(), WebExportDataModelVerifier.class.getName());
 			dataModelVerifiersMap.put(AppClientModuleExportDataModel.class.getName(), AppClientExportDataModelVerifier.class.getName());
 			
-			dataModelVerifiersMap.put(WebModuleCreationDataModel.class.getName(), WebProjectCreationDataModelVerifier.class.getName());
-			dataModelVerifiersMap.put(EnterpriseApplicationCreationDataModel.class.getName(), EARProjectCreationDataModelVerifier.class.getName());
-			dataModelVerifiersMap.put(EJBModuleCreationDataModel.class.getName(), EJBProjectCreationDataModelVerifier.class.getName());
-			dataModelVerifiersMap.put(AppClientModuleCreationDataModel.class.getName(),AppClientProjectCreationDataModelVerifier.class.getName());
+			dataModelVerifiersMap.put(WebModuleCreationDataModelOld.class.getName(), WebProjectCreationDataModelVerifier.class.getName());
+			dataModelVerifiersMap.put(EnterpriseApplicationCreationDataModelOld.class.getName(), EARProjectCreationDataModelVerifier.class.getName());
+			dataModelVerifiersMap.put(EJBModuleCreationDataModelOld.class.getName(), EJBProjectCreationDataModelVerifier.class.getName());
+			dataModelVerifiersMap.put(AppClientModuleCreationDataModelOld.class.getName(),AppClientProjectCreationDataModelVerifier.class.getName());
 			
 		}
 		

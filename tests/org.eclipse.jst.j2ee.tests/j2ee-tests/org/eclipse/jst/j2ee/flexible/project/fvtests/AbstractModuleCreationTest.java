@@ -2,10 +2,10 @@ package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.FlexibleWebModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.FlexibleWebModuleCreationOperation;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
 import org.eclipse.wst.common.tests.ProjectUtility;
 
 public abstract class AbstractModuleCreationTest extends TestCase {
@@ -35,38 +35,38 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 	}	
 
 
-	public   FlexibleJ2EEModuleCreationDataModel setupWebModule(int j2eeVersion) throws Exception {
+	public   J2EEComponentCreationDataModel setupWebModule(int j2eeVersion) throws Exception {
 		projectName = getWebModuleProjectName();
 		IProject javaProject = ProjectUtility.getProject(projectName);
 		
-		FlexibleWebModuleCreationDataModel model = new FlexibleWebModuleCreationDataModel();
+		WebComponentCreationDataModel model = new WebComponentCreationDataModel();
 		
-		model.setProperty( FlexibleWebModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
-		model.setIntProperty(FlexibleWebModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
-		model.setProperty(FlexibleWebModuleCreationDataModel.MODULE_NAME, "FirstWebModule");		
-		model.setProperty(FlexibleWebModuleCreationDataModel.MODULE_DEPLOY_NAME, "FirstWebModule.war");
+		model.setProperty( WebComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model.setIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model.setProperty(WebComponentCreationDataModel.MODULE_NAME, "FirstWebModule");		
+		model.setProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME, "FirstWebModule.war");
 		
 		createWebModule(model, null);
 		
 		
-		FlexibleWebModuleCreationDataModel model2 = new FlexibleWebModuleCreationDataModel();
+		WebComponentCreationDataModel model2 = new WebComponentCreationDataModel();
 		
-		model2.setProperty( FlexibleWebModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
-		model2.setIntProperty(FlexibleWebModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
-		model2.setProperty(FlexibleWebModuleCreationDataModel.MODULE_NAME, "SecondWebModule");		
-		model2.setProperty(FlexibleWebModuleCreationDataModel.MODULE_DEPLOY_NAME, "SecondWebModule.war");
+		model2.setProperty( WebComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model2.setIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model2.setProperty(WebComponentCreationDataModel.MODULE_NAME, "SecondWebModule");		
+		model2.setProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME, "SecondWebModule.war");
 		createWebModule(model2, null);
 		
 		return model;
 	}
 
-	public static void createWebModule(FlexibleWebModuleCreationDataModel model, IProject earProject) throws Exception {
+	public static void createWebModule(WebComponentCreationDataModel model, IProject earProject) throws Exception {
 //		if (earProject != null) {
 //			model.setBooleanProperty(WebModuleCreationDataModel.ADD_TO_EAR, true);
 //			model.setProperty(WebModuleCreationDataModel.EAR_PROJECT_NAME, earProject.getName());
 //		}
 		
-		FlexibleWebModuleCreationOperation webOp = new FlexibleWebModuleCreationOperation(model);
+		WebComponentCreationOperation webOp = new WebComponentCreationOperation(model);
 		webOp.run(null);
 		
 		//ProjectUtility.verifyProject(model.getTargetProject().getName(), true);

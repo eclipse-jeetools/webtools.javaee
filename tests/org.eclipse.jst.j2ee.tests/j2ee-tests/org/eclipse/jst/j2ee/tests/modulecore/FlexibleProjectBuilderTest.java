@@ -24,7 +24,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -219,9 +219,9 @@ public class FlexibleProjectBuilderTest extends TestCase {
 
 		project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 		if (!project.exists()) {
-			WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
-			dataModel.setProperty(WebModuleCreationDataModel.PROJECT_NAME, aProjectName);
-			dataModel.setProperty(WebModuleCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
+			WebModuleCreationDataModelOld dataModel = new WebModuleCreationDataModelOld();
+			dataModel.setProperty(WebModuleCreationDataModelOld.PROJECT_NAME, aProjectName);
+			dataModel.setProperty(WebModuleCreationDataModelOld.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
 			dataModel.getDefaultOperation().run(null);
 		}
 		return ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);

@@ -8,7 +8,7 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.LogUtility;
 import org.eclipse.wst.common.tests.ProjectUtility;
@@ -74,7 +74,7 @@ public class EJBProjectCreationTest extends AbstractProjectCreationTest {
 		LogUtility.getInstance().resetLogging();
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
-				J2EEModuleCreationDataModel model = setupEJBProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.EJB_1_1_ID);
+				J2EEModuleCreationDataModelOld model = setupEJBProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.EJB_1_1_ID);
 				checkValidDataModel(model);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {

@@ -8,8 +8,8 @@ package org.eclipse.wtp.j2ee.headless.tests.appclient.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
@@ -27,8 +27,8 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
         return new SimpleTestSuite(AppClientProjectCreationOperationTest.class);
     }
 
-    public J2EEModuleCreationDataModel getProjectCreationDataModel() {
-        return new AppClientModuleCreationDataModel();
+    public J2EEModuleCreationDataModelOld getProjectCreationDataModel() {
+        return new AppClientModuleCreationDataModelOld();
     }
 
 

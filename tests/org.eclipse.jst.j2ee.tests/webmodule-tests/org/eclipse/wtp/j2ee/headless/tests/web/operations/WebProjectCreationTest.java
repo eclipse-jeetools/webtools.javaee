@@ -8,7 +8,7 @@ package org.eclipse.wtp.j2ee.headless.tests.web.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -73,7 +73,7 @@ public class WebProjectCreationTest extends AbstractProjectCreationTest {
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			try {
 				 setupWebProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
-				 J2EEModuleCreationDataModel model = setupWebProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
+				 J2EEModuleCreationDataModelOld model = setupWebProject(RandomObjectGenerator.createInvalidRandomProjectName(), J2EEVersionConstants.WEB_2_2_ID);
 				 checkValidDataModel(model);
 			} catch (Exception e) {
 				if (e instanceof IllegalArgumentException) {

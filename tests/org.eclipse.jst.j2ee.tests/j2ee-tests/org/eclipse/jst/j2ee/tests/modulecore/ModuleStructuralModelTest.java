@@ -30,7 +30,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
@@ -307,11 +307,11 @@ public class ModuleStructuralModelTest extends TestCase {
 
 		project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
 		if (!project.exists()) {
-			WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
-			dataModel.setProperty(WebModuleCreationDataModel.PROJECT_NAME, aProjectName);
-			dataModel.setProperty(WebModuleCreationDataModel.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
-			dataModel.setProperty(WebModuleCreationDataModel.ADD_TO_EAR, Boolean.FALSE);
-			dataModel.setProperty(WebModuleCreationDataModel.ADD_SERVER_TARGET, Boolean.FALSE);
+			WebModuleCreationDataModelOld dataModel = new WebModuleCreationDataModelOld();
+			dataModel.setProperty(WebModuleCreationDataModelOld.PROJECT_NAME, aProjectName);
+			dataModel.setProperty(WebModuleCreationDataModelOld.IS_FLEXIBLE_PROJECT, Boolean.TRUE);
+			dataModel.setProperty(WebModuleCreationDataModelOld.ADD_TO_EAR, Boolean.FALSE);
+			dataModel.setProperty(WebModuleCreationDataModelOld.ADD_SERVER_TARGET, Boolean.FALSE);
 //			dataModel.setProperty(WebModuleCreationDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
 			dataModel.getDefaultOperation().run(null);
 		}

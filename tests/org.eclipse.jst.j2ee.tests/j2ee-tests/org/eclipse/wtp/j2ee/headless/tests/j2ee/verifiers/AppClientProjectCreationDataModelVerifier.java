@@ -9,9 +9,9 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers;
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.applicationclient.creation.AppClientEditModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
@@ -30,8 +30,8 @@ public class AppClientProjectCreationDataModelVerifier extends ModuleProjectCrea
  /* (non-Javadoc)
  * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.J2EEProjectCreationDataModelVerifier#verifyProjectCreationDataModel(com.ibm.etools.application.operations.J2EEProjectCreationDataModel)
  */
-public void verifyProjectCreationDataModel(J2EEModuleCreationDataModel model) {
-    	AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel)model;
+public void verifyProjectCreationDataModel(J2EEModuleCreationDataModelOld model) {
+    	AppClientModuleCreationDataModelOld dataModel = (AppClientModuleCreationDataModelOld)model;
         ProjectUtility.verifyProject(dataModel.getTargetProject().getName(), true);
         AppClientEditModel editModel = null;
         Object key = new Object();
@@ -44,7 +44,7 @@ public void verifyProjectCreationDataModel(J2EEModuleCreationDataModel model) {
         } finally {
             editModel.releaseAccess(key);
         }
-        if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.ADD_TO_EAR)) {
+        if (dataModel.getBooleanProperty(AppClientModuleCreationDataModelOld.ADD_TO_EAR)) {
             IProject earProject = dataModel.getApplicationCreationDataModel().getTargetProject();
             EAREditModel ear = null;
             try {
