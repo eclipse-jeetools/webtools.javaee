@@ -122,7 +122,7 @@ public class WebModuleCreationOperation extends J2EEModuleCreationOperation {
 			ModuleCoreNature moduleCoreNature = (ModuleCoreNature) containingProject.getNature(ModuleCoreNature.MODULE_NATURE_ID);
 			structuralModel = moduleCoreNature.getModuleStructuralModelForWrite(this);
 			structuralModel.prepareProjectModulesIfNecessary();
-			ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_CLASS);
+			ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
 			ProjectModules projectModules = editUtility.getProjectModules();
 			addContent(projectModules);
 			structuralModel.saveIfNecessary(this);
