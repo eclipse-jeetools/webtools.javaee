@@ -9,6 +9,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.earcreation;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -95,6 +98,9 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 			return IPath.SEPARATOR + this.getModuleName() + IPath.SEPARATOR + "META_INF"; //$NON-NLS-1$
 		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.FALSE;
+		}
+		else if (propertyName.equals(J2EE_COMPONENT_LIST)) {
+			return Collections.EMPTY_LIST;
 		}
 		return super.getDefaultProperty(propertyName);
 	}		
@@ -186,23 +192,28 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	}
 
 	protected IStatus doValidateProperty(String propertyName) {
-		// validate server target
-		String projectName = getStringProperty(ComponentCreationDataModel.PROJECT_NAME);
-		if (projectName != null && projectName.length()!= 0) {
-			IProject project = ProjectUtilities.getProject(projectName);
-			if (project != null) {
-				IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
-				if (runtime != null) {
-					IRuntimeType type = runtime.getRuntimeType();
-					String typeId = type.getId();
-					if (typeId.startsWith("org.eclipse.jst.server.tomcat")) { //$NON-NLS-1$
-						String msg = EARCreationResourceHandler.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
-						return WTPCommonPlugin.createErrorStatus(msg);
+
+		if (propertyName.equals(ComponentCreationDataModel.PROJECT_NAME)) {
+			// validate server target
+			String projectName = getStringProperty(ComponentCreationDataModel.PROJECT_NAME);
+			if (projectName != null && projectName.length() != 0) {
+				IProject project = ProjectUtilities.getProject(projectName);
+				if (project != null) {
+					IRuntime runtime = ServerCore.getProjectProperties(project)
+							.getRuntimeTarget();
+					if (runtime != null) {
+						IRuntimeType type = runtime.getRuntimeType();
+						String typeId = type.getId();
+						if (typeId.startsWith("org.eclipse.jst.server.tomcat")) { //$NON-NLS-1$
+							String msg = EARCreationResourceHandler
+									.getString(EARCreationResourceHandler.SERVER_TARGET_NOT_SUPPORT_EAR);
+							return WTPCommonPlugin.createErrorStatus(msg);
+						}
 					}
 				}
 			}
-		} else if(propertyName.equals(NESTED_MODEL_VALIDATION_HOOK))
-            		return OK_STATUS;
+		} else if (propertyName.equals(NESTED_MODEL_VALIDATION_HOOK))
+			return OK_STATUS;
 		return super.doValidateProperty(propertyName);
 	}
 

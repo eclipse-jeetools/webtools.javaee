@@ -44,7 +44,9 @@ public class AppClientComponentCreationDataModel extends J2EEComponentCreationDa
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CREATE_DEFAULT_MAIN_CLASS)) {
 			return Boolean.TRUE;
-		}else if (propertyName.equals(MANIFEST_FOLDER)) {
+		} else if (propertyName.equals(ADD_TO_EAR)) {
+			return Boolean.TRUE;
+		} else if (propertyName.equals(MANIFEST_FOLDER)) {
 			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "appClientModule"+IPath.SEPARATOR + J2EEConstants.META_INF;
 		}
 		if (propertyName.equals(DD_FOLDER)) {
