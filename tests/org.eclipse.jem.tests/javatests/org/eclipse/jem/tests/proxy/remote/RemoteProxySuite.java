@@ -1,7 +1,6 @@
-package org.eclipse.jem.tests.proxy.remote;
 /*******************************************************************************
- * Copyright (c)  2003 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
+ * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/cpl-v10.html
@@ -9,9 +8,10 @@ package org.eclipse.jem.tests.proxy.remote;
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+package org.eclipse.jem.tests.proxy.remote;
 /*
  *  $RCSfile: RemoteProxySuite.java,v $
- *  $Revision: 1.5 $  $Date: 2004/06/14 16:07:28 $ 
+ *  $Revision: 1.6 $  $Date: 2004/08/27 15:33:39 $ 
  */
 import java.net.URL;
 
