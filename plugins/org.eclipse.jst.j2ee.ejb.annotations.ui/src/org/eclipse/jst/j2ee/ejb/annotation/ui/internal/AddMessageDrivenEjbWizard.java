@@ -16,8 +16,11 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataM
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.NewEJBJavaClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddMessageDrivenBeanOperation;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
+import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 
 public class AddMessageDrivenEjbWizard extends NewEjbWizard {
@@ -47,10 +50,10 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 		NewEJBJavaClassDataModel nestedModel = new NewEJBJavaClassDataModel();
 		model.addNestedModel("NewEJBJavaClassDataModel", nestedModel); //$NON-NLS-1$
 		//nestedModel.setProperty(NewServletClassDataModel.EDITING_DOMAIN, domain);
-		nestedModel.setProperty(NewEJBJavaClassDataModel.SUPERCLASS, ((MessageDrivenBeanDataModel)model).getEjbSuperclassName());
-		nestedModel.setProperty(NewEJBJavaClassDataModel.INTERFACES, ((MessageDrivenBeanDataModel)model).getEJBInterfaces());
-		nestedModel.setBooleanProperty(NewEJBJavaClassDataModel.MODIFIER_ABSTRACT,true);
-		nestedModel.setParentDataModel(model);
+		nestedModel.setProperty(NewJavaClassDataModel.SUPERCLASS, ((MessageDrivenBeanDataModel)model).getEjbSuperclassName());
+		nestedModel.setProperty(NewJavaClassDataModel.INTERFACES, ((MessageDrivenBeanDataModel)model).getEJBInterfaces());
+		nestedModel.setBooleanProperty(NewJavaClassDataModel.MODIFIER_ABSTRACT,true);
+		//nestedModel.setParentDataModel(model);
 		
 		IProject project = getDefaultEjbProject();
 		if (project != null) {
@@ -70,18 +73,20 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		AddMessageDrivenBeanWizardPage page1 = new AddMessageDrivenBeanWizardPage((MessageDrivenBeanDataModel) model, PAGE_ONE);
-		page1.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
-		addPage(page1);
-		NewEJBJavaClassDataModel nestedModel = (NewEJBJavaClassDataModel)model.getNestedModel("NewEJBJavaClassDataModel"); //$NON-NLS-1$
-		NewEJBJavaClassDestinationWizardPage page2 = new NewEJBJavaClassDestinationWizardPage(
+		NewJavaClassDataModel nestedModel = (NewJavaClassDataModel)model.getNestedModel("NewEJBJavaClassDataModel"); //$NON-NLS-1$
+		NewJavaClassWizardPage page1 = new NewJavaClassWizardPage(
 				nestedModel, 
-				PAGE_TWO,
+				PAGE_ONE,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IEJBAnnotationConstants.ADD_MESSAGE_EJB_WIZARD_PAGE_TITLE);
-		page2.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
+				IEJBAnnotationConstants.ADD_MESSAGE_EJB_WIZARD_PAGE_TITLE,
+				IModuleConstants.JST_EJB_MODULE);
+		page1.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
+		addPage(page1);
+		AddMessageDrivenBeanWizardPage page2 = new AddMessageDrivenBeanWizardPage((MessageDrivenBeanDataModel) model, PAGE_TWO);
+		page2.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 		addPage(page2);
-		NewEjbClassOptionsWizardPage page3 = new NewEjbClassOptionsWizardPage(
+		page2.setPageComplete(false);
+		NewJavaClassOptionsWizardPage page3 = new NewJavaClassOptionsWizardPage(
 				nestedModel, 
 				PAGE_THREE,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
@@ -98,8 +103,8 @@ public class AddMessageDrivenEjbWizard extends NewEjbWizard {
 	}
 	
 	public boolean canFinish() {
-		AddMessageDrivenBeanWizardPage firstPage = (AddMessageDrivenBeanWizardPage)getPage(PAGE_ONE);
-		NewEJBJavaClassDestinationWizardPage secondPage = (NewEJBJavaClassDestinationWizardPage)getPage(PAGE_TWO);
+		NewJavaClassWizardPage firstPage = (NewJavaClassWizardPage)getPage(PAGE_ONE);
+		AddMessageDrivenBeanWizardPage secondPage = (AddMessageDrivenBeanWizardPage)getPage(PAGE_TWO);
 		if (firstPage != null && firstPage.isPageComplete() && secondPage.isPageComplete() ) {
 			return true;
 		}

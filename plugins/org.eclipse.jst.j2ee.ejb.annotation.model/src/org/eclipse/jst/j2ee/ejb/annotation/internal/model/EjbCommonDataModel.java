@@ -16,6 +16,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -181,5 +182,35 @@ public abstract class EjbCommonDataModel extends
 		}
 
 		return WTPCommonPlugin.OK_STATUS;
+	}
+
+	protected Object getDefaultProperty(String propertyName) {
+		if (propertyName.equals(EJB_NAME) && getNestedModel("NewEJBJavaClassDataModel") != null) {
+			String className = getNestedModel("NewEJBJavaClassDataModel").getStringProperty(NewJavaClassDataModel.CLASS_NAME);
+			if (className.endsWith("Bean"))
+				className = className.substring(0,className.length()-4);
+			return className;
+		} else if (propertyName.equals(JNDI_NAME)) {
+			return getProperty(EJB_NAME);
+		} else if (propertyName.equals(DISPLAY_NAME)) {
+			return getProperty(EJB_NAME);
+		} else if (propertyName.equals(DESCRIPTION)) {
+			return "A session bean named "+getStringProperty(EJB_NAME);
+		}
+		return super.getDefaultProperty(propertyName);
+	}
+
+	protected boolean doSetProperty(String propertyName, Object propertyValue) {
+		boolean result =  super.doSetProperty(propertyName, propertyValue);
+		if (propertyName.equals(EJB_NAME)) {
+			if (!isSet(JNDI_NAME))
+				notifyDefaultChange(JNDI_NAME);
+			else if (!isSet(DISPLAY_NAME))
+				notifyDefaultChange(DISPLAY_NAME);
+			if (!isSet(DESCRIPTION))
+				notifyDefaultChange(DESCRIPTION);
+		}
+		
+		return result;
 	}
 }

@@ -21,7 +21,7 @@ import org.osgi.framework.BundleContext;
  */
 public class EjbAnnotationsUiPlugin extends AbstractUIPlugin {
 	
-	public static final String PLUGINID= "org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.ui";
+	public static final String PLUGINID= "org.eclipse.jst.j2ee.ejb.annotations.ui";
 	//The shared instance.
 	private static EjbAnnotationsUiPlugin plugin;
 	//Resource bundle.

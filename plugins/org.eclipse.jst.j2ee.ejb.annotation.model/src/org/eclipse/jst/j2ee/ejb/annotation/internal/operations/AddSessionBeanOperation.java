@@ -26,12 +26,12 @@ import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.BeanFactory;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.EjbCommonDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.MessageDrivenBeanDataModel;
-import org.eclipse.jst.j2ee.ejb.annotation.internal.model.NewEJBJavaClassDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.classgen.EjbBuilder;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.SessionEjbEmitter;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.ISessionBeanDelegate;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
@@ -52,7 +52,7 @@ public class AddSessionBeanOperation extends WTPOperation {
 	private void createDefaultSessionBean(IProgressMonitor monitor) {
 		
 		SessionBeanDataModel ejbModel = (SessionBeanDataModel)this.getOperationDataModel();
-		NewEJBJavaClassDataModel ejbClassModel = (NewEJBJavaClassDataModel)ejbModel.getNestedModel("NewEJBJavaClassDataModel");
+		NewJavaClassDataModel ejbClassModel = (NewJavaClassDataModel)ejbModel.getNestedModel("NewEJBJavaClassDataModel");
 		
 		Session sessionBean = EjbFactory.eINSTANCE.createSession();
 		sessionBean.setName(ejbModel.getStringProperty(EjbCommonDataModel.EJB_NAME));
@@ -93,8 +93,8 @@ public class AddSessionBeanOperation extends WTPOperation {
 			ejbBuilder.setMonitor(monitor);
 			ejbBuilder.setPackageFragmentRoot(ejbClassModel.getJavaPackageFragmentRoot());
 			ejbBuilder.setEnterpriseBeanDelegate(delegate);
-			ejbBuilder.setTypeName(ejbClassModel.getStringProperty(NewEJBJavaClassDataModel.CLASS_NAME));
-			ejbBuilder.setPackageName(ejbClassModel.getStringProperty(NewEJBJavaClassDataModel.JAVA_PACKAGE));
+			ejbBuilder.setTypeName(ejbClassModel.getStringProperty(NewJavaClassDataModel.CLASS_NAME));
+			ejbBuilder.setPackageName(ejbClassModel.getStringProperty(NewJavaClassDataModel.JAVA_PACKAGE));
 				
 			ejbBuilder.setTypeComment(comment);
 			ejbBuilder.setTypeStub(stub);

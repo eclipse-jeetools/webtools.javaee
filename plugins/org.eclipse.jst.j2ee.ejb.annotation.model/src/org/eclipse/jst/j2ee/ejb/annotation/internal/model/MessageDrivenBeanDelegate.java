@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.IMessageDrivenBeanDelegate;
+import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
 
@@ -67,8 +68,8 @@ public class MessageDrivenBeanDelegate implements IMessageDrivenBeanDelegate {
 	}
 
 	public String getInterfaces() {
-		NewEJBJavaClassDataModel classDataModel = (NewEJBJavaClassDataModel)messageDrivenBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
-		List ints = (List)classDataModel.getProperty(NewEJBJavaClassDataModel.INTERFACES);
+		NewJavaClassDataModel classDataModel = (NewJavaClassDataModel)messageDrivenBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
+		List ints = (List)classDataModel.getProperty(NewJavaClassDataModel.INTERFACES);
 		Iterator iterator =  ints.iterator();
 		String intStr = (iterator.hasNext()? (String)iterator.next() : "javax.ejb.MessageDrivenBean, javax.jms.MessageListener");
 		while (iterator.hasNext()) {
@@ -83,8 +84,8 @@ public class MessageDrivenBeanDelegate implements IMessageDrivenBeanDelegate {
 	 * @see org.eclipse.jst.j2ee.ejb.annotation.model.ISessionBeanDelegate#getSimpleClassName()
 	 */
 	public String getSimpleClassName() {
-		NewEJBJavaClassDataModel classDataModel = (NewEJBJavaClassDataModel)messageDrivenBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
-		return classDataModel.getStringProperty(NewEJBJavaClassDataModel.CLASS_NAME);
+		NewJavaClassDataModel classDataModel = (NewJavaClassDataModel)messageDrivenBeanDataModel.getNestedModel("NewEJBJavaClassDataModel");
+		return classDataModel.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
 	}
 
 

@@ -16,8 +16,12 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.model.NewEJBJavaClassDataMod
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.SessionBeanDataModel;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.operations.AddSessionBeanOperation;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
+import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassOptionsWizardPage;
+import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 
 public class AddSessionEjbWizard extends NewEjbWizard {
@@ -47,15 +51,15 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 		NewEJBJavaClassDataModel nestedModel = new NewEJBJavaClassDataModel();
 		model.addNestedModel("NewEJBJavaClassDataModel", nestedModel); //$NON-NLS-1$
 		//nestedModel.setProperty(NewServletClassDataModel.EDITING_DOMAIN, domain);
-		nestedModel.setProperty(NewEJBJavaClassDataModel.SUPERCLASS, ((SessionBeanDataModel)model).getEjbSuperclassName());
-		nestedModel.setProperty(NewEJBJavaClassDataModel.INTERFACES, ((SessionBeanDataModel)model).getEJBInterfaces());
-		nestedModel.setBooleanProperty(NewEJBJavaClassDataModel.MODIFIER_ABSTRACT,true);
-		nestedModel.setParentDataModel(model);
+		nestedModel.setProperty(NewJavaClassDataModel.SUPERCLASS, ((SessionBeanDataModel)model).getEjbSuperclassName());
+		nestedModel.setProperty(NewJavaClassDataModel.INTERFACES, ((SessionBeanDataModel)model).getEJBInterfaces());
+		nestedModel.setBooleanProperty(NewJavaClassDataModel.MODIFIER_ABSTRACT,true);
+		//nestedModel.setParentDataModel(model);
 		
 		IProject project = getDefaultEjbProject();
 		if (project != null) {
-		    model.setProperty(NewJavaClassDataModel.PROJECT_NAME, project.getName());
-		    nestedModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, project.getName());
+		    model.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, project.getName());
+		    nestedModel.setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, project.getName());
 		}
 		return model;
 	}
@@ -70,18 +74,20 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
 	public void doAddPages() {
-		AddSessionBeanWizardPage page1 = new AddSessionBeanWizardPage((SessionBeanDataModel) model, PAGE_ONE);
-		page1.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
-		addPage(page1);
-		NewEJBJavaClassDataModel nestedModel = (NewEJBJavaClassDataModel)model.getNestedModel("NewEJBJavaClassDataModel"); //$NON-NLS-1$
-		NewEJBJavaClassDestinationWizardPage page2 = new NewEJBJavaClassDestinationWizardPage(
+		NewJavaClassDataModel nestedModel = (NewJavaClassDataModel)model.getNestedModel("NewEJBJavaClassDataModel"); //$NON-NLS-1$
+		NewJavaClassWizardPage page1 = new NewJavaClassWizardPage(
 				nestedModel, 
-				PAGE_TWO,
+				PAGE_ONE,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_DESTINATION_WIZARD_PAGE_DESC,
-				IEJBAnnotationConstants.ADD_SESSION_EJB_WIZARD_PAGE_TITLE);
-		page2.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
+				IEJBAnnotationConstants.ADD_SESSION_EJB_WIZARD_PAGE_TITLE,
+				IModuleConstants.JST_EJB_MODULE);
+		page1.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2);
+		addPage(page1);
+		AddSessionBeanWizardPage page2 = new AddSessionBeanWizardPage((SessionBeanDataModel) model, PAGE_TWO);
+		page2.setInfopopID(IEJBUIContextIds.ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1);
 		addPage(page2);
-		NewEjbClassOptionsWizardPage page3 = new NewEjbClassOptionsWizardPage(
+		page2.setPageComplete(false);
+		NewJavaClassOptionsWizardPage page3 = new NewJavaClassOptionsWizardPage(
 				nestedModel, 
 				PAGE_THREE,
 				IEJBAnnotationConstants.NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC,
@@ -98,11 +104,11 @@ public class AddSessionEjbWizard extends NewEjbWizard {
 	}
 	
 	public boolean canFinish() {
-		AddSessionBeanWizardPage firstPage = (AddSessionBeanWizardPage)getPage(PAGE_ONE);
-		NewEJBJavaClassDestinationWizardPage secondPage = (NewEJBJavaClassDestinationWizardPage)getPage(PAGE_TWO);
-		if (firstPage != null && firstPage.isPageComplete() && secondPage.isPageComplete() ) {
+		NewJavaClassWizardPage firstPage = (NewJavaClassWizardPage)getPage(PAGE_ONE);
+		AddSessionBeanWizardPage secondPage = (AddSessionBeanWizardPage)getPage(PAGE_TWO);
+		if (firstPage != null && firstPage.isPageComplete() && secondPage != null && secondPage.isPageComplete() ) {
 			return true;
 		}
-		return false;//super.canFinish();
+		return false;
 	}
 }

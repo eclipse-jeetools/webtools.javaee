@@ -122,7 +122,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 		jndiNameLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		jndiNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		jndiNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchText(jndiNameText, MessageDrivenBeanDataModel.DESTINATIONNAME, null);
+		synchHelper.synchText(jndiNameText, EjbCommonDataModel.JNDI_NAME, null);
 
 		// display name
 		Label displayNameLabel = new Label(composite, SWT.LEFT);

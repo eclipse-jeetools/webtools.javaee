@@ -56,6 +56,8 @@ public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IA
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
 			return Boolean.FALSE;
+		else if (propertyName.equals(DESTINATIONNAME))
+			return getProperty(JNDI_NAME);
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -109,7 +111,8 @@ public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IA
 				return Boolean.FALSE;
 			}
 			return Boolean.TRUE;
-		}
+		} else if (propertyName.equals(JNDI_NAME))
+			notifyDefaultChange(DESTINATIONNAME);
 		return super.basicIsEnabled(propertyName);
 	}
 

@@ -9,82 +9,86 @@
 
 package org.eclipse.jst.j2ee.ejb.annotation.internal.model;
 
-import java.io.File;
-
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
+import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
+import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetHelper;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 
-public class NewEJBJavaClassDataModel extends NewJavaClassDataModel {
-
-	protected WTPOperationDataModel parentDataModel = null;
-
-	protected IFolder getDefaultJavaSourceFolder() {
-		IProject project = getTargetProject();
-		if (project == null)
-			return null;
-		if (!ServerTargetHelper.hasJavaNature(project))
-			return null;
-		IPath folderFullPath = JavaProjectUtilities.getSourceFolderOrFirst(
-				project, "src").getFullPath();
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IFolder folder = root.getFolder(folderFullPath);
-		return folder;
+public class NewEJBJavaClassDataModel extends NewJavaClassDataModel implements IAnnotationsDataModel {
+	
+	/**
+	 * Subclasses may extend this method to add their own specific data model properties as valid
+	 * base properties.  This implementation adds the ejb specific properties to those added
+	 * by the NewJavaClassDataModel.
+	 * @see NewJavaClassDataModel#initValidBaseProperties()
+	 * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel#initValidBaseProperties()
+	 */
+	protected void initValidBaseProperties() {
+		super.initValidBaseProperties();
+		// Add ejb specific properties defined in this data model
+		addValidBaseProperty(USE_ANNOTATIONS);
 	}
-
-	public IPackageFragmentRoot getJavaPackageFragmentRoot() {
-		IProject project = getTargetProject();
-		if (project == null)
-			return null;
-		IJavaProject javaProject = JavaCore.create(project);
-		if (javaProject != null) {
-			IFolder sourcefolder = getJavaSourceFolder();
-			if (sourcefolder != null)
-				return javaProject.getPackageFragmentRoot(sourcefolder);
+	
+	/**
+	 * Subclasses may extend this method to provide their own determination of whether or not
+	 * certain properties should be disabled or enabled.  This method does not accept null parameter.
+	 * It will not return null.  This implementation makes sure annotation support is only allowed
+	 * on web projects of J2EE version 1.3 or higher.
+	 * @see org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel#basicIsEnabled(String)
+	 * @see IAnnotationsDataModel#USE_ANNOTATIONS
+	 * 
+	 * @param propertyName
+	 * @return Boolean should property be enabled?
+	 */
+	protected Boolean basicIsEnabled(String propertyName) {
+		// Annotations should only be enabled on a valid j2ee project of version 1.3 or higher
+		if (USE_ANNOTATIONS.equals(propertyName)) {
+			return Boolean.FALSE;
+//			if (!isAnnotationsSupported())
+//				return Boolean.FALSE;
+//			return Boolean.TRUE;
 		}
-		return null;
+		// Otherwise return super implementation
+		return super.basicIsEnabled(propertyName);
+	}
+	
+	protected boolean isAnnotationsSupported() {
+		if (getTargetProject()==null || getWorkbenchModule()==null) return true;
+		EJBArtifactEdit ejbEdit = null;
+		try {
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(getWorkbenchModule());
+			if (ejbEdit == null)
+				return false;
+			return ejbEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (ejbEdit != null)
+				ejbEdit.dispose();
+		}
 	}
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		if (propertyName.equals(SOURCE_FOLDER)) {
-			// Get the project name from the source folder name
-			String sourceFolder = (String) propertyValue;
-			int index = sourceFolder.indexOf(File.separator);
-			String projectName = sourceFolder;
-			if (index == 0)
-				projectName = sourceFolder.substring(1);
-			index = projectName.indexOf(File.separator);
-			if (index != -1) {
-				projectName = projectName.substring(0, index);
-				setProperty(PROJECT_NAME, projectName);
-				if (this.parentDataModel != null)
-					this.parentDataModel.setProperty(PROJECT_NAME, projectName);
-			}
+		// TODO Auto-generated method stub
+		boolean result = super.doSetProperty(propertyName, propertyValue);
+		// After the property is set, if project changed, update the nature and the annotations enablement
+		if (propertyName.equals(MODULE_NAME)) {
+			notifyEnablementChange(USE_ANNOTATIONS);
+		} else if (propertyName.equals(CLASS_NAME)) {
+			EjbCommonDataModel parentModel = (EjbCommonDataModel) getNestingModels().next();
+			if (!parentModel.isSet(EjbCommonDataModel.EJB_NAME))
+				parentModel.notifyDefaultChange(EjbCommonDataModel.EJB_NAME);
 		}
-		return super.doSetProperty(propertyName, propertyValue);
+		return result;
 	}
 
-	/**
-	 * @return Returns the parentdataModel.
-	 */
-	public WTPOperationDataModel getParentDataModel() {
-		return this.parentDataModel;
+	protected Object getDefaultProperty(String propertyName) {
+		if (propertyName.equals(USE_ANNOTATIONS))
+			return Boolean.TRUE;
+		else if (propertyName.equals(CLASS_NAME))
+			return "Bean";
+		return super.getDefaultProperty(propertyName);
 	}
 
-	/**
-	 * @param parentdataModel
-	 *            The parentdataModel to set.
-	 */
-	public void setParentDataModel(WTPOperationDataModel parentDataModel) {
-		this.parentDataModel = parentDataModel;
-	}
 }
