@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeAllocationInstantiationVisitor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/04 22:36:46 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/06 20:46:11 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -231,9 +231,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				((PTExpression) idx.get(i)).accept(this);
 			}
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -255,9 +255,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				}
 			}
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -275,9 +275,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				((PTExpression) exps.get(i)).accept(this);
 			}
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -289,9 +289,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 		try {
 			getExpression().createPrimitiveLiteral(getNextExpression(), node.isBooleanValue());
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -305,9 +305,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 			setNextExpression(IExpression.CAST_EXPRESSION);
 			node.getExpression().accept(this);
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -319,9 +319,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 		try {
 			getExpression().createPrimitiveLiteral(getNextExpression(), node.getCharValue());
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -339,9 +339,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				((PTExpression) args.get(i)).accept(this);
 			}
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -359,9 +359,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 			setNextExpression(IExpression.CONDITIONAL_FALSE);
 			node.getFalse().accept(this);			
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -377,9 +377,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				node.getReceiver().accept(this);
 			}
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -401,9 +401,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				((PTExpression) extended.get(i)).accept(this);
 			}
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -417,9 +417,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 			setNextExpression(IExpression.INSTANCEOF_VALUE);
 			node.getOperand().accept(this);
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -448,9 +448,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				((PTExpression) args.get(i)).accept(this);
 			}			
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -463,9 +463,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 			// This is special in the PTName can only be used as a type receiver at this time.
 			getExpression().createTypeReceiver(node.getName());
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -478,9 +478,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 			// This is special in the PTName can only be used as a type receiver at this time.
 			getExpression().createNull(getNextExpression());
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -511,9 +511,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 				getExpression().createPrimitiveLiteral(getNextExpression(), Integer.decode(lit).intValue());
 			}
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -535,9 +535,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 			setNextExpression(IExpression.PREFIX_OPERAND);
 			node.getExpression().accept(this);
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -549,9 +549,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 		try {
 			getExpression().createProxyExpression(getNextExpression(), getRegistry().getBeanProxyFactory().createBeanProxyWith(node.getLiteralValue()));
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
@@ -570,9 +570,9 @@ public class ParseTreeAllocationInstantiationVisitor extends ParseVisitor {
 		try {
 			getExpression().createTypeLiteral(getNextExpression(), node.getType());
 		} catch (ThrowableProxy e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		} catch (NoExpressionValueException e) {
-			new ProcessingException(e);
+			throw new ProcessingException(e);
 		}
 		return false;
 	}
