@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentCreationDataModel;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
@@ -73,7 +74,8 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
         EJBArtifactEdit ejbEdit = null;
        	try{
        		ejbEdit = EJBArtifactEdit.getEJBArtifactEditForWrite( wbmodule );
-       		ejbEdit.createModelRoot((Integer)operationDataModel.getProperty(EjbComponentCreationDataModel.COMPONENT_VERSION));
+       		Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+       		ejbEdit.createModelRoot(version.intValue());
        		ejbEdit.save(monitor);
        	}
        	catch(Exception e){

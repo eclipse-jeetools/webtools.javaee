@@ -179,7 +179,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
 			return (EObject) contents.get(0);
-		addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource(), null);
+		addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource());
 		return (EObject) contents.get(0);
 	}
 	
@@ -202,12 +202,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @param aModule
 	 *            A non-null pointing to a {@see XMLResource}
-	 * @param version
-	 * 			Version to be set on resource....if null default is taken
 	 * Note: This method is typically used for JUNIT - move?
 	 * </p>
 	 */
-	protected void addEJBJarIfNecessary(XMLResource aResource, Integer version) {
+	protected void addEJBJarIfNecessary(XMLResource aResource) {
 		if (aResource != null) {
 		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
 				EJBJar ejbJar = EjbFactory.eINSTANCE.createEJBJar();
@@ -217,8 +215,6 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 			URI moduleURI = getArtifactEditModel().getModuleURI();
 			try {
 				ejbJar.setDisplayName(ModuleCore.getDeployedName(moduleURI));
-				if(version != null)
-				    ejbJar.setVersion(version.toString());
 			} catch (UnresolveableURIException e) {
 			}
 			aResource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
@@ -317,11 +313,13 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	}
 
 	public EObject createModelRoot() {
-	    return createModelRoot(null);
+	    return createModelRoot(getJ2EEVersion());
 	}
 			
-	public EObject createModelRoot(Integer version) {
-	    addEJBJarIfNecessary((EJBResource)getDeploymentDescriptorResource(), version);
+	public EObject createModelRoot(int version) {
+	    EJBResource res = (EJBResource)getDeploymentDescriptorResource();
+	    res.setModuleVersionID(version);
+	    addEJBJarIfNecessary(res);
 		return ((EJBResource)getDeploymentDescriptorResource()).getRootObject();
 	}
 }
