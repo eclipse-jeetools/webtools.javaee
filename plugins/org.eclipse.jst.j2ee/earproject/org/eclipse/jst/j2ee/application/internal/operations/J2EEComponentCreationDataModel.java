@@ -376,4 +376,20 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	
 	protected abstract int convertModuleVersionToJ2EEVersion(int moduleVersion);
 
+	/**
+	 * @return Returns the addComponentToEARDataModel.
+	 */
+	public AddComponentToEnterpriseApplicationDataModel getAddComponentToEARDataModel() {
+		return addComponentToEARDataModel;
+	}
+	
+
+	/**
+	 * @param addComponentToEARDataModel The addComponentToEARDataModel to set.
+	 */
+	public void setAddComponentToEARDataModel(AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel) {
+		this.addComponentToEARDataModel = addComponentToEARDataModel;
+	}
+	
+
 }

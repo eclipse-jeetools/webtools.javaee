@@ -107,19 +107,19 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 		protected void runAddToEAROperation(J2EEComponentCreationDataModel moduleModel, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 			ModuleCore core = null;
 			try {
-				core = ModuleCore.getModuleCoreForWrite(getProject());
+				core = ModuleCore.getModuleCoreForRead(getProject());
 				WorkbenchComponent wc = core.findWorkbenchModuleByDeployName((String)moduleModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
-				AddComponentToEnterpriseApplicationDataModel dm = moduleModel.addComponentToEARDataModel;
+				AddComponentToEnterpriseApplicationDataModel dm = moduleModel.getAddComponentToEARDataModel();
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME,wc.getName());
 				String earModuleName = moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME);
 				if(earModuleName.endsWith("ear"))
 					dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
 				else
 					dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));
-				List modulesList = new ArrayList();
-				modulesList.add(wc);
-				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);
-				AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(moduleModel.addComponentToEARDataModel);
+				List modList = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
+				modList.add(wc);
+				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modList);
+				AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
 				addModuleOp.doRun(monitor);
 			} finally {
 				if(core != null)
