@@ -18,7 +18,6 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -31,6 +30,8 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.modulecore.resources.IVirtualContainer;
+import org.eclipse.wst.common.modulecore.resources.IVirtualFolder;
 
 public class EjbComponentCreationOperation extends J2EEComponentCreationOperation {
 	public EjbComponentCreationOperation(EjbComponentCreationDataModel dataModel) {
@@ -41,7 +42,21 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 		super();
 	}
 
-	
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#createAndLinkJ2EEComponents()
+     */
+    protected void createAndLinkJ2EEComponents() throws CoreException {
+        IVirtualContainer component = ModuleCore.create(getProject(), getModuleDeployName());
+        component.commit();
+		//create and link ejbModule Source Folder
+		IVirtualFolder appClientModuleFolder = component.getFolder(new Path("/ejbModule")); //$NON-NLS-1$		
+		appClientModuleFolder.createLink(new Path("/" + getModuleName() + "/ejbModule"), 0, null);
+		
+		//create and link META-INF folder
+		IVirtualFolder metaInfFolder = component.getFolder(new Path("/" + "ejbModule" + "/" + J2EEConstants.META_INF)); //$NON-NLS-1$		
+		metaInfFolder.createLink(new Path("/" + getModuleName() + "/" + "ejbModule" + "/"  + J2EEConstants.META_INF), 0, null);
+    } 
+
 	protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
 		//should cache wbmodule when created instead of  searching ?
@@ -87,49 +102,6 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 		runNestedDefaultOperation(((EjbComponentCreationDataModel)operationDataModel).getNestedEJBClientComponentDataModel() ,monitor);
 	}
 
-	protected  void addResources( WorkbenchComponent component ){
-		addResource(component, getModuleRelativeFile(getJavaSourceSourcePath(), getProject()), getJavaSourceDeployPath());		
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJavaSourceSourcePath() {
-		return "/" + getModuleName() +"/ejbModule"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJavaSourceDeployPath() {
-		return "/"; //$NON-NLS-1$
-	}
-
-
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation#createProjectStructure()
-	 */
-	protected void createProjectStructure() throws CoreException {
-
-		IFolder moduleFolder = getProject().getFolder(  getModuleName() );
-		if (!moduleFolder.exists()) {
-			moduleFolder.create(true, true, null);
-		}
-		IFolder ejbModuleFolder = moduleFolder.getFolder( "ejbModule" );
-		if (!ejbModuleFolder.exists()) {
-			ejbModuleFolder.create(true, true, null);
-		}
-		
-		IFolder metainf = ejbModuleFolder.getFolder(J2EEConstants.META_INF);
-		if (!metainf.exists()) {
-			IFolder parent = metainf.getParent().getFolder(null);
-			if (!parent.exists()) {
-				parent.create(true, true, null);
-			}
-			metainf.create(true, true, null);
-		}
-	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationOperation#getVersion()
@@ -137,6 +109,6 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
 	protected String getVersion() {
 		int version = operationDataModel.getIntProperty(J2EEComponentCreationDataModel.COMPONENT_VERSION);
 		return J2EEVersionUtil.getEJBTextVersion(version);
-	} 
+	}
 	
 }
