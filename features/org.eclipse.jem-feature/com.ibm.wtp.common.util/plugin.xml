@@ -14,11 +14,11 @@
    </runtime>
    <requires>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.perfmsr.core" optional="true"/>
    </requires>
-   
+
+
    <extension-point id="uiContextSensitiveClass" name="UI Context Sensitive Class" schema="schema/uiContextSensitiveClass.exsd"/>
    <extension-point id="uiTester" name="UI Tester" schema="schema/uiTester.exsd"/>
-   
-
 
 </plugin>
