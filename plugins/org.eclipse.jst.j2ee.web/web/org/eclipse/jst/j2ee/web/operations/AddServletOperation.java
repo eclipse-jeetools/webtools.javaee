@@ -93,12 +93,11 @@ public class AddServletOperation extends EditModelOperation {
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		//Retrieve values set in the newservletclass data model
 		NewServletClassDataModel model = (NewServletClassDataModel) operationDataModel;
-		boolean useExisting = model.getBooleanProperty(NewServletClassDataModel.USE_EXISTING_CLASS);
 		boolean isServletType = model.getBooleanProperty(NewServletClassDataModel.IS_SERVLET_TYPE);
 		String qualifiedClassName = model.getStringProperty(NewJavaClassDataModel.CLASS_NAME);
 		
-		// If the servlet does not use existing class, create the java class
-		if (!useExisting && isServletType)
+		// If it is servlet type, create the java class
+		if (isServletType)
 			qualifiedClassName = createServletClass();
 
 		// If the servlet is not annotated, generate the servlet metadata for the DD

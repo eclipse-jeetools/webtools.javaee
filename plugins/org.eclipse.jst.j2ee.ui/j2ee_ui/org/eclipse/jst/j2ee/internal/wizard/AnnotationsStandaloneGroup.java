@@ -142,7 +142,7 @@ public class AnnotationsStandaloneGroup {
 				nature = (J2EEModuleNature) project.getNature(IEJBNatureConstants.NATURE_ID);
 
 			if (!isForBean || (nature != null && nature.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2))
-				return AnnotationsControllerManager.INSTANCE.isAnyAnnotationsSupported();
+				return true;
 			return false;
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -153,13 +153,13 @@ public class AnnotationsStandaloneGroup {
 	public void setEnablement(IProject project) {
 		boolean isEnabled = isAnnotationsSupported(project);
 		useAnnotations.setEnabled(isEnabled);
-		if (!isEnabled || (!isForBean && !shouldProjectDefaultUseAnnotations) || (isForBean && !shouldBeanDefaultUseAnnotations)) {
-			useAnnotations.setSelection(false);
-			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
-		} else {
-			useAnnotations.setSelection(true);
-			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.TRUE);
-		}
+//		if (!isEnabled || (!isForBean && !shouldProjectDefaultUseAnnotations) || (isForBean && !shouldBeanDefaultUseAnnotations)) {
+//			useAnnotations.setSelection(false);
+//			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.FALSE);
+//		} else {
+//			useAnnotations.setSelection(true);
+//			model.setProperty(IAnnotationsDataModel.USE_ANNOTATIONS, Boolean.TRUE);
+//		}
 	}
 
 	public void setUseServlet(boolean aBoolean) {

@@ -13,34 +13,22 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jface.window.Window;
-import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.jst.j2ee.web.operations.NewServletClassDataModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -50,14 +38,6 @@ public class AddServletWizardPage extends WTPWizardPage {
 	final static String[] JSPEXTENSIONS = {"jsp"}; //$NON-NLS-1$
 
 	private Text displayNameText;
-
-	private Label classLabel;
-
-	private Text classText;
-
-	private Button classButton;
-
-	private Button existingButton;
 
 	private StringArrayTableWizardSection urlSection;
 	
@@ -75,8 +55,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 	 * @see com.ibm.wtp.common.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{NewServletClassDataModel.DISPLAY_NAME, NewServletClassDataModel.USE_EXISTING_CLASS, //NewJavaClassDataModel.CLASS_NAME,
-				NewServletClassDataModel.INIT_PARAM, NewServletClassDataModel.URL_MAPPINGS};
+		return new String[]{NewServletClassDataModel.DISPLAY_NAME, NewServletClassDataModel.INIT_PARAM, NewServletClassDataModel.URL_MAPPINGS};
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -93,7 +72,6 @@ public class AddServletWizardPage extends WTPWizardPage {
 		urlSection = new StringArrayTableWizardSection(composite, IWebWizardConstants.URL_MAPPINGS_LABEL, IWebWizardConstants.ADD_BUTTON_LABEL, IWebWizardConstants.REMOVE_BUTTON_LABEL,
 				new String[]{IWebWizardConstants.URL_PATTERN_LABEL}, null,// WebPlugin.getDefault().getImage("url_type"),
 				model, NewServletClassDataModel.URL_MAPPINGS);
-		createClassGroup(composite);
 		displayNameText.setFocus();
 
 		IStatus projectStatus = validateProjectName();
@@ -144,104 +122,6 @@ public class AddServletWizardPage extends WTPWizardPage {
 		synchHelper.synchText(descText, NewServletClassDataModel.DESCRIPTION, null);
 	}
 
-	protected void createClassGroup(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NULL);
-		composite.setLayout(new GridLayout(3, false));
-		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-		existingButton = new Button(composite, SWT.CHECK);
-		existingButton.setText(IWebWizardConstants.USE_EXISTING_SERVLET_CLASS);
-		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		data.horizontalSpan = 3;
-		existingButton.setLayoutData(data);
-		synchHelper.synchCheckbox(existingButton, NewServletClassDataModel.USE_EXISTING_CLASS, null);
-		existingButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				handleExistingButtonSelected();
-			}
-		});
-
-		classLabel = new Label(composite, SWT.LEFT);
-		classLabel.setText(IWebWizardConstants.CLASS_NAME_LABEL);
-		classLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		classLabel.setEnabled(false);
-
-		classText = new Text(composite, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
-		classText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		classText.setEnabled(false);
-		synchHelper.synchText(classText, NewJavaClassDataModel.CLASS_NAME, null);
-
-		classButton = new Button(composite, SWT.PUSH);
-		classButton.setText(IWebWizardConstants.BROWSE_BUTTON_LABEL);
-		classButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-		classButton.setEnabled(false);
-		classButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				handleClassButtonSelected();
-			}
-		});
-	}
-
-	private void handleExistingButtonSelected() {
-		boolean enable = existingButton.getSelection();
-		if (!enable) {
-			classText.setText(""); //$NON-NLS-1$
-		}
-		classLabel.setEnabled(enable);
-		classButton.setEnabled(enable);
-	}
-
-	private void handleClassButtonSelected() {
-		getControl().setCursor(new Cursor(getShell().getDisplay(), SWT.CURSOR_WAIT));
-		IProject project = ((NewServletClassDataModel)model).getTargetProject();
-		
-		MultiSelectFilteredFileSelectionDialog ms = new MultiSelectFilteredFileSelectionDialog(getShell(), IWebWizardConstants.NEW_SERVLET_WIZARD_WINDOW_TITLE,
-				IWebWizardConstants.CHOOSE_SERVLET_CLASS, JSPEXTENSIONS, false, project);
-		IBaseWebNature nature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
-		IContainer root = nature.getRootPublishableFolder();
-		ms.setInput(root);
-		ms.open();
-		if (ms.getReturnCode() == Window.OK) {
-			String qualifiedClassName = ""; //$NON-NLS-1$
-			if (ms.getSelectedItem() == MultiSelectFilteredFileSelectionDialog.JSP) {
-				Object obj = ms.getFirstResult();
-				if (obj != null) {
-					if (obj instanceof IFile) {
-						IFile file = (IFile) obj;
-						IPath pFull = file.getFullPath();
-						IPath pBase = root.getFullPath();
-						IPath path = pFull.removeFirstSegments(pBase.segmentCount());
-						qualifiedClassName = path.makeAbsolute().toString();
-						model.setProperty(NewServletClassDataModel.IS_SERVLET_TYPE, new Boolean(false));
-					}
-				}
-			} else {
-				IType type = (IType) ms.getFirstResult();
-				if (type != null) {
-					qualifiedClassName = type.getFullyQualifiedName();
-					model.setProperty(NewServletClassDataModel.IS_SERVLET_TYPE, new Boolean(true));
-				}
-			}
-			classText.setText(qualifiedClassName);
-		}
-		getControl().setCursor(null);
-	}
-
-	public boolean canFlipToNextPage() {
-		// when the existingButton is checked, following pages are not needed
-		if (existingButton.getSelection())
-			return false;
-		return super.canFlipToNextPage();
-	}
-
-	public boolean canFinish() {
-		// when the existingButton is checked, only need to check if class is
-		// set
-		if (existingButton.getSelection())
-			return classText.getText().trim().length() > 0 && super.canFlipToNextPage();
-		return false;
-	}
-
 	/**
 	 * Create annotations group and set default enablement
 	 */
@@ -250,7 +130,7 @@ public class AddServletWizardPage extends WTPWizardPage {
 		IProject project = null;
 		project = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty(EditModelOperationDataModel.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
-		annotationsGroup.setUseAnnotations(true);
+		//annotationsGroup.setUseAnnotations(true);
 	}
 
 	public String getDisplayName() {

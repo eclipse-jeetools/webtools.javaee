@@ -137,12 +137,6 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	public static final String DESCRIPTION = "NewServletClassDataModel.DESCRIPTION"; //$NON-NLS-1$
 	
 	/**
-	 * Optional, boolean property used to determine whether or not to use an existing class or gen a new one.
-	 * The default is false.
-	 */
-	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
-	
-	/**
 	 * The fully qualified default servlet superclass: HttpServlet.
 	 */
 	public final static String SERVLET_SUPERCLASS = "javax.servlet.http.HttpServlet"; //$NON-NLS-1$ 
@@ -167,6 +161,8 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	 * The J2EENature for the currently selected and targetted project.
 	 */
 	protected J2EENature j2eeNature;
+	
+	private static boolean useAnnotations = true;
 	
 	/**
 	 * Subclasses may extend this method to provide their own default operation for this
@@ -226,7 +222,6 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		addValidBaseProperty(USE_ANNOTATIONS);
 		addValidBaseProperty(DISPLAY_NAME);
 		addValidBaseProperty(DESCRIPTION);
-		addValidBaseProperty(USE_EXISTING_CLASS);
 	}
 
 	/**
@@ -252,7 +247,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 			return new Boolean(true);
 		// Create an annotated servlet java class by default
 		else if (propertyName.equals(USE_ANNOTATIONS))
-			return Boolean.TRUE;
+			return shouldDefaultAnnotations();
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
 	}
@@ -274,6 +269,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		
 		// If annotations is changed, notify an enablement change
 		if (propertyName.equals(USE_ANNOTATIONS)) {
+			useAnnotations = ((Boolean) propertyValue).booleanValue();
 			if (j2eeNature !=null && ((Boolean) propertyValue).booleanValue() && j2eeNature.getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				return true;
 			notifyEnablementChange(USE_ANNOTATIONS);
@@ -351,29 +347,11 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		// Validate the servlet name in DD
 		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
-		// Validate existing class as servlet class
-		if (propertyName.equals(USE_EXISTING_CLASS))
-			return validateExistingClass(getBooleanProperty(propertyName));
+		// If our default is the superclass, we know it is ok
+		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(SERVLET_SUPERCLASS))
+			return WTPCommonPlugin.OK_STATUS;
 		// Otherwise defer to super to validate the property
 		return super.doValidateProperty(propertyName);
-	}
-	
-	/**
-	 * This method is intended for internal use only.  It will ensure the existing class
-	 * specified is a valid class.  It will essentially defer to NewJavaClassDataModel to do this.
-	 * This method does not accept a null parameter. It will not return null.
-	 * @see NewServletClassDataModel#validateJavaClassName(String)
-	 * @see NewServletClassDataModel#doValidateProperty(String)
-	 * 
-	 * @param prop
-	 * @return IStatus is existing class valid for servlet?
-	 */
-	private IStatus validateExistingClass(boolean prop) {
-		// If use existing is true, validate the class name of the existing class specified
-		if (prop)
-			return validateJavaClassName(getStringProperty(CLASS_NAME));
-		// If use existing is false, it is always valid
-		return WTPCommonPlugin.OK_STATUS;
 	}
 
 	/**
@@ -636,5 +614,13 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		if (j2eeNature != null)
 			return (WebApp) j2eeNature.getDeploymentDescriptorRoot();
 		return null;
+	}
+	/**
+	 * @return boolean should the default annotations be true?
+	 */
+	private static Boolean shouldDefaultAnnotations() {
+		if (useAnnotations)
+			return Boolean.TRUE;
+		return Boolean.FALSE;
 	}
 }

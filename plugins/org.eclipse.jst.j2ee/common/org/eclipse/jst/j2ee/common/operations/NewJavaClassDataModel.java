@@ -362,6 +362,12 @@ public class NewJavaClassDataModel extends EditModelOperationDataModel {
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_WARNING) + javaStatus.getMessage();
 			return WTPCommonPlugin.createWarningStatus(msg);
 		}
+		// Make sure the class does not already exist
+		else if (findTypeInClasspath(getQualifiedClassName())!=null) {
+		 	String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_NAME_EXIST);
+		 	return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		
 		// The java class name is valid
 		return WTPCommonPlugin.OK_STATUS;
 	}
