@@ -17,7 +17,9 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.server.core.IModule;
@@ -78,18 +80,34 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 		List modules = createModules(nature);
 		IModule[] moduleArray = new IModule[modules.size()];
 		modules.toArray(moduleArray);
-
-		// TODO Auto-generated method stub
 		return moduleArray;
 	}
+	
+	protected List createModules(ModuleCoreNature nature) {
+		IProject project = nature.getProject();
+		List modules = new ArrayList(1); 
+		ModuleCore moduleCore = null;
+		try {
+			
+			moduleCore = ModuleCore.getModuleCoreForRead(project);
+			EList workBenchModules = moduleCore.getModuleModelRoot().getComponents();						 
+			if (workBenchModules.isEmpty())
+				return modules;
+			modules = createModuleDelegates(workBenchModules, project);
 
-	/**
-	 * Returns true if the project represents a deployable project of this type.
-	 * 
-	 * @param project
-	 *            org.eclipse.core.resources.IProject
-	 * @return boolean
-	 */
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(moduleCore != null) 
+				moduleCore.dispose();
+		}
+		return modules;
+	}
+
+
+	protected abstract List createModuleDelegates(EList workBenchModules, IProject project) throws CoreException; 
+
+	
 	protected boolean isValidModule(IProject project) {
 		try {
 			return isFlexableProject(project);
@@ -100,27 +118,16 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 
 	protected abstract String getNatureID();
 
-	/**
-	 * Creates the module project for the given project.
-	 * 
-	 * @param project
-	 *            org.eclipse.core.resources.IProject
-	 * @return com.ibm.etools.server.core.model.IProjectModule
-	 */
-	protected IModule createModule(IProject project) {
+	
+/*	protected IModule createModule(IProject project) {
 		try {
 			J2EENature nature = (J2EENature) project.getNature(getNatureID());
 			return createModule(nature);
 		} catch (Exception e) {
 		}
 		return null;
-	}
+	}*/
 
-	protected abstract List createModules(ModuleCoreNature nature);
-
-	//public abstract String getNatureID();
-
-	public abstract IModule createModule(J2EENature nature);
 
 	public ModuleDelegate getModuleDelegate(IModule module) {
 		if (moduleDelegates == null)

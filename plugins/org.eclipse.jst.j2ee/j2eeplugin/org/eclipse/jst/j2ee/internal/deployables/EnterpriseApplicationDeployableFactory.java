@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
@@ -107,6 +108,14 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	
 	protected boolean isValidModule(IProject project) {
 		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory#createModuleDelegates(org.eclipse.emf.common.util.EList, org.eclipse.core.resources.IProject)
+	 */
+	protected List createModuleDelegates(EList workBenchModules, IProject project) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
