@@ -58,6 +58,7 @@ public class WEBUIMessages extends Messages {
 		try {
 			resourceBundle = ResourceBundle.getBundle("web_ui"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
+			// Do nothing
 		}
 	}
 

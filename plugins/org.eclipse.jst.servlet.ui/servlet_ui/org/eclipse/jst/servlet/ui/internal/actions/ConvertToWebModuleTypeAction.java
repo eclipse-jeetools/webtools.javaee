@@ -84,12 +84,12 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * Is this a web project?
 	 */
-	boolean isAWebProject(IProject project)
+	boolean isAWebProject(IProject aProject)
 	{
-		if( project == null ) return false;
+		if( aProject == null ) return false;
 		try
 		{
-			project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
+			aProject.getNature(IWebNatureConstants.J2EE_NATURE_ID);
 		}
 		catch( CoreException coe )
 		{
@@ -101,18 +101,17 @@ public class ConvertToWebModuleTypeAction extends AbstractOpenWizardWorkbenchAct
 	/**
 	 * make sure a web project is selected.
 	 */
-	public boolean isValidProject(IProject project)
+	public boolean isValidProject(IProject aProject)
 	{
-		if( isAWebProject(project) )
+		if( isAWebProject(aProject) )
 		{
 			try
 			{
-				IBaseWebNature nature = (IBaseWebNature) project
+				IBaseWebNature nature = (IBaseWebNature) aProject
 						.getNature(IWebNatureConstants.STATIC_NATURE_ID);
 				if( nature == null )
 					return false;
-				else
-					return true;
+				return true;
 			}
 			catch( CoreException e )
 			{

@@ -33,7 +33,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 
 public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 {
-	private static final String WIZARD_ID = "org.eclipse.jst.servlet.ui.internal.wizard.convertWebProjectTypeWizard"; //$NON-NLS-1$
+	private static final String ConvertToWebModuleTypeWizard = "org.eclipse.jst.servlet.ui.internal.wizard.convertWebProjectTypeWizard"; //$NON-NLS-1$
 
 	public ConvertToWebModuleTypeWizard(ConvertWebProjectDataModel dataModel)
 	{
@@ -83,8 +83,7 @@ public class ConvertToWebModuleTypeWizard extends WebModuleCreationWizard
 	 */
 	public String getWizardID()
 	{
-		// TODO Auto-generated method stub
-		return super.getWizardID();
+		return ConvertToWebModuleTypeWizard;
 	}
 
 	/*

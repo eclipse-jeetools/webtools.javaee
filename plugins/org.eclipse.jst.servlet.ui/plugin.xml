@@ -30,7 +30,52 @@
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.wst.web"/>
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
    </requires>
+   
+   
+    <!--new servlet contribution-->
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            name="%ServletWebRegionWizard.name"
+            icon="icons/full/ctool16/newservlet_wiz.gif"
+            category="org.eclipse.jst.servlet.ui"
+            class="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard"
+            id="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+         <description>
+            %ServletWebRegionWizard.description
+         </description>
+      </wizard>
+   </extension>
+   
+    <extension
+         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
+          <commonWizard
+            type="new"
+            wizardId="org.eclipse.jst.servlet.ui.internal.wizard.AddServletWizard">
+         <enablement>
+            <or> 
+            	 <objectClass
+                    name="org.eclipse.jst.j2ee.internal.war.ui.util.WebServletGroupItemProvider">
+               	 </objectClass>
+               	 <objectClass
+                    name="org.eclipse.jst.j2ee.webapplication.WebApp">
+               	 </objectClass>
+               	 <and>
+               	   <objectClass
+	                     name="org.eclipse.core.resources.IProject">
+	               </objectClass>
+	               <objectState
+                        name="projectNature"
+                        value="org.eclipse.jst.j2ee.web.WebNature">
+                   </objectState>
+               	 </and>
+            </or>
+         </enablement>
+       </commonWizard>
+      </extension> 
    
 <!-- Web Project Wizard -->
     <extension
@@ -90,56 +135,7 @@
       </wizard>
     </extension>
     
-<!-- WEB Group Contributions 
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.ui.navigator.webProjectActions">
-         <action
-               label="%web.project_ui_"
-               icon="icons/full/ctool16/newwar_wiz.gif"
-               class="org.eclipse.jst.servlet.ui.internal.actions.NewWebProjectAction"
-               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.servlet.ui.internal.actions.NewWebProjectAction">
-         </action>
-         <visibility>
-            <objectState
-                  name="projectNature"
-                  value="org.eclipse.jst.j2ee.web.WebNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-   
-      <objectContribution
-            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
-            id="org.eclipse.jst.j2ee.internal.ui.navigator.webProjectActions">
-         <action
-               label="%WarImportWizard.name"
-               icon="icons/full/ctool16/importwar_wiz.gif"
-               class="org.eclipse.jst.servlet.ui.internal.actions.ImportWARAction"
-               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.servlet.ui.internal.actions.ImportWARAction">
-         </action>
-         <action
-               label="%WarexportWizard.name"
-               icon="icons/full/ctool16/exportwar_wiz.gif"
-               class="org.eclipse.jst.servlet.ui.internal.actions.ExportWARAction"
-               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.export.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.servlet.ui.internal.actions.ExportWARAction">
-         </action>
-         <visibility>
-            <objectState
-                  name="projectNature"
-                  value="org.eclipse.jst.j2ee.web.WebNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-   </extension> 
-   -->
+
    <extension
          point="org.eclipse.wst.common.frameworks.ui.extendableWizard">
       <extendableWizard
@@ -169,6 +165,7 @@
 			</action>
 		</actionSet>
 	</extension>
+	
 	<extension
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
           <!-- Web New -->

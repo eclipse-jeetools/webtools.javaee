@@ -32,7 +32,7 @@ public class ServletUIPlugin extends AbstractUIPlugin {
 	}
 	
 	public ServletUIPlugin() {
-		
+		//Default constructor
 	}
 	
 	/**
