@@ -21,8 +21,6 @@
    <requires>
       <import feature="org.eclipse.jdt" version="2.1.1" match="compatible"/>
       <import feature="org.eclipse.emf" version="1.1.1" match="compatible"/>
-      <import plugin="com.ibm.etools.emf.event" version="2.0.0" match="equivalent"/>
-      <import plugin="com.ibm.etools.emf.workbench" version="5.1.1" match="equivalent"/>
    </requires>
 
    <plugin
@@ -54,5 +52,23 @@
          download-size="0"
          install-size="0"
          version="0.5.0"/>
+
+   <plugin
+         id="com.ibm.etools.emf.ecore.utilities"
+         download-size="0"
+         install-size="0"
+         version="5.1.1"/>
+
+   <plugin
+         id="com.ibm.etools.emf.event"
+         download-size="0"
+         install-size="0"
+         version="2.0.0.1"/>
+
+   <plugin
+         id="com.ibm.etools.emf.workbench"
+         download-size="0"
+         install-size="0"
+         version="5.1.1"/>
 
 </feature>
