@@ -74,9 +74,9 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		
 		EjbComponentCreationDataModel model = new EjbComponentCreationDataModel();
 		model.setProperty( EjbComponentCreationDataModel.PROJECT_NAME, projectName);
-		model.setIntProperty(EjbComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
-		model.setProperty(EjbComponentCreationDataModel.MODULE_NAME, aModuleName);		
-		model.setProperty(EjbComponentCreationDataModel.MODULE_DEPLOY_NAME, aModuleDeployName);
+		model.setIntProperty(EjbComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(EjbComponentCreationDataModel.COMPONENT_NAME, aModuleName);		
+		model.setProperty(EjbComponentCreationDataModel.COMPONENT_DEPLOY_NAME, aModuleDeployName);
 		try {
 			runEJBComponenteCreationOperation(model);
 		}
@@ -103,9 +103,9 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		
 		WebComponentCreationDataModel model = new WebComponentCreationDataModel();
 		model.setProperty( WebComponentCreationDataModel.PROJECT_NAME, projectName);
-		model.setIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
-		model.setProperty(WebComponentCreationDataModel.MODULE_NAME, aModuleName);		
-		model.setProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME, aModuleDeployName);
+		model.setIntProperty(WebComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(WebComponentCreationDataModel.COMPONENT_NAME, aModuleName);		
+		model.setProperty(WebComponentCreationDataModel.COMPONENT_DEPLOY_NAME, aModuleDeployName);
 		try {
 			runWebModuleCreationOperation(model);
 		}

@@ -44,7 +44,7 @@ public class FlexibleConnectorModuleCreationTest extends OperationTestCase {
     public void createAppClientModule(String moduleName) throws Exception {
         ConnectorComponentCreationDataModel dataModel = getFlexibleConnectorModuleCreation();
         dataModel.setProperty(ConnectorComponentCreationDataModel.PROJECT_NAME, DEFAULT_PROJECT_NAME);
-        dataModel.setProperty(ConnectorComponentCreationDataModel.MODULE_NAME, DEFAULT_MODULE_NAME);
+        dataModel.setProperty(ConnectorComponentCreationDataModel.COMPONENT_NAME, DEFAULT_MODULE_NAME);
         runAndVerify(dataModel);
     }
     

@@ -44,7 +44,7 @@ public class FlexibleAppClientModuleCreationTest extends OperationTestCase {
     public void createAppClientModule(String moduleName) throws Exception {
         AppClientComponentCreationDataModel dataModel = getFlexibleAppClientModuleCreation();
         dataModel.setProperty(AppClientComponentCreationDataModel.PROJECT_NAME, DEFAULT_PROJECT_NAME);
-        dataModel.setProperty(AppClientComponentCreationDataModel.MODULE_NAME, DEFAULT_MODULE_NAME);
+        dataModel.setProperty(AppClientComponentCreationDataModel.COMPONENT_NAME, DEFAULT_MODULE_NAME);
         runAndVerify(dataModel);
     }
     

@@ -81,9 +81,9 @@ public class WebProjectCreationTomcatTest extends TestCase {
 		String moduleDeployName = moduleName + ".war" ;
 		WebComponentCreationDataModel model = new WebComponentCreationDataModel();
 		model.setProperty( WebComponentCreationDataModel.PROJECT_NAME, javaProject.getName());
-		model.setIntProperty(WebComponentCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
-		model.setProperty(WebComponentCreationDataModel.MODULE_NAME, moduleName);		
-		model.setProperty(WebComponentCreationDataModel.MODULE_DEPLOY_NAME, moduleDeployName);
+		model.setIntProperty(WebComponentCreationDataModel.COMPONENT_VERSION, j2eeVersion);
+		model.setProperty(WebComponentCreationDataModel.COMPONENT_NAME, moduleName);		
+		model.setProperty(WebComponentCreationDataModel.COMPONENT_DEPLOY_NAME, moduleDeployName);
 		return model;
 	}
 	
