@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/07 18:31:01 $ 
+ *  $Revision: 1.5 $  $Date: 2004/05/18 18:15:21 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -509,7 +509,8 @@ public class ParseTreeCreationFromAST extends ASTVisitor {
 	 * @see org.eclipse.jdt.core.dom.ASTVisitor#visit(org.eclipse.jdt.core.dom.ThisExpression)
 	 */
 	public boolean visit(ThisExpression node) {
-		return false;	// We should be able to handle something of "this", but not quite sure how.
+		expression = InstantiationFactory.eINSTANCE.createPTThisLiteral();
+		return false;	
 	}
 
 	/* (non-Javadoc)
