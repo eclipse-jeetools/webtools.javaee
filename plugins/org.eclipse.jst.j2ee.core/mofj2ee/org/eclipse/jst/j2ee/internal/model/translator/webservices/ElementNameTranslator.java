@@ -14,8 +14,8 @@ package org.eclipse.jst.j2ee.internal.model.translator.webservices;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.internal.model.translator.common.CommonTranslators;
+import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
-import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.wst.common.internal.emf.resource.Translator;
 
 public class ElementNameTranslator extends Translator implements JaxrpcmapXmlMapperI {

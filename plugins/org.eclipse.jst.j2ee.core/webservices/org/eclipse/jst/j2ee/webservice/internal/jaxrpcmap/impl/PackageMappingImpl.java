@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
+import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PackageMapping;
 
 /**

@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
+import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.JaxrpcmapPackage;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.PortMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceInterfaceMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.WSDLServiceName;

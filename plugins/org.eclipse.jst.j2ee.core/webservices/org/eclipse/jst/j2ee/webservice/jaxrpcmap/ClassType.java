@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.jaxrpcmap;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap.JaxrpcmapPackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -8,13 +8,14 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.webservice.jaxrpcmap;
+package org.eclipse.jst.j2ee.webservice.internal.jaxrpcmap;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
+import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 
 /**
  * <!-- begin-user-doc -->
