@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wst.webbrowser.WebBrowser;
-import org.eclipse.wst.webbrowser.WebBrowserEditorInput;
+import org.eclipse.wst.webbrowser.internal.WebBrowserEditorInput;
 import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
