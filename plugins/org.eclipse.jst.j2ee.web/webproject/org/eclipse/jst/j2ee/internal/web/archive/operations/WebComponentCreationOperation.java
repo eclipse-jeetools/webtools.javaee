@@ -59,7 +59,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
     	webContent.createLink(new Path("/" + getModuleName() + "/" + "WebContent" ), 0, null);
     	
     	IVirtualFolder webInfFolder = webContent.getFolder(J2EEConstants.WEB_INF);
-    	webInfFolder.create(true, true, null);
+    	webInfFolder.create(true, true, null);		
     	
     	IVirtualFolder metaInfFolder = webContent.getFolder(J2EEConstants.META_INF);
     	metaInfFolder.create(true, true, null);

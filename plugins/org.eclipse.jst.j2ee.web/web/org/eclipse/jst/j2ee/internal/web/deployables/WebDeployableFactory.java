@@ -22,9 +22,8 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
-import org.eclipse.wst.common.modulecore.ModuleStructuralModel;
-import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.server.core.IModule;
 
@@ -52,13 +51,12 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 
 	protected List createModules(ModuleCoreNature nature) {
 		IProject project = nature.getProject();
-		List modules = new ArrayList(1);
-		ModuleStructuralModel moduleStructureModel = null;
+		List modules = new ArrayList(1); 
+		ModuleCore moduleCore = null;
 		try {
-			ModuleCoreNature moduleCoreNature = ModuleCoreNature.getModuleCoreNature(project);
-			moduleStructureModel = moduleCoreNature.getModuleStructuralModelForRead(this);
-			ProjectComponents components = (ProjectComponents) moduleStructureModel.getPrimaryRootObject();
-			EList workBenchModules = components.getComponents();
+			
+			moduleCore = ModuleCore.getModuleCoreForRead(project);
+			EList workBenchModules = moduleCore.getModuleModelRoot().getComponents();						 
 			if (workBenchModules.isEmpty())
 				return modules;
 			modules = createModuleDelegates(workBenchModules, project);
@@ -66,7 +64,8 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			moduleStructureModel.releaseAccess(this);
+			if(moduleCore != null) 
+				moduleCore.dispose();
 		}
 		return modules;
 	}

@@ -51,6 +51,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
+		
 		// preparation
 		JavaDeployableModuleBuilderDataModel dataModel = (JavaDeployableModuleBuilderDataModel) operationDataModel;
 		WorkbenchComponent workbenchModule = (WorkbenchComponent)dataModel.getProperty(DeployableModuleBuilderDataModel.WORKBENCH_MODULE);
@@ -59,6 +60,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 		IPath projectPath = project.getFullPath();
 		IJavaProject javaProj = JavaProjectUtilities.getJavaProject(project);
 		List javaSourceFolderList = JavaProjectUtilities.getSourceContainers(project);
+		
 		
 		// create output container folder if it does not exist
 		IFolder outputContainer = (IFolder)dataModel.getProperty(DeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
@@ -84,10 +86,10 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 				// check if there are nested java output paths. if so, abort.
 				for (int j = 0; j < javaOutputPathList.size(); j++) {
 					IPath path = (IPath)javaOutputPathList.get(j);
-					if (path.isPrefixOf(deployPath) || deployPath.isPrefixOf(path)) {
-						// add a problem marker
-						IResource wtpmoduleFile = project.findMember(".wtpmodules"); //$NON-NLS-1$
-						wtpmoduleFile.deleteMarkers(IMarker.PROBLEM, true, IResource.DEPTH_INFINITE);      
+					if (!path.equals(deployPath) && (path.isPrefixOf(deployPath) || deployPath.isPrefixOf(path))) {
+
+						IResource wtpmoduleFile = project.findMember(".wtpmodules"); //$NON-NLS-1$ 
+						// add a problem marker    
 						IMarker m = wtpmoduleFile.createMarker(IMarker.PROBLEM);
 						String msg = J2EEPluginResourceHandler.getString("NESTED_JAVA_OUTPUT_ERROR"); //$NON-NLS-1$
 						m.setAttribute(IMarker.MESSAGE, msg);

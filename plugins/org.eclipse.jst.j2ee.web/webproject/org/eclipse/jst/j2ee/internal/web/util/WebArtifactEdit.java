@@ -13,10 +13,12 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -253,6 +255,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		    if(aResource.getContents() == null || aResource.getContents().isEmpty()) {
 		        WebApp webAppNew = WebapplicationFactory.eINSTANCE.createWebApp();
 				aResource.getContents().add(webAppNew);
+				aResource.setModified(true);
 		    } 
 		    WebApp webApp = (WebApp)aResource.getContents().get(0);
 			URI moduleURI = getArtifactEditModel().getModuleURI();
@@ -352,8 +355,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return the eObject instance of the model root
 	 */
 	public EObject createModelRoot(Integer version) {
-	    addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource(), version);
-		return ((WebAppResource)getDeploymentDescriptorResource()).getRootObject();
+		WebAppResource resource = (WebAppResource)getDeploymentDescriptorResource();
+	    addWebAppIfNecessary(resource, version);
+		return resource.getRootObject();
 	}
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib
