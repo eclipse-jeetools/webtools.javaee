@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.proxy.ide;
 /*
- * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.5 $ $Date: 2004/08/27 15:35:20 $
+ * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.6 $ $Date: 2004/09/08 22:15:53 $
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -20,6 +20,7 @@ import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.initParser.InitializationStringParser;
 
 public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
+
 
 	protected IDEProxyFactoryRegistry fRegistry;
 	protected IDEStandardBeanTypeProxyFactory fBeanTypeProxyFactory;
@@ -91,6 +92,35 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 	
 	public INumberBeanProxy createBeanProxyWith(double aDouble) {
 		return fBeanTypeProxyFactory.doubleType.createDoubleBeanProxy(aDouble);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IStandardBeanProxyFactory#convertToPrimitiveBeanProxy(org.eclipse.jem.internal.proxy.core.IBeanProxy)
+	 */
+	public IBeanProxy convertToPrimitiveBeanProxy(IBeanProxy nonPrimitiveProxy) {
+		if (nonPrimitiveProxy == null)
+			return null;
+		if (!nonPrimitiveProxy.isValid())
+			return nonPrimitiveProxy;
+		IDEBeanTypeProxy type = (IDEBeanTypeProxy) nonPrimitiveProxy.getTypeProxy();
+		if (type.getClass() == Boolean.class)
+			return this.createBeanProxyWith(((IBooleanBeanProxy) nonPrimitiveProxy).booleanValue());
+		else if (type.getClass() == Byte.class)
+			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).byteValue());
+		else if (type.getClass() == Character.class)
+			return this.createBeanProxyWith(((ICharacterBeanProxy) nonPrimitiveProxy).charValue());
+		else if (type.getClass() == Double.class)
+			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).doubleValue());
+		else if (type.getClass() == Float.class)
+			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).floatValue());
+		else if (type.getClass() == Integer.class)
+			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).intValue());
+		else if (type.getClass() == Long.class)
+			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).longValue());
+		else if (type.getClass() == Short.class)
+			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).shortValue());
+		else
+			return nonPrimitiveProxy;
 	}
 
 	/**

@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.7 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.8 $  $Date: 2004/09/08 22:15:53 $ 
  */
 
 
@@ -799,6 +799,38 @@ public void terminateFactory() {
 		return null;
 	}
 
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.jem.internal.proxy.core.IStandardBeanProxyFactory#convertToPrimitiveBeanProxy(org.eclipse.jem.internal.proxy.core.IBeanProxy)
+	 */
+	public IBeanProxy convertToPrimitiveBeanProxy(IBeanProxy nonPrimitiveProxy) {
+		if (nonPrimitiveProxy == null)
+			return null;
+		if (!nonPrimitiveProxy.isValid())
+			return nonPrimitiveProxy;
+		IREMBeanTypeProxy type = (IREMBeanTypeProxy) nonPrimitiveProxy.getTypeProxy();
+		// Step into the internals. The ID is a constant int, so we can use a switch stmt.
+		switch (type.getID().intValue()) {
+			case Commands.BOOLEAN_CLASS:
+				return this.createBeanProxyWith(((IBooleanBeanProxy) nonPrimitiveProxy).booleanValue());
+			case Commands.BYTE_CLASS:
+				return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).byteValue());
+			case Commands.CHARACTER_CLASS:
+				return this.createBeanProxyWith(((ICharacterBeanProxy) nonPrimitiveProxy).charValue());
+			case Commands.DOUBLE_CLASS:
+				return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).doubleValue());
+			case Commands.FLOAT_CLASS:
+				return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).floatValue());
+			case Commands.INTEGER_CLASS:
+				return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).intValue());
+			case Commands.LONG_CLASS:
+				return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).longValue());
+			case Commands.SHORT_CLASS:
+				return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).shortValue());
+			default:
+				return nonPrimitiveProxy;
+		}
+	}
 }
 
 

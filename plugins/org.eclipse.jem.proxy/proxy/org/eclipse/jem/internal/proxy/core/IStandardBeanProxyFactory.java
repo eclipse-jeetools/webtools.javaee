@@ -13,7 +13,7 @@ package org.eclipse.jem.internal.proxy.core;
 
 /*
  *  $RCSfile: IStandardBeanProxyFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2004/08/27 15:35:20 $ 
+ *  $Revision: 1.4 $  $Date: 2004/09/08 22:15:53 $ 
  */
 
 
@@ -97,6 +97,18 @@ public INumberBeanProxy createBeanProxyWith(Number aNumber);
  * @author Joe Winchester
  */
 public IStringBeanProxy createBeanProxyWith(String aString);
+
+/**
+ * Convert the non-primitive proxy to a primitive proxy, if it
+ * of one of the wrapper types. If not, then just return the proxy as is.
+ * <p>
+ * I.E. BooleanClassProxy will convert to BooleanTypeProxy, but ObjectClassProxy will just return unchanged.
+ * @param nonPrimitiveProxy
+ * @return either the primitive proxy that nonPrimitive wrappers, or the non-primitive if not a wrapper type.
+ * 
+ * @since 1.0.0
+ */
+public IBeanProxy convertToPrimitiveBeanProxy(IBeanProxy nonPrimitiveProxy);
 /**
  * Return a new bean proxy for the boolean argument
  * Creation date: (12/3/99 11:52:20 AM)
