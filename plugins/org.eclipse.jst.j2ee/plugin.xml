@@ -101,7 +101,7 @@
    </extension> -->
    <!-- Register the nature id with the EMFNature -->
    <extension
-         point="org.eclipse.jem.workbench.nature_registration">
+         point="org.eclipse.jem.util.nature_registration">
       <nature
             id="org.eclipse.jst.j2ee.ModuleCore">
       </nature>
