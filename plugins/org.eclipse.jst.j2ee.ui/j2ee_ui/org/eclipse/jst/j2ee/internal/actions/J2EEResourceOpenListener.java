@@ -19,17 +19,28 @@ import org.eclipse.jface.viewers.OpenEvent;
  */
 public class J2EEResourceOpenListener implements IOpenListener{
 
+	 private OpenJ2EEResourceAction action;
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.IOpenListener#open(org.eclipse.jface.viewers.OpenEvent)
 	 */
+	
 	public void open(OpenEvent anEvent) {
 		ISelection selection = anEvent.getSelection();
 		if (selection instanceof IStructuredSelection) {
-		    OpenJ2EEResourceAction action = new OpenJ2EEResourceAction();
-		    if (action.updateSelection((IStructuredSelection)selection))
+		   
+		    if (getAction().updateSelection((IStructuredSelection)selection))
 		    	action.run();
 		}
 		
+	}
+
+	/**
+	 * @return
+	 */
+	private OpenJ2EEResourceAction getAction() {
+		if (action == null) 
+			action = new OpenJ2EEResourceAction();
+		return action;
 	}
 
 }
