@@ -87,7 +87,7 @@
       </wizard>
    </extension>
 
-<!-- EJB Group Contributions -->
+<!-- EJB Group Contributions 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -109,9 +109,9 @@
          </visibility>
       </objectContribution>
    </extension>
-
+-->
 <!-- Navigator Object Contributions -->
-<!-- EJB Group Contributions -->
+<!-- EJB Group Contributions 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -141,7 +141,7 @@
          </visibility>
       </objectContribution>
    </extension>
-   
+   -->
    
 <!-- ====================================================== -->
 <!--           Label Decorators                             -->
