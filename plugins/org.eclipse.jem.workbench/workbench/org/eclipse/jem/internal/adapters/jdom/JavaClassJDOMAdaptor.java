@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.10.2.1 $  $Date: 2004/09/29 16:00:13 $ 
+ *  $Revision: 1.10.2.2 $  $Date: 2004/09/29 16:31:02 $ 
  */
 
 import java.util.*;
@@ -86,20 +86,19 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 				// It is an existing method. So just put over to newExisting. Then flush it.
 				newExisting.put(ifield, field);
 				// Since this is a new method, it is not attached to a resource, so we need to explicitly create the adapter.
-				adapter = (JavaFieldJDOMAdaptor) EcoreUtil.getExistingAdapter(field, ReadAdaptor.TYPE_KEY);
-				if (adapter == null)
-					adapter = (JavaFieldJDOMAdaptor) getAdapterFactory().adaptNew(field, ReadAdaptor.TYPE_KEY);
-				else
+				adapter = (JavaFieldJDOMAdaptor) getAdapterFactory().adaptNew(field, ReadAdaptor.TYPE_KEY);
+				if (adapter != null) {
 					adapter.flushReflectedValuesIfNecessaryNoNotification(true);
-				adapter.setSourceField(ifield);	// Give it this new IField
+					adapter.setSourceField(ifield);	// Give it this new IField
+				}
 			} else {
 				// It is a new method. Create the new method, add to newExisting, and add to newMethods list.
 				field = createJavaField(ifield, resource);
 				newExisting.put(ifield, field);				
 				newFields.add(field);
-				adapter = (JavaFieldJDOMAdaptor) getAdapterFactory().adaptNew(field, ReadAdaptor.TYPE_KEY);
+				adapter = (JavaFieldJDOMAdaptor) retrieveAdaptorFrom(field);
 				if (adapter != null)
-					adapter.setSourceField(ifield);
+					adapter.setSourceField(fields[i]);
 			}
 		}
 		
