@@ -24,9 +24,9 @@ import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletAnnotationPlugin;
 import org.eclipse.jst.j2ee.ejb.annotations.xdoclet.XDocletPreferenceStore;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 
 public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 
@@ -51,13 +51,13 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 		WebArtifactEdit webEdit = null;
 		try {
 			moduleCore = ModuleCore.getModuleCoreForRead(javaProject.getProject());
-			WorkbenchModule wbModule = null;
+			WorkbenchComponent wbModule = null;
 			URI sourcePath = URI.createURI(resource.getFullPath().toString());
-			WorkbenchModuleResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+			ComponentResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
 			for (int i = 0; i < moduleResources.length; i++) {
-				WorkbenchModuleResource moduleResource = moduleResources[i];
+				ComponentResource moduleResource = moduleResources[i];
 				if (moduleResource != null)
-					wbModule = moduleResource.getModule();
+					wbModule = moduleResource.getComponent();
 				if (wbModule != null)
 					break;
 			}

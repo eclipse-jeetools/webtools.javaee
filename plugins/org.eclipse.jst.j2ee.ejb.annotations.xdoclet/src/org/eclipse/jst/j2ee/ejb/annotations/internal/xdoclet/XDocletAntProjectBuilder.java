@@ -33,8 +33,8 @@ import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
-import org.eclipse.wst.common.modulecore.WorkbenchModule;
-import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 
@@ -47,19 +47,19 @@ public abstract class XDocletAntProjectBuilder {
 		public static XDocletAntProjectBuilder newInstance(IResource resource) {
 			WebArtifactEdit webEdit = null;
 			ModuleCore moduleCore = null;
-			WorkbenchModule wbModule = null;
+			WorkbenchComponent wbModule = null;
 			try {
 				moduleCore = ModuleCore.getModuleCoreForRead(resource.getProject());
 				URI sourcePath = URI.createURI(resource.getFullPath().toString());
-				WorkbenchModuleResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
+				ComponentResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
 				for (int i=0; i<moduleResources.length; i++) {
-					WorkbenchModuleResource moduleResource = moduleResources[i];
+					ComponentResource moduleResource = moduleResources[i];
 					if (moduleResource!=null)
-						wbModule = moduleResource.getModule();
+						wbModule = moduleResource.getComponent();
 					if (wbModule!=null)
 						break;
 				}
-				String moduleType = wbModule.getModuleType().getModuleTypeId();
+				String moduleType = wbModule.getComponentType().getModuleTypeId();
 				if(moduleType.equals(IModuleConstants.JST_EJB_MODULE))
 					return new XDocletEjbAntProjectBuilder();
 				else if (moduleType.equals(IModuleConstants.JST_WEB_MODULE))
