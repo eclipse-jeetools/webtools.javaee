@@ -25,8 +25,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 public class WarHelper extends J2EEValidationHelper {
@@ -108,12 +109,12 @@ public class WarHelper extends J2EEValidationHelper {
 
 		try {
 			if (proj.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
-				J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(getProject());
-
-				if (webNature != null) {
+//				J2EEWebNatureRuntime webNature = J2EEWebNatureRuntime.getRuntime(getProject());
+				WebArtifactEdit webArtifactEdit = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(getProject());
+				if (webArtifactEdit != null) {
 					try {
 						WTProjectLoadStrategyImpl loader = new WTProjectLoadStrategyImpl(proj);
-						loader.setResourceSet(webNature.getResourceSet());
+						loader.setResourceSet(webArtifactEdit.getDeploymentDescriptorResource().getResourceSet());
 						warFile = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory().openWARFile(loader, proj.getName());
 						//                      openFilesCache.add(warFile);
 					} catch (Exception e) {

@@ -58,7 +58,7 @@ public class UIWarHelper extends WarHelper {
 				
 				if (webArtifactEdit != null) {
 //					IPath path = webNature.getWebXMLPath(); // this is an absolute path.
-					IPath path = webArtifactEdit.getWebInfFolder().getFullPath().append(IWebNatureConstants.DEPLOYMENT_DESCRIPTOR_FILE_NAME);
+					IPath path = webArtifactEdit.getDeploymentDescriptorPath();
 					IPath projectPath = project.getFullPath();
 					path = path.removeFirstSegments(path.matchingFirstSegments(projectPath)); // make it relative
 					warFile = project.getFile(path);
