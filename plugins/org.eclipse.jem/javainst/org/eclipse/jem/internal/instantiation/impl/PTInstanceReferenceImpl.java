@@ -160,8 +160,8 @@ public class PTInstanceReferenceImpl extends PTExpressionImpl implements PTInsta
 	 * @see org.eclipse.jem.internal.instantiation.impl.PTExpressionImpl#accept0(org.eclipse.jem.internal.instantiation.ParseVisitor)
 	 */
 	protected void accept0(ParseVisitor visitor) {
-		// TODO Auto-generated method stub
-
+		visitor.visit(this);
+		visitor.endVisit(this);
 	}
 
 } //PTInstanceReferenceImpl

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseVisitor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/23 22:53:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/03 20:11:47 $ 
  */
 package org.eclipse.jem.internal.instantiation;
  
@@ -192,6 +192,9 @@ public class ParseVisitor {
 	public boolean visit(PTTypeLiteral node) {
 		return true;
 	}
+	public boolean visit(PTInstanceReference node) {
+		return true;
+	}
 
 	public void endVisit(PTArrayAccess node) {
 		// default implementation: do nothing
@@ -256,4 +259,8 @@ public class ParseVisitor {
 	public void endVisit(PTTypeLiteral node) {
 		// default implementation: do nothing
 	}
+	public void endVisit(PTInstanceReference node) {
+		// default implementation: do nothing
+	}
+	
 }
