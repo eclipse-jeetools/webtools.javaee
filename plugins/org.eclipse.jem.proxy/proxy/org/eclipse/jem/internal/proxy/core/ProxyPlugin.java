@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.32 $  $Date: 2004/08/10 17:52:10 $ 
+ *  $Revision: 1.33 $  $Date: 2004/08/16 21:00:08 $ 
  */
 
 
@@ -660,6 +660,8 @@ public class ProxyPlugin extends Plugin {
 		DebugPlugin.getDefault().getLaunchManager().addLaunchConfigurationListener(launchListener);
 		context.addBundleListener(new BundleListener() {
 			public void bundleChanged(BundleEvent event) {
+				if (event.getBundle() != ProxyPlugin.this.getBundle())
+					return;	// Not of interest to us.
 				switch (event.getType()) {
 					case BundleEvent.STARTED:
 						context.removeBundleListener(this);	// Since we don't care anymore
