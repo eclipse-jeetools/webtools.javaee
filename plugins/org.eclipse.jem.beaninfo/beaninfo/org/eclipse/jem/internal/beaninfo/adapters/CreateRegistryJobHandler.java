@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: CreateRegistryJobHandler.java,v $
- *  $Revision: 1.8 $  $Date: 2004/06/16 20:58:31 $ 
+ *  $Revision: 1.9 $  $Date: 2004/12/16 18:35:36 $ 
  */
 package org.eclipse.jem.internal.beaninfo.adapters;
 
@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.jobs.*;
 
 import org.eclipse.jem.internal.beaninfo.core.BeaninfoPlugin;
+
+import com.ibm.wtp.common.logger.proxy.Logger;
  
 
 /**
@@ -68,8 +70,11 @@ class CreateRegistryJobHandler {
 				} catch (InterruptedException e) {
 				}
 			}
-			if (tries==0)
-				BeaninfoPlugin.getPlugin().getLogger().log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$
+			if (tries==0) {
+				Logger logger = BeaninfoPlugin.getPlugin().getLogger();
+				if (logger.isLoggingLevel(Level.WARNING))
+					logger.log("Build job waiting when trying to start beaninfo registry. Possible race.", Level.WARNING);	// $NON-NLS-1$
+			}
 		}
 		
 		jobHandler.processCreateRegistry(nature);

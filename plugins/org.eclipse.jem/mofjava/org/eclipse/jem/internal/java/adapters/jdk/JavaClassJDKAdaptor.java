@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.8 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.9 $  $Date: 2004/12/16 18:35:29 $ 
  */
 
 package org.eclipse.jem.internal.java.adapters.jdk;
@@ -75,11 +75,14 @@ public class JavaClassJDKAdaptor extends JDKAdaptor implements IJavaClassAdaptor
 		try {
 			methods = getSourceType().getDeclaredMethods();
 		} catch (NoClassDefFoundError error) {
-			Logger
-					.getLogger()
-					.log(
-							ResourceHandler.getString(
-									"Could_Not_Reflect_Methods_ERROR_", new Object[] { getJavaClassTarget().getQualifiedName(), error.toString()}), Level.WARNING); //$NON-NLS-1$
+			Logger logger = Logger.getLogger();
+			if (logger.isLoggingLevel(Level.WARNING)) {
+				logger
+						.log(
+								ResourceHandler
+										.getString(
+												"Could_Not_Reflect_Methods_ERROR_", new Object[] { getJavaClassTarget().getQualifiedName(), error.toString()}), Level.WARNING); //$NON-NLS-1$
+			}
 		}
 		for (int i = 0; i < methods.length; i++) {
 			targetMethods.add(createJavaMethod(methods[i], resource));
@@ -90,12 +93,14 @@ public class JavaClassJDKAdaptor extends JDKAdaptor implements IJavaClassAdaptor
 		try {
 			ctors = getSourceType().getDeclaredConstructors();
 		} catch (NoClassDefFoundError error) {
-			Logger
-					.getLogger()
-					.log(
-							ResourceHandler
-									.getString(
-											"Could_Not_Reflect_Constructors_ERROR_", new Object[] { getJavaClassTarget().getQualifiedName(), error.getMessage()}), Level.WARNING); //$NON-NLS-1$
+			Logger logger = Logger.getLogger();
+			if (logger.isLoggingLevel(Level.WARNING)) {
+				logger
+						.log(
+								ResourceHandler
+										.getString(
+												"Could_Not_Reflect_Constructors_ERROR_", new Object[] { getJavaClassTarget().getQualifiedName(), error.getMessage()}), Level.WARNING); //$NON-NLS-1$
+			}
 		}
 		for (int i = 0; i < ctors.length; i++) {
 			targetMethods.add(createJavaMethod(ctors[i], resource));

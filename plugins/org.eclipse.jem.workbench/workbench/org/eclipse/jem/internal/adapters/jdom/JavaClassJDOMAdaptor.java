@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.11 $  $Date: 2004/10/01 19:02:36 $ 
+ *  $Revision: 1.12 $  $Date: 2004/12/16 18:36:45 $ 
  */
 
 import java.util.*;
@@ -452,8 +452,11 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 					hasReflectedFields = true;
 				} catch (Throwable e) {
 					hasReflectedFields = false;
-					Logger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
-					Logger.getLogger().log(e);					
+					Logger logger = Logger.getLogger();
+					if (logger.isLoggingLevel(Level.WARNING)) {
+						logger.log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
+						logger.logWarning(e); 
+					}					
 				} finally {
 					isReflectingFields = false;
 				}
@@ -470,8 +473,11 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 					hasReflectedMethods = addMethods();
 				} catch (Throwable e) {
 					hasReflectedMethods = false;
-					Logger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
-					Logger.getLogger().log(e);					
+					Logger logger = Logger.getLogger();
+					if (logger.isLoggingLevel(Level.WARNING)) {
+						logger.log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
+						logger.logWarning(e); 
+					}					
 				} finally {
 					isReflectingMethods = false;
 					if (!hasReflected)
@@ -535,7 +541,9 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			else
 				javaClassTarget.setKind(TypeKind.INTERFACE_LITERAL);
 		} catch (JavaModelException npe) {
-			JavaPlugin.getDefault().getLogger().log(ResourceHandler.getString("Error_Introspecting_Flags_ERROR_", new Object[] { javaClassTarget.getQualifiedName(), npe.getMessage()}), Level.WARNING); //$NON-NLS-1$ = "error introspecting flags on {0}"
+			Logger logger = JavaPlugin.getDefault().getLogger();
+			if (logger.isLoggingLevel(Level.WARNING))
+				logger.log(ResourceHandler.getString("Error_Introspecting_Flags_ERROR_", new Object[] { javaClassTarget.getQualifiedName(), npe.getMessage()}), Level.WARNING); //$NON-NLS-1$ = "error introspecting flags on {0}"
 		}
 	}
 	/**

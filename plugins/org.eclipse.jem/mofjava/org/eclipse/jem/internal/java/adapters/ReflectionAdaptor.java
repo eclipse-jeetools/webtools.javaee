@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.java.adapters;
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.5 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.6 $  $Date: 2004/12/16 18:35:30 $ 
  */
 import java.util.logging.Level;
 
@@ -126,8 +126,11 @@ public synchronized boolean reflectValuesIfNecessary() {
 				hasReflected = false;	// AS long we are a proxy, we won't reflect.
 		} catch (Throwable e) {
 			hasReflected = false;
-			Logger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
-			Logger.getLogger().log(e);
+			Logger logger = Logger.getLogger();
+			if (logger.isLoggingLevel(Level.WARNING)) {
+				logger.log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
+				logger.logWarning(e);
+			}
 		} finally {
 			isReflecting = false;
 			getTarget().eNotify(new ENotificationImpl((InternalEObject)getTarget(), Notification.SET, REFLECTION_SF, null, null, Notification.NO_INDEX));

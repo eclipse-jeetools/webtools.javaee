@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:35:09 $ 
+ *  $Revision: 1.7 $  $Date: 2004/12/16 18:36:45 $ 
  */
 
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.jdt.core.*;
 
 import org.eclipse.jem.internal.plugin.JavaPlugin;
+
+import com.ibm.wtp.common.logger.proxy.Logger;
 /**
  * Insert the type's description here.
  * Creation date: (11/1/2000 11:42:05 AM)
@@ -220,7 +222,9 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 		String name = element.getElementName();
 		if (element == null || name.length() <= 5 || !name.substring(name.length() - 5).equals(".java")) { //$NON-NLS-1$
 			// Should not be here, 
-			JavaPlugin.getDefault().getLogger().log("Invalid .java file: " + name, Level.FINE); //$NON-NLS-1$
+			Logger logger = JavaPlugin.getDefault().getLogger();
+			if (logger.isLoggingLevel(Level.FINE))
+				logger.log("Invalid .java file: " + name, Level.FINE); //$NON-NLS-1$
 			// Make a guess, at worst case, nothing will come out of this.
 			int index = name.lastIndexOf("."); //$NON-NLS-1$
 			if (index >= 0)

@@ -11,13 +11,14 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.22 $  $Date: 2004/12/06 20:38:28 $ 
+ *  $Revision: 1.23 $  $Date: 2004/12/16 18:35:36 $ 
  */
 
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.logging.Level;
 
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.runtime.*;
@@ -41,6 +42,8 @@ import org.eclipse.jem.internal.temp.VETimerTests;
 
 import com.ibm.etools.emf.event.EventFactory;
 import com.ibm.etools.emf.event.EventUtil;
+import com.ibm.wtp.common.logger.proxy.Logger;
+
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;
 import org.eclipse.jem.java.impl.JavaClassImpl;
@@ -733,7 +736,9 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							// Set it to EObject type. If it becomes valid later (through the class being changed), then the introspect/reflect
 							// will set it to the correct type.
 							a.setEType(EcorePackage.eINSTANCE.getEObject());
-							BeaninfoPlugin.getPlugin().getLogger().logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
+							Logger logger = BeaninfoPlugin.getPlugin().getLogger();
+							if (logger.isLoggingLevel(Level.WARNING))
+								logger.logWarning("Feature \""+getJavaClass().getQualifiedName()+"->"+a.getName()+"\" did not have a type set. Typically due to override file creating feature but property not found on introspection/reflection.");
 						}
 					}
 				}
