@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.jst.j2ee.web" 
-	imports="org.eclipse.jst.j2ee.web.operations.* java.util.* " 
+	imports="org.eclipse.jst.j2ee.internal.web.operations.* java.util.* " 
 	class="ServletTemplate" 
 %><%@ include file="servletHeader.template" %>
 

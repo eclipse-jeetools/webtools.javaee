@@ -307,6 +307,9 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 			if (webEdit == null)
 				return false;
 			return webEdit.getJ2EEVersion() > J2EEVersionConstants.VERSION_1_2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		} finally {
 			if (webEdit != null)
 				webEdit.dispose();
@@ -326,6 +329,9 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 	 * @return IStatus is property value valid?
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
+		// If our default is the superclass, we know it is ok
+		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(SERVLET_SUPERCLASS))
+			return WTPCommonPlugin.OK_STATUS;
 		IStatus result = super.doValidateProperty(propertyName);
 		if (!result.isOK())
 			return result;
@@ -338,9 +344,7 @@ public class NewServletClassDataModel extends NewJavaClassDataModel implements I
 		// Validate the servlet name in DD
 		if (propertyName.equals(DISPLAY_NAME))
 			return validateDisplayName(getStringProperty(propertyName));
-		// If our default is the superclass, we know it is ok
-		if (propertyName.equals(SUPERCLASS) && getStringProperty(propertyName).equals(SERVLET_SUPERCLASS))
-			return WTPCommonPlugin.OK_STATUS;
+		
 		// Otherwise defer to super to validate the property
 		return result;
 	}
