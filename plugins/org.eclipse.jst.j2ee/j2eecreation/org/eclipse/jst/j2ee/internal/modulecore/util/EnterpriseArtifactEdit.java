@@ -15,6 +15,7 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 
 /**
  * <p>
@@ -30,6 +31,16 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
  * </p>
  */
 public abstract class EnterpriseArtifactEdit extends ArtifactEdit {
+
+	/**
+	 * @param aHandle
+	 * @param toAccessAsReadOnly
+	 * @throws IllegalArgumentException
+	 */
+	public EnterpriseArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aHandle, toAccessAsReadOnly);
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * <p>

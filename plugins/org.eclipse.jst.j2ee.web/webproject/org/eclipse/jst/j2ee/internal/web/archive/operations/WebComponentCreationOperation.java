@@ -89,7 +89,7 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
         WebArtifactEdit webEdit = null;
        	try{
        		webEdit = WebArtifactEdit.getWebArtifactEditForWrite(wbmodule);
-       		Integer version = (Integer)operationDataModel.getProperty(AppClientComponentCreationDataModel.COMPONENT_VERSION);
+       		Integer version = (Integer)operationDataModel.getProperty(WebComponentCreationDataModel.COMPONENT_VERSION);
        		webEdit.createModelRoot(version.intValue());
        		webEdit.save(monitor);
        	}

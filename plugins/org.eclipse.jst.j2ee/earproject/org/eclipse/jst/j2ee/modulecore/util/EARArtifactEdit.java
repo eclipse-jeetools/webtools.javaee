@@ -23,11 +23,12 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEditModel;
-import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 /**
@@ -52,6 +53,76 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	public static String TYPE_ID = "jst.ear"; //$NON-NLS-1$
 	
 
+	/**
+	 * @param aHandle
+	 * @param toAccessAsReadOnly
+	 * @throws IllegalArgumentException
+	 */
+	public EARArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aHandle, toAccessAsReadOnly);
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will not be used for editing. Invocations of any save*() API on an instance returned from
+	 * this method will throw exceptions.
+	 * </p>
+	 * <p>
+	 * <b>The following method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
+	 *         model
+	 */
+	public static EARArtifactEdit getEARArtifactEditForRead(ComponentHandle aHandle) {
+		EARArtifactEdit artifactEdit = null;
+		try {
+			artifactEdit = new EARArtifactEdit(aHandle, true);
+		} catch (IllegalArgumentException iae) {
+			artifactEdit = null;
+		}
+		return artifactEdit;
+	}
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will be used for editing.
+	 * </p>
+	 * <p>
+	 * <b>The following method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
+	 *         underlying content model
+	 */
+	public static EARArtifactEdit getEARArtifactEditForWrite(ComponentHandle aHandle) {
+		EARArtifactEdit artifactEdit = null;
+		try {
+			artifactEdit = new EARArtifactEdit(aHandle, false);
+		} catch (IllegalArgumentException iae) {
+			artifactEdit = null;
+		}
+		return artifactEdit;
+	}
+	
 	/**
 	 * <p>
 	 * Returns an instance facade to manage the underlying edit model for the given

@@ -6,17 +6,20 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jst.j2ee.applicationclient.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 
 public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
@@ -37,6 +40,16 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 
 	public static String TYPE_ID = IModuleConstants.JST_CONNECTOR_MODULE; //$NON-NLS-1$
 	
+	/**
+	 * @param aHandle
+	 * @param toAccessAsReadOnly
+	 * @throws IllegalArgumentException
+	 */
+	public ConnectorArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aHandle, toAccessAsReadOnly);
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * <p>
 	 * Creates an instance facade for the given {@see ArtifactEditModel}.
@@ -133,6 +146,66 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit {
 			aResource.setID(connector, J2EEConstants.CONNECTOR_ID);
 			//TODO add more mandatory elements
 		}
+	}
+	
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will not be used for editing. Invocations of any save*() API on an instance returned from
+	 * this method will throw exceptions.
+	 * </p>
+	 * <p>
+	 * <b>The following method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
+	 *         model
+	 */
+	public static ConnectorArtifactEdit getConnectorArtifactEditForRead(ComponentHandle aHandle) {
+		ConnectorArtifactEdit artifactEdit = null;
+		try {
+			artifactEdit = new ConnectorArtifactEdit(aHandle, true);
+		} catch (IllegalArgumentException iae) {
+			artifactEdit = null;
+		}
+		return artifactEdit;
+	}
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will be used for editing.
+	 * </p>
+	 * <p>
+	 * <b>The following method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
+	 *         underlying content model
+	 */
+	public static ConnectorArtifactEdit getConnectorArtifactEditForWrite(ComponentHandle aHandle) {
+		ConnectorArtifactEdit artifactEdit = null;
+		try {
+			artifactEdit = new ConnectorArtifactEdit(aHandle, false);
+		} catch (IllegalArgumentException iae) {
+			artifactEdit = null;
+		}
+		return artifactEdit;
 	}
 	
 	/**

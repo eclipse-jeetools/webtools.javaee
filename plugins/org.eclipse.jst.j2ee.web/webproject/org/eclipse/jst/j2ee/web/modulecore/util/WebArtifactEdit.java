@@ -26,12 +26,14 @@ import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
+import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 
@@ -64,6 +66,77 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public static String TYPE_ID = "jst.web"; //$NON-NLS-1$
 	
 	private static String LIB = "lib"; //$NON-NLS-1$
+
+	/**
+	 * @param aHandle
+	 * @param toAccessAsReadOnly
+	 * @throws IllegalArgumentException
+	 */
+	public WebArtifactEdit(ComponentHandle aHandle, boolean toAccessAsReadOnly) throws IllegalArgumentException {
+		super(aHandle, toAccessAsReadOnly);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will not be used for editing. Invocations of any save*() API on an instance returned from
+	 * this method will throw exceptions.
+	 * </p>
+	 * <p>
+	 * <b>The following method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may only be used to read the underlying content
+	 *         model
+	 */
+	public static WebArtifactEdit getWebArtifactEditForRead(ComponentHandle aHandle) {
+		WebArtifactEdit artifactEdit = null;
+		try {
+			artifactEdit = new WebArtifactEdit(aHandle, true);
+		} catch (IllegalArgumentException iae) {
+			artifactEdit = null;
+		}
+		return artifactEdit;
+	}
+	/**
+	 * <p>
+	 * Returns an instance facade to manage the underlying edit model for the given
+	 * {@see WorkbenchComponent}. Instances of ArtifactEdit that are returned through this method
+	 * must be {@see #dispose()}ed of when no longer in use.
+	 * </p>
+	 * <p>
+	 * Use to acquire an ArtifactEdit facade for a specific {@see WorkbenchComponent}&nbsp;that
+	 * will be used for editing.
+	 * </p>
+	 * <p>
+	 * <b>The following method may return null. </b>
+	 * </p>
+	 * 
+	 * @param aModule
+	 *            A valid {@see WorkbenchComponent}&nbsp;with a handle that resolves to an
+	 *            accessible project in the workspace
+	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
+	 *         underlying content model
+	 */
+	public static ArtifactEdit getWebArtifactEditForWrite(ComponentHandle aHandle) {
+		WebArtifactEdit artifactEdit = null;
+		try {
+			artifactEdit = new WebArtifactEdit(aHandle, false);
+		} catch (IllegalArgumentException iae) {
+			artifactEdit = null;
+		}
+		return artifactEdit;
+	}
 
 	/**
 	 * <p>
@@ -177,6 +250,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public WebArtifactEdit(ModuleCoreNature aNature, WorkbenchComponent aModule, boolean toAccessAsReadOnly) {
 		super(aNature, aModule, toAccessAsReadOnly);
 	}
+
+
 
 	/**
 	 * <p>
