@@ -61,7 +61,7 @@ public class CreateEntityBeanOperation extends CreateEnterpriseBeanWithClientVie
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperation#createTemplateModel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperation#createTemplateModel()
 	 */
 	protected CreateEnterpriseBeanTemplateModel createTemplateModel() {
 		return new CreateEntityBeanTemplateModel((CreateEntityBeanDataModel) operationDataModel);
@@ -70,7 +70,7 @@ public class CreateEntityBeanOperation extends CreateEnterpriseBeanWithClientVie
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperation#getTemplateFileName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperation#getTemplateFileName()
 	 */
 	protected String getTemplateFileName() {
 		return "entityXDoclet.javajet"; //$NON-NLS-1$

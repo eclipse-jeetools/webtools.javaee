@@ -64,104 +64,104 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	 */
 	protected Collection supportedTypes = new ArrayList();
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.MethodPermission}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodPermission}
 	 * instances.
 	 */
 	protected MethodPermissionItemProvider methodPermissionItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.ejb.AssemblyDescriptor}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.AssemblyDescriptor}instances.
 	 */
 	protected AssemblyDescriptorItemProvider assemblyDescriptorItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.MethodTransaction}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodTransaction}
 	 * instances.
 	 */
 	protected MethodTransactionItemProvider methodTransactionItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.EnterpriseBean}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean}
 	 * instances.
 	 */
 	protected EnterpriseBeanItemProvider enterpriseBeanItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.Session}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.Session}
 	 * instances.
 	 */
 	protected SessionItemProvider sessionItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.MessageDriven}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDriven}
 	 * instances.
 	 */
 	protected MessageDrivenItemProvider messageDrivenItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDrivenDestination}instances.
 	 */
 	protected MessageDrivenDestinationItemProvider messageDrivenDestinationItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.Entity}instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.Entity}instances.
 	 */
 	protected EntityItemProvider entityItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.ejb.ContainerManagedEntity}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.ContainerManagedEntity}instances.
 	 */
 	protected ContainerManagedEntityItemProvider containerManagedEntityItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.CMPAttribute}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.CMPAttribute}
 	 * instances.
 	 */
 	protected CMPAttributeItemProvider cmpAttributeItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.CMRField}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.CMRField}
 	 * instances.
 	 */
 	protected CMRFieldItemProvider cmrFieldItemProvider;
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelationshipRole}instances.
 	 */
 	protected EJBRelationshipRoleItemProvider ejbRelationshipRoleItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.EJBRelation}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelation}
 	 * instances.
 	 */
 	protected EJBRelationItemProvider ejbRelationItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.Relationships}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.Relationships}
 	 * instances.
 	 */
 	protected RelationshipsItemProvider relationshipsItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.EJBJar}instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar}instances.
 	 */
 	protected EJBJarItemProvider eJBJarItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.RoleSource}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.RoleSource}
 	 * instances.
 	 */
 	protected RoleSourceItemProvider roleSourceItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.Query}instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.Query}instances.
 	 */
 	protected QueryItemProvider queryItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.QueryMethod}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.QueryMethod}
 	 * instances.
 	 */
 	protected QueryMethodItemProvider queryMethodItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.MethodElement}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodElement}
 	 * instances.
 	 */
 	protected MethodElementItemProvider methodElementItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.ExcludeList}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.ExcludeList}
 	 * instances.
 	 */
 	protected ExcludeListItemProvider excludeListItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.EJBMethodCategory}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBMethodCategory}
 	 * instances.
 	 */
 	protected EJBMethodCategoryItemProvider ejbMethodCategoryItemProvider;
@@ -219,7 +219,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.AssemblyDescriptor}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.AssemblyDescriptor}.
 	 */
 	public Adapter createAssemblyDescriptorAdapter() {
 		if (assemblyDescriptorItemProvider == null) {
@@ -230,7 +230,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.CMPAttribute}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.CMPAttribute}.
 	 */
 	public Adapter createCMPAttributeAdapter() {
 		if (cmpAttributeItemProvider == null) {
@@ -241,7 +241,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.CMRField}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.CMRField}.
 	 */
 	public Adapter createCMRFieldAdapter() {
 		if (cmrFieldItemProvider == null) {
@@ -252,7 +252,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.ContainerManagedEntity}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ContainerManagedEntity}.
 	 */
 	public Adapter createContainerManagedEntityAdapter() {
 		if (containerManagedEntityItemProvider == null) {
@@ -263,7 +263,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.EJBJar}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar}.
 	 */
 	public Adapter createEJBJarAdapter() {
 		if (eJBJarItemProvider == null) {
@@ -274,7 +274,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.EJBMethodCategory}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBMethodCategory}.
 	 */
 	public Adapter createEJBMethodCategoryAdapter() {
 		if (ejbMethodCategoryItemProvider == null) {
@@ -285,7 +285,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.EJBJar}instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar}instances.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -293,7 +293,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	protected EJBJarItemProvider ejbJarItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.EJBRelation}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelation}.
 	 */
 	public Adapter createEJBRelationAdapter() {
 		if (ejbRelationItemProvider == null) {
@@ -304,7 +304,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelationshipRole}.
 	 */
 	public Adapter createEJBRelationshipRoleAdapter() {
 		if (ejbRelationshipRoleItemProvider == null) {
@@ -315,7 +315,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.EnterpriseBean}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean}.
 	 */
 	public Adapter createEnterpriseBeanAdapter() {
 		if (enterpriseBeanItemProvider == null) {
@@ -326,7 +326,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.Entity}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Entity}.
 	 */
 	public Adapter createEntityAdapter() {
 		if (entityItemProvider == null) {
@@ -337,7 +337,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.ExcludeList}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ExcludeList}.
 	 */
 	public Adapter createExcludeListAdapter() {
 		if (excludeListItemProvider == null) {
@@ -348,7 +348,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.MessageDriven}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDriven}.
 	 */
 	public Adapter createMessageDrivenAdapter() {
 		if (messageDrivenItemProvider == null) {
@@ -359,7 +359,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.MessageDrivenDestination}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDrivenDestination}.
 	 */
 	public Adapter createMessageDrivenDestinationAdapter() {
 		if (messageDrivenDestinationItemProvider == null) {
@@ -370,7 +370,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.MethodElement}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodElement}.
 	 */
 	public Adapter createMethodElementAdapter() {
 		if (methodElementItemProvider == null) {
@@ -381,7 +381,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.MethodPermission}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodPermission}.
 	 */
 	public Adapter createMethodPermissionAdapter() {
 		if (methodPermissionItemProvider == null) {
@@ -392,7 +392,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.MethodTransaction}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodTransaction}.
 	 */
 	public Adapter createMethodTransactionAdapter() {
 		if (methodTransactionItemProvider == null) {
@@ -403,7 +403,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.Query}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Query}.
 	 */
 	public Adapter createQueryAdapter() {
 		if (queryItemProvider == null) {
@@ -414,7 +414,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.QueryMethod}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.QueryMethod}.
 	 */
 	public Adapter createQueryMethodAdapter() {
 		if (queryMethodItemProvider == null) {
@@ -426,7 +426,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.ejb.ActivationConfigProperty}instances. <!-- begin-user-doc --> <!--
+	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.ActivationConfigProperty}instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
 	 * @generated
@@ -434,7 +434,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	protected ActivationConfigPropertyItemProvider activationConfigPropertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.ActivationConfigProperty}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ActivationConfigProperty}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -448,7 +448,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.ejb.ActivationConfig}
+	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.ejb.ActivationConfig}
 	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -456,7 +456,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	protected ActivationConfigItemProvider activationConfigItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.ActivationConfig}. <!--
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ActivationConfig}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -470,7 +470,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.Relationships}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Relationships}.
 	 */
 	public Adapter createRelationshipsAdapter() {
 		if (relationshipsItemProvider == null) {
@@ -481,7 +481,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.RoleSource}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.RoleSource}.
 	 */
 	public Adapter createRoleSourceAdapter() {
 		if (roleSourceItemProvider == null) {
@@ -492,7 +492,7 @@ public class EjbItemProviderAdapterFactory extends EjbAdapterFactory implements 
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.ejb.Session}.
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Session}.
 	 */
 	public Adapter createSessionAdapter() {
 		if (sessionItemProvider == null) {

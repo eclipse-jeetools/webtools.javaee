@@ -213,7 +213,7 @@ public abstract class Persistent20RoleCommand extends PersistentRoleCommand {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.commands.PersistentRoleCommand#isNavigable()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand#isNavigable()
 	 */
 	public boolean isNavigable() {
 		return getCmrFieldName() != null;
@@ -221,7 +221,7 @@ public abstract class Persistent20RoleCommand extends PersistentRoleCommand {
 
 
 	/**
-	 * @see org.eclipse.jst.j2ee.commands.PersistentRoleCommand#createEJBReferenceIfNecessary()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand#createEJBReferenceIfNecessary()
 	 */
 	protected void createEJBReferenceIfNecessary() {
 		if (isNavigable()) {
@@ -230,7 +230,7 @@ public abstract class Persistent20RoleCommand extends PersistentRoleCommand {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.commands.PersistentRoleCommand#removeEjbReference(EjbRef)
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand#removeEjbReference(EjbRef)
 	 */
 	protected boolean removeEjbReference(EjbRef ref) {
 		return getEjb().getEjbLocalRefs().remove(ref);

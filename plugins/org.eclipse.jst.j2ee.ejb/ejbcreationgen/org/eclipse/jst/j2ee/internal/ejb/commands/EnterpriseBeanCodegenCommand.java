@@ -35,14 +35,14 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.java.codegen.JavaCompilationUnitGenerator;
 import org.eclipse.jst.j2ee.internal.java.codegen.JavaTopLevelGenerationHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 /**
  * Insert the type's description here. Creation date: (8/19/2000 3:08:52 PM)
  * 
  * @author: Administrator
  */
-public abstract class EnterpriseBeanCodegenCommand extends org.eclipse.jst.j2ee.internal.ejb.commands.AbstractEJBCommand implements org.eclipse.jst.j2ee.internal.ejb.operations.IEJBProgressCommand {
+public abstract class EnterpriseBeanCodegenCommand extends org.eclipse.jst.j2ee.internal.ejb.commands.AbstractEJBCommand implements org.eclipse.jst.j2ee.ejb.internal.operations.IEJBProgressCommand {
 	protected static final String INITIALIZE_TASK_STRING = EJBCodeGenResourceHandler.getString("--_Java_Generation____Init_UI_"); //$NON-NLS-1$ = "-- Java Generation :: Initializing..."
 	protected static final String ANALYZE_TASK_STRING = EJBCodeGenResourceHandler.getString("--_Java_Generation____Anal_UI_"); //$NON-NLS-1$ = "-- Java Generation :: Analyzing..."
 	protected static final String RUN_TASK_STRING = EJBCodeGenResourceHandler.getString("--_Java_Generation____Gene_UI_"); //$NON-NLS-1$ = "-- Java Generation :: Generating..."
@@ -244,7 +244,7 @@ public abstract class EnterpriseBeanCodegenCommand extends org.eclipse.jst.j2ee.
 	/**
 	 * Insert the method's description here. Creation date: (4/26/2001 8:13:35 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 */
 	protected org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel getEditModel() {
 		return editModel;
@@ -264,7 +264,7 @@ public abstract class EnterpriseBeanCodegenCommand extends org.eclipse.jst.j2ee.
 	/**
 	 * Insert the method's description here. Creation date: (8/19/2000 4:04:11 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.api.IJavaBaseGenerator
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.api.IJavaBaseGenerator
 	 */
 	protected IBaseGenerator getGenerator() {
 		try {
@@ -289,7 +289,7 @@ public abstract class EnterpriseBeanCodegenCommand extends org.eclipse.jst.j2ee.
 	/**
 	 * Insert the method's description here. Creation date: (9/4/2000 10:51:23 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EnterpriseBeanHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EnterpriseBeanHelper
 	 */
 	public JavaTopLevelGenerationHelper getHelper() {
 		if (helper == null)
@@ -377,7 +377,7 @@ public abstract class EnterpriseBeanCodegenCommand extends org.eclipse.jst.j2ee.
 	 * Insert the method's description here. Creation date: (4/26/2001 8:13:35 AM)
 	 * 
 	 * @param newEditModel
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 */
 	public void setEditModel(org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel newEditModel) {
 		editModel = newEditModel;

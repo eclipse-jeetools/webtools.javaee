@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 
 
@@ -121,7 +121,7 @@ public abstract class CreateEnterpriseBeanWithClientViewDataModel extends Create
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(ADD_LOCAL))
@@ -246,7 +246,7 @@ public abstract class CreateEnterpriseBeanWithClientViewDataModel extends Create
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -313,7 +313,7 @@ public abstract class CreateEnterpriseBeanWithClientViewDataModel extends Create
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(ADD_REMOTE))
@@ -503,7 +503,7 @@ public abstract class CreateEnterpriseBeanWithClientViewDataModel extends Create
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (propertyName.equals(REMOTE_HOME) || propertyName.equals(REMOTE_INTERFACE))
@@ -531,7 +531,7 @@ public abstract class CreateEnterpriseBeanWithClientViewDataModel extends Create
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#beanNameChanged()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#beanNameChanged()
 	 */
 	protected void beanNameChanged() {
 		super.beanNameChanged();
@@ -550,7 +550,7 @@ public abstract class CreateEnterpriseBeanWithClientViewDataModel extends Create
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#superEJBNameChanged()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#superEJBNameChanged()
 	 */
 	protected void superEJBNameChanged() {
 		super.superEJBNameChanged();

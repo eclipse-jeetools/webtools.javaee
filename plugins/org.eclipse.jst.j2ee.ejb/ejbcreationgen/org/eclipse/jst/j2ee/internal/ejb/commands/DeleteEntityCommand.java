@@ -27,9 +27,9 @@ public class DeleteEntityCommand extends EntityCommand {
 	 * DeleteEntityCommand constructor comment.
 	 * 
 	 * @param anEjb
-	 *            org.eclipse.jst.j2ee.ejb.EnterpriseBean
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean
 	 * @param anEditModel
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 */
 	public DeleteEntityCommand(EnterpriseBean anEjb, org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel anEditModel) {
 		super(anEjb, anEditModel);

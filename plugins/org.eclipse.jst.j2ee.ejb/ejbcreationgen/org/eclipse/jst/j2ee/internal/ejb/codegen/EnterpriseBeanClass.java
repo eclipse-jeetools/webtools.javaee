@@ -65,7 +65,7 @@ public abstract class EnterpriseBeanClass extends JavaClassGenerator {
 	/**
 	 * Insert the method's description here. Creation date: (10/13/00 4:43:02 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBClassReferenceHelper getClassRefHelper() {
 		return fClassRefHelper;
@@ -180,7 +180,7 @@ public abstract class EnterpriseBeanClass extends JavaClassGenerator {
 	 * Insert the method's description here. Creation date: (10/13/00 4:43:02 PM)
 	 * 
 	 * @param newClassRefHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	protected void setClassRefHelper(org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBClassReferenceHelper newClassRefHelper) {
 		fClassRefHelper = newClassRefHelper;

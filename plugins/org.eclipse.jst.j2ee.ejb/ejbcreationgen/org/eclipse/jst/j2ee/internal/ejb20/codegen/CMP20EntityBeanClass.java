@@ -14,8 +14,8 @@ package org.eclipse.jst.j2ee.internal.ejb20.codegen;
 import java.util.List;
 
 import org.eclipse.jdt.internal.compiler.env.IConstants;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.GeneratorNotFoundException;
 import org.eclipse.jst.j2ee.internal.codegen.IBaseGenerator;
@@ -114,7 +114,7 @@ public class CMP20EntityBeanClass extends CMPEntityBeanClass {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.CMPEntityBeanClass#addCMPCreateMemberGeneratorNames(List)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.CMPEntityBeanClass#addCMPCreateMemberGeneratorNames(List)
 	 */
 	protected void addCMPCreateMemberGeneratorNames(List names, EJBClassReferenceHelper refHelper, EntityHelper topHelper) throws GenerationException {
 		if (!hasSourceSupertype()) {
@@ -177,7 +177,7 @@ public class CMP20EntityBeanClass extends CMPEntityBeanClass {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.CMPEntityBeanClass#addCMPUpdateMemberGeneratorNamesForKeyShapeChange(List)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.CMPEntityBeanClass#addCMPUpdateMemberGeneratorNamesForKeyShapeChange(List)
 	 */
 	protected void addCMPUpdateMemberGeneratorNamesForKeyShapeChange(List names, EJBClassReferenceHelper refHelper, EntityHelper topHelper) throws GenerationException {
 		names.add(IEJB20GenConstants.CMP20_ENTITY_BEAN_EJBCREATE);
@@ -203,7 +203,7 @@ public class CMP20EntityBeanClass extends CMPEntityBeanClass {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.CMPEntityBeanClass#initialize(Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.CMPEntityBeanClass#initialize(Object)
 	 */
 	public void initialize(Object mofObject) throws GenerationException {
 		super.initialize(mofObject);

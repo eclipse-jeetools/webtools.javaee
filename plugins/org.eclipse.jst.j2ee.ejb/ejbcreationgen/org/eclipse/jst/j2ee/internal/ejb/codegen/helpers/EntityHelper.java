@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
@@ -26,6 +25,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.impl.RequiredLocalRelationshipRoleFilter;
 import org.eclipse.jst.j2ee.ejb.impl.RequiredRelationshipRoleFilter;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.Navigator;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.EJBGenHelpers;
@@ -230,7 +230,7 @@ public class EntityHelper extends EnterpriseBeanHelper {
 	/**
 	 * Returns the key class reference helper.
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public EJBClassReferenceHelper getKeyHelper() {
 		return fKeyHelper;
@@ -637,7 +637,7 @@ public class EntityHelper extends EnterpriseBeanHelper {
 	 * Insert the method's description here. Creation date: (10/11/00 9:40:18 AM)
 	 * 
 	 * @param newKeyHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public void setKeyHelper(EJBClassReferenceHelper newKeyHelper) {
 		fKeyHelper = newKeyHelper;

@@ -103,7 +103,7 @@ public class EntityKeyClassCU extends JavaCompilationUnitGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaCompilationUnitGenerator#getDefaultPackageFragmentRoot()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaCompilationUnitGenerator#getDefaultPackageFragmentRoot()
 	 */
 	protected IPackageFragmentRoot getDefaultPackageFragmentRoot() throws GenerationException {
 		IJavaProject clientProj = ((EnterpriseBeanHelper) getTopLevelHelper()).getEJBClientJavaProject();
@@ -115,7 +115,7 @@ public class EntityKeyClassCU extends JavaCompilationUnitGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaCompilationUnitGenerator#getJavaProject()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaCompilationUnitGenerator#getJavaProject()
 	 */
 	protected IJavaProject getJavaProject() throws GenerationException {
 		IJavaProject proj = ((EnterpriseBeanHelper) getTopLevelHelper()).getEJBClientJavaProject();

@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -79,7 +79,7 @@ public class EJBCommandCopyGroup extends EJBCopyGroup {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.EJBCopyGroup#addCopied(org.eclipse.jst.j2ee.ejb.EnterpriseBean)
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.EJBCopyGroup#addCopied(org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean)
 	 */
 	public void addCopied(EnterpriseBean bean) {
 		super.addCopied(bean);

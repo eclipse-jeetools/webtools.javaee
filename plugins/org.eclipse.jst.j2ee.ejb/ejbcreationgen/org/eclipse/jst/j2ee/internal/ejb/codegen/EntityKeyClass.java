@@ -165,7 +165,7 @@ public class EntityKeyClass extends EnterpriseBeanClass {
 
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EnterpriseBeanClass#getJavaTypeClass(EnterpriseBean)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EnterpriseBeanClass#getJavaTypeClass(EnterpriseBean)
 	 */
 	protected JavaClass getJavaTypeClass(EnterpriseBean ejb) {
 		return ((Entity) ejb).getPrimaryKey();

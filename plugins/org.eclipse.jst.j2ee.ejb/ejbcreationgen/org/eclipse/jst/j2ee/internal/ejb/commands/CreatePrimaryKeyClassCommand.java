@@ -17,11 +17,11 @@ import java.util.List;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.util.CMPKeySynchronizationAdapter;
+import org.eclipse.jst.j2ee.internal.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBGenerationHelper;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.PrimaryKeyHelper;
 
@@ -39,7 +39,7 @@ public class CreatePrimaryKeyClassCommand extends EJBClassReferenceCommand {
 	 * CreatePrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClass
 	 *            org.eclipse.jem.internal.java.JavaClass
 	 */
@@ -51,7 +51,7 @@ public class CreatePrimaryKeyClassCommand extends EJBClassReferenceCommand {
 	 * CreatePrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClass
 	 *            org.eclipse.jem.internal.java.JavaClass
 	 * @param shouldGenJava
@@ -65,7 +65,7 @@ public class CreatePrimaryKeyClassCommand extends EJBClassReferenceCommand {
 	 * CreatePrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClass
 	 *            org.eclipse.jem.internal.java.JavaClass
 	 * @param shouldGenJava
@@ -81,7 +81,7 @@ public class CreatePrimaryKeyClassCommand extends EJBClassReferenceCommand {
 	 * CreatePrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClassName
 	 *            java.lang.String
 	 * @param aPackageName
@@ -95,7 +95,7 @@ public class CreatePrimaryKeyClassCommand extends EJBClassReferenceCommand {
 	 * CreatePrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClassName
 	 *            java.lang.String
 	 * @param aPackageName
@@ -111,7 +111,7 @@ public class CreatePrimaryKeyClassCommand extends EJBClassReferenceCommand {
 	 * CreatePrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClassName
 	 *            java.lang.String
 	 * @param aPackageName
@@ -252,7 +252,7 @@ public class CreatePrimaryKeyClassCommand extends EJBClassReferenceCommand {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.EJBCommand#executeForCodeGeneration()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.EJBCommand#executeForCodeGeneration()
 	 */
 	protected void executeForCodeGeneration() throws CommandExecutionFailure {
 		if (!generateJava)

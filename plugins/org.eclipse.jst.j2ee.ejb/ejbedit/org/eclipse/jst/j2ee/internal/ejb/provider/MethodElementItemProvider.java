@@ -37,12 +37,12 @@ import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.ejb.MethodElement}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodElement}object.
  */
 public class MethodElementItemProvider extends EjbItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	protected final static EjbPackage PACK_SF = EjbFactoryImpl.getPackage();

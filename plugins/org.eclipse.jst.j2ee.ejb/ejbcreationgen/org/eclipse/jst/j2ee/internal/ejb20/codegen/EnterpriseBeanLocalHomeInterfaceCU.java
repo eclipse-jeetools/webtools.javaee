@@ -34,7 +34,7 @@ public abstract class EnterpriseBeanLocalHomeInterfaceCU extends EnterpriseBeanH
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EnterpriseBeanRemoteInterfaceCU#getClientClassReferenceHelper()
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EnterpriseBeanRemoteInterfaceCU#getClientClassReferenceHelper()
 	 */
 	protected EJBClassReferenceHelper getClientClassReferenceHelper() {
 		return ((EnterpriseBeanHelper) getTopLevelHelper()).getLocalHomeHelper();

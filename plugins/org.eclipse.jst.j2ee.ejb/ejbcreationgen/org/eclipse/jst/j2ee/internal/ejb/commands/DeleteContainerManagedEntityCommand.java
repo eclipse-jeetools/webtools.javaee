@@ -27,9 +27,9 @@ public class DeleteContainerManagedEntityCommand extends ContainerManagedEntityC
 	 * DeleteContainerManagedEntityCommand constructor comment.
 	 * 
 	 * @param anEjb
-	 *            org.eclipse.jst.j2ee.ejb.EnterpriseBean
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean
 	 * @param anEditModel
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 */
 	public DeleteContainerManagedEntityCommand(EnterpriseBean anEjb, org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel anEditModel) {
 		super(anEjb, anEditModel);
@@ -77,7 +77,7 @@ public class DeleteContainerManagedEntityCommand extends ContainerManagedEntityC
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.ContainerManagedEntityCommand#updatePrimaryKey()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.ContainerManagedEntityCommand#updatePrimaryKey()
 	 */
 	protected void updatePrimaryKey() {
 	}
@@ -86,7 +86,7 @@ public class DeleteContainerManagedEntityCommand extends ContainerManagedEntityC
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.ContainerManagedEntityCommand#needToRegenerateSubtypes()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.ContainerManagedEntityCommand#needToRegenerateSubtypes()
 	 */
 	protected boolean needToRegenerateSubtypes() {
 		return false;

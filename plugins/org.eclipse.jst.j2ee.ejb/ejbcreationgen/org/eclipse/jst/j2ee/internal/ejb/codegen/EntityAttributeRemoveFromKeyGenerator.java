@@ -31,7 +31,7 @@ public class EntityAttributeRemoveFromKeyGenerator extends EntityAttributeGenera
 	}
 
 	/**
-	 * This implementation expects a org.eclipse.jst.j2ee.ejb.codegen.helper.AttributeHelper as its source
+	 * This implementation expects a org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helper.AttributeHelper as its source
 	 * element. It creates the subgenerators for the Java Model work.
 	 */
 	public void initialize(Object attributeHelper) throws GenerationException {
@@ -42,7 +42,7 @@ public class EntityAttributeRemoveFromKeyGenerator extends EntityAttributeGenera
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IBaseGenerator
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IBaseGenerator
 	 */
 	public void run() throws GenerationException {
 		JavaTypeGenerator typeGen = getDeclaringTypeGenerator();

@@ -97,7 +97,7 @@ public class CMP20EntityBeanRoleSetter extends CMPEntityBeanRoleAccessorWithPara
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaMethodGenerator#getReturnType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMethodGenerator#getReturnType()
 	 */
 	protected String getReturnType() throws GenerationException {
 		return null;

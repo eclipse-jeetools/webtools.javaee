@@ -42,7 +42,7 @@ public class ContainerManagedEntity20CodegenCommand extends EntityCodegenCommand
 	/**
 	 * Override to pick up the EJB 2.0 dictionary. Creation date: (8/19/2000 4:04:11 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.api.IJavaBaseGenerator
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.api.IJavaBaseGenerator
 	 * @param generatorName
 	 *            java.lang.String
 	 */

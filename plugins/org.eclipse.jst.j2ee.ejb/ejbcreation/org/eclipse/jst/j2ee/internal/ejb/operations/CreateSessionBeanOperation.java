@@ -51,7 +51,7 @@ public class CreateSessionBeanOperation extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperatoin#createRootCommand()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperatoin#createRootCommand()
 	 */
 	protected EnterpriseBeanCommand createRootCommand(String beanName) {
 		return new CreateSessionCommand(beanName, (EJBEditModel) editModel);
@@ -60,7 +60,7 @@ public class CreateSessionBeanOperation extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperatoin#createDependentCommands(org.eclipse.jst.j2ee.commands.EnterpriseBeanCommand)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperatoin#createDependentCommands(org.eclipse.jst.j2ee.internal.internal.commands.EnterpriseBeanCommand)
 	 */
 	protected void createDependentCommands(EnterpriseBeanCommand ejbCommand) {
 		super.createDependentCommands(ejbCommand);
@@ -84,7 +84,7 @@ public class CreateSessionBeanOperation extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperatoin#initializeRootCommand(org.eclipse.jst.j2ee.commands.EnterpriseBeanCommand)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperatoin#initializeRootCommand(org.eclipse.jst.j2ee.internal.internal.commands.EnterpriseBeanCommand)
 	 */
 	protected void initializeRootCommand(EnterpriseBeanCommand ejbCommand) {
 		super.initializeRootCommand(ejbCommand);
@@ -100,7 +100,7 @@ public class CreateSessionBeanOperation extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperation#createTemplateModel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperation#createTemplateModel()
 	 */
 	protected CreateEnterpriseBeanTemplateModel createTemplateModel() {
 		return new CreateSessionBeanTemplateModel((CreateSessionBeanDataModel) operationDataModel);
@@ -109,7 +109,7 @@ public class CreateSessionBeanOperation extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperation#getTemplateFileName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperation#getTemplateFileName()
 	 */
 	protected String getTemplateFileName() {
 		return "sessionXDoclet.javajet"; //$NON-NLS-1$

@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 
 
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 /**
  * Insert the type's description here. Creation date: (7/17/2001 5:31:45 PM)

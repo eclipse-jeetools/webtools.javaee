@@ -25,7 +25,7 @@ public class CMP20EntityBeanFlatKeyRoleEjbCreateMB extends EntityBean20EjbCreate
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.ejb20.codegen.EntityBean20EjbCreateMB#writeKeyRoles(IGenerationBuffer)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb20.codegen.EntityBean20EjbCreateMB#writeKeyRoles(IGenerationBuffer)
 	 */
 	protected void writeKeyRoles(IGenerationBuffer buffer) throws GenerationException {
 		//do nothing

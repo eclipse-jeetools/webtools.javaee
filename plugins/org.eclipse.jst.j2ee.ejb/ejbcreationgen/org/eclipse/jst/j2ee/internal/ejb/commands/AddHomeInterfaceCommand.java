@@ -24,7 +24,7 @@ public class AddHomeInterfaceCommand extends CreateHomeInterfaceCommand {
 	 * <code>aJavaClass</code>.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IEJBCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IEJBCommand
 	 * @param aJavaClass
 	 *            org.eclipse.jem.internal.java.JavaClass
 	 */
@@ -39,7 +39,7 @@ public class AddHomeInterfaceCommand extends CreateHomeInterfaceCommand {
 	 * generate any Java code.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IEJBCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IEJBCommand
 	 * @param aJavaClassName
 	 *            java.lang.String
 	 * @param aPackageName

@@ -19,11 +19,11 @@ package org.eclipse.jst.j2ee.internal.ejb.operations;
 import java.util.List;
 
 import org.eclipse.emf.common.util.AbstractEnumerator;
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.ejb.AcknowledgeMode;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
  * @author vijayb
@@ -92,7 +92,7 @@ public class MDBJMSActivationConfigEditDataModel extends J2EEModelModifierOperat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new MDBJMSActivationConfigEditOperation(this);
@@ -101,7 +101,7 @@ public class MDBJMSActivationConfigEditDataModel extends J2EEModelModifierOperat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(DESTINATION_TYPE))
@@ -125,7 +125,7 @@ public class MDBJMSActivationConfigEditDataModel extends J2EEModelModifierOperat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(ACKNOWLEDGE_MODE);
@@ -142,7 +142,7 @@ public class MDBJMSActivationConfigEditDataModel extends J2EEModelModifierOperat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -158,7 +158,7 @@ public class MDBJMSActivationConfigEditDataModel extends J2EEModelModifierOperat
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
 	 */
 	protected Object[] doGetValidPropertyValues(String propertyName) {
 		if (propertyName.equals(ACKNOWLEDGE_MODE))

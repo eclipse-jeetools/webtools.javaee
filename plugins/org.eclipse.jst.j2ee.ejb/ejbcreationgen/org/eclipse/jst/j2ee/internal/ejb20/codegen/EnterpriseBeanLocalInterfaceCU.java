@@ -38,7 +38,7 @@ public abstract class EnterpriseBeanLocalInterfaceCU extends EnterpriseBeanRemot
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EnterpriseBeanRemoteInterfaceCU#getClientClassReferenceHelper()
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EnterpriseBeanRemoteInterfaceCU#getClientClassReferenceHelper()
 	 */
 	protected EJBClassReferenceHelper getClientClassReferenceHelper() {
 		return ((EnterpriseBeanHelper) getTopLevelHelper()).getLocalHelper();

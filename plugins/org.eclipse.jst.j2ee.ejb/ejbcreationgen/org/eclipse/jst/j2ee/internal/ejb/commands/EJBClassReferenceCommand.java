@@ -37,7 +37,7 @@ public abstract class EJBClassReferenceCommand extends EJBDependentCommand imple
 	 * EJBClassReferenceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public EJBClassReferenceCommand(IRootCommand parent, JavaClass aJavaClass) {
 		this(parent, aJavaClass, true);
@@ -47,7 +47,7 @@ public abstract class EJBClassReferenceCommand extends EJBDependentCommand imple
 	 * EJBClassReferenceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public EJBClassReferenceCommand(IRootCommand parent, JavaClass aJavaClass, boolean shouldGenJava) {
 		this(parent, aJavaClass, shouldGenJava, true);
@@ -57,7 +57,7 @@ public abstract class EJBClassReferenceCommand extends EJBDependentCommand imple
 	 * EJBClassReferenceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public EJBClassReferenceCommand(IRootCommand parent, JavaClass aJavaClass, boolean shouldGenJava, boolean shouldGenMetadata) {
 		super(parent, shouldGenJava, shouldGenMetadata);
@@ -70,7 +70,7 @@ public abstract class EJBClassReferenceCommand extends EJBDependentCommand imple
 	 * EJBClassReferenceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public EJBClassReferenceCommand(IRootCommand parent, String aJavaClassName, String aPackageName) {
 		this(parent, aJavaClassName, aPackageName, true);
@@ -80,7 +80,7 @@ public abstract class EJBClassReferenceCommand extends EJBDependentCommand imple
 	 * EJBClassReferenceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public EJBClassReferenceCommand(IRootCommand parent, String aJavaClassName, String aPackageName, boolean shouldGenJava) {
 		this(parent, aJavaClassName, aPackageName, shouldGenJava, true);
@@ -90,7 +90,7 @@ public abstract class EJBClassReferenceCommand extends EJBDependentCommand imple
 	 * EJBClassReferenceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public EJBClassReferenceCommand(IRootCommand parent, String aJavaClassName, String aPackageName, boolean shouldGenJava, boolean shouldGenMetadata) {
 		super(parent, shouldGenJava, shouldGenMetadata);
@@ -186,7 +186,7 @@ public abstract class EJBClassReferenceCommand extends EJBDependentCommand imple
 	/**
 	 * Insert the method's description here. Creation date: (8/22/2000 8:56:00 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.Document
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.Document
 	 */
 	public Resource getResource() {
 		return (getParent() != null) ? ((EnterpriseBeanCommand) getParent()).getResource() : null;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.CMPEntityHomeInterface;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.EJBGenHelpers;
@@ -103,7 +103,7 @@ public class CMP20EntityLocalHomeInterface extends CMPEntityHomeInterface {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.CMPEntityHomeInterface#addCMPCreateMemberGeneratorNames(List)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.CMPEntityHomeInterface#addCMPCreateMemberGeneratorNames(List)
 	 */
 	protected void addCMPCreateMemberGeneratorNames(List names) {
 		names.add(IEJB20GenConstants.CMP20_ENTITY_LOCAL_HOME_CREATE);
@@ -113,7 +113,7 @@ public class CMP20EntityLocalHomeInterface extends CMPEntityHomeInterface {
 
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.CMPEntityHomeInterface#addCMPUpdateMemberGeneratorNames(List)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.CMPEntityHomeInterface#addCMPUpdateMemberGeneratorNames(List)
 	 */
 	protected void addCMPUpdateMemberGeneratorNames(List names) {
 		addCMPUpdateMemberGeneratorNamesForFlatKeyRoles(names);

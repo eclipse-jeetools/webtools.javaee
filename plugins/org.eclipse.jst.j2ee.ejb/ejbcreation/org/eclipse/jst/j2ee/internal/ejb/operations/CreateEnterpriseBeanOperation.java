@@ -33,7 +33,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBCodegenHandlerExtensionReader;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.IEJBCodegenHandler;
 import org.eclipse.jst.j2ee.internal.ejb.commands.AddBeanClassCommand;
@@ -42,13 +42,13 @@ import org.eclipse.jst.j2ee.internal.ejb.commands.EnterpriseBeanCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.IEJBClassReferenceCommand;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
-import org.eclipse.wst.common.annotations.controller.AnnotationsController;
-import org.eclipse.wst.common.annotations.controller.AnnotationsControllerManager;
-import org.eclipse.wst.common.framework.enablement.nonui.WFTWrappedException;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.internal.annotations.controller.AnnotationsController;
+import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
-import org.eclipse.wst.common.internal.jdt.integration.WorkingCopyManager;
+import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyManager;
 
 /**
  * @author DABERG
@@ -76,7 +76,7 @@ public abstract class CreateEnterpriseBeanOperation extends EditModelOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		createSourceFolder(monitor);

@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.ejb.commands.EnterpriseBeanCommand;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientViewModel;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 /**
  * Defines operations for removing and adding interfaces to an EJB.

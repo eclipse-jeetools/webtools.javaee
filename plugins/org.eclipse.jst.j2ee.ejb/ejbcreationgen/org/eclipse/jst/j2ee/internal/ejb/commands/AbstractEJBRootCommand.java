@@ -29,9 +29,9 @@ import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.IEJBCodegenHandler;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.emf.utilities.EtoolsCopyUtility;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
@@ -154,7 +154,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	/**
 	 * Insert the method's description here. Creation date: (8/22/2000 9:05:54 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.Document
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.Document
 	 */
 	public Resource createResource() {
 		Resource resource = getEditModel().makeEjbXmiResource();
@@ -166,7 +166,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	/**
 	 * Insert the method's description here. Creation date: (8/22/2000 9:05:54 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.Document
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.Document
 	 */
 	protected Resource createResourceIfNecessary() {
 		Resource resource = getResource();
@@ -298,7 +298,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	/**
 	 * Insert the method's description here. Creation date: (8/10/2001 2:11:44 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.commands.AbstractEJBRootCommand
+	 * @return org.eclipse.jst.j2ee.internal.internal.commands.AbstractEJBRootCommand
 	 */
 	protected EJBPropagationCommand getAdditionalCommand() {
 		if (hasParent())
@@ -357,7 +357,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	/**
 	 * Insert the method's description here. Creation date: (4/18/2001 8:40:38 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 */
 	public EJBEditModel getEditModel() {
 		return editModel;
@@ -366,7 +366,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	/**
 	 * Insert the method's description here. Creation date: (8/22/2000 8:51:51 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.Factory
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.Factory
 	 */
 	public EjbFactory getEJBFactory() {
 		return ((EjbPackage) EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI)).getEjbFactory();
@@ -396,7 +396,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	/**
 	 * Insert the method's description here. Creation date: (8/10/2001 3:19:08 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.operations.IOperationHandler
+	 * @return org.eclipse.jst.j2ee.internal.internal.operations.IOperationHandler
 	 */
 	public IOperationHandler getOperationHandler() {
 		if (operationHandler == null && hasParent())
@@ -407,7 +407,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	/**
 	 * Insert the method's description here. Creation date: (08/18/00 5:00:53 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.commands.ICommand
+	 * @return org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public IEJBCommand getParent() {
 		return fParent;
@@ -562,7 +562,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	 * Insert the method's description here. Creation date: (4/18/2001 8:40:38 AM)
 	 * 
 	 * @param newEditModel
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 */
 	public void setEditModel(org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel newEditModel) {
 		editModel = newEditModel;
@@ -601,7 +601,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	 * Insert the method's description here. Creation date: (8/10/2001 3:19:08 PM)
 	 * 
 	 * @param newOperationHandler
-	 *            org.eclipse.jst.j2ee.operations.IOperationHandler
+	 *            org.eclipse.jst.j2ee.internal.internal.operations.IOperationHandler
 	 */
 	public void setOperationHandler(IOperationHandler newOperationHandler) {
 		operationHandler = newOperationHandler;
@@ -611,7 +611,7 @@ public abstract class AbstractEJBRootCommand extends CompoundCommand implements 
 	 * Insert the method's description here. Creation date: (08/18/00 5:00:53 PM)
 	 * 
 	 * @param newParent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	protected void setParent(IEJBCommand newParent) {
 		fParent = newParent;

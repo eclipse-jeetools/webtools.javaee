@@ -25,9 +25,9 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
  * @author DABERG
@@ -39,7 +39,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/**
 	 * The session type either stateful or stateless. (Optional - defaults to Stateless)
 	 * 
-	 * @link org.eclipse.jst.j2ee.ejb.SessionType
+	 * @link org.eclipse.jst.j2ee.internal.internal.ejb.SessionType
 	 */
 	public static final String SESSION_TYPE = "CreateSessionBeanDataModel.sessionType"; //$NON-NLS-1$
 	/**
@@ -93,7 +93,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new CreateSessionBeanOperation(this);
@@ -102,7 +102,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
@@ -117,7 +117,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getDefaultAddLocalFor2x()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getDefaultAddLocalFor2x()
 	 */
 	protected Boolean getDefaultAddLocalFor2x() {
 		return Boolean.FALSE;
@@ -126,7 +126,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getDefaultAddRemoteFor2x()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getDefaultAddRemoteFor2x()
 	 */
 	protected Boolean getDefaultAddRemoteFor2x() {
 		return Boolean.TRUE;
@@ -142,7 +142,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(SESSION_TYPE))
@@ -163,7 +163,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getBeanClassEJBInterfaceName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getBeanClassEJBInterfaceName()
 	 */
 	protected String getBeanClassEJBInterfaceName() {
 		return SESSION_INTERFACE_TYPE;
@@ -172,7 +172,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getEJBType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getEJBType()
 	 */
 	public int getEJBType() {
 		return CreateEnterpriseBeanDataModel.EJB_TYPE_SESSION;
@@ -181,7 +181,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getInterfaceType(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#getInterfaceType(java.lang.String)
 	 */
 	public String getInterfaceType(String propertyName) {
 		if (propertyName.equals(SERVICE_ENDPOINT_INTERFACE))
@@ -192,7 +192,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#doGetValidPropertyValues(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#doGetValidPropertyValues(java.lang.String)
 	 */
 	protected Object[] doGetValidPropertyValues(String propertyName) {
 		if (propertyName.equals(SESSION_TYPE_NAME))
@@ -219,7 +219,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -276,7 +276,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (propertyName.equals(SERVICE_ENDPOINT_INTERFACE)) {
@@ -299,7 +299,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#beanNameChanged()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanWithClientViewDataModel#beanNameChanged()
 	 */
 	protected void beanNameChanged() {
 		super.beanNameChanged();
@@ -319,7 +319,7 @@ public class CreateSessionBeanDataModel extends CreateEnterpriseBeanWithClientVi
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#processAndFilterSuperEJBNames(java.util.List)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#processAndFilterSuperEJBNames(java.util.List)
 	 */
 	protected Object[] processAndFilterSuperEJBNames(List beans) {
 		List remove = new ArrayList();

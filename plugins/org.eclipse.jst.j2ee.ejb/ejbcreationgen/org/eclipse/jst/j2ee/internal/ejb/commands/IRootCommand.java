@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.internal.ejb.commands;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 
 
@@ -21,7 +21,7 @@ import org.eclipse.wst.common.framework.operation.IOperationHandler;
  * 
  * @author: Administrator
  */
-public interface IRootCommand extends org.eclipse.jst.j2ee.internal.ejb.operations.IEJBProgressCommand, IEJBCommand {
+public interface IRootCommand extends org.eclipse.jst.j2ee.ejb.internal.operations.IEJBProgressCommand, IEJBCommand {
 	/**
 	 * This adds a command to this compound command's the list of commands.
 	 */

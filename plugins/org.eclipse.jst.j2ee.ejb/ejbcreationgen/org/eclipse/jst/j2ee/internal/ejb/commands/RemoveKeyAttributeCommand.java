@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.internal.ejb.commands;
 
 
 
-import org.eclipse.jst.j2ee.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.internal.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.IEJBGenConstants;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.AttributeHelper;
 
@@ -28,7 +28,7 @@ public class RemoveKeyAttributeCommand extends PersistentAttributeCommand {
 	 * RemoveKeyAttributeCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IEJBCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IEJBCommand
 	 * @param aName
 	 *            java.lang.String
 	 */

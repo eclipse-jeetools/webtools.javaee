@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.ejb20.commands.EJB20RelationshipCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.Persistent20RoleCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.RenameEJB20RelationshipCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.UpdatePersistent20RoleCommand;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 
 /**
@@ -38,11 +38,11 @@ public class UpdateEjbRelationshipOperation extends NewEjbRelationshipOperation 
 	 * UpdateEjbRelationshipOperation constructor comment.
 	 * 
 	 * @param anEditModel
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 * @param aProvider
 	 *            com.ibm.ejs.models.base.extensions.ejbext.operations.EjbRelationshipModifyInfoProvider
 	 * @param anOperationHandler
-	 *            org.eclipse.jst.j2ee.operations.IOperationHandler
+	 *            org.eclipse.jst.j2ee.internal.internal.operations.IOperationHandler
 	 */
 	public UpdateEjbRelationshipOperation(EJBEditModel anEditModel, EjbUpdateRelationshipModel aModel, IOperationHandler anOperationHandler) {
 		super(anEditModel, aModel, anOperationHandler);

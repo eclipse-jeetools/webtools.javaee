@@ -32,16 +32,16 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.internal.adapters.jdom.JDOMSearchHelper;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
-import org.eclipse.jst.j2ee.IEJBModelExtenderManager;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Session;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -168,7 +168,7 @@ public class ClientViewModel extends J2EEModelModifierOperationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(SHOULD_DELETE_INTERFACE) || propertyName.equals(SHOULD_REMOVE_INTERFACE)) {

@@ -41,12 +41,12 @@ import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.ejb.EJBRelationshipRole}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelationshipRole}object.
  */
 public class EJBRelationshipRoleItemProvider extends EjbItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	protected static final EStructuralFeature ROLES_SF = EjbFactoryImpl.getPackage().getEJBRelation_RelationshipRoles();
@@ -61,7 +61,7 @@ public class EJBRelationshipRoleItemProvider extends EjbItemProviderAdapter impl
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: create some child object.
@@ -96,7 +96,7 @@ public class EJBRelationshipRoleItemProvider extends EjbItemProviderAdapter impl
 
 
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
@@ -104,14 +104,14 @@ public class EJBRelationshipRoleItemProvider extends EjbItemProviderAdapter impl
 	}
 
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return "Create #CHILD_CLASS_NAME#"; //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the help text for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

@@ -21,8 +21,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Session;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author sagarwal
@@ -165,7 +165,7 @@ public class ClientViewSEIDataModel extends ClientViewModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 
 	protected IStatus doValidateProperty(String propertyName) {

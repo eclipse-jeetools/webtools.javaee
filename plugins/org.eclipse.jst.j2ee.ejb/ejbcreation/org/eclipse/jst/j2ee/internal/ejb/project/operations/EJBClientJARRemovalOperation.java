@@ -29,18 +29,18 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.common.operations.JARDependencyDataModel;
-import org.eclipse.jst.j2ee.common.operations.JARDependencyOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.AddUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.RemoveUtilityJARMapCommand;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
+import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.plugin.LibCopyBuilder;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -74,7 +74,7 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.ejb.clientjarcreation.AbstractEJBClientJAROperation#initialize()
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.clientjarcreation.AbstractEJBClientJAROperation#initialize()
 	 */
 	protected void initialize() {
 		super.initialize();
@@ -97,7 +97,7 @@ public class EJBClientJARRemovalOperation extends AbstractEJBClientJAROperation 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.ejb.clientjarcreation.AbstractEJBClientJAROperation#addAdditionalFilesForValidateEdit(java.util.List)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.clientjarcreation.AbstractEJBClientJAROperation#addAdditionalFilesForValidateEdit(java.util.List)
 	 */
 	protected void addAdditionalFilesForValidateEdit(final List roFiles) throws CoreException {
 		IResourceVisitor visitor = new IResourceVisitor() {

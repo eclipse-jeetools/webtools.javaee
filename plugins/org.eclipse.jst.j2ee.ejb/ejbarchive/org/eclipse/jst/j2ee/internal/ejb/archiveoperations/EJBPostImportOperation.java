@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 /**
@@ -67,7 +67,7 @@ public class EJBPostImportOperation extends WTPOperation {
 	/**
 	 * Insert the method's description here. Creation date: (7/17/2001 12:03:47 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 */
 	protected org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel getEjbEditModel() {
 		if (ejbEditModel == null)
@@ -78,7 +78,7 @@ public class EJBPostImportOperation extends WTPOperation {
 	/**
 	 * Insert the method's description here. Creation date: (7/17/2001 12:03:47 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.ejbproject.EJBNatureRuntime
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBNatureRuntime
 	 */
 	protected org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime getEjbNature() {
 		return ejbNature;
@@ -107,7 +107,7 @@ public class EJBPostImportOperation extends WTPOperation {
 	 * Insert the method's description here. Creation date: (7/17/2001 12:03:47 PM)
 	 * 
 	 * @param newEjbNature
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBNatureRuntime
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBNatureRuntime
 	 */
 	protected void setEjbNature(org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime newEjbNature) {
 		ejbNature = newEjbNature;
@@ -127,7 +127,7 @@ public class EJBPostImportOperation extends WTPOperation {
 	 * Split the single Schema resource into multiple schema resources.
 	 */
 	protected void splitSchemaResource(IProgressMonitor pm) throws java.lang.reflect.InvocationTargetException, InterruptedException {
-		IEJBArchiveTransformationOperation op = org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin.getPlugin().getExtendedArchiveOperation();
+		IEJBArchiveTransformationOperation op = org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin.getPlugin().getExtendedArchiveOperation();
 		op.setPerformSplit(true);
 		op.setBatch(isBatch());
 		op.setProject(getEjbNature().getProject());

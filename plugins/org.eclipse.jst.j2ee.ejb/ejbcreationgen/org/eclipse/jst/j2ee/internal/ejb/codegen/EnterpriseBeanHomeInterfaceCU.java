@@ -83,7 +83,7 @@ public abstract class EnterpriseBeanHomeInterfaceCU extends JavaCompilationUnitG
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaCompilationUnitGenerator#createHistoryDescriptor(JavaCompilationUnitDescriptor)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaCompilationUnitGenerator#createHistoryDescriptor(JavaCompilationUnitDescriptor)
 	 */
 	protected JavaCompilationUnitHistoryDescriptor createHistoryDescriptor(JavaCompilationUnitDescriptor desc) throws GenerationException {
 		JavaCompilationUnitHistoryDescriptor historyDesc = super.createHistoryDescriptor(desc);
@@ -100,7 +100,7 @@ public abstract class EnterpriseBeanHomeInterfaceCU extends JavaCompilationUnitG
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaCompilationUnitGenerator#getDefaultPackageFragmentRoot()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaCompilationUnitGenerator#getDefaultPackageFragmentRoot()
 	 */
 	protected IPackageFragmentRoot getDefaultPackageFragmentRoot() throws GenerationException {
 		IJavaProject clientProj = ((EnterpriseBeanHelper) getTopLevelHelper()).getEJBClientJavaProject();
@@ -112,7 +112,7 @@ public abstract class EnterpriseBeanHomeInterfaceCU extends JavaCompilationUnitG
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaCompilationUnitGenerator#getJavaProject()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaCompilationUnitGenerator#getJavaProject()
 	 */
 	protected IJavaProject getJavaProject() throws GenerationException {
 		IJavaProject proj = ((EnterpriseBeanHelper) getTopLevelHelper()).getEJBClientJavaProject();

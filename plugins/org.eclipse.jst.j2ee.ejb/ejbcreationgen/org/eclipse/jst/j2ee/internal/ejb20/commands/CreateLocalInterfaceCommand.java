@@ -31,7 +31,7 @@ public class CreateLocalInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddRemoteInterfaceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 * @param aJavaClass
 	 *            org.eclipse.jem.internal.java.JavaClass
 	 */
@@ -43,7 +43,7 @@ public class CreateLocalInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddRemoteInterfaceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public CreateLocalInterfaceCommand(IRootCommand parent, JavaClass aJavaClass, boolean shouldGenMetadata) {
 		super(parent, aJavaClass, true, shouldGenMetadata);
@@ -53,7 +53,7 @@ public class CreateLocalInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddRemoteInterfaceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 * @param aJavaClassName
 	 *            java.lang.String
 	 * @param aPackageName
@@ -67,7 +67,7 @@ public class CreateLocalInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddRemoteInterfaceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public CreateLocalInterfaceCommand(IRootCommand parent, String aJavaClassName, String aPackageName, boolean shouldGenMetadata) {
 		super(parent, aJavaClassName, aPackageName, true, shouldGenMetadata);

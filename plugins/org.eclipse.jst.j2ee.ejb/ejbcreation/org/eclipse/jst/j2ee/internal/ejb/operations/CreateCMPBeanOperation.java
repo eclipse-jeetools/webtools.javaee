@@ -98,7 +98,7 @@ public class CreateCMPBeanOperation extends CreateEntityBeanOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperation#getTemplateFileName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperation#getTemplateFileName()
 	 */
 	protected String getTemplateFileName() {
 		return cmpDM.isVersion2xOrGreater() ? "cmp2xEntityXDoclet.javajet" : "cmp1xEntityXDoclet.javajet"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -107,7 +107,7 @@ public class CreateCMPBeanOperation extends CreateEntityBeanOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperation#createTemplateModel()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperation#createTemplateModel()
 	 */
 	protected CreateEnterpriseBeanTemplateModel createTemplateModel() {
 		return new CreateCMPEntityBeanTemplateModel((CreateEntityBeanDataModel) operationDataModel);

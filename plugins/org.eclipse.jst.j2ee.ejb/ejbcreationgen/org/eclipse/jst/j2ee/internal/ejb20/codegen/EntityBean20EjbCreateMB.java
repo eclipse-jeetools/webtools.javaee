@@ -61,7 +61,7 @@ public class EntityBean20EjbCreateMB extends EntityBeanEjbCreateMB {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EntityBeanEjbCreateMB#run(IGenerationBuffer)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EntityBeanEjbCreateMB#run(IGenerationBuffer)
 	 */
 	public void run(IGenerationBuffer buffer) throws GenerationException {
 		super.run(buffer);

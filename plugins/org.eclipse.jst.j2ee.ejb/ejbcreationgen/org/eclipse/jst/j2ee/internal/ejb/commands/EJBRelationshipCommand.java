@@ -95,7 +95,7 @@ public class EJBRelationshipCommand extends EJBCommand {
 	/**
 	 * Insert the method's description here. Creation date: (11/20/2000 2:25:17 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.commands.PersistentRoleCommand
+	 * @return org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand
 	 */
 	public PersistentRoleCommand getFirstRoleCommand() {
 		return getRoleCommands()[0];
@@ -123,7 +123,7 @@ public class EJBRelationshipCommand extends EJBCommand {
 	/**
 	 * Insert the method's description here. Creation date: (11/20/2000 1:50:00 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.commands.PersistentRoleCommand[]
+	 * @return org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand[]
 	 */
 	protected PersistentRoleCommand[] getRoleCommands() {
 		if (roleCommands == null)
@@ -158,7 +158,7 @@ public class EJBRelationshipCommand extends EJBCommand {
 	/**
 	 * Insert the method's description here. Creation date: (11/20/2000 2:25:17 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.commands.PersistentRoleCommand
+	 * @return org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand
 	 */
 	public PersistentRoleCommand getSecondRoleCommand() {
 		return getRoleCommands()[1];
@@ -202,7 +202,7 @@ public class EJBRelationshipCommand extends EJBCommand {
 	 * Insert the method's description here. Creation date: (11/20/2000 2:31:10 PM)
 	 * 
 	 * @param aCommand
-	 *            org.eclipse.jst.j2ee.commands.PersistentRoleCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand
 	 */
 	public void setFirstRoleCommand(PersistentRoleCommand aCommand) {
 		getRoleCommands()[0] = aCommand;
@@ -240,7 +240,7 @@ public class EJBRelationshipCommand extends EJBCommand {
 	 * Insert the method's description here. Creation date: (11/20/2000 2:31:10 PM)
 	 * 
 	 * @param aCommand
-	 *            org.eclipse.jst.j2ee.commands.PersistentRoleCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand
 	 */
 	public void setSecondRoleCommand(PersistentRoleCommand aCommand) {
 		getRoleCommands()[1] = aCommand;

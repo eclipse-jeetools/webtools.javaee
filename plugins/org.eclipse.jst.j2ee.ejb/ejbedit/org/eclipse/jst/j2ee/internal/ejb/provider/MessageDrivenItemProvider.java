@@ -34,12 +34,12 @@ import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.ejb.MessageDriven}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MessageDriven}object.
  */
 public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	/**
@@ -50,7 +50,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
@@ -90,7 +90,7 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 
 
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
@@ -98,14 +98,14 @@ public class MessageDrivenItemProvider extends EnterpriseBeanItemProvider implem
 	}
 
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("Create_CMPAttribute_2"); //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the help text for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

@@ -185,7 +185,7 @@ abstract public class EJBCommand extends AbstractEJBCommand implements IEJBComma
 	/**
 	 * Insert the method's description here. Creation date: (9/5/2000 3:20:36 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBGenerationHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBGenerationHelper
 	 */
 	public EJBGenerationHelper getHelper() {
 		if (helper == null) {
@@ -197,7 +197,7 @@ abstract public class EJBCommand extends AbstractEJBCommand implements IEJBComma
 	/**
 	 * Insert the method's description here. Creation date: (9/5/2000 4:02:47 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBGenerationHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBGenerationHelper
 	 */
 	public EJBGenerationHelper getInverseHelper() {
 		if (inverseHelper == null) {
@@ -209,7 +209,7 @@ abstract public class EJBCommand extends AbstractEJBCommand implements IEJBComma
 	/**
 	 * Insert the method's description here. Creation date: (3/6/2001 10:21:27 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.MetadataHistory
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.MetadataHistory
 	 */
 	public org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.MetadataHistory getInverseMetadataHistory() {
 		return inverseMetadataHistory;
@@ -226,7 +226,7 @@ abstract public class EJBCommand extends AbstractEJBCommand implements IEJBComma
 	/**
 	 * Insert the method's description here. Creation date: (11/14/2000 1:03:59 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.MetadataHistory
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.MetadataHistory
 	 */
 	public org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.MetadataHistory getMetadataHistory() {
 		return metadataHistory;
@@ -337,7 +337,7 @@ abstract public class EJBCommand extends AbstractEJBCommand implements IEJBComma
 	 * Insert the method's description here. Creation date: (9/5/2000 4:02:47 PM)
 	 * 
 	 * @param newInverseHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBGenerationHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBGenerationHelper
 	 */
 	public void setInverseHelper(EJBGenerationHelper newInverseHelper) {
 		inverseHelper = newInverseHelper;

@@ -15,10 +15,10 @@ package org.eclipse.jst.j2ee.internal.ejb.codegen;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
-import org.eclipse.jst.j2ee.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EnterpriseBeanHelper;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EntityHelper;
 

@@ -36,7 +36,7 @@ public class EntityLocalHomeCreate extends EntityHomeCreate {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EntityHomeCreate#shouldUseFlattenedParameters(Entity)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EntityHomeCreate#shouldUseFlattenedParameters(Entity)
 	 */
 	protected boolean shouldUseFlattenedParameters(Entity entity) {
 		return false;

@@ -137,7 +137,7 @@ public abstract class EJBDependentCommand extends EJBCommand {
 	/**
 	 * Insert the method's description here. Creation date: (8/22/2000 4:09:08 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.EnterpriseBean
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean
 	 */
 	public EnterpriseBean getEjb() {
 		return getParent().getEjb();
@@ -160,7 +160,7 @@ public abstract class EJBDependentCommand extends EJBCommand {
 	 * Return the original EJB before any commands have been executed. Creation date: (8/22/2000
 	 * 4:09:08 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.EnterpriseBean
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.EnterpriseBean
 	 */
 	protected EnterpriseBean getOriginalEjb() {
 		return (EnterpriseBean) getCopy(getEjb());

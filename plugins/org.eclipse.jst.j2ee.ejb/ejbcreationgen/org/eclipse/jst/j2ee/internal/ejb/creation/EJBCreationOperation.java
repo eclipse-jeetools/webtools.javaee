@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.ejb.internal.operations.EjbModificationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBCodeGenResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.commands.AddBeanClassCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.AddHomeInterfaceCommand;
@@ -43,7 +44,6 @@ import org.eclipse.jst.j2ee.internal.ejb.commands.IEJBCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.IPersistentAttributeCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.SessionCommand;
 import org.eclipse.jst.j2ee.internal.ejb.operations.CreateSourceFolderOperation;
-import org.eclipse.jst.j2ee.internal.ejb.operations.EjbModificationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.AddLocalHomeInterfaceCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.AddLocalInterfaceCommand;
@@ -52,8 +52,8 @@ import org.eclipse.jst.j2ee.internal.ejb20.commands.CreateLocalHomeInterfaceComm
 import org.eclipse.jst.j2ee.internal.ejb20.commands.CreateLocalInterfaceCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.CreateMessageDrivenCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.MessageDrivenCommand;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 /**
@@ -70,9 +70,9 @@ public class EJBCreationOperation extends EjbModificationOperation implements IE
 	 * @param anEjbCreationInfoProvider
 	 *            IEJBCreationInfoProvider
 	 * @param anEditModel
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 * @param anOperationHandler
-	 *            org.eclipse.jst.j2ee.operations.IOperationHandler
+	 *            org.eclipse.jst.j2ee.internal.internal.operations.IOperationHandler
 	 */
 	public EJBCreationOperation(EJBCreationModel anEjbCreationModel, EJBEditModel anEditModel, IOperationHandler anOperationHandler) {
 		super(anEditModel, anOperationHandler);

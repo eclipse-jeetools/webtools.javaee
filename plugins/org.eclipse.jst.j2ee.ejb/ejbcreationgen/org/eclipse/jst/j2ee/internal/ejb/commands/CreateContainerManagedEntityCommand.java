@@ -82,7 +82,7 @@ public class CreateContainerManagedEntityCommand extends ContainerManagedEntityC
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.ContainerManagedEntityCommand#postExecuteChildren()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.ContainerManagedEntityCommand#postExecuteChildren()
 	 */
 	protected void postExecuteChildren() {
 		super.postExecuteChildren();

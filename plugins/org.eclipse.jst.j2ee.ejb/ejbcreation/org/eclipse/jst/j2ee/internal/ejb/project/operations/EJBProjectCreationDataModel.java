@@ -19,16 +19,17 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
-import org.eclipse.jst.j2ee.commonarchivecore.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
-import org.eclispe.wst.common.framework.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * @author jsholl
@@ -65,7 +66,7 @@ public class EJBProjectCreationDataModel extends J2EEModuleCreationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(CREATE_CLIENT);
@@ -107,57 +108,55 @@ public class EJBProjectCreationDataModel extends J2EEModuleCreationDataModel {
 		}
 	}
 
-	protected String convertVersionIDtoLabel(int id) {
-		switch (id) {
-			case J2EEVersionConstants.EJB_1_0_ID :
-				return J2EEVersionConstants.VERSION_1_0_TEXT;
-			case J2EEVersionConstants.EJB_1_1_ID :
-				return J2EEVersionConstants.VERSION_1_1_TEXT;
-			case J2EEVersionConstants.EJB_2_0_ID :
-				return J2EEVersionConstants.VERSION_2_0_TEXT;
-			case J2EEVersionConstants.EJB_2_1_ID :
-				return J2EEVersionConstants.VERSION_2_1_TEXT;
+	protected WTPPropertyDescriptor doGetPropertyDescriptor(String propertyName) {
+		if (propertyName.equals(J2EE_MODULE_VERSION)) {
+			Integer propertyValue = (Integer) getProperty(propertyName);
+			String description = null;
+			switch (propertyValue.intValue()) {
+				case J2EEVersionConstants.EJB_1_1_ID :
+					description = J2EEVersionConstants.VERSION_1_1_TEXT;
+					break;
+				case J2EEVersionConstants.EJB_2_0_ID :
+					description = J2EEVersionConstants.VERSION_2_0_TEXT;
+					break;
+				case J2EEVersionConstants.EJB_2_1_ID :
+				default :
+					description = J2EEVersionConstants.VERSION_2_1_TEXT;
+					break;
+			}
+			return new WTPPropertyDescriptor(propertyValue, description);
 		}
-		return ""; //$NON-NLS-1$
+		return super.doGetPropertyDescriptor(propertyName);
 	}
 
-	protected Integer convertVersionLabeltoID(String label) {
-		int id = -1;
-		if (label == null)
-			return null;
-		else if (label.equals(J2EEVersionConstants.VERSION_1_0_TEXT))
-			id = J2EEVersionConstants.EJB_1_0_ID;
-		else if (label.equals(J2EEVersionConstants.VERSION_1_1_TEXT))
-			id = J2EEVersionConstants.EJB_1_1_ID;
-		else if (label.equals(J2EEVersionConstants.VERSION_2_0_TEXT))
-			id = J2EEVersionConstants.EJB_2_0_ID;
-		else if (label.equals(J2EEVersionConstants.VERSION_2_1_TEXT))
-			id = J2EEVersionConstants.EJB_2_1_ID;
-
-		return new Integer(id);
-	}
-
-	/**
-	 * @return Return a String[] of the valid J2EE versions for the selected J2EE Preference Level.
-	 */
-	protected Object[] getValidJ2EEVersionLabels() {
+	protected WTPPropertyDescriptor[] getValidJ2EEModuleVersionDescriptors() {
 		int highestJ2EEPref = J2EEPlugin.getDefault().getJ2EEPreferences().getHighestJ2EEVersionID();
+		WTPPropertyDescriptor[] descriptors = null;
 		switch (highestJ2EEPref) {
-			case (J2EEVersionConstants.J2EE_1_4_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_1_TEXT, J2EEVersionConstants.VERSION_2_0_TEXT, J2EEVersionConstants.VERSION_2_1_TEXT};
-			case (J2EEVersionConstants.J2EE_1_3_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_1_TEXT, J2EEVersionConstants.VERSION_2_0_TEXT};
-			case (J2EEVersionConstants.J2EE_1_2_ID) :
-				return new String[]{J2EEVersionConstants.VERSION_1_1_TEXT};
+			case J2EEVersionConstants.J2EE_1_2_ID :
+				descriptors = new WTPPropertyDescriptor[1];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.EJB_1_1_ID), J2EEVersionConstants.VERSION_1_1_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_3_ID :
+				descriptors = new WTPPropertyDescriptor[2];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.EJB_1_1_ID), J2EEVersionConstants.VERSION_1_1_TEXT);
+				descriptors[1] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.EJB_2_0_ID), J2EEVersionConstants.VERSION_2_0_TEXT);
+				break;
+			case J2EEVersionConstants.J2EE_1_4_ID :
 			default :
-				return new String[]{J2EEVersionConstants.VERSION_1_1_TEXT, J2EEVersionConstants.VERSION_2_0_TEXT, J2EEVersionConstants.VERSION_2_1_TEXT};
+				descriptors = new WTPPropertyDescriptor[3];
+				descriptors[0] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.EJB_1_1_ID), J2EEVersionConstants.VERSION_1_1_TEXT);
+				descriptors[1] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.EJB_2_0_ID), J2EEVersionConstants.VERSION_2_0_TEXT);
+				descriptors[2] = new WTPPropertyDescriptor(new Integer(J2EEVersionConstants.EJB_2_1_ID), J2EEVersionConstants.VERSION_2_1_TEXT);
+				break;
 		}
+		return descriptors;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#convertModuleVersionToJ2EEVersion(java.lang.Integer)
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#convertModuleVersionToJ2EEVersion(java.lang.Integer)
 	 */
 	protected int convertModuleVersionToJ2EEVersion(int moduleVersion) {
 		switch (moduleVersion) {
@@ -176,7 +175,7 @@ public class EJBProjectCreationDataModel extends J2EEModuleCreationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#convertJ2EEVersionToModuleVersion(java.lang.Integer)
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#convertJ2EEVersionToModuleVersion(java.lang.Integer)
 	 */
 	protected Integer convertJ2EEVersionToModuleVersion(Integer j2eeVersion) {
 		int version = convertJ2EEVersionToModuleversion(j2eeVersion.intValue());
@@ -208,7 +207,7 @@ public class EJBProjectCreationDataModel extends J2EEModuleCreationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -221,17 +220,12 @@ public class EJBProjectCreationDataModel extends J2EEModuleCreationDataModel {
 		} else if (propertyName.equals(USE_ANNOTATIONS)) {
 			ejbClientProjectDataModel.setProperty(EJBClientProjectDataModel.USE_ANNOTATIONS, propertyValue);
 			if (((Boolean) propertyValue).booleanValue()) {
-				if (getIntProperty(J2EE_MODULE_VERSION) == J2EEVersionConstants.EJB_1_1_ID) {
-					setProperty(J2EE_MODULE_VERSION_LBL, null);
-				} else
-					notifyEnablementChange(J2EE_MODULE_VERSION);
+				notifyEnablementChange(J2EE_MODULE_VERSION);
 			} else
 				notifyEnablementChange(J2EE_MODULE_VERSION);
 		} else if (propertyName.equals(J2EE_MODULE_VERSION)) {
 			if (getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3)
 				setProperty(USE_ANNOTATIONS, Boolean.FALSE);
-			//else
-			//    setProperty(USE_ANNOTATIONS,Boolean.TRUE);
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CREATE_CLIENT)) {
 			if (getBooleanProperty(CREATE_CLIENT)) {
@@ -255,7 +249,7 @@ public class EJBProjectCreationDataModel extends J2EEModuleCreationDataModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (propertyName.equals(CREATE_CLIENT))

@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.internal.ejb.codegen;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.GeneratorNotFoundException;
 import org.eclipse.jst.j2ee.internal.codegen.IBaseGenerator;

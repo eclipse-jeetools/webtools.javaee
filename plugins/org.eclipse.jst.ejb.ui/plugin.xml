@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.jst.ejb.ui"
+   name="WTP EJB UI Plug-in"
+   version="1.0.0"
+   class="org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin">
+   <runtime>
+      <library name="ejb_ui.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.wst.common.frameworks.ui"/>
+      <import plugin="org.eclipse.jst.j2ee.ejb"/>
+      <import plugin="org.eclipse.jst.j2ee.jca"/>
+      <import plugin="org.eclipse.jst.j2ee.web"/>
+      <import plugin="org.eclipse.wst.common.navigator.views"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.jst.j2ee"/>
+      <import plugin="org.eclipse.jst.j2ee.core"/>
+      <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.jem.workbench"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.gef"/>
+      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.wst.server.ui"/>
+      <import plugin="org.eclipse.wst.server.core"/>
+      <import plugin="org.eclipse.wst.common.emf"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.wst.common.annotations.controller"/>
+      <import plugin="org.eclipse.wst.common.migration"/>
+      <import plugin="org.eclipse.wst.common.navigator.java"/>
+      <import plugin="org.eclipse.jst.j2ee.ui" export="true"/>
+      <import plugin="org.eclipse.wst.common.jdt.integration"/>
+      <import plugin="com.ibm.wtp.emf.workbench"/>
+   </requires>
+
+
+<!--================================-->
+<!-- Project Wizard Contributions   -->
+<!--================================-->
+   <extension
+         id="J2EEUIProjectWizards"
+         point="org.eclipse.ui.newWizards">
+<!-- EJB Project Wizard -->
+      <category
+            name="%ejb.category_ui_"
+            id="org.eclipse.jst.ejb.ui">
+      </category>
+      <wizard
+            name="%ejb.project_ui_"
+            icon="icons/full/ctool16/newejbprj_wiz.gif"
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBProjectWizard"
+            project="true"
+            finalPerspective=""
+            id="org.eclipse.jst.j2ee.internal.ejb.ui.internal.wizard.EJBProjectWizard">
+         <description>
+            %new.ejb.project.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+   </extension>
+<!--================================-->
+<!-- Export Wizard Contributions    -->
+<!--================================-->
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <wizard
+            name="%ejb.jar.file_ui_"
+            icon="icons/full/ctool16/export_ejbjar_wiz.gif"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBExportWizard"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBExportWizard">
+         <description>
+            %ejb.export.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+   </extension>
+
+<!-- EJB Group Contributions -->
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
+            id="org.eclipse.wst.common.navigator.internal.plugin.ejbNewProjectActions">
+         <action
+               label="%ejb.project_ui_"
+               icon="icons/full/ctool16/newejbprj_wiz.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProjectAction"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProjectAction">
+         </action>
+         <visibility>
+            <objectState
+                  name="projectNature"
+                  value="org.eclipse.jst.j2ee.ejb.EJBNature">
+            </objectState>
+         </visibility>
+      </objectContribution>
+   </extension>
+
+<!-- Navigator Object Contributions -->
+<!-- EJB Group Contributions -->
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
+            id="org.eclipse.jst.j2ee.internal.navigator.ui.ejbProjectActions">
+         <action
+               label="%ejb.jar.file_ui_"
+               icon="icons/full/ctool16/import_ejbjar.gif"
+               class=" org.eclipse.jst.ejb.ui.internal.actions.ImportEJBAction"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.ImportEJBAction">
+         </action>
+         <action
+               label="%ejb.jar.file_ui_"
+               icon="icons/full/ctool16/export_ejbjar_wiz.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.ExportEJBAction"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.export.menu/additions"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.ExportEJBAction">
+         </action>
+         <visibility>
+            <objectState
+                  name="projectNature"
+                  value="org.eclipse.jst.j2ee.ejb.EJBNature">
+            </objectState>
+         </visibility>
+      </objectContribution>
+   </extension>
+   
+   
+<!-- ====================================================== -->
+<!--           Label Decorators                             -->
+<!-- ====================================================== -->
+  
+    <extension
+         point="org.eclipse.ui.decorators">
+         <decorator
+               lightweight="true"
+               objectClass="org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper"
+               adaptable="true"
+               label="%beanClassAnnotationDecorator"
+               class="org.eclipse.jst.j2ee.internal.ejb.ui.internal.util.EJBAnnotationBeanDecorator"
+               state="true"
+               location="TOP_LEFT"
+               id="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator_beanClass">
+         <description>
+            %beanClassAnnotationDecorator.description
+         </description>
+      </decorator>
+      <decorator
+               lightweight="true"
+               objectClass="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean"
+               adaptable="true"
+               label="%ejbAnnotationDecorator"
+               class="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator"
+               state="true"
+               location="TOP_LEFT"
+               id="org.eclipse.jst.ejb.ui.internal.util.EJBAnnotationBeanDecorator">
+         <description>
+            %ejbAnnotationDecorator.description
+         </description>
+      </decorator>
+    </extension> 
+    
+<!--================================-->
+<!-- Import Wizard Contributions    -->
+<!--================================-->
+
+    <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            name="%ejb.jar.file_ui_"
+            icon="icons/full/ctool16/import_ejbjar.gif"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBJarImportWizard"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBJarImportWizard">
+         <description>
+            %ejb.import.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+    </extension>
+
+</plugin>

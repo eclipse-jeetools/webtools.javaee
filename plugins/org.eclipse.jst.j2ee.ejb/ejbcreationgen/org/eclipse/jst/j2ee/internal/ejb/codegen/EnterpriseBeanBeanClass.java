@@ -14,9 +14,9 @@ package org.eclipse.jst.j2ee.internal.ejb.codegen;
 
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
-import org.eclipse.jst.j2ee.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.IBaseGenConstants;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EnterpriseBeanHelper;
@@ -93,7 +93,7 @@ public abstract class EnterpriseBeanBeanClass extends EnterpriseBeanClass {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EnterpriseBeanClass#getJavaTypeClass(EnterpriseBean)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EnterpriseBeanClass#getJavaTypeClass(EnterpriseBean)
 	 */
 	protected JavaClass getJavaTypeClass(EnterpriseBean ejb) {
 		return ejb.getEjbClass();

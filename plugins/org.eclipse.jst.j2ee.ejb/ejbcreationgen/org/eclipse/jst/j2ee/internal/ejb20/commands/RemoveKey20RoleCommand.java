@@ -9,9 +9,9 @@
 package org.eclipse.jst.j2ee.internal.ejb20.commands;
 
 
-import org.eclipse.jst.j2ee.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
+import org.eclipse.jst.j2ee.internal.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.internal.ejb.commands.IRootCommand;
 
 

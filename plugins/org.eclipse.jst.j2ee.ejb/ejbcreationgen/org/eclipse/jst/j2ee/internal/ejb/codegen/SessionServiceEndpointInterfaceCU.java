@@ -39,7 +39,7 @@ public class SessionServiceEndpointInterfaceCU extends EnterpriseBeanRemoteInter
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EnterpriseBeanRemoteInterfaceCU#getTypeGeneratorName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EnterpriseBeanRemoteInterfaceCU#getTypeGeneratorName()
 	 */
 	protected String getTypeGeneratorName() {
 		return IEJBGenConstants.SESSION_SERVICE_ENDPOINT_INTERFACE;

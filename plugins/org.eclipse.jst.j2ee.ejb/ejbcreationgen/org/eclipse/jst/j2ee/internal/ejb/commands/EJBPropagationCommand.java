@@ -32,7 +32,7 @@ public class EJBPropagationCommand extends EJBCompoundRootCommand {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.AbstractEJBRootCommand#isAdditionalCommand()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.AbstractEJBRootCommand#isAdditionalCommand()
 	 */
 	protected boolean isAdditionalCommand() {
 		return true;
@@ -41,7 +41,7 @@ public class EJBPropagationCommand extends EJBCompoundRootCommand {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.EJBCompoundRootCommand#append(org.eclipse.jst.j2ee.commands.IRootCommand)
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.EJBCompoundRootCommand#append(org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand)
 	 */
 	public IRootCommand append(IRootCommand aCommand) {
 		commandMap.put(aCommand.getEjb(), aCommand);

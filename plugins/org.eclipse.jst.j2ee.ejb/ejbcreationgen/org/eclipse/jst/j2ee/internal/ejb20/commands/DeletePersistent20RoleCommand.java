@@ -98,7 +98,7 @@ public class DeletePersistent20RoleCommand extends Persistent20RoleCommand {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.PersistentRoleCommand#isDeleteCommand()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand#isDeleteCommand()
 	 */
 	public boolean isDeleteCommand() {
 		return true;

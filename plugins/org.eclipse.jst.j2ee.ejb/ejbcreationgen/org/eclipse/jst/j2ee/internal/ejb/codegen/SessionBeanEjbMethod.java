@@ -62,7 +62,7 @@ public abstract class SessionBeanEjbMethod extends JavaMethodGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaMethodGenerator#dispatchToMergeStrategy(org.eclipse.jst.j2ee.internal.java.codegen.JavaMethodHistoryDescriptor,
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMethodGenerator#dispatchToMergeStrategy(org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMethodHistoryDescriptor,
 	 *      org.eclipse.jdt.core.jdom.IDOMMethod)
 	 */
 	protected MergeResults dispatchToMergeStrategy(JavaMethodHistoryDescriptor methodHistory, IDOMMethod newMethod) throws GenerationException {

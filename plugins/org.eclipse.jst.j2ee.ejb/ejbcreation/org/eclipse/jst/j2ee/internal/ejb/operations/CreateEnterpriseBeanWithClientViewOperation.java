@@ -53,7 +53,7 @@ public abstract class CreateEnterpriseBeanWithClientViewOperation extends Create
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanOperatoin#createDependentCommands(org.eclipse.jst.j2ee.commands.EnterpriseBeanCommand)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanOperatoin#createDependentCommands(org.eclipse.jst.j2ee.internal.internal.commands.EnterpriseBeanCommand)
 	 */
 	protected void createDependentCommands(EnterpriseBeanCommand ejbCommand) {
 		super.createDependentCommands(ejbCommand);

@@ -15,12 +15,12 @@ package org.eclipse.jst.j2ee.internal.ejb.provider;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.provider.EObjectItemProvider;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
  * This extended item provider supports the following commands:
- * {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}. The commands are implemented uniformly on
+ * {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}. The commands are implemented uniformly on
  * all our item adapters using this common base class.
  */
 public class EjbItemProviderAdapter extends EObjectItemProvider {
@@ -30,28 +30,28 @@ public class EjbItemProviderAdapter extends EObjectItemProvider {
 
 	/**
 	 * This implements the default behavior for
-	 * {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		return null;
 	}
 
 	/**
-	 * This returns the default image for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the default image for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("CreateChild");//$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the default label for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the default label for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return EJBProviderLibrariesResourceHandler.getString("Create_Child_UI_"); //$NON-NLS-1$ = "Create Child"
 	}
 
 	/**
-	 * This returns the default help text for {@link org.eclipse.jst.j2ee.ejb.command.CreateChildCommand}.
+	 * This returns the default help text for {@link org.eclipse.jst.j2ee.internal.internal.ejb.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.ejb.operations;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 
 

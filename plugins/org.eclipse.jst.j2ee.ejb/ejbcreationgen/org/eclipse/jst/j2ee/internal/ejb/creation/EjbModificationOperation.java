@@ -21,9 +21,9 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.jst.j2ee.internal.ejb.commands.IEJBCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.IRootCommand;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 /**
@@ -40,9 +40,9 @@ public abstract class EjbModificationOperation extends WTPOperation {
 	 * Insert the method's description here. Creation date: (8/12/2001 7:10:18 PM)
 	 * 
 	 * @param anEditModel
-	 *            org.eclipse.jst.j2ee.ejb.ejbproject.EJBEditModel
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.ejbproject.EJBEditModel
 	 * @param anOperationHandler
-	 *            org.eclipse.jst.j2ee.operations.IOperationHandler
+	 *            org.eclipse.jst.j2ee.internal.internal.operations.IOperationHandler
 	 */
 	public EjbModificationOperation(EJBEditModel anEditModel, IOperationHandler anOperationHandler) {
 		setEditModel(anEditModel);
@@ -124,7 +124,7 @@ public abstract class EjbModificationOperation extends WTPOperation {
 	/**
 	 * Insert the method's description here. Creation date: (8/12/2001 7:04:08 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.operations.IOperationHandler
+	 * @return org.eclipse.jst.j2ee.internal.internal.operations.IOperationHandler
 	 */
 	protected IOperationHandler getOperationHandler() {
 		return operationHandler;
@@ -153,7 +153,7 @@ public abstract class EjbModificationOperation extends WTPOperation {
 	 * Insert the method's description here. Creation date: (8/12/2001 7:04:08 PM)
 	 * 
 	 * @param newOperationHandler
-	 *            org.eclipse.jst.j2ee.operations.IOperationHandler
+	 *            org.eclipse.jst.j2ee.internal.internal.operations.IOperationHandler
 	 */
 	protected void setOperationHandler(IOperationHandler newOperationHandler) {
 		operationHandler = newOperationHandler;

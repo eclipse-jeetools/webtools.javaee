@@ -15,16 +15,16 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jst.j2ee.J2EEConstants;
 import org.eclipse.jst.j2ee.application.operations.DefaultModuleProjectCreationOperation;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
-import org.eclipse.wst.common.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResource;
 import org.eclipse.wst.common.internal.emf.resource.ReferencedResource;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
-import org.eclipse.wst.common.internal.jdt.integration.WorkingCopyProvider;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
+import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyProvider;
 
 
 /**
@@ -200,7 +200,7 @@ public class EJBEditModel extends AbstractEJBEditModel implements WorkingCopyPro
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#isDirty()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#isDirty()
 	 */
 	public boolean isDirty() {
 		boolean dirtyBool = super.isDirty();
@@ -212,7 +212,7 @@ public class EJBEditModel extends AbstractEJBEditModel implements WorkingCopyPro
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#resourceIsLoadedChanged(org.eclipse.emf.ecore.resource.Resource,
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#resourceIsLoadedChanged(org.eclipse.emf.ecore.resource.Resource,
 	 *      boolean, boolean)
 	 */
 	protected void resourceIsLoadedChanged(Resource aResource, boolean oldValue, boolean newValue) {
@@ -224,7 +224,7 @@ public class EJBEditModel extends AbstractEJBEditModel implements WorkingCopyPro
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#getRootObject()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#getRootObject()
 	 */
 	public Object getRootObject() {
 		return getEJBJar();
@@ -234,7 +234,7 @@ public class EJBEditModel extends AbstractEJBEditModel implements WorkingCopyPro
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.workbench.J2EEEditModel#get13WebServicesClientResource()
+	 * @see org.eclipse.jst.j2ee.internal.internal.workbench.J2EEEditModel#get13WebServicesClientResource()
 	 */
 	public WebServicesResource get13WebServicesClientResource() {
 		return (WebServicesResource) getResource(J2EEConstants.WEB_SERVICES_CLIENT_META_INF_DD_URI_OBJ);

@@ -58,7 +58,7 @@ public abstract class EJBGenerationHelper extends GenerationHelper implements IE
 	/**
 	 * Insert the method's description here. Creation date: (11/14/2000 12:59:49 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.MetadataHistory
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.MetadataHistory
 	 */
 	public MetadataHistory getMetadataHistory() {
 		if (metadataHistory == null)
@@ -160,7 +160,7 @@ public abstract class EJBGenerationHelper extends GenerationHelper implements IE
 	 * Insert the method's description here. Creation date: (11/14/2000 12:59:49 PM)
 	 * 
 	 * @param newMetadataHistory
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.MetadataHistory
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.MetadataHistory
 	 */
 	public void setMetadataHistory(MetadataHistory newMetadataHistory) {
 		metadataHistory = newMetadataHistory;

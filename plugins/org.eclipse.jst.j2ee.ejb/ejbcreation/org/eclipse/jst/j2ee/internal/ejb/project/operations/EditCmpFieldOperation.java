@@ -15,9 +15,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jem.java.JavaRefFactory;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.commands.CreatePersistentAttributeCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.CreatePrimaryKeyClassCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.DeletePersistentAttributeCommand;
@@ -27,8 +27,8 @@ import org.eclipse.jst.j2ee.internal.ejb.commands.UpdateContainerManagedEntityCo
 import org.eclipse.jst.j2ee.internal.ejb.creation.CMPField;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 public class EditCmpFieldOperation extends WTPOperation {
 
@@ -62,7 +62,7 @@ public class EditCmpFieldOperation extends WTPOperation {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.operations.HeadlessJ2EEOperation#execute(IProgressMonitor)
+	 * @see org.eclipse.jst.j2ee.internal.internal.operations.HeadlessJ2EEOperation#execute(IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		editModel = ejbNature.getEJBEditModelForWrite(this);

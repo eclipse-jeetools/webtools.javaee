@@ -29,11 +29,11 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.QueryMethod;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.ejb.QueryMethod}object.
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.QueryMethod}object.
  */
 public class QueryMethodItemProvider extends MethodElementItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	protected final static EStructuralFeature QUERY_SF = PACK_SF.getQueryMethod_Query();

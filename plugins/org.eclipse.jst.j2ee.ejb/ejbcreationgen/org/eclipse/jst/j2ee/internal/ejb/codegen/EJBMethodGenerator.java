@@ -128,7 +128,7 @@ public class EJBMethodGenerator extends JavaMethodGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaMethodGenerator#getBody()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMethodGenerator#getBody()
 	 */
 	protected String getBody() throws GenerationException {
 		JavaHelpers currentType = getMethod().getReturnType();
@@ -144,7 +144,7 @@ public class EJBMethodGenerator extends JavaMethodGenerator {
 	} /*
 	   * (non-Javadoc)
 	   * 
-	   * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaMethodGenerator#getComment()
+	   * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMethodGenerator#getComment()
 	   */
 
 	protected String getComment() throws GenerationException {

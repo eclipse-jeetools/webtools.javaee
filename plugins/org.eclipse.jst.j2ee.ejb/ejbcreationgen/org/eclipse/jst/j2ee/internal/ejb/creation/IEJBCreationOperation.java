@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.internal.ejb.creation;
 
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.wst.common.framework.operation.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 /**
  * @deprecated

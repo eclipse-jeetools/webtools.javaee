@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.internal.ejb20.commands.CreateEJB20RelationshipComma
 import org.eclipse.jst.j2ee.internal.ejb20.commands.CreatePersistent20RoleCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.EJB20RelationshipCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.Persistent20RoleCommand;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperation;
 
 
@@ -51,7 +51,7 @@ public class EJBRelationshipCreationOperation extends EditModelOperation {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		IEJBCommand command = createCommand();

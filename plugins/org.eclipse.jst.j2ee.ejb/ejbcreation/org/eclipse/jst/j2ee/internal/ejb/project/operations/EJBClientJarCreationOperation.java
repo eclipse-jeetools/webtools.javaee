@@ -40,21 +40,21 @@ import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.application.operations.AddUtilityProjectToEARDataModel;
-import org.eclipse.jst.j2ee.common.operations.JARDependencyDataModel;
-import org.eclipse.jst.j2ee.common.operations.JARDependencyOperation;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.commonarchivecore.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
+import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.EJBGenHelpers;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.wst.common.annotations.controller.AnnotationsControllerHelper;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationDataModel;
-import org.eclipse.wst.common.internal.jdt.integration.JavaProjectCreationOperation;
+import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerHelper;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationOperation;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
@@ -159,7 +159,7 @@ public class EJBClientJarCreationOperation extends AbstractEJBClientJAROperation
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	protected void execute(IProgressMonitor aMonitor) throws CoreException, InvocationTargetException, InterruptedException {
 		monitor = aMonitor;

@@ -13,9 +13,9 @@ package org.eclipse.jst.j2ee.internal.ejb.workbench.validation;
 import java.util.MissingResourceException;
 import java.util.logging.Level;
 
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
-import org.eclipse.jst.j2ee.model.validation.IEJBValidatorConstants;
-import org.eclipse.jst.j2ee.model.validation.J2EEValidationResourceHandler;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.model.internal.validation.IEJBValidatorConstants;
+import org.eclipse.jst.j2ee.model.internal.validation.J2EEValidationResourceHandler;
 
 import com.ibm.wtp.common.logger.LogEntry;
 import com.ibm.wtp.common.logger.proxy.Logger;

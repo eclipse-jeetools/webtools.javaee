@@ -129,7 +129,7 @@ public class CreateServiceEndpointInterfaceCommand extends EJBClassReferenceComm
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.commands.EJBCommand#createInverseCodegenHelper()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.EJBCommand#createInverseCodegenHelper()
 	 */
 	protected EJBGenerationHelper createInverseCodegenHelper() {
 		return null;

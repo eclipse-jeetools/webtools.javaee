@@ -21,7 +21,7 @@ public class RemovePersistentAttributeCommand extends DeletePersistentAttributeC
 	 * RemovePersistentAttributeCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IEJBCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IEJBCommand
 	 * @param aName
 	 *            java.lang.String
 	 */

@@ -15,6 +15,7 @@ import org.eclipse.jst.j2ee.internal.java.codegen.JavaParameterDescriptor;
 
 
 
+
 public class MessageDrivenOnMessage extends JavaMethodGenerator {
 
 	/**

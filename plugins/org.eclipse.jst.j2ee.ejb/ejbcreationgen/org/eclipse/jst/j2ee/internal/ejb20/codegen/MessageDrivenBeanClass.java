@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.IBaseGenerator;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.EnterpriseBeanBeanClass;
@@ -35,7 +35,7 @@ public class MessageDrivenBeanClass extends EnterpriseBeanBeanClass {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EnterpriseBeanBeanClass#initialize(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EnterpriseBeanBeanClass#initialize(java.lang.Object)
 	 */
 	public void initialize(Object mofObject) throws GenerationException {
 		super.initialize(mofObject);

@@ -22,8 +22,6 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
-import org.eclipse.jst.j2ee.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
@@ -31,6 +29,8 @@ import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
 import org.eclipse.jst.j2ee.ejb.util.MethodElementHelper;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.wst.common.emf.utilities.ExtendedEcoreUtil;
 
 

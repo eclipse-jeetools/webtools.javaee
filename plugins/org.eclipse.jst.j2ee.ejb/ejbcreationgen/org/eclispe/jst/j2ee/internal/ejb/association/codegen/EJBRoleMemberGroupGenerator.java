@@ -36,7 +36,7 @@ public abstract class EJBRoleMemberGroupGenerator extends org.eclipse.jst.j2ee.i
 	/**
 	 * Insert the method's description here. Creation date: (8/14/2001 8:19:16 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.RoleHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.RoleHelper
 	 */
 	protected org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.RoleHelper createCleanUpRoleHelper() {
 		RoleHelper helper = new RoleHelper(getRoleHelper().getRole());
@@ -64,7 +64,7 @@ public abstract class EJBRoleMemberGroupGenerator extends org.eclipse.jst.j2ee.i
 	/**
 	 * Insert the method's description here. Creation date: (8/14/2001 8:19:16 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.RoleHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.RoleHelper
 	 */
 	protected org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.RoleHelper getCleanUpRoleHelper() {
 		if (cleanUpRoleHelper == null)

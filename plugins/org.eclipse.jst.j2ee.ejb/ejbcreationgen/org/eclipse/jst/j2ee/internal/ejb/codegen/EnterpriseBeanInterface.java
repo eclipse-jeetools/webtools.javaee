@@ -17,9 +17,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
-import org.eclipse.jst.j2ee.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.IBaseGenerator;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBClassReferenceHelper;
@@ -58,7 +58,7 @@ public abstract class EnterpriseBeanInterface extends JavaInterfaceGenerator {
 	/**
 	 * Insert the method's description here. Creation date: (10/13/00 4:49:19 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	protected EJBClassReferenceHelper getClassRefHelper() {
 		return fClassRefHelper;
@@ -152,7 +152,7 @@ public abstract class EnterpriseBeanInterface extends JavaInterfaceGenerator {
 	 * Insert the method's description here. Creation date: (10/13/00 4:49:19 PM)
 	 * 
 	 * @param newClassRefHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	protected void setClassRefHelper(org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBClassReferenceHelper newClassRefHelper) {
 		fClassRefHelper = newClassRefHelper;

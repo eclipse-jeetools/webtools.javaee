@@ -61,7 +61,7 @@ public abstract class AbstractEJBCommand extends AbstractCommand {
 	/**
 	 * Insert the method's description here. Creation date: (08/18/00 5:00:53 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.commands.ICommand
+	 * @return org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public IEJBCommand getParent() {
 		return fParent;
@@ -87,7 +87,7 @@ public abstract class AbstractEJBCommand extends AbstractCommand {
 	 * Insert the method's description here. Creation date: (08/18/00 5:00:53 PM)
 	 * 
 	 * @param newParent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	protected void setParent(IEJBCommand newParent) {
 		fParent = newParent;

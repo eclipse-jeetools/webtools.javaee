@@ -42,7 +42,7 @@ public class Entity20AttributeGenerator extends EntityAttributeGenerator {
 	}
 
 	/**
-	 * This implementation expects a org.eclipse.jst.j2ee.ejb.codegen.helper.AttributeHelper as its source
+	 * This implementation expects a org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helper.AttributeHelper as its source
 	 * element. It creates the subgenerators for the Java Model work.
 	 */
 	public void initialize(Object attributeHelper) throws GenerationException {

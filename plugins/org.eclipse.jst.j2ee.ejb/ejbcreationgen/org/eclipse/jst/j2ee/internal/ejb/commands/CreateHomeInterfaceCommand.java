@@ -29,7 +29,7 @@ public class CreateHomeInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddHomeInterfaceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public CreateHomeInterfaceCommand(IRootCommand parent, JavaClass aJavaClass) {
 		super(parent, aJavaClass);
@@ -39,7 +39,7 @@ public class CreateHomeInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddBeanClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public CreateHomeInterfaceCommand(IRootCommand parent, JavaClass aJavaClass, boolean shouldGenMetadata) {
 		super(parent, aJavaClass, true, shouldGenMetadata);
@@ -49,7 +49,7 @@ public class CreateHomeInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddHomeInterfaceCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public CreateHomeInterfaceCommand(IRootCommand parent, String aJavaClassName, String aPackageName) {
 		super(parent, aJavaClassName, aPackageName);
@@ -59,7 +59,7 @@ public class CreateHomeInterfaceCommand extends EJBClassReferenceCommand {
 	 * AddBeanClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public CreateHomeInterfaceCommand(IRootCommand parent, String aJavaClassName, String aPackageName, boolean shouldGenMetadata) {
 		super(parent, aJavaClassName, aPackageName, true, shouldGenMetadata);

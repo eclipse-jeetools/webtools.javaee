@@ -37,12 +37,12 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.internal.adapters.jdom.JDOMSearchHelper;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.J2EEModuleExtensionHelper;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBCodegenHandlerExtensionReader;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.IEJBCodegenHandler;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
@@ -143,7 +143,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	 * @link EnterpriseBean
 	 * 
 	 * @see EJBCodegenHandler extension point in com.ibm.wtp.ejb.
-	 * @see J2EEModuleExtensionHelper extension point in org.eclipse.jst.j2ee.core.
+	 * @see J2EEModuleExtensionHelper extension point in org.eclipse.jst.j2ee.internal.internal.core.
 	 */
 	public static final String BEAN_SUPEREJB = "CreateEnterpriseBeanDataModel.beanSuperEJB"; //$NON-NLS-1$
 
@@ -155,7 +155,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	 * @link String
 	 * 
 	 * @see EJBCodegenHandler extension point in com.ibm.wtp.ejb.
-	 * @see J2EEModuleExtensionHelper extension point in org.eclipse.jst.j2ee.core.
+	 * @see J2EEModuleExtensionHelper extension point in org.eclipse.jst.j2ee.internal.internal.core.
 	 */
 	public static final String BEAN_SUPEREJB_NAME = "CreateEnterpriseBeanDataModel.beanSuperEJBName"; //$NON-NLS-1$
 
@@ -163,7 +163,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	 * This is the IOperationHandler that would be used by an operation that uses this data model.
 	 * (Optional)
 	 * 
-	 * @link org.eclipse.wst.common.framework.operation.IOperationHandler
+	 * @link org.eclipse.wst.common.frameworks.internal.operation.IOperationHandler
 	 */
 	public static final String OPERATION_HANDLER = "CreateEnterpriseBeanDataModel.operationHandler"; //$NON-NLS-1$
 
@@ -205,7 +205,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#init()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#init()
 	 */
 	protected void init() {
 		super.init();
@@ -236,7 +236,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
 	 */
 	protected Object[] doGetValidPropertyValues(String propertyName) {
 		if (propertyName.equals(PROJECT_NAME)) {
@@ -350,7 +350,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(SOURCE_FOLDER_NAME))
@@ -453,7 +453,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -681,7 +681,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(BEAN_NAME))
@@ -1047,7 +1047,7 @@ public abstract class CreateEnterpriseBeanDataModel extends EditModelOperationDa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (propertyName.equals(BEAN_CLASS_SUPERCLASS))

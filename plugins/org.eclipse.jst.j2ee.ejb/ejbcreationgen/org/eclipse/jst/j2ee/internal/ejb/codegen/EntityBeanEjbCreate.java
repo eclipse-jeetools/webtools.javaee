@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.internal.ejb.codegen;
 
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.IGenerationBuffer;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EntityHelper;

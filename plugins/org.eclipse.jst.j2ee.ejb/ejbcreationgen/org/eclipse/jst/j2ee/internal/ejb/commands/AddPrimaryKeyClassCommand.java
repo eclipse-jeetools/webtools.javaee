@@ -23,7 +23,7 @@ public class AddPrimaryKeyClassCommand extends CreatePrimaryKeyClassCommand {
 	 * AddPrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClass
 	 *            org.eclipse.jem.internal.java.JavaClass
 	 */
@@ -36,7 +36,7 @@ public class AddPrimaryKeyClassCommand extends CreatePrimaryKeyClassCommand {
 	 * AddPrimaryKeyClassCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aJavaClassName
 	 *            java.lang.String
 	 * @param aPackageName

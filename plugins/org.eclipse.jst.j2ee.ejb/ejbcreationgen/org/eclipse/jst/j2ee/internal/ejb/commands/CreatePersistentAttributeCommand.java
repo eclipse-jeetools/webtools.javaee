@@ -32,7 +32,7 @@ public class CreatePersistentAttributeCommand extends PersistentAttributeCommand
 	 * AddPersistentAttributeCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.ICommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.ICommand
 	 */
 	public CreatePersistentAttributeCommand(IRootCommand parent, String aName) {
 		super(parent, aName);

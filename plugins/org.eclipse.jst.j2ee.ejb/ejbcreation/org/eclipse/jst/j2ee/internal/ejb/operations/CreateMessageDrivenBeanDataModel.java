@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.internal.adapters.jdom.JDOMSearchHelper;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.AcknowledgeMode;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
@@ -35,10 +34,11 @@ import org.eclipse.jst.j2ee.ejb.SubscriptionDurabilityKind;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.impl.ActivationConfigPropertyImpl;
 import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
  * @author DABERG
@@ -180,7 +180,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (propertyName.equals(ACKNOWLEDGE_MODE) || propertyName.equals(ACKNOWLEDGE_MODE_NAME))
@@ -281,7 +281,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
 	 */
 	protected Object[] doGetValidPropertyValues(String propertyName) {
 		if (propertyName.equals(TRANSACTION_TYPE))
@@ -308,7 +308,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#doSetProperty(java.lang.String,
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#doSetProperty(java.lang.String,
 	 *      java.lang.Object)
 	 */
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
@@ -328,7 +328,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#doValidateProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#doValidateProperty(java.lang.String)
 	 */
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(OTHER_LISTENER_TYPE) && (getBooleanProperty(LISTENER_TYPE) == false)) {
@@ -361,7 +361,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getBeanClassEJBInterfaceName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getBeanClassEJBInterfaceName()
 	 */
 	protected String getBeanClassEJBInterfaceName() {
 		return MDB_INTERFACE_TYPE;
@@ -374,7 +374,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new CreateMessageDrivenBeanOperation(this);
@@ -383,7 +383,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(LISTENER_TYPE))
@@ -410,7 +410,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getEJBType()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getEJBType()
 	 */
 	public int getEJBType() {
 		return EJB_TYPE_MDB;
@@ -426,7 +426,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getMinimumSupportedProjectVersion()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getMinimumSupportedProjectVersion()
 	 */
 	public int getMinimumSupportedProjectVersion() {
 		return J2EEVersionConstants.EJB_2_0_ID;
@@ -506,7 +506,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#init()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#init()
 	 */
 	protected void init() {
 		super.init();
@@ -515,7 +515,7 @@ public class CreateMessageDrivenBeanDataModel extends CreateEnterpriseBeanDataMo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();

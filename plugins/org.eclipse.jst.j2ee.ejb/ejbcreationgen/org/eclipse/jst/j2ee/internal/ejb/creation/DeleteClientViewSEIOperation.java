@@ -22,7 +22,7 @@ import org.eclipse.jst.j2ee.internal.ejb.commands.EnterpriseBeanCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.RemoveClassReferenceCommand;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientViewSEIDataModel;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 /**
  * @author sagarwal

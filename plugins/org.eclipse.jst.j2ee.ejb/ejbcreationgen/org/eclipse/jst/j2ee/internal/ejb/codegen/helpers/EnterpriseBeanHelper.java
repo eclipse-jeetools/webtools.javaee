@@ -25,12 +25,12 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor;
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
-import org.eclipse.jst.j2ee.IEJBModelExtenderManager;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.j2ee.internal.java.codegen.IJavaMergeStrategy;
@@ -211,7 +211,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	/**
 	 * For EJB creation generation we default to an instance of JavaTagIncrementalMergeStrategy.
 	 * 
-	 * @return org.eclipse.jst.j2ee.internal.java.codegen.IJavaMergeStrategy
+	 * @return org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.IJavaMergeStrategy
 	 */
 	public IJavaMergeStrategy createMergeStrategy() {
 		return new org.eclipse.jst.j2ee.internal.java.codegen.JavaIncrementalMergeStrategy();
@@ -220,7 +220,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	/**
 	 * Insert the method's description here. Creation date: (9/6/2000 12:15:27 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public EJBClassReferenceHelper getBeanHelper() {
 		return fBeanHelper;
@@ -237,7 +237,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	/**
 	 * Insert the method's description here. Creation date: (9/6/2001 9:24:02 AM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public EJBClassReferenceHelper getConcreteBeanHelper() {
 		return fConcreteBeanHelper;
@@ -255,7 +255,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	/**
 	 * Insert the method's description here. Creation date: (9/6/2000 12:15:27 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public EJBClassReferenceHelper getHomeHelper() {
 		return fHomeHelper;
@@ -297,7 +297,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	/**
 	 * Insert the method's description here. Creation date: (9/6/2000 12:15:27 PM)
 	 * 
-	 * @return org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 * @return org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public EJBClassReferenceHelper getRemoteHelper() {
 		return fRemoteHelper;
@@ -340,7 +340,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	 * Insert the method's description here. Creation date: (9/6/2000 12:15:27 PM)
 	 * 
 	 * @param newBeanHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public void setBeanHelper(EJBClassReferenceHelper newBeanHelper) {
 		fBeanHelper = newBeanHelper;
@@ -350,7 +350,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	 * Insert the method's description here. Creation date: (9/6/2001 9:24:02 AM)
 	 * 
 	 * @param newConcreteBeanHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public void setConcreteBeanHelper(EJBClassReferenceHelper newConcreteBeanHelper) {
 		fConcreteBeanHelper = newConcreteBeanHelper;
@@ -360,7 +360,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	 * Insert the method's description here. Creation date: (9/6/2000 12:15:27 PM)
 	 * 
 	 * @param newHomeHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public void setHomeHelper(EJBClassReferenceHelper newHomeHelper) {
 		fHomeHelper = newHomeHelper;
@@ -400,7 +400,7 @@ public class EnterpriseBeanHelper extends org.eclipse.jst.j2ee.internal.java.cod
 	 * Insert the method's description here. Creation date: (9/6/2000 12:15:27 PM)
 	 * 
 	 * @param newRemoteHelper
-	 *            org.eclipse.jst.j2ee.ejb.codegen.helpers.EJBClassReferenceHelper
+	 *            org.eclipse.jst.j2ee.internal.internal.ejb.codegen.helpers.EJBClassReferenceHelper
 	 */
 	public void setRemoteHelper(EJBClassReferenceHelper newRemoteHelper) {
 		fRemoteHelper = newRemoteHelper;

@@ -28,12 +28,12 @@ import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.ejb.ActivationConfig}object. <!--
+ * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.ActivationConfig}object. <!--
  * begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated

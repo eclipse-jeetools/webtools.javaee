@@ -13,8 +13,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.jst.j2ee.internal.ejb.operations.IEJBProgressCommand;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.ejb.internal.operations.IEJBProgressCommand;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 
 public class GenericCommandOperation extends WTPOperation {

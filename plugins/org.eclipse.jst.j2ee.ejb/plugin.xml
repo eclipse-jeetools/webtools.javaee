@@ -6,7 +6,7 @@
    description="This plugin is a non-ui plugin that provides the core functions for Enterprise Java Beans. Some of the main functions provided by this plugin are are EJB creation modification and deletion, EJB jar Import and Export. The EJBEditModel exists in this plugin"
    version="1.0.0"
    provider-name="IBM"
-   class="org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin">
+   class="org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin">
 
    <runtime>
       <library name="runtime/ejb.jar">
@@ -88,9 +88,9 @@
    <extension
          id="EJBModuleExtension"
          name="EJBModuleExtension"
-         point="org.eclipse.jst.j2ee.EARModuleExtension">
+         point="org.eclipse.jst.j2ee.internal.EARModuleExtension">
       <earModuleExtension
-            extensionClass="org.eclipse.jst.j2ee.ejb.plugin.EjbModuleExtensionImpl">
+            extensionClass="org.eclipse.jst.j2ee.ejb.internal.plugin.EjbModuleExtensionImpl">
       </earModuleExtension>
    </extension>
    <extension
@@ -132,12 +132,12 @@
                depValValue="true">
          </dependentValidator>
          <run
-               class="org.eclipse.jst.j2ee.model.validation.EJBValidator">
+               class="org.eclipse.jst.j2ee.model.internal.validation.EJBValidator">
          </run>
          <migrate>
             <validator
-                  to="org.eclipse.jst.j2ee.model.validation.EJBValidator"
-                  from="org.eclipse.wst.validation.core.ejb.DDValidator">
+                  to="org.eclipse.jst.j2ee.model.internal.validation.EJBValidator"
+                  from="org.eclipse.wst.validation.internal.core.ejb.DDValidator">
             </validator>
          </migrate>
       </validator>
@@ -149,12 +149,12 @@
    <extension
          point="org.eclipse.wst.server.core.moduleObjectAdapters">
       <moduleObjectAdapter
-            objectClass="org.eclipse.jst.j2ee.ejb.EJBJar"
+            objectClass="org.eclipse.jst.j2ee.internal.ejb.EJBJar"
             class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb">
       </moduleObjectAdapter>
       <moduleObjectAdapter
-            objectClass="org.eclipse.jst.j2ee.ejb.EnterpriseBean"
+            objectClass="org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean"
             class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb2">
       </moduleObjectAdapter>
@@ -170,7 +170,7 @@
       </moduleObjectAdapter>
       <moduleObjectAdapter
             objectClass="org.eclipse.jdt.core.ICompilationUnit"
-            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableObjectAdapter"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableObjectAdapter"
             id="com.ibm.wtp.server.j2ee.ejb5">
       </moduleObjectAdapter>
    </extension>
@@ -183,7 +183,7 @@
       <moduleFactory
             projects="true"
             index="10"
-            class="org.eclipse.jst.j2ee.internal.ejb.deployables.EJBDeployableFactory"
+            class="org.eclipse.jst.j2ee.ejb.internal.deployables.EJBDeployableFactory"
             id="com.ibm.wtp.server.ejb">
          <moduleType
                versions="1.2, 1.3, 1.4"
@@ -195,24 +195,24 @@
    <extension
          point="org.eclipse.wst.common.frameworks.ExtendableOperation">
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.operations.EJBProjectCreationOperation"
-            id="org.eclipse.jst.j2ee.ejb.operations.EJBProjectCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBProjectCreationOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarExportOperation"
-            id="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarExportOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarExportOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarExportOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarImportOperation"
-            id="org.eclipse.jst.j2ee.ejb.archiveops.EJBJarImportOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarImportOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBJarImportOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarCreationOperation"
-            id="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarCreationOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientJarCreationOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.operations.EJBClientJARRemovalOperation"
-            id="org.eclipse.jst.j2ee.ejb.operations.EJBClientJARRemovalOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJARRemovalOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJARRemovalOperation">
       </extendableOperation>
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.ejb.operations.CreateMessageDrivenBeanOperation"
@@ -231,12 +231,12 @@
             id="org.eclipse.jst.j2ee.internal.ejb.operations.CreateEntityBeanOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.operations.RemoveRelationshipDataModelOperation"
-            id="org.eclipse.jst.j2ee.ejb.operations.RemoveRelationshipDataModelOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.internal.operations.RemoveRelationshipDataModelOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.internal.operations.RemoveRelationshipDataModelOperation">
       </extendableOperation>
       <extendableOperation
-            class="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarFileMoveOperation"
-            id="org.eclipse.jst.j2ee.ejb.operations.EJBClientJarFileMoveOperation">
+            class="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJarFileMoveOperation"
+            id="org.eclipse.jst.j2ee.internal.ejb.internal.operations.EJBClientJarFileMoveOperation">
       </extendableOperation>
    </extension>
 

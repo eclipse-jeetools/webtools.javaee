@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.Method;
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBCodeGenResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.RoleHelper;
 import org.eclipse.jst.j2ee.internal.ejb.commands.AddHomeInterfaceCommand;
@@ -33,7 +33,7 @@ import org.eclipse.jst.j2ee.internal.ejb20.commands.AddLocalHomeInterfaceCommand
 import org.eclipse.jst.j2ee.internal.ejb20.commands.AddLocalInterfaceCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.CreateLocalHomeInterfaceCommand;
 import org.eclipse.jst.j2ee.internal.ejb20.commands.CreateLocalInterfaceCommand;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 /**
  * Defines operations for adding interfaces to an EJB.

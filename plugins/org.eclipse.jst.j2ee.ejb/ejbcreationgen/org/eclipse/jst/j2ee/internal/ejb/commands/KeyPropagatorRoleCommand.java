@@ -12,9 +12,9 @@ package org.eclipse.jst.j2ee.internal.ejb.commands;
 
 
 
-import org.eclipse.jst.j2ee.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
+import org.eclipse.jst.j2ee.internal.common.CMPJavaChangeSynchronizationAdapter;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBGenerationHelper;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.KeyPropagatorRoleHelper;
 
@@ -29,7 +29,7 @@ public class KeyPropagatorRoleCommand extends PersistentRoleCommand {
 	 * KeyPropagatorRoleCommand constructor comment.
 	 * 
 	 * @param parent
-	 *            org.eclipse.jst.j2ee.commands.IRootCommand
+	 *            org.eclipse.jst.j2ee.internal.internal.commands.IRootCommand
 	 * @param aName
 	 *            java.lang.String
 	 * @param shouldGenJava
@@ -98,7 +98,7 @@ public class KeyPropagatorRoleCommand extends PersistentRoleCommand {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.commands.PersistentRoleCommand#initializeFeature()
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.PersistentRoleCommand#initializeFeature()
 	 */
 	protected void initializeFeature() {
 		//do nothing

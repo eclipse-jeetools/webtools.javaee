@@ -29,7 +29,7 @@ public class CMP20EntityBeanFlatKeyRoleEjbPostCreate extends EntityBeanEjbPostCr
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaMemberGenerator#setHistoryDescriptor(JavaMemberHistoryDescriptor)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMemberGenerator#setHistoryDescriptor(JavaMemberHistoryDescriptor)
 	 */
 	public void setHistoryDescriptor(JavaMemberHistoryDescriptor newHistoryDescriptor) {
 		super.setHistoryDescriptor(newHistoryDescriptor);
@@ -44,7 +44,7 @@ public class CMP20EntityBeanFlatKeyRoleEjbPostCreate extends EntityBeanEjbPostCr
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.ejb.codegen.EntityBeanEjbCreate#getParameterDescriptors(Entity)
+	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.codegen.EntityBeanEjbCreate#getParameterDescriptors(Entity)
 	 */
 	protected JavaParameterDescriptor[] getParameterDescriptors(Entity entity) throws GenerationException {
 		return EJBGenHelpers.getEntityKeyFieldsAsFlatParms(entity, (EntityHelper) getTopLevelHelper(), getSourceContext().getNavigator());

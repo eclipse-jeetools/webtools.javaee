@@ -48,7 +48,7 @@ public class UnimplementedMethodGroupGenerator extends EJBMethodGroupGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.codegen.BaseGenerator#getName()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.BaseGenerator#getName()
 	 */
 	protected String getName() throws GenerationException {
 		return null;
@@ -57,7 +57,7 @@ public class UnimplementedMethodGroupGenerator extends EJBMethodGroupGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.codegen.api.IGenerator#initialize(java.lang.Object)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.codegen.api.IGenerator#initialize(java.lang.Object)
 	 */
 	public void initialize(Object mofObject) throws GenerationException {
 		super.initialize(mofObject);

@@ -12,12 +12,12 @@ package org.eclipse.jst.j2ee.internal.ejb.creation;
 
 
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.ejb.internal.operations.EjbModificationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.commands.EJBCommandHelper;
 import org.eclipse.jst.j2ee.internal.ejb.commands.EnterpriseBeanCommand;
 import org.eclipse.jst.j2ee.internal.ejb.commands.IEJBCommand;
-import org.eclipse.jst.j2ee.internal.ejb.operations.EjbModificationOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
-import org.eclipse.wst.common.framework.operation.IOperationHandler;
+import org.eclipse.wst.common.frameworks.internal.operations.IOperationHandler;
 
 /**
  * Does updates on an EJB.

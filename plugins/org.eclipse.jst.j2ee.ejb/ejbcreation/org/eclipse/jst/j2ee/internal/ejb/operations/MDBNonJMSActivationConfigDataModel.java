@@ -19,13 +19,13 @@ package org.eclipse.jst.j2ee.internal.ejb.operations;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.common.operations.J2EEModelModifierOperationDataModel;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.impl.ActivationConfigPropertyImpl;
 import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
-import org.eclipse.wst.common.framework.operation.WTPOperation;
+import org.eclipse.jst.j2ee.internal.common.operations.J2EEModelModifierOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
 /**
  * @author vijayb
@@ -46,7 +46,7 @@ public class MDBNonJMSActivationConfigDataModel extends J2EEModelModifierOperati
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.operation.WTPOperationDataModel#getDefaultOperation()
+	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#getDefaultOperation()
 	 */
 	public WTPOperation getDefaultOperation() {
 		return new MDBNonJMSActivationConfigOperation(this);
@@ -106,7 +106,7 @@ public class MDBNonJMSActivationConfigDataModel extends J2EEModelModifierOperati
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#getDefaultProperty(java.lang.String)
 	 */
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(ACTIVATION_CONFIG_PROPERTIES))
@@ -117,7 +117,7 @@ public class MDBNonJMSActivationConfigDataModel extends J2EEModelModifierOperati
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jst.j2ee.internal.ejb.operations.CreateEnterpriseBeanDataModel#initValidBaseProperties()
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ejb.operations.CreateEnterpriseBeanDataModel#initValidBaseProperties()
 	 */
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(ACTIVATION_CONFIG_PROPERTIES);

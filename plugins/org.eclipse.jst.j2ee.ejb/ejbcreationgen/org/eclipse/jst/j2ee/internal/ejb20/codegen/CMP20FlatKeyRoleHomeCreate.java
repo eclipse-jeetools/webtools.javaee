@@ -30,7 +30,7 @@ public class CMP20FlatKeyRoleHomeCreate extends EntityHomeCreate {
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.internal.java.codegen.JavaMemberGenerator#setHistoryDescriptor(JavaMemberHistoryDescriptor)
+	 * @see org.eclipse.jst.j2ee.internal.internal.internal.java.codegen.JavaMemberGenerator#setHistoryDescriptor(JavaMemberHistoryDescriptor)
 	 */
 	public void setHistoryDescriptor(JavaMemberHistoryDescriptor newHistoryDescriptor) {
 		super.setHistoryDescriptor(newHistoryDescriptor);

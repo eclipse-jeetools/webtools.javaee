@@ -16,10 +16,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jst.j2ee.EjbModuleExtensionHelper;
-import org.eclipse.jst.j2ee.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
+import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
+import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EntityHelper;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 

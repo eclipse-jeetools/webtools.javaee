@@ -12,9 +12,9 @@ package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 
 
-import org.eclipse.jst.j2ee.commonarchivecore.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.File;
-import org.eclipse.jst.j2ee.commonarchivecore.helpers.SaveFilter;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 
 
 /**

@@ -24,10 +24,10 @@ import org.eclipse.core.internal.runtime.Assert;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jst.j2ee.ejb.plugin.EjbPlugin;
-import org.eclispe.wst.common.framework.enablement.Identifiable;
-import org.eclispe.wst.common.framework.enablement.IdentifiableComparator;
-import org.eclispe.wst.common.internal.framework.enablement.EnablementManager;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclispe.wst.common.frameworks.internal.enablement.EnablementManager;
+import org.eclispe.wst.common.frameworks.internal.enablement.Identifiable;
+import org.eclispe.wst.common.frameworks.internal.enablement.IdentifiableComparator;
 
 import com.ibm.wtp.common.RegistryReader;
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -124,7 +124,7 @@ public class EJBCodegenHandlerExtensionReader extends RegistryReader {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.common.framework.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
+	 * @see org.eclipse.wst.common.frameworks.internal.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
 	 */
 	public boolean readElement(IConfigurationElement element) {
 		if (Descriptor.CODEGEN_EXTENSION.equals(element.getName())) {

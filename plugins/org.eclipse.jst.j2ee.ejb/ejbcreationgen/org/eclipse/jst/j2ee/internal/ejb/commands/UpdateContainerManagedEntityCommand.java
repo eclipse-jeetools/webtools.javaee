@@ -16,11 +16,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.ejb.CMPAttribute;
 import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EJBCodeGenResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EnterpriseBeanHelper;
 import org.eclipse.jst.j2ee.internal.ejb.codegen.helpers.EntityHelper;
@@ -256,7 +256,7 @@ public class UpdateContainerManagedEntityCommand extends ContainerManagedEntityC
 	}
 
 	/**
-	 * @see org.eclipse.jst.j2ee.commands.EnterpriseBeanCommand#initializeHelper(EnterpriseBeanHelper)
+	 * @see org.eclipse.jst.j2ee.internal.internal.commands.EnterpriseBeanCommand#initializeHelper(EnterpriseBeanHelper)
 	 */
 	protected void initializeHelper(EnterpriseBeanHelper aHelper) {
 		super.initializeHelper(aHelper);
