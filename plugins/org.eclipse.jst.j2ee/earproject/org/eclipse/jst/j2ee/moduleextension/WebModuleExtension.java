@@ -37,7 +37,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
  */
 public interface WebModuleExtension extends EarModuleExtension {
 
-	static final String WEBSETTINGS_FILE_URI = ".websettings"; //$NON-NLS-1$
+	static final String WEBSETTINGS_FILE_URI = ".j2ee"; //$NON-NLS-1$
 
 	void initializeEjbReferencesToModule(J2EENature nature, UpdateModuleReferencesInEARProjectCommand command);
 

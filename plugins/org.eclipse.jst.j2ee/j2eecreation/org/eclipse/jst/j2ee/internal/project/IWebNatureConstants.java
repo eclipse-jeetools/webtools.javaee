@@ -45,8 +45,8 @@ public interface IWebNatureConstants {
 	String DEPLOYMENT_DESCRIPTOR_FILE_NAME = "web.xml"; //$NON-NLS-1$
 	String BINDINGS_FILE_NAME = "ibm-web-bnd.xmi"; //$NON-NLS-1$
 	String EXTENSIONS_FILE_NAME = "ibm-web-ext.xmi"; //$NON-NLS-1$
-	String WEBSETTINGS_FILE_NAME = ".websettings"; //$NON-NLS-1$
-
+	//String WEBSETTINGS_FILE_NAME = ".websettings"; //$NON-NLS-1$
+	String WEBSETTINGS_FILE_NAME = ".j2ee"; //$NON-NLS-1$
 	String INFO_DIRECTORY = "WEB-INF"; //$NON-NLS-1$
 	String META_INFO_DIRECTORY = "META-INF"; //$NON-NLS-1$
 	String CLASSES_DIRECTORY = "classes"; //$NON-NLS-1$

@@ -40,7 +40,8 @@ import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 public class WebPropertiesUtil {
-	private static final char[] BAD_CHARS = {'/', '\\', ':'};
+	//private static final char[] BAD_CHARS = {'/', '\\', ':'};
+	private static final char[] BAD_CHARS = {':'};
 
 	/**
 	 * Update the Web Content folder to a new value if it is different. This applies to both Static
@@ -70,11 +71,12 @@ public class WebPropertiesUtil {
 					webContentName = J2EEWebNatureRuntimeUtilities.getDefaultJ2EEWebContentName();
 				}
 			}
-			String webNatureOrigName = webNature.getRootPublishableFolder().getName();
-			if (webNatureOrigName.equals(webContentName))
+
+			IPath newPath = new Path(webContentName);
+			if (webNature.getRootPublishableFolder().equals(newPath))
 				return false;
 
-			if (project.exists(new Path(webContentName))) {
+			if (project.exists(newPath)) {
 				IStatus status = new Status(IStatus.ERROR, "org.eclipse.jst.j2ee", IStatus.OK, ProjectSupportResourceHandler.getString("Could_not_rename_____2", new Object[]{webContentName}), null); //$NON-NLS-1$ //$NON-NLS-2$	
 				throw new CoreException(status);
 			}
@@ -96,8 +98,9 @@ public class WebPropertiesUtil {
 	public static void updateWebContentNamePropertiesOnly(IProject project, String webContentName, IProgressMonitor progressMonitor) throws CoreException {
 
 		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
-		String webNatureOrigName = webNature.getRootPublishableFolder().getName();
-		if (webNatureOrigName.equals(webContentName))
+		IPath newPath = new Path(webContentName);
+		//		String webNatureOrigName = webNature.getRootPublishableFolder().getName();
+		if (webNature.getRootPublishableFolder().equals(newPath))
 			return;
 
 		if (!webNature.getModuleServerRootName().equals(webContentName)) {
@@ -110,32 +113,29 @@ public class WebPropertiesUtil {
 				IClasspathEntry[] newClasspath = new IClasspathEntry[classpath.length];
 
 				for (int i = 0; i < classpath.length; i++) {
-
 					if (classpath[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
-
 						IClasspathEntry library = classpath[i];
 						IPath libpath = library.getPath();
-						if (webNature.getModuleServerRoot().getFullPath().isPrefixOf(libpath)) {
-							IPath prunedPath = libpath.removeFirstSegments(2);
+						IPath modServerRootPath = webNature.getModuleServerRoot().getFullPath();
+						if (modServerRootPath.isPrefixOf(libpath)) {
+							IPath prunedPath = libpath.removeFirstSegments(modServerRootPath.segmentCount());
 							IPath relWebContentPath = new Path(webContentName + "/" + prunedPath.toString()); //$NON-NLS-1$
 							IResource absWebContentPath = project.getFile(relWebContentPath);
 
 							IPath srcAttachmentPath = library.getSourceAttachmentPath();
-							prunedPath = srcAttachmentPath.removeFirstSegments(2);
+							if(null != srcAttachmentPath){
+								prunedPath = srcAttachmentPath.removeFirstSegments(modServerRootPath.segmentCount());
+							}
 							IResource absWebContentSrcAttachmentPath = project.getFile(relWebContentPath);
 
 							newClasspath[i] = JavaCore.newLibraryEntry(absWebContentPath.getFullPath(), absWebContentSrcAttachmentPath.getFullPath(), library.getSourceAttachmentRootPath(), library.isExported());
 
 						} else {
-
 							newClasspath[i] = classpath[i];
-
 						}
 
 					} else {
-
 						newClasspath[i] = classpath[i];
-
 					}
 				}
 
@@ -165,8 +165,26 @@ public class WebPropertiesUtil {
 		IBaseWebNature webNature = J2EEWebNatureRuntimeUtilities.getRuntime(project);
 		IPath newPath = new Path(webContentName);
 		if (!project.exists(newPath)) {
+			if (newPath.segmentCount() > 1) {
+				for (int i = newPath.segmentCount() - 1; i > 0; i--) {
+					IPath tempPath = newPath.removeLastSegments(i);
+					IFolder tempFolder = project.getFolder(tempPath);
+					if (!tempFolder.exists()) {
+						tempFolder.create(true, true, null);
+					}
+				}
+			}
+			newPath = project.getFullPath().append(newPath);
 			IContainer webContentRoot = webNature.getModuleServerRoot();
+			IPath oldPath = webContentRoot.getProjectRelativePath();
 			webContentRoot.move(newPath, IResource.FORCE | IResource.KEEP_HISTORY, new SubProgressMonitor(progressMonitor, 1));
+			for (int i = 0; i < oldPath.segmentCount(); i++) {
+				IPath tempPath = oldPath.removeLastSegments(i);
+				IFolder tempFolder = project.getFolder(tempPath);
+				if (tempFolder.exists() && tempFolder.members().length == 0) {
+					tempFolder.delete(true, true, null);
+				}
+			}
 		}
 	}
 
@@ -331,8 +349,7 @@ public class WebPropertiesUtil {
 		/*******************************************************************************************
 		 * // JZ - fix to defect 204264, "/" is valid in context root if (name.indexOf("//") != -1) {
 		 * //$NON-NLS-1$ errorMessage = "// are invalid characters in a resource name"; return
-		 * errorMessage;
-		 *  }
+		 * errorMessage; }
 		 ******************************************************************************************/
 
 		if (name.trim().equals(name)) {

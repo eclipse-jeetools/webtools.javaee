@@ -33,7 +33,6 @@ import org.eclipse.jst.j2ee.internal.archive.operations.ApplicationClientProject
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
-import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -273,9 +272,10 @@ public class ApplicationClientNatureRuntime extends J2EEModuleNature implements 
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
+	// TODO WebServices for M3
+//	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
+//		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
+//	}
 
 
 	/**
@@ -283,9 +283,10 @@ public class ApplicationClientNatureRuntime extends J2EEModuleNature implements 
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
+	// TODO WebServices for M3
+//	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
+//		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
+//	}
 
 
 }

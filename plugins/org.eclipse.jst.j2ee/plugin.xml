@@ -40,8 +40,6 @@
       <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.jdt.launching"/>
-      <import plugin="org.eclipse.wst.wsdl"/>
-      <import plugin="org.eclipse.wst.ws.parser"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.jst.common.frameworks"/>
    </requires>
@@ -133,7 +131,7 @@
 <!--===================================================-->
 <!-- Register known J2EE DTDs and XSDs for XML editor  -->
 <!-- DTD and XSD Contributions                         -->
-<!-- Removing for now   - Work to be done regarding caching dtd's -->
+<!-- Removing these until final location is known...   -->
 <!--===================================================-->
 <!--   <extension
          point="com.ibm.etools.xmlcatalog.catalogContributor">

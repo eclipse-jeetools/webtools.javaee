@@ -7,7 +7,6 @@ package org.eclipse.jst.j2ee.internal.web.operations;
  */
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Map;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
@@ -42,7 +41,6 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
-import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
@@ -1025,16 +1023,18 @@ public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWe
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
+	// TODO WebServices for M3
+//	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
+//		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
+//	}
 
 	/**
 	 * Return an editing model used to edit web service resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
-		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-	}
+	// TODO WebServices for M3
+//	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
+//		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
+//	}
 }

@@ -38,7 +38,6 @@ import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGro
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.webservices.WebServicesManager;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -258,8 +257,9 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 
 		ApplicationClient client = (ApplicationClient) object;
 		Collection myChildren = super.getChildren(object);
-		if (client.getVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
-			myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(client));
+		// TODO WebServices for M3
+//		if (client.getVersionID() <= J2EEVersionConstants.J2EE_1_3_ID)
+//			myChildren.addAll(WebServicesManager.getInstance().get13ServiceRefs(client));
 		return myChildren;
 	}
 }

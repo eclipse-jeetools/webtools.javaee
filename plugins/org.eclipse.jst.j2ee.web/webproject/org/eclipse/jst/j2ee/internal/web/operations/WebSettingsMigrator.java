@@ -43,7 +43,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  */
 public class WebSettingsMigrator implements IMigrator {
 	protected J2EESettings j2eeSettings;
-	protected String WEBSETINGS_KEY = "websettings"; //$NON-NLS-1$
+	protected String WEBSETINGS_KEY = "j2eesettings"; //$NON-NLS-1$
 
 	/**
 	 *  

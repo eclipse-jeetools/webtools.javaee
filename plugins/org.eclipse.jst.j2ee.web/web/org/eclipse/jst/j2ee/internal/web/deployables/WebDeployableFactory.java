@@ -20,7 +20,7 @@ import org.eclipse.wst.server.core.model.ModuleDelegate;
 public class WebDeployableFactory extends J2EEDeployableFactory {
 	private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$
 
-	protected static final IPath[] PATHS = new IPath[]{new Path(".websettings") //$NON-NLS-1$
+	protected static final IPath[] PATHS = new IPath[]{new Path(".j2ee") //$NON-NLS-1$
 	};
 
 	/*

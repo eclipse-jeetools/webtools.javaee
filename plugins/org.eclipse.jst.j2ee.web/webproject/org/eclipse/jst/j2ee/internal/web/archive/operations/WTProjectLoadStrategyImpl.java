@@ -43,7 +43,7 @@ import com.ibm.wtp.emf.workbench.WorkbenchURIConverterImpl;
 public class WTProjectLoadStrategyImpl extends org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl {
 	private final static String SOURCE_DIR = "source"; //$NON-NLS-1$
 
-	public static final String WEBSETTINGS_FILE_URI = ".websettings"; //$NON-NLS-1$
+	public static final String WEBSETTINGS_FILE_URI = ".j2ee"; //$NON-NLS-1$
 
 	/**
 	 * flag which indicates whether or not to export compiled JSP files (compiled files exist in

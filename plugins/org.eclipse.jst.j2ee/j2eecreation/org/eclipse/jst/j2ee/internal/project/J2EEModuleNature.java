@@ -39,7 +39,6 @@ import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
 
 import com.ibm.wtp.emf.workbench.ProjectResourceSet;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -306,35 +305,39 @@ public abstract class J2EEModuleNature extends J2EENature {
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey) {
-		return getWebServiceEditModelForRead(accessorKey, null);
-	}
+	// TODO WebServices for M3
+//	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey) {
+//		return getWebServiceEditModelForRead(accessorKey, null);
+//	}
 
 	/**
 	 * Return an editing model used to read web service resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
-		return null;
-	}
+	// TODO WebServices for M3
+//	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
+//		return null;
+//	}
 
 	/**
 	 * Return an editing model used to edit web service resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey) {
-		return getWebServiceEditModelForWrite(accessorKey, null);
-	}
+	// TODO WebServices for M3
+//	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey) {
+//		return getWebServiceEditModelForWrite(accessorKey, null);
+//	}
 
 	/**
 	 * Return an editing model used to edit web service resources. Important!!! Calling this method
 	 * increments the use count of this model. When you are done accessing the model, call
 	 * releaseAccess()!
 	 */
-	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
-		return null;
-	}
+	// TODO Webservices for M3
+//	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
+//		return null;
+//	}
 
 }

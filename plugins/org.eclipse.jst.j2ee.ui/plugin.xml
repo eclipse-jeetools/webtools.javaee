@@ -42,7 +42,6 @@
       <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.ltk.core.refactoring"/>
       <import plugin="org.eclipse.wst.internet.webbrowser"/>
-      <import plugin="org.eclipse.wst.wsdl"/>
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.jst.common.annotations.controller"/>
       <import plugin="org.eclipse.jst.common.navigator.java"/>
@@ -68,7 +67,7 @@
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard"
             project="true"
-            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard"
             >
          <description>
@@ -337,7 +336,7 @@
       </adapterFactory>
    </extension>
    
-   
+<!--  TODO WebServices for M3 
    <extension
          point="org.eclipse.wst.common.navigator.views.navigatorContent">
       <navigatorContent
@@ -359,17 +358,18 @@
          </enables>
       </navigatorContent>
    </extension>
-   
+ -->  
    
    <!-- J2EE View Web Services contribution -->
-   <extension
+   <!-- TODO WebServices for M3 -->
+<!--   <extension
          point="org.eclipse.wst.common.navigator.views.navigatorViewer">
       <navigatorViewer
             rootContentExtensionId="org.eclipse.wst.common.frameworks.navigator.webservice"
             viewerId="com.ibm.wtp.ui.ProjectNavigator">
       </navigatorViewer>
    </extension>
-   
+ -->  
 <!-- Navigator Object Contributions -->
 <!-- EAR Group Contributions -->
    <extension
@@ -649,5 +649,14 @@
             </with>
          </enablement> 
 		</renameParticipant>
-	</extension>	
+	</extension>
+  <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="%j2ee"
+            icon="icons/full/cview16/j2ee_perspective.gif"
+            class="org.eclipse.jst.j2ee.internal.perspective.J2EEPerspective"
+            id="org.eclipse.jst.j2ee.J2EEPerspective">
+      </perspective>
+   </extension>	
 </plugin>

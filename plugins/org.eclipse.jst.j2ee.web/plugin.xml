@@ -212,19 +212,6 @@
       </moduleFactory>
    </extension>
    <extension
-         point="org.eclipse.wst.server.core.moduleFactories">
-      <moduleFactory
-            projects="true"
-            icon="icons/full/obj16/webstatic_deploy.gif"
-            class="org.eclipse.jst.j2ee.internal.web.deployables.StaticWebDeployableFactory"
-            id="org.eclipse.jst.j2ee.internal.web.deployables.static">
-         <moduleType
-               versions="1.0"
-               types="web.static">
-         </moduleType>
-      </moduleFactory>
-   </extension>
-   <extension
          point="org.eclipse.jst.common.migration.migrator">
       <migrator
             className="org.eclipse.jst.j2ee.internal.web.operations.WebSettingsMigrator"

@@ -107,9 +107,9 @@ public final class WebModuleImportDataModel extends J2EEModuleImportDataModel {
 			if (getBooleanProperty(PRESERVE_PROJECT_METADATA)) {
 				WARFileImpl warFile = (WARFileImpl) getArchiveFile();
 				if (null != warFile) {
-					if (warFile.containsFile(".websettings")) { //$NON-NLS-1$
+					if (warFile.containsFile(".j2ee")) { //$NON-NLS-1$
 						try {
-							webContentName = WebSettings.getWebContentDirectory(warFile.getInputStream(".websettings")); //$NON-NLS-1$
+							webContentName = WebSettings.getWebContentDirectory(warFile.getInputStream(".j2ee")); //$NON-NLS-1$
 						} catch (FileNotFoundException e) {
 						} catch (IOException e) {
 						}

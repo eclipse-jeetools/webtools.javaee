@@ -44,9 +44,7 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
-import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
-import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -55,9 +53,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
-import org.eclipse.wst.wsdl.Definition;
-import org.eclipse.wst.wsdl.Service;
-import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -181,18 +176,20 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		}
 
 		// Handle wsdl case, non emf object
-		if (srcObject instanceof WSDLResourceImpl || isWsdlInstance(srcObject)) {
-			openWsdlEditor();
-			return;
-		}
+		// TODO WebServices for M3
+//		if (srcObject instanceof WSDLResourceImpl || isWsdlInstance(srcObject)) {
+//			openWsdlEditor();
+//			return;
+//		}
 
 		EObject ro = (EObject) srcObject;
 		IProject p = ProjectUtilities.getProject(ro);
 		J2EENature nature = J2EENature.getRegisteredRuntime(p);
 
-		if (ro instanceof Definition || ro instanceof Service || ro instanceof Handler)
-			r = getWebService(p);
-		else if (ro instanceof BeanLink) {
+		// TODO WebServices for M3
+//		if (ro instanceof Definition || ro instanceof Service || ro instanceof Handler)
+//			r = getWebService(p); else
+		if (ro instanceof BeanLink) {
 			openBeanLinkInJavaEditor((BeanLink) ro, p);
 			return;
 		} else if (nature instanceof J2EEModuleNature && ((J2EEModuleNature) nature).isBinaryProject())
@@ -203,17 +200,18 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		openAppropriateEditor(r);
 	}
 
-	private void openWsdlEditor() {
-		WSDLResourceImpl wsdl = null;
-		if (srcObject instanceof WSDLResourceImpl)
-			wsdl = (WSDLResourceImpl) srcObject;
-		else if (srcObject instanceof Service)
-			wsdl = (WSDLResourceImpl) ((Service) srcObject).eResource();
-		if (wsdl != null) {
-			IResource r = WorkbenchResourceHelper.getFile(wsdl);
-			openAppropriateEditor(r);
-		}
-	}
+	// TODO WebServices for M3
+//	private void openWsdlEditor() {
+//		WSDLResourceImpl wsdl = null;
+//		if (srcObject instanceof WSDLResourceImpl)
+//			wsdl = (WSDLResourceImpl) srcObject;
+//		else if (srcObject instanceof Service)
+//			wsdl = (WSDLResourceImpl) ((Service) srcObject).eResource();
+//		if (wsdl != null) {
+//			IResource r = WorkbenchResourceHelper.getFile(wsdl);
+//			openAppropriateEditor(r);
+//		}
+//	}
 
 	/**
 	 * Get file from the J2EE EditModel for root object
@@ -343,10 +341,11 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		//	currentDescriptor = getEjbMapEditorDescriptor();
 		else if (obj instanceof BeanLink)
 			currentDescriptor = getBaseJavaEditorDescriptor();
-		else if (isWsdlInstance(obj))
-			currentDescriptor = getWsdlDescriptor();
-		else if (isWebserviceInstance(obj))
-			currentDescriptor = getWebServiceDescriptor();
+		// TODO WebServices for M3
+//		else if (isWsdlInstance(obj))
+//			currentDescriptor = getWsdlDescriptor();
+//		else if (isWebserviceInstance(obj))
+//			currentDescriptor = getWebServiceDescriptor();
 		else {
 			currentDescriptor = null;
 			return false;
@@ -394,17 +393,19 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	 * @param Object
 	 *            obj - The object to check instanceof.
 	 */
-	protected boolean isWebserviceInstance(Object obj) {
-		EObject root = getRootObject(obj);
-		return (root instanceof Definition || root instanceof WebServices);
-	}
+	// TODO WebServices for M3
+//	protected boolean isWebserviceInstance(Object obj) {
+//		EObject root = getRootObject(obj);
+//		return (root instanceof Definition || root instanceof WebServices);
+//	}
 
-	protected boolean isWsdlInstance(Object obj) {
-		EObject root = getRootObject(obj);
-		IProject p = ProjectUtilities.getProject(root);
-		Object ws = getWebService(p);
-		return (obj instanceof WSDLResourceImpl) || (root instanceof Definition && ws == null);
-	}
+	// TODO WebServices for M3
+//	protected boolean isWsdlInstance(Object obj) {
+//		EObject root = getRootObject(obj);
+//		IProject p = ProjectUtilities.getProject(root);
+//		Object ws = getWebService(p);
+//		return (obj instanceof WSDLResourceImpl) || (root instanceof Definition && ws == null);
+//	}
 
 	protected boolean is13ServiceRefForNature(String natureId, EObject root) {
 		try {
