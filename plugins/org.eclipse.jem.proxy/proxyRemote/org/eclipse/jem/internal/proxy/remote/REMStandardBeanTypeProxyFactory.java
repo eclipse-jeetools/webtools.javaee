@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.remote;
 /*
  *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.7 $  $Date: 2004/10/12 20:20:14 $ 
+ *  $Revision: 1.8 $  $Date: 2005/02/09 17:21:45 $ 
  */
 
 
@@ -76,6 +76,11 @@ public final class REMStandardBeanTypeProxyFactory implements IStandardBeanTypeP
 	REMCharacterTypeBeanTypeProxy charType;
 	REMCharacterClassBeanTypeProxy characterClass;	
 	REMStringBeanTypeProxy stringClass;
+	
+	/**
+	 * Available to all REM beantypes.
+	 */
+	public REMProxyConstants proxyConstants;
 
 /**
  * IDEBeanTypeProxyFactory constructor comment.
@@ -83,6 +88,8 @@ public final class REMStandardBeanTypeProxyFactory implements IStandardBeanTypeP
 REMStandardBeanTypeProxyFactory(REMProxyFactoryRegistry aRegistry) {
 	fFactoryRegistry = aRegistry;
 	aRegistry.registerBeanTypeProxyFactory(this);
+	
+	proxyConstants = new REMProxyConstants();
 
 	// Now initialize the cache.
 	objectClass = new REMBeanTypeProxy(fFactoryRegistry, new Integer(Commands.OBJECT_CLASS), Object.class.getName(), null);

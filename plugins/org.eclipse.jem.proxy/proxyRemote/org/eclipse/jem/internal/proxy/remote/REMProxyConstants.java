@@ -10,22 +10,14 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyConstants.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/08 19:57:03 $ 
+ *  $Revision: 1.3 $  $Date: 2005/02/09 17:21:45 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
 import java.util.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.core.IFieldProxy;
-import org.eclipse.jem.internal.proxy.core.IInvokable;
-import org.eclipse.jem.internal.proxy.core.IMethodProxy;
-import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
+import org.eclipse.jem.internal.proxy.core.*;
 
 
 
@@ -39,8 +31,7 @@ import org.eclipse.jem.internal.proxy.core.ProxyFactoryRegistry;
  */
 public class REMProxyConstants {
 
-	public static Class REGISTRY_KEY = REMProxyConstants.class;
-	private Map classCache = new HashMap(80);
+	private Map methodsCache = new HashMap(80);
 	private Map invokablesCache = new HashMap(80);	
 	private Map fieldsCache = new HashMap(80);
 	
@@ -182,18 +173,7 @@ public class REMProxyConstants {
 			return Arrays.equals(parms, parmTypes);
 		}		
 	}
-	
-	public static REMProxyConstants getConstants(ProxyFactoryRegistry aRegistry){
-		REMProxyConstants constants = (REMProxyConstants) aRegistry.getConstants(REGISTRY_KEY);
-		if(constants != null){
-			return constants;
-		} else {
-			constants = new REMProxyConstants(); 
-			aRegistry.registerConstants(REMProxyConstants.REGISTRY_KEY,constants);
-		}
-		return constants;
-	}
-	
+		
 	static int REMMETHODCOUNT = 0;
 	static int UNIQUEMETHODCOUNT = 0;	
 	static int REMINVOKABLECOUNT = 0;
@@ -326,10 +306,10 @@ public class REMProxyConstants {
  * @return Map of cache'd methods
  */
 private Map getMethods(IBeanTypeProxy aBeanTypeProxy) {
-	Map methods = (Map) classCache.get(aBeanTypeProxy);
+	Map methods = (Map) methodsCache.get(aBeanTypeProxy);
 	if(methods == null){
 		methods = new HashMap(20);
-		classCache.put(aBeanTypeProxy,methods);
+		methodsCache.put(aBeanTypeProxy,methods);
 	}
 	return methods;
 }
