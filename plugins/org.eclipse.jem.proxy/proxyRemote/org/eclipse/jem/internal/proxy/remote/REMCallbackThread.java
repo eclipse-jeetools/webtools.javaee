@@ -11,20 +11,20 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMCallbackThread.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import java.io.*;
 import java.net.Socket;
+import java.util.logging.Level;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import org.eclipse.jem.internal.core.MsgLogger;
-import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.common.remote.TransmitableArray;
+import org.eclipse.jem.internal.proxy.core.*;
 
 /**
  * This thread handles the actual callback.
@@ -213,7 +213,7 @@ class REMCallbackThread extends Thread {
 									// to send back.
 									valueObject.set(e.getLocalizedMessage());
 									Commands.sendCallbackDoneCommand(out, valueObject, Commands.CALLBACK_RUNTIME_EXCEPTION);
-									ProxyPlugin.getPlugin().getMsgLogger().log(e, MsgLogger.LOG_INFO);	// Just log it, but assume safe enough to just go back and wait for next callback request.
+									ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);	// Just log it, but assume safe enough to just go back and wait for next callback request.
 								}
 							} else {
 								valueObject.set();
@@ -249,7 +249,7 @@ class REMCallbackThread extends Thread {
 									} catch (IOException e) {
 										// Exception while closing, just log it and then mark to end the loop so we close connection too.
 										doLoop = false;
-										ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$										
+										ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$										
 									}
 								}
 							} else {
@@ -265,7 +265,7 @@ class REMCallbackThread extends Thread {
 						
 					default:
 						// Unknown command. We don't know how long the command is, so we need to close the connection.
-						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "REMCallback: Invalid cmd sent="+cmd, null)); //$NON-NLS-1$
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "REMCallback: Invalid cmd sent="+cmd, null)); //$NON-NLS-1$
 						doLoop = false;						
 						break;
 				}
@@ -274,7 +274,7 @@ class REMCallbackThread extends Thread {
 			// This is ok. It means that the connection on the other side was terminated.
 			// So just accept this and go down.
 		} catch (Throwable e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "In REMCallbackThread", e)); //$NON-NLS-1$
 		} finally {
 			if (in != null)
 				try {
@@ -330,12 +330,12 @@ class REMCallbackThread extends Thread {
 			} catch (ThrowableProxy e) {
 				// We can't stop it right away because we can't send exception on, however,
 				// we can log it and close the socket so next request to the socket will fail.
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 				close();				
 			} catch (CommandException e) {
 				// We can't stop it right away because we can't send exception on, however,
 				// we can log it and close the socket so next request to the socket will fail.
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 				close();
 			}
 		}

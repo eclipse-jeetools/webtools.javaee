@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEFieldProxy.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import java.lang.reflect.Field;
@@ -48,7 +48,7 @@ public class IDEFieldProxy extends IDEAccessibleObjectProxy implements IFieldPro
 		try {
 			result = ((Field) getBean()).get(aSubject != null ? ((IIDEBeanProxy) aSubject).getBean() : null);
 		} catch (Exception e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 		}
 
@@ -72,7 +72,7 @@ public class IDEFieldProxy extends IDEAccessibleObjectProxy implements IFieldPro
 				aSubject != null ? ((IIDEBeanProxy) aSubject).getBean() : null,
 				argument != null ? ((IIDEBeanProxy) argument).getBean() : null);
 		} catch (Exception e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 		}
 	}

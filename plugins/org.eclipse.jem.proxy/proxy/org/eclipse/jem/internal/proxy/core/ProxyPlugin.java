@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/19 23:43:39 $ 
+ *  $Revision: 1.5 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 
@@ -19,6 +19,7 @@ import java.io.*;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.logging.Level;
 
 import org.eclipse.core.boot.BootLoader;
 import org.eclipse.core.internal.plugins.PluginRegistry;
@@ -30,8 +31,8 @@ import org.eclipse.jdt.launching.*;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.*;
 
-import org.eclipse.jem.internal.core.EclipseLogMsgLogger;
-import org.eclipse.jem.internal.core.MsgLogger;
+import org.eclipse.wtp.common.logger.proxy.Logger;
+import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
 
 /**
  * The plugin class for the org.eclipse.jem.internal.proxy.core plugin.
@@ -85,11 +86,11 @@ public class ProxyPlugin extends Plugin {
 		return PROXY_PLUGIN;
 	}
 	
-	private MsgLogger msgLogger;
-	public MsgLogger getMsgLogger() {
-		if (msgLogger == null)
-			msgLogger = EclipseLogMsgLogger.createLogger(this);
-		return msgLogger;
+	private Logger logger;
+	public Logger getLogger() {
+		if (logger == null)
+			logger = EclipseLogger.getEclipseLogger(this);
+		return logger;
 	}
 	
 
@@ -106,7 +107,7 @@ public class ProxyPlugin extends Plugin {
 
 		IJavaProject javaProject = JavaCore.create(project);
 		if (javaProject == null) {
-			getMsgLogger().log(
+			getLogger().log(
 				new Status(
 					IStatus.WARNING,
 					getDescriptor().getUniqueIdentifier(),
@@ -124,7 +125,7 @@ public class ProxyPlugin extends Plugin {
 		String vmTypeID = vm.getVMInstallType().getId();
 		String vmName = vm.getName();
 		if (javaProject == null) {
-			getMsgLogger().log(
+			getLogger().log(
 				new Status(
 					IStatus.WARNING,
 					getDescriptor().getUniqueIdentifier(),
@@ -181,7 +182,7 @@ public class ProxyPlugin extends Plugin {
 				return reg.startImplementation(contribs, attachAWT, project, vmTitle, pm);
 			}
 		}
-		getMsgLogger().log(
+		getLogger().log(
 			new Status(
 				IStatus.WARNING,
 				getDescriptor().getUniqueIdentifier(),
@@ -324,13 +325,13 @@ public class ProxyPlugin extends Plugin {
 							}
 						}
 					} catch (BundleException e) {
-						ProxyPlugin.getPlugin().getMsgLogger().log(e, MsgLogger.LOG_INFO);
+						ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
 					}
 				}
 				return (URL[]) urls.toArray(new URL[urls.size()]);
 			}
 		} catch (CoreException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e, MsgLogger.LOG_INFO);
+			ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
 			return new URL[0];
 		}
 	}
@@ -474,7 +475,7 @@ public class ProxyPlugin extends Plugin {
 			// ensure there is an entry for this descriptor (otherwise it will not be visited)
 			int[] entry = (int[]) dependents.get(descriptors[i]);
 			if (entry == null)
-				dependents.put(descriptors[i], new int[1]);			
+				dependents.put(descriptors[i], new int[1]);
 			IPluginPrerequisite[] requires = descriptors[i].getPluginPrerequisites();
 			int reqSize = (requires == null ? 0 : requires.length);
 			for (int j = 0; j < reqSize; j++) {

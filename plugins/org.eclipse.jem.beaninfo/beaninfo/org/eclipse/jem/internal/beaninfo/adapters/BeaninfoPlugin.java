@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/11 16:03:34 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:43:53 $ 
  */
 
 
@@ -19,8 +19,9 @@ import java.util.*;
 
 import org.eclipse.core.runtime.*;
 
-import org.eclipse.jem.internal.core.EclipseLogMsgLogger;
-import org.eclipse.jem.internal.core.MsgLogger;
+import org.eclipse.wtp.common.logger.proxy.Logger;
+import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
+
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 
 /**
@@ -130,11 +131,11 @@ public class BeaninfoPlugin extends Plugin {
 		return new OverridePathSearch(new Path(packageName.replace('.', '/')));
 	}
 	
-	private MsgLogger msgLogger;
-	public MsgLogger getMsgLogger() {
-		if (msgLogger == null)
-			msgLogger = EclipseLogMsgLogger.createLogger(this);
-		return msgLogger;
+	private Logger logger;
+	public Logger getLogger() {
+		if (logger == null)
+			logger = EclipseLogger.getEclipseLogger(this);
+		return logger;
 	}
 	
 	

@@ -11,10 +11,11 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:11 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:17 $ 
  */
 
 import java.util.*;
+import java.util.logging.Level;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -23,14 +24,14 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
+
 import org.eclipse.wtp.common.UIContextDetermination;
 
-import org.eclipse.jem.internal.core.MsgLogger;
-import org.eclipse.jem.java.*;
 import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
-import org.eclipse.jem.java.impl.JavaClassImpl;
 import org.eclipse.jem.internal.plugin.JavaPlugin;
+import org.eclipse.jem.java.*;
+import org.eclipse.jem.java.impl.JavaClassImpl;
 
 
 public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdaptor {
@@ -257,7 +258,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			try {
 				setSuper();
 			} catch (InheritanceCycleException e) {
-				JavaPlugin.getDefault().getMsgLogger().log(e);
+				JavaPlugin.getDefault().getLogger().log(e);
 			}
 			setImplements();
 			addMethods();
@@ -328,7 +329,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			else
 				javaClassTarget.setKind(TypeKind.INTERFACE_LITERAL);
 		} catch (JavaModelException npe) {
-			JavaPlugin.getDefault().getMsgLogger().log(ResourceHandler.getString("Error_Introspecting_Flags_ERROR_", new Object[] { javaClassTarget.getQualifiedName(), npe.getMessage()}), MsgLogger.LOG_WARNING); //$NON-NLS-1$ = "error introspecting flags on {0}"
+			JavaPlugin.getDefault().getLogger().log(ResourceHandler.getString("Error_Introspecting_Flags_ERROR_", new Object[] { javaClassTarget.getQualifiedName(), npe.getMessage()}), Level.WARNING); //$NON-NLS-1$ = "error introspecting flags on {0}"
 		}
 	}
 	/**

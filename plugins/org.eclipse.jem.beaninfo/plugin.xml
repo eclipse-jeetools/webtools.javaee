@@ -25,6 +25,7 @@
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.wtp.emf.workbench"/>
       <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.wtp.common"/>
    </requires>
 
 

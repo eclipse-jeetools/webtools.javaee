@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanTypeProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 
@@ -172,7 +172,7 @@ private synchronized IREMBeanTypeProxy createBeanTypeProxy(String typeName, IREM
 		ret = getClassReturn(connection, typeName);
 	} catch (ThrowableProxy ep) {
 		// Print out the trace and return proxy with init error.
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", ep)); //$NON-NLS-1$
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", ep)); //$NON-NLS-1$
 		IREMBeanTypeProxy proxy = new REMInitErrorBeanTypeProxy(fFactoryRegistry, MessageFormat.format(ProxyRemoteMessages.getString("ExceptionErrorMsg_EXC_"), new Object[] {ep.getTypeProxy().getTypeName(), ep.getProxyLocalizedMessage()}), typeName); //$NON-NLS-1$
 		registerBeanTypeProxy(proxy, false);
 		return proxy;
@@ -240,7 +240,7 @@ public IBeanTypeProxy getBeanTypeProxy(String typeName) {
 			return getBeanTypeProxy(typeName, (IREMConnection) null);
 		} catch (CommandException eAgain) {
 			// Failed again.
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
 		}
 	}
 	return null;
@@ -404,7 +404,7 @@ IREMBeanTypeProxy createBeanTypeProxy(Integer classID) {
 	} catch (CommandException e) {
 		if (e.isRecoverable()) {
 			// It is recoverable, print message, keep connection live and return it.
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 		} else {
 			// Try again, close connection, get a new one.
 			fFactoryRegistry.closeConnection(connect);
@@ -414,7 +414,7 @@ IREMBeanTypeProxy createBeanTypeProxy(Integer classID) {
 				return createBeanTypeProxy(classID, connect);
 			} catch (CommandException eAgain) {
 				// Failed again. Close connection, don't return it.
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", eAgain)); //$NON-NLS-1$
 				fFactoryRegistry.closeConnection(connect);
 				connect = null;
 			}
@@ -441,7 +441,7 @@ private synchronized IREMBeanTypeProxy createBeanTypeProxy(Integer classID, IREM
 		ret = getClassIDReturn(connect, classID);
 	} catch (ThrowableProxy ep) {
 		// Just print out the trace and return proxy not found.
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", ep)); //$NON-NLS-1$
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", ep)); //$NON-NLS-1$
 		return null;
 	}
 	

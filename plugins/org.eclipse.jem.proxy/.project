@@ -11,7 +11,7 @@
 		<project>org.eclipse.debug.ui</project>
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jdt.launching</project>
-		<project>org.eclipse.jem</project>
+		<project>org.eclipse.wtp.common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

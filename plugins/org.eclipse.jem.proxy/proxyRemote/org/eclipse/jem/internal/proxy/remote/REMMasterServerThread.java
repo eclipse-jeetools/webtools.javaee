@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMMasterServerThread.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import java.io.*;
@@ -51,9 +51,9 @@ class REMMasterServerThread extends Thread {
 			if (LINUX_1_3)
 				masterServerSocket.setSoTimeout(1000);	// Linux 1.3 bug, see comment on LINUX_1_3
 		} catch (SocketException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));	// This is bad. Should be no exceptions creating a socket.
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));	// This is bad. Should be no exceptions creating a socket.
 		} catch (IOException e) {				
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));	// This is bad. Should be no exceptions creating a socket.
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));	// This is bad. Should be no exceptions creating a socket.
 		}			
 	}
 
@@ -87,7 +87,7 @@ class REMMasterServerThread extends Thread {
 			}
 		} catch (Exception e) {
 			if (!shuttingDown)
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 		}
 		
 		shutdown();	// Either a bad exception or we were closed. Either way is shutdown.
@@ -144,7 +144,7 @@ class REMMasterServerThread extends Thread {
 					break;
 			}
 		} catch (Exception e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));	
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));	
 		} finally {
 			try {
 				in.close();

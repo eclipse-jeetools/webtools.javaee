@@ -1,2 +1,3 @@
-org.eclipse.jem.beaninfo/debug/echoconsole=default
+org.eclipse.jem.beaninfo/debug/logtrace=default
+org.eclipse.jem.beaninfo/debug/logtracefile=default
 org.eclipse.jem.beaninfo/debug/loglevel=default

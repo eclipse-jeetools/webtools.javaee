@@ -11,22 +11,21 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:14 $ 
  */
 import java.util.List;
+import java.util.logging.Level;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
-import org.eclipse.jem.internal.core.MsgLogger;
-import org.eclipse.jem.java.*;
-import org.eclipse.jem.java.InheritanceCycleException;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.TypeKind;
+import org.eclipse.wtp.common.logger.proxy.Logger;
+
 import org.eclipse.jem.internal.java.adapters.IJavaClassAdaptor;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.impl.JavaClassImpl;
 
 /**
@@ -69,7 +68,7 @@ protected void addMethods() {
 	try {
 		methods = getSourceType().getDeclaredMethods();
 	} catch (NoClassDefFoundError error) {
-		MsgLogger.getLogger().log(ResourceHandler.getString("Could_Not_Reflect_Methods_ERROR_", new Object[] {getJavaClassTarget().getQualifiedName(),  error.toString()}), MsgLogger.LOG_WARNING);  //$NON-NLS-1$
+		Logger.getLogger().log(ResourceHandler.getString("Could_Not_Reflect_Methods_ERROR_", new Object[] {getJavaClassTarget().getQualifiedName(),  error.toString()}), Level.WARNING);  //$NON-NLS-1$
 	}
 	for (int i = 0; i < methods.length; i++) {
 		targetMethods.add(createJavaMethod(methods[i], resource));
@@ -80,7 +79,7 @@ protected void addMethods() {
 	try {
 		ctors = getSourceType().getDeclaredConstructors();
 	} catch (NoClassDefFoundError error) {
-		MsgLogger.getLogger().log(ResourceHandler.getString("Could_Not_Reflect_Constructors_ERROR_", new Object[] {getJavaClassTarget().getQualifiedName(), error.getMessage()}), MsgLogger.LOG_WARNING);  //$NON-NLS-1$
+		Logger.getLogger().log(ResourceHandler.getString("Could_Not_Reflect_Constructors_ERROR_", new Object[] {getJavaClassTarget().getQualifiedName(), error.getMessage()}), Level.WARNING);  //$NON-NLS-1$
 	}
 	for (int i = 0; i < ctors.length; i++) {
 		targetMethods.add(createJavaMethod(ctors[i], resource));
@@ -205,7 +204,7 @@ public boolean reflectValues() {
 			try {
 				setSuper();
 			} catch (InheritanceCycleException e) {
-				MsgLogger.getLogger().log(e);
+				Logger.getLogger().log(e);
 			}
 			setImplements();
 			addMethods();

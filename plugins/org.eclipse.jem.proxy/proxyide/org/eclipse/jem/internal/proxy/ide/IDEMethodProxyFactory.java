@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEMethodProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import java.lang.reflect.*;
@@ -103,7 +103,7 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			Class aClass = fProxyFactoryRegistry.loadClass(className);
 			return getMethodProxy(aClass, methodName, parameterTypes);
 		} catch (ClassNotFoundException exc) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
 			return null;
 		}
@@ -122,10 +122,10 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			}
 			return getMethodProxy(cls.getMethod(methodName, parmClasses));
 		} catch (ClassNotFoundException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 		} catch (NoSuchMethodException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 		}
 		return null;
@@ -135,7 +135,7 @@ public class IDEMethodProxyFactory implements IMethodProxyFactory {
 			Method method = aClass.getMethod(methodName, args);
 			return getMethodProxy(method);
 		} catch (NoSuchMethodException exc) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(
 					IStatus.WARNING,
 					ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDECallbackRegistry.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import java.io.*;
@@ -61,7 +61,7 @@ OutputStream requestStream(final int aCallbackID, final int aMsgID){
 	try {
 		tempStream = new PipedInputStream(result);	
 	} catch ( IOException exc ) {
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
 		return null;
 	}
 	final PipedInputStream inputStream = tempStream;
@@ -75,7 +75,7 @@ OutputStream requestStream(final int aCallbackID, final int aMsgID){
 					try {
 						inputStream.close();	// Make sure it's closed.
 					} catch ( IOException  exc ){
-						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
 					}
 				}			
 			}

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosWorkbookPage.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:20:50 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:43:49 $ 
  */
 
 import java.util.*;
@@ -316,7 +316,7 @@ public class BeaninfosWorkbookPage extends BuildSearchBasePage {
 			}
 		} catch (JavaModelException e) {
 			// ignore it here, just log
-			BeaninfoUIPlugin.getPlugin().getMsgLogger().log(e.getStatus());
+			BeaninfoUIPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
 			
 		for (int i= 0; i < resolvedList.length; i++) {

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMProxyFactoryRegistry.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/06 20:43:52 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 
@@ -163,7 +163,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 		
 						DebugModeHelper dh = new DebugModeHelper();
 						dh.displayErrorMessage(ProxyRemoteMessages.getString("Proxy_Error_Title"), msg); //$NON-NLS-1$
-						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
 						processListener = null;
 						DebugPlugin.getDefault().removeDebugEventListener(this);						
 						terminateRegistry();
@@ -361,7 +361,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 								sc.close();	// We are no longer waiting on this thread so close the socket since no one will use it.
 						}
 					} catch (IOException e) {
-						ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+						ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 					}
 				}
 			});
@@ -380,7 +380,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			
 			if (scArray[0] == null)  {
 				// Log where we are at so we can know where it was we down.
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", new RuntimeException("Connection creation failed.")));	//$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", new RuntimeException("Connection creation failed.")));	//$NON-NLS-1$
 				throw new IllegalStateException("Could not create a socket connection to remote vm.");	// Couldn't get one, probably server is down.
 			}
 
@@ -394,7 +394,7 @@ public class REMProxyFactoryRegistry extends ProxyFactoryRegistry {
 			} catch (IOException e) {
 			}
 		} else
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "No Server to retrieve a connection.", null));	///$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.INFO, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "No Server to retrieve a connection.", null));	///$NON-NLS-1$
 		
 		throw new IllegalStateException("Could not create a socket connection to remote vm.");
 	}

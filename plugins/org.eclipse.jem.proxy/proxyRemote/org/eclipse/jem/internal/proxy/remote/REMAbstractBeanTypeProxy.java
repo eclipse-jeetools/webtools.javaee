@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMAbstractBeanTypeProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -230,7 +230,7 @@ public abstract class REMAbstractBeanTypeProxy implements IREMBeanTypeProxy {
 		try {
 			return ((REMStandardBeanProxyFactory) fRegistry.getBeanProxyFactory()).createBeanProxy(this, initializationString);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 			return null;
 		}
 	}

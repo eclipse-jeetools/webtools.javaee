@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDEBeanTypeProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/03 23:18:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import org.eclipse.jem.internal.proxy.core.*;
@@ -73,7 +73,7 @@ public IMethodProxy getMethodProxy(String methodName) {
 		Method aMethod = fClass.getMethod( methodName , new Class[0] );
 		return ((IDEMethodProxyFactory)fProxyFactoryRegistry.getMethodProxyFactory()).getMethodProxy(aMethod);
 	} catch ( Exception exc ) {
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
 	}
 	return null;
 	
@@ -98,7 +98,7 @@ public IConstructorProxy getConstructorProxy(String[] argTypeNames){
 			argClasses[i] = Class.forName(argTypeNames[i]);
 		}
 	} catch ( ClassNotFoundException exc ) {
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Constructor not found - " + fClass.getName() + " args=" + argTypeNames, exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Constructor not found - " + fClass.getName() + " args=" + argTypeNames, exc));
 		return null;
 	}
 	return ((IDEMethodProxyFactory)fProxyFactoryRegistry.getMethodProxyFactory()).getConstructorProxy(fClass,argClasses);
@@ -129,7 +129,7 @@ public IFieldProxy getFieldProxy(String fieldName){
 		Field field = fClass.getField(fieldName);
 		return ((IDEMethodProxyFactory) fProxyFactoryRegistry.getMethodProxyFactory()).getFieldProxy(field);
 	} catch ( NoSuchFieldException exc ) {
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "Field not found " + fClass.getName() + " - " + fieldName, exc));
 		return null;
 	}
 }
@@ -145,7 +145,7 @@ IConstructorProxy getConstructorProxy(Class[] parameterTypes) {
 	try {
 		aConstructor = fClass.getConstructor(parameterTypes);
 	} catch ( Exception e ) {
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 	}
 	// If we have a constructor return it
 	if ( aConstructor != null ){
@@ -176,7 +176,7 @@ public IConstructorProxy getNullConstructorProxy() {
 		aConstructor = fClass.getConstructor(null);
 		return ((IDEMethodProxyFactory)fProxyFactoryRegistry.getMethodProxyFactory()).getConstructorProxy(aConstructor);
 	} catch ( Exception e ) {
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));
 		return null;
 	}
 

@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.proxy.remote;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.5 $ $Date: 2004/02/14 18:37:14 $
+ * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.6 $ $Date: 2004/02/20 00:44:05 $
  */
 
 import java.io.IOException;
@@ -201,7 +201,7 @@ public class ProxyRegistration implements IRegistration {
 				else
 					msg = MessageFormat.format(ProxyRemoteMessages.getString("Proxy_NoRunner_ERROR_"), new Object[] { name }); //$NON-NLS-1$
 				dh.displayErrorMessage(ProxyRemoteMessages.getString("Proxy_Error_Title"), msg); //$NON-NLS-1$
-				ProxyPlugin.getPlugin().getMsgLogger().log(
+				ProxyPlugin.getPlugin().getLogger().log(
 					new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, msg, null));
 				return null; // Can't find the requested VM.
 			}
@@ -249,7 +249,7 @@ public class ProxyRegistration implements IRegistration {
 
 					String msg = MessageFormat.format(ProxyRemoteMessages.getString("Proxy_Terminated_too_soon_ERROR_"), new Object[] { name }); //$NON-NLS-1$
 					dh.displayErrorMessage(ProxyRemoteMessages.getString("Proxy_Error_Title"), msg); //$NON-NLS-1$
-					ProxyPlugin.getPlugin().getMsgLogger().log(
+					ProxyPlugin.getPlugin().getLogger().log(
 						new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
 					return null;
 				} else {
@@ -266,7 +266,7 @@ public class ProxyRegistration implements IRegistration {
 						}
 
 						public void streamAppended(String newText, IStreamMonitor monitor) {
-							ProxyPlugin.getPlugin().getMsgLogger().log(
+							ProxyPlugin.getPlugin().getLogger().log(
 								new Status(
 									level,
 									ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
@@ -330,7 +330,7 @@ public class ProxyRegistration implements IRegistration {
 				// this is bad, we will pop up a msg.
 				String msg = MessageFormat.format(ProxyRemoteMessages.getString("PRoxy_NoLaunch_ERROR_"), new Object[] { name }); //$NON-NLS-1$
 				dh.displayErrorMessage(ProxyRemoteMessages.getString("Proxy_Error_Title"), msg); //$NON-NLS-1$
-				ProxyPlugin.getPlugin().getMsgLogger().log(
+				ProxyPlugin.getPlugin().getLogger().log(
 					new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, msg, null));
 				return null; // Couldn't launch for some reason.
 			}

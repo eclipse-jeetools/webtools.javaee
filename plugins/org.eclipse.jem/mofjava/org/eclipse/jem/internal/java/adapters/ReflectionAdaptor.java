@@ -11,15 +11,19 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: ReflectionAdaptor.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:14 $ 
  */
+import java.util.logging.Level;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jem.internal.core.MsgLogger;
+
+import org.eclipse.wtp.common.logger.proxy.Logger;
+
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 /**
  * ReflectionAdaptor - a read adaptor base implementation which does a bulk
@@ -119,8 +123,8 @@ public boolean reflectValuesIfNecessary() {
 			hasReflected = reflectValues();
 		} catch (Throwable e) {
 			hasReflected = false;
-			MsgLogger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), MsgLogger.LOG_WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
-			MsgLogger.getLogger().log(e);
+			Logger.getLogger().log(ResourceHandler.getString("Failed_reflecting_values_ERROR_"), Level.WARNING); //$NON-NLS-1$ = "Failed reflecting values!!!"
+			Logger.getLogger().log(e);
 		} finally {
 			isReflecting = false;
 			getTarget().eNotify(new ENotificationImpl((InternalEObject)getTarget(), Notification.SET, REFLECTION_SF, null, null, Notification.NO_INDEX));

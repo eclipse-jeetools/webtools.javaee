@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ListBeanProxyWrapper.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 
@@ -54,7 +54,7 @@ public class ListBeanProxyWrapper extends CollectionBeanProxyWrapper {
 			return ((IIntegerBeanProxy) fConstants.getListIndexOf().invoke(fCollection, object)).intValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
 			return -1;
 		}			
 	}
@@ -63,7 +63,7 @@ public class ListBeanProxyWrapper extends CollectionBeanProxyWrapper {
 			return ((IIntegerBeanProxy) fConstants.getListLastIndexOf().invoke(fCollection, object)).intValue();
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
 			return -1;
 		}			
 	}
@@ -76,7 +76,7 @@ public class ListBeanProxyWrapper extends CollectionBeanProxyWrapper {
 				return null;
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
 			return null;
 		}			
 	}
@@ -89,7 +89,7 @@ public class ListBeanProxyWrapper extends CollectionBeanProxyWrapper {
 				return null;
 		} catch (ThrowableProxy e) {
 			// This shouldn't occur, so just log it.
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, ProxyMessages.getString(ProxyMessages.UNEXPECTED_EXCEPTION), e));
 			return null;
 		}			
 	}

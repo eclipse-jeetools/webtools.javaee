@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfosPropertyPage.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:20:50 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:43:49 $ 
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -105,7 +105,7 @@ public class BeaninfosPropertyPage extends PropertyPage implements IStatusChange
 		try {
 			return proj.hasNature(JavaCore.NATURE_ID);
 		} catch (CoreException e) {
-			BeaninfoUIPlugin.getPlugin().getMsgLogger().log(e.getStatus());
+			BeaninfoUIPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
 		return false;
 	}	

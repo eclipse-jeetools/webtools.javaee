@@ -5,6 +5,7 @@
 	<projects>
 		<project>com.ibm.etools.emf.event</project>
 		<project>org.apache.xerces</project>
+		<project>org.eclipse.compare</project>
 		<project>org.eclipse.core.boot</project>
 		<project>org.eclipse.core.resources</project>
 		<project>org.eclipse.core.runtime</project>
@@ -16,6 +17,7 @@
 		<project>org.eclipse.jem.proxy</project>
 		<project>org.eclipse.jem.workbench</project>
 		<project>org.eclipse.osgi</project>
+		<project>org.eclipse.wtp.common</project>
 		<project>org.eclipse.wtp.emf.workbench</project>
 	</projects>
 	<buildSpec>

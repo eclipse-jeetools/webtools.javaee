@@ -11,11 +11,14 @@ package org.eclipse.jem.internal.core;
  *******************************************************************************/
 /*
  *  $RCSfile: JEMPlugin.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:12:30 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:14 $ 
  */
 import org.eclipse.core.runtime.*;
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Plugin;
+
+import org.eclipse.wtp.common.logger.proxy.Logger;
+import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
 
 /**
  * org.eclipse.jem plugin
@@ -23,7 +26,7 @@ import org.eclipse.core.runtime.Plugin;
 public class JEMPlugin extends Plugin {
 
 	private static JEMPlugin PLUGIN;
-	private MsgLogger msgLogger;
+	private Logger logger;
 	
 	public JEMPlugin(IPluginDescriptor descriptor) {
 		super(descriptor);
@@ -39,12 +42,11 @@ public class JEMPlugin extends Plugin {
 	 */
 	public void startup() throws CoreException {
 		super.startup();
-		msgLogger = EclipseLogMsgLogger.createLogger(this);
-		MsgLogger.setDefaultLogger(msgLogger);	// So that since we are in Eclipse, the default will be this one.
+		logger = EclipseLogger.getEclipseLogger(this);
 	}
 	
-	public MsgLogger getMsgLogger() {
-		return msgLogger;
+	public Logger getLogger() {
+		return logger;
 	}
 
 }

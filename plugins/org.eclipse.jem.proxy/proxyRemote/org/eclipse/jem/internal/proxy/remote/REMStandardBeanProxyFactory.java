@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMStandardBeanProxyFactory.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/04 21:25:37 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 
@@ -258,7 +258,7 @@ IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy, String initializationSt
 					java.io.StringWriter s = new java.io.StringWriter();
 					java.io.PrintWriter w = new java.io.PrintWriter(s);
 					((ThrowableProxy) e.getErrorObject()).printProxyStackTrace(w);
-					ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
+					ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, s.toString(), null));
 					throw new InstantiationException(
 						MessageFormat.format(ProxyRemoteMessages.getString("Instantiate_EXC_"), new Object[] {extractFirstLine(initializationString)})); //$NON-NLS-1$
 				default:
@@ -266,7 +266,7 @@ IBeanProxy createBeanProxy(IREMBeanTypeProxy aTypeProxy, String initializationSt
 			}
 		} catch (CommandException e) {
 			if (e.isRecoverable()) {
-				ProxyPlugin.getPlugin().getMsgLogger().log( 
+				ProxyPlugin.getPlugin().getLogger().log( 
 					new Status(
 						IStatus.WARNING,
 						ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
@@ -376,7 +376,7 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 					return null;	// Cannot find the type to create it.
 			} catch (ClassCastException e) {
 				// It wasn't a constant type, so we can't create it. Return null.
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 				return null;
 			}
 			
@@ -396,7 +396,7 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 				getObjectInstanceData(connect, value.objectID, value); // Go and get the data
 			} catch (CommandErrorException e) {
 				if (e.isRecoverable()) {
-					ProxyPlugin.getPlugin().getMsgLogger().log(
+					ProxyPlugin.getPlugin().getLogger().log(
 						new Status(
 							IStatus.WARNING,
 							ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
@@ -482,7 +482,7 @@ public IBeanProxy getBeanProxy(Commands.ValueObject value) throws ThrowableProxy
 					return null;	// Cannot find the type to create it.
 			} catch (ClassCastException e) {
 				// It wasn't a standard type, so we can't create it. Return null.
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 				return null;
 			}
 			return standardBeanType.newBeanProxy(value);
@@ -536,7 +536,7 @@ public IREMBeanTypeProxy getBeanType(int id) throws CommandException {
 			return null;	// Cannot find the type to create it.
 	} catch (ClassCastException e) {
 		// It wasn't a bean type, so we can't create it. Return null.
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 	} finally {
 		if (beanType == null)
 			releaseID(id);	// Couldn't create a proxy, so release the id.
@@ -794,7 +794,7 @@ public void terminateFactory() {
 		try {
 			return createBeanProxy(fBeanTypeProxyFactory.voidType, initializationString);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$		}
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$		}
 		}
 		return null;
 	}

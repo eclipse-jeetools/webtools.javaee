@@ -13,6 +13,7 @@
 		<project>org.eclipse.osgi</project>
 		<project>org.eclipse.ui</project>
 		<project>org.eclipse.ui.ide</project>
+		<project>org.eclipse.wtp.common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

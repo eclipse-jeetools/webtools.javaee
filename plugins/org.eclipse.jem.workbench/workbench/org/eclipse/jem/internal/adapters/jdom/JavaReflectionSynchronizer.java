@@ -11,10 +11,11 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionSynchronizer.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/06 20:45:28 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:17 $ 
  */
 
 import java.util.*;
+import java.util.logging.Level;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.IPath;
@@ -22,7 +23,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.jdt.core.*;
-import org.eclipse.jem.internal.core.MsgLogger;
+
 import org.eclipse.jem.internal.plugin.JavaPlugin;
 /**
  * Insert the type's description here.
@@ -228,7 +229,7 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 		String name = element.getElementName();
 		if (element == null || name.length() <= 5 || !name.substring(name.length() - 5).equals(".java")) { //$NON-NLS-1$
 			// Should not be here, 
-			JavaPlugin.getDefault().getMsgLogger().log("Invalid .java file: " + name, MsgLogger.LOG_FINE); //$NON-NLS-1$
+			JavaPlugin.getDefault().getLogger().log("Invalid .java file: " + name, Level.FINE); //$NON-NLS-1$
 			// Make a guess, at worst case, nothing will come out of this.
 			int index = name.lastIndexOf("."); //$NON-NLS-1$
 			if (index >= 0)
@@ -352,7 +353,7 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 				try {
 					notifier.eNotify(not);
 				} catch (Exception e) {
-					JavaPlugin.getDefault().getMsgLogger().log(e); //catch exceptions so all notifications are processed
+					JavaPlugin.getDefault().getLogger().log(e); //catch exceptions so all notifications are processed
 				} 
 		}
 	}

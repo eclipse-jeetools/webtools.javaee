@@ -11,14 +11,15 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoUIPlugin.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:20:50 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:43:49 $ 
  */
 
 
 import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.jem.internal.core.EclipseLogMsgLogger;
-import org.eclipse.jem.internal.core.MsgLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+import org.eclipse.wtp.common.logger.proxy.Logger;
+import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
 /**
  * Plugin class for the Beaninfo UI Plugin
  */
@@ -39,11 +40,11 @@ public class BeaninfoUIPlugin extends AbstractUIPlugin {
 		return BEANINFO_UI_PLUGIN;
 	}
 	
-	private MsgLogger msgLogger;
-	public MsgLogger getMsgLogger() {
-		if (msgLogger == null)
-			msgLogger = EclipseLogMsgLogger.createLogger(this);
-		return msgLogger;
+	private Logger logger;
+	public Logger getLogger() {
+		if (logger == null)
+			logger = EclipseLogger.getEclipseLogger(this);
+		return logger;
 	}
 	
 }

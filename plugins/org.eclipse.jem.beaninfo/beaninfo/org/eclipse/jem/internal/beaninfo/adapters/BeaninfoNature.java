@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/14 18:36:32 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/20 00:43:53 $ 
  */
 
 import java.io.*;
@@ -282,7 +282,7 @@ public class BeaninfoNature implements IProjectNature {
 			resourceTracker = new ResourceTracker();
 			project.getWorkspace().addResourceChangeListener(resourceTracker);
 		} catch (CoreException e) {
-			BeaninfoPlugin.getPlugin().getMsgLogger().log(e.getStatus());
+			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		}
 	}
 
@@ -316,7 +316,7 @@ public class BeaninfoNature implements IProjectNature {
 	new IConfigurationContributor[] { getConfigurationContributor()}, pm);
 				fRegistry.addRegistryListener(registryListener);
 			} catch (CoreException e) {
-				BeaninfoPlugin.getPlugin().getMsgLogger().log(e.getStatus());
+				BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 			}
 		}
 		return fRegistry;
@@ -438,9 +438,9 @@ public class BeaninfoNature implements IProjectNature {
 				}
 			}
 		} catch (CoreException e) {
-			BeaninfoPlugin.getPlugin().getMsgLogger().log(e.getStatus());
+			BeaninfoPlugin.getPlugin().getLogger().log(e.getStatus());
 		} catch (Exception e) {
-			BeaninfoPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "", e));
+			BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "", e));
 		}
 		return bdoc;
 	}
@@ -640,7 +640,7 @@ public class BeaninfoNature implements IProjectNature {
 				try {
 					contrib = (IConfigurationContributor) v.createExecutableExtension(BeaninfoPlugin.PI_CONTRIBUTOR);
 				} catch (ClassCastException e) {
-					BeaninfoPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "", e)); //$NON-NLS-1$
+					BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "", e)); //$NON-NLS-1$
 				}
 
 				itr.set(contrib); // Set to what should be used, null is valid for not found.

@@ -8,16 +8,16 @@ package org.eclipse.jem.internal.plugin;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.2 $ $Date: 2004/01/13 16:17:42 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.3 $ $Date: 2004/02/20 00:44:17 $
  */
 
 import org.eclipse.core.runtime.*;
 
+import org.eclipse.wtp.common.logger.proxy.Logger;
 import org.eclipse.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
+import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
-import org.eclipse.jem.internal.core.EclipseLogMsgLogger;
-import org.eclipse.jem.internal.core.MsgLogger;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
 import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 
@@ -30,7 +30,7 @@ import org.eclipse.jem.java.impl.JavaRefFactoryImpl;
 public class JavaPlugin extends Plugin {
 
 	private static JavaPlugin inst;
-	private MsgLogger msgLogger;
+	private Logger logger;
 
 	/**
 	 * Create the Java plugin and cache its default instance
@@ -40,10 +40,10 @@ public class JavaPlugin extends Plugin {
 		inst = this;
 	}
 
-	public MsgLogger getMsgLogger() {
-		if (msgLogger == null)
-			msgLogger = EclipseLogMsgLogger.createLogger(this);
-		return msgLogger;
+	public Logger getLogger() {
+		if (logger == null)
+			logger = EclipseLogger.getEclipseLogger(this);
+		return logger;
 	}
 
 	/**

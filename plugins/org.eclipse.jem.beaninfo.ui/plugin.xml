@@ -21,6 +21,7 @@
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.wtp.common"/>
    </requires>
 
 
@@ -51,10 +52,10 @@
          point="org.eclipse.ui.editors">
       <editor
             name="%Editors.OverrideEditor"
-            icon="icons/full/obj16/file_obj.gif"
             extensions="override"
-            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            icon="icons/full/obj16/file_obj.gif"
             class="org.eclipse.ui.editors.text.TextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             id="org.eclipse.jem.beaninfo.OverrideEditor">
       </editor>
    </extension>

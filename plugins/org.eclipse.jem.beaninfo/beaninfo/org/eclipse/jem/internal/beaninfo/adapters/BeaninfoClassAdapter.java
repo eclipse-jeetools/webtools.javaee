@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.5 $  $Date: 2004/02/18 16:40:05 $ 
+ *  $Revision: 1.6 $  $Date: 2004/02/20 00:43:53 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -394,7 +394,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 				introspect();
 			} catch (Throwable e) {
 				hasIntrospected = false;
-				BeaninfoPlugin.getPlugin().getMsgLogger().log(
+				BeaninfoPlugin.getPlugin().getLogger().log(
 					new Status(
 						IStatus.WARNING,
 						BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
@@ -451,7 +451,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 											null,
 											new IBeanProxy[] { targetType, getRegistry().getBeanProxyFactory().createBeanProxyWith(false)});
 								} catch (ThrowableProxy e) {
-									BeaninfoPlugin.getPlugin().getMsgLogger().log(
+									BeaninfoPlugin.getPlugin().getLogger().log(
 										new Status(
 											IStatus.WARNING,
 											BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
@@ -464,7 +464,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 								}
 							} else {
 								// The class itself couldn't be initialized. Just log it, but treat as no proxy.
-								BeaninfoPlugin.getPlugin().getMsgLogger().log(
+								BeaninfoPlugin.getPlugin().getLogger().log(
 									new Status(
 										IStatus.WARNING,
 										BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
@@ -477,7 +477,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							}
 						} else {
 							// The class itself could not be found. Just log it, but treat as no proxy.
-							BeaninfoPlugin.getPlugin().getMsgLogger().log(
+							BeaninfoPlugin.getPlugin().getLogger().log(
 								new Status(
 									IStatus.INFO,
 									BeaninfoPlugin.getPlugin().getDescriptor().getUniqueIdentifier(),
@@ -547,14 +547,14 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 							&& ((CoreException) e.exception()).getStatus().getCode() == IResourceStatus.RESOURCE_NOT_FOUND) {
 							// This is ok. Means uri_mapping not set so couldn't find in Workspace, also ok.
 						} else {
-							BeaninfoPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "Error loading file\"" + filename + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
+							BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "Error loading file\"" + filename + "\"", e.exception())); //$NON-NLS-1$ //$NON-NLS-2$						
 						}
 					}
 					overrideRes = rset.getResource(uri, false);
 					// In case it happened after creating resource but during load.					
 				} catch (Exception e) {
 					// Couldn't load it for some reason.
-					BeaninfoPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "Error loading file\"" + filename + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
+					BeaninfoPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, BeaninfoPlugin.PI_BEANINFO, 0, "Error loading file\"" + filename + "\"", e)); //$NON-NLS-1$ //$NON-NLS-2$
 					overrideRes = rset.getResource(uri, false); // In case it happened after creating resource but during load.
 		
 				} finally {

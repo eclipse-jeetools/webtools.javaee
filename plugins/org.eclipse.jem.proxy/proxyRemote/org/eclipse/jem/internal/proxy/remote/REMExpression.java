@@ -10,17 +10,15 @@
  *******************************************************************************/
 /*
  *  $RCSfile: REMExpression.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/04 21:25:37 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 package org.eclipse.jem.internal.proxy.remote;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
-import org.eclipse.jem.internal.core.MsgLogger;
 import org.eclipse.jem.internal.proxy.common.CommandException;
 import org.eclipse.jem.internal.proxy.common.remote.*;
-import org.eclipse.jem.internal.proxy.common.remote.CommandErrorException;
-import org.eclipse.jem.internal.proxy.common.remote.Commands;
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.internal.proxy.initParser.tree.IInternalExpressionConstants;
  
@@ -47,7 +45,7 @@ public class REMExpression extends Expression {
 			connection.startExpressionProcessing();
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
 	}
@@ -108,11 +106,11 @@ public class REMExpression extends Expression {
 			connection.pushValueObject(workerValue);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -130,7 +128,7 @@ public class REMExpression extends Expression {
 				connection.stopExpressionProcessing();
 			} catch (IOException e) {
 				connection.close();
-				ProxyPlugin.getPlugin().getMsgLogger().log(e, MsgLogger.LOG_INFO);
+				ProxyPlugin.getPlugin().getLogger().log(e, Level.INFO);
 				// Not throwing an illegal state here because we don't care, other than logging and not 
 				// returning the connection to the registry that there was an error on close.
 			}
@@ -153,14 +151,14 @@ public class REMExpression extends Expression {
 			try {
 				getREMBeanProxyFactory().processErrorReturn(e);
 			} catch (CommandException e1) {
-				ProxyPlugin.getPlugin().getMsgLogger().log(e);
+				ProxyPlugin.getPlugin().getLogger().log(e);
 				if (!e.isRecoverable()) {
 					connection.close();
 					throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 				}			
 			}
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			if (!e.isRecoverable()) {
 				connection.close();
 				throwIllegalStateException(COMMAND_EXCEPTION_MSG);
@@ -185,11 +183,11 @@ public class REMExpression extends Expression {
 			connection.pushValueObject(workerValue);
 		} catch (IOException e) {
 			connection.close();			
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -214,11 +212,11 @@ public class REMExpression extends Expression {
 			connection.pushValueObject(workerValue);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -241,7 +239,7 @@ public class REMExpression extends Expression {
 			connection.pushByte((byte) operandType);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}		
@@ -259,7 +257,7 @@ public class REMExpression extends Expression {
 			connection.pushByte((byte) operator);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
@@ -278,11 +276,11 @@ public class REMExpression extends Expression {
 			connection.pushValueObject(workerValue);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -303,7 +301,7 @@ public class REMExpression extends Expression {
 			connection.pushInt(indexCount);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
@@ -327,11 +325,11 @@ public class REMExpression extends Expression {
 			connection.pushInt(dimensionCount);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -358,11 +356,11 @@ public class REMExpression extends Expression {
 			connection.pushInt(expressionCount);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -389,11 +387,11 @@ public class REMExpression extends Expression {
 			connection.pushInt(argumentCount);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -418,11 +416,11 @@ public class REMExpression extends Expression {
 			connection.pushValueObject(workerValue);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			if (!e.isRecoverable()) {
 				connection.close();
@@ -445,7 +443,7 @@ public class REMExpression extends Expression {
 			connection.pushBoolean(hasReceiver);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
@@ -468,7 +466,7 @@ public class REMExpression extends Expression {
 			connection.pushInt(argCount);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
@@ -486,7 +484,7 @@ public class REMExpression extends Expression {
 			connection.pushByte((byte) expressionType);
 		} catch (IOException e) {
 			connection.close();
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			markInvalid(e.getLocalizedMessage());
 			throwIllegalStateException(IO_EXCEPTION_MSG);
 		}
@@ -506,14 +504,14 @@ public class REMExpression extends Expression {
 			try {
 				getREMBeanProxyFactory().processErrorReturn(e);
 			} catch (CommandException e1) {
-				ProxyPlugin.getPlugin().getMsgLogger().log(e);
+				ProxyPlugin.getPlugin().getLogger().log(e);
 				if (!e.isRecoverable()) {
 					connection.close();
 					throwIllegalStateException(COMMAND_EXCEPTION_MSG);
 				}			
 			}
 		} catch (CommandException e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(e);
+			ProxyPlugin.getPlugin().getLogger().log(e);
 			if (!e.isRecoverable()) {
 				connection.close();
 				throwIllegalStateException(COMMAND_EXCEPTION_MSG);

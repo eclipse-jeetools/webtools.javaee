@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMArrayBeanProxy.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -163,7 +163,7 @@ public final class REMArrayBeanProxy extends REMBeanProxy implements IArrayBeanP
 		try {
 			return get(index);
 		} catch (ThrowableProxy e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));		 //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e));		 //$NON-NLS-1$
 			fFactory.releaseProxy(e);	// Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}		

@@ -38,8 +38,8 @@
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.debug.ui"/>
-      <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.wtp.common"/>
    </requires>
 
 

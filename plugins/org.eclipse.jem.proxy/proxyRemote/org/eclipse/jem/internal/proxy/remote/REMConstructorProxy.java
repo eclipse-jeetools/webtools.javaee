@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMConstructorProxy.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -64,7 +64,7 @@ final class REMConstructorProxy extends REMAccessibleObjectProxy implements ICon
 		try {
 			return newInstance();
 		} catch (ThrowableProxy e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}
@@ -73,7 +73,7 @@ final class REMConstructorProxy extends REMAccessibleObjectProxy implements ICon
 		try {
 			return newInstance(args);
 		} catch (ThrowableProxy e) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e)); //$NON-NLS-1$
 			fFactory.releaseProxy(e); // Since it's no longer needed, get rid of now instead of GC time.
 			return null;
 		}

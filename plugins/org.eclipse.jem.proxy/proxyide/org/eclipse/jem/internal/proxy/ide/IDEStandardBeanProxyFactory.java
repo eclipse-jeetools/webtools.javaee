@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.proxy.ide;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.2 $ $Date: 2004/02/03 23:18:36 $
+ * $RCSfile: IDEStandardBeanProxyFactory.java,v $ $Revision: 1.3 $ $Date: 2004/02/20 00:44:05 $
  */
 
 import org.eclipse.core.runtime.IStatus;
@@ -156,7 +156,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 			Object newValue = InitializationStringParser.evaluate(initializationString, pluginClassLoader);
 			return newValue != null ? aTypeProxy.newBeanProxy(newValue) : null;
 		} catch (Exception exc) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
 			return null;
 		}
@@ -175,7 +175,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 		try {
 			return aTypeProxy.newBeanProxy(!(aTypeProxy.isPrimitive()) ? beanType.newInstance() : null);
 		} catch (Exception exc) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 				new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
 			return null;
 		}
@@ -210,7 +210,7 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 			} else 
 				return null;
 		} catch (Exception exc) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(
+			ProxyPlugin.getPlugin().getLogger().log(
 					new Status(IStatus.WARNING, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", exc));
 			return null;
 		}

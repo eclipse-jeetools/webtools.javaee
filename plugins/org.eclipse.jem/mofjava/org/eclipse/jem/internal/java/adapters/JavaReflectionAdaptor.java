@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaReflectionAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:14 $ 
  */
 import java.util.List;
 
@@ -19,9 +19,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.jem.internal.core.MsgLogger;
-import org.eclipse.jem.java.*;
 
+import org.eclipse.wtp.common.logger.proxy.Logger;
+
+import org.eclipse.jem.java.*;
+	
 /**
  * 
  */
@@ -203,7 +205,7 @@ public Notification flushReflectedValuesIfNecessaryNoNotification(boolean clearC
 			hasFlushed = flushReflectedValues(clearCachedModelObject);
 		} catch (Throwable e) {
 			hasFlushed = false;
-			MsgLogger.getLogger().log(e);
+			Logger.getLogger().log(e);
 			if (e instanceof RuntimeException)
 				throw (RuntimeException) e;
 			else if (e instanceof Error)

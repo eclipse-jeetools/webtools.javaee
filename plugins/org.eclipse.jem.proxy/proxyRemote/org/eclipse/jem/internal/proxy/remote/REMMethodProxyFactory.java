@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMMethodProxyFactory.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/12 21:44:26 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/20 00:44:05 $ 
  */
 
 
@@ -122,17 +122,17 @@ public IMethodProxy getMethodProxy(IREMBeanTypeProxy beanType, String methodName
 			buf.append(parameterTypes[i].getTypeName());
 		}
 		buf.append(")\"");	//$NON-NLS-1$
-		ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, buf.toString(), null));	
+		ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, buf.toString(), null));	
 		try {			
 			if (result != null) {		
-				ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, 
+				ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, 
 					"ClassCastException of result. Return type is \""+result.getTypeProxy().getTypeName()+"\"\n" +	//$NON-NLS-1$	//$NON-NLS-2$
 					"Return type bean type proxy class=\""+result.getTypeProxy().getClass().getName()+"\"\n" +	//$NON-NLS-1$	//$NON-NLS-2$
 					"GetMethodProxy valid="+getMethodProxy.isValid() + "\n" +	//$NON-NLS-1$	//$NON-NLS-2$
 					"GetMethodProxy real name is \""+getMethodProxy.getName()+"\"\n", null));	//$NON-NLS-1$	//$NON-NLS-2$			
 			}
 		} catch (Exception e2) {
-			ProxyPlugin.getPlugin().getMsgLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e2));	//$NON-NLS-1$
+			ProxyPlugin.getPlugin().getLogger().log(new Status(IStatus.ERROR, ProxyPlugin.getPlugin().getDescriptor().getUniqueIdentifier(), 0, "", e2));	//$NON-NLS-1$
 		}
 		throw e;	// Rethrow it.
 	}
