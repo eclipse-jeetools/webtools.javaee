@@ -36,10 +36,14 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
+import org.eclipse.jst.j2ee.internal.web.deployables.WebAppDeployableModuleFactory;
 import org.eclipse.jst.j2ee.internal.web.operations.WebContentResourceChangeListener;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
+import org.eclipse.wst.common.modulecore.IModuleConstants;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleFactory;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleFactoryRegistry;
 
 
 /**
@@ -306,11 +310,18 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		// register the listener for link refactoring of moved/renamed files
 		// add listener for web content changes
 		addWebContentListener();
-
+		registerDeployableModuleFactory();
 	}
 
 
-	/*
+	/**
+     * 
+     */
+    private void registerDeployableModuleFactory() {
+       DeployableModuleFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new WebAppDeployableModuleFactory());     
+    }
+
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.WTPPlugin#getPluginID()
