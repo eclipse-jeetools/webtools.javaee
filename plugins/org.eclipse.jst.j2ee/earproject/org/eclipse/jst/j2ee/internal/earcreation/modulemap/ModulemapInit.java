@@ -14,7 +14,14 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emf.utilities.ResourceDependencyRegister;
-
+/**
+* @deprecated
+* Use
+* <p>
+* 		Need to use the ModuleCore and WorkbenchComponent Api to get to the referenced modules
+* as with the Flexible project changes a .modulemaps file will not exist in an EAR module and
+* all the info that was captured in .modulemaps file will is now captured in the .wtpmodules file
+*/
 
 public class ModulemapInit {
 	protected static boolean initialized = false;

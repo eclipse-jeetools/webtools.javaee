@@ -18,6 +18,12 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 /**
  * @lastgen class ModulemapFactoryImpl extends EFactoryImpl implements ModulemapFactory, EFactory {}
+ * @deprecated
+ * Use
+ * <p>
+ * 		Need to use the ModuleCore and WorkbenchComponent Api to get to the referenced modules
+ * as with the Flexible project changes a .modulemaps file will not exist in an EAR module and
+ * all the info that was captured in .modulemaps file will is now captured in the .wtpmodules file
  */
 public class ModulemapFactoryImpl extends EFactoryImpl implements ModulemapFactory {
 
