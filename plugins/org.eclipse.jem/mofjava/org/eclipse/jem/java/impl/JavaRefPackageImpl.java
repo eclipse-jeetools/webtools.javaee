@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefPackageImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/14 00:16:44 $ 
+ *  $Revision: 1.4 $  $Date: 2004/08/11 19:00:38 $ 
  */
 import java.util.List;
 
@@ -188,10 +188,10 @@ public class JavaRefPackageImpl extends EPackageImpl implements JavaRefPackage {
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public static JavaRefPackage init() {
-		if (isInited) return (JavaRefPackage)EPackage.Registry.INSTANCE.get(JavaRefPackage.eNS_URI);
+		if (isInited) return (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
 		// Obtain or create and register package.
-		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new JavaRefPackageImpl());
+		JavaRefPackageImpl theJavaRefPackage = (JavaRefPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new JavaRefPackageImpl());
 
 		isInited = true;
 
