@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationOperation;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -45,7 +45,7 @@ public class AppClientModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * 
 	 * @param model used to initialize the wizard and to interface with the operation
 	 */
-	public AppClientModuleCreationWizard(AppClientProjectCreationDataModel dataModel) {
+	public AppClientModuleCreationWizard(AppClientModuleCreationDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -60,7 +60,7 @@ public class AppClientModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return Returns the specific operation data model for the creation of J2EE Application Clients 
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		AppClientProjectCreationDataModel aModel = new AppClientProjectCreationDataModel();
+		AppClientModuleCreationDataModel aModel = new AppClientModuleCreationDataModel();
 		aModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
@@ -74,7 +74,7 @@ public class AppClientModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return Returns the specific operation for the creation of J2EE Application Clients 
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new AppClientProjectCreationOperation(getAppClientProjectCreationDataModel());
+		return new AppClientModuleCreationOperation(getAppClientProjectCreationDataModel());
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class AppClientModuleCreationWizard extends J2EEModuleCreationWizard {
 		return J2EEUIPlugin.PLUGIN_ID;
 	}
 
-	private AppClientProjectCreationDataModel getAppClientProjectCreationDataModel() {
-		return (AppClientProjectCreationDataModel) model;
+	private AppClientModuleCreationDataModel getAppClientProjectCreationDataModel() {
+		return (AppClientModuleCreationDataModel) model;
 	}
 
 }

@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
@@ -55,7 +55,7 @@ public abstract class J2EEModuleCreationPage extends J2EEProjectCreationPage {
 		if (!showAdvanced && !isPageComplete()) {
 			String prop = validateControlsBase();
 			if (null != prop) {
-				String[] advancedProperties = {WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEModuleCreationDataModel.J2EE_MODULE_VERSION, J2EEProjectCreationDataModel.SERVER_TARGET_ID, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, J2EEModuleCreationDataModel.ADD_TO_EAR};
+				String[] advancedProperties = {WTPOperationDataModel.NESTED_MODEL_VALIDATION_HOOK, J2EEModuleCreationDataModel.J2EE_MODULE_VERSION, J2EEArtifactCreationDataModel.SERVER_TARGET_ID, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, J2EEModuleCreationDataModel.ADD_TO_EAR};
 				for (int i = 0; i < advancedProperties.length; i++) {
 					if (prop.equals(advancedProperties[i])) {
 						toggleAdvanced(true);
@@ -67,7 +67,7 @@ public abstract class J2EEModuleCreationPage extends J2EEProjectCreationPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EditModelOperationDataModel.PROJECT_NAME, J2EEProjectCreationDataModel.PROJECT_LOCATION, J2EEModuleCreationDataModel.J2EE_MODULE_VERSION, J2EEProjectCreationDataModel.SERVER_TARGET_ID, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, J2EEModuleCreationDataModel.ADD_TO_EAR};
+		return new String[]{EditModelOperationDataModel.PROJECT_NAME, J2EEArtifactCreationDataModel.PROJECT_LOCATION, J2EEModuleCreationDataModel.J2EE_MODULE_VERSION, J2EEArtifactCreationDataModel.SERVER_TARGET_ID, J2EEModuleCreationDataModel.EAR_PROJECT_NAME, J2EEModuleCreationDataModel.ADD_TO_EAR};
 	}
 
 	protected void createVersionComposite(Composite parent) {

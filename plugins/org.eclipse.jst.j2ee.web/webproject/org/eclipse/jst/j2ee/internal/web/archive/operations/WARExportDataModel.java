@@ -14,7 +14,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
-public class WARExportDataModel extends J2EEModuleExportDataModel {
+public final class WARExportDataModel extends J2EEModuleExportDataModel {
 
 	/*
 	 * (non-Javadoc)

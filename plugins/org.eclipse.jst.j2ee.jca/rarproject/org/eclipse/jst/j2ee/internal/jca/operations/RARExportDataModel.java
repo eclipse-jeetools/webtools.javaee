@@ -15,7 +15,7 @@ import org.eclipse.jst.j2ee.internal.jca.archive.operations.RARExportOperation;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
-public class RARExportDataModel extends J2EEModuleExportDataModel {
+public final class RARExportDataModel extends J2EEModuleExportDataModel {
 
 	/*
 	 * (non-Javadoc)

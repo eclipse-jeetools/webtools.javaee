@@ -16,7 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientProjectCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -39,7 +39,7 @@ public class AppClientProjectCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	protected AppClientProjectCreationPage(AppClientProjectCreationDataModel model, String pageName) {
+	protected AppClientProjectCreationPage(AppClientModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJECT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJECT_MAIN_PG_DESC));
@@ -51,7 +51,7 @@ public class AppClientProjectCreationPage extends J2EEModuleCreationPage {
 		new Label(advanced, SWT.NONE); // pad
 		Button createDefaultMain = new Button(advanced, SWT.CHECK);
 		createDefaultMain.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_CREATE_MAIN));
-		synchHelper.synchCheckbox(createDefaultMain, AppClientProjectCreationDataModel.CREATE_DEFAULT_MAIN_CLASS, null);
+		synchHelper.synchCheckbox(createDefaultMain, AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS, null);
 	}
 
 

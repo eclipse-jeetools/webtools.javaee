@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.servlet.ui.internal.wizard.WARImportWizard;
+import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -47,7 +47,7 @@ public class ImportWARAction extends BaseAction {
 	 * @see org.eclipse.jst.j2ee.internal.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
 	protected void primRun(Shell shell) {
-		WARImportWizard wizard = new WARImportWizard();
+		WebModuleImportWizard wizard = new WebModuleImportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 		wizard.init(plugin.getWorkbench(), StructuredSelection.EMPTY);
 		wizard.setDialogSettings(plugin.getDialogSettings());

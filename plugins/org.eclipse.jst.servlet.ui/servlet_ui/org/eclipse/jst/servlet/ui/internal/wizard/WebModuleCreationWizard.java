@@ -14,11 +14,11 @@ import org.eclipse.core.internal.registry.ConfigurationElement;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
@@ -57,7 +57,7 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * 
 	 * @param model used to initialize the wizard and to interface with the operation
 	 */
-	public WebModuleCreationWizard(WebProjectCreationDataModel model) {
+	public WebModuleCreationWizard(WebModuleCreationDataModel model) {
 		super(model);
 	}
 
@@ -72,7 +72,7 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * @return Returns the specific operation data model for the creation of J2EE Web modules
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		WebProjectCreationDataModel aModel = new WebProjectCreationDataModel();
+		WebModuleCreationDataModel aModel = new WebModuleCreationDataModel();
 		aModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
@@ -87,7 +87,7 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * @return Returns the specific operation for the creation of J2EE Web modules
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new WebProjectCreationOperation(getWEBProjectCreationDataModel());
+		return new WebModuleCreationOperation(getWEBProjectCreationDataModel());
 	}
 
 	/** 
@@ -128,20 +128,20 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#postPerformFinish()
 	 */
 	protected void postPerformFinish() {
-		String finalPerspective = model.getStringProperty(J2EEProjectCreationDataModel.FINAL_PERSPECTIVE);
+		String finalPerspective = model.getStringProperty(J2EEArtifactCreationDataModel.FINAL_PERSPECTIVE);
 		if (finalPerspective == null || finalPerspective.equals("")) { //$NON-NLS-1$
 			BasicNewProjectResourceWizard.updatePerspective(configData);
 		} else {
 			IConfigurationElement newConfig = new ConfigurationElement() {
 				public String getAttribute(String aName) {
 					if (aName.equals("finalPerspective")) //$NON-NLS-1$
-						return model.getStringProperty(J2EEProjectCreationDataModel.FINAL_PERSPECTIVE);
+						return model.getStringProperty(J2EEArtifactCreationDataModel.FINAL_PERSPECTIVE);
 					return super.getAttribute(aName);
 				}
 			};
 			BasicNewProjectResourceWizard.updatePerspective(newConfig);
 		}
-		BasicNewResourceWizard.selectAndReveal(((J2EEProjectCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
+		BasicNewResourceWizard.selectAndReveal(((J2EEArtifactCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
 	}
 	
 	/**
@@ -162,8 +162,8 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 		return ServletUIPlugin.PLUGIN_ID;
 	}
 	
-	private WebProjectCreationDataModel getWEBProjectCreationDataModel() {
-		return (WebProjectCreationDataModel) model;
+	private WebModuleCreationDataModel getWEBProjectCreationDataModel() {
+		return (WebModuleCreationDataModel) model;
 	}
 
 }

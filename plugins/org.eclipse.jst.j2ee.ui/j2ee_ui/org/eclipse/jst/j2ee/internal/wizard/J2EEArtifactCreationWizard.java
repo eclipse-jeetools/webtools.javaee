@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.UIProjectUtilities;
@@ -37,7 +37,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
  * @see org.eclipse.wst.common.frameworks.internal.operation.extensionui.ExtendableWizard
  */
 public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implements INewWizard, IExecutableExtension, IPluginContribution {
-	protected IConfigurationElement configData;
+	private IConfigurationElement configData;
 	private IStructuredSelection selection;
 	
 	/**
@@ -64,13 +64,13 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.core.runtime.IExecutableExtension#setInitializationData(org.eclipse.core.runtime.IConfigurationElement,
 	 *      java.lang.String, java.lang.Object)
 	 */
-	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
-		configData = config;
+	public final void  setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
+		this.configData = config;
 	}
 
 	/**   
@@ -116,24 +116,23 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	 */
 	protected void postPerformFinish() {
 		BasicNewProjectResourceWizard.updatePerspective(configData);
-		BasicNewResourceWizard.selectAndReveal(((J2EEProjectCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
+		BasicNewResourceWizard.selectAndReveal(((J2EEArtifactCreationDataModel) model).getTargetProject(), J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow());
 	}
 	
 	/**
-	 * @inheritDoc 
+	 * {@inheritDoc}
 	 * 
 	 * @see org.eclipse.jface.wizard.WizardPage#getDialogSettings()
+	 * @return Returns the saved settings from the previous use of the Wizard
 	 */
 	public IDialogSettings getDialogSettings() {
 		return J2EEUIPlugin.getDefault().getDialogSettings();
-	}
-	 
-	
+	}	 
 
 	/**
-	 * @return Returns the selection.
+	 * @return Returns the selection from the current view used to spawn the wizard
 	 */
-	protected IStructuredSelection getSelection() {
+	protected final IStructuredSelection getSelection() {
 		return selection;
 	}
 	
@@ -166,4 +165,10 @@ public abstract class J2EEArtifactCreationWizard extends ExtendableWizard implem
 	}
 
 
+	/**
+	 * @return Returns the configData.
+	 */
+	protected IConfigurationElement getConfigData() {
+		return configData;
+	}
 }

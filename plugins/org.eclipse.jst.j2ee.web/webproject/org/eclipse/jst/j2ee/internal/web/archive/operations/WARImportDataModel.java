@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -28,7 +28,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.web.internal.operation.WebSettings;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public class WARImportDataModel extends J2EEModuleImportDataModel {
+public final class WARImportDataModel extends J2EEModuleImportDataModel {
 	//do not modify this property constant
 	public static final String HANDLED_ARCHIVES = "WARImportDataModel.HANDLED_ARCHIVES"; //$NON-NLS-1$
 
@@ -52,10 +52,10 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
-	protected J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel() {
-		WebProjectCreationDataModel dm = new WebProjectCreationDataModel();
-		dm.setBooleanProperty(J2EEProjectCreationDataModel.ADD_SERVER_TARGET, false);
-		dm.setBooleanProperty(WebProjectCreationDataModel.MIGRATE_WEB_SETTINGS, false);
+	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
+		WebModuleCreationDataModel dm = new WebModuleCreationDataModel();
+		dm.setBooleanProperty(J2EEArtifactCreationDataModel.ADD_SERVER_TARGET, false);
+		dm.setBooleanProperty(WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS, false);
 		return dm;
 	}
 
@@ -64,7 +64,7 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 		if (propertyName.equals(PRESERVE_PROJECT_METADATA) || ((propertyName.equals(FILE) || propertyName.equals(FILE_NAME)) && getBooleanProperty(PRESERVE_PROJECT_METADATA))) {
 			String webContentName = null;
 			if (getBooleanProperty(PRESERVE_PROJECT_METADATA)) {
-				WARFileImpl warFile = (WARFileImpl) moduleFile;
+				WARFileImpl warFile = (WARFileImpl) getArchiveFile();
 				if (null != warFile) {
 					if (warFile.containsFile(".websettings")) { //$NON-NLS-1$
 						try {
@@ -75,7 +75,7 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 					}
 				}
 			}
-			setProperty(WebProjectCreationDataModel.WEB_CONTENT, webContentName);
+			setProperty(WebModuleCreationDataModel.WEB_CONTENT, webContentName);
 		}
 		return returnVal;
 	}
@@ -96,7 +96,7 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#validateModuleType()
 	 */
 	protected IStatus validateModuleType() {
-		if (moduleFile instanceof WARFile)
+		if (getArchiveFile() instanceof WARFile)
 			return OK_STATUS;
 
 		//TODO: STRING MOVE
@@ -109,8 +109,8 @@ public class WARImportDataModel extends J2EEModuleImportDataModel {
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#setUpArchiveFile()
 	 */
 	protected boolean openArchive(String uri) throws OpenFailureException {
-		moduleFile = CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), uri);
-		if (moduleFile == null)
+		setArchiveFile(CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), uri));
+		if (getArchiveFile() == null)
 			return false;
 		return true;
 	}

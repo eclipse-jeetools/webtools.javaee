@@ -17,9 +17,9 @@
 package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.RARImportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -66,12 +66,12 @@ public class RARImportPage extends J2EEModuleImportPage {
 		return new String[]{"*.rar"}; //$NON-NLS-1$
 	}
 
-	protected J2EEProjectCreationDataModel getNewProjectCreationDataModel() {
-		return getJCADataModel().getJ2eeProjectCreationDataModel();
+	protected J2EEArtifactCreationDataModel getNewProjectCreationDataModel() {
+		return getJCADataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new ConnectorModuleCreationWizard((ConnectorProjectCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
+		return new ConnectorModuleCreationWizard((ConnectorModuleCreationDataModel) aModel);
 	}
 
 	protected String getFileNamesStoreID() {

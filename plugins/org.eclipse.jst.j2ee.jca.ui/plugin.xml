@@ -18,12 +18,12 @@
       <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
-      <import plugin="org.eclipse.wst.common.navigator.views"/>
       <import plugin="org.eclipse.jst.j2ee"/>
       <import plugin="org.eclipse.jst.j2ee.jca"/>
       <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
       <import plugin="org.eclipse.jst.j2ee.core"/>
       <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.wst.common.navigator.views"/>
    </requires>
 
  <extension
@@ -53,8 +53,8 @@
       <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/import_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.RARImportWizard"
-            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.RARImportWizard">
+            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard"
+            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard">
          <description>
             %connector.import.description_ui_
          </description>

@@ -17,12 +17,12 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
@@ -57,12 +57,12 @@ public class WARImportPage extends J2EEModuleImportPage {
 		return new String[]{"*.war"}; //$NON-NLS-1$
 	}
 
-	protected J2EEProjectCreationDataModel getNewProjectCreationDataModel() {
-		return getWebDataModel().getJ2eeProjectCreationDataModel();
+	protected J2EEArtifactCreationDataModel getNewProjectCreationDataModel() {
+		return getWebDataModel().getJ2eeArtifactCreationDataModel();
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new WebModuleCreationWizard((WebProjectCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
+		return new WebModuleCreationWizard((WebModuleCreationDataModel) aModel);
 	}
 
 	protected String getFileNamesStoreID() {

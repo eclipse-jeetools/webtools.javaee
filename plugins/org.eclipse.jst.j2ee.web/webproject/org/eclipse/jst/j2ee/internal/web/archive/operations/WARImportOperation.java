@@ -28,8 +28,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEUtilityJarImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.BinaryProjectHelper;
@@ -43,12 +43,6 @@ import org.eclipse.wst.web.internal.operation.LibModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 
-/**
- * @author cbridgha
- * 
- * To change the template for this generated type comment go to Window>Preferences>Java>Code
- * Generation>Code and Comments
- */
 public class WARImportOperation extends J2EEImportOperation {
 	/**
 	 * @param model
@@ -63,8 +57,8 @@ public class WARImportOperation extends J2EEImportOperation {
 	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationDataModel,
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	protected void createModuleProject(J2EEProjectCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		WebProjectCreationOperation op = new WebProjectCreationOperation((WebProjectCreationDataModel) model);
+	protected void createModuleProject(J2EEArtifactCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		WebModuleCreationOperation op = new WebModuleCreationOperation((WebModuleCreationDataModel) model);
 		op.run(monitor);
 	}
 
@@ -107,7 +101,7 @@ public class WARImportOperation extends J2EEImportOperation {
 		//project.getFile(webNature.getWebSettingsPath()).refreshLocal(0, monitor);
 		WebSettingsMigrator migrator = new WebSettingsMigrator();
 		migrator.migrate(project);
-		if (!model.getJ2eeProjectCreationDataModel().getBooleanProperty(J2EEProjectCreationDataModel.ADD_SERVER_TARGET))
+		if (!model.getJ2eeArtifactCreationDataModel().getBooleanProperty(J2EEArtifactCreationDataModel.ADD_SERVER_TARGET))
 			addServerTarget(monitor);
 	}
 

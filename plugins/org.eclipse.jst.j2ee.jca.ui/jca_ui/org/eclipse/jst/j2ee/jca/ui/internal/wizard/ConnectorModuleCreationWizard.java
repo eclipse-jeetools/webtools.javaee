@@ -12,8 +12,8 @@ package org.eclipse.jst.j2ee.jca.ui.internal.wizard;
 
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorProjectCreationOperation;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEArtifactCreationWizard;
@@ -50,7 +50,7 @@ public class ConnectorModuleCreationWizard extends J2EEModuleCreationWizard impl
 	 * 
 	 * @param model used to initialize the wizard and to interface with the operation
 	 */
-	public ConnectorModuleCreationWizard(ConnectorProjectCreationDataModel model) {
+	public ConnectorModuleCreationWizard(ConnectorModuleCreationDataModel model) {
 		super(model);
 	}
 	
@@ -65,7 +65,7 @@ public class ConnectorModuleCreationWizard extends J2EEModuleCreationWizard impl
 	 * @return Returns the specific operation data model for the creation of J2EE Connector modules
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		ConnectorProjectCreationDataModel aModel = new ConnectorProjectCreationDataModel();
+		ConnectorModuleCreationDataModel aModel = new ConnectorModuleCreationDataModel();
 		aModel.setBooleanProperty(J2EEModuleCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
@@ -80,7 +80,7 @@ public class ConnectorModuleCreationWizard extends J2EEModuleCreationWizard impl
 	 * @return Returns the specific operation for the creation of J2EE Connector modules
 	 */
 	protected final WTPOperation createBaseOperation() {
-		return new ConnectorProjectCreationOperation(getConnectorProjectCreationDataModel());
+		return new ConnectorModuleCreationOperation(getConnectorProjectCreationDataModel());
 	}
 	
 	/** 
@@ -127,8 +127,8 @@ public class ConnectorModuleCreationWizard extends J2EEModuleCreationWizard impl
 		return JCAUIPlugin.PLUGIN_ID;
 	}
 
-	private ConnectorProjectCreationDataModel getConnectorProjectCreationDataModel() {
-		return (ConnectorProjectCreationDataModel) model;
+	private ConnectorModuleCreationDataModel getConnectorProjectCreationDataModel() {
+		return (ConnectorModuleCreationDataModel) model;
 	}
 
 }

@@ -30,8 +30,8 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationDataModel;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebProjectCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
@@ -199,7 +199,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEModuleCreationDataModel)
 	 */
 	public J2EEModuleCreationOperation createProjectCreationOperation(J2EEModuleCreationDataModel dataModel) {
-		return new WebProjectCreationOperation((WebProjectCreationDataModel) dataModel);
+		return new WebModuleCreationOperation((WebModuleCreationDataModel) dataModel);
 	}
 
 	/*
@@ -208,7 +208,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
 	public J2EEModuleCreationDataModel createProjectDataModel() {
-		return new WebProjectCreationDataModel();
+		return new WebModuleCreationDataModel();
 	}
 
 	/*

@@ -7,13 +7,7 @@
  * 
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/
-/*
- * Created on Jun 8, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+ *******************************************************************************/ 
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,12 +28,17 @@ import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
 
 /**
- * @author jsholl
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Style - Code Templates
+ * <p>
+ * Serves as a base class for Wizards which import J2EE module structures into Eclipse projects.
+ * </p>
+ * <p>
+ * The EAR will be pre-populated in the Wizard controls if any selection was 
+ * provided to the Wizard.
+ * </p> 
  */
 public abstract class J2EEModuleImportWizard extends WTPWizard implements IExecutableExtension, IImportWizard {
+	
+	private static final String[] VALIDATOR_STRINGS = new String[]{"org.eclipse.jst.j2ee.internal.validation.UIEarValidator"}; //$NON-NLS-1$
 
 	public J2EEModuleImportWizard() {
 		super();
@@ -61,7 +60,7 @@ public abstract class J2EEModuleImportWizard extends WTPWizard implements IExecu
 				moduleValidator.setValidators(getModuleValidatorStrings());
 				moduleValidator.run(monitor);
 				if (getModuleImportDataModel().getBooleanProperty(J2EEModuleImportDataModel.ADD_TO_EAR)) {
-					IProject earProject = getModuleImportDataModel().getJ2EEModuleCreationDataModel().getEarProjectCreationDataModel().getTargetProject();
+					IProject earProject = getModuleImportDataModel().getJ2EEModuleCreationDataModel().getApplicationCreationDataModel().getTargetProject();
 					ValidatorSubsetOperation earValidator = new ValidatorSubsetOperation(earProject, true, false);
 					earValidator.setValidators(getEarValidatorStrings());
 					earValidator.run(monitor);
@@ -75,7 +74,7 @@ public abstract class J2EEModuleImportWizard extends WTPWizard implements IExecu
 	protected abstract String[] getModuleValidatorStrings();
 
 	protected String[] getEarValidatorStrings() {
-		return new String[]{"org.eclipse.jst.j2ee.internal.validation.UIEarValidator"}; //$NON-NLS-1$ 
+		return VALIDATOR_STRINGS;
 	}
 
 	protected J2EEModuleImportDataModel getModuleImportDataModel() {

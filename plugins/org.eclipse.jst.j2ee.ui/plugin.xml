@@ -16,9 +16,6 @@
    <requires>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.wst.common.navigator.views"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.ui.workbench.texteditor"/>
-      <import plugin="org.eclipse.ui.editors"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.wst.common.frameworks.ui"/>
@@ -35,8 +32,6 @@
       <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.jem"/>
-      <import plugin="org.eclipse.draw2d"/>
-      <import plugin="org.eclipse.gef"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
       <import plugin="org.eclipse.jdt.core"/>
@@ -51,6 +46,7 @@
       <import plugin="org.eclipse.wst.common.navigator.java"/>
       <import plugin="org.eclipse.wst.webbrowser"/>
       <import plugin="org.eclipse.wst.wsdl"/>
+      <import plugin="org.eclipse.jface.text"/>
       
    </requires>
 
@@ -108,7 +104,7 @@
       <wizard
             name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_import_wiz.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientImportWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard"
             id="ApplicationClientImportWizard">
          <description>
             %client.import.description_ui_
@@ -120,7 +116,7 @@
       <wizard
             name="%ear.file_ui_"
             icon="icons/full/ctool16/import_ear.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.EARImportWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard"
             id="EARImportWizard">
          <description>
             %ear.import.description_ui_
@@ -130,7 +126,7 @@
          </selection>
       </wizard> 
       <wizard
-            class="org.eclipse.jst.j2ee.internal.ui.wizard.J2EEUtilityJarImportWizard"
+            class="org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizard"
             icon="icons/jar_obj.gif"
             name="%utility_jar_import_wizard"
             id="J2EEUtilityJarImportWizard">

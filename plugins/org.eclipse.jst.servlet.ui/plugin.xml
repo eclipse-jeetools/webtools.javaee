@@ -60,8 +60,8 @@
     <wizard
             name="%WarImportWizard.name"
             icon="icons/full/ctool16/importwar_wiz.gif"
-            class="org.eclipse.jst.servlet.ui.internal.wizard.WARImportWizard"
-            id="org.eclipse.jst.servlet.ui.internal.wizard.WARImportWizard">
+            class="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard"
+            id="org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard">
          <description>
             %WarImportWizard.description
          </description>

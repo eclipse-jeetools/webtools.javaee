@@ -10,8 +10,8 @@
  *******************************************************************************/ 
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.EARProjectCreationDataModel;
-import org.eclipse.jst.j2ee.application.operations.EARProjectCreationOperation;
+import org.eclipse.jst.j2ee.application.operations.J2EEApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEApplicationCreationOperation;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
@@ -40,7 +40,7 @@ public class J2EEApplicationCreationWizard extends J2EEArtifactCreationWizard {
 	 * 
 	 * @param model used to collect information and interface with the WTP Operation
 	 */
-	public J2EEApplicationCreationWizard(EARProjectCreationDataModel model) {
+	public J2EEApplicationCreationWizard(J2EEApplicationCreationDataModel model) {
 		super(model);
 	}
  
@@ -50,7 +50,7 @@ public class J2EEApplicationCreationWizard extends J2EEArtifactCreationWizard {
 	 */
 	protected void doAddPages() {
 		addPage(new ApplicationProjectCreationPage(getApplicationModel(), MAIN_PG));
-		if (!model.getBooleanProperty(EARProjectCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY)) {
+		if (!model.getBooleanProperty(J2EEApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY)) {
 			addPage(new ApplicationModuleProjectsPage(getApplicationModel(), MODULES_PG));
 		}
 	}
@@ -65,7 +65,7 @@ public class J2EEApplicationCreationWizard extends J2EEArtifactCreationWizard {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createDefaultModel()
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
-		return new EARProjectCreationDataModel();
+		return new J2EEApplicationCreationDataModel();
 	}
 
 	/**
@@ -74,14 +74,14 @@ public class J2EEApplicationCreationWizard extends J2EEArtifactCreationWizard {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#createOperation()
 	 */
 	protected WTPOperation createBaseOperation() {
-		return new EARProjectCreationOperation(getApplicationModel());
+		return new J2EEApplicationCreationOperation(getApplicationModel());
 	}
 
 	/**
 	 * @return
 	 */
-	private EARProjectCreationDataModel getApplicationModel() {
-		return (EARProjectCreationDataModel) model;
+	private J2EEApplicationCreationDataModel getApplicationModel() {
+		return (J2EEApplicationCreationDataModel) model;
 	}
 
 	/*

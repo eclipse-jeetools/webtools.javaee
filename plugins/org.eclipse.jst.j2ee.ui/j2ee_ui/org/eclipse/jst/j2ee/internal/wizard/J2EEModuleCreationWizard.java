@@ -16,7 +16,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorProjectCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.ui.IWorkbench;
 
@@ -28,8 +28,7 @@ import org.eclipse.ui.IWorkbench;
  * <p>
  * The EAR will be pre-populated in the Wizard controls if any selection was 
  * provided to the Wizard.
- * </p>
- * 
+ * </p> 
  */
 public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizard {
 	
@@ -118,6 +117,8 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 
 
 	/**  
+	 * {@inheritDoc}
+	 * 
 	 * <p>
 	 * Skips the page identified by the MODULE_PG name if 
 	 * {@see J2EEModuleProjectCreationWizard#shouldShowModulesPage()} is false.
@@ -167,7 +168,7 @@ public abstract class J2EEModuleCreationWizard extends J2EEArtifactCreationWizar
 			EARNatureRuntime earNature = EARNatureRuntime.getRuntime(project);
 			if (null != earNature) {
 				int j2eeVersion = earNature.getJ2EEVersion();
-				if (j2eeVersion == J2EEVersionConstants.J2EE_1_2_ID && model instanceof ConnectorProjectCreationDataModel) {
+				if (j2eeVersion == J2EEVersionConstants.J2EE_1_2_ID && model instanceof ConnectorModuleCreationDataModel) {
 					j2eeVersion = J2EEVersionConstants.J2EE_1_3_ID;
 				}
 				model.setIntProperty(ServerTargetDataModel.J2EE_VERSION_ID, j2eeVersion);

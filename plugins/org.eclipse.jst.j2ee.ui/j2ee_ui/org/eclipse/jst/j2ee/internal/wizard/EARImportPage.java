@@ -16,10 +16,10 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.EARProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -79,18 +79,18 @@ public class EARImportPage extends J2EEImportPage {
 		return composite;
 	}
 
-	protected J2EEProjectCreationDataModel getNewProjectCreationDataModel() {
+	protected J2EEArtifactCreationDataModel getNewProjectCreationDataModel() {
 		EARImportDataModel importModel = (EARImportDataModel) model;
-		EARProjectCreationDataModel earModel = new EARProjectCreationDataModel();
-		earModel.setIntProperty(EARProjectCreationDataModel.EAR_VERSION, importModel.getJ2EEVersion());
+		J2EEApplicationCreationDataModel earModel = new J2EEApplicationCreationDataModel();
+		earModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, importModel.getJ2EEVersion());
 		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, importModel.getProperty(J2EEImportDataModel.PROJECT_NAME));
-		earModel.setProperty(J2EEProjectCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEImportDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(EARProjectCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
+		earModel.setProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEImportDataModel.SERVER_TARGET_ID));
+		earModel.setBooleanProperty(J2EEApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
 		return earModel;
 	}
 
-	protected WTPWizard getNewProjectWizard(J2EEProjectCreationDataModel aModel) {
-		return new J2EEApplicationCreationWizard((EARProjectCreationDataModel) aModel);
+	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
+		return new J2EEApplicationCreationWizard((J2EEApplicationCreationDataModel) aModel);
 	}
 
 	protected String getProjectImportLabel() {
@@ -114,8 +114,8 @@ public class EARImportPage extends J2EEImportPage {
 	/**
 	 *  
 	 */
-	private J2EEProjectCreationDataModel getJ2EEProjectCreationDataModel() {
-		return ((J2EEImportDataModel) model).getJ2eeProjectCreationDataModel();
+	private J2EEArtifactCreationDataModel getJ2EEProjectCreationDataModel() {
+		return ((J2EEImportDataModel) model).getJ2eeArtifactCreationDataModel();
 	}
 
 	/*

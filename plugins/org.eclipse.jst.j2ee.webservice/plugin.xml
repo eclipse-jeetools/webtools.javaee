@@ -22,7 +22,6 @@
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.jem"/>
-      <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
@@ -34,40 +33,40 @@
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactory"
             packageURI="webservice_client.xmi"
-            id="com.ibm.wtp.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.webservice.wscommon.provider.WscommonItemProviderAdapterFactory"
             packageURI="wscommon.xmi"
-            id="com.ibm.wtp.j2ee.webservice.wscommon.provider.WscommonItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.webservice.wscommon.provider.WscommonItemProviderAdapterFactory">
       </adapterFactory>
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="client.xmi"
             id="org.eclipse.jst.j2ee.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForClient">
       </adapterFactory>
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="webservice_client.xmi"
             id="org.eclipse.jst.j2ee.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForWSClient">
       </adapterFactory>
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="ejb.xmi"
             id="org.eclipse.jst.j2ee.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForEJB">
       </adapterFactory>
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.webservice.provider.Webservice_clientEditorItemProviderFactory"
             packageURI="webapplication.xmi"
             id="org.eclipse.jst.j2ee.internal.webservice.wsclient.provider.Webservice_clientItemProviderAdapterFactoryForWEB">
@@ -76,10 +75,10 @@
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.webservice.wsdd.provider.WsddItemProviderAdapterFactory"
             packageURI="wsdd.xmi"
-            id="com.ibm.wtp.j2ee.webservice.wsdd.provider.WsddItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.webservice.wsdd.provider.WsddItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension

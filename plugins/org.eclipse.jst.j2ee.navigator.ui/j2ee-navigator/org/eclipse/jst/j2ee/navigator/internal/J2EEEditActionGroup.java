@@ -80,7 +80,7 @@ public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelec
 
 	protected static final String NEW_WEB_MODULE_WIZARD_ID = ""; //$NON-NLS-1$
 
-	protected static final String IMPORT_EAR_WIZARD_ID = "EARImportWizard"; //$NON-NLS-1$
+	protected static final String IMPORT_EAR_WIZARD_ID = "EnterpriseApplicationImportWizard"; //$NON-NLS-1$
 
 	protected static final String IMPORT_APPCLIENT_WIZARD_ID = "ApplicationClientImportWizard"; //$NON-NLS-1$
 

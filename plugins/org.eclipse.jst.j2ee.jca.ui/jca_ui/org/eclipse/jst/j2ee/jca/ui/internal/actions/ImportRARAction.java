@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.RARImportWizard;
+import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -46,7 +46,7 @@ public class ImportRARAction extends BaseAction {
 	 */
 	protected void primRun(Shell shell) {
 
-		RARImportWizard wizard = new RARImportWizard();
+		ConnectorModuleImportWizard wizard = new ConnectorModuleImportWizard();
 
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 

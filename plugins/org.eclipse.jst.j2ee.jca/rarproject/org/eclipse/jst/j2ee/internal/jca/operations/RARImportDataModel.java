@@ -10,14 +10,14 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 
-public class RARImportDataModel extends J2EEModuleImportDataModel {
+public final class RARImportDataModel extends J2EEModuleImportDataModel {
 
 	protected void init() {
 		super.init();
@@ -29,8 +29,8 @@ public class RARImportDataModel extends J2EEModuleImportDataModel {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#createJ2EEProjectCreationDataModel()
 	 */
-	protected J2EEProjectCreationDataModel createJ2EEProjectCreationDataModel() {
-		return new ConnectorProjectCreationDataModel();
+	protected J2EEArtifactCreationDataModel createJ2EEProjectCreationDataModel() {
+		return new ConnectorModuleCreationDataModel();
 	}
 
 	/*
@@ -48,8 +48,8 @@ public class RARImportDataModel extends J2EEModuleImportDataModel {
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#setUpArchiveFile()
 	 */
 	protected boolean openArchive(String uri) throws OpenFailureException {
-		moduleFile = CommonarchiveFactory.eINSTANCE.openRARFile(getArchiveOptions(), uri);
-		if (moduleFile == null)
+		setArchiveFile(CommonarchiveFactory.eINSTANCE.openRARFile(getArchiveOptions(), uri));
+		if (getArchiveFile() == null)
 			return false;
 		return true;
 	}
@@ -65,7 +65,4 @@ public class RARImportDataModel extends J2EEModuleImportDataModel {
 	public WTPOperation getDefaultOperation() {
 		return new RARImportOperation(this);
 	}
-
-
-
 }

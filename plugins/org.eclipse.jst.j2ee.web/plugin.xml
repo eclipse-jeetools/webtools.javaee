@@ -136,16 +136,16 @@
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.web.providers.WebapplicationItemProviderAdapterFactory"
             packageURI="webapplication.xmi"
-            id="com.ibm.wtp.j2ee.webapplication.provider.WebapplicationItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.webapplication.provider.WebapplicationItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
-            functionGroupID="com.ibm.wtp.j2ee"
+            functionGroupID="org.eclipse.jst.j2ee"
             className="org.eclipse.jst.j2ee.internal.web.providers.JspItemProviderAdapterFactory"
             packageURI="jsp.xmi"
             id="org.eclipse.jst.j2ee.internal.jsp.provider.JspItemProviderAdapterFactory">
@@ -277,7 +277,7 @@
 	</extension>
 
 
- 	<extension point="org.eclipse.wst.common.frameworks.internal.navigator.compressedProject">
+ 	<extension point="org.eclipse.wst.common.navigator.java.compressedProject">
  		<compressedProject natureId="org.eclipse.jst.j2ee.web.WebNature" />
 		<compressedProject natureId="org.eclipse.jst.j2ee.web.StaticWebNature" />
  		

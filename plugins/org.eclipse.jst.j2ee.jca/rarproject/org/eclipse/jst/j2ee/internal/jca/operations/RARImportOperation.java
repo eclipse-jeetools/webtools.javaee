@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.application.operations.J2EEProjectCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportOperation;
@@ -38,12 +38,6 @@ import org.eclipse.jst.j2ee.internal.jca.archive.operations.RARProjectSaveStrate
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
-/**
- * @author dfholttp
- * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
- */
 public class RARImportOperation extends J2EEImportOperation {
 
 	private static final String JAR_EXTENSION = ".jar"; //$NON-NLS-1$
@@ -61,8 +55,8 @@ public class RARImportOperation extends J2EEImportOperation {
 	 * @see com.ibm.etools.archive.j2ee.operations.J2EEImportOperationNEW#createModuleProject(org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEProjectCreationDataModel,
 	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	protected void createModuleProject(J2EEProjectCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		ConnectorProjectCreationOperation op = new ConnectorProjectCreationOperation((ConnectorProjectCreationDataModel) model);
+	protected void createModuleProject(J2EEArtifactCreationDataModel model, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		ConnectorModuleCreationOperation op = new ConnectorModuleCreationOperation((ConnectorModuleCreationDataModel) model);
 		op.run(monitor);
 	}
 

@@ -74,7 +74,7 @@ public class WebPropertiesUtil {
 				return false;
 
 			if (project.exists(new Path(webContentName))) {
-				IStatus status = new Status(IStatus.ERROR, "com.ibm.wtp.j2ee", IStatus.OK, ProjectSupportResourceHandler.getString("Could_not_rename_____2", new Object[]{webContentName}), null); //$NON-NLS-1$ //$NON-NLS-2$	
+				IStatus status = new Status(IStatus.ERROR, "org.eclipse.jst.j2ee", IStatus.OK, ProjectSupportResourceHandler.getString("Could_not_rename_____2", new Object[]{webContentName}), null); //$NON-NLS-1$ //$NON-NLS-2$	
 				throw new CoreException(status);
 			}
 
