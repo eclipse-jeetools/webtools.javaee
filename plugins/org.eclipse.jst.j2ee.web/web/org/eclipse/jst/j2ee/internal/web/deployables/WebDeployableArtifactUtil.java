@@ -173,6 +173,7 @@ public class WebDeployableArtifactUtil  {
 
 		IProject project = nature.getProject();
 		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
+		
 		while (iterator.hasNext()) {
 			Object next = iterator.next();
 			if (next instanceof IModule) {

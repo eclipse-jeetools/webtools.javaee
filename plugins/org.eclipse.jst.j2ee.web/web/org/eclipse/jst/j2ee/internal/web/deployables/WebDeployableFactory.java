@@ -90,6 +90,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
             modules = createModuleDelegates(workBenchModules, project);
 
         } catch (Exception e) {
+           e.printStackTrace();
         } finally {
             moduleStructureModel.releaseAccess(this);
         }
@@ -104,8 +105,9 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 
         for (int i = 0; i < workBenchModules.size(); i++) {
             try {
-                moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, (WorkbenchModule) workBenchModules.get(i));
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
+                WorkbenchModule wbModule = (WorkbenchModule) workBenchModules.get(i);
+                moduleDelegate = new J2EEFlexProjWebDeployable(project, ID, wbModule);
+                module = createModule(wbModule.getDeployedName(), wbModule.getDeployedName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
                         moduleDelegate.getProject());
                 moduleList.add(module);
                 moduleDelegate.initialize(module);

@@ -71,7 +71,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 	}
 
     public String getContextRoot() {
-        return this.contextRoot;
+        return wbModule.getDeployedName();
     }
 
  
@@ -88,7 +88,7 @@ public class J2EEFlexProjWebDeployable extends J2EEFlexProjDeployable implements
 
     public String getJ2EESpecificationVersion() {
 
-        return "1.3"; //$NON-NLS-1$
+        return "1.2"; //$NON-NLS-1$
     }
 
     public String getJSPFileMapping(String jspFile) {
