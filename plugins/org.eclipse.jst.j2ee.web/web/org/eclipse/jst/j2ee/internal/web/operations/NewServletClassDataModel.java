@@ -69,8 +69,9 @@ public class NewServletClassDataModel extends NewWebJavaClassDataModel implement
 	protected Boolean basicIsEnabled(String propertyName) {
 		if (USE_ANNOTATIONS.equals(propertyName)) {
 			if (this.j2eeNature.getJ2EEVersion() < J2EEVersionConstants.VERSION_1_3) {
-				if (getBooleanProperty(USE_ANNOTATIONS))
-					setBooleanProperty(USE_ANNOTATIONS, false);
+			//TODO need to revisit as a setProperty cannot be called in this method it will result in a infinite loop
+				//if (getBooleanProperty(USE_ANNOTATIONS))
+				//	setBooleanProperty(USE_ANNOTATIONS, false);
 				return Boolean.FALSE;
 			}
 			return Boolean.TRUE;
