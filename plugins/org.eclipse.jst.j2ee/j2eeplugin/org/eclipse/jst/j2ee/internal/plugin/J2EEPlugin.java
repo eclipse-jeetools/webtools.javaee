@@ -49,6 +49,7 @@ import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.impl.ApplicationFactoryImpl;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
+import org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EarEditAdapterFactory;
 import org.eclipse.jst.j2ee.internal.validation.ResourceUtil;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
@@ -56,6 +57,8 @@ import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWi
 import org.eclipse.wst.common.internal.emf.resource.ReferencedXMIFactoryImpl;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
+import org.eclipse.wst.common.modulecore.IModuleConstants;
+import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
@@ -482,8 +485,14 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ValidatorManager.setResourceUtilClass(ResourceUtil.class);
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new EarEditAdapterFactory(), ArtifactEditModel.class);
+		registerDeployableModuleFactory(IModuleConstants.JAVA_UTIL_MODULE);
 	}
-
+	/**
+     * 
+     */
+    private void registerDeployableModuleFactory(String moduleID) {
+       DeployableModuleBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(moduleID, new JavaDeployableModuleBuilderFactory());     
+    }
 	/*
 	 * need to make sure the correct factories get loaded when we are in the UI
 	 */

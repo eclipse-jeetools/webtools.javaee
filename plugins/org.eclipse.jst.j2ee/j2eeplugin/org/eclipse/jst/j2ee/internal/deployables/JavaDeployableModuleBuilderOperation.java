@@ -4,7 +4,7 @@
  * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-package org.eclipse.jst.j2ee.internal.web.deployables;
+package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -35,9 +35,9 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuilderOperation {
+public class JavaDeployableModuleBuilderOperation extends DeployableModuleBuilderOperation {
 	
-	public WebAppDeployableModuleBuilderOperation(WebAppDeployableModuleBuilderDataModel dataModel) {
+	public JavaDeployableModuleBuilderOperation(JavaDeployableModuleBuilderDataModel dataModel) {
 		super(dataModel);
 	}
 
@@ -47,9 +47,9 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 
 		// preparation
-		WebAppDeployableModuleBuilderDataModel dataModel = (WebAppDeployableModuleBuilderDataModel) operationDataModel;
-		ModuleStructuralModel moduleModel = (ModuleStructuralModel)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.MODULE_STRUCTURAL_MODEL);
-		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.WORKBENCH_MODULE);
+		JavaDeployableModuleBuilderDataModel dataModel = (JavaDeployableModuleBuilderDataModel) operationDataModel;
+		ModuleStructuralModel moduleModel = (ModuleStructuralModel)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.MODULE_STRUCTURAL_MODEL);
+		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.WORKBENCH_MODULE);
 		String deployedName = workbenchModule.getDeployedName();
 		IProject project = moduleModel.getProject();
 		IPath projectPath = project.getFullPath();
@@ -57,7 +57,7 @@ public class WebAppDeployableModuleBuilderOperation extends DeployableModuleBuil
 		List javaSourceFolderList = ProjectUtilities.getSourceContainers(project);
 		
 		// create output container folder if it does not exist
-		URI outputContainerURI = (URI)dataModel.getProperty(WebAppDeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
+		URI outputContainerURI = (URI)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.OUTPUT_CONTAINER);
 		IPath absoluteOCP = projectPath.append(outputContainerURI.toString());
 		IFolder outputContainerFolder = createFolder(absoluteOCP);
 

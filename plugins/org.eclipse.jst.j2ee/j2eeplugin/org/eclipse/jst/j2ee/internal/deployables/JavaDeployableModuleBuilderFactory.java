@@ -1,14 +1,14 @@
-package org.eclipse.jst.j2ee.internal.web.deployables;
+package org.eclipse.jst.j2ee.internal.deployables;
 
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderDataModel;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactory;
 
-public class WebAppDeployableModuleBuilderFactory implements DeployableModuleBuilderFactory {
+public class JavaDeployableModuleBuilderFactory implements DeployableModuleBuilderFactory {
 
     /**
      * 
      */
-    public WebAppDeployableModuleBuilderFactory() {
+    public JavaDeployableModuleBuilderFactory() {
         super();
     }
 
@@ -16,7 +16,7 @@ public class WebAppDeployableModuleBuilderFactory implements DeployableModuleBui
      * @see org.eclipse.wst.common.modulecore.builder.DeployableModuleFactory#createDeploymentModuleDataModel()
      */
     public DeployableModuleBuilderDataModel createDeploymentModuleDataModel() {
-        return new WebAppDeployableModuleBuilderDataModel();
+        return new JavaDeployableModuleBuilderDataModel();
     }
 
 }

@@ -35,9 +35,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.jst.j2ee.internal.deployables.JavaDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
-import org.eclipse.jst.j2ee.internal.web.deployables.WebAppDeployableModuleBuilderFactory;
 import org.eclipse.jst.j2ee.internal.web.operations.WebContentResourceChangeListener;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
 import org.eclipse.jst.j2ee.internal.web.util.WebEditAdapterFactory;
@@ -327,7 +327,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
      * 
      */
     private void registerDeployableModuleFactory() {
-       DeployableModuleBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new WebAppDeployableModuleBuilderFactory());     
+       DeployableModuleBuilderFactoryRegistry.INSTANCE.registerDeployableFactory(IModuleConstants.JST_WEB_MODULE, new JavaDeployableModuleBuilderFactory());     
     }
 
     /*
