@@ -33,6 +33,7 @@
       <import plugin="org.eclipse.jst.j2ee.core"/>
 
       <import plugin="org.eclipse.text"/>
+      <import plugin="org.eclipse.jst.j2ee"/>
 
    </requires>
 
