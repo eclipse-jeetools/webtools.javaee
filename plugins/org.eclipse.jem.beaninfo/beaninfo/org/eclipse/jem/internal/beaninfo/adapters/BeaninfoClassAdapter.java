@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.7 $  $Date: 2004/03/22 23:49:10 $ 
+ *  $Revision: 1.8 $  $Date: 2004/04/19 15:37:43 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -510,6 +510,7 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		Resource mergeIntoResource = jc.eResource();
 		ResourceSet rset = mergeIntoResource.getResourceSet();
 		String className = getJavaClass().getName();
+		getRegistry();	// Need to have a registry to get override paths initialized correctly. There is a possibility that overrides asked before any registry created.
 		if (!alreadyRetrievedRoot && (rootOnly || jc.getSupertype() == null)) {
 			// It is a root class. Need to merge in root stuff.
 			applyExtensionDocTo(rset, jc, ROOT_OVERRIDE, ROOT, ROOT);
