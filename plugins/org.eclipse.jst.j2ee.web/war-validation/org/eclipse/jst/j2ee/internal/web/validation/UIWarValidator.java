@@ -17,7 +17,6 @@ import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.modulecore.ModuleCore;
-import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
 import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
@@ -105,63 +104,36 @@ public class UIWarValidator extends WarValidator {
 	 */
 	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.core.ValidationException {
 		setWarHelper((UIWarHelper) inHelper);
-
 		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
-		
-		boolean isFlexibile = false;
-		isFlexibile = ModuleCoreNature.getModuleCoreNature(proj) != null;
-		
-		if( isFlexibile ){
-	        WorkbenchComponent[] workBenchModules = null; 
-			ModuleCore moduleCore = null;	
-			try{ 
-				moduleCore = ModuleCore.getModuleCoreForRead(proj);
-				workBenchModules = moduleCore.getWorkbenchModules(); 
-				for (int i = 0; i < workBenchModules.length; i++) {
-		            try {
-		                WorkbenchComponent wbModule = workBenchModules[i];
-		                WebArtifactEdit webEdit = null;
-		               	try{
-		               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule );
-		               		if(webEdit != null) {
-			               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
-			               		super.validate(inHelper, inReporter, inChangedFiles, webApp);
-		               		}
-		               	}
-		               	catch(Exception e){
-		                    e.printStackTrace();
-		               	} finally {
-		               		if(webEdit != null)
-		               			webEdit.dispose();
-		               	}
-		            }
-		            finally{
-		            	//Do nothing
-		            }
-				}    
-			} finally {
-				if(moduleCore != null)
-					moduleCore.dispose();
-			}
+        WorkbenchComponent[] workBenchModules = null; 
+		ModuleCore moduleCore = null;	
+		try{ 
+			moduleCore = ModuleCore.getModuleCoreForRead(proj);
+			workBenchModules = moduleCore.getWorkbenchModules(); 
+			for (int i = 0; i < workBenchModules.length; i++) {
+                WorkbenchComponent wbModule = workBenchModules[i];
+                WebArtifactEdit webEdit = null;
+               	try{
+               		webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule );
+               		if(webEdit != null) {
+	               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
+	               		super.validate(inHelper, inReporter, inChangedFiles, webApp);
+               		}
+               	}
+               	catch(Exception e){
+                    e.printStackTrace();
+               	} finally {
+               		if(webEdit != null)
+               			webEdit.dispose();
+              	}
+			}    
+		} finally {
+			if(moduleCore != null)
+				moduleCore.dispose();
 		}
-		else{
-			WebArtifactEdit webEdit = null;
-			WebApp webApp = null;
-			try{
-				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(proj);
-	       		if(webEdit != null) {
-	       			webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
-	       		}			
-			// if this is a static project, it has no WAR, so do not validate.
-			if (webApp!= null) 
-				super.validate(inHelper, inReporter, inChangedFiles);
-			//validateLibModules((J2EEWebNatureRuntime) webNature);
-			} finally{
-				if( webEdit != null )
-					webEdit.dispose();
-			}
-		}	
 	}
+		
+	
 	
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
