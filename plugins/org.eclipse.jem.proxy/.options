@@ -1,5 +1,0 @@
-org.eclipse.jem.proxy/remote/debug/debugvm=false
-org.eclipse.jem.proxy/remote/debug/ioconsole=false
-org.eclipse.jem.proxy/remote/debug/vmtraceout=false
-org.eclipse.jem.proxy/debug/echoconsole=default
-org.eclipse.jem.proxy/debug/loglevel=default
