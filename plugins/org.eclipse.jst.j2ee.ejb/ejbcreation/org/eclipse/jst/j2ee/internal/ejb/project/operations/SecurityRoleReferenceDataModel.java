@@ -10,7 +10,7 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 
 import org.eclipse.jst.j2ee.internal.reference.ReferenceDataModel;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
+import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 
 public class SecurityRoleReferenceDataModel extends ReferenceDataModel {
 	/**
