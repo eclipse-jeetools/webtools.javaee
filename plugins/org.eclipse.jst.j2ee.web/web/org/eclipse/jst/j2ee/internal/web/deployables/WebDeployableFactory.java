@@ -55,8 +55,7 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
         if (module == null) {
             try {
                 moduleDelegate = new J2EEWebDeployable(nature, ID);
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),
-                        moduleDelegate.getProject());
+                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(),moduleDelegate.getProject());
                 nature.setModule(module);
                 moduleDelegate.initialize(module);
             } catch (Exception e) {
