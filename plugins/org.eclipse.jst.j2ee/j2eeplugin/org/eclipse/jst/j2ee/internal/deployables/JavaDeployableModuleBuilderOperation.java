@@ -7,10 +7,12 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -67,6 +69,7 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 
 		// copy resources except the java source folder
 		List resourceList = workbenchModule.getResources();
+		List javaOutputPathList = new ArrayList();
 		for (int i = 0; i < resourceList.size(); i++) {
 			WorkbenchModuleResource wmr = (WorkbenchModuleResource)resourceList.get(i);
 			URI sourceURI = wmr.getSourcePath();
@@ -74,12 +77,29 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 			IResource sourceResource =  ModuleCore.getEclipseResource(wmr);
 			if (sourceResource == null)
 				continue;
-			// check if it is a java source folder
-			if (javaSourceFolderList.contains(sourceResource)) 
-				continue;
-			// create parent folders for deploy folder if not exist
 			URI deployURI = wmr.getDeployedPath();
 			IPath deployPath = outputContainerPath.append(deployURI.toString());
+			// check if it is a java source folder
+			if (javaSourceFolderList.contains(sourceResource)) {
+				// check if there are nested java output paths. if so, abort.
+				for (int j = 0; j < javaOutputPathList.size(); j++) {
+					IPath path = (IPath)javaOutputPathList.get(j);
+					if (path.isPrefixOf(deployPath) || deployPath.isPrefixOf(path)) {
+						// add a problem marker
+						IResource wtpmoduleFile = project.findMember(".wtpmodules");
+						wtpmoduleFile.deleteMarkers(IMarker.PROBLEM, true, IResource.DEPTH_INFINITE);      
+						IMarker m = wtpmoduleFile.createMarker(IMarker.PROBLEM);
+						String msg = "Nested Java output paths defined in .wtpmodules file are not allowed.";
+						m.setAttribute(IMarker.MESSAGE, msg);
+						m.setAttribute(IMarker.SEVERITY,IMarker.SEVERITY_ERROR);
+						return;
+					}
+				}
+				// add deployPath to list
+				javaOutputPathList.add(deployPath);
+				continue;
+			}
+			// create parent folders for deploy folder if not exist
 			IPath parentPath = deployPath.removeLastSegments(1);
 			createFolder(parentPath);
 			DeployableModuleBuilder.smartCopy(sourceResource, deployPath, new NullProgressMonitor());
@@ -111,12 +131,12 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 				IPath oldClassFilesPath = ((ClasspathEntry)cpe[index]).specificOutputLocation;
 				IPath oldRelativeClassFilesPath = null;
 				if (oldClassFilesPath != null)
-					oldRelativeClassFilesPath = oldClassFilesPath.makeRelative();
+				oldRelativeClassFilesPath = oldClassFilesPath.makeRelative();
 				if (!relativeClassFilesPath.equals(oldRelativeClassFilesPath)) {
-					createFolder(classFilesPath);
 					((ClasspathEntry)cpe[index]).specificOutputLocation = classFilesPath;
 					classpathModified = true;
 				}
+				createFolder(classFilesPath);
 			}
 		}
 		// update classpath only when it is modified
