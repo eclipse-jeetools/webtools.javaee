@@ -40,7 +40,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.help.WorkbenchHelp;
-import org.eclipse.wst.internal.common.ui.WTPWizardPage;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

@@ -46,7 +46,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
-import org.eclipse.wst.internal.common.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
 
 /**
  * @author cbridgha

@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.rar.ui.util.JCAUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.internal.common.ui.WTPWizard;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
 
 
 /**

@@ -40,8 +40,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPluginContribution;
 import org.eclipse.ui.activities.WorkbenchActivityHelper;
-import org.eclipse.wst.internal.common.ui.GenericWizardNode;
-import org.eclipse.wst.internal.common.ui.WTPWizardPage;
+import org.eclipse.wst.internal.common.frameworks.ui.GenericWizardNode;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 
 /**

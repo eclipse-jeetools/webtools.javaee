@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.wst.common.framework.operation.WTPOperation;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPWizard;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
 
 /**
  * @author DABERG

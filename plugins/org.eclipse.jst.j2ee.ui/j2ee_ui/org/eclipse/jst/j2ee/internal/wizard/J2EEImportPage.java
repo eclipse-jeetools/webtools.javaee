@@ -40,9 +40,9 @@ import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPDataModelSynchHelper;
-import org.eclipse.wst.internal.common.ui.WTPWizard;
-import org.eclipse.wst.internal.common.ui.WTPWizardPage;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 /**
  * @author cbridgha

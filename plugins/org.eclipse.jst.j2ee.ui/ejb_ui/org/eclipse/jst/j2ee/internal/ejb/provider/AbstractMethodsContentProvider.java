@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.impl.EjbFactoryImpl;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.wst.internal.common.ui.DisplayUtility;
+import org.eclipse.wst.internal.common.frameworks.ui.DisplayUtility;
 
 
 public abstract class AbstractMethodsContentProvider extends AdapterFactoryContentProvider {

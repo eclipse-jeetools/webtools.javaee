@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPWizardPage;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 /**
  * @author DABERG

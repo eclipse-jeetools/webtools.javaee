@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.internal.common.ui.WTPWizard;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
 
 
 /**

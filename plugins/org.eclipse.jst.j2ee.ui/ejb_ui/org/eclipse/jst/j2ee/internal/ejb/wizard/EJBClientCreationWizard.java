@@ -15,7 +15,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.wst.common.framework.operation.WTPOperation;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPWizard;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizard;
 
 public class EJBClientCreationWizard extends WTPWizard {
 	private static final String PAGE_ONE = "pageOne"; //$NON-NLS-1$

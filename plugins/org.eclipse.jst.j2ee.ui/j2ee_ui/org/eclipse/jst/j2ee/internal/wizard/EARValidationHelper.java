@@ -18,7 +18,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.validation.UIEarValidator;
-import org.eclipse.wst.common.ui.RunnableWithProgressWrapper;
+import org.eclipse.wst.common.frameworks.ui.RunnableWithProgressWrapper;
 import org.eclipse.wst.validation.internal.operations.OneValidatorOperation;
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 

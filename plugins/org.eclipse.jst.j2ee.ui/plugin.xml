@@ -21,7 +21,7 @@
       <import plugin="org.eclipse.ui.editors"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.wst.common.ui"/>
+      <import plugin="org.eclipse.wst.common.frameworks.ui"/>
       <import plugin="org.eclipse.jst.j2ee"/>
       <import plugin="org.eclipse.jst.j2ee.ejb"/>
       <import plugin="org.eclipse.jst.j2ee.jca"/>
@@ -296,7 +296,7 @@
       </image>
    </extension>
    <extension
-         point="org.eclipse.wst.common.ui.extendableWizard">
+         point="org.eclipse.wst.common.frameworks.ui.extendableWizard">
       <extendableWizard
             id="org.eclipse.jst.j2ee.internal.webProjectWizard">
       </extendableWizard>
@@ -430,7 +430,7 @@
     </extension> 
   
     <extension
-         point="org.eclipse.wst.common.ui.wtpuiAction"> 
+         point="org.eclipse.wst.common.frameworks.ui.wtpuiAction"> 
       <masterOperation
             description="Delete the dependent J2EE modules"
             extendedGenericId="com.ibm.wtp.generic.Delete"

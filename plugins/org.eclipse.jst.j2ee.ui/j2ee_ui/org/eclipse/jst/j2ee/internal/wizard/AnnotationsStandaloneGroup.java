@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
 
 /**
  * @author jlanuti

@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPDataModelSynchHelper;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPDataModelSynchHelper;
 
 /**
  * @author cbridgha

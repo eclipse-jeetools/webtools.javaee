@@ -37,7 +37,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.common.operation.extension.ui.ExtendableWizard;
+import org.eclipse.wst.common.frameworks.operation.extension.ui.ExtendableWizard;
 
 /**
  * @author DABERG

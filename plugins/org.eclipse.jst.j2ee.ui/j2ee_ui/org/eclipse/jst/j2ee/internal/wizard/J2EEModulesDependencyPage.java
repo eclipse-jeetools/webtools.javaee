@@ -39,7 +39,7 @@ import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModelListener;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPWizardPage;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 /*
  * Created on Nov 13, 2003

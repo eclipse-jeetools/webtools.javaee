@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.framework.operation.ProjectCreationDataModel;
 import org.eclipse.wst.common.framework.operation.WTPOperationDataModel;
-import org.eclipse.wst.internal.common.ui.WTPWizardPage;
+import org.eclipse.wst.internal.common.frameworks.ui.WTPWizardPage;
 
 public class EJBClientCreationWizardPage extends WTPWizardPage {
 	public NewProjectGroup newProjectGroup = null;

@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.application.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.plugin.J2EEPlugin;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.ui.OverlayIcon;
+import org.eclipse.wst.common.frameworks.ui.OverlayIcon;
 
 
 public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructuredContentProvider, org.eclipse.jface.viewers.ITableLabelProvider {
