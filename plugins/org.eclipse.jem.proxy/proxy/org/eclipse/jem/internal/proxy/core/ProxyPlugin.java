@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/19 22:50:35 $ 
  */
 
 
@@ -40,6 +40,23 @@ import org.eclipse.jem.internal.core.MsgLogger;
  */
 
 public class ProxyPlugin extends Plugin {
+	
+	/**
+	 * This interface is for a listener that needs to know if this plugin (ProxyPlugin) is being shutdown. 
+	 * It is needed because there are some extensions that get added dynamically that need to know when the
+	 * plugin is being shutdown.
+	 * 
+	 * @since 1.0.0
+	 */
+	public interface IProxyPluginShutdownListener {
+		/**
+		 * ProxyPlugin is in shutdown.
+		 * 
+		 * @since 1.0.0
+		 */
+		public void shutdown();
+	}
+	
 	private static ProxyPlugin PROXY_PLUGIN = null;
 
 	public static final String DEBUG_DEV = "/dev"; //$NON-NLS-1$
@@ -54,6 +71,7 @@ public class ProxyPlugin extends Plugin {
 	
 	private boolean devMode;
 	
+	private ListenerList shutdownListeners;
 
 	public ProxyPlugin(IPluginDescriptor pluginDescriptor) {
 		super(pluginDescriptor);
@@ -418,4 +436,40 @@ public class ProxyPlugin extends Plugin {
 		return p;
 	}	
 	
+	/**
+	 * Add a shutdown listener
+	 * @param listener
+	 * 
+	 * @since 1.0.0
+	 */
+	public void addProxyShutdownListener(IProxyPluginShutdownListener listener) {
+		if (shutdownListeners == null)
+			shutdownListeners = new ListenerList();
+		shutdownListeners.add(listener);
+	}
+
+	/**
+	 * Remove a shutdown listener
+	 * @param listener
+	 * 
+	 * @since 1.0.0
+	 */
+	public void removeProxyShutdownListener(IProxyPluginShutdownListener listener) {
+		if (shutdownListeners != null)
+			shutdownListeners.remove(listener);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.core.runtime.Plugin#shutdown()
+	 */
+	public void shutdown() throws CoreException {
+		if (shutdownListeners != null) {
+			Object[] listeners = shutdownListeners.getListeners();
+			for (int i = 0; i < listeners.length; i++) {
+				((IProxyPluginShutdownListener) listeners[i]).shutdown();
+			}
+		}
+		super.shutdown();
+	}
+
 }

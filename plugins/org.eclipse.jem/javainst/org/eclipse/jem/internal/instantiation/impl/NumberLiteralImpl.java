@@ -1,6 +1,6 @@
 package org.eclipse.jem.internal.instantiation.impl;
 /*******************************************************************************
- * Copyright (c)  2003 IBM Corporation and others.
+ * Copyright (c)  2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +10,9 @@ package org.eclipse.jem.internal.instantiation.impl;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*
- *  $RCSfile: InitStringAllocationImpl.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/19 22:50:15 $ 
+ *  $RCSfile: NumberLiteralImpl.java,v $
+ *  $Revision: 1.1 $  $Date: 2004/01/19 22:50:15 $ 
  */
- 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -21,49 +20,50 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.jem.internal.instantiation.InitStringAllocation;
+import org.eclipse.jem.internal.instantiation.*;
 import org.eclipse.jem.internal.instantiation.InstantiationPackage;
+import org.eclipse.jem.internal.instantiation.NumberLiteral;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Init String Allocation</b></em>'.
+ * An implementation of the model object '<em><b>Number Literal</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.impl.InitStringAllocationImpl#getInitString <em>Init String</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.impl.NumberLiteralImpl#getToken <em>Token</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class InitStringAllocationImpl extends JavaAllocationImpl implements InitStringAllocation {
+public class NumberLiteralImpl extends ExpressionImpl implements NumberLiteral {
 	/**
-	 * The default value of the '{@link #getInitString() <em>Init String</em>}' attribute.
+	 * The default value of the '{@link #getToken() <em>Token</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInitString()
+	 * @see #getToken()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String INIT_STRING_EDEFAULT = null;
+	protected static final String TOKEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getInitString() <em>Init String</em>}' attribute.
+	 * The cached value of the '{@link #getToken() <em>Token</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInitString()
+	 * @see #getToken()
 	 * @generated
 	 * @ordered
 	 */
-	protected String initString = INIT_STRING_EDEFAULT;
+	protected String token = TOKEN_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected InitStringAllocationImpl() {
+	protected NumberLiteralImpl() {
 		super();
 	}
 
@@ -73,7 +73,7 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return InstantiationPackage.eINSTANCE.getInitStringAllocation();
+		return InstantiationPackage.eINSTANCE.getNumberLiteral();
 	}
 
 	/**
@@ -81,8 +81,8 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getInitString() {
-		return initString;
+	public String getToken() {
+		return token;
 	}
 
 	/**
@@ -90,11 +90,11 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInitString(String newInitString) {
-		String oldInitString = initString;
-		initString = newInitString;
+	public void setToken(String newToken) {
+		String oldToken = token;
+		token = newToken;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.INIT_STRING_ALLOCATION__INIT_STRING, oldInitString, initString));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstantiationPackage.NUMBER_LITERAL__TOKEN, oldToken, token));
 	}
 
 	/**
@@ -104,8 +104,8 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.INIT_STRING_ALLOCATION__INIT_STRING:
-				return getInitString();
+			case InstantiationPackage.NUMBER_LITERAL__TOKEN:
+				return getToken();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -117,8 +117,8 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.INIT_STRING_ALLOCATION__INIT_STRING:
-				setInitString((String)newValue);
+			case InstantiationPackage.NUMBER_LITERAL__TOKEN:
+				setToken((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -131,8 +131,8 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.INIT_STRING_ALLOCATION__INIT_STRING:
-				setInitString(INIT_STRING_EDEFAULT);
+			case InstantiationPackage.NUMBER_LITERAL__TOKEN:
+				setToken(TOKEN_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -145,25 +145,25 @@ public class InitStringAllocationImpl extends JavaAllocationImpl implements Init
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.INIT_STRING_ALLOCATION__INIT_STRING:
-				return INIT_STRING_EDEFAULT == null ? initString != null : !INIT_STRING_EDEFAULT.equals(initString);
+			case InstantiationPackage.NUMBER_LITERAL__TOKEN:
+				return TOKEN_EDEFAULT == null ? token != null : !TOKEN_EDEFAULT.equals(token);
 		}
 		return eDynamicIsSet(eFeature);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (initString: ");
-		result.append(initString);
-		result.append(')');
-		return result.toString();
+		if (eIsProxy() || getToken() == null) return super.toString();
+		return getToken();
 	}
 
-} //InitStringAllocationImpl
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.internal.instantiation.impl.ExpressionImpl#accept0(org.eclipse.jem.internal.instantiation.ParseVisitor)
+	 */
+	protected void accept0(ParseVisitor visitor) {
+		visitor.visit(this);
+		visitor.endVisit(this);
+	}
+} //NumberLiteralImpl

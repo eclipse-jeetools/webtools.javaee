@@ -171,7 +171,7 @@
 			width      	920
 			height     	305)
 		    (object CategoryView "Logical View::ecore" @3
-			location   	(258, 190)
+			location   	(263, 185)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -183,7 +183,7 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@3
-			    location   	(114, 106)
+			    location   	(119, 101)
 			    fill_color 	13434879
 			    nlines     	2
 			    max_width  	288

@@ -1,0 +1,82 @@
+package org.eclipse.jem.internal.instantiation;
+/*******************************************************************************
+ * Copyright (c)  2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+/*
+ *  $RCSfile: ArrayAccess.java,v $
+ *  $Revision: 1.1 $  $Date: 2004/01/19 22:49:16 $ 
+ */
+import org.eclipse.emf.common.util.EList;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Array Access</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * Array access. e.g. x[3]. 
+ * 
+ * Unlike AST, the entire expression of type x[3][4] will be done in one expression rather than having a separate ArrayAccess for each dimension. This is just a simplification. This can only be used if it is a simple array access where it is of the form {expression}[expression][expression].
+ * <!-- end-model-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.ArrayAccess#getArray <em>Array</em>}</li>
+ *   <li>{@link org.eclipse.jem.internal.instantiation.ArrayAccess#getIndexes <em>Indexes</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getArrayAccess()
+ * @model 
+ * @generated
+ */
+public interface ArrayAccess extends Expression {
+	/**
+	 * Returns the value of the '<em><b>Array</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The expression representing the array to access.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Array</em>' containment reference.
+	 * @see #setArray(Expression)
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getArrayAccess_Array()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Expression getArray();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jem.internal.instantiation.ArrayAccess#getArray <em>Array</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Array</em>' containment reference.
+	 * @see #getArray()
+	 * @generated
+	 */
+	void setArray(Expression value);
+
+	/**
+	 * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jem.internal.instantiation.Expression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The expressions representing the indexes of the access.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Indexes</em>' containment reference list.
+	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getArrayAccess_Indexes()
+	 * @model type="org.eclipse.jem.internal.instantiation.Expression" containment="true" required="true"
+	 * @generated
+	 */
+	EList getIndexes();
+
+} // ArrayAccess

@@ -11,11 +11,13 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: REMRegistryController.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/19 22:50:35 $ 
  */
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 
 /**
  * This class is a controller for all of the registries.
@@ -63,13 +65,25 @@ public class REMRegistryController {
 	}, "Remote VM Cleanup GC'd Proxies Thread"); //$NON-NLS-1$	
 	
 	public REMRegistryController() {
+
+		ProxyPlugin.getPlugin().addProxyShutdownListener(new ProxyPlugin.IProxyPluginShutdownListener() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jem.internal.proxy.core.ProxyPlugin.IProxyPluginShutdownListener#shutdown()
+			 */
+			public void shutdown() {
+				REMRegistryController.this.shutdown();
+			}
+		});
+
 		masterThread = new REMMasterServerThread(this);
 		masterThread.start();
-		
-	processQueueThread.setPriority(Thread.MIN_PRIORITY);
-	processQueueThread.setDaemon(true);
-	processQueueThread.start();
-		
+
+		processQueueThread.setPriority(Thread.MIN_PRIORITY);
+		processQueueThread.setDaemon(true);
+		processQueueThread.start();
+
 	}
 	
 	/*
@@ -113,16 +127,13 @@ public class REMRegistryController {
 	 */
 	protected REMMasterServerThread masterThread;
 
-	/**
+	/*
 	 * Shuts down this plug-in and discards all plug-in state.
 	 *
 	 * In this case, terminate all of the active registries so that they can be shutdown.
 	 * Don't want them hanging around after termination of the desktop.
-	 *
-	 * @exception CoreException if this method fails to shut down
-	 *   this plug-in 
 	 */
-	public void shutdown() {
+	void shutdown() {
 		
 		goingDown = true;
 		processQueueThread.interrupt();

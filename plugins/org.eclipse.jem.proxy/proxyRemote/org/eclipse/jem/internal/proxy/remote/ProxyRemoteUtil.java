@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.remote;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyRemoteUtil.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/01/19 22:50:35 $ 
  */
 
 
@@ -36,19 +36,6 @@ public class ProxyRemoteUtil {
 	public static REMRegistryController getRegistryController() {
 		return pluginRegistryController != null ? pluginRegistryController : (pluginRegistryController = new REMRegistryController());
 	}
-	
-	/**
-	 * Shuts down this plug-in and discards all plug-in state.
-	 *
-	 * In this case, terminate all of the active registries so that they can be shutdown.
-	 * Don't want them hanging around after termination of the desktop.
-	 *
-	 * @exception CoreException if this method fails to shut down
-	 *   this plug-in 
-	 */
-	public static void shutdown() {
-		getRegistryController().shutdown();
-	}	
 	
 	/**
 	 * Method to update any class paths with any

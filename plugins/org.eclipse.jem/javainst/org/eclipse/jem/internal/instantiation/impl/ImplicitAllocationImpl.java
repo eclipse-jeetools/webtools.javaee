@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ImplicitAllocationImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/19 22:50:15 $ 
  */
  
 import org.eclipse.emf.common.notify.Notification;
@@ -163,8 +163,6 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
-				return getAllocString();
 			case InstantiationPackage.IMPLICIT_ALLOCATION__PARENT:
 				if (resolve) return getParent();
 				return basicGetParent();
@@ -182,9 +180,6 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
-				setAllocString((String)newValue);
-				return;
 			case InstantiationPackage.IMPLICIT_ALLOCATION__PARENT:
 				setParent((EObject)newValue);
 				return;
@@ -202,9 +197,6 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
-				setAllocString((String)null);
-				return;
 			case InstantiationPackage.IMPLICIT_ALLOCATION__PARENT:
 				setParent((EObject)null);
 				return;
@@ -222,22 +214,12 @@ public class ImplicitAllocationImpl extends JavaAllocationImpl implements Implic
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case InstantiationPackage.IMPLICIT_ALLOCATION__ALLOC_STRING:
-				return getAllocString() != null;
 			case InstantiationPackage.IMPLICIT_ALLOCATION__PARENT:
 				return parent != null;
 			case InstantiationPackage.IMPLICIT_ALLOCATION__FEATURE:
 				return feature != null;
 		}
 		return eDynamicIsSet(eFeature);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jem.internal.instantiation.impl.JavaAllocationImpl#getComputedAllocString()
-	 */
-	protected String getComputedAllocString() {
-		// TODO Need to either get this right, or get rid of implicit and use parse tree, when available.
-		return "\"Not yet available\"";
 	}
 
 } //ImplicitAllocationImpl

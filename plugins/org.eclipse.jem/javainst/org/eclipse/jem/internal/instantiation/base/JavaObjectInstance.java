@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation.base;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.4 $  $Date: 2004/01/19 22:50:15 $ 
  */
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -69,7 +69,7 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 			JavaAllocation allocation = getAllocation();
 			if (allocation != null) {
 				result.append(':'); //$NON-NLS-1$
-				result.append(allocation.getAllocString());
+				result.append(allocation.toString());
 			}
 		} catch (IllegalArgumentException e) {
 		} catch (NullPointerException e) {

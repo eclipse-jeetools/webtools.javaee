@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaAllocation.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/19 22:50:15 $ 
  */
  
 import org.eclipse.emf.ecore.EObject;
@@ -29,46 +29,10 @@ import org.eclipse.emf.ecore.EObject;
  * This class is the abstract base class of the allocation class. It is the value of the "allocation" property on a Java Object so that the actual allocation can be controlled. For example, there could be one for just init string, or one for serialized.
  * <!-- end-model-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.eclipse.jem.internal.instantiation.JavaAllocation#getAllocString <em>Alloc String</em>}</li>
- * </ul>
- * </p>
  *
  * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getJavaAllocation()
  * @model abstract="true"
  * @generated
  */
 public interface JavaAllocation extends EObject{
-	/**
-	 * Returns the value of the '<em><b>Alloc String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * This is the allocation string in readable format. It is usually a comment string to make viewing the XMI easier. It is typically not used otherwise. A specific subclass may use it, and that subclass will indicate that it does.
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * This is the allocation string in readable format. It is derived in that subclasses will need to implement the getComputedAllocationString method to return the actual string. This string will be used directly in the code generation so it must be accurate. The set method is there, but it is ignored. This is just so that the string shows up in XMI serialization. (I.e. it is really read-only, but XMI doesn't understand this on serialization).
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Alloc String</em>' attribute.
-	 * @see #setAllocString(String)
-	 * @see org.eclipse.jem.internal.instantiation.InstantiationPackage#getJavaAllocation_AllocString()
-	 * @model volatile="true"
-	 * @generated
-	 */
-	String getAllocString();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.jem.internal.instantiation.JavaAllocation#getAllocString <em>Alloc String</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * The set is actually ignored. allocString is a derived property. The value comes from subclasses. Setting here
-	 * does nothing. The subclasses control the string.
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Alloc String</em>' attribute.
-	 * @see #getAllocString()
-	 * @generated
-	 */
-	void setAllocString(String value);
-
 } // JavaAllocation
