@@ -29,8 +29,7 @@ public class WebModuleCreationTest extends AbstractModuleCreationTest {
     	
 	
 	public void testVaild12WebProjectNameCreationWithAlphabetChars() throws Exception {
-		int test = 0;
-		
+	
 		setupWebModule(J2EEVersionConstants.WEB_2_2_ID);
 		
 //		ProjectUtility.deleteAllProjects();

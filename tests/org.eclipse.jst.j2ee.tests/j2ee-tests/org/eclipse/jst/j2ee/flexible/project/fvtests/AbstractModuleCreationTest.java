@@ -43,8 +43,20 @@ public abstract class AbstractModuleCreationTest extends TestCase {
 		
 		model.setProperty( FlexibileWebModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
 		model.setIntProperty(FlexibileWebModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model.setProperty(FlexibileWebModuleCreationDataModel.MODULE_NAME, "FirstWebModule");		
+		model.setProperty(FlexibileWebModuleCreationDataModel.MODULE_DEPLOY_NAME, "FirstWebModule.war");
 		
 		createWebModule(model, null);
+		
+		
+		FlexibileWebModuleCreationDataModel model2 = new FlexibileWebModuleCreationDataModel();
+		
+		model2.setProperty( FlexibileWebModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model2.setIntProperty(FlexibileWebModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model2.setProperty(FlexibileWebModuleCreationDataModel.MODULE_NAME, "SecondWebModule");		
+		model2.setProperty(FlexibileWebModuleCreationDataModel.MODULE_DEPLOY_NAME, "SecondWebModule.war");
+		createWebModule(model2, null);
+		
 		return model;
 	}
 
