@@ -13,11 +13,10 @@ package org.eclipse.jst.ejb.ui;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBClientCreationWizardPage;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBProjectCreationPage;
-import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
+import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleCreationPage;
+import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.ui.J2EEArtifactCreationWizard;
@@ -84,8 +83,8 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return Returns the specific operation data model for the creation of J2EE EJB modules
 	 */
 	protected final WTPOperationDataModel createDefaultModel() {
-		EJBModuleCreationDataModel aModel = new EJBModuleCreationDataModel();
-		aModel.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
+		EjbComponentCreationDataModel aModel = new EjbComponentCreationDataModel();
+		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
 		return aModel;
 	}
 
@@ -157,12 +156,12 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * {@inheritDoc}
 	 * 
 	 * <p>
-	 * Adds a {@link EJBProjectCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG} 
+	 * Adds a {@link EJBModuleCreationPage} as the {@link J2EEModuleCreationWizard#MAIN_PG} 
 	 * and a {@link EJBClientCreationWizardPage} as the {@link #CLIENT_PG}.
 	 * </p>
 	 */
 	public void doAddPages() {
-		addPage(new EJBProjectCreationPage(getSpecificDataModel(), MAIN_PG));
+		addPage(new EJBModuleCreationPage(getSpecificDataModel(), MAIN_PG));
 		clientPage = new EJBClientCreationWizardPage(getSpecificDataModel().getNestEJBClientProjectDM(), CLIENT_PG);
 		addPage(clientPage);
 		super.doAddPages();
@@ -175,7 +174,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return true if the parent Wizard class is ready and EJB Client Creation settings are complete
 	 */
 	public boolean canFinish() {
-		if (!getSpecificDataModel().getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT)) {
+		if (!getSpecificDataModel().getBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT)) {
 			clientPage.setPageComplete(true);
 		}
 		return super.canFinish();
@@ -194,7 +193,7 @@ public final class EJBModuleCreationWizard extends J2EEModuleCreationWizard {
 	 * @return true if the client page should be skipped (based on the value of {@see EJBProjectCreationDataModel#CREATE_CLIENT}.
 	 */
 	protected final boolean shouldSkipClientPage() {
-		return !getSpecificDataModel().getBooleanProperty(EJBModuleCreationDataModel.CREATE_CLIENT);
+		return !getSpecificDataModel().getBooleanProperty(EjbComponentCreationDataModel.CREATE_CLIENT);
 	}
  
 	private EjbComponentCreationDataModel getSpecificDataModel() {

@@ -85,29 +85,20 @@
       </wizard>
    </extension>
 
-<!-- EJB Group Contributions 
+<!-- New EJB Module Wizard -->
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
-            id="org.eclipse.wst.common.navigator.internal.plugin.ejbNewProjectActions">
-         <action
-               label="%ejb.project_ui_"
-               icon="icons/full/ctool16/newejbprj_wiz.gif"
-               class="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProjectAction"
-               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.new.menu/additions"
-               enablesFor="1"
-               id="org.eclipse.jst.ejb.ui.internal.actions.NewEJBProjectAction">
-         </action>
-         <visibility>
-            <objectState
-                  name="projectNature"
-                  value="org.eclipse.jst.j2ee.ejb.EJBNature">
-            </objectState>
-         </visibility>
-      </objectContribution>
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            name="%ejb.project_ui_"
+            icon="icons/full/ctool16/newejbprj_wiz.gif"
+            category="org.eclipse.jst.j2ee.internal"
+            class="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard"
+            id="org.eclipse.jst.ejb.ui.EJBModuleCreationWizard">
+         <description>
+            %new.ejb.project.description_ui_
+         </description>
+      </wizard>
    </extension>
--->
 <!-- Navigator Object Contributions -->
 <!-- EJB Group Contributions 
    <extension
