@@ -15,7 +15,7 @@
       <import plugin="org.eclipse.jem" export="true"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="com.ibm.etools.emf.workbench" export="true"/>
+      <import plugin="com.ibm.etools.jem.emf.workbench" export="true"/>
    </requires>
 
 

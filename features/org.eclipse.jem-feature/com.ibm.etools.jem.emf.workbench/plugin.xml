@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin
-   id="com.ibm.etools.emf.workbench"
+   id="com.ibm.etools.jem.emf.workbench"
    name="EMF Workbench"
    version="5.1.1"
    provider-name="IBM"
@@ -13,7 +13,7 @@
       </library>
    </runtime>
    <requires>
-      <import plugin="com.ibm.etools.emf.ecore.utilities" export="true" version="5.1.1" match="equivalent"/>
+      <import plugin="com.ibm.etools.jem.emf.ecore.utilities" export="true" version="5.1.1" match="equivalent"/>
       <import plugin="org.apache.xerces" version="4.0.13" match="equivalent"/>
       <import plugin="org.eclipse.core.resources" />
       <!--import plugin="com.ibm.etools.logging.util" version="5.1.1" match="equivalent"/-->
