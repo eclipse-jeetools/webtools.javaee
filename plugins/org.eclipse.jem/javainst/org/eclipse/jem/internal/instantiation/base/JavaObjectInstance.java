@@ -11,8 +11,13 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/27 15:33:17 $ 
+ *  $Revision: 1.7 $  $Date: 2005/01/21 15:17:09 $ 
  */
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -23,14 +28,15 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.jem.internal.instantiation.JavaAllocation;
 import org.eclipse.jem.java.JavaHelpers;
+import org.eclipse.ve.internal.cde.emf.FeatureValueProvider;
+import org.eclipse.ve.internal.cde.emf.FeatureValueProvider.Visitor;
 
 /**
  * This is the default instance for java model objects.
  * It should not be referenced directly, the IJavaObjectInstance interface should be
  * used instead. It is public so that it can be subclassed.
  */
-public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstance {
-
+public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstance , FeatureValueProvider {
 	
 	public JavaHelpers getJavaType(){
 		return (JavaHelpers) eClass();
@@ -40,6 +46,25 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 		return isSetAllocation() ? (JavaAllocation) eGet(JavaInstantiation.getAllocationFeature(this)) : null;
 	}
 	
+	public boolean eIsSet(EStructuralFeature feature) {
+		return super.eIsSet(feature);
+	}
+	/** Visit the argument with all of the set features in an optimized fashion 
+	 */
+	public void visitSetFeatures(Visitor aVisitor) {
+		
+		JavaObjectInstancePropertiesHolder settings = (JavaObjectInstancePropertiesHolder) eProperties(); 
+		
+		Object[] setPropertyValues = settings.eSettings();
+		for (int i = 0; i < setPropertyValues.length; i++) {
+			if(setPropertyValues[i] != null){
+				aVisitor.isSet(
+						(EStructuralFeature) settings.getAllStructuralFeatures().get(i),
+						setPropertyValues[i]);
+			}
+		}												
+	}
+		
 	public boolean isSetAllocation() {
 		return eIsSet(JavaInstantiation.getAllocationFeature(this));
 	}
