@@ -39,7 +39,12 @@ public abstract class FlexibleJ2EECreationDataModel extends WTPOperationDataMode
      * Required
      */
     public static final String MODULE_NAME = "ArtifactEditOperationDataModel.MODULE_NAME"; //$NON-NLS-1$
-
+	/**
+	 * Required
+	 */	
+	
+	public static final String MODULE_DEPLOY_NAME = "ArtifactEditOperationDataModel.MODULE_DEPLOY_NAME"; //$NON-NLS-1$
+	
     /**
      * An optional dataModel propertyName for a <code>Boolean</code> type. The
      * default value is <code>Boolean.TRUE</code>. If this property is set to
