@@ -41,24 +41,7 @@ public class EARComponentCreationPage extends J2EEModuleCreationPage {
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEModuleCreationPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void addToAdvancedComposite(Composite advanced) {
-//		super.addToAdvancedComposite(advanced);
-//		contextRootLabel = new Label(advanced, SWT.NULL);
-//		contextRootLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.WEB_IMPORT_CONTEXT_ROOT));
-//		GridData data = new GridData();
-//		contextRootLabel.setLayoutData(data);
-//		// set up context root entry field
-//
-//		contextRootNameField = new Text(advanced, SWT.BORDER);
-//		data = new GridData(GridData.FILL_HORIZONTAL);
-//		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
-//		contextRootNameField.setLayoutData(data);
-//		synchHelper.synchText(contextRootNameField, WebComponentCreationDataModel.CONTEXT_ROOT, new Control[]{contextRootLabel});
-//		
-		createAnnotationsGroup(advanced);
-	}
-
-	private void createAnnotationsGroup(Composite parent) {
-		annotationsGroup = new AnnotationsStandaloneGroup(parent, getJ2EEModuleCreationDataModel(), false);
+		super.addToAdvancedComposite(advanced);
 	}
 	
 	EARComponentCreationDataModel getEARProjectCreationDataModel() {
@@ -75,6 +58,5 @@ public class EARComponentCreationPage extends J2EEModuleCreationPage {
 
 	public void dispose() {
 		super.dispose();
-		annotationsGroup.dispose();
 	}
 }

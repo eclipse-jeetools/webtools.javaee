@@ -44,7 +44,8 @@ public class EARComponentCreationOperation extends J2EEComponentCreationOperatio
             component = moduleCore.findWorkbenchModuleByDeployName(
             		operationDataModel.getStringProperty(EARComponentCreationDataModel.MODULE_DEPLOY_NAME));
        		edit = EARArtifactEdit.getEARArtifactEditForWrite(component);
-       		edit.createModelRoot();
+       		Object versionObj = ((J2EECreationDataModel)getOperationDataModel()).getProperty(J2EECreationDataModel.J2EE_MODULE_VERSION);
+       		edit.createModelRoot(((Integer)versionObj).intValue());
 			// specify module source folder, and deploy path
 			IPath metaInfPath = new Path("META-INF"); //$NON-NLS-1$
 		    IFolder metaInfFolder = moduleFolder.getFolder(metaInfPath); //$NON-NLS-1$
