@@ -29,8 +29,8 @@ import org.eclipse.wst.sse.core.IModelStateListener;
 import org.eclipse.wst.sse.core.IStructuredModel;
 import org.eclipse.wst.sse.core.ModelLifecycleEvent;
 import org.eclipse.wst.sse.core.StructuredModelManager;
-import org.eclipse.wst.xml.core.document.XMLModel;
-import org.eclipse.wst.xml.core.document.XMLNode;
+import org.eclipse.wst.xml.core.document.DOMModel;
+import org.eclipse.wst.xml.core.document.DOMNode;
 import org.eclipse.wst.xml.core.internal.document.DocumentTypeImpl;
 import org.w3c.dom.Node;
 
@@ -40,7 +40,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateListener, IModelLifecycleListener {
 
 	/** The XML DOM model */
-	protected XMLModel xmlModel;
+	protected DOMModel xmlModel;
 
 	/** Used internally; the unique id for the xml model */
 	protected String xmlModelId;
@@ -85,7 +85,7 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 	/**
 	 * Return the DOM model for this resource.
 	 */
-	public XMLModel getXMLModel() {
+	public DOMModel getXMLModel() {
 		return xmlModel;
 	}
 
@@ -212,7 +212,7 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 	/**
 	 * Return the DOM model for this resource.
 	 */
-	public void setXMLModel(XMLModel xmlModel) {
+	public void setXMLModel(DOMModel xmlModel) {
 		deRegisterAsModelStateListener();
 		deRegisterAsModelLifecycleListener();
 		this.xmlModel = xmlModel;
@@ -351,15 +351,15 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 			createDOMTree();
 	}
 
-	private XMLModel initializeXMLModel(IFile file, boolean forWrite) throws UnsupportedEncodingException, IOException {
+	private DOMModel initializeXMLModel(IFile file, boolean forWrite) throws UnsupportedEncodingException, IOException {
 		if (file == null || !file.exists())
 			throw new FileNotFoundException((file == null) ? "null" : file.getFullPath().toOSString()); //$NON-NLS-1$
 		String id = getModelManagerId();
 		try {
 			if (forWrite)
-				setXMLModel((XMLModel) getModelManager().getModelForEdit(file));
+				setXMLModel((DOMModel) getModelManager().getModelForEdit(file));
 			else
-				setXMLModel((XMLModel) getModelManager().getModelForRead(file));
+				setXMLModel((DOMModel) getModelManager().getModelForRead(file));
 			needsToCreateDOM = false;
 		} catch (CoreException e) {
 			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
@@ -435,12 +435,12 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 	 * @see com.ibm.etools.emf2xml.impl.EMF2DOMRenderer#getExistingDOMAdapter(org.w3c.dom.Node)
 	 */
 	public EMF2DOMAdapter getExistingDOMAdapter(Node node) {
-		XMLNode xNode = (XMLNode) node;
+		DOMNode xNode = (DOMNode) node;
 		return (EMF2DOMSedAdapter) xNode.getAdapterFor(EMF2DOMAdapter.ADAPTER_CLASS);
 	}
 
 	public void removeDOMAdapter(Node aNode, EMF2DOMAdapter anAdapter) {
-		((XMLNode) aNode).removeAdapter((EMF2DOMSedAdapter) anAdapter);
+		((DOMNode) aNode).removeAdapter((EMF2DOMSedAdapter) anAdapter);
 	}
 
 	/*
