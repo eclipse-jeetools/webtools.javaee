@@ -145,27 +145,24 @@ public class UIWarValidator extends WarValidator {
 			}
 		}
 		else{
+			WebArtifactEdit webEdit = null;
+			WebApp webApp = null;
+			try{
+				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(proj);
+	       		if(webEdit != null) {
+	       			webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
+	       		}			
 			// if this is a static project, it has no WAR, so do not validate.
-			if (getWebApplication(proj)!= null) 
+			if (webApp!= null) 
 				super.validate(inHelper, inReporter, inChangedFiles);
 			//validateLibModules((J2EEWebNatureRuntime) webNature);
+			} finally{
+				if( webEdit != null )
+					webEdit.dispose();
+			}
 		}	
 	}
 	
-	protected WebApp getWebApplication(IProject project) {
-		WebArtifactEdit webEdit = null;
-		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead( project);
-       		if(webEdit != null) {
-       			return (WebApp) webEdit.getDeploymentDescriptorRoot();
-       		}			
-		} finally{
-			if( webEdit != null )
-				webEdit.dispose();
-		}
-		return null;
-	}
-
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */

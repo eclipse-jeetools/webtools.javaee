@@ -284,15 +284,22 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		// Handle Servlet Link case
 		else {
 			linkName = ((ServletLink) link).getServletLink();
-			ArtifactEdit artifact = null;
 			WebArtifactEdit webEdit = null;
-			WebApp webApp = getWebApplication(p);
-			if (webApp == null)
-				return;
-			Servlet servlet = webApp.getServletNamed(linkName);
-			if (servlet == null)
-				return;
-			javaClass = servlet.getServletClass();
+			WebApp webApp = null;
+			try{
+				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(p);
+	       		if(webEdit != null)
+					webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
+				if (webApp == null)
+					return;
+				Servlet servlet = webApp.getServletNamed(linkName);
+				if (servlet == null)
+					return;
+				javaClass = servlet.getServletClass();
+			} finally{
+				if( webEdit != null )
+					webEdit.dispose();
+			}
 		}
 		// Open java editor on the selected objects associated java file
 		try {
@@ -300,20 +307,6 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		} catch (Exception cantOpen) {
 			cantOpen.printStackTrace();
 		}
-	}
-	
-	protected WebApp getWebApplication(IProject project) {
-		WebArtifactEdit webEdit = null;
-		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-       		if(webEdit != null) {
-           		return (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
-       		}			
-		} finally{
-			if( webEdit != null )
-				webEdit.dispose();
-		}
-		return null;
 	}
 
 	/**

@@ -284,18 +284,4 @@ abstract public class AbstractWebTaglibLocator extends AbstractTaglibLocator {
 				webEdit.dispose();
 		}
 	}
-	
-	protected WebApp getWebDeploymentDescriptorRoot() {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			return (WebApp) webEdit.getDeploymentDescriptorRoot();
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-	}
-	
-	
-
 }

@@ -8,8 +8,6 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,9 +23,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl;
-import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.modulecore.ArtifactEdit;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 import com.ibm.wtp.common.logger.proxy.Logger;

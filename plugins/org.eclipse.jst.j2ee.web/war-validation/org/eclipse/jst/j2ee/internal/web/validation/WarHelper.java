@@ -106,28 +106,23 @@ public class WarHelper extends J2EEValidationHelper {
 			return null;
 		//      openFilesCache = new ArrayList();
 		WARFile warFile = null; // Default return value.
+		WebArtifactEdit webEdit = null;
+		Resource webDD = null;
 		try {
 			WTProjectLoadStrategyImpl loader = new WTProjectLoadStrategyImpl(proj);
-			loader.setResourceSet(getWebApplicationResource(proj).getResourceSet());
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(proj);
+       		if (webEdit != null)
+       			webDD = webEdit.getDeploymentDescriptorResource();
+			loader.setResourceSet(webDD.getResourceSet());
 			warFile = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory().openWARFile(loader, proj.getName());
 			//openFilesCache.add(warFile);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}  
-		return warFile;
-	}
-	
-	protected Resource getWebApplicationResource(IProject project) {
-		WebArtifactEdit webEdit = null;
-		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead( project);
-       		if(webEdit != null) {
-       			return webEdit.getDeploymentDescriptorResource();
-       		}			
-		} finally{
+		}  finally{
 			if( webEdit != null )
 				webEdit.dispose();
 		}
-		return null;
+		return warFile;
 	}
+	
 }

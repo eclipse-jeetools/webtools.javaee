@@ -312,12 +312,12 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	
 	public String getServerContextRoot() {
-		//TODO return the valid context root for the module
+		//TODO return the valid context root for the module, needs to be be added to the model
 		return null;
 	}
 	
 	public void setServerContextRoot(String contextRoot) {
-		//TODO set the new context root on the module
+		//TODO set the new context root on the module, needs to be added to the model
 	}
 	
 	public ILibModule[] getLibModules() {

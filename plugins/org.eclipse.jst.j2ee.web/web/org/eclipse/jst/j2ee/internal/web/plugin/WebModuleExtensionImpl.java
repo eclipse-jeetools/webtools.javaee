@@ -59,20 +59,6 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	protected WebApp getWebApplication(IProject project) {
-		WebArtifactEdit webEdit = null;
-		try{
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead( project);
-       		if(webEdit != null) {
-       			return (WebApp) webEdit.getDeploymentDescriptorRoot();
-       		}			
-		} finally{
-			if( webEdit != null )
-				webEdit.dispose();
-		}
-		return null;
-	}
 
 	public void initializeEjbReferencesToModule(J2EENature moduleNature, UpdateModuleReferencesInEARProjectCommand command) {
 //		WebEditModel editModel;
@@ -81,21 +67,20 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 //		} catch (Exception e) {
 //			return;
 //		}
-		
-		WebApp webApp = getWebApplication(moduleNature.getProject());              		
-		boolean foundRef = false;
-		try {
-			//WebApp webApp = editModel.getWebApp();
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;
+		try{
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead( moduleNature.getProject());
+       		if(webEdit != null) 
+       			webApp =  (WebApp) webEdit.getDeploymentDescriptorRoot();
 			if (webApp != null) {
-				foundRef = command.initializeEjbReferencesToModule(webApp.getEjbRefs());
-				foundRef = command.initializeEjbReferencesToModule(webApp.getEjbLocalRefs());
+				command.initializeEjbReferencesToModule(webApp.getEjbRefs());
+				command.initializeEjbReferencesToModule(webApp.getEjbLocalRefs());
 			}
-//			if (foundRef)
-//				command.addNestedEditModel(editModel);
-		} finally {
-//			if (!foundRef)
-//				editModel.releaseAccess(this);
-		}
+		} finally{
+			if( webEdit != null )
+				webEdit.dispose();
+		}            		
 	}
 
 	/*

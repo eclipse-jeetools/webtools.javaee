@@ -328,8 +328,12 @@ public class WebDeployableArtifactUtil  {
 	public static String getServletMapping(IProject project, boolean isServlet, String typeName) {
 		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
 			return null;
-		WebApp webApp = getWebApplication(project);		               		
+		WebArtifactEdit webEdit = null;
+		WebApp webApp = null;	               		
 		try {
+			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
+			if (webEdit != null)
+				webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();
 			// find servlet
 			Iterator iterator = webApp.getServlets().iterator();
 			while (iterator.hasNext()) {
@@ -360,21 +364,8 @@ public class WebDeployableArtifactUtil  {
 		} catch (Exception e) {
 			return null;
 		} finally {
-			//Do nothing
+			if (webEdit != null)
+				webEdit.dispose();
 		}
 	}
-	
-	protected static WebApp getWebApplication(IProject project) {
-		WebArtifactEdit webEdit = null;
-		try {
-			webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(project);
-			if (webEdit != null)
-				return (WebApp) webEdit.getDeploymentDescriptorRoot();
-		} finally {
-			if (webEdit != null)
-			webEdit.dispose();
-		}
-		return null;
-	}
-
 }
