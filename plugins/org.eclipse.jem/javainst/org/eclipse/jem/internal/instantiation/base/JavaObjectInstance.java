@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.instantiation.base;
 /*
  *  $RCSfile: JavaObjectInstance.java,v $
- *  $Revision: 1.8 $  $Date: 2005/01/24 12:07:20 $ 
+ *  $Revision: 1.9 $  $Date: 2005/01/24 13:40:02 $ 
  */
 
 import java.util.ArrayList;
@@ -57,12 +57,17 @@ public class JavaObjectInstance extends EObjectImpl implements IJavaObjectInstan
 		JavaObjectInstancePropertiesHolder settings = (JavaObjectInstancePropertiesHolder) eProperties(); 
 		
 		Object[] setPropertyValues = settings.eSettings();
-		for (int i = 0; i < setPropertyValues.length; i++) {
-			if(setPropertyValues[i] != null && setPropertyValues[i] != EStructuralFeatureImpl.InternalSettingDelegateSingle.NIL){
-				Object setPropertyValue = setPropertyValues[i]; 
+		if(setPropertyValues != null){
+			for (int i = 0; i < setPropertyValues.length; i++) {
+				Object propertyValue = setPropertyValues[i];
+				if(propertyValue != null){					
+					// null is handle by a placeholder
+					if (propertyValue == EStructuralFeatureImpl.InternalSettingDelegateSingle.NIL)
+						propertyValue = null;					 
 					aVisitor.isSet(
-						(EStructuralFeature) settings.getAllStructuralFeatures().get(i),
-						setPropertyValues[i]);
+							(EStructuralFeature) settings.getAllStructuralFeatures().get(i),
+							propertyValue);
+				}
 			}
 		}												
 	}
