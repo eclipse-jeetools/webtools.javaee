@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
@@ -101,15 +102,11 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 		return super.getDefaultProperty(propertyName);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
-	 */
-	protected Object[] doGetValidPropertyValues(String propertyName) {
-		if (propertyName.equals(PROJECT_NAME))
-			return getValidProjectNames();
-		return super.doGetValidPropertyValues(propertyName);
+	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
+		if (propertyName.equals(PROJECT_NAME)) {
+			return getValidProjectDescriptors();
+		}
+		return super.doGetValidPropertyDescriptors(propertyName);
 	}
 
 	/*
@@ -220,7 +217,7 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 	/**
 	 * Populate the resource name combo with connector projects that are not encrypted.
 	 */
-	private Object[] getValidProjectNames() {
+	private WTPPropertyDescriptor[] getValidProjectDescriptors() {
 		List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
 		List projectsWithNature = new ArrayList();
 
@@ -230,8 +227,7 @@ public abstract class J2EEArtifactExportDataModel extends WTPOperationDataModel 
 				projectsWithNature.add(project.getFullPath().toString());
 			} // if
 		} // for
-
-		return ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()]));
+		return WTPPropertyDescriptor.createDescriptors(ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()])));
 	}
 
 	protected abstract String getModuleExtension();

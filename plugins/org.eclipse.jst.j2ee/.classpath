@@ -3,9 +3,7 @@
 	<classpathentry kind="src" path="j2eeplugin/"/>
 	<classpathentry kind="src" path="common/"/>
 	<classpathentry kind="src" path="commonedit/"/>
-	<classpathentry kind="src" path="codegen/"/>
 	<classpathentry kind="src" path="earproject/"/>
-	<classpathentry kind="src" path="javacodegen/"/>
 	<classpathentry kind="src" path="j2eecreation/"/>
 	<classpathentry kind="src" path="archiveops/"/>
 	<classpathentry kind="src" path="applicationedit/"/>

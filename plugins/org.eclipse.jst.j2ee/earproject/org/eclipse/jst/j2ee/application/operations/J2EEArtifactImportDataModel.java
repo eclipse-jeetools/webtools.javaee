@@ -40,6 +40,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.xml.sax.InputSource;
@@ -423,7 +424,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	public void extractHandled(List newList, boolean addModels) {
 	}
 
-	protected Object[] doGetValidPropertyValues(String propertyName) {
+	protected WTPPropertyDescriptor [] doGetValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(PROJECT_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -451,11 +452,11 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 			for (int i = 0; i < projectNames.length; i++) {
 				projectNames[i] = (String) projectList.get(i);
 			}
-			return projectNames;
+			return WTPPropertyDescriptor.createDescriptors(projectNames);
 		} else if (propertyName.equals(FILE_NAME)) {
 			String[] sourceNames = (String[]) getProperty(FILE_SELECTION_HISTORY);
-			return sourceNames;
+			return WTPPropertyDescriptor.createDescriptors(sourceNames);
 		}
-		return super.doGetValidPropertyValues(propertyName);
+		return super.doGetValidPropertyDescriptors(propertyName);
 	}
 }

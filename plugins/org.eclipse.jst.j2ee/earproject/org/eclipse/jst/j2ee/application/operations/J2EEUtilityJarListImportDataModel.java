@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
+import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.nature.EMFNature;
@@ -316,34 +317,14 @@ public class J2EEUtilityJarListImportDataModel extends WTPOperationDataModel {
 			return super.getDefaultProperty(propertyName);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doGetValidPropertyValues(java.lang.String)
-	 */
-	protected Object[] doGetValidPropertyValues(String propertyName) {
-		if (EAR_PROJECT.equals(propertyName))
-			return getValidProjectNames();
-		else if (UTILITY_JAR_LIST.equals(propertyName)) {
-			List collectedJars = new ArrayList();
-			String fileName = getStringProperty(J2EEUtilityJarListImportDataModel.AVAILABLE_JARS_DIRECTORY);
-			File directory = new File(fileName);
-			if (directory.exists() && directory.canRead() && directory.isDirectory()) {
-				File[] availableFiles = directory.listFiles();
-
-				if (availableFiles == null)
-					return new File[0];
-
-				for (int i = 0; i < availableFiles.length; i++)
-					if (availableFiles[i] != null && availableFiles[i].getName().endsWith(".jar"))collectedJars.add(availableFiles[i]); //$NON-NLS-1$
-			}
-			return collectedJars.toArray();
-
+	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
+		if (EAR_PROJECT.equals(propertyName)) {
+			return WTPPropertyDescriptor.createDescriptors(getValidProjectNames());
 		} else if (LINKED_PATH_VARIABLE.equals(propertyName)) {
 			IPathVariableManager manager = ResourcesPlugin.getWorkspace().getPathVariableManager();
-			return manager.getPathVariableNames();
+			return WTPPropertyDescriptor.createDescriptors(manager.getPathVariableNames());
 		} else
-			return super.doGetValidPropertyValues(propertyName);
+			return super.doGetValidPropertyDescriptors(propertyName);
 	}
 
 	/**
