@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionTest.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/07 15:18:39 $ 
+ *  $Revision: 1.3 $  $Date: 2004/11/10 20:26:10 $ 
  */
 package org.eclipse.jem.tests.proxy;
 
@@ -1148,7 +1148,7 @@ public class ExpressionTest extends AbstractTestProxy {
 		try {
 			exp.createMethodInvocation(IExpression.ROOTEXPRESSION, "getenv", true, 1);
 			exp.createTypeReceiver("java.lang.System");
-			exp.createNull(IExpression.METHOD_ARGUMENT);
+			exp.createStringLiteral(IExpression.METHOD_ARGUMENT, "xyz");
 			exp.invokeExpression();
 		} catch (ThrowableProxy e) {
 			if (!e.getTypeProxy().getFormalTypeName().equals("java.lang.Error"))
