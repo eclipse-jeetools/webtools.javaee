@@ -7,7 +7,7 @@
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.9 $ $Date: 2004/05/24 23:23:36 $
+ * $RCSfile: LocalProxyLaunchDelegate.java,v $ $Revision: 1.10 $ $Date: 2004/05/25 14:06:06 $
  */
 package org.eclipse.jem.internal.proxy.remote;
 
@@ -367,12 +367,4 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 	    return ext;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.ILaunchConfigurationDelegate2#finalLaunchCheck(org.eclipse.debug.core.ILaunchConfiguration, java.lang.String, org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public boolean finalLaunchCheck(ILaunchConfiguration configuration, String mode, IProgressMonitor monitor) throws CoreException {
-		// TODO This is a hack. Opened bugzilla 59356 to get Eclipse to have a formal mechanism for this. They
-		// actually fixed it, but messed it up.
-		return true;
-	}
 }
