@@ -261,4 +261,240 @@
 	</extension> 		
 
 <!-- icon="icons/full/obj16/webapp_deploy.gif" -->
+
+
+<!-- =========================================================== -->
+<!--   Web Tag set definitions for XDoclet                       -->
+<!-- =========================================================== -->
+
+   <extension
+         id="WebTagSets"
+         point="org.eclipse.jst.common.annotations.controller.AnnotationTagSet">
+      <AnnotationTagSet
+            name="web">
+      </AnnotationTagSet>
+   </extension>
+   
+   <extension
+         id="WebAnnotationInfo"
+         point="org.eclipse.jst.common.annotations.controller.AnnotationTagInfo">
+	  <AnnotationTagInfo
+            tagSet="web"
+            tagName="filter"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+         <attrib
+               name="display-name">
+         </attrib>
+         <attrib
+               name="small-icon">
+         </attrib>
+         <attrib
+               name="large-icon">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="filter-init-param"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+         </attrib>
+         <attrib
+               name="value">
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="filter-mapping"
+            scope="type">
+         <attrib
+               name="url-pattern">
+         </attrib>
+         <attrib
+               name="servlet-name">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="servlet"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+         </attrib>
+         <attrib
+               name="display-name">
+         </attrib>
+         <attrib
+               name="icon">
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+         <attrib
+               name="load-on-startup">
+         </attrib>
+         <attrib
+               name="run-as">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="servlet-init-param"
+            multiplicity="*"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+         </attrib>
+         <attrib
+               name="value">
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="servlet-mapping"
+            multiplicity="*"
+            scope="type">
+         <attrib
+               use="required"
+               name="url-pattern">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="listener"
+            scope="type">
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="security-role-ref"
+            scope="type">
+         <attrib
+               use="required"
+               name="role-name">
+         </attrib>
+         <attrib
+               use="required"
+               name="role-link">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="resource-env-ref"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+         </attrib>
+         <attrib
+               use="required"
+               name="type">
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="resource-ref"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+         </attrib>
+         <attrib
+               use="required"
+               name="type">
+         </attrib>
+         <attrib
+               use="required"
+               name="auth">
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+         <attrib
+               name="scope">
+         </attrib>
+         <attrib
+               name="jndi-name">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="security-role"
+            scope="type">
+            <attrib
+               use="required"
+               name="role-name">
+         	</attrib>
+         	<attrib
+               name="description">
+         	</attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="env-entry"
+            scope="type">
+            <attrib name="name" use="required">
+            </attrib>
+            <attrib name="description"/>
+            <attrib name="type" type="enum">
+            	<enumValues value="java.lang.Boolean"/>
+            	<enumValues value="java.lang.Byte"/>
+				<enumValues value="java.lang.Character"/>
+				<enumValues value="java.lang.String"/>
+				<enumValues value="java.lang.Short"/>
+				<enumValues value="java.lang.Integer"/>
+				<enumValues value="java.lang.Long"/>
+				<enumValues value="java.lang.Float"/>
+				<enumValues value="java.lang.Double"/>
+			</attrib>
+            <attrib name="value"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="ejb-ref"
+            scope="type">
+          <attrib name="name" use="required"/>
+          <attrib name="type" type="enum" use="required">
+          	<enumValues value="Entity"/>
+          	<enumValues value="Session"/>
+          </attrib>
+          <attrib name="home" use="required"/>
+          <attrib name="remote" use="required"/>
+          <attrib name="link"/>
+          <attrib name="description"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="web"
+            tagName="ejb-local-ref"
+            scope="type">
+            <attrib name="name" use="required"/>
+          <attrib name="type" type="enum" use="required">
+          	<enumValues value="Entity"/>
+          	<enumValues value="Session"/>
+          </attrib>
+          <attrib name="home" use="required"/>
+          <attrib name="local" use="required"/>
+          <attrib name="link"/>
+          <attrib name="description"/>
+      </AnnotationTagInfo>      
+   </extension>
+
 </plugin>
