@@ -90,9 +90,10 @@ public class WebEditModel extends org.eclipse.jst.j2ee.internal.J2EEEditModel {
 
 	public Resource makeDeploymentDescriptorWithRoot() {
 		org.eclipse.jst.j2ee.common.XMLResource res = (org.eclipse.jst.j2ee.common.XMLResource) createResource(J2EEConstants.WEBAPP_DD_URI_OBJ);
-		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(prj);
-		
-		res.setModuleVersionID(getWebNature().getModuleVersion());
+		WebArtifactEdit webModuleArtifact = (WebArtifactEdit)ModuleCore.getFirstArtifactEditForRead(getProject());
+		//getWebNature().getModuleVersion()
+		//TODO need to verify moduleVersion()
+		res.setModuleVersionID(webModuleArtifact.getJ2EEVersion());
 		addWebAppIfNecessary(res);
 		return res;
 	}

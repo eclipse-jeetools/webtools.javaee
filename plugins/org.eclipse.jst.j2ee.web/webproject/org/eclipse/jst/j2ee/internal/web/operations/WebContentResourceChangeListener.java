@@ -9,6 +9,8 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 
+import java.net.URI;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -17,6 +19,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 
@@ -49,9 +52,9 @@ public class WebContentResourceChangeListener implements IResourceChangeListener
 
 			case IResource.PROJECT :
 				// Only process web projects
-				IBaseWebNature nature = J2EEWebNatureRuntimeUtilities.getRuntime((IProject) resource);
+			/*	IBaseWebNature nature = ModuleCore.getModuleCoreNature(org.eclipse.emf.common.util.URI.createURI("ADD MODULE URI"));
 				if (nature != null)
-					processWebProject(delta, (IProject) resource, nature);
+					processWebProject(delta, (IProject) resource, nature);*/
 				return;
 
 			default :

@@ -26,6 +26,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
+import org.eclipse.wst.common.modulecore.ModuleCore;
 
 
 /**
@@ -35,6 +37,7 @@ import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
  */
 
 public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo implements IWebProjectWizardInfo {
+	public WebArtifactEdit webArtifactEdit; 
 	private String fContextRoot = null;
 
 	public boolean fJ2EEWebProject = true;
@@ -48,8 +51,8 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	public static final String PROPERTY_PROJECT_NAME = "Project name"; //$NON-NLS-1$
 	public static final String PROPERTY_SERVER_TARGET = "Server Target"; //$NON-NLS-1$
 
-	protected String fJSPLevel = J2EEWebNatureRuntime.JSPLEVEL_1_2;
-	protected String fServletLevel = J2EEWebNatureRuntime.SERVLETLEVEL_2_3;
+	protected String fJSPLevel;
+	protected String fServletLevel;
 	protected IProject wtWebProject;
 	protected String wtProjectName;
 	protected IPath wtProjectLocation;
@@ -468,6 +471,8 @@ public class WebProjectInfo extends org.eclipse.jst.j2ee.internal.project.J2EEJa
 	}
 
 	public void setProject(IProject aProject) {
+		webArtifactEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(aProject);
+		
 		wtWebProject = aProject;
 		super.setProject(aProject);
 	}

@@ -20,11 +20,11 @@ import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 
-public class WebNatureRuntimeUtilities {
+public class WebNatureRuntimeUtilitiesOLD {
 	/**
 	 * WebNatureRuntimeHelper constructor comment.
 	 */
-	public WebNatureRuntimeUtilities() {
+	public WebNatureRuntimeUtilitiesOLD() {
 		super();
 	}
 
