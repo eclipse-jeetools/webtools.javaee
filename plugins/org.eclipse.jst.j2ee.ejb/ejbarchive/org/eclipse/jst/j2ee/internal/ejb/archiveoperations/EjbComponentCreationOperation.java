@@ -77,6 +77,7 @@ public class EjbComponentCreationOperation extends J2EEComponentCreationOperatio
        	} finally {
        		if(ejbEdit != null)
        			ejbEdit.dispose();
+       		ejbEdit = null;
        	}	
        	
 	}
