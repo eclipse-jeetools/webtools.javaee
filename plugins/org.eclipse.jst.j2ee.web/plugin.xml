@@ -210,7 +210,7 @@
             id="org.eclipse.jst.web.server.webresource3">
       </moduleArtifactAdapter>-->
       
-       <moduleArtifactAdapter
+        <moduleArtifactAdapter
             id="org.eclipse.jst.web.server.webresource3">
          <enablement>
            <with variable="selection">
@@ -248,35 +248,35 @@
        </moduleArtifactAdapter>
    </extension>
    
-   <extension point="org.eclipse.core.runtime.adapters">
+     <extension point="org.eclipse.core.runtime.adapters">
          <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IProject">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+            <adapter type="org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact"/>
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jdt.core.ICompilationUnit">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+            <adapter type="org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact"/>
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+            <adapter type="org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact"/>
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.internal.webapplication.Servlet">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+            <adapter type="org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact"/>
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>
        <factory
              class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.jst.j2ee.webapplication.WebApp">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+            <adapter type="org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact"/>
             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/>
        </factory>    
-   </extension>
+   </extension> 
    
 <!-- =============================================================== -->
 <!-- Extension point: com.ibm.etools.server.core.moduleFactories -->
@@ -315,7 +315,10 @@
             class="org.eclipse.jst.j2ee.internal.web.operations.RemoveServletOperation"
             id="org.eclipse.jst.j2ee.internal.web.operations.RemoveServletOperation">
       </extendableOperation>
-      
+      <extendableOperation
+            class="org.eclipse.jst.j2ee.internal.web.operations.RemoveWebSecurityRoleOperation"
+            id="org.eclipse.jst.j2ee.internal.web.operations.RemoveWebSecurityRoleOperation">
+      </extendableOperation>
       <extendableOperation
             class="org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation"
             id="org.eclipse.jst.j2ee.internal.web.operations.AddServletOperation">

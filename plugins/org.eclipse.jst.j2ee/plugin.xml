@@ -494,6 +494,8 @@
             id="com.ibm.wtp.server.j2ee.ear3">
       </moduleArtifactAdapter>
    </extension> -->
+   
+   
    <extension
          point="org.eclipse.wst.server.ui.moduleArtifactAdapters">
     <moduleArtifactAdapter
@@ -523,25 +525,37 @@
          </enablement>
       </moduleArtifactAdapter>
      </extension>
-      
-       <extension point="org.eclipse.core.runtime.adapters">
-         <factory
+     <extension point="org.eclipse.core.runtime.adapters">
+        <factory
              class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IProject">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+            <adapter type="org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact"/>
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
-             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+             adaptableType="org.eclipse.jst.j2ee.application.Application">
+            <adapter type="org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact"/>
         </factory>
         <factory
              class="org.eclipse.jst.j2ee.internal.deployables.EnterpriseDeployableArtifactAdapterFactory"
              adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
-       </factory>
-    
-  
+            <adapter type="org.eclipse.jst.j2ee.internal.deployables.EnterpriseModuleArtifact"/>
+       </factory> 
+       <factory
+             class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IProject">
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+        </factory>
+         <factory
+             class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableAdapterFactory"
+             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+        </factory>
+             <factory
+             class="org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IFile">
+             <adapter type="org.eclipse.wst.server.core.IModuleArtifact"/>
+        </factory>
    </extension>
    
    

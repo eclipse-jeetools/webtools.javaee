@@ -82,7 +82,7 @@ public class WebNatureRuntimeUtilities {
 			if (project.hasNature(IWebNatureConstants.J2EE_NATURE_ID))
 				nature = (IBaseWebNature) project.getNature(IWebNatureConstants.J2EE_NATURE_ID);
 			else
-				nature = (IBaseWebNature) project.getNature(IWebNatureConstants.STATIC_NATURE_ID);
+				nature = (IBaseWebNature) project.getNature("org.eclipse.wst.web.StaticWebNature");
 			return nature;
 		} catch (CoreException e) {
 			return null;
