@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.beaninfo;
  *******************************************************************************/
 /*
  *  $RCSfile: TestAWTSwingUI.java,v $
- *  $Revision: 1.3 $  $Date: 2004/01/13 16:17:20 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/22 23:49:30 $ 
  */
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.jem.internal.beaninfo.MethodProxy;
 import org.eclipse.jem.internal.beaninfo.PropertyDecorator;
-import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
+import org.eclipse.jem.internal.beaninfo.core.Utilities;
 
 import org.eclipse.jem.java.JavaClass;
 

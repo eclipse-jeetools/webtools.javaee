@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.instantiation;
  *******************************************************************************/
 /*
  *  $RCSfile: InstantiationSuite.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/03/22 23:49:30 $ 
  */
 import java.net.URL;
 
@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
+import org.eclipse.jem.internal.beaninfo.core.BeaninfoNature;
 import org.eclipse.jem.internal.instantiation.base.JavaInstantiation;
 import org.eclipse.jem.tests.JavaProjectUtil;
 import org.eclipse.jem.tests.JavaTestsPlugin;

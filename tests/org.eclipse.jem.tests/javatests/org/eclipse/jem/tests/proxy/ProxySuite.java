@@ -11,12 +11,11 @@ package org.eclipse.jem.tests.proxy;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxySuite.java,v $
- *  $Revision: 1.4 $  $Date: 2004/03/04 16:13:39 $ 
+ *  $Revision: 1.5 $  $Date: 2004/03/22 23:49:30 $ 
  */
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 
 import org.eclipse.jem.internal.proxy.core.*;
 import org.eclipse.jem.tests.JavaTestsPlugin;
@@ -78,15 +77,9 @@ public class ProxySuite extends TestSuite {
 	 * @return A contributor for Proxy Suite tests
 	 */
 	public static IConfigurationContributor getProxySuiteContributor() {
-		return new IConfigurationContributor() {
+		return new ConfigurationContributorAdapter() {
 			public void contributeClasspaths(IConfigurationContributionController controller) throws CoreException {
-				controller.contributeClasspath(JavaTestsPlugin.getPlugin(), "vm/tests.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, false);
-			}
-
-			public void contributeToConfiguration(ILaunchConfigurationWorkingCopy config) {
-			}
-
-			public void contributeToRegistry(ProxyFactoryRegistry registry) {
+				controller.contributeClasspath(JavaTestsPlugin.getPlugin().getDescriptor(), "vm/tests.jar", IConfigurationContributionController.APPEND_USER_CLASSPATH, false);
 			}
 		};
 	}

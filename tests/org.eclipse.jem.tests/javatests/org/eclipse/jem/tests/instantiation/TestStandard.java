@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoNature;
+import org.eclipse.jem.internal.beaninfo.core.BeaninfoNature;
 import org.eclipse.jem.internal.instantiation.InitStringAllocation;
 import org.eclipse.jem.internal.instantiation.InstantiationFactory;
 import org.eclipse.jem.internal.instantiation.base.IJavaDataTypeInstance;
