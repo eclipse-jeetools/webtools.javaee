@@ -10,9 +10,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperation;
 import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
 import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-import org.eclipse.wst.common.modulecore.internal.impl.ModuleCoreFactoryImpl;
 
 public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEditOperation {
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
@@ -35,14 +35,14 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 			List list = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
 			if (list != null && list.size() > 0) {
 				for (int i = 0; i < list.size(); i++) {
-					ReferencedComponent rc = ModuleCoreFactoryImpl.eINSTANCE.createReferencedComponent();
+					ReferencedComponent rc = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
 					WorkbenchComponent wc = (WorkbenchComponent)list.get(i);
 					rc.setHandle(wc.getHandle());
 					rc.setRuntimePath(runtimeURI);
 					earComp.getReferencedComponents().add(rc);
 				}
 			}
-			moduleCore.saveIfNecessary(null); 
+			moduleCore.saveIfNecessary(monitor); 
 		 }  finally {
 		       if (null != moduleCore) {
 		            moduleCore.dispose();

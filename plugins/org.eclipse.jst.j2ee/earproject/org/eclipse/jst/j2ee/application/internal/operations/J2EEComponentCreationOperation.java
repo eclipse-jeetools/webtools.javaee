@@ -114,7 +114,11 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 				WorkbenchComponent wc = core.findWorkbenchModuleByDeployName((String)moduleModel.getProperty(J2EEComponentCreationDataModel.COMPONENT_DEPLOY_NAME));
 				AddComponentToEnterpriseApplicationDataModel dm = moduleModel.addComponentToEARDataModel;
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME,wc.getName());
-				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
+				String earModuleName = moduleModel.getStringProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME);
+				if(earModuleName.endsWith("ear"))
+					dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME));
+				else
+					dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,moduleModel.getProperty(J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME));
 				List modulesList = new ArrayList();
 				modulesList.add(wc);
 				dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modulesList);

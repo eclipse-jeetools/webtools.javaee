@@ -56,6 +56,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
 	URI APPLICATION_DD_URI_OBJ			= 	URI.createURI(APPLICATION_DD_URI);
 	/** "application.xml" 													*/
 	String APPLICATION_DD_SHORT_NAME	=	"application.xml"; //$NON-NLS-1$
+	String EAR_FILE_EXT = ".ear"; ////$NON-NLS-1$
 	/** Doc type for application deployment descriptors */
 	String APPLICATION_DOCTYPE 			= 	"application"; //$NON-NLS-1$
 	String APPLICATION_PUBLICID_1_2		=   "-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN"; //$NON-NLS-1$

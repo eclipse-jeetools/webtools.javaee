@@ -13,8 +13,9 @@ import java.util.ArrayList;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.debug.ui.IDebugEditorPresentation;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModel;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
@@ -48,6 +49,8 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	 * type String
 	 */
 	public static final String EAR_MODULE_NAME = "J2EEComponentCreationDataModel.EAR_MODULE_NAME"; //$NON-NLS-1$
+	
+	public static final String EAR_MODULE_DEPLOY_NAME = "J2EEComponentCreationDataModel.EAR_MODULE_DEPLOY_NAME"; //$NON-NLS-1$
 	
 	/**
 	 * type boolean
@@ -95,6 +98,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
 		addValidBaseProperty(EAR_MODULE_NAME);
+		addValidBaseProperty(EAR_MODULE_DEPLOY_NAME);
 		addValidBaseProperty(ADD_TO_EAR);
 		addValidBaseProperty(USE_ANNOTATIONS);
 		addValidBaseProperty(UI_SHOW_EAR_SECTION);
@@ -139,10 +143,11 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		boolean returnValue = super.doSetProperty(propertyName, propertyValue);
 
 		if (propertyName.equals(EAR_MODULE_NAME)) {
-			getAddModuleToApplicationDataModel().setProperty(ArtifactEditOperationDataModel.PROJECT_NAME, propertyValue);
+			setEARDeployNameProperty(propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
-			if (!isSet(EAR_MODULE_NAME))
+			if (!isSet(EAR_MODULE_NAME)) 
 				notifyDefaultChange(EAR_MODULE_NAME);
+			    setEARDeployNameProperty(getStringProperty(EAR_MODULE_NAME));
 		} else if (propertyName.equals(PROJECT_NAME)) {
 			WorkbenchComponent workbenchComp = getTargetWorkbenchComponent();
 			setEARComponentIfJ2EEModuleCreationOnly(workbenchComp,propertyValue);
@@ -154,6 +159,10 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 			return false;
 		}
 		return returnValue;
+	}
+
+	private void setEARDeployNameProperty(Object propertyValue) {
+	   setProperty(EAR_MODULE_DEPLOY_NAME,propertyValue + ArchiveConstants.EAR_FILE_EXT);
 	}
 
 	/**
@@ -184,6 +193,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 	protected final AddComponentToEnterpriseApplicationDataModel getAddModuleToApplicationDataModel() {
 		return addComponentToEARDataModel;
 	}
+
 	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(COMPONENT_VERSION)) {
 			return getValidComponentVersionDescriptors();
