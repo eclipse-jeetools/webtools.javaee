@@ -63,7 +63,10 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	 */
 	public Properties createAntBuildProperties(IResource resource, IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot, String beanPath) {
 		Properties properties = new Properties();
+		ModuleCore  core= null;
+		EJBArtifactEdit ejbEdit = null;
 		try {
+			core = ModuleCore.getModuleCoreForRead(javaProject.getProject());
 			properties.put("ejb", resource.getProject().getName()); //$NON-NLS-1$
 			properties.put("ejb.project.dir", resource.getProject().getLocation().toString()); //$NON-NLS-1$
 			properties.put("ejb.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
@@ -75,9 +78,8 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			url = Platform.asLocalURL(url);
 			File file = new File(url.getFile());
 			properties.put("ant.home", file.getAbsolutePath()); //$NON-NLS-1$
-			ModuleCore  core= ModuleCore.getModuleCoreForRead(javaProject.getProject());
 			WorkbenchComponent ejbModule = null;
-			URI sourcePath = URI.createURI(resource.getFullPath().toString());
+			URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
 			ComponentResource[] moduleResources = core.findWorkbenchModuleResourcesBySourcePath(sourcePath);
 			for (int i = 0; i < moduleResources.length; i++) {
 				ComponentResource moduleResource = moduleResources[i];
@@ -87,7 +89,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 					break;
 			}
 			
-			EJBArtifactEdit ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbModule);
+			ejbEdit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbModule);
 			int j2eeVersion = 0;
 			if (ejbEdit != null) {
 				j2eeVersion = ejbEdit.getJ2EEVersion();
@@ -106,6 +108,11 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 			properties.put("project.path", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (Exception e) {
 			Logger.logException(e);
+		}finally{
+			if(core != null)
+				core.dispose();
+			if(ejbEdit != null)
+				ejbEdit.dispose();
 		}
 		return properties;
 	}

@@ -11,7 +11,6 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.ejb.internal.modulecore.util.EJBArtifactEdit;
@@ -23,8 +22,6 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
-
-
 
 public abstract class NewEjbWizard extends WTPWizard implements INewWizard {
 
@@ -63,15 +60,20 @@ public abstract class NewEjbWizard extends WTPWizard implements INewWizard {
 		IProject project = null;
 		IStructuredSelection selection = getCurrentSelection();
 		if (selection != null && selection.getFirstElement() != null) {
-			project = ProjectUtilities.getProject(selection.getFirstElement());
+			project = JavaProjectUtilities.getProject(selection
+					.getFirstElement());
 		}
 		if (project == null) {
 			IProject[] projects = JavaProjectUtilities.getAllProjects();
 			for (int i = 0; i < projects.length; i++) {
-				ModuleCore core = ModuleCore.getModuleCoreForRead(projects[i]);
-				WorkbenchComponent[] components = core.findWorkbenchModuleByType(EJBArtifactEdit.TYPE_ID);
+				ModuleCore core = null;
+				core = ModuleCore.getModuleCoreForRead(projects[i]);
+				WorkbenchComponent[] components = core
+						.findWorkbenchModuleByType(EJBArtifactEdit.TYPE_ID);
 				if (components != null && components.length > 0) {
 					project = projects[i];
+					if (core != null)
+						core.dispose();
 					break;
 				}
 			}
@@ -80,7 +82,8 @@ public abstract class NewEjbWizard extends WTPWizard implements INewWizard {
 	}
 
 	protected IStructuredSelection getCurrentSelection() {
-		IWorkbenchWindow window = J2EEUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchWindow window = J2EEUIPlugin.getDefault().getWorkbench()
+				.getActiveWorkbenchWindow();
 		if (window != null) {
 			ISelection selection = window.getSelectionService().getSelection();
 			if (selection instanceof IStructuredSelection) {
