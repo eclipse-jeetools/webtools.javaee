@@ -12,10 +12,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportFactory;
+import org.eclipse.jst.j2ee.application.internal.operations.ExtendedImportRegistry;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.ExtendedImportFactory;
-import org.eclipse.jst.j2ee.application.operations.ExtendedImportRegistry;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
