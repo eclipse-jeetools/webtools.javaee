@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin
-   id="org.eclipse.wtp.common"
-   name="org.eclipse.wtp.common"
+   id="com.ibm.wtp.common"
+   name="com.ibm.wtp.common"
    version="1.0.0"
-   class="org.eclipse.wtp.common.plugin.WTPCommonPlugin">
+   class="com.ibm.wtp.common.plugin.WTPCommonPlugin">
 
    <runtime>
       <library name="common.jar">
@@ -30,30 +30,30 @@
    <extension
          id="context.Sensitive.Class.workingCopyManager"
          name="Working Copy Manager - Headless Context Class"
-         point="org.eclipse.wtp.common.uiContextSensitiveClass">
+         point="com.ibm.wtp.common.uiContextSensitiveClass">
       <uiContextSensitiveClass
             context="Headless"
             key="workingCopyManager"
-            className="org.eclipse.wtp.common.WTPWorkingCopyManager">
+            className="com.ibm.wtp.common.WTPWorkingCopyManager">
       </uiContextSensitiveClass>
    </extension>
    <extension
          id="context.Sensitive.Class.saveHandler"
          name="Save Handler - Headless Context Class"
-         point="org.eclipse.wtp.common.uiContextSensitiveClass">
+         point="com.ibm.wtp.common.uiContextSensitiveClass">
       <uiContextSensitiveClass
             context="Headless"
             key="saveHandler"
-            className="org.eclipse.wtp.common.SaveHandlerHeadless">
+            className="com.ibm.wtp.common.SaveHandlerHeadless">
       </uiContextSensitiveClass>
    </extension>
    <extension
-         id="org.eclipse.wtp.common.enablement"
-         point="org.eclipse.wtp.common.uiContextSensitiveClass">
+         id="com.ibm.wtp.common.enablement"
+         point="com.ibm.wtp.common.uiContextSensitiveClass">
       <uiContextSensitiveClass
             context="Headless"
-            key="org.eclipse.wtp.common.EnablementDetermination"
-            className="org.eclipse.wtp.internal.enablement.EnablementManager">
+            key="com.ibm.wtp.common.EnablementDetermination"
+            className="com.ibm.wtp.internal.enablement.EnablementManager">
       </uiContextSensitiveClass>
    </extension>
 

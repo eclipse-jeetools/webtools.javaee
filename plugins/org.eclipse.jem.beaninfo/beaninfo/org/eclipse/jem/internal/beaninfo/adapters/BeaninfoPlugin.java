@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoPlugin.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/20 00:43:53 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/24 19:33:46 $ 
  */
 
 
@@ -19,8 +19,8 @@ import java.util.*;
 
 import org.eclipse.core.runtime.*;
 
-import org.eclipse.wtp.common.logger.proxy.Logger;
-import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
+import com.ibm.wtp.common.logger.proxy.Logger;
+import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 
 import org.eclipse.jem.internal.proxy.core.ProxyPlugin;
 

@@ -8,14 +8,14 @@ package org.eclipse.jem.internal.plugin;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.3 $ $Date: 2004/02/20 00:44:17 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.4 $ $Date: 2004/02/24 19:33:35 $
  */
 
 import org.eclipse.core.runtime.*;
 
-import org.eclipse.wtp.common.logger.proxy.Logger;
-import org.eclipse.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
-import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
+import com.ibm.wtp.common.logger.proxy.Logger;
+import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
+import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 
 import org.eclipse.jem.internal.adapters.jdom.JavaJDOMAdapterFactory;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;

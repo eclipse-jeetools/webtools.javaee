@@ -8,7 +8,7 @@ package org.eclipse.jem.workbench.utility;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.1 $ $Date: 2004/01/13 21:12:11 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.2 $ $Date: 2004/02/24 19:33:35 $
  */
 
 import java.util.List;
@@ -16,8 +16,8 @@ import java.util.List;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.IPath;
 
-import org.eclipse.wtp.emf.workbench.ProjectUtilities;
-import org.eclipse.wtp.emf.workbench.WorkbenchResourceHelper;
+import com.ibm.wtp.emf.workbench.ProjectUtilities;
+import com.ibm.wtp.emf.workbench.WorkbenchResourceHelper;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;

@@ -3,11 +3,12 @@
 	<name>org.eclipse.jem</name>
 	<comment></comment>
 	<projects>
+		<project>com.ibm.wtp.common</project>
 		<project>org.eclipse.core.boot</project>
 		<project>org.eclipse.core.runtime</project>
+		<project>org.eclipse.core.runtime.compatibility</project>
 		<project>org.eclipse.emf.ecore.xmi</project>
 		<project>org.eclipse.osgi</project>
-		<project>org.eclipse.wtp.common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoNature.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/20 00:43:53 $ 
+ *  $Revision: 1.5 $  $Date: 2004/02/24 19:33:46 $ 
  */
 
 import java.io.*;
@@ -33,7 +33,7 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
-import org.eclipse.wtp.emf.workbench.ResourceHandler;
+import com.ibm.wtp.emf.workbench.ResourceHandler;
 
 import org.eclipse.jem.internal.java.adapters.JavaXMIFactoryImpl;
 import org.eclipse.jem.internal.java.beaninfo.IIntrospectionAdapter;

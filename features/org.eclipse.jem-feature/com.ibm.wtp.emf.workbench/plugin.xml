@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin
-   id="org.eclipse.wtp.emf.workbench"
+   id="com.ibm.wtp.emf.workbench"
    name="EMF Workbench"
    version="0.5.0"
    provider-name="IBM"
-   class="org.eclipse.wtp.emf.workbench.plugin.EMFWorkbenchPlugin">
+   class="com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin">
 
    <runtime>
       <library name="runtime/emfworkbench.jar">
@@ -16,10 +16,10 @@
       <import plugin="org.apache.xerces"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.wtp.common"/>
+      <import plugin="com.ibm.wtp.common"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.wtp.emf"/>
+      <import plugin="com.ibm.wtp.emf"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
    </requires>
 

@@ -16,10 +16,10 @@
       <import plugin="org.eclipse.jem"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.wtp.common"/>
+      <import plugin="com.ibm.wtp.common"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.wtp.emf"/>
-      <import plugin="org.eclipse.wtp.emf.workbench"/>
+      <import plugin="com.ibm.wtp.emf"/>
+      <import plugin="com.ibm.wtp.emf.workbench"/>
       <import plugin="org.eclipse.jem.proxy"/>
    </requires>
 

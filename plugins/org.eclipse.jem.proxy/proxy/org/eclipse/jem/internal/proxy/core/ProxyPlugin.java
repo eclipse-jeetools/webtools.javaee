@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.5 $  $Date: 2004/02/20 00:44:05 $ 
+ *  $Revision: 1.6 $  $Date: 2004/02/24 19:33:52 $ 
  */
 
 
@@ -31,8 +31,8 @@ import org.eclipse.jdt.launching.*;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.*;
 
-import org.eclipse.wtp.common.logger.proxy.Logger;
-import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
+import com.ibm.wtp.common.logger.proxy.Logger;
+import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 
 /**
  * The plugin class for the org.eclipse.jem.internal.proxy.core plugin.

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin
-   id="org.eclipse.wtp.emf"
+   id="com.ibm.wtp.emf"
    name="EMF Utilities"
    version="0.5.0"
    provider-name="IBM"
-   class="org.eclipse.wtp.internal.emf.plugin.EcoreUtilitiesPlugin">
+   class="com.ibm.wtp.internal.emf.plugin.EcoreUtilitiesPlugin">
 
    <runtime>
       <library name="runtime/wtpemf.jar">
@@ -18,7 +18,7 @@
    <requires>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.apache.xerces"/>
-      <import plugin="org.eclipse.wtp.common"/>
+      <import plugin="com.ibm.wtp.common"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
    </requires>
 
@@ -27,7 +27,7 @@
 
 <!-- Need to register the Ecore specific package mappings -->
    <extension
-         point="org.eclipse.wtp.emf.packageURIMap">
+         point="com.ibm.wtp.emf.packageURIMap">
       <map
             uri="http://www.eclipse.org/emf/2002/Ecore"
             prefix="ecore">

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.4 $  $Date: 2004/02/20 00:44:17 $ 
+ *  $Revision: 1.5 $  $Date: 2004/02/24 19:33:35 $ 
  */
 
 import java.util.*;
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.jdt.core.*;
 
-import org.eclipse.wtp.common.UIContextDetermination;
+import com.ibm.wtp.common.UIContextDetermination;
 
 import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;

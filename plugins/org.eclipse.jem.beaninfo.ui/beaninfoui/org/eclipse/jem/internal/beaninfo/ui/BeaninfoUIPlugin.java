@@ -11,15 +11,15 @@ package org.eclipse.jem.internal.beaninfo.ui;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoUIPlugin.java,v $
- *  $Revision: 1.2 $  $Date: 2004/02/20 00:43:49 $ 
+ *  $Revision: 1.3 $  $Date: 2004/02/24 19:33:32 $ 
  */
 
 
 import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-import org.eclipse.wtp.common.logger.proxy.Logger;
-import org.eclipse.wtp.logger.proxyrender.EclipseLogger;
+import com.ibm.wtp.common.logger.proxy.Logger;
+import com.ibm.wtp.logger.proxyrender.EclipseLogger;
 /**
  * Plugin class for the Beaninfo UI Plugin
  */

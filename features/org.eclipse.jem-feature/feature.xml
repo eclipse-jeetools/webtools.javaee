@@ -50,7 +50,7 @@
          version="1.0.0"/>
 
    <plugin
-         id="org.eclipse.wtp.emf"
+         id="com.ibm.wtp.emf"
          download-size="0"
          install-size="0"
          version="0.5.0"/>
@@ -62,13 +62,13 @@
          version="3.0.0.1"/>
 
    <plugin
-         id="org.eclipse.wtp.emf.workbench"
+         id="com.ibm.wtp.emf.workbench"
          download-size="0"
          install-size="0"
          version="0.5.0"/>
          
    <plugin
-         id="org.eclipse.wtp.common"
+         id="com.ibm.wtp.common"
          download-size="0"
          install-size="0"
          version="1.0.0"/>         
