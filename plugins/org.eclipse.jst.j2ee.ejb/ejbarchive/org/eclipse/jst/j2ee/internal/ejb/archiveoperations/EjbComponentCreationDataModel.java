@@ -155,6 +155,8 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CREATE_CLIENT)) {
 			return Boolean.TRUE;
+		} else if (propertyName.equals(ADD_TO_EAR)) {
+			return Boolean.TRUE;
 		} else if (propertyName.equals(CREATE_DEFAULT_SESSION_BEAN)) {
 			return Boolean.FALSE;
 		} else if (propertyName.equals(DD_FOLDER)) {
