@@ -16,20 +16,15 @@
  */
 package org.eclipse.jst.j2ee.application.operations;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.ICommand;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 
 public abstract class FlexibleJ2EEModuleCreationOperation extends FlexibleJ2EECreationOperation {
 	/**

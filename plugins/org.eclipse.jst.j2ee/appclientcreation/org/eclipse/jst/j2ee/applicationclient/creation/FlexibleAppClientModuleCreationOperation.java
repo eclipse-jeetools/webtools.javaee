@@ -23,13 +23,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.FlexibleJ2EEModuleCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreFactory;
+import org.eclipse.wst.common.modulecore.ModuleType;
+import org.eclipse.wst.common.modulecore.ProjectModules;
+import org.eclipse.wst.common.modulecore.WorkbenchModule;
+import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ProjectComponents;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
@@ -38,8 +41,6 @@ import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperatio
 import org.eclipse.wst.common.modulecore.internal.operation.ArtifactEditOperationDataModel;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
-import com.ibm.wtp.emf.workbench.ProjectUtilities;
-
 public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModuleCreationOperation {
 
     public FlexibleAppClientModuleCreationOperation(FlexibleAppClientCreationDataModel dataModel) {
@@ -47,62 +48,68 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
     }
 
     protected void createDeploymentDescriptor(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		ArtifactEditOperation op = new ArtifactEditOperation( (FlexibleJ2EEModuleCreationDataModel) operationDataModel){
-		    protected void execute(IProgressMonitor localMonitor) throws CoreException, InvocationTargetException, InterruptedException {
-		        AppClientArtifactEdit artifactEdit = null;
-		        try{
+        createProjectStructure();
+        createModule();
+        AppClientArtifactEdit artifactEdit = null;
+        try {
 		            WorkbenchComponent wbModule = getWorkbenchModule();
-					artifactEdit =  AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbModule);
-					IProject rootProject = getDataModel().getTargetProject();
-					URI metainfURI = URI.createURI(rootProject.getName()+IPath.SEPARATOR+getModuleName()+".jar");
-					IPath absMetaRoot = ProjectUtilities.getJavaProjectOutputAbsoluteLocation(rootProject).append(metainfURI.toString());
-					createFolder(absMetaRoot);
-	
-					artifactEdit.getDeploymentDescriptorRoot();
-					AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel) operationDataModel;
-					if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
-						NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
-						mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, dataModel.getProjectDataModel().getProject().getName());
-						mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
-						mainClassDataModel.setBooleanProperty(NewJavaClassDataModel.MAIN_METHOD, true);
-						mainClassDataModel.getDefaultOperation().run(localMonitor);
-						dataModel.getUpdateManifestDataModel().setProperty(UpdateManifestDataModel.MAIN_CLASS, mainClassDataModel.getProperty(NewJavaClassDataModel.CLASS_NAME));
-					}
-		        } finally {
-		            if(artifactEdit != null)
-		                artifactEdit.dispose();
-		            artifactEdit = null;
-		        }
-			}
-		};
-        op.doRun(monitor);
+            artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbModule);
+
+            artifactEdit.getDeploymentDescriptorRoot();
+            AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel) operationDataModel;
+            if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
+                NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
+                mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, dataModel.getProjectDataModel().getProject().getName());
+                mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
+                mainClassDataModel.setBooleanProperty(NewJavaClassDataModel.MAIN_METHOD, true);
+                mainClassDataModel.getDefaultOperation().run(monitor);
+                dataModel.getUpdateManifestDataModel().setProperty(UpdateManifestDataModel.MAIN_CLASS, mainClassDataModel.getProperty(NewJavaClassDataModel.CLASS_NAME));
+            }
+        } finally {
+            if (artifactEdit != null)
+                artifactEdit.dispose();
+            artifactEdit = null;
+        }
+
     }
-	/**
-	 * Create a folder for given absolute path
-	 * 
-	 * @exception com.ibm.itp.core.api.resources.CoreException
-	 */
-	private IFolder createFolder(IPath absolutePath) throws CoreException {
-		if (absolutePath == null || absolutePath.isEmpty())
-			return null;
-		IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
-		// check if the parent is there
-		IContainer parent = folder.getParent();
-		if (parent != null && !parent.exists() && (parent instanceof IFolder))
-			createFolder(parent.getFullPath());
-		if (!folder.exists())
-			folder.create(true, true, new NullProgressMonitor());
-		return folder;
-	}
+
+    /**
+     * 
+     */
+    private void createProjectStructure() throws CoreException {
+        IProject rootProject = getDataModel().getTargetProject();
+        URI metainfURI = URI.createURI(IPath.SEPARATOR + getModuleName() + ".jar" + IPath.SEPARATOR + "appClientModule" + IPath.SEPARATOR + "META-INF");
+        IPath absMetaRoot = rootProject.getLocation().append(metainfURI.toString());
+        createFolder(absMetaRoot);
+    }
+
+    /**
+     * Create a folder for given absolute path
+     * 
+     * @exception com.ibm.itp.core.api.resources.CoreException
+     */
+    private IFolder createFolder(IPath absolutePath) throws CoreException {
+        if (absolutePath == null || absolutePath.isEmpty())
+            return null;
+        IFolder folder = getWorkspace().getRoot().getFolder(absolutePath);
+        // check if the parent is there
+        IContainer parent = folder.getParent();
+        if (parent != null && !parent.exists() && (parent instanceof IFolder))
+            createFolder(parent.getFullPath());
+        if (!folder.exists())
+            folder.create(true, true, new NullProgressMonitor());
+        return folder;
+    }
+
     /**
      * @return
      */
-    private WorkbenchComponent getWorkbenchModule() {
+    private WorkbenchModule getWorkbenchModule() {
         ModuleCore moduleCore = null;
-        WorkbenchComponent module = null;
+        WorkbenchModule module = null;
         try {
-            moduleCore = ModuleCore.getModuleCoreForRead(((FlexibleAppClientCreationDataModel)operationDataModel).getTargetProject());
-            module = moduleCore.findWorkbenchModuleByDeployName(((FlexibleAppClientCreationDataModel)operationDataModel).getStringProperty(ArtifactEditOperationDataModel.MODULE_NAME));
+            moduleCore = ModuleCore.getModuleCoreForRead(((FlexibleAppClientCreationDataModel) operationDataModel).getTargetProject());
+            module = moduleCore.findWorkbenchModuleByDeployName(((FlexibleAppClientCreationDataModel) operationDataModel).getStringProperty(ArtifactEditOperationDataModel.MODULE_NAME));
         } finally {
             if (null != moduleCore) {
                 moduleCore.dispose();
@@ -110,91 +117,96 @@ public class FlexibleAppClientModuleCreationOperation extends FlexibleJ2EEModule
         }
         return module;
     }
-    
-	public FlexibleAppClientCreationDataModel getDataModel() {
-		return (FlexibleAppClientCreationDataModel)operationDataModel;
-	}
-	
-    private void createModule() {
-    	ModuleCore moduleCore = null;
-		try {
-			IProject containingProject = getDataModel().getTargetProject();
-			moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
-			moduleCore.prepareProjectModulesIfNecessary(); 
-			ProjectComponents projectModules = moduleCore.getModuleModelRoot();
-			addContent(projectModules);
-			moduleCore.saveIfNecessary(null); 
-		} finally {
-			if(moduleCore != null)
-				moduleCore.dispose();
-		}     
-   }
-    
-	/**
-	 * @param projectModules
-	 */
-	private void addContent(ProjectComponents projectModules) {
-	    WorkbenchComponent webModule = addWorkbenchModule(projectModules, getModuleName()+".jar", createModuleURI()); //$NON-NLS-1$
-		IProject aProject = getDataModel().getTargetProject();
-		addResource(webModule, getModuleRelativeFile(getContentSourcePath(), aProject), getContentDeployPath());
-		addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath(), aProject), getJavaSourceDeployPath());
-	}
-	
-	/**
-	 * @return
-	 */
-	private URI createModuleURI() {
-		return URI.createURI("module:/resource/"+getDataModel().getTargetProject().getName()+IPath.SEPARATOR+getModuleName()+".jar"); //$NON-NLS-1$ //$NON-NLS-2$
-	}
 
-	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();		
-		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
-		resource.setRuntimePath(URI.createURI(aDeployPath));
-		aModule.getResources().add(resource);
-	}
+    public FlexibleAppClientCreationDataModel getDataModel() {
+        return (FlexibleAppClientCreationDataModel) operationDataModel;
+    }
+
+    private void createModule() {
+        ModuleCore moduleCore = null;
+        try {
+            IProject containingProject = getDataModel().getTargetProject();
+            moduleCore = ModuleCore.getModuleCoreForWrite(containingProject);
+            moduleCore.prepareProjectModulesIfNecessary();
+            ProjectModules projectModules = moduleCore.getModuleModelRoot();
+            addContent(projectModules);
+            moduleCore.saveIfNecessary(null);
+        } finally {
+            if (moduleCore != null)
+                moduleCore.dispose();
+        }
+    }
+
+    /**
+     * @param projectModules
+     */
+    private void addContent(ProjectModules projectModules) {
+        WorkbenchModule webModule = addWorkbenchModule(projectModules, getModuleName() + ".jar", createModuleURI()); //$NON-NLS-1$
+        IProject aProject = getDataModel().getTargetProject();
+        addResource(webModule, getModuleRelativeFile(getContentSourcePath(), aProject), getContentDeployPath());
+        addResource(webModule, getModuleRelativeFile(getJavaSourceSourcePath(), aProject), getJavaSourceDeployPath());
+    }
+
+    /**
+     * @return
+     */
+    private URI createModuleURI() {
+        return URI.createURI("module:/resource/" + getDataModel().getTargetProject().getName() + IPath.SEPARATOR + getModuleName() + ".jar"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    public void addResource(WorkbenchModule aModule, IResource aSourceFile, String aDeployPath) {
+        WorkbenchModuleResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
+        resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
+        resource.setDeployedPath(URI.createURI(aDeployPath));
+        aModule.getResources().add(resource);
+    }
+
+    public WorkbenchModule addWorkbenchModule(ProjectModules theModules, String aDeployedName, URI aHandle) {
+        WorkbenchModule module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
 		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
-		module.setHandle(aHandle);  
-		module.setName(aDeployedName);  
-		ComponentType type = ModuleCoreFactory.eINSTANCE.createComponentType();
-		type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
-		module.setComponentType(type);
-		theModules.getComponents().add(module);
-		return module;
-	}
-	public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
-		return getDataModel().getTargetProject().getFile(new Path(IPath.SEPARATOR + aModuleRelativePath));
-	}
-	/**
-	 * @return
-	 */
-	public String getJavaSourceSourcePath() {
-		return "/appClientModule"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJavaSourceDeployPath() {
-		return "/appClientModule/"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getContentSourcePath() {
-		return "/appClientModule/META-INF"; //$NON-NLS-1$
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getContentDeployPath() {
-		return "/appClientModule/META-INF"; //$NON-NLS-1$
-	}
-	
-	public String getModuleName() {
-		return getDataModel().getModuleName();
-	}
+        module.setHandle(aHandle);
+        module.setDeployedName(aDeployedName);
+        ModuleType type = ModuleCoreFactory.eINSTANCE.createModuleType();
+        type.setModuleTypeId(IModuleConstants.JST_WEB_MODULE);
+        module.setModuleType(type);
+        theModules.getWorkbenchModules().add(module);
+        return module;
+    }
+
+    public IFile getModuleRelativeFile(String aModuleRelativePath, IProject project) {
+        return getDataModel().getTargetProject().getFile(new Path(IPath.SEPARATOR + aModuleRelativePath));
+    }
+
+    /**
+     * @return
+     */
+    public String getJavaSourceSourcePath() {
+        return "/appClientModule"; //$NON-NLS-1$
+    }
+
+    /**
+     * @return
+     */
+    public String getJavaSourceDeployPath() {
+        return "/appClientModule/"; //$NON-NLS-1$
+    }
+
+    /**
+     * @return
+     */
+    public String getContentSourcePath() {
+        return "/appClientModule/META-INF"; //$NON-NLS-1$
+    }
+
+    /**
+     * @return
+     */
+    public String getContentDeployPath() {
+        return "/appClientModule/META-INF"; //$NON-NLS-1$
+    }
+
+    public String getModuleName() {
+        return getDataModel().getModuleName();
+    }
 }
