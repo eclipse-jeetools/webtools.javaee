@@ -176,7 +176,8 @@ public class NewModuleGroup {
 
 	public void dispose() {
 		if (synchHelper != null) {
-			model.removeListener(synchHelper);
+			if (model != null)
+				model.removeListener(synchHelper);
 			synchHelper.dispose();
 		}
 		model = null;

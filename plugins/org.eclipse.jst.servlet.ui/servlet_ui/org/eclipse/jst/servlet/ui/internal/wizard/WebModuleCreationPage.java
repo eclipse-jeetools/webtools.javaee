@@ -87,6 +87,7 @@ public class WebModuleCreationPage extends J2EEModuleCreationPage {
 
 	public void dispose() {
 		super.dispose();
-		annotationsGroup.dispose();
+		if (annotationsGroup != null)
+			annotationsGroup.dispose();
 	}
 }

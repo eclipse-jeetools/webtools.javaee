@@ -138,6 +138,8 @@ public class ServerEarAndStandaloneGroup {
 		ISelection selection = window.getSelectionService().getSelection();
 		if (selection == null)
 			return null;
+		if (!(selection instanceof StructuredSelection))
+			return null;
 		StructuredSelection stucturedSelection = (StructuredSelection) selection;
 		Object obj = stucturedSelection.getFirstElement();
 		if (obj instanceof IProject) {
