@@ -200,6 +200,9 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 		if (propertyName.equals(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER)) {
 			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "JavaSource";
 		}		
+		if (propertyName.equals(MANIFEST_FOLDER)) {
+			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.META_INF;
+		}			
 		return super.getDefaultProperty(propertyName);
 	}
 

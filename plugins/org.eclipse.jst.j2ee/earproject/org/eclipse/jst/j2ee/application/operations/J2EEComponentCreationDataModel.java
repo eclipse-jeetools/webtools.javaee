@@ -70,6 +70,13 @@ public abstract class J2EEComponentCreationDataModel extends ComponentCreationDa
 	 * type Integer
 	 */
 	public static final String J2EE_VERSION = "J2EEComponentCreationDataModel.J2EE_VERSION"; //$NON-NLS-1$
+	
+	/**
+	 * type String
+	 */
+	public static final String MANIFEST_FOLDER = "J2EEComponentCreationDataModel.MANIFEST_FOLDER"; //$NON-NLS-1$
+	
+	
     
 	private AddModuleToEARDataModel addModuleToEARDataModel;
 
@@ -90,6 +97,7 @@ public abstract class J2EEComponentCreationDataModel extends ComponentCreationDa
 		addValidBaseProperty(DD_FOLDER);
 		addValidBaseProperty(JAVASOURCE_FOLDER);
 		addValidBaseProperty(J2EE_VERSION);
+		addValidBaseProperty(MANIFEST_FOLDER);
 	}
 
 	protected void initNestedModels() {

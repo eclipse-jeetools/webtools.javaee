@@ -40,10 +40,10 @@ public class AppClientComponentCreationOperation extends J2EEComponentCreationOp
 
             //TODO: create dd
             
-            AppClientModuleCreationDataModel dataModel = (AppClientModuleCreationDataModel) operationDataModel;
-            if (dataModel.getBooleanProperty(AppClientModuleCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
+        	AppClientComponentCreationDataModel dataModel = (AppClientComponentCreationDataModel) operationDataModel;
+            if (dataModel.getBooleanProperty(AppClientComponentCreationDataModel.CREATE_DEFAULT_MAIN_CLASS)) {
                 NewJavaClassDataModel mainClassDataModel = new NewJavaClassDataModel();
-                mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, dataModel.getProjectDataModel().getProject().getName());
+                mainClassDataModel.setProperty(NewJavaClassDataModel.PROJECT_NAME, getProject().getName());
                 mainClassDataModel.setProperty(NewJavaClassDataModel.CLASS_NAME, "Main"); //$NON-NLS-1$
                 mainClassDataModel.setBooleanProperty(NewJavaClassDataModel.MAIN_METHOD, true);
                 mainClassDataModel.getDefaultOperation().run(monitor);

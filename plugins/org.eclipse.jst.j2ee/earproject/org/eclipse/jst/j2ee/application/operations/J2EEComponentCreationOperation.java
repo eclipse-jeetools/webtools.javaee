@@ -16,10 +16,13 @@
  */
 package org.eclipse.jst.j2ee.application.operations;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import org.eclipse.core.internal.resources.File;
 import org.eclipse.core.resources.ICommand;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -37,6 +40,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.modulecore.ComponentResource;
 import org.eclipse.wst.common.modulecore.ComponentType;
 import org.eclipse.wst.common.modulecore.ModuleCore;
@@ -71,6 +76,7 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 		
 		if (dataModel.getBooleanProperty(J2EEComponentCreationDataModel.CREATE_DEFAULT_FILES)) {
 			createDeploymentDescriptor(monitor);
+			createManifest(monitor);
 		}
 		
 		addSrcFolderToProject();
@@ -203,19 +209,26 @@ public abstract class J2EEComponentCreationOperation extends ComponentCreationOp
 	/**
 	 * @param monitor
 	 */
-//	protected void createManifest(J2EENature nature, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-//		if (nature.getEMFRoot() != null) {
-//			try {
-//				IFile file = nature.getEMFRoot().getFile(new Path(J2EEConstants.MANIFEST_URI));
-//				ManifestFileCreationAction.createManifestFile(file, nature.getProject());
-//			} catch (IOException ioe) {
-//				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ioe);
-//				return;
-//			}
-//			UpdateManifestOperation op = new UpdateManifestOperation(((J2EEModuleCreationDataModel) operationDataModel).getUpdateManifestDataModel());
-//			op.doRun(monitor);
-//		}
-//	}
+	protected void createManifest(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		
+		String manifestFolder = operationDataModel.getStringProperty(J2EEComponentCreationDataModel.MANIFEST_FOLDER);
+		IContainer container = getProject().getFolder( manifestFolder );
+
+		IFile file = container.getFile( new Path(J2EEConstants.MANIFEST_SHORT_NAME));
+		
+		try {
+			ManifestFileCreationAction.createManifestFile(file, getProject());
+		}
+		catch (CoreException e) {
+			Logger.getLogger().log(e);
+		}
+		catch (IOException e) {
+			Logger.getLogger().log(e);
+		}
+//		UpdateManifestOperation op = new UpdateManifestOperation(((J2EEModuleCreationDataModel) operationDataModel).getUpdateManifestDataModel());
+//		op.doRun(monitor);		
+
+	}
 
 
 

@@ -23,6 +23,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
 		/** "META-INF/MANIFEST.MF" 												*/
 	String MANIFEST_URI	 				=	"META-INF/MANIFEST.MF"; //$NON-NLS-1$
 	URI MANIFEST_URI_OBJ	 			=	URI.createURI(MANIFEST_URI);
+	String MANIFEST_SHORT_NAME			= 	"MANIFEST.MF"; //$NON-NLS-1$
 
 		/** "META-INF" 															*/
 	String META_INF						=	"META-INF"; //$NON-NLS-1$

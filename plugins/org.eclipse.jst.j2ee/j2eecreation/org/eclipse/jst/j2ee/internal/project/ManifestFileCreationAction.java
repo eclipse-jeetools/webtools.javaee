@@ -41,11 +41,11 @@ public class ManifestFileCreationAction {
 
 	public static void createManifestFile(IFile file, IProject aJ2EEProject) throws CoreException, IOException {
 		try {
-			if (!JavaProjectUtilities.isBinaryProject(aJ2EEProject)) {
+			//if (!JavaProjectUtilities.isBinaryProject(aJ2EEProject)) {
 				WorkbenchByteArrayOutputStream out = new WorkbenchByteArrayOutputStream(file);
 				out.write(MANIFEST_HEADER.getBytes());
 				out.close();
-			}
+			//}
 		} catch (IOException ioe) {
 			throw ioe;
 		}

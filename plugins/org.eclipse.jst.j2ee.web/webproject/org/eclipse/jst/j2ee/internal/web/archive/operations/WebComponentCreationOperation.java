@@ -109,11 +109,9 @@ public class WebComponentCreationOperation extends J2EEComponentCreationOperatio
 
        		webEdit = WebArtifactEdit.getWebArtifactEditForWrite( wbmodule );
        		String projPath = getProject().getLocation().toOSString();
-       		//projPath += this.getDeploymentDescriptorFolder() + IPath.SEPARATOR + J2EEConstants.WEBAPP_DD_SHORT_NAME;       		
 	
        		projPath += operationDataModel.getProperty( WebComponentCreationDataModel.DD_FOLDER );
        		projPath +=IPath.SEPARATOR + J2EEConstants.WEBAPP_DD_SHORT_NAME;
-//       		projPath += IPath.SEPARATOR + moduleName + IPath.SEPARATOR + "WebContent" + IPath.SEPARATOR + J2EEConstants.WEB_INF + IPath.SEPARATOR + J2EEConstants.WEBAPP_DD_SHORT_NAME;
 
        		IPath webxmlPath = new Path(projPath);
        		boolean b = webxmlPath.isValidPath(webxmlPath.toString());
