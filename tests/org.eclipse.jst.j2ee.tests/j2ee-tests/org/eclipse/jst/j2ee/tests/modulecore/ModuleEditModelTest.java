@@ -19,7 +19,6 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -29,6 +28,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.util.WebEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
@@ -44,6 +44,7 @@ import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.common.modulecore.WorkbenchModuleResource;
 import org.eclipse.wst.common.modulecore.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.modulecore.util.ModuleCore;
+import org.eclipse.wst.common.modulecore.util.ResourceTreeRoot;
 
 /**
  * <p>
@@ -81,18 +82,38 @@ public class ModuleEditModelTest extends TestCase {
 		testCreateWTPModulesResource();
 		super.setUp();
 	}
+	
+	public void testResourceTree() throws Exception {
+		ModuleStructuralModel structuralModel = null;
+		try {
+			/* We need to find the project */
+			structuralModel = ModuleCore.getModuleStructuralModelForRead(ModuleCore.getContainingProject(getModuleURI()), this);
+			ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_CLASS);
+			WorkbenchModule module = editUtility.getWorkbenchModules()[0];
+			ResourceTreeRoot root = ModuleCore.getSourceResourceTreeRoot(module);
+			WorkbenchModuleResource[] resources = root.findModuleResources(URI.createURI("/MyModulesProject/WebContent/WEB-INF/web.xml"));			
+			System.out.println(resources[0] != null ? resources[0].getSourcePath().toString() : "NOT FOUND");
+		
+		} finally {
+			if (structuralModel != null)
+				structuralModel.releaseAccess(this);
+		}
+		
+	}
 
 	public void testLoadResource() throws Exception {
 
 		ArtifactEditModel artifactModel = null;
 		try {
-			artifactModel = getNature(getProject()).getModuleEditModelForRead(getModuleURI(), this);
-			Resource resource = artifactModel.getPrimaryResource();
-			EObject rootObject = (EObject) resource.getContents().get(0);
-			if (rootObject == null)
+			URI moduleURI = URI.createURI("module:/resource/"+getProjectName()+"/"+getProjectName()+".war");
+			artifactModel = getNature(getProject()).getModuleEditModelForRead(moduleURI, this);
+			WebEdit editUtility = (WebEdit) artifactModel.getAdapter(WebEdit.ADAPTER_TYPE);
+			
+			WebApp webApp = editUtility.getWebApplication();
+			if (webApp == null)
 				System.out.println("Read failed.");
 			else
-				System.out.println("Found WebApp: " + ((WebApp) rootObject).getDisplayName()); 
+				System.out.println("Found WebApp: " + webApp.getDisplayName()); 
 		} finally {
 			if (artifactModel != null)
 				artifactModel.releaseAccess(this);
@@ -115,8 +136,8 @@ public class ModuleEditModelTest extends TestCase {
 				/* We need to find the project */
 				structuralModel = ModuleCore.getModuleStructuralModelForRead(ModuleCore.getContainingProject(uri), this);
 				ModuleCore editUtility = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_CLASS);
-				WorkbenchModuleResource resource = editUtility.findWorkbenchModuleResourceByDeployPath(uri);
-				System.out.println(resource != null ? resource.getSourcePath().toString() : "NOT FOUND");
+				WorkbenchModuleResource[] resource = editUtility.findWorkbenchModuleResourceByDeployPath(uri);
+				System.out.println(resource != null ? resource[0].getSourcePath().toString() : "NOT FOUND");
 			} finally {
 				if (structuralModel != null)
 					structuralModel.releaseAccess(this);
