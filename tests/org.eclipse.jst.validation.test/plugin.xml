@@ -20,6 +20,9 @@
       <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.frameworks"/>
+      <import plugin="org.eclipse.jem"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.jst.j2ee"/>
    </requires>
 
 
@@ -51,5 +54,390 @@
          </run>
       </application>
    </extension> -->
-
+   
+<!--========================================-->
+<!-- Builder (used only for BVT test input) -->
+<!--========================================-->
+   <extension
+         id="bvtbuilder"
+         name="Validation BVT Test Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="org.eclipse.jst.validation.test.fwk.TestOpConstrBuilder">
+         </run>
+      </builder>
+   </extension>
+<!--=============================================================-->
+<!--                   FWK Test Validators                       -->
+<!--                                                             -->
+<!-- These validators must not be enabled by default or some     -->
+<!-- other BVT test cases (e.g. j2ee) will fail because          -->
+<!-- messages will exist in the task list.                       -->
+<!--=============================================================-->
+<!-- 
+       The FWKTestValidator supports full validation, and manual 
+       incremental build validation, but not automatic incremental 
+       build validation. 
+    -->
+   <extension
+         id="FwkTestValidator"
+         name="VF Test Validator"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <projectNature
+               id="org.eclipse.jdt.core.javanature">
+         </projectNature>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.java">
+         </filter>
+         <helper
+               class="org.eclipse.jst.validation.test.fwk.validator.FwkTestHelper">
+         </helper>
+         <run
+               enabled="false"
+               class="org.eclipse.jst.validation.test.fwk.validator.FwkTestValidator"
+               incremental="false">
+         </run>
+      </validator>
+   </extension>
+<!-- 
+       The FWKNoBuildTestValidator supports full validation, and does not
+       support any build validation. 
+    -->
+   <extension
+         id="FwkNoBuildTestValidator"
+         name="VF NoBuild Test Validator"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <projectNature
+               id="org.eclipse.jdt.core.javanature">
+         </projectNature>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.java">
+         </filter>
+         <helper
+               class="org.eclipse.jst.validation.test.fwk.validator.FwkNoBuildTestHelper">
+         </helper>
+         <run
+               fullBuild="false"
+               enabled="false"
+               class="org.eclipse.jst.validation.test.fwk.validator.FwkNoBuildTestValidator"
+               incremental="false">
+         </run>
+      </validator>
+   </extension>
+<!--=====================================-->
+<!-- Fwk Test Validator BVT test setup   -->
+<!--=====================================-->
+   <extension
+         id="FwkTestValidatorBVT_testSetup"
+         name="Fwk Test Validator BVT TestSetup"
+         point="org.eclipse.jst.validation.test.testSetup">
+      <import
+            input="FWK/BVT/opConstr.jar"
+            operation="org.eclipse.jst.validation.test.setup.JARImportOperation">
+      </import>
+   </extension>
+<!--=============================================================-->
+<!--               Visible Framework BVT tests                   -->
+<!--=============================================================-->
+   <extension
+         id="TestOpConstructors"
+         name="Test Operation Constructors"
+         point="org.eclipse.jst.validation.test.opTest">
+      <optest
+            input="FWK/BVT/opConstr.jar"
+            operation="org.eclipse.jst.validation.test.fwk.TestOpConstrOperation"
+            project="opConstr"
+            visible="false">
+      </optest>
+   </extension>
+   <extension
+         id="VALFWK02"
+         name="VALFWK02"
+         point="org.eclipse.jst.validation.test.opTest">
+      <optest
+            input="FWK/BVT/opConstr.jar"
+            operation="org.eclipse.jst.validation.test.fwk.VALFWK02Operation"
+            project="opConstr"
+            visible="false">
+      </optest>
+   </extension>
+<!--=============================================================-->
+<!--               Fwk Test Validator BVT tests                  -->
+<!-- None of these tests are visible on the Test Collector menu  -->
+<!-- Instead, these are used as part of the VALFWK02 and         -->
+<!-- TestOpConstr tests.                                         -->
+<!--=============================================================-->
+   <extension
+         id="FwkTestValidatorBVT"
+         name="Fwk Test Validator BVT Tests"
+         point="org.eclipse.jst.validation.test.test">
+      <test
+            input="FWK/BVT/opConstr.jar"
+            validator="org.eclipse.jst.validation.test.fwk.validator.FwkTestValidator"
+            project="opConstr"
+            visible="false">
+         <message
+               location="1"
+               prefix=""
+               resource="ITest.java"
+               text="This is a test message for the validation framework, reported by VF Test Validator. Please ignore.">
+         </message>
+         <message
+               location="1"
+               prefix=""
+               resource="Test1.java"
+               text="This is a test message for the validation framework, reported by VF Test Validator. Please ignore.">
+         </message>
+         <message
+               location="1"
+               prefix=""
+               resource="test2/ITest2.java"
+               text="This is a test message for the validation framework, reported by VF Test Validator. Please ignore.">
+         </message>
+         <message
+               location="1"
+               prefix=""
+               resource="test2/Test2.java"
+               text="This is a test message for the validation framework, reported by VF Test Validator. Please ignore.">
+         </message>
+      </test>
+   </extension>
+   <extension
+         id="FwkNoBuildTestValidatorBVT"
+         name="Fwk NoBuild Test Validator BVT Tests"
+         point="org.eclipse.jst.validation.test.test">
+      <test
+            input="FWK/BVT/opConstr.jar"
+            validator="org.eclipse.jst.validation.test.fwk.validator.FwkNoBuildTestValidator"
+            project="opConstr"
+            visible="false">
+         <message
+               location="1"
+               prefix=""
+               resource="ITest.java"
+               text="This is a test message for the validation framework, reported by VF NoBuild Test Validator. Please ignore.">
+         </message>
+         <message
+               location="1"
+               prefix=""
+               resource="Test1.java"
+               text="This is a test message for the validation framework, reported by VF NoBuild Test Validator. Please ignore.">
+         </message>
+         <message
+               location="1"
+               prefix=""
+               resource="test2/ITest2.java"
+               text="This is a test message for the validation framework, reported by VF NoBuild Test Validator. Please ignore.">
+         </message>
+         <message
+               location="1"
+               prefix=""
+               resource="test2/Test2.java"
+               text="This is a test message for the validation framework, reported by VF NoBuild Test Validator. Please ignore.">
+         </message>
+      </test>
+   </extension>
+   <extension
+         id="PropertiesValidatorBVT"
+         name="Properties Validator BVT Tests"
+         point="org.eclipse.jst.validation.test.test">
+      <test
+            input="FWK/BVT/opConstr.jar"
+            validator="org.eclipse.jst.validation.sample.PropertiesValidator"
+            project="opConstr"
+            visible="false">
+         <message
+               location="3"
+               prefix="ABCD0000"
+               resource="resources/test.properties"
+               text="ABCD0000E: Match the braces in the message. There are 0 { and 1 }. MessageFormat will throw a NullPointerException when there are mismatching braces.">
+         </message>
+         <message
+               location="2"
+               prefix="ABCD0000"
+               resource="resources/test.properties"
+               text="ABCD0000E: Match the braces in the message. There are 1 { and 0 }. MessageFormat will throw a NullPointerException when there are mismatching braces.">
+         </message>
+         <message
+               location="1"
+               prefix="ABCD0000"
+               resource="resources/test.properties"
+               text="ABCD0000E: Match the braces in the message. There are 0 { and 1 }. MessageFormat will throw a NullPointerException when there are mismatching braces.">
+         </message>
+         <message
+               location="10"
+               prefix="ABCD0010"
+               resource="resources/test.properties"
+               text="ABCD0010E: Change argument ({-1}) to an integer between 0 and 9 inclusive in the message. MessageFormat cannot process an integer parameter that is less than 0.">
+         </message>
+         <message
+               location="8"
+               prefix="ABCD0010"
+               resource="resources/test.properties"
+               text="ABCD0010W: Change argument ({10}) to an integer between 0 and 9 inclusive in the message. MessageFormat ignores any parameters larger than 9.">
+         </message>
+         <message
+               location="7"
+               prefix="ABCD0010"
+               resource="resources/test.properties"
+               text="ABCD0010W: Change argument ({10}) to an integer between 0 and 9 inclusive in the message. MessageFormat ignores any parameters larger than 9.">
+         </message>
+         <message
+               location="12"
+               prefix="ABCD0020"
+               resource="resources/test.properties"
+               text="ABCD0020I: Remove redundant parameter {0} from the message. Make messages succinct.">
+         </message>
+         <message
+               location="13"
+               prefix="ABCD0030"
+               resource="resources/test.properties"
+               text="ABCD0030I: Check that argument {1} was omitted from the message deliberately. If it was omitted accidentally, and the code does not provide enough parameters, MessageFormat will throw a NullPointerException.">
+         </message>
+         <message
+               location="8"
+               prefix="ABCD0030"
+               resource="resources/test.properties"
+               text="ABCD0030I: Check that argument {0} was omitted from the message deliberately. If it was omitted accidentally, and the code does not provide enough parameters, MessageFormat will throw a NullPointerException.">
+         </message>
+         <message
+               location="14"
+               prefix="ABCD0040"
+               resource="resources/test.properties"
+               text="ABCD0040I: Use two apostrophes in the message at column 57. MessageFormat removes single apostrophes; for the message to display an apostrophe, two apostrophes must exist in the string. (An apostrophe is a reserved character of MessageFormat.)">
+         </message>
+         <message
+               location="15"
+               prefix="ABCD0050"
+               resource="resources/test.properties"
+               text="ABCD0050I: Use one apostrophe in the message at column 57. MessageFormat processes only messages with parameters; without MessageFormat, the extra apostrophe will not be removed.">
+         </message>
+         <message
+               location="25"
+               prefix="ABCD0060"
+               resource="resources/test.properties"
+               text="ABCD0060W: Make Z_DUPLICATE unique. When an id is used more than once in a file, ResourceBundle will use the value of the last message id.">
+         </message>
+         <message
+               location="24"
+               prefix="ABCD0060"
+               resource="resources/test.properties"
+               text="ABCD0060W: Make Z_DUPLICATE unique. When an id is used more than once in a file, ResourceBundle will use the value of the last message id.">
+         </message>
+         <message
+               location="19"
+               prefix="ABCD0060"
+               resource="resources/test.properties"
+               text="ABCD0060W: Make DUPLICATE_ID unique. When an id is used more than once in a file, ResourceBundle will use the value of the last message id.">
+         </message>
+         <message
+               location="18"
+               prefix="ABCD0060"
+               resource="resources/test.properties"
+               text="ABCD0060W: Make DUPLICATE_ID unique. When an id is used more than once in a file, ResourceBundle will use the value of the last message id.">
+         </message>
+         <message
+               location="28"
+               prefix="ABCD0060"
+               resource="resources/test.properties"
+               text="ABCD0060W: Make Z_DUPLICATE unique. When an id is used more than once in a file, ResourceBundle will use the value of the last message id.">
+         </message>
+         <message
+               location="43"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="42"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="41"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="39"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="38"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="37"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="36"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="45"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="44"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="35"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: ABCD0000E may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="23"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: AAAA0000W may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="20"
+               prefix="ABCD0070"
+               resource="resources/test.properties"
+               text="ABCD0070W: AAAA0000W may need to be unique. Conventionally, a message prefix applies to only one error condition.">
+         </message>
+         <message
+               location="21"
+               prefix="ABCD0080"
+               resource="resources/test.properties"
+               text="ABCD0080E: Fix the syntax error; each line must form MESSAGE_ID = MESSAGE.">
+         </message>
+         <message
+               location="17"
+               prefix="ABCD0080"
+               resource="resources/test.properties"
+               text="ABCD0080E: Fix the syntax error; each line must form MESSAGE_ID = MESSAGE.">
+         </message>
+         <message
+               location="1"
+               prefix="ABCD0110"
+               resource="resources/test.properties"
+               text="ABCD0110I: Add a terminating apostrophe at column 36. The { and } characters must be enclosed in apostrophes.">
+         </message>
+      </test>
+   </extension>
+   
 </plugin>
