@@ -481,4 +481,14 @@ public class EMF2DOMSedRenderer extends EMF2DOMRenderer implements IModelStateLi
 			}
 		}
 	}
+
+	public void modelAboutToBeReinitialized(IStructuredModel structuredModel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modelReinitialized(IStructuredModel structuredModel) {
+		// TODO Auto-generated method stub
+		
+	}
 }
