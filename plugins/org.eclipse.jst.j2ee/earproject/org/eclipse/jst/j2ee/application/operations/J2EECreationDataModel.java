@@ -176,7 +176,13 @@ public abstract class J2EECreationDataModel extends WTPOperationDataModel {
             return OK_STATUS;
         }  else if (J2EE_MODULE_VERSION.equals(propertyName)) {
 			return validateJ2EEModuleVersionProperty();
-		} 
+		} else if (propertyName.equals(PROJECT_NAME)) {
+			String projectName = getStringProperty(PROJECT_NAME);
+			if (projectName == null || projectName.length()==0) {
+				String errorMessage = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_EMPTY_PROJECT_NAME);
+				return WTPCommonPlugin.createErrorStatus(errorMessage); 
+			}
+		}
         return super.doValidateProperty(propertyName);
     }
     

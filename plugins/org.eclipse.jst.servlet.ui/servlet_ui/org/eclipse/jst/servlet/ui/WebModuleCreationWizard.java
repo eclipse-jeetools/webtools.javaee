@@ -75,7 +75,7 @@ public class WebModuleCreationWizard extends J2EEModuleCreationWizard implements
 	 */
 	protected WTPOperationDataModel createDefaultModel() {
 		WebComponentCreationDataModel aModel = new WebComponentCreationDataModel();
-		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
+		aModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
 		return aModel;
 	}
 	

@@ -104,6 +104,10 @@ public class NewModuleGroup {
 			names[i]= (String) items.get(i);
 		}
 		projectNameCombo.setItems(names);
+		if (names.length>0) {
+			projectNameCombo.setText(names[0]);
+			model.setProperty(J2EECreationDataModel.PROJECT_NAME,names[0]);
+		}
 	}
 
 	/**
