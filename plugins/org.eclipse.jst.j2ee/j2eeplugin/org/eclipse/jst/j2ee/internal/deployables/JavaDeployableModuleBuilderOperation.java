@@ -48,10 +48,9 @@ public class JavaDeployableModuleBuilderOperation extends WTPOperation {
 
 		// preparation
 		JavaDeployableModuleBuilderDataModel dataModel = (JavaDeployableModuleBuilderDataModel) operationDataModel;
-		ModuleStructuralModel moduleModel = (ModuleStructuralModel)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.MODULE_STRUCTURAL_MODEL);
 		WorkbenchModule workbenchModule = (WorkbenchModule)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.WORKBENCH_MODULE);
 		String deployedName = workbenchModule.getDeployedName();
-		IProject project = moduleModel.getProject();
+		IProject project = (IProject)dataModel.getProperty(JavaDeployableModuleBuilderDataModel.PROJECT);
 		IPath projectPath = project.getFullPath();
 		IJavaProject javaProj = ProjectUtilities.getJavaProject(project);
 		List javaSourceFolderList = ProjectUtilities.getSourceContainers(project);
