@@ -19,27 +19,21 @@ import org.eclipse.core.internal.localstore.CoreFileSystemLibrary;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
-import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBClientProjectDataModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
-import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
- * This dataModel is used for to create Web Modules.
+ * This dataModel is used for to create EJB Modules.
  * 
  * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
  * the new project structures are adopted. Use at your own risk.
@@ -52,7 +46,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	public static final String CREATE_DEFAULT_SESSION_BEAN = "EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN"; //$NON-NLS-1$
 
 	private static final String NESTED_MODEL_EJB_CLIENT_CREATION = "EJBModuleCreationDataModel.NESTED_MODEL_EJB_CLIENT_CREATION"; //$NON-NLS-1$
-	private EJBClientProjectDataModel ejbClientProjectDataModel;
+	private EJBClientComponentDataModel ejbClientComponentDataModel;
 
 
 
@@ -76,8 +70,8 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 				return new Integer(J2EEVersionConstants.EJB_2_1_ID);
 		}
 	}
-	public EJBClientProjectDataModel getNestEJBClientProjectDM() {
-		return ejbClientProjectDataModel;
+	public EJBClientComponentDataModel getNestEJBClientComponentDM() {
+		return ejbClientComponentDataModel;
 	}
 
 	protected void init() {
@@ -94,7 +88,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			}
 			notifyEnablementChange(CREATE_CLIENT);
 		} else if (propertyName.equals(USE_ANNOTATIONS)) {
-			ejbClientProjectDataModel.setProperty(EJBClientProjectDataModel.USE_ANNOTATIONS, propertyValue);
+			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.USE_ANNOTATIONS, propertyValue);
 			if (((Boolean) propertyValue).booleanValue()) {
 				notifyEnablementChange(J2EE_MODULE_VERSION);
 			} else
@@ -105,14 +99,15 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CREATE_CLIENT)) {
 			if (getBooleanProperty(CREATE_CLIENT)) {
-				getNestEJBClientProjectDM().enableValidation();
+				getNestEJBClientComponentDM().enableValidation();
 			} else {
-				getNestEJBClientProjectDM().disableValidation();
+				getNestEJBClientComponentDM().disableValidation();
 			}
-		}
-		if (getBooleanProperty(CREATE_CLIENT)) {
+		}else if (propertyName.equals(MODULE_NAME)) {
+			ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.EJB_MODULE_NAME, propertyValue);
+		}else if (getBooleanProperty(CREATE_CLIENT)) {
 			if (propertyName.equals(CREATE_CLIENT) || propertyName.equals(PROJECT_NAME) || propertyName.equals(ADD_TO_EAR)) {
-				ejbClientProjectDataModel.setProperty(EJBClientProjectDataModel.EJB_PROJECT_NAME, getProperty(PROJECT_NAME));
+				ejbClientComponentDataModel.setProperty(EJBClientComponentDataModel.PROJECT_NAME, getProperty(PROJECT_NAME));
 			}
 		}
 		return doSet;
@@ -144,8 +139,8 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 
 	protected void initNestedModels() {
 		super.initNestedModels();
-		ejbClientProjectDataModel = new EJBClientProjectDataModel();
-		addNestedModel(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientProjectDataModel);
+		ejbClientComponentDataModel = new EJBClientComponentDataModel();
+		addNestedModel(NESTED_MODEL_EJB_CLIENT_CREATION, ejbClientComponentDataModel);
 	}
 
 	protected AddModuleToEARDataModel createModuleNestedModel() {
@@ -203,7 +198,7 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(NESTED_MODEL_VALIDATION_HOOK)) {
 			if (getBooleanProperty(CREATE_CLIENT)) {
-				String clientName = ejbClientProjectDataModel.getStringProperty(EJBClientProjectDataModel.CLIENT_PROJECT_NAME);
+				String clientName = ejbClientComponentDataModel.getStringProperty(EJBClientComponentDataModel.CLIENT_MODULE_NAME);
 				String moduleName = getStringProperty(PROJECT_NAME);
 				if (clientName.equals(moduleName)) {
 					return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.getString(EJBCreationResourceHandler.CLIENT_SAME_NAME_AS_EJB));
@@ -303,6 +298,6 @@ public class EjbComponentCreationDataModel extends J2EEComponentCreationDataMode
      * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
      */
     protected String getModuleID() {
-        return IModuleConstants.JST_CONNECTOR_MODULE;
+        return IModuleConstants.JST_EJB_MODULE;
     }
 }
