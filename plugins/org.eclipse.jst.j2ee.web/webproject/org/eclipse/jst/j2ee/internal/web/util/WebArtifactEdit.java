@@ -11,8 +11,9 @@ package org.eclipse.jst.j2ee.internal.web.util;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -21,18 +22,19 @@ import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.modulecore.ArtifactEditModel;
 import org.eclipse.wst.common.modulecore.ModuleCore;
 import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchModule;
 import org.eclipse.wst.web.internal.operation.ILibModule;
+import org.eclipse.wst.web.internal.operation.WebSettings;
 
 /**
  * <p>
@@ -310,11 +312,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
-	public void setContextRoot(String aContextRoot) {
-		//TODO set the context root for the module
-
-	}
-	
 	public IContainer getWebContentFolder(){
 		//TODO return the valid context root for the module
 		return null;
@@ -342,7 +339,6 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return null;
 	}
 	
-	//server specific, dont have support in WTP, but will in RAD
 	public ILibModule[] getLibModules() {
 		//TODO return the appropriate web lib modules
 		return null;
@@ -366,28 +362,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		//TODO return the module server root
 		return null;
 	}
-
-	/**
-	 * Returns the lib folder
-	 */
-	public IFolder getLibraryFolder() {
-		IFolder webInfFolder = (IFolder)getWebInfFolder();
-		IFolder libFolder = (IFolder)webInfFolder.getFolder(IWebNatureConstants.LIBRARY_DIRECTORY);
-		return libFolder;
-	}
-
-	/**
-	 * Returns the source folder
-	 */
-	public IFolder getSourceFolder() {
-		//TODO return the source folder
+	
+	public IPath getDeploymentDescriptorPath() {
+		IFile file = WorkbenchResourceHelper.getFile(getDeploymentDescriptorResource());
+		if (file!=null)
+			return file.getFullPath();
 		return null;
-	}
-
-	/**
-	 * Set lib modules
-	 */
-	public void setLibModules(ILibModule[] libModules) {
-		//TODO we need an edit model for write to do it.
 	}
 }
