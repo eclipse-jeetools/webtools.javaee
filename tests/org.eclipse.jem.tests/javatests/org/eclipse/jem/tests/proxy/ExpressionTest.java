@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ExpressionTest.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:13 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/07 15:18:39 $ 
  */
 package org.eclipse.jem.tests.proxy;
 
@@ -949,16 +949,16 @@ public class ExpressionTest extends AbstractTestProxy {
 	
 	public void testClassInstanceCreationNullArg() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
 		IExpression exp = proxyFactory.createExpression();
-		exp.createClassInstanceCreation(IExpressionConstants.ROOTEXPRESSION, "TestCtorWithNull", 1);
+		exp.createClassInstanceCreation(IExpressionConstants.ROOTEXPRESSION, "testPackage.TestCtorWithNull", 1);
 		exp.createNull(IExpressionConstants.CLASSINSTANCECREATION_ARGUMENT);
 		IBeanProxy result = exp.getExpressionValue();
 		assertNotNull(result);
-		assertEquals("TestCtorWithNull", result.getTypeProxy().getFormalTypeName());
+		assertEquals("testPackage.TestCtorWithNull", result.getTypeProxy().getFormalTypeName());
 	}	
 	
 	public void testClassInstanceCreationMismatchArg() throws IllegalStateException, ThrowableProxy, NoExpressionValueException {
 		IExpression exp = proxyFactory.createExpression();
-		exp.createClassInstanceCreation(IExpressionConstants.ROOTEXPRESSION, "TestCtorWithNull", 1);
+		exp.createClassInstanceCreation(IExpressionConstants.ROOTEXPRESSION, "testPackage.TestCtorWithNull", 1);
 		try {
 			exp.createPrimitiveLiteral(IExpressionConstants.CLASSINSTANCECREATION_ARGUMENT, 1);
 			exp.getExpressionValue();

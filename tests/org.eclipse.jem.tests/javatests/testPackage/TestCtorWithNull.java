@@ -1,3 +1,4 @@
+package testPackage;
 /*******************************************************************************
  * Copyright (c) 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials 
@@ -10,7 +11,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: TestCtorWithNull.java,v $
- *  $Revision: 1.1 $  $Date: 2004/02/03 23:18:13 $ 
+ *  $Revision: 1.1 $  $Date: 2004/02/07 15:18:39 $ 
  */
 
 /**
