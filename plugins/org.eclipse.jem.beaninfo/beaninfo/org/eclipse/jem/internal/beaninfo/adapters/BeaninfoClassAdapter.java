@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.beaninfo.adapters;
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.29 $  $Date: 2005/02/08 21:54:02 $ 
+ *  $Revision: 1.30 $  $Date: 2005/02/09 21:10:09 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -1653,7 +1653,6 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 	 */
 	private void finalizeOperations(ChangeDescription cd) {
 		// Now go through the list and remove those that should be removed.
-		newoperations = new HashSet(50);
 		Iterator itr = getOperationsList().iterator();
 		while (itr.hasNext()) {
 			EOperation a = (EOperation) itr.next();

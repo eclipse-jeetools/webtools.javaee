@@ -12,7 +12,7 @@ package org.eclipse.jem.internal.beaninfo.vm;
  *******************************************************************************/
 /*
  *  $RCSfile: ModelingBeanInfo.java,v $
- *  $Revision: 1.3 $  $Date: 2005/02/08 21:54:02 $ 
+ *  $Revision: 1.4 $  $Date: 2005/02/09 21:10:09 $ 
  */
 
 import java.beans.*;
@@ -630,7 +630,7 @@ public abstract class ModelingBeanInfo implements ICallback {
 		MethodDescriptor[] methods = getMethodDescriptors();
 		if (methods != null && methods.length > 0) {
 			// Now start writing the records.
-			stream.writeInt(IBeanInfoIntrospectionConstants.DO_METHODS);
+			stream.writeInt(IBeanInfoIntrospectionConstants.METHOD_DECORATORS_SENT);
 			stream.writeInt(methods.length);
 			for (int i = 0; i < methods.length; i++) {
 				MethodRecord mr = new MethodRecord();
@@ -674,7 +674,7 @@ public abstract class ModelingBeanInfo implements ICallback {
 		EventSetDescriptor[] events = getEventSetDescriptors();
 		if (events != null && events.length > 0) {
 			// Now start writing the records.
-			stream.writeInt(IBeanInfoIntrospectionConstants.DO_EVENTS);
+			stream.writeInt(IBeanInfoIntrospectionConstants.EVENT_DECORATORS_SENT);
 			stream.writeInt(events.length);
 			for (int i = 0; i < events.length; i++) {
 				EventSetDescriptor ed = events[i];
