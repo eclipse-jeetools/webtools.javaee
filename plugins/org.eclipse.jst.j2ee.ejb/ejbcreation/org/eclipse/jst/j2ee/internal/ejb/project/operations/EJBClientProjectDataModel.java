@@ -158,7 +158,7 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 		String projectName = ejbProjectName + "Client"; //$NON-NLS-1$
 		String baseName = projectName + "_"; //$NON-NLS-1$
 		int index = 0;
-		IProject project = ProjectCreationDataModel.getProjectHandleFromName(projectName);
+		IProject project = ProjectCreationDataModel.getProjectHandleFromProjectName(projectName);
 		if (null == project) {
 			return "";//$NON-NLS-1$
 		} else if (!project.exists()) {
@@ -166,7 +166,7 @@ public class EJBClientProjectDataModel extends EditModelOperationDataModel {
 		}
 		for (int i = 0; i < 10; i++) {
 			projectName = baseName + index;
-			project = ProjectCreationDataModel.getProjectHandleFromName(projectName);
+			project = ProjectCreationDataModel.getProjectHandleFromProjectName(projectName);
 			if (null != project && !project.exists()) {
 				return projectName;
 			}
