@@ -8,12 +8,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEditOperation;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 
 public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEditOperation {
 	public static final String metaInfFolderDeployPath = "/"; //$NON-NLS-1$
@@ -42,6 +44,7 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 				for (int i = 0; i < list.size(); i++) {
 					ReferencedComponent rc = ComponentcoreFactory.eINSTANCE.createReferencedComponent();
 					WorkbenchComponent wc = (WorkbenchComponent)list.get(i);
+					rc.setHandle(normalize(earComp, wc));
 					rc.setRuntimePath(runtimePath);
 					earComp.getReferencedComponents().add(rc);
 				}
@@ -53,6 +56,15 @@ public class AddComponentToEnterpriseApplicationOperation extends EARArtifactEdi
 		       }
 		 }		
 	}
+	private URI normalize(WorkbenchComponent aComponent, WorkbenchComponent aReferencedComponent) {   
+		// same project doesn't matter
+		if(StructureEdit.getContainingProject(aComponent) == StructureEdit.getContainingProject(aReferencedComponent)) 
+			return aReferencedComponent.getHandle();
+		// different project, fully qualify
+		return ModuleURIUtil.fullyQualifyURI(aReferencedComponent);
+							
+	}
+
 	public IProject getProject() {
 		String projName = operationDataModel.getStringProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME );
 		return ProjectUtilities.getProject( projName );
