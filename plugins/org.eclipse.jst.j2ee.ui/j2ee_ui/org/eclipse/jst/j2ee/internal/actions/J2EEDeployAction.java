@@ -93,18 +93,24 @@ public class J2EEDeployAction extends BaseAction {
 	 */
 	public boolean isEnabled() {
 
-		DeployerRegistry reg = DeployerRegistry.instance();
+		try {
+			DeployerRegistry reg = DeployerRegistry.instance();
 
-		List modules = DeployerRegistry.getSelectedModules(selection.toArray());
-		for (int i = 0; i < modules.size(); i++) {
-			EObject module = (EObject) modules.get(i);
-			IProject proj = ProjectUtilities.getProject(module);
-			IRuntime runtime = ServerCore.getProjectProperties(proj).getRuntimeTarget();
-			if (proj == null || runtime == null)
-				return false;
-			List visitors = reg.getDeployModuleExtensions(module, runtime);
-			if (!visitors.isEmpty())
-				return true;
+			List modules = DeployerRegistry.getSelectedModules(selection.toArray());
+			for (int i = 0; i < modules.size(); i++) {
+				EObject module = (EObject) modules.get(i);
+				IProject proj = ProjectUtilities.getProject(module);
+				IRuntime runtime = ServerCore.getProjectProperties(proj).getRuntimeTarget();
+				if (proj == null || runtime == null)
+					return false;
+				List visitors = reg.getDeployModuleExtensions(module, runtime);
+				if (!visitors.isEmpty())
+					return true;
+			}
+			return false;
+		} catch (RuntimeException e) { 
+			System.out.println("Deploy Action recovering from problem verifying enablement.");
+			e.printStackTrace();
 		}
 		return false;
 	}

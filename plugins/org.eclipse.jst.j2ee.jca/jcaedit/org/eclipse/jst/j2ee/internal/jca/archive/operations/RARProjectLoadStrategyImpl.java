@@ -110,7 +110,7 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 
 	private File createNestedArchive(List sourceIFiles, IFolder folder) {
 		NestedJARLoadStrategyImpl loader = new NestedJARLoadStrategyImpl(this, sourceIFiles, folder);
-		loader.setExportSource(exportSource);
+		loader.setExportSource(isExportSource());
 		ArchiveOptions options = ((Archive) getContainer()).getOptions().cloneWith(loader);
 		String uri = computeUniqueArchiveURI(folder);
 		try {
@@ -243,8 +243,8 @@ public class RARProjectLoadStrategyImpl extends J2EELoadStrategyImpl {
 		return ArchiveConstants.RAR_DD_URI.equals(path.toString());
 	}
 
-	public String getModuleFolderName() {
-		return moduleRoot.getName();
+	public IContainer getModuleContainer() {
+		return moduleRoot;
 	}
 
 	public IContainer getModuleRoot() {

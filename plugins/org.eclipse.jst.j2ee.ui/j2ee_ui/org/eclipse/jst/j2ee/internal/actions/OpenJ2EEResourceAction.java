@@ -67,7 +67,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	public static final String APP_CLIENT_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.application.client.presentation.ApplicationClientEditor"; //$NON-NLS-1$
 	public static final String JAVA_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.ejb.ui.java.EnterpriseBeanJavaEditor"; //$NON-NLS-1$
 	public static final String EJB_MAP_EDITOR_ID = "com.ibm.etools.ejbrdbmapping.presentation.EjbRdbMappingEditorID"; //$NON-NLS-1$
-	public static final String CONNECTOR_EDITOR_ID = "com.ibm.sse.editor.xml.StructuredTextEditorXML"; //$NON-NLS-1$
+	public static final String CONNECTOR_EDITOR_ID = "org.eclipse.wst.xml.ui.StructuredTextEditorXML"; //$NON-NLS-1$
 	public static final String WEB_SERVICE_EDITOR_ID = "org.eclipse.jst.j2ee.internal.internal.webservice.atk.ui.editor.ws.WebServicesEditor"; //$NON-NLS-1$
 	public static final String BASE_JAVA_EDITOR_ID = "org.eclipse.jdt.ui.CompilationUnitEditor"; //$NON-NLS-1$
 	public static final String WSDL_EDITOR_ID = "com.ibm.etools.wsdleditor.WSDLEditor"; //$NON-NLS-1$

@@ -42,7 +42,7 @@ import org.eclipse.wst.web.internal.operation.ILibModule;
  * @version 1.0
  * @author
  */
-public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILooseArchiveSupport {
+public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILooseArchiveSupport, IModuleType {
     protected String contextRoot;
 
     protected ILooseArchive[] archives;
@@ -57,6 +57,10 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
         super(aNature, aFactoryId);
         this.contextRoot = getUncachedContextRoot();
     }
+    
+	public String getId() {
+		return getFactoryId() +":"+ getProject().getName();
+	}
 
     public String getContextRoot() {
         return this.contextRoot;
@@ -360,8 +364,31 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
      * @see org.eclipse.wst.server.core.IModule#getModuleType()
      */
     public IModuleType getModuleType() {
+        return new IModuleType(){
+
+            public String getId() {
+                return "j2ee.web";
+            }
+
+            public String getName() {
+                // TODO Auto-generated method stub
+                return getModuleTypeName();
+            }
+
+            public String getVersion() {
+                // TODO Auto-generated method stub
+                return getModuleTypeVersion();
+            }};
         // TODO Auto-generated method stub
-        return null;
+       // return this;
+    }
+    
+    public String getModuleTypeName(){
+        return getName();
+    }
+    
+    public String getModuleTypeVersion(){
+        return getVersion();
     }
 
     /*

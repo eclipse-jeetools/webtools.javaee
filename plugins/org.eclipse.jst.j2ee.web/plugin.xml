@@ -169,31 +169,31 @@
 <!-- ==================================================================== -->
    <extension
          point="org.eclipse.wst.server.core.moduleArtifactAdapters">
-      <moduleObjectAdapter
+      <moduleArtifactAdapter
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             objectClass="org.eclipse.jst.j2ee.internal.webapplication.WebApp"
             id="org.eclipse.jst.web.server.webresource">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.jst.j2ee.internal.webapplication.Servlet"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="org.eclipse.jst.web.server.webresource2">
-      </moduleObjectAdapter>
-            <moduleObjectAdapter
+      </moduleArtifactAdapter>
+            <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IProject"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="org.eclipse.jst.web.server.webresource3">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.core.resources.IFile"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="corg.eclipse.jst.web.server.webresource4">
-      </moduleObjectAdapter>
-      <moduleObjectAdapter
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
             objectClass="org.eclipse.jdt.core.ICompilationUnit"
             class="org.eclipse.jst.j2ee.internal.web.deployables.WebDeployableObjectAdapter"
             id="org.eclipse.jst.web.server.webresource5">
-      </moduleObjectAdapter>
+      </moduleArtifactAdapter>
    </extension>
 <!-- =============================================================== -->
 <!-- Extension point: com.ibm.etools.server.core.moduleFactories -->

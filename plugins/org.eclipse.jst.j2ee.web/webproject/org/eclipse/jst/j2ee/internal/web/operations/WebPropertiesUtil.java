@@ -73,7 +73,7 @@ public class WebPropertiesUtil {
 			}
 
 			IPath newPath = new Path(webContentName);
-			if (webNature.getRootPublishableFolder().equals(newPath))
+			if (webNature.getRootPublishableFolder().getProjectRelativePath().equals(newPath))
 				return false;
 
 			if (project.exists(newPath)) {

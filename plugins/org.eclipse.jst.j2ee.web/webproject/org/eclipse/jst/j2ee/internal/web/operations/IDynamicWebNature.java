@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.wst.web.internal.operation.IStaticWebNature;
 
 

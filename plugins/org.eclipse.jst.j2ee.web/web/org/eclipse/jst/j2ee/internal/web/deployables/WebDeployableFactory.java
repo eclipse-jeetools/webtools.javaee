@@ -79,6 +79,8 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
      * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
      */
     public IModule[] getModules() {
+        if (projects == null)
+            cacheModules();
         int i = 0;
         Iterator modules = projects.values().iterator();
         IModule[] modulesArray = new IModule[projects.values().size()];

@@ -77,9 +77,9 @@
          point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
       <adapterFactory
             functionGroupID="org.eclipse.jst.j2ee"
-            className="org.eclipse.jst.j2ee.internal.jca.provider.JcaItemProviderAdapterFactory"
+            className="org.eclipse.jst.j2ee.internal.jca.providers.JcaItemProviderAdapterFactory"
             packageURI="jca.xmi"
-            id="org.eclipse.jst.j2ee.jca.provider.JcaItemProviderAdapterFactory">
+            id="org.eclipse.jst.j2ee.jca.providers.JcaItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension

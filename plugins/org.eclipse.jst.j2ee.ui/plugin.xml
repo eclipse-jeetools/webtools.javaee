@@ -85,7 +85,7 @@
             category="org.eclipse.jst.j2ee.internal"
             class="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard"
             project="true"
-            finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
             id="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard">
          <description>
             %new.appclient.project.description_ui_
@@ -437,7 +437,7 @@
 <!-- ================================================== -->
 <!--          DEPLOY EXTENSIONS                         -->
 <!-- ================================================== -->
-   <extension
+<!--   <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             objectClass="java.lang.Object"
@@ -501,8 +501,7 @@
             </or>
          </visibility>
       </objectContribution>
-   </extension>
-
+   </extension> -->
 <!-- Navigator Object Contributions -->
 
    
