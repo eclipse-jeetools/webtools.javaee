@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.proxy.core;
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.40 $  $Date: 2005/01/28 19:48:29 $ 
+ *  $Revision: 1.41 $  $Date: 2005/01/31 20:59:14 $ 
  */
 
 
@@ -47,10 +47,13 @@ public class ProxyPlugin extends Plugin {
 	 * @since 1.1.0
 	 */
 	public static class ProxyCache {
-		public static  String PRE_REQ_FILE_NAME = "preReqCache.txt"; //$NON-NLS-1$
+		public static  String PRE_REQ_FILE_NAME = "preReqCache"; //$NON-NLS-1$
 		public static  IPath  preReqFilePath = null;
+		public static  String PRE_REQ_FILE_SIG = "ProxyCache file: v1.0\n";
 		static HashMap bundlePreReq = null;
 		static int    updateCount = 0;
+		static long   cacheTimeStamp = -1;
+		
 		
 		// Ensure that the directory structure is there
 		private static IPath getPreReqCachePath() {
@@ -65,35 +68,36 @@ public class ProxyPlugin extends Plugin {
 		/*
 		 * Read the pre req list from disk
 		 * The Cache format is as following:
-		 * first line is the registray time stamp that is associated with the cache,
-		 * 
-		 * A preReq is a Bundle id (first line), and a list of Bundle id's it preReq
-		 * each on a seperate line.
-		 * 
-		 * Each preReq block is seperated by an empty line.
+		 * first Data Entry (a long0 is the registray time stamp 
+		 * that is associated with the cache,
+		 * Then:
+		 *    A (String) preReq Bundle id followed by the (int) size of the 
+		 *    preReqs followed by
+		 *    size many bundel ides representing the dependency list.
 		 */
 		private static void loadPreReqFromCache() {
 			bundlePreReq = new HashMap();
 			File f = getPreReqCachePath().toFile();
 			if (f.canRead()) {			
-				BufferedReader in=null ;
+				DataInputStream in=null ;
 				try {
-					in = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-					long cacheTimeStamp=Long.decode(in.readLine()).longValue();
+					in = new DataInputStream(new FileInputStream(f));
+					if (!in.readUTF().equals(PRE_REQ_FILE_SIG)) throw new IllegalStateException("invalid cache file");
+					cacheTimeStamp= in.readLong(); 
 					long registryTimeStamp= Platform.getPlatformAdmin().getState(false).getTimeStamp();
 					if (registryTimeStamp==cacheTimeStamp) {
 						// Valid Cache
-						while (in.ready()) {
-							String bundleId = in.readLine();
+						while (in.available()>0) {
+							String bundleId = in.readUTF();
 							if (bundleId==null || bundleId.length()==0)
 								throw new IllegalArgumentException();
-							List preReqs = new ArrayList();
-							String bundle = in.readLine();
-							while (bundle!=null && bundle.length()>0) {
+							int preReqsSize = in.readInt();
+							List preReqs = new ArrayList(preReqsSize);
+							for (int i=0; i<preReqsSize; i++) {
+								String bundle = in.readUTF();
 								Bundle b = Platform.getBundle(bundle);
 								if (b==null) throw new IllegalStateException("Invalid bundle: "+bundle);								
 								preReqs.add(b);
-								bundle = in.readLine();
 							}							
 							bundlePreReq.put(bundleId,preReqs);
 						}
@@ -101,6 +105,7 @@ public class ProxyPlugin extends Plugin {
 				} 
 				catch (Exception e) {
 					// invalid cache.
+					cacheTimeStamp=-1;
 					bundlePreReq.clear();
 					// No point to spend time to clean up the cache file, we are going
 					// to update the cache as we build the data from scratch again
@@ -131,28 +136,27 @@ public class ProxyPlugin extends Plugin {
 			
 			File f = getPreReqCachePath().toFile();
 						
-			BufferedWriter out=null ;
+			DataOutputStream out=null ;
 			try {
-				out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
-				long registryTimeStamp= Platform.getPlatformAdmin().getState(false).getTimeStamp();
-				out.write(Long.toString(registryTimeStamp));
-				out.newLine();
-				Iterator itr = bundlePreReq.keySet().iterator();			
+				out = new DataOutputStream (new FileOutputStream(f));
+				out.writeUTF(PRE_REQ_FILE_SIG);
+				cacheTimeStamp = Platform.getPlatformAdmin().getState(false).getTimeStamp();
+				out.writeLong(cacheTimeStamp);
+				Iterator itr = bundlePreReq.keySet().iterator(); 
 				while (itr.hasNext()) {
 					String bundleId = (String)itr.next();
-					out.write(bundleId);
-					out.newLine();
-					List preReqs = (List)bundlePreReq.get(bundleId);					
+					out.writeUTF(bundleId); 					
+					List preReqs = (List)bundlePreReq.get(bundleId);
+					out.writeInt(preReqs.size());
 					for(int i=0; i<preReqs.size(); i++) {
 						Bundle b = (Bundle) preReqs.get(i); 
-						out.write(b.getSymbolicName());
-						out.newLine();
-					}
-					out.newLine();
+						out.writeUTF(b.getSymbolicName());						
+					}					
 				}
 			} 
 			catch (Exception e) {
 				try {
+				  cacheTimeStamp=-1;
 				  out.close();
 				  f.delete();
 				  out=null;
@@ -180,7 +184,8 @@ public class ProxyPlugin extends Plugin {
 		public static void updateComplete() {
 			updateCount--;
 			if (updateCount<=0) {
-				savePreReqtoCache();
+				if (cacheTimeStamp!=Platform.getPlatformAdmin().getState(false).getTimeStamp())
+				   savePreReqtoCache();
 				updateCount=0;
 			}
 		}
@@ -863,7 +868,7 @@ public class ProxyPlugin extends Plugin {
 	public static final String PI_CONTAINER = "container"; //$NON-NLS-1$
 	public static final String PI_PLUGIN = "plugin"; //$NON-NLS-1$
 	public static final String PI_CLASS = "class"; //$NON-NLS-1$
-	public static final IPath  PROXY_CACHE_DESTINATION = Platform.getStateLocation(Platform.getBundle("org.eclipse.jem.proxy")).append("ProxyCache"); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final IPath  PROXY_CACHE_DESTINATION = Platform.getStateLocation(Platform.getBundle("org.eclipse.jem.proxy")).append(".cache"); //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/*
 	 * Map of container id's to their ordered array of contribution config elements.
@@ -972,7 +977,12 @@ public class ProxyPlugin extends Plugin {
 		}
 		
 		// Now order them so we process in required order.
+		// If it is the first time, we are about to find out many inter-dependencies
+		// notify the cache on a start/end of a transaction so that updates (if new
+		// dependencies) are updated only once
+		ProxyCache.aboutToUpdate();
 		Bundle[] ordered = ProxyPlugin.orderPlugins(bundlesToExtensions.keySet());
+		ProxyCache.updateComplete();
 		result.containerToContributions = new HashMap(ordered.length);
 		result.pluginToContributions = new HashMap(ordered.length);
 		for (int i = 0; i < ordered.length; i++) {
