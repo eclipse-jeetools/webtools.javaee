@@ -42,6 +42,11 @@ public class J2EEActionProvider extends CommonActionProvider implements ICommonA
 
 	private WTPOptionalOperationAction genericDelete;
 
+	/**
+	 * 
+	 */
+	public J2EEActionProvider() {
+	}
 	/*
 	 * (non-Javadoc)
 	 * 

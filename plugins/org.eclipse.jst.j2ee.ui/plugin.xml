@@ -698,6 +698,15 @@
 	                  </objectState>
 	               </or> 
                 </and> 
+              <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+           	   </objectClass>
+           	   <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+           	   </objectClass>
                    
             </or>
          </enablement>
@@ -716,7 +725,8 @@
                         name="projectNature"
                         value="org.eclipse.jst.j2ee.EARNature">
                   </objectState>
-                </and>	          
+                </and>	 
+                         
             </or>
          </enablement>
        </commonWizard>
@@ -750,7 +760,18 @@
 	                  </objectState>
 	               </or> 
                 </and> 
-               	          
+               <objectClass
+                name="org.eclipse.jst.j2ee.client.impl.ApplicationClientImpl">
+              </objectClass>
+              <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+           	   </objectClass>
             </or>
          </enablement>
        </commonWizard>
@@ -770,7 +791,16 @@
                         value="org.eclipse.jst.j2ee.EARNature">
                   </objectState>
                </or>
-            </and>            
+            </and>     
+              <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+           	   </objectClass>
+           	   <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+           	   </objectClass>       
             </or>
          </enablement>
        </commonWizard>
@@ -795,7 +825,16 @@
                         value="org.eclipse.jst.j2ee.EARNature">
                   </objectState>
                </or>
-            </and>            
+            </and>     
+             <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ApplicationImpl">
+           	   </objectClass>
+           	    <objectClass
+                 name="org.eclipse.jst.j2ee.internal.provider.ModulesItemProvider">
+           	   </objectClass>
+           	   <objectClass
+                 name="org.eclipse.jst.j2ee.application.impl.ModuleImpl">
+           	   </objectClass>       
             </or>
          </enablement>
        </commonWizard>
@@ -820,7 +859,10 @@
                         value="org.eclipse.jst.j2ee.ApplicationClientNature">
                   </objectState>
                </or>
-            </and>            
+            </and>  
+            <objectClass
+                name="org.eclipse.jst.j2ee.client.impl.ApplicationClientImpl">
+            </objectClass>          
             </or>
          </enablement>
        </commonWizard>
@@ -852,7 +894,10 @@
                         value="org.eclipse.jst.j2ee.web.WebNature">
                   </objectState>
                </or>
-            </and>            
+            </and>     
+             <objectClass
+                name="org.eclipse.jst.j2ee.client.impl.ApplicationClientImpl">
+            </objectClass> 	        
             </or>
          </enablement>
        </commonWizard>
