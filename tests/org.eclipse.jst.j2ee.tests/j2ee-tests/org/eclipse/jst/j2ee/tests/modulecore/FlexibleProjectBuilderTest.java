@@ -248,9 +248,9 @@ public class FlexibleProjectBuilderTest extends TestCase {
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
 
-				ComponentType utilityModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
+				ComponentType utilityModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
 				utilityModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
-				utilityModule.setModuleType(utilityModuleType);
+				utilityModule.setComponentType(utilityModuleType);
 
 				structuralModel.saveIfNecessary(this);
 			} finally {
@@ -262,25 +262,25 @@ public class FlexibleProjectBuilderTest extends TestCase {
 	}
 	
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
+		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
 		module.setDeployedName(aDeployedName);
 		module.setHandle(aHandle);
-		theModules.getWorkbenchModules().add(module);
+		theModules.getComponents().add(module);
 		return module;
 	}
 
 	public void addDependentModule(WorkbenchComponent aModule, URI aDeployedPath, URI aHandle) {
-		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createDependentModule();
+		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
 		aClasspathDependentModule.setDeployedPath(aDeployedPath);
 		aClasspathDependentModule.setHandle(aHandle);
-		aModule.getModules().add(aClasspathDependentModule);
+		aModule.getReferencedComponents().add(aClasspathDependentModule);
 	}
 	
 	public void createLocalModules(ModuleCore moduleCore) throws Exception {
@@ -293,9 +293,9 @@ public class FlexibleProjectBuilderTest extends TestCase {
 			localWebLibrary.create(true, true, null);
 		addResource(webLibraryModule, localWebLibrary, "/");
 
-		ComponentType webModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
+		ComponentType webModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
 		webModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
-		webLibraryModule.setModuleType(webModuleType);
+		webLibraryModule.setComponentType(webModuleType);
 	}
 
 	public URI getWebModuleURI() {

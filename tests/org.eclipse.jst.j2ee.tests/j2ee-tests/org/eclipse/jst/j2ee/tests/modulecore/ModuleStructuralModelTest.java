@@ -129,7 +129,7 @@ public class ModuleStructuralModelTest extends TestCase {
 					IResource er = ModuleCore.getEclipseResource(wmr);
 				}
 				// test modulecore API
-				dependentModules = modules[i].getModules(); 			
+				dependentModules = modules[i].getReferencedComponents(); 			
 				for(int dependentIndex=0; dependentIndex<dependentModules.size(); dependentIndex++) {
 					ReferencedComponent dependentModule = (ReferencedComponent)dependentModules.get(dependentIndex);
 					WorkbenchComponent resolvedModule = moduleCore.findWorkbenchModuleByModuleURI(dependentModule.getHandle());
@@ -243,9 +243,9 @@ public class ModuleStructuralModelTest extends TestCase {
 			localWebLibrary.create(true, true, null);
 		addResource(webLibraryModule, localWebLibrary, "/");
 
-		ComponentType webModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
+		ComponentType webModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
 		webModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
-		webLibraryModule.setModuleType(webModuleType);
+		webLibraryModule.setComponentType(webModuleType);
 	}
 
 	public IFile getModuleRelativeFile(String aModuleRelativePath) throws Exception {
@@ -253,25 +253,25 @@ public class ModuleStructuralModelTest extends TestCase {
 	}
 
 	public void addResource(WorkbenchComponent aModule, IResource aSourceFile, String aDeployPath) {
-		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createWorkbenchModuleResource();
+		ComponentResource resource = ModuleCoreFactory.eINSTANCE.createComponentResource();
 		resource.setSourcePath(URI.createURI(aSourceFile.getFullPath().toString()));
 		resource.setDeployedPath(URI.createURI(aDeployPath));
 		aModule.getResources().add(resource);
 	}
 
 	public WorkbenchComponent addWorkbenchModule(ProjectComponents theModules, String aDeployedName, URI aHandle) {
-		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchModule();
+		WorkbenchComponent module = ModuleCoreFactory.eINSTANCE.createWorkbenchComponent();
 		module.setDeployedName(aDeployedName);
 		module.setHandle(aHandle);
-		theModules.getWorkbenchModules().add(module);
+		theModules.getComponents().add(module);
 		return module;
 	}
 
 	public void addDependentModule(WorkbenchComponent aModule, URI aDeployedPath, URI aHandle) {
-		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createDependentModule();
+		ReferencedComponent aClasspathDependentModule = ModuleCoreFactory.eINSTANCE.createReferencedComponent();
 		aClasspathDependentModule.setDeployedPath(aDeployedPath);
 		aClasspathDependentModule.setHandle(aHandle);
-		aModule.getModules().add(aClasspathDependentModule);
+		aModule.getReferencedComponents().add(aClasspathDependentModule);
 	}
 
 
@@ -339,9 +339,9 @@ public class ModuleStructuralModelTest extends TestCase {
 				IResource sourceFolder = project.getFolder("src");
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
 
-				ComponentType utilityModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
+				ComponentType utilityModuleType = ModuleCoreFactory.eINSTANCE.createComponentType();
 				utilityModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
-				utilityModule.setModuleType(utilityModuleType);
+				utilityModule.setComponentType(utilityModuleType);
 
 				structuralModel.saveIfNecessary(this);
 			} finally {
