@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.operations.WTPPropertyDescriptor;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
@@ -292,5 +293,10 @@ public class FlexibleEjbModuleCreationDataModel extends FlexibleJ2EEModuleCreati
 		}
 		return super.basicIsEnabled(propertyName);
 	}
-
+    /* (non-Javadoc)
+     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
+     */
+    protected String getModuleID() {
+        return IModuleConstants.JST_CONNECTOR_MODULE;
+    }
 }
