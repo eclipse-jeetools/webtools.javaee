@@ -39,7 +39,7 @@ public abstract class FlexibleJ2EECreationDataModel extends ArtifactEditOperatio
 	 * <code>Boolean.TRUE</code>. If this property is set to <code>Boolean.TRUE</code> then a
 	 * default deployment descriptor and supporting bindings files will be generated.
 	 */
-	public static final String SHOULD_CREATE_PROJECT = "FlexibleJ2EECreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
+	public static final String SHOULD_CREATE_PROJECT = "FlexibleJ2EECreationDataModel.SHOULD_CREATE_PROJECT"; //$NON-NLS-1$
 
 	/**
 	 * Optional, type String
@@ -60,7 +60,7 @@ public abstract class FlexibleJ2EECreationDataModel extends ArtifactEditOperatio
 
 	private static final String NESTED_MODEL_J2EE_PROJECT_CREATION = "FlexibleJ2EECreationDataModel.NESTED_MODEL_J2EE_PROJECT_CREATION"; //$NON-NLS-1$
 	
-	private J2EEProjectCreationDataModel j2eeProjectDataModel;
+//	private J2EEProjectCreationDataModel j2eeProjectDataModel;
 	
 	protected void initValidBaseProperties() {
 		addValidBaseProperty(CREATE_DEFAULT_FILES);
@@ -70,23 +70,24 @@ public abstract class FlexibleJ2EECreationDataModel extends ArtifactEditOperatio
 	}
 	protected void initNestedModels() {
 		super.initNestedModels();
-		initProjectModel();
-		addNestedModel(NESTED_MODEL_J2EE_PROJECT_CREATION, j2eeProjectDataModel);
+//		initProjectModel();
+//		addNestedModel(NESTED_MODEL_J2EE_PROJECT_CREATION, j2eeProjectDataModel);
 	}
-	protected void initProjectModel() {
-	    j2eeProjectDataModel = new J2EEProjectCreationDataModel();
-	}
-	/**
-	 * @param projectDataModel
-	 *            The projectDataModel to set.
-	 */
-	protected final void setProjectDataModel(J2EEProjectCreationDataModel projectDataModel) {
-		j2eeProjectDataModel = projectDataModel;
-	}
-
-	public final J2EEProjectCreationDataModel getProjectDataModel() {
-		return j2eeProjectDataModel;
-	}
+	
+//	protected void initProjectModel() {
+//	    j2eeProjectDataModel = new J2EEProjectCreationDataModel();
+//	}
+//	/**
+//	 * @param projectDataModel
+//	 *            The projectDataModel to set.
+//	 */
+//	protected final void setProjectDataModel(J2EEProjectCreationDataModel projectDataModel) {
+//		j2eeProjectDataModel = projectDataModel;
+//	}
+//
+//	public final J2EEProjectCreationDataModel getProjectDataModel() {
+//		return j2eeProjectDataModel;
+//	}
 	protected Boolean basicIsEnabled(String propertyName) {
 		return (Boolean) getProperty(IS_ENABLED);
 	}
@@ -94,14 +95,14 @@ public abstract class FlexibleJ2EECreationDataModel extends ArtifactEditOperatio
 	public void propertyChanged(WTPOperationDataModelEvent event) {
 		if (event.getFlag() == WTPOperationDataModelEvent.PROPERTY_CHG) {
 			WTPOperationDataModel dm = event.getDataModel();
-			if (dm == j2eeProjectDataModel) {
-				String prop = event.getPropertyName();
-				if (prop.equals(ProjectCreationDataModel.PROJECT_NAME) || prop.equals(ServerTargetDataModel.PROJECT_NAME)) {
-					setProperty(PROJECT_NAME, event.getProperty()); //setting on outer will synch
-					// all others
-					return;
-				}
-			}
+//			if (dm == j2eeProjectDataModel) {
+//				String prop = event.getPropertyName();
+//				if (prop.equals(ProjectCreationDataModel.PROJECT_NAME) || prop.equals(ServerTargetDataModel.PROJECT_NAME)) {
+//					setProperty(PROJECT_NAME, event.getProperty()); //setting on outer will synch
+//					// all others
+//					return;
+//				}
+//			}
 		}
 		super.propertyChanged(event);
 	}
@@ -109,24 +110,35 @@ public abstract class FlexibleJ2EECreationDataModel extends ArtifactEditOperatio
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
 		super.doSetProperty(propertyName, propertyValue);
 		if (EditModelOperationDataModel.PROJECT_NAME.equals(propertyName)) {
-			j2eeProjectDataModel.getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NAME, propertyValue);
-			j2eeProjectDataModel.getServerTargetDataModel().setProperty(ServerTargetDataModel.PROJECT_NAME, propertyValue);
+//			j2eeProjectDataModel.getProjectDataModel().setProperty(ProjectCreationDataModel.PROJECT_NAME, propertyValue);
+//			j2eeProjectDataModel.getServerTargetDataModel().setProperty(ServerTargetDataModel.PROJECT_NAME, propertyValue);
 		} else if (IS_ENABLED.equals(propertyName)) {
 			notifyEnablementChange(PROJECT_NAME);
 		}
 		return true;
 	}
 	protected IStatus doValidateProperty(String propertyName) {
-		if (propertyName.equals(PROJECT_NAME)) {
-			IStatus status = j2eeProjectDataModel.getProjectDataModel().validateProperty(ProjectCreationDataModel.PROJECT_NAME);
-			String projectName = getStringProperty(PROJECT_NAME);
-			if (status.isOK()) {
-				if (projectName.indexOf("#") != -1) { //$NON-NLS-1$
-					String errorMessage = J2EECreationResourceHandler.getString("InvalidCharsError"); //$NON-NLS-1$
-					return WTPCommonPlugin.createErrorStatus(errorMessage);
-				}
-			} else
-				return status;
+//		if (propertyName.equals(PROJECT_NAME)) {
+//			//IStatus status = j2eeProjectDataModel.getProjectDataModel().validateProperty(ProjectCreationDataModel.PROJECT_NAME);
+//			String projectName = getStringProperty(PROJECT_NAME);
+//			if (status.isOK()) {
+//				if (projectName.indexOf("#") != -1) { //$NON-NLS-1$
+//					String errorMessage = J2EECreationResourceHandler.getString("InvalidCharsError"); //$NON-NLS-1$
+//					return WTPCommonPlugin.createErrorStatus(errorMessage);
+//				}
+//			} else
+//				return status;
+			
+			if (propertyName.equals(MODULE_NAME)) {
+				IStatus status = OK_STATUS; 
+				String projectName = getStringProperty(PROJECT_NAME);
+				if (status.isOK()) {
+					if (projectName.indexOf("#") != -1) { //$NON-NLS-1$
+						String errorMessage = J2EECreationResourceHandler.getString("InvalidCharsError"); //$NON-NLS-1$
+						return WTPCommonPlugin.createErrorStatus(errorMessage);
+					}
+				} else
+					return status;			
 
 		} else if (propertyName.equals(NESTED_MODEL_VALIDATION_HOOK)) {
 			return OK_STATUS;
