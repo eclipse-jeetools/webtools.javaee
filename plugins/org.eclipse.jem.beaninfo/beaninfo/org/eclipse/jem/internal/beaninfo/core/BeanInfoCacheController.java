@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.3 $  $Date: 2005/03/08 23:41:01 $ 
+ *  $Revision: 1.4 $  $Date: 2005/03/10 17:34:16 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -918,9 +918,10 @@ public class BeanInfoCacheController {
 				return jclass.eResource().getResourceSet().getResource(
 						URI.createFileURI(ce.getRootIndex().getCachePath().append(
 								className + CLASS_CACHE_SUFFIX).toString()), true);
-			} catch (RuntimeException e) {
+			} catch (Exception e) {
 				// Something happened and couldn't load it.
-				BeaninfoPlugin.getPlugin().getLogger().log(e);
+				// TODO - need to remove the Level.INFO arg when the beaninfo cache is working dynamically
+				BeaninfoPlugin.getPlugin().getLogger().log(e, Level.INFO);
 				return null;
 			}
 		} else {
@@ -968,9 +969,10 @@ public class BeanInfoCacheController {
 				return jclass.eResource().getResourceSet().getResource(
 						URI.createFileURI(ce.getRootIndex().getCachePath().append(
 								className + OVERRIDE_CACHE_SUFFIX).toString()), true);
-			} catch (RuntimeException e) {
+			} catch (Exception e) {
 				// Something happened and couldn't load it.
-				BeaninfoPlugin.getPlugin().getLogger().log(e);
+				// TODO - need to remove the Level.INFO arg when the beaninfo cache is working dynamically
+				BeaninfoPlugin.getPlugin().getLogger().log(e, Level.INFO);
 				return null;
 			}
 		}
