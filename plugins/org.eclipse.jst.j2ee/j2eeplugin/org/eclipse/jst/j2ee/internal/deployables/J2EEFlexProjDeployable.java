@@ -53,7 +53,7 @@ public abstract class J2EEFlexProjDeployable extends ProjectModule implements IJ
         	if( wbModule != null ){
         		
         		IFolder outputContainer = ModuleCore.getOutputContainerRoot(wbModule);
-        		path = outputContainer.getFullPath();
+        		path = outputContainer.getRawLocation();
         	}
         }    
 	
