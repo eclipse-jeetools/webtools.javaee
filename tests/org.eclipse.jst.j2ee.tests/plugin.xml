@@ -4,7 +4,6 @@
    id="org.eclipse.jst.j2ee.tests"
    name="J2EE Tests Plug-in"
    version="1.0.0"
-   provider-name=""
    class="org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin">
 
    <runtime>

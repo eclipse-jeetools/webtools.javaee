@@ -6,9 +6,9 @@
   <property name="eclipse-home" value="${basedir}\..\.."/>
 
   <!-- sets the properties eclipse-home, and library-file -->
-  <property name="plugin-name" value="org.eclipse.jst.j2ee.tests.headless"/>
-  <property name="library-file"
-            value="${eclipse-home}/plugins/org.eclipse.test/library.xml"/>
+  <property name="plugin-name" value="org.eclipse.jst.j2ee.tests"/>
+  <property name="library-file" value="${eclipse-home}/plugins/org.eclipse.test/library.xml"/>
+  <property name="extraVMargs" value="-Dorg.eclipse.jst.server.jonas.432=${jonas432Dir}"/> 
             
   <property name="workspace" value="${basedir}/${plugin-name}"/>
 
@@ -18,7 +18,7 @@
   <target name="init">
     <tstamp/>
     <delete>
-      <fileset dir="${eclipse-home}" includes="org.eclipse.jst.j2ee.tests.headless.*.xml"/>
+      <fileset dir="${eclipse-home}" includes="org.eclipse.jst.j2ee.tests.*.xml"/>
     </delete>
   </target>
 
@@ -29,7 +29,8 @@
     <ant target="core-test" antfile="${library-file}" dir="${eclipse-home}">
       <property name="data-dir" value="${workspace}"/>
       <property name="plugin-name" value="${plugin-name}"/>
-      <property name="classname" value="org.eclipse.jst.j2ee.tests.headless.plugin.AllPluginTests"/>
+      <property name="classname" value="org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT"/>
+      <property name="extraVMargs" value="${extraVMargs}"/>
     </ant>
   </target>
     
@@ -44,7 +45,7 @@
   <!-- after all the tests have been run should go here. -->
   <target name="run" depends="init,suite,cleanup">
     <ant target="collect" antfile="${library-file}" dir="${eclipse-home}">
-      <property name="includes" value="org.eclipse.jst.j2ee.tests.headless.*.xml"/>
+      <property name="includes" value="org.eclipse.jst.j2ee.tests.*.xml"/>
       <property name="output-file" value="${plugin-name}.xml"/>
     </ant>
   </target>
