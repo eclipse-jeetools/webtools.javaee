@@ -11,16 +11,19 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaRefFactoryImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
  */
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
@@ -291,12 +294,76 @@ public class JavaRefFactoryImpl extends EFactoryImpl implements JavaRefFactory {
 	public static JavaRefPackage getPackage() {
 		return JavaRefPackage.eINSTANCE;
 	}
-  public static JavaRefFactory getActiveFactory()
-  {
-    JavaRefPackage pkg = getPackage();
-    if (pkg != null) return pkg.getJavaRefFactory();
-    else return null;
-  }}
+
+	public static JavaRefFactory getActiveFactory() {
+		return JavaRefFactory.eINSTANCE;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jem.java.JavaRefFactory#createClassRef(java.lang.String)
+	 */
+	public JavaClass createClassRef(String targetName) {
+		JavaClass ref = createJavaClass();
+		JavaURL javaurl = new JavaURL(targetName);
+		((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
+		return ref;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectType(java.lang.String, org.eclipse.emf.ecore.EObject)
+	 */
+	public JavaHelpers reflectType(String aQualifiedName, EObject relatedObject) {
+		Resource r = relatedObject.eResource();
+		if (r != null) {
+			ResourceSet rs = r.getResourceSet();
+			if (rs != null) {
+				return reflectType(aQualifiedName, rs);
+			}
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectType(java.lang.String, org.eclipse.emf.ecore.resource.ResourceSet)
+	 */
+	public JavaHelpers reflectType(String aQualifiedName, ResourceSet set) {
+		if (aQualifiedName != null) {
+			int index = aQualifiedName.lastIndexOf(".");
+			if (index > 0)
+				return reflectType(aQualifiedName.substring(0, index), aQualifiedName.substring(index + 1, aQualifiedName.length()), set);
+			else
+				return reflectType("", aQualifiedName, set);
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectType(java.lang.String, java.lang.String, org.eclipse.emf.ecore.resource.ResourceSet)
+	 */
+	public JavaHelpers reflectType(String aPackageName, String aTypeName, ResourceSet set) {
+		if (aTypeName != null && aPackageName != null) {
+			org.eclipse.jem.internal.java.init.JavaInit.init();
+			JavaURL url = new JavaURL(aPackageName, aTypeName);
+			return (JavaHelpers) set.getEObject(URI.createURI(url.getFullString()), true);
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectPackage(java.lang.String, org.eclipse.emf.ecore.resource.ResourceSet)
+	 */
+	public JavaPackage reflectPackage(String packageName, ResourceSet set) {
+		if (packageName != null) {
+			org.eclipse.jem.internal.java.init.JavaInit.init();
+			JavaURL url = new JavaURL(packageName, JavaPackage.PACKAGE_ID);
+			return (JavaPackage) set.getEObject(URI.createURI(url.getFullString()), true);
+		}
+		return null;
+	}
+
+}
 
 
 

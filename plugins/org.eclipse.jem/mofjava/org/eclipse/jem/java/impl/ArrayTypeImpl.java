@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: ArrayTypeImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
  */
 
 import java.util.Collection;
@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.ArrayType;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
@@ -100,7 +101,7 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 		String componentName = getQualifiedName();
 		// Strip the last [] form my name to get my component type's name
 		componentName = componentName.substring(0, componentName.length() - 2);
-		return reflect(componentName, this);
+		return JavaRefFactory.eINSTANCE.reflectType(componentName, this);
 	}
 /**
 	 * Override to perform some lazy initialization
@@ -131,7 +132,7 @@ public class ArrayTypeImpl extends JavaClassImpl implements ArrayType, JavaClass
 		String componentName = getQualifiedName();
 		// Strip all the [] from my name to get my FINAL component type's name
 		componentName = componentName.substring(0, componentName.indexOf("["));
-		return (JavaHelpers) reflect(componentName, this);
+		return JavaRefFactory.eINSTANCE.reflectType(componentName, this);
 	}
 	/**
 	 * (JavaHelpers)isArray - ArrayTypes are arrays

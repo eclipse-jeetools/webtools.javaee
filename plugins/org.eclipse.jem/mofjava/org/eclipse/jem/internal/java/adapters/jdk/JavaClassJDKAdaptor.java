@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.java.adapters.jdk;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDKAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:16:21 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
  */
 import java.util.List;
 
@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.jem.internal.core.MsgLogger;
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.InheritanceCycleException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.TypeKind;
@@ -232,7 +233,7 @@ protected void reflectInnerClasses() {
 		JavaClass inner;
 		ResourceSet set = getTargetResource().getResourceSet();
 		for (int i = 0; i < innerClasses.length; i++) {
-			inner = (JavaClass) JavaClassImpl.reflect(innerClasses[i].getName(), set);
+			inner = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(innerClasses[i].getName(), set);
 			declaredClasses.add(inner);
 		}
 	}

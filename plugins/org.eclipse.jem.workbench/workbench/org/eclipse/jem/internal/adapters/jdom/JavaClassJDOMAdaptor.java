@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.adapters.jdom;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassJDOMAdaptor.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:42 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:11 $ 
  */
 
 import java.util.*;
@@ -222,7 +222,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 	}
 	protected JavaClass reflectJavaClass(IType aType) {
 		if (aType != null) {
-			JavaClass javaClass = (JavaClass) JavaClassImpl.reflect(aType.getFullyQualifiedName(), (EObject) getTarget());
+			JavaClass javaClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(aType.getFullyQualifiedName(), (EObject) getTarget());
 			if (javaClass != null) {
 				JavaClassJDOMAdaptor adaptor = (JavaClassJDOMAdaptor) EcoreUtil.getAdapter(javaClass.eAdapters(), ReadAdaptor.TYPE_KEY);
 				if (adaptor != null)
@@ -385,7 +385,7 @@ public class JavaClassJDOMAdaptor extends JDOMAdaptor implements IJavaClassAdapt
 			ResourceSet set = getTargetResource().getResourceSet();
 			String packageName = getSourceType().getPackageFragment().getElementName();
 			for (int i = 0; i < innerClasses.length; i++) {
-				inner = (JavaClass) JavaClassImpl.reflect(packageName, innerClasses[i].getTypeQualifiedName(), set);
+				inner = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(packageName, innerClasses[i].getTypeQualifiedName(), set);
 				declaredClasses.add(inner);
 			}
 		}

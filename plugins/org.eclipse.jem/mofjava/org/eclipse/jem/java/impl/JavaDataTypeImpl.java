@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaDataTypeImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
  */
 
 import java.util.Collection;
@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EClassImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaDataType;
 import org.eclipse.jem.java.JavaRefPackage;
@@ -83,7 +84,7 @@ public class JavaDataTypeImpl extends EClassImpl implements JavaDataType{
 	public JavaClass getWrapper() {
 		String wrapperName = getWrapperQualifiedName();
 		if (wrapperName != null) {
-			return (JavaClass) JavaClassImpl.reflect(wrapperName, this);
+			return (JavaClass) JavaRefFactory.eINSTANCE.reflectType(wrapperName, this);
 		}
 		return null;
 	}

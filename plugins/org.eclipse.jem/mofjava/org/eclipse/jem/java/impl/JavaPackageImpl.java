@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaPackageImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
  */
 
 import java.util.Collection;
@@ -19,7 +19,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
@@ -31,9 +30,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jem.java.JavaPackage;
-import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jem.java.JavaURL;
+import org.eclipse.jem.java.*;
 
 public class JavaPackageImpl extends EPackageImpl implements JavaPackage, EPackage {
 		/**
@@ -101,19 +98,17 @@ protected boolean isDefault() {
 		Object result = eResource().getEObject(className);
 		return (result instanceof EClassifier) ? (EClassifier) result : null;
 	}
+	
 	/**
 	 * reflect - reflect a Java package for a given package name.
 	 * If the package does not exist, one will be created through
-	 * the reflection mechanism. 
+	 * the reflection mechanism.
+	 * @deprecated
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectPackage(java.lang.String, org.eclipse.emf.ecore.resource.ResourceSet) 
 	 */
 	public static JavaPackage reflect(String packageName, ResourceSet set) {
-    if (packageName != null) {
-      org.eclipse.jem.internal.java.init.JavaInit.init();
-      JavaURL url = new JavaURL(packageName, PACKAGE_ID);
-      return (JavaPackage) set.getEObject(URI.createURI(url.getFullString()), true);
+		return JavaRefFactory.eINSTANCE.reflectPackage(packageName, set);
     }
-    return null;
-  }
 
 	/**
 	 * <!-- begin-user-doc -->

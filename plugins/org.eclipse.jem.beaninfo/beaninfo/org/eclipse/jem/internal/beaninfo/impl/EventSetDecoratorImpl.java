@@ -11,47 +11,27 @@ package org.eclipse.jem.internal.beaninfo.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: EventSetDecoratorImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:11:59 $ 
  */
 
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EModelElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.jem.internal.beaninfo.BeaninfoFactory;
-import org.eclipse.jem.internal.beaninfo.BeaninfoPackage;
-import org.eclipse.jem.internal.beaninfo.EventSetDecorator;
-import org.eclipse.jem.internal.beaninfo.FeatureAttributeValue;
-import org.eclipse.jem.internal.beaninfo.MethodDecorator;
-import org.eclipse.jem.internal.beaninfo.MethodProxy;
+import org.eclipse.jem.internal.beaninfo.*;
 import org.eclipse.jem.internal.beaninfo.adapters.BeaninfoProxyConstants;
 import org.eclipse.jem.internal.beaninfo.adapters.Utilities;
-import org.eclipse.jem.java.JavaClass;
-import org.eclipse.jem.java.JavaParameter;
-import org.eclipse.jem.java.Method;
-import org.eclipse.jem.java.impl.JavaClassImpl;
-import org.eclipse.jem.internal.proxy.core.IArrayBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IBeanTypeProxy;
-import org.eclipse.jem.internal.proxy.core.IBooleanBeanProxy;
-import org.eclipse.jem.internal.proxy.core.IMethodProxy;
-import org.eclipse.jem.internal.proxy.core.IStringBeanProxy;
-import org.eclipse.jem.internal.proxy.core.ThrowableProxy;
+import org.eclipse.jem.internal.proxy.core.*;
+import org.eclipse.jem.java.*;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Event Set Decorator</b></em>'.
@@ -440,7 +420,7 @@ public class EventSetDecoratorImpl extends FeatureDecoratorImpl implements Event
 			return mthdsList;	// We are not attached, can't determine the list yet.
 			
 		retrievedListenerMethods = retrievedListenerMethodsSuccessful = true;
-		JavaClass eventObjectClass = (JavaClass) JavaClassImpl.reflect("java.util.EventObject", getEModelElement().eResource().getResourceSet()); //$NON-NLS-1$
+		JavaClass eventObjectClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("java.util.EventObject", getEModelElement().eResource().getResourceSet()); //$NON-NLS-1$
 		
 		mthdsList.clear();
 		

@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.beaninfo.adapters;
  *******************************************************************************/
 /*
  *  $RCSfile: BeaninfoClassAdapter.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:17:00 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:11:59 $ 
  */
 
 import java.io.FileNotFoundException;
@@ -1593,8 +1593,8 @@ public class BeaninfoClassAdapter extends AdapterImpl implements IIntrospectionA
 		}
 
 		HashMap events = new HashMap();
-		eventListenerClass = (JavaClass) JavaClassImpl.reflect("java.util.EventListener", getJavaClass()); // Initialize, needed for building eventinfos. //$NON-NLS-1$
-		tooManyExceptionClass = (JavaClass) JavaClassImpl.reflect("java.util.TooManyListenersException", getJavaClass()); // Initialize, needed for building eventinfos. //$NON-NLS-1$
+		eventListenerClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("java.util.EventListener", getJavaClass()); // Initialize, needed for building eventinfos. //$NON-NLS-1$
+		tooManyExceptionClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType("java.util.TooManyListenersException", getJavaClass()); // Initialize, needed for building eventinfos. //$NON-NLS-1$
 		Iterator itr = getJavaClass().getPublicMethods().iterator();
 		while (itr.hasNext()) {
 			Method mthd = (Method) itr.next();

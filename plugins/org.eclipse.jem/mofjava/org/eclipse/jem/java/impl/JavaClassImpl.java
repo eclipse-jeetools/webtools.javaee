@@ -11,7 +11,7 @@ package org.eclipse.jem.java.impl;
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2004/01/13 16:25:08 $ 
+ *  $Revision: 1.3 $  $Date: 2004/01/13 21:12:07 $ 
  */
 
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -46,6 +45,7 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.Field;
 import org.eclipse.jem.java.InheritanceCycleException;
 import org.eclipse.jem.java.Initializer;
@@ -275,12 +275,11 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	}
 	/**
 	 * createClassRef - return a JavaURL reference to the named Java class
+	 * @deprecated
+	 * @see org.eclipse.jem.java.JavaRefFactory#createClassRef(java.lang.String)
 	 */
 	public static JavaClass createClassRef(String targetName) {
-		JavaClass ref = JavaRefFactoryImpl.getActiveFactory().createJavaClass();
-		JavaURL javaurl = new JavaURL(targetName);
-	    ((InternalEObject) ref).eSetProxyURI(URI.createURI(javaurl.getFullString()));
-		return ref;
+		return JavaRefFactory.eINSTANCE.createClassRef(targetName);
 	}
 
 	/**
@@ -908,45 +907,36 @@ public class JavaClassImpl extends EClassImpl implements JavaClass, InternalRead
 	 * If the package or class does not exist, one will be created through
 	 * the reflection mechanism.
 	 * Lookup the JavaClass in the context of the passed object, handling some error cases.
+	 * @deprecated
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectType(java.lang.String, org.eclipse.emf.ecore.EObject)
+	 * 
 	 */
 	public static JavaHelpers reflect(String aQualifiedName, EObject relatedObject) {
-		Resource r = relatedObject.eResource();
-		if (r != null) {
-			ResourceSet rs = r.getResourceSet();
-			if (rs != null) {
-				return reflect(aQualifiedName, rs);
-			}
-		}
-		return null;
+		return JavaRefFactory.eINSTANCE.reflectType(aQualifiedName, relatedObject);
 	}
+	
 	/**
 	 * reflect - reflect a JavaClass for a given qualified name.
 	 * If the package or class does not exist, one will be created through
 	 * the reflection mechanism.
+	 * @deprecated
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectType(java.lang.String, org.eclipse.emf.ecore.resource.ResourceSet)
 	 */
 	public static JavaHelpers reflect(String aQualifiedName, ResourceSet set) {
-		if (aQualifiedName != null) {
-			int index = aQualifiedName.lastIndexOf(".");
-			if (index > 0)
-				return reflect(aQualifiedName.substring(0, index), aQualifiedName.substring(index + 1, aQualifiedName.length()), set);
-			else
-				return reflect("", aQualifiedName, set);
-		}
-		return null;
+		return JavaRefFactory.eINSTANCE.reflectType(aQualifiedName, set);
 	}
+	
 	/**
 	 * reflect - reflect a JavaClass for a given package name or class name.
 	 * If the package or class does not exist, one will be created through
 	 * the reflection mechanism.
+	 * @deprecated
+	 * @see org.eclipse.jem.java.JavaRefFactory#reflectType(java.lang.String, java.lang.String, org.eclipse.emf.ecore.resource.ResourceSet)
 	 */
 	public static JavaHelpers reflect(String aPackageName, String aClassName, ResourceSet set) {
-		if (aClassName != null && aPackageName != null) {
-			org.eclipse.jem.internal.java.init.JavaInit.init();
-			JavaURL url = new JavaURL(aPackageName, aClassName);
-			return (JavaHelpers) set.getEObject(URI.createURI(url.getFullString()), true);
-		}
-		return null;
+		return JavaRefFactory.eINSTANCE.reflectType(aPackageName, aClassName, set);
 	}
+	
 	public void setSupertype(JavaClass aJavaClass) throws InheritanceCycleException {
 		validateSupertype(aJavaClass);
 		List s = super.getESuperTypes();
