@@ -111,23 +111,24 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	public void testResolveDependentModule() throws Exception {
 
-		ModuleStructuralModel structuralModel = null;
+		ModuleCore moduleCore = null;
 		try {
-			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI());
-			ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(containingProject);
-			structuralModel = nature.getModuleStructuralModelForRead(this);
-			ModuleCore moduleCore = (ModuleCore) structuralModel.getAdapter(ModuleCore.ADAPTER_TYPE);
+			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI()); 
+			moduleCore = ModuleCore.getModuleCoreForRead(containingProject);
 			WorkbenchModule[] modules = moduleCore.getWorkbenchModules();
 			List dependentModules = null;
 			for(int i=0; i<modules.length; i++) {
-				System.out.println(modules[i].getDeployedName());
-				dependentModules = modules[i].getModules();
-				// TODO  FINISH THIS
+				System.out.println("Module: "+modules[i].getDeployedName());
+				dependentModules = modules[i].getModules(); 
+				for(int dependentIndex=0; dependentIndex<dependentModules.size(); dependentIndex++) {
+					DependentModule dependentModule = (DependentModule)dependentModules.get(dependentIndex);
+					WorkbenchModule resolvedModule = moduleCore.findWorkbenchModuleByModuleURI(dependentModule.getHandle());
+					System.out.println("\tDependentModule: "+resolvedModule.getDeployedName()+ " in " + resolvedModule.getHandle());
+				}
 			}
-
 		} finally {
-			if (structuralModel != null)
-				structuralModel.releaseAccess(this);
+			if(moduleCore != null)
+				moduleCore.dispose();	
 		}
 	}
 
@@ -197,6 +198,8 @@ public class ModuleStructuralModelTest extends TestCase {
 	public void setupContent() throws Exception {
 		ModuleCore localModuleCore = null;
 		try {
+			getProjectForWebModuleAndLocalWebLib();
+			
 			IProject containingProject = ModuleCore.getContainingProject(getWebModuleURI());
 			localModuleCore = ModuleCore.getModuleCoreForWrite(containingProject); 
 
@@ -284,18 +287,8 @@ public class ModuleStructuralModelTest extends TestCase {
 
 	public IProject getJavaProject(String aProjectName) throws Exception {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(aProjectName);
-
-		if (!project.exists()) {
-			try {
-				WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
-				dataModel.setProperty(WebModuleCreationDataModel.PROJECT_NAME, getWebModuleAndLocalWebLibModuleProjectName());
-				dataModel.setBooleanProperty(WebModuleCreationDataModel.IS_FLEXIBLE_PROJECT, true);
-				dataModel.getDefaultOperation().run(null);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
+		if (!project.exists()) 
+			createJavaProject(aProjectName); 
 		return project;
 	}
 
@@ -363,7 +356,7 @@ public class ModuleStructuralModelTest extends TestCase {
 	}
 
 	public URI getRemoteWebLibraryModuleURI() {
-		return URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + getWebModuleAndLocalWebLibModuleProjectName() + IPath.SEPARATOR + getRemoteWebLibraryDeployedName());
+		return URI.createURI(MODULE__RESOURCE_URI_PROTOCOL + getRemoteWebLibModuleProjectName() + IPath.SEPARATOR + getRemoteWebLibraryDeployedName());
 	}
 
 	public String getWebModuleAndLocalWebLibModuleProjectName() {
