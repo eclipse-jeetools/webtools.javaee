@@ -86,8 +86,8 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 		clientJarURILabel = new Label(newComposite, SWT.NULL);
 		clientJarURILabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.Client_JAR_URI) + " "); //$NON-NLS-1$ 
 
-		GridData data = new GridData();
-		//data.widthHint = 305;
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.widthHint = 305;
 		clientJarURI = new Text(newComposite, SWT.BORDER);
 		clientJarURI.setEditable(true);
 		clientJarURI.setLayoutData(data);
@@ -105,7 +105,7 @@ public class EJBClientCreationWizardPage extends WTPWizardPage {
 		selectedProjectLabel = new Label(newComposite, SWT.NULL);
 		selectedProjectLabel.setText(EJBUIMessages.getResourceString(EJBUIMessages.EJB_Project)); //$NON-NLS-1$ 
 
-		//data.widthHint = 305;
+		data.widthHint = 305;
 		selectedProjectName = new Text(newComposite, SWT.NULL);
 		selectedProjectName.setLayoutData(data);
 		selectedProjectName.setEditable(false);
