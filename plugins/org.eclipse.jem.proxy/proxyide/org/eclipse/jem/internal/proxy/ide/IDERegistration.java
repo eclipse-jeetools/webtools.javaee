@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.6 $  $Date: 2004/08/20 19:10:17 $ 
+ *  $Revision: 1.7 $  $Date: 2004/08/23 18:31:17 $ 
  */
 
 import java.net.URL;
@@ -81,7 +81,7 @@ public class IDERegistration {
 		// Add in any classpaths the contributors want to add.
 		if (contributors != null) {
 			final ProxyLaunchSupport.LaunchInfo launchInfo = new ProxyLaunchSupport.LaunchInfo();
-			contributors = ProxyLaunchSupport.fillInLaunchInfo(contributors, launchInfo, jp.getElementName());
+			contributors = ProxyLaunchSupport.fillInLaunchInfo(contributors, launchInfo, jp != null ? jp.getElementName() : null);
 			final LocalFileConfigurationContributorController controller = new LocalFileConfigurationContributorController(classPaths, new URL[3][], launchInfo);
 			final IConfigurationContributor[] contribs = contributors;
 			for (int i = 0; i < contributors.length; i++) {
