@@ -9,6 +9,7 @@
 		<project>org.eclipse.emf.ecore.xmi</project>
 		<project>org.eclipse.jdt.core</project>
 		<project>org.eclipse.jem</project>
+		<project>org.eclipse.jem.proxy</project>
 		<project>org.eclipse.wtp.common</project>
 		<project>org.eclipse.wtp.emf</project>
 		<project>org.eclipse.wtp.emf.workbench</project>
