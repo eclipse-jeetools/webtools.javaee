@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -119,7 +120,7 @@ public class ModuleStructuralModelTest extends TestCase {
 			List dependentModules = null;
 			for(int i=0; i<modules.length; i++) {
 				System.out.println("Module: "+modules[i].getDeployedName());
-				dependentModules = modules[i].getModules(); 
+				dependentModules = modules[i].getModules(); 			
 				for(int dependentIndex=0; dependentIndex<dependentModules.size(); dependentIndex++) {
 					DependentModule dependentModule = (DependentModule)dependentModules.get(dependentIndex);
 					WorkbenchModule resolvedModule = moduleCore.findWorkbenchModuleByModuleURI(dependentModule.getHandle());
@@ -233,7 +234,7 @@ public class ModuleStructuralModelTest extends TestCase {
 		addResource(webLibraryModule, localWebLibrary, "/");
 
 		ModuleType webModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
-		webModuleType.setModuleTypeId(IModuleConstants.JAVA_UTIL_MODULE);
+		webModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
 		webLibraryModule.setModuleType(webModuleType);
 	}
 
@@ -326,7 +327,7 @@ public class ModuleStructuralModelTest extends TestCase {
 				addResource(utilityModule, sourceFolder, "/"); //$NON-NLS-1$
 
 				ModuleType utilityModuleType = ModuleCoreFactory.eINSTANCE.createModuleType();
-				utilityModuleType.setModuleTypeId(IModuleConstants.JAVA_UTIL_MODULE);
+				utilityModuleType.setModuleTypeId(IModuleConstants.JST_UTILITY_MODULE);
 				utilityModule.setModuleType(utilityModuleType);
 
 				structuralModel.saveIfNecessary(this);
