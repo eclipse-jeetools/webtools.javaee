@@ -1,13 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+/***************************************************************************************************
+ * Copyright (c) 2003, 2004 IBM Corporation and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- * IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Contributors: IBM Corporation - initial API and implementation
+ **************************************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -25,11 +23,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	protected Button addClient;
 	protected AnnotationsStandaloneGroup annotationsGroup;
-//	private Button addDefaultBean;
+
+	//	private Button addDefaultBean;
 
 	/**
 	 * @param model
@@ -52,22 +52,22 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 		createEJBClientGroup(advanced);
 
 		createAnnotationsGroup(advanced);
-//		createDefaultBean(advanced);
+		//		createDefaultBean(advanced);
 	}
 
 	/**
 	 * @param advanced
 	 */
-//	private void createDefaultBean(Composite advanced) {
-//		addDefaultBean = new Button(advanced, SWT.CHECK);
-//		addDefaultBean.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_DEFAULT_SESSION_BEAN));
-//		synchHelper.synchCheckbox(addDefaultBean, EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, null);
-//		GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
-//		gd1.horizontalSpan = 3;
-//		addDefaultBean.setLayoutData(gd1);
-//
-//	}
-
+	//	private void createDefaultBean(Composite advanced) {
+	//		addDefaultBean = new Button(advanced, SWT.CHECK);
+	//		addDefaultBean.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_DEFAULT_SESSION_BEAN));
+	//		synchHelper.synchCheckbox(addDefaultBean,
+	// EJBModuleCreationDataModel.CREATE_DEFAULT_SESSION_BEAN, null);
+	//		GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
+	//		gd1.horizontalSpan = 3;
+	//		addDefaultBean.setLayoutData(gd1);
+	//
+	//	}
 	/**
 	 * @param advanced
 	 */
@@ -80,7 +80,7 @@ public class EJBProjectCreationPage extends J2EEModuleCreationPage {
 	 */
 	private void createEJBClientGroup(Composite parent) {
 		// Create Add Client checkbox
-		addSpacers(parent, 1);
+		new Label(parent, SWT.NONE);
 		addClient = new Button(parent, SWT.CHECK);
 		addClient.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.CREATE_EJB_CLIENT_JAR));
 		synchHelper.synchCheckbox(addClient, EJBModuleCreationDataModel.CREATE_CLIENT, null);
