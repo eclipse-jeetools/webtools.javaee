@@ -9,31 +9,31 @@
 package org.eclipse.jst.j2ee.internal.actions;
 
 
+
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard;
+import org.eclipse.jst.j2ee.internal.wizard.EARComponentCreationWizard;
 import org.eclipse.ui.IWorkbench;
 
 
-public class NewApplClientProjectAction extends AbstractOpenWizardWorkbenchAction {
-
+public class NewEARModuleAction extends AbstractOpenWizardWorkbenchAction {
 	// TODO MDE 02-28 Find correct label
-	public static String LABEL = J2EEUIMessages.getResourceString("NewApplClientProjectAction_UI_0"); //$NON-NLS-1$
-	private static final String ICON = "new_appclientproject_wiz"; //$NON-NLS-1$
+	public static String LABEL = J2EEUIMessages.getResourceString("NewEARModuleAction_UI_0"); //$NON-NLS-1$
+	private static final String ICON = "newear_wiz"; //$NON-NLS-1$
 
-	public NewApplClientProjectAction() {
+	public NewEARModuleAction() {
 		setText(LABEL);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
-	public NewApplClientProjectAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
+	public NewEARModuleAction(IWorkbench workbench, String label, Class[] acceptedTypes) {
 		super(workbench, label, acceptedTypes, false);
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
 	protected Wizard createWizard() {
-		return new AppClientModuleCreationWizard();
+		return new EARComponentCreationWizard();
 	}
 
 	protected boolean shouldAcceptElement(Object obj) {
