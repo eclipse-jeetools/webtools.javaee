@@ -31,7 +31,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.application.Module}object.
+ * This is the item provider adpater for a
+ * {@link org.eclipse.jst.j2ee.internal.internal.application.Module}object.
  */
 public class ModuleItemProvider extends ApplicationItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	/**

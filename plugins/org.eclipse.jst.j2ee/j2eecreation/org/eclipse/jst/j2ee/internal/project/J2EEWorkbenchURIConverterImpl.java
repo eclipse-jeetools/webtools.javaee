@@ -167,13 +167,14 @@ public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConv
 	 */
 	public void projectClosed() {
 	}
+
 	public IContainer getInputContainer() {
 		List list = getInputContainers();
 		if (!list.isEmpty()) {
 			for (int i = 0; i < list.size(); i++) {
-				IContainer container = (IContainer)list.get(i);
+				IContainer container = (IContainer) list.get(i);
 				if (container instanceof IFolder) {
-					IFolder sourceFolder = (IFolder)container;
+					IFolder sourceFolder = (IFolder) container;
 					if (J2EEProjectUtilities.isSourceFolderAnInputContainer(sourceFolder)) {
 						return sourceFolder;
 					}

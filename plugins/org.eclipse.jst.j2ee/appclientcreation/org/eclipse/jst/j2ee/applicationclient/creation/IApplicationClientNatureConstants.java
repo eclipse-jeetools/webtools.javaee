@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.applicationclient.creation;
 
 
 
-
 /**
  * Insert the type's description here. Creation date: (4/4/2001 10:04:11 AM)
  * 

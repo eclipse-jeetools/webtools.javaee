@@ -111,7 +111,8 @@ public class ClientItemProviderAdapterFactory extends ClientAdapterFactory imple
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.client.ApplicationClient}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.client.ApplicationClient}.
 	 */
 	public Adapter createApplicationClientAdapter() {
 		if (applicationClientItemProvider == null) {

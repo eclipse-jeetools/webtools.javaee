@@ -50,35 +50,42 @@ public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate 
 	 *            org.eclipse.core.resources.IProject
 	 * @return com.ibm.etools.server.core.model.IProjectModule
 	 */
-	
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#createModule(org.eclipse.core.resources.IProject)
-     */
-    protected IModule createModule(IProject project) {
-        // TODO Auto-generated method stub
-        return new LooseArchiveDeployable(project, ID);
-    }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
-     */
-    public ModuleDelegate getModuleDelegate(IModule module) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#createModule(org.eclipse.core.resources.IProject)
+	 */
+	protected IModule createModule(IProject project) {
+		// TODO Auto-generated method stub
+		return new LooseArchiveDeployable(project, ID);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
-     */
-    public IModule[] getModules() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    protected void handleProjectChange(IProject project, IResourceDelta delta) {
-        if (projects == null)
-            cacheModules();
-        super.handleProjectChange(project, delta);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
+	 */
+	public ModuleDelegate getModuleDelegate(IModule module) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+	 */
+	public IModule[] getModules() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	protected void handleProjectChange(IProject project, IResourceDelta delta) {
+		if (projects == null)
+			cacheModules();
+		super.handleProjectChange(project, delta);
+	}
 
 }

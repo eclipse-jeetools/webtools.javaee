@@ -55,7 +55,7 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
 public class J2EEEditModel extends EditModel {
 
 	private WorkingCopyManager workingCopyManager = null;
-	
+
 	/**
 	 * J2EEEditModel constructor comment.
 	 */
@@ -149,7 +149,7 @@ public class J2EEEditModel extends EditModel {
 			workingCopyManager = WorkingCopyManagerFactory.newRegisteredInstance();
 		return workingCopyManager;
 	}
-	
+
 	/**
 	 * Reset the working copy manager because the ejb-jar.xml was removed without disposing.
 	 */

@@ -33,20 +33,20 @@ import org.eclipse.wst.server.core.ServerCore;
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class ServerTargetOperation extends WTPOperation {
-    public ServerTargetOperation(ServerTargetDataModel dataModel) {
-        super(dataModel);
-    }
+	public ServerTargetOperation(ServerTargetDataModel dataModel) {
+		super(dataModel);
+	}
 
-    protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-        ServerTargetDataModel dataModel = (ServerTargetDataModel) operationDataModel;
-        IRuntime runtime = dataModel.getRuntimeTarget();
-        IProject project = dataModel.getProject();
-        if (runtime != null) {
-            ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
-            if (dataModel.getBooleanProperty(ServerTargetDataModel.UPDATE_MODULES) && EARNatureRuntime.hasRuntime(project)) {
-                ServerTargetHelper.setNewServerTargetForEARModules(runtime, project);
-                ServerTargetHelper.setNewServerTargetForEARUtilityJars(runtime, project);
-            }
-        }
-    }
+	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+		ServerTargetDataModel dataModel = (ServerTargetDataModel) operationDataModel;
+		IRuntime runtime = dataModel.getRuntimeTarget();
+		IProject project = dataModel.getProject();
+		if (runtime != null) {
+			ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
+			if (dataModel.getBooleanProperty(ServerTargetDataModel.UPDATE_MODULES) && EARNatureRuntime.hasRuntime(project)) {
+				ServerTargetHelper.setNewServerTargetForEARModules(runtime, project);
+				ServerTargetHelper.setNewServerTargetForEARUtilityJars(runtime, project);
+			}
+		}
+	}
 }

@@ -16,13 +16,20 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.MethodsProviderDelegate;
+import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectManager.IRefreshHandlerListener;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.navigator.internal.views.CommonViewer;
 
@@ -33,7 +40,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * The following class is experimental until fully documented.
  * </p>
  */
-public class J2EEContentProvider implements ITreeContentProvider {
+public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandlerListener {
 
 	private static final Class IPROJECT_CLASS = IProject.class;
 
@@ -43,20 +50,23 @@ public class J2EEContentProvider implements ITreeContentProvider {
 	private MethodsProviderDelegate delegateMethodsProvider;
 
 	private String viewerId = null;
+	Viewer viewer;
 
 	/**
-	 * 
+	 *  
 	 */
 	public J2EEContentProvider() {
 		rootObjectManager = new EMFRootObjectManager();
+		rootObjectManager.addRefreshHandlerListener(this);
 	}
 
 	/**
-	 * 
+	 *  
 	 */
 	public J2EEContentProvider(String aViewerId) {
 		rootObjectManager = new EMFRootObjectManager();
 		updateContentProviders(aViewerId);
+		rootObjectManager.addRefreshHandlerListener(this);
 	}
 
 
@@ -109,9 +119,11 @@ public class J2EEContentProvider implements ITreeContentProvider {
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
 	public void dispose() {
+		rootObjectManager.removeRefreshHandlerListener(this);
 		delegateContentProvider.dispose();
 		rootObjectManager.dispose();
 		delegateMethodsProvider.dispose();
+
 	}
 
 	/*
@@ -133,6 +145,7 @@ public class J2EEContentProvider implements ITreeContentProvider {
 	 */
 	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
 		String newViewerId = null;
+		viewer = aViewer;
 		if (aViewer instanceof CommonViewer)
 			newViewerId = ((CommonViewer) aViewer).getNavigatorContentService().getViewerId();
 
@@ -162,6 +175,27 @@ public class J2EEContentProvider implements ITreeContentProvider {
 		/* Remember the viewer id */
 		viewerId = aViewerId;
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectManager.IRefreshHandlerListener#onRefresh(java.lang.Object)
+	 */
+	public void onRefresh(final Object element) {
+		if (viewer instanceof AbstractTreeViewer) {
+			if (Display.getCurrent() != null) {
+				((AbstractTreeViewer) viewer).refresh(element, true);
+			} else {
+				/* Create and schedule a UI Job to update the Navigator Content Viewer */
+				new UIJob("Update the Navigator Content Viewer Job") {
+					public IStatus runInUIThread(IProgressMonitor monitor) {
+						((AbstractTreeViewer) viewer).refresh(element, true);
+						return Status.OK_STATUS;
+					}
+				}.schedule();
+			}
+		}
 	}
 
 }

@@ -74,13 +74,13 @@ public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelec
 
 	protected static final String[] EAR_PROJECT_IDS = new String[]{NEW_APPCLIENT_PROJECT_WIZARD_ID, NEW_JCA_PROJECT_WIZARD_ID, NEW_EJB_PROJECT_WIZARD_ID, NEW_WEB_PROJECT_WIZARD_ID};
 
-	protected static final String[] APPCLIENT_PROJECT_IDS = new String[]{ };
+	protected static final String[] APPCLIENT_PROJECT_IDS = new String[]{};
 
-	protected static final String[] JCA_PROJECT_IDS = new String[]{ };
+	protected static final String[] JCA_PROJECT_IDS = new String[]{};
 
 	protected static final String[] EJB_PROJECT_IDS = new String[]{NEW_ENTERPRISE_BEAN_WIZARD_ID};
 
-	protected static final String[] WEB_PROJECT_IDS = new String[]{ };
+	protected static final String[] WEB_PROJECT_IDS = new String[]{};
 
 	protected static final String[] EAR_IMPORT_IDS = new String[]{IMPORT_APPCLIENT_WIZARD_ID, IMPORT_CONNECTOR_WIZARD_ID, IMPORT_ENTERPRISE_BEAN_WIZARD_ID, IMPORT_WEB_MODULE_WIZARD_ID, IMPORT_UTILITY_JAR_WIZARD_ID};
 
@@ -443,8 +443,8 @@ public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelec
 	public void delete(IStructuredSelection selection) {
 		/*
 		 * // deleteEJBAction.selectionChanged(selection);
-		 * deleteModuleAction.selectionChanged((ISelection)selection);
-		 *  // if(deleteEJBAction.isEnabled()) // deleteEJBAction.run(); // else
+		 * deleteModuleAction.selectionChanged((ISelection)selection); //
+		 * if(deleteEJBAction.isEnabled()) // deleteEJBAction.run(); // else
 		 * if(deleteModuleAction.isEnabled()) deleteModuleAction.run();
 		 */
 		/* else */

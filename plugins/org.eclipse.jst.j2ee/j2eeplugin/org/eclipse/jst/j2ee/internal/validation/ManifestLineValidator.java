@@ -101,4 +101,3 @@ public class ManifestLineValidator extends Object {
 		return !endsWithLineBreak || (lineNumbers != null && !lineNumbers.isEmpty());
 	}
 }
-

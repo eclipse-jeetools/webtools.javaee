@@ -34,14 +34,14 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	private AdapterFactoryLabelProvider delegateLabelProvider;
 
 	/**
-	 * 
+	 *  
 	 */
 	public J2EELabelProvider() {
 		super();
 	}
 
 	/**
-	 * 
+	 *  
 	 */
 	public J2EELabelProvider(String aViewerId) {
 		super();
@@ -81,7 +81,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	}
 
 	/**
-	 * 
+	 *  
 	 */
 	public void dispose() {
 		if (delegateLabelProvider != null)
@@ -100,7 +100,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	}
 
 	/**
-	 * 
+	 *  
 	 */
 	public void fireLabelProviderChanged() {
 		if (delegateLabelProvider != null)

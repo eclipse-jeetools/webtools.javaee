@@ -22,11 +22,10 @@ import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersRe
 
 
 
-
 /**
  * This extended item provider supports the following commands:
- * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}. The commands are implemented uniformly
- * on all our item adapters using this common base class.
+ * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}. The commands
+ * are implemented uniformly on all our item adapters using this common base class.
  */
 public class ClientItemProviderAdapter extends ItemProviderAdapter implements org.eclipse.jst.j2ee.internal.application.common.CreateChildCommand.Helper {
 	/**
@@ -55,14 +54,16 @@ public class ClientItemProviderAdapter extends ItemProviderAdapter implements or
 	}
 
 	/**
-	 * This returns the default image for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
+	 * This returns the default image for
+	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getImage("CreateChild"); //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the default label for {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
+	 * This returns the default label for
+	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("Create_Child_UI_"); //$NON-NLS-1$

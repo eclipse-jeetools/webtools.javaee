@@ -35,7 +35,6 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 
 
-
 /**
  * This is the item provider adpater for a {@link com.ibm.etools.common.Identity}object.
  */

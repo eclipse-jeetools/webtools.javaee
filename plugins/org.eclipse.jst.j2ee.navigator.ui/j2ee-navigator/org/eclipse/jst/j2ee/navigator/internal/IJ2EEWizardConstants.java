@@ -7,7 +7,7 @@
  * 
  * Contributors:
  * IBM Corporation - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal;
 
 import org.eclipse.jst.ejb.ui.EJBModuleCreationWizard;
@@ -32,12 +32,12 @@ import org.eclipse.jst.servlet.ui.WebModuleImportWizard;
  * The following class is experimental until fully documented.
  * </p>
  * <p>
- * The Creation IDs are used for activity filtering and as such are declared on the 
- * individual wizards. All other IDs must be maintained to stay in sync with the
- * values found in the plugin.xml files of the respective module UI plugins.  
+ * The Creation IDs are used for activity filtering and as such are declared on the individual
+ * wizards. All other IDs must be maintained to stay in sync with the values found in the plugin.xml
+ * files of the respective module UI plugins.
  */
 public interface IJ2EEWizardConstants {
-	 
+
 	String NEW_EAR_PROJECT_WIZARD_ID = EnterpriseApplicationCreationWizard.WIZARD_ID;
 
 	String NEW_APPCLIENT_PROJECT_WIZARD_ID = AppClientModuleCreationWizard.WIZARD_ID;
@@ -49,7 +49,7 @@ public interface IJ2EEWizardConstants {
 	String NEW_WEB_PROJECT_WIZARD_ID = WebModuleCreationWizard.WIZARD_ID;
 
 	String NEW_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.j2ee.ejb.ui.util.createEJBWizard"; //$NON-NLS-1$
- 
+
 	String IMPORT_EAR_WIZARD_ID = EnterpriseApplicationImportWizard.class.getName();
 
 	String IMPORT_APPCLIENT_WIZARD_ID = AppClientModuleImportWizard.class.getName();

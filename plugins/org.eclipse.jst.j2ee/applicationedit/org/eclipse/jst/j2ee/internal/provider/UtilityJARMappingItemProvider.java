@@ -33,9 +33,9 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 
-
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.UtilityJARMapping}
+ * This is the item provider adpater for a
+ * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.UtilityJARMapping}
  * object.
  */
 public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {

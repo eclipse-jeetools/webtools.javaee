@@ -21,51 +21,51 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * @author
  */
 public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
-    private static final String ID = "com.ibm.wtp.server.j2ee.appclient"; //$NON-NLS-1$
+	private static final String ID = "com.ibm.wtp.server.j2ee.appclient"; //$NON-NLS-1$
 
-    /**
-     * Constructor for ApplicationClientDeployableFactory.
-     */
-    public ApplicationClientDeployableFactory() {
-        super();
-    }
+	/**
+	 * Constructor for ApplicationClientDeployableFactory.
+	 */
+	public ApplicationClientDeployableFactory() {
+		super();
+	}
 
-    /*
-     * @see DeployableProjectFactoryDelegate#getFactoryID()
-     */
-    public String getFactoryId() {
-        return ID;
-    }
+	/*
+	 * @see DeployableProjectFactoryDelegate#getFactoryID()
+	 */
+	public String getFactoryId() {
+		return ID;
+	}
 
-    /*
-     * @see J2EEDeployableFactory#getNatureID()
-     */
-    public String getNatureID() {
-        return IApplicationClientNatureConstants.NATURE_ID;
-    }
+	/*
+	 * @see J2EEDeployableFactory#getNatureID()
+	 */
+	public String getNatureID() {
+		return IApplicationClientNatureConstants.NATURE_ID;
+	}
 
-    /*
-     * @see J2EEDeployableFactory#createDeployable(J2EENature)
-     */
+	/*
+	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
+	 */
 
-    public IModule createModule(J2EENature nature) {
-        if (nature == null)
-            return null;
-        ApplicationClientDeployable moduleDelegate = null;
-        IModule module = nature.getModule();
-        if (module == null) {
-            try {
-                moduleDelegate = new ApplicationClientDeployable(nature, ID);
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-                nature.setModule(module);
-                moduleDelegate.initialize(module);
-            } catch (Exception e) {
-                Logger.getLogger().write(e);
-            } finally {
-                moduleDelegates.add(moduleDelegate);
-            }
-        }
-        return module;
-    }
+	public IModule createModule(J2EENature nature) {
+		if (nature == null)
+			return null;
+		ApplicationClientDeployable moduleDelegate = null;
+		IModule module = nature.getModule();
+		if (module == null) {
+			try {
+				moduleDelegate = new ApplicationClientDeployable(nature, ID);
+				module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+				nature.setModule(module);
+				moduleDelegate.initialize(module);
+			} catch (Exception e) {
+				Logger.getLogger().write(e);
+			} finally {
+				moduleDelegates.add(moduleDelegate);
+			}
+		}
+		return module;
+	}
 
 }

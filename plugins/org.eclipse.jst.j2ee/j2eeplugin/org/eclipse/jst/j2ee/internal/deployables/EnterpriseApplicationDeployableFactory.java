@@ -22,12 +22,15 @@ import com.ibm.wtp.common.logger.proxy.Logger;
  * @version 1.0
  * @author
  */
-public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactory {/* (non-Javadoc)
- * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
- */
-public IModule[] getModules() {
-   return null;
-}
+public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactory {/*
+																				    * (non-Javadoc)
+																				    * 
+																				    * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+																				    */
+	public IModule[] getModules() {
+		return null;
+	}
+
 	protected static final String ID = "com.ibm.wtp.server.j2ee.application"; //$NON-NLS-1$
 
 	protected static final IPath[] PATHS = new IPath[]{new Path("META-INF/application.xml"), //$NON-NLS-1$
@@ -55,26 +58,26 @@ public IModule[] getModules() {
 		return IEARNatureConstants.NATURE_ID;
 	}
 
-	
-    public IModule createModule(J2EENature nature) {
-        if (nature == null)
-            return null;
-        EnterpriseApplicationDeployable moduleDelegate = null;
-        IModule module = nature.getModule();
-        if (module == null) {
-            try {
-                moduleDelegate = new EnterpriseApplicationDeployable(nature, ID);
-                module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
-                nature.setModule(module);
-                moduleDelegate.initialize(module);
-            } catch (Exception e) {
-                Logger.getLogger().write(e);
-            } finally {
-                moduleDelegates.add(moduleDelegate);
-            }
-        }
-        return module;
-    }
+
+	public IModule createModule(J2EENature nature) {
+		if (nature == null)
+			return null;
+		EnterpriseApplicationDeployable moduleDelegate = null;
+		IModule module = nature.getModule();
+		if (module == null) {
+			try {
+				moduleDelegate = new EnterpriseApplicationDeployable(nature, ID);
+				module = createModule(moduleDelegate.getId(), moduleDelegate.getName(), moduleDelegate.getType(), moduleDelegate.getVersion(), moduleDelegate.getProject());
+				nature.setModule(module);
+				moduleDelegate.initialize(module);
+			} catch (Exception e) {
+				Logger.getLogger().write(e);
+			} finally {
+				moduleDelegates.add(moduleDelegate);
+			}
+		}
+		return module;
+	}
 
 	/*
 	 * @see DeployableProjectFactoryDelegate#getListenerPaths()
@@ -83,7 +86,6 @@ public IModule[] getModules() {
 		return PATHS;
 	}
 
-    
 
 
 }

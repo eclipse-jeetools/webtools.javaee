@@ -14,7 +14,8 @@
 package org.eclipse.jst.j2ee.application.operations;
 
 
-//TODO this should be deleted and the required properties added to the various models that need them
+//TODO this should be deleted and the required properties added to the various models that need
+// them
 /**
  * @author jlanuti
  */

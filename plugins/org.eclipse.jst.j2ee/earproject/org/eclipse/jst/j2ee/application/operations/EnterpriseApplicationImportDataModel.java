@@ -136,8 +136,8 @@ public final class EnterpriseApplicationImportDataModel extends J2EEArtifactImpo
 	private Hashtable clientJarToEjbJarModels = new Hashtable();
 
 	/**
-	 * Imports the specified Enterprise Application archive file into the specified Enterprise Application
-	 * project.
+	 * Imports the specified Enterprise Application archive file into the specified Enterprise
+	 * Application project.
 	 * 
 	 * @param earFileName
 	 *            The path to the EAR file.

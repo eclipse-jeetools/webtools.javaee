@@ -448,6 +448,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 		}
 		return null;
 	}
+
 	public static IContainer getSourceFolderOrFirst(IProject p, String defaultSourceName) {
 		try {
 			IPath sourcePath = getSourcePathOrFirst(p, defaultSourceName);
@@ -461,7 +462,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			return null;
 		}
 	}
-	
+
 	public static IPath getSourcePathOrFirst(IProject p, String defaultSourceName) {
 		IJavaProject javaProj = getJavaProject(p);
 		if (javaProj == null)
@@ -514,7 +515,7 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			return firstSource.getPath().removeFirstSegments(1);
 		return null;
 	}
-	
+
 	public static boolean isSourceFolderAnInputContainer(IFolder sourceFolder) {
 		IContainer parent = sourceFolder;
 		while (true) {
@@ -524,19 +525,16 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			if (parent instanceof IProject)
 				break;
 		}
-		IProject project = (IProject)parent;
+		IProject project = (IProject) parent;
 		try {
 			IProjectDescription desc = project.getDescription();
 			if (desc.hasNature(IEJBNatureConstants.NATURE_ID)) {
 				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
-			}
-			else if (desc.hasNature(IApplicationClientNatureConstants.NATURE_ID)) {
+			} else if (desc.hasNature(IApplicationClientNatureConstants.NATURE_ID)) {
 				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;
-			}
-			else if (desc.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
+			} else if (desc.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
 				return sourceFolder.findMember(J2EEConstants.WEBAPP_DD_URI) != null;
-			}
-			else if (desc.hasNature(IConnectorNatureConstants.NATURE_ID)) {
+			} else if (desc.hasNature(IConnectorNatureConstants.NATURE_ID)) {
 				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
 			}
 		} catch (CoreException e) {

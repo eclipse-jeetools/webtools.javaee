@@ -21,102 +21,103 @@ import org.eclipse.wst.server.core.util.ProjectModule;
  * J2EE deployable superclass.
  */
 public abstract class J2EEDeployable extends ProjectModule implements IJ2EEModule {
-    private String factoryId;
+	private String factoryId;
 
-    private J2EENature nature;
+	private J2EENature nature;
 
-    /**
-     * Constructor for J2EEDeployable.
-     * 
-     * @param project
-     */
-    public J2EEDeployable(J2EENature aNature, String aFactoryId) {
-        super(aNature.getProject());
-        factoryId = aFactoryId;
-        setNature(aNature);
-    }
+	/**
+	 * Constructor for J2EEDeployable.
+	 * 
+	 * @param project
+	 */
+	public J2EEDeployable(J2EENature aNature, String aFactoryId) {
+		super(aNature.getProject());
+		factoryId = aFactoryId;
+		setNature(aNature);
+	}
 
-    public String getJ2EESpecificationVersion() {
-        return getNature().getJ2EEVersionText();
-    }
+	public String getJ2EESpecificationVersion() {
+		return getNature().getJ2EEVersionText();
+	}
 
-    /*
-     * @see IJ2EEModule#getLocation()
-     */
-    public IPath getLocation() {
-        if (getNature() instanceof J2EEModuleNature)
-            return ((J2EEModuleNature) getNature()).computeModuleAbsoluteLocation();
-        return null;
-    }
+	/*
+	 * @see IJ2EEModule#getLocation()
+	 */
+	public IPath getLocation() {
+		if (getNature() instanceof J2EEModuleNature)
+			return ((J2EEModuleNature) getNature()).computeModuleAbsoluteLocation();
+		return null;
+	}
 
-    /*
-     * @see IModule#getFactoryId()
-     */
-    public String getFactoryId() {
-        return factoryId;
-    }
+	/*
+	 * @see IModule#getFactoryId()
+	 */
+	public String getFactoryId() {
+		return factoryId;
+	}
 
-    /**
-     * Gets the nature.
-     * 
-     * @return Returns a J2EENature
-     */
-    public J2EENature getNature() {
-        return nature;
-    }
+	/**
+	 * Gets the nature.
+	 * 
+	 * @return Returns a J2EENature
+	 */
+	public J2EENature getNature() {
+		return nature;
+	}
 
-    /**
-     * Sets the nature.
-     * 
-     * @param nature
-     *            The nature to set
-     */
-    protected void setNature(J2EENature nature) {
-        this.nature = nature;
-        nature.setModule(getModule());
-    }
+	/**
+	 * Sets the nature.
+	 * 
+	 * @param nature
+	 *            The nature to set
+	 */
+	protected void setNature(J2EENature nature) {
+		this.nature = nature;
+		nature.setModule(getModule());
+	}
 
-    /**
-     * @see com.ibm.etools.server.j2ee.IJ2EEModule#isBinary()
-     */
-    public boolean isBinary() {
-        if (nature instanceof J2EEModuleNature)
-            return nature != null && ((J2EEModuleNature) nature).isBinaryProject();
-        return false;
-    }
+	/**
+	 * @see com.ibm.etools.server.j2ee.IJ2EEModule#isBinary()
+	 */
+	public boolean isBinary() {
+		if (nature instanceof J2EEModuleNature)
+			return nature != null && ((J2EEModuleNature) nature).isBinaryProject();
+		return false;
+	}
 
-    public String getModuleTypeName() {
-        return getName();
-    }
+	public String getModuleTypeName() {
+		return getName();
+	}
 
-    public String getModuleTypeVersion() {
-        return getVersion();
-    }
+	public String getModuleTypeVersion() {
+		return getVersion();
+	}
 
-    public String getVersion() {
-        return "1.2"; //$NON-NLS-1$
-    };
-    
-    public String getType() {
-        return "j2ee.ear"; //$NON-NLS-1$
-    }
-    
-    public IModuleType getModuleType() {
-        return new IModuleType(){
+	public String getVersion() {
+		return "1.2"; //$NON-NLS-1$
+	};
 
-            public String getId() {
-                return getType();
-            }
+	public String getType() {
+		return "j2ee.ear"; //$NON-NLS-1$
+	}
 
-            public String getName() {
-                return getModuleTypeName();
-            }
+	public IModuleType getModuleType() {
+		return new IModuleType() {
 
-            public String getVersion() {
-                return getModuleTypeVersion();
-            }};
+			public String getId() {
+				return getType();
+			}
 
-    }
-    
+			public String getName() {
+				return getModuleTypeName();
+			}
+
+			public String getVersion() {
+				return getModuleTypeVersion();
+			}
+		};
+
+	}
+
 
 }

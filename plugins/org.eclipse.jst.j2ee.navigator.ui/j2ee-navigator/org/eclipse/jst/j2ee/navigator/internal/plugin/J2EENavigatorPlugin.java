@@ -23,14 +23,14 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class J2EENavigatorPlugin extends AbstractUIPlugin {
 	//The shared instance.
-	private static J2EENavigatorPlugin plugin; 
+	private static J2EENavigatorPlugin plugin;
 
 	/**
 	 * The constructor.
 	 */
 	public J2EENavigatorPlugin(IPluginDescriptor descriptor) {
 		super(descriptor);
-		plugin = this; 
+		plugin = this;
 	}
 
 	/**

@@ -594,7 +594,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		IRuntime earRuntime = ServerCore.getProjectProperties(earProject).getRuntimeTarget();
 		if (earRuntime != null) {
 			if (runtime != null) {
-				if (runtime.getId() != earRuntime.getId()) 
+				if (runtime.getId() != earRuntime.getId())
 					unmatachedServerTargetOnModuleWarning(project, earProject);
 				//validateModuleServerTargetJ2EESpecLevel(project, runtime);
 			} else {
@@ -622,7 +622,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	/**
 	 * @param earProject
-	 * TODO This validation is RAD specific hence needs to be moved to a the RAD layered plugin references to this method are commented out
+	 *            TODO This validation is RAD specific hence needs to be moved to a the RAD layered
+	 *            plugin references to this method are commented out
 	 */
 	private void validateEARServerTargetJ2EESpecLevel(EAREditModel editModel) {
 		EARNatureRuntime nature = earEditModel.getEARNature();
@@ -642,7 +643,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	/**
 	 * @param project
-	 * TODO This validation is RAD specific hence needs to be moved to a the RAD layered plugin references to this method are commented out
+	 *            TODO This validation is RAD specific hence needs to be moved to a the RAD layered
+	 *            plugin references to this method are commented out
 	 */
 	private void validateModuleServerTargetJ2EESpecLevel(IProject project, IRuntime runtime) {
 		boolean is14SpecLevelProject = false;

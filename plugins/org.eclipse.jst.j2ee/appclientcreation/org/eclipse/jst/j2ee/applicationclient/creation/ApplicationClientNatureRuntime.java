@@ -271,10 +271,10 @@ public class ApplicationClientNatureRuntime extends J2EEModuleNature implements 
 	 * releaseAccess()!
 	 */
 	// TODO WebServices for M3
-//	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
-//		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-//	}
-
+	//	public WebServiceEditModel getWebServiceEditModelForRead(Object accessorKey, Map params) {
+	//		return (WebServiceEditModel) getEditModelForRead(WEB_SERVICE_EDIT_MODEL_ID, accessorKey,
+	// params);
+	//	}
 
 	/**
 	 * Return an editing model used to edit web service resources. Important!!! Calling this method
@@ -282,9 +282,9 @@ public class ApplicationClientNatureRuntime extends J2EEModuleNature implements 
 	 * releaseAccess()!
 	 */
 	// TODO WebServices for M3
-//	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
-//		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey, params);
-//	}
-
+	//	public WebServiceEditModel getWebServiceEditModelForWrite(Object accessorKey, Map params) {
+	//		return (WebServiceEditModel) getEditModelForWrite(WEB_SERVICE_EDIT_MODEL_ID, accessorKey,
+	// params);
+	//	}
 
 }

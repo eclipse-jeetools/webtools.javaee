@@ -46,7 +46,8 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jdt.core.compiler.CharOperation;
 
-//TODO this is a copy of the class in org.eclipse.jdt.ui and should be deleted once bugzilla 60567 is addressed
+//TODO this is a copy of the class in org.eclipse.jdt.ui and should be deleted once bugzilla 60567
+// is addressed
 /**
  * 
  * @author jsholl

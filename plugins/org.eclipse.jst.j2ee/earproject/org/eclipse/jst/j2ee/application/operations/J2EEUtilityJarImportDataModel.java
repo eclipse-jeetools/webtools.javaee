@@ -38,6 +38,7 @@ public final class J2EEUtilityJarImportDataModel extends J2EEArtifactImportDataM
 			public void initProjectModel() {
 				setProjectDataModel(new JavaProjectCreationDataModel());
 			}
+
 			public WTPOperation getDefaultOperation() {
 				return null;
 			}

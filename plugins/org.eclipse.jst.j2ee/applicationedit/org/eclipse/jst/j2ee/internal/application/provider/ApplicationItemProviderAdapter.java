@@ -19,8 +19,8 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
  * This extended item provider supports the following commands:
- * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}. The commands are implemented
- * uniformly on all our item adapters using this common base class.
+ * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}. The
+ * commands are implemented uniformly on all our item adapters using this common base class.
  */
 public class ApplicationItemProviderAdapter extends ItemProviderAdapter {
 	/**

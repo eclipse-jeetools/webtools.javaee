@@ -169,16 +169,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.Description}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.Description}instances. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected DescriptionItemProvider descriptionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.Description}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.Description}. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -191,16 +192,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.common.QName}
-	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.QName}instances. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected QNameItemProvider qNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.QName}. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.QName}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -213,16 +215,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.common.Listener}
-	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.Listener}instances. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected ListenerItemProvider listenerItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.Listener}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.Listener}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -236,8 +239,8 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.CompatibilityDescriptionGroup}instances. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.CompatibilityDescriptionGroup}
+	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -245,8 +248,8 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This creates an adapter for a
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.CompatibilityDescriptionGroup}. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.CompatibilityDescriptionGroup}. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -293,16 +296,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.EJBLocalRef}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.EJBLocalRef}instances. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected EJBLocalRefItemProvider ejbLocalRefItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.EJBLocalRef}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.EJBLocalRef}. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -339,16 +343,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.common.IconType}
-	 * instances. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.IconType}instances. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected IconTypeItemProvider iconTypeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.IconType}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.IconType}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -362,16 +367,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.DisplayName}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.DisplayName}instances. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected DisplayNameItemProvider displayNameItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.DisplayName}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.DisplayName}. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -385,15 +391,16 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestinationRef}instances. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestinationRef}instances. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected MessageDestinationRefItemProvider messageDestinationRefItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestinationRef}. <!--
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestinationRef}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -408,15 +415,16 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestination}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestination}instances. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected MessageDestinationItemProvider messageDestinationItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestination}. <!--
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestination}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -431,16 +439,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.ParamValue}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.ParamValue}instances. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected ParamValueItemProvider paramValueItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.ParamValue}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.ParamValue}. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -454,16 +463,17 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.common.DescriptionGroup}instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.DescriptionGroup}instances. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected DescriptionGroupItemProvider descriptionGroupItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.common.DescriptionGroup}. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.common.DescriptionGroup}. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */

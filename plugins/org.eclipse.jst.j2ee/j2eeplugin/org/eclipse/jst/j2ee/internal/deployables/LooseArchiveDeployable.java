@@ -73,35 +73,43 @@ public class LooseArchiveDeployable extends ProjectModule implements ILooseArchi
 		return "1.0"; //$NON-NLS-1$
 	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IStatus validate(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	public IStatus validate(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModule#getModuleType()
-     */
-    public IModuleType getModuleType() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.IModule#getModuleType()
+	 */
+	public IModuleType getModuleType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IModule[] getChildModules(IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	public IModule[] getChildModules(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
-     */
-    public Object getAdapter(Class adapter) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+	 */
+	public Object getAdapter(Class adapter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -24,8 +24,8 @@ import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
  * J2EE deployable factory superclass.
  */
 public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
-    
-    protected ArrayList moduleDelegates = new ArrayList();
+
+	protected ArrayList moduleDelegates = new ArrayList();
 
 	public J2EEDeployableFactory() {
 		super();
@@ -78,36 +78,36 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	 */
 	public abstract IModule createModule(J2EENature nature);
 
-   
-	protected void handleProjectChange(IProject project, IResourceDelta delta) {
-        if (projects == null)
-            cacheModules();
-        super.handleProjectChange(project, delta);
-    }
-	
-    public ModuleDelegate getModuleDelegate(IModule module) {
-        for (Iterator iter = moduleDelegates.iterator(); iter.hasNext();) {
-            ModuleDelegate element = (ModuleDelegate) iter.next();
-            if (module == element.getModule())
-                return element;
-        }
-        return null;
-    }
-    
-    public IModule[] getModules() {
-        if (projects == null)
-            cacheModules();
-        int i = 0;
-        Iterator modules = projects.values().iterator();
-        IModule[] modulesArray = new IModule[projects.values().size()];
-        while (modules.hasNext()) {
-            IModule element = (IModule) modules.next();
-            modulesArray[i++] = element;
 
-        }
-        // TODO Auto-generated method stub
-        return modulesArray;
-    }
+	protected void handleProjectChange(IProject project, IResourceDelta delta) {
+		if (projects == null)
+			cacheModules();
+		super.handleProjectChange(project, delta);
+	}
+
+	public ModuleDelegate getModuleDelegate(IModule module) {
+		for (Iterator iter = moduleDelegates.iterator(); iter.hasNext();) {
+			ModuleDelegate element = (ModuleDelegate) iter.next();
+			if (module == element.getModule())
+				return element;
+		}
+		return null;
+	}
+
+	public IModule[] getModules() {
+		if (projects == null)
+			cacheModules();
+		int i = 0;
+		Iterator modules = projects.values().iterator();
+		IModule[] modulesArray = new IModule[projects.values().size()];
+		while (modules.hasNext()) {
+			IModule element = (IModule) modules.next();
+			modulesArray[i++] = element;
+
+		}
+		// TODO Auto-generated method stub
+		return modulesArray;
+	}
 
 
 }

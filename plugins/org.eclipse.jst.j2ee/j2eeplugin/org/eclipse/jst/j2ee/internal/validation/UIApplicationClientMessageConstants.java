@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientMessageCo
 
 
 
-
 /**
  * Messages for the WSAD application client validator
  */

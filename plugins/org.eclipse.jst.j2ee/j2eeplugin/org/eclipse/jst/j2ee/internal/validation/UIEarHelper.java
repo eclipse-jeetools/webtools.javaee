@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.validation;
 
 
 
-
 /**
  * Insert the type's description here. Creation date: (9/10/2001 2:12:47 PM)
  * 

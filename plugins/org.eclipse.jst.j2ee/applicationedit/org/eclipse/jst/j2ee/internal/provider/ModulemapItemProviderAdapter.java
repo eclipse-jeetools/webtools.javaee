@@ -29,7 +29,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 
-
 /**
  * This extended item provider supports the following commands:
  * <ul>

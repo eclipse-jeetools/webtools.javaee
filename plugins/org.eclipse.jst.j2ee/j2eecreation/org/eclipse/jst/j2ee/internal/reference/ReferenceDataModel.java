@@ -235,13 +235,13 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 					return false;
 				if (checkMessageDestRefExists(bean.getMessageDestinationRefs(), nameValue))
 					return false;
-			} 
+			}
 			// TODO WebServices for M3
-//			else {
-//				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(bean);
-//				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
-//					return false;
-//			}
+			//			else {
+			//				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(bean);
+			//				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
+			//					return false;
+			//			}
 		} else if (ownerType == APP_CLIENT_TYPE) {
 			ApplicationClient appClient = (ApplicationClient) getProperty(ReferenceDataModel.OWNER);
 			if (checkResourceRefExists(appClient.getResourceRefs(), nameValue))
@@ -255,13 +255,13 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 					return false;
 				if (checkMessageDestRefExists(appClient.getMessageDestinationRefs(), nameValue))
 					return false;
-			} 
+			}
 			// TODO WebServices for M3
-//			else {
-//				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(appClient);
-//				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
-//					return false;
-//			}
+			//			else {
+			//				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(appClient);
+			//				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
+			//					return false;
+			//			}
 		} else if (ownerType == WEB_TYPE) {
 			WebApp webApp = (WebApp) getProperty(ReferenceDataModel.OWNER);
 			if (checkResourceRefExists(webApp.getResourceRefs(), nameValue))
@@ -277,13 +277,13 @@ public abstract class ReferenceDataModel extends J2EEModelModifierOperationDataM
 					return false;
 				if (checkMessageDestRefExists(webApp.getMessageDestinationRefs(), nameValue))
 					return false;
-			} 
+			}
 			// TODO WebServices for M3
-//			else {
-//				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(webApp);
-//				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
-//					return false;
-//			}
+			//			else {
+			//				Collection temp = WebServicesManager.getInstance().get13ServiceRefs(webApp);
+			//				if (temp != null && !temp.isEmpty() && checkServiceRefExists((List) temp, nameValue))
+			//					return false;
+			//			}
 		}
 		return true;
 	}

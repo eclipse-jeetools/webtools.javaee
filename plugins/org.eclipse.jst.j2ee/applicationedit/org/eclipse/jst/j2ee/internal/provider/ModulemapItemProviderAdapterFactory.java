@@ -72,12 +72,14 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.ModuleMapping}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.ModuleMapping}
+	 * instances.
 	 */
 	protected ModuleMappingItemProvider moduleMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.ModuleMapping}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.ModuleMapping}.
 	 */
 	public Adapter createModuleMappingAdapter() {
 		if (moduleMappingItemProvider == null) {
@@ -89,12 +91,14 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.EARProjectMap}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.EARProjectMap}
+	 * instances.
 	 */
 	protected EARProjectMapItemProvider earProjectMapItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.EARProjectMap}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.EARProjectMap}.
 	 */
 	public Adapter createEARProjectMapAdapter() {
 		if (earProjectMapItemProvider == null) {
@@ -106,12 +110,14 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 
 	/**
 	 * This keeps track of the one adapter used for all
-	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.UtilityJARMapping}instances.
+	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.UtilityJARMapping}
+	 * instances.
 	 */
 	protected UtilityJARMappingItemProvider utilityJARMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.UtilityJARMapping}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.UtilityJARMapping}.
 	 */
 	public Adapter createUtilityJARMappingAdapter() {
 		if (utilityJARMappingItemProvider == null) {

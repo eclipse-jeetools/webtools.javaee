@@ -64,13 +64,13 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 */
 	protected ApplicationItemProvider applicationItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.application.Module}
-	 * instances.
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.Module}instances.
 	 */
 	protected ModuleItemProvider moduleItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.application.WebModule}
-	 * instances.
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.WebModule}instances.
 	 */
 	protected WebModuleItemProvider webModuleItemProvider;
 	/**
@@ -84,8 +84,8 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 */
 	protected ConnectorModuleItemProvider connectorModuleItemProvider;
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.jst.j2ee.internal.internal.application.EjbModule}
-	 * instances.
+	 * This keeps track of the one adapter used for all
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.EjbModule}instances.
 	 */
 	protected EjbModuleItemProvider ejbModuleItemProvider;
 	protected Disposable disposable = new Disposable();
@@ -133,7 +133,8 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.application.Application}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.Application}.
 	 */
 	public Adapter createApplicationAdapter() {
 		if (applicationItemProvider == null) {
@@ -144,7 +145,8 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.application.EjbModule}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.EjbModule}.
 	 */
 	public Adapter createEjbModuleAdapter() {
 		if (ejbModuleItemProvider == null) {
@@ -155,7 +157,8 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.application.JavaClientModule}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.JavaClientModule}.
 	 */
 	public Adapter createJavaClientModuleAdapter() {
 		if (javaClientModuleItemProvider == null) {
@@ -179,7 +182,8 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	}// createConnectorModuleAdapter
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.application.Module}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.Module}.
 	 */
 	public Adapter createModuleAdapter() {
 		if (moduleItemProvider == null) {
@@ -190,7 +194,8 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	}
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.application.WebModule}.
+	 * This creates an adapter for a
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.WebModule}.
 	 */
 	public Adapter createWebModuleAdapter() {
 		if (webModuleItemProvider == null) {

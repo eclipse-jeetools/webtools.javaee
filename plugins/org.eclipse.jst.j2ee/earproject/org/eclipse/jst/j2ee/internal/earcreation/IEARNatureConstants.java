@@ -10,7 +10,6 @@ package org.eclipse.jst.j2ee.internal.earcreation;
 
 
 
-
 /* The Ear Nature constants are the constants for the web nature interface to the plugins */
 
 public interface IEARNatureConstants {

@@ -24,7 +24,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 
-
 /**
  * This extended item provider supports two addition features, (@link CreateChildCommand} and
  * {@link CreateChildrenCommand}. These two actions are implemented uniformly on all our item

@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 
 
 
-
 /**
  * Insert the type's description here. Creation date: (5/10/2001 3:53:38 PM)
  * 

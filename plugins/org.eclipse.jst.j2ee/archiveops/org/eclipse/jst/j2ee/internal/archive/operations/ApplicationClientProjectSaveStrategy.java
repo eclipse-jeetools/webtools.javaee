@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 
 
-
 /**
  * Insert the type's description here. Creation date: (4/4/2001 11:16:20 AM)
  * 

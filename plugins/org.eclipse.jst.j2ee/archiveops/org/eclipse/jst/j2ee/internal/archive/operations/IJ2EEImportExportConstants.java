@@ -21,4 +21,3 @@ public interface IJ2EEImportExportConstants {
 	public String PROJECT_RUNTIME_URI = ".runtime"; //$NON-NLS-1$
 
 }
-

@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 
 
-
 /**
  * Insert the type's description here. Creation date: (5/10/2001 5:54:02 PM)
  * 

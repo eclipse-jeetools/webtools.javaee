@@ -62,7 +62,7 @@ public abstract class AWorkbenchMOFHelper extends AWorkbenchHelper {
 		} catch (CoreException exc) {
 			Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
 			if (logger.isLoggingLevel(Level.FINE)) {
-				LogEntry entry =ValidationPlugin.getLogEntry();
+				LogEntry entry = ValidationPlugin.getLogEntry();
 				entry.setSourceID("AWorkbenchHelper.getMOFNature(IProject)"); //$NON-NLS-1$
 				entry.setTargetException(exc);
 				logger.write(Level.FINE, entry);

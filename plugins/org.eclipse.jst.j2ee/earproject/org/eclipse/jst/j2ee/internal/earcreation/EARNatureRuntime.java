@@ -418,7 +418,7 @@ public class EARNatureRuntime extends J2EENature {
 			EAREditModel model = (EAREditModel) getCacheEditModel();
 
 			ModuleMapping map = model.getModuleMapping(aModule);
-			if (map != null && map.getProjectName() != null && map.getProjectName().length() > 0 ) {
+			if (map != null && map.getProjectName() != null && map.getProjectName().length() > 0) {
 				return J2EEPlugin.getWorkspace().getRoot().getProject(map.getProjectName());
 			}
 

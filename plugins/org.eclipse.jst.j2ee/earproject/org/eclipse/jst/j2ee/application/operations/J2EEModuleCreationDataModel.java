@@ -147,7 +147,7 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	}
 
 	protected abstract Integer getDefaultJ2EEModuleVersion();
-	
+
 	private String getDefaultEARName(String baseName) {
 		return baseName + "EAR"; //TODO //$NON-NLS-1$
 	}
@@ -319,10 +319,10 @@ public abstract class J2EEModuleCreationDataModel extends J2EEArtifactCreationDa
 	}
 
 
-	protected final void setJ2EENatureID(String J2EENatureID){
+	protected final void setJ2EENatureID(String J2EENatureID) {
 		this.J2EENatureID = J2EENatureID;
 	}
-	
+
 	public final String getJ2EENatureID() {
 		return J2EENatureID;
 	}

@@ -10,6 +10,5 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 
 
-
 public interface ApplicationClientProjectLoadStrategy extends J2EELoadStrategy {
 }

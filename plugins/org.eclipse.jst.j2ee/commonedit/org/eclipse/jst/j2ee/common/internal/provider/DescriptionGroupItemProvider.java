@@ -32,8 +32,9 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.common.DescriptionGroup}
- * object. <!-- begin-user-doc --> <!-- end-user-doc -->
+ * This is the item provider adpater for a
+ * {@link org.eclipse.jst.j2ee.internal.internal.common.DescriptionGroup}object. <!--
+ * begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated
  */

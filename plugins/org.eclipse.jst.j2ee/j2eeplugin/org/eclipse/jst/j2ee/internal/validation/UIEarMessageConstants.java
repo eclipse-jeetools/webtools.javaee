@@ -14,7 +14,6 @@ import org.eclipse.jst.j2ee.model.internal.validation.EARMessageConstants;
 
 
 
-
 /**
  * Insert the type's description here. Creation date: (9/10/2001 3:30:22 PM)
  * 

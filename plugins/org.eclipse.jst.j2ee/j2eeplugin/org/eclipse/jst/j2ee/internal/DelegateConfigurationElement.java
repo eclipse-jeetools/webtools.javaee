@@ -53,7 +53,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public String getAttribute(String name) throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return null;
 		return delegateElement.getAttribute(name);
 	}
@@ -64,7 +64,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public String getAttributeAsIs(String name) throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return null;
 		return delegateElement.getAttributeAsIs(name);
 	}
@@ -74,7 +74,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public String[] getAttributeNames() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return new String[0];
 		return delegateElement.getAttributeNames();
 	}
@@ -84,7 +84,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public IConfigurationElement[] getChildren() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return new IConfigurationElement[0];
 		return delegateElement.getChildren();
 	}
@@ -95,7 +95,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public IConfigurationElement[] getChildren(String name) throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return new IConfigurationElement[0];
 		return delegateElement.getChildren(name);
 	}
@@ -105,7 +105,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public IExtension getDeclaringExtension() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			throw new InvalidRegistryObjectException();
 		return delegateElement.getDeclaringExtension();
 	}
@@ -115,7 +115,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public String getName() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return DELEGATE_NAME;
 		return delegateElement.getName();
 	}
@@ -125,7 +125,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public String getNamespace() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return DELEGATE_NAMESPACE;
 		return delegateElement.getNamespace();
 	}
@@ -135,7 +135,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public Object getParent() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return null;
 		return delegateElement.getParent();
 	}
@@ -145,7 +145,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public String getValue() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return null;
 		return delegateElement.getValue();
 	}
@@ -155,7 +155,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @throws org.eclipse.core.runtime.InvalidRegistryObjectException
 	 */
 	public String getValueAsIs() throws InvalidRegistryObjectException {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return null;
 		return delegateElement.getValueAsIs();
 	}
@@ -166,7 +166,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @see java.lang.Object#hashCode()
 	 */
 	public int hashCode() {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return -1;
 		return delegateElement.hashCode();
 	}
@@ -176,7 +176,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 */
 	public boolean isValid() {
 
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return false;
 		return delegateElement.isValid();
 	}
@@ -187,7 +187,7 @@ public class DelegateConfigurationElement implements IConfigurationElement {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		if(delegateElement == null)
+		if (delegateElement == null)
 			return DELEGATE_NULL_STRING;
 		return delegateElement.toString();
 	}

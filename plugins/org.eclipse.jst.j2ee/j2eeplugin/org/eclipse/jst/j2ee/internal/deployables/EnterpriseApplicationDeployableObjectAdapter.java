@@ -25,7 +25,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
 /**
  * Creates the Object adapter for ear projects.
  */
-public class EnterpriseApplicationDeployableObjectAdapter  {
+public class EnterpriseApplicationDeployableObjectAdapter {
 
 	/**
 	 * Constructor for EnterpriseApplicationDeployableObjectAdapter.
@@ -135,35 +135,41 @@ public class EnterpriseApplicationDeployableObjectAdapter  {
 	 *            deployable - The current module object.
 	 */
 	protected IModuleArtifact createModuleObject(IModule module) {
-		/*if (module != null) {
-			return new NullModuleObject(module);
-		}*/// switch to NullModuleArtifact when released
+		/*
+		 * if (module != null) { return new NullModuleObject(module); }
+		 */// switch to NullModuleArtifact when released
 		return null;
 	}// createDeployableObject
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getId()
-     */
-    public String getId() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getId()
+	 */
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getObjectClassName()
-     */
-    public String getObjectClassName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getObjectClassName()
+	 */
+	public String getObjectClassName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#isPluginActivated()
-     */
-    public boolean isPluginActivated() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#isPluginActivated()
+	 */
+	public boolean isPluginActivated() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 }// EnterpriseApplicationDeployableObjectAdapter

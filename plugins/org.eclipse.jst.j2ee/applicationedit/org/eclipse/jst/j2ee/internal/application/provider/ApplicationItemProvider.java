@@ -37,7 +37,8 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
- * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.application.Application}object.
+ * This is the item provider adpater for a
+ * {@link org.eclipse.jst.j2ee.internal.internal.application.Application}object.
  */
 public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
 	/**
@@ -48,7 +49,8 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	}
 
 	/**
-	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * This creates a new child for
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
@@ -85,7 +87,8 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 
 
 	/**
-	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * This returns the image for
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
@@ -93,14 +96,16 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	}
 
 	/**
-	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * This returns the label for
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("Create_Module_UI_"); //$NON-NLS-1$
 	}
 
 	/**
-	 * This returns the help text for {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * This returns the help text for
+	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

@@ -424,7 +424,7 @@ public abstract class J2EEArtifactImportDataModel extends WTPOperationDataModel 
 	public void extractHandled(List newList, boolean addModels) {
 	}
 
-	protected WTPPropertyDescriptor [] doGetValidPropertyDescriptors(String propertyName) {
+	protected WTPPropertyDescriptor[] doGetValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(PROJECT_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
