@@ -49,7 +49,7 @@ public abstract class XDocletAntProjectBuilder {
 			WorkbenchComponent wbModule = null;
 			try {
 				moduleCore = ModuleCore.getModuleCoreForRead(resource.getProject());
-				URI sourcePath = URI.createURI(resource.getFullPath().toString());
+				URI sourcePath = URI.createPlatformResourceURI(resource.getFullPath().toString());
 				ComponentResource[] moduleResources = moduleCore.findWorkbenchModuleResourcesBySourcePath(sourcePath);
 				for (int i=0; i<moduleResources.length; i++) {
 					ComponentResource moduleResource = moduleResources[i];

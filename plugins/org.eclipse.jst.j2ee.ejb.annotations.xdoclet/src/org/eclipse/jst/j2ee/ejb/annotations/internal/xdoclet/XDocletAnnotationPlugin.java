@@ -24,7 +24,7 @@ public class XDocletAnnotationPlugin extends AbstractUIPlugin {
 	private static XDocletAnnotationPlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
-	public static final String PLUGINID = "org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.xdoclet";
+	public static final String PLUGINID = "org.eclipse.jst.j2ee.ejb.annotations.xdoclet";
 	/**
 	 * The constructor.
 	 */
