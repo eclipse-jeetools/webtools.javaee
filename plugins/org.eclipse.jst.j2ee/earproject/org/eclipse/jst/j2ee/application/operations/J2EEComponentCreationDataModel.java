@@ -31,28 +31,41 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 	/**
 	 * type Boolean, default false
 	 */
-	public static final String ADD_TO_EAR = "FlexibleJ2EEModuleCreationDataModel.ADD_TO_EAR"; //$NON-NLS-1$
+	public static final String ADD_TO_EAR = "J2EEComponentCreationDataModel.ADD_TO_EAR"; //$NON-NLS-1$
 
 	/**
 	 * type String
 	 */
-	public static final String EAR_MODULE_NAME = "FlexibleJ2EEModuleCreationDataModel.EAR_MODULE_NAME"; //$NON-NLS-1$
+	public static final String EAR_MODULE_NAME = "J2EEComponentCreationDataModel.EAR_MODULE_NAME"; //$NON-NLS-1$
 	
 	/**
 	 * type boolean
 	 */	
-	private static final String NESTED_MODEL_ADD_TO_EAR = "FlexibleJ2EEModuleCreationDataModel.NESTED_MODEL_ADD_TO_EAR"; //$NON-NLS-1$
+	private static final String NESTED_MODEL_ADD_TO_EAR = "J2EEComponentCreationDataModel.NESTED_MODEL_ADD_TO_EAR"; //$NON-NLS-1$
 	
 	/**
 	 * type boolean
 	 */		
-	private static final String NESTED_MODEL_JAR_DEPENDENCY = "FlexibleJ2EEModuleCreationDataModel.NESTED_MODEL_JAR_DEPENDENCY"; //$NON-NLS-1$
+	private static final String NESTED_MODEL_JAR_DEPENDENCY = "J2EEComponentCreationDataModel.NESTED_MODEL_JAR_DEPENDENCY"; //$NON-NLS-1$
 	
 	/**
 	 * type Boolean; default true, UI only
 	 */
 	public static final String UI_SHOW_EAR_SECTION = "J2EEModuleCreationDataModel.UI_SHOW_EAR_SECTION"; //$NON-NLS-1$
-
+	
+	/**
+	 * type String
+	 */
+	public static final String DD_FOLDER = "J2EEComponentCreationDataModel.DD_FOLDER"; //$NON-NLS-1$
+	
+	
+	/**
+	 * type String
+	 */
+	public static final String JAVASOURCE_FOLDER = "J2EEComponentCreationDataModel.JAVASOURCE_FOLDER"; //$NON-NLS-1$
+	
+	
+	
 	private AddModuleToEARDataModel addModuleToEARDataModel;
 
 	private UpdateManifestDataModel jarDependencyDataModel;
@@ -69,11 +82,13 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 		addValidBaseProperty(ADD_TO_EAR);
 		addValidBaseProperty(USE_ANNOTATIONS);
 		addValidBaseProperty(UI_SHOW_EAR_SECTION);
-
+		addValidBaseProperty(DD_FOLDER);
+		addValidBaseProperty(JAVASOURCE_FOLDER);
 	}
 
 	protected void initNestedModels() {
 		super.initNestedModels();
+		
 		addModuleToEARDataModel = createModuleNestedModel();
 		if (addModuleToEARDataModel != null)
 			addNestedModel(NESTED_MODEL_ADD_TO_EAR, addModuleToEARDataModel);
@@ -90,10 +105,8 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 			return Boolean.FALSE;
 		} else if (propertyName.equals(USE_ANNOTATIONS)) {
 			return Boolean.FALSE;
-		}  else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
+		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.TRUE;
-		} else if (propertyName.equals(EAR_MODULE_NAME)) {
-			return getStringProperty(MODULE_NAME)+"EAR";
 		} else {
 			return super.getDefaultProperty(propertyName);
 		}
@@ -110,8 +123,7 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 		} 
 
 		if(propertyName.equals(MODULE_NAME)){
-			if (!isSet(EAR_MODULE_NAME))
-				notifyDefaultChange(EAR_MODULE_NAME);
+			
 		}
 		if (propertyName.equals(PROJECT_NAME)) {
 //			IProject project = getTargetProject();
@@ -141,7 +153,7 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 		}
 		return enabled;
 	}
-	
+
 	protected final AddModuleToEARDataModel getAddModuleToApplicationDataModel() {
 		return addModuleToEARDataModel;
 	}
@@ -181,6 +193,7 @@ public abstract class J2EEComponentCreationDataModel extends J2EECreationDataMod
 		if (EAR_MODULE_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateEARModuleNameProperty();
 		} 
+
 		return super.doValidateProperty(propertyName);
 	}
 

@@ -284,5 +284,19 @@ public abstract class J2EEComponentCreationOperation extends J2EECreationOperati
             folder.create(true, true, new NullProgressMonitor());
         return folder;
     }
+	
+	/**
+	 * @return
+	 */
+	public String getJavaSourceSourceFolder() {
+		return getOperationDataModel().getStringProperty(J2EEComponentCreationDataModel.JAVASOURCE_FOLDER);
+	}
 
+	/**
+	 * @return
+	 */
+	public String getDeploymentDescriptorFolder() {
+		return getOperationDataModel().getStringProperty(J2EEComponentCreationDataModel.DD_FOLDER);
+	}
+	
 }

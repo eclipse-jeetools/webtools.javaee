@@ -15,12 +15,14 @@
  */
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.operations.WTPOperation;
@@ -97,12 +99,6 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 			notifyEnablementChange(USE_ANNOTATIONS);
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			getAddModuleToApplicationDataModel().setProperty(AddWebModuleToEARDataModel.CONTEXT_ROOT, propertyValue);
-		} else if (propertyName.equals(MODULE_NAME)) {
-			if (!isSet(CONTEXT_ROOT)) {
-				notifyDefaultChange(CONTEXT_ROOT);
-				((AddWebModuleToEARDataModel)getAddModuleToApplicationDataModel()).defaultContextRoot=(String)propertyValue;
-				getAddModuleToApplicationDataModel().notifyDefaultChange(AddWebModuleToEARDataModel.CONTEXT_ROOT);
-			}
 		}
 		return retVal;
 	}
@@ -161,7 +157,7 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 //			return webContentFolderPref;
 //		}
 		if (propertyName.equals(CONTEXT_ROOT)) {
-			return getProperty(MODULE_NAME);
+			return getAddModuleToApplicationDataModel().getProperty(CONTEXT_ROOT);
 		}
 
 		if (propertyName.equals(SERVLET_VERSION)) {
@@ -192,6 +188,12 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 			}
 			return new Integer(jspVersion);
 		}
+		if (propertyName.equals(DD_FOLDER)) {
+			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
+		}		
+		if (propertyName.equals(this.JAVASOURCE_FOLDER)) {
+			return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "JavaSource";
+		}		
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -304,10 +306,11 @@ public class WebComponentCreationDataModel extends J2EEComponentCreationDataMode
 		} //else if (event.getDataModel() == getServerTargetDataModel() && event.getPropertyName().equals(ServerTargetDataModel.RUNTIME_TARGET_ID) && event.getDataModel().isSet(ServerTargetDataModel.RUNTIME_TARGET_ID))
 			//setProperty(ADD_TO_EAR, updateAddToEar());
 	}
-    /* (non-Javadoc)
-     * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
-     */
-    protected String getModuleID() {
-        return IModuleConstants.JST_CONNECTOR_MODULE;
-    }
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.application.operations.FlexibleJ2EECreationDataModel#getModuleID()
+	 */
+	protected String getModuleID() {
+		return IModuleConstants.JST_WEB_MODULE;
+	}
 }

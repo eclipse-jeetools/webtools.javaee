@@ -348,7 +348,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		return ((WebAppResource)getDeploymentDescriptorResource()).getRootObject();
 	}
 	
-	public void createModelRoot(IProject project, IFolder  webinf, IPath path, int moduleVersion ) {
+	public void createModelRoot(IProject project, IPath path, int moduleVersion ) {
 		
 		File file = null;
 		file = new File(path.toOSString());
@@ -380,6 +380,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 		addWebAppIfNecessary((WebAppResource)getDeploymentDescriptorResource());
 	}
 	
+
 	
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib
