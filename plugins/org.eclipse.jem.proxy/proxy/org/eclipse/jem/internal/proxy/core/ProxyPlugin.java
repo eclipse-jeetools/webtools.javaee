@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/11 16:03:41 $ 
+ *  $Revision: 1.4 $  $Date: 2004/02/19 23:43:39 $ 
  */
 
 
@@ -469,10 +469,12 @@ public class ProxyPlugin extends Plugin {
 		for (int i = 0; i < descSize; i++) {
 			if (activeOnly && !descriptors[i].isPluginActivated())
 				continue;
+			if (descriptors[i].getUniqueIdentifier().indexOf("hyades") != -1)
+				continue;	// TODO needs to be removed when 52563 is fixed by eclipse
 			// ensure there is an entry for this descriptor (otherwise it will not be visited)
 			int[] entry = (int[]) dependents.get(descriptors[i]);
 			if (entry == null)
-				dependents.put(descriptors[i], new int[1]);
+				dependents.put(descriptors[i], new int[1]);			
 			IPluginPrerequisite[] requires = descriptors[i].getPluginPrerequisites();
 			int reqSize = (requires == null ? 0 : requires.length);
 			for (int j = 0; j < reqSize; j++) {
