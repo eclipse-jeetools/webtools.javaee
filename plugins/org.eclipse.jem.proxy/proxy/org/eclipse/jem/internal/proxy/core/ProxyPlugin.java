@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: ProxyPlugin.java,v $
- *  $Revision: 1.28 $  $Date: 2004/07/16 15:00:22 $ 
+ *  $Revision: 1.29 $  $Date: 2004/07/16 15:33:08 $ 
  */
 
 
@@ -152,16 +152,22 @@ public class ProxyPlugin extends Plugin {
 	 * <p>
 	 * To find the files in the fragments that are in the runtime path (i.e. libraries), it will need to use a suffix,
 	 * This is because the JDT will get confused if a runtime jar in a fragment has the same name
-	 * as a runtime jar in the main bundle. So we will use the following search pattern:
+	 * as a runtime jar in the main bundle.
+	 * NOTE: This is obsolete. JDT no longer has this problem. So we can find libraries in fragments that have the
+	 * same file path. 
+	 * <p>
+	 * So we will use the following search pattern:
 	 * <ol>
-	 * <li>Find in all of the fragments those that match the name exactly</li>
+	 * <li>Find in all of the fragments those that match the name exactly in the same paths if paths are supplied.</li>
 	 * <li>Find in all of the fragments, in their runtime path (library stmt), those that match the name 
 	 *    but have a suffix the same as the uniqueid of the fragment (preceeded by a period). This is so that it can be easily
 	 *    found but yet be unique in the entire list of fragments. For example if looking for "runtime/xyz.jar"
 	 *    and we have fragment "a.b.c.d.frag", then in the runtime path we will look for the file
-	 *    "runtime/xyz.a.b.c.d.frag.jar".</li>
+	 *    "runtime/xyz.a.b.c.d.frag.jar". Note: This is obsolete. Still here only for possible old code. Will go 
+	 *    away in future.</li>
 	 * <p>
-	 * If the files in the fragments are not in the fragments library path then it can have the same name.
+	 * If the files in the fragments are not in the fragments library path then it can have the same name. NOTE: Obsolete,
+	 * JDT can now handle same name.
 	 * <p>
 	 * This is useful for nls where the nls for the filename will be in one or more of the fragments of the plugin.
 	 * 
@@ -871,25 +877,39 @@ public class ProxyPlugin extends Plugin {
 		IClasspathEntry[] entries = project.getRawClasspath();
 		for (int i = 0; i < entries.length; i++) {
 			IClasspathEntry entry = entries[i];
+			Boolean currentFlag = null;	// Current setting value.
+			boolean newFlag;	// The new setting value. 
 			switch (entry.getEntryKind()) {
 				case IClasspathEntry.CPE_PROJECT:
-					if (!projects.containsKey(entry.getPath())) {
-						projects.put(entry.getPath(), first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );
+					// Force true if already true, or this is the first project, or this project is visible and the entry is exported. These override a previous false.
+					currentFlag = (Boolean) projects.get(entry.getPath());
+					newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());
+					if (currentFlag == null || currentFlag.booleanValue() != newFlag)
+						projects.put(entry.getPath(),  newFlag ? Boolean.TRUE : Boolean.FALSE );
+					if (currentFlag == null)
 						expandProject(entry.getPath(), containerIds, containers, pluginIds, projects, visible && entry.isExported(), false);
-					}
 					break;
 				case IClasspathEntry.CPE_CONTAINER:
+					if (!first && "org.eclipse.jdt.launching.JRE_CONTAINER".equals(entry.getPath().segment(0)))
+						break;	// The first project determines the JRE, so any subsequent ones can be ignored.
+					currentFlag = (Boolean) containerIds.get(entry.getPath().segment(0));
+					newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());					
+					if (currentFlag == null || currentFlag.booleanValue() != newFlag)					
+						containerIds.put(entry.getPath().segment(0), newFlag ? Boolean.TRUE : Boolean.FALSE );					
+
 					IClasspathContainer container = JavaCore.getClasspathContainer(entry.getPath(), project);
-					if (!containers.containsKey(container))
-						containers.put(container, first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );
-					if (!containerIds.containsKey(entry.getPath().segment(0)))
-						containerIds.put(entry.getPath().segment(0), first || (visible && entry.isExported()) ? Boolean.TRUE : Boolean.FALSE );					
+					// Force true if already true, or this is the first project, or this project is visible and the entry is exported. These override a previous false.
+					currentFlag = (Boolean) containers.get(container);
+					newFlag = (currentFlag != null && currentFlag.booleanValue()) || first || (visible && entry.isExported());
+					if (currentFlag == null || currentFlag.booleanValue() != newFlag)					
+						containers.put(container,  newFlag ? Boolean.TRUE : Boolean.FALSE );
 					break;
 				case IClasspathEntry.CPE_VARIABLE:
 					// We only care about JRE_LIB. If we have that, then we will treat it as JRE_CONTAINER. Only
 					// care about first project too, because the first project is the one that determines the JRE type.
 					if (first && "JRE_LIB".equals(entry.getPath().segment(0))) { //$NON-NLS-1$
-						if (!containerIds.containsKey("org.eclipse.jdt.launching.JRE_CONTAINER")) //$NON-NLS-1$
+						currentFlag = (Boolean) containerIds.get("org.eclipse.jdt.launching.JRE_CONTAINER");	//$NON-NLS-1$
+						if (currentFlag == null || !currentFlag.booleanValue())						
 							containerIds.put("org.eclipse.jdt.launching.JRE_CONTAINER", Boolean.TRUE); //$NON-NLS-1$
 					}
 					break;
