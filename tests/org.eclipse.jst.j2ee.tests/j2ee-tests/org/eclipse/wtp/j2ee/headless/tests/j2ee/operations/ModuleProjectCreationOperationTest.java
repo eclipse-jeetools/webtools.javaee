@@ -3,7 +3,7 @@ package org.eclipse.wtp.j2ee.headless.tests.j2ee.operations;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARProjectCreationOperationTest;
@@ -36,8 +36,8 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     }
 
     public void testAddToEAR() throws Exception {
-        EnterpriseApplicationCreationDataModelOld dataModelEAR = new EnterpriseApplicationCreationDataModelOld();
-        dataModelEAR.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME, "SimpleEAR");
+        EnterpriseApplicationCreationDataModel dataModelEAR = new EnterpriseApplicationCreationDataModel();
+        dataModelEAR.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, "SimpleEAR");
         EARProjectCreationOperationTest.runAndVerify(dataModelEAR);
 
         J2EEModuleCreationDataModelOld dataModel = getProjectCreationDataModel();

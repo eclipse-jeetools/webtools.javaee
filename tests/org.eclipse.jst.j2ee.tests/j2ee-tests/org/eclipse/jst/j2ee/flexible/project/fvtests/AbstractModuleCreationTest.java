@@ -5,7 +5,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationOperation;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 
 public abstract class AbstractModuleCreationTest extends TestCase {

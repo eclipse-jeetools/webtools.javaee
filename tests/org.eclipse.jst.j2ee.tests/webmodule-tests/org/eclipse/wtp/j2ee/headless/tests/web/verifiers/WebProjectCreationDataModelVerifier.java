@@ -13,7 +13,7 @@ import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOl
 import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -34,7 +34,7 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier#verifyProjectCreationDataModel(com.ibm.etools.application.operations.J2EEProjectCreationDataModel)
      */
     public void verifyProjectCreationDataModel(J2EEModuleCreationDataModelOld model) {
-        WebModuleCreationDataModelOld dataModel = (WebModuleCreationDataModelOld) model;
+        WebModuleCreationDataModel dataModel = (WebModuleCreationDataModel) model;
         ProjectUtility.verifyProject(dataModel.getTargetProject().getName(), true);
         Object key = new Object();
 		WebArtifactEdit webEdit = null;
@@ -48,7 +48,7 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 			if( webEdit != null )
 				webEdit.dispose();
 		}
-        if (dataModel.getBooleanProperty(WebModuleCreationDataModelOld.ADD_TO_EAR)) {
+        if (dataModel.getBooleanProperty(WebModuleCreationDataModel.ADD_TO_EAR)) {
             IProject earProject = dataModel.getApplicationCreationDataModel().getTargetProject();
             EAREditModel ear = null;
             try {

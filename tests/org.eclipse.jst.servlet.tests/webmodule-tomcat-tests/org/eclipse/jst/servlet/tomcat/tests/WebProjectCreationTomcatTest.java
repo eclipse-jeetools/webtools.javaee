@@ -12,8 +12,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
 import org.eclipse.jst.j2ee.web.operations.AddServletOperation;
 import org.eclipse.jst.j2ee.web.operations.NewServletClassDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
@@ -32,8 +32,8 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.DataModelVerifierFacto
 public class WebProjectCreationTomcatTest extends TestCase {
 	protected String projectName = null;
 	
-	public static void createStandaloneWebProject(WebModuleCreationDataModelOld model) throws Exception {
-		WebModuleCreationOperationOld webOp = new WebModuleCreationOperationOld(model);
+	public static void createStandaloneWebProject(WebModuleCreationDataModel model) throws Exception {
+		WebModuleCreationOperation webOp = new WebModuleCreationOperation(model);
 		webOp.run(null);
 		ProjectUtility.verifyProject(model.getTargetProject().getName(), true);
 		TaskViewUtility.verifyNoErrors();
@@ -47,27 +47,27 @@ public class WebProjectCreationTomcatTest extends TestCase {
 		
 	}
 	
-	public WebModuleCreationDataModelOld setupStandaloneWebProject(String aProjectName, int j2eeVersion) throws Exception {
+	public WebModuleCreationDataModel setupStandaloneWebProject(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
-		WebModuleCreationDataModelOld model = new WebModuleCreationDataModelOld();
-		model.setProperty(WebModuleCreationDataModelOld.PROJECT_NAME, javaProject.getName());
-		model.setProperty(WebModuleCreationDataModelOld.PROJECT_LOCATION, javaProject.getLocation());
-		model.setIntProperty(WebModuleCreationDataModelOld.J2EE_MODULE_VERSION, j2eeVersion);
-		model.setProperty(WebModuleCreationDataModelOld.SERVER_TARGET_ID,AllTomcatTests.TOMCAT_RUNTIME.getId());
+		WebModuleCreationDataModel model = new WebModuleCreationDataModel();
+		model.setProperty(WebModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model.setProperty(WebModuleCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
+		model.setIntProperty(WebModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model.setProperty(WebModuleCreationDataModel.SERVER_TARGET_ID,AllTomcatTests.TOMCAT_RUNTIME.getId());
 		createStandaloneWebProject(model);
 		createServlet(projectName);
 		return model;
 	}
 	
-	public WebModuleCreationDataModelOld setupStandaloneAnnotatedWebProject(String aProjectName, int j2eeVersion) throws Exception {
+	public WebModuleCreationDataModel setupStandaloneAnnotatedWebProject(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
-		WebModuleCreationDataModelOld model = new WebModuleCreationDataModelOld();
-		model.setProperty(WebModuleCreationDataModelOld.PROJECT_NAME, javaProject.getName());
-		model.setProperty(WebModuleCreationDataModelOld.PROJECT_LOCATION, javaProject.getLocation());
-		model.setIntProperty(WebModuleCreationDataModelOld.J2EE_MODULE_VERSION, j2eeVersion);
-		model.setProperty(WebModuleCreationDataModelOld.SERVER_TARGET_ID,AllTomcatTests.TOMCAT_RUNTIME.getId());
+		WebModuleCreationDataModel model = new WebModuleCreationDataModel();
+		model.setProperty(WebModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model.setProperty(WebModuleCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
+		model.setIntProperty(WebModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
+		model.setProperty(WebModuleCreationDataModel.SERVER_TARGET_ID,AllTomcatTests.TOMCAT_RUNTIME.getId());
 		createStandaloneWebProject(model);
 		createAnnotatedServlet(projectName);
 		return model;

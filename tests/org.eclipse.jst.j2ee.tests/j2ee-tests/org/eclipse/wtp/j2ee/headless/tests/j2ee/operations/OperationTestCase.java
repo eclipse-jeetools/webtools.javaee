@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleExportDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.tests.LogUtility;

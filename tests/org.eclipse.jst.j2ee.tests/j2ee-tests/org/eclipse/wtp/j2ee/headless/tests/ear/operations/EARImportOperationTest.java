@@ -5,7 +5,7 @@ import java.util.List;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
@@ -59,10 +59,10 @@ public class EARImportOperationTest extends OperationTestCase {
         String earName = getFullTestDataPath("TestData" + fileSep + "EARImportTests" + fileSep + "Test13WEBEJBEAR.ear");
         try {
             importModel = new EnterpriseApplicationImportDataModel();
-            importModel.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME, projectName);
+            importModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, projectName);
             importModel.setProperty(EnterpriseApplicationImportDataModel.FILE_NAME, earName);
-            importModel.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
-            importModel.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_LOCATION, "c:" + fileSep + "EARTestTemp");
+            importModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
+            importModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION, "c:" + fileSep + "EARTestTemp");
             importModel.setProperty(EnterpriseApplicationImportDataModel.NESTED_MODULE_ROOT, "c:" + fileSep + "EARTestModulesTemp");
             runAndVerify(importModel);
         } finally {

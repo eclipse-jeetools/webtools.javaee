@@ -15,7 +15,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBEditModel;
 import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
@@ -31,7 +31,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier#verifyProjectCreationDataModel(com.ibm.etools.application.operations.J2EEProjectCreationDataModel)
      */
     public void verifyProjectCreationDataModel(J2EEModuleCreationDataModelOld model) {
-        EJBModuleCreationDataModelOld dataModel = (EJBModuleCreationDataModelOld)model;
+        EJBModuleCreationDataModel dataModel = (EJBModuleCreationDataModel)model;
         ProjectUtility.verifyProject(dataModel.getTargetProject().getName(), true);
         EJBEditModel editModel = null;
         Object key = new Object();
@@ -43,7 +43,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         } finally {
             editModel.releaseAccess(key);
         }
-        if (dataModel.getBooleanProperty(EJBModuleCreationDataModelOld.ADD_TO_EAR)) {
+        if (dataModel.getBooleanProperty(EJBModuleCreationDataModel.ADD_TO_EAR)) {
             EARNatureRuntime[] earRuntimes = ejbRuntime.getReferencingEARProjects();
             IProject earProject = earRuntimes[0].getProject();
             EAREditModel earEditModel = null;

@@ -10,7 +10,7 @@ import junit.framework.Test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -50,10 +50,10 @@ public class AppClientProjectTest extends AbstractProjectCreationTest {
 		setupEARProject("test", J2EEVersionConstants.J2EE_1_3_ID);
 		for (int i = 0; i < RandomObjectGenerator.createRandomProjectNumber(); i++) {
 			IProject javaProject = ProjectUtility.getProject("testapp");
-			AppClientModuleCreationDataModelOld model = new AppClientModuleCreationDataModelOld();
-			model.setProperty(AppClientModuleCreationDataModelOld.PROJECT_NAME, javaProject.getName());
+			AppClientModuleCreationDataModel model = new AppClientModuleCreationDataModel();
+			model.setProperty(AppClientModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
 			//model.setProperty(AppClientProjectCreationDataModel.PROJECT_LOCATION, javaProject.getLocation().toOSString());
-			model.setIntProperty(AppClientModuleCreationDataModelOld.J2EE_MODULE_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
+			model.setIntProperty(AppClientModuleCreationDataModel.J2EE_MODULE_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
 			createAppClientProject(model, ProjectUtility.getProject("test"));
 		}
 	}

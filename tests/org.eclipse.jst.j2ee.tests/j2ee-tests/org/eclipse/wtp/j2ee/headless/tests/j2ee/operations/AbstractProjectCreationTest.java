@@ -10,22 +10,22 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.operations.AddArchiveProjectsToEARDataModel;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModelOld;
-import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationOperationOld;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationOperation;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModelOld;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleCreationOperation;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperationOld;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperationOld;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModelOld;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperationOld;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperation;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.tests.LogUtility;
@@ -138,21 +138,21 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 	public J2EEModuleCreationDataModelOld setupEJBProject(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
-		EJBModuleCreationDataModelOld model = new EJBModuleCreationDataModelOld();
-		model.setProperty(EJBModuleCreationDataModelOld.PROJECT_NAME, javaProject.getName());
-		model.setProperty(EJBModuleCreationDataModelOld.PROJECT_LOCATION, javaProject.getLocation());
-		model.setIntProperty(EJBModuleCreationDataModelOld.J2EE_MODULE_VERSION, j2eeVersion);
+		EJBModuleCreationDataModel model = new EJBModuleCreationDataModel();
+		model.setProperty(EJBModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model.setProperty(EJBModuleCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
+		model.setIntProperty(EJBModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
 		createEJBProject(model, null);
 		return model;
 	}
 
-	public EnterpriseApplicationCreationDataModelOld setupEARProject(String aProjectName, int j2eeVersion) throws Exception {
+	public EnterpriseApplicationCreationDataModel setupEARProject(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject earProject = ProjectUtility.getProject(aProjectName);
-		EnterpriseApplicationCreationDataModelOld earDataModel = new EnterpriseApplicationCreationDataModelOld();
-		earDataModel.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME, aProjectName);
-		earDataModel.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_LOCATION, earProject.getLocation());
-		earDataModel.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, j2eeVersion);
+		EnterpriseApplicationCreationDataModel earDataModel = new EnterpriseApplicationCreationDataModel();
+		earDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, aProjectName);
+		earDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION, earProject.getLocation());
+		earDataModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, j2eeVersion);
 		OperationTestCase.runAndVerify(earDataModel);
 		return earDataModel;
 	}
@@ -160,10 +160,10 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 	public J2EEModuleCreationDataModelOld setupWebProject(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
-		WebModuleCreationDataModelOld model = new WebModuleCreationDataModelOld();
-		model.setProperty(WebModuleCreationDataModelOld.PROJECT_NAME, javaProject.getName());
-		model.setProperty(WebModuleCreationDataModelOld.PROJECT_LOCATION, javaProject.getLocation());
-		model.setIntProperty(WebModuleCreationDataModelOld.J2EE_MODULE_VERSION, j2eeVersion);
+		WebModuleCreationDataModel model = new WebModuleCreationDataModel();
+		model.setProperty(WebModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model.setProperty(WebModuleCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
+		model.setIntProperty(WebModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
 		createWebProject(model, null);
 		return model;
 	}
@@ -172,10 +172,10 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		throws Exception {
 		projectName = aProjectName;
 		IProject javaProject = ProjectUtility.getProject(projectName);
-		AppClientModuleCreationDataModelOld model = new AppClientModuleCreationDataModelOld();
-		model.setProperty(AppClientModuleCreationDataModelOld.PROJECT_NAME, javaProject.getName());
-		model.setProperty(AppClientModuleCreationDataModelOld.PROJECT_LOCATION, javaProject.getLocation());
-		model.setIntProperty(AppClientModuleCreationDataModelOld.J2EE_MODULE_VERSION, j2eeVersion);
+		AppClientModuleCreationDataModel model = new AppClientModuleCreationDataModel();
+		model.setProperty(AppClientModuleCreationDataModel.PROJECT_NAME, javaProject.getName());
+		model.setProperty(AppClientModuleCreationDataModel.PROJECT_LOCATION, javaProject.getLocation());
+		model.setIntProperty(AppClientModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeVersion);
 		createAppClientProject(model, null);
 		return model;
 	}
@@ -198,7 +198,7 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		ProjectUtility.deleteProjectIfExists(projectName);
 
 		if (earProject != null && createEAR) {
-			WTPOperationDataModel earProjectCreationDataModel = new EnterpriseApplicationCreationDataModelOld();
+			WTPOperationDataModel earProjectCreationDataModel = new EnterpriseApplicationCreationDataModel();
 			earProjectCreationDataModel.setProperty(ProjectCreationDataModel.PROJECT_NAME, earProject);
 			earProjectCreationDataModel.getDefaultOperation().run(null);
 			ProjectUtility.verifyProject(earProject, true);
@@ -207,20 +207,20 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 		WTPOperationDataModel projectCreationDataModel = null;
 		switch (projectType) {
 			case EJB_PROJECT :
-				projectCreationDataModel = new EnterpriseApplicationCreationDataModelOld();
+				projectCreationDataModel = new EnterpriseApplicationCreationDataModel();
 				break;
 			case WEB_PROJECT :
-				projectCreationDataModel = new EnterpriseApplicationCreationDataModelOld();
+				projectCreationDataModel = new EnterpriseApplicationCreationDataModel();
 				break;
 			case APPLICATION_CLIENT_PROJECT :
-				projectCreationDataModel = new EnterpriseApplicationCreationDataModelOld();
+				projectCreationDataModel = new EnterpriseApplicationCreationDataModel();
 				break;
 		}
 		if (earProject != null) {
 			projectCreationDataModel.setBooleanProperty(J2EEModuleCreationDataModelOld.ADD_TO_EAR, true);
 			projectCreationDataModel.setProperty(J2EEModuleCreationDataModelOld.EAR_PROJECT_NAME, earProject);
 		}
-		projectCreationDataModel.setProperty(EJBModuleCreationDataModelOld.PROJECT_NAME, projectName);
+		projectCreationDataModel.setProperty(EJBModuleCreationDataModel.PROJECT_NAME, projectName);
 		projectCreationDataModel.getDefaultOperation().run(null);
 		ProjectUtility.verifyProject(projectName, true);
 
@@ -229,65 +229,65 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 
 
 	public static IProject createEARProject(String earProject) throws Exception {
-		EnterpriseApplicationCreationDataModelOld projectCreationModel = new EnterpriseApplicationCreationDataModelOld();
+		EnterpriseApplicationCreationDataModel projectCreationModel = new EnterpriseApplicationCreationDataModel();
 		projectCreationModel.setProperty(ProjectCreationDataModel.PROJECT_NAME, earProject);
 		return createEARProject(projectCreationModel);
 	}
 
-	public static IProject createEARProject(EnterpriseApplicationCreationDataModelOld model) throws Exception {
-		EnterpriseApplicationCreationOperationOld op = new EnterpriseApplicationCreationOperationOld(model);
+	public static IProject createEARProject(EnterpriseApplicationCreationDataModel model) throws Exception {
+		EnterpriseApplicationCreationOperation op = new EnterpriseApplicationCreationOperation(model);
 		op.run(null);
-		ProjectUtility.verifyProject(model.getStringProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME), true);
+		ProjectUtility.verifyProject(model.getStringProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME), true);
 		return model.getTargetProject();
 	}
 
-	public static IProject createEJBProject(EJBModuleCreationDataModelOld model, IProject earProject) throws Exception {
+	public static IProject createEJBProject(EJBModuleCreationDataModel model, IProject earProject) throws Exception {
 		if (earProject != null) {
-			model.setBooleanProperty(EJBModuleCreationDataModelOld.ADD_TO_EAR, true);
-			model.setProperty(EJBModuleCreationDataModelOld.EAR_PROJECT_NAME, earProject.getName());
+			model.setBooleanProperty(EJBModuleCreationDataModel.ADD_TO_EAR, true);
+			model.setProperty(EJBModuleCreationDataModel.EAR_PROJECT_NAME, earProject.getName());
 		}
-		EJBModuleCreationOperationOld ejbOp = new EJBModuleCreationOperationOld(model);
+		EJBModuleCreationOperation ejbOp = new EJBModuleCreationOperation(model);
 		ejbOp.run(null);
-		ProjectUtility.verifyProject(model.getStringProperty(EJBModuleCreationDataModelOld.PROJECT_NAME), true);
+		ProjectUtility.verifyProject(model.getStringProperty(EJBModuleCreationDataModel.PROJECT_NAME), true);
 		return model.getTargetProject();
 	}
 
-	public static void createEARProject(EnterpriseApplicationCreationDataModelOld model, boolean notImport) throws Exception {
-		model.setBooleanProperty(EnterpriseApplicationCreationDataModelOld.CREATE_DEFAULT_FILES, notImport);
-		EnterpriseApplicationCreationOperationOld op = new EnterpriseApplicationCreationOperationOld(model);
+	public static void createEARProject(EnterpriseApplicationCreationDataModel model, boolean notImport) throws Exception {
+		model.setBooleanProperty(EnterpriseApplicationCreationDataModel.CREATE_DEFAULT_FILES, notImport);
+		EnterpriseApplicationCreationOperation op = new EnterpriseApplicationCreationOperation(model);
 		op.run(null);
-		ProjectUtility.verifyProject(model.getStringProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME), true);
+		ProjectUtility.verifyProject(model.getStringProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME), true);
 	}
 
-	public static void createWebProject(WebModuleCreationDataModelOld model, IProject earProject) throws Exception {
+	public static void createWebProject(WebModuleCreationDataModel model, IProject earProject) throws Exception {
 		if (earProject != null) {
-			model.setBooleanProperty(WebModuleCreationDataModelOld.ADD_TO_EAR, true);
-			model.setProperty(WebModuleCreationDataModelOld.EAR_PROJECT_NAME, earProject.getName());
+			model.setBooleanProperty(WebModuleCreationDataModel.ADD_TO_EAR, true);
+			model.setProperty(WebModuleCreationDataModel.EAR_PROJECT_NAME, earProject.getName());
 		}
-		WebModuleCreationOperationOld webOp = new WebModuleCreationOperationOld(model);
+		WebModuleCreationOperation webOp = new WebModuleCreationOperation(model);
 		webOp.run(null);
 		ProjectUtility.verifyProject(model.getTargetProject().getName(), true);
 		TaskViewUtility.verifyNoErrors();
 	}
 
-	public static void createAppClientProject(AppClientModuleCreationDataModelOld model, IProject earProject)
+	public static void createAppClientProject(AppClientModuleCreationDataModel model, IProject earProject)
 		throws Exception {
 		if (earProject != null) {
-			model.setBooleanProperty(AppClientModuleCreationDataModelOld.ADD_TO_EAR, true);
-			model.setProperty(AppClientModuleCreationDataModelOld.EAR_PROJECT_NAME, earProject.getName());
+			model.setBooleanProperty(AppClientModuleCreationDataModel.ADD_TO_EAR, true);
+			model.setProperty(AppClientModuleCreationDataModel.EAR_PROJECT_NAME, earProject.getName());
 		}
-		AppClientModuleCreationOperationOld appOp = new AppClientModuleCreationOperationOld(model);
+		AppClientModuleCreationOperation appOp = new AppClientModuleCreationOperation(model);
 		appOp.run(null);
 		ProjectUtility.verifyProject(model.getTargetProject().getName(), true);
 	}
 
-	public static void createRarProject(ConnectorModuleCreationDataModelOld model, IProject earProject)
+	public static void createRarProject(ConnectorModuleCreationDataModel model, IProject earProject)
 		throws Exception {
 		if (earProject != null) {
-			model.setBooleanProperty(ConnectorModuleCreationDataModelOld.ADD_TO_EAR, true);
-			model.setProperty(ConnectorModuleCreationDataModelOld.EAR_PROJECT_NAME, earProject.getName());
+			model.setBooleanProperty(ConnectorModuleCreationDataModel.ADD_TO_EAR, true);
+			model.setProperty(ConnectorModuleCreationDataModel.EAR_PROJECT_NAME, earProject.getName());
 		}
-		ConnectorModuleCreationOperationOld rarOp = new ConnectorModuleCreationOperationOld(model);
+		ConnectorModuleCreationOperation rarOp = new ConnectorModuleCreationOperation(model);
 		rarOp.run(null);
 		ProjectUtility.verifyProject(model.getTargetProject().getName(), true);
 	}
@@ -295,21 +295,21 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 	public static IProject createEJBProject(String earName, String ejbName, int j2eeEARVersion, int j2eeEJBVersion)
 		throws Exception {
 		ProjectUtility.deleteAllProjects();
-		EnterpriseApplicationCreationDataModelOld model = null;
-		EJBModuleCreationDataModelOld ejbDataModel = null;
+		EnterpriseApplicationCreationDataModel model = null;
+		EJBModuleCreationDataModel ejbDataModel = null;
 		if (earName != null) {
 			IProject earProject = ProjectUtility.getProject(earName);
-			model = new EnterpriseApplicationCreationDataModelOld();
-			model.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME, earName);
-			model.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_LOCATION, earProject.getLocation());
-			model.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, j2eeEARVersion);
-			EnterpriseApplicationCreationOperationOld op = new EnterpriseApplicationCreationOperationOld(model);
+			model = new EnterpriseApplicationCreationDataModel();
+			model.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, earName);
+			model.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION, earProject.getLocation());
+			model.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, j2eeEARVersion);
+			EnterpriseApplicationCreationOperation op = new EnterpriseApplicationCreationOperation(model);
 
 			IProject ejbProject = ProjectUtility.getProject(ejbName);
-			ejbDataModel = new EJBModuleCreationDataModelOld();
-			ejbDataModel.setProperty(EJBModuleCreationDataModelOld.PROJECT_NAME, ejbName);
-			ejbDataModel.setProperty(EJBModuleCreationDataModelOld.PROJECT_LOCATION, ejbProject.getLocation());
-			ejbDataModel.setIntProperty(EJBModuleCreationDataModelOld.J2EE_MODULE_VERSION, j2eeEJBVersion);
+			ejbDataModel = new EJBModuleCreationDataModel();
+			ejbDataModel.setProperty(EJBModuleCreationDataModel.PROJECT_NAME, ejbName);
+			ejbDataModel.setProperty(EJBModuleCreationDataModel.PROJECT_LOCATION, ejbProject.getLocation());
+			ejbDataModel.setIntProperty(EJBModuleCreationDataModel.J2EE_MODULE_VERSION, j2eeEJBVersion);
 			IProject ejbp = createEJBProject(ejbDataModel, model.getTargetProject());
 
 		}
@@ -353,18 +353,18 @@ public abstract class AbstractProjectCreationTest extends TestCase {
 	public String setupEARDataObject(String aProjectName, int j2eeVersion) throws Exception {
 		projectName = aProjectName;
 		IProject earProject = ProjectUtility.getProject(aProjectName);
-		EnterpriseApplicationCreationDataModelOld earDataModel = new EnterpriseApplicationCreationDataModelOld();
-		earDataModel.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME, aProjectName);
-		earDataModel.setProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_LOCATION, earProject.getLocation());
+		EnterpriseApplicationCreationDataModel earDataModel = new EnterpriseApplicationCreationDataModel();
+		earDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME, aProjectName);
+		earDataModel.setProperty(EnterpriseApplicationCreationDataModel.PROJECT_LOCATION, earProject.getLocation());
 		//String projectName = setupEJBProject(RandomObjectGenerator.createCorrectRandomProjectNames(), j2eeVersion);
 		IProject ejbProject = ProjectUtility.getProject(projectName);
 		ArrayList list = new ArrayList();
 		list.add(ejbProject);
 		earDataModel.setProperty(AddArchiveProjectsToEARDataModel.MODULE_LIST, list);
-		earDataModel.setIntProperty(EnterpriseApplicationCreationDataModelOld.APPLICATION_VERSION, j2eeVersion);
+		earDataModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, j2eeVersion);
 		earDataModel.getProperty(AddArchiveProjectsToEARDataModel.MODULE_MODELS);
 		AddArchiveProjectsToEARDataModel arcModel = earDataModel.getAddModulesToEARDataModel();
-		return (earDataModel.getStringProperty(EnterpriseApplicationCreationDataModelOld.PROJECT_NAME));
+		return (earDataModel.getStringProperty(EnterpriseApplicationCreationDataModel.PROJECT_NAME));
 	}
 
 	public AbstractProjectCreationTest() {
