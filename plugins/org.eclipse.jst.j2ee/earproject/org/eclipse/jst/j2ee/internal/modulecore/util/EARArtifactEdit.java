@@ -9,6 +9,7 @@
 
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -30,6 +31,7 @@ import org.eclipse.wst.common.modulecore.ModuleCoreNature;
 import org.eclipse.wst.common.modulecore.ReferencedComponent;
 import org.eclipse.wst.common.modulecore.UnresolveableURIException;
 import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 
 /**
  * <p>
@@ -312,5 +314,38 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit {
 	public void saveIfNecessary(IProgressMonitor aMonitor) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * @param WorkbenchComponent
+	 * @return - a list of util modules referred by a given j2ee module
+	 */
+	public  List getWorkbenchUtilModules(WorkbenchComponent module) {
+		if(module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+		List utilComponents = new ArrayList();
+		List refComponents = module.getReferencedComponents();
+		for(int i = 0; i < refComponents.size(); i++) {
+			WorkbenchComponent component = (WorkbenchComponent)refComponents.get(i);
+			if(component.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_UTILITY_MODULE));
+				utilComponents.add(component);
+		 }
+		 return utilComponents;
+	  }
+	  return null;
+	}
+	
+	public List getWorkbenchJ2EEModules(WorkbenchComponent module) {
+		if(module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EAR_MODULE)) {
+		List j2eeComponents = new ArrayList();
+		List refComponents = module.getReferencedComponents();
+		for(int i = 0; i < refComponents.size(); i++) {
+			WorkbenchComponent component = (WorkbenchComponent)refComponents.get(i);
+			String typeId = component.getComponentType().getModuleTypeId();
+			if(typeId.equals(IModuleConstants.JST_EJB_MODULE) || typeId.equals(IModuleConstants.JST_WEB_MODULE) || typeId.equals(IModuleConstants.JST_APPCLIENT_MODULE) || typeId.equals(IModuleConstants.JST_CONNECTOR_MODULE))
+				j2eeComponents.add(component);
+		 }
+		 return j2eeComponents;
+	  }
+	  return null;
 	}
 }

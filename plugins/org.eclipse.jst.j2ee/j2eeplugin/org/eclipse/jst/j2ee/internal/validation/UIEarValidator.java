@@ -23,20 +23,16 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jem.util.emf.workbench.JavaProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.EjbModule;
-import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
-import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
+import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.MessageDestinationRef;
 import org.eclipse.jst.j2ee.common.ResourceEnvRef;
@@ -54,30 +50,25 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EELoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.earcreation.EAREditModel;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.ModuleMapHelper;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModuleMapping;
 import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
+import org.eclipse.jst.j2ee.internal.modulecore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
-import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wst.common.modulecore.ComponentResource;
+import org.eclipse.wst.common.modulecore.ModuleCore;
+import org.eclipse.wst.common.modulecore.WorkbenchComponent;
+import org.eclipse.wst.common.modulecore.internal.util.IModuleConstants;
 import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.MessageLimitException;
 import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
 import org.eclispe.wst.validation.internal.core.Message;
 
 
@@ -90,8 +81,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public static final String VALIDATOR_ID = "org.eclipse.jst.j2ee.internal.validation.UIEarValidator"; //$NON-NLS-1$
 	public static final String MANIFEST_GROUP_NAME = "WSAD.EAR.MANIFEST"; //$NON-NLS-1$
 	protected UIEarHelper earHelper;
-	protected EAREditModel earEditModel;
-	private EARNatureRuntime earNature;
+	private EARArtifactEdit earEdit = null;
 
 	/**
 	 * UIEarValidator constructor comment.
@@ -118,14 +108,6 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		params[1] = earProjectName;
 		params[2] = moduleUri;
 		addError(getBaseName(), DUPLICATE_MODULE_FOR_PROJECT_NAME_ERROR_, params, appDD);
-	}
-
-	public EAREditModel getEAREditModel(IProject earProject) {
-		EARNatureRuntime nature = getEarNature(earProject);
-		setEarNature(nature);
-		if (nature != null)
-			return nature.getEarEditModelForRead(this);
-		return null;
 	}
 
 	/**
@@ -173,17 +155,6 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	}
 
 	/**
-	 * Gets the ear nature.
-	 * 
-	 * @param IProject
-	 *            earProject - The current ear project.
-	 * @return EARNatureRuntime
-	 */
-	public EARNatureRuntime getEarNature(IProject earProject) {
-		return EARNatureRuntime.getRuntime(earProject);
-	}// EARNatureRuntime
-
-	/**
 	 * Insert the method's description here. Creation date: (9/10/2001 2:56:32 PM)
 	 * 
 	 * @return org.eclipse.wst.validation.internal.core.core.ear.workbenchimpl.UIEarHelper
@@ -228,36 +199,49 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	public void validate(IHelper inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		earHelper = (UIEarHelper) inHelper;
-		earEditModel = null;
-		try {
-			earEditModel = getEAREditModel(earHelper.getProject());
-			if (earEditModel != null) {
-				super.validate(earHelper, inReporter, changedFiles);
-				validateModuleMaps();
-				validateManifests();
-				validateUtilJarMaps();
-				validateUriAlreadyExistsInEar();
-				validateDocType();
-			}
-
-		} catch (ValidationException ex) {
-			throw ex;
-		} catch (Exception e) {
-			String[] param = new String[1];
-			IProject project = earHelper.getProject();
-			if (project != null)
-				param[0] = project.getName();
-			Logger.getLogger().logError(e);
-			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
-			throw new ValidationException(errorMsg, e);
+		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
+		WorkbenchComponent[] workBenchModules = null; 
+		ModuleCore moduleCore = null;	
+		try{ 
+			moduleCore = ModuleCore.getModuleCoreForRead(proj);
+			workBenchModules = moduleCore.getWorkbenchModules(); 
+			for (int i = 0; i < workBenchModules.length; i++) {
+	           
+	                WorkbenchComponent wbModule = workBenchModules[i];
+	                EARArtifactEdit earEdit = null;
+	               	try{
+	               		earEdit = EARArtifactEdit.getEARArtifactEditForRead(wbModule );
+	               		if(earEdit != null) {
+		               		Application earApp = (Application) earEdit.getDeploymentDescriptorRoot();		               		
+		               		super.validate(inHelper, inReporter, changedFiles, earApp);
+							validateModuleMaps(wbModule);
+							validateManifests(wbModule,earFile);
+							validateUtilJarMaps(wbModule);
+							validateUriAlreadyExistsInEar(wbModule);
+							validateDocType(wbModule);
+	               		}
+	               	}
+					catch (ValidationException ex) {
+						throw ex;
+					} catch (Exception e) {
+						String[] param = new String[1];
+						IProject project = earHelper.getProject();
+						if (project != null)
+							param[0] = project.getName();
+						Logger.getLogger().logError(e);
+						IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, EAR_VALIDATION_INTERNAL_ERROR_UI_, param);
+						throw new ValidationException(errorMsg, e);
+					} finally {
+	               		if(earEdit != null)
+	               			earEdit.dispose();
+	               	}
+			}    
 		} finally {
-			if (earEditModel != null)
-				earEditModel.releaseAccess(this);
-			//Shouldn't this be done in the super class?
-			if (earFile != null)
-				earFile.close();
+			if(moduleCore != null)
+				moduleCore.dispose();
+			}
 		}
-	}
+	
 
 	protected IProject getProject(Archive anArchive, EARFile earFileParam) {
 		LoadStrategy loader = anArchive.getLoadStrategy();
@@ -267,10 +251,9 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		return ((J2EELoadStrategyImpl) loader).getProject();
 	}
 
-	public void validateManifests() throws ValidationException {
+	public void validateManifests(WorkbenchComponent component,EARFile earFile) throws ValidationException {
 		if (earFile == null)
 			return;
-
 		List archives = earFile.getArchiveFiles();
 		for (int i = 0; i < archives.size(); i++) {
 			try {
@@ -282,7 +265,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 						_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
 					validateManifestCase(anArchive);
 					validateManifestLines(anArchive);
-					validateManifestClasspath(anArchive);
+					validateManifestClasspath(component,anArchive);
 				}
 			} catch (MessageLimitException me) {
 			}
@@ -314,8 +297,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	}
 
-	public void validateManifestClasspath(Archive anArchive) throws ValidationException {
-
+	public void validateManifestClasspath(WorkbenchComponent component, Archive anArchive) throws ValidationException {
 		String[] cp = anArchive.getManifest().getClassPathTokenized();
 		for (int i = 0; i < cp.length; i++) {
 			String uri = ArchiveUtil.deriveEARRelativeURI(cp[i], anArchive);
@@ -327,14 +309,13 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			IFile rf = null;
 			try {
 				if (uri.endsWith(J2EEImportConstants.IMPORTED_JAR_SUFFIX)) {
-					J2EENature projectNature = earEditModel.getEARNature().getModuleProject(anArchive.getURI());
-					if (projectNature != null) {
-						rf = projectNature.getProject().getFile(uri);
+						//TODO Needs work here to initialize rf as rf is an IFile and there is no way to get an IFile currently
+						ComponentResource[] components = component.findWorkbenchModuleResourceByDeployPath(URI.createURI(uri));
 						if (rf == null || !rf.exists()) {
 							invalidClassPathEntryWarning(cp[i], uri, anArchive);
 						}
 					}
-				} else
+				 else
 					f = earFile.getFile(uri);
 			} catch (java.io.FileNotFoundException ex) {
 				invalidClassPathEntryWarning(cp[i], earFile.getURI(), anArchive);
@@ -412,10 +393,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	/**
 	 * Validates utiljar maps
 	 */
-	public void validateUtilJarMaps() {
-
-		List utilJarModules = earEditModel.getUtilityJARMappings();
-
+	public void validateUtilJarMaps(WorkbenchComponent workbenchModule) {
+		List utilJarModules = workbenchModule.getReferencedComponents();
 		if (!utilJarModules.isEmpty() || !utilJarModules.isEmpty()) {
 			for (int i = 0; i < utilJarModules.size(); i++) {
 
@@ -428,21 +407,19 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 							String[] params = new String[]{project.getName(), aUtilJar.getUri(), earHelper.getProject().getName()};
 							addWarning(getBaseName(), PROJECT_DOES_NOT_EXIST_WARN_, params);
 						} else {
-							validateModuleProjectForValidServerTarget(project);
+							//validateModuleProjectForValidServerTarget(project);
 							if (!project.isOpen()) {
 								String[] params = new String[]{project.getName()};
 								addWarning(getBaseName(), PROJECT_IS_CLOSED_WARN_, params);
 							}
-
-						}// if
-
-					}// if
-				}// if
-			}// for
-		}// if
-		validateDuplicateUtilJars(earEditModel);
-		validateUtilJarNameCollision(earEditModel);
-		validateUtilJarContainsNoSpaces(earEditModel);
+						}
+					}
+				}
+			}
+		}
+		validateDuplicateUtilJars(workbenchModule);
+		validateUtilJarNameCollision(workbenchModule);
+		validateUtilJarContainsNoSpaces(workbenchModule);
 	}// validateUtilJarMaps
 
 	/**
@@ -451,8 +428,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * @param EAREditModel
 	 *            earEditModel - The ear editmodel.
 	 */
-	protected void validateUtilJarContainsNoSpaces(EAREditModel earEditModelParam) {
-		List utilJars = earEditModelParam.getUtilityJARMappings();
+	protected void validateUtilJarContainsNoSpaces(WorkbenchComponent module) {
+		List utilJars = module.getReferencedComponents();
 
 		if (utilJars == null)
 			return;
@@ -477,31 +454,35 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * @param EAREditModel
 	 *            earEditModel - The ear editmodel.
 	 */
-	protected void validateUtilJarNameCollision(EAREditModel earEditModelParam) {
-		List utilJars = earEditModelParam.getUtilityJARMappings();
-
-		if (utilJars == null)
-			return;
-
-		for (int i = 0; i < utilJars.size(); i++) {
-			UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
-
-			if (utilModule != null) {
-				if (earEditModelParam.moduleMappingExists(utilModule.getUri())) {
-
-					String[] params = new String[]{utilModule.getUri(), earEditModelParam.getEARNature().getProject().getName()};
-					addError(getBaseName(), MESSAGE_UTIL_URI_NAME_COLLISION_ERROR_, params);
-
-				} else if (utilModule.getProjectName() != null || utilModule.getProjectName().length() != 0) {
-					if (earEditModelParam.moduleMappingExists(utilModule.getProjectName())) {
-						String[] params = new String[]{utilModule.getUri(), utilModule.getProjectName()};
-						addError(getBaseName(), MESSAGE_UTIL_PROJECT_NAME_COLLISION_ERROR_, params);
-					}// if
-				}// if
-			}// if
-		}// for
-
-	}// validateUtilJarNameCollision
+	protected void validateUtilJarNameCollision(WorkbenchComponent module) {
+		EARArtifactEdit earArtifactEdit = null;
+		try {
+				 earArtifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
+				List utilJars = module.getReferencedComponents();
+				if (utilJars == null)
+					return;
+				for (int i = 0; i < utilJars.size(); i++) {
+					UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
+		
+					if (utilModule != null) {
+						if (earArtifactEdit.uriExists(utilModule.getUri())) {
+		
+							String[] params = new String[]{utilModule.getUri(), module.getName()};
+							addError(getBaseName(), MESSAGE_UTIL_URI_NAME_COLLISION_ERROR_, params);
+		
+						} else if (utilModule.getProjectName() != null || utilModule.getProjectName().length() != 0) {
+							if (earArtifactEdit.uriExists(utilModule.getUri())) {
+								String[] params = new String[]{utilModule.getUri(), utilModule.getProjectName()};
+								addError(getBaseName(), MESSAGE_UTIL_PROJECT_NAME_COLLISION_ERROR_, params);
+							}
+						}
+					}
+				}
+		} finally {
+			if(earArtifactEdit != null) 
+					earArtifactEdit.dispose();
+		   }
+		}
 
 
 	/**
@@ -510,8 +491,8 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	 * @param EAREditModel
 	 *            earEditModel - The ear editmodel
 	 */
-	protected void validateDuplicateUtilJars(EAREditModel earEditModelParam) {
-		List utilJars = earEditModelParam.getUtilityJARMappings();
+	protected void validateDuplicateUtilJars(WorkbenchComponent module) {
+		List utilJars = module.getReferencedComponents();
 		Set visitedUtilUri = new HashSet();
 		if (utilJars == null)
 			return;
@@ -520,7 +501,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			if (utilModule != null) {
 				if (visitedUtilUri.contains(utilModule.getUri())) {
 					String projectName = utilModule.getProjectName();
-					duplicateUtilError(earEditModelParam.getEARNature().getProject().getName(), utilModule.getUri(), projectName);
+					duplicateUtilError(module.getName(), utilModule.getUri(), projectName);
 				} else
 					visitedUtilUri.add(utilModule.getUri());
 			} // if
@@ -545,31 +526,35 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		addError(getBaseName(), DUPLICATE_UTILJAR_FOR_PROJECT_NAME_ERROR_, params);
 	}// duplicateUtilError
 
-	public void validateModuleMaps() {
-		EList modules = appDD.getModules();
+	public void validateModuleMaps(WorkbenchComponent module) {
+		EList modules = module.getReferencedComponents();
+		EARArtifactEdit artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
 		if (!modules.isEmpty()) {
 			for (int i = 0; i < modules.size(); i++) {
-				Module module = (Module) modules.get(i);
-				ModuleMapping modMap = earEditModel.getModuleMapping(module);
-				if (modMap == null) {
-					String[] params = new String[]{module.getUri(), earHelper.getProject().getName()};
+				WorkbenchComponent amodule = (WorkbenchComponent) modules.get(i);
+				
+				boolean uriExists = artifactEdit.uriExists(module.getName());
+				if (!uriExists) {
+					String[] params = new String[]{amodule.getName(), earHelper.getProject().getName()};
 					addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
 				} else {
-					String projectName = modMap.getProjectName();
+					String projectName = amodule.getName();
 					if (projectName == null || projectName.length() == 0) {
-						String[] params = new String[]{module.getUri(), earHelper.getProject().getName()};
+						String[] params = new String[]{amodule.getName(), earHelper.getProject().getName()};
 						addWarning(getBaseName(), MISSING_PROJECT_FORMODULE_WARN_, params);
 					} else {
-						IProject project = J2EEPlugin.getWorkspace().getRoot().getProject(projectName);
-						if (!project.exists()) {
-							String[] params = new String[]{project.getName(), module.getUri(), earHelper.getProject().getName()};
+						ModuleCore mc = ModuleCore.getModuleCoreForRead(earHelper.getProject());
+						WorkbenchComponent deployModule = mc.findWorkbenchModuleByDeployName(projectName);
+						if (deployModule == null) {
+							String[] params = new String[]{deployModule.getName(),amodule.getName(), earHelper.getProject().getName()};
 							addWarning(getBaseName(), PROJECT_DOES_NOT_EXIST_WARN_, params);
-						} else if (!project.isOpen()) {
-							String[] params = new String[]{project.getName()};
+						} else if (earHelper.getProject().isOpen()) {
+							String[] params = new String[]{earHelper.getProject().getName()};
 							addWarning(getBaseName(), PROJECT_IS_CLOSED_WARN_, params);
 						} else {
-							validateModuleProjectsForValidNature(module, project);
-							validateModuleProjectForValidServerTarget(project);
+							
+							//validateModuleProjectsForValidNature(module);
+							//validateModuleProjectForValidServerTarget(project);
 						}
 					}
 				}
@@ -577,14 +562,15 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			}
 		}
 		//validateEARServerTargetJ2EESpecLevel(earEditModel);
-		validateModuleMapsDuplicateProjects(earEditModel);
+		//validateModuleMapsDuplicateProjects(earEditModel);
 	}
 
 
 	/**
 	 * @param project
+	 * This validation is not needed for Flex project
 	 */
-	private void validateModuleProjectForValidServerTarget(IProject project) {
+	/*private void validateModuleProjectForValidServerTarget(IProject project) {
 		IRuntime runtime = ServerCore.getProjectProperties(project).getRuntimeTarget();
 
 		EARNatureRuntime nature = earEditModel.getEARNature();
@@ -601,7 +587,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		} else if (runtime != null) {
 			missingServerTargetOnEARWarning(project, earProject);
 		}
-	}
+	}*/
 
 	private void missingServerTargetOnEARWarning(IProject project, IProject earProject) {
 		String[] params = new String[]{earProject.getName(), project.getName()};
@@ -620,10 +606,12 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 
 	/**
 	 * @param earProject
-	 *            TODO This validation is RAD specific hence needs to be moved to a the RAD layered
-	 *            plugin references to this method are commented out
+	 *            
+	 * TODO This validation is RAD specific hence needs to be moved to a the RAD layered
+	 * plugin references to this method are commented out
+	 * This validation is not needed anymore for flex project
 	 */
-	private void validateEARServerTargetJ2EESpecLevel(EAREditModel editModel) {
+	/*private void validateEARServerTargetJ2EESpecLevel(EAREditModel editModel) {
 		EARNatureRuntime nature = earEditModel.getEARNature();
 		IProject earProject = nature.getProject();
 		IRuntime earRuntime = ServerCore.getProjectProperties(earProject).getRuntimeTarget();
@@ -637,14 +625,15 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				Logger.getLogger().logError(ce);
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * @param project
 	 *            TODO This validation is RAD specific hence needs to be moved to a the RAD layered
 	 *            plugin references to this method are commented out
+	 * This validation is no needed anymore for Flex project
 	 */
-	private void validateModuleServerTargetJ2EESpecLevel(IProject project, IRuntime runtime) {
+	/*private void validateModuleServerTargetJ2EESpecLevel(IProject project, IRuntime runtime) {
 		boolean is14SpecLevelProject = false;
 		if (J2EENature.hasRuntime(project, new String[]{IWebNatureConstants.J2EE_NATURE_ID, IEJBNatureConstants.NATURE_ID, IApplicationClientNatureConstants.NATURE_ID})) {
 			J2EENature j2eeNature = J2EENature.getRegisteredRuntime(project);
@@ -654,13 +643,15 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 				addError(getBaseName(), INVALID_MODULE_SERVER_TARGET_FOR_14_SPEC_LEVEL, params);
 			}
 		}
-	}
-
-	protected void validateModuleMapsDuplicateProjects(EAREditModel earEditModelParam) {
-		java.util.List moduleMaps = earEditModelParam.getModuleMappings();
+	}*/
+	
+	
+	//The module maps validation needs to be done in the wtpmodules validator for flex project
+	/*protected void validateModuleMapsDuplicateProjects(WorkbenchComponent module) {
+		java.util.List moduleMaps = module.getReferencedComponents();
 		java.util.Set visitedProjectNames = new java.util.HashSet();
 		for (int i = 0; i < moduleMaps.size(); i++) {
-			ModuleMapping map = (ModuleMapping) moduleMaps.get(i);
+			WorkbenchComponent map = (WorkbenchComponent) moduleMaps.get(i);
 			if (map.getModule() != null) {
 				String moduleUri = map.getModule().getUri();
 				String earProjectName = earEditModelParam.getEARNature().getProject().getName();
@@ -671,29 +662,31 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 					visitedProjectNames.add(projectName);
 			}
 		}
-	}
+	}*/
 
-	protected void validateModuleURIExtension(Module module) {
-		String newUri = module.getUri();
-		if (newUri != null && newUri.length() > 0) {
-			if (module instanceof EjbModule && !newUri.endsWith(".jar")) { //$NON-NLS-1$
+	protected void validateModuleURIExtension(WorkbenchComponent module) {
+		String fileExt = module.getHandle().fileExtension();
+		if (fileExt != null && fileExt.length() > 0) {
+			if (module.getComponentType().getModuleTypeId().endsWith(IModuleConstants.JST_EJB_MODULE) && !fileExt.endsWith(".jar")) { //$NON-NLS-1$
 				String[] params = new String[1];
-				params[0] = module.getUri();
+				params[0] = module.getName();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
 				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
-			} else if (module instanceof WebModule && !newUri.endsWith(".war")) { //$NON-NLS-1$
+			} else if (module.getComponentType().getModuleTypeId().endsWith(IModuleConstants.JST_WEB_MODULE) && !fileExt.endsWith(".war")) { //$NON-NLS-1$
 				String[] params = new String[1];
-				params[0] = module.getUri();
+				params[0] = module.getName();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
 				addError(getBaseName(), INVALID_URI_FOR_MODULE_ERROR_, params, target);
 			}
 		}
 	}
 
-	public void validateModuleProjectsForValidNature(Module module, IProject project) {
-
+	/*
+	 * This validation is not needed anymore for flex project
+	 * public void validateModuleProjectsForValidNature(WorkbenchComponent module) {
+		
 		try {
-			if (module.isWebModule()) {
+			if (module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_WEB_MODULE)) {
 				if (!project.hasNature(IWebNatureConstants.J2EE_NATURE_ID)) {
 					String[] params = new String[2];
 					params[0] = project.getName();
@@ -710,14 +703,14 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 					}
 				}
 
-			} else if (module.isEjbModule()) {
+			} else if (module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_EJB_MODULE)) {
 				if (!project.hasNature(IEJBNatureConstants.NATURE_ID)) {
 					String[] params = new String[2];
 					params[0] = project.getName();
 					params[1] = earHelper.getProject().getName();
 					addWarning(getBaseName(), MISSING_EJBNATURE_FORMODULE_WARN_, params);
 				}
-			} else if (module.isJavaModule()) {
+			} else if (module.getComponentType().getModuleTypeId().equals(IModuleConstants.JST_UTILITY_MODULE)) {
 				if (!ApplicationClientNatureRuntime.hasRuntime(project)) {
 					String[] params = new String[2];
 					params[0] = project.getName();
@@ -729,7 +722,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ce);
 		}
 
-	}
+	}*/
 
 	/*
 	 * @see J2EEValidator#cleanup()
@@ -759,64 +752,65 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	/**
 	 * Checks if the nature is consistent with doc type.
 	 */
-	protected void validateDocType() {
-		//EARNatureRuntime nature = getEarNature(earHelper.getProject());
-		EARNatureRuntime nature = getEarNature();
-		if (nature == null)
+	protected void validateDocType(WorkbenchComponent module) {
+		EARArtifactEdit artifactEdit = null;
+		try {
+		artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
+		if (artifactEdit == null)
 			return;
-		if (nature.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() < J2EEVersionConstants.J2EE_1_3_ID) {
+		if (artifactEdit.getJ2EEVersion() >= J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() < J2EEVersionConstants.J2EE_1_3_ID) {
 			String[] params = new String[3];
 			params[0] = DOCTYPE_1_2;
 			params[1] = getResourceName();
 			params[2] = DOCTYPE_1_3;
 			addError(getBaseName(), EAR_INVALID_DOC_TYPE_ERROR_, params, appDD);
-		} else if (nature.getJ2EEVersion() < J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() >= J2EEVersionConstants.J2EE_1_3_ID) {
+		} else if (artifactEdit.getJ2EEVersion() < J2EEVersionConstants.J2EE_1_3_ID && appDD.getVersionID() >= J2EEVersionConstants.J2EE_1_3_ID) {
 			String[] params = new String[3];
 			params[0] = DOCTYPE_1_3;
 			params[1] = getResourceName();
 			params[2] = DOCTYPE_1_2;
 			addError(getBaseName(), EAR_INVALID_DOC_TYPE_ERROR_, params, appDD);
-		}// if
-	}// validateDocType
+		}
+		} finally {
+			if(artifactEdit != null)
+				artifactEdit.dispose();
+		}
+	}
 
 	/**
 	 * Validates that conflicting jar does not exist in the ear project.
 	 */
-	public void validateUriAlreadyExistsInEar() {
+	public void validateUriAlreadyExistsInEar(WorkbenchComponent module) {
+		EARArtifactEdit artifactEdit = null;
+		try{
+		    artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(module);
+			List utilJars = artifactEdit.getWorkbenchJ2EEModules(module);
+			if (utilJars == null)
+				return;
+			for (int i = 0; i < utilJars.size(); i++) {
+				UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
+	
+				if (utilModule != null && utilModule.getUri() != null) {
+					IProject currentEARProject = earHelper.getProject();
+	
+					try {
+						IFile exFile = currentEARProject.getFile(utilModule.getUri());
+						if (exFile != null && exFile.exists()) {
+							String[] params = new String[2];
+							params[0] = utilModule.getUri();
+							params[1] = currentEARProject.getName();
+							addWarning(getBaseName(), URI_ALREADY_EXISTS_IN_EAR_WARN_, params, appDD);
+						}
+					} catch (IllegalArgumentException iae) {
+						Logger.getLogger().logError(iae);
+					}
+				}
+		}
+		} finally {
+			if(artifactEdit != null)
+				artifactEdit.dispose();
+		}
 
-		List utilJars = earEditModel.getUtilityJARMappings();
-
-		if (utilJars == null)
-			return;
-
-		for (int i = 0; i < utilJars.size(); i++) {
-			UtilityJARMapping utilModule = (UtilityJARMapping) utilJars.get(i);
-
-			if (utilModule != null && utilModule.getUri() != null) {
-				IProject currentEARProject = earHelper.getProject();
-
-				try {
-					IFile exFile = currentEARProject.getFile(utilModule.getUri());
-					if (exFile != null && exFile.exists()) {
-						String[] params = new String[2];
-						params[0] = utilModule.getUri();
-						params[1] = currentEARProject.getName();
-						addWarning(getBaseName(), URI_ALREADY_EXISTS_IN_EAR_WARN_, params, appDD);
-					}// if
-				} catch (IllegalArgumentException iae) {
-					Logger.getLogger().logError(iae);
-				}// try
-			}// if
-		}// for
-
-	}// validateUriAlreadyExistsInEar
-
-	private EARNatureRuntime getEarNature() {
-		return earNature;
-	}
-
-	private void setEarNature(EARNatureRuntime runtime) {
-		earNature = runtime;
 	}
 
 }// UIEarValidator
