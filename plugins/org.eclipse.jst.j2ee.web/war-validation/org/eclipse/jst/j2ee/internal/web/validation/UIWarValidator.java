@@ -12,13 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 
-import java.util.List;
-
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jst.j2ee.application.Module;
-import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -30,7 +24,6 @@ import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
-import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 
 /**
@@ -119,7 +112,6 @@ public class UIWarValidator extends WarValidator {
 		isFlexibile = ModuleCoreNature.getModuleCoreNature(proj) != null;
 		
 		if( isFlexibile ){
-	        List modules = null;
 	        WorkbenchModule[] workBenchModules = null; 
 			ModuleCore moduleCore = null;	
 			try{ 
@@ -144,7 +136,7 @@ public class UIWarValidator extends WarValidator {
 		               	}
 		            }
 		            finally{
-		            	
+		            	//Do nothing
 		            }
 				}    
 			} finally {
@@ -153,14 +145,15 @@ public class UIWarValidator extends WarValidator {
 			}
 		}
 		else{
-			IBaseWebNature webNature = null;
-			if (proj != null) {
-				webNature = J2EEWebNatureRuntimeUtilities.getRuntime(proj);
+			WebArtifactEdit webEdit = null;
+			try {
+				webEdit = (WebArtifactEdit) ModuleCore.getFirstArtifactEditForRead(proj.getProject());
+			} finally {
+				if (webEdit != null)
+					webEdit.dispose();
 			}
-		
-				
 			// if this is a static project, it has no WAR, so do not validate.
-			if (webNature != null && !webNature.isStatic()) {
+			if (webEdit != null && webEdit.getWebApplication()!= null) {
 				super.validate(inHelper, inReporter, inChangedFiles);
 			//validateLibModules((J2EEWebNatureRuntime) webNature);
 			}
