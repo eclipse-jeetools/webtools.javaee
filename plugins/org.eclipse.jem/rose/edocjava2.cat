@@ -15,7 +15,7 @@
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"basePackage"
-	    value      	(value Text "org.eclipse.jem.internal"))
+	    value      	(value Text "org.eclipse.jem"))
 	(object Attribute
 	    tool       	"Ecore"
 	    name       	"prefix"
