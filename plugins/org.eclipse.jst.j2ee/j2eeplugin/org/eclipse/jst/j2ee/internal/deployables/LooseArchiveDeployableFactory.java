@@ -12,7 +12,9 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.util.ProjectModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
 public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate {
@@ -48,7 +50,30 @@ public class LooseArchiveDeployableFactory extends ProjectModuleFactoryDelegate 
 	 *            org.eclipse.core.resources.IProject
 	 * @return com.ibm.etools.server.core.model.IProjectModule
 	 */
-	protected IProjectModule createModule(IProject project) {
-		return new LooseArchiveDeployable(project, ID);
-	}
+	
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#createModule(org.eclipse.core.resources.IProject)
+     */
+    protected IModule createModule(IProject project) {
+        // TODO Auto-generated method stub
+        return new LooseArchiveDeployable(project, ID);
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
+     */
+    public ModuleDelegate getModuleDelegate(IModule module) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+     */
+    public IModule[] getModules() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

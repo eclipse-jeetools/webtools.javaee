@@ -10,11 +10,15 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.IStaticWebNature;
 import org.eclipse.jst.j2ee.internal.web.operations.WebNatureRuntimeUtilities;
-import org.eclipse.jst.server.j2ee.IStaticWeb;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleType;
+import org.eclipse.wst.server.core.util.IStaticWeb;
 import org.eclipse.wst.server.core.util.ProjectModule;
+import org.eclipse.wst.web.internal.operation.IStaticWebNature;
 
 public class StaticWebDeployable extends ProjectModule implements IStaticWeb {
 
@@ -24,10 +28,11 @@ public class StaticWebDeployable extends ProjectModule implements IStaticWeb {
 	}
 
 	/**
+	 * TODO Changed setModule to setProject to react to changes in IStaticWebNature. Verify if this change is correct.
 	 * @param staticWebNature
 	 */
 	private void setWebNature(IStaticWebNature nature) {
-		nature.setModule(this);
+		nature.setProject(getProject());
 	}
 
 	public String getFactoryId() {
@@ -79,4 +84,36 @@ public class StaticWebDeployable extends ProjectModule implements IStaticWeb {
 	public String getVersion() {
 		return "1.0"; //$NON-NLS-1$
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public IStatus validate(IProgressMonitor monitor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#getModuleType()
+     */
+    public IModuleType getModuleType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public IModule[] getChildModules(IProgressMonitor monitor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+     */
+    public Object getAdapter(Class adapter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

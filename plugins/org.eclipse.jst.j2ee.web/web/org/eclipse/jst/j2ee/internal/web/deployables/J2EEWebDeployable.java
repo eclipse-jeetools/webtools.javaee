@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -18,20 +19,23 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployable;
 import org.eclipse.jst.j2ee.internal.deployables.LooseArchiveDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.server.j2ee.ILooseArchive;
 import org.eclipse.jst.server.j2ee.ILooseArchiveSupport;
 import org.eclipse.jst.server.j2ee.IWebModule;
-import org.eclipse.wst.server.core.IModuleFactory;
+import org.eclipse.wst.server.core.internal.ModuleFactory;
+import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclipse.wst.server.core.model.IModule;
-import org.eclipse.wst.server.core.model.IModuleFactoryDelegate;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleFactoryDelegate;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 /**
@@ -102,13 +106,13 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
 	}
 
 	protected LooseArchiveDeployableFactory getLooseArchiveDeployableFactory() {
-		Iterator factories = ServerCore.getModuleFactories().iterator();
+	/*	Iterator factories = Arrays.asList(ServerCore.getModuleFactories()).iterator();
 		while (factories.hasNext()) {
-			IModuleFactory deployableFactory = (IModuleFactory) factories.next();
-			IModuleFactoryDelegate deployableFactoryDelegate = deployableFactory.getDelegate();
+			ModuleFactory deployableFactory = (ModuleFactory) factories.next();
+			ModuleFactoryDelegate deployableFactoryDelegate = deployableFactory.getDelegate();
 			if (deployableFactoryDelegate instanceof LooseArchiveDeployableFactory)
 				return (LooseArchiveDeployableFactory) deployableFactoryDelegate;
-		}
+		}*/
 		return null;
 	}
 
@@ -338,4 +342,36 @@ public class J2EEWebDeployable extends J2EEDeployable implements IWebModule, ILo
 		list.toArray(children);
 		return children;
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public IStatus validate(IProgressMonitor monitor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#getModuleType()
+     */
+    public IModuleType getModuleType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public IModule[] getChildModules(IProgressMonitor monitor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+     */
+    public Object getAdapter(Class adapter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
@@ -27,6 +26,7 @@ import org.eclipse.wst.validation.core.IHelper;
 import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 
 

@@ -119,7 +119,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 							importModel.getJ2eeArtifactCreationDataModel().setProperty(J2EEArtifactCreationDataModel.PROJECT_LOCATION, projectRoot);
 
 						importModel.getJ2eeArtifactCreationDataModel().setBooleanProperty(J2EEArtifactCreationDataModel.ADD_SERVER_TARGET, true);
-						importModel.setBooleanProperty(J2EEImportDataModel.OVERWRITE_PROJECT, model.getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY));
+						importModel.setBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT, model.getBooleanProperty(J2EEUtilityJarListImportDataModel.OVERWRITE_IF_NECESSARY));
 						importModel.setProperty(J2EEUtilityJarImportDataModel.EAR_PROJECT, earProject);
 
 						importModel.getDefaultOperation().run(new SubProgressMonitor(monitor, 1));
@@ -127,7 +127,7 @@ public class J2EEUtilityJarListImportOperation extends WTPOperation {
 						createProjectWithLinkedJar(utilityJar, new SubProgressMonitor(monitor, 1));
 					}
 
-					String utilityJarProjectName = (importModel != null) ? importModel.getStringProperty(J2EEImportDataModel.PROJECT_NAME) : getUtilityJarProjectName(utilityJar);
+					String utilityJarProjectName = (importModel != null) ? importModel.getStringProperty(J2EEArtifactImportDataModel.PROJECT_NAME) : getUtilityJarProjectName(utilityJar);
 
 					IProject utilityJarProject = root.getRoot().getProject(utilityJarProjectName);
 					linkArchiveToEAR(earProject, utilityJar.getName(), utilityJarProject, new SubProgressMonitor(monitor, 1));

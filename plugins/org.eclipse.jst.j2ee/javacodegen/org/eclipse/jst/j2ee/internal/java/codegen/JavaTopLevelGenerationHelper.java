@@ -17,9 +17,9 @@ import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.TopLevelGenerationHelper;
-import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyProvider;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 

@@ -52,7 +52,7 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	//protected WebSettings webSettings;
 	//protected HashMap createdProjectsMap;
 	//protected boolean isNestedWAR = false;
-	protected WARImportDataModel dataModel;
+	protected WebModuleImportDataModel dataModel;
 
 	public static final String WEBSETTINGS_FILE_URI = ".websettings"; //$NON-NLS-1$
 
@@ -573,7 +573,7 @@ public class WTProjectSaveStrategyImpl extends J2EESaveStrategyImpl {
 	//        return isNestedWAR;
 	//    }
 
-	public void setDataModel(WARImportDataModel model) {
+	public void setDataModel(WebModuleImportDataModel model) {
 		this.dataModel = model;
 	}
 

@@ -89,9 +89,9 @@ public class JavaClassTranslator extends Translator {
 						} catch (Exception e) {}
 						if (javaClass != null)
 							return javaClass;
+					}
 				}
 			}
-		}
 			return JavaRefFactory.eINSTANCE.createClassRef(qualifiedName);
 		}
 		return null;

@@ -16,9 +16,12 @@
  */
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.AddWebModuleToEARDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
@@ -32,9 +35,18 @@ import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationData
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
-public final class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
+import com.ibm.wtp.common.logger.proxy.Logger;
+
+/**
+ * This dataModel is used for to create Web Modules.
+ * 
+ * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
+ * the new project structures are adopted. Use at your own risk.
+ * 
+ * @since WTP 1.0
+ */
+public class WebModuleCreationDataModel extends J2EEModuleCreationDataModel {
 
 	/**
 	 * Type Integer
@@ -52,6 +64,38 @@ public final class WebModuleCreationDataModel extends J2EEModuleCreationDataMode
 	public static final String WEB_CONTENT = "WebModuleCreationDataModel.WEB_CONTENT"; //$NON-NLS-1$
 	public static final String MIGRATE_WEB_SETTINGS = "WebModuleCreationDataModel.MIGRATE_WEB_SETTINGS"; //$NON-NLS-1$
 
+	/**
+	 * Creates a Connector project with the specified name and version in the specified location.
+	 * 
+	 * @param projectName
+	 *            The name of the Connector project to create.
+	 * @param projectLocation
+	 *            Sets the local file system location for the described project. The path must be
+	 *            either an absolute file system path, or a relative path whose first segment is the
+	 *            name of a defined workspace path variable. If <code>null</code> is specified,
+	 *            the default location is used.
+	 * @param connectorModuleVersion
+	 *            Sets the Connector Module Version for the descibed project. The version must be either
+	 *            <code>J2EEVersionConstants.JCA_1_0_ID</code> or
+	 *            <code>J2EEVersionConstants.JCA_1_5_ID</code>.
+	 * @since WTP 1.0
+	 */
+	public static void createProject(String projectName, IPath projectLocation, int connectorModuleVersion) {
+		WebModuleCreationDataModel dataModel = new WebModuleCreationDataModel();
+		dataModel.setProperty(PROJECT_NAME, projectName);
+		if (null != projectLocation) {
+			dataModel.setProperty(PROJECT_LOCATION, projectLocation.toOSString());
+		}
+		dataModel.setIntProperty(J2EE_MODULE_VERSION, connectorModuleVersion);
+		try {
+			dataModel.getDefaultOperation().run(null);
+		} catch (InvocationTargetException e) {
+			Logger.getLogger().logError(e);
+		} catch (InterruptedException e) {
+			Logger.getLogger().logError(e);
+		}
+	}
+	
 	public WTPOperation getDefaultOperation() {
 		return new WebModuleCreationOperation(this);
 	}

@@ -26,8 +26,8 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -71,7 +71,7 @@ public class EARImportOptionsPage extends J2EEImportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportOptionsPage(J2EEImportDataModel model, String pageName) {
+	public EARImportOptionsPage(J2EEArtifactImportDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_DESC));
@@ -130,13 +130,13 @@ public class EARImportOptionsPage extends J2EEImportPage {
 
 		getEARImportDataModel().addListener(new WTPOperationDataModelListener() {
 			public void propertyChanged(WTPOperationDataModelEvent event) {
-				if (event.getPropertyName().equals(J2EEImportDataModel.PRESERVE_PROJECT_METADATA)) {
-					boolean partialDevelopmentMode = getEARImportDataModel().getBooleanProperty(J2EEImportDataModel.PRESERVE_PROJECT_METADATA);
+				if (event.getPropertyName().equals(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA)) {
+					boolean partialDevelopmentMode = getEARImportDataModel().getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA);
 					availableJARsViewer.getControl().setEnabled(!partialDevelopmentMode);
 					selectAllButton.setEnabled(!partialDevelopmentMode);
 					deselectAllButton.setEnabled(!partialDevelopmentMode);
-				} else if (event.getPropertyName().equals(EARImportDataModel.UTILITY_LIST)) {
-					availableJARsViewer.setCheckedElements(((List) getEARImportDataModel().getProperty(EARImportDataModel.UTILITY_LIST)).toArray());
+				} else if (event.getPropertyName().equals(EnterpriseApplicationImportDataModel.UTILITY_LIST)) {
+					availableJARsViewer.setCheckedElements(((List) getEARImportDataModel().getProperty(EnterpriseApplicationImportDataModel.UTILITY_LIST)).toArray());
 				}
 			}
 		});
@@ -144,7 +144,7 @@ public class EARImportOptionsPage extends J2EEImportPage {
 
 	private void handleDeselectAllButtonPressed() {
 		ArrayList emptySelection = new ArrayList(2);
-		getEARImportDataModel().setProperty(EARImportDataModel.UTILITY_LIST, emptySelection);
+		getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.UTILITY_LIST, emptySelection);
 	}
 
 	private void handleSelectAllButtonPressed() {
@@ -153,7 +153,7 @@ public class EARImportOptionsPage extends J2EEImportPage {
 		for (int i = 0; (null != (selection = availableJARsViewer.getElementAt(i))); i++) {
 			allSelection.add(selection);
 		}
-		getEARImportDataModel().setProperty(EARImportDataModel.UTILITY_LIST, allSelection);
+		getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.UTILITY_LIST, allSelection);
 	}
 
 	/**
@@ -220,13 +220,13 @@ public class EARImportOptionsPage extends J2EEImportPage {
 		Button allowNestedOverwriteCheckbox;
 		allowNestedOverwriteCheckbox = new Button(parent, SWT.CHECK);
 		allowNestedOverwriteCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_OVERWRITE_NESTED));
-		synchHelper.synchCheckbox(allowNestedOverwriteCheckbox, EARImportDataModel.OVERWRITE_NESTED_PROJECTS, null);
+		synchHelper.synchCheckbox(allowNestedOverwriteCheckbox, EnterpriseApplicationImportDataModel.OVERWRITE_NESTED_PROJECTS, null);
 	}
 
 	protected void createProjectMetaCheckbox(Composite parent) {
 		useProjectMetaCheckbox = new Button(parent, SWT.CHECK);
 		useProjectMetaCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PARTIAL_DEVELOPMENT));
-		synchHelper.synchCheckbox(useProjectMetaCheckbox, J2EEImportDataModel.PRESERVE_PROJECT_METADATA, null);
+		synchHelper.synchCheckbox(useProjectMetaCheckbox, J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA, null);
 	}
 
 	protected void createJARsComposite(Composite parent) {
@@ -269,7 +269,7 @@ public class EARImportOptionsPage extends J2EEImportPage {
 		systemDefaultText = new Text(group, SWT.READ_ONLY | SWT.WRAP | SWT.BORDER);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		systemDefaultText.setLayoutData(gd);
-		synchHelper.synchText(systemDefaultText, EARImportDataModel.NESTED_MODULE_ROOT, null);
+		synchHelper.synchText(systemDefaultText, EnterpriseApplicationImportDataModel.NESTED_MODULE_ROOT, null);
 
 		browseButton = new Button(group, SWT.PUSH);
 		browseButton.setText(defBrowseButtonLabel);
@@ -285,12 +285,12 @@ public class EARImportOptionsPage extends J2EEImportPage {
 	private void refreshEARFileIfNecessary() {
 		if (isEARFileChanged()) {
 			earFile = getEARImportDataModel().getEARFile();
-			if (!getEARImportDataModel().isEnabled(J2EEImportDataModel.PRESERVE_PROJECT_METADATA).booleanValue()) {
+			if (!getEARImportDataModel().isEnabled(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA).booleanValue()) {
 				disableUseProjectMetaCheckbox();
 				setJARsCompositeEnabled(true);
 			} else {
 				useProjectMetaCheckbox.setEnabled(true);
-				getEARImportDataModel().setBooleanProperty(J2EEImportDataModel.PRESERVE_PROJECT_METADATA, false);
+				getEARImportDataModel().setBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA, false);
 				setJARsCompositeEnabled(true);
 			}
 			refresh();
@@ -319,12 +319,12 @@ public class EARImportOptionsPage extends J2EEImportPage {
 	}
 
 	protected void disableUseProjectMetaCheckbox() {
-		getEARImportDataModel().setBooleanProperty(J2EEImportDataModel.PRESERVE_PROJECT_METADATA, false);
+		getEARImportDataModel().setBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA, false);
 		useProjectMetaCheckbox.setEnabled(false);
 	}
 
 	public void availableJARCheckStateChanged(CheckStateChangedEvent event) {
-		getEARImportDataModel().setProperty(EARImportDataModel.UTILITY_LIST, getJARsForProjects());
+		getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.UTILITY_LIST, getJARsForProjects());
 		validatePage();
 	}
 
@@ -335,8 +335,8 @@ public class EARImportOptionsPage extends J2EEImportPage {
 		return result;
 	}
 
-	private EARImportDataModel getEARImportDataModel() {
-		return (EARImportDataModel) model;
+	private EnterpriseApplicationImportDataModel getEARImportDataModel() {
+		return (EnterpriseApplicationImportDataModel) model;
 	}
 
 	protected boolean isNullOrEmpty(String aString) {
@@ -344,7 +344,7 @@ public class EARImportOptionsPage extends J2EEImportPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEImportDataModel.PRESERVE_PROJECT_METADATA, EARImportDataModel.OVERWRITE_NESTED_PROJECTS};
+		return new String[]{J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA, EnterpriseApplicationImportDataModel.OVERWRITE_NESTED_PROJECTS};
 	}
 
 	protected void restoreWidgetValues() {

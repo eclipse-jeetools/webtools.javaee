@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 
 
 
@@ -79,11 +79,11 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 	 *            the zero-based index of the column in which the label appears
 	 */
 	public String getColumnText(Object element, int columnIndex) {
-		J2EEImportDataModel dataModel = (J2EEImportDataModel) element;
+		J2EEArtifactImportDataModel dataModel = (J2EEArtifactImportDataModel) element;
 		if (columnIndex == 0) {
 			return dataModel.getArchiveFile().getURI();
 		} else if (columnIndex == 1) {
-			return dataModel.getStringProperty(J2EEImportDataModel.PROJECT_NAME);
+			return dataModel.getStringProperty(J2EEArtifactImportDataModel.PROJECT_NAME);
 		}
 		return ""; //$NON-NLS-1$
 	}

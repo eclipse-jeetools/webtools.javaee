@@ -15,12 +15,13 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleNature;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.server.j2ee.IJ2EEModule;
+import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
 /**
  * J2EE deployable superclass.
  */
-public abstract class J2EEDeployable extends ProjectModule implements IJ2EEModule {
+public abstract class J2EEDeployable extends ProjectModule implements IJ2EEModule, IModule {
 	private String factoryId;
 	private J2EENature nature;
 

@@ -30,11 +30,11 @@
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.wst.common.migration"/>
-      <import plugin="org.eclipse.wst.common.jdt.integration"/>
-      <import plugin="org.eclipse.wst.common.annotations.controller"/>
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.wst.web"/>
        <import plugin="org.eclipse.jface"/>
+       <import plugin="org.eclipse.jst.common.annotations.controller"/>
+       <import plugin="org.eclipse.jst.common.frameworks"/>
    </requires>
    
 <!--============================-->
@@ -91,17 +91,7 @@
          </run>
       </runtime>
    </extension>
-   
-   <extension
-         id="StaticWebNature"
-         name="Static Web Properties"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.eclipse.jst.j2ee.internal.web.operations.StaticWebNatureRuntime">
-         </run>
-      </runtime>
-  </extension>
+ 
 
 <!-- Register the nature id with the AbstractJavaMOFNature -->
    <extension
@@ -279,7 +269,7 @@
 
  	<extension point="org.eclipse.wst.common.navigator.java.compressedProject">
  		<compressedProject natureId="org.eclipse.jst.j2ee.web.WebNature" />
-		<compressedProject natureId="org.eclipse.jst.j2ee.web.StaticWebNature" />
+		<compressedProject natureId="org.eclipse.wst.web.StaticWebNature" />
  		
 	</extension> 		
 

@@ -10,9 +10,10 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 public class StaticWebDeployableFactory extends ProjectModuleFactoryDelegate {
 	private static final String ID = "org.eclipse.jst.j2ee.internal.internal.internal.web.deployables.static"; //$NON-NLS-1$
@@ -46,16 +47,35 @@ public class StaticWebDeployableFactory extends ProjectModuleFactoryDelegate {
 	 *            org.eclipse.core.resources.IProject
 	 * @return com.ibm.etools.server.core.model.IDeployableProject
 	 */
-	protected IProjectModule createModule(IProject project) {
+	protected IModule createModule(IProject project) {
 		try {
-			IProjectModule deployable = null;
+			IModule deployable = null;
+			StaticWebDeployable projectModule;
 			IBaseWebNature nature = (IBaseWebNature) project.getNature(IWebNatureConstants.STATIC_NATURE_ID);
-			deployable = (IProjectModule) nature.getModule();
-			if (deployable == null)
-				deployable = new StaticWebDeployable(nature.getProject());
+			deployable = (IModule) nature.getModule();
+			if (deployable == null) {
+				projectModule = new StaticWebDeployable(nature.getProject());
+				deployable = projectModule.getModule();
+			}
 			return deployable;
 		} catch (Exception e) {
 		}
 		return null;
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
+     */
+    public ModuleDelegate getModuleDelegate(IModule module) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+     */
+    public IModule[] getModules() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

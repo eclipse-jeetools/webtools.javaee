@@ -14,12 +14,12 @@ package org.eclipse.jst.j2ee.internal.java.codegen;
 
 import org.eclipse.jdt.core.jdom.DOMFactory;
 import org.eclipse.jdt.core.jdom.IDOMFactory;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyProvider;
 import org.eclipse.jst.j2ee.internal.codegen.BaseGenerator;
 import org.eclipse.jst.j2ee.internal.codegen.GenerationException;
 import org.eclipse.jst.j2ee.internal.codegen.IBaseGenerator;
 import org.eclipse.jst.j2ee.internal.codegen.IGenerationBuffer;
 import org.eclipse.jst.j2ee.internal.codegen.ITargetContext;
-import org.eclipse.wst.common.jdt.internal.integration.WorkingCopyProvider;
 
 
 /**

@@ -18,8 +18,8 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.Application;
-import org.eclipse.jst.j2ee.application.operations.EARExportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactExportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -45,7 +45,7 @@ public class EARExportPage extends J2EEExportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EARExportPage(EARExportDataModel model, String pageName, IStructuredSelection selection) {
+	public EARExportPage(EnterpriseApplicationExportDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_MAIN_PG_DESC));
@@ -67,7 +67,7 @@ public class EARExportPage extends J2EEExportPage {
 		includeProjectFilesCheckbox = new Button(composite, SWT.CHECK | SWT.LEFT);
 		includeProjectFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_EXPORT_INCLUDE_PROJECT_FILES)); //$NON-NLS-1$
 		includeProjectFilesCheckbox.setEnabled(true);
-		synchHelper.synchCheckbox(includeProjectFilesCheckbox, EARExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, null);
+		synchHelper.synchCheckbox(includeProjectFilesCheckbox, EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, null);
 
 
 		Label includeProjectFilesDesc = new Label(composite, SWT.WRAP);
@@ -115,7 +115,7 @@ public class EARExportPage extends J2EEExportPage {
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEExportDataModel.PROJECT_NAME, J2EEExportDataModel.ARCHIVE_DESTINATION, J2EEExportDataModel.OVERWRITE_EXISTING};
+		return new String[]{J2EEArtifactExportDataModel.PROJECT_NAME, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, J2EEArtifactExportDataModel.OVERWRITE_EXISTING};
 	}
 
 	protected String getInfopopID() {

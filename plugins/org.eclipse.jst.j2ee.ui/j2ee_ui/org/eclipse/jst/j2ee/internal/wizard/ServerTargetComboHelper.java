@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wst.server.core.internal.ResourceManager;
 
 
 public class ServerTargetComboHelper {
@@ -47,9 +48,9 @@ public class ServerTargetComboHelper {
 	public int getDefaultServerTargetIndex() {
 		IRuntime v51TargetServer = null;
 		if (J2EEPlugin.isEJBSupportAvailable())
-			v51TargetServer = ServerCore.getResourceManager().getRuntime(defaultId);
+			v51TargetServer = ResourceManager.getInstance().getRuntime(defaultId);
 		else
-			v51TargetServer = ServerCore.getResourceManager().getRuntime(defaultExpressId);
+			v51TargetServer = ResourceManager.getInstance().getRuntime(defaultExpressId);
 		if (v51TargetServer != null && targets.contains(v51TargetServer))
 			return targets.indexOf(v51TargetServer) + 1;
 		return -1;

@@ -32,6 +32,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataMod
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
+import org.eclipse.wst.server.core.internal.ResourceManager;
 
 /**
  * @author jsholl
@@ -107,7 +108,7 @@ public class ServerTargetDataModel extends WTPOperationDataModel {
 
 	public IRuntime getRuntimeTarget() {
 		String serverTargetId = (String) getProperty(RUNTIME_TARGET_ID);
-		return ServerCore.getResourceManager().getRuntime(serverTargetId);
+		return ResourceManager.getInstance().getRuntime(serverTargetId);
 	}
 
 	/*

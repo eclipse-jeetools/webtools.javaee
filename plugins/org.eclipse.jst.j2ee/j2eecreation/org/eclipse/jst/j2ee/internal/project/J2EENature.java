@@ -30,7 +30,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelNature;
-import org.eclipse.wst.server.core.model.IModule;
+import org.eclipse.wst.server.core.IModule;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.EMFWorkbenchContextBase;

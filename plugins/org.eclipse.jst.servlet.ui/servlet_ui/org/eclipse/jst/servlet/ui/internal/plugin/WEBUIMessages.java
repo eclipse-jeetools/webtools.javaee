@@ -28,6 +28,8 @@ public class WEBUIMessages extends Messages {
 	public static final String WEB_EXPORT_MAIN_PG_TITLE = "9"; //$NON-NLS-1$
 	public static final String WEB_EXPORT_MAIN_PG_DESC = "10"; //$NON-NLS-1$
 	public static final String WEB_IMPORT_CONTEXT_ROOT = "11"; //$NON-NLS-1$
+	public static final String WEB_CONVERT_MAIN_PG_DESC = "12"; //$NON-NLS-1$
+	public static final String WEB_CONVERT_MAIN_PG_TITLE = "13"; //$NON-NLS-1$
 
 	private static final WEBUIMessages INSTANCE = new WEBUIMessages();
 

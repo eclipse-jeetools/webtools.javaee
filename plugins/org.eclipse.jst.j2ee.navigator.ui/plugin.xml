@@ -2,9 +2,10 @@
 <?eclipse version="3.0"?>
 <plugin
    id="org.eclipse.jst.j2ee.navigator.ui"
-   name="J2EE Navigator Plug-in"
+   name="%Plugin.name"
    version="1.0.0"
-   provider-name="IBM"
+   provider-name="%Plugin.providerName"
+   description="%Plugin.description"
    class="org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin">
 
    <runtime>
@@ -18,8 +19,6 @@
       <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="org.eclipse.wst.common.navigator.views"/>
       <import plugin="org.eclipse.wst.common.navigator.workbench"/>
-      <import plugin="org.eclipse.wst.common.navigator.java"/>
-      <import plugin="org.eclipse.wst.common.jdt.integration"/>
       <import plugin="org.eclipse.jst.j2ee.core"/>
       <import plugin="org.eclipse.jst.j2ee.ui"/>
       <import plugin="org.eclipse.emf.edit"/>
@@ -40,29 +39,9 @@
       <import plugin="org.eclipse.jst.ejb.ui"/>
       <import plugin="org.eclipse.jst.servlet.ui"/>
       <import plugin="org.eclipse.jst.j2ee.jca.ui"/>
+      <import plugin="org.eclipse.jst.common.navigator.java"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
    </requires>
-
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-<!--   com.ibm.wtp.ui.ProjectNavigator                                 -->
-<!-- Extension Implementation:                                         -->
-<!-- Purpose: The definition of the J2EE tree view                     -->
-<!-- Extension point: com.ibm.itp.desktop.views                        -->
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-   <extension
-         point="org.eclipse.ui.views">
-      <category
-            name="%j2ee.category_ui_"
-            id="org.eclipse.jst.j2ee.internal.ui.j2eeview">
-      </category>
-      <view
-            name="%j2ee.view_ui_"
-            icon="icons/full/cview16/j2ee_view.gif"
-            category="org.eclipse.jst.j2ee.internal.ui.j2eeview"
-            class="org.eclipse.wst.common.navigator.internal.plugin.Navigator"
-            id="org.eclipse.jst.navigator.ui.WTPCommonNavigator">
-      </view>
-   </extension>
    	
 <!--============================-->
 <!-- J2EE Filters               -->
@@ -117,7 +96,7 @@
    </extension>
    <extension
          id="EARGroup"
-         point="org.eclipse.wst.common.navigator.java.NavigatorGroup">
+         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
       <navigatorGroup
             displayName="%Enterprise_Applications"
             sortOrder="0"
@@ -127,7 +106,7 @@
    </extension>
    <extension
          id="AppClientGroup"
-         point="org.eclipse.wst.common.navigator.java.NavigatorGroup">
+         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
       <navigatorGroup
             displayName="%Application_Client_Projects"
             sortOrder="1"
@@ -137,7 +116,7 @@
    </extension>
    <extension
          id="ConnectorGroup"
-         point="org.eclipse.wst.common.navigator.java.NavigatorGroup">
+         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
       <navigatorGroup
             displayName="%Connector_Projects"
             sortOrder="2"
@@ -147,7 +126,7 @@
    </extension>
    <extension
          id="EJBGroup"
-         point="org.eclipse.wst.common.navigator.java.NavigatorGroup">
+         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
       <navigatorGroup
             displayName="%EJB_Projects"
             sortOrder="3"
@@ -157,7 +136,7 @@
    </extension>
    <extension
          id="WebGroup"
-         point="org.eclipse.wst.common.navigator.java.NavigatorGroup">
+         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
       <navigatorGroup
             displayName="%Web_Projects"
             sortOrder="4"
@@ -166,7 +145,7 @@
       </navigatorGroup>
    </extension>
    <extension
-         point="org.eclipse.wst.common.navigator.java.NavigatorGroup">
+         point="org.eclipse.wst.common.navigator.workbench.NavigatorGroup">
       <navigatorGroup
             displayName="%Other_Projects"
             icon="icons/folder.gif"

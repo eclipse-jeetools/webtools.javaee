@@ -17,11 +17,12 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.J2EEApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
+import org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -143,12 +144,12 @@ public class ServerEarAndStandaloneGroup {
 	protected void handleNewEarSelected() {
 
 		J2EEModuleCreationDataModel moduleModel = getJ2EEModuleCreationDataModel();
-		J2EEApplicationCreationDataModel earModel = new J2EEApplicationCreationDataModel();
-		earModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
+		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
+		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, moduleModel.getJ2EEVersion());
 		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, moduleModel.getProperty(J2EEModuleCreationDataModel.EAR_PROJECT_NAME));
 		earModel.setProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID, moduleModel.getProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(J2EEApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
-		J2EEApplicationCreationWizard earWizard = new J2EEApplicationCreationWizard(earModel);
+		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
+		EnterpriseApplicationCreationWizard earWizard = new EnterpriseApplicationCreationWizard(earModel);
 		WizardDialog dialog = new WizardDialog(getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
 			moduleModel.notifyUpdatedEARs();

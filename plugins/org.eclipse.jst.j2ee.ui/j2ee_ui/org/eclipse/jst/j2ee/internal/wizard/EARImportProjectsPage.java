@@ -28,8 +28,8 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -66,7 +66,7 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportProjectsPage(J2EEImportDataModel model, String pageName) {
+	public EARImportProjectsPage(J2EEArtifactImportDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PROJECT_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PROJECT_PG_DESC));
@@ -114,14 +114,14 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 				List selectedList = getEARImportDataModel().getSelectedModels();
 				List newList = new ArrayList();
 				newList.addAll(selectedList);
-				J2EEImportDataModel importDM = null;
+				J2EEArtifactImportDataModel importDM = null;
 				for (int i = 0; i < list.size(); i++) {
-					importDM = (J2EEImportDataModel) list.get(i);
+					importDM = (J2EEArtifactImportDataModel) list.get(i);
 					if (!newList.contains(importDM) && !importDM.getProject().exists()) {
 						newList.add(importDM);
 					}
 				}
-				getEARImportDataModel().setProperty(EARImportDataModel.SELECTED_MODELS_LIST, newList);
+				getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.SELECTED_MODELS_LIST, newList);
 			}
 		});
 
@@ -138,14 +138,14 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 				List selectedList = getEARImportDataModel().getSelectedModels();
 				List newList = new ArrayList();
 				newList.addAll(selectedList);
-				J2EEImportDataModel importDM = null;
+				J2EEArtifactImportDataModel importDM = null;
 				for (int i = 0; i < list.size(); i++) {
-					importDM = (J2EEImportDataModel) list.get(i);
+					importDM = (J2EEArtifactImportDataModel) list.get(i);
 					if (!newList.contains(importDM) && ProjectUtilities.isBinaryProject(importDM.getProject())) {
 						newList.add(importDM);
 					}
 				}
-				getEARImportDataModel().setProperty(EARImportDataModel.SELECTED_MODELS_LIST, newList);
+				getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.SELECTED_MODELS_LIST, newList);
 			}
 		});
 
@@ -161,7 +161,7 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 				List list = getEARImportDataModel().getProjectModels();
 				List newList = new ArrayList();
 				newList.addAll(list);
-				getEARImportDataModel().setProperty(EARImportDataModel.SELECTED_MODELS_LIST, newList);
+				getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.SELECTED_MODELS_LIST, newList);
 			}
 		});
 
@@ -175,13 +175,13 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				List newList = new ArrayList();
-				getEARImportDataModel().setProperty(EARImportDataModel.SELECTED_MODELS_LIST, newList);
+				getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.SELECTED_MODELS_LIST, newList);
 			}
 		});
 	}
 
 	public void propertyChanged(WTPOperationDataModelEvent event) {
-		if (event.getPropertyName().equals(EARImportDataModel.SELECTED_MODELS_LIST)) {
+		if (event.getPropertyName().equals(EnterpriseApplicationImportDataModel.SELECTED_MODELS_LIST)) {
 			updateGUICheckSelection();
 		}
 		super.propertyChanged(event);
@@ -239,14 +239,14 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 		earFileListViewer.setLabelProvider(provider);
 		earFileListViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
-				J2EEImportDataModel aModel = (J2EEImportDataModel) event.getElement();
-				J2EEImportDataModel matchingModel = getEARImportDataModel().getMatchingEJBJarOrClient(aModel);
+				J2EEArtifactImportDataModel aModel = (J2EEArtifactImportDataModel) event.getElement();
+				J2EEArtifactImportDataModel matchingModel = getEARImportDataModel().getMatchingEJBJarOrClient(aModel);
 				if (null != matchingModel) {
 					earFileListViewer.setChecked(matchingModel, event.getChecked());
 				}
 				List result = new ArrayList();
 				result.addAll(Arrays.asList(earFileListViewer.getCheckedElements()));
-				getEARImportDataModel().setProperty(EARImportDataModel.SELECTED_MODELS_LIST, result);
+				getEARImportDataModel().setProperty(EnterpriseApplicationImportDataModel.SELECTED_MODELS_LIST, result);
 
 			}
 		});
@@ -282,12 +282,12 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 		earFileListViewer.setCellModifier(this);
 	}
 
-	private EARImportDataModel getEARImportDataModel() {
-		return (EARImportDataModel) model;
+	private EnterpriseApplicationImportDataModel getEARImportDataModel() {
+		return (EnterpriseApplicationImportDataModel) model;
 	}
 
 	public boolean canModify(Object element, String property) {
-		return !getEARImportDataModel().getBooleanProperty(J2EEImportDataModel.PRESERVE_PROJECT_METADATA);
+		return !getEARImportDataModel().getBooleanProperty(J2EEArtifactImportDataModel.PRESERVE_PROJECT_METADATA);
 	}
 
 	public java.lang.Object getValue(java.lang.Object element, java.lang.String property) {
@@ -300,7 +300,7 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 		TableItem elementHolder = (TableItem) element;
 		if (property.equals(PROJECT_COLUMN)) {
 			elementHolder.setText(1, (String) value);
-			((J2EEImportDataModel) elementHolder.getData()).setProperty(J2EEImportDataModel.PROJECT_NAME, value);
+			((J2EEArtifactImportDataModel) elementHolder.getData()).setProperty(J2EEArtifactImportDataModel.PROJECT_NAME, value);
 		}
 	}
 
@@ -313,6 +313,6 @@ public class EARImportProjectsPage extends J2EEImportPage implements ICellModifi
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EARImportDataModel.NESTED_PROJECTS_VALIDATION, EARImportDataModel.OVERWRITE_NESTED_PROJECTS, EARImportDataModel.SELECTED_MODELS_LIST};
+		return new String[]{EnterpriseApplicationImportDataModel.NESTED_PROJECTS_VALIDATION, EnterpriseApplicationImportDataModel.OVERWRITE_NESTED_PROJECTS, EnterpriseApplicationImportDataModel.SELECTED_MODELS_LIST};
 	}
 }

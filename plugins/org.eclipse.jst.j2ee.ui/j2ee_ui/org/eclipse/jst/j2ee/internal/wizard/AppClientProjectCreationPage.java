@@ -39,7 +39,7 @@ public class AppClientProjectCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	protected AppClientProjectCreationPage(AppClientModuleCreationDataModel model, String pageName) {
+	public AppClientProjectCreationPage(AppClientModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJECT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJECT_MAIN_PG_DESC));

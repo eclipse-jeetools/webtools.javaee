@@ -35,14 +35,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 
-
-/**
- * @author Sachin
- * 
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates. To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
- */
 public class ClassesImportWizard extends Wizard implements IImportWizard {
 
 	public WizardClassesImportMainPage mainPage = null;
@@ -95,9 +87,7 @@ public class ClassesImportWizard extends Wizard implements IImportWizard {
 	 * @see org.eclipse.jface.wizard.IWizard#performFinish()
 	 */
 	public boolean performFinish() {
-
 		return page1.finish();
-
 	}
 
 	public void createImportedClassesFolder(IProject aProject) {

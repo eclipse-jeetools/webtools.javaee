@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
@@ -150,7 +151,7 @@ public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConv
 		if (input == null)
 			return false;
 		IResourceDelta child = delta.findMember(input.getProjectRelativePath());
-		return (child != null) && (child.getKind() == IResourceDelta.REMOVED);
+		return (child != null) && (child.getKind() == IResourceDelta.REMOVED || child.getKind() == IResourceDelta.CHANGED);
 	}
 
 	protected boolean objectsEqual(Object o1, Object o2) {
@@ -165,6 +166,22 @@ public class J2EEWorkbenchURIConverterImpl extends CompatibilityWorkbenchURIConv
 	 * @see org.eclipse.wst.common.internal.emfworkbench.ISynchronizerExtender#projectClosed()
 	 */
 	public void projectClosed() {
+	}
+	public IContainer getInputContainer() {
+		List list = getInputContainers();
+		if (!list.isEmpty()) {
+			for (int i = 0; i < list.size(); i++) {
+				IContainer container = (IContainer)list.get(i);
+				if (container instanceof IFolder) {
+					IFolder sourceFolder = (IFolder)container;
+					if (sourceFolder.findMember("/META-INF/MANIFEST.MF") != null) { //$NON-NLS-1$
+						return sourceFolder;
+					}
+				}
+			}
+			return (IContainer) list.get(0);
+		}
+		return null;
 	}
 
 }

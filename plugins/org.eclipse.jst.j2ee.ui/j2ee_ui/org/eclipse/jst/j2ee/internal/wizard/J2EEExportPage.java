@@ -24,8 +24,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.EARExportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationExportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactExportDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.SWT;
@@ -72,7 +72,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public J2EEExportPage(J2EEExportDataModel model, String pageName, IStructuredSelection selection) {
+	public J2EEExportPage(J2EEArtifactExportDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName);
 		currentResourceSelection = selection;
 
@@ -125,13 +125,13 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 		overwriteExistingFilesCheckbox = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
 		overwriteExistingFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_OVERWRITE_CHECKBOX)); //$NON-NLS-1$ = "Overwrite existing files without warning"
 		overwriteExistingFilesCheckbox.setEnabled(true);
-		synchHelper.synchCheckbox(overwriteExistingFilesCheckbox, J2EEExportDataModel.OVERWRITE_EXISTING, null);
+		synchHelper.synchCheckbox(overwriteExistingFilesCheckbox, J2EEArtifactExportDataModel.OVERWRITE_EXISTING, null);
 	}
 
 	protected void createSourceFilesCheckbox(Composite optionsGroup) {
 		sourceFilesCheckbox = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
 		sourceFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_SOURCE_CHECKBOX)); //$NON-NLS-1$
-		synchHelper.synchCheckbox(sourceFilesCheckbox, J2EEExportDataModel.EXPORT_SOURCE_FILES, null);
+		synchHelper.synchCheckbox(sourceFilesCheckbox, J2EEArtifactExportDataModel.EXPORT_SOURCE_FILES, null);
 	}
 
 	/**
@@ -211,7 +211,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 	protected void handleDestinationBrowseButtonPressed() {
 
 		FileDialog dialog = new FileDialog(destinationNameCombo.getShell(), SWT.SAVE);
-		String fileName = getJ2EEExportDataModel().getStringProperty(J2EEExportDataModel.PROJECT_NAME);
+		String fileName = getJ2EEExportDataModel().getStringProperty(J2EEArtifactExportDataModel.PROJECT_NAME);
 		String[] filters = getFilterExpression();
 		if (!isWindows) {
 			if (filters.length != 0 && filters[0] != null && filters[0].indexOf('.') != -1) {
@@ -240,12 +240,12 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 			}
 			destinationNameCombo.setItems(sourceNames);
 			boolean overwrite = settings.getBoolean(STORE_LABEL + OVERWRITE_LABEL);
-			model.setBooleanProperty(J2EEExportDataModel.OVERWRITE_EXISTING, overwrite);
+			model.setBooleanProperty(J2EEArtifactExportDataModel.OVERWRITE_EXISTING, overwrite);
 			boolean includeSource = settings.getBoolean(STORE_LABEL + SOURCE_LABEL);
-			model.setBooleanProperty(J2EEExportDataModel.EXPORT_SOURCE_FILES, includeSource);
-			if (model.isProperty(EARExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES)) {
+			model.setBooleanProperty(J2EEArtifactExportDataModel.EXPORT_SOURCE_FILES, includeSource);
+			if (model.isProperty(EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES)) {
 				boolean includeMeta = settings.getBoolean(STORE_LABEL + META_LABEL);
-				model.setBooleanProperty(EARExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, includeMeta);
+				model.setBooleanProperty(EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES, includeMeta);
 			}
 		}
 	}
@@ -273,10 +273,10 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 			newNames.toArray(sourceNames);
 
 			settings.put(STORE_LABEL + getFileNamesStoreID(), sourceNames);
-			settings.put(STORE_LABEL + OVERWRITE_LABEL, model.getBooleanProperty(J2EEExportDataModel.OVERWRITE_EXISTING));
-			settings.put(STORE_LABEL + SOURCE_LABEL, model.getBooleanProperty(J2EEExportDataModel.EXPORT_SOURCE_FILES));
-			if (model.isProperty(EARExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES)) {
-				boolean includeMeta = model.getBooleanProperty(EARExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES);
+			settings.put(STORE_LABEL + OVERWRITE_LABEL, model.getBooleanProperty(J2EEArtifactExportDataModel.OVERWRITE_EXISTING));
+			settings.put(STORE_LABEL + SOURCE_LABEL, model.getBooleanProperty(J2EEArtifactExportDataModel.EXPORT_SOURCE_FILES));
+			if (model.isProperty(EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES)) {
+				boolean includeMeta = model.getBooleanProperty(EnterpriseApplicationExportDataModel.INCLUDE_BUILD_PATH_AND_META_FILES);
 				settings.put(STORE_LABEL + META_LABEL, includeMeta);
 			}
 		}
@@ -299,7 +299,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 		resourceNameCombo.setLayoutData(data);
-		synchHelper.synchCombo(resourceNameCombo, J2EEExportDataModel.PROJECT_NAME, J2EEExportDataModel.PROJECT_NAME, null);
+		synchHelper.synchCombo(resourceNameCombo, J2EEArtifactExportDataModel.PROJECT_NAME, J2EEArtifactExportDataModel.PROJECT_NAME, null);
 		new Label(parent, SWT.NONE);//Pad label
 	}
 
@@ -316,7 +316,7 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 		// destination name combo field
 		destinationNameCombo = new Combo(parent, SWT.SINGLE | SWT.BORDER);
 		destinationNameCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		synchHelper.synchCombo(destinationNameCombo, J2EEExportDataModel.ARCHIVE_DESTINATION, J2EEExportDataModel.ARCHIVE_DESTINATION, null);
+		synchHelper.synchCombo(destinationNameCombo, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, null);
 
 		// destination browse button
 		destinationBrowseButton = new Button(parent, SWT.PUSH);
@@ -334,8 +334,8 @@ public abstract class J2EEExportPage extends WTPWizardPage {
 	/**
 	 *  
 	 */
-	private J2EEExportDataModel getJ2EEExportDataModel() {
-		return (J2EEExportDataModel) model;
+	private J2EEArtifactExportDataModel getJ2EEExportDataModel() {
+		return (J2EEArtifactExportDataModel) model;
 	}
 
 	/**

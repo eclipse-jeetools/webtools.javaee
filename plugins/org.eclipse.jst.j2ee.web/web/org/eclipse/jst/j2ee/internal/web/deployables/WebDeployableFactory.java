@@ -14,7 +14,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 
 public class WebDeployableFactory extends J2EEDeployableFactory {
 	private static final String ID = "com.ibm.wtp.web.server"; //$NON-NLS-1$
@@ -45,8 +46,8 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	 * 
 	 * @see org.eclise.wtp.j2ee.servers.J2EEDeployableFactory#createDeployable(org.eclipse.jst.j2ee.internal.internal.j2eeproject.J2EENature)
 	 */
-	public IProjectModule createModule(J2EENature nature) {
-		IProjectModule deployable = (IProjectModule) nature.getModule();
+	public IModule createModule(J2EENature nature) {
+		IModule deployable = (IModule) nature.getModule();
 		if (deployable == null)
 			deployable = new J2EEWebDeployable(nature, ID);
 		return deployable;
@@ -58,4 +59,22 @@ public class WebDeployableFactory extends J2EEDeployableFactory {
 	protected IPath[] getListenerPaths() {
 		return PATHS;
 	}
+
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
+     */
+    public ModuleDelegate getModuleDelegate(IModule module) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+     */
+    public IModule[] getModules() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

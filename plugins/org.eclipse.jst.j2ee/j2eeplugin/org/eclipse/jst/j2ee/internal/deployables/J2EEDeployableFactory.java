@@ -12,7 +12,8 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.util.ProjectModule;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 
 /**
@@ -46,7 +47,7 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	 *            org.eclipse.core.resources.IProject
 	 * @return com.ibm.etools.server.core.model.IProjectModule
 	 */
-	protected IProjectModule createModule(IProject project) {
+	protected IModule createModule(IProject project) {
 		try {
 			J2EENature nature = (J2EENature) project.getNature(getNatureID());
 			return createModule(nature);
@@ -69,5 +70,5 @@ public abstract class J2EEDeployableFactory extends ProjectModuleFactoryDelegate
 	 *            J2EENature
 	 * @return com.ibm.etools.server.core.model.IProjectModule
 	 */
-	public abstract IProjectModule createModule(J2EENature nature);
+	public abstract IModule createModule(J2EENature nature);
 }

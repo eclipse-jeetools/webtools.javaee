@@ -21,7 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -119,7 +119,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		});
 		newProjectButton.setEnabled(true);
 
-		synchHelper.synchCombo(projectCombo, J2EEImportDataModel.PROJECT_NAME, J2EEImportDataModel.PROJECT_NAME, new Control[]{projectLabel, newProjectButton});
+		synchHelper.synchCombo(projectCombo, J2EEArtifactImportDataModel.PROJECT_NAME, J2EEArtifactImportDataModel.PROJECT_NAME, new Control[]{projectLabel, newProjectButton});
 	}
 
 	/**
@@ -132,10 +132,10 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		dialog.create();
 		dialog.getShell().setSize(500, 500);
 		if (dialog.open() == Window.OK) {
-			model.notifyValidValuesChange(J2EEImportDataModel.PROJECT_NAME);
+			model.notifyValidValuesChange(J2EEArtifactImportDataModel.PROJECT_NAME);
 			String projectName = dm.getStringProperty(EditModelOperationDataModel.PROJECT_NAME);
-			model.setProperty(J2EEImportDataModel.PROJECT_NAME, projectName);
-			model.setBooleanProperty(J2EEImportDataModel.OVERWRITE_PROJECT, true);
+			model.setProperty(J2EEArtifactImportDataModel.PROJECT_NAME, projectName);
+			model.setBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT, true);
 		}
 	}
 
@@ -185,7 +185,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		});
 		browseButton.setEnabled(true);
 
-		synchHelper.synchCombo(fileNameCombo, J2EEImportDataModel.FILE_NAME, J2EEImportDataModel.FILE_NAME, new Control[]{fileLabel, browseButton});
+		synchHelper.synchCombo(fileNameCombo, J2EEArtifactImportDataModel.FILE_NAME, J2EEArtifactImportDataModel.FILE_NAME, new Control[]{fileLabel, browseButton});
 	}
 
 	/**
@@ -197,7 +197,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 		dialog.setFilterExtensions(getFilterExpression());
 		String filename = dialog.open();
 		if (filename != null)
-			model.setProperty(J2EEImportDataModel.FILE_NAME, filename);
+			model.setProperty(J2EEArtifactImportDataModel.FILE_NAME, filename);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 				if (sourceNames[i] == null)
 					sourceNames[i] = ""; //$NON-NLS-1$
 			}
-			model.setProperty(J2EEImportDataModel.FILE_SELECTION_HISTORY, sourceNames);
+			model.setProperty(J2EEArtifactImportDataModel.FILE_SELECTION_HISTORY, sourceNames);
 		}
 	}
 
@@ -254,33 +254,33 @@ public abstract class J2EEImportPage extends WTPWizardPage {
 	 */
 	protected static Button[] createOverwriteComposite(int indent1, int indent2, Composite parent, WTPDataModelSynchHelper sHelper) {
 		final Button overwrite = new Button(parent, SWT.CHECK);
-		IProject project = ((J2EEImportDataModel) sHelper.getDataModel()).getProject();
+		IProject project = ((J2EEArtifactImportDataModel) sHelper.getDataModel()).getProject();
 		overwrite.setEnabled(null != project && project.exists());
 		overwrite.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.OVERWRITE_RESOURCES));
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalIndent = indent1;
 		gd.horizontalSpan = 3;
 		overwrite.setLayoutData(gd);
-		sHelper.synchCheckbox(overwrite, J2EEImportDataModel.OVERWRITE_PROJECT, null);
+		sHelper.synchCheckbox(overwrite, J2EEArtifactImportDataModel.OVERWRITE_PROJECT, null);
 
 		final Button delete = new Button(parent, SWT.CHECK);
-		delete.setEnabled(overwrite.getEnabled() && sHelper.getDataModel().getBooleanProperty(J2EEImportDataModel.OVERWRITE_PROJECT));
+		delete.setEnabled(overwrite.getEnabled() && sHelper.getDataModel().getBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT));
 		delete.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.DELETE_PROJECT));
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalIndent = indent2;
 		gd.horizontalSpan = 3;
 		delete.setLayoutData(gd);
-		sHelper.synchCheckbox(delete, J2EEImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT, null);
+		sHelper.synchCheckbox(delete, J2EEArtifactImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT, null);
 
 		sHelper.getDataModel().addListener(new WTPOperationDataModelListener() {
 			public void propertyChanged(WTPOperationDataModelEvent event) {
-				if (event.getPropertyName().equals(J2EEImportDataModel.OVERWRITE_PROJECT)) {
+				if (event.getPropertyName().equals(J2EEArtifactImportDataModel.OVERWRITE_PROJECT)) {
 					delete.setEnabled(((Boolean) event.getNewValue()).booleanValue());
-				} else if (event.getPropertyName().equals(J2EEImportDataModel.PROJECT_NAME)) {
-					IProject aProject = ((J2EEImportDataModel) event.getDataModel()).getProject();
+				} else if (event.getPropertyName().equals(J2EEArtifactImportDataModel.PROJECT_NAME)) {
+					IProject aProject = ((J2EEArtifactImportDataModel) event.getDataModel()).getProject();
 					boolean exists = null != aProject && aProject.exists();
 					overwrite.setEnabled(exists);
-					delete.setEnabled(exists && event.getDataModel().getBooleanProperty(J2EEImportDataModel.OVERWRITE_PROJECT));
+					delete.setEnabled(exists && event.getDataModel().getBooleanProperty(J2EEArtifactImportDataModel.OVERWRITE_PROJECT));
 				}
 			}
 		});

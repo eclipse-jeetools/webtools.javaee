@@ -21,7 +21,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.wst.server.core.model.IRuntimeTargetHandlerDelegate;
+import org.eclipse.wst.server.core.IRuntimeTargetHandler;
+import org.eclipse.wst.server.core.IRuntimeType;
 
 /**
  * @author admin
@@ -29,7 +30,7 @@ import org.eclipse.wst.server.core.model.IRuntimeTargetHandlerDelegate;
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
  */
-public class WebProjectServerTaglibListener implements IRuntimeTargetHandlerDelegate {
+public class WebProjectServerTaglibListener implements IRuntimeTargetHandler {
 	private IRuntime runtimeToBeRemoved;
 
 	/*
@@ -59,5 +60,29 @@ public class WebProjectServerTaglibListener implements IRuntimeTargetHandlerDele
 	public void removeRuntimeTarget(IProject project, IRuntime runtime, IProgressMonitor monitor) throws CoreException {
 		this.runtimeToBeRemoved = runtime;
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IRuntimeTargetHandler#getId()
+     */
+    public String getId() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IRuntimeTargetHandler#supportsRuntimeType(org.eclipse.wst.server.core.IRuntimeType)
+     */
+    public boolean supportsRuntimeType(IRuntimeType runtimeType) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+     */
+    public Object getAdapter(Class adapter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

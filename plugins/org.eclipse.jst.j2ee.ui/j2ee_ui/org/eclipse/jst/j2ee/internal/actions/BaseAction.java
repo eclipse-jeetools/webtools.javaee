@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.internal.plugin.ErrorDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.wst.common.navigator.views.INavigatorActionDelegate;
 import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
@@ -34,7 +35,8 @@ import org.eclipse.wst.common.navigator.views.INavigatorExtensionSite;
  * 
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
-public abstract class BaseAction extends Action implements INavigatorActionDelegate {
+public abstract class BaseAction extends Action implements IActionDelegate {
+	
 	private final static String ERROR_OCCURRED_TITLE = "!!!!Error";//EJBUIResourceHandler.getString("ERROR_OCCURRED_TITLE");
 																   // //$NON-NLS-1$
 	// //$NON-NLS-1$

@@ -47,6 +47,7 @@ import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 import org.eclipse.wst.web.internal.operation.ILibModule;
 import org.eclipse.wst.web.internal.operation.WebSettings;
 
@@ -57,7 +58,7 @@ import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 /*
  * Licensed Materials - Property of IBM, WebSphere Studio Workbench (c) Copyright IBM Corp 2000
  */
-public class J2EEWebNatureRuntime extends J2EEModuleNature implements IBaseWebNature, IWebNatureConstants {
+public class J2EEWebNatureRuntime extends J2EEModuleNature implements IDynamicWebNature, IWebNatureConstants {
 	static protected String PROJECTTYPE_J2EE_VALUE = "J2EE"; //$NON-NLS-1$
 	private static final String WEB_PROJECT_12_OVERLAY = "1_2_ovr"; //$NON-NLS-1$
 	private static final String WEB_PROJECT_13_OVERLAY = "1_3_ovr"; //$NON-NLS-1$

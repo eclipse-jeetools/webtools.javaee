@@ -34,6 +34,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEModuleWorkbenchURIConverterImpl;
 import org.eclipse.jst.j2ee.internal.project.J2EESettings;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;

@@ -10,11 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.util.ProjectModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 
 /**
  * @version 1.0
@@ -51,7 +54,7 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	/*
 	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
 	 */
-	public IProjectModule createModule(J2EENature nature) {
+	public IModule createModule(J2EENature nature) {
 		return new EnterpriseApplicationDeployable(nature, ID);
 	}
 
@@ -61,4 +64,28 @@ public class EnterpriseApplicationDeployableFactory extends J2EEDeployableFactor
 	protected IPath[] getListenerPaths() {
 		return PATHS;
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate#createModule(org.eclipse.core.resources.IProject)
+     */
+    protected IModule createModule(IProject project) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
+     */
+    public ModuleDelegate getModuleDelegate(IModule module) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+     */
+    public IModule[] getModules() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

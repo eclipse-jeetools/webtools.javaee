@@ -18,8 +18,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
-import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationOperation;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationOperation;
 
 public class JavaUtilityJARProjectCreationOperation extends J2EEArtifactCreationOperation {
 	/**

@@ -16,7 +16,11 @@
  */
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleCreationDataModel;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
@@ -28,9 +32,53 @@ import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
-import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
+import com.ibm.wtp.common.logger.proxy.Logger;
+
+/**
+ * This dataModel is used for to create Connector Modules.
+ * 
+ * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
+ * the new project structures are adopted. Use at your own risk.
+ * 
+ * @since WTP 1.0
+ */
 public final class ConnectorModuleCreationDataModel extends J2EEModuleCreationDataModel {
+	
+	/**
+	 * Creates an Connector project with the specified name and version in the specified location.
+	 * 
+	 * @param projectName
+	 *            The name of the Enterprise Application project to create.
+	 * @param projectLocation
+	 *            Sets the local file system location for the described project. The path must be
+	 *            either an absolute file system path, or a relative path whose first segment is the
+	 *            name of a defined workspace path variable. If <code>null</code> is specified,
+	 *            the default location is used.
+	 * @param connectorModuleVersion
+	 *            Sets the J2EE Version for the descibed project. The version must be one of
+	 *            <code>J2EEVersionConstants.J2EE_1_2_ID</code>,
+	 *            <code>J2EEVersionConstants.J2EE_1_3_ID</code>, or
+	 *            <code>J2EEVersionConstants.J2EE_1_4_ID</code>.
+	 * @since WTP 1.0
+	 */
+	public static void createProject(String projectName, IPath projectLocation, int connectorModuleVersion) {
+		ConnectorModuleCreationDataModel dataModel = new ConnectorModuleCreationDataModel();
+		dataModel.setProperty(PROJECT_NAME, projectName);
+		if (null != projectLocation) {
+			dataModel.setProperty(PROJECT_LOCATION, projectLocation.toOSString());
+		}
+		dataModel.setIntProperty(J2EE_MODULE_VERSION, connectorModuleVersion);
+		try {
+			dataModel.getDefaultOperation().run(null);
+		} catch (InvocationTargetException e) {
+			Logger.getLogger().logError(e);
+		} catch (InterruptedException e) {
+			Logger.getLogger().logError(e);
+		}
+	}
+	
+	
 	public WTPOperation getDefaultOperation() {
 		return new ConnectorModuleCreationOperation(this);
 	}

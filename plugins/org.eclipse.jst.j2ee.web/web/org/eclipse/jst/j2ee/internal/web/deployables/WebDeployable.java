@@ -11,12 +11,12 @@ package org.eclipse.jst.j2ee.internal.web.deployables;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.util.ProjectModule;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
-public abstract class WebDeployable extends ProjectModule implements IProjectModule, IWebNatureConstants {
+public abstract class WebDeployable extends ProjectModule implements IModule, IWebNatureConstants {
 
 	public WebDeployable(IProject project) {
 		super(project);

@@ -34,10 +34,10 @@ import org.eclipse.jst.j2ee.internal.rename.RenameModuleOperation;
 import org.eclipse.jst.j2ee.internal.rename.RenameOptions;
 import org.eclipse.jst.j2ee.internal.rename.RenameUtilityJarMetadataOperation;
 import org.eclipse.jst.j2ee.internal.rename.UpdateWebContextRootMetadataOperation;
-import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
 import org.eclipse.jst.j2ee.internal.web.operations.WebNatureRuntimeUtilities;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 
 /**

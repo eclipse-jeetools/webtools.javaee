@@ -19,7 +19,7 @@ package org.eclipse.jst.servlet.ui.internal.actions;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.servlet.ui.internal.wizard.WARExportWizard;
+import org.eclipse.jst.servlet.ui.WebModuleExportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -43,7 +43,7 @@ public class ExportWARAction extends BaseAction {
 	}
 
 	protected void primRun(Shell shell) {
-		WARExportWizard wizard = new WARExportWizard();
+		WebModuleExportWizard wizard = new WebModuleExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 		wizard.init(plugin.getWorkbench(), selection);
 		wizard.setDialogSettings(J2EEUIPlugin.getDefault().getDialogSettings());

@@ -3,9 +3,9 @@
 <plugin
    id="org.eclipse.jst.j2ee.ui"
    name="WTP J2EE UI Plug-in"
-   description="This plugin contains J2EE project creation, import, and export wizards for Applications and EJB, AppClients, Web and Connector modules.  Related actions are contributed to the Project Explorer.  J2EE Migration and some Web Service support are also defined here.  This plugin offers no extension-points."
    version="1.0.0"
-   provider-name=""
+   provider-name="IBM"
+   description="This plugin contains J2EE project creation, import, and export wizards for Applications and EJB, AppClients, Web and Connector modules.  Related actions are contributed to the Project Explorer.  J2EE Migration and some Web Service support are also defined here.  This plugin offers no extension-points."
    class="org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin">
 
    <runtime>
@@ -39,16 +39,14 @@
       <import plugin="org.eclipse.wst.server.ui"/>
       <import plugin="org.eclipse.wst.common.emf"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.wst.common.jdt.integration"/>
-      <import plugin="org.eclipse.wst.common.annotations.controller"/>
       <import plugin="org.eclipse.wst.common.migration"/>
       <import plugin="org.eclipse.ltk.core.refactoring"/>
-      <import plugin="org.eclipse.wst.webbrowser"/>
+      <import plugin="org.eclipse.wst.internet.webbrowser"/>
       <import plugin="org.eclipse.wst.wsdl"/>
       <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.wst.common.navigator.workbench"/>
-      <import plugin="org.eclipse.wst.common.navigator.java"/>
-      <import plugin="org.eclipse.wst.common.navigator.views"/>
+      <import plugin="org.eclipse.jst.common.annotations.controller"/>
+      <import plugin="org.eclipse.jst.common.navigator.java"/>
+      <import plugin="org.eclipse.wst.web"/>
       
    </requires>
 
@@ -68,10 +66,11 @@
             name="%ear.project_ui_"
             icon="icons/full/ctool16/newear_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.wizard.J2EEApplicationCreationWizard"
+            class="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.internal.earProjectWizard">
+            id="org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard"
+            >
          <description>
             %new.ear.project.description_ui_
          </description>
@@ -84,10 +83,10 @@
             name="%appclient.project_ui_"
             icon="icons/full/ctool16/newappclient_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientModuleCreationWizard"
+            class="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.internal.appclientProjectWizard">
+            id="org.eclipse.jst.j2ee.ui.AppClientModuleCreationWizard">
          <description>
             %new.appclient.project.description_ui_
          </description>
@@ -106,8 +105,8 @@
       <wizard
             name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_import_wiz.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard"
-            id="ApplicationClientImportWizard">
+            class="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard"
+            id="org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard">
          <description>
             %client.import.description_ui_
          </description>
@@ -118,8 +117,8 @@
       <wizard
             name="%ear.file_ui_"
             icon="icons/full/ctool16/import_ear.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard"
-            id="EARImportWizard">
+            class="org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizard"
+            id="org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizard">
          <description>
             %ear.import.description_ui_
          </description>
@@ -128,10 +127,10 @@
          </selection>
       </wizard> 
       <wizard
-            class="org.eclipse.jst.j2ee.internal.wizard.J2EEUtilityJarImportWizard"
+            class="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard"
             icon="icons/jar_obj.gif"
             name="%utility_jar_import_wizard"
-            id="J2EEUtilityJarImportWizard">
+            id="org.eclipse.jst.j2ee.ui.J2EEUtilityJarImportWizard">
             <selection
                class="org.eclipse.core.resources.IResource">
 	        </selection>
@@ -145,8 +144,8 @@
       <wizard
             name="%client.jar.file_ui_"
             icon="icons/full/ctool16/appclient_export.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.AppClientExportWizard"
-            id="ApplicationClientExportWizard">
+            class="org.eclipse.jst.j2ee.ui.AppClientModuleExportWizard"
+            id="org.eclipse.jst.j2ee.ui.AppClientModuleExportWizard">
          <description>
             %client.export.description_ui_
          </description>
@@ -157,8 +156,8 @@
       <wizard
             name="%ear.file_ui_"
             icon="icons/full/ctool16/export_ear.gif"
-            class="org.eclipse.jst.j2ee.internal.wizard.EARExportWizard"
-            id="EARExportWizard">
+            class="org.eclipse.jst.j2ee.ui.EnterpriseApplicationExportWizard"
+            id="org.eclipse.jst.j2ee.ui.EnterpriseApplicationExportWizard">
          <description>
             %ear.export.description_ui_
          </description>

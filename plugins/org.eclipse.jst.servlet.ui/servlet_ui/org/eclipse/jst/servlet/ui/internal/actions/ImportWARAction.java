@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
+import org.eclipse.jst.servlet.ui.WebModuleImportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ImportWARAction extends BaseAction {
 	public static String LABEL = "%ImportWar-needs string";//WebUIResourceHandler.getString("ImportWARAction_UI_0");
-														   // //$NON-NLS-1$
+														   //$NON-NLS-1$
 	// //$NON-NLS-1$
 	private static final String ICON = "import_war_wiz"; //$NON-NLS-1$
 

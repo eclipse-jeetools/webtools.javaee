@@ -11,9 +11,13 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
+import org.eclipse.wst.server.core.util.ProjectModule;
+
 
 /**
  * @version 1.0
@@ -46,7 +50,23 @@ public class ApplicationClientDeployableFactory extends J2EEDeployableFactory {
 	/*
 	 * @see J2EEDeployableFactory#createDeployable(J2EENature)
 	 */
-	public IProjectModule createModule(J2EENature nature) {
+	public IModule createModule(J2EENature nature) {
 		return new ApplicationClientDeployable(nature, ID);
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModuleDelegate(org.eclipse.wst.server.core.IModule)
+     */
+    public ModuleDelegate getModuleDelegate(IModule module) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.model.ModuleFactoryDelegate#getModules()
+     */
+    public IModule[] getModules() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

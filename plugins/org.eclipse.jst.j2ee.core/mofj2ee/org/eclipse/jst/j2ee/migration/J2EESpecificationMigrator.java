@@ -370,7 +370,7 @@ public class J2EESpecificationMigrator extends SpecificationMigrator implements 
 		EJBJar jar = ejbResource.getEJBJar();
 		HashMap beanCache = new HashMap();
 		if(jar.getVersionID() == EJB_1_1_ID)
-		createBeanCache(jar,beanCache);
+			createBeanCache(jar,beanCache);
 		if (b) {
 			if (!isVersion1_4) {
 				status = getMigrateToLowerLevelStatus(jar);

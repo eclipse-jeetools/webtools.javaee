@@ -34,8 +34,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -58,7 +58,7 @@ import com.ibm.wtp.emf.workbench.WorkbenchURIConverter;
 public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements EARProjectSaveStrategy, IJ2EEImportExportConstants {
 	protected IProject project;
 	protected URIConverter earURIConverter;
-	protected EARImportDataModel dataModel;
+	protected EnterpriseApplicationImportDataModel dataModel;
 	protected IOverwriteHandler overwriteHandler;
 	protected IProgressMonitor monitor;
 	protected boolean includeProjectMetaFiles = false;
@@ -68,13 +68,13 @@ public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements EARP
 	 */
 	protected Map createdProjectsMap;
 
-	public EARProjectSaveStrategyImpl(EARImportDataModel model) {
+	public EARProjectSaveStrategyImpl(EnterpriseApplicationImportDataModel model) {
 		super();
 		this.dataModel = model;
 		project = dataModel.getProject();
 		setArchive(model.getEARFile());
-		includeProjectMetaFiles = model.getBooleanProperty(EARImportDataModel.PRESERVE_PROJECT_METADATA);
-		overwriteHandler = (IOverwriteHandler)model.getProperty(EARImportDataModel.OVERWRITE_HANDLER);
+		includeProjectMetaFiles = model.getBooleanProperty(EnterpriseApplicationImportDataModel.PRESERVE_PROJECT_METADATA);
+		overwriteHandler = (IOverwriteHandler)model.getProperty(EnterpriseApplicationImportDataModel.OVERWRITE_HANDLER);
 		if (null != overwriteHandler) {
 			overwriteHandler.setEarSaveStrategy(this);
 		}
@@ -88,10 +88,10 @@ public class EARProjectSaveStrategyImpl extends SaveStrategyImpl implements EARP
 	private void buildProjectsMap() {
 		createdProjectsMap = new HashMap();
 		List createdProjectsList = dataModel.getProjectModels();
-		J2EEImportDataModel importDM = null;
+		J2EEArtifactImportDataModel importDM = null;
 		Archive anArchive = null;
 		for (int i = 0; i < createdProjectsList.size(); i++) {
-			importDM = (J2EEImportDataModel) createdProjectsList.get(i);
+			importDM = (J2EEArtifactImportDataModel) createdProjectsList.get(i);
 			anArchive = importDM.getArchiveFile();
 			createdProjectsMap.put(anArchive.getURI(), importDM.getProject());
 		}

@@ -28,13 +28,14 @@ import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsController;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
+import org.eclipse.jst.j2ee.internal.J2EEEditModel;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassOperation;
 import org.eclipse.jst.j2ee.internal.project.WTPJETEmitter;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsController;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
@@ -178,7 +179,7 @@ public class NewServletClassOperation extends NewJavaClassOperation {
 			AnnotationsController controller = AnnotationsControllerManager.INSTANCE.getAnnotationsController(this.editModel.getProject());
 			if (controller != null)
 				controller.process(aFile);
-			this.editModel.getWorkingCopy(cu, true); //Track CU.
+			((J2EEEditModel)this.editModel).getWorkingCopy(cu, true); //Track CU.
 		}
 	}
 

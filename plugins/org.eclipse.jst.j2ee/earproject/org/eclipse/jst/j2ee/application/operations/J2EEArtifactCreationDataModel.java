@@ -15,32 +15,63 @@
 package org.eclipse.jst.j2ee.application.operations;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.operation.EditModelOperationDataModel;
-import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclispe.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
+/**
+ * This dataModel is a common super class used to create J2EE Components.
+ * 
+ * This class (and all its fields and methods) is likely to change during the WTP 1.0 milestones as
+ * the new project structures are adopted. Use at your own risk.
+ * 
+ * @since WTP 1.0
+ */
 public abstract class J2EEArtifactCreationDataModel extends EditModelOperationDataModel {
 	/**
-	 * Optional, type Boolean default is true
+	 * An optional dataModel propertyName for a <code>Boolean</code> type. The default value is
+	 * <code>Boolean.TRUE</code>. If this property is set to <code>Boolean.TRUE</code> then a
+	 * default deployment descriptor and supporting bindings files will be generated.
 	 */
 	public static final String CREATE_DEFAULT_FILES = "J2EEArtifactCreationDataModel.CREATE_DEFAULT_FILES"; //$NON-NLS-1$
+
 	/**
-	 * Optional, type Boolean default is true
+	 * An optional dataModel property for a <code>Boolean</code> type. The default value is
+	 * <code>Boolean.TRUE</code>. If this property is set to <code>Boolean.TRUE</code> then the
+	 * server target specified by dataModel property <code>SERVER_TARGET_ID</code> will be set on
+	 * the generated artifact.
+	 * 
+	 * @see SERVER_TARGET_ID
 	 */
 	public static final String ADD_SERVER_TARGET = "J2EEArtifactCreationDataModel.ADD_SERVER_TARGET"; //$NON-NLS-1$
+
 	/**
 	 * Optional, type String
 	 */
 	public static final String FINAL_PERSPECTIVE = "J2EEArtifactCreationDataModel.FINAL_PERSPECTIVE"; //$NON-NLS-1$
+
 	/**
-	 * Extended attribute, type String
+	 * An optonal dataModel propertyName for a <code>java.lang.String</code> type. Sets the local
+	 * file system location for the described project. The path must be either an absolute file
+	 * system path, or a relative path whose first segment is the name of a defined workspace path
+	 * variable. The default value is the workspace's default location.
+	 * 
+	 * @see ProjectCreationDataModel.PROJECT_LOCATION
 	 */
 	public static final String PROJECT_LOCATION = ProjectCreationDataModel.PROJECT_LOCATION;
+
+	/**
+	 * An optional dataModel property for a <code>java.lang.String</code> type. This is used to
+	 * specify the server target and is required if the <code>ADD_SERVER_TARGET</code> property is
+	 * set to <code>Boolean.TRUE</code>.
+	 * 
+	 * @see ServerTargetDataModel.RUNTIME_TARGET_ID
+	 */
 	public static final String SERVER_TARGET_ID = ServerTargetDataModel.RUNTIME_TARGET_ID;
 	public static final String CLASSPATH_ENTRIES = JavaProjectCreationDataModel.CLASSPATH_ENTRIES;
 

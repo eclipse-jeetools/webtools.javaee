@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.application.operations.J2EEExportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactExportDataModel;
 
 
 /**
@@ -31,7 +31,7 @@ public abstract class J2EEModuleExportPage extends J2EEExportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public J2EEModuleExportPage(J2EEExportDataModel model, String pageName, IStructuredSelection selection) {
+	public J2EEModuleExportPage(J2EEArtifactExportDataModel model, String pageName, IStructuredSelection selection) {
 		super(model, pageName, selection);
 	}
 
@@ -42,7 +42,7 @@ public abstract class J2EEModuleExportPage extends J2EEExportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEExportDataModel.PROJECT_NAME, J2EEExportDataModel.ARCHIVE_DESTINATION, J2EEExportDataModel.OVERWRITE_EXISTING};
+		return new String[]{J2EEArtifactExportDataModel.PROJECT_NAME, J2EEArtifactExportDataModel.ARCHIVE_DESTINATION, J2EEArtifactExportDataModel.OVERWRITE_EXISTING};
 	}
 
 }

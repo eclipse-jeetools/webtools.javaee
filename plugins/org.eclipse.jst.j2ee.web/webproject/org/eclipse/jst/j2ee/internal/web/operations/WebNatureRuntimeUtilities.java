@@ -14,6 +14,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
+import org.eclipse.wst.web.internal.operation.StaticWebNatureRuntime;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -59,8 +61,9 @@ public class WebNatureRuntimeUtilities {
 		IBaseWebNature runtime = getRuntime(project);
 		if (info.getWebProjectType() == IWebNatureConstants.J2EE_WEB_PROJECT)
 			((J2EEWebNatureRuntime) runtime).initializeFromInfo(info);
-		else
-			((StaticWebNatureRuntime) runtime).initializeFromInfo(info);
+		//No longer supporting for static projects
+//		else
+//			((StaticWebNatureRuntime) runtime).initializeFromInfo(info);
 
 		return runtime;
 

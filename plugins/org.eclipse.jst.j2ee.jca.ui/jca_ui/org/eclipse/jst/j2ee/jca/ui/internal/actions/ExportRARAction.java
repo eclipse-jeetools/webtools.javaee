@@ -19,7 +19,7 @@ package org.eclipse.jst.j2ee.jca.ui.internal.actions;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.RARExportWizard;
+import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -45,7 +45,7 @@ public class ExportRARAction extends BaseAction {
 	 * @see org.eclipse.jst.j2ee.internal.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
 	protected void primRun(Shell shell) {
-		RARExportWizard wizard = new RARExportWizard();
+		ConnectorModuleExportWizard wizard = new ConnectorModuleExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();
 		wizard.init(plugin.getWorkbench(), selection);
 		wizard.setDialogSettings(plugin.getDialogSettings());

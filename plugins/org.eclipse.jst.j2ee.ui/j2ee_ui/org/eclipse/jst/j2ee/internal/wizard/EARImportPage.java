@@ -15,10 +15,10 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEApplicationCreationDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationCreationDataModel;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
@@ -26,6 +26,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
+import org.eclipse.jst.j2ee.ui.EnterpriseApplicationCreationWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -52,7 +53,7 @@ public class EARImportPage extends J2EEImportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public EARImportPage(EARImportDataModel earModel, String pageName) {
+	public EARImportPage(EnterpriseApplicationImportDataModel earModel, String pageName) {
 		super(earModel, pageName);
 		setTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_TITLE));
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_MAIN_PG_DESC));
@@ -80,17 +81,17 @@ public class EARImportPage extends J2EEImportPage {
 	}
 
 	protected J2EEArtifactCreationDataModel getNewProjectCreationDataModel() {
-		EARImportDataModel importModel = (EARImportDataModel) model;
-		J2EEApplicationCreationDataModel earModel = new J2EEApplicationCreationDataModel();
-		earModel.setIntProperty(J2EEApplicationCreationDataModel.APPLICATION_VERSION, importModel.getJ2EEVersion());
-		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, importModel.getProperty(J2EEImportDataModel.PROJECT_NAME));
-		earModel.setProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEImportDataModel.SERVER_TARGET_ID));
-		earModel.setBooleanProperty(J2EEApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
+		EnterpriseApplicationImportDataModel importModel = (EnterpriseApplicationImportDataModel) model;
+		EnterpriseApplicationCreationDataModel earModel = new EnterpriseApplicationCreationDataModel();
+		earModel.setIntProperty(EnterpriseApplicationCreationDataModel.APPLICATION_VERSION, importModel.getJ2EEVersion());
+		earModel.setProperty(EditModelOperationDataModel.PROJECT_NAME, importModel.getProperty(J2EEArtifactImportDataModel.PROJECT_NAME));
+		earModel.setProperty(J2EEArtifactCreationDataModel.SERVER_TARGET_ID, importModel.getProperty(J2EEArtifactImportDataModel.SERVER_TARGET_ID));
+		earModel.setBooleanProperty(EnterpriseApplicationCreationDataModel.UI_SHOW_FIRST_PAGE_ONLY, true);
 		return earModel;
 	}
 
 	protected WTPWizard getNewProjectWizard(J2EEArtifactCreationDataModel aModel) {
-		return new J2EEApplicationCreationWizard((J2EEApplicationCreationDataModel) aModel);
+		return new EnterpriseApplicationCreationWizard((EnterpriseApplicationCreationDataModel) aModel);
 	}
 
 	protected String getProjectImportLabel() {
@@ -108,14 +109,14 @@ public class EARImportPage extends J2EEImportPage {
 		gd.horizontalIndent = indent;
 		gd.horizontalSpan = 3;
 		importEARButton.setLayoutData(gd);
-		synchHelper.synchCheckbox(importEARButton, EARImportDataModel.IMPORT_EAR_PROJECT, null);
+		synchHelper.synchCheckbox(importEARButton, EnterpriseApplicationImportDataModel.IMPORT_EAR_PROJECT, null);
 	}
 
 	/**
 	 *  
 	 */
 	private J2EEArtifactCreationDataModel getJ2EEProjectCreationDataModel() {
-		return ((J2EEImportDataModel) model).getJ2eeArtifactCreationDataModel();
+		return ((J2EEArtifactImportDataModel) model).getJ2eeArtifactCreationDataModel();
 	}
 
 	/*
@@ -172,7 +173,7 @@ public class EARImportPage extends J2EEImportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEImportDataModel.FILE_NAME, J2EEImportDataModel.PROJECT_NAME, J2EEImportDataModel.SERVER_TARGET_ID, J2EEImportDataModel.OVERWRITE_PROJECT, EARImportDataModel.IMPORT_EAR_PROJECT, IAnnotationsDataModel.USE_ANNOTATIONS};
+		return new String[]{J2EEArtifactImportDataModel.FILE_NAME, J2EEArtifactImportDataModel.PROJECT_NAME, J2EEArtifactImportDataModel.SERVER_TARGET_ID, J2EEArtifactImportDataModel.OVERWRITE_PROJECT, EnterpriseApplicationImportDataModel.IMPORT_EAR_PROJECT, IAnnotationsDataModel.USE_ANNOTATIONS};
 	}
 
 	/*

@@ -20,7 +20,7 @@ import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProjectCommand;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleCreationOperation;
-import org.eclipse.jst.j2ee.internal.jca.operations.RARImportDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.moduleextension.EarModuleExtensionImpl;
@@ -96,6 +96,6 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
 	public J2EEModuleImportDataModel createImportDataModel() {
-		return new RARImportDataModel();
+		return new ConnectorModuleImportDataModel();
 	}
 }

@@ -25,6 +25,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jst.common.navigator.internal.actions.NewWizardActionGroup;
+import org.eclipse.jst.common.navigator.internal.actions.WizardActionGroup;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.applicationclient.creation.ApplicationClientNatureRuntime;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
@@ -50,57 +52,15 @@ import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPGenericActionIds;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPOptionalOperationAction;
-import org.eclipse.wst.common.navigator.internal.actions.NewWizardActionGroup;
-import org.eclipse.wst.common.navigator.internal.actions.WizardActionGroup;
 import org.eclipse.wst.common.navigator.internal.views.actions.CommonEditActionGroup;
 
 /**
  * @author mdelder
  *  
  */
-public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelectionChangedListener {
+public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelectionChangedListener, IJ2EEWizardConstants {
 
-	protected static final String NEW_EAR_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.earProjectWizard"; //$NON-NLS-1$
 
-	protected static final String NEW_APPCLIENT_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.appclientProjectWizard"; //$NON-NLS-1$
-
-	protected static final String NEW_JCA_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.jcaProjectWizard"; //$NON-NLS-1$
-
-	protected static final String NEW_EJB_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.ejb.ui.util.ejbProjectWizard"; //$NON-NLS-1$
-
-	protected static final String NEW_WEB_PROJECT_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.webProjectWizard"; //$NON-NLS-1$
-
-	protected static final String NEW_EAR_WIZARD_ID = ""; //$NON-NLS-1$
-
-	protected static final String NEW_APPCLIENT_WIZARD_ID = ""; //$NON-NLS-1$
-
-	protected static final String NEW_CONNECTOR_WIZARD_ID = ""; //$NON-NLS-1$
-
-	protected static final String NEW_ENTERPRISE_BEAN_WIZARD_ID = "org.eclipse.jst.j2ee.internal.internal.internal.ejb.ui.util.createEJBWizard"; //$NON-NLS-1$
-
-	protected static final String NEW_WEB_MODULE_WIZARD_ID = ""; //$NON-NLS-1$
-
-	protected static final String IMPORT_EAR_WIZARD_ID = "EnterpriseApplicationImportWizard"; //$NON-NLS-1$
-
-	protected static final String IMPORT_APPCLIENT_WIZARD_ID = "ApplicationClientImportWizard"; //$NON-NLS-1$
-
-	protected static final String IMPORT_CONNECTOR_WIZARD_ID = "ConnectorImportWizard"; //$NON-NLS-1$
-
-	protected static final String IMPORT_ENTERPRISE_BEAN_WIZARD_ID = "EJBImportWizard"; //$NON-NLS-1$
-
-	protected static final String IMPORT_WEB_MODULE_WIZARD_ID = "WarImportWizard"; //$NON-NLS-1$
-
-	protected static final String IMPORT_UTILITY_JAR_WIZARD_ID = "J2EEUtilityJarImportWizard"; //$NON-NLS-1$
-
-	protected static final String EXPORT_EAR_WIZARD_ID = "EARExportWizard"; //$NON-NLS-1$
-
-	protected static final String EXPORT_APPCLIENT_WIZARD_ID = "ApplicationClientExportWizard"; //$NON-NLS-1$
-
-	protected static final String EXPORT_CONNECTOR_WIZARD_ID = "ConnectorExportWizard"; //$NON-NLS-1$
-
-	protected static final String EXPORT_ENTERPRISE_BEAN_WIZARD_ID = "EJBExportWizard"; //$NON-NLS-1$
-
-	protected static final String EXPORT_WEB_MODULE_WIZARD_ID = "WarExportWizard"; //$NON-NLS-1$
 
 	protected static final String[] EAR_GROUP_IDS = new String[]{NEW_EAR_PROJECT_WIZARD_ID};
 
@@ -114,13 +74,13 @@ public class J2EEEditActionGroup extends CommonEditActionGroup implements ISelec
 
 	protected static final String[] EAR_PROJECT_IDS = new String[]{NEW_APPCLIENT_PROJECT_WIZARD_ID, NEW_JCA_PROJECT_WIZARD_ID, NEW_EJB_PROJECT_WIZARD_ID, NEW_WEB_PROJECT_WIZARD_ID};
 
-	protected static final String[] APPCLIENT_PROJECT_IDS = new String[]{NEW_APPCLIENT_WIZARD_ID};
+	protected static final String[] APPCLIENT_PROJECT_IDS = new String[]{ };
 
-	protected static final String[] JCA_PROJECT_IDS = new String[]{NEW_CONNECTOR_WIZARD_ID};
+	protected static final String[] JCA_PROJECT_IDS = new String[]{ };
 
 	protected static final String[] EJB_PROJECT_IDS = new String[]{NEW_ENTERPRISE_BEAN_WIZARD_ID};
 
-	protected static final String[] WEB_PROJECT_IDS = new String[]{NEW_WEB_MODULE_WIZARD_ID};
+	protected static final String[] WEB_PROJECT_IDS = new String[]{ };
 
 	protected static final String[] EAR_IMPORT_IDS = new String[]{IMPORT_APPCLIENT_WIZARD_ID, IMPORT_CONNECTOR_WIZARD_ID, IMPORT_ENTERPRISE_BEAN_WIZARD_ID, IMPORT_WEB_MODULE_WIZARD_ID, IMPORT_UTILITY_JAR_WIZARD_ID};
 

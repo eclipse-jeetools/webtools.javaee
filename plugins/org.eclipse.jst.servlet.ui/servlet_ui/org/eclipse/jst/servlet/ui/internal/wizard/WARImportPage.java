@@ -21,10 +21,11 @@ import org.eclipse.jst.j2ee.application.operations.J2EEArtifactCreationDataModel
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleImportPage;
+import org.eclipse.jst.servlet.ui.WebModuleCreationWizard;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizard;
@@ -69,8 +70,8 @@ public class WARImportPage extends J2EEModuleImportPage {
 		return IWebNatureConstants.J2EE_NATURE_ID;
 	}
 
-	private WARImportDataModel getWebDataModel() {
-		return (WARImportDataModel) model;
+	private WebModuleImportDataModel getWebDataModel() {
+		return (WebModuleImportDataModel) model;
 	}
 
 	protected String getProjectImportLabel() {

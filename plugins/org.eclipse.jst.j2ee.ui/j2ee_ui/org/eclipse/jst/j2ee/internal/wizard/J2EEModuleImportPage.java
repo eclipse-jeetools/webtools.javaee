@@ -15,7 +15,7 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.help.WorkbenchHelp;
@@ -32,7 +32,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	 * @param model
 	 * @param pageName
 	 */
-	public J2EEModuleImportPage(J2EEImportDataModel model, String pageName) {
+	public J2EEModuleImportPage(J2EEArtifactImportDataModel model, String pageName) {
 		super(model, pageName);
 	}
 
@@ -76,7 +76,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	protected String[] getValidationPropertyNames() {
-		return new String[]{J2EEImportDataModel.FILE_NAME, J2EEImportDataModel.PROJECT_NAME, J2EEImportDataModel.OVERWRITE_PROJECT, J2EEImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT, J2EEModuleImportDataModel.EAR_PROJECT, J2EEImportDataModel.SERVER_TARGET_ID, J2EEModuleImportDataModel.ADD_TO_EAR};
+		return new String[]{J2EEArtifactImportDataModel.FILE_NAME, J2EEArtifactImportDataModel.PROJECT_NAME, J2EEArtifactImportDataModel.OVERWRITE_PROJECT, J2EEArtifactImportDataModel.DELETE_BEFORE_OVERWRITE_PROJECT, J2EEModuleImportDataModel.EAR_PROJECT, J2EEArtifactImportDataModel.SERVER_TARGET_ID, J2EEModuleImportDataModel.ADD_TO_EAR};
 	}
 
 }

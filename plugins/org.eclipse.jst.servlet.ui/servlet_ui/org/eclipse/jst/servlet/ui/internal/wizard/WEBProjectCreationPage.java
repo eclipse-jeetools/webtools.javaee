@@ -54,7 +54,7 @@ public class WEBProjectCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	protected WEBProjectCreationPage(WebModuleCreationDataModel model, String pageName) {
+	public WEBProjectCreationPage(WebModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_TITLE));
 		setDescription(WEBUIMessages.getResourceString(WEBUIMessages.WEB_PROJECT_MAIN_PG_DESC));

@@ -36,7 +36,7 @@ public class JCAProjectCreationPage extends J2EEModuleCreationPage {
 	 * @param model
 	 * @param pageName
 	 */
-	protected JCAProjectCreationPage(ConnectorModuleCreationDataModel model, String pageName) {
+	public JCAProjectCreationPage(ConnectorModuleCreationDataModel model, String pageName) {
 		super(model, pageName);
 		setTitle(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_TITLE));
 		setDescription(JCAUIMessages.getResourceString(JCAUIMessages.JCA_PROJECT_MAIN_PG_DESC));

@@ -23,8 +23,7 @@
       <import plugin="org.eclipse.wst.common.emfworkbench.integration"/>
       <import plugin="org.eclipse.jst.j2ee.core"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.wst.common.navigator.views"/>
-   </requires>
+    </requires>
 
  <extension
          id="J2EEUIProjectWizards"
@@ -34,10 +33,10 @@
             name="%jca.project_ui_"
             icon="icons/full/ctool16/newconnectionprj_wiz.gif"
             category="org.eclipse.jst.j2ee.internal"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleCreationWizard"
+            class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.internal.J2EEPerspective"
-            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleCreationWizard">
+            id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleCreationWizard">
          <description>
             %new.jca.project.description_ui_
          </description>
@@ -53,8 +52,8 @@
       <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/import_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard"
-            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard">
+            class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard"
+            id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard">
          <description>
             %connector.import.description_ui_
          </description>
@@ -70,8 +69,8 @@
      <wizard
             name="%connector.jar.file_ui_"
             icon="icons/full/ctool16/export_rar.gif"
-            class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.RARExportWizard"
-            id="org.eclipse.jst.j2ee.jca.ui.internal.wizard.RARExportWizard">
+            class="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard"
+            id="org.eclipse.jst.j2ee.jca.ui.ConnectorModuleExportWizard">
          <description>
             %connector.export.description_ui_
          </description>

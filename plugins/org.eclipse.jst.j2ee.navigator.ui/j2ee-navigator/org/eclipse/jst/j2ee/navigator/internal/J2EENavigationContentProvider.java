@@ -8,12 +8,6 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Nov 21, 2003
- * 
- * To change the template for this generated file go to Window - Preferences - Java - Code Generation - Code and
- * Comments
- */
 package org.eclipse.jst.j2ee.navigator.internal;
 
 import java.util.ArrayList;
@@ -24,11 +18,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
 import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.MethodsProviderDelegate;
-import org.eclipse.wst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
 import org.eclipse.wst.common.navigator.views.INavigatorContentExtension;
 import org.eclipse.wst.common.navigator.views.INavigatorContentProvider;
 
@@ -111,7 +104,7 @@ public class J2EENavigationContentProvider extends CommonAdapterFactoryContentPr
 	}
 
 	/**
-	 * @see IContentProvider#dispose()
+	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
 	public void dispose() {
 		super.dispose();

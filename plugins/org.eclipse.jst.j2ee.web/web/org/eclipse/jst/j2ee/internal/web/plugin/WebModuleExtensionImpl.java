@@ -29,7 +29,7 @@ import org.eclipse.jst.j2ee.internal.earcreation.UpdateModuleReferencesInEARProj
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportDataModel;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationDataModel;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleCreationOperation;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
@@ -217,6 +217,6 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
 	public J2EEModuleImportDataModel createImportDataModel() {
-		return new WARImportDataModel();
+		return new WebModuleImportDataModel();
 	}
 }

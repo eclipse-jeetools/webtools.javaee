@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.internal;
 
 
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManager;
+import org.eclipse.jst.common.jdt.internal.integration.WorkingCopyManagerFactory;
 import org.eclipse.jst.j2ee.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
@@ -52,6 +54,8 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListene
  */
 public class J2EEEditModel extends EditModel {
 
+	private WorkingCopyManager workingCopyManager = null;
+	
 	/**
 	 * J2EEEditModel constructor comment.
 	 */
@@ -126,4 +130,33 @@ public class J2EEEditModel extends EditModel {
 		return null;
 	}
 
+	/**
+	 * Returns the working copy remembered for the compilation unit.
+	 * 
+	 * @param input
+	 *            ICompilationUnit
+	 * @return the working copy of the compilation unit, or <code>null</code> if there is no
+	 *         remembered working copy for this compilation unit
+	 */
+	public org.eclipse.jdt.core.ICompilationUnit getWorkingCopy(org.eclipse.jdt.core.ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
+		if (isReadOnly())
+			return null;
+		return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
+	}
+
+	public WorkingCopyManager getWorkingCopyManager() {
+		if (workingCopyManager == null)
+			workingCopyManager = WorkingCopyManagerFactory.newRegisteredInstance();
+		return workingCopyManager;
+	}
+	
+	/**
+	 * Reset the working copy manager because the ejb-jar.xml was removed without disposing.
+	 */
+	protected void resetWorkingCopyManager() {
+		if (workingCopyManager != null) {
+			workingCopyManager.dispose();
+			workingCopyManager = null;
+		}
+	}
 }

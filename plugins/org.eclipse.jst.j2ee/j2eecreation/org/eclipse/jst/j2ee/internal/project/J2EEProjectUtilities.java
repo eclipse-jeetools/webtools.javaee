@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -58,6 +59,7 @@ import org.eclipse.jst.j2ee.moduleextension.EarModuleManager;
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 import com.ibm.wtp.emf.workbench.WorkbenchByteArrayOutputStream;
+import com.ibm.wtp.emf.workbench.plugin.EMFWorkbenchPlugin;
 
 public class J2EEProjectUtilities extends ProjectUtilities {
 
@@ -442,6 +444,72 @@ public class J2EEProjectUtilities extends ProjectUtilities {
 			JavaClass javaClass = (JavaClass) JavaRefFactory.eINSTANCE.reflectType(cu.getParent().getElementName(), className, jar.eResource().getResourceSet());
 			return jar.getEnterpriseBeanWithReference(javaClass);
 		}
+		return null;
+	}
+	public static IContainer getSourceFolderOrFirst(IProject p, String defaultSourceName) {
+		try {
+			IPath sourcePath = getSourcePathOrFirst(p, defaultSourceName);
+			if (sourcePath == null)
+				return null;
+			else if (sourcePath.isEmpty())
+				return p;
+			else
+				return p.getFolder(sourcePath);
+		} catch (IllegalArgumentException ex) {
+			return null;
+		}
+	}
+	
+	public static IPath getSourcePathOrFirst(IProject p, String defaultSourceName) {
+		IJavaProject javaProj = getJavaProject(p);
+		if (javaProj == null)
+			return null;
+		IClasspathEntry[] cp = null;
+		try {
+			cp = javaProj.getRawClasspath();
+		} catch (JavaModelException ex) {
+			EMFWorkbenchPlugin.getLogger().logError(ex);
+			return null;
+		}
+		IClasspathEntry firstSource = null;
+		IPath defaultSourcePath = null;
+		if (defaultSourceName != null)
+			defaultSourcePath = createPath(p, defaultSourceName);
+		boolean found = false;
+		for (int i = 0; i < cp.length; i++) {
+			if (cp[i].getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+				// check if it contains /META-INF/MANIFEST.MF
+				IPath sourceFolderPath = cp[i].getPath().removeFirstSegments(1);
+				IFolder sourceFolder = p.getFolder(sourceFolderPath);
+				if (sourceFolder.findMember("/META-INF/MANIFEST.MF") != null) { //$NON-NLS-1$
+					found = true;
+					if (firstSource == null) {
+						firstSource = cp[i];
+						if (defaultSourcePath == null)
+							break;
+					}
+					if (cp[i].getPath().equals(defaultSourcePath))
+						return defaultSourcePath.removeFirstSegments(1);
+				}
+			}
+		}
+		if (!found) {
+			for (int i = 0; i < cp.length; i++) {
+				if (cp[i].getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+					if (firstSource == null) {
+						firstSource = cp[i];
+						if (defaultSourcePath == null)
+							break;
+					}
+					if (cp[i].getPath().equals(defaultSourcePath))
+						return defaultSourcePath.removeFirstSegments(1);
+				}
+			}
+		}
+		if (firstSource == null)
+			return null;
+		if (firstSource.getPath().segment(0).equals(p.getName()))
+			return firstSource.getPath().removeFirstSegments(1);
 		return null;
 	}
 

@@ -16,11 +16,11 @@
  */
 package org.eclipse.jst.j2ee.application.operations;
 
+import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
-import org.eclipse.wst.common.jdt.internal.integration.JavaProjectCreationDataModel;
 
-public final class J2EEUtilityJarImportDataModel extends J2EEImportDataModel {
+public final class J2EEUtilityJarImportDataModel extends J2EEArtifactImportDataModel {
 
 	public static final String EAR_PROJECT = "J2EEUtilityJarImportDataModel.EAR_PROJECT"; //$NON-NLS-1$
 

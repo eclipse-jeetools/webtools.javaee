@@ -145,7 +145,7 @@ public abstract class J2EEModuleNature extends J2EENature {
 	 * may override
 	 */
 	public IContainer getEMFRoot() {
-		return ProjectUtilities.getSourceFolderOrFirst(project, null);
+		return J2EEProjectUtilities.getSourceFolderOrFirst(project, null);
 	}
 
 	/*

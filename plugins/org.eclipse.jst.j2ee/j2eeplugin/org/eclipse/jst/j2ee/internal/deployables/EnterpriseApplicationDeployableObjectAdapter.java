@@ -17,17 +17,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.EARNatureRuntime;
-import org.eclipse.wst.server.core.model.IModule;
-import org.eclipse.wst.server.core.model.IModuleObject;
-import org.eclipse.wst.server.core.model.IModuleObjectAdapterDelegate;
-import org.eclipse.wst.server.core.util.NullModuleObject;
+import org.eclipse.wst.server.core.IModuleArtifact;
+import org.eclipse.wst.server.core.IModuleArtifactAdapter;
+import org.eclipse.wst.server.core.IModule;
+
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
 /**
  * Creates the Object adapter for ear projects.
  */
-public class EnterpriseApplicationDeployableObjectAdapter implements IModuleObjectAdapterDelegate {
+public class EnterpriseApplicationDeployableObjectAdapter implements IModuleArtifactAdapter {
 
 	/**
 	 * Constructor for EnterpriseApplicationDeployableObjectAdapter.
@@ -42,7 +42,7 @@ public class EnterpriseApplicationDeployableObjectAdapter implements IModuleObje
 	 * @param Object
 	 *            obj - Object to adapt.
 	 */
-	public IModuleObject getModuleObject(Object obj) {
+	public IModuleArtifact getModuleObject(Object obj) {
 		if (obj instanceof Application)
 			return getModuleObject((Application) obj);
 		if (obj instanceof IProject)
@@ -58,7 +58,7 @@ public class EnterpriseApplicationDeployableObjectAdapter implements IModuleObje
 	 * @param Application
 	 *            application - EAR instance.
 	 */
-	protected IModuleObject getModuleObject(Application application) {
+	protected IModuleArtifact getModuleObject(Application application) {
 		IModule dep = getModule(application);
 		return createModuleObject(dep);
 	}// getDeployableObject
@@ -70,8 +70,8 @@ public class EnterpriseApplicationDeployableObjectAdapter implements IModuleObje
 	 *            project - Project instance.
 	 * @return IModuleObject
 	 */
-	protected IModuleObject getModuleObject(IProject project) {
-		IModule dep = getModule(project);
+	protected IModuleArtifact getModuleObject(IProject project) {
+		org.eclipse.wst.server.core.IModule dep = getModule(project);
 		return createModuleObject(dep);
 	}// getModuleObject
 
@@ -82,7 +82,7 @@ public class EnterpriseApplicationDeployableObjectAdapter implements IModuleObje
 	 *            file - File instance.
 	 * @return IModuleObject
 	 */
-	protected IModuleObject getModuleObject(IFile file) {
+	protected IModuleArtifact getModuleObject(IFile file) {
 		if (file.getProjectRelativePath().toString().endsWith(ArchiveConstants.APPLICATION_DD_URI)) {
 			return createModuleObject(getModule(file.getProject()));
 		}// if
@@ -96,7 +96,7 @@ public class EnterpriseApplicationDeployableObjectAdapter implements IModuleObje
 	 *            refObject - The current refObject.
 	 * @return IModule
 	 */
-	protected IModule getModule(EObject refObject) {
+	protected org.eclipse.wst.server.core.IModule getModule(EObject refObject) {
 		IProject proj = ProjectUtilities.getProject(refObject);
 		return getModule(proj);
 	}// getModule
@@ -136,11 +136,36 @@ public class EnterpriseApplicationDeployableObjectAdapter implements IModuleObje
 	 * @param IModuleObject
 	 *            deployable - The current module object.
 	 */
-	protected IModuleObject createModuleObject(IModule module) {
-		if (module != null) {
+	protected IModuleArtifact createModuleObject(IModule module) {
+		/*if (module != null) {
 			return new NullModuleObject(module);
-		}// if
+		}*/// switch to NullModuleArtifact when released
 		return null;
 	}// createDeployableObject
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getId()
+     */
+    public String getId() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getObjectClassName()
+     */
+    public String getObjectClassName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#isPluginActivated()
+     */
+    public boolean isPluginActivated() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 
 }// EnterpriseApplicationDeployableObjectAdapter

@@ -29,7 +29,7 @@
       <import plugin="org.eclipse.wst.validation"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
-      <import plugin="org.eclipse.wst.common.jdt.integration"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
    </requires>
 
 

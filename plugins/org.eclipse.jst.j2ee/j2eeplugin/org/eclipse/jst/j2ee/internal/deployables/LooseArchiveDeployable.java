@@ -12,12 +12,16 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.server.j2ee.ILooseArchive;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
 
-public class LooseArchiveDeployable extends ProjectModule implements ILooseArchive {
+public class LooseArchiveDeployable extends ProjectModule implements ILooseArchive, IModule {
 	protected String factoryId;
 
 	/**
@@ -68,4 +72,36 @@ public class LooseArchiveDeployable extends ProjectModule implements ILooseArchi
 	public String getVersion() {
 		return "1.0"; //$NON-NLS-1$
 	}
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#validate(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public IStatus validate(IProgressMonitor monitor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#getModuleType()
+     */
+    public IModuleType getModuleType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.wst.server.core.IModule#getChildModules(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public IModule[] getChildModules(IProgressMonitor monitor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+     */
+    public Object getAdapter(Class adapter) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

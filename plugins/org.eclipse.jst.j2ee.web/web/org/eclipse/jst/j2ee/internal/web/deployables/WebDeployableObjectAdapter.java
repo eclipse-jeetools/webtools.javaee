@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.deployables;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
@@ -29,7 +30,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
-import org.eclipse.jst.j2ee.internal.web.operations.IBaseWebNature;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntime;
 import org.eclipse.jst.j2ee.internal.web.operations.J2EEWebNatureRuntimeUtilities;
 import org.eclipse.jst.j2ee.internal.web.operations.WebEditModel;
@@ -40,11 +40,11 @@ import org.eclipse.jst.j2ee.webapplication.ServletType;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.server.j2ee.WebResource;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.model.IModule;
-import org.eclipse.wst.server.core.model.IModuleObject;
-import org.eclipse.wst.server.core.model.IModuleObjectAdapterDelegate;
-import org.eclipse.wst.server.core.model.IProjectModule;
+import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
+import org.eclipse.wst.web.internal.operation.IBaseWebNature;
 
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
 
@@ -52,7 +52,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * @version 1.0
  * @author
  */
-public class WebDeployableObjectAdapter implements IModuleObjectAdapterDelegate {
+public class WebDeployableObjectAdapter extends ModuleArtifactAdapterDelegate {
 	private final static String[] extensionsToExclude = new String[]{"sql", "xmi"}; //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
@@ -65,7 +65,7 @@ public class WebDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 	/*
 	 * @see IDeployableObjectAdapterDelegate#getDeployableObject(Object)
 	 */
-	public IModuleObject getModuleObject(Object obj) {
+	public IModuleArtifact getModuleObject(Object obj) {
 		IResource resource = null;
 		if (obj instanceof IResource)
 			resource = (IResource) obj;
@@ -173,11 +173,11 @@ public class WebDeployableObjectAdapter implements IModuleObjectAdapterDelegate 
 			return deployable;
 
 		IProject project = nature.getProject();
-		Iterator iterator = ServerUtil.getModules("j2ee.web", getJSPSpecificationVersion(nature), true).iterator(); //$NON-NLS-1$
+		Iterator iterator = Arrays.asList(ServerUtil.getModules("j2ee.web")).iterator(); //$NON-NLS-1$
 		while (iterator.hasNext()) {
 			deployable = (IModule) iterator.next();
-			if (deployable instanceof IProjectModule) {
-				if (((IProjectModule) deployable).getProject().equals(project))
+			if (deployable instanceof IModule) {
+				if (((IModule) deployable).getProject().equals(project))
 					return deployable;
 			}
 		}

@@ -17,10 +17,10 @@ package org.eclipse.jst.j2ee.navigator.internal.dnd;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
-import org.eclipse.jst.j2ee.application.operations.J2EEImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.J2EEArtifactImportDataModel;
 import org.eclipse.jst.j2ee.application.operations.J2EEModuleImportDataModel;
-import org.eclipse.jst.j2ee.applicationclient.creation.AppClientImportDataModel;
+import org.eclipse.jst.j2ee.applicationclient.creation.AppClientModuleImportDataModel;
 import org.eclipse.jst.j2ee.applicationclient.creation.IApplicationClientNatureConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
@@ -28,21 +28,21 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.ejb.ui.internal.wizard.EJBModuleImportWizard;
+import org.eclipse.jst.ejb.ui.EJBModuleImportWizard;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.earcreation.IEARNatureConstants;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBJarImportDataModel;
-import org.eclipse.jst.j2ee.internal.jca.operations.RARImportDataModel;
+import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBModuleImportDataModel;
+import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.project.IConnectorNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IEJBNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.IWebNatureConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
-import org.eclipse.jst.j2ee.internal.web.archive.operations.WARImportDataModel;
-import org.eclipse.jst.j2ee.internal.wizard.AppClientModuleImportWizard;
-import org.eclipse.jst.j2ee.internal.wizard.EnterpriseApplicationImportWizard;
+import org.eclipse.jst.j2ee.internal.web.archive.operations.WebModuleImportDataModel;
 import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
-import org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorModuleImportWizard;
-import org.eclipse.jst.servlet.ui.internal.wizard.WebModuleImportWizard;
+import org.eclipse.jst.j2ee.jca.ui.ConnectorModuleImportWizard;
+import org.eclipse.jst.j2ee.ui.AppClientModuleImportWizard;
+import org.eclipse.jst.j2ee.ui.EnterpriseApplicationImportWizard;
+import org.eclipse.jst.servlet.ui.WebModuleImportWizard;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.wst.common.frameworks.internal.AdaptabilityUtility;
@@ -188,7 +188,7 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 			final String[] fileNames = (String[]) source;
 			final String fileName = fileNames[0];
 			WTPWizard wizard = null;
-			J2EEImportDataModel dataModel = null;
+			J2EEArtifactImportDataModel dataModel = null;
 
 			int archiveType = ImportUtil.UNKNOWN;
 			Archive archive = null;
@@ -197,19 +197,19 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 				archiveType = ImportUtil.getArchiveType(archive);
 				switch (archiveType) {
 					case ImportUtil.EARFILE :
-						dataModel = new EARImportDataModel();
+						dataModel = new EnterpriseApplicationImportDataModel();
 						break;
 					case ImportUtil.EJBJARFILE :
-						dataModel = new EJBJarImportDataModel();
+						dataModel = new EJBModuleImportDataModel();
 						break;
 					case ImportUtil.CLIENTJARFILE :
-						dataModel = new AppClientImportDataModel();
+						dataModel = new AppClientModuleImportDataModel();
 						break;
 					case ImportUtil.WARFILE :
-						dataModel = new WARImportDataModel();
+						dataModel = new WebModuleImportDataModel();
 						break;
 					case ImportUtil.RARFILE :
-						dataModel = new RARImportDataModel();
+						dataModel = new ConnectorModuleImportDataModel();
 						break;
 					default :
 						return false;
@@ -222,13 +222,13 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 				}
 			}
 
-			dataModel.setProperty(J2EEImportDataModel.FILE_NAME, fileName);
+			dataModel.setProperty(J2EEArtifactImportDataModel.FILE_NAME, fileName);
 
 			IProject project = (IProject) AdaptabilityUtility.getAdapter(target, IProject.class);
 			if (null != project) {
 				try {
 					if (archiveType == ImportUtil.EARFILE || !project.hasNature(IEARNatureConstants.NATURE_ID)) {
-						dataModel.setProperty(J2EEImportDataModel.PROJECT_NAME, project.getName());
+						dataModel.setProperty(J2EEArtifactImportDataModel.PROJECT_NAME, project.getName());
 					} else {
 						dataModel.setProperty(J2EEModuleImportDataModel.EAR_PROJECT, project.getName());
 						dataModel.setBooleanProperty(J2EEModuleImportDataModel.ADD_TO_EAR, true);
@@ -239,19 +239,19 @@ public class J2EEImportDropAction extends NavigatorDropActionDelegate implements
 			}
 			switch (archiveType) {
 				case ImportUtil.EARFILE :
-					wizard = new EnterpriseApplicationImportWizard((EARImportDataModel) dataModel);
+					wizard = new EnterpriseApplicationImportWizard((EnterpriseApplicationImportDataModel) dataModel);
 					break;
 				case ImportUtil.EJBJARFILE :
-					wizard = new EJBModuleImportWizard((EJBJarImportDataModel) dataModel);
+					wizard = new EJBModuleImportWizard((EJBModuleImportDataModel) dataModel);
 					break;
 				case ImportUtil.CLIENTJARFILE :
-					wizard = new AppClientModuleImportWizard((AppClientImportDataModel) dataModel);
+					wizard = new AppClientModuleImportWizard((AppClientModuleImportDataModel) dataModel);
 					break;
 				case ImportUtil.WARFILE :
-					wizard = new WebModuleImportWizard((WARImportDataModel) dataModel);
+					wizard = new WebModuleImportWizard((WebModuleImportDataModel) dataModel);
 					break;
 				case ImportUtil.RARFILE :
-					wizard = new ConnectorModuleImportWizard((RARImportDataModel) dataModel);
+					wizard = new ConnectorModuleImportWizard((ConnectorModuleImportDataModel) dataModel);
 					break;
 			}
 

@@ -24,7 +24,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.application.operations.EARImportDataModel;
+import org.eclipse.jst.j2ee.application.operations.EnterpriseApplicationImportDataModel;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -53,7 +53,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 */
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof EARFile) {
-			Object[] array = EARImportDataModel.getAllUtilities((EARFile) inputElement).toArray();
+			Object[] array = EnterpriseApplicationImportDataModel.getAllUtilities((EARFile) inputElement).toArray();
 
 			List filteredProjects = new ArrayList();
 			if (array != null && array.length != 0)

@@ -17,6 +17,7 @@
 package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.common.internal.annotations.controller.AnnotationsControllerManager;
 import org.eclipse.jst.j2ee.application.operations.IAnnotationsDataModel;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
@@ -32,7 +33,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperationDataModel;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPDataModelSynchHelper;
-import org.eclipse.wst.common.internal.annotations.controller.AnnotationsControllerManager;
 
 /**
  * @author jlanuti
