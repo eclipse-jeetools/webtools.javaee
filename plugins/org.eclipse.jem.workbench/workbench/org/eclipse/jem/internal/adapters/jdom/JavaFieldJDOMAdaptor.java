@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JavaFieldJDOMAdaptor.java,v $
- *  $Revision: 1.6 $  $Date: 2004/09/08 18:44:08 $ 
+ *  $Revision: 1.7 $  $Date: 2004/09/21 21:15:58 $ 
  */
 import java.util.Map;
 
@@ -53,6 +53,7 @@ public class JavaFieldJDOMAdaptor extends JDOMAdaptor {
 		field.setTransient(false);
 		field.setVolatile(false);
 		field.setJavaVisibility(JavaVisibilityKind.PUBLIC_LITERAL);
+		field.setEType(null);
 		return true;
 	}
 	
