@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jst.common.navigator.internal.providers.CommonAdapterFactoryContentProvider;
 import org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.provider.MethodsProviderDelegate;
 import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectManager.IRefreshHandlerListener;
@@ -169,7 +170,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 
 		/* Create new content providers using the new viewer id */
 		DynamicAdapterFactory adapterFactory = new DynamicAdapterFactory(aViewerId);
-		delegateContentProvider = new AdapterFactoryContentProvider(adapterFactory);
+		delegateContentProvider = new CommonAdapterFactoryContentProvider(adapterFactory);
 		delegateMethodsProvider = new MethodsProviderDelegate(adapterFactory);
 
 		/* Remember the viewer id */
