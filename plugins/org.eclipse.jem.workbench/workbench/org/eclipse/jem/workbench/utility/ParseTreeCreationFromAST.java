@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: ParseTreeCreationFromAST.java,v $
- *  $Revision: 1.3 $  $Date: 2004/02/05 15:45:24 $ 
+ *  $Revision: 1.4 $  $Date: 2004/03/07 18:31:01 $ 
  */
 package org.eclipse.jem.workbench.utility;
 
@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jem.internal.instantiation.*;
  
 /**
- * 
+ * Create a parse tree from an AST node.
  * @since 1.0.0
  */
 public class ParseTreeCreationFromAST extends ASTVisitor {
