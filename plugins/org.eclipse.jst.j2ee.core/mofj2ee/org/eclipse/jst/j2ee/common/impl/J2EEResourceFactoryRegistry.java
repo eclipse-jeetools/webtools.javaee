@@ -15,6 +15,7 @@ import org.eclipse.wst.common.internal.emf.resource.FileNameResourceFactoryRegis
 
 
 public class J2EEResourceFactoryRegistry extends FileNameResourceFactoryRegistry {
+	
 	public static J2EEResourceFactoryRegistry INSTANCE = new J2EEResourceFactoryRegistry();
 
 	public J2EEResourceFactoryRegistry() {

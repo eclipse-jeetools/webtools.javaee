@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.common.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
+import org.eclipse.wst.common.internal.emf.resource.FileNameResourceFactoryRegistry;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
@@ -75,6 +76,13 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 		registerWith(RendererFactory.getDefaultRendererFactory());
 	}
 
+	/**
+	 * register using the default renderer factory.
+	 * @see #registerWith(RendererFactory)
+	 */
+	public static void register(FileNameResourceFactoryRegistry aRegistry) {
+		aRegistry.registerLastFileSegment(J2EEConstants.WEBAPP_DD_SHORT_NAME, new WebAppResourceFactory(RendererFactory.getDefaultRendererFactory()));
+	}
 	
 	public static Resource.Factory getRegisteredFactory() {
 		return J2EEResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.WEBAPP_DD_URI_OBJ);

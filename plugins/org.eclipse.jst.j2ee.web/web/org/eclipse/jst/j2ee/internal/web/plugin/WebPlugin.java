@@ -40,8 +40,10 @@ import org.eclipse.jst.j2ee.internal.web.deployables.WebAppDeployableModuleBuild
 import org.eclipse.jst.j2ee.internal.web.operations.WebContentResourceChangeListener;
 import org.eclipse.jst.j2ee.internal.web.taglib.TaglibRegistryManager;
 import org.eclipse.jst.j2ee.web.taglib.ITaglibRegistryManager;
+import org.eclipse.jst.j2ee.webapplication.impl.WebAppResourceFactory;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.eclipse.wst.common.modulecore.IModuleConstants;
+import org.eclipse.wst.common.modulecore.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.modulecore.builder.DeployableModuleBuilderFactoryRegistry;
 
 
@@ -311,6 +313,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		// add listener for web content changes
 		addWebContentListener();
 		registerDeployableModuleFactory();
+		WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
 	}
 
 

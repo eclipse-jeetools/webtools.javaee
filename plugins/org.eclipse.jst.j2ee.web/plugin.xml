@@ -579,4 +579,15 @@
       </AnnotationTagInfo>      
    </extension>
 
+
+   <extension
+         point="org.eclipse.wst.common.emfworkbench.integration.editModel">
+      <editModel
+            editModelID="wst.web"
+            factoryClass="org.eclipse.wst.common.modulecore.ModuleEditModelFactory">
+         <editModelResource
+               autoload="false"
+               URI="WEB-INF/web.xml"/>
+      </editModel>
+   </extension>
 </plugin>
