@@ -260,24 +260,6 @@
          </run>
       </builder>
    </extension>
-<!--===========================================-->
-<!-- Ruth asked for this to be put back in.    -->
-<!-- Migrates 4.X workspaces to 5.X workspaces -->
-<!-- Validation Framework Contribution         -->
-<!--===========================================-->
-<!--============================-->
-<!-- Validation Contributions                 -->
-<!--============================-->
-   <extension
-         id="validationbuilder"
-         name="%validation_UI_"
-         point="org.eclipse.core.resources.builders">
-      <builder>
-         <run
-               class="org.eclipse.wst.validation.internal.operations.TransitionValidationBuilder">
-         </run>
-      </builder>
-   </extension>
    <extension
          id="EarValidator"
          name="%ear_validator_UI_"
