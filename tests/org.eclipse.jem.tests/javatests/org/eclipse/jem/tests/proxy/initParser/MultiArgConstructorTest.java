@@ -11,7 +11,7 @@ package org.eclipse.jem.tests.proxy.initParser;
  *******************************************************************************/
 /*
  *  $RCSfile: MultiArgConstructorTest.java,v $
- *  $Revision: 1.2 $  $Date: 2003/10/27 17:32:36 $ 
+ *  $Revision: 1.3 $  $Date: 2004/04/16 15:26:16 $ 
  */
 
 /**
@@ -54,4 +54,9 @@ public class MultiArgConstructorTest extends AbstractInitParserTestCase {
 	public void testLots() throws Throwable {
 		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters(\"processor\", 0, \"customerSearchClientOp\", 0, \"2343434\", \"3443234234\", \"depositRepFmt\", \"depositRepFmt\", \"\", \"\", 0, 0, 0, 0, false, false)",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters("processor", 0, "customerSearchClientOp", 0, "2343434", "3443234234", "depositRepFmt", "depositRepFmt", "", "", 0, 0, 0, 0, false, false));	
 	}
+
+// Testcase for Bugzilla bug #58854 - not yet fixed.
+//	public void testNestedNested() throws Throwable {
+//		testHelper.testInitString("new org.eclipse.jem.tests.proxy.initParser.NavigationParameters(new java.lang.String(new String(\"s\")), \"a\")",new org.eclipse.jem.tests.proxy.initParser.NavigationParameters(new java.lang.String(new String("s")), "a"));	
+//	}
 }
