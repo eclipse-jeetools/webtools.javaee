@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: BeanInfoCacheController.java,v $
- *  $Revision: 1.2 $  $Date: 2005/02/15 22:44:20 $ 
+ *  $Revision: 1.3 $  $Date: 2005/03/08 23:41:01 $ 
  */
 package org.eclipse.jem.internal.beaninfo.core;
 
@@ -1044,7 +1044,8 @@ public class BeanInfoCacheController {
 	/*
 	 * Get the cache directory for the project (or if project is null, the main plugin cache directory).
 	 */
-	private static IPath getCacheDir(IProject project) {
+	// TODO: make this one private
+	public static IPath getCacheDir(IProject project) {
 		if (project != null)
 			return project.getWorkingLocation(BeaninfoPlugin.getPlugin().getBundle().getSymbolicName()).append(CACHEDIR);
 		else
