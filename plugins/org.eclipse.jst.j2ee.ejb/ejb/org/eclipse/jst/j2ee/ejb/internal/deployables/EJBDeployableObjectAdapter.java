@@ -24,7 +24,6 @@ import org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime;
 import org.eclipse.jst.server.j2ee.EJBBean;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
-import org.eclipse.wst.server.core.model.ModuleArtifactAdapterDelegate;
 
 import com.ibm.wtp.common.logger.proxy.Logger;
 import com.ibm.wtp.emf.workbench.ProjectUtilities;
@@ -33,7 +32,7 @@ import com.ibm.wtp.emf.workbench.ProjectUtilities;
  * @version 1.0
  * @author
  */
-public class EJBDeployableObjectAdapter extends ModuleArtifactAdapterDelegate {
+public class EJBDeployableObjectAdapter  {
 	/**
 	 * Constructor for EJBDeployableObjectAdapter.
 	 */
