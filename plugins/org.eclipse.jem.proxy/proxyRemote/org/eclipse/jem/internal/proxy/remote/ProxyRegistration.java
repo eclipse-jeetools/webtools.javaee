@@ -8,7 +8,7 @@ package org.eclipse.jem.internal.proxy.remote;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 /*
- * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.4 $ $Date: 2004/02/11 16:03:41 $
+ * $RCSfile: ProxyRegistration.java,v $ $Revision: 1.5 $ $Date: 2004/02/14 18:37:14 $
  */
 
 import java.io.IOException;
@@ -68,11 +68,15 @@ public class ProxyRegistration implements IRegistration {
 			// too difficult to determine if build would affect us or not, so just wait.
 			handleBuild(new SubProgressMonitor(pm, 100));
 
-			IJavaProject javaProject = JavaCore.create(project);
+			final IJavaProject javaProject = JavaCore.create(project);
 			// Add in the paths for the project
 			final ArrayList classPaths = new ArrayList(Arrays.asList(JavaRuntime.computeDefaultRuntimeClassPath(javaProject)));
 
 			final IClasspathContributionController controller = new IClasspathContributionController() {
+				public IJavaProject getJavaProject() {
+					return javaProject;
+				}
+				
 				public void contributeProject(IProject project, List classpaths, int insertBeforeIndex) throws CoreException {
 					List projectPaths = new ArrayList(Arrays.asList(JavaRuntime.computeDefaultRuntimeClassPath(JavaCore.create(project))));
 					// Now we need to add to the list of paths, but we don't want to add dups.

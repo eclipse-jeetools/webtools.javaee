@@ -11,13 +11,15 @@ package org.eclipse.jem.internal.proxy.core;
  *******************************************************************************/
 /*
  *  $RCSfile: IClasspathContributionController.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/14 18:37:14 $ 
  */
 
 import java.net.URL;
 import java.util.List;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IJavaProject;
+;
 /**
  * Controls contribution to the class paths. This allows the classpath
  * to be modified in an acceptable manner, so that duplicates aren't in
@@ -31,6 +33,15 @@ import org.eclipse.core.runtime.CoreException;;
  * @author
  */
 public interface IClasspathContributionController {
+	
+	/**
+	 * Get the java project that we are contributing for.
+	 * 
+	 * @return javaproject, may be <code>null</code>
+	 * 
+	 * @since 1.0.0
+	 */
+	public IJavaProject getJavaProject();
 	
 	/**
 	 * Contribute a project to the classpath at the specified index.

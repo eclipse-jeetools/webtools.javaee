@@ -11,7 +11,7 @@ package org.eclipse.jem.internal.proxy.ide;
  *******************************************************************************/
 /*
  *  $RCSfile: IDERegistration.java,v $
- *  $Revision: 1.1 $  $Date: 2003/10/27 17:22:23 $ 
+ *  $Revision: 1.2 $  $Date: 2004/02/14 18:37:14 $ 
  */
 
 import java.net.MalformedURLException;
@@ -70,14 +70,21 @@ public class IDERegistration implements IRegistration {
 		throws CoreException {
 
 		ArrayList classPaths = null;
+		IJavaProject javaProject = null;
 		if (project != null) {
-			IJavaProject javaProject = JavaCore.create(project);
+			javaProject = JavaCore.create(project);
 			// Add in the paths for the project	 	
 			classPaths = new ArrayList(Arrays.asList(JavaRuntime.computeDefaultRuntimeClassPath(javaProject)));
 		} else
 			classPaths = new ArrayList();
 
+		final IJavaProject jp = javaProject;
 		IClasspathContributionController controller = new IClasspathContributionController() {
+			
+			public IJavaProject getJavaProject() {
+				return jp;
+			}
+			
 			public void contributeProject(IProject project, List classpaths, int insertBeforeIndex) throws CoreException {
 				List projectPaths = new ArrayList(Arrays.asList(JavaRuntime.computeDefaultRuntimeClassPath(JavaCore.create(project))));
 				// Now we need to add to the list of paths, but we don't want to add dups.
