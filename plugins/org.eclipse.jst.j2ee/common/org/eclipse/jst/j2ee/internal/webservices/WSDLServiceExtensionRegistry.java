@@ -16,7 +16,6 @@
  */
 package org.eclipse.jst.j2ee.internal.webservices;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
@@ -52,14 +51,21 @@ public class WSDLServiceExtensionRegistry extends RegistryReader {
 	public boolean readElement(IConfigurationElement element) {
 		if (!element.getName().equals(ELEMENT_WSDL_HELPER))
 			return false;
-
 		WSDLServiceHelper extension = null;
 		try {
 			extension = (WSDLServiceHelper) element.createExecutableExtension(WSDL_HELPER_CLASS);
 		} catch (Throwable e) {
 			//Register default do nothing helper......
 			addModuleExtension(new DefaultWSDLServiceHelper());
-		}  
+		} finally {
+				try {
+					Class.forName("org.eclipse.wst.wsdl.Service");
+				} catch (ClassNotFoundException ex) {
+//					Register default do nothing helper......
+					addModuleExtension(new DefaultWSDLServiceHelper());
+					extension = null;
+				}
+		}
 		if (extension != null)
 			addModuleExtension(extension);
 		return true;
