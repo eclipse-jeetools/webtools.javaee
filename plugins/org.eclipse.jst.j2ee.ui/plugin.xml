@@ -52,7 +52,36 @@
       <import plugin="org.eclipse.wst.xml.core"/>
       
    </requires>
-
+<!-- ====================================================== -->
+<!--                                                        -->
+<!-- Purpose: Extension for the J2EE ACtion Sets            -->
+<!-- Extension point: org.eclipse.ui.actionSets             -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="%j2ee"
+            description="%j2ee.actions.description_ui_"
+            visible="false"
+            id="org.eclipse.jst.j2ee.J2eeMainActionSet">
+         <action
+               label="%create.client.module_ui_"
+               icon="icons/full/ctool16/newappclient_wiz.gif"
+               tooltip="%create.client.module_ui_"
+               class="org.eclipse.jst.j2ee.internal.actions.NewApplClientProjectAction"
+               toolbarPath="J2EEMain"
+               id="org.eclipse.jst.j2ee.internal.actions.NewApplClientProject">
+         </action>
+         <action
+               label="%create.enterprise.application_ui_"
+               icon="icons/full/ctool16/newear_wiz.gif"
+               tooltip="%create.enterprise.application_ui_"
+               class="org.eclipse.jst.j2ee.internal.actions.NewEARProjectAction"
+               toolbarPath="J2EEMain"
+               id="org.eclipse.jst.j2ee.internal.actions.NewEnterpriseApp">
+         </action>
+      </actionSet> 
+   </extension>
 
 <!--================================-->
 <!-- Project Wizard Contributions   -->

@@ -34,7 +34,28 @@
       <import plugin="org.eclipse.jdt.ui"/>
    </requires>
    
-   
+<!-- ====================================================== -->
+<!--                                                        -->
+<!-- Purpose: Extension for the J2EE ACtion Sets            -->
+<!-- Extension point: org.eclipse.ui.actionSets             -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="%web.category_ui_"
+            description="%web.actions.description_ui_"
+            visible="false"
+            id="org.eclipse.jst.j2ee.J2eeMainActionSet2">
+            <action
+               label="%create.web.module_ui_"
+               icon="icons/full/ctool16/newwar_wiz.gif"
+               tooltip="%create.web.module_ui_"
+               class="org.eclipse.jst.servlet.ui.internal.actions.NewWebProjectAction"
+               toolbarPath="J2EEMain"
+               id="org.eclipse.jst.servlet.ui.internal.actions.NewWebProject">
+         </action>
+      </actionSet>
+	</extension>
     <!--new servlet contribution-->
    <extension
          point="org.eclipse.ui.newWizards">

@@ -46,6 +46,28 @@
          </selection>
       </wizard>
     </extension>
+<!-- ====================================================== -->
+<!--                                                        -->
+<!-- Purpose: Extension for the J2EE ACtion Sets            -->
+<!-- Extension point: org.eclipse.ui.actionSets             -->
+<!-- ====================================================== -->
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="%connectors.actionSet"
+            description="%connectors.actionSet.desc"
+            visible="false"
+            id="org.eclipse.jst.j2ee.J2eeMainActionSet4">
+         <action
+               label="%new.jca.project.description_ui_"
+               icon="icons/full/ctool16/newconnectionprj_wiz.gif"
+               tooltip="%new.jca.project.description_ui_"
+               class="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProjectAction"
+               toolbarPath="J2EEMain4"
+               id="org.eclipse.jst.j2ee.jca.ui.internal.actions.NewConnectorProject">
+         </action>
+      </actionSet>
+	</extension>
 
 <!-- JCA Import Wizard --> 
     <extension
