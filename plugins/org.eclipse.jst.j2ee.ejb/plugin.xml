@@ -45,9 +45,9 @@
 <!-- EJB 1.1 Nature             -->
 <!--============================-->
 <!--============================-->
-<!-- EJB Project Nature Contributions                           -->
+<!-- EJB Project Nature Contributions - commented out for Flex project support - vkb  -->
 <!--============================-->
-   <extension
+   <!--<extension
          id="EJBNature"
          name="EJB Properties"
          point="org.eclipse.core.resources.natures">
@@ -56,7 +56,7 @@
                class="org.eclipse.jst.j2ee.internal.ejb.project.EJBNatureRuntime">
          </run>
       </runtime>
-   </extension>
+   </extension>-->
 <!-- Register the nature id with the AbstractJavaMOFNature -->
    <extension
          point="com.ibm.wtp.emf.workbench.nature_registration">
