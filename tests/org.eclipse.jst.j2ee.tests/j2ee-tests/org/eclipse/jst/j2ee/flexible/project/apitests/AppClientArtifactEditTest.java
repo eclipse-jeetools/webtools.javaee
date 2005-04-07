@@ -249,6 +249,8 @@ public class AppClientArtifactEditTest extends TestCase {
 
 
 	}
+	
+	///////////////////BUG//////////////
 
 	public void testGetApplicationClientXmiResource() {
 		StructureEdit moduleCore = null;
@@ -493,6 +495,8 @@ public class AppClientArtifactEditTest extends TestCase {
 		}
 		pass();
 	}
+	
+	////////////BUG////////////////
 
 	public void testGetContentModelRoot() {
 		AppClientArtifactEdit edit = null;
