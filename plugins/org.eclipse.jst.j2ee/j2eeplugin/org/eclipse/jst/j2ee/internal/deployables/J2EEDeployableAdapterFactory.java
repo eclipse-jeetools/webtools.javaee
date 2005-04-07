@@ -15,7 +15,7 @@ import org.eclipse.wst.server.core.IModuleArtifact;
 public class J2EEDeployableAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		IModuleArtifact moduleArtifact = null;
-		if (adapterType == IModuleArtifact.class ) {
+/*		if (adapterType == IModuleArtifact.class ) {
 			
 			if (moduleArtifact == null && Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact")) {
 				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.jst.j2ee.internal.web.deployables.WebModuleArtifact");
@@ -29,7 +29,7 @@ public class J2EEDeployableAdapterFactory implements IAdapterFactory {
 			if (moduleArtifact == null && Platform.getAdapterManager().hasAdapter(adaptableObject, "org.eclipse.wst.web.internal.deployables.IStaticWebModuleArtifact")) {
 				moduleArtifact = (IModuleArtifact) Platform.getAdapterManager().loadAdapter(adaptableObject, "org.eclipse.wst.web.internal.deployables.IStaticWebModuleArtifact");
 			}
-		}
+		}*/
 		return moduleArtifact;
 	}
 
