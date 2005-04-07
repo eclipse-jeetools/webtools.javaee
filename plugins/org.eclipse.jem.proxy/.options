@@ -1,7 +1,0 @@
-org.eclipse.jem.proxy/remote/debug/debugvm=false
-org.eclipse.jem.proxy/remote/debug/ioconsole=false
-org.eclipse.jem.proxy/remote/debug/vmtraceout=false
-org.eclipse.jem.proxy/remote/debug/notimeouts=false
-org.eclipse.jem.proxy/debug/logtrace=default
-org.eclipse.jem.proxy/debug/logtracefile=default
-org.eclipse.jem.proxy/debug/loglevel=default
