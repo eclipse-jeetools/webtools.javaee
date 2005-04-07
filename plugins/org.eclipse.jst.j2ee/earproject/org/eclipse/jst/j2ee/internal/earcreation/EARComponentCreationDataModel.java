@@ -84,6 +84,7 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 		addValidBaseProperty(DD_FOLDER);
 		addValidBaseProperty(J2EE_VERSION);
 		addValidBaseProperty(NESTED_MODEL_VALIDATION_HOOK);
+		addValidBaseProperty(UI_SHOW_EAR_SECTION);
 		addValidBaseProperty(J2EE_COMPONENT_LIST);
 	}
 	
