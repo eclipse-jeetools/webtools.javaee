@@ -57,7 +57,7 @@ public class AutomatedBVT extends TestSuite {
 
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for org.eclipse.jst.servlet.tests.bvt");
-        suite.addTest(AllTomcatTests.suite());
+        //suite.addTest(AllTomcatTests.suite());
         return suite;
     }
 }
