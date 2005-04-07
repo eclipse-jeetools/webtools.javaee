@@ -324,6 +324,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
+				edit.dispose();
 			}
 
 		}
