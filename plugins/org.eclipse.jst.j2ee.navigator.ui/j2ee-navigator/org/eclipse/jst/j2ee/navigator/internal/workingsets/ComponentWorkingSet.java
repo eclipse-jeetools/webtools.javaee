@@ -283,7 +283,8 @@ public class ComponentWorkingSet extends WorkingSet {
     }
     
     public void connect(IWorkingSetManager manager) {
-    	Assert.isTrue(this.manager == null, "A working set can only be connected to one manager"); //$NON-NLS-1$
+		// TODO Should be re-added. MDE
+    	// Assert.isTrue(this.manager == null, "A working set can only be connected to one manager"); //$NON-NLS-1$
     	this.manager= manager;
     }
     
