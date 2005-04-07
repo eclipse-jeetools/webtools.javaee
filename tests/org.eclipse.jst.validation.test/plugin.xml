@@ -155,7 +155,7 @@
             visible="false">
       </optest>
    </extension>
-   <extension
+   <!--<extension
          id="VALFWK02"
          name="VALFWK02"
          point="org.eclipse.jst.validation.test.opTest">
@@ -165,7 +165,7 @@
             project="opConstr"
             visible="false">
       </optest>
-   </extension>
+   </extension>-->
 <!--=============================================================-->
 <!--               Fwk Test Validator BVT tests                  -->
 <!-- None of these tests are visible on the Test Collector menu  -->
