@@ -51,27 +51,27 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
 		return new EARComponentCreationDataModel();
 	}
 
-	public void testAddToEAR() throws Exception {
-    	EARComponentCreationDataModel  dataModelEAR = new EARComponentCreationDataModel ();
-        dataModelEAR.setProperty(EARComponentCreationDataModel.PROJECT_NAME, "SimpleEAR");
-        EARProjectCreationOperationTest.runAndVerify(dataModelEAR);
-
-        J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
-        dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, "SimpleEJB");
-        dataModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
-        dataModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, "SimpleEAR");
-        runAndVerify(dataModel);
-    }
+//	public void testAddToEAR() throws Exception {
+//    	EARComponentCreationDataModel  dataModelEAR = new EARComponentCreationDataModel ();
+//        dataModelEAR.setProperty(EARComponentCreationDataModel.PROJECT_NAME, "SimpleEAR");
+//        EARProjectCreationOperationTest.runAndVerify(dataModelEAR);
+//
+//        J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
+//        dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, "SimpleEJB");
+//        dataModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, true);
+//        dataModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, "SimpleEAR");
+//        runAndVerify(dataModel);
+//    }
     
  
     
-    public void testNoAddToEAR() throws Exception {
-        J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
-        dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, "SimpleEJB");
-        dataModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
-        dataModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, "SimpleEAR");
-        runAndVerify(dataModel);
-    }
+//    public void testNoAddToEAR() throws Exception {
+//        J2EEComponentCreationDataModel dataModel = getComponentCreationDataModel();
+//        dataModel.setProperty(J2EEComponentCreationDataModel.PROJECT_NAME, "SimpleEJB");
+//        dataModel.setBooleanProperty(J2EEComponentCreationDataModel.ADD_TO_EAR, false);
+//        dataModel.setProperty(J2EEComponentCreationDataModel.EAR_MODULE_NAME, "SimpleEAR");
+//        runAndVerify(dataModel);
+//    }
 
     public void createSimpleFlexProject(String projectName) throws Exception {
         FlexibleProjectCreationDataModel dataModel = getFlexProjectDataModel();
