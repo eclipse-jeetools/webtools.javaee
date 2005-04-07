@@ -1,4 +1,4 @@
-package org.eclipse.wtp.j2ee.headless.tests.web;
+package org.eclipse.jst.j2ee.flexible.project.apitests;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
