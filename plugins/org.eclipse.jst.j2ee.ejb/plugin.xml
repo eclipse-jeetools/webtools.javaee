@@ -950,7 +950,7 @@
    	<extension
          point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
      	<ProviderDefinesType
-      		providerType="EJBComponentBuilder"
+      		providerType="jst.ejb.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>
