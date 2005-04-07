@@ -22,7 +22,7 @@ import org.eclipse.wst.ws.parser.wsil.WebServicesParser;
 import org.eclipse.wst.wsdl.Definition;
 import org.eclipse.wst.wsdl.Port;
 import org.eclipse.wst.wsdl.Service;
-import org.eclipse.wst.wsdl.util.WSDLResourceImpl;
+import org.eclipse.wst.wsdl.internal.util.WSDLResourceImpl;
 
 /**
  * @author cbridgha
