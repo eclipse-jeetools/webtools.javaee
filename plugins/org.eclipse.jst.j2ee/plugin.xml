@@ -734,13 +734,13 @@
             class="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"
             id="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
      	<ProviderDefinesType
-      		providerType="EARComponentBuilder"
+      		providerType="jst.ear.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 		<ProviderDefinesType
-      		providerType="AppClientComponentBuilder"
+      		providerType="jst.appclient.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 		<ProviderDefinesType
-      		providerType="JavaUtilityComponentBuilder"
+      		providerType="jst.utility.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>

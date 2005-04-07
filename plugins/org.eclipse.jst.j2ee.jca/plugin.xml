@@ -129,7 +129,7 @@
    <extension
          point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
      	<ProviderDefinesType
-      		providerType="ConnectorComponentBuilder"
+      		providerType="jst.connector.builder"
       		providerID="org.eclipse.jst.j2ee.internal.deployables.JavaComponentBuilderDataModelProvider"/>
 	</extension>
 </plugin>
