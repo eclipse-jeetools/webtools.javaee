@@ -105,9 +105,7 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		addValidBaseProperty(USE_ANNOTATIONS);
 		addValidBaseProperty(UI_SHOW_EAR_SECTION);
 		addValidBaseProperty(DD_FOLDER);
-		addValidBaseProperty(JAVASOURCE_FOLDER);
 		addValidBaseProperty(J2EE_VERSION);
-		addValidBaseProperty(MANIFEST_FOLDER);
 		addValidBaseProperty(NESTED_MODEL_VALIDATION_HOOK);
 	}
 
@@ -147,9 +145,10 @@ public abstract class J2EEComponentCreationDataModel extends JavaComponentCreati
 		if (propertyName.equals(EAR_MODULE_NAME)) {
 			earComponentHandle = computeEARHandle((String)propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
-			if (!isSet(EAR_MODULE_NAME)) 
+			if (isProperty(EAR_MODULE_NAME) && !isSet(EAR_MODULE_NAME)) {
 				notifyDefaultChange(EAR_MODULE_NAME);
 			    setEARDeployNameProperty(getStringProperty(EAR_MODULE_NAME));
+			}
 		} else if (propertyName.equals(PROJECT_NAME)) {
 			WorkbenchComponent workbenchComp = getTargetWorkbenchComponent();
 			setEARComponentIfJ2EEModuleCreationOnly(workbenchComp,propertyValue);

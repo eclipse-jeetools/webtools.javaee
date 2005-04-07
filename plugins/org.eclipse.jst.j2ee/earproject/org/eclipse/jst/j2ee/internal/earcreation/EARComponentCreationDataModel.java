@@ -69,7 +69,21 @@ public class EARComponentCreationDataModel extends J2EEComponentCreationDataMode
 	 * 
 	 */
 	protected void initValidBaseProperties() {
-		super.initValidBaseProperties();
+		//Not calling super... EAR is not need EAR properties
+		addValidBaseProperty(PROJECT_NAME);
+        addValidBaseProperty(COMPONENT_NAME);
+        addValidBaseProperty(COMPONENT_DEPLOY_NAME);
+        addValidBaseProperty(CREATE_DEFAULT_FILES);
+        addValidBaseProperty(IS_ENABLED);
+        addValidBaseProperty(FINAL_PERSPECTIVE);
+		addValidBaseProperty(COMPONENT_VERSION);
+		addValidBaseProperty(VALID_MODULE_VERSIONS_FOR_PROJECT_RUNTIME);
+		addValidBaseProperty(JAVASOURCE_FOLDER);
+		addValidBaseProperty(MANIFEST_FOLDER);
+		addValidBaseProperty(USE_ANNOTATIONS);
+		addValidBaseProperty(DD_FOLDER);
+		addValidBaseProperty(J2EE_VERSION);
+		addValidBaseProperty(NESTED_MODEL_VALIDATION_HOOK);
 		addValidBaseProperty(J2EE_COMPONENT_LIST);
 	}
 	
