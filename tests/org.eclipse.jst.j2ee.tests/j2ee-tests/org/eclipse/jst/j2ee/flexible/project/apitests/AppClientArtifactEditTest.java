@@ -88,15 +88,11 @@ public class AppClientArtifactEditTest extends TestCase {
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
 			String version = wbComponent.getComponentType().getVersion();
 			assertTrue(version.equals(TestWorkspace.APP_CLIENT_PROJECT_VERSION));
-			edit = AppClientArtifactEdit.getAppClientArtifactEditForRead(wbComponent);
-
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
-				edit.dispose();
 			}
-			assertTrue(edit != null);
-
+			
 		}
 	}
 
@@ -117,7 +113,6 @@ public class AppClientArtifactEditTest extends TestCase {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
 
 		}
 	}
@@ -137,14 +132,12 @@ public class AppClientArtifactEditTest extends TestCase {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
+		
 
 		}
 	}
 
-	/*
-	 * Class under test for EObject createModelRoot()
-	 */
+
 	public void testCreateModelRoot() {
 		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
@@ -160,14 +153,12 @@ public class AppClientArtifactEditTest extends TestCase {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
+		
 
 		}
 	}
 
-	/*
-	 * Class under test for EObject createModelRoot(int)
-	 */
+
 	public void testCreateModelRootint() {
 		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
@@ -183,14 +174,12 @@ public class AppClientArtifactEditTest extends TestCase {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
+		
 
 		}
 	}
 
-	/*
-	 * Class under test for void AppClientArtifactEdit(ComponentHandle, boolean)
-	 */
+
 	public void testAppClientArtifactEditComponentHandleboolean() {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
@@ -313,9 +302,6 @@ public class AppClientArtifactEditTest extends TestCase {
 		}
 	}
 
-	/*
-	 * Class under test for AppClientArtifactEdit getAppClientArtifactEditForRead(ComponentHandle)
-	 */
 	public void testGetAppClientArtifactEditForReadComponentHandle() {
 		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
@@ -335,9 +321,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		}
 	}
 
-	/*
-	 * Class under test for AppClientArtifactEdit getAppClientArtifactEditForWrite(ComponentHandle)
-	 */
+
 	public void testGetAppClientArtifactEditForWriteComponentHandle() {
 		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
@@ -356,10 +340,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		}
 	}
 
-	/*
-	 * Class under test for AppClientArtifactEdit
-	 * getAppClientArtifactEditForRead(WorkbenchComponent)
-	 */
+
 	public void testGetAppClientArtifactEditForReadWorkbenchComponent() {
 		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
@@ -379,10 +360,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		}
 	}
 
-	/*
-	 * Class under test for AppClientArtifactEdit
-	 * getAppClientArtifactEditForWrite(WorkbenchComponent)
-	 */
+
 	public void testGetAppClientArtifactEditForWriteWorkbenchComponent() {
 		StructureEdit moduleCore = null;
 		AppClientArtifactEdit edit = null;
@@ -390,13 +368,13 @@ public class AppClientArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(appClientProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(appClientModuleName);
 			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbComponent);
-
+			assertTrue(edit != null);
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
+		
 		}
 	}
 
@@ -407,11 +385,12 @@ public class AppClientArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(appClientProject);
 			wbComponent = moduleCore.findComponentByName(appClientModuleName);
 			ComponentHandle handle = ComponentHandle.create(appClientProject, wbComponent.getName());
+			assertTrue(AppClientArtifactEdit.isValidEditableModule(wbComponent));
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
 			}
-			assertTrue(AppClientArtifactEdit.isValidEditableModule(wbComponent));
+		
 		}
 	}
 
@@ -623,9 +602,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		pass();
 	}
 
-	/*
-	 * Class under test for void wait(long)
-	 */
+
 	public void testWaitlong() {
 		long x = 2;
 		try {
@@ -640,9 +617,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		pass();
 	}
 
-	/*
-	 * Class under test for void wait(long, int)
-	 */
+
 	public void testWaitlongint() {
 		int x = 2;
 		try {
@@ -657,9 +632,7 @@ public class AppClientArtifactEditTest extends TestCase {
 		pass();
 	}
 
-	/*
-	 * Class under test for void wait()
-	 */
+
 	public void testWait() {
 		try {
 			synchronized (getArtifactEditForRead()) {
