@@ -51,6 +51,7 @@
       <import plugin="org.eclipse.wst.sse.core"/>
       <import plugin="org.eclipse.wst.xml.core"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.jst.common.frameworks"/>
       
    </requires>
 <!-- ====================================================== -->
@@ -911,5 +912,11 @@
        </commonWizard>
    </extension>
     
+   <extension
+		point="org.eclipse.wst.common.frameworks.DataModelProviderExtension">
+		<DataModelProvider
+            class="org.eclipse.jst.j2ee.internal.earcreation.EarComponentCreationDataModelProvider"
+            id="org.eclipse.jst.j2ee.internal.earcreation.IEarComponentCreationDataModelProperties"/>
+	</extension>
 
 </plugin>
