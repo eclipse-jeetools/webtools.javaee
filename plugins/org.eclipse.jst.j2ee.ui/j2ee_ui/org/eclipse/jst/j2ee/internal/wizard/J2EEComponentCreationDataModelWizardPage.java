@@ -3,8 +3,11 @@ package org.eclipse.jst.j2ee.internal.wizard;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.IJ2EEProjectServerTargetDataModelProperties;
+import org.eclipse.jst.j2ee.internal.servertarget.IServerTargetConstants;
 import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
@@ -30,7 +33,6 @@ import org.eclipse.wst.common.componentcore.internal.operation.IComponentCreatio
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.ui.DataModelWizardPage;
-import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescriptor;
 import org.eclipse.wst.server.ui.ServerUIUtil;
 
 public abstract class J2EEComponentCreationDataModelWizardPage extends DataModelWizardPage {
@@ -43,7 +45,7 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 	protected boolean showAdvanced = false;
 	protected AdvancedSizeController advancedController;
 	protected boolean advancedControlsBuilt = false;
-	private ServerEarAndStandaloneGroup earGroup;
+	private ServerEarAndStandaloneDataModelGroup earGroup;
 
 	/**
 	 *  This type is responsible for setting the Shell size based on the showAdvanced flag. It will
@@ -137,7 +139,7 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 	}
 
 	protected void createServerEarAndStandaloneGroup(Composite parent) {
-		earGroup = new ServerEarAndStandaloneGroup(parent, model);
+		earGroup = new ServerEarAndStandaloneDataModelGroup(parent, model);
 	}
 
 	protected void validatePage() {
@@ -352,12 +354,21 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 		new Label(parent, SWT.NONE); //pad
 	}
 	
-	public static boolean launchNewRuntimeWizard(Shell shell, ServerTargetDataModel model) {
+	public static boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
 		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
-		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, model.computeTypeId(), model.computeVersionId());
+		int type = -1;
+		if (model.isPropertySet(IJ2EEProjectServerTargetDataModelProperties.DEPLOYMENT_TYPE_ID))
+			type = model.getIntProperty(IJ2EEProjectServerTargetDataModelProperties.DEPLOYMENT_TYPE_ID);
+		int version = -1;
+		if (model.isPropertySet(IJ2EEProjectServerTargetDataModelProperties.J2EE_VERSION_ID))
+			version = model.getIntProperty(IJ2EEProjectServerTargetDataModelProperties.J2EE_VERSION_ID);
+		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, 
+				computeTypeId(type), 
+				computeVersionId(version));
 		if (isOK && model != null) {
-			model.notifyValidValuesChange(ServerTargetDataModel.RUNTIME_TARGET_ID);
-			WTPPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(ServerTargetDataModel.RUNTIME_TARGET_ID);
+			model.notifyPropertyChange(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID,
+					IDataModel.VALID_VALUES_CHG);
+			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID);
 			Object[] preAddition = new Object[preAdditionDescriptors.length];
 			for (int i = 0; i < preAddition.length; i++) {
 				preAddition[i] = preAdditionDescriptors[i].getPropertyValue();
@@ -371,6 +382,33 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 				model.setProperty(ServerTargetDataModel.RUNTIME_TARGET_ID, newAddition);
 		}
 		return isOK;
+	}
+	private static String computeTypeId(int deploymentDescriptorType) {
+		switch (deploymentDescriptorType) {
+			case XMLResource.APPLICATION_TYPE :
+				return IServerTargetConstants.EAR_TYPE;
+			case XMLResource.APP_CLIENT_TYPE :
+				return IServerTargetConstants.APP_CLIENT_TYPE;
+			case XMLResource.EJB_TYPE :
+				return IServerTargetConstants.EJB_TYPE;
+			case XMLResource.WEB_APP_TYPE :
+				return IServerTargetConstants.WEB_TYPE;
+			case XMLResource.RAR_TYPE :
+				return IServerTargetConstants.CONNECTOR_TYPE;
+		}
+		return null;
+	}
+
+	private static String computeVersionId(int version) {
+		switch (version) {
+			case J2EEVersionConstants.J2EE_1_2_ID :
+				return IServerTargetConstants.J2EE_12;
+			case J2EEVersionConstants.J2EE_1_3_ID :
+				return IServerTargetConstants.J2EE_13;
+			case J2EEVersionConstants.J2EE_1_4_ID :
+				return IServerTargetConstants.J2EE_14;
+		}
+		return null;
 	}
 
 }

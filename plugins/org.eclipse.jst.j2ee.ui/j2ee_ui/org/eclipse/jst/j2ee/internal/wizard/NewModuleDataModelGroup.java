@@ -179,7 +179,7 @@ public class NewModuleDataModelGroup {
 		flexibleModel.addNestedModel(IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_PROJECT_CREATION, javaProjModel);
 		flexibleModel.addNestedModel(IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_SERVER_TARGET, serverTargetModel);
 //		FlexibleJavaProjectCreationDataModel projModel = new FlexibleJavaProjectCreationDataModel();
-		FlexibleProjectCreationWizard newProjectWizard = new FlexibleProjectCreationWizard(flexibleModel);
+		FlexibleProjectCreationDataModelWizard newProjectWizard = new FlexibleProjectCreationDataModelWizard(flexibleModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), newProjectWizard);
 		if (Window.OK == dialog.open()) {
 			String newProjectName = javaProjModel.getStringProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME);

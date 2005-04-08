@@ -58,7 +58,7 @@ public class EARComponentCreationDataModelWizard extends DataModelWizard impleme
 	 * </p>
 	 */
 	protected void doAddPages() {
-		EARComponentCreationWizardPage page1 = new EARComponentCreationWizardPage(getDataModel(), MAIN_PG);
+		EARComponentCreationDataModelWizardPage page1 = new EARComponentCreationDataModelWizardPage(getDataModel(), MAIN_PG);
 //		page.setInfopopID("org.eclipse.jst.j2ee.ui.webw1000"); //$NON-NLS-1$
 		addPage(page1);
 		EARComponentCreationSecondWizardPage page2 = new EARComponentCreationSecondWizardPage(getDataModel(), SECOND_PG);
