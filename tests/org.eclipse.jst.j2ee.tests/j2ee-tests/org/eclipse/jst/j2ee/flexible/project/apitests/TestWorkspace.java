@@ -26,6 +26,14 @@ import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 
 public class TestWorkspace {
+	
+	
+	public static final String EAR_PROJECT_NAME = "EARArtifactEditTest"; //$NON-NLS-1$
+	public static final String EAR_MODULE_NAME = "EARArtifactModule";//$NON-NLS-1$
+	public static final String EAR_PROJECT_VERSION = "2.1"; //$NON-NLS-1$
+	public static final String EAR_DD_RESOURCE_URI = "platform:/resource//EARArtifactEditTest/EARArtifactModule/ejbModule/META-INF/ejb-jar.xml";//$NON-NLS-1$
+	public static final String EAR_DD_XMI_RESOURCE_URI = "platform:/resource//EARArtifactEditTest/EARArtifactModule/ejbModule/META-INF/ejb-jar.xmi";//$NON-NLS-1$
+	public static final URI EAR_MODULE_URI = URI.createURI("module:/resource/EARArtifactEditTest/EARArtifactModule");
 
 	public static final String APP_CLIENT_PROJECT_NAME = "ApplicationClientArtifactEditTest"; //$NON-NLS-1$
 	public static final String APP_CLIENT_MODULE_NAME = "ApplicationClientModule"; //$NON-NLS-1$
@@ -37,9 +45,9 @@ public class TestWorkspace {
 	public static final String EJB_PROJECT_NAME = "EJBArtifactEditTest"; //$NON-NLS-1$
 	public static final String EJB_MODULE_NAME = "EJBArtifactEditModule";//$NON-NLS-1$
 	public static final String EJB_PROJECT_VERSION = "2.1"; //$NON-NLS-1$
-	public static final String EJB_DD_RESOURCE_URI = "platform:/resource/EJBArtifactEditModule/EJBArtifactEditModule/ejbModule/META-INF/ejb-jar.xml";//$NON-NLS-1$
-	public static final String EJB_DD_XMI_RESOURCE_URI = "platform:/resource/EJBArtifactEditModule/EJBArtifactEditModule/ejbModule/META-INF/ejb-jar.xmi";//$NON-NLS-1$
-	public static final URI EJB_MODULE_URI = URI.createURI("module:/resource/EJBArtifactEditTest/EJBArtifactEditModule");
+	public static final String EJB_DD_RESOURCE_URI = "platform:/resource/EARArtifactEditTest/EARArtifactModule/META-INF/application.xml";//$NON-NLS-1$
+	public static final String EJB_DD_XMI_RESOURCE_URI = "platform:/resource/EARArtifactEditTest/EARArtifactModule/META-INF/application.xmi";//$NON-NLS-1$
+	public static final URI EJB_MODULE_URI = URI.createURI("module:/resource/EARArtifactEditTest/EARArtifactModule");
 	
 	public static final String WEB_PROJECT_NAME = "WebArtifactEditTest"; //$NON-NLS-1$
 	public static final String WEB_MODULE_NAME = "WebArtifactEditModule"; //$NON-NLS-1$
@@ -49,6 +57,13 @@ public class TestWorkspace {
 	public static final URI WEB_MODULE_URI = URI.createURI("module:/resource/WebArtifactEditTest/WebArtifactEditModule");
 	public static final String WEB_SERVER_CONTEXT_ROOT= "WebContent";
 	
+	public static final String JCA_PROJECT_NAME = "JCAArtifactEditTest"; //$NON-NLS-1$
+	public static final String JCA_MODULE_NAME = "JCAArtifactEditModule";//$NON-NLS-1$
+	public static final String JCA_PROJECT_VERSION = "2.1"; //$NON-NLS-1$
+	public static final String JCA_DD_RESOURCE_URI = "platform:/resource/JCAArtifactEditTest/JCAArtifactEditTestModule/connectorModule/META-INF/ra.xml";//$NON-NLS-1$
+	public static final URI JCA_MODULE_URI = URI.createURI("module:/resource/JCAArtifactEditTest/JCAArtifactEditModule");
+	
+
 	private static Path zipFilePath = new Path("\\TestData\\GenralArtifactTest\\J2EEArtifactEditTestProjects.zip");
 	private static String[] projectNames = new String[]{APP_CLIENT_PROJECT_NAME, EJB_PROJECT_NAME, WEB_PROJECT_NAME};
 	private boolean isValidWorkspace;
