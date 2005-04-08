@@ -33,7 +33,7 @@ import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHan
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
-import org.eclipse.wst.common.navigator.views.CommonViewer;
+import org.eclipse.wst.common.navigator.internal.provisional.views.CommonViewer;
 
 /**
  * <p>

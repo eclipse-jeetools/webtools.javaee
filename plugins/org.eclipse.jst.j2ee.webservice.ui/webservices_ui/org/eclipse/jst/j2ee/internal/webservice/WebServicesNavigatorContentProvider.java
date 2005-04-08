@@ -39,7 +39,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
-import org.eclipse.wst.common.navigator.views.INavigatorContentProvider;
+import org.eclipse.wst.common.navigator.internal.provisional.views.INavigatorContentProvider;
 
 /**
  * @author jlanuti
