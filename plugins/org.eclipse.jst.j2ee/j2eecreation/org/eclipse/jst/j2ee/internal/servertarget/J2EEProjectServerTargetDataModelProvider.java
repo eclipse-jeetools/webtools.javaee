@@ -23,7 +23,7 @@ public class J2EEProjectServerTargetDataModelProvider extends AbstractDataModelP
 	private static final String DEFAULT_TARGET_ID = "org.eclipse.jst.server.core.runtimeType"; //$NON-NLS-1$
 
 	public IDataModelOperation getDefaultOperation() {
-		return new J2EEProjectServerTargetOperation(model);
+		return new J2EEProjectServerTargetOp(model);
 	}
     
 	public String[] getPropertyNames() {
