@@ -3,9 +3,13 @@ package org.eclipse.jst.j2ee.flexible.project.apitests;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
+import org.eclipse.wst.common.componentcore.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.StructureEdit;
+import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
+import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 import junit.framework.TestCase;
 
@@ -48,7 +52,7 @@ public class WebArtifactEditTest extends TestCase {
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
-			assertTrue(uri.equals(TestWorkspace.EJB_DD_RESOURCE_URI));
+			assertTrue(uri.equals(TestWorkspace.WEB_DD_RESOURCE_URI));
 
 		} finally {
 			if (moduleCore != null) {
@@ -159,12 +163,43 @@ public class WebArtifactEditTest extends TestCase {
 	 * Class under test for WebArtifactEdit getWebArtifactEditForRead(ComponentHandle)
 	 */
 	public void testGetWebArtifactEditForReadComponentHandle() {
+		StructureEdit moduleCore = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForRead(webProject);
+			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
+			ComponentHandle handle = ComponentHandle.create(webProject, wbComponent.getName());
+			edit = WebArtifactEdit.getWebArtifactEditForRead(handle);
+			assertTrue(edit != null);
+
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+
+		}
 	}
 
 	/*
 	 * Class under test for ArtifactEdit getWebArtifactEditForWrite(ComponentHandle)
 	 */
 	public void testGetWebArtifactEditForWriteComponentHandle() {
+		StructureEdit moduleCore = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
+			ComponentHandle handle = ComponentHandle.create(webProject, wbComponent.getName());
+			edit = WebArtifactEdit.getWebArtifactEditForWrite(handle);
+
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+			assertTrue(edit != null);
+		}
 	}
 
 	/*
@@ -177,24 +212,85 @@ public class WebArtifactEditTest extends TestCase {
 	 * Class under test for WebArtifactEdit getWebArtifactEditForWrite(WorkbenchComponent)
 	 */
 	public void testGetWebArtifactEditForWriteWorkbenchComponent() {
+		StructureEdit moduleCore = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForRead(webProject);
+			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			assertTrue(edit != null);
+
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+
+
+		}
 	}
 
 	public void testIsValidWebModule() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			ComponentHandle handle = ComponentHandle.create(webProject, wbComponent.getName());
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+			}
+			assertTrue(WebArtifactEdit.isValidEditableModule(wbComponent));
+		}
 	}
 
 	/*
 	 * Class under test for void WebArtifactEdit(ArtifactEditModel)
 	 */
 	public void testWebArtifactEditArtifactEditModel() {
+		WebArtifactEdit edit = new WebArtifactEdit(getArtifactEditModelforRead());
+		assertNotNull(edit);
+		edit.dispose();
 	}
 
 	/*
 	 * Class under test for void WebArtifactEdit(ModuleCoreNature, WorkbenchComponent, boolean)
 	 */
 	public void testWebArtifactEditModuleCoreNatureWorkbenchComponentboolean() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			ModuleCoreNature nature = null;
+			nature = moduleCore.getModuleCoreNature(TestWorkspace.WEB_MODULE_URI);
+			edit = new WebArtifactEdit(nature, wbComponent, true);
+			assertNotNull(edit);
+		} catch (UnresolveableURIException e) {
+			fail();
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+		}
 	}
 
 	public void testGetServletVersion() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			ComponentHandle handle = ComponentHandle.create(webProject, wbComponent.getName());
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+			}
+			assertTrue(WebArtifactEdit.isValidEditableModule(wbComponent));
+		}
 	}
 
 	public void testAddWebAppIfNecessary() {
@@ -216,6 +312,15 @@ public class WebArtifactEditTest extends TestCase {
 	}
 
 	public void testSetServerContextRoot() {
+	}
+
+	public ArtifactEditModel getArtifactEditModelforRead() {
+		EMFWorkbenchContext context = new EMFWorkbenchContext(webProject);
+		return new ArtifactEditModel(this.toString(), context, true, TestWorkspace.APP_CLIENT_MODULE_URI);
+	}
+
+	public WebArtifactEdit getArtifactEditForRead() {
+		return new WebArtifactEdit(getArtifactEditModelforRead());
 	}
 
 }

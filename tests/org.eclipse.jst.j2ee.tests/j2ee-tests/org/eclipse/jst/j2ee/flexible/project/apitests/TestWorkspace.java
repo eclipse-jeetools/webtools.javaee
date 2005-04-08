@@ -43,7 +43,7 @@ public class TestWorkspace {
 	
 	public static final String WEB_PROJECT_NAME = "WebArtifactEditTest"; //$NON-NLS-1$
 	public static final String WEB_MODULE_NAME = "WebArtifactEditModule"; //$NON-NLS-1$
-	public static final String WEB_PROJECT_VERSION = "1.4";//$NON-NLS-1$
+	public static final String WEB_PROJECT_VERSION = "2.4";//$NON-NLS-1$
 	public static final String WEB_DD_RESOURCE_URI = "platform:/resource/WebArtifactEditModule/WebArtifactEditModule/WebContent/WEB-INF/web.xml";//$NON-NLS-1$
 	public static final String WEB_DD_XMI_RESOURCE_URI = "platform:/resource/WebArtifactEditModule/WebArtifactEditModule/WebContent/WEB-INF/web.xmi";//$NON-NLS-1$
 	public static final URI WEB_MODULE_URI = URI.createURI("module:/resource/WebArtifactEditTest/WebArtifactEditModule");
