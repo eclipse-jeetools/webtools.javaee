@@ -29,24 +29,24 @@ public class TestWorkspace {
 
 	public static final String APP_CLIENT_PROJECT_NAME = "ApplicationClientArtifactEditTest"; //$NON-NLS-1$
 	public static final String APP_CLIENT_MODULE_NAME = "ApplicationClientModule"; //$NON-NLS-1$
-	public static final String APP_CLIENT_PROJECT_VERSION = "1.4";
-	public static final String APP_CLIENT_DD_RESOURCE_URI = "platform:/resource/ApplicationClientModule/ApplicationClientModule/appClientModule/META-INF/application-client.xml";
-	public static final String APP_CLIENT_DD_XMI_RESOURCE_URI = "platform:/resource/ApplicationClientModule/ApplicationClientModule/appClientModule/META-INF/application-client.xmi";
-	public static final URI APP_CLIENT_MODULE_URI = URI.createURI("module:/resource/ApplicationClientArtifactEditTest/ApplicationClientModule");
+	public static final String APP_CLIENT_PROJECT_VERSION = "1.4";//$NON-NLS-1$
+	public static final String APP_CLIENT_DD_RESOURCE_URI = "platform:/resource/ApplicationClientModule/ApplicationClientModule/appClientModule/META-INF/application-client.xml";//$NON-NLS-1$
+	public static final String APP_CLIENT_DD_XMI_RESOURCE_URI = "platform:/resource/ApplicationClientModule/ApplicationClientModule/appClientModule/META-INF/application-client.xmi";//$NON-NLS-1$
+	public static final URI APP_CLIENT_MODULE_URI = URI.createURI("module:/resource/ApplicationClientArtifactEditTest/ApplicationClientModule");//$NON-NLS-1$
 	
 	public static final String EJB_PROJECT_NAME = "EJBArtifactEditTest"; //$NON-NLS-1$
 	public static final String EJB_MODULE_NAME = "EJBArtifactEditModule";//$NON-NLS-1$
-	public static final String EJB_PROJECT_VERSION = "2.1";
-	public static final String EJB_DD_RESOURCE_URI = "platform:/resource/EJBArtifactEditModule/EJBArtifactEditModule/ejbModule/META-INF/ejb-jar.xml";
-	public static final String EJB_DD_XMI_RESOURCE_URI = "platform:/resource/EJBArtifactEditModule/EJBArtifactEditModule/ejbModule/META-INF/ejb-jar.xmi";
+	public static final String EJB_PROJECT_VERSION = "2.1"; //$NON-NLS-1$
+	public static final String EJB_DD_RESOURCE_URI = "platform:/resource/EJBArtifactEditModule/EJBArtifactEditModule/ejbModule/META-INF/ejb-jar.xml";//$NON-NLS-1$
+	public static final String EJB_DD_XMI_RESOURCE_URI = "platform:/resource/EJBArtifactEditModule/EJBArtifactEditModule/ejbModule/META-INF/ejb-jar.xmi";//$NON-NLS-1$
 	public static final URI EJB_MODULE_URI = URI.createURI("module:/resource/EJBArtifactEditTest/EJBArtifactEditModule");
 	
 	public static final String WEB_PROJECT_NAME = "WebArtifactEditTest"; //$NON-NLS-1$
 	public static final String WEB_MODULE_NAME = "WebArtifactEditModule"; //$NON-NLS-1$
-	public static final String WEB_PROJECT_VERSION = "1.4";
-	public static final String WEB_DD_RESOURCE_URI = "platform:/resource/ApplicationClientModule/ApplicationClientModule/appClientModule/META-INF/application-client.xml";
-	public static final String WEB_DD_XMI_RESOURCE_URI = "platform:/resource/ApplicationClientModule/ApplicationClientModule/appClientModule/META-INF/application-client.xmi";
-	public static final URI WEB_MODULE_URI = URI.createURI("module:/resource/ApplicationClientArtifactEditTest/ApplicationClientModule");
+	public static final String WEB_PROJECT_VERSION = "1.4";//$NON-NLS-1$
+	public static final String WEB_DD_RESOURCE_URI = "platform:/resource/WebArtifactEditModule/WebArtifactEditModule/WebContent/WEB-INF/web.xml";//$NON-NLS-1$
+	public static final String WEB_DD_XMI_RESOURCE_URI = "platform:/resource/WebArtifactEditModule/WebArtifactEditModule/WebContent/WEB-INF/web.xmi";//$NON-NLS-1$
+	public static final URI WEB_MODULE_URI = URI.createURI("module:/resource/WebArtifactEditTest/WebArtifactEditModule");
 	
 	private static Path zipFilePath = new Path("\\TestData\\GenralArtifactTest\\J2EEArtifactEditTestProjects.zip");
 	private static String[] projectNames = new String[]{APP_CLIENT_PROJECT_NAME, EJB_PROJECT_NAME, WEB_PROJECT_NAME};
