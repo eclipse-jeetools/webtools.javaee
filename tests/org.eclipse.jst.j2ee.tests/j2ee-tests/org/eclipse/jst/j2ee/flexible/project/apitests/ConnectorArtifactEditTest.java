@@ -61,7 +61,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
+
 
 		}
 	}
@@ -81,7 +81,7 @@ public class ConnectorArtifactEditTest extends TestCase {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
+
 
 		}
 	}
@@ -102,7 +102,6 @@ public class ConnectorArtifactEditTest extends TestCase {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
 
 		}
 	}
@@ -224,13 +223,13 @@ public class ConnectorArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
 			edit = ConnectorArtifactEdit.getConnectorArtifactEditForWrite(wbComponent);
-
+			assertTrue(edit != null);
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
 				edit.dispose();
 			}
-			assertTrue(edit != null);
+
 		}
 	}
 
@@ -241,11 +240,12 @@ public class ConnectorArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(jcaProject);
 			wbComponent = moduleCore.findComponentByName(jcaModuleName);
 			ComponentHandle handle = ComponentHandle.create(jcaProject, wbComponent.getName());
+			assertTrue(ConnectorArtifactEdit.isValidEditableModule(wbComponent));
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
 			}
-			assertTrue(ConnectorArtifactEdit.isValidEditableModule(wbComponent));
+
 		}
 	}
 
