@@ -73,8 +73,8 @@ import org.eclipse.jst.j2ee.model.internal.validation.InvalidInputException;
 import org.eclipse.jst.j2ee.model.internal.validation.MessageUtility;
 import org.eclipse.jst.j2ee.model.internal.validation.ValidationRuleUtility;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.validation.core.IReporter;
 import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 
 /**
  * Load the EJB MOF model and return resources for the EJB Validator.
