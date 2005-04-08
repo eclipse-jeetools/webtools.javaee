@@ -27,7 +27,6 @@ import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 public class TestWorkspace {
 
-
 	public static final String EAR_PROJECT_NAME = "EARArtifactEditTest"; //$NON-NLS-1$
 	public static final String EAR_MODULE_NAME = "EARArtifactModule";//$NON-NLS-1$
 	public static final String EAR_PROJECT_VERSION = "1.4"; //$NON-NLS-1$
