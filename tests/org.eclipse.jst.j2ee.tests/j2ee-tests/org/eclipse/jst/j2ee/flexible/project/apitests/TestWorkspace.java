@@ -57,9 +57,9 @@ public class TestWorkspace {
 	public static final String WEB_SERVER_CONTEXT_ROOT = "WebContent";
 
 	public static final String JCA_PROJECT_NAME = "JCAArtifactEditTest"; //$NON-NLS-1$
-	public static final String JCA_MODULE_NAME = "JCAArtifactEditModule";//$NON-NLS-1$
-	public static final String JCA_PROJECT_VERSION = "2.1"; //$NON-NLS-1$
-	public static final String JCA_DD_RESOURCE_URI = "platform:/resource/JCAArtifactEditTest/JCAArtifactEditTestModule/connectorModule/META-INF/ra.xml";//$NON-NLS-1$
+	public static final String JCA_MODULE_NAME = "JCAArtifactEditTestModule";//$NON-NLS-1$
+	public static final String JCA_PROJECT_VERSION = "1.5"; //$NON-NLS-1$
+	public static final String JCA_DD_RESOURCE_URI = "platform:/resource/JCAArtifactEditTestModule/JCAArtifactEditTestModule/connectorModule/META-INF/ra.xml";//$NON-NLS-1$                                           
 	public static final URI JCA_MODULE_URI = URI.createURI("module:/resource/JCAArtifactEditTest/JCAArtifactEditModule");
 
 
