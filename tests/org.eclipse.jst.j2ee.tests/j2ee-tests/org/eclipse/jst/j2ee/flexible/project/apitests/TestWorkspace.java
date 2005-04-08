@@ -47,6 +47,7 @@ public class TestWorkspace {
 	public static final String WEB_DD_RESOURCE_URI = "platform:/resource/WebArtifactEditModule/WebArtifactEditModule/WebContent/WEB-INF/web.xml";//$NON-NLS-1$
 	public static final String WEB_DD_XMI_RESOURCE_URI = "platform:/resource/WebArtifactEditModule/WebArtifactEditModule/WebContent/WEB-INF/web.xmi";//$NON-NLS-1$
 	public static final URI WEB_MODULE_URI = URI.createURI("module:/resource/WebArtifactEditTest/WebArtifactEditModule");
+	public static final String WEB_SERVER_CONTEXT_ROOT= "WebContent";
 	
 	private static Path zipFilePath = new Path("\\TestData\\GenralArtifactTest\\J2EEArtifactEditTestProjects.zip");
 	private static String[] projectNames = new String[]{APP_CLIENT_PROJECT_NAME, EJB_PROJECT_NAME, WEB_PROJECT_NAME};

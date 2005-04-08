@@ -65,8 +65,8 @@ public class EJBArtifactEditTest extends TestCase {
 
 		}
 	}
-	
-///////BUG in PlatformURL\\\\\\\\\\\
+
+	// /////BUG in PlatformURL\\\\\\\\\\\
 
 	public void testGetDeploymentDescriptorRoot() {
 		StructureEdit moduleCore = null;
@@ -75,9 +75,10 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-		///////BUG in PlatformURL\\\\\\\\\\\turning test off////
-			/*	EObject object = edit.getDeploymentDescriptorRoot();
-			assertNotNull(object);*/
+			// /////BUG in PlatformURL\\\\\\\\\\\turning test off////
+			/*
+			 * EObject object = edit.getDeploymentDescriptorRoot(); assertNotNull(object);
+			 */
 
 		} finally {
 			if (moduleCore != null) {
@@ -88,8 +89,8 @@ public class EJBArtifactEditTest extends TestCase {
 
 		}
 	}
-	
-	///////////////BUG in PlatformURL\\\\\\\\\\\
+
+	// /////////////BUG in PlatformURL\\\\\\\\\\\
 
 
 	public void testCreateModelRoot() {
@@ -99,9 +100,10 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(wbComponent);
-			//////BUG turning off\\\\\\\\\\\\\
-			/*EObject object = edit.createModelRoot();
-			assertNotNull(object);*/
+			// ////BUG turning off\\\\\\\\\\\\\
+			/*
+			 * EObject object = edit.createModelRoot(); assertNotNull(object);
+			 */
 
 		} finally {
 			if (moduleCore != null) {
@@ -116,17 +118,18 @@ public class EJBArtifactEditTest extends TestCase {
 	/*
 	 * Class under test for EObject createModelRoot(int)
 	 */
-	/////////////////BUG in PlatformURLModuleConnection
+	// ///////////////BUG in PlatformURLModuleConnection
 	public void testCreateModelRootint() {
 		StructureEdit moduleCore = null;
 		EJBArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
-			/////////BUG in PlatformURLModuleConnection
+			// ///////BUG in PlatformURLModuleConnection
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			/*EObject object = edit.createModelRoot(14);
-			assertNotNull(object);*/
+			/*
+			 * EObject object = edit.createModelRoot(14); assertNotNull(object);
+			 */
 
 		} finally {
 			if (moduleCore != null) {
@@ -205,7 +208,7 @@ public class EJBArtifactEditTest extends TestCase {
 			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
 
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
-			//assertTrue(uri.equals(TestWorkspace.EJB_DD_XMI_RESOURCE_URI));
+			// assertTrue(uri.equals(TestWorkspace.EJB_DD_XMI_RESOURCE_URI));
 
 		} finally {
 			if (moduleCore != null) {
@@ -215,8 +218,8 @@ public class EJBArtifactEditTest extends TestCase {
 			assertTrue(edit != null);
 		}
 	}
-	
-	////////////////Bug turning test off\\\\\\\\\\\
+
+	// //////////////Bug turning test off\\\\\\\\\\\
 
 	public void testHasEJBClientJARProject() {
 		StructureEdit moduleCore = null;
@@ -225,9 +228,9 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			boolean bool = edit.hasEJBClientJARProject(ejbProject);
-         ///////BUG\\\\\\\\\\\
-		//	assertEquals(bool, true);
+			// /////BUG\\\\\\\\\\\
+			// boolean bool = edit.hasEJBClientJARProject(ejbProject);
+			// assertEquals(bool, true);
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -253,8 +256,8 @@ public class EJBArtifactEditTest extends TestCase {
 			}
 		}
 	}
-	
-	///////////////////bug\\\\\\\\\\\\\
+
+	// /////////////////bug\\\\\\\\\\\\\
 
 	public void testGetEJBClientJarModule() {
 		StructureEdit moduleCore = null;
@@ -263,9 +266,9 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			///////////bug\\\\\\\\
-			//WorkbenchComponent comp = edit.getEJBClientJarModule(ejbProject);
-			//assertNotNull(comp);
+			// /////////bug\\\\\\\\
+			// WorkbenchComponent comp = edit.getEJBClientJarModule(ejbProject);
+			// assertNotNull(comp);
 
 		} finally {
 			if (moduleCore != null) {
@@ -424,7 +427,7 @@ public class EJBArtifactEditTest extends TestCase {
 	public EJBArtifactEdit getArtifactEditForRead() {
 		return new EJBArtifactEdit(getArtifactEditModelforRead());
 	}
-	
+
 	public void pass() {
 		assertTrue(true);
 	}

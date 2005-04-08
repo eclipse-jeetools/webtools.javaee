@@ -1,5 +1,7 @@
 package org.eclipse.jst.j2ee.flexible.project.apitests;
 
+import junit.framework.TestCase;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.ejb.modulecore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
@@ -11,12 +13,11 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
-import junit.framework.TestCase;
-
 public class WebArtifactEditTest extends TestCase {
 
 	private IProject webProject;
 	private String webModuleName;
+	private String serverContextData = TestWorkspace.WEB_SERVER_CONTEXT_ROOT + "Test";
 
 	public WebArtifactEditTest() {
 		super();
@@ -281,15 +282,17 @@ public class WebArtifactEditTest extends TestCase {
 	public void testGetServletVersion() {
 		StructureEdit moduleCore = null;
 		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
 		try {
 			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
 			wbComponent = moduleCore.findComponentByName(webModuleName);
-			ComponentHandle handle = ComponentHandle.create(webProject, wbComponent.getName());
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			assertTrue(edit.getServletVersion() == 24);
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
+				edit.dispose();
 			}
-			assertTrue(WebArtifactEdit.isValidEditableModule(wbComponent));
 		}
 	}
 
@@ -297,21 +300,122 @@ public class WebArtifactEditTest extends TestCase {
 	}
 
 	public void testGetJSPVersion() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			assertTrue(edit.getJSPVersion() == 20);
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+		}
 	}
 
 	public void testGetDeploymentDescriptorPath() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			edit.getDeploymentDescriptorPath();
+			assertNotNull(edit.getDeploymentDescriptorPath());
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+		}
 	}
 
 	public void testGetLibModules() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			// //bug module in editmodel never initialized\\\\
+			// assertNotNull(edit.getLibModules());
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+		}
 	}
+	
+	//////////////Bug\\\\\\\\\\\\\\\\\\\\\\\
 
 	public void testAddLibModules() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			/////////////////bug\\\\\\\ owner---WebArtifactEdit -> referenceComponents() != null
+			//needs to insure owner 
+/*			ReferencedComponent refComp = ComponentcoreFactoryImpl.eINSTANCE.createReferencedComponent();
+			edit.addLibModules(new ReferencedComponent[]{refComp});
+			assertTrue(edit.getLibModules().length > 0);*/
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+		}
 	}
 
 	public void testGetServerContextRoot() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			// /////////////////////BUG/////////////////////
+			// //edit.getServerContextRoot();
+			// assertTrue(edit.getServerContextRoot().equals(TestWorkspace.WEB_SERVER_CONTEXT_ROOT));
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+		}
 	}
 
+	// ////////////////BUG////////////////////////////////
+
 	public void testSetServerContextRoot() {
+		StructureEdit moduleCore = null;
+		WorkbenchComponent wbComponent = null;
+		WebArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
+			wbComponent = moduleCore.findComponentByName(webModuleName);
+			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			// /////////////////////BUG/////////////////////
+			// //edit.getServerContextRoot();
+			//edit.setServerContextRoot(serverContextData);
+			//String testData = edit.getServerContextRoot();
+			//assertTrue(testData.equals(serverContextData));
+
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+		}
 	}
 
 	public ArtifactEditModel getArtifactEditModelforRead() {
