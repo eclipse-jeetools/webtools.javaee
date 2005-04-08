@@ -18,11 +18,11 @@ import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IValidationContext;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 
 
 /**
@@ -102,7 +102,7 @@ public class UIWarValidator extends WarValidator {
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.core.ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.internal.provisional.core.ValidationException {
 		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
         WorkbenchComponent[] workBenchModules = null; 

@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.model.internal.validation;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 
 
 public interface IValidationRule {

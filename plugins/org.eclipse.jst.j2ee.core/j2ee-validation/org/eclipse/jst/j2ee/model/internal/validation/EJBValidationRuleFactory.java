@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.validation.core.IFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 
 /**
  * Core EJB Validation rules

@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.ejb.impl.LocalModelledPersistentAttributeFilter;
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 
 
 /**

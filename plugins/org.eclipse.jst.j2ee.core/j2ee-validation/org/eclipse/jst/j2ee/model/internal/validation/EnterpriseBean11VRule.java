@@ -39,9 +39,9 @@ import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.internal.common.CommonPackage;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.MessageLimitException;
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 
 /**
  * This class checks ejb-jar.xml for errors or potential errors.

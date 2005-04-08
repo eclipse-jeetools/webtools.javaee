@@ -21,9 +21,9 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorEditModel;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorNatureRuntime;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
-import org.eclipse.wst.validation.core.IValidationContext;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 
 
 /**
@@ -43,7 +43,7 @@ public class UIConnectorValidator extends ConnectorValidator {
 	/**
 	 * Does the validation.
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter, org.eclipse.wst.validation.core.IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter, org.eclipse.wst.validation.internal.provisional.core.IFileDelta[] changedFiles) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		ConnectorHelper helper = (ConnectorHelper) inHelper;
 		ConnectorEditModel editModel = getConnectorEditModel(helper.getProject());

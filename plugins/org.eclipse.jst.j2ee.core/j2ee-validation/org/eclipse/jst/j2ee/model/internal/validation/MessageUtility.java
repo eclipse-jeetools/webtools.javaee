@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.MethodElement;
 import org.eclipse.jst.j2ee.ejb.MethodPermission;
 import org.eclipse.jst.j2ee.ejb.MethodTransaction;
-import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 
 

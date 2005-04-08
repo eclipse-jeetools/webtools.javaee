@@ -62,13 +62,13 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IValidationContext;
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.MessageLimitException;
-import org.eclipse.wst.validation.core.ValidationException;
 import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
 
 

@@ -16,8 +16,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.internal.adapters.jdom.JDOMAdaptor;
 import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
-import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.internal.operations.IResourceUtil;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 
 public class ResourceUtil implements IResourceUtil {

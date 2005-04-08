@@ -18,11 +18,11 @@ package org.eclipse.jst.j2ee.model.internal.validation;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.jca.Connector;
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IValidationContext;
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
 
 
