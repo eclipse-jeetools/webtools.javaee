@@ -8,9 +8,9 @@ import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreat
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.internal.earcreation.EARComponentCreationDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AppClientProjectCreationOperationTest;
-import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.ejb.operations.EJBProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.jca.operations.ConnectorProjectCreationOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
 
 public abstract class ModuleProjectCreationOperationTest extends OperationTestCase {
@@ -35,7 +35,7 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     }
     
     public void testCreateEAR() throws Exception {
-		createSimpleFlexProject(DEFAULT_EAR_PROJECT_NAME);
+		createSimpleEARFlexProject(DEFAULT_EAR_PROJECT_NAME);
         createSimpleEARModule(DEFAULT_EAR_COMPONENT_NAME,DEFAULT_EAR_PROJECT_NAME);
     }
 
@@ -76,6 +76,12 @@ public abstract class ModuleProjectCreationOperationTest extends OperationTestCa
     public void createSimpleFlexProject(String projectName) throws Exception {
         FlexibleProjectCreationDataModel dataModel = getFlexProjectDataModel();
         dataModel.setProperty(FlexibleProjectCreationDataModel.PROJECT_NAME, projectName);
+		runAndVerify(dataModel);
+    }
+	public void createSimpleEARFlexProject(String projectName) throws Exception {
+        FlexibleProjectCreationDataModel dataModel = getFlexProjectDataModel();
+        dataModel.setProperty(FlexibleProjectCreationDataModel.PROJECT_NAME, projectName);
+		dataModel.setProperty(FlexibleProjectCreationDataModel.SERVER_TARGET_ID, AllPluginTests.JONAS_SERVER.getId());
         runAndVerify(dataModel);
     }
 	public void createSimpleModule(String componentName,String projectName) throws Exception {
