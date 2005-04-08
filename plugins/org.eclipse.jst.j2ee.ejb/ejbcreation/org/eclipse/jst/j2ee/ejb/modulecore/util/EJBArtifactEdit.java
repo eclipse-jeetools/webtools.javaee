@@ -143,15 +143,17 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	/**
 	 * @param project
 	 */
-	public void getEJBClientJarModule(IProject project) {
+	public WorkbenchComponent getEJBClientJarModule(IProject project) {
 		EJBJar jar = getEJBJar();
+		WorkbenchComponent module = null;
 		String clientJAR = null;
 		if (jar != null)
 			clientJAR = jar.getEjbClientJar();
 		if (clientJAR != null) {	
 			StructureEdit mc = StructureEdit.getStructureEditForRead(project);
-			WorkbenchComponent module = mc.findComponentByName(clientJAR);
+			module = mc.findComponentByName(clientJAR);
 		}
+		return module;
 	}
 	
 	
