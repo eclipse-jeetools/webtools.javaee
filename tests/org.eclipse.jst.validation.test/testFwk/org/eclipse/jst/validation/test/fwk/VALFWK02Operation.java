@@ -21,7 +21,6 @@ import org.eclipse.jst.validation.test.fwk.validator.JDTUtility;
 import org.eclipse.jst.validation.test.internal.registry.ValidatorTestcase;
 import org.eclipse.jst.validation.test.internal.util.BVTRunner;
 import org.eclipse.jst.validation.test.setup.IBuffer;
-import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.internal.ConfigurationManager;
 import org.eclipse.wst.validation.internal.GlobalConfiguration;
 import org.eclipse.wst.validation.internal.ProjectConfiguration;
@@ -33,6 +32,7 @@ import org.eclipse.wst.validation.internal.operations.EnabledValidatorsOperation
 import org.eclipse.wst.validation.internal.operations.ValidatorManager;
 import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 /**
  * This class runs the VALFWK02 test.

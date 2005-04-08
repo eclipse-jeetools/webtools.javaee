@@ -10,9 +10,9 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jst.j2ee.internal.validation.AWorkbenchMOFHelper;
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.internal.operations.WorkbenchFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 public class FwkNoBuildTestHelper extends AWorkbenchMOFHelper {
 	

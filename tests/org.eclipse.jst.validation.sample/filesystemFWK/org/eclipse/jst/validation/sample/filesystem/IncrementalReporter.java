@@ -24,9 +24,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
  * This class is the file system specific implementation of an incremental IReporter.

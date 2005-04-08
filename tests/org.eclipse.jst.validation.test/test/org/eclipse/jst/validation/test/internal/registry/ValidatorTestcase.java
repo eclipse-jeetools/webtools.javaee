@@ -19,13 +19,13 @@ import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.ValidationTypeEnum;
 import org.eclipse.jst.validation.test.internal.util.BVTRunner;
 import org.eclipse.jst.validation.test.setup.IBuffer;
-import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.internal.ConfigurationManager;
 import org.eclipse.wst.validation.internal.GlobalConfiguration;
 import org.eclipse.wst.validation.internal.TaskListUtility;
 import org.eclipse.wst.validation.internal.VThreadManager;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
 import org.eclipse.wst.validation.internal.operations.ValidatorSubsetOperation;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 
 public class ValidatorTestcase implements ITestcaseMetaData {
 	private String _pluginId = null; // The plugin id that has contributed this test case.

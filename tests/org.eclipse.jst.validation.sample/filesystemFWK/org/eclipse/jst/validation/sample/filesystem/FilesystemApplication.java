@@ -20,10 +20,10 @@ package org.eclipse.jst.validation.sample.filesystem;
  */
 
 
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.ValidationException;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
 import org.eclispe.wst.validation.internal.core.ValidatorLauncher;
 

@@ -24,8 +24,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.wst.validation.core.IFileDelta;
-import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclispe.wst.validation.internal.core.FileDelta;
 
 /**

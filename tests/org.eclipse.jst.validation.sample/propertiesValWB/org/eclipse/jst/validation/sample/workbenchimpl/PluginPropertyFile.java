@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.MessageMetaData;
-import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 /**
  * A PluginPropertyFile represents a resource bundle that is exported by a plugin.

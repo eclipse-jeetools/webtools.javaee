@@ -17,9 +17,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
 import org.eclipse.jst.validation.test.internal.registry.MessageUtility;
-import org.eclipse.wst.validation.core.IMessage;
 import org.eclipse.wst.validation.internal.TaskListUtility;
 import org.eclipse.wst.validation.internal.ValidatorMetaData;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 /**
  * Generate an FVT test case, for a selected IProject or IProjects, to

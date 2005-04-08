@@ -21,9 +21,9 @@ package org.eclipse.jst.validation.sample.filesystem;
 
 import java.util.List;
 
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IReporter;
-import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
  * This reporter is used when full validation is needed. It doesn't cache

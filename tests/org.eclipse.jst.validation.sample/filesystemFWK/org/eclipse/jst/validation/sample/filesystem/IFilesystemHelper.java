@@ -19,8 +19,8 @@ package org.eclipse.jst.validation.sample.filesystem;
  * 
  */
 
-import org.eclipse.wst.validation.core.IValidationContext;
-import org.eclipse.wst.validation.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 
 /**
  * To integrate a validator into this framework, an implementation of this

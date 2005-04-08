@@ -19,7 +19,7 @@ package org.eclipse.jst.validation.sample.filesystem;
  * 
  */
 
-import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
  * This class associates a Validator with a Helper and the file extensions that

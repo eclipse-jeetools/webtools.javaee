@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.wst.validation.core.IMessage;
-import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
  * This class manages the validation messages for each validator. Each validator's

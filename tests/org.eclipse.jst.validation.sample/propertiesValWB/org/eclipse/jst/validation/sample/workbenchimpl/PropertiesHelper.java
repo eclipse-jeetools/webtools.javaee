@@ -37,9 +37,9 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.PModelEnum;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
-import org.eclipse.wst.validation.core.IFileDelta;
 import org.eclipse.wst.validation.internal.operations.AWorkbenchHelper;
 import org.eclipse.wst.validation.internal.operations.WorkbenchFileDelta;
+import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 
 /**
  * This class implements the WebSphere Studio IValidationContext for the 

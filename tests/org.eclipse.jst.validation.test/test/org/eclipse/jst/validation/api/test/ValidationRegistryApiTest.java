@@ -5,8 +5,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.eclipse.wst.validation.ValidationFactory;
-import org.eclipse.wst.validation.core.IValidator;
+import org.eclipse.wst.validation.internal.provisional.ValidationFactory;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 public class ValidationRegistryApiTest extends TestCase {
 	
