@@ -14,7 +14,7 @@ import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
 public class ConnectorArtifactEditTest extends TestCase {
-	
+
 	private IProject jcaProject;
 	private String jcaModuleName;
 
@@ -354,10 +354,25 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 
 
-
 	public void testGetDeploymentDescriptorRoot() {
-	}
+		StructureEdit moduleCore = null;
+		ConnectorArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
+			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			Object obj = edit.getDeploymentDescriptorRoot();
+			assertNotNull(obj);
 
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+
+
+		}
+	}
 
 
 
@@ -367,8 +382,23 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 
 
-
 	public void testGetConnector() {
+		StructureEdit moduleCore = null;
+		ConnectorArtifactEdit edit = null;
+		try {
+			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
+			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
+			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
+			Object obj = edit.getConnector();
+			assertNotNull(obj);
+
+		} finally {
+			if (moduleCore != null) {
+				moduleCore.dispose();
+				edit.dispose();
+			}
+
+		}
 	}
 
 }
