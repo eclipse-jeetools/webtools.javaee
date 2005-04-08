@@ -128,7 +128,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return An instance of ArtifactEdit that may be used to modify and persist changes to the
 	 *         underlying content model
 	 */
-	public static ArtifactEdit getWebArtifactEditForWrite(ComponentHandle aHandle) {
+	public static WebArtifactEdit getWebArtifactEditForWrite(ComponentHandle aHandle) {
 		WebArtifactEdit artifactEdit = null;
 		try {
 			artifactEdit = new WebArtifactEdit(aHandle, false);
