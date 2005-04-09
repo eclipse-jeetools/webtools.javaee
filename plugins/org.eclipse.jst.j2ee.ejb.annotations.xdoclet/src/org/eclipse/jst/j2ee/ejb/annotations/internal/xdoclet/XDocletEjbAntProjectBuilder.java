@@ -59,6 +59,7 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 		templates.put("@jonas@", addJonasTask()); //$NON-NLS-1$
 		templates.put("@weblogic@", addWeblogicTask()); //$NON-NLS-1$
 		templates.put("@websphere@", addWebSphereTask()); //$NON-NLS-1$
+		templates.put("@deploymentdescriptor@", addDeploymentDescriptorTask()); //$NON-NLS-1$
 		return templates;
 	}
 
@@ -251,6 +252,24 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 
 	}
 
+	private String addDeploymentDescriptorTask() {
+		if (clientProject == null)
+			return "<deploymentdescriptor destdir=\"${ejb.dd.dir}\" "+
+					"displayname=\"${ejb.dd.displayname}\" "+
+					"description=\"${ejb.dd.description}\" "+
+					"validatexml=\"false\" "+
+					"mergedir=\"${ejb.dd.dir}\" />";
+		else
+			return "<deploymentdescriptor destdir=\"${ejb.dd.dir}\" "+
+			"displayname=\"${ejb.dd.displayname}\" "+
+			"description=\"${ejb.dd.description}\" "+
+			"validatexml=\"false\" "+
+			"clientjar=\"${ejb.dd.clientjar}\" "+
+			"mergedir=\"${ejb.dd.dir}\" />";
+
+	}
+
+ 	
 	private String addWebSphereTask() {
 		if (!XDocletPreferenceStore.isPropertyActive(XDocletPreferenceStore.EJB_WEBSPHERE))
 			return ""; //$NON-NLS-1$
