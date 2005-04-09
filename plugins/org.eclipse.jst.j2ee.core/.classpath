@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="commonArchive"/>
-	<classpathentry kind="src" path="j2eeCorePlugin"/>
-	<classpathentry kind="src" path="j2ee-validation"/>
-	<classpathentry kind="src" path="mofj2ee"/>
-	<classpathentry kind="src" path="webservices"/>
+	<classpathentry kind="src" path="mofj2ee/"/>
+	<classpathentry kind="src" path="webservices/"/>
+	<classpathentry kind="src" path="commonArchive/"/>
+	<classpathentry kind="src" path="j2ee-validation/"/>
+	<classpathentry kind="src" path="j2eeCorePlugin/"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
