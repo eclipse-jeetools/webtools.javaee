@@ -254,18 +254,18 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 
 	private String addDeploymentDescriptorTask() {
 		if (clientProject == null)
-			return "<deploymentdescriptor destdir=\"${ejb.dd.dir}\" "+
-					"displayname=\"${ejb.dd.displayname}\" "+
-					"description=\"${ejb.dd.description}\" "+
+			return "<deploymentdescriptor destdir=\"\\${ejb.dd.dir}\" "+
+					"displayname=\"\\${ejb.dd.displayname}\" "+
+					"description=\"\\${ejb.dd.description}\" "+
 					"validatexml=\"false\" "+
-					"mergedir=\"${ejb.dd.dir}\" />";
+					"mergedir=\"\\${ejb.dd.dir}\" />";
 		else
-			return "<deploymentdescriptor destdir=\"${ejb.dd.dir}\" "+
-			"displayname=\"${ejb.dd.displayname}\" "+
-			"description=\"${ejb.dd.description}\" "+
+			return "<deploymentdescriptor destdir=\"\\${ejb.dd.dir}\" "+
+			"displayname=\"\\${ejb.dd.displayname}\" "+
+			"description=\"\\${ejb.dd.description}\" "+
 			"validatexml=\"false\" "+
-			"clientjar=\"${ejb.dd.clientjar}\" "+
-			"mergedir=\"${ejb.dd.dir}\" />";
+			"clientjar=\"\\${ejb.dd.clientjar}\" "+
+			"mergedir=\"\\${ejb.dd.dir}\" />";
 
 	}
 
