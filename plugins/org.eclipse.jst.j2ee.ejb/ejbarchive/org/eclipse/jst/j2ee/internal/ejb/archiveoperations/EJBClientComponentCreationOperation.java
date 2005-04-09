@@ -73,6 +73,12 @@ public class EJBClientComponentCreationOperation extends JavaUtilityComponentCre
 		
 		EJBClientComponentDataModel dm = (EJBClientComponentDataModel)getOperationDataModel();
 		URI uri = dm.getEarComponentHandle();
+		
+		//There is no ear associated with this module
+		if(uri == null)
+			return;
+		
+
 		IProject proj = null;
 		try {
 			proj = StructureEdit.getContainingProject(uri);
