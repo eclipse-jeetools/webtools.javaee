@@ -8,8 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -67,8 +70,7 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 				//contextRoot = webEdit.getServerContextRoot();
 				contextRoot = wbModule.getName();
 			}
-
-			properties.put("web.module.webinf", getWebInfFolder(javaProject).getProjectRelativePath().toString()); //$NON-NLS-1$
+			properties.put("web.module.webinf",getWebInfFolder(wbModule).toString() ); //$NON-NLS-1$
 			properties.put("web", contextRoot); //$NON-NLS-1$
 			properties.put("web.project.dir", resource.getProject().getLocation().toString()); //$NON-NLS-1$
 			properties.put("web.project.classpath", asClassPath(javaProject)); //$NON-NLS-1$
@@ -145,4 +147,21 @@ public class XDocletWebAntProjectBuilder extends XDocletAntProjectBuilder {
 			Logger.logException(e);
 		}
 	}
+
+	protected void refreshProjects(IProject project, IProgressMonitor monitor) throws CoreException {
+		if( project != null)
+			project.refreshLocal(
+				IResource.DEPTH_INFINITE,
+				monitor);
+				
+	}
+	
+	protected IPath getWebInfFolder(WorkbenchComponent webModule) {
+		ComponentResource[] webXML =  webModule.findWorkbenchModuleResourceByDeployPath(URI.createURI("/WEB-INF/web.xml"));
+		if(webXML.length > 0)
+			return webXML[0].getSourcePath().removeLastSegments(1);
+		return null;
+	}	
+
+	
 }

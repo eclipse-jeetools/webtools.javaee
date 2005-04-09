@@ -131,10 +131,10 @@ public class EjbBuilder {
 		// makes sure that if the target member has no comment, source
 		// comment is inserted before the merge
 		IDocument document = new Document(targetSrc);
-		ASTParser sourceParser = ASTParser.newParser(AST.JLS2);
+		ASTParser sourceParser = ASTParser.newParser(AST.JLS3);
 		sourceParser.setSource(sourceSrc.toCharArray());
 		final CompilationUnit sourceAst = (CompilationUnit) sourceParser.createAST(null);
-		ASTParser targetParser = ASTParser.newParser(AST.JLS2);
+		ASTParser targetParser = ASTParser.newParser(AST.JLS3);
 		targetParser.setSource(targetSrc.toCharArray());
 		final CompilationUnit targetAst = (CompilationUnit) targetParser.createAST(null);
 		targetAst.recordModifications();
@@ -281,7 +281,7 @@ public class EjbBuilder {
 	 */
 	private String makeSignature(MethodDeclaration decl) {
 		
-		String signature = ""+decl.getReturnType();
+		String signature = ""+decl.getReturnType2();
 		signature += decl.getName().getFullyQualifiedName();
 		Iterator params = decl.parameters().iterator();
 		while (params.hasNext()) {
@@ -400,7 +400,7 @@ public class EjbBuilder {
 	}
 
 	private boolean removeUnused(ICompilationUnit cu, ImportsManager imports) {
-		ASTParser parser= ASTParser.newParser(AST.JLS2);
+		ASTParser parser= ASTParser.newParser(AST.JLS3);
 		parser.setSource(cu);
 		parser.setResolveBindings(true);
 		CompilationUnit root= (CompilationUnit) parser.createAST(null);

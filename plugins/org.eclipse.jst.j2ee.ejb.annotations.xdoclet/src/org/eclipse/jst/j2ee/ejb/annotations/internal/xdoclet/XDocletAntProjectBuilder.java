@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -28,7 +29,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jst.common.internal.launcher.ant.AntLauncher;
-import org.eclipse.jst.j2ee.internal.web.operations.WebPropertiesUtil;
 import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -116,7 +116,9 @@ public abstract class XDocletAntProjectBuilder {
 
 			AntLauncher antLauncher = new AntLauncher(templateUrl, beanClass
 					.getParent().getLocation(), properties, templates);
+			antLauncher.setUseLauncher(true);
 			antLauncher.launch(getTaskName(), monitor);
+			this.refreshProjects(beanClass.getProject(),monitor);
 		} catch (Exception e) {
 			Logger.logException(e);
 		}
@@ -125,6 +127,8 @@ public abstract class XDocletAntProjectBuilder {
 
 
 	protected abstract String getTaskName();
+	protected abstract void refreshProjects(IProject project, IProgressMonitor monitor) throws CoreException;
+	
 	protected abstract HashMap createTemplates(String beanPath); 
 	protected abstract Properties createAntBuildProperties(IResource resource,
 			IJavaProject javaProject, IPackageFragmentRoot packageFragmentRoot,
@@ -174,7 +178,5 @@ public abstract class XDocletAntProjectBuilder {
 				path.removeFirstSegments(1)).getProjectRelativePath();
 	}
 
-	protected IContainer getWebInfFolder(IJavaProject proj) {
-		return WebPropertiesUtil.getJavaSourceFolder(proj.getProject());
-	}
+
 }
