@@ -45,11 +45,11 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 	}
 
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-		createDefaultSessionBean(monitor);
+		createDefaultMessageDrivenBean(monitor);
 		
 	}
 
-	private void createDefaultSessionBean(IProgressMonitor monitor) {
+	private void createDefaultMessageDrivenBean(IProgressMonitor monitor) {
 		
 		MessageDrivenBeanDataModel ejbModel = (MessageDrivenBeanDataModel)this.getOperationDataModel();
 		NewJavaClassDataModel ejbClassModel = (NewJavaClassDataModel)ejbModel.getNestedModel("NewEJBJavaClassDataModel");
@@ -82,10 +82,11 @@ public class AddMessageDrivenBeanOperation extends WTPOperation {
 		
 		
 		try {
-			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.emitter.template");
+			IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.jst.j2ee.ejb.annotations.emitter.template");
 			String builderId = configurationElements[0].getAttribute("builderId");
 			addToEndOfBuildSpec( ejbClassModel.getTargetProject(),  configurationElements[0].getNamespace() + "."+builderId);
 			EjbEmitter ejbEmitter = new MessageDrivenEjbEmitter(configurationElements[0]);
+			ejbEmitter.setMonitor(monitor);
 			String fields = ejbEmitter.emitFields(delegate);
 			String comment = ejbEmitter.emitTypeComment(delegate);
 			String stub = ejbEmitter.emitTypeStub(delegate);

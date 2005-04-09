@@ -81,6 +81,8 @@ public class AddSessionBeanOperation extends WTPOperation {
 			String builderId = configurationElements[0].getAttribute("builderId");
 			addToEndOfBuildSpec( ejbClassModel.getTargetProject(),  configurationElements[0].getNamespace() + "."+builderId);
 			EjbEmitter ejbEmitter = new SessionEjbEmitter(configurationElements[0]);
+			ejbEmitter.setMonitor(monitor);
+
 			String comment = ejbEmitter.emitTypeComment(delegate);
 			String stub = ejbEmitter.emitTypeStub(delegate);
 			String method = ejbEmitter.emitInterfaceMethods(delegate);
