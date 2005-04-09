@@ -418,7 +418,7 @@ public class WTPJETEmitter extends JETEmitter {
 			null, /* Source attachment root */
 			null, /* specific output folder */
 			false,
-			null,false,null); /* is exported ? *///JavaCore.newLibraryEntry(runtimeLibFullPath, null, null);
+			null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES); /* is exported ? *///JavaCore.newLibraryEntry(runtimeLibFullPath, null, null);
 			try {
 				J2EEProjectUtilities.appendJavaClassPath(project, entry);
 			} catch (JavaModelException e) {
@@ -506,7 +506,7 @@ public class WTPJETEmitter extends JETEmitter {
 						// attachment
 						null, // source attachment root
 						null, // custom output location
-						false,null,false,null);
+						false,null,false,ClasspathEntry.NO_EXTRA_ATTRIBUTES);
 
 			J2EEProjectUtilities.appendJavaClassPath(project, entry);
 
