@@ -90,15 +90,9 @@
          <entitybmp/>
          <session/>
 
-         <deploymentdescriptor 
-            destdir="${ejb.dd.dir}"
-         	displayname="${ejb.dd.displayname}"
-         	description="${ejb.dd.description}"
-            validatexml="false"
-         	clientjar="${ejb.dd.clientjar}"
-            mergedir="${ejb.dd.dir}" 
-            />
+  	     @deploymentdescriptor@
 
+ 
     	  @jboss@
     	  @jonas@
 		  @weblogic@
