@@ -90,13 +90,13 @@ public class XDocletPreferenceStore {
 		String prefix = XDocletAnnotationPlugin.PLUGINID+".";
 		store.setDefault(prefix+ XDOCLETFORCE + ".value", "true");
 		store.setDefault(prefix+ XDOCLETVERSION + ".value", "1.2.1");
-		XDocletPreferenceStore.setPropertyActive(EJB_JBOSS , true);
 		store.setDefault(prefix+ EJB_JBOSS + "_VERSION.value", "2.4");
 		store.setDefault(prefix+ EJB_JONAS + "_VERSION.value", "2.6");
 		store.setDefault(prefix+ EJB_WEBLOGIC + "_VERSION.value", "6.1");
 		store.setDefault(prefix+ EJB_WEBSPHERE + "_VERSION.value", "all");
 
 		XDocletPreferenceStore.setPropertyActive(XDOCLETBUILDERACTIVE , true);
+		XDocletPreferenceStore.setPropertyActive(EJB_JBOSS , false);
 		XDocletPreferenceStore.setPropertyActive(EJB_JONAS , false);
 		XDocletPreferenceStore.setPropertyActive(EJB_WEBSPHERE , false);
 		XDocletPreferenceStore.setPropertyActive(EJB_WEBLOGIC , false);
