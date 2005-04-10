@@ -58,6 +58,8 @@ public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IA
 			return Boolean.FALSE;
 		else if (propertyName.equals(DESTINATIONNAME))
 			return getProperty(JNDI_NAME);
+		else if (propertyName.equals(EJB_TYPE))
+			return "MessageDrivenBean";
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -81,10 +83,10 @@ public class MessageDrivenBeanDataModel extends EjbCommonDataModel implements IA
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		if (prop.indexOf("Queue") >= 0 || prop.indexOf("Topic") >= 0) {
-			String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_VALUE;
-			return WTPCommonPlugin.createErrorStatus(msg);
+			return WTPCommonPlugin.OK_STATUS;
 		}
-		return WTPCommonPlugin.OK_STATUS;
+		String msg = IEJBAnnotationConstants.ERR_DESTINATIONTYPE_VALUE;
+		return WTPCommonPlugin.createErrorStatus(msg);
 	}
 
 

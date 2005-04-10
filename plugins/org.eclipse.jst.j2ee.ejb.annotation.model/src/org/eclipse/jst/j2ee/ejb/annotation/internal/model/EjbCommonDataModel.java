@@ -20,8 +20,10 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.WTPOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
-public abstract class EjbCommonDataModel extends
+public class EjbCommonDataModel extends
 		J2EEModelModifierOperationDataModel {
+
+	public static final String EJB_TYPE = "EjbCommonDataModel.EJB_TYPE"; //$NON-NLS-1$
 
 	public static final String EJB_NAME = "EjbCommonDataModel.EJB_NAME"; //$NON-NLS-1$
 
@@ -53,6 +55,7 @@ public abstract class EjbCommonDataModel extends
 	 */
 	protected void initValidBaseProperties() {
 		super.initValidBaseProperties();
+		addValidBaseProperty(EJB_TYPE);
 		addValidBaseProperty(EJB_NAME);
 		addValidBaseProperty(DISPLAY_NAME);
 		addValidBaseProperty(JNDI_NAME);
@@ -70,6 +73,8 @@ public abstract class EjbCommonDataModel extends
 	protected IStatus doValidateProperty(String propertyName) {
 		if (propertyName.equals(EJB_NAME))
 			return validateEJBName(getStringProperty(propertyName));
+		if (propertyName.equals(EJB_TYPE))
+			return validateEJBType(getStringProperty(propertyName));
 		if (propertyName.equals(JNDI_NAME))
 			return validateJndiName(getStringProperty(propertyName));
 		if (propertyName.equals(DISPLAY_NAME))
@@ -83,6 +88,19 @@ public abstract class EjbCommonDataModel extends
 		return super.doValidateProperty(propertyName);
 	}
 
+	private IStatus validateEJBType(String prop) {
+		// check for empty
+		if (prop == null || prop.trim().length() == 0) {
+			String msg = IEJBAnnotationConstants.ERR_EJB_TYPE_EMPTY;
+			return WTPCommonPlugin.createErrorStatus(msg);
+		}
+		if (prop.indexOf("SessionBean") >= 0 || prop.indexOf("MessageDrivenBean") >= 0|| prop.indexOf("EntityBean") >= 0) {
+			return WTPCommonPlugin.OK_STATUS;
+		}
+		String msg = IEJBAnnotationConstants.ERR_EJB_TYPE_VALUE;
+		return WTPCommonPlugin.createErrorStatus(msg);
+	}
+
 	private IStatus validateStateless(String prop) {
 		// check for empty
 		if (prop == null || prop.trim().length() == 0) {
@@ -90,10 +108,10 @@ public abstract class EjbCommonDataModel extends
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		if (prop.indexOf("Stateless") >= 0 || prop.indexOf("Stateful") >= 0) {
-			String msg = IEJBAnnotationConstants.ERR_STATELESS_VALUE;
-			return WTPCommonPlugin.createErrorStatus(msg);
+			return WTPCommonPlugin.OK_STATUS;
 		}
-		return WTPCommonPlugin.OK_STATUS;
+		String msg = IEJBAnnotationConstants.ERR_STATELESS_VALUE;
+		return WTPCommonPlugin.createErrorStatus(msg);
 	}
 
 	private IStatus validateTransaction(String prop) {
@@ -103,10 +121,10 @@ public abstract class EjbCommonDataModel extends
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}
 		if (prop.indexOf("Container") >= 0 || prop.indexOf("Bean") >= 0) {
-			String msg = IEJBAnnotationConstants.ERR_TRANSACTION_VALUE;
-			return WTPCommonPlugin.createErrorStatus(msg);
+			return WTPCommonPlugin.OK_STATUS;
 		}
-		return WTPCommonPlugin.OK_STATUS;
+		String msg = IEJBAnnotationConstants.ERR_TRANSACTION_VALUE;
+		return WTPCommonPlugin.createErrorStatus(msg);
 	}
 
 	protected IStatus validateJndiName(String prop) {
@@ -185,13 +203,15 @@ public abstract class EjbCommonDataModel extends
 	}
 
 	protected Object getDefaultProperty(String propertyName) {
-		if (propertyName.equals(EJB_NAME) && getNestedModel("NewEJBJavaClassDataModel") != null) {
-			String className = getNestedModel("NewEJBJavaClassDataModel").getStringProperty(NewJavaClassDataModel.CLASS_NAME);
+		if (propertyName.equals(EJB_NAME) && getJavaClassModel() != null) {
+			String className = getJavaClassModel().getStringProperty(NewJavaClassDataModel.CLASS_NAME);
 			if (className.endsWith("Bean"))
 				className = className.substring(0,className.length()-4);
 			return className;
 		} else if (propertyName.equals(JNDI_NAME)) {
 			return getProperty(EJB_NAME);
+		} else if (propertyName.equals(EJB_TYPE)) {
+			return "SessionBean";
 		} else if (propertyName.equals(DISPLAY_NAME)) {
 			return getProperty(EJB_NAME);
 		} else if (propertyName.equals(DESCRIPTION)) {
@@ -212,5 +232,14 @@ public abstract class EjbCommonDataModel extends
 		}
 		
 		return result;
+	}
+	
+	protected void initNestedModels() {
+		this.addNestedModel("NewEJBJavaClassDataModel", new NewEJBJavaClassDataModel());
+	}
+	
+	public NewEJBJavaClassDataModel getJavaClassModel()
+	{
+	  return (NewEJBJavaClassDataModel)getNestedModel("NewEJBJavaClassDataModel");	
 	}
 }

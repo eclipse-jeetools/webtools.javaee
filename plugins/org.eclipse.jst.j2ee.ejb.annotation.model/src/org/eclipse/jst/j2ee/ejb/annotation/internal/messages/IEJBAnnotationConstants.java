@@ -14,6 +14,8 @@ public interface IEJBAnnotationConstants {
 	
 	public static final String ERR_EJB_CLASS_NAME_USED = EJBAnnotationMessages.getResourceString("ERR_EJB_CLASS_NAME_USED"); //$NON-NLS-1$
 	public static final String ERR_EJB_NAME_EMPTY = EJBAnnotationMessages.getResourceString("ERR_EJB_NAME_EMPTY"); //$NON-NLS-1$
+	public static final String ERR_EJB_TYPE_EMPTY = EJBAnnotationMessages.getResourceString("ERR_EJB_TYPE_EMPTY"); //$NON-NLS-1$;
+	public static final String ERR_EJB_TYPE_VALUE = EJBAnnotationMessages.getResourceString("ERR_EJB_TYPE_VALUE"); //$NON-NLS-1$;
 	public static final String ERR_EJB_NAME_ENDS_WITH_BEAN = EJBAnnotationMessages.getResourceString("ERR_EJB_NAME_ENDS_WITH_BEAN"); //$NON-NLS-1$
 	public static final String ERR_DISPLAY_NAME_EMPTY = EJBAnnotationMessages.getResourceString("ERR_DISPLAY_NAME_EMPTY"); //$NON-NLS-1$
 	public static final String ERR_EJB_DISPLAY_NAME_USED = EJBAnnotationMessages.getResourceString("ERR_EJB_DISPLAY_NAME_USED"); //$NON-NLS-1$
@@ -27,17 +29,9 @@ public interface IEJBAnnotationConstants {
 	public static final String ERR_DESTINATIONTYPE_VALUE = EJBAnnotationMessages.getResourceString("ERR_DESTINATIONTYPE_VALUE"); //$NON-NLS-1$
 
 	// AddEjbWizard
-	public final static String ADD_SESSION_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_SESSION_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
-	public final static String ADD_SESSION_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_SESSION_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
-	public static final String ADD_SESSION_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_SESSION_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
-	
-	public final static String ADD_MESSAGE_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_MESSAGE_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
-	public final static String ADD_MESSAGE_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_MESSAGE_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
-	public static final String ADD_MESSAGE_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_MESSAGE_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
-
-	public final static String ADD_ENTITY_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_ENTITY_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
-	public final static String ADD_ENTITY_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_ENTITY_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
-	public static final String ADD_ENTITY_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_ENTITY_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
+	public final static String ADD_EJB_WIZARD_WINDOW_TITLE = EJBAnnotationMessages.getResourceString("ADD_EJB_WIZARD_WINDOW_TITLE"); //$NON-NLS-1$
+	public final static String ADD_EJB_WIZARD_PAGE_TITLE = EJBAnnotationMessages.getResourceString("ADD_EJB_WIZARD_PAGE_TITLE"); //$NON-NLS-1$
+	public static final String ADD_EJB_WIZARD_PAGE_DESC = EJBAnnotationMessages.getResourceString("ADD_EJB_WIZARD_PAGE_DESC"); //$NON-NLS-1$
 
 	public final static String DEFAULT_PACKAGE = EJBAnnotationMessages.getResourceString("DEFAULT_PACKAGE"); //$NON-NLS-1$
 	public final static String SELECT_CLASS_TITLE = EJBAnnotationMessages.getResourceString("SELECT_CLASS_TITLE"); //$NON-NLS-1$

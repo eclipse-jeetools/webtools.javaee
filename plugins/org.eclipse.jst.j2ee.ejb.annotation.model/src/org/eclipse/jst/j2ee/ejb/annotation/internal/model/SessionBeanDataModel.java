@@ -47,6 +47,8 @@ public class SessionBeanDataModel extends EjbCommonDataModel implements IAnnotat
 	protected Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(USE_ANNOTATIONS))
 			return Boolean.FALSE;
+		else if (propertyName.equals(EJB_TYPE))
+			return "SessionBean";
 		return super.getDefaultProperty(propertyName);
 	}
 
