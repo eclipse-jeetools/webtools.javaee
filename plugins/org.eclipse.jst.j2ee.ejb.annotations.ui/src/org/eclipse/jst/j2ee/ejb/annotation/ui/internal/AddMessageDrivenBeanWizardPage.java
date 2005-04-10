@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.DestinationType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
@@ -30,7 +31,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.frameworks.internal.operations.ProjectCreationDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPWizardPage;
 
@@ -57,8 +57,8 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 
 	public AddMessageDrivenBeanWizardPage(MessageDrivenBeanDataModel model, String pageName) {
 		super(model, pageName);
-		setDescription(IEJBAnnotationConstants.ADD_MESSAGE_EJB_WIZARD_PAGE_DESC);
-		this.setTitle(IEJBAnnotationConstants.ADD_MESSAGE_EJB_WIZARD_PAGE_TITLE);
+		setDescription(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_DESC);
+		this.setTitle(IEJBAnnotationConstants.ADD_EJB_WIZARD_PAGE_TITLE);
 	}
 
 	/*
@@ -199,7 +199,7 @@ public class AddMessageDrivenBeanWizardPage extends WTPWizardPage implements IBe
 	private void createAnnotationsGroup(Composite parent) {
 		annotationsGroup = new AnnotationsStandaloneGroup(parent, model, true, true);
 		IProject project = null;
-		project = ProjectCreationDataModel.getProjectHandleFromProjectName(model.getStringProperty(NewJavaClassDataModel.PROJECT_NAME));
+		project = ProjectUtilities.getProject(model.getStringProperty(NewJavaClassDataModel.PROJECT_NAME));
 		annotationsGroup.setEnablement(project);
 		annotationsGroup.setUseAnnotations(true);
 	}

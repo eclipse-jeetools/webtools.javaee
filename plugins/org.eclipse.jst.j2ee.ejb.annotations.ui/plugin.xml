@@ -50,6 +50,7 @@
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.jst.ejb.ui"/>
    </requires>
 
 <!--================================-->
@@ -67,28 +68,10 @@
             name="%ejb.createbean_ui_"
             icon="icons/full/ctool16/newejb_wiz.gif"
             category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard"
-            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard">
+            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard"
+            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
          <description>
-            %new.sejb.description_ui_
-         </description>
-      </wizard>
-   </extension>
-   <extension
-         id="org.eclipse.jst.j2ee.ejb.ui.wizards"
-         point="org.eclipse.ui.newWizards">
-       <category
-            name="EJB"
-            id="org.eclipse.jst.ejb.ui">
-      </category>
-      <wizard
-            name="%ejb.createmdbean_ui_"
-            icon="icons/full/ctool16/newmessageejb_wiz.gif"
-            category="org.eclipse.jst.ejb.ui"
-            class="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard"
-            id="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard">
-         <description>
-            %new.mejb.description_ui_
+            %new.ejb.description_ui_
          </description>
       </wizard>
    </extension>
@@ -97,7 +80,7 @@
          point="org.eclipse.wst.common.navigator.workbench.commonWizard">
           <commonWizard
             type="new"
-            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddSessionEjbWizard">
+            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddEjbWizard">
          <enablement>
          <or>
             <and>
@@ -108,27 +91,6 @@
                         name="projectNature"
                         value="org.eclipse.jdt.core.javanature">
                   </objectState>
-            </and>            
-            </or>
-         </enablement>
-       </commonWizard>
-      </extension> 
-    <extension
-         point="org.eclipse.wst.common.navigator.workbench.commonWizard">
-          <commonWizard
-            type="new"
-            wizardId="org.eclipse.jst.j2ee.ejb.annotation.ui.internal.AddMessageDrivenEjbWizard">
-         <enablement>
-         <or>
-            <and>
-            	   <objectClass
-	                     name="org.eclipse.core.resources.IProject">
-	               </objectClass>
-                  <objectState
-                        name="projectNature"
-                        value="org.eclipse.jdt.core.javanature">
-                  </objectState>
-               
             </and>            
             </or>
          </enablement>

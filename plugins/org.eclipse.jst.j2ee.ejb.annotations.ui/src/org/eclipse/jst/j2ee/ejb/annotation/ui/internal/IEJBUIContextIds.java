@@ -13,6 +13,7 @@ public interface IEJBUIContextIds {
 
 	public static final String PLUGIN_SERVLET_UI = "org.eclipse.jst.j2ee.ejb.annotation.ui."; //$NON-NLS-1$
 	
+	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_0 = PLUGIN_SERVLET_UI + "antejb0000"; //$NON-NLS-1$
 	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_1 = PLUGIN_SERVLET_UI + "antejb1000"; //$NON-NLS-1$
 	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_2 = PLUGIN_SERVLET_UI + "antejb1100"; //$NON-NLS-1$
 	public static final String ANNOTATION_EJB_PAGE_ADD_ADD_WIZARD_3 = PLUGIN_SERVLET_UI + "antejb1200"; //$NON-NLS-1$
