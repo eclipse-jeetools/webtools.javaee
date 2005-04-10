@@ -32,6 +32,7 @@
       <import plugin="org.eclipse.wst.common.modulecore"/>
       <import plugin="org.eclipse.jem.workbench"/>
       <import plugin="org.eclipse.jem.util"/>
+      <import plugin="org.eclipse.jst.common.annotations.controller"/>
    </requires>
 
    <extension point="org.eclipse.core.resources.builders"
@@ -74,4 +75,522 @@
       </emitter>
    </extension>
 
+    <!-- ================================================ -->
+    <!--  EJB Tag set definitions for XDoclet             -->
+    <!-- ================================================ -->
+    <extension
+         id="EJBTagSets"
+         point="org.eclipse.jst.common.annotations.controller.AnnotationTagSet">
+      <AnnotationTagSet
+            name="ejb">
+      </AnnotationTagSet>
+   </extension>
+   <extension
+         id="EJBAnnotationInfo"
+         point="org.eclipse.jst.common.annotations.controller.AnnotationTagInfo">
+      <AnnotationTagInfo tagSet="ejb" tagName="value-object" scope="type"
+      			multiplicity="*">
+      	<attrib name="abstract" type="bool"/>
+      	<attrib name="extends"/>
+      	<attrib name="implements"/>
+      	<attrib name="match"/>
+      	<attrib name="name">
+      		<unique scope="type"/>
+      	</attrib>
+      	<attrib name="generatePKConstructor" type="bool"/>
+      </AnnotationTagInfo>
+      
+      <AnnotationTagInfo tagSet="ejb" tagName="value-object" scope="method">
+      	<attrib name="match"/>
+      	<attrib name="compose"/>
+      	<attrib name="compose-name"/>
+      	<attrib name="aggregate"/>
+      	<attrib name="aggregate-name"/>
+      	<attrib name="members"/>
+      	<attrib name="members-name"/>
+      	<attrib name="relation"/>
+      	<attrib name="type"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="session"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+               <unique scope="module"/>
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+         <attrib
+               name="display-name">
+         </attrib>
+         <attrib
+               name="small-icon">
+         </attrib>
+         <attrib
+               name="large-icon">
+         </attrib>
+         <attrib
+               name="generate"
+               type="bool">
+         </attrib>
+         <attrib
+               name="jndi-name">
+         </attrib>
+         <attrib
+               name="local-jndi-name">
+         </attrib>
+         <attrib
+               name="view-type" type="enum">
+               <enumValues value="local"/>
+               <enumValues value="remote"/>
+               <enumValues value="both"/>
+         </attrib>
+         <attrib
+               name="type" type="enum">
+               <enumValues value="Stateless"/>
+         </attrib>
+         <attrib
+               name="transaction-type" type="enum">
+               <enumValues value="Container"/>
+               <enumValues value="Bean"/>
+         </attrib>     
+         <attrib
+               name="remote-business-interface"
+               type="javaType">
+         </attrib>
+         <attrib
+               name="local-business-interface"
+               type="javaType">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="relation" scope="method">
+      		<attrib name="name" use="required"/>
+      		<attrib name="role-name" use="required"/>
+      		<attrib name="cascade-delete"/>
+      		<attrib name="target-ejb"/>
+      		<attrib name="target-role-name"/>
+      		<attrib name="target-cascade-delete"/>
+      		<attrib name="target-multiple"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="bean"
+            scope="type">
+         <attrib
+               use="required"
+               name="name">
+               <unique scope="module"/>
+         </attrib>
+         <attrib
+               name="description">
+         </attrib>
+         <attrib
+               name="display-name">
+         </attrib>
+         <attrib
+               name="small-icon">
+         </attrib>
+         <attrib
+               name="large-icon">
+         </attrib>
+         <attrib
+               name="generate"
+               type="bool">
+         </attrib>
+         <attrib
+               name="jndi-name">
+         </attrib>
+         <attrib
+               name="local-jndi-name">
+         </attrib>
+         <attrib
+               name="view-type" type="enum">
+               <enumValues value="local"/>
+               <enumValues value="remote"/>
+               <enumValues value="both"/>
+         </attrib>
+         <attrib
+               name="type" type="enum">
+               <enumValues value="CMP"/>
+               <enumValues value="BMP"/>
+               <enumValues value="Stateless"/>
+               <enumValues value="Stateful"/>
+         </attrib>
+         <attrib
+               name="transaction-type" type="enum">
+               <enumValues value="Container"/>
+               <enumValues value="Bean"/>
+         </attrib>
+         <attrib
+               name="reentrant"
+               type="bool">
+         </attrib>
+         <attrib
+               name="cmp-version" type="enum">
+               <enumValues value="2.x"/>
+         </attrib>
+         <attrib
+               name="schema">
+         </attrib>
+         <attrib
+               name="primkey-field">
+         </attrib>
+         <attrib
+               name="use-soft-locking"
+               type="bool">
+         </attrib>
+         <attrib
+               name="message-selector">
+         </attrib>
+         <attrib
+               name="acknowledge-mode" type="enum">
+               <enumValues value="Auto-acknowledge"/>
+               <enumValues value="Dups-ok-acknowledge"/>
+         </attrib>
+         <attrib
+               name="destination-type" type="enum">
+               <enumValues value="javax.jms.Queue"/>
+               <enumValues value="javax.jms.Topic"/>
+         </attrib>
+         <attrib
+               name="subscription-durability" type="enum">
+               <enumValues value="Durable"/>
+               <enumValues value="NonDurable"/>
+         </attrib>
+         <attrib
+               name="remote-business-interface"
+               type="javaType">
+         </attrib>
+         <attrib
+               name="local-business-interface"
+               type="javaType">
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="select" scope="method" multiplicity="*">
+      	<attrib name="query" use="required"/>
+      	<attrib name="result-type-mapping" type="enum">
+      		<enumValues value="none"/>
+      		<enumValues value="Local"/>
+      		<enumValues value="Remote"/>
+      	</attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="ejb-external-ref" scope="type" multiplicity="*">
+      	<attrib name="ref-name" use="required"/>
+      	<attrib name="view-type" use="required" type="enum">
+      		<enumValues value="local"/>
+      		<enumValues value="remote"/>
+      	</attrib>
+      	<attrib name="link" use="required"/>
+      	<attrib name="type" use="required" type="enum">
+      		<enumValues value="Entity"/>
+      		<enumValues value="Session"/>
+      	</attrib>
+      	<attrib name="home" type="javaType" use="required"/>
+      	<attrib name="business" type="javaType" use="required"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="home-method"
+            scope="method">
+         <attrib
+               name="view-type"
+               description="ath.view-type.home-method"
+               type="enum">
+               <enumValues value="local"/>
+               <enumValues value="remote"/>
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="interface-method"
+            scope="method">
+         <attrib
+               name="view-type"
+               description="ath.view-type.interface-method"
+               type="enum">
+               <enumValues value="local"/>
+               <enumValues value="remote"/>
+               <enumValues value="both"/>
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="create-method"
+            scope="method">
+         <attrib
+               name="view-type"
+               description="ath.view-type.create-method"
+               type="enum">
+               <enumValues value="local"/>
+               <enumValues value="remote"/>
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="env-entry"
+            scope="type" multiplicity="*">
+            <attrib name="name" use="required">
+            </attrib>
+            <attrib name="description"/>
+            <attrib name="type" type="enum">
+            	<enumValues value="java.lang.Boolean"/>
+            	<enumValues value="java.lang.Byte"/>
+				<enumValues value="java.lang.Character"/>
+				<enumValues value="java.lang.String"/>
+				<enumValues value="java.lang.Short"/>
+				<enumValues value="java.lang.Integer"/>
+				<enumValues value="java.lang.Long"/>
+				<enumValues value="java.lang.Float"/>
+				<enumValues value="java.lang.Double"/>
+			</attrib>
+            <attrib name="value"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="ejb-ref"
+            scope="type" multiplicity="*">
+          	
+          <attrib name="ejb-name" use="required"/>
+          <attrib name="view-type" use="required" type="enum">
+          	<enumValues value="local"/>
+          	<enumValues value="remote"/>
+          </attrib>
+          <attrib name="ref-name"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="security-role-ref"
+            scope="type" multiplicity="*">
+         <attrib name="role-name" use="required"/>
+         <attrib name="role-link" use="required"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="security-identity"
+            scope="type">
+         <attrib name="description"/>
+         <attrib name="use-caller-identity" type="bool"/>
+         <attrib name="run-as"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="resource-ref"
+            scope="type" multiplicity="*">
+         <attrib name="res-ref-name" use="required"/>
+         <attrib name="res-type" use="required" type="javaType"/>
+         <attrib name="res-auth" use="required" type="enum">
+         	<enumValues value="Container"/>
+         	<enumValues value="Application"/>
+         </attrib>
+         <attrib name="res-sharing-scope" type="enum">
+         	<enumValues value="Shareable"/>
+         	<enumValues value="Unshareable"/>
+         </attrib>
+         <attrib name="jndi-name"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="resource-env-ref"
+            scope="type" multiplicity="*">
+            <attrib name="name" use="required"/>
+            <attrib name="type" use="required" type="javaType"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="interface"
+            scope="type">
+          <attrib name="extends"/>
+          <attrib name="local-extends"/>
+          <attrib name="generate" type="bool"/>
+          <attrib name="remote-class"/>
+          <attrib name="local-class"/>
+          <attrib name="remote-pattern"/>
+          <attrib name="local-pattern"/>
+          <attrib name="pattern"/>
+          <attrib name="remote-package"/>
+          <attrib name="local-package"/>
+          <attrib name="package"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="home"
+            scope="type">
+          <attrib name="extends"/>
+          <attrib name="local-extends"/>
+          <attrib name="generate" type="bool"/>
+          <attrib name="remote-class"/>
+          <attrib name="local-class"/>
+          <attrib name="remote-pattern"/>
+          <attrib name="local-pattern"/>
+          <attrib name="pattern"/>
+          <attrib name="remote-package"/>
+          <attrib name="local-package"/>
+          <attrib name="package"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="pk"
+            scope="type">
+         <attrib name="class" use="required"/>
+         <attrib name="pattern"/>
+         <attrib name="package"/>
+         <attrib name="generate" type="bool"/>
+         <attrib name="extends" type="javaType"/>
+         <attrib name="implements" type="javaType"/>
+         <attrib name="role-name"/>
+         <attrib name="unchecked" type="bool"/>
+         <attrib name="method-intf" type="enum">
+         	<enumValues value="Home"/>
+         	<enumValues value="LocalHome"/>
+         </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="pk-field"
+            scope="method">
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="persistence"
+            scope="type">
+         <attrib name="table-name"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="persistence"
+            scope="method">
+          <attrib name="column-name"/>
+          <attrib name="jdbc-type" type="enum">
+          	<enumValues value="ARRAY"/>
+          	<enumValues value="BIGINT"/>
+          	<enumValues value="BINARY"/>
+          	<enumValues value="BIT"/>
+          	<enumValues value="BLOB"/>
+          	<enumValues value="BOOLEAN"/>
+          	<enumValues value="CHAR"/>
+          	<enumValues value="CLOB"/>
+          	<enumValues value="DATALINK"/>
+          	<enumValues value="DATE"/>
+          	<enumValues value="DECIMAL"/>
+          	<enumValues value="DISTINCT"/>
+          	<enumValues value="DOUBLE"/>
+          	<enumValues value="FLOAT"/>
+          	<enumValues value="INTEGER"/>
+          	<enumValues value="JAVA_OBJECT"/>
+          	<enumValues value="LONGVARBINARY"/>
+          	<enumValues value="LONGVARCHAR"/>
+          	<enumValues value="NULL"/>
+          	<enumValues value="NUMERIC"/>
+          	<enumValues value="OTHER"/>
+          	<enumValues value="REAL"/>
+          	<enumValues value="REF"/>
+          	<enumValues value="SMALLINT"/>
+          	<enumValues value="STRUCT"/>
+          	<enumValues value="TIME"/>
+          	<enumValues value="TIMESTAMP"/>
+          	<enumValues value="TINYINT"/>
+          	<enumValues value="VARBINARY"/>
+          	<enumValues value="VARCHAR"/>
+		  </attrib>
+          <attrib name="sql-type"/>
+          <attrib name="read-only"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+            tagSet="ejb"
+            tagName="finder"
+            scope="type"
+            multiplicity="*">
+          <attrib name="view-type" type="enum">
+          	<enumValues value="local"/>
+          	<enumValues value="remote"/>
+          	<enumValues value="both"/>
+          </attrib>
+          <attrib name="description"/>
+          <attrib name="signature" use="required"/>
+          <attrib name="unchecked" type="bool"/>
+          <attrib name="role-name"/>
+          <attrib name="query" use="required"/>
+          <attrib name="result-type-mapping" type="enum">
+          	<enumValues value="none"/>
+          	<enumValues value="Local"/>
+          	<enumValues value="Remote"/>
+          </attrib>
+          <attrib name="transaction-type"/>
+          <attrib name="method-intf" type="enum">
+          	<enumValues value="Home"/>
+          	<enumValues value="LocalHome"/>
+          </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="transaction" scope="method">
+      	<attrib name="type" use="required" type="enum">
+      		<enumValues value="NotSupported"/>
+      		<enumValues value="Supports"/>
+      		<enumValues value="Required"/>
+      		<enumValues value="RequiresNew"/>
+      		<enumValues value="Mandatory"/>
+      		<enumValues value="Never"/>
+      	</attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="transaction" scope="type">
+      	<attrib name="type" use="required" type="enum">
+      		<enumValues value="NotSupported"/>
+      		<enumValues value="Supports"/>
+      		<enumValues value="Required"/>
+      		<enumValues value="RequiresNew"/>
+      		<enumValues value="Mandatory"/>
+      		<enumValues value="Never"/>
+      	</attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="facade-method" scope="method">
+      	<attrib name="invalidate" type="bool"/>
+      	<attrib name="cache" type="bool"/>
+      	<attrib name="immutable" type="bool"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo
+      		tagSet="ejb"
+      		tagName="util"
+      		scope="type">
+      		
+      	  <attrib name="generate" use="required" type="enum">
+      	  	<enumValues value="no"/>
+      	  	<enumValues value="logical"/>
+      	  	<enumValues value="physical"/>
+      	  </attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="facade" scope="type">
+      	<attrib name="name"/>
+      	<attrib name="description"/>
+      	<attrib name="display-name"/>
+      	<attrib name="small-icon"/>
+      	<attrib name="large-icon"/>
+      	<attrib name="jndi-name"/>
+      	<attrib name="local-jndi-name"/>
+      	<attrib name="view-type" type="enum">
+      		<enumValues value="local"/>
+      		<enumValues value="remote"/>
+      		<enumValues value="both"/>
+      	</attrib>
+      	<attrib name="type" use="required" type="enum">
+      		<enumValues value="Stateless"/>
+      		<enumValues value="Stateful"/>
+      	</attrib>
+      	<attrib name="transaction-type" type="enum">
+      		<enumValues value="Bean"/>
+      		<enumValues value="Container"/>
+      	</attrib>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="remote-facade" scope="type"/>
+      <AnnotationTagInfo tagSet="ejb" tagName="permission" scope="method">
+      	<attrib name="role-name"/>
+      	<attrib name="unchecked" type="bool"/>
+      </AnnotationTagInfo>
+      <AnnotationTagInfo tagSet="ejb" tagName="permission" scope="type">
+      	<attrib name="role-name"/>
+      	<attrib name="unchecked" type="bool"/>
+      </AnnotationTagInfo>
+      
+    </extension>
 </plugin>
