@@ -21,7 +21,7 @@ import org.eclipse.wst.common.frameworks.internal.operations.WTPPropertyDescript
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public abstract class J2EEComponentCreationDataModelProvider extends JavaComponentCreationDataModelProvider
-	implements IJ2EEComponentCreationDataModelProperties {
+	implements IJ2EEComponentCreationDataModelProperties, IAnnotationsDataModel {
 	public AddComponentToEnterpriseApplicationDataModel addComponentToEARDataModel;
 	protected EARComponentCreationDataModel earComponentCreationDataModel;
 	private UpdateManifestDataModel jarDependencyDataModel;

@@ -8,8 +8,10 @@
  **************************************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import org.eclipse.wst.common.componentcore.internal.operation.IComponentCreationDataModelProperties;
 
-public interface IJavaComponentCreationDataModelProperties  {
+
+public interface IJavaComponentCreationDataModelProperties extends IComponentCreationDataModelProperties {
 	/**
 	 * type String
 	 */

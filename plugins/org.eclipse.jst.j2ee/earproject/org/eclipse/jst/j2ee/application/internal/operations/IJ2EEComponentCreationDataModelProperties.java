@@ -1,7 +1,6 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import org.eclipse.jst.j2ee.internal.archive.operations.IJavaComponentCreationDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.operation.IComponentCreationDataModelProperties;
 
 public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties{
 
@@ -37,8 +36,10 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
 	 * type String
 	 */
 	public static final String DD_FOLDER = "IJ2EEComponentCreationDataModelProperties.DD_FOLDER"; //$NON-NLS-1$
-	
-	
+    /**
+     * type URI
+     */
+	public static final String EAR_COMPONENT_HANDLE = "IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_HANDLE";
 	/**
 	 * This corresponds to the J2EE versions of 1.2, 1.3, 1.4, etc. Each subclass will convert this
 	 * version to its corresponding highest module version supported by the J2EE version and set the
