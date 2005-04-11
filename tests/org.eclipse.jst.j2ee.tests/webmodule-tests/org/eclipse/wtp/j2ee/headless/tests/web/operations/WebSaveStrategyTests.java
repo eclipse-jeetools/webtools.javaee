@@ -33,8 +33,9 @@ import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
 public class WebSaveStrategyTests extends TestCase {
+	
+	public static String fileSep = System.getProperty("file.separator");
 
-	private IPath zipFilePath = new Path("\\webmodule-tests\\org\\eclipse\\wtp\\j2ee\\headless\\tests\\web\\operations\\WarImportFlexProject.zip");
 	private String projectName = "WarImportFlexProject";
 	private IProject project;
 
@@ -49,6 +50,10 @@ public class WebSaveStrategyTests extends TestCase {
 	}
 
 	private IPath getLocalPath() {
+		String file = "TestData" + fileSep + "WARImportTests" + fileSep + "WarImportFlexProject.zip";
+		//fielString uri = getFullTestDataPath(file);
+		IPath zipFilePath = new Path(file);
+		
 		URL url = HeadlessTestsPlugin.getDefault().find(zipFilePath);
 		try {
 			url = Platform.asLocalURL(url);
@@ -108,16 +113,31 @@ public class WebSaveStrategyTests extends TestCase {
 		importWar("WebNoSource.war");
 	}
 
-	public void testAuctionV60WebSource() throws Exception {
-		importWar("AuctionV60WebSource.war");
-	}
+//	public void testAuctionV60WebSource() throws Exception {
+//		importWar("AuctionV60WebSource.war");
+//	}
+//
+//	public void testAuctionV60WebNoSource() throws Exception {
+//		importWar("AuctionV60WebNoSource.war");
+//	}
 
-	public void testAuctionV60WebNoSource() throws Exception {
-		importWar("AuctionV60WebNoSource.war");
+	protected static String getFullTestDataPath(String dataPath) {
+    	try {
+    	  return ProjectUtility.getFullFileName(HeadlessTestsPlugin.getDefault(),dataPath);
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return "";
+    }
+	 
+	private String getUri(String warName) {
+		String file = "TestData" + fileSep + "WARImportTests" + fileSep + warName;
+		String uri = getFullTestDataPath(file);
+		return uri;
 	}
-
 	private void importWar(String warName) throws Exception {
-		String uri = "d:/temp/" + warName;
+		    
+		String uri = getUri(warName);
 		Archive moduleFile = null;
 		IFlexibleProject flexProject = ComponentCore.createFlexibleProject(project);
 		IVirtualComponent[] vComps = flexProject.getComponents();

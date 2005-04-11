@@ -38,5 +38,12 @@
             class="org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests"
             name="Web Operations"/>
    </extension>
+   
+   <extension
+         point="org.eclipse.wst.common.tests.collector.suites">
+      <suite
+            class="org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT"
+            name="J2EE Headless BVT Tests"/>
+   </extension>
 
 </plugin>
