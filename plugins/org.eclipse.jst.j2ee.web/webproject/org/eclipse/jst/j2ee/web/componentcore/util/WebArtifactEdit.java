@@ -498,4 +498,13 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit {
 	public void setServerContextRoot(String contextRoot) {
 		//TODO set the new context root on the module, needs to be added to the model
 	}
+
+
+	/**
+	 * @return WebApp
+	 */
+	public WebApp getWebApp() {
+		
+		return (WebApp)getDeploymentDescriptorRoot();
+	}
 }
