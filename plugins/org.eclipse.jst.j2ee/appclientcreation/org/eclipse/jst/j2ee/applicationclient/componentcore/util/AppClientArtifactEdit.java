@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.applicationclient.modulecore.util;
+package org.eclipse.jst.j2ee.applicationclient.componentcore.util;
 
 import java.util.List;
 

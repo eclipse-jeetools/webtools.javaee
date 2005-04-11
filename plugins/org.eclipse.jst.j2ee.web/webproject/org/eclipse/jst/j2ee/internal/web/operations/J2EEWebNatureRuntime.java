@@ -44,7 +44,7 @@ import org.eclipse.jst.j2ee.internal.web.archive.operations.WTProjectLoadStrateg
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibRegistry;
 import org.eclipse.jst.j2ee.internal.webservices.WebServiceEditModel;
-import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;

@@ -9,7 +9,7 @@
 package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
-import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEditModel;
 

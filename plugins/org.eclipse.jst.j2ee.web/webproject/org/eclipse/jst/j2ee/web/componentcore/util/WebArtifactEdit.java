@@ -6,7 +6,7 @@
  * 
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
-package org.eclipse.jst.j2ee.web.modulecore.util;
+package org.eclipse.jst.j2ee.web.componentcore.util;
 
 import java.util.ArrayList;
 import java.util.List;

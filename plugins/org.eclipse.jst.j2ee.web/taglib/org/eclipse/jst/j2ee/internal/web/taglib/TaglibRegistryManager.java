@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.JavaTaglibRegistry;
 import org.eclipse.jst.j2ee.internal.web.taglib.registry.WebTaglibRegistry;
-import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 
 

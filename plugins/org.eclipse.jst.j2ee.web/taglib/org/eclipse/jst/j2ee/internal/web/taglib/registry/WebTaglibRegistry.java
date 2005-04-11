@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.internal.web.locator.WebProjectTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.locator.WebXMLTaglibLocator;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibInfo;
 import org.eclipse.jst.j2ee.internal.web.taglib.ITaglibLocator;
-import org.eclipse.jst.j2ee.web.modulecore.util.WebArtifactEdit;
+import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 
 
