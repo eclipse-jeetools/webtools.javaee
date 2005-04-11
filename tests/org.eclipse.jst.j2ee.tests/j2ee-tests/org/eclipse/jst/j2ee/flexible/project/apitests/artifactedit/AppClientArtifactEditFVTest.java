@@ -81,8 +81,6 @@ public class AppClientArtifactEditFVTest extends TestCase {
 			edit = AppClientArtifactEdit.getAppClientArtifactEditForWrite(wbComponent);
 			ApplicationClient appClient = edit.getApplicationClient();
 			pass(appClient);
-
-
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
