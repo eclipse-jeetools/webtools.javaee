@@ -1,7 +1,6 @@
 package org.eclipse.jst.j2ee.flexible.project.fvtests;
 import junit.framework.TestCase;
 
-
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentCreationOperation;
 import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponentCreationOperation;
