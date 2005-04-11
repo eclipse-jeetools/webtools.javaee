@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.flexible.project.apitests;
+package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;

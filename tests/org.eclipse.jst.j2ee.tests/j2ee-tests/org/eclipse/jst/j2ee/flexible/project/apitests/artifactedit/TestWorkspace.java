@@ -8,7 +8,7 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.flexible.project.apitests;
+package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
 
 import java.io.IOException;
@@ -61,11 +61,19 @@ public class TestWorkspace {
 	public static final String JCA_PROJECT_VERSION = "1.5"; //$NON-NLS-1$
 	public static final String JCA_DD_RESOURCE_URI = "platform:/resource/JCAArtifactEditTestModule/JCAArtifactEditTestModule/connectorModule/META-INF/ra.xml";//$NON-NLS-1$                                           
 	public static final URI JCA_MODULE_URI = URI.createURI("module:/resource/JCAArtifactEditTest/JCAArtifactEditModule");
-
-
+   
+	public static final String FVT_DESCRIPTION = "FVT Description Test";
+	public static final String FVT_DISPLAY_NAME = "FVT DisplayName Test";
+	public static final String FVT_LARGE_ICON = "fvtLargeIcon.gif";
+	public static IPath workspaceLocation = ResourcesPlugin.getWorkspace().getRoot().getLocation();
+	public static String ARTIFACT_EDIT_FVT_RESOURCE_PATH_NAME = "/ArtifactEditFunctionTestResource.txt";
+	public static IPath ARTIFACT_EDIT_FVT_RESOURCE_PATH = workspaceLocation.append(ARTIFACT_EDIT_FVT_RESOURCE_PATH_NAME);
+		
 	private static Path zipFilePath = new Path("/TestData/GenralArtifactTest/J2EEArtifactEditTestProjects.zip");
 	private static String[] projectNames = new String[]{EAR_PROJECT_NAME, APP_CLIENT_PROJECT_NAME, EJB_PROJECT_NAME, WEB_PROJECT_NAME, JCA_PROJECT_NAME};
 	private boolean isValidWorkspace;
+	
+
 
 
 	public static final String META_INF = "META-INF"; //$NON-NLS-1$

@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.flexible.project.apitests;
+package org.eclipse.jst.j2ee.flexible.project.apitests.artifactedit;
 
 import junit.framework.TestCase;
 
