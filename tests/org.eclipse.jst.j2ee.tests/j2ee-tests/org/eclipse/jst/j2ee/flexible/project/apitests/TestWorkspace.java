@@ -63,7 +63,7 @@ public class TestWorkspace {
 	public static final URI JCA_MODULE_URI = URI.createURI("module:/resource/JCAArtifactEditTest/JCAArtifactEditModule");
 
 
-	private static Path zipFilePath = new Path("\\TestData\\GenralArtifactTest\\J2EEArtifactEditTestProjects.zip");
+	private static Path zipFilePath = new Path("/TestData/GenralArtifactTest/J2EEArtifactEditTestProjects.zip");
 	private static String[] projectNames = new String[]{EAR_PROJECT_NAME, APP_CLIENT_PROJECT_NAME, EJB_PROJECT_NAME, WEB_PROJECT_NAME, JCA_PROJECT_NAME};
 	private boolean isValidWorkspace;
 
