@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.ejb.modulecore.util;
+package org.eclipse.jst.j2ee.ejb.componentcore.util;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
@@ -15,7 +16,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -32,6 +32,10 @@ import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
  * J2EEConstants#EJBJAR_DD_URI_OBJ}. The defined methods extract data or manipulate the contents of
  * the underlying resource.
  * </p>
+ */
+/**
+ * @author cbridgha
+ *
  */
 public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 	
@@ -140,8 +144,10 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 		return ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createEjbModule();
 	}
 
+	
 	/**
 	 * @param project
+	 * @return WorkbenchComponent
 	 */
 	public WorkbenchComponent getEJBClientJarModule(IProject project) {
 		EJBJar jar = getEJBJar();
@@ -386,10 +392,16 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
+	 */
 	public EObject createModelRoot() {
 	    return createModelRoot(getJ2EEVersion());
 	}
 			
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
+	 */
 	public EObject createModelRoot(int version) {
 	    EJBResource res = (EJBResource)getDeploymentDescriptorResource();
 	    res.setModuleVersionID(version);
