@@ -11,7 +11,24 @@
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import org.eclipse.jst.j2ee.internal.archive.operations.IJavaComponentCreationDataModelProperties;
-
+/**
+ * <p>
+ * IJavaComponentCreationDataModelProperties provides properties to the 
+ * JavaComponentCreationDataModelProvider as well as all extending interfaces extending 
+ * IJavaComponentCreationDataModelProperties specifically, but not limited to all J2EE component related
+ * creation.
+ * @see org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider
+ * </p>
+ * <p>
+ * This interface is not intended to be implemented by clients.
+ * </p>
+ * 
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
+ * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
+ * @see 
+ * 
+ * @since 1.0
+ */
 public interface IEJBClientComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties {
     /**
      * Required, type String
