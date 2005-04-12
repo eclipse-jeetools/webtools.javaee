@@ -27,7 +27,6 @@ public class FlexibleProjectCreationOp extends AbstractDataModelOperation {
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
         try {
 			createProject(monitor);
-	        addServerTarget(monitor);
 		    WTPProjectUtilities.addNatureToProjectLast(getProject(), IModuleConstants.MODULE_NATURE_ID);
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
@@ -46,12 +45,6 @@ public class FlexibleProjectCreationOp extends AbstractDataModelOperation {
     private void createProject(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException, ExecutionException {
         IDataModel projModel = model.getNestedModel(IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_PROJECT_CREATION);
         IDataModelOperation op = (IDataModelOperation)projModel.getDefaultOperation();
-        op.execute(monitor, null);
-    }
-
-    private void addServerTarget(IProgressMonitor monitor)  throws CoreException, InvocationTargetException, InterruptedException, ExecutionException{
-        IDataModel serverModel = model.getNestedModel(IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_SERVER_TARGET);
-        IDataModelOperation op = (IDataModelOperation)serverModel.getDefaultOperation();
         op.execute(monitor, null);
     }
     

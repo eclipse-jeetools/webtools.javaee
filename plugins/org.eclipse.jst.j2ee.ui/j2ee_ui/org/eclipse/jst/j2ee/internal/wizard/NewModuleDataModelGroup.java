@@ -11,7 +11,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.common.jdt.internal.integration.JavaProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.FlexibleProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.FlexibleJavaProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.IFlexibleJavaProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.IFlexibleProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.servertarget.J2EEProjectServerTargetDataModelProvider;
@@ -35,7 +36,7 @@ import org.eclipse.wst.common.frameworks.datamodel.ui.DataModelSynchHelper;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 
-public class NewModuleDataModelGroup {
+public class NewModuleDataModelGroup implements IFlexibleJavaProjectCreationDataModelProperties{
 	
 	private IDataModel model;
 	protected Combo projectNameCombo = null;
@@ -173,13 +174,13 @@ public class NewModuleDataModelGroup {
 	 *
 	 */
 	private void handleNewProjectSelected() {
-		IDataModel flexibleModel = DataModelFactory.createDataModel(new FlexibleProjectCreationDataModelProvider());
+		IDataModel flexibleJavaModel = DataModelFactory.createDataModel(new FlexibleJavaProjectCreationDataModelProvider());
 		IDataModel javaProjModel = DataModelFactory.createDataModel(new JavaProjectCreationDataModelProvider());
 		IDataModel serverTargetModel = DataModelFactory.createDataModel(new J2EEProjectServerTargetDataModelProvider());
-		flexibleModel.addNestedModel(IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_PROJECT_CREATION, javaProjModel);
-		flexibleModel.addNestedModel(IFlexibleProjectCreationDataModelProperties.NESTED_MODEL_SERVER_TARGET, serverTargetModel);
+        flexibleJavaModel.addNestedModel(NESTED_MODEL_PROJECT_CREATION, javaProjModel);
+        flexibleJavaModel.addNestedModel(NESTED_MODEL_SERVER_TARGET, serverTargetModel);
 //		FlexibleJavaProjectCreationDataModel projModel = new FlexibleJavaProjectCreationDataModel();
-		FlexibleProjectCreationDataModelWizard newProjectWizard = new FlexibleProjectCreationDataModelWizard(flexibleModel);
+		FlexibleProjectCreationDataModelWizard newProjectWizard = new FlexibleProjectCreationDataModelWizard(flexibleJavaModel);
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), newProjectWizard);
 		if (Window.OK == dialog.open()) {
 			String newProjectName = javaProjModel.getStringProperty(IFlexibleProjectCreationDataModelProperties.PROJECT_NAME);
