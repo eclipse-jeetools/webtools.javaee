@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.operations.IJavaComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.UpdateProjectClasspath;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
@@ -37,7 +38,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOperationEx {
+public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOperationEx implements IJavaComponentCreationDataModelProperties{
 	/**
 	 * @param dataModel
 	 */
@@ -77,11 +78,11 @@ public class JavaUtilityComponentCreationOperationEx extends ComponentCreationOp
 	}
 	   
 	String getJavaSourceFolder(){
-		return model.getStringProperty(JavaComponentCreationDataModelProvider.JAVASOURCE_FOLDER);
+		return model.getStringProperty(JAVASOURCE_FOLDER);
 	}
 	
 	String getManifestFolder(){
-		return model.getStringProperty(JavaComponentCreationDataModelProvider.MANIFEST_FOLDER);
+		return model.getStringProperty(MANIFEST_FOLDER);
 	}
 	
 	protected void createManifest(IProgressMonitor monitor) {
