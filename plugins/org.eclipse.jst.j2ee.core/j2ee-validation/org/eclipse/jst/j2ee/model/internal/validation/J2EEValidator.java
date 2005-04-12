@@ -21,13 +21,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.internal.common.impl.ResourceRefImpl;
 import org.eclipse.jst.j2ee.internal.common.impl.SecurityRoleImpl;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**
@@ -37,7 +36,6 @@ import org.eclispe.wst.validation.internal.core.Message;
  */
 public abstract class J2EEValidator implements IValidator, J2EEMessageConstants {
   protected IReporter _reporter;
-  protected IFileDelta[] _changedFiles;
   protected IValidationContext _helper;
 
 	public J2EEValidator()
@@ -444,11 +442,10 @@ public String[] getParam1(String string1){
  * If <code>changedFiles</code> is null, or if it is an empty array, then a full build
  * is performed. Otherwise, validation on just the files listed in the Vector is performed.
  */
-public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws ValidationException {
+public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 
   _helper = inHelper;
   _reporter = inReporter;
-  _changedFiles = inChangedFiles;
   if ((inHelper == null) || (inReporter == null)) {
 	return;
   }

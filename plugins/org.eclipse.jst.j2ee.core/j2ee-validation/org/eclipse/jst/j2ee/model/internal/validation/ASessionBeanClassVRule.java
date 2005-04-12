@@ -15,7 +15,7 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**

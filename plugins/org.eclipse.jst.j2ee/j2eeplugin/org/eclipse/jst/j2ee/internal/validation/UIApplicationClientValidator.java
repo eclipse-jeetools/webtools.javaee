@@ -21,10 +21,9 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**
@@ -75,12 +74,12 @@ public class UIApplicationClientValidator extends ApplicationClientValidator imp
 	/**
 	 * Does the validation.
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		UIApplicationClientHelper helper = (UIApplicationClientHelper) inHelper;
 		AppClientEditModel editModel = getAppClientEditModel(helper.getProject());
 		try {
-			super.validate(helper, inReporter, changedFiles);
+			super.validate(helper, inReporter);
 			validateDocType(helper, editModel);
 		} finally {
 			if (editModel != null) {

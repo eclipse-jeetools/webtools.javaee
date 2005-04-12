@@ -18,7 +18,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
 
-public interface IEJBValidationContext {
+public interface IEJBValidationContext extends IValidationContext {
 	public static final int ERROR = IMessage.HIGH_SEVERITY;
 	public static final int WARNING = IMessage.NORMAL_SEVERITY;
 	public static final int INFO = IMessage.LOW_SEVERITY;

@@ -25,12 +25,11 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 /**
  * @version 	1.0
@@ -63,7 +62,7 @@ public class EJBValidator extends AbstractEJBValidator {
 	/*
 	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
 	 */
-	public void validate(IValidationContext helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
 		long start = System.currentTimeMillis();
 		Logger logger = Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
 		if(logger != null && logger.isLoggingLevel(Level.FINER)) {
@@ -76,13 +75,12 @@ public class EJBValidator extends AbstractEJBValidator {
 		
 		EJBValidationContext vc = new EJBValidationContext(this, helper, reporter);
 		setValidationContext(vc);
-		if(isFullValidate(vc, changedFiles)) {
+		if(isFullValidate(vc)) {
 			fullValidate(vc);
 		}
 		else {
-			incrementalValidate(vc, changedFiles);
+			incrementalValidate(vc);
 		}
-		
 		if(logger != null && logger.isLoggingLevel(Level.FINER)) {
 			long end = System.currentTimeMillis();
 			LogEntry entry = getLogEntry();
@@ -92,18 +90,18 @@ public class EJBValidator extends AbstractEJBValidator {
 		}
 	}
 	
-	public boolean isFullValidate(IEJBValidationContext vc, IFileDelta[] delta) {
-		if(delta == null) {
+	public boolean isFullValidate(IEJBValidationContext vc) {
+		String[] fileURIs = vc.getURIs();
+		if(fileURIs == null) {
+			return true;
+		}
+		if(fileURIs.length == 0) {
 			return true;
 		}
 		
-		if(delta.length == 0) {
-			return true;
-		}
-		
-		for(int i=0; i<delta.length; i++) {
-			IFileDelta deltaInst = delta[i];
-			if(deltaInst.getFileName().endsWith(J2EEConstants.EJBJAR_DD_SHORT_NAME)) {
+		for(int i=0; i<fileURIs.length; i++) {
+			String uri = (String)fileURIs[i];
+			if(uri.endsWith(J2EEConstants.EJBJAR_DD_SHORT_NAME)) {
 				return true;
 			}
 		}
@@ -161,26 +159,20 @@ public class EJBValidator extends AbstractEJBValidator {
 		addInternalErrorMessage(vc);
 	}
 	
-	protected void preRemoveOldMessages(IEJBValidationContext vc, IFileDelta[] delta, Map targets) throws ValidationException {
+	protected void preRemoveOldMessages(IEJBValidationContext vc, Map targets) throws ValidationException {
 		Set validatedClasses = new HashSet();
 		
 		try {	
-			for(int i=0; i<delta.length; i++) {
-				IFileDelta deltaInst = delta[i];
-				if((deltaInst == null) || (deltaInst.getFileName() == null)) {
+			String[] uris = vc.getURIs();
+			for(int i=0; i<uris.length; i++) {
+				String uriInst = uris[i];
+				if((uriInst == null) || (uriInst.length() == 0)) {
 					continue;
 				}
 				
-				Object id = EJBValidationRuleFactory.getFactory().getRuleId(vc, deltaInst);
+				Object id = EJBValidationRuleFactory.getFactory().getRuleId(vc, uriInst);
 				if(id == null) {
-					// JavaClass rule
-					if(deltaInst.getDeltaType() == IFileDelta.DELETED) {
-						// Won't be able to load the JavaClass or EnterpriseBeans, but the ejb-jar.xml
-						// needs to be revalidated. That's done at the end of this method.
-						continue;
-					}
-					
-					Object[] clazzAndBean = (Object[])vc.loadModel(deltaInst.getFileName(), null); // Don't need a second parameter, but can't cast a RefObject to an Object[], so use the second load method.
+					Object[] clazzAndBean = (Object[])vc.loadModel(uriInst, null); // Don't need a second parameter, but can't cast a RefObject to an Object[], so use the second load method.
 					if(clazzAndBean == null) {
 						// Log, add "Cannot validate" to task list, and return.
 						logMissingRule(vc, id);
@@ -366,7 +358,7 @@ public class EJBValidator extends AbstractEJBValidator {
 	}
 	
 	public void fullValidate(IEJBValidationContext vc) throws ValidationException {
-		removeOldMessages(vc, null, null); // null == no IFileDelta, null = don't track targets
+		removeOldMessages(vc,null); // null == no IFileDelta, null = don't track targets
 		
 		EJBJar ejbJar = (EJBJar)vc.loadModel(EJBValidatorModelEnum.EJB_MODEL);
 		if(ejbJar == null) {
@@ -459,10 +451,10 @@ public class EJBValidator extends AbstractEJBValidator {
 		return result;		
 	}
 	
-	public void incrementalValidate(IEJBValidationContext vc, IFileDelta[] delta) throws ValidationException {
+	public void incrementalValidate(IEJBValidationContext vc) throws ValidationException {
 		Map targets = new HashMap();
 		try {
-			removeOldMessages(vc, delta, targets);
+			removeOldMessages(vc,targets);
 			
 			Iterator iterator = targets.keySet().iterator();
 			while(iterator.hasNext()) {

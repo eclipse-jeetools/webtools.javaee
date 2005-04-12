@@ -21,7 +21,6 @@ import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 
 /**
  * Core EJB Validation rules
@@ -97,22 +96,6 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 		
 		addDependentRuleToRuleList();
 		logAllDependentRules();
-	}
-	
-	/**
-	 * If the IFileDelta represents a static load model (i.e., the file name is always the same),
-	 * then return the Integer which loads that model. Otherwise return null.
-	 */
-	public final Object getRuleId(IEJBValidationContext vc, IFileDelta delta) {
-		if(delta == null) {
-			Logger aLogger = vc.getMsgLogger();
-			if (aLogger != null && aLogger.isLoggingLevel(Level.FINE)) {
-				aLogger.write(Level.FINE, "Cannot load rule from delta: " + delta); //$NON-NLS-1$
-			}
-			return null;
-		}
-		
-		return getRuleId(vc, delta.getFileName());
 	}
 	
 	/**

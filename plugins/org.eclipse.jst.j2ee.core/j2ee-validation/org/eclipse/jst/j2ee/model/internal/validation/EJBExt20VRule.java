@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.internal.ejb.EjbPackage;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 /**
  * Validate the WebSphere-specific implementation of non-spec features, such

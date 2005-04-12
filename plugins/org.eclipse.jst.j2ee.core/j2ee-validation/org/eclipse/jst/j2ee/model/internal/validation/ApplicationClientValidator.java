@@ -16,12 +16,11 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 
@@ -75,9 +74,9 @@ public class ApplicationClientValidator extends org.eclipse.jst.j2ee.model.inter
 	 * 
 	 * @throws ValidationException
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter,IFileDelta[] changedFiles)
+	public void validate(IValidationContext inHelper, IReporter inReporter)
 	  throws ValidationException {
-	  super.validate(inHelper, inReporter, changedFiles);
+	  super.validate(inHelper, inReporter);
 	  try {
 		setAppClientFile( (ApplicationClientFile) inHelper.loadModel(APPCLIENT_MODEL_NAME) );
 		if ( appClientFile != null ) {

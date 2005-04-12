@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.model.internal.validation;
 
 
+import java.util.List;
+
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -187,5 +189,9 @@ public class EJBValidationContext implements IEJBValidationContext {
 		message.setId(messageId);
 		message.setParams(parms);
 		getReporter().displaySubtask(getValidator(), message);
+	}
+
+	public String[] getURIs() {
+		return null;
 	}
 }

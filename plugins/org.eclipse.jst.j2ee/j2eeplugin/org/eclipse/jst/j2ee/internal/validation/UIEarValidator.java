@@ -46,7 +46,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.ValidateXmlCommand;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEImportConstants;
@@ -56,20 +55,20 @@ import org.eclipse.jst.j2ee.internal.earcreation.modulemap.UtilityJARMapping;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
+import org.eclipse.jst.j2ee.modulecore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**
@@ -196,10 +195,10 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 		earHelper = newEarHelper;
 	}
 
-	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		inReporter.removeAllMessages(this);
 		earHelper = (UIEarHelper) inHelper;
-		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
+		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		WorkbenchComponent[] workBenchModules = null; 
 		StructureEdit moduleCore = null;	
 		try{ 
@@ -213,7 +212,7 @@ public class UIEarValidator extends EarValidator implements UIEarMessageConstant
 	               		earEdit = EARArtifactEdit.getEARArtifactEditForRead(wbModule );
 	               		if(earEdit != null) {
 		               		Application earApp = (Application) earEdit.getDeploymentDescriptorRoot();		               		
-		               		super.validate(inHelper, inReporter, changedFiles, earApp);
+		               		super.validate(inHelper, inReporter, earApp);
 							validateModuleMaps(wbModule);
 							validateManifests(wbModule,earFile);
 							validateUtilJarMaps(wbModule);

@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.internal.project.J2EENature;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.validation.internal.operations.AWorkbenchHelper;
+import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
 
 
-public abstract class J2EEValidationHelper extends AWorkbenchHelper {
+public abstract class J2EEValidationHelper extends WorkbenchContext {
 	/**
 	 * Constructor for J2EEValidationHelper.
 	 */
@@ -29,7 +29,7 @@ public abstract class J2EEValidationHelper extends AWorkbenchHelper {
 	}
 
 	/*
-	 * @see IWorkbenchHelper#getFile(Object)
+	 * @see IWorkbenchContext#getFile(Object)
 	 */
 	public IResource getResource(Object object) {
 		Resource resource = null;
@@ -94,7 +94,7 @@ public abstract class J2EEValidationHelper extends AWorkbenchHelper {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.wst.validation.internal.operations.IWorkbenchHelper#getTargetObjectName(java.lang.Object)
+	 * @see org.eclipse.wst.validation.internal.operations.IWorkbenchContext#getTargetObjectName(java.lang.Object)
 	 */
 	public String getTargetObjectName(Object object) {
 		if (object != null)

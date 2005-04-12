@@ -18,11 +18,10 @@ import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.validation.internal.operations.IWorkbenchHelper;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.wst.validation.internal.operations.IWorkbenchContext;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**
@@ -102,9 +101,9 @@ public class UIWarValidator extends WarValidator {
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
-	public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws org.eclipse.wst.validation.internal.provisional.core.ValidationException {
+	public void validate(IValidationContext inHelper, IReporter inReporter) throws org.eclispe.wst.validation.internal.core.ValidationException {
 		setWarHelper((UIWarHelper) inHelper);
-		IProject proj = ((IWorkbenchHelper) inHelper).getProject();
+		IProject proj = ((IWorkbenchContext) inHelper).getProject();
         WorkbenchComponent[] workBenchModules = null; 
 		StructureEdit moduleCore = null;	
 		try{ 
@@ -117,7 +116,7 @@ public class UIWarValidator extends WarValidator {
                		webEdit = WebArtifactEdit.getWebArtifactEditForRead(wbModule );
                		if(webEdit != null) {
 	               		WebApp webApp = (WebApp) webEdit.getDeploymentDescriptorRoot();		               		
-	               		super.validate(inHelper, inReporter, inChangedFiles, webApp);
+	               		super.validate(inHelper, inReporter, webApp);
                		}
                	}
                	catch(Exception e){

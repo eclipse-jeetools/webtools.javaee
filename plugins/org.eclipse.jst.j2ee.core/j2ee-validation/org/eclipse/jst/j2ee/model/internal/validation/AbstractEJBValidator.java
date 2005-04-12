@@ -23,14 +23,12 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.MessageLimitException;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
-
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 /**
  * @author vijayb
  * 
@@ -70,14 +68,14 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 		}
 	}
 	
-	protected Map removeOldMessages(IEJBValidationContext vc, IFileDelta[] delta, Map targets) throws ValidationException {
-			if(delta == null) {
+	protected Map removeOldMessages(IEJBValidationContext vc,Map targets) throws ValidationException {
+			if(vc.getURIs() == null) {
 				// Full validation
 				vc.removeAllMessages(); // Remove messages from the EJBJar.
 				vc.loadModel(removeOldMessagesString(), new Object[]{vc.getReporter(), null}); // Remove messages from any EJB client JAR files or Java Utility JAR files.
 				return null;
 			}
-			preRemoveOldMessages(vc, delta, targets); // Get the list of targets to be validated, and remove messages from all of them.
+			preRemoveOldMessages(vc,targets); // Get the list of targets to be validated, and remove messages from all of them.
 
 			// Remove the messages from all of the changed files and their dependents.
 			vc.loadModel(removeOldMessagesString(), new Object[]{vc.getReporter(), targets});
@@ -88,7 +86,7 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	 * @param delta
 	 * @param targets
 	 */
-	protected void preRemoveOldMessages(IEJBValidationContext vc, IFileDelta[] delta, Map targets) throws ValidationException {
+	protected void preRemoveOldMessages(IEJBValidationContext vc,Map targets) throws ValidationException {
 		//Default
 	}
 	/**
@@ -110,7 +108,7 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	 *      org.eclipse.wst.validation.internal.core.core.IReporter,
 	 *      org.eclipse.wst.validation.internal.core.core.IFileDelta[])
 	 */
-	public void validate(IValidationContext helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
+	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
 		//Default
 	}
 	

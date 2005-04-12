@@ -23,7 +23,7 @@ import org.eclipse.jem.internal.plugin.JavaEMFNature;
 import org.eclipse.jem.util.logger.LogEntry;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.validation.internal.operations.AWorkbenchHelper;
+import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
 import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 
 
@@ -32,7 +32,7 @@ import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
  * registering the load model method which loads a specific type of MOF model, as identified by the
  * symbolic model name.
  */
-public abstract class AWorkbenchMOFHelper extends AWorkbenchHelper {
+public abstract class AWorkbenchMOFHelper extends WorkbenchContext {
 	public IResource getResource(Object obj) {
 		IResource res = null;
 		if ((obj != null) && (obj instanceof EObject)) {
@@ -62,7 +62,7 @@ public abstract class AWorkbenchMOFHelper extends AWorkbenchHelper {
 			Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
 			if (logger.isLoggingLevel(Level.FINE)) {
 				LogEntry entry = ValidationPlugin.getLogEntry();
-				entry.setSourceID("AWorkbenchHelper.getMOFNature(IProject)"); //$NON-NLS-1$
+				entry.setSourceID("WorkbenchContext.getMOFNature(IProject)"); //$NON-NLS-1$
 				entry.setTargetException(exc);
 				logger.write(Level.FINE, entry);
 			}
@@ -81,7 +81,7 @@ public abstract class AWorkbenchMOFHelper extends AWorkbenchHelper {
 				Logger logger = ValidationPlugin.getPlugin().getMsgLogger();
 				if (logger.isLoggingLevel(Level.FINE)) {
 					LogEntry entry = ValidationPlugin.getLogEntry();
-					entry.setSourceID("AWorkbenchHelper.getMOFNature(IProject)"); //$NON-NLS-1$
+					entry.setSourceID("WorkbenchContext.getMOFNature(IProject)"); //$NON-NLS-1$
 					entry.setTargetException(exc);
 					logger.write(Level.FINE, entry);
 				}

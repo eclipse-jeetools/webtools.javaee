@@ -56,12 +56,11 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebResourceCollection;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 //import org.eclipse.jst.j2ee.internal.plugin.nls.ResourceHandler;
 
@@ -82,19 +81,6 @@ public class WarValidator extends org.eclipse.jst.j2ee.model.internal.validation
 	{
 		super();
 	}
-	
-public boolean checkIfValidFileForIncValidation(IFileDelta changedFile) {
-
-	//the getDeltaType helper can be used to do more fine grained
-	//validation specific to add, delete or changed resources
-	//changedFile.getDeltaType();
-
-	String fileName = changedFile.getFileName();
-
-	if (fileName.endsWith("xml") || fileName.endsWith("jsp") || fileName.endsWith("html")|| fileName.endsWith("java")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		return true;
-	return false;
-}
 /**
  * Will construct a HashTable of roles, and check for duplicates 
  * and null entries
@@ -256,9 +242,9 @@ private void validateUrlPattern() {
  * If <code>changedFiles</code> is null, or if it is an empty array, then a full build
  * is performed. Otherwise, validation on just the files listed in the Vector is performed.
  */
-public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles) throws ValidationException {
+public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 
-	super.validate(inHelper, inReporter, inChangedFiles);
+	super.validate(inHelper, inReporter);
 
 	// First remove all previous msg. for this project
 	_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well
@@ -284,9 +270,9 @@ public void validate(IValidationContext inHelper, IReporter inReporter, IFileDel
 }
 
 
-public void validate(IValidationContext inHelper, IReporter inReporter, IFileDelta[] inChangedFiles, WebApp webApp) throws ValidationException {
+public void validate(IValidationContext inHelper, IReporter inReporter, WebApp webApp) throws ValidationException {
 
-	super.validate(inHelper, inReporter, inChangedFiles);
+	super.validate(inHelper, inReporter);
 
 	// First remove all previous msg. for this project
 	_reporter.removeAllMessages(this, null); // Note the WarHelper will return web.xml with a null object as well

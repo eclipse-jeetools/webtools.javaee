@@ -18,12 +18,11 @@ package org.eclipse.jst.j2ee.model.internal.validation;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.RARFile;
 import org.eclipse.jst.j2ee.jca.Connector;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 
 /**
@@ -82,9 +81,9 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 		 * 
 		 * @throws ValidationException
 		 */
-		public void validate(IValidationContext inHelper, IReporter inReporter,IFileDelta[] changedFiles)
+		public void validate(IValidationContext inHelper, IReporter inReporter)
 		throws ValidationException {
-			super.validate(inHelper, inReporter, changedFiles);
+			super.validate(inHelper, inReporter);
 			try {
 				setRarFile( (RARFile) inHelper.loadModel(CONNECTOR_MODEL_NAME));
 				if ( rarFile != null ) {
