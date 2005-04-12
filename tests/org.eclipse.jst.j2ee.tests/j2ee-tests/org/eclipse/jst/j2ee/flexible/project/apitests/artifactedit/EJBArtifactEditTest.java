@@ -75,6 +75,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			edit.getDeploymentDescriptorRoot();
 			// /////BUG in PlatformURL\\\\\\\\\\\turning test off////
 			/*
 			 * EObject object = edit.getDeploymentDescriptorRoot(); assertNotNull(object);
@@ -100,6 +101,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForWrite(wbComponent);
+			edit.createModelRoot();
 			// ////BUG turning off\\\\\\\\\\\\\
 			/*
 			 * EObject object = edit.createModelRoot(); assertNotNull(object);
@@ -127,6 +129,7 @@ public class EJBArtifactEditTest extends TestCase {
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			// ///////BUG in PlatformURLModuleConnection
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			edit.createModelRoot(14);
 			/*
 			 * EObject object = edit.createModelRoot(14); assertNotNull(object);
 			 */
@@ -228,6 +231,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			edit.hasEJBClientJARProject(ejbProject);
 			// /////BUG\\\\\\\\\\\
 			// boolean bool = edit.hasEJBClientJARProject(ejbProject);
 			// assertEquals(bool, true);
@@ -266,6 +270,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			edit.getEJBClientJarModule(ejbProject);
 			// /////////bug\\\\\\\\
 			// WorkbenchComponent comp = edit.getEJBClientJarModule(ejbProject);
 			// assertNotNull(comp);

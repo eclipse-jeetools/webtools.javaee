@@ -274,69 +274,6 @@ public class ConnectorArtifactEditTest extends TestCase {
 		pass(); // protected method
 	}
 
-	// ///////////////BUG Workbench Module not initalized\\\\\\\\\\\\\\\\\\\\\\
-	public void testUriExists() {
-		StructureEdit moduleCore = null;
-		ConnectorArtifactEdit edit = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
-			// /Bug
-			/*
-			 * assertTrue(edit.uriExists(TestWorkspace.EJB_MODULE_URI.toString()));
-			 */
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-				edit.dispose();
-			}
-
-		}
-	}
-
-	// ///////////////////BUG ClassCastException \\\\\\\\\\\\\\\\\\\\
-
-	public void testGetWorkbenchUtilModules() {
-		StructureEdit moduleCore = null;
-		ConnectorArtifactEdit edit = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
-			// //////////////classcast exception
-			/*
-			 * assertNotNull(edit.getWorkbenchUtilModules(wbComponent));
-			 */
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-				edit.dispose();
-			}
-
-		}
-	}
-
-	// ///////////////////BUG ClassCastException \\\\\\\\\\\\\\\\\\\\
-	public void testGetWorkbenchJ2EEModules() {
-		StructureEdit moduleCore = null;
-		ConnectorArtifactEdit edit = null;
-		try {
-			moduleCore = StructureEdit.getStructureEditForRead(jcaProject);
-			WorkbenchComponent wbComponent = moduleCore.findComponentByName(jcaModuleName);
-			edit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(wbComponent);
-			// classCast
-			// assertNotNull(edit.getWorkbenchJ2EEModules(wbComponent));
-		} finally {
-			if (moduleCore != null) {
-				moduleCore.dispose();
-				edit.dispose();
-			}
-
-
-		}
-	}
-
 	public void pass() {
 		assertTrue(true);
 	}
@@ -373,8 +310,6 @@ public class ConnectorArtifactEditTest extends TestCase {
 
 		}
 	}
-
-
 
 	public void testAddConnectorIfNecessary() {
 		pass(); // protected method need to get clarification

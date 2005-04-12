@@ -87,6 +87,7 @@ public class EnterpriseArtifactEditTest extends TestCase {
 			ModuleCoreNature nature = null;
 			nature = moduleCore.getModuleCoreNature(TestWorkspace.EAR_MODULE_URI);
 			edit = new EARArtifactEdit(nature, wbComponent, true);
+			edit.getDeploymentDescriptorRoot();
 			//////////////////////////BUG\\\\\\\\\\\
 			//assertNotNull(edit.getDeploymentDescriptorRoot());
 		} catch (UnresolveableURIException e) {

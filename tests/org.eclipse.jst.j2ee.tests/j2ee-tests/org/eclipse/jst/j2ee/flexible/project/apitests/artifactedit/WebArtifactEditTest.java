@@ -9,7 +9,9 @@ import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.impl.ComponentcoreFactoryImpl;
 import org.eclipse.wst.common.componentcore.internal.resources.ComponentHandle;
 import org.eclipse.wst.common.internal.emfworkbench.EMFWorkbenchContext;
 
@@ -97,6 +99,7 @@ public class WebArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(webProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForWrite(wbComponent);
+			edit.createModelRoot();
 			// ////BUG turning off\\\\\\\\\\\\\
 			/*
 			 * EObject object = edit.createModelRoot(); assertNotNull(object);
@@ -123,6 +126,7 @@ public class WebArtifactEditTest extends TestCase {
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(webModuleName);
 			// ///////BUG in PlatformURLModuleConnection
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			edit.createModelRoot(14);
 			/*
 			 * EObject object = edit.createModelRoot(14); assertNotNull(object);
 			 */
@@ -342,6 +346,7 @@ public class WebArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
 			wbComponent = moduleCore.findComponentByName(webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			edit.getLibModules();
 			// //bug module in editmodel never initialized\\\\
 			// assertNotNull(edit.getLibModules());
 		} finally {
@@ -362,6 +367,8 @@ public class WebArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
 			wbComponent = moduleCore.findComponentByName(webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			ReferencedComponent refComp = ComponentcoreFactoryImpl.eINSTANCE.createReferencedComponent();
+			edit.addLibModules(new ReferencedComponent[]{refComp});
 			/////////////////bug\\\\\\\ owner---WebArtifactEdit -> referenceComponents() != null
 			//needs to insure owner 
 /*			ReferencedComponent refComp = ComponentcoreFactoryImpl.eINSTANCE.createReferencedComponent();
@@ -383,6 +390,7 @@ public class WebArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
 			wbComponent = moduleCore.findComponentByName(webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			edit.getServerContextRoot();
 			// /////////////////////BUG/////////////////////
 			// //edit.getServerContextRoot();
 			// assertTrue(edit.getServerContextRoot().equals(TestWorkspace.WEB_SERVER_CONTEXT_ROOT));
@@ -404,6 +412,7 @@ public class WebArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForWrite(webProject);
 			wbComponent = moduleCore.findComponentByName(webModuleName);
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
+			edit.setServerContextRoot(serverContextData);
 			// /////////////////////BUG/////////////////////
 			// //edit.getServerContextRoot();
 			//edit.setServerContextRoot(serverContextData);
