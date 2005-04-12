@@ -143,7 +143,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	}
 
 	/**
-	 * When the validation is complete, this method will be called so that the IWorkbenchHelper can
+	 * When the validation is complete, this method will be called so that the IWorkbenchContext can
 	 * clean up any resources it allocated during the validation.
 	 * 
 	 * If the cleanup is a long-running operation, subtask messages should be sent to the IReporter.
@@ -312,7 +312,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	/**
 	 * Return a List of the EnterpriseBeans which use this JavaClass as a remote, home, bean class
 	 * or key. This method takes an Object[] parameter so that it can be called by the
-	 * AWorkbenchHelper's load mechanism. It is expected that this parameter has one entry, and that
+	 * WorkbenchContext's load mechanism. It is expected that this parameter has one entry, and that
 	 * entry is an instance of a JavaClass.
 	 */
 	public List loadBeans(JavaClass clazz) {
@@ -562,8 +562,8 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * This method can be overriden by AWorkbenchHelpers, if they wish to perform some
 	 * initialization once the IProject is set. Default is to do nothing.
 	 * 
-	 * For example, if this IWorkbenchHelper delegates to another IWorkbenchHelper, then that
-	 * IWorkbenchHelper's setProject() method should be called here.
+	 * For example, if this IWorkbenchContext delegates to another IWorkbenchContext, then that
+	 * IWorkbenchContext's setProject() method should be called here.
 	 */
 	public void initialize() {
 		super.initialize();
@@ -681,7 +681,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	}
 
 	/**
-	 * @see org.eclipse.wst.validation.internal.operations.IWorkbenchHelper#getPortableName(IResource)
+	 * @see org.eclipse.wst.validation.internal.operations.IWorkbenchContext#getPortableName(IResource)
 	 */
 	public String getPortableName(IResource resource) {
 		// Return the URI of the object.
