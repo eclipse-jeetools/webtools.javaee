@@ -305,6 +305,8 @@ public class EARArtifactEditTest extends TestCase {
 			/*
 			 * assertTrue(edit.uriExists(TestWorkspace.EJB_MODULE_URI.toString()));
 			 */
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -328,6 +330,8 @@ public class EARArtifactEditTest extends TestCase {
 			/*
 			 * assertNotNull(edit.getWorkbenchUtilModules(wbComponent));
 			 */
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
