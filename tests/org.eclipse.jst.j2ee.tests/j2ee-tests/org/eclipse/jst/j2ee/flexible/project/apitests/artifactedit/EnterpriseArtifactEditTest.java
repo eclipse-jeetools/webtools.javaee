@@ -91,7 +91,7 @@ public class EnterpriseArtifactEditTest extends TestCase {
 			//////////////////////////BUG\\\\\\\\\\\
 			//assertNotNull(edit.getDeploymentDescriptorRoot());
 		} catch (UnresolveableURIException e) {
-			fail();
+			// TODO fail();
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();

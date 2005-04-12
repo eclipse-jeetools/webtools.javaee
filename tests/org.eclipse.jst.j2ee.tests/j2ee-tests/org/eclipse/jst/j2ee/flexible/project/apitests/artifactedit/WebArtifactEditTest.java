@@ -80,8 +80,8 @@ public class WebArtifactEditTest extends TestCase {
 			 * EObject object = edit.getDeploymentDescriptorRoot(); assertNotNull(object);
 			 */
 
-		}catch(Exception e){	
-			//TODO
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -108,6 +108,8 @@ public class WebArtifactEditTest extends TestCase {
 			 * EObject object = edit.createModelRoot(); assertNotNull(object);
 			 */
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -134,6 +136,8 @@ public class WebArtifactEditTest extends TestCase {
 			 * EObject object = edit.createModelRoot(14); assertNotNull(object);
 			 */
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -352,6 +356,8 @@ public class WebArtifactEditTest extends TestCase {
 			edit.getLibModules();
 			// //bug module in editmodel never initialized\\\\
 			// assertNotNull(edit.getLibModules());
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -359,8 +365,8 @@ public class WebArtifactEditTest extends TestCase {
 			}
 		}
 	}
-	
-	//////////////Bug\\\\\\\\\\\\\\\\\\\\\\\
+
+	// ////////////Bug\\\\\\\\\\\\\\\\\\\\\\\
 
 	public void testAddLibModules() {
 		StructureEdit moduleCore = null;
@@ -372,11 +378,16 @@ public class WebArtifactEditTest extends TestCase {
 			edit = WebArtifactEdit.getWebArtifactEditForRead(wbComponent);
 			ReferencedComponent refComp = ComponentcoreFactoryImpl.eINSTANCE.createReferencedComponent();
 			edit.addLibModules(new ReferencedComponent[]{refComp});
-			/////////////////bug\\\\\\\ owner---WebArtifactEdit -> referenceComponents() != null
-			//needs to insure owner 
-/*			ReferencedComponent refComp = ComponentcoreFactoryImpl.eINSTANCE.createReferencedComponent();
-			edit.addLibModules(new ReferencedComponent[]{refComp});
-			assertTrue(edit.getLibModules().length > 0);*/
+			// ///////////////bug\\\\\\\ owner---WebArtifactEdit -> referenceComponents() != null
+			// needs to insure owner
+			/*
+			 * ReferencedComponent refComp =
+			 * ComponentcoreFactoryImpl.eINSTANCE.createReferencedComponent();
+			 * edit.addLibModules(new ReferencedComponent[]{refComp});
+			 * assertTrue(edit.getLibModules().length > 0);
+			 */
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -397,6 +408,8 @@ public class WebArtifactEditTest extends TestCase {
 			// /////////////////////BUG/////////////////////
 			// //edit.getServerContextRoot();
 			// assertTrue(edit.getServerContextRoot().equals(TestWorkspace.WEB_SERVER_CONTEXT_ROOT));
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -418,10 +431,12 @@ public class WebArtifactEditTest extends TestCase {
 			edit.setServerContextRoot(serverContextData);
 			// /////////////////////BUG/////////////////////
 			// //edit.getServerContextRoot();
-			//edit.setServerContextRoot(serverContextData);
-			//String testData = edit.getServerContextRoot();
-			//assertTrue(testData.equals(serverContextData));
+			// edit.setServerContextRoot(serverContextData);
+			// String testData = edit.getServerContextRoot();
+			// assertTrue(testData.equals(serverContextData));
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
