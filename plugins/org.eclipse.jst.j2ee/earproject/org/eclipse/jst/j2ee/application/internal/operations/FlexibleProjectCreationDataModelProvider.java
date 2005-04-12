@@ -4,8 +4,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModelProvider 
@@ -47,8 +48,7 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 		if (projectName != null && projectName.length() != 0) {
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			if (project != null && project.exists()) {
-				String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_PROJECT_NAME_EXISTS);
-                return WTPCommonPlugin.createErrorStatus(msg);
+                return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.PROJECT_EXISTS_AT_LOCATION_ERROR));
 			}
 		}
 		return WTPCommonPlugin.OK_STATUS;
@@ -79,7 +79,7 @@ public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModel
 //		projectDataModel = new ProjectCreationDataModel();
 //	}
 //	
-//    public IDataModelOperation getDefaultOperation() {
-//        return new FlexibleProjectCreationOperation(model);
-//    }
+    public IDataModelOperation getDefaultOperation() {
+        return new FlexibleProjectCreationOp(model);
+    }
 }

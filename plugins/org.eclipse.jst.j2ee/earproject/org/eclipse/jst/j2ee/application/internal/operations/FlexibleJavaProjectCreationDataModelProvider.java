@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
+
 public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjectCreationDataModelProvider implements IFlexibleJavaProjectCreationDataModelProperties{
 
     public FlexibleJavaProjectCreationDataModelProvider() {
@@ -24,5 +26,8 @@ public class FlexibleJavaProjectCreationDataModelProvider extends FlexibleProjec
             return Boolean.TRUE;
         }
         return super.getDefaultProperty(propertyName);
+    }
+    public IDataModelOperation getDefaultOperation() {
+        return new FlexibleJavaProjectCreationOperation(model);
     }
 }
