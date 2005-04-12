@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
@@ -23,7 +22,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IJ2EEComponentCreationDataModelProperties{
+public class ConnectorComponentCreationDataModelProvider extends J2EEComponentCreationDataModelProvider implements IConnectorComponentCreationDataModelProperties{
 
     public ConnectorComponentCreationDataModelProvider() {
         super();

@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-public interface IJ2EEComponentExportDataModelProperties {
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
+
+public interface IJ2EEComponentExportDataModelProperties extends IDataModelProperties {
 
     /**
      * Required, type String

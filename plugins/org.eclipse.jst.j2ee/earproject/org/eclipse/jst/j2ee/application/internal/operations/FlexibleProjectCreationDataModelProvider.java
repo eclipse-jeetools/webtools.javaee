@@ -6,22 +6,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
-import org.eclipse.jst.j2ee.internal.servertarget.IJ2EEProjectServerTargetDataModelProperties;
-import org.eclipse.jst.j2ee.internal.servertarget.ServerTargetDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class FlexibleProjectCreationDataModelProvider  extends AbstractDataModelProvider 
 		implements IFlexibleProjectCreationDataModelProperties {
-
-	/**
-	 * An optional dataModel property for a <code>java.lang.String</code> type. This is used to
-	 * specify the server target and is required if the <code>ADD_SERVER_TARGET</code> property is
-	 * set to <code>Boolean.TRUE</code>.
-	 * 
-	 * @see ServerTargetDataModel.RUNTIME_TARGET_ID
-	 */
-	public static final String SERVER_TARGET_ID = IJ2EEProjectServerTargetDataModelProperties.RUNTIME_TARGET_ID;
 
 	public FlexibleProjectCreationDataModelProvider() {
 		super();

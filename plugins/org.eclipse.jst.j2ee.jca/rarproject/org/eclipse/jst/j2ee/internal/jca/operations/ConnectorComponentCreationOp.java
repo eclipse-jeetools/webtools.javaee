@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
@@ -33,7 +32,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class ConnectorComponentCreationOp extends J2EEComponentCreationOp implements IJ2EEComponentCreationDataModelProperties{
+public class ConnectorComponentCreationOp extends J2EEComponentCreationOp implements IConnectorComponentCreationDataModelProperties{
 
     public ConnectorComponentCreationOp(IDataModel model) {
         super(model);

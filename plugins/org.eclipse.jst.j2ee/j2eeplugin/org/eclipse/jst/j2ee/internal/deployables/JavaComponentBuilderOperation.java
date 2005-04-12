@@ -53,7 +53,7 @@ public class JavaComponentBuilderOperation extends AbstractDataModelOperation im
      */
     public IStatus execute(IProgressMonitor monitor, IAdaptable info) {
 		try {
-            WorkbenchComponent workbenchModule = (WorkbenchComponent)model.getProperty(WORKBENCH_MODULE);
+            WorkbenchComponent workbenchModule = (WorkbenchComponent)model.getProperty(WORKBENCH_COMPONENT);
             
             IProject project = (IProject)model.getProperty(PROJECT);
             IPath projectPath = project.getFullPath();

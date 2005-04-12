@@ -1,6 +1,8 @@
 package org.eclipse.jst.j2ee.internal.servertarget;
 
-public interface IJ2EEProjectServerTargetDataModelProperties {
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
+
+public interface IJ2EEProjectServerTargetDataModelProperties extends IDataModelProperties{
 
 	/**
 	 * required, type String
