@@ -20,11 +20,11 @@ package org.eclipse.jst.validation.sample.filesystem;
  */
 
 
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.IFileDelta;
 import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 import org.eclispe.wst.validation.internal.core.ValidatorLauncher;
 
 /**
@@ -52,7 +52,7 @@ public class FilesystemApplication {
 		for (int i=0; i<loaders.length; i++) {
 			FilesystemLoader loader = loaders[i];
 			try {
-				ValidatorLauncher.getLauncher().start(loader.getHelper(), loader.getValidator(), reporter, files);
+				ValidatorLauncher.getLauncher().start(loader.getHelper(), loader.getValidator(), reporter);
 				if (!fullBuild) {
 					((IncrementalReporter)reporter).report();
 				}

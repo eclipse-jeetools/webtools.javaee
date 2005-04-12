@@ -32,9 +32,9 @@ import org.eclipse.jst.validation.sample.PModelEnum;
 import org.eclipse.jst.validation.sample.filesystem.IFilesystemHelper;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclispe.wst.validation.internal.core.FileDelta;
+import org.eclispe.wst.validation.internal.core.IFileDelta;
 
 /**
  * This class is the IValidationContext implementation, used by the PropertiesValidator,
@@ -194,5 +194,10 @@ public class FilesystemPropertiesHelper implements IFilesystemHelper {
 			return pFile.getQualifiedFileName(); // a ValidationPropertyFile returns the file name as its qualified name
 		}
 		return "";	//$NON-NLS-1$
+	}
+
+	public String[] getURIs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

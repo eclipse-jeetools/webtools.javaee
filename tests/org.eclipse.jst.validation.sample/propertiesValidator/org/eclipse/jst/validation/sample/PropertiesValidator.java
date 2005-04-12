@@ -24,13 +24,13 @@ import java.util.logging.Level;
 
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.IValidationConstants;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclipse.wst.validation.internal.provisional.core.ValidationException;
+import org.eclispe.wst.validation.internal.core.IFileDelta;
 import org.eclispe.wst.validation.internal.core.Message;
+import org.eclispe.wst.validation.internal.core.ValidationException;
 
 /**
  * This class checks that the .properties files has no syntax or
@@ -49,15 +49,16 @@ public class PropertiesValidator implements IValidator {
 	/*
 	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
 	 */
-	public void validate(IValidationContext helper, IReporter reporter, IFileDelta[] changedFiles) throws ValidationException {
-		if((changedFiles == null) || (changedFiles.length == 0)) {
-			changedFiles = (IFileDelta[])helper.loadModel(PModelEnum.ALL_PROPERTIES_FILES);
+	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
+		IFileDelta[] fileURIs = null;
+		if((fileURIs == null) || (fileURIs.length == 0)) {
+			fileURIs = (IFileDelta[])helper.loadModel(PModelEnum.ALL_PROPERTIES_FILES);
 		}
 		else {
 			// Filter out the files that are in the "bin" directory.
-			changedFiles = (IFileDelta[])helper.loadModel(PModelEnum.FILTER, new Object[]{changedFiles});
+			fileURIs = (IFileDelta[])helper.loadModel(PModelEnum.FILTER, new Object[]{helper.getURIs()});
 		}
-		if(changedFiles == null) {
+		if(fileURIs == null) {
 			// Problem loading the files. 
 			Logger logger = (Logger)helper.loadModel(PModelEnum.MSGLOGGER);
 			if(logger.isLoggingLevel(Level.SEVERE)) {
@@ -65,24 +66,24 @@ public class PropertiesValidator implements IValidator {
 				return;
 			}
 		}
-		
-		for (int i = 0; i < changedFiles.length; i++) {
+		String[] uris = helper.getURIs();
+		for (int i = 0; i < uris.length; i++) {
 			// Load the reader for the file
 			LineNumberReader reader = null;
 			try {
-				reader = (LineNumberReader)helper.loadModel(PModelEnum.LINEINPUTREADER, new Object[]{changedFiles[i].getFileName()});
+				reader = (LineNumberReader)helper.loadModel(PModelEnum.LINEINPUTREADER, new Object[]{uris[i]});
 				if(reader == null) {
 					// Either: 
 					// 1. The file doesn't exist or
 					// 2. The file isn't a .properties file or
 					// 3. The file can't be read
-					IMessage message = new Message(IValidationConstants.BUNDLENAME, IMessage.NORMAL_SEVERITY, IValidationConstants.ABCD0090, new String[]{changedFiles[i].getFileName()});
+					IMessage message = new Message(IValidationConstants.BUNDLENAME, IMessage.NORMAL_SEVERITY, IValidationConstants.ABCD0090, new String[]{uris[i]});
 					reporter.addMessage(this, message);
 					continue;
 				}
 	
 				// If we can get a reader then we can get a PropertyFile
-				ValidatorPropertyFile propFile = new ValidatorPropertyFile(reader, changedFiles[i].getFileName(), reporter, this);
+				ValidatorPropertyFile propFile = new ValidatorPropertyFile(reader, uris[i], reporter, this);
 				propFile.printSyntaxWarnings();
 				propFile.printDuplicateMessageId();
 				propFile.printDuplicateMessagePrefix();

@@ -37,15 +37,15 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.PModelEnum;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
-import org.eclipse.wst.validation.internal.operations.AWorkbenchHelper;
+import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
 import org.eclipse.wst.validation.internal.operations.WorkbenchFileDelta;
-import org.eclipse.wst.validation.internal.provisional.core.IFileDelta;
+import org.eclispe.wst.validation.internal.core.IFileDelta;
 
 /**
  * This class implements the WebSphere Studio IValidationContext for the 
  * Properties Validator.
  */
-public class PropertiesHelper extends AWorkbenchHelper {
+public class PropertiesHelper extends WorkbenchContext {
 	public PropertiesHelper() {
 		super();
 		 
@@ -57,14 +57,14 @@ public class PropertiesHelper extends AWorkbenchHelper {
 	}
 
 	/**
-	 * @see com.ibm.etools.validate.IWorkbenchHelper#getTargetObjectName(Object)
+	 * @see com.ibm.etools.validate.IWorkbenchContext#getTargetObjectName(Object)
 	 */
 	public String getTargetObjectName(Object object) {
 		return null;
 	}
 	
 	/**
-	 * @see com.ibm.etools.validate.IWorkbenchHelper#getResource(Object)
+	 * @see com.ibm.etools.validate.IWorkbenchContext#getResource(Object)
 	 */
 	public IResource getResource(Object object) {
 		IFile file = null;
