@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.StructureEdit;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -38,7 +39,10 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			String version = wbComponent.getComponentType().getVersion();
+			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
+			edit.getJ2EEVersion();
 			assertTrue(version.equals(TestWorkspace.EJB_PROJECT_VERSION));
+
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -214,7 +218,7 @@ public class EJBArtifactEditTest extends TestCase {
 			moduleCore = StructureEdit.getStructureEditForRead(ejbProject);
 			WorkbenchComponent wbComponent = moduleCore.findComponentByName(ejbModuleName);
 			edit = EJBArtifactEdit.getEJBArtifactEditForRead(wbComponent);
-			String uri = edit.getDeploymentDescriptorResource().getURI().toString();
+			String uri = edit.getEJBJarXmiResource().toString();
 
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
 			// assertTrue(uri.equals(TestWorkspace.EJB_DD_XMI_RESOURCE_URI));
@@ -330,6 +334,17 @@ public class EJBArtifactEditTest extends TestCase {
 	}
 
 	public void testAddEJBJarIfNecessary() {
+		EJBArtifactEdit test = new EJBArtifactEdit(getArtifactEditModelforRead()) {
+			protected void addEJBJarIfNecessary(XMLResource aResource) {
+				// TODO add test
+				super.addEJBJarIfNecessary(aResource);
+			}
+
+			public void test() {
+				addEJBJarIfNecessary(null);
+			};
+		};
+
 	}
 
 	/*
@@ -428,7 +443,8 @@ public class EJBArtifactEditTest extends TestCase {
 			if (moduleCore != null) {
 				moduleCore.dispose();
 			}
-			assertTrue(EJBArtifactEdit.isValidEditableModule(wbComponent));
+			boolean valid = EJBArtifactEdit.isValidEditableModule(wbComponent);
+			assertTrue(valid);
 		}
 	}
 
