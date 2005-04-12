@@ -256,7 +256,12 @@ public class AppClientArtifactEditTest extends TestCase {
 			boolean testURI = uri.equals(TestWorkspace.APP_CLIENT_DD_XMI_RESOURCE_URI);
 			// assertTrue(uri.equals(TestWorkspace.APP_CLIENT_DD_XMI_RESOURCE_URI));
 
-		} finally {
+		}catch(Exception e){
+			
+			//TODO
+		}
+		
+		finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
 				edit.dispose();

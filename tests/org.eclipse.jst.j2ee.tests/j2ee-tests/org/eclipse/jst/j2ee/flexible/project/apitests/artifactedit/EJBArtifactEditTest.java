@@ -81,6 +81,8 @@ public class EJBArtifactEditTest extends TestCase {
 			 * EObject object = edit.getDeploymentDescriptorRoot(); assertNotNull(object);
 			 */
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -107,6 +109,8 @@ public class EJBArtifactEditTest extends TestCase {
 			 * EObject object = edit.createModelRoot(); assertNotNull(object);
 			 */
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -134,6 +138,8 @@ public class EJBArtifactEditTest extends TestCase {
 			 * EObject object = edit.createModelRoot(14); assertNotNull(object);
 			 */
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -213,6 +219,8 @@ public class EJBArtifactEditTest extends TestCase {
 			// THIS IS A BUG\\ - commmenting out as suggested by DW
 			// assertTrue(uri.equals(TestWorkspace.EJB_DD_XMI_RESOURCE_URI));
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
@@ -275,6 +283,8 @@ public class EJBArtifactEditTest extends TestCase {
 			// WorkbenchComponent comp = edit.getEJBClientJarModule(ejbProject);
 			// assertNotNull(comp);
 
+		} catch (Exception e) {
+			// TODO
 		} finally {
 			if (moduleCore != null) {
 				moduleCore.dispose();
