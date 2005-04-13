@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.ejb.datamodel.properties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 /**
  * <p>
- * IEJBComponentExportDataModelProperties provides properties to the DataModel associated with the 
+ * IEJBComponentExportDataModelProperties provides properties to the IDataModel associated with the 
  * EJBComponentExportDataModelProvider.
  * NOTE: The associated Provider and Operations will be created during M5
  * </p>
