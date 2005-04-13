@@ -31,17 +31,17 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModel
  */
 public interface IEJBClientComponentCreationDataModelProperties extends IJavaComponentCreationDataModelProperties {
     /**
-     * Required, type String
+     * Required, type String, the name of the Ejb Component
      */     
-    public static final String EJB_COMPONENT_NAME = "IEJBClientComponentCreationDataModelProperties.EJB_MODULE_NAME"; //$NON-NLS-1$
+    public static final String EJB_COMPONENT_NAME = "IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_NAME"; //$NON-NLS-1$
     
     /**
-     * Required, type String
+     * Required, type String, the project name of the Ejb Component
      */     
     public static final String EJB_PROJECT_NAME = "IEJBClientComponentCreationDataModelProperties.EJB_PROJECT_NAME"; //$NON-NLS-1$ 
     
     /**
-     * Required, type String
+     * Required, type String, the deploy name of the Ejb component
      */     
     public static final String EJB_COMPONENT_DEPLOY_NAME = "IEJBClientComponentCreationDataModelProperties.EJB_COMPONENT_DEPLOY_NAME"; //$NON-NLS-1$
     
@@ -57,24 +57,27 @@ public interface IEJBClientComponentCreationDataModelProperties extends IJavaCom
     public static final String DELETE_WHEN_FINISHED = "IEJBClientComponentCreationDataModelProperties.DELETE_WHEN_FINISHED"; //$NON-NLS-1$
     
     /**
-     * type Boolean, default false
+     * Required, type Boolean, the default value is <code>Boolean.TRUE</code>
      */
     public static final String ADD_TO_EAR = "IEJBClientComponentCreationDataModelProperties.ADD_TO_EAR"; //$NON-NLS-1$
 
     /**
-     * type String
+     * Optional, type String, this value needs to be set if the property ADD_TO_EAR is set to <code>Boolean.TRUE</code>
      */
     
-    public static final String EAR_MODULE_DEPLOY_NAME = "IEJBClientComponentCreationDataModelProperties.EAR_MODULE_DEPLOY_NAME"; //$NON-NLS-1$
+    public static final String EAR_COMPONENT_NAME = "IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_NAME"; //$NON-NLS-1$
+	
+    /**
+     * Optional, type String, this value needs to be set if the property ADD_TO_EAR is set to <code>Boolean.TRUE</code>
+     */
+    
+    public static final String EAR_COMPONENT_DEPLOY_NAME = "IEJBClientComponentCreationDataModelProperties.EAR_COMPONENT_DEPLOY_NAME"; //$NON-NLS-1$
     
     /**
-     * type boolean
+     * Required, type Boolean, the default value is <code>Boolean.FALSE</code>, if this property is set to <code>Boolean.TRUE</code>
+     * the client component will be created in a separate project 
      */
     
     public static final String CREATE_PROJECT = "IEJBClientComponentCreationDataModelProperties.CREATE_PROJECT"; //$NON-NLS-1$
-    /**
-     * type URI, This  needs to be set up to ensure that other j2ee component is properly added as dependent component of ear 
-     */
-    public static final String EAR_COMPONENT_HANDLE = "IEJBClientComponentCreationDataModelProperties.CREATE_PROJECT"; //$NON-NLS-1$
 
 }
