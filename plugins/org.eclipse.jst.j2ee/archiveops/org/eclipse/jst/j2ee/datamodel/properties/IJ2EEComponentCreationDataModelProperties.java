@@ -55,6 +55,6 @@ public interface IJ2EEComponentCreationDataModelProperties extends IJavaComponen
 	 * J2EE_MODULE_VERSION property.
 	 * 
 	 */
-	public static final String J2EE_VERSION = "IJ2EEComponentCreationDataModelProperties.J2EE_VERSION"; //$NON-NLS-1$
+	//public static final String J2EE_VERSION = "IJ2EEComponentCreationDataModelProperties.J2EE_VERSION"; //$NON-NLS-1$
 
 }

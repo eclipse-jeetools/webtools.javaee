@@ -39,7 +39,7 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
     }
     
     public String[] getPropertyNames() {
-        String[] props = new String[]{SERVLET_VERSION, JSP_VERSION, USE_ANNOTATIONS, CONTEXT_ROOT};
+        String[] props = new String[]{USE_ANNOTATIONS, CONTEXT_ROOT};
         return combineProperties(super.getPropertyNames(), props);
     }
     /**
@@ -132,34 +132,35 @@ public class WebComponentCreationDataModelProvider extends J2EEComponentCreation
         if (propertyName.equals(CONTEXT_ROOT)) {
             return getProperty(COMPONENT_NAME);
         }
-        if (propertyName.equals(SERVLET_VERSION)) {
-            int moduleVersion = getIntProperty(COMPONENT_VERSION);
-            int servletVersion = J2EEVersionConstants.SERVLET_2_2;
-            switch (moduleVersion) {
-                case J2EEVersionConstants.WEB_2_2_ID :
-                    servletVersion = J2EEVersionConstants.SERVLET_2_2;
-                    break;
-                case J2EEVersionConstants.WEB_2_3_ID :
-                case J2EEVersionConstants.WEB_2_4_ID :
-                    servletVersion = J2EEVersionConstants.SERVLET_2_3;
-                    break;
-            }
-            return new Integer(servletVersion);
-        }
-        if (propertyName.equals(JSP_VERSION)) {
-            int moduleVersion = getIntProperty(COMPONENT_VERSION);
-            int jspVersion = J2EEVersionConstants.JSP_1_2_ID;
-            switch (moduleVersion) {
-                case J2EEVersionConstants.WEB_2_2_ID :
-                    jspVersion = J2EEVersionConstants.JSP_1_2_ID;
-                    break;
-                case J2EEVersionConstants.WEB_2_3_ID :
-                case J2EEVersionConstants.WEB_2_4_ID :
-                    jspVersion = J2EEVersionConstants.JSP_2_0_ID;
-                    break;
-            }
-            return new Integer(jspVersion);
-        }
+		//To do: after porting
+//        if (propertyName.equals(SERVLET_VERSION)) {
+//            int moduleVersion = getIntProperty(COMPONENT_VERSION);
+//            int servletVersion = J2EEVersionConstants.SERVLET_2_2;
+//            switch (moduleVersion) {
+//                case J2EEVersionConstants.WEB_2_2_ID :
+//                    servletVersion = J2EEVersionConstants.SERVLET_2_2;
+//                    break;
+//                case J2EEVersionConstants.WEB_2_3_ID :
+//                case J2EEVersionConstants.WEB_2_4_ID :
+//                    servletVersion = J2EEVersionConstants.SERVLET_2_3;
+//                    break;
+//            }
+//            return new Integer(servletVersion);
+//        }
+//        if (propertyName.equals(JSP_VERSION)) {
+//            int moduleVersion = getIntProperty(COMPONENT_VERSION);
+//            int jspVersion = J2EEVersionConstants.JSP_1_2_ID;
+//            switch (moduleVersion) {
+//                case J2EEVersionConstants.WEB_2_2_ID :
+//                    jspVersion = J2EEVersionConstants.JSP_1_2_ID;
+//                    break;
+//                case J2EEVersionConstants.WEB_2_3_ID :
+//                case J2EEVersionConstants.WEB_2_4_ID :
+//                    jspVersion = J2EEVersionConstants.JSP_2_0_ID;
+//                    break;
+//            }
+//            return new Integer(jspVersion);
+//        }
         if (propertyName.equals(DD_FOLDER)) {
             return IPath.SEPARATOR + this.getModuleName()+IPath.SEPARATOR + "WebContent"+IPath.SEPARATOR + J2EEConstants.WEB_INF;
         }       

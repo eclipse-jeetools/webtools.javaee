@@ -9,24 +9,32 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.web.datamodel.properties;
-
-import org.eclipse.jst.j2ee.application.internal.operations.AddWebModuleToEARDataModel;
+/**
+ * <p>
+ * IWebComponentCreationDataModelProperties provides properties to the 
+ * WebComponentCreationDataModelProvider as well as all extending interfaces extending 
+ * IWebComponentCreationDataModelProperties 
+ * @see org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentCreationDataModelProvider
+ * </p>
+ * <p>
+ * This interface is not intended to be implemented by clients.
+ * </p>
+ * 
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
+ * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
+ * @see org.eclipse.jst.j2ee.datamodel.properties.IJavaComponentCreationDataModelProperties
+ * @see org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties
+ * @since 1.0
+ */
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 
 public interface IWebComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
 
-    /**
-     * Type Integer
+     /**
+     * Required, type String, the user defined name of the context root for the web component
      */
-    public static final String SERVLET_VERSION = "IWebComponentCreationDataModelProperties.SERVLET_VERSION"; //$NON-NLS-1$
-    /**
-     * Type Integer
-     */
-    public static final String JSP_VERSION = "IWebComponentCreationDataModelProperties.JSP_VERSION"; //$NON-NLS-1$
-    /**
-     * Type String
-     */
-    public static final String CONTEXT_ROOT = AddWebModuleToEARDataModel.CONTEXT_ROOT;
+    public static final String CONTEXT_ROOT = "IWebComponentCreationDataModelProperties.CONTEXT_ROOT";
 
 
 }
