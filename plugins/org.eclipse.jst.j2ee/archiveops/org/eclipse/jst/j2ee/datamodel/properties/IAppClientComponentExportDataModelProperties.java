@@ -9,7 +9,22 @@
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
-
+/**
+ * <p>
+ * IAppClientComponentExportDataModelProperties provides properties to the DataModel associated with the 
+ * AppClientComponentExportDataModelProvider.
+ * NOTE: The associated Provider and Operations will be created during M5
+ * </p>
+ * <p>
+ * This interface is not intended to be implemented by clients.
+ * </p>
+ * 
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
+ * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
+ * 
+ * @since 1.0
+ */
 public interface IAppClientComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
 
 }

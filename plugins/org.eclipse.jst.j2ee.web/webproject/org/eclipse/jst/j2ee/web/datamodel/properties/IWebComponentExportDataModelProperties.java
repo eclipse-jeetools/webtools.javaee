@@ -11,7 +11,22 @@
 package org.eclipse.jst.j2ee.web.datamodel.properties;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
-
+/**
+ * <p>
+ * IWebComponentExportDataModelProperties provides properties to the DataModel associated with the 
+ * WebComponentExportDataModelProvider.
+ * NOTE: The associated Provider and Operations will be created during M5
+ * </p>
+ * <p>
+ * This interface is not intended to be implemented by clients.
+ * </p>
+ * 
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
+ * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
+ * 
+ * @since 1.0
+ */
 public interface IWebComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
 
 }
