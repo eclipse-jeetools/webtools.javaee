@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.datamodel.properties;
 /**
  * <p>
- * IJavaUtilityJarImportDataModelProperties provides properties to the DataModel associated with the 
+ * IJavaUtilityJarImportDataModelProperties provides properties to the IDataModel associated with the 
  * JavaUtilityJarImportDataModelProvider.
  * 
  * NOTE: The associated Provider and Operations will be created during M5

@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.web.datamodel.properties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 /**
  * <p>
- * IWebComponentExportDataModelProperties provides properties to the DataModel associated with the 
+ * IWebComponentExportDataModelProperties provides properties to the IDataModel associated with the 
  * WebComponentExportDataModelProvider.
  * NOTE: The associated Provider and Operations will be created during M5
  * </p>

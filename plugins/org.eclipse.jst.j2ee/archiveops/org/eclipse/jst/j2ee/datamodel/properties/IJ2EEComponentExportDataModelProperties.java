@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.datamodel.properties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 /**
  * <p>
- * IJ2EEComponentExportDataModelProperties provides properties to the DataModel associated with the 
+ * IJ2EEComponentExportDataModelProperties provides properties to the IDataModel associated with the 
  * J2EEComponentExportDataModelProvider as well as all extending interfaces extending 
  * IJ2EEComponentExportDataModelProperties specifically all J2EE component specific exports.
  * NOTE: The associated Provider and Operations will be created during M5

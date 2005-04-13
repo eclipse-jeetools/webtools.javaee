@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 /**
  * <p>
- * IConnectorComponentExportDataModel provides properties to the DataModel associated with the 
+ * IConnectorComponentExportDataModel provides properties to the IDataModel associated with the 
  * ConnectorComponentExportDataModelProvider.\
  * NOTE: The associated Provider and Operations will be created during M5
  * </p>
@@ -27,6 +27,6 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelPr
  * 
  * @since 1.0
  */
-public interface IConnectorComponentExportDataModel extends IJ2EEComponentExportDataModelProperties {
+public interface IConnectorComponentExportDataModelProperties extends IJ2EEComponentExportDataModelProperties {
 
 }

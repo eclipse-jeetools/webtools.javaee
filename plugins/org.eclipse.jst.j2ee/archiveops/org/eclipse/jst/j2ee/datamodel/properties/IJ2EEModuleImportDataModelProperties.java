@@ -13,7 +13,7 @@ package org.eclipse.jst.j2ee.datamodel.properties;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationDataModel;
 /**
  * <p>
- * IJ2EEModuleImportDataModelProperties provides properties to the DataModel associated with the 
+ * IJ2EEModuleImportDataModelProperties provides properties to the IDataModel associated with the 
  * J2EEModuleImportDataModelProvider as well as all extending interfaces extending 
  * IJ2EEModuleImportDataModelProperties specifically all J2EE component specific imports.
  * 

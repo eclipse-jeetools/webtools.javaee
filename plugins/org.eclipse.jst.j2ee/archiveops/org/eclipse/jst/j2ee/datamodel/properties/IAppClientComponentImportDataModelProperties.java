@@ -10,7 +10,22 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.datamodel.properties;
 
-
+/**
+ * <p>
+ * IAppClientComponentImportDataModelProperties provides properties to the IDataModel associated with the 
+ * AppClientComponentImportDataModelProvider.
+ * NOTE: The associated Provider and Operations will be created during M5
+ * </p>
+ * <p>
+ * This interface is not intended to be implemented by clients.
+ * </p>
+ * 
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider
+ * @see org.eclipse.wst.common.frameworks.datamodel.DataModelFactory
+ * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties
+ * 
+ * @since 1.0
+ */
 public interface IAppClientComponentImportDataModelProperties extends IJ2EEModuleImportDataModelProperties {
 
 }

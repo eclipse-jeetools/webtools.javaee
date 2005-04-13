@@ -14,7 +14,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProperties;
 
 /**
  * <p>
- * IJ2EEComponentImportDataModelProperties provides properties to the DataModel associated with the 
+ * IJ2EEComponentImportDataModelProperties provides properties to the IDataModel associated with the 
  * J2EEComponentImportDataModelProvider as well as all extending interfaces extending 
  * IJ2EEComponentImportDataModelProperties specifically all J2EE component specific imports.
  * 
