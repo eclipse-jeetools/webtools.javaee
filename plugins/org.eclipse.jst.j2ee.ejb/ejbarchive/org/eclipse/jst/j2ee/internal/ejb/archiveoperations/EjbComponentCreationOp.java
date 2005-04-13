@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentCreationOp;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEjbComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;

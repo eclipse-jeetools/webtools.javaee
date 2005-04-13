@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.JavaUtilityComponent
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModel;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
+import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBClientComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModel;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.jst.j2ee.internal.ejb.impl.EJBJarImpl;

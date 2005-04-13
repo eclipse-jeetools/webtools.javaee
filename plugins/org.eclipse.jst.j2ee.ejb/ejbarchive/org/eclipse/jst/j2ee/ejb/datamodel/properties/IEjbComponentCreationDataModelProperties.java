@@ -8,9 +8,9 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
+package org.eclipse.jst.j2ee.ejb.datamodel.properties;
 
-import org.eclipse.jst.j2ee.application.internal.operations.IJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.archive.datamodel.properties.IJ2EEComponentCreationDataModelProperties;
 
 public interface IEjbComponentCreationDataModelProperties extends IJ2EEComponentCreationDataModelProperties {
     public static final String CREATE_CLIENT = "IEjbComponentCreationDataModelProperties.CREATE_CLIENT"; //$NON-NLS-1$

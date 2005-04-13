@@ -8,9 +8,9 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
+package org.eclipse.jst.j2ee.ejb.datamodel.properties;
 
-import org.eclipse.jst.j2ee.internal.archive.operations.IJavaComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.archive.datamodel.properties.IJavaComponentCreationDataModelProperties;
 /**
  * <p>
  * IJavaComponentCreationDataModelProperties provides properties to the 
