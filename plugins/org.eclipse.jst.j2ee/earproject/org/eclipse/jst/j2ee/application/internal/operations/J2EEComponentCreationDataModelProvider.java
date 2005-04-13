@@ -45,7 +45,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
  	public String[] getPropertyNames() {
-		String[] props = new String[]{EAR_MODULE_NAME, EAR_MODULE_DEPLOY_NAME, ADD_TO_EAR, 
+		String[] props = new String[]{EAR_COMPONENT_NAME, EAR_COMPONENT_DEPLOY_NAME, ADD_TO_EAR, 
 				UI_SHOW_EAR_SECTION, DD_FOLDER, JAVASOURCE_FOLDER, J2EE_VERSION,
 				MANIFEST_FOLDER 
 //				NESTED_MODEL_VALIDATION_HOOK
@@ -62,7 +62,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 			return Boolean.FALSE;
 		} else if (propertyName.equals(UI_SHOW_EAR_SECTION)) {
 			return Boolean.TRUE;
-		} else if (propertyName.equals(EAR_MODULE_NAME)) {
+		} else if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			return getDataModel().getStringProperty(COMPONENT_NAME)+"EAR";
 		} else {
 			return super.getDefaultProperty(propertyName);
@@ -70,12 +70,12 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	protected boolean doSetProperty(String propertyName, Object propertyValue) {
-		if (propertyName.equals(EAR_MODULE_NAME)) {
+		if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			earComponentHandle = computeEARHandle((String)propertyValue);
 		} else if(propertyName.equals(COMPONENT_NAME)){
-			if (!getDataModel().isPropertySet(EAR_MODULE_NAME)) 
-				getDataModel().notifyPropertyChange(EAR_MODULE_NAME, IDataModel.VALID_VALUES_CHG);
-			    setEARDeployNameProperty(getDataModel().getStringProperty(EAR_MODULE_NAME));
+			if (!getDataModel().isPropertySet(EAR_COMPONENT_NAME)) 
+				getDataModel().notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
+			    setEARDeployNameProperty(getDataModel().getStringProperty(EAR_COMPONENT_NAME));
 		} else if (propertyName.equals(PROJECT_NAME)) {
 			WorkbenchComponent workbenchComp = getTargetWorkbenchComponent();
 			setEARComponentIfJ2EEModuleCreationOnly(workbenchComp,propertyValue);
@@ -110,7 +110,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 	
 	private void setEARDeployNameProperty(Object propertyValue) {
-	   setProperty(EAR_MODULE_DEPLOY_NAME,propertyValue);
+	   setProperty(EAR_COMPONENT_DEPLOY_NAME,propertyValue);
 	}
 
 	/**
@@ -121,10 +121,10 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		getAddModuleToApplicationDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME,
 				getDataModel().getStringProperty(PROJECT_NAME));
 		getAddModuleToApplicationDataModel().setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME,
-				getDataModel().getStringProperty(EAR_MODULE_NAME));
-		if (!getDataModel().isPropertySet(EAR_MODULE_NAME)) {
-			String earModuleName = getDataModel().getStringProperty(EAR_MODULE_NAME);
-			getDataModel().notifyPropertyChange(EAR_MODULE_NAME, IDataModel.VALID_VALUES_CHG);
+				getDataModel().getStringProperty(EAR_COMPONENT_NAME));
+		if (!getDataModel().isPropertySet(EAR_COMPONENT_NAME)) {
+			String earModuleName = getDataModel().getStringProperty(EAR_COMPONENT_NAME);
+			getDataModel().notifyPropertyChange(EAR_COMPONENT_NAME, IDataModel.VALID_VALUES_CHG);
 
 		}
 		jarDependencyDataModel.setProperty(UpdateManifestDataModel.PROJECT_NAME, propertyValue);
@@ -148,7 +148,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 		if (propertyName.equals(COMPONENT_VERSION)) {
 			return getValidComponentVersionDescriptors();
 		}
-		if (propertyName.equals(EAR_MODULE_NAME)) {
+		if (propertyName.equals(EAR_COMPONENT_NAME)) {
 			int j2eeVersion = getJ2EEVersion();
 			return getEARPropertyDescriptor(j2eeVersion);			
 		}	
@@ -235,7 +235,7 @@ public abstract class J2EEComponentCreationDataModelProvider extends JavaCompone
 	}
 
 	protected IStatus validateProperty(String propertyName) {
-		if (EAR_MODULE_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
+		if (EAR_COMPONENT_NAME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			return validateEARModuleNameProperty();
 		} 
 		return super.validate(propertyName);

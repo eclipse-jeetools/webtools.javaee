@@ -122,11 +122,11 @@ public class ServerEarAndStandaloneDataModelGroup {
 	protected void handleNewEarSelected() {
 		IDataModel earModel = DataModelFactory.createDataModel(new EarComponentCreationDataModelProvider());
 		earModel.setIntProperty(IJ2EEComponentCreationDataModelProperties.J2EE_VERSION, model.getIntProperty(IJ2EEComponentCreationDataModelProperties.J2EE_VERSION));
-		earModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_MODULE_NAME));
+		earModel.setProperty(IComponentCreationDataModelProperties.COMPONENT_NAME, model.getProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME));
 		EARComponentCreationWizard earWizard = new EARComponentCreationWizard();
 		WizardDialog dialog = new WizardDialog(parentComposite.getShell(), earWizard);
 		if (Window.OK == dialog.open()) {
-			model.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_MODULE_NAME, earModel.getProperty(ComponentCreationDataModel.COMPONENT_NAME));
+			model.setProperty(IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME, earModel.getProperty(ComponentCreationDataModel.COMPONENT_NAME));
 		}
 	}
 

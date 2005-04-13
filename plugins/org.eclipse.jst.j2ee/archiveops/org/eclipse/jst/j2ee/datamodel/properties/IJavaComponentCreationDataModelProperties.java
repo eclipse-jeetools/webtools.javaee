@@ -30,14 +30,14 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IComponentCreat
  */
 public interface IJavaComponentCreationDataModelProperties extends IComponentCreationDataModelProperties {
 	/**
-	 * Optional property - type String
+	 * Optional, type String
      * String indicating the name of the the root Java Source Folder in the component being created.
      * The DataModelProvider will default the Java Source Folder to the Component folder.
      * 
 	 */
 	public static final String JAVASOURCE_FOLDER = "IJavaComponentCreationDataModelProperties.JAVASOURCE_FOLDER";
     /**
-     * Optional property - type String
+     * Optional, type String
      * String indicating the name of the the root folder containing the Manifest.MF in the component being created.
      * The DataModelProvider will default the Manifest folder to the Component folder/META-INF.
      */

@@ -99,35 +99,35 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
          */
         protected void runAddToEAROperation(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
             
-            URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
-            IProject proj = null;
-            try {
-                proj = StructureEdit.getContainingProject(uri);
-            }
-            catch (UnresolveableURIException e) {
-                Logger.getLogger().log(e);
-            }
+//            URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
+//            IProject proj = null;
+//            try {
+//                proj = StructureEdit.getContainingProject(uri);
+//            }
+//            catch (UnresolveableURIException e) {
+//                Logger.getLogger().log(e);
+//            }
+//            
             
-            
-            StructureEdit core = null;
-            try {
-                core = StructureEdit.getStructureEditForRead(getProject());
-                WorkbenchComponent wc = core.findComponentByName((String)model.getProperty(COMPONENT_DEPLOY_NAME));
-                AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel)model.getProperty(NESTED_MODEL_ADD_TO_EAR);
-                
-                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
-                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getProperty(PROJECT_NAME));
-                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, wc.getName());
-                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getProperty(EAR_MODULE_DEPLOY_NAME));
-                List modList = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
-                modList.add(wc);
-                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modList);
-                AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
-                addModuleOp.doRun(monitor);
-            } finally {
-                if(core != null)
-                    core.dispose();
-            }
+//            StructureEdit core = null;
+//            try {
+//                core = StructureEdit.getStructureEditForRead(getProject());
+//                WorkbenchComponent wc = core.findComponentByName((String)model.getProperty(COMPONENT_DEPLOY_NAME));
+//                AddComponentToEnterpriseApplicationDataModel dm = (AddComponentToEnterpriseApplicationDataModel)model.getProperty(NESTED_MODEL_ADD_TO_EAR);
+//                
+//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_PROJECT_NAME, proj.getName());
+//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.PROJECT_NAME, model.getProperty(PROJECT_NAME));
+//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_NAME, wc.getName());
+//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.EAR_MODULE_NAME, model.getProperty(EAR_COMPONENT_DEPLOY_NAME));
+//                List modList = (List)dm.getProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST);
+//                modList.add(wc);
+//                dm.setProperty(AddComponentToEnterpriseApplicationDataModel.MODULE_LIST,modList);
+//                AddComponentToEnterpriseApplicationOperation addModuleOp = new AddComponentToEnterpriseApplicationOperation(dm);
+//                addModuleOp.doRun(monitor);
+//            } finally {
+//                if(core != null)
+//                    core.dispose();
+//            }
         }
 
         /**
@@ -138,21 +138,24 @@ public abstract class J2EEComponentCreationOp extends ComponentCreationOperation
          * @throws InterruptedException
          */
         protected void createEARComponentIfNecessary(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-            EARComponentCreationDataModel earModel = (EARComponentCreationDataModel)model.getProperty(NESTED_MODEL_EAR_CREATION);
-            
-
-            earModel.setProperty(EARComponentCreationDataModel.COMPONENT_NAME, model.getStringProperty(EAR_MODULE_NAME));
-            earModel.setProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME, model.getStringProperty(EAR_MODULE_DEPLOY_NAME));            
-            earModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
-            if (!doesEARComponentExist()) {
-                EARComponentCreationOperation earOp = new EARComponentCreationOperation(earModel);
-                earOp.doRun(monitor);
-                model.setProperty(EAR_COMPONENT_HANDLE, earOp.getComponentHandle());
-            }
+//            EARComponentCreationDataModel earModel = (EARComponentCreationDataModel)model.getProperty(NESTED_MODEL_EAR_CREATION);
+//            
+//
+//            earModel.setProperty(EARComponentCreationDataModel.COMPONENT_NAME, model.getStringProperty(EAR_COMPONENT_NAME));
+//            earModel.setProperty(EARComponentCreationDataModel.COMPONENT_DEPLOY_NAME, model.getStringProperty(EAR_COMPONENT_DEPLOY_NAME));            
+//            earModel.setProperty(EARComponentCreationDataModel.PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
+//            if (!doesEARComponentExist()) {
+//                EARComponentCreationOperation earOp = new EARComponentCreationOperation(earModel);
+//                earOp.doRun(monitor);
+//                model.setProperty(EAR_COMPONENT_HANDLE, earOp.getComponentHandle());
+//            }
         }
     
         public  boolean doesEARComponentExist() {
-            URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
+			//To do: implement after porting
+            //URI uri = (URI)model.getProperty(EAR_COMPONENT_HANDLE);
+			
+			URI uri = null;
             
             boolean isValidURI = false;
             try {

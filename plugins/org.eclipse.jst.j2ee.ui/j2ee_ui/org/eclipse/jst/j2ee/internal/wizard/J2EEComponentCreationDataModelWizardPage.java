@@ -149,7 +149,7 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 			if (null != prop) {
 				String[] advancedProperties = {
 						IComponentCreationDataModelProperties.COMPONENT_VERSION, 
-						IJ2EEComponentCreationDataModelProperties.EAR_MODULE_NAME, 
+						IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME, 
 						IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR};
 				for (int i = 0; i < advancedProperties.length; i++) {
 					if (prop.equals(advancedProperties[i])) {
@@ -165,7 +165,7 @@ public abstract class J2EEComponentCreationDataModelWizardPage extends DataModel
 		return new String[]{IComponentCreationDataModelProperties.PROJECT_NAME, 
 				IComponentCreationDataModelProperties.COMPONENT_VERSION, 
 				IComponentCreationDataModelProperties.COMPONENT_NAME, 
-				IJ2EEComponentCreationDataModelProperties.EAR_MODULE_NAME, 
+				IJ2EEComponentCreationDataModelProperties.EAR_COMPONENT_NAME, 
 				IJ2EEComponentCreationDataModelProperties.ADD_TO_EAR};
 	}
 
