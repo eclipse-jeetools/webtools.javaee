@@ -29,9 +29,11 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelPrope
  */
 public interface IWebComponentImportDataModelProperties extends IJ2EEModuleImportDataModelProperties {
   
+	//used to be HANDLED_ARCHIVES
     /**
      * Optional, type List.  List consists of Web Library Imports.
+     * 
      */
-    public static final String HANDLED_ARCHIVES = "WARImportDataModel.HANDLED_ARCHIVES"; //$NON-NLS-1$
+    public static final String WEB_LIB_COMPONENTS = "WARImportDataModel.WEB_LIB_COMPONENTS"; //$NON-NLS-1$
 
 }

@@ -34,12 +34,6 @@ public interface IEARComponentImportDataModelProperties extends IJ2EEComponentIm
     public static final String IMPORT_EAR_PROJECT = "IEnterpriseApplicationImportDataModelProperties.IMPORT_EAR_PROJECT"; //$NON-NLS-1$
 
     /**
-     * Optional, type Boolean, default false, This flag is set to allow nested projects (module
-     * projects & utility projects to be overwritten or not.
-     */
-    public static final String OVERWRITE_NESTED_PROJECTS = "IEnterpriseApplicationImportDataModelProperties.OVERWRITE_NESTED_PROJECTS"; //$NON-NLS-1$
-
-    /**
      * Optional, type IPath default is ear location
      */
     public static final String NESTED_MODULE_ROOT = "IEnterpriseApplicationImportDataModelProperties.NESTED_MODULE_ROOT"; //$NON-NLS-1$
@@ -58,12 +52,6 @@ public interface IEARComponentImportDataModelProperties extends IJ2EEComponentIm
     public static final String EJB_CLIENT_LIST = "IEnterpriseApplicationImportDataModelProperties.EJB_CLIENT_LIST"; //$NON-NLS-1$
 
     /**
-     * Booleam, default is true. When all the module projects are added to the ear, this controls
-     * whether their server targets will be set to be the same as the one set on the ear.
-     */
-    public static final String SYNC_SERVER_TARGETS_WITH_EAR = "IEnterpriseApplicationImportDataModelProperties.SYNC_SERVER_TARGETS_WITH_EAR"; //$NON-NLS-1$
-
-    /**
      * Optional. This is a list of data models. This list must contain all non-utilty projects in
      * the ear to be imported
      */
@@ -74,10 +62,5 @@ public interface IEARComponentImportDataModelProperties extends IJ2EEComponentIm
      * be imported
      */
     public static final String UTILITY_MODELS_LIST = "IEnterpriseApplicationImportDataModelProperties.UTILITY_MODELS_LIST"; //$NON-NLS-1$
-
-    /**
-     * This is only to force validation for the nested projects; do not set.
-     */
-    public static final String NESTED_PROJECTS_VALIDATION = "IEnterpriseApplicationImportDataModelProperties.NESTED_PROJECTS_VALIDATION"; //$NON-NLS-1$
 
 }

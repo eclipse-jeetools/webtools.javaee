@@ -52,10 +52,6 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
      */
     public static final String COMPONENT_NAME = "IJ2EEArtifactImportDataModelProperties.COMPONENT_NAME"; //$NON-NLS-1$
     /**
-     * Optional, type Boolean defaults to false. Indicates if a component in the workspace should be overwritten if names conflict.
-     */
-    public static final String OVERWRITE_COMPONENT= "IJ2EEArtifactImportDataModelProperties.OVERWRITE_COMPONENT"; //$NON-NLS-1$
-    /**
      * Optional, type IOverwriteHandler. Defines a IOverwriteHandler for the component in the workspace if an existing component
      * should be overwritten (OVERWRITE_COMPONENT).
      */
@@ -67,24 +63,9 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
     public static final String SAVE_FILTER = "IJ2EEArtifactImportDataModelProperties.SAVE_FILTER"; //$NON-NLS-1$
 
     /**
-     * Optional, type Boolean, default false this is used only when importing
-     * modules in with an ear
-     */
-    public static final String PRESERVE_PROJECT_METADATA = "IJ2EEArtifactImportDataModelProperties.IS_LIBRARY"; //$NON-NLS-1$
-
-    /**
-     * Optional, type Boolean.  Do not set this property.
-     */
-    public static final String BINARY = "IJ2EEArtifactImportDataModelProperties.BINARY"; //$NON-NLS-1$
-    /**
      * Optional, type Boolean - Should the archive be closed on dispose?
      */
-    public static final String CLOSE_ARCHIVE_ON_DISPOSE = "IJ2EEArtifactImportDataModelProperties.closeArchiveOnDispose"; //$NON-NLS-1$
-    /**
-     * Optional - type String, default = getArchiveFile().getURI() or "" if
-     * getArchivefile() is null This is used when adding a module to the ear.
-     */
-    public static final String URI_FOR_MODULE_MAPPING = "IJ2EEArtifactImportDataModelProperties.URI_FOR_MODULE_MAPPING"; //$NON-NLS-1$
+    //public static final String CLOSE_ARCHIVE_ON_DISPOSE = "IJ2EEArtifactImportDataModelProperties.closeArchiveOnDispose"; //$NON-NLS-1$
     /**
      * Optional - type List, populated list of files previously selected.  This can be used for GUIs which wish to show preivous selections.
      */

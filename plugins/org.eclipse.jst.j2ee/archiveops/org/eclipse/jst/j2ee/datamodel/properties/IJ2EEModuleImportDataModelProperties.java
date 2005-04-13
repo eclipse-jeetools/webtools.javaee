@@ -40,10 +40,5 @@ public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImpo
      * without adding it to an EAR.
      */
     public static final String ADD_TO_EAR = J2EEComponentCreationDataModel.ADD_TO_EAR;
-    /**
-     * Optional , type ExtendedImportFactory.  Add ability for the import factory to be extended to handle archive
-     * types not defined in the base code.
-     */
-    public static final String EXTENDED_IMPORT_FACTORY = "J2EEModuleImportDataModel.EXTENDED_IMPORT_FACTORY"; //$NON-NLS-1$
 
 }
